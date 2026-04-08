@@ -40,7 +40,7 @@ export default function Avatar({ role, name, active, message }) {
       />
 
       {/* NAME TAG (Professional Plaque Style) */}
-      <div className="bg-[#2E1A17]/90 border-[0.5px] border-white/20 text-white rounded md:rounded-md shadow-lg px-2 md:px-3 py-1 md:py-1.5 mt-1 md:mt-2 transition-all duration-300">
+      <div className="bg-wood-deep/90 border-[0.5px] border-white/20 text-white rounded md:rounded-md shadow-lg px-2 md:px-3 py-1 md:py-1.5 mt-1 md:mt-2 transition-all duration-300">
         <span className="text-[7px] md:text-[9px] font-mono tracking-widest font-black uppercase block drop-shadow-md whitespace-nowrap text-center text-white/90">
           {name}
         </span>

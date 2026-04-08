@@ -11,12 +11,12 @@ export default function CourtroomStage({ activeSpeaker, lastMessage, userRole })
   };
 
   return (
-    <div className="h-[35%] md:h-[45%] min-h-[220px] md:min-h-[300px] relative overflow-hidden bg-[#EFEBE9] flex flex-col border-b-4 border-[#3E2723]">
+    <div className="h-[35%] md:h-[45%] min-h-[220px] md:min-h-[300px] relative overflow-hidden bg-surface-court flex flex-col border-b-4 border-wood-dark">
       
       {/* 1. THE WALL & BENCH */}
-      <div className="absolute top-0 w-full h-[35%] bg-[#3E2723] shadow-lg md:shadow-2xl z-0">
+      <div className="absolute top-0 w-full h-[35%] bg-wood-dark shadow-lg md:shadow-2xl z-0">
         <div className="w-full h-full opacity-20 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')]"></div>
-        <div className="absolute bottom-0 w-full h-3 md:h-4 bg-[#2E1A17] border-t border-white/10"></div>
+        <div className="absolute bottom-0 w-full h-3 md:h-4 bg-wood-deep border-t border-white/10"></div>
       </div>
 
       {/* 2. THE JUDGE */}
@@ -29,7 +29,7 @@ export default function CourtroomStage({ activeSpeaker, lastMessage, userRole })
       )}
 
       {/* 3. THE FLOOR */}
-      <div className="absolute bottom-0 w-full h-[65%] bg-[#D7CCC8] origin-bottom [transform:perspective(800px)_rotateX(15deg)] md:[transform:perspective(1000px)_rotateX(20deg)] z-0 shadow-inner">
+      <div className="absolute bottom-0 w-full h-[65%] bg-surface-border origin-bottom [transform:perspective(800px)_rotateX(15deg)] md:[transform:perspective(1000px)_rotateX(20deg)] z-0 shadow-inner">
          <div className="w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]"></div>
       </div>
 
@@ -43,14 +43,14 @@ export default function CourtroomStage({ activeSpeaker, lastMessage, userRole })
               <Avatar role="prosecutor" name="PUBLIC PROSECUTOR" active={activeSpeaker === "prosecutor"} message={lastMessage?.agentId === "prosecutor" ? lastMessage.text : ""} />
             </div>
           )}
-          <div className="w-full h-16 md:h-24 bg-[#5D4037] rounded-t-mg border-x-4 border-t-[6px] md:border-t-8 border-[#3E2723] shadow-[0_10px_20px_rgba(0,0,0,0.4)] md:shadow-[0_15px_30px_rgba(0,0,0,0.5)]"></div>
+          <div className="w-full h-16 md:h-24 bg-primaryBrown rounded-t-mg border-x-4 border-t-[6px] md:border-t-8 border-wood-dark shadow-[0_10px_20px_rgba(0,0,0,0.4)] md:shadow-[0_15px_30px_rgba(0,0,0,0.5)]"></div>
         </div>
 
         {/* EVIDENCE DESK */}
         <div className="mb-2 opacity-80 scale-75 md:scale-90">
-           <div className="w-24 md:w-32 h-12 md:h-16 bg-[#6D4C41] border-t-[4px] md:border-t-[6px] border-[#4E342E] shadow-lg md:shadow-xl flex items-center justify-center relative">
-              <div className="absolute top-[-4px] md:top-[-5px] right-1 md:right-2 w-6 md:w-10 h-1 bg-white rotate-[-5deg] rounded-sm shadow-sm border border-[#ccc]"></div>
-              <div className="absolute top-[-5px] md:top-[-6px] left-1 md:left-2 w-8 md:w-12 h-1 bg-[#FCEBA6] rotate-[3deg] rounded-sm shadow border border-[#D7CCC8]"></div>
+           <div className="w-24 md:w-32 h-12 md:h-16 bg-wood-light border-t-[4px] md:border-t-[6px] border-wood-light shadow-lg md:shadow-xl flex items-center justify-center relative">
+              <div className="absolute top-[-4px] md:top-[-5px] right-1 md:right-2 w-6 md:w-10 h-1 bg-white rotate-[-5deg] rounded-sm shadow-sm border border-surface-border"></div>
+              <div className="absolute top-[-5px] md:top-[-6px] left-1 md:left-2 w-8 md:w-12 h-1 bg-surface-paperMain rotate-[3deg] rounded-sm shadow border border-surface-border"></div>
               <span className="text-[6px] md:text-[8px] text-white/40 font-bold tracking-[0.2em] uppercase mt-2">Evidence Desk</span>
            </div>
         </div>
@@ -62,13 +62,13 @@ export default function CourtroomStage({ activeSpeaker, lastMessage, userRole })
               <Avatar role="defense" name="DEFENSE COUNSEL" active={activeSpeaker === "defense"} message={lastMessage?.agentId === "defense" ? lastMessage.text : ""} />
             </div>
           )}
-          <div className="w-full h-16 md:h-24 bg-[#5D4037] rounded-t-lg border-x-4 border-t-[6px] md:border-t-8 border-[#3E2723] shadow-[0_10px_20px_rgba(0,0,0,0.4)] md:shadow-[0_15px_30px_rgba(0,0,0,0.5)]"></div>
+          <div className="w-full h-16 md:h-24 bg-primaryBrown rounded-t-lg border-x-4 border-t-[6px] md:border-t-8 border-wood-dark shadow-[0_10px_20px_rgba(0,0,0,0.4)] md:shadow-[0_15px_30px_rgba(0,0,0,0.5)]"></div>
         </div>
       </div>
 
       {/* 5. USER'S POV PODIUM */}
       {!isJudgeView && (
-        <div className="absolute -bottom-8 md:-bottom-10 left-1/2 -translate-x-1/2 w-[90%] md:w-[70%] max-w-[600px] h-24 md:h-32 bg-[#2E1A17] rounded-t-[50px] md:rounded-t-[100px] border-t-[6px] md:border-t-8 border-[#5D4037] z-50 shadow-[0_-15px_40px_rgba(0,0,0,0.5)]">
+        <div className="absolute -bottom-8 md:-bottom-10 left-1/2 -translate-x-1/2 w-[90%] md:w-[70%] max-w-[600px] h-24 md:h-32 bg-wood-deep rounded-t-[50px] md:rounded-t-[100px] border-t-[6px] md:border-t-8 border-primaryBrown z-50 shadow-[0_-15px_40px_rgba(0,0,0,0.5)]">
            <div className="flex justify-center pt-2 md:pt-4">
               <span className="text-gold/50 text-[8px] md:text-[10px] tracking-[0.4em] md:tracking-[0.5em] font-bold uppercase drop-shadow">Your Podium</span>
            </div>
@@ -77,7 +77,7 @@ export default function CourtroomStage({ activeSpeaker, lastMessage, userRole })
 
       {/* JUDGE'S POV CORRECTION */}
       {isJudgeView && (
-        <div className="absolute top-[-15px] md:top-[-20px] left-1/2 -translate-x-1/2 w-[95%] md:w-[90%] max-w-[800px] h-20 md:h-24 bg-[#2E1A17] rounded-b-[20px] md:rounded-b-[40px] border-b-[6px] md:border-b-8 border-[#5D4037] z-50 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
+        <div className="absolute top-[-15px] md:top-[-20px] left-1/2 -translate-x-1/2 w-[95%] md:w-[90%] max-w-[800px] h-20 md:h-24 bg-wood-deep rounded-b-[20px] md:rounded-b-[40px] border-b-[6px] md:border-b-8 border-primaryBrown z-50 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
         </div>
       )}
     </div>

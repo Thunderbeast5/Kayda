@@ -9,14 +9,24 @@
   --color-wood-dark: #3E2723;
   --color-wood-deep: #2E1A17;
 
-  /* Background Papers & Court Surfacing */
-  --color-surface: #EFEBE9;
-  --color-surface-paperLight: #FCFBF8;
-  --color-surface-paperMain: #FAF7F2;
+  /* Background Papers & Court Surfacing
+     Requested all generalized to White */
+  --color-surface-court: #FFFFFF;
+  --color-surface-paperLight: #FFFFFF;
+  --color-surface-paperMain: #FFFFFF;
+  --color-surface-border: #D7CCC8;
+
+  /* Semantics */
+  --color-semantic-danger: #D32F2F;
+  --color-semantic-dangerDark: #B71C1C;
+  --color-semantic-criticalText: #8B0000;
+  --color-semantic-infoBg: #E3F2FD;
+  --color-semantic-infoBorder: #90CAF9;
+  --color-semantic-infoText: #0D47A1;
+  --color-semantic-infoAccent: #1E88E5;
 
   --color-textPrimary: #212121;
   --color-textMuted: #757575;
-  --color-bubbleBorder: #D7CCC8;
 
   --font-heading: "Lora", serif;
   --font-body: "Inter", sans-serif;
@@ -25,7 +35,7 @@
 
 @layer base {
   body {
-    background-color: var(--color-surface);
+    background-color: var(--color-surface-court);
     color: var(--color-textPrimary);
     font-family: var(--font-body);
   }

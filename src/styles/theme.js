@@ -9,10 +9,10 @@ export const colors = {
     deep: "#2E1A17",   // Shadow outlines and podium edges
   },
   surface: {
-    court: "#EFEBE9",       // Main courtroom background
+    court: "#FFFFFF",       // Main courtroom background - changed to white
     border: "#D7CCC8",      // Subdued structural lines
-    paperLight: "#FCFBF8",  // Clean white-ish notebook pages
-    paperMain: "#FAF7F2",   // Underlying creamy Manila folders
+    paperLight: "#FFFFFF",  // Clean white-ish notebook pages
+    paperMain: "#FFFFFF",   // Underlying creamy Manila folders
     white: "#FFFFFF",
   },
   semantic: {
