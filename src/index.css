@@ -3,7 +3,17 @@
 @theme {
   --color-primaryBrown: #5D4037;
   --color-gold: #C5A059;
-  --color-surface: #F5F5F5;
+
+  /* Official Wood Accents */
+  --color-wood-light: #6D4C41;
+  --color-wood-dark: #3E2723;
+  --color-wood-deep: #2E1A17;
+
+  /* Background Papers & Court Surfacing */
+  --color-surface: #EFEBE9;
+  --color-surface-paperLight: #FCFBF8;
+  --color-surface-paperMain: #FAF7F2;
+
   --color-textPrimary: #212121;
   --color-textMuted: #757575;
   --color-bubbleBorder: #D7CCC8;
@@ -11,4 +21,12 @@
   --font-heading: "Lora", serif;
   --font-body: "Inter", sans-serif;
   --font-mono: "Roboto Mono", monospace;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-textPrimary);
+    font-family: var(--font-body);
+  }
 }

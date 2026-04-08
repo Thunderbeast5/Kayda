@@ -32,16 +32,16 @@ export default function Avatar({ role, name, active, message }) {
       <img
         src={avatarMap[role]}
         alt={name}
-        className={`h-24 w-auto object-contain transition-all duration-300 ${
+        className={`h-16 md:h-24 w-auto object-contain transition-all duration-300 ${
             active 
-            ? "drop-shadow-[0_0_15px_rgba(197,160,89,0.8)] scale-105" 
+            ? "drop-shadow-[0_0_10px_rgba(197,160,89,0.8)] scale-105" 
             : "opacity-80 scale-100"
         }`}
       />
 
       {/* NAME TAG (Professional Plaque Style) */}
-      <div className="bg-[#2E1A17]/90 border-[0.5px] border-white/20 text-white rounded-md shadow-lg px-3 py-1.5 mt-2 transition-all duration-300">
-        <span className="text-[9px] font-mono tracking-widest font-black uppercase block drop-shadow-md whitespace-nowrap text-center text-white/90">
+      <div className="bg-[#2E1A17]/90 border-[0.5px] border-white/20 text-white rounded md:rounded-md shadow-lg px-2 md:px-3 py-1 md:py-1.5 mt-1 md:mt-2 transition-all duration-300">
+        <span className="text-[7px] md:text-[9px] font-mono tracking-widest font-black uppercase block drop-shadow-md whitespace-nowrap text-center text-white/90">
           {name}
         </span>
       </div>
