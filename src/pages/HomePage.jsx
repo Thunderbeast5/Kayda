@@ -154,7 +154,7 @@ function CourtroomInterface({ userRole, onExit }) {
     setInputText("");
     
     // Call backend API
-    fetch("http://localhost:5001/api/query", {
+    fetch(`${import.meta.env.VITE_API_URL}/api/query`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -200,7 +200,7 @@ function CourtroomInterface({ userRole, onExit }) {
     })
     .catch(error => {
       console.error("API Error:", error);
-      alert("Failed to connect to backend. Make sure the Python server is running on http://localhost:5001");
+      alert(`Failed to connect to backend. Make sure the Python server is running on ${import.meta.env.VITE_API_URL}`);
       setActiveSpeaker(null);
     });
   };

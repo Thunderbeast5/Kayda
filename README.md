@@ -55,6 +55,21 @@ python server.py
 
 The backend will run on `http://localhost:5000`
 
+## Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```env
+VITE_API_URL=http://localhost:5000
+```
+
+For reference, see `.env.example` file. The frontend will use this URL to make API calls to the backend.
+
+**For Production:**
+```env
+VITE_API_URL=https://your-api-domain.com
+```
+
 ## Features
 
 - **Orchestrator Agent**: Intelligently routes user queries based on content analysis
