@@ -39,7 +39,7 @@ BACKEND_PID=$!
 echo "✅ Backend started (PID: $BACKEND_PID)"
 echo ""
 
-cd ..
+cd ../interface
 
 # Start frontend
 echo "⚛️  Starting frontend server..."

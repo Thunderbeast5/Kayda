@@ -39,7 +39,7 @@ start "MootCourt Backend" python server.py
 echo ✅ Backend started
 echo.
 
-cd ..
+cd ..\@interface
 
 REM Start frontend
 echo ⚛️  Starting frontend server...
