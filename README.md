@@ -53,7 +53,7 @@ pip install -r requirements.txt
 python server.py
 ```
 
-The backend will run on `http://localhost:5000`
+The backend will run on `http://localhost:5001`
 
 ## Environment Variables
 
