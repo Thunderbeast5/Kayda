@@ -80,6 +80,13 @@ export default function CourtroomStage({ activeSpeaker, lastMessage, userRole })
         <div className="absolute top-[-15px] md:top-[-20px] left-1/2 -translate-x-1/2 w-[95%] md:w-[90%] max-w-[800px] h-20 md:h-24 bg-wood-deep rounded-b-[20px] md:rounded-b-[40px] border-b-[6px] md:border-b-8 border-primaryBrown z-50 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
         </div>
       )}
+
+      {/* COURT IN SESSION DIVIDER - BOTTOM */}
+      <div className="absolute bottom-0 w-full flex items-center justify-center opacity-70 select-none z-40 bg-gradient-to-t from-surface-paperMain via-surface-paperMain/90 to-transparent pt-4 pb-2 backdrop-blur-[1px]">
+        <div className="h-px bg-primaryBrown flex-1"></div>
+        <div className="px-6 font-serif text-[11px] font-black tracking-[0.4em] uppercase text-primaryBrown">Court In Session</div>
+        <div className="h-px bg-primaryBrown flex-1"></div>
+      </div>
     </div>
   );
 }

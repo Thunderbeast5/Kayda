@@ -1,4 +1,4 @@
-# MootCourt.ai - Agent System Setup Complete ✅
+# MootCourt.ai - Agent System Setup Complete 
 
 ## What Has Been Built
 
