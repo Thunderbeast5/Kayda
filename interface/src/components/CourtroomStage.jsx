@@ -82,7 +82,7 @@ export default function CourtroomStage({ activeSpeaker, lastMessage, userRole })
       )}
 
       {/* COURT IN SESSION DIVIDER - BOTTOM */}
-      <div className="absolute bottom-0 w-full flex items-center justify-center opacity-70 select-none z-40 bg-gradient-to-t from-surface-paperMain via-surface-paperMain/90 to-transparent pt-4 pb-2 backdrop-blur-[1px]">
+      <div className="absolute bottom-0 w-full flex items-center justify-center opacity-70 select-none z-40 pt-4 pb-2">
         <div className="h-px bg-primaryBrown flex-1"></div>
         <div className="px-6 font-serif text-[11px] font-black tracking-[0.4em] uppercase text-primaryBrown">Court In Session</div>
         <div className="h-px bg-primaryBrown flex-1"></div>
