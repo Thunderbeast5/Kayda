@@ -27,7 +27,7 @@
 - Two endpoints:
   - `POST /api/query` - Process user queries and get agent responses
   - `GET /api/health` - Server health check
-- Runs on `http://localhost:5000`
+- Runs on `http://localhost:5001`
 
 ### 2. **Frontend Integration** (React - `src/App.jsx`)
 
