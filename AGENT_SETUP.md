@@ -82,7 +82,7 @@ start.bat
 
 ### Option 3: Manual Start
 
-**Terminal 1 - Frontend:**
+**Terminal 1 - Interface:**
 ```bash
 npm run dev
 ```
