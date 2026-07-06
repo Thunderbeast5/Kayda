@@ -23,7 +23,7 @@ if errorlevel 1 (
 )
 
 REM Start backend
-echo 📦 Starting backend server...
+echo 📦 Starting backend server.
 cd agents
 
 if not exist "venv" (
