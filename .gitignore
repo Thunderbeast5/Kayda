@@ -37,6 +37,7 @@ agents/dist/
 agents/build/
 agents/.pytest_cache/
 agents/.coverage
+.venv/
 venv/
 ENV/
 env/
