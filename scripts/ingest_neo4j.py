@@ -48,7 +48,6 @@ if not NEO4J_URI or not NEO4J_USER or not NEO4J_PASSWORD:
 # --------------------------------------------------------------------
 CSV_PATH = BASE_DIR.parent / "data" / "ipc_sections.csv"
 
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_INDEX_NAME = "legal-embeddings"
 
@@ -100,23 +99,21 @@ def ingest_neo4j(rows: list[dict]):
 
 
 def ingest_pinecone(rows: list[dict]):
-    from openai import OpenAI
+    from sentence_transformers import SentenceTransformer
     from pinecone import Pinecone, ServerlessSpec
 
-    if not OPENAI_API_KEY:
-        print("Skipping Pinecone: OPENAI_API_KEY not set")
-        return 0
     if not PINECONE_API_KEY:
         print("Skipping Pinecone: PINECONE_API_KEY not set")
         return 0
 
-    client = OpenAI(api_key=OPENAI_API_KEY)
+    print("Loading embedding model (all-MiniLM-L6-v2)...")
+    model = SentenceTransformer("all-MiniLM-L6-v2")
     pc = Pinecone(api_key=PINECONE_API_KEY)
 
     if PINECONE_INDEX_NAME not in pc.list_indexes().names():
         pc.create_index(
             name=PINECONE_INDEX_NAME,
-            dimension=1536,
+            dimension=384,
             metric="cosine",
             spec=ServerlessSpec(cloud="aws", region="us-east-1"),
         )
@@ -130,10 +127,7 @@ def ingest_pinecone(rows: list[dict]):
         if not section or not desc:
             continue
 
-        embed_response = client.embeddings.create(
-            input=desc, model="text-embedding-3-small"
-        )
-        embedding = embed_response.data[0].embedding
+        embedding = model.encode(desc).tolist()
 
         vectors.append(
             {
