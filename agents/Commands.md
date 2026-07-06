@@ -27,3 +27,5 @@ pip install -r requirements.txt
 python server.py
 
 brew services start/stop neo4j
+
+python ingest_neo4j.py --pinecone
