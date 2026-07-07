@@ -1,12 +1,20 @@
 from langgraph.graph import StateGraph, START, END
 from state import AgentState
+from evidence_analyzer import analyze_evidence
 
 
 # --- Mock nodes (real logic comes in Sprints 3-6) ---
 
-def evidence_analyzer(state: AgentState) -> dict:
+# def evidence_analyzer(state: AgentState) -> dict:
+#     print("evidence_analyzer: Done.")
+#     return {}
+
+def evidence_analyzer(state: AgentState) -> AgentState:
+    # NOTE: user_query must be a file path (PDF/image) for this to work.
+    facts = analyze_evidence(state["session_id"], state["user_query"])
+    state["structured_facts"] = facts
     print("evidence_analyzer: Done.")
-    return {}
+    return state
 
 
 def prosecutor(state: AgentState) -> dict:
@@ -47,7 +55,7 @@ if __name__ == "__main__":
 
     dummy_state: AgentState = {
         "session_id": "test-session-001",
-        "user_query": "Theft of a bicycle in a public street",
+        "user_query": "../test_fir.pdf",
         "structured_facts": {},
         "prosecution_args": "",
         "defense_args": "",
