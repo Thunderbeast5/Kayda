@@ -13,4 +13,9 @@ PyPDF2
 pytesseract
 guardrails-ai
 langchain-groq
+firebase-admin
+langchain-text-splitters
+pymongo
+pillow
+pdf2image
 

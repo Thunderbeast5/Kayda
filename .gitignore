@@ -72,3 +72,4 @@ backend/__pycache__/
 backend/**/*.pyc
 backend/**/*.pyo
 backend/**/*.pyd
+backnend/firebase-key.json
