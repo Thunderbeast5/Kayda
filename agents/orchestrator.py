@@ -22,6 +22,7 @@ from typing import TypedDict, Optional
 from dotenv import load_dotenv
 
 import grok_client
+import lexigraph
 from prosecutor import ProsecutorAgent
 from accused import AccusedAgent
 
@@ -244,41 +245,39 @@ class OrchestratorAgent:
     # ── Agent callers ─────────────────────────────────────────────────────────
 
     def _call_prosecutor(self, facts: dict, instruction: str, transcript: list) -> str:
-        """Calls ProsecutorAgent and logs the turn."""
+        """Calls ProsecutorAgent with facts dict — LexiGraph runs inside the agent."""
         query = self._facts_to_query(facts, instruction)
-        response = self.prosecutor.respond(query)
+        response = self.prosecutor.respond(query, facts=facts)
         transcript.append({"role": "Prosecutor", "content": response})
         return response
 
     def _call_defense(self, facts: dict, prosecution_args: str, instruction: str, transcript: list) -> str:
-        """
-        Calls DefenseAgent. Falls back to a Grok-powered stub until
-        DefenseAgent is fully implemented.
-        """
+        """Calls DefenseAgent with facts dict — LexiGraph runs inside the agent."""
         try:
             from defense import DefenseAgent
             defense = DefenseAgent()
             query = self._facts_to_query(facts, instruction)
-            response = defense.respond(query, prosecution_args)
+            response = defense.respond(query, prosecution_args, facts=facts)
         except ImportError:
-            # Stub: use Grok directly
-            user_input = (
-                f"Case facts: {json.dumps(facts)}\n\n"
-                f"Prosecution arguments:\n{prosecution_args}\n\n"
-                f"Defense instruction: {instruction}\n\n"
-                "Write a structured defense argument."
+            query = self._facts_to_query(facts, instruction)
+            retrieval = lexigraph.retrieve(
+                query_text=f"defense exception mitigation {query}",
+                crime_type=facts.get("crime", ""),
+                section_hint=facts.get("ipc_hint"),
             )
+            retrieved_laws = lexigraph.format_for_prompt(retrieval)
             response = grok_client.chat(
-                input_text=user_input,
+                input_text=(
+                    f"Case facts: {query}\n\n{retrieved_laws}\n\n"
+                    f"Prosecution arguments:\n{prosecution_args}\n\n"
+                    "Write a structured defense argument using ONLY the retrieved IPC sections."
+                ),
                 system_prompt=(
-                    "You are a senior Indian defense lawyer. "
-                    "Challenge the prosecution's arguments, identify gaps, "
-                    "cite mitigating IPC sections, and build a counter-narrative. "
-                    "Be formal, logical, and specific to Indian law."
+                    "You are a senior Indian defense lawyer. Challenge the prosecution, "
+                    "cite only the retrieved IPC sections, be formal and specific."
                 ),
                 temperature=0.4,
             )
-
         transcript.append({"role": "Defense", "content": response})
         return response
 
@@ -383,16 +382,46 @@ class OrchestratorAgent:
         return response
 
     def _grok_ipc_lookup(self, facts: dict, transcript: list) -> str:
-        answer = grok_client.chat(
-            input_text=f"Crime facts: {json.dumps(facts)}",
-            system_prompt=(
-                "You are an expert in Indian Penal Code. "
-                "Given the crime facts, list all applicable IPC sections with their names and punishments. "
-                "Be concise and accurate."
-            ),
-            temperature=0.1,
+        """Retrieves IPC sections from Neo4j + Pinecone, then asks Groq to explain them."""
+        query_text = self._facts_to_query(facts, "")
+
+        # ── Real DB retrieval first ───────────────────────────────────────────
+        retrieval = lexigraph.retrieve(
+            query_text=query_text,
+            crime_type=facts.get("crime", ""),
+            section_hint=facts.get("ipc_hint"),
         )
-        transcript.append({"role": "LexiGraph/Grok", "content": answer})
+        retrieved_laws = lexigraph.format_for_prompt(retrieval)
+        transcript.append({"role": "LexiGraph[Neo4j+Pinecone]", "content": retrieved_laws})
+
+        # ── Groq explains / summarizes the retrieved sections ─────────────────
+        if retrieval["ipc_sections"]:
+            answer = grok_client.chat(
+                input_text=(
+                    f"Crime facts: {query_text}\n\n"
+                    f"{retrieved_laws}\n\n"
+                    "Explain which of these retrieved IPC sections apply to this crime "
+                    "and why. Be concise and accurate."
+                ),
+                system_prompt=(
+                    "You are an expert in Indian Penal Code. "
+                    "You have been given VERIFIED IPC sections from a legal database. "
+                    "Explain their applicability. Do NOT invent new sections."
+                ),
+                temperature=0.1,
+            )
+        else:
+            answer = grok_client.chat(
+                input_text=f"Crime facts: {json.dumps(facts)}",
+                system_prompt=(
+                    "You are an expert in Indian Penal Code. "
+                    "The database returned no results. Based on your knowledge, "
+                    "list applicable IPC sections. Be accurate."
+                ),
+                temperature=0.1,
+            )
+
+        transcript.append({"role": "LexiGraph/Groq", "content": answer})
         return answer
 
     def _grok_general_answer(self, query: str, transcript: list) -> str:

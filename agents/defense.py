@@ -1,26 +1,29 @@
 """
 Defense Agent — MootCourt Simulator
-Powered by Groq (llama-3.3-70b-versatile).
-
-Receives case facts and the prosecution's argument, then builds a counter-narrative
-identifying legal gaps, challenging evidence, and citing mitigating IPC provisions.
+=====================================
+Workflow:
+  1. Call LexiGraph → retrieve mitigating / exception IPC sections from Neo4j + Pinecone
+  2. Inject retrieved laws into the Groq prompt
+  3. Build formal defense argument challenging the prosecution
 """
 
 import grok_client
+import lexigraph
 
 _SYSTEM = """You are a senior Defense Lawyer in an Indian High Court.
-Your job is to challenge the prosecution's case and defend the accused.
+You have been provided with VERIFIED IPC sections retrieved directly from the
+legal database (Neo4j graph + Pinecone vector search). Use these to challenge
+the prosecution — find exceptions, mitigating provisions, and procedural flaws.
 
 Your argument MUST:
-1. Challenge the prosecution's evidence — identify gaps, assumptions, or lack of proof.
-2. Question the establishment of mens rea (criminal intent) — was intent truly proven?
-3. Cite mitigating IPC sections, exceptions, or relevant precedents that favor the accused.
+1. Challenge the prosecution's evidence — identify gaps, missing proof, assumptions.
+2. Question mens rea (criminal intent) — was intent conclusively proven?
+3. Cite specific exceptions or mitigating IPC sections from the retrieved data.
 4. Highlight any procedural violations or rights of the accused.
-5. Present an alternative narrative consistent with innocence or reduced culpability.
-6. Be structured in formal legal language with numbered points.
+5. Present an alternative narrative consistent with innocence or reduced liability.
+6. Use formal legal language with numbered points.
 
-Do NOT fabricate evidence. Work strictly with the facts provided.
-End with a clear statement: "The defense submits that the accused is NOT GUILTY / deserves acquittal because [reason]."
+End with: "The defense submits that the accused is NOT GUILTY / deserves acquittal because [reason]."
 """
 
 
@@ -29,21 +32,42 @@ class DefenseAgent:
         self.name = "Defense Lawyer"
         self.role = "Defense"
 
-    def respond(self, query: str, prosecution_args: str = "") -> str:
+    def respond(self, query: str, prosecution_args: str = "", facts: dict = None) -> str:
         """
-        Generates a Groq-powered defense argument.
+        Builds a Groq-powered defense argument backed by real DB retrieval.
 
         Args:
             query:            Formatted case facts string from the Orchestrator.
             prosecution_args: The prosecution's argument to counter.
+            facts:            Structured facts dict for targeted Neo4j lookup.
 
         Returns:
-            Formal defense argument as a string.
+            Formal defense argument grounded in retrieved IPC sections.
         """
-        user_input = f"Case facts:\n{query}"
+        facts = facts or {}
+
+        # ── Step 1: Retrieve from Neo4j + Pinecone BEFORE calling LLM ────────
+        # Search for exceptions, mitigating sections, and same-crime sections
+        defense_query = f"exception mitigation defense {query}"
+        retrieval = lexigraph.retrieve(
+            query_text=defense_query,
+            crime_type=facts.get("crime", ""),
+            section_hint=facts.get("ipc_hint"),
+        )
+        retrieved_laws = lexigraph.format_for_prompt(retrieval)
+
+        # ── Step 2: Build grounded prompt ─────────────────────────────────────
+        user_input = (
+            f"CASE FACTS:\n{query}\n\n"
+            f"{retrieved_laws}\n\n"
+        )
         if prosecution_args:
-            user_input += f"\n\nProsecution's argument to counter:\n{prosecution_args}"
-        user_input += "\n\nBuild a formal defense argument."
+            user_input += f"PROSECUTION'S ARGUMENT TO COUNTER:\n{prosecution_args}\n\n"
+
+        user_input += (
+            "Using the retrieved IPC sections above, build a formal defense argument "
+            "that challenges the prosecution and protects the accused."
+        )
 
         return grok_client.chat(
             input_text=user_input,
