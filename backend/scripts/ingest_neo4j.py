@@ -20,7 +20,7 @@ from neo4j import GraphDatabase
 # Load .env
 # --------------------------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent
-ENV_PATH = BASE_DIR / ".env"
+ENV_PATH = BASE_DIR.parent / ".env"
 
 load_dotenv(ENV_PATH)
 
@@ -40,13 +40,13 @@ print("PASSWORD:", "***" if NEO4J_PASSWORD else None)
 
 if not NEO4J_URI or not NEO4J_USER or not NEO4J_PASSWORD:
     raise ValueError(
-        "Neo4j credentials not found. Check your scripts/.env file."
+        "Neo4j credentials not found. Check your backend/.env file."
     )
 
 # --------------------------------------------------------------------
 # Other Config
 # --------------------------------------------------------------------
-CSV_PATH = BASE_DIR.parent / "data" / "ipc_sections.csv"
+CSV_PATH = BASE_DIR.parent.parent / "data" / "ipc_sections.csv"
 
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_INDEX_NAME = "legal-embeddings"

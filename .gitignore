@@ -64,3 +64,11 @@ Thumbs.db
 *.tmp
 *.bak
 *~
+
+# MootCourt Backend Specific Ignores
+backend/.venv/
+backend/.env
+backend/__pycache__/
+backend/**/*.pyc
+backend/**/*.pyo
+backend/**/*.pyd
