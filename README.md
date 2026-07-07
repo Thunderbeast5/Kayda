@@ -96,7 +96,7 @@ defense, defendant, accused, innocent, alibi, case, charges against me, defend
 
 ## API Documentation
 
-See [agents/README.md](agents/README.md) for detailed API documentation and agent implementation details.
+See [agents/README.md](agents/README.md) for detailed API documentation and agent implementation detail
 
 ## Available Scripts
 
