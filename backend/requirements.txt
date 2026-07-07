@@ -1,0 +1,16 @@
+langgraph
+langchain-openai
+langchain-neo4j
+neo4j
+pinecone
+sentence-transformers
+python-dotenv
+redis
+fastapi
+uvicorn
+websockets
+PyPDF2
+pytesseract
+guardrails-ai
+langchain-groq
+
