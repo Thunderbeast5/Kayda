@@ -72,4 +72,11 @@ backend/__pycache__/
 backend/**/*.pyc
 backend/**/*.pyo
 backend/**/*.pyd
-backnend/firebase-key.json
+backend/firebase-key.json
+
+
+git rm path/to/firebase-key.json
+echo "*.json" >> .gitignore
+git add .gitignore
+git commit -m "Remove Firebase credentials"
+*.json
