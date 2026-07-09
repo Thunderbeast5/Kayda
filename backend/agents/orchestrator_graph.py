@@ -1,6 +1,6 @@
 from langgraph.graph import StateGraph, START, END
 from state import AgentState
-from evidence_analyzer import analyze_evidence
+from evidence_analyzer import analyze_evidence, build_session_id
 
 
 # --- Mock nodes (real logic comes in Sprints 3-6) ---
@@ -53,9 +53,13 @@ def build_graph():
 if __name__ == "__main__":
     app = build_graph()
 
+    file_path = "../test_fir.pdf"
+    session_id = build_session_id(file_path)
+    print(f"Creating new session: {session_id}")
+
     dummy_state: AgentState = {
-        "session_id": "test-session-001",
-        "user_query": "../test_fir.pdf",
+        "session_id": session_id,
+        "user_query": file_path,
         "structured_facts": {},
         "prosecution_args": "",
         "defense_args": "",

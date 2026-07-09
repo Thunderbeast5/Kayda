@@ -570,8 +570,6 @@ def store_to_firestore(session_id: str, raw_text: str, facts: dict) -> str:
     doc_ref = db.collection("document_store").document(session_id)
 
     if doc_ref.get().exists:
-        # Extremely unlikely given the uuid suffix in build_session_id(), but guard
-        # against accidental overwrite of an existing case record.
         raise ValueError(
             f"session_id '{session_id}' already exists in document_store — "
             "refusing to overwrite an existing case record."
