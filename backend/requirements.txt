@@ -1,21 +1,41 @@
+# Core orchestration
 langgraph
+langchain-core
+langchain-groq
 langchain-openai
 langchain-neo4j
+langchain-text-splitters
+
+# LLM / AI
+groq
+openai
+
+# Graph DB
 neo4j
+
+# Vector DB
 pinecone
+
+# Embeddings & NLP
 sentence-transformers
-python-dotenv
+spacy
+
+# OCR & document processing
+PyPDF2
+pytesseract
+pdf2image
+pillow
+
+# Storage
+firebase-admin
+pymongo
 redis
+
+# API server
 fastapi
 uvicorn
 websockets
-PyPDF2
-pytesseract
-guardrails-ai
-langchain-groq
-firebase-admin
-langchain-text-splitters
-pymongo
-pillow
-pdf2image
 
+# Utilities
+python-dotenv
+guardrails-ai
