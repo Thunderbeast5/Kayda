@@ -1,59 +1,154 @@
-# Logs
-logs
-*.log
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.so
+*.egg
+*.egg-info/
+.eggs/
+dist/
+build/
+.Python
+pip-wheel-metadata/
+MANIFEST
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+.env/
+agents/venv/
+backend/venv/
+interface/node_modules/
+
+# pytest / coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+nosetests.xml
+coverage.xml
+
+# mypy / type checkers
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+
+# ── Secrets & credentials ─────────────────────────────────────────────────────
+.env
+.env.local
+.env.*.local
+backend/.env
+agents/.env
+
+# Firebase service account key — NEVER commit this
+firebase-key.json
+**/firebase-key.json
+*-firebase-adminsdk-*.json
+serviceAccountKey.json
+
+# API keys / token files
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.json
+credentials.json
+
+# ── Node / Frontend ───────────────────────────────────────────────────────────
+node_modules/
+dist/
+dist-ssr/
+*.local
+.npm/
+.yarn/
+.pnp.*
+.yarn-integrity
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
-*.local
+# Vite
+interface/dist/
+interface/.vite/
 
-# Editor directories and files
+# ── Logs ──────────────────────────────────────────────────────────────────────
+logs/
+*.log
+*.log.*
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ── Editors / IDEs ────────────────────────────────────────────────────────────
 .vscode/*
 !.vscode/extensions.json
-.idea
-.DS_Store
+!.vscode/settings.json
+.idea/
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
 
-# Python / Backend
-agents/venv/
-agents/__pycache__/
-agents/*.pyc
-agents/*.pyo
-agents/*.pyd
-agents/.Python
-agents/env/
-agents/ENV/
-agents/*.egg-info/
-agents/dist/
-agents/build/
-agents/.pytest_cache/
-agents/.coverage
-venv/
-ENV/
-env/
-
-# Environment variables
-.env
-.env.local
-.env.*.local
-
-# OS-specific
-Thumbs.db
-
-# Cache
-.cache/
-*.cache
-
-# Temporary files
+# ── Temporary files ───────────────────────────────────────────────────────────
 *.tmp
 *.bak
-*~
+*.cache
+.cache/
+
+# ── Data / Model caches ───────────────────────────────────────────────────────
+# HuggingFace / sentence-transformers model cache
+.cache/huggingface/
+backend/.cache/
+agents/.cache/
+
+# spaCy downloaded models (installed via pip, not committed)
+# en_core_web_sm is installed into the venv — already covered above
+
+# Large data files
+*.csv
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+*.parquet
+*.db
+*.sqlite
+*.sqlite3
+
+# Keep the IPC data files that are part of the project
+!data/*.csv
+!data/*.json
+
+# ── Test artifacts ────────────────────────────────────────────────────────────
+test/__pycache__/
+test/*.pyc
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── Docker ────────────────────────────────────────────────────────────────────
+.docker/
+docker-compose.override.yml
