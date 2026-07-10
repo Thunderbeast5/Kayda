@@ -20,3 +20,9 @@ firebase-admin
 langchain-text-splitters
 pymongo
 pillow
+<<<<<<< Updated upstream
+=======
+pdf2image
+
+spacy
+>>>>>>> Stashed changes

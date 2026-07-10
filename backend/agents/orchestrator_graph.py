@@ -1,8 +1,12 @@
 from langgraph.graph import StateGraph, START, END
 from state import AgentState
 from evidence_analyzer import analyze_evidence, build_session_id
+<<<<<<< Updated upstream
 from lexigraph import retrieve, format_for_prompt
 from llm_config import get_llm
+=======
+from lexigraph import lexigraph_node
+>>>>>>> Stashed changes
 
 
 def evidence_analyzer(state: AgentState) -> dict:
@@ -145,13 +149,15 @@ def build_graph():
     graph = StateGraph(AgentState)
 
     graph.add_node("evidence_analyzer", evidence_analyzer)
+    graph.add_node("lexigraph", lexigraph_node)
     graph.add_node("prosecutor", prosecutor)
     graph.add_node("defense", defense)
     graph.add_node("judge", judge)
 
     graph.add_edge(START, "evidence_analyzer")
-    graph.add_edge("evidence_analyzer", "prosecutor")
-    graph.add_edge("evidence_analyzer", "defense")
+    graph.add_edge("evidence_analyzer", "lexigraph")       # ← law retrieval after facts
+    graph.add_edge("lexigraph", "prosecutor")
+    graph.add_edge("lexigraph", "defense")
     graph.add_edge("prosecutor", "judge")
     graph.add_edge("defense", "judge")
     graph.add_edge("judge", END)
@@ -170,6 +176,7 @@ if __name__ == "__main__":
         "session_id": session_id,
         "user_query": file_path,
         "structured_facts": {},
+        "relevant_laws": [],
         "prosecution_args": "",
         "defense_args": "",
         "judge_verdict": {},
