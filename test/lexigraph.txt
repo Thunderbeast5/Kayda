@@ -1,0 +1,26 @@
+cd D:\khete\MootCourt\backend
+venv\Scripts\python agents/lexigraph.py
+
+
+venv\Scripts\python -c "
+import sys; sys.path.insert(0,'agents')
+from lexigraph import retrieve, format_for_prompt
+
+while True:
+    q = input('\nEnter crime query (or q to quit): ').strip()
+    if q.lower() == 'q': break
+    h = input('Section hint (press Enter to skip): ').strip() or None
+    r = retrieve(q, section_hint=h)
+    print(format_for_prompt(r))
+"
+
+
+query = 'assault causing grievous hurt with a weapon'
+
+
+
+theft of mobile phone by employee	381
+acid attack on a woman	(skip)
+drunk driving causing death	(skip)
+blackmailing someone with private photos	(skip)
+husband torturing wife for dowry
