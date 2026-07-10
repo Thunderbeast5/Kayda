@@ -1,0 +1,154 @@
+fir 0 
+{
+  "who": {
+    "complainant": "Rajendra Shankarrao Vizhekar",
+    "accused": [
+      "Ashok Shankarrao Vizhekar",
+      "Savita Ashok Vizhekar"
+    ],
+    "victims": [
+      "Rajendra Shankarrao Vizhekar"
+    ]
+  },
+  "incident": {
+    "summary": "Theft and cheating by accused",
+    "date": "18/04/2021",
+    "time": "02:30 - 03:00",
+    "place": "Nashik Road, Nashik"
+  },
+  "property": {
+    "cash": "40000",
+    "gold": "3 grams (earrings) + 3 grams (mangalsutra)",
+    "documents": "House papers, bank account papers, mobile phone",
+    "estimated_loss": "220000"
+  },
+  "sections": [
+    "IPC 420",
+    "IPC 468",
+    "IPC 379"
+  ]
+}
+
+83
+{
+  "who": {
+    "complainant": "Vijay Mahadeo Pawar",
+    "accused": [],
+    "victims": [
+      "Vijay Mahadeo Pawar"
+    ]
+  },
+  "incident": {
+    "summary": "Theft of a motorcycle",
+    "date": "20/02/2023",
+    "time": "11:00 - 12:00",
+    "place": "Nashik Road Railway Station, Bus Stand, Nashik Road"
+  },
+  "property": {
+    "cash": null,
+    "gold": null,
+    "documents": null,
+    "estimated_loss": "45,000.00"
+  },
+  "sections": [
+    "IPC 379"
+  ]
+} here vehivle was stolen so in property vehicle should come 
+name is wrong 
+
+84 
+Loading weights: 100%|███████████████████████████████████████████████████████| 103/103 [00:00<00:00, 6767.44it/s]
+{
+  "who": {
+    "complainant": "Sanjana Manohar Mahale",
+    "accused": [
+      "Mashni Lemnu Mohate"
+    ],
+    "victims": [
+      "Dnyanu Mahale",
+      "Shivaji Vijay Pawar"
+    ]
+  },
+  "incident": {
+    "summary": "Assault and injury caused to the complainant's brother and another person",
+    "date": "22/02/2023",
+    "time": "14:00 - 14:30",
+    "place": "Near the complainant's residence, Nashik Road"
+  },
+  "property": {
+    "cash": null,
+    "gold": null,
+    "documents": null,
+    "estimated_loss": null
+  },
+  "sections": [
+    "IPC 323",
+    "IPC 326",
+    "IPC 504",
+    "IPC 506"
+  ]
+} 
+address is wron where is complainants residnece we dont know 
+
+85.pdf
+{
+  "who": {
+    "complainant": "Samiran Ramchandra Hatle",
+    "accused": [
+      "Ananda Laxman Hatle",
+      "Chhabaji Laxman Hatle",
+      "Shamrao Ananda Hatle",
+      "Navnath Chhabaji Hatle"
+    ],
+    "victims": [
+      "Samiran Ramchandra Hatle"
+    ]
+  },
+  "incident": {
+    "summary": "Assault and physical altercation between the complainant and the accused",
+    "date": "18/02/2023",
+    "time": "10:30",
+    "place": "Mohgaon, Post-Jakhori, Nashik"
+  },
+  "property": {
+    "cash": null,
+    "gold": null,
+    "documents": null,
+    "estimated_loss": null
+  },
+  "sections": [
+    "IPC 324",
+    "IPC 504",
+    "IPC 427",
+    "IPC 34"
+  ]
+} names are worng 
+
+{
+  "who": {
+    "complainant": "Santosh Shankar Palde",
+    "accused": [
+      "Unknown"
+    ],
+    "victims": [
+      "Santosh Shankar Palde"
+    ]
+  },
+  "incident": {
+    "summary": "Theft of a motorcycle",
+    "date": "20/02/2023",
+    "time": "19:30 - 20:00",
+    "place": "Deolali Gaon, Nashik Road, Nashik"
+  },
+  "property": {
+    "cash": null,
+    "gold": null,
+    "documents": null,
+    "estimated_loss": "Rs. 12,000/-"
+  },
+  "sections": [
+    "IPC 379"
+  ]
+}
+
+
