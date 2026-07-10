@@ -38,6 +38,11 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 
 from llm_config import get_llm
+import pytesseract
+
+pytesseract.pytesseract.tesseract_cmd = (
+    r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+)
 
 BASE_DIR = Path(__file__).resolve().parent.parent  # backend/
 load_dotenv(BASE_DIR / ".env")
@@ -97,7 +102,11 @@ def extract_text(file_path: str) -> str:
 
         # Fallback: no text layer -> OCR each page as an image
         from pdf2image import convert_from_path
-        images = convert_from_path(str(path), dpi=300)
+        images = convert_from_path(
+            str(path),
+            dpi=300,
+            poppler_path=r"C:\Program Files\poppler-26.02.0\Library\bin"
+        )
         ocr_text = ""
         for img in images:
             ocr_text += pytesseract.image_to_string(img, lang=OCR_LANGS, config="--psm 6") + "\n"
