@@ -14,6 +14,7 @@ from dotenv import load_dotenv
 import firebase_admin
 from firebase_admin import credentials, firestore
 
+
 from llm_config import get_llm
 
 # Optional Google Vision imports (graceful fallback if not installed)
@@ -43,7 +44,7 @@ OCR_LANGS = "eng+hin+mar"
 # You can set either GOOGLE_APPLICATION_CREDENTIALS directly, or this custom var in .env.
 GOOGLE_VISION_CREDENTIALS_PATH = os.getenv("GOOGLE_VISION_CREDENTIALS_PATH")
 
-# Documents shorter than this go through a single LLM extraction path (decomposed into 4 focused calls).
+# Documents shorter than this go through a single LLM extraction path (single unified call).
 MAX_DIRECT_CHARS = 25_000
 
 # For documents that do need chunking
@@ -228,7 +229,7 @@ def _chunk_document_aware(raw_text: str) -> List[str]:
 
 
 # ====================================================================
-# Step 3: Decomposed prompts (4 focused calls)
+# Step 3: Unified prompt (single extraction call per text/chunk)
 # ====================================================================
 
 BASE_RULES = """\
@@ -242,66 +243,39 @@ CRITICAL: Output EVERY string in English only.
 Return ONLY valid JSON (no markdown fences, no commentary).
 """
 
-PARTIES_PROMPT = BASE_RULES + """\
+UNIFIED_PROMPT = BASE_RULES + """\
 
-Task: Extract ONLY parties.
-Definitions:
-- complainant: person who filed complaint/first information.
-- accused: ONLY officially named accused.
-- victims: ONLY persons directly harmed by offence.
-Do NOT include police/investigating officers/witnesses unless directly harmed.
-Do NOT include accused as victims.
+Task: Extract complete structured facts from this FIR/evidence text.
 
-JSON schema:
+Rules:
+- complainant: person who filed complaint.
+- accused: only officially named accused.
+- victims: only directly harmed persons (exclude police/witnesses unless harmed).
+- Do NOT include accused as victims.
+- Incident date/time/place should describe offence occurrence (not FIR filing date unless needed).
+- Priority for date/time/place:
+  1) complaint narrative / first information contents / gist
+  2) incident description section
+  3) registration header only if narrative missing
+- Use 24-hour time format.
+- Preserve quantities/units exactly for property fields (no conversion).
+- estimated_loss: use FIR stated total if present, else compute from stated amounts.
+- sections: include IPC/BNS/special Act sections; deduplicate/normalize
+  like "IPC 420", "BNS 303", "IT Act 66C".
+
+Return JSON schema:
 {{
   "who": {{
     "complainant": "string or null",
     "accused": ["string"],
     "victims": ["string"]
-  }}
-}}
-
-TEXT:
-{text}
-"""
-
-INCIDENT_PROMPT = BASE_RULES + """\
-
-Task: Extract ONLY incident details.
-Priority for date/time/place:
-1) complaint narrative / first information contents / gist
-2) incident description section
-3) registration header only if narrative missing
-
-Return offence date/time/place, not FIR filing date unless needed.
-Use 24-hour time format always.
-
-JSON schema:
-{{
+  }},
   "incident": {{
     "summary": "string or null",
     "date": "DD/MM/YYYY or null",
     "time": "HH:MM or HH:MM - HH:MM or null",
     "place": "string or null"
-  }}
-}}
-
-TEXT:
-{text}
-"""
-
-PROPERTY_PROMPT = BASE_RULES + """\
-
-Task: Extract ONLY property/loss details with this schema.
-
-Rules:
-- Preserve quantities/units exactly as in document (no unit conversion).
-- estimated_loss: use FIR stated total if present, else compute from stated amounts.
-- vehicles: dedicated list with keys below.
-- other_property: generic list for non-cash/non-gold/non-doc/non-vehicle losses.
-
-JSON schema:
-{{
+  }},
   "property": {{
     "cash": "string or null",
     "gold": "string or null",
@@ -317,21 +291,7 @@ JSON schema:
     ],
     "other_property": ["string"],
     "estimated_loss": "string or null"
-  }}
-}}
-
-TEXT:
-{text}
-"""
-
-SECTIONS_PROMPT = BASE_RULES + """\
-
-Task: Extract ONLY legal sections cited.
-Include IPC/BNS/special Act sections.
-Deduplicate and normalize like "IPC 420", "BNS 303", "IT Act 66C".
-
-JSON schema:
-{{
+  }},
   "sections": ["string"]
 }}
 
@@ -339,12 +299,12 @@ TEXT:
 {text}
 """
 
-# Reconciliation prompts (decomposed)
-PARTIES_RECON_PROMPT = BASE_RULES + """\
-Task: Reconcile parties from multiple chunk outputs + full OCR text.
-Use full text as ground truth where chunk conflicts exist.
+UNIFIED_RECON_PROMPT = BASE_RULES + """\
+Task: Reconcile complete structured facts from multiple chunk outputs + full OCR text.
+Use full OCR text as ground truth where conflicts exist.
 Devanagari OCR denoising is critical for names.
 Each real person must appear once in canonical spelling.
+Deduplicate legal sections and normalize.
 
 Return JSON schema:
 {{
@@ -352,46 +312,13 @@ Return JSON schema:
     "complainant": "string or null",
     "accused": ["string"],
     "victims": ["string"]
-  }}
-}}
-
-FULL OCR TEXT:
-{full_text}
-
-PARTIALS:
-{partial_jsons}
-"""
-
-INCIDENT_RECON_PROMPT = BASE_RULES + """\
-Task: Reconcile incident fields from chunk outputs + full OCR text.
-Priority: narrative > incident section > header fallback.
-Use offence date/time/place, 24-hour format.
-
-Return JSON schema:
-{{
+  }},
   "incident": {{
     "summary": "string or null",
     "date": "DD/MM/YYYY or null",
-    "time": "HH:MM or HH:MM - HH:MM or null",
+    "time": "HH:MM or HH:MM - HH:MM or HH:MM or null",
     "place": "string or null"
-  }}
-}}
-
-FULL OCR TEXT:
-{full_text}
-
-PARTIALS:
-{partial_jsons}
-"""
-
-PROPERTY_RECON_PROMPT = BASE_RULES + """\
-Task: Reconcile property fields from chunk outputs + full OCR text.
-Keep units exactly as stated; no conversion.
-Prefer FIR stated total for estimated_loss when present.
-Maintain vehicles schema + other_property list.
-
-Return JSON schema:
-{{
+  }},
   "property": {{
     "cash": "string or null",
     "gold": "string or null",
@@ -407,22 +334,7 @@ Return JSON schema:
     ],
     "other_property": ["string"],
     "estimated_loss": "string or null"
-  }}
-}}
-
-FULL OCR TEXT:
-{full_text}
-
-PARTIALS:
-{partial_jsons}
-"""
-
-SECTIONS_RECON_PROMPT = BASE_RULES + """\
-Task: Reconcile legal sections from chunk outputs + full OCR text.
-Deduplicate and normalize.
-
-Return JSON schema:
-{{
+  }},
   "sections": ["string"]
 }}
 
@@ -451,6 +363,9 @@ def _parse_llm_json(raw_response: str) -> Optional[Dict[str, Any]]:
         print(cleaned[:600])
         return None
 
+
+# key = os.getenv("GROQ_API_KEY")
+# print("Using key:", key[:12], "...", key[-6:])
 
 def _llm_json(prompt: str) -> Optional[Dict[str, Any]]:
     llm = get_llm(temperature=0)
@@ -528,117 +443,67 @@ def _empty_facts() -> Dict[str, Any]:
     }
 
 
-def _merge_4_parts(
-    parties_json: Optional[Dict[str, Any]],
-    incident_json: Optional[Dict[str, Any]],
-    property_json: Optional[Dict[str, Any]],
-    sections_json: Optional[Dict[str, Any]],
-) -> Dict[str, Any]:
-    merged = _empty_facts()
-
-    if parties_json and isinstance(parties_json.get("who"), dict):
-        merged["who"] = parties_json["who"]
-
-    if incident_json and isinstance(incident_json.get("incident"), dict):
-        merged["incident"] = incident_json["incident"]
-
-    if property_json and isinstance(property_json.get("property"), dict):
-        merged["property"] = property_json["property"]
-
-    if sections_json and isinstance(sections_json.get("sections"), list):
-        merged["sections"] = sections_json["sections"]
-
-    return _normalise_facts(merged)
-
-
-def _extract_4_calls_from_text(text: str) -> Dict[str, Any]:
-    parties = _llm_json(PARTIES_PROMPT.format(text=text))
-    incident = _llm_json(INCIDENT_PROMPT.format(text=text))
-    prop = _llm_json(PROPERTY_PROMPT.format(text=text))
-    sections = _llm_json(SECTIONS_PROMPT.format(text=text))
-    return _merge_4_parts(parties, incident, prop, sections)
-
-
-def _reconcile_dimension(
-    full_text: str,
-    partials: List[Dict[str, Any]],
-    recon_prompt_template: str,
-) -> Optional[Dict[str, Any]]:
-    if not partials:
-        return None
-
-    full_text_cut = full_text[:MAX_RECON_FULL_TEXT_CHARS]
-    partial_jsons_str = "\n\n".join(
-        f"### Chunk {i+1}\n```json\n{json.dumps(p, indent=2, ensure_ascii=False)}\n```"
-        for i, p in enumerate(partials)
-    )
-
-    prompt = recon_prompt_template.format(
-        full_text=full_text_cut,
-        partial_jsons=partial_jsons_str,
-    )
-    return _llm_json(prompt)
+def _extract_single_call_from_text(text: str) -> Dict[str, Any]:
+    result = _llm_json(UNIFIED_PROMPT.format(text=text))
+    return _normalise_facts(result or _empty_facts())
 
 
 def _extract_single_pass(raw_text: str) -> Dict[str, Any]:
     """
-    Short docs path (still decomposed): 4 focused calls over full text.
+    Short docs path: 1 focused call over full text.
     """
-    return _extract_4_calls_from_text(raw_text)
+    return _extract_single_call_from_text(raw_text)
 
 
 def _extract_chunked_with_reconciliation(raw_text: str) -> Dict[str, Any]:
     """
     Long docs path:
       - chunk document-aware
-      - per chunk do 4 focused extractions
-      - reconcile each dimension separately with full text + partials
-      - merge into canonical facts
+      - per chunk do 1 unified extraction
+      - do 1 unified reconciliation with full text + partials
     """
     chunks = _chunk_document_aware(raw_text)
 
-    parties_partials: List[Dict[str, Any]] = []
-    incident_partials: List[Dict[str, Any]] = []
-    property_partials: List[Dict[str, Any]] = []
-    sections_partials: List[Dict[str, Any]] = []
-
+    partials: List[Dict[str, Any]] = []
     for chunk in chunks:
-        p = _llm_json(PARTIES_PROMPT.format(text=chunk))
-        i = _llm_json(INCIDENT_PROMPT.format(text=chunk))
-        pr = _llm_json(PROPERTY_PROMPT.format(text=chunk))
-        s = _llm_json(SECTIONS_PROMPT.format(text=chunk))
+        p = _llm_json(UNIFIED_PROMPT.format(text=chunk))
+        if p:
+            partials.append(p)
 
-        if p and "who" in p:
-            parties_partials.append(p)
-        if i and "incident" in i:
-            incident_partials.append(i)
-        if pr and "property" in pr:
-            property_partials.append(pr)
-        if s and "sections" in s:
-            sections_partials.append(s)
-
-    parties_recon = _reconcile_dimension(raw_text, parties_partials, PARTIES_RECON_PROMPT)
-    incident_recon = _reconcile_dimension(raw_text, incident_partials, INCIDENT_RECON_PROMPT)
-    property_recon = _reconcile_dimension(raw_text, property_partials, PROPERTY_RECON_PROMPT)
-    sections_recon = _reconcile_dimension(raw_text, sections_partials, SECTIONS_RECON_PROMPT)
-
-    if not any([parties_recon, incident_recon, property_recon, sections_recon]):
+    if not partials:
         # fallback: best effort from first chunk if available
         if chunks:
-            return _extract_4_calls_from_text(chunks[0])
+            return _extract_single_call_from_text(chunks[0])
         return _empty_facts()
 
-    return _merge_4_parts(parties_recon, incident_recon, property_recon, sections_recon)
+    full_text_cut = raw_text[:MAX_RECON_FULL_TEXT_CHARS]
+    partial_jsons_str = "\n\n".join(
+        f"### Chunk {i+1}\n```json\n{json.dumps(p, indent=2, ensure_ascii=False)}\n```"
+        for i, p in enumerate(partials)
+    )
+
+    recon = _llm_json(
+        UNIFIED_RECON_PROMPT.format(
+            full_text=full_text_cut,
+            partial_jsons=partial_jsons_str,
+        )
+    )
+
+    if not recon:
+        # fallback to first partial if reconciliation fails
+        return _normalise_facts(partials[0])
+
+    return _normalise_facts(recon)
 
 
 def extract_facts(raw_text: str) -> Dict[str, Any]:
     if len(raw_text) <= MAX_DIRECT_CHARS:
-        print(f"[evidence_analyzer] {len(raw_text)} chars — short-doc decomposed extraction (4 calls).")
+        print(f"[evidence_analyzer] {len(raw_text)} chars — short-doc unified extraction (1 call).")
         return _extract_single_pass(raw_text)
 
     print(
         f"[evidence_analyzer] {len(raw_text)} chars (> {MAX_DIRECT_CHARS}) — "
-        "chunked decomposed extraction + decomposed reconciliation."
+        "chunked unified extraction + unified reconciliation."
     )
     return _extract_chunked_with_reconciliation(raw_text)
 
@@ -661,7 +526,7 @@ def store_to_firestore(session_id: str, raw_text: str, facts: Dict[str, Any]) ->
         "raw_text": raw_text,
         "facts": facts,
         "created_at": datetime.utcnow().isoformat(),
-        "schema_version": "v3_decomposed_vehicle_property",
+        "schema_version": "v4_unified_prompt",
         "ocr_provider": OCR_PROVIDER,
     })
     return doc_ref.id
