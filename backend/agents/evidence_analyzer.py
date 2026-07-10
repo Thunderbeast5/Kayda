@@ -1,33 +1,10 @@
-"""
-Sprint 3: Evidence Analyzer (v2 — reconciliation architecture)
-
-Pipeline
---------
-PDF / Image
-    → OCR
-    → if len(text) ≤ MAX_DIRECT_CHARS:  single LLM extraction
-      else:  document-aware chunking → per-chunk extraction → reconciliation LLM
-    → Canonical JSON
-    → Firestore + Pinecone
-
-Key improvements over v1
-------------------------
-• FIRs under ~25 000 chars (3–8 pages) are processed in ONE LLM call, eliminating
-  inter-chunk inconsistencies (name variants, wrong dates, duplicate persons).
-• Large documents are chunked on page / heading boundaries, not arbitrary 1 000-char
-  slices, so sentences and names are never split in half.
-• A reconciliation LLM pass replaces the old "first non-null / exact-string dedup"
-  merge logic for chunked documents, resolving OCR spelling variants semantically.
-• The prompt now strictly defines who qualifies as a victim, prioritises the narrative
-  section for incident details, and asks the model to compute consolidated loss.
-"""
-
 import os
 import json
 import re
 import uuid
 from datetime import datetime
 from pathlib import Path
+from typing import Any, Dict, List, Optional
 
 import pytesseract
 from PIL import Image
@@ -44,6 +21,14 @@ pytesseract.pytesseract.tesseract_cmd = (
     r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 )
 
+# Optional Google Vision imports (graceful fallback if not installed)
+try:
+    from google.cloud import vision
+    from pdf2image import convert_from_path
+    _VISION_AVAILABLE = True
+except Exception:
+    _VISION_AVAILABLE = False
+
 BASE_DIR = Path(__file__).resolve().parent.parent  # backend/
 load_dotenv(BASE_DIR / ".env")
 
@@ -53,18 +38,25 @@ PINECONE_INDEX_NAME = "legal-embeddings"
 
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".tiff", ".bmp"}
 
-# Tesseract languages: English + Hindi + Marathi (mar uses the same "mar" traineddata,
-# make sure it's installed alongside "hin" and "eng" -> `apt install tesseract-ocr-hin tesseract-ocr-mar`)
+# OCR mode: "vision" (preferred) | "tesseract"
+OCR_PROVIDER = os.getenv("OCR_PROVIDER", "vision").strip().lower()
+
+# Tesseract fallback config
 OCR_LANGS = "eng+hin+mar"
 
-# Documents shorter than this go through a single LLM call.
-# ~25 000 chars ≈ 6 000–8 000 LLM tokens — well within Llama-3.3-70B's 128 k window.
+# Google Vision creds (if not already set globally in environment)
+# You can set either GOOGLE_APPLICATION_CREDENTIALS directly, or this custom var in .env.
+GOOGLE_VISION_CREDENTIALS_PATH = os.getenv("GOOGLE_VISION_CREDENTIALS_PATH")
+
+# Documents shorter than this go through a single LLM extraction path (decomposed into 4 focused calls).
 MAX_DIRECT_CHARS = 25_000
 
-# For documents that *do* need chunking, use larger, overlapping chunks.
+# For documents that do need chunking
 CHUNK_SIZE = 6000
 CHUNK_OVERLAP = 800
 
+# Reconciliation text cap safety
+MAX_RECON_FULL_TEXT_CHARS = 60_000
 
 # ====================================================================
 # Firebase init (lazy, only once per process)
@@ -84,46 +76,114 @@ def _get_firestore_client():
 
 
 # ====================================================================
-# Step 1: Text extraction (OCR / PDF)
+# OCR helpers
 # ====================================================================
-def extract_text(file_path: str) -> str:
-    path = Path(file_path)
-    ext = path.suffix.lower()
+
+def _configure_google_credentials_if_needed():
+    """
+    If GOOGLE_APPLICATION_CREDENTIALS is not set but GOOGLE_VISION_CREDENTIALS_PATH is set in .env,
+    map it to absolute path and export it.
+    """
+    if os.getenv("GOOGLE_APPLICATION_CREDENTIALS"):
+        return
+    if GOOGLE_VISION_CREDENTIALS_PATH:
+        cred_path = BASE_DIR / GOOGLE_VISION_CREDENTIALS_PATH
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = str(cred_path.resolve())
+
+
+def _extract_text_with_vision_image(image: Image.Image) -> str:
+    _configure_google_credentials_if_needed()
+    client = vision.ImageAnnotatorClient()
+
+    import io
+    buf = io.BytesIO()
+    if image.mode != "RGB":
+        image = image.convert("RGB")
+    image.save(buf, format="PNG")
+    content = buf.getvalue()
+
+    vimg = vision.Image(content=content)
+    response = client.document_text_detection(image=vimg)
+    if response.error.message:
+        raise RuntimeError(f"Google Vision API error: {response.error.message}")
+
+    return (response.full_text_annotation.text or "").strip()
+
+
+def _extract_text_with_vision_pdf(pdf_path: Path) -> str:
+    """
+    Convert PDF pages to images and OCR each page via Vision.
+    This keeps implementation simple and robust for local files.
+    """
+    images = convert_from_path(str(pdf_path), dpi=300)
+    page_texts = []
+    for img in images:
+        page_text = _extract_text_with_vision_image(img)
+        page_texts.append(page_text)
+    return "\n\n".join(t for t in page_texts if t).strip()
+
+
+def _extract_text_with_tesseract(file_path: Path) -> str:
+    ext = file_path.suffix.lower()
 
     if ext == ".pdf":
-        reader = PdfReader(str(path))
+        reader = PdfReader(str(file_path))
         text = ""
         for page in reader.pages:
             text += page.extract_text() or ""
         text = text.strip()
 
-        if text:  # real text layer found
+        if text:
             return text
 
-        # Fallback: no text layer -> OCR each page as an image
+        # OCR fallback for scanned PDFs
         from pdf2image import convert_from_path
-        images = convert_from_path(
-            str(path),
-            dpi=300,
-            poppler_path=r"C:\Program Files\poppler-26.02.0\Library\bin"
-        )
+        images = convert_from_path(str(file_path), dpi=300)
         ocr_text = ""
         for img in images:
             ocr_text += pytesseract.image_to_string(img, lang=OCR_LANGS, config="--psm 6") + "\n"
         return ocr_text.strip()
 
     elif ext in IMAGE_EXTENSIONS:
-        image = Image.open(path)
+        image = Image.open(file_path)
         return pytesseract.image_to_string(image, lang=OCR_LANGS).strip()
 
-    else:
+    raise ValueError(f"Unsupported file type: {ext}")
+
+
+# ====================================================================
+# Step 1: Text extraction (Google Vision preferred + fallback)
+# ====================================================================
+def extract_text(file_path: str) -> str:
+    path = Path(file_path)
+    ext = path.suffix.lower()
+
+    if ext not in IMAGE_EXTENSIONS and ext != ".pdf":
         raise ValueError(f"Unsupported file type: {ext}")
 
+    # Prefer Google Vision when configured
+    if OCR_PROVIDER == "vision":
+        if not _VISION_AVAILABLE:
+            print("Google Vision libs not available; falling back to Tesseract.")
+            return _extract_text_with_tesseract(path)
+
+        try:
+            if ext == ".pdf":
+                return _extract_text_with_vision_pdf(path)
+            else:
+                image = Image.open(path)
+                return _extract_text_with_vision_image(image)
+        except Exception as e:
+            print(f"Google Vision OCR failed ({e}); falling back to Tesseract.")
+            return _extract_text_with_tesseract(path)
+
+    # Explicit tesseract mode
+    return _extract_text_with_tesseract(path)
+
 
 # ====================================================================
-# Step 2: Document-aware chunking (only for large documents)
+# Step 2: Document-aware chunking
 # ====================================================================
-# Headings commonly found in Indian FIRs (English and transliterated).
 _HEADING_PATTERN = re.compile(
     r"(?:^|\n)(?:"
     r"First\s+Information\s+(?:Contents|Report)"
@@ -138,22 +198,13 @@ _HEADING_PATTERN = re.compile(
     re.IGNORECASE,
 )
 
-# Page-break markers commonly left by OCR or PDF extraction.
 _PAGE_BREAK = re.compile(r"\f|---+\s*Page\s+\d+\s*---+", re.IGNORECASE)
 
 
-def _chunk_document_aware(raw_text: str) -> list[str]:
-    """
-    Split a long document on natural boundaries:
-      1. Page breaks  (form-feeds, --- Page N --- markers)
-      2. FIR section headings
-      3. Character-count fallback with overlap (last resort)
-    """
-    # --- Split on page breaks first --------------------------------
+def _chunk_document_aware(raw_text: str) -> List[str]:
     segments = _PAGE_BREAK.split(raw_text)
 
-    # --- Sub-split oversized segments on headings ------------------
-    refined: list[str] = []
+    refined: List[str] = []
     for seg in segments:
         seg = seg.strip()
         if not seg:
@@ -161,21 +212,17 @@ def _chunk_document_aware(raw_text: str) -> list[str]:
         if len(seg) <= CHUNK_SIZE:
             refined.append(seg)
         else:
-            # Try splitting on headings
             parts = _HEADING_PATTERN.split(seg)
             for p in parts:
                 p = p.strip()
-                if not p:
-                    continue
-                refined.append(p)
+                if p:
+                    refined.append(p)
 
-    # --- Final pass: break anything still too large ----------------
-    final_chunks: list[str] = []
+    final_chunks: List[str] = []
     for seg in refined:
         if len(seg) <= CHUNK_SIZE:
             final_chunks.append(seg)
         else:
-            # Character-based split with overlap as last resort
             start = 0
             while start < len(seg):
                 end = start + CHUNK_SIZE
@@ -186,345 +233,265 @@ def _chunk_document_aware(raw_text: str) -> list[str]:
 
 
 # ====================================================================
-# Step 3: LLM fact extraction — prompts
+# Step 3: Decomposed prompts (4 focused calls)
 # ====================================================================
 
-SINGLE_PASS_PROMPT = """\
-You are a legal document analyst reviewing an Indian FIR (First Information Report)
-or related evidence document.
+BASE_RULES = """\
+You are a legal document analyst reviewing an Indian FIR/evidence document.
 
-## Source language
-The text may be in Hindi, Marathi, English, or a mix (including Devanagari script),
-and may contain OCR noise or broken characters. Read and understand the text
-regardless of language.
+Source may be Hindi/Marathi/English mixed with OCR noise.
+CRITICAL: Output EVERY string in English only.
+- Translate descriptions/locations to English.
+- Transliterate person names to Roman script.
+- Canonicalize OCR spelling variants of same person into one best form.
+Return ONLY valid JSON (no markdown fences, no commentary).
+"""
 
-## Output language
-CRITICAL: every string value you output MUST be in English.
-- Translate descriptions, summaries, and place names into English.
-- Transliterate all person names into English (Roman) script
-  (e.g. "अनिल शंकरराव विझेकर" → "Anil Shankarrao Vizhekar").
-- If OCR produces multiple spellings of the same name, choose the SINGLE most
-  probable canonical spelling. Do NOT output multiple variants of the same person.
+PARTIES_PROMPT = BASE_RULES + """\
 
-## CRITICAL: Devanagari OCR name denoising
-OCR of Devanagari script frequently garbles characters that look similar.
-Common confusions include:
-  - र ↔ श  (e.g. "राजेंद्र" misread as "राजेश" — Rajendra vs Rajesh)
-  - अ ↔ आ, न ↔ ण, स ↔ श
-  - Vowel matras (ि ↔ ी, ु ↔ ू, े ↔ ै)
-  - Compound consonants getting split or merged
+Task: Extract ONLY parties.
+Definitions:
+- complainant: person who filed complaint/first information.
+- accused: ONLY officially named accused.
+- victims: ONLY persons directly harmed by offence.
+Do NOT include police/investigating officers/witnesses unless directly harmed.
+Do NOT include accused as victims.
 
-To handle this:
-1. Find EVERY occurrence of each person's name across the ENTIRE document
-   (header, accused list, narrative, action-taken section).
-2. Cross-reference all occurrences — the STRUCTURED fields (accused list,
-   complainant header) are usually more reliable than inline narrative text.
-3. Pick the most COMPLETE and most FREQUENTLY occurring form as canonical.
-4. Be especially careful with first names — do NOT substitute a common name
-   (like "Rajesh" or "Ashok") if the structured fields show a different name
-   (like "Rajendra" or "Anil").
-5. For spouse names in "wife of / पत्नी" constructions, the wife's own name
-   comes BEFORE "wife of" — read carefully.
-
-## Field definitions
-
-### who.complainant
-The person who filed the complaint / gave the first information.
-
-### who.accused
-Return ONLY persons officially named as accused in the FIR.
-- Do NOT infer additional accused.
-- Do NOT create spelling variants — pick one canonical name per person.
-- Do NOT include witnesses, police officers, or investigating officers.
-
-### who.victims
-Victims = people who DIRECTLY suffered the offence.
-DO NOT include:
-  - police officers or investigating officers
-  - witnesses who were not harmed
-  - complainants UNLESS they are also direct victims
-  - accused persons
-  - relatives mentioned only for background
-
-### incident (date / time / place / summary)
-PRIORITY for date, time, and place:
-  1. The complaint narrative (Item 12 / "First Information Contents" / "Gist of FIR")
-  2. The incident description section
-  3. The registration header (use ONLY if the narrative is missing)
-
-This means you should return the date/time/place of the ACTUAL OFFENCE as
-described in the complaint, NOT the date the FIR was registered, unless the
-narrative does not specify.
-
-TIME FORMAT: Always use 24-hour format (HH:MM).
-  - If the source says "02:30 PM" or "दोपहर 2:30", output "14:30".
-  - If the source says "02:30 AM" or "रात्री 2:30", output "02:30".
-  - For time ranges, use "HH:MM - HH:MM" (e.g. "14:30 - 16:00").
-
-### property & estimated_loss
-List each category of loss separately.
-For estimated_loss, compute the total if the individual amounts are stated,
-OR use the FIR's own stated total if one exists. Prefer the FIR's stated total.
-
-PROPERTY RULES:
-- Report quantities and units EXACTLY as stated in the FIR. Do NOT convert units.
-  - If the FIR says "3 grams", write "3 grams" — do NOT write "3 tola".
-  - If the FIR says "3 tola", write "3 tola" — do NOT write "~30 grams".
-- For gold/jewellery, describe each item separately with its stated weight.
-  e.g. "Gold earrings (~3 grams) + gold mangalsutra (~3 grams)"
-
-### sections
-List IPC / BNS / special-Act sections cited (e.g. "IPC 420", "IPC 467").
-
-## Output format
-Return ONLY valid JSON — no markdown fences, no preamble.
-Schema:
+JSON schema:
 {{
   "who": {{
     "complainant": "string or null",
     "accused": ["string"],
     "victims": ["string"]
-  }},
-  "incident": {{
-    "summary": "string describing the crime, or null",
-    "date": "DD/MM/YYYY or null",
-    "time": "time or time-range string or null",
-    "place": "location string or null"
-  }},
-  "property": {{
-    "cash": "string or null",
-    "gold": "string or null",
-    "documents": "string or null",
-    "estimated_loss": "total value string or null"
-  }},
-  "sections": ["IPC 420", "..."]
+  }}
 }}
 
-If a field is not mentioned, use null (or [] for lists).
-
-## TEXT
+TEXT:
 {text}
 """
 
+INCIDENT_PROMPT = BASE_RULES + """\
 
-CHUNK_EXTRACTION_PROMPT = """\
-You are a legal document analyst. This is ONE CHUNK of a larger Indian FIR.
-Extract whatever facts are present in this chunk.
+Task: Extract ONLY incident details.
+Priority for date/time/place:
+1) complaint narrative / first information contents / gist
+2) incident description section
+3) registration header only if narrative missing
 
-Rules:
-- Output ALL values in English (translate / transliterate from Hindi/Marathi).
-- For person names, pick the most probable canonical English spelling.
-- If this chunk does not contain information for a field, use null / [].
-- Return ONLY valid JSON (no markdown fences).
+Return offence date/time/place, not FIR filing date unless needed.
+Use 24-hour time format always.
 
-Schema:
+JSON schema:
 {{
-  "who": {{
-    "complainant": "string or null",
-    "accused": ["string"],
-    "victims": ["string"]
-  }},
   "incident": {{
     "summary": "string or null",
     "date": "DD/MM/YYYY or null",
-    "time": "time string or null",
+    "time": "HH:MM or HH:MM - HH:MM or null",
     "place": "string or null"
-  }},
+  }}
+}}
+
+TEXT:
+{text}
+"""
+
+PROPERTY_PROMPT = BASE_RULES + """\
+
+Task: Extract ONLY property/loss details with this schema.
+
+Rules:
+- Preserve quantities/units exactly as in document (no unit conversion).
+- estimated_loss: use FIR stated total if present, else compute from stated amounts.
+- vehicles: dedicated list with keys below.
+- other_property: generic list for non-cash/non-gold/non-doc/non-vehicle losses.
+
+JSON schema:
+{{
   "property": {{
     "cash": "string or null",
     "gold": "string or null",
     "documents": "string or null",
+    "vehicles": [
+      {{
+        "type": "string or null",
+        "registration_no": "string or null",
+        "make_model": "string or null",
+        "engine_chassis_no": "string or null",
+        "estimated_value": "string or null"
+      }}
+    ],
+    "other_property": ["string"],
     "estimated_loss": "string or null"
-  }},
-  "sections": ["string"]
+  }}
 }}
 
-CHUNK:
+TEXT:
 {text}
 """
 
+SECTIONS_PROMPT = BASE_RULES + """\
 
-RECONCILIATION_PROMPT = """\
-You are a legal document analyst performing a RECONCILIATION step.
+Task: Extract ONLY legal sections cited.
+Include IPC/BNS/special Act sections.
+Deduplicate and normalize like "IPC 420", "BNS 303", "IT Act 66C".
 
-Below you will find:
-1. The FULL OCR text of an Indian FIR.
-2. Multiple PARTIAL JSON extractions from individual chunks of the same FIR.
+JSON schema:
+{{
+  "sections": ["string"]
+}}
 
-Your job is to produce ONE canonical JSON output by:
+TEXT:
+{text}
+"""
 
-### Names (CRITICAL — Devanagari OCR denoising)
-- OCR of Devanagari frequently confuses similar characters:
-  र ↔ श (Rajendra vs Rajesh), अ ↔ आ, न ↔ ण, स ↔ श, vowel matras (ि ↔ ी, ु ↔ ू, े ↔ ै).
-- Identify spelling variants of the same person caused by OCR noise
-  (e.g. "Anil Vizhekar" / "Ashnil Vizhekar" / "Ashnal Vizhekar" are likely
-  the same person → pick "Anil Shankarrao Vizhekar" if the full name appears).
-- Cross-reference names across the FULL OCR text: structured fields (accused list,
-  complainant header) are more reliable than inline narrative.
-- Do NOT substitute common names ("Rajesh", "Ashok") if structured fields show
-  different names ("Rajendra", "Anil").
-- Each real person should appear EXACTLY ONCE.
+# Reconciliation prompts (decomposed)
+PARTIES_RECON_PROMPT = BASE_RULES + """\
+Task: Reconcile parties from multiple chunk outputs + full OCR text.
+Use full text as ground truth where chunk conflicts exist.
+Devanagari OCR denoising is critical for names.
+Each real person must appear once in canonical spelling.
 
-### who.accused
-Return ONLY persons officially named as accused.
-Do NOT include police officers, investigating officers, or witnesses.
-
-### who.victims
-Victims = people who DIRECTLY suffered the offence.
-DO NOT include:
-  - police officers or investigating officers
-  - witnesses who were not harmed
-  - complainants UNLESS they are also direct victims
-  - accused persons
-  - relatives mentioned only for background
-
-### incident (date / time / place)
-PRIORITY:
-  1. Complaint narrative (Item 12 / "First Information Contents")
-  2. Incident description section
-  3. Registration header (only if narrative missing)
-Return the OFFENCE date/time/place, not the FIR filing date.
-Always use 24-hour time format (e.g. "02:30 PM" → "14:30").
-
-### property
-- Report quantities and units EXACTLY as stated. Do NOT convert units
-  (e.g. "3 grams" stays "3 grams", not "3 tola").
-- Describe gold/jewellery items separately with stated weights.
-
-### estimated_loss
-Compute total from individual amounts OR use the FIR's stated total (prefer stated total).
-
-### sections
-Deduplicate. Use standard format: "IPC 420", "IPC 467", etc.
-
-Return ONLY valid JSON — no markdown fences, no commentary.
-
-Schema:
+Return JSON schema:
 {{
   "who": {{
     "complainant": "string or null",
     "accused": ["string"],
     "victims": ["string"]
-  }},
+  }}
+}}
+
+FULL OCR TEXT:
+{full_text}
+
+PARTIALS:
+{partial_jsons}
+"""
+
+INCIDENT_RECON_PROMPT = BASE_RULES + """\
+Task: Reconcile incident fields from chunk outputs + full OCR text.
+Priority: narrative > incident section > header fallback.
+Use offence date/time/place, 24-hour format.
+
+Return JSON schema:
+{{
   "incident": {{
-    "summary": "string describing the crime, or null",
+    "summary": "string or null",
     "date": "DD/MM/YYYY or null",
-    "time": "time or time-range string or null",
-    "place": "location string or null"
-  }},
+    "time": "HH:MM or HH:MM - HH:MM or null",
+    "place": "string or null"
+  }}
+}}
+
+FULL OCR TEXT:
+{full_text}
+
+PARTIALS:
+{partial_jsons}
+"""
+
+PROPERTY_RECON_PROMPT = BASE_RULES + """\
+Task: Reconcile property fields from chunk outputs + full OCR text.
+Keep units exactly as stated; no conversion.
+Prefer FIR stated total for estimated_loss when present.
+Maintain vehicles schema + other_property list.
+
+Return JSON schema:
+{{
   "property": {{
     "cash": "string or null",
     "gold": "string or null",
     "documents": "string or null",
-    "estimated_loss": "total value string or null"
-  }},
+    "vehicles": [
+      {{
+        "type": "string or null",
+        "registration_no": "string or null",
+        "make_model": "string or null",
+        "engine_chassis_no": "string or null",
+        "estimated_value": "string or null"
+      }}
+    ],
+    "other_property": ["string"],
+    "estimated_loss": "string or null"
+  }}
+}}
+
+FULL OCR TEXT:
+{full_text}
+
+PARTIALS:
+{partial_jsons}
+"""
+
+SECTIONS_RECON_PROMPT = BASE_RULES + """\
+Task: Reconcile legal sections from chunk outputs + full OCR text.
+Deduplicate and normalize.
+
+Return JSON schema:
+{{
   "sections": ["string"]
 }}
 
----
-
-## FULL OCR TEXT
+FULL OCR TEXT:
 {full_text}
 
----
-
-## PARTIAL EXTRACTIONS
+PARTIALS:
 {partial_jsons}
 """
 
 
 # ====================================================================
-# Step 3: LLM fact extraction — logic
+# Step 3 logic helpers
 # ====================================================================
 
 def _strip_json_fences(text: str) -> str:
     return re.sub(r"^```(?:json)?|```$", "", text.strip(), flags=re.MULTILINE).strip()
 
 
-def _parse_llm_json(raw_response: str) -> dict | None:
-    """Parse LLM output to JSON, returning None on failure."""
+def _parse_llm_json(raw_response: str) -> Optional[Dict[str, Any]]:
     cleaned = _strip_json_fences(raw_response)
     try:
         return json.loads(cleaned)
     except json.JSONDecodeError:
         print("Warning: could not parse LLM output:")
-        print(cleaned[:500])
+        print(cleaned[:600])
         return None
 
 
-def _extract_single_pass(raw_text: str) -> dict:
-    """One-shot extraction — the whole document in a single LLM call."""
+def _llm_json(prompt: str) -> Optional[Dict[str, Any]]:
     llm = get_llm(temperature=0)
-    prompt = SINGLE_PASS_PROMPT.format(text=raw_text)
     response = llm.invoke(prompt)
-    facts = _parse_llm_json(response.content)
-
-    if facts is None:
-        return _empty_facts()
-
-    return _normalise_facts(facts)
+    return _parse_llm_json(response.content)
 
 
-def _extract_chunked_with_reconciliation(raw_text: str) -> dict:
-    """
-    For large documents:
-      1. Chunk on document boundaries.
-      2. Extract facts per chunk.
-      3. Reconcile all partials + full text in one final LLM call.
-    """
-    llm = get_llm(temperature=0)
-    chunks = _chunk_document_aware(raw_text)
-
-    partial_results: list[dict] = []
-    for chunk in chunks:
-        prompt = CHUNK_EXTRACTION_PROMPT.format(text=chunk)
-        response = llm.invoke(prompt)
-        facts = _parse_llm_json(response.content)
-        if facts is not None:
-            partial_results.append(facts)
-
-    if not partial_results:
-        return _empty_facts()
-
-    # --- Reconciliation pass ------------------------------------------
-    # Truncate full text if it's extremely long (shouldn't happen since we
-    # only reach this path for >25k docs, but guard against 100k+ edge cases).
-    full_text_for_reconciliation = raw_text[:60_000]
-
-    partial_jsons_str = "\n\n".join(
-        f"### Chunk {i+1}\n```json\n{json.dumps(p, indent=2, ensure_ascii=False)}\n```"
-        for i, p in enumerate(partial_results)
-    )
-
-    prompt = RECONCILIATION_PROMPT.format(
-        full_text=full_text_for_reconciliation,
-        partial_jsons=partial_jsons_str,
-    )
-    response = llm.invoke(prompt)
-    reconciled = _parse_llm_json(response.content)
-
-    if reconciled is None:
-        # Fallback: return the first partial rather than nothing.
-        return _normalise_facts(partial_results[0])
-
-    return _normalise_facts(reconciled)
-
-
-def _empty_facts() -> dict:
-    """Return a valid but empty facts structure."""
+def _normalise_vehicle(v: Dict[str, Any]) -> Dict[str, Optional[str]]:
     return {
-        "who": {"complainant": None, "accused": [], "victims": []},
-        "incident": {"summary": None, "date": None, "time": None, "place": None},
-        "property": {"cash": None, "gold": None, "documents": None, "estimated_loss": None},
-        "sections": [],
+        "type": (v.get("type") or None),
+        "registration_no": (v.get("registration_no") or None),
+        "make_model": (v.get("make_model") or None),
+        "engine_chassis_no": (v.get("engine_chassis_no") or None),
+        "estimated_value": (v.get("estimated_value") or None),
     }
 
 
-def _normalise_facts(facts: dict) -> dict:
-    """Ensure the facts dict matches the expected schema with correct types."""
+def _normalise_facts(facts: Dict[str, Any]) -> Dict[str, Any]:
     who = facts.get("who") or {}
     incident = facts.get("incident") or {}
     prop = facts.get("property") or {}
+
+    vehicles_raw = prop.get("vehicles") or []
+    vehicles = []
+    if isinstance(vehicles_raw, list):
+        for item in vehicles_raw:
+            if isinstance(item, dict):
+                vehicles.append(_normalise_vehicle(item))
+
+    other_property = prop.get("other_property") or []
+    if not isinstance(other_property, list):
+        other_property = []
+
+    sections = facts.get("sections") or []
+    if not isinstance(sections, list):
+        sections = []
 
     return {
         "who": {
@@ -542,39 +509,149 @@ def _normalise_facts(facts: dict) -> dict:
             "cash": prop.get("cash") or None,
             "gold": prop.get("gold") or None,
             "documents": prop.get("documents") or None,
+            "vehicles": vehicles,
+            "other_property": [str(x) for x in other_property if x is not None],
             "estimated_loss": prop.get("estimated_loss") or None,
         },
-        "sections": list(facts.get("sections") or []),
+        "sections": [str(x) for x in sections if x is not None],
     }
 
 
-def extract_facts(raw_text: str) -> dict:
-    """
-    Main extraction entry point.
+def _empty_facts() -> Dict[str, Any]:
+    return {
+        "who": {"complainant": None, "accused": [], "victims": []},
+        "incident": {"summary": None, "date": None, "time": None, "place": None},
+        "property": {
+            "cash": None,
+            "gold": None,
+            "documents": None,
+            "vehicles": [],
+            "other_property": [],
+            "estimated_loss": None,
+        },
+        "sections": [],
+    }
 
-    Short documents (≤ MAX_DIRECT_CHARS) → single-pass LLM call.
-    Long  documents (> MAX_DIRECT_CHARS) → chunk + reconciliation pipeline.
+
+def _merge_4_parts(
+    parties_json: Optional[Dict[str, Any]],
+    incident_json: Optional[Dict[str, Any]],
+    property_json: Optional[Dict[str, Any]],
+    sections_json: Optional[Dict[str, Any]],
+) -> Dict[str, Any]:
+    merged = _empty_facts()
+
+    if parties_json and isinstance(parties_json.get("who"), dict):
+        merged["who"] = parties_json["who"]
+
+    if incident_json and isinstance(incident_json.get("incident"), dict):
+        merged["incident"] = incident_json["incident"]
+
+    if property_json and isinstance(property_json.get("property"), dict):
+        merged["property"] = property_json["property"]
+
+    if sections_json and isinstance(sections_json.get("sections"), list):
+        merged["sections"] = sections_json["sections"]
+
+    return _normalise_facts(merged)
+
+
+def _extract_4_calls_from_text(text: str) -> Dict[str, Any]:
+    parties = _llm_json(PARTIES_PROMPT.format(text=text))
+    incident = _llm_json(INCIDENT_PROMPT.format(text=text))
+    prop = _llm_json(PROPERTY_PROMPT.format(text=text))
+    sections = _llm_json(SECTIONS_PROMPT.format(text=text))
+    return _merge_4_parts(parties, incident, prop, sections)
+
+
+def _reconcile_dimension(
+    full_text: str,
+    partials: List[Dict[str, Any]],
+    recon_prompt_template: str,
+) -> Optional[Dict[str, Any]]:
+    if not partials:
+        return None
+
+    full_text_cut = full_text[:MAX_RECON_FULL_TEXT_CHARS]
+    partial_jsons_str = "\n\n".join(
+        f"### Chunk {i+1}\n```json\n{json.dumps(p, indent=2, ensure_ascii=False)}\n```"
+        for i, p in enumerate(partials)
+    )
+
+    prompt = recon_prompt_template.format(
+        full_text=full_text_cut,
+        partial_jsons=partial_jsons_str,
+    )
+    return _llm_json(prompt)
+
+
+def _extract_single_pass(raw_text: str) -> Dict[str, Any]:
     """
+    Short docs path (still decomposed): 4 focused calls over full text.
+    """
+    return _extract_4_calls_from_text(raw_text)
+
+
+def _extract_chunked_with_reconciliation(raw_text: str) -> Dict[str, Any]:
+    """
+    Long docs path:
+      - chunk document-aware
+      - per chunk do 4 focused extractions
+      - reconcile each dimension separately with full text + partials
+      - merge into canonical facts
+    """
+    chunks = _chunk_document_aware(raw_text)
+
+    parties_partials: List[Dict[str, Any]] = []
+    incident_partials: List[Dict[str, Any]] = []
+    property_partials: List[Dict[str, Any]] = []
+    sections_partials: List[Dict[str, Any]] = []
+
+    for chunk in chunks:
+        p = _llm_json(PARTIES_PROMPT.format(text=chunk))
+        i = _llm_json(INCIDENT_PROMPT.format(text=chunk))
+        pr = _llm_json(PROPERTY_PROMPT.format(text=chunk))
+        s = _llm_json(SECTIONS_PROMPT.format(text=chunk))
+
+        if p and "who" in p:
+            parties_partials.append(p)
+        if i and "incident" in i:
+            incident_partials.append(i)
+        if pr and "property" in pr:
+            property_partials.append(pr)
+        if s and "sections" in s:
+            sections_partials.append(s)
+
+    parties_recon = _reconcile_dimension(raw_text, parties_partials, PARTIES_RECON_PROMPT)
+    incident_recon = _reconcile_dimension(raw_text, incident_partials, INCIDENT_RECON_PROMPT)
+    property_recon = _reconcile_dimension(raw_text, property_partials, PROPERTY_RECON_PROMPT)
+    sections_recon = _reconcile_dimension(raw_text, sections_partials, SECTIONS_RECON_PROMPT)
+
+    if not any([parties_recon, incident_recon, property_recon, sections_recon]):
+        # fallback: best effort from first chunk if available
+        if chunks:
+            return _extract_4_calls_from_text(chunks[0])
+        return _empty_facts()
+
+    return _merge_4_parts(parties_recon, incident_recon, property_recon, sections_recon)
+
+
+def extract_facts(raw_text: str) -> Dict[str, Any]:
     if len(raw_text) <= MAX_DIRECT_CHARS:
-        print(f"[evidence_analyzer] Document is {len(raw_text)} chars — using single-pass extraction.")
+        print(f"[evidence_analyzer] {len(raw_text)} chars — short-doc decomposed extraction (4 calls).")
         return _extract_single_pass(raw_text)
-    else:
-        print(
-            f"[evidence_analyzer] Document is {len(raw_text)} chars (> {MAX_DIRECT_CHARS}) — "
-            f"using chunked extraction with reconciliation."
-        )
-        return _extract_chunked_with_reconciliation(raw_text)
+
+    print(
+        f"[evidence_analyzer] {len(raw_text)} chars (> {MAX_DIRECT_CHARS}) — "
+        "chunked decomposed extraction + decomposed reconciliation."
+    )
+    return _extract_chunked_with_reconciliation(raw_text)
 
 
 # ====================================================================
 # Step 4: Store to Firestore
 # ====================================================================
-def store_to_firestore(session_id: str, raw_text: str, facts: dict) -> str:
-    """
-    Always creates a NEW document keyed by session_id. session_id is expected to be
-    unique per run (see build_session_id()) so existing case records are never
-    overwritten.
-    """
+def store_to_firestore(session_id: str, raw_text: str, facts: Dict[str, Any]) -> str:
     db = _get_firestore_client()
     doc_ref = db.collection("document_store").document(session_id)
 
@@ -589,14 +666,16 @@ def store_to_firestore(session_id: str, raw_text: str, facts: dict) -> str:
         "raw_text": raw_text,
         "facts": facts,
         "created_at": datetime.utcnow().isoformat(),
+        "schema_version": "v3_decomposed_vehicle_property",
+        "ocr_provider": OCR_PROVIDER,
     })
     return doc_ref.id
 
 
 # ====================================================================
-# Step 5: Embed + store to Pinecone (same model as Sprint 1 ingestion)
+# Step 5: Embed + store to Pinecone
 # ====================================================================
-def store_to_pinecone(session_id: str, facts: dict):
+def store_to_pinecone(session_id: str, facts: Dict[str, Any]):
     if not PINECONE_API_KEY:
         print("Skipping Pinecone: PINECONE_API_KEY not set")
         return
@@ -628,7 +707,7 @@ def store_to_pinecone(session_id: str, facts: dict):
 
 
 # ====================================================================
-# Session ID helper — guarantees a new, unique record on every run
+# Session ID helper
 # ====================================================================
 def build_session_id(file_path: str) -> str:
     base_name = Path(file_path).stem
@@ -638,9 +717,9 @@ def build_session_id(file_path: str) -> str:
 
 
 # ====================================================================
-# Orchestrator entry point
+# Orchestrator
 # ====================================================================
-def analyze_evidence(session_id: str, file_path: str) -> dict:
+def analyze_evidence(session_id: str, file_path: str) -> Dict[str, Any]:
     raw_text = extract_text(file_path)
     facts = extract_facts(raw_text)
     store_to_firestore(session_id, raw_text, facts)
@@ -659,6 +738,4 @@ if __name__ == "__main__":
         session_id = build_session_id(test_file)
         print(f"Creating new session: {session_id}")
         result = analyze_evidence(session_id, test_file)
-        # ensure_ascii=False so any translation gaps are visible as readable text,
-        # not \uXXXX escapes — but the prompt already forces English-only output.
         print(json.dumps(result, indent=2, ensure_ascii=False))
