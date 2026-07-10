@@ -3,18 +3,21 @@ Sprint 1: Legal Data Ingest Script
 Ingests IPC sections from data/ipc_sections.csv into Neo4j and Pinecone.
 
 Usage:
-    python ingest_neo4j.py
-    python ingest_neo4j.py --pinecone
+    python ingest_neo4j.py              # ingest only
+    python ingest_neo4j.py --wipe       # wipe existing data then ingest
+    python ingest_neo4j.py --pinecone   # also ingest into Pinecone
 """
 
 import csv
 import os
 import re
+import ssl
 import sys
 from pathlib import Path
 
+import certifi
 from dotenv import load_dotenv
-from neo4j import GraphDatabase
+from neo4j import GraphDatabase, TrustCustomCAs
 
 # --------------------------------------------------------------------
 # Load .env
@@ -52,6 +55,14 @@ PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_INDEX_NAME = "legal-embeddings"
 
 
+def clean(value: str | None) -> str:
+    """Normalise a CSV cell: strip whitespace, convert 'nan' to empty."""
+    if value is None:
+        return ""
+    value = str(value).strip()
+    return "" if value.lower() == "nan" else value
+
+
 def extract_section_number(section_str: str) -> str:
     match = re.search(r"(\d+[A-Za-z]*)", section_str.replace("_", ""))
     return match.group(1) if match else section_str
@@ -67,24 +78,73 @@ def read_csv_rows(path: str) -> list[dict]:
     return rows
 
 
+def _make_ssl_context() -> ssl.SSLContext:
+    """Create an SSL context using certifi's CA bundle.
+
+    Python 3.14 on Windows doesn't always load the system certificate
+    store, causing Neo4j Aura TLS handshakes to fail. Using certifi's
+    curated bundle ensures the correct root CAs are available.
+    """
+    ctx = ssl.create_default_context(cafile=certifi.where())
+    return ctx
+
+
+def _make_driver():
+    """Create a Neo4j driver with proper SSL using certifi's CA bundle."""
+    # Strip +s / +ssc from the URI so we can provide explicit SSL config.
+    uri = NEO4J_URI.replace("neo4j+s://", "neo4j://").replace("neo4j+ssc://", "neo4j://")
+    return GraphDatabase.driver(
+        uri,
+        auth=(NEO4J_USER, NEO4J_PASSWORD),
+        encrypted=True,
+        trusted_certificates=TrustCustomCAs(certifi.where()),
+    )
+
+
+def wipe_neo4j():
+    """Delete ALL Crime and IPC nodes (and their relationships) from Neo4j."""
+    driver = _make_driver()
+    with driver.session() as session:
+        result = session.run(
+            "MATCH (n) WHERE n:Crime OR n:IPC DETACH DELETE n RETURN count(n) AS deleted"
+        )
+        deleted = result.single()["deleted"]
+    driver.close()
+    return deleted
+
+
 def ingest_neo4j(rows: list[dict]):
-    driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
+    driver = _make_driver()
+
     count = 0
+    skipped = 0
 
     with driver.session() as session:
         for row in rows:
-            crime_type = row.get("Offense", "").strip()
-            section = row.get("Section_Number", "")
-            desc = row.get("Description", "").strip()
-            punish = row.get("Punishment", "").strip()
+            crime_type = clean(row.get("Offense"))
+            section = clean(str(row.get("Section_Number", "")))
+            desc = clean(row.get("Description"))
+            punish = clean(row.get("Punishment"))
 
             if not section:
+                skipped += 1
                 continue
+
+            if not crime_type:
+                crime_type = desc[:80] if desc else "Unknown"
 
             session.run(
                 """
                 MERGE (c:Crime {name: $crime_type})
-                MERGE (l:IPC {section: $section, description: $desc, punishment: $punish})
+
+                MERGE (l:IPC {section: $section})
+
+                SET
+                l.description = $desc,
+                l.punishment = $punish,
+                l.offense = $crime_type,
+                l.updated_at = datetime()
+
                 MERGE (c)-[:DEFINED_BY]->(l)
                 """,
                 crime_type=crime_type,
@@ -92,9 +152,11 @@ def ingest_neo4j(rows: list[dict]):
                 desc=desc,
                 punish=punish,
             )
+
             count += 1
 
     driver.close()
+    print(f"  Skipped {skipped} rows (empty section or offense)")
     return count
 
 
@@ -122,8 +184,8 @@ def ingest_pinecone(rows: list[dict]):
 
     vectors = []
     for i, row in enumerate(rows):
-        section = row.get("Section_Number", "")
-        desc = row.get("Description", "").strip()
+        section = clean(row.get("Section_Number"))
+        desc = clean(row.get("Description"))
         if not section or not desc:
             continue
 
@@ -135,8 +197,8 @@ def ingest_pinecone(rows: list[dict]):
                 "values": embedding,
                 "metadata": {
                     "section": section,
-                    "offense": row.get("Offense", ""),
-                    "punishment": row.get("Punishment", ""),
+                    "offense": clean(row.get("Offense")),
+                    "punishment": clean(row.get("Punishment")),
                 },
             }
         )
@@ -155,6 +217,11 @@ def main():
     print(f"Reading CSV: {CSV_PATH}")
     rows = read_csv_rows(CSV_PATH)
     print(f"Found {len(rows)} rows")
+
+    if "--wipe" in sys.argv:
+        print("\n--- Wiping existing Neo4j data ---")
+        deleted = wipe_neo4j()
+        print(f"Deleted {deleted} existing nodes")
 
     print("\n--- Neo4j Ingestion ---")
     count = ingest_neo4j(rows)
