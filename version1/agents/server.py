@@ -5,7 +5,7 @@ Provides REST endpoints for frontend integration.
 
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from orchestrator import OrchestratorAgent
+from version1.agents.orchestrator import OrchestratorAgent
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for frontend requests
