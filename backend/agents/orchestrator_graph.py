@@ -2,7 +2,9 @@ from langgraph.graph import StateGraph, START, END
 from state import AgentState
 from evidence_analyzer import analyze_evidence, build_session_id
 from lexigraph import lexigraph_node
+from defense import DefenseAgent
 
+defense_agent = DefenseAgent()
 
 # ── Agent nodes ───────────────────────────────────────────────────────────────
 
@@ -20,8 +22,18 @@ def prosecutor(state: AgentState) -> dict:
 
 
 def defense(state: AgentState) -> dict:
+
+    arguments = defense_agent.generate(
+        structured_facts=state["structured_facts"],
+        lexigraph_result=state["lexigraph_result"],
+        prosecution_arguments=state["prosecution_args"],
+    )
+
     print("defense: Done.")
-    return {"defense_args": "defense done"}
+
+    return {
+        "defense_args": arguments
+    }
 
 
 def judge(state: AgentState) -> dict:
