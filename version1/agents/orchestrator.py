@@ -3,8 +3,8 @@ Orchestrator Agent - Main Controller
 Routes user queries to the appropriate agent based on content analysis.
 """
 
-from prosecutor import ProsecutorAgent
-from accused import AccusedAgent
+from version1.agents.prosecutor import ProsecutorAgent
+from version1.agents.accused import AccusedAgent
 
 
 class OrchestratorAgent:
