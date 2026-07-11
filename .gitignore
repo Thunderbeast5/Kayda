@@ -75,6 +75,9 @@ backend/**/*.pyd
 # Secrets
 secrets/
 
-
+# Secret keys
+backend/firebase-key.json
+backend/firebase_json
+keys/
 
 

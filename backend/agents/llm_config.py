@@ -18,8 +18,14 @@ if not GROQ_API_KEY:
 
 
 def get_llm(temperature: float = 0.2):
-    return ChatGroq(
+    primary = ChatGroq(
         model="llama-3.3-70b-versatile",
         api_key=GROQ_API_KEY,
         temperature=temperature,
     )
+    backup = ChatGroq(
+        model="llama-3.1-8b-instant",
+        api_key=GROQ_API_KEY,
+        temperature=temperature,
+    )
+    return primary.with_fallbacks([backup])

@@ -38,6 +38,7 @@ NEO4J_USER     = os.getenv("NEO4J_USER", "")
 NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "")
 NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "neo4j")
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY", "")
+PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME", "")
 PINECONE_HOST    = os.getenv(
     "PINECONE_HOST",
     "legal-embeddings-ce6891u.svc.aped-4627-b74a.pinecone.io",
@@ -80,7 +81,10 @@ def _pinecone():
             raise RuntimeError("PINECONE_API_KEY not set in backend/.env")
         from pinecone import Pinecone
         pc = Pinecone(api_key=PINECONE_API_KEY)
-        _pinecone_index = pc.Index(host=PINECONE_HOST)
+        if PINECONE_INDEX_NAME:
+            _pinecone_index = pc.Index(PINECONE_INDEX_NAME)
+        else:
+            _pinecone_index = pc.Index(host=PINECONE_HOST)
     return _pinecone_index
 
 
@@ -90,9 +94,22 @@ def _neo4j():
         if not NEO4J_URI:
             raise RuntimeError("NEO4J_URI not set in backend/.env")
         from neo4j import GraphDatabase
+        uri = NEO4J_URI
+        if uri.startswith("neo4j+s://"):
+            uri = uri.replace("neo4j+s://", "neo4j+ssc://")
+        elif uri.startswith("bolt+s://"):
+            uri = uri.replace("bolt+s://", "bolt+ssc://")
+        
+        print(f"[LexiGraph] Connecting to Neo4j at {uri}...")
         _neo4j_driver = GraphDatabase.driver(
-            NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD)
+            uri, auth=(NEO4J_USER, NEO4J_PASSWORD)
         )
+        try:
+            _neo4j_driver.verify_connectivity()
+            print("[LexiGraph] Neo4j connectivity verified successfully!")
+        except Exception as exc:
+            print(f"[Warning] Neo4j connectivity verification failed: {exc}")
+            raise
     return _neo4j_driver
 
 
@@ -114,58 +131,74 @@ _LEGAL_KEYWORDS = {
 def extract_crime_keywords(query_text: str) -> list[str]:
     """
     Step A — Use spaCy NER + legal keyword matching to extract crime terms.
-
-    Returns a deduplicated list of keywords in order of confidence:
-      1. spaCy EVENT entities (highest — explicit event labels)
-      2. spaCy ORG/NORP entities that overlap legal terms
-      3. Pattern-matched legal keywords from the text
-      4. Significant nouns/noun-chunks as fallback
+    If spaCy is not available or fails, falls back to regex keyword matching.
     """
-    nlp  = _nlp()
-    doc  = nlp(query_text)
-    seen = set()
-    keywords: list[str] = []
+    try:
+        import spacy
+        nlp  = _nlp()
+        doc  = nlp(query_text)
+        seen = set()
+        keywords: list[str] = []
 
-    def _add(word: str):
-        w = word.strip().lower()
-        if w and w not in seen and len(w) > 2:
-            seen.add(w)
-            keywords.append(w)
+        def _add(word: str):
+            w = word.strip().lower()
+            if w and w not in seen and len(w) > 2:
+                seen.add(w)
+                keywords.append(w)
 
-    # 1. spaCy named entities
-    for ent in doc.ents:
-        if ent.label_ in ("EVENT", "ORG", "NORP", "LAW", "GPE"):
-            _add(ent.text)
+        # 1. spaCy named entities
+        for ent in doc.ents:
+            if ent.label_ in ("EVENT", "ORG", "NORP", "LAW", "GPE"):
+                _add(ent.text)
 
-    # 2. Legal keywords present in text (case-insensitive)
-    text_lower = query_text.lower()
-    for kw in _LEGAL_KEYWORDS:
-        if kw in text_lower:
-            _add(kw)
+        # 2. Legal keywords present in text (case-insensitive)
+        text_lower = query_text.lower()
+        for kw in _LEGAL_KEYWORDS:
+            if kw in text_lower:
+                _add(kw)
 
-    # 3. Noun chunks as fallback (take first 4 words max per chunk)
-    if len(keywords) < 2:
-        for chunk in doc.noun_chunks:
-            # Skip very short or stopword-only chunks
-            if any(t.is_alpha and not t.is_stop for t in chunk):
-                _add(" ".join(t.text for t in chunk if t.is_alpha)[:40])
+        # 3. Noun chunks as fallback (take first 4 words max per chunk)
+        if len(keywords) < 2:
+            for chunk in doc.noun_chunks:
+                if any(t.is_alpha and not t.is_stop for t in chunk):
+                    _add(" ".join(t.text for t in chunk if t.is_alpha)[:40])
 
-    # 4. Individual non-stop nouns as final fallback
-    if len(keywords) < 2:
-        for token in doc:
-            if token.pos_ in ("NOUN", "PROPN") and not token.is_stop:
-                _add(token.lemma_)
+        # 4. Individual non-stop nouns as final fallback
+        if len(keywords) < 2:
+            for token in doc:
+                if token.pos_ in ("NOUN", "PROPN") and not token.is_stop:
+                    _add(token.lemma_)
 
-    return keywords[:8]   # cap: 8 keywords is enough, more causes noise
+        return keywords[:8]
+    except Exception as exc:
+        print(f"[Warning] spaCy keyword extraction failed ({exc}). Using fallback regex keyword extraction.")
+        seen = set()
+        keywords = []
+        text_lower = query_text.lower()
+        for kw in _LEGAL_KEYWORDS:
+            if kw in text_lower:
+                w = kw.strip().lower()
+                if w not in seen:
+                    seen.add(w)
+                    keywords.append(w)
+        # If no legal keywords found, split query text and grab first few words as keywords
+        if not keywords:
+            words = [w.strip().lower() for w in re.findall(r"\b\w+\b", query_text) if len(w) > 3]
+            keywords = list(dict.fromkeys(words))[:5]
+        return keywords[:8]
 
 
 # ── Step B: Neo4j graph queries ───────────────────────────────────────────────
 
 def _neo4j_run(cypher: str, params: dict) -> list[dict]:
-    driver = _neo4j()
-    with driver.session(database=NEO4J_DATABASE) as session:
-        result = session.run(cypher, params)
-        return [dict(record) for record in result]
+    try:
+        driver = _neo4j()
+        with driver.session(database=NEO4J_DATABASE) as session:
+            result = session.run(cypher, params)
+            return [dict(record) for record in result]
+    except Exception as exc:
+        print(f"[Warning] Neo4j query execution failed ({exc}).")
+        return []
 
 
 def _query_neo4j(keywords: list[str], section_hint: str = None) -> list[dict]:
@@ -390,10 +423,14 @@ def _rewrite_query(original_query: str) -> str:
         f"(e.g. 'theft', 'culpable homicide', 'criminal intimidation', 'cheating'). "
         f"Return ONLY the rewritten query — no explanation, no punctuation."
     )
-    response  = llm.invoke(prompt)
-    rewritten = response.content.strip().strip('"').strip("'")
-    print(f"[LexiGraph] Query rewritten: '{original_query}' → '{rewritten}'")
-    return rewritten
+    try:
+        response  = llm.invoke(prompt)
+        rewritten = response.content.strip().strip('"').strip("'")
+        print(f"[LexiGraph] Query rewritten: '{original_query}' -> '{rewritten}'")
+        return rewritten
+    except Exception as exc:
+        print(f"[Warning] LexiGraph query rewrite failed ({exc}). Using original query.")
+        return original_query
 
 
 # ── Public API ────────────────────────────────────────────────────────────────
@@ -435,17 +472,17 @@ def retrieve(
         "rewritten":      False,
     }
     """
-    print(f"\n[LexiGraph] ── Retrieving for: '{query_text[:80]}'")
+    print(f"\n[LexiGraph] -- Retrieving for: '{query_text[:80]}'")
 
     # ── Step A: extract keywords ──────────────────────────────────────
     keywords = extract_crime_keywords(query_text)
-    print(f"[LexiGraph] Step A — keywords: {keywords}")
+    print(f"[LexiGraph] Step A - keywords: {keywords}")
 
     # ── Step B: Neo4j ─────────────────────────────────────────────────
     neo4j_hits = []
     try:
         neo4j_hits = _query_neo4j(keywords, section_hint)
-        print(f"[LexiGraph] Step B — Neo4j: {len(neo4j_hits)} hits")
+        print(f"[LexiGraph] Step B - Neo4j: {len(neo4j_hits)} hits")
     except Exception as e:
         print(f"[LexiGraph] Neo4j error: {e}")
 
@@ -453,19 +490,19 @@ def retrieve(
     pinecone_hits = []
     try:
         pinecone_hits = _query_pinecone(query_text, top_k=pinecone_top_k)
-        print(f"[LexiGraph] Step C — Pinecone: {len(pinecone_hits)} hits")
+        print(f"[LexiGraph] Step C - Pinecone: {len(pinecone_hits)} hits")
     except Exception as e:
         print(f"[LexiGraph] Pinecone error: {e}")
 
     # ── Step D: merge & rank ──────────────────────────────────────────
     ranked = _merge_and_rank(neo4j_hits, pinecone_hits, top_n=top_n)
-    print(f"[LexiGraph] Step D — merged: {len(ranked)} unique sections")
+    print(f"[LexiGraph] Step D - merged: {len(ranked)} unique sections")
 
     rewritten = False
 
     # ── Step E: guardrail — retry with rewritten query ────────────────
     if len(ranked) == 0:
-        print("[LexiGraph] Step E — 0 results, rewriting query...")
+        print("[LexiGraph] Step E - 0 results, rewriting query...")
         rewritten_query = _rewrite_query(query_text)
         rewritten       = True
 
@@ -484,7 +521,7 @@ def retrieve(
 
         ranked     = _merge_and_rank(neo4j_hits_2, pinecone_hits_2, top_n=top_n)
         keywords   = keywords_2
-        print(f"[LexiGraph] Step E retry — {len(ranked)} sections after rewrite")
+        print(f"[LexiGraph] Step E retry - {len(ranked)} sections after rewrite")
         query_text = rewritten_query
 
     return {
@@ -540,6 +577,58 @@ def format_for_prompt(result: dict) -> str:
     return "\n".join(lines)
 
 
+def retrieve_by_ipc_sections(sections: list[str]) -> dict:
+    """
+    Query only exact sections from Neo4j (no vector search).
+    """
+    print(f"\n[LexiGraph] -- Exact retrieval for sections: {sections}")
+    results = []
+    seen_secs = set()
+    
+    # Ensure Neo4j driver is initialized
+    _neo4j()
+    
+    for sec_str in sections:
+        # Clean section number: "IPC 379" -> "379"
+        sec = re.sub(r"^(?:IPC|BNS|Section)\s*", "", sec_str, flags=re.IGNORECASE).strip()
+        sec_clean = re.sub(r"[^0-9A-Za-z]", "", sec)
+        if not sec_clean:
+            continue
+            
+        rows = _neo4j_run(
+            """
+            MATCH (l:IPC)
+            WHERE l.section = $sec OR l.section = $sec_upper
+            OPTIONAL MATCH (c:Crime)-[:DEFINED_BY]->(l)
+            RETURN l.section AS section, l.description AS description,
+                   l.punishment AS punishment, c.name AS offense
+            LIMIT 1
+            """,
+            {"sec": sec_clean, "sec_upper": sec_clean.upper()}
+        )
+        for r in rows:
+            s_num = str(r.get("section", "")).strip()
+            if s_num and s_num not in seen_secs:
+                seen_secs.add(s_num)
+                results.append({
+                    "section":     s_num,
+                    "description": r.get("description", ""),
+                    "punishment":  r.get("punishment", ""),
+                    "offense":     r.get("offense", r.get("crime_name", "") or "Theft"),
+                    "source":      "neo4j:exact",
+                    "score":       1.0,
+                })
+                
+    return {
+        "ipc_sections":   results,
+        "keywords":       [],
+        "neo4j_count":    len(results),
+        "pinecone_count": 0,
+        "query_used":     f"Exact sections: {', '.join(sections)}",
+        "rewritten":      False,
+    }
+
+
 # ── LangGraph node wrapper ────────────────────────────────────────────────────
 
 def lexigraph_node(state: dict) -> dict:
@@ -555,20 +644,17 @@ def lexigraph_node(state: dict) -> dict:
     incident = facts.get("incident", {})
     sections = facts.get("sections", [])
 
-    query_parts: list[str] = []
-    if incident.get("summary"):
-        query_parts.append(incident["summary"])
     if sections:
-        # Use the first known section as a hint
-        section_hint = sections[0].replace("IPC ", "").replace("IPC_", "").strip()
+        print(f"[LexiGraph] Known sections found: {sections}. Bypassing vector search and performing exact lookup.")
+        result = retrieve_by_ipc_sections(sections)
     else:
-        section_hint = None
-
-    if not query_parts:
-        query_parts.append(state.get("user_query", ""))
-
-    query_text = ". ".join(filter(None, query_parts))
-    result     = retrieve(query_text, section_hint=section_hint)
+        query_parts: list[str] = []
+        if incident.get("summary"):
+            query_parts.append(incident["summary"])
+        if not query_parts:
+            query_parts.append(state.get("user_query", ""))
+        query_text = ". ".join(filter(None, query_parts))
+        result = retrieve(query_text, section_hint=None)
 
     state["relevant_laws"]      = result["ipc_sections"]
     state["lexigraph_result"]   = result          # full result for downstream agents
