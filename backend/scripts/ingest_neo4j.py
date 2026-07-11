@@ -3,19 +3,22 @@ Sprint 1: Legal Data Ingest Script
 Ingests IPC and BNS sections from data CSVs into Neo4j and Pinecone.
 
 Usage:
-    python ingest_neo4j.py
-    python ingest_neo4j.py --pinecone
+    python ingest_neo4j.py              # ingest only
+    python ingest_neo4j.py --wipe       # wipe existing data then ingest
+    python ingest_neo4j.py --pinecone   # also ingest into Pinecone
 """
 
 import csv
 import os
 import re
+import ssl
 import sys
 import json
 from pathlib import Path
 
+import certifi
 from dotenv import load_dotenv
-from neo4j import GraphDatabase
+from neo4j import GraphDatabase, TrustCustomCAs
 
 # --------------------------------------------------------------------
 # Load .env
@@ -52,6 +55,14 @@ JSON_PATH = BASE_DIR.parent.parent / "data" / "ipc.json"
 BNS_CSV_PATH = BASE_DIR.parent.parent / "data" / "bns_sections.csv"
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_INDEX_NAME = "legal-embeddings"
+
+
+def clean(value: str | None) -> str:
+    """Normalise a CSV cell: strip whitespace, convert 'nan' to empty."""
+    if value is None:
+        return ""
+    value = str(value).strip()
+    return "" if value.lower() == "nan" else value
 
 
 def extract_section_number(section_str: str) -> str:
@@ -126,6 +137,7 @@ def clean_rows(rows: list[dict], title_lookup: dict) -> list[dict]:
 def ingest_neo4j(rows: list[dict], act: str) -> int:
     driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
     count = 0
+    skipped = 0
 
     with driver.session() as session:
         for row in rows:
@@ -134,7 +146,11 @@ def ingest_neo4j(rows: list[dict], act: str) -> int:
             punish = row.get("Punishment", "").strip()
 
             if not section:
+                skipped += 1
                 continue
+
+            if not crime_type:
+                crime_type = desc[:80] if desc else "Unknown"
 
             session.run(
                 """
@@ -157,9 +173,11 @@ def ingest_neo4j(rows: list[dict], act: str) -> int:
                 punish=punish,
                 chapter=row.get("Chapter_Title", "")
             )
+
             count += 1
 
     driver.close()
+    print(f"  Skipped {skipped} rows (empty section or offense)")
     return count
 
 
