@@ -2,7 +2,7 @@ import os
 import json
 import re
 import uuid
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
@@ -530,7 +530,7 @@ def store_to_firestore(session_id: str, raw_text: str, facts: Dict[str, Any]) ->
         "session_id": session_id,
         "raw_text": raw_text,
         "facts": facts,
-        "created_at": datetime.utcnow().isoformat(),
+        "created_at": datetime.now(timezone.utc).isoformat(),
         "schema_version": "v4_unified_prompt",
         "ocr_provider": OCR_PROVIDER,
     })
