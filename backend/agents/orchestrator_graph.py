@@ -1,6 +1,13 @@
 import json
 import re
+import sys
 import logging
+from pathlib import Path
+
+BACKEND_ROOT = Path(__file__).resolve().parents[1]
+if str(BACKEND_ROOT) not in sys.path:
+    sys.path.insert(0, str(BACKEND_ROOT))
+
 from langgraph.graph import StateGraph, START, END
 from state import AgentState
 from evidence_analyzer import analyze_evidence, build_session_id
