@@ -380,7 +380,7 @@ def _rewrite_query(original_query: str) -> str:
     Step E — If retrieval returns 0 results, ask the LLM to rephrase
     the query using Indian Penal Code terminology.
     """
-    from llm_config import get_llm
+    from config.llm_config import get_llm
     llm    = get_llm(temperature=0.3)
     prompt = (
         f"You are an Indian legal expert. The following query returned no results "

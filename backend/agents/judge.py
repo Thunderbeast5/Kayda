@@ -20,7 +20,7 @@ Max debate rounds: 2  (prevents infinite loops)
 import json
 import re
 
-from llm_config import get_llm
+from config.llm_config import get_llm
 
 # If prosecution total score is below this, Judge asks Accused for clarification
 SUFFICIENCY_THRESHOLD = 15   # out of 30

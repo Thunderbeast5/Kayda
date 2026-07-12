@@ -20,7 +20,7 @@ import json
 import os
 import re
 
-from llm_config import get_llm
+from config.llm_config import get_llm
 
 MAX_RETRIES = 3   # max regeneration attempts for the consistency guardrail
 

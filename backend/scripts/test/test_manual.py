@@ -4,19 +4,25 @@ Manual test harness — run any agent with custom data without editing source fi
 Usage
 -----
     # Test Judge + Accused loop
-    ..\venv\Scripts\python.exe test_manual.py judge
+    python backend/scripts/test/test_manual.py judge
 
     # Test Defense
-    ..\venv\Scripts\python.exe test_manual.py defense
+    python backend/scripts/test/test_manual.py defense
 
     # Test LexiGraph
-    ..\venv\Scripts\python.exe test_manual.py lexigraph
+    python backend/scripts/test/test_manual.py lexigraph
 
 Edit the CUSTOM_FACTS / CUSTOM_PROSECUTION / CUSTOM_DEFENSE blocks below
 to use your own case details.
 """
 
 import sys
+from pathlib import Path
+
+# Add backend/agents and backend/agents/config to sys.path
+agents_dir = Path(__file__).resolve().parent.parent.parent / "agents"
+sys.path.append(str(agents_dir))
+sys.path.append(str(agents_dir / "config"))
 
 # ── Your custom test data — edit these ───────────────────────────────────────
 
