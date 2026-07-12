@@ -15,7 +15,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 
 
-from llm_config import get_llm
+from config.llm_config import get_llm
 import pytesseract
 
 pytesseract.pytesseract.tesseract_cmd = (

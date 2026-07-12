@@ -8,8 +8,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 from langchain_groq import ChatGroq
 
-BASE_DIR = Path(__file__).resolve().parent
-load_dotenv(BASE_DIR.parent / ".env")
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
+load_dotenv(BASE_DIR / ".env")
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 

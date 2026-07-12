@@ -1,6 +1,6 @@
 import json
 
-from llm_config import get_llm
+from config.llm_config import get_llm
 from lexigraph import format_for_prompt
 
 

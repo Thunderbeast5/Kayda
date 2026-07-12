@@ -16,7 +16,7 @@ START
 
 from langgraph.graph import StateGraph, START, END
 
-from state            import AgentState
+from config.state            import AgentState
 from evidence_analyzer import analyze_evidence, build_session_id
 from lexigraph        import lexigraph_node
 from defense          import DefenseAgent
