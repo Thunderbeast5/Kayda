@@ -6,8 +6,8 @@ An advanced platform for practicing legal arguments with AI agents playing the r
 
 ```
 MootCourt/
-├── src/                    # Frontend (React)
-│   ├── components/         # React components
+├── src/                   # Frontend (React)
+│   ├── components/        # React components
 │   ├── styles/            # Styling system
 │   └── App.jsx            # Main app component
 ├── agents/                # Backend (Python)
