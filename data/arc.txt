@@ -1,0 +1,19 @@
+              User Query
+                   │
+                   ▼
+        Semantic Retrieval
+            (Pinecone)
+                   │
+      Candidate Sections
+                   │
+                   ▼
+        Graph Expansion
+            (Neo4j)
+                   │
+        Related Sections
+        Punishments
+        Chapters
+        Crosswalks
+                   │
+                   ▼
+             LLM Reasoning
