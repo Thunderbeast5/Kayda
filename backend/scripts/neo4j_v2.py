@@ -1130,11 +1130,12 @@ def create_constraints(driver) -> None:
         "CREATE CONSTRAINT chapter_id IF NOT EXISTS FOR (c:Chapter) REQUIRE c.id IS UNIQUE",
         "CREATE CONSTRAINT punishment_id IF NOT EXISTS FOR (p:Punishment) REQUIRE p.id IS UNIQUE",
         "CREATE CONSTRAINT crime_id IF NOT EXISTS FOR (c:Crime) REQUIRE c.id IS UNIQUE",
+        "CREATE CONSTRAINT rule_id IF NOT EXISTS FOR (r:LegalRule) REQUIRE r.id IS UNIQUE",
     ]
     with driver.session() as session:
         for stmt in statements:
             session.run(stmt)
-    print("Constraints ensured (Act.code, LawSection.id, Chapter.id, Punishment.id, Crime.id).")
+    print("Constraints ensured (Act.code, LawSection.id, Chapter.id, Punishment.id, Crime.id, LegalRule.id).")
 
 
 def batched(iterable: list, size: int):
@@ -1387,6 +1388,136 @@ def ingest_mappings(driver, mappings: list[dict]) -> None:
           f"{bns_only} BNS sections tagged as new.")
 
 
+def ingest_reasoning_rules(driver) -> int:
+    """Seed deterministic legal reasoning relationships.
+
+    These are deliberately conservative and section-id based. The reasoning
+    engine can use them explainably without relying on an LLM to invent legal
+    precedence at runtime.
+    """
+    rules = [
+        {
+            "id": "ipc_364a_over_363",
+            "source": "IPC_364A",
+            "target": "IPC_363",
+            "relationship": "OVERRIDES",
+            "condition": "Kidnapping or abduction is alleged with ransom, hostage pressure, death threat, or hurt threat.",
+            "confidence": 0.95,
+        },
+        {
+            "id": "ipc_392_more_specific_390",
+            "source": "IPC_392",
+            "target": "IPC_390",
+            "relationship": "MORE_SPECIFIC_THAN",
+            "condition": "Robbery is punishable under IPC 392 after the definition under IPC 390 is satisfied.",
+            "confidence": 0.9,
+        },
+        {
+            "id": "ipc_302_more_specific_300",
+            "source": "IPC_302",
+            "target": "IPC_300",
+            "relationship": "MORE_SPECIFIC_THAN",
+            "condition": "Murder is punishable under IPC 302 after the definition under IPC 300 is satisfied.",
+            "confidence": 0.92,
+        },
+        {
+            "id": "ipc_302_over_304_when_intentional_death",
+            "source": "IPC_302",
+            "target": "IPC_304",
+            "relationship": "OVERRIDES",
+            "condition": "Intentional or knowledge-based killing facts support murder rather than culpable homicide not amounting to murder.",
+            "confidence": 0.75,
+        },
+        {
+            "id": "ipc_394_enhances_392",
+            "source": "IPC_394",
+            "target": "IPC_392",
+            "relationship": "ENHANCES",
+            "condition": "Voluntary hurt is caused while committing or attempting robbery.",
+            "confidence": 0.88,
+        },
+        {
+            "id": "ipc_397_enhances_392",
+            "source": "IPC_397",
+            "target": "IPC_392",
+            "relationship": "ENHANCES",
+            "condition": "Robbery or dacoity involves a deadly weapon, grievous hurt, or attempted death/grievous hurt.",
+            "confidence": 0.88,
+        },
+        {
+            "id": "ipc_395_more_specific_392",
+            "source": "IPC_395",
+            "target": "IPC_392",
+            "relationship": "MORE_SPECIFIC_THAN",
+            "condition": "Robbery is committed by five or more persons, making it dacoity.",
+            "confidence": 0.9,
+        },
+        {
+            "id": "ipc_396_enhances_395",
+            "source": "IPC_396",
+            "target": "IPC_395",
+            "relationship": "ENHANCES",
+            "condition": "Murder is committed by any one of five or more persons conjointly committing dacoity.",
+            "confidence": 0.9,
+        },
+        {
+            "id": "ipc_379_more_specific_378",
+            "source": "IPC_379",
+            "target": "IPC_378",
+            "relationship": "MORE_SPECIFIC_THAN",
+            "condition": "Theft is punishable under IPC 379 after the definition under IPC 378 is satisfied.",
+            "confidence": 0.9,
+        },
+        {
+            "id": "ipc_420_more_specific_415",
+            "source": "IPC_420",
+            "target": "IPC_415",
+            "relationship": "MORE_SPECIFIC_THAN",
+            "condition": "Cheating induces delivery of property or alteration/destruction of valuable security.",
+            "confidence": 0.9,
+        },
+        {
+            "id": "ipc_506_more_specific_503",
+            "source": "IPC_506",
+            "target": "IPC_503",
+            "relationship": "MORE_SPECIFIC_THAN",
+            "condition": "Criminal intimidation is punishable under IPC 506 after the definition under IPC 503 is satisfied.",
+            "confidence": 0.9,
+        },
+    ]
+    with driver.session() as session:
+        for rel_type in {
+            "OVERRIDES",
+            "MORE_SPECIFIC_THAN",
+            "INCLUDES_ELEMENTS_OF",
+            "CANNOT_COEXIST_WITH",
+            "ENHANCES",
+        }:
+            rel_rows = [r for r in rules if r["relationship"] == rel_type]
+            if not rel_rows:
+                continue
+            session.run(
+                f"""
+                UNWIND $rows AS row
+                MATCH (source:LawSection {{id: row.source}})
+                MATCH (target:LawSection {{id: row.target}})
+                MERGE (source)-[rel:{rel_type}]->(target)
+                SET rel.rule_id = row.id,
+                    rel.condition = row.condition,
+                    rel.confidence = row.confidence
+                MERGE (rule:LegalRule {{id: row.id}})
+                SET rule.relationship = row.relationship,
+                    rule.condition = row.condition,
+                    rule.confidence = row.confidence
+                MERGE (rule)-[:APPLIES_FROM]->(source)
+                MERGE (rule)-[:APPLIES_TO]->(target)
+                """,
+                rows=rel_rows,
+            )
+    print(f"Reasoning rules ensured: {len(rules)} rules across precedence/enhancement relationships.")
+    return len(rules)
+
+
 def print_summary(driver) -> None:
     queries = {
         "Act nodes": "MATCH (a:Act) RETURN count(a) AS c",
@@ -1400,6 +1531,10 @@ def print_summary(driver) -> None:
         "HAS_PUNISHMENT edges": "MATCH ()-[r:HAS_PUNISHMENT]->() RETURN count(r) AS c",
         "DEFINED_BY edges": "MATCH ()-[r:DEFINED_BY]->() RETURN count(r) AS c",
         "REPLACED_BY edges (IPC->BNS)": "MATCH ()-[r:REPLACED_BY]->() RETURN count(r) AS c",
+        "LegalRule nodes": "MATCH (r:LegalRule) RETURN count(r) AS c",
+        "OVERRIDES edges": "MATCH ()-[r:OVERRIDES]->() RETURN count(r) AS c",
+        "MORE_SPECIFIC_THAN edges": "MATCH ()-[r:MORE_SPECIFIC_THAN]->() RETURN count(r) AS c",
+        "ENHANCES edges": "MATCH ()-[r:ENHANCES]->() RETURN count(r) AS c",
         "IPC sections marked deleted": "MATCH (l:LawSection {mapping_status:'deleted_no_bns_successor'}) RETURN count(l) AS c",
         "BNS sections marked new": "MATCH (l:LawSection {mapping_status:'new_no_ipc_predecessor'}) RETURN count(l) AS c",
         "IPC stub sections (data_complete=false)": "MATCH (l:LawSection {act:'IPC', data_complete:false}) RETURN count(l) AS c",
@@ -1509,6 +1644,7 @@ def main() -> None:
         ingest_punishments(driver, ipc, bns)
         ingest_crimes(driver, ipc, bns)
         ingest_mappings(driver, mappings)
+        ingest_reasoning_rules(driver)
         print_summary(driver)
     finally:
         driver.close()
