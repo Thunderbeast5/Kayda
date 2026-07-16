@@ -1,0 +1,171 @@
+ python legal.py "An individual hit another with a baseball bat, causing serious head injury"
+Loading weights: 100%|██████████████████████████████████████████████████████████████████████| 103/103 [00:00<00:00, 7678.46it/s]
+
+Incident: An individual hit another with a baseball bat, causing serious head injury
+======================================================================
+
+>> Assault with a deadly weapon
+   (from: "hit another with a baseball bat, causing serious head injury")
+   The act of assault with a deadly weapon, voluntarily causing grievous hurt, is most closely matched by [BNS_118] BNS Section 118 and [IPC_326] IPC Section 326, as both sections specifically address causing grievous hurt by means of dangerous weapons. [IPC_324] IPC Section 324 also applies, but it is more relevant to causing hurt rather than grievous hurt. [BNS_118] and [IPC_326] are the most relevant sections as they directly address the use of dangerous weapons to cause grievous hurt.
+     - BNS Section 118: Voluntarily causing hurt or grievous hurt by dangerous weapons or means  (score 0.9544)  [<-> IPC 326]
+     - IPC Section 326: Voluntarily causing grievous hurt by dangerous weapons or means  (score 0.8789)  [<-> BNS 118]
+     - BNS Section 117: Voluntarily causing grievous hurt  (score 0.832)  [<-> IPC 325]
+     - BNS Section 119: Voluntarily causing hurt or grievous hurt to extort property  (score 0.8314)  [<-> IPC 329]
+     - BNS Section 116: Grievous hurt  (score 0.8179)  [<-> IPC 320]
+     - IPC Section 128: Public servant voluntarily allowing prisoner of State or war in his custody to escape  (score 0.25)  [<-> BNS 156]
+     - IPC Section 323: Voluntarily causing hurt  (score 0.25)  [<-> BNS 115]
+     - IPC Section 324: Voluntarily causing hurt by dangerous weapons or means  (score 0.25)  [<-> BNS 118]
+
+>> Compound/aggravated offense check
+   The act of hitting another individual with a baseball bat, causing serious head injury, may fall under IPC Section 335, as it involves causing grievous hurt, which is defined in IPC Section 320. IPC Section 335 is applicable if the hurt was caused on grave and sudden provocation, without intending to hurt anyone other than the person who gave the provocation. If the provocation aspect is not relevant, other sections may apply, but based on the information given, IPC Section 335 is the most relevant.
+     - IPC Section 334: Voluntarily causing hurt on grave and sudden provocation, not intending to hurt any other than the person who gave the provocation  (score 0.5393)  [<-> BNS 122]
+     - IPC Section 335: Causing grievous hurt on Grave and sudden provocation, not intending to hurt and other than the person who gave the provocation  (score 0.5044)  [<-> BNS 122]
+     - BNS Section 115: Voluntarily causing hurt  (score 0.4999)  [<-> IPC 323]
+     - IPC Section 337: Causing hurt by an act which endangers human life, etc.  (score 0.4984)  [<-> BNS 125]
+     - IPC Section 320: Description of IPC Section 320 According to section 320 of Indian penal code, Th  (score 0.3498)  [<-> BNS 116]
+
+python legal.py "A man broke into a house at night and stole a laptop and cash."
+Loading weights: 100%|██████████████████████████████████████████████████████████████████████| 103/103 [00:00<00:00, 6249.56it/s]
+
+Incident: A man broke into a house at night and stole a laptop and cash.
+======================================================================
+
+>> House Break-in
+   (from: "A man broke into a house at night")
+   The act of house break-in with intent to commit theft can be charged under IPC Section 454, as it deals with lurking house-trespass or house-breaking in order to commit an offence punishable with imprisonment, which includes theft. Additionally, IPC Section 457 may also apply if the house break-in occurred at night. IPC Section 445 provides a description of house-breaking but does not specify a punishment, so it is not directly applicable as a charge.
+     - IPC Section 457: Lurking house-trespass or house-breaking by night in order to the commission of an offence punishable with imprisonment  (score 0.7086)  [<-> BNS 331]
+     - BNS Section 305: Theft in dwelling house or transport  (score 0.6972)  [<-> IPC 380]
+     - IPC Section 454: Lurking house-trespass or house-breaking in order to the commission of an offence punishable with imprisonment  (score 0.6743)  [<-> BNS 331]
+     - BNS Section 303: Theft  (score 0.6676)  [<-> IPC 379]
+     - IPC Section 382: Theft, after preparation having been made for causing death, or hurt, or restraint or fear of death, or of hurt or of restraint, in order to the committing of such theft, or to retiring after committing it, or to retaining property taken by it  (score 0.6652)  [<-> BNS 307]
+     - IPC Section 445: Description of IPC Section 445 According to section 445 of Indian penal code, A   (score 0.5241)  [<-> BNS 330]
+
+>> Theft of Laptop and Cash
+   (from: "stole a laptop and cash")
+   The act of theft of a laptop and cash, which are movable properties, can be applied to [IPC_378] IPC Section 378 as it describes the intention to take dishonestly any movable property out of the possession of any person without their consent. Additionally, [BNS_303] BNS Section 303 also applies as it deals with the theft of movable property, including stealing, and prescribes a punishment accordingly. [IPC_380] IPC Section 380 may also apply if the theft occurred in a building or vessel used as a human dwelling or for the custody of property.
+     - BNS Section 305: Theft in dwelling house or transport  (score 0.8101)  [<-> IPC 380]
+     - BNS Section 303: Theft  (score 0.7545)  [<-> IPC 379]
+     - IPC Section 413: Habitually dealing in stolen property  (score 0.7528)  [<-> BNS 317]
+     - IPC Section 380: Theft in a building, tent or vessel  (score 0.7378)  [<-> BNS 305]
+     - IPC Section 378: Description of IPC Section 378 According to section 378 of Indian penal code, Wh  (score 0.6266)  [<-> BNS 303]
+     - BNS Section 252: Gift to recover stolen  (score 0.611)  [<-> IPC 215]
+     - IPC Section 356: Assault or criminal force in attempt to commit theft of property worn or carried by a person  (score 0.25)  [<-> BNS 134]
+     - BNS Section 134: Assault for theft  (score 0.25)
+
+>> Compound/aggravated offense check
+   The act of breaking into a house at night and stealing a laptop and cash appears to fall under IPC Section 456, as it involves house-breaking by night. This section applies because the man committed the offense at night, which is a key element of this section. IPC Section 411 does not apply in this case, as it deals with receiving stolen property, whereas the man in this incident was the one committing the theft, not receiving stolen goods.
+     - IPC Section 456: Lurking house-trespass or house-breaking by night  (score 0.4837)  [<-> BNS 331]
+     - IPC Section 411: Dishonestly receiving stolen property knowing it to be stolen  (score 0.3319)  [<-> BNS 317]
+
+"The accused assaulted the victim and also threatened to kill him"
+Loading weights: 100%|██████████████████████████████████████████████████████████████████████████████| 103/103 [00:00<00:00, 7604.13it/s]
+
+Incident: The accused assaulted the victim and also threatened to kill him
+======================================================================
+
+>> Assault on the victim
+   (from: "assaulted the victim")
+   The act of assault on the victim, which involves voluntarily causing hurt, can be applied to sections [BNS_115] BNS Section 115 and [IPC_323] IPC Section 323. Both of these sections deal with voluntarily causing hurt, with [BNS_115] prescribing a punishment of up to 1 year or a fine, and [IPC_323] prescribing a punishment of up to 1 year or a fine of up to one thousand rupees, or both. These sections directly address the act of voluntarily causing hurt without any additional circumstances like extortion or use of dangerous weapons.
+     - BNS Section 115: Voluntarily causing hurt  (score 0.88)  [<-> IPC 323]
+     - BNS Section 120: Voluntarily causing hurt or grievous hurt to extort confession or information  (score 0.7719)  [<-> IPC 331]
+     - BNS Section 119: Voluntarily causing hurt or grievous hurt to extort property  (score 0.77)  [<-> IPC 329]
+     - BNS Section 118: Voluntarily causing hurt or grievous hurt by dangerous weapons or means  (score 0.7582)  [<-> IPC 326]
+     - IPC Section 321: Description of IPC Section 321 According to section 321 of Indian penal code, Wh  (score 0.7572)  [<-> BNS 115]
+     - IPC Section 322: Description of IPC Section 322 According to section 322 of Indian penal code, Wh  (score 0.69)  [<-> BNS 117]
+     - IPC Section 128: Public servant voluntarily allowing prisoner of State or war in his custody to escape  (score 0.25)  [<-> BNS 156]
+     - IPC Section 323: Voluntarily causing hurt  (score 0.25)  [<-> BNS 115]
+
+>> Threat to kill
+   (from: "threatened to kill him")
+   The act of threatening to kill falls under IPC Section 506, which deals with criminal intimidation, specifically when the threat is to cause death or grievous hurt. This section applies as it directly addresses the intent to cause alarm or compel an act through a threat of death. IPC Section 506 is the most relevant section in this case, as it explicitly mentions threats to cause death, making it a clear fit for the described criminal act.
+     - IPC Section 506: Criminal intimidation  (score 0.7503)  [<-> BNS 351]
+     - BNS Section 351: Criminal intimidation  (score 0.7365)  [<-> IPC 507]
+     - IPC Section 507: Criminal intimidation by Anonymous communication or having taken precaution to conceal whence the threat comes  (score 0.7221)  [<-> BNS 351]
+     - IPC Section 503: Description of IPC Section 503 According to section 503 of Indian penal code, Wh  (score 0.6891)  [<-> BNS 351]
+     - IPC Section 387: Putting or attempting to put a person in fear of death or grievous hurt in order to commit extortion  (score 0.6808)  [<-> BNS 308]
+     - BNS Section 32: Act to which person is compelled by threats  (score 0.5839)  [<-> IPC 94]
+
+>> Compound/aggravated offense check
+   The act of assaulting the victim and threatening to kill him may be partially related to [BNS_136] BNS Section 136 — Assault on provocation, as it involves an assault. However, the threat to kill does not clearly fit any of the provided sections, and the assault section provided seems to be more specific to assault on grave provocation, which is not mentioned in the act description. None of the candidate sections directly address the threat to kill or the combination of assault and threat as described.
+     - BNS Section 66: Punishment for causing death or persistent vegetative state of victim  (score 0.6237)  [<-> IPC 376A]
+     - BNS Section 232: Threatening witness  (score 0.4956)  [<-> IPC 195A]
+     - BNS Section 136: Assault on provocation  (score 0.4896)  [<-> IPC 358]
+     - BNS Section 46: Act to which person is compelled by threats  (score 0.4842)  [<-> IPC 108]
+     - IPC Section 228A: Disclosure of identity of the victim of certain offences, etc.  (score 0.25)  [<-> BNS 73]
+
+python legal.py "A person robbed a jewelry store and shot the owner, who died later in hospital"
+Loading weights: 100%|██████████████████████████████████████████████████████████████████████████████| 103/103 [00:00<00:00, 7366.58it/s]
+
+Incident: A person robbed a jewelry store and shot the owner, who died later in hospital
+======================================================================
+
+>> Robbery of the jewelry store
+   (from: "A person robbed a jewelry store")
+   The act of robbery of the jewelry store applies to [IPC_392] IPC Section 392 — Robbery, as it involves the commission of robbery. Additionally, [BNS_309] BNS Section 309 — Robbery also applies, as it describes theft with violence or threat of instant violence, which is a key element of robbery. [IPC_390] IPC Section 390 provides a general description of robbery, but it does not specify a punishment, so [IPC_392] and [BNS_309] are more directly applicable.
+     - BNS Section 309: Robbery  (score 0.7399)  [<-> IPC 394]
+     - IPC Section 393: Attempt to commit robbery  (score 0.6929)  [<-> BNS 309]
+     - BNS Section 312: Attempt to commit robbery or dacoity when armed with deadly weapon  (score 0.6897)  [<-> IPC 398]
+     - IPC Section 394: Person voluntarily causing hurt in committing or attempting to commit robbery, or any other person jointly concerned in such robbery  (score 0.6829)  [<-> BNS 309]
+     - IPC Section 392: Robbery  (score 0.6574)  [<-> BNS 309]
+     - IPC Section 390: Description of IPC Section 390 According to section 390 of Indian penal code, In  (score 0.5832)  [<-> BNS 309]
+     - BNS Section 311: Robbery or dacoity with attempt to cause death or grievous hurt  (score 0.25)
+
+>> Murder of the store owner
+   (from: "shot the owner, who died later in hospital")
+   The act of murdering the store owner falls under sections [BNS_103] BNS Section 103, [BNS_101] BNS Section 101, [IPC_302] IPC Section 302, as they all describe the punishment for murder. These sections apply because the act involves intentionally killing a person, which aligns with the descriptions provided in these sections. The punishment for murder, as stated in these sections, can be death or life imprisonment, along with a fine.
+     - BNS Section 103: Punishment for murder  (score 0.6954)  [<-> IPC 302]
+     - BNS Section 109: Attempt to murder  (score 0.6789)  [<-> IPC 307]
+     - BNS Section 101: Murder  (score 0.6728)  [<-> IPC 300]
+     - BNS Section 104: Punishment for murder by life-convict  (score 0.6594)  [<-> IPC 303]
+     - IPC Section 302: Murder  (score 0.25)  [<-> BNS 103]
+     - IPC Section 303: Murder by a person under Sentence of imprisonment for life  (score 0.25)  [<-> BNS 104]
+     - IPC Section 304: Culpable homicide not amounting to murder, If act by which the death is caused is done with intention of causing death, etc.  (score 0.25)  [<-> BNS 105]
+     - IPC Section 307: Attempt to murder  (score 0.25)  [<-> BNS 109]
+
+>> Compound/aggravated offense check
+   The act of robbing a jewelry store and shooting the owner, who later died, can be linked to IPC Section 397, as it involves robbery with an attempt to cause death or grievous hurt using a deadly weapon. This section applies because the offender used a deadly weapon (a gun) during the robbery, which resulted in the death of the owner. IPC Section 102 may also be relevant, as it deals with culpable homicide, but the primary charge would likely fall under IPC Section 397 due to the direct intent and action involved in the robbery and subsequent death.
+     - BNS Section 314: Dishonest misappropriation of property possessed by deceased person  (score 0.4738)  [<-> IPC 403]
+     - BNS Section 102: Culpable homicide by causing death of person other than person whose death was intended  (score 0.4546)  [<-> IPC 301]
+     - IPC Section 397: Robber or Dacoity, with attempt to cause death or grievous hurt  (score 0.3113)  [<-> BNS 311]
+     - BNS Section 286: Negligence (Poison)  (score 0.3027)  [<-> IPC 284]
+     - IPC Section 310: Description of IPC Section 310 According to section 310 of Indian penal code, Wh  (score 0.2916)
+     - IPC Section 137: Deserter concealed on board merchant vessel, through negligence of master or person in charge thereof  (score 0.25)  [<-> BNS 165]
+
+python legal.py "During a communal clash, a group set fire to a mosque and looted the nearby shops."
+Loading weights: 100%|██████████████████████████████████████████████████████████████████████████████| 103/103 [00:00<00:00, 6312.48it/s]
+
+Incident: During a communal clash, a group set fire to a mosque and looted the nearby shops.
+======================================================================
+
+>> Arson of mosque
+   (from: "a group set fire to a mosque")
+   The act of arson of a mosque can be charged under IPC Section 436, as it involves mischief by fire with intent to destroy a place of worship. Additionally, IPC Section 295 and BNS Section 298 may also apply, as they deal with destroying or defiling a place of worship with intent to insult the religion of any class of persons. These sections specifically address the intentional destruction or damage of a place of worship, which is relevant to the act of arson in this case.
+     - BNS Section 298: Injuring or defiling place of worship  (score 0.6344)  [<-> IPC 295]
+     - IPC Section 297: Trespassing in place of worship or sepulchre, disturbing funeral with intention to wound the feeling or to insult the religion of any person, or offering indignity to a human corpse  (score 0.589)  [<-> BNS 301]
+     - IPC Section 436: Mischief by fire or explosive substance with intent to destroy house etc.  (score 0.5692)  [<-> BNS 326]
+     - IPC Section 295: Destroying, damaging or defiling a place of worship or sacred object with intent to insult the religion of any class of persons  (score 0.5226)  [<-> BNS 298]
+     - BNS Section 302: Uttering words with deliberate intent to wound religious feelings  (score 0.4098)  [<-> IPC 298]
+     - BNS Section 299: Deliberate and malicious acts to outrage religious feelings  (score 0.3844)  [<-> IPC 295A]
+     - IPC Section 155: Person for whose benefit or on whose behalf a riot takes place not using all lawful means to prevent it  (score 0.25)  [<-> BNS 193]
+     - BNS Section 301: Trespassing on burial places  (score 0.1)
+
+>> Looting of shops
+   (from: "looted the nearby shops")
+   The act of looting shops, which involves theft of property using force or intimidation, can be applied to sections [BNS_307] BNS Section 307 — Theft with preparation for violence and [BNS_134] BNS Section 134 — Assault for theft. These sections specifically deal with theft accompanied by violence or intimidation, making them relevant to the described act. Section [BNS_303] BNS Section 303 — Theft may also apply, but it is more general and does not specifically address the use of force or intimidation.
+     - IPC Section 413: Habitually dealing in stolen property  (score 0.7238)  [<-> BNS 317]
+     - BNS Section 305: Theft in dwelling house or transport  (score 0.7185)  [<-> IPC 380]
+     - BNS Section 303: Theft  (score 0.7158)  [<-> IPC 379]
+     - IPC Section 381: Theft by clerk or servant of property in possession of master or employer  (score 0.7156)  [<-> BNS 306]
+     - BNS Section 307: Theft with preparation for violence  (score 0.71)  [<-> IPC 382]
+     - IPC Section 414: Assisting in concealment or disposal of stolen property, knowing it to be stolen  (score 0.7005)  [<-> BNS 317]
+     - IPC Section 356: Assault or criminal force in attempt to commit theft of property worn or carried by a person  (score 0.25)  [<-> BNS 134]
+     - BNS Section 134: Assault for theft  (score 0.25)
+
+>> Compound/aggravated offense check
+   The act of setting fire to a mosque and looting nearby shops during a communal clash can be linked to [BNS_196] BNS Section 196 — Promoting enmity between different groups, as it involves promoting disharmony and enmity between religious groups, and the fact that it occurred in a place of worship may lead to enhanced punishment. Additionally, [IPC_146] IPC Section 146 — Rioting and [BNS_191] BNS Section 191 — Rioting may also apply, as the incident involves force and violence used by an unlawful assembly in prosecution of a common object. [BNS_287] BNS Section 287 — Negligence (Fire) might be relevant if the fire was set negligently, but the primary intent seems to be deliberate.
+     - BNS Section 287: Negligence (Fire)  (score 0.423)  [<-> IPC 285]
+     - BNS Section 191: Rioting  (score 0.3262)  [<-> IPC 148]
+     - IPC Section 146: Rioting  (score 0.2794)  [<-> BNS 191]
+     - BNS Section 196: Promoting enmity between different groups  (score 0.2609)  [<-> IPC 153A]
+     - IPC Section 376B: Sexual intercourse by husband upon his wife during separation  (score 0.25)  [<-> BNS 67]
+     - IPC Section 494: Marrying again during the life-time of a husband or wife  (score 0.25)  [<-> BNS 82]
