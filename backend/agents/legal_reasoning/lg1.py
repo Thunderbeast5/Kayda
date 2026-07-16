@@ -69,6 +69,8 @@ class LegalEvent:
     event_id: str
     description: str
     normalized_crime: str
+    outcome: str = ""
+    crime_family: str = ""
     legal_concepts: list[str] = field(default_factory=list)
     supporting_facts: list[str] = field(default_factory=list)
 
@@ -128,6 +130,8 @@ class SectionCandidate:
                     "event_id": e.event_id,
                     "description": e.description,
                     "normalized_crime": e.normalized_crime,
+                    "outcome": e.outcome,
+                    "crime_family": e.crime_family,
                 }
                 for e in self.supporting_events
             ],
@@ -277,10 +281,68 @@ def _safe_json(raw: str) -> dict[str, Any]:
 
 def normalize_crime(text: str) -> str:
     t = text.lower()
+    outcome = detect_outcome(text)
+    if outcome == "death" and any(word in t for word in ("shot", "shoot", "stabbed", "killed", "intentionally")):
+        return "Murder"
+    if outcome == "death" and any(word in t for word in ("accident", "negligent", "rash")):
+        return "Causing death by negligence"
     for concept, triggers in _CRIME_NORMALIZATION:
         if any(trigger in t for trigger in triggers):
             return concept.title()
     return "Reported criminal act"
+
+
+def detect_outcome(text: str) -> str:
+    t = text.lower()
+    if re.search(r"\b(died|death|dead|killed|murder|homicide|fatal)\b", t):
+        return "death"
+    if re.search(r"\b(fracture|grievous|permanent|disfigure|loss of sight|serious injury)\b", t):
+        return "grievous_injury"
+    if re.search(r"\b(hurt|injury|injured|assault|beaten|shot|stabbed)\b", t):
+        return "hurt"
+    if re.search(r"\b(robbed|robbery|stole|stolen|theft|loot|property|jewellery|cash)\b", t):
+        return "property_loss"
+    if re.search(r"\b(kidnap|abduct|hostage|ransom)\b", t):
+        return "kidnapping"
+    if re.search(r"\b(rape|sexual)\b", t):
+        return "sexual_assault"
+    if re.search(r"\b(extort|blackmail|threatened to pay)\b", t):
+        return "extortion"
+    return ""
+
+
+def classify_crime_family(crime: str, description: str, outcome: str) -> str:
+    text = f"{crime} {description} {outcome}".lower()
+    if outcome == "death" or any(word in text for word in ("murder", "homicide", "causing death")):
+        return "Homicide"
+    if any(word in text for word in ("robbery", "robbed", "dacoity", "theft", "stolen", "property", "extortion")):
+        return "Property Offences"
+    if any(word in text for word in ("rape", "sexual")):
+        return "Sexual Offences"
+    if any(word in text for word in ("forgery", "cheating", "fraud")):
+        return "Forgery/Fraud"
+    if any(word in text for word in ("hurt", "injury", "grievous", "assault")):
+        return "Hurt"
+    if any(word in text for word in ("threat", "intimidation")):
+        return "Criminal Intimidation"
+    return "General Criminal Offence"
+
+
+def normalize_event_crime(description: str, crime: str, global_outcome: str = "") -> tuple[str, str, str]:
+    local_text = " ".join(part for part in (description, crime) if part)
+    local_outcome = detect_outcome(local_text)
+    inherits_death = (
+        global_outcome == "death"
+        and local_outcome in {"", "hurt"}
+        and re.search(r"\b(shot|shoot|stabbed|killed|homicide|murder|culpable)\b", local_text, re.I)
+    )
+    outcome = "death" if inherits_death else local_outcome
+    combined = " ".join(part for part in (description, crime, outcome) if part)
+    normalized = normalize_crime(combined)
+    if outcome == "death" and normalized in {"Hurt", "Grievous Hurt"}:
+        normalized = "Murder" if re.search(r"\b(shot|shoot|stabbed|killed)\b", combined, re.I) else "Culpable Homicide"
+    family = classify_crime_family(normalized, description, outcome)
+    return normalized, outcome, family
 
 
 def fallback_understand_incident(user_query: str) -> dict[str, Any]:
@@ -289,12 +351,15 @@ def fallback_understand_incident(user_query: str) -> dict[str, Any]:
         parts = [user_query]
     events = []
     for idx, part in enumerate(parts, 1):
+        crime, outcome, family = normalize_event_crime(part, "")
         events.append(
             {
                 "event_id": f"E{idx}",
                 "description": part,
-                "normalized_crime": normalize_crime(part),
-                "legal_concepts": [normalize_crime(part)],
+                "normalized_crime": crime,
+                "outcome": outcome,
+                "crime_family": family,
+                "legal_concepts": [crime, family],
                 "supporting_facts": [part],
             }
         )
@@ -329,6 +394,7 @@ def understand_incident(user_query: str) -> dict[str, Any]:
         data["extraction_error"] = str(exc)
 
     normalized_events = []
+    global_outcome = str(data.get("outcome") or "")
     for idx, event in enumerate(data.get("events") or [], 1):
         description = str(event.get("description") or "").strip()
         crime = str(event.get("normalized_crime") or "").strip()
@@ -336,14 +402,19 @@ def understand_incident(user_query: str) -> dict[str, Any]:
             description = crime
         if not description:
             continue
-        if not crime:
-            crime = normalize_crime(description)
+        crime, outcome, family = normalize_event_crime(
+            description=description,
+            crime=crime,
+            global_outcome=global_outcome,
+        )
         normalized_events.append(
             {
                 "event_id": event.get("event_id") or f"E{idx}",
                 "description": description,
                 "normalized_crime": crime,
-                "legal_concepts": event.get("legal_concepts") or [crime],
+                "outcome": outcome,
+                "crime_family": family,
+                "legal_concepts": list(dict.fromkeys([*(event.get("legal_concepts") or []), crime, family, outcome])),
                 "supporting_facts": event.get("supporting_facts") or [description],
             }
         )
@@ -361,6 +432,8 @@ def build_events(incident_data: dict[str, Any]) -> list[LegalEvent]:
             event_id=str(event["event_id"]),
             description=str(event["description"]),
             normalized_crime=str(event["normalized_crime"]),
+            outcome=str(event.get("outcome") or ""),
+            crime_family=str(event.get("crime_family") or ""),
             legal_concepts=[str(v) for v in event.get("legal_concepts", []) if v],
             supporting_facts=[str(v) for v in event.get("supporting_facts", []) if v],
         )
@@ -376,7 +449,9 @@ def event_query(event: LegalEvent) -> str:
     return " ".join(
         part
         for part in (
+            f"Crime family: {event.crime_family}" if event.crime_family else "",
             event.normalized_crime,
+            f"Outcome: {event.outcome}" if event.outcome else "",
             event.description,
             concepts,
         )
@@ -493,6 +568,84 @@ def _keywords_for_graph(event: LegalEvent) -> list[str]:
     return keywords[:8]
 
 
+HOMICIDE_PRIMARY_IDS = {
+    "IPC_299",
+    "IPC_300",
+    "IPC_302",
+    "IPC_304",
+    "IPC_304A",
+    "BNS_100",
+    "BNS_101",
+    "BNS_102",
+    "BNS_103",
+    "BNS_105",
+    "BNS_106",
+}
+
+ROBBERY_PRIMARY_IDS = {
+    "IPC_390",
+    "IPC_392",
+    "IPC_394",
+    "IPC_397",
+    "IPC_398",
+    "BNS_309",
+    "BNS_310",
+    "BNS_311",
+    "BNS_312",
+}
+
+HURT_PRIMARY_IDS = {
+    "IPC_319",
+    "IPC_320",
+    "IPC_321",
+    "IPC_322",
+    "IPC_323",
+    "IPC_324",
+    "IPC_325",
+    "IPC_326",
+    "BNS_114",
+    "BNS_115",
+    "BNS_116",
+    "BNS_117",
+    "BNS_118",
+}
+
+
+def candidate_matches_event(candidate: SectionCandidate, event: LegalEvent) -> tuple[bool, str]:
+    text = " ".join(
+        [
+            candidate.law_id,
+            candidate.title,
+            candidate.description,
+            candidate.category,
+            candidate.chapter,
+        ]
+    ).lower()
+
+    if event.crime_family == "Homicide":
+        if candidate.law_id in HOMICIDE_PRIMARY_IDS:
+            return True, ""
+        if any(term in text for term in ("murder", "homicide", "causing death", "death by negligence")):
+            return True, ""
+        if candidate.law_id in HURT_PRIMARY_IDS or any(term in text for term in ("hurt", "grievous hurt")):
+            return False, "Rejected ordinary hurt section because the event outcome is death."
+        return False, "Rejected non-homicide section for homicide/death event."
+
+    if event.crime_family == "Property Offences":
+        if candidate.law_id in ROBBERY_PRIMARY_IDS:
+            return True, ""
+        if any(term in text for term in ("robbery", "dacoity", "theft", "extortion")):
+            return True, ""
+        return False, "Rejected non-property section for robbery/property event."
+
+    if event.crime_family == "Hurt" and event.outcome != "death":
+        if candidate.law_id in HURT_PRIMARY_IDS or any(term in text for term in ("hurt", "injury", "grievous")):
+            return True, ""
+        return False, "Rejected non-hurt section for hurt event."
+
+    return True, ""
+
+
 def retrieve_from_neo4j(event: LegalEvent, top_k: int) -> list[SectionCandidate]:
     keywords = _keywords_for_graph(event)
     if not keywords:
@@ -576,13 +729,36 @@ def collect_candidates(events: list[LegalEvent], top_k: int) -> tuple[dict[str, 
         )
 
         for candidate in [*pinecone_hits, *graph_hits]:
+            allowed, reject_reason = candidate_matches_event(candidate, event)
+            if not allowed:
+                retrieval_debug.append(
+                    {
+                        "event_id": event.event_id,
+                        "law_id": candidate.law_id,
+                        "source": sorted(candidate.sources),
+                        "rejected": reject_reason,
+                    }
+                )
+                continue
+
+            if event.crime_family == "Homicide" and candidate.law_id in HOMICIDE_PRIMARY_IDS:
+                candidate.rule_score = max(candidate.rule_score, 0.10)
+                candidate.rule_notes.append("Outcome death: prioritized homicide section.")
+            if event.crime_family == "Property Offences" and candidate.law_id in ROBBERY_PRIMARY_IDS:
+                candidate.rule_score = max(candidate.rule_score, 0.08)
+                candidate.rule_notes.append("Robbery/property event: prioritized robbery section.")
+
             existing = merged.get(candidate.law_id)
             if not existing:
                 merged[candidate.law_id] = candidate
                 continue
 
             existing.retrieval_score = max(existing.retrieval_score, candidate.retrieval_score)
+            existing.rule_score = max(existing.rule_score, candidate.rule_score)
             existing.sources.update(candidate.sources)
+            for note in candidate.rule_notes:
+                if note not in existing.rule_notes:
+                    existing.rule_notes.append(note)
             for event_item in candidate.supporting_events:
                 if event_item.event_id not in {e.event_id for e in existing.supporting_events}:
                     existing.supporting_events.append(event_item)
@@ -916,6 +1092,63 @@ def split_by_act(candidates: list[SectionCandidate], act: str) -> list[dict[str,
     return [candidate.as_dict() for candidate in candidates if candidate.act == act]
 
 
+def preserve_event_chains(
+    ranked: list[SectionCandidate],
+    events: list[LegalEvent],
+    final_top_n: int,
+    per_event_limit: int = 4,
+) -> list[SectionCandidate]:
+    selected: list[SectionCandidate] = []
+    selected_ids = set()
+
+    for event in events:
+        event_ranked = [
+            candidate
+            for candidate in ranked
+            if any(support.event_id == event.event_id for support in candidate.supporting_events)
+        ]
+        for candidate in event_ranked[:per_event_limit]:
+            if candidate.law_id in selected_ids:
+                continue
+            selected.append(candidate)
+            selected_ids.add(candidate.law_id)
+
+    for candidate in ranked:
+        if len(selected) >= final_top_n:
+            break
+        if candidate.law_id in selected_ids:
+            continue
+        selected.append(candidate)
+        selected_ids.add(candidate.law_id)
+
+    selected.sort(key=lambda item: item.confidence, reverse=True)
+    return selected[:final_top_n]
+
+
+def build_event_recommendations(
+    sections: list[SectionCandidate],
+    events: list[LegalEvent],
+) -> list[dict[str, Any]]:
+    rows = []
+    for event in events:
+        event_sections = [
+            section.as_dict()
+            for section in sections
+            if any(support.event_id == event.event_id for support in section.supporting_events)
+        ]
+        rows.append(
+            {
+                "event_id": event.event_id,
+                "description": event.description,
+                "normalized_crime": event.normalized_crime,
+                "outcome": event.outcome,
+                "crime_family": event.crime_family,
+                "recommended_sections": event_sections,
+            }
+        )
+    return rows
+
+
 def summarize_with_groq(user_query: str, sections: list[SectionCandidate]) -> str:
     if not sections:
         return "No applicable sections survived retrieval and rule filtering."
@@ -965,7 +1198,8 @@ def process_incident(user_query: str, top_k_per_event: int = 8, final_top_n: int
         retrieval_debug.append({"source": "neo4j_enrichment", "error": str(exc)})
 
     ranked = apply_rule_engine(candidates, events)
-    final_sections = materialize_crosswalk_sections(ranked[:final_top_n])
+    final_sections = preserve_event_chains(ranked, events, final_top_n)
+    final_sections = materialize_crosswalk_sections(final_sections)
 
     return {
         "incident": {
@@ -985,11 +1219,14 @@ def process_incident(user_query: str, top_k_per_event: int = 8, final_top_n: int
                 "event_id": event.event_id,
                 "description": event.description,
                 "normalized_crime": event.normalized_crime,
+                "outcome": event.outcome,
+                "crime_family": event.crime_family,
                 "legal_concepts": event.legal_concepts,
                 "supporting_facts": event.supporting_facts,
             }
             for event in events
         ],
+        "event_recommendations": build_event_recommendations(final_sections, events),
         "applicable_ipc_sections": split_by_act(final_sections, "IPC"),
         "applicable_bns_sections": split_by_act(final_sections, "BNS"),
         "all_recommended_sections": [section.as_dict() for section in final_sections],
@@ -1014,7 +1251,10 @@ def format_result(result: dict[str, Any]) -> str:
     lines.append("")
     lines.append("Events:")
     for event in result["events"]:
-        lines.append(f"- {event['event_id']}: {event['normalized_crime']} - {event['description']}")
+        lines.append(
+            f"- {event['event_id']}: {event['normalized_crime']} "
+            f"[{event['crime_family']}, outcome={event['outcome'] or 'none'}] - {event['description']}"
+        )
     lines.append("")
     lines.append("Recommended Sections:")
     for section in result["all_recommended_sections"]:
