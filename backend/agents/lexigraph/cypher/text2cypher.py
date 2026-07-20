@@ -58,7 +58,15 @@ NEO4J_URI = os.getenv("NEO4J_URI")
 NEO4J_USER = os.getenv("NEO4J_USER")
 NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
 
-RESULT_LIMIT = 8
+FULLTEXT_SCORE_THRESHOLD = float(os.getenv("LEXIGRAPH_FULLTEXT_SCORE_THRESHOLD", "1.5"))
+INITIAL_RETRIEVAL_LIMIT = int(os.getenv("LEXIGRAPH_INITIAL_TOP_K", "12"))
+FINAL_TOP_K = int(os.getenv("LEXIGRAPH_FINAL_TOP_K", "3"))
+RERANKER_MODEL = os.getenv("LEXIGRAPH_RERANKER_MODEL", "BAAI/bge-reranker-large")
+RERANKER_WEIGHT = float(os.getenv("LEXIGRAPH_RERANKER_WEIGHT", "0.7"))
+DEBUG_RANKING = os.getenv("LEXIGRAPH_DEBUG_RANKING", "").strip().lower() in {"1", "true", "yes", "on"}
+
+_RERANKER = None
+_RERANKER_ERROR: str | None = None
 
 # ----------------------------------------------------------------------
 # Schema and examples given to the chain's Cypher generator.
@@ -102,12 +110,13 @@ FEWSHOT = [
             "'kidnap* OR abduct* OR ransom OR minor OR child') "
             "YIELD node AS b, score "
             "WHERE b.act = 'BNS' "
+            "AND score > 1.5 "
             "OPTIONAL MATCH (i:LawSection {act:'IPC'})-[:REPLACED_BY]->(b) "
             "RETURN b.id AS id, b.act AS act, b.section AS bns_section, "
             "b.title AS bns_title, b.punishment AS bns_punishment, "
             "i.section AS ipc_section, i.title AS ipc_title, "
             "i.punishment AS ipc_punishment, score "
-            "ORDER BY score DESC LIMIT 8"
+            "ORDER BY score DESC LIMIT 12"
         ),
     },
     {
@@ -116,13 +125,14 @@ FEWSHOT = [
             "CALL db.index.fulltext.queryNodes('lawSectionText', "
             "'theft OR steal* OR vehicle OR lock OR breaking OR housebreaking') "
             "YIELD node, score "
-            "WHERE node.act = 'BNS' OR node.mapping_status = 'deleted_no_bns_successor' "
+            "WHERE score > 1.5 "
+            "AND (node.act = 'BNS' OR node.mapping_status = 'deleted_no_bns_successor') "
             "OPTIONAL MATCH (i:LawSection {act:'IPC'})-[:REPLACED_BY]->(node) "
             "RETURN node.id AS id, node.act AS matched_act, "
             "node.section AS matched_section, node.title AS title, "
             "node.punishment AS punishment, i.section AS ipc_section, "
             "i.title AS ipc_title, score "
-            "ORDER BY score DESC LIMIT 8"
+            "ORDER BY score DESC LIMIT 12"
         ),
     },
     {
@@ -130,17 +140,18 @@ FEWSHOT = [
         "cypher": (
             "MATCH (i:LawSection {act:'IPC', section:'302'})-[r:REPLACED_BY]->(b:LawSection) "
             "RETURN b.id AS id, b.section AS bns_section, "
-            "b.title AS bns_title, r.status AS status LIMIT 8"
+            "b.title AS bns_title, r.status AS status LIMIT 12"
         ),
     },
     {
         "question": "is theft a bailable offence",
         "cypher": (
             "CALL db.index.fulltext.queryNodes('crimeName', 'theft') YIELD node, score "
+            "WHERE score > 1.5 "
             "MATCH (node)-[:DEFINED_BY]->(l:LawSection) "
             "RETURN l.id AS id, l.section AS section, l.act AS act, "
             "l.bailable AS bailable, l.cognizable AS cognizable, score "
-            "ORDER BY score DESC LIMIT 8"
+            "ORDER BY score DESC LIMIT 12"
         ),
     },
 ]
@@ -170,9 +181,11 @@ Rules:
 - NEVER use CREATE, MERGE, SET, DELETE, DETACH, REMOVE, DROP, CALL apoc.*, or any procedure other than db.index.fulltext.queryNodes.
 - For any narrative crime description, extract the 3-6 core legal-concept keywords and search them with Lucene OR syntax.
   Example: 'kidnap* OR ransom OR minor'. Do not pass the raw sentence directly as the search string.
+- For full-text queries, require a score floor using `WHERE score > {FULLTEXT_SCORE_THRESHOLD}` unless the query is a direct section lookup.
 - Prefer searching BNS sections first, then map to IPC through REPLACED_BY where applicable.
+- Do not retrieve on victim-type words like `minor`, `child`, or `woman` alone; combine them with offense words like kidnapping, sale, trafficking, pornography, ransom, assault, or rape.
 - Always include the section `id` column whenever returning a LawSection so downstream rule expansion can work.
-- Keep result counts small and never exceed {RESULT_LIMIT} rows.
+- Keep initial retrieval counts small and never exceed {INITIAL_RETRIEVAL_LIMIT} rows.
 
 Examples:
 """ + ESCAPED_FEWSHOT + """
@@ -228,8 +241,9 @@ def build_chain() -> GraphCypherQAChain:
         qa_llm=get_llm(temperature=0.1),
         cypher_prompt=CYPHER_GENERATION_PROMPT,
         qa_prompt=QA_PROMPT,
-        top_k=RESULT_LIMIT,
+        top_k=INITIAL_RETRIEVAL_LIMIT,
         validate_cypher=True,
+        return_direct=True,
         return_intermediate_steps=True,
         allow_dangerous_requests=True,
         verbose=False,
@@ -247,8 +261,48 @@ def expand_with_rules(session, section_ids: list[str]) -> list[dict[str, Any]]:
         UNWIND $ids AS sid
         MATCH (l:LawSection {id: sid})-[r:OVERRIDES|MORE_SPECIFIC_THAN|ENHANCES|INCLUDES_ELEMENTS_OF|CANNOT_COEXIST_WITH]-(other:LawSection)
         RETURN DISTINCT other.id AS id, other.act AS act, other.section AS section,
-               other.title AS title, other.punishment AS punishment,
+               other.title AS title, other.description AS description,
+               other.punishment AS punishment,
                type(r) AS relationship, r.condition AS condition
+        """,
+        ids=section_ids,
+    )
+    return [dict(record) for record in result]
+
+
+def fetch_sections(session, section_ids: list[str]) -> list[dict[str, Any]]:
+    section_ids = list(dict.fromkeys(section_ids))
+    if not section_ids:
+        return []
+    result = session.run(
+        """
+        UNWIND $ids AS sid
+        MATCH (l:LawSection {id: sid})
+        OPTIONAL MATCH (l)-[:REPLACED_BY]->(b:LawSection {act:'BNS'})
+        OPTIONAL MATCH (i:LawSection {act:'IPC'})-[:REPLACED_BY]->(l)
+        RETURN DISTINCT
+               l.id AS id,
+               l.act AS act,
+               l.section AS section,
+               l.title AS title,
+               l.description AS description,
+               l.punishment AS punishment,
+               l.bailable AS bailable,
+               l.cognizable AS cognizable,
+               l.keywords AS keywords,
+               CASE
+                   WHEN l.act = 'IPC' THEN b.section
+                   ELSE i.section
+               END AS counterpart_section,
+               CASE
+                   WHEN l.act = 'IPC' THEN b.title
+                   ELSE i.title
+               END AS counterpart_title,
+               CASE
+                   WHEN l.act = 'IPC' AND b IS NOT NULL THEN 'BNS'
+                   WHEN l.act = 'BNS' AND i IS NOT NULL THEN 'IPC'
+                   ELSE NULL
+               END AS counterpart_act
         """,
         ids=section_ids,
     )
@@ -299,6 +353,25 @@ def _format_row(row: dict[str, Any]) -> str:
     return f"  {row}"
 
 
+def _normalize_rows(payload: Any) -> list[dict[str, Any]]:
+    if payload is None:
+        return []
+    if isinstance(payload, dict):
+        return [payload]
+    if isinstance(payload, (list, tuple)):
+        rows: list[dict[str, Any]] = []
+        for item in payload:
+            if isinstance(item, dict):
+                rows.append(item)
+            else:
+                try:
+                    rows.append(dict(item))
+                except Exception:
+                    continue
+        return rows
+    return []
+
+
 def _extract_intermediate(result: dict[str, Any]) -> tuple[str, list[dict[str, Any]]]:
     cypher = ""
     rows: list[dict[str, Any]] = []
@@ -307,10 +380,252 @@ def _extract_intermediate(result: dict[str, Any]) -> tuple[str, list[dict[str, A
         if isinstance(step, dict) and "query" in step:
             cypher = str(step["query"]).strip()
         if isinstance(step, dict) and "context" in step:
-            context = step["context"] or []
-            rows = [dict(row) if not isinstance(row, dict) else row for row in context]
+            rows = _normalize_rows(step.get("context"))
+            if rows:
+                break
+
+    if not rows:
+        rows = _normalize_rows(result.get("result"))
 
     return cypher, rows
+
+
+def _load_reranker():
+    global _RERANKER, _RERANKER_ERROR
+    if _RERANKER is not None or _RERANKER_ERROR is not None:
+        return _RERANKER
+    try:
+        from sentence_transformers import CrossEncoder
+
+        _RERANKER = CrossEncoder(RERANKER_MODEL)
+    except Exception as exc:
+        _RERANKER_ERROR = f"{type(exc).__name__}: {exc}"
+    return _RERANKER
+
+
+def _candidate_text(candidate: dict[str, Any]) -> str:
+    parts = [
+        f"Act: {candidate.get('act', '')}",
+        f"Section: {candidate.get('section', '')}",
+        "",
+        "Title:",
+        candidate.get("title", "") or "",
+        "",
+        "Description:",
+        candidate.get("description", "") or "",
+        "",
+        "Keywords:",
+        candidate.get("keywords", "") or "",
+        "",
+        "Punishment:",
+        candidate.get("punishment", "") or "",
+    ]
+    if candidate.get("counterpart_act") and candidate.get("counterpart_section"):
+        parts.extend(
+            [
+                "",
+                f"Mapped {candidate['counterpart_act']}:",
+                f"{candidate['counterpart_act']} {candidate['counterpart_section']} {candidate.get('counterpart_title', '')}".strip(),
+            ]
+        )
+    if candidate.get("relationship"):
+        parts.extend(
+            [
+                "",
+                "Rule relation:",
+                f"{candidate['relationship']} {candidate.get('condition', '') or ''}".strip(),
+            ]
+        )
+    return "\n".join(part for part in parts if part is not None)
+
+
+def _lexical_fallback_score(question: str, candidate: dict[str, Any]) -> float:
+    query_terms = {
+        term.lower()
+        for term in re.findall(r"[A-Za-z]+", question)
+        if len(term) > 3
+    }
+    doc_terms = {
+        term.lower()
+        for term in re.findall(r"[A-Za-z]+", _candidate_text(candidate))
+        if len(term) > 3
+    }
+    overlap = len(query_terms & doc_terms)
+    raw_score = float(candidate.get("raw_score") or 0.0)
+    rule_bonus = 0.2 if candidate.get("relationship") else 0.0
+    return overlap + raw_score + rule_bonus
+
+
+def _normalize_score_map(values: list[float]) -> list[float]:
+    if not values:
+        return []
+    lo = min(values)
+    hi = max(values)
+    if hi == lo:
+        return [1.0 for _ in values]
+    return [(value - lo) / (hi - lo) for value in values]
+
+
+def _debug_print_rows(label: str, rows: list[dict[str, Any]]) -> None:
+    if not DEBUG_RANKING:
+        return
+    print(f"\n===== {label} =====")
+    for row in rows:
+        print(row)
+
+
+def _debug_print_candidates(label: str, candidates: list[dict[str, Any]]) -> None:
+    if not DEBUG_RANKING:
+        return
+    print(f"\n===== {label} =====")
+    for candidate in candidates:
+        print(
+            candidate.get("section", ""),
+            "|",
+            candidate.get("title", ""),
+            "| raw=",
+            f"{candidate.get('raw_score', 0.0):.4f}",
+            "| rerank=",
+            f"{candidate.get('rerank_score', 0.0):.4f}",
+            "| raw_norm=",
+            f"{candidate.get('raw_score_norm', 0.0):.4f}",
+            "| final=",
+            f"{candidate.get('final_score', 0.0):.4f}",
+        )
+
+
+def rerank_candidates(question: str, candidates: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], str]:
+    model = _load_reranker()
+    reranker_name = f"CrossEncoder({RERANKER_MODEL})"
+
+    if model is not None:
+        pairs = [(question, _candidate_text(candidate)) for candidate in candidates]
+        scores = model.predict(pairs)
+        for candidate, score in zip(candidates, scores):
+            candidate["rerank_score"] = float(score)
+    else:
+        reranker_name = f"fallback lexical reranker ({_RERANKER_ERROR})"
+        for candidate in candidates:
+            candidate["rerank_score"] = _lexical_fallback_score(question, candidate)
+
+    rerank_values = [float(candidate.get("rerank_score", 0.0)) for candidate in candidates]
+    raw_values = [float(candidate.get("raw_score", 0.0)) for candidate in candidates]
+    rerank_norm = _normalize_score_map(rerank_values)
+    raw_norm = _normalize_score_map(raw_values)
+
+    for candidate, rerank_score_norm, raw_score_norm in zip(candidates, rerank_norm, raw_norm):
+        candidate["rerank_score_norm"] = rerank_score_norm
+        candidate["raw_score_norm"] = raw_score_norm
+        candidate["final_score"] = (
+            RERANKER_WEIGHT * rerank_score_norm
+            + (1.0 - RERANKER_WEIGHT) * raw_score_norm
+        )
+
+    ranked = sorted(
+        candidates,
+        key=lambda candidate: (
+            candidate.get("final_score", 0.0),
+            candidate.get("rerank_score", 0.0),
+            candidate.get("raw_score", 0.0),
+        ),
+        reverse=True,
+    )
+    return ranked, reranker_name
+
+
+def _build_direct_candidates(
+    direct_rows: list[dict[str, Any]],
+    section_rows: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    candidates: dict[str, dict[str, Any]] = {}
+    raw_scores: dict[str, float] = {}
+
+    for row in direct_rows:
+        score = row.get("score")
+        try:
+            score_value = float(score) if score is not None else 0.0
+        except (TypeError, ValueError):
+            score_value = 0.0
+        for section_id in _row_section_ids(row):
+            raw_scores[section_id] = max(score_value, raw_scores.get(section_id, float("-inf")))
+
+    for row in section_rows:
+        section_id = row["id"]
+        candidate = dict(row)
+        candidate["raw_score"] = raw_scores.get(section_id, 0.0)
+        candidate["source"] = "full_text"
+        candidates[section_id] = candidate
+
+    return list(candidates.values())
+
+
+def _build_related_candidates(
+    related_rows: list[dict[str, Any]],
+    section_rows: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    related_by_id = {row["id"]: row for row in related_rows if row.get("id")}
+    candidates = []
+    for row in section_rows:
+        section_id = row["id"]
+        related = related_by_id.get(section_id)
+        if not related:
+            continue
+        candidate = dict(row)
+        candidate["source"] = "rule_expansion"
+        candidate["relationship"] = related.get("relationship")
+        candidate["condition"] = related.get("condition")
+        candidates.append(candidate)
+    return candidates
+
+
+def _format_candidate_context(candidate: dict[str, Any]) -> str:
+    lines = [
+        f"[{candidate.get('act', '')} {candidate.get('section', '')}] {candidate.get('title', '')}".strip(),
+    ]
+    if candidate.get("description"):
+        lines.append(f"Description: {candidate['description']}")
+    if candidate.get("punishment"):
+        lines.append(f"Punishment: {candidate['punishment']}")
+    if candidate.get("bailable"):
+        lines.append(f"Bailable: {candidate['bailable']}")
+    if candidate.get("cognizable"):
+        lines.append(f"Cognizable: {candidate['cognizable']}")
+    if candidate.get("counterpart_act") and candidate.get("counterpart_section"):
+        lines.append(
+            f"Mapped counterpart: {candidate['counterpart_act']} {candidate['counterpart_section']} - "
+            f"{candidate.get('counterpart_title', '')}"
+        )
+    if candidate.get("relationship"):
+        condition = candidate.get("condition") or "no explicit condition recorded"
+        lines.append(f"Rule relation: {candidate['relationship']} ({condition})")
+    if "final_score" in candidate:
+        lines.append(f"Final score: {candidate.get('final_score', 0.0):.4f}")
+    return "\n".join(lines)
+
+
+def answer_with_llm(
+    question: str,
+    primary_candidates: list[dict[str, Any]],
+    related_candidates: list[dict[str, Any]],
+) -> str:
+    if not primary_candidates:
+        return "No matching section passed the retrieval threshold."
+    primary_context = "\n\n".join(_format_candidate_context(candidate) for candidate in primary_candidates)
+    related_context = "\n\n".join(_format_candidate_context(candidate) for candidate in related_candidates)
+    prompt = (
+        "You are a legal graph assistant for Indian criminal law.\n"
+        "Answer the user's question using only the retrieved graph sections below.\n"
+        "- Prioritize the highest-ranked sections.\n"
+        "- Mention IPC/BNS section numbers and titles explicitly.\n"
+        "- If the facts are ambiguous, say so rather than inventing certainty.\n"
+        "- Use rule-expansion sections only as supporting context. Do not let them override the top-ranked direct hits unless the rule relation explicitly says so.\n"
+        "- If rule relations show one section overrides or is more specific than another, say that plainly.\n\n"
+        f"Question:\n{question}\n\n"
+        f"Top direct matches:\n{primary_context}\n\n"
+        f"Related legal-rule sections:\n{related_context or 'None'}\n"
+    )
+    response = get_llm(temperature=0.1).invoke(prompt)
+    return response.content.strip()
 
 
 def run(question: str, chain: GraphCypherQAChain, driver) -> str:
@@ -320,7 +635,6 @@ def run(question: str, chain: GraphCypherQAChain, driver) -> str:
         return f"GraphCypherQAChain failed: {exc}"
 
     cypher, rows = _extract_intermediate(chain_result)
-    answer = str(chain_result.get("result", "")).strip()
 
     if cypher and not is_read_only(cypher):
         return (
@@ -329,39 +643,68 @@ def run(question: str, chain: GraphCypherQAChain, driver) -> str:
             f"Generated query was:\n{cypher}"
         )
 
+    _debug_print_rows("BEFORE RERANK", rows)
+
     if not rows:
         if cypher:
-            return f"No sections matched.\n\nGenerated query was:\n{cypher}"
+            return (
+                f"No sections matched above score threshold {FULLTEXT_SCORE_THRESHOLD}.\n\n"
+                f"Generated query was:\n{cypher}"
+            )
         return "No sections matched."
 
     with driver.session() as session:
+        direct_section_ids = [section_id for row in rows for section_id in _row_section_ids(row)]
+        direct_section_rows = fetch_sections(session, direct_section_ids)
+        candidates = _build_direct_candidates(rows, direct_section_rows)
+        ranked_candidates, reranker_name = rerank_candidates(question, candidates)
+        _debug_print_candidates("AFTER RERANK", ranked_candidates)
+        top_candidates = ranked_candidates[:FINAL_TOP_K]
+
         related = expand_with_rules(
             session,
-            [section_id for row in rows for section_id in _row_section_ids(row)],
+            [candidate["id"] for candidate in top_candidates if candidate.get("id")],
         )
+        _debug_print_rows("AFTER RULE EXPANSION", related)
+        related_section_rows = fetch_sections(
+            session,
+            [row["id"] for row in related if row.get("id")],
+        )
+
+    related_candidates = _build_related_candidates(related, related_section_rows)
+    answer = answer_with_llm(question, top_candidates, related_candidates)
 
     lines = []
     if answer:
         lines.extend(["Answer:", f"  {answer}", ""])
     if cypher:
         lines.extend([f"Cypher used:\n  {cypher}", ""])
-    lines.append("Matches:")
-    for row in rows:
-        lines.append(_format_row(row))
+    lines.extend(
+        [
+            (
+                f"Retrieval pipeline: full-text > {FULLTEXT_SCORE_THRESHOLD} -> "
+                f"{reranker_name} -> top {FINAL_TOP_K} -> rule expansion"
+            ),
+            "",
+            "Top Matches:",
+        ]
+    )
+    for candidate in top_candidates:
+        lines.append(_format_row(candidate))
+        lines.append(
+            "      Source: "
+            f"{candidate.get('source', 'unknown')} | "
+            f"Raw: {candidate.get('raw_score', 0.0):.4f} | "
+            f"Rerank: {candidate.get('rerank_score', 0.0):.4f} | "
+            f"Final: {candidate.get('final_score', 0.0):.4f}"
+        )
 
-    if related:
-        lines.append("\nRelated by legal precedence (may override/enhance the above):")
-        seen = set()
-        for row in related:
-            key = (row["act"], row["section"], row["relationship"])
-            if key in seen:
-                continue
-            seen.add(key)
-            condition = row.get("condition") or "no explicit condition recorded"
-            lines.append(
-                f"  [{row['act']} {row['section']}] {row['title']} "
-                f"— {row['relationship']} ({condition})"
-            )
+    if related_candidates:
+        lines.extend(["", "Related Legal-Rule Sections:"])
+        for candidate in related_candidates:
+            lines.append(_format_row(candidate))
+            condition = candidate.get("condition") or "no explicit condition recorded"
+            lines.append(f"      Rule relation: {candidate['relationship']} ({condition})")
 
     return "\n".join(lines)
 
