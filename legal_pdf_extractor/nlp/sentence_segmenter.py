@@ -8,13 +8,27 @@ from utils.text_utils import normalize_whitespace, count_tokens_approx
 
 
 SPEAKER_PATTERNS = {
-    "Court":      [r'\bthe court\b', r'\bwe hold\b', r'\bwe are of the view\b',
-                   r'\bit is held\b', r'\bthis court\b', r'\bin our opinion\b'],
-    "Petitioner": [r'\bpetitioner submits\b', r'\bpetitioner contends\b',
-                   r'\blearned counsel.*?petitioner\b', r'\bappellant submits\b'],
-    "Respondent": [r'\brespondent submits\b', r'\bstate submits\b',
-                   r'\blearned counsel.*?respondent\b'],
-    "Quote":      [r'^["\u201c]', r'["\u201c].*?["\u201d]'],
+    "Court":      [
+        r'\bthe court\b', r'\bwe hold\b', r'\bwe are of the view\b',
+        r'\bit is held\b', r'\bthis court\b', r'\bin our opinion\b',
+        r'\bwe observe\b', r'\bwe direct\b', r'\bwe find\b',
+        r'\bthe bench\b', r'\bper curiam\b', r'\bthe judges\b',
+    ],
+    "Petitioner": [
+        r'\bpetitioner submits\b', r'\bpetitioner contends\b',
+        r'\blearned counsel.*?petitioner\b', r'\bappellant submits\b',
+        r'\bappellant contends\b', r'\bon behalf of.*?petitioner\b',
+        r'\bfor the petitioner\b', r'\bfor the appellant\b',
+    ],
+    "Respondent": [
+        r'\brespondent submits\b', r'\bstate submits\b',
+        r'\blearned counsel.*?respondent\b', r'\bfor the respondent\b',
+        r'\bopposing counsel\b', r'\bgovernment pleader\b',
+        r'\badditional solicitor general\b', r'\bsolicitor general\b',
+    ],
+    "Quote":      [
+        r'^["\u201c]', r'["\u201c].{10,}["\u201d]',
+    ],
 }
 
 

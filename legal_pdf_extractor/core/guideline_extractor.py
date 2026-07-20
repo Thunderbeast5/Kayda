@@ -79,8 +79,29 @@ def _extract_guideline_number(text: str) -> str | None:
 
 
 def _extract_guideline_title(text: str) -> str:
-    first_sentence = re.split(r'(?<=[.!?])\s+', text)[0]
-    return normalize_whitespace(first_sentence)[:150]
+    """
+    Extract a clean title — skip page headers (all-caps short lines),
+    use the first meaningful sentence about the duty/obligation.
+    """
+    # Skip lines that look like page headers (e.g. "416 SUPREME COURT REPORTS")
+    lines = text.strip().split('\n')
+    for line in lines:
+        line = line.strip()
+        # Skip: pure page-number lines, all-caps report headers, case title echoes
+        if re.match(r'^\d+$', line):
+            continue
+        if re.match(r'^\d+\s+[A-Z\s]+REPORTS?', line):
+            continue
+        if re.search(r'VISHAKA|SUPREME COURT REPORTS|AIR\s+\d{4}', line, re.IGNORECASE):
+            continue
+        if len(line) < 10:
+            continue
+        # First valid line — truncate to sentence
+        first_sent = re.split(r'(?<=[.!?])\s+', line)[0]
+        return normalize_whitespace(first_sent)[:150]
+    # Fallback: first sentence of full text
+    first_sent = re.split(r'(?<=[.!?])\s+', text)[0]
+    return normalize_whitespace(first_sent)[:150]
 
 
 def _extract_sub_guidelines(text: str) -> list[str]:

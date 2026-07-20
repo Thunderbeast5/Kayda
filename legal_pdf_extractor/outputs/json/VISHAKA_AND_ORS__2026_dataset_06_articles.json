@@ -17,6 +17,21 @@
   {
     "article_id": "ART0002",
     "case_id": "VISHAKA_AND_ORS__2026",
+    "article_number": "51",
+    "article_title": "",
+    "full_text": "",
+    "summary": "Constitutional provision Article 51",
+    "how_used": "Invoked",
+    "interpretation": "",
+    "paragraph": "P00001",
+    "page": 1,
+    "is_fundamental_right": false,
+    "is_directive_principle": false,
+    "is_fundamental_duty": false
+  },
+  {
+    "article_id": "ART0003",
+    "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "32",
     "article_title": "Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution)",
     "full_text": "",
@@ -30,7 +45,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0003",
+    "article_id": "ART0004",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "14",
     "article_title": "Equality before law",
@@ -45,7 +60,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0004",
+    "article_id": "ART0005",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "19(1)(g)",
     "article_title": "",
@@ -60,7 +75,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0005",
+    "article_id": "ART0006",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "51(c)",
     "article_title": "",
@@ -75,7 +90,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0006",
+    "article_id": "ART0007",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "253",
     "article_title": "",
@@ -90,7 +105,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0007",
+    "article_id": "ART0008",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "32",
     "article_title": "Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution)",
@@ -105,7 +120,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0008",
+    "article_id": "ART0009",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "32",
     "article_title": "Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution)",
@@ -120,7 +135,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0009",
+    "article_id": "ART0010",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "141",
     "article_title": "Law declared by Supreme Court binding on all courts",
@@ -135,7 +150,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0010",
+    "article_id": "ART0011",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "14",
     "article_title": "Equality before law",
@@ -150,7 +165,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0011",
+    "article_id": "ART0012",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "14",
     "article_title": "Equality before law",
@@ -165,7 +180,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0012",
+    "article_id": "ART0013",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "19(1)(g)",
     "article_title": "",
@@ -180,7 +195,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0013",
+    "article_id": "ART0014",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "32",
     "article_title": "Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution)",
@@ -195,7 +210,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0014",
+    "article_id": "ART0015",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "32",
     "article_title": "Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution)",
@@ -210,7 +225,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0015",
+    "article_id": "ART0016",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "14",
     "article_title": "Equality before law",
@@ -225,7 +240,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0016",
+    "article_id": "ART0017",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "51",
     "article_title": "",
@@ -240,7 +255,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0017",
+    "article_id": "ART0018",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "253",
     "article_title": "",
@@ -255,7 +270,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0018",
+    "article_id": "ART0019",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "14",
     "article_title": "Equality before law",
@@ -270,7 +285,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0019",
+    "article_id": "ART0020",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "51",
     "article_title": "",
@@ -285,7 +300,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0020",
+    "article_id": "ART0021",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "253",
     "article_title": "",
@@ -300,7 +315,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0021",
+    "article_id": "ART0022",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "73",
     "article_title": "",
@@ -315,7 +330,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0022",
+    "article_id": "ART0023",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "32",
     "article_title": "Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution)",
@@ -330,7 +345,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0023",
+    "article_id": "ART0024",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "32",
     "article_title": "Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution)",
@@ -345,7 +360,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0024",
+    "article_id": "ART0025",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "11",
     "article_title": "",
@@ -360,7 +375,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0025",
+    "article_id": "ART0026",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "24",
     "article_title": "Prohibition of child labour",
@@ -375,7 +390,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0026",
+    "article_id": "ART0027",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "11",
     "article_title": "",
@@ -390,7 +405,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0027",
+    "article_id": "ART0028",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "32",
     "article_title": "Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution)",
@@ -405,7 +420,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0028",
+    "article_id": "ART0029",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "32",
     "article_title": "Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution)",
@@ -420,7 +435,7 @@
     "is_fundamental_duty": false
   },
   {
-    "article_id": "ART0029",
+    "article_id": "ART0030",
     "case_id": "VISHAKA_AND_ORS__2026",
     "article_number": "141",
     "article_title": "Law declared by Supreme Court binding on all courts",
