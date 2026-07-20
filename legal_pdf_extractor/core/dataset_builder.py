@@ -228,29 +228,49 @@ def _is_legal_principle_quote(text: str) -> bool:
 
 # ─── Dataset 11: Procedural Timeline ─────────────────────────────────────────
 def build_timeline(paragraphs: list[dict], case_id: str) -> list[dict]:
+    """Extract procedural events with dates from the judgment text."""
     events = []
     ev_id = 1
+    seen_dates = set()
+
+    DATE_RE = re.compile(
+        r'\b(\d{1,2}(?:st|nd|rd|th)?\s+(?:January|February|March|April|May|June|July|'
+        r'August|September|October|November|December),?\s+\d{4}|'
+        r'(?:January|February|March|April|May|June|July|August|September|'
+        r'October|November|December)\s+\d{1,2},?\s+\d{4}|'
+        r'\d{4}-\d{2}-\d{2})\b',
+        re.IGNORECASE
+    )
+
     for para in paragraphs:
         text = para["paragraph_text"]
-        date_matches = re.finditer(
-            r'\b(\d{1,2}(?:st|nd|rd|th)?\s+(?:January|February|March|April|May|June|July|'
-            r'August|September|October|November|December)\s+\d{4}|\d{4}-\d{2}-\d{2})\b',
-            text, re.IGNORECASE
-        )
-        for m in date_matches:
+        page = para["page_number"]
+        para_id = para["paragraph_id"]
+
+        for m in DATE_RE.finditer(text):
             date_str = m.group(1)
-            context = normalize_whitespace(text[max(0, m.start()-50): m.end()+100])
+            parsed   = parse_date(date_str) or date_str
+            if parsed in seen_dates:
+                continue
+            seen_dates.add(parsed)
+
+            ctx_start = max(0, m.start() - 60)
+            context   = normalize_whitespace(text[ctx_start: m.end() + 120])
+
             events.append({
                 "event_id":          f"EV{ev_id:04d}",
                 "case_id":           case_id,
-                "date":              parse_date(date_str) or date_str,
+                "date":              parsed,
                 "event_type":        _classify_event(context),
                 "event_description": context,
-                "page":              para["page_number"],
-                "paragraph":         para["paragraph_id"],
+                "page":              page,
+                "paragraph":         para_id,
                 "stage":             _detect_stage(context),
             })
             ev_id += 1
+
+    # Always add judgment date as an event if found in metadata
+    # (injected by the caller in build_metadata — handled separately)
     return events
 
 
@@ -296,34 +316,76 @@ def build_kg_triples(paragraphs: list[dict], citations: list[dict],
                                cit["page"], cit["paragraph"], cit["citation"], 0.9, True))
         t_id += 1
 
-    # Court REFERRED_TO articles
+    # Court REFERRED_TO / APPLIED / INTERPRETED articles
     for art in articles:
-        triples.append(_triple(t_id, case_id, "Supreme Court", "Court",
-                               "REFERRED_TO", f"Article {art['article_number']}", "Article",
-                               art["page"], art["paragraph"], art["how_used"], 0.9, True))
+        # Determine exact relation from how_used
+        how = art.get("how_used", "").lower()
+        relation = "REFERRED_TO"
+        if "applied" in how:
+            relation = "APPLIED"
+        elif "interpreted" in how or "interpretation" in how:
+            relation = "INTERPRETED"
+        elif "violated" in how:
+            relation = "APPLIED"
+
+        triples.append(_triple(t_id, case_id, "Supreme Court of India", "Court",
+                               relation, f"Article {art['article_number']}", "Article",
+                               art["page"], art["paragraph"],
+                               art.get("how_used", ""), 0.9, True))
         t_id += 1
+
+        # If there's an interpretation, add INTERPRETED triple too
+        if art.get("interpretation"):
+            triples.append(_triple(t_id, case_id, case_title, "Case",
+                                   "INTERPRETED", f"Article {art['article_number']}", "Article",
+                                   art["page"], art["paragraph"],
+                                   art.get("interpretation", "")[:100], 0.85, True))
+            t_id += 1
 
     # Case ESTABLISHED guidelines
     for gl in guidelines:
         triples.append(_triple(t_id, case_id, case_title, "Case",
                                "ESTABLISHED", gl["title"][:80], "Guideline",
-                               gl["page_start"], "", gl["full_text"][:100], 0.85, True))
+                               gl["page_start"], "", gl["full_text"][:100], 0.9, True))
         t_id += 1
 
-    # Paragraph-level relations
+    # Case DEFINED legal terms (from principles)
     for para in paragraphs:
         text = para["paragraph_text"]
-        # Overruled patterns
-        for m in re.finditer(r'([\w\s]+)\s+is\s+overruled', text, re.IGNORECASE):
+
+        # DEFINED relation
+        for m in re.finditer(r'"([^"]{5,50})"\s+(?:means|is defined as|shall mean)', text):
             triples.append(_triple(t_id, case_id, case_title, "Case",
-                                   "OVERRULED", m.group(1), "Case",
-                                   para["page_number"], para["paragraph_id"], text[:100], 0.8, True))
+                                   "DEFINED", m.group(1), "Term",
+                                   para["page_number"], para["paragraph_id"],
+                                   text[:100], 0.88, True))
             t_id += 1
-        # Followed patterns
-        for m in re.finditer(r'(?:followed|applied)\s+in\s+([\w\s,]+v\.?\s+[\w\s]+)', text, re.IGNORECASE):
+
+        # OVERRULED relations
+        for m in re.finditer(r'([\w\s]+?)\s+is\s+overruled', text, re.IGNORECASE):
             triples.append(_triple(t_id, case_id, case_title, "Case",
-                                   "FOLLOWED", m.group(1), "Case",
-                                   para["page_number"], para["paragraph_id"], text[:100], 0.75, True))
+                                   "OVERRULED", normalize_whitespace(m.group(1)), "Case",
+                                   para["page_number"], para["paragraph_id"],
+                                   text[:100], 0.8, True))
+            t_id += 1
+
+        # FOLLOWED relations
+        for m in re.finditer(
+            r'(?:followed|applied|relied upon)\s+in\s+([\w\s,]+?v\.?\s+[\w\s]+)',
+            text, re.IGNORECASE
+        ):
+            triples.append(_triple(t_id, case_id, case_title, "Case",
+                                   "FOLLOWED", normalize_whitespace(m.group(1)), "Case",
+                                   para["page_number"], para["paragraph_id"],
+                                   text[:100], 0.75, True))
+            t_id += 1
+
+        # CREATED (guidelines created by court)
+        if re.search(r'(?:we (?:direct|order|lay down)|hereby (?:direct|order))', text, re.IGNORECASE):
+            triples.append(_triple(t_id, case_id, "Supreme Court of India", "Court",
+                                   "CREATED", "Vishaka Guidelines", "Guideline",
+                                   para["page_number"], para["paragraph_id"],
+                                   text[:100], 0.92, True))
             t_id += 1
 
     return triples

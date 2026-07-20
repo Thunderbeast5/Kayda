@@ -19,13 +19,13 @@ def save_all(result: dict, output_dir: str, case_id: str, formats: list[str]):
     )
 
     for dataset_key, rows in result.items():
-        if not rows:
-            logger.warning(f"  {dataset_key}: empty, skipping")
-            continue
-
         safe_name = f"{case_id}_{dataset_key}"
 
-        # Flatten nested dicts/lists for CSV/Parquet
+        if not rows:
+            # Write empty file with just header so it's visible
+            logger.warning(f"  {dataset_key}: 0 rows — writing empty file")
+            rows = []  # still save empty
+
         flat_rows = [_flatten_row(r) for r in rows]
 
         if "csv" in formats:

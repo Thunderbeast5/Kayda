@@ -213,5 +213,47 @@
       "Article 21",
       "Article 32"
     ]
+  },
+  {
+    "qa_id": "QA00016",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "question": "Why was Minister for Immigration and Ethnic Affairs v. Teoh cited in this judgment?",
+    "answer": "Cited as authority",
+    "supporting_paragraph": "P00003",
+    "page": 3,
+    "difficulty": "Hard",
+    "type": "Reasoning",
+    "format": "Long Answer",
+    "topic": "Case Citation",
+    "has_options": false,
+    "options": []
+  },
+  {
+    "qa_id": "QA00017",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "question": "Why was Nilabati Behera v. State of Orissa cited in this judgment?",
+    "answer": "The Supreme Court can award compensation for violation of fundamental rights under Article 32 of the Constitution.",
+    "supporting_paragraph": "P00001",
+    "page": 1,
+    "difficulty": "Hard",
+    "type": "Reasoning",
+    "format": "Long Answer",
+    "topic": "Case Citation",
+    "has_options": false,
+    "options": []
+  },
+  {
+    "qa_id": "QA00018",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "question": "Why was State of Maharashtra v. Madhukar Narayan Mardikar cited in this judgment?",
+    "answer": "Every woman has a right to her dignity and privacy, irrespective of her character.",
+    "supporting_paragraph": "P00001",
+    "page": 1,
+    "difficulty": "Hard",
+    "type": "Reasoning",
+    "format": "Long Answer",
+    "topic": "Case Citation",
+    "has_options": false,
+    "options": []
   }
 ]

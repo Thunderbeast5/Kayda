@@ -172,6 +172,74 @@
   {
     "train_id": "TR00011",
     "case_id": "VISHAKA_AND_ORS__2026",
+    "instruction": "Why was Minister for Immigration and Ethnic Affairs v. Teoh cited in this judgment?",
+    "input": "128 ALR 353",
+    "output": "Cited as authority",
+    "context": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST",
+    "metadata": {
+      "case": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST"
+    },
+    "difficulty": "Medium",
+    "topic": "Case Citation",
+    "subtopic": "Case Citation",
+    "legal_domain": "Constitutional Law",
+    "task_type": "Application",
+    "skill_type": "Reasoning"
+  },
+  {
+    "train_id": "TR00012",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "instruction": "Why was Nilabati Behera v. State of Orissa cited in this judgment?",
+    "input": "(1993) 2 SCC 746",
+    "output": "The Supreme Court can award compensation for violation of fundamental rights under Article 32 of the Constitution.",
+    "context": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST",
+    "metadata": {
+      "case": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST"
+    },
+    "difficulty": "Medium",
+    "topic": "Case Citation",
+    "subtopic": "Case Citation",
+    "legal_domain": "Constitutional Law",
+    "task_type": "Application",
+    "skill_type": "Reasoning"
+  },
+  {
+    "train_id": "TR00013",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "instruction": "Why was State of Maharashtra v. Madhukar Narayan Mardikar cited in this judgment?",
+    "input": "AIR 1991 SC 207",
+    "output": "Every woman has a right to her dignity and privacy, irrespective of her character.",
+    "context": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST",
+    "metadata": {
+      "case": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST"
+    },
+    "difficulty": "Medium",
+    "topic": "Case Citation",
+    "subtopic": "Case Citation",
+    "legal_domain": "Constitutional Law",
+    "task_type": "Application",
+    "skill_type": "Reasoning"
+  },
+  {
+    "train_id": "TR00014",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "instruction": "Why was Apparel Export Promotion Council v. A.K. Chopra cited in this judgment?",
+    "input": "(1999) 1 SCC 759",
+    "output": "Sexual harassment of a female employee at the workplace is a violation of her fundamental rights under Articles 14, 15 and 21.",
+    "context": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST",
+    "metadata": {
+      "case": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST"
+    },
+    "difficulty": "Medium",
+    "topic": "Case Citation",
+    "subtopic": "Case Citation",
+    "legal_domain": "Constitutional Law",
+    "task_type": "Application",
+    "skill_type": "Reasoning"
+  },
+  {
+    "train_id": "TR00015",
+    "case_id": "VISHAKA_AND_ORS__2026",
     "instruction": "Which international conventions were referred to and why?",
     "input": "",
     "output": "The court referred to: International Convention and norms are, International Convention and norms, International Convention and norms are of great significance in The formulation of guidelines to ach, International Convention and norms are to be read into them, International Convention and norms for H. These conventions were used to fill the legislative vacuum and interpret fundamental rights.",
