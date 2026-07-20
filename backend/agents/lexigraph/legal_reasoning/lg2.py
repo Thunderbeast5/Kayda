@@ -43,7 +43,7 @@ from pathlib import Path
 LG1_DIR = Path(__file__).resolve().parent
 sys.path.insert(0, str(LG1_DIR))
 
-import lg1  # noqa: E402  (import after sys.path manipulation, and after env vars are set by the shell)
+import backend.agents.lexigraph.legal_reasoning.lg1 as lg1  # noqa: E402  (import after sys.path manipulation, and after env vars are set by the shell)
 
 
 # ---------------------------------------------------------------------------

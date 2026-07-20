@@ -4,7 +4,7 @@ import re
 from typing import Dict, Any, List
 
 from config.llm_config import get_llm
-from lexigraph import format_for_prompt
+from backend.agents.lexigraph.lexigraph import format_for_prompt
 
 # ── Guardrails-AI setup ───────────────────────────────────────────────────────
 try:

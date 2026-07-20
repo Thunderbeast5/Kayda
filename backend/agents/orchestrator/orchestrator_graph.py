@@ -17,11 +17,11 @@ START
 from langgraph.graph import StateGraph, START, END
 
 from config.state            import AgentState
-from evidence_analyzer import analyze_evidence, build_session_id
-from lexigraph        import lexigraph_node
-from defense          import DefenseAgent
-from judge            import judge_score_node, judge_verdict_node, should_ask_accused
-from accused          import accused_node
+from backend.agents.evidence.evidence_analyzer import analyze_evidence, build_session_id
+from backend.agents.lexigraph.lexigraph        import lexigraph_node
+from backend.agents.defense.defense          import DefenseAgent
+from backend.agents.judge.judge            import judge_score_node, judge_verdict_node, should_ask_accused
+from backend.agents.accused.accused          import accused_node
 
 # ── Singleton agents ──────────────────────────────────────────────────────────
 _defense_agent = DefenseAgent()

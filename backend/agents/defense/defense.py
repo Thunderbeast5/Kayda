@@ -1,7 +1,7 @@
 import json
 
 from config.llm_config import get_llm
-from lexigraph import format_for_prompt
+from backend.agents.lexigraph.lexigraph import format_for_prompt
 
 
 class DefenseAgent:
