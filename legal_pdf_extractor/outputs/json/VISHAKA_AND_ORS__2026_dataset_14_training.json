@@ -1,0 +1,138 @@
+[
+  {
+    "train_id": "TR00001",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "instruction": "Summarize this legal case in 150 words.",
+    "input": "",
+    "output": "KIRPAL, JJ.] Constitution of India-Articles 14, 15, 19 and 21-Fundamental Rights-Working women-Gender equality-Sexual harassment of working C women in work places-Held, such incidents result in violation of 'gender equality' as also Right to /ife and liberty and the right to practice profession or to carry out occupation, trade or business. Arlie/es 32, 141-Power of the Supreme Coult to enforce Fundamental E Rights-To lay down guidelines and nonns in the absence of any legisla tion-Held, Supreme Coult has power to lay down guidelines and norms for due observance in work places or institutions, until a legislation is enacted and such norms would be treated as law. The immediate cause for the filing of present petition was an incident of alleged brutal gang rape of a social worker in a village in Rajasthan. · Disposing of the writ petition and formulating guidelines and norms H in exercise of powers under Article 32...",
+    "context": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13",
+    "metadata": {
+      "case": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13"
+    },
+    "difficulty": "Easy",
+    "topic": "Summary",
+    "subtopic": "Summary",
+    "legal_domain": "Constitutional Law",
+    "task_type": "Summary",
+    "skill_type": "Knowledge"
+  },
+  {
+    "train_id": "TR00002",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "instruction": "What is the ratio decidendi of this case?",
+    "input": "",
+    "output": "aberration and assisting in finding suitable methods for realisation of the true concept of 'gender equality'; to prevent sexual harassment of working women in all G work phces through judicial process, and to fill the vacum in existing legislation.",
+    "context": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13",
+    "metadata": {
+      "case": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13"
+    },
+    "difficulty": "Hard",
+    "topic": "Ratio Decidendi",
+    "subtopic": "Ratio Decidendi",
+    "legal_domain": "Constitutional Law",
+    "task_type": "Interpretation",
+    "skill_type": "Reasoning"
+  },
+  {
+    "train_id": "TR00003",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "instruction": "What was the final order passed by the court?",
+    "input": "",
+    "output": ".P etitions disposed of.",
+    "context": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13",
+    "metadata": {
+      "case": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13"
+    },
+    "difficulty": "Easy",
+    "topic": "Final Order",
+    "subtopic": "Final Order",
+    "legal_domain": "Procedural Law",
+    "task_type": "Extraction",
+    "skill_type": "Knowledge"
+  },
+  {
+    "train_id": "TR00004",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "instruction": "Why was Article 14 invoked in this case?",
+    "input": "",
+    "output": "Invoked",
+    "context": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13",
+    "metadata": {
+      "case": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13"
+    },
+    "difficulty": "Medium",
+    "topic": "Article 14",
+    "subtopic": "Article 14",
+    "legal_domain": "Constitutional Law",
+    "task_type": "Application",
+    "skill_type": "Reasoning"
+  },
+  {
+    "train_id": "TR00005",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "instruction": "Why was Article 32 invoked in this case?",
+    "input": "",
+    "output": "Invoked",
+    "context": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13",
+    "metadata": {
+      "case": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13"
+    },
+    "difficulty": "Medium",
+    "topic": "Article 32",
+    "subtopic": "Article 32",
+    "legal_domain": "Constitutional Law",
+    "task_type": "Application",
+    "skill_type": "Reasoning"
+  },
+  {
+    "train_id": "TR00006",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "instruction": "Why was Article 14 invoked in this case?",
+    "input": "",
+    "output": "Invoked",
+    "context": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13",
+    "metadata": {
+      "case": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13"
+    },
+    "difficulty": "Medium",
+    "topic": "Article 14",
+    "subtopic": "Article 14",
+    "legal_domain": "Constitutional Law",
+    "task_type": "Application",
+    "skill_type": "Reasoning"
+  },
+  {
+    "train_id": "TR00007",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "instruction": "Why was Article 19(1)(g) invoked in this case?",
+    "input": "",
+    "output": "Invoked",
+    "context": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13",
+    "metadata": {
+      "case": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13"
+    },
+    "difficulty": "Medium",
+    "topic": "Article 19(1)(g)",
+    "subtopic": "Article 19(1)(g)",
+    "legal_domain": "Constitutional Law",
+    "task_type": "Application",
+    "skill_type": "Reasoning"
+  },
+  {
+    "train_id": "TR00008",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "instruction": "Why was Article 51(c) invoked in this case?",
+    "input": "",
+    "output": "Invoked",
+    "context": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13",
+    "metadata": {
+      "case": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13"
+    },
+    "difficulty": "Medium",
+    "topic": "Article 51(c)",
+    "subtopic": "Article 51(c)",
+    "legal_domain": "Constitutional Law",
+    "task_type": "Application",
+    "skill_type": "Reasoning"
+  }
+]

@@ -1,0 +1,30 @@
+article_id,case_id,article_number,article_title,full_text,summary,how_used,interpretation,paragraph,page,is_fundamental_right,is_directive_principle,is_fundamental_duty
+ART0001,VISHAKA_AND_ORS__2026,14,Equality before law,,Equality before law,Invoked,,P00001,1,True,False,False
+ART0002,VISHAKA_AND_ORS__2026,32,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),Invoked,,P00001,1,True,False,False
+ART0003,VISHAKA_AND_ORS__2026,14,Equality before law,,Equality before law,Invoked,,P00002,2,True,False,False
+ART0004,VISHAKA_AND_ORS__2026,19(1)(g),,,Constitutional provision Article 19(1)(g),Invoked,,P00002,2,False,False,False
+ART0005,VISHAKA_AND_ORS__2026,51(c),,,Constitutional provision Article 51(c),Invoked,,P00002,2,False,False,False
+ART0006,VISHAKA_AND_ORS__2026,253,,,Constitutional provision Article 253,Invoked,,P00002,2,False,False,False
+ART0007,VISHAKA_AND_ORS__2026,32,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),Invoked,,P00002,2,True,False,False
+ART0008,VISHAKA_AND_ORS__2026,32,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),Invoked,,P00003,3,True,False,False
+ART0009,VISHAKA_AND_ORS__2026,141,Law declared by Supreme Court binding on all courts,,Law declared by Supreme Court binding on all courts,Invoked,,P00003,3,False,False,False
+ART0010,VISHAKA_AND_ORS__2026,14,Equality before law,,Equality before law,Invoked,,P00003,3,True,False,False
+ART0011,VISHAKA_AND_ORS__2026,14,Equality before law,,Equality before law,Invoked,,P00004,4,True,False,False
+ART0012,VISHAKA_AND_ORS__2026,19(1)(g),,,Constitutional provision Article 19(1)(g),Invoked,,P00004,4,False,False,False
+ART0013,VISHAKA_AND_ORS__2026,32,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),Invoked,,P00004,4,True,False,False
+ART0014,VISHAKA_AND_ORS__2026,32,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),Invoked,,P00005,5,True,False,False
+ART0015,VISHAKA_AND_ORS__2026,14,Equality before law,,Equality before law,Invoked,,P00005,5,True,False,False
+ART0016,VISHAKA_AND_ORS__2026,51,,,Constitutional provision Article 51,Invoked,,P00006,6,False,False,False
+ART0017,VISHAKA_AND_ORS__2026,253,,,Constitutional provision Article 253,Invoked,,P00006,6,False,False,False
+ART0018,VISHAKA_AND_ORS__2026,14,Equality before law,,Equality before law,Invoked,,P00007,7,True,False,False
+ART0019,VISHAKA_AND_ORS__2026,51,,,Constitutional provision Article 51,Invoked,,P00007,7,False,False,False
+ART0020,VISHAKA_AND_ORS__2026,253,,,Constitutional provision Article 253,Invoked,,P00007,7,False,False,False
+ART0021,VISHAKA_AND_ORS__2026,73,,,Constitutional provision Article 73,Invoked,,P00007,7,False,False,False
+ART0022,VISHAKA_AND_ORS__2026,32,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),Invoked,,P00007,7,True,False,False
+ART0023,VISHAKA_AND_ORS__2026,32,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),Invoked,,P00008,8,True,False,False
+ART0024,VISHAKA_AND_ORS__2026,11,,,Constitutional provision Article 11,Invoked,,P00008,8,False,False,False
+ART0025,VISHAKA_AND_ORS__2026,24,Prohibition of child labour,,Prohibition of child labour,Invoked,,P00009,9,True,False,False
+ART0026,VISHAKA_AND_ORS__2026,11,,,Constitutional provision Article 11,Invoked,,P00009,9,False,False,False
+ART0027,VISHAKA_AND_ORS__2026,32,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),Invoked,,P00010,10,True,False,False
+ART0028,VISHAKA_AND_ORS__2026,32,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),,Remedies for enforcement of rights (Dr. Ambedkar's heart of Constitution),Invoked,,P00011,11,True,False,False
+ART0029,VISHAKA_AND_ORS__2026,141,Law declared by Supreme Court binding on all courts,,Law declared by Supreme Court binding on all courts,Invoked,,P00011,11,False,False,False
