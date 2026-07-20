@@ -229,6 +229,48 @@
     "subject": "Supreme Court",
     "subject_type": "Court",
     "relation": "REFERRED_TO",
+    "object": "Article 15",
+    "object_type": "Article",
+    "page": 5,
+    "paragraph": "P00005",
+    "context": "Invoked",
+    "confidence": 0.9,
+    "is_explicit": true
+  },
+  {
+    "triple_id": "TR00018",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "subject": "Supreme Court",
+    "subject_type": "Court",
+    "relation": "REFERRED_TO",
+    "object": "Article 42",
+    "object_type": "Article",
+    "page": 5,
+    "paragraph": "P00005",
+    "context": "Invoked",
+    "confidence": 0.9,
+    "is_explicit": true
+  },
+  {
+    "triple_id": "TR00019",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "subject": "Supreme Court",
+    "subject_type": "Court",
+    "relation": "REFERRED_TO",
+    "object": "Article 5",
+    "object_type": "Article",
+    "page": 5,
+    "paragraph": "P00005",
+    "context": "Invoked",
+    "confidence": 0.9,
+    "is_explicit": true
+  },
+  {
+    "triple_id": "TR00020",
+    "case_id": "VISHAKA_AND_ORS__2026",
+    "subject": "Supreme Court",
+    "subject_type": "Court",
+    "relation": "REFERRED_TO",
     "object": "Article 51",
     "object_type": "Article",
     "page": 6,
@@ -238,7 +280,7 @@
     "is_explicit": true
   },
   {
-    "triple_id": "TR00018",
+    "triple_id": "TR00021",
     "case_id": "VISHAKA_AND_ORS__2026",
     "subject": "Supreme Court",
     "subject_type": "Court",
@@ -252,7 +294,7 @@
     "is_explicit": true
   },
   {
-    "triple_id": "TR00019",
+    "triple_id": "TR00022",
     "case_id": "VISHAKA_AND_ORS__2026",
     "subject": "Supreme Court",
     "subject_type": "Court",
@@ -266,7 +308,7 @@
     "is_explicit": true
   },
   {
-    "triple_id": "TR00020",
+    "triple_id": "TR00023",
     "case_id": "VISHAKA_AND_ORS__2026",
     "subject": "Supreme Court",
     "subject_type": "Court",
@@ -280,7 +322,7 @@
     "is_explicit": true
   },
   {
-    "triple_id": "TR00021",
+    "triple_id": "TR00024",
     "case_id": "VISHAKA_AND_ORS__2026",
     "subject": "Supreme Court",
     "subject_type": "Court",
@@ -294,7 +336,7 @@
     "is_explicit": true
   },
   {
-    "triple_id": "TR00022",
+    "triple_id": "TR00025",
     "case_id": "VISHAKA_AND_ORS__2026",
     "subject": "Supreme Court",
     "subject_type": "Court",
@@ -308,7 +350,7 @@
     "is_explicit": true
   },
   {
-    "triple_id": "TR00023",
+    "triple_id": "TR00026",
     "case_id": "VISHAKA_AND_ORS__2026",
     "subject": "Supreme Court",
     "subject_type": "Court",
@@ -322,7 +364,7 @@
     "is_explicit": true
   },
   {
-    "triple_id": "TR00024",
+    "triple_id": "TR00027",
     "case_id": "VISHAKA_AND_ORS__2026",
     "subject": "Supreme Court",
     "subject_type": "Court",
@@ -336,7 +378,7 @@
     "is_explicit": true
   },
   {
-    "triple_id": "TR00025",
+    "triple_id": "TR00028",
     "case_id": "VISHAKA_AND_ORS__2026",
     "subject": "Supreme Court",
     "subject_type": "Court",
@@ -350,7 +392,7 @@
     "is_explicit": true
   },
   {
-    "triple_id": "TR00026",
+    "triple_id": "TR00029",
     "case_id": "VISHAKA_AND_ORS__2026",
     "subject": "Supreme Court",
     "subject_type": "Court",
@@ -364,7 +406,7 @@
     "is_explicit": true
   },
   {
-    "triple_id": "TR00027",
+    "triple_id": "TR00030",
     "case_id": "VISHAKA_AND_ORS__2026",
     "subject": "Supreme Court",
     "subject_type": "Court",
@@ -378,7 +420,7 @@
     "is_explicit": true
   },
   {
-    "triple_id": "TR00028",
+    "triple_id": "TR00031",
     "case_id": "VISHAKA_AND_ORS__2026",
     "subject": "Supreme Court",
     "subject_type": "Court",
@@ -392,7 +434,7 @@
     "is_explicit": true
   },
   {
-    "triple_id": "TR00029",
+    "triple_id": "TR00032",
     "case_id": "VISHAKA_AND_ORS__2026",
     "subject": "Supreme Court",
     "subject_type": "Court",
@@ -406,7 +448,7 @@
     "is_explicit": true
   },
   {
-    "triple_id": "TR00030",
+    "triple_id": "TR00033",
     "case_id": "VISHAKA_AND_ORS__2026",
     "subject": "Supreme Court",
     "subject_type": "Court",
@@ -417,34 +459,6 @@
     "paragraph": "P00011",
     "context": "Invoked",
     "confidence": 0.9,
-    "is_explicit": true
-  },
-  {
-    "triple_id": "TR00031",
-    "case_id": "VISHAKA_AND_ORS__2026",
-    "subject": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST",
-    "subject_type": "Case",
-    "relation": "ESTABLISHED",
-    "object": "416 SUPREME Court REPORTS (1997] SUPP.",
-    "object_type": "Guideline",
-    "page": 13,
-    "paragraph": "",
-    "context": "416 SUPREME Court REPORTS (1997] SUPP. 3 S.C.R. A of work, leisure, health and hygiene to further en",
-    "confidence": 0.85,
-    "is_explicit": true
-  },
-  {
-    "triple_id": "TR00032",
-    "case_id": "VISHAKA_AND_ORS__2026",
-    "subject": "A VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST",
-    "subject_type": "Case",
-    "relation": "ESTABLISHED",
-    "object": "VISHAKA v.",
-    "object_type": "Guideline",
-    "page": 14,
-    "paragraph": "",
-    "context": "VISHAKA v. STATE [VERMA, CTI.) 417 less than half of its member should be women. Further, to prevent",
-    "confidence": 0.85,
     "is_explicit": true
   }
 ]

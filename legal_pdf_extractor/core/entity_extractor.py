@@ -222,8 +222,12 @@ def _extract_spacy(text: str, page: int, para_id: str, case_id: str, nlp) -> lis
             if re.search(r'\bvs?\.\b|\bversus\b', raw, re.IGNORECASE):
                 mapped = "Case_Name"
             elif raw.upper() == raw and len(raw.split()) == 1:
-                # All-caps single word like "VISHAKA" — likely case name
-                mapped = "Case_Name"
+                # All-caps single word — check known conventions first
+                known_conventions = {"CEDAW", "UDHR", "ICCPR", "ILO", "WHO", "UN", "UNESCO"}
+                if raw.upper() in known_conventions:
+                    mapped = "Convention"
+                else:
+                    mapped = "Case_Name"
 
         # Post-correction: PERSON → check it's not a location
         if ent.label_ == "PERSON":

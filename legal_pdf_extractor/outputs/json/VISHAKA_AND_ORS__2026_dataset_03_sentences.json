@@ -124,7 +124,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 1,
     "paragraph": "P00001",
-    "sentence": "KIRPAL, JJ.] Constitution of India-Articles 14, 15, 19 and 21-fundamental Rights-Working women-Gender equality-Sexual harassment of working C women in work places-Held, such incidents result in violation of 'gender equality' as also Right to /ife and liberty and The right to practice profession or to carry out occupation, trade or business.",
+    "sentence": "KIRPAL, JJ.] Constitution of India-Articles 14, 15, 19 and 21-fundamental Rights-Working women-Gender equality-Sexual harassment of working C women in workplaces-Held, such incidents result in violation of 'gender equality' as also Right to /ife and liberty and The right to practice profession or to carry out occupation, trade or business.",
     "speaker": "Unknown",
     "importance_score": 1.0,
     "contains_article": false,
@@ -140,7 +140,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 65,
+    "token_count": 63,
     "dependency_parse": null
   },
   {
@@ -148,7 +148,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 1,
     "paragraph": "P00001",
-    "sentence": "Articles 51 (c ), 253--f'ower of Parliament to enact laws-Absence of domestic law occupying The field-Value and significance of The International D Convention and norms-Held, The International Convention and norms are of great significance and Parliament has The power to enact laws for im plementing The same.",
+    "sentence": "Articles 51 (c ), 253--power of Parliament to enact laws-Absence of domestic law occupying The field-Value and significance of The International D Convention and norms-Held, The International Convention and norms are of great significance and Parliament has The power to enact laws for im plementing The same.",
     "speaker": "Unknown",
     "importance_score": 0.8,
     "contains_article": false,
@@ -172,7 +172,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 1,
     "paragraph": "P00001",
-    "sentence": "Articles 32, 141-Power of The Supreme Court to enforce fundamental E Rights-To lay down guidelines and nonns in The absence of any legisla tion-Held, Supreme Court has power to lay down guidelines and norms for due observance in work places or institutions, until a legislation is enacted and such norms would be treated as law.",
+    "sentence": "Articles 32, 141-Power of The Supreme Court to enforce fundamental E Rights-To lay down guidelines and norms in The absence of any legislation-Held, Supreme Court has power to lay down guidelines and norms for due observance in workplaces or institutions, until a legislation is enacted and such norms would be treated as law.",
     "speaker": "Unknown",
     "importance_score": 0.8,
     "contains_article": false,
@@ -188,7 +188,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 71,
+    "token_count": 68,
     "dependency_parse": null
   },
   {
@@ -220,7 +220,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 1,
     "paragraph": "P00001",
-    "sentence": "It was brought as a class action by certain social activists and NGOs with The aim of focussing attention towards societal. aberration and assisting in finding suitable methods for realisation of The true concept of 'gender equality'; to prevent sexual harassment of working women in all G work phces through judicial process, and to fill The vacuum in existing legislation.",
+    "sentence": "It was brought as a class action by certain social activists and NGOs with The aim of focussing attention towards societal. aberration and assisting in finding suitable methods for realisation of The true concept of 'gender equality'; to prevent sexual harassment of working women in all G workplaces through judicial process, and to fill The vacuum in existing legislation.",
     "speaker": "Unknown",
     "importance_score": 1.0,
     "contains_article": false,
@@ -236,7 +236,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 78,
+    "token_count": 76,
     "dependency_parse": null
   },
   {
@@ -532,7 +532,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 2,
     "paragraph": "P00002",
-    "sentence": "The International Convention and norms are of great sig nificance in The formulation of guidelines to achieve this purpose. [4 10-fCJ 5.",
+    "sentence": "The International Convention and norms are of great significance in The formulation of guidelines to achieve this purpose. [4 10-fCJ 5.",
     "speaker": "Unknown",
     "importance_score": 0.3,
     "contains_article": false,
@@ -548,7 +548,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 28,
+    "token_count": 27,
     "dependency_parse": null
   },
   {
@@ -724,7 +724,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 3,
     "paragraph": "P00003",
-    "sentence": "Laying down The guidelines and norms for due observance at all work places or other institutions, until a legislation is enacted for The purpose, is done in exercise of The power available under Article 32 of The Constitution for enforcement of The fundamental rights and these would be treated as The law declared by The Supreme Court under Article 141 of C The Constitution. [414-B] CRIMINAL ORIGINAL JURISDICTION Writ Petition (Crl.) Nos. 666-70 of 1992. · (Under Article 32 of The Constitution of India.) D Mr.",
+    "sentence": "Laying down The guidelines and norms for due observance at all workplaces or other institutions, until a legislation is enacted for The purpose, is done in exercise of The power available under Article 32 of The Constitution for enforcement of The fundamental rights and these would be treated as The law declared by The Supreme Court under Article 141 of C The Constitution. [414-B] CRIMINAL ORIGINAL JURISDICTION Writ Petition (Crl.) Nos. 666-70 of 1992. · (Under Article 32 of The Constitution of India.) D Mr.",
     "speaker": "Unknown",
     "importance_score": 0.7,
     "contains_article": true,
@@ -740,7 +740,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 111,
+    "token_count": 110,
     "dependency_parse": null
   },
   {
@@ -988,7 +988,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 3,
     "paragraph": "P00003",
-    "sentence": "The present petition has been brought as a class action by certain social activists and NGOs with The aim of focussing G attention towards this societal aberration, and assisting in finding suitable methods for realisation of The true concept of 'gender equality'; and to prevent sexual harassment of working women in all work places through judicial process, to fill The vacuum in existing legislation.",
+    "sentence": "The present petition has been brought as a class action by certain social activists and NGOs with The aim of focussing G attention towards this societal aberration, and assisting in finding suitable methods for realisation of The true concept of 'gender equality'; and to prevent sexual harassment of working women in all workplaces through judicial process, to fill The vacuum in existing legislation.",
     "speaker": "Unknown",
     "importance_score": 1.0,
     "contains_article": false,
@@ -1004,7 +1004,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 83,
+    "token_count": 81,
     "dependency_parse": null
   },
   {
@@ -1588,10 +1588,10 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 5,
     "paragraph": "P00005",
-    "sentence": "Some provisions in The Constitution in addition to B Articles 14, 19(1)(g) and 21, which have relevance are : ATticle 15: \"JS.",
+    "sentence": "Some provisions in The Constitution in addition to B Articles 14, 19(1)(g) and 21, which have relevance are : Article 15: \"JS.",
     "speaker": "Unknown",
     "importance_score": 0.5,
-    "contains_article": false,
+    "contains_article": true,
     "contains_section": false,
     "contains_case_name": false,
     "contains_act": false,
@@ -1612,10 +1612,10 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 5,
     "paragraph": "P00005",
-    "sentence": "Prohibition of discrimination on grounds of religfon, race, caste, c sex or place of birth. - (1) The State shall not discriminate against any citizen on only of religion, race, caste, sex, place of birth or any of them. (2) xxx xxx xxx D (3) Nothing in this article shall prevent The State from making any special provisions for women and Children. (4) xxx xxx xxx\" ATticle 42: E \"42.",
+    "sentence": "Prohibition of discrimination on grounds of religfon, race, caste, c sex or place of birth. - (1) The State shall not discriminate against any citizen on only of religion, race, caste, sex, place of birth or any of them. (2) xxx xxx xxx D (3) Nothing in this article shall prevent The State from making any special provisions for women and Children. (4) xxx xxx xxx\" Article 42: E \"42.",
     "speaker": "Quote",
     "importance_score": 0.5,
-    "contains_article": false,
+    "contains_article": true,
     "contains_section": false,
     "contains_case_name": false,
     "contains_act": false,
@@ -1660,10 +1660,10 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 5,
     "paragraph": "P00005",
-    "sentence": "F ATticle 5 lA : \"5 lA. fundamental duties. -It shall be The duty of every citizen of India, - (a) to abide by The Constitution and respect its ideals and institu G tions, ..... xxx xxx xxx (e) to promote harmony and The spirit of common brotherhood amongst all The people of India transcending religious, linH guistic and regional or sectional diversities; to renounce prac-",
+    "sentence": "F Article 5 lA : \"5 lA. fundamental duties. -It shall be The duty of every citizen of India, - (a) to abide by The Constitution and respect its ideals and institu G tions, ..... xxx xxx xxx (e) to promote harmony and The spirit of common brotherhood amongst all The people of India transcending religious, linH guistic and regional or sectional diversities; to renounce prac-",
     "speaker": "Unknown",
     "importance_score": 0.5,
-    "contains_article": false,
+    "contains_article": true,
     "contains_section": false,
     "contains_case_name": false,
     "contains_act": false,
@@ -1852,7 +1852,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 7,
     "paragraph": "P00007",
-    "sentence": "A In The absence of domestic law occupying The filed, to formulate effective measures to check The evil of sexual harassment of working women at all work places, The contents of International Conventions and norms are significant for The purpose of interpretation of The guarantee of gender equality, right to work with human dignity in Articles 14, 15, B 19(1)(g) and 21 of The Constitution and The safeguards against sexual harassment implicit therein.",
+    "sentence": "A In The absence of domestic law occupying The filed, to formulate effective measures to check The evil of sexual harassment of working women at all workplaces, The contents of International Conventions and norms are significant for The purpose of interpretation of The guarantee of gender equality, right to work with human dignity in Articles 14, 15, B 19(1)(g) and 21 of The Constitution and The safeguards against sexual harassment implicit therein.",
     "speaker": "Unknown",
     "importance_score": 0.7,
     "contains_article": false,
@@ -1868,7 +1868,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 94,
+    "token_count": 93,
     "dependency_parse": null
   },
   {
@@ -2068,7 +2068,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 7,
     "paragraph": "P00007",
-    "sentence": "The progress made at each hearing culminated in The formulation of guidelines to which The Union of India gave its consent through The learned Solicitor General, indicating that these should be The guidelines and norms declared by this Court to govern The behaviour of The employers and all G others at The work places to curb this social evil.",
+    "sentence": "The progress made at each hearing culminated in The formulation of guidelines to which The Union of India gave its consent through The learned Solicitor General, indicating that these should be The guidelines and norms declared by this Court to govern The behaviour of The employers and all G others at The workplaces to curb this social evil.",
     "speaker": "Court",
     "importance_score": 0.3,
     "contains_article": false,
@@ -2084,7 +2084,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 76,
+    "token_count": 75,
     "dependency_parse": null
   },
   {
@@ -2404,7 +2404,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 9,
     "paragraph": "P00009",
-    "sentence": "Equality in employment can be seriously impaired when D women are subjected to gender specific violence, such as sexual harassment in The work place. 23.",
+    "sentence": "Equality in employment can be seriously impaired when D women are subjected to gender specific violence, such as sexual harassment in The workplace. 23.",
     "speaker": "Unknown",
     "importance_score": 0.5,
     "contains_article": false,
@@ -2420,7 +2420,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 32,
+    "token_count": 31,
     "dependency_parse": null
   },
   {
@@ -2500,7 +2500,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 9,
     "paragraph": "P00009",
-    "sentence": "States shcmld include in their reports information about sexual harassment, and on measures to protect women from G sexual harassment and other forms of violence of coercion in The work place.\" The Government of India has ratified The above Resolution on June 25, 1993 with some reservations which are not material in The present context.",
+    "sentence": "States should include in their reports information about sexual harassment, and on measures to protect women from G sexual harassment and other forms of violence of coercion in The workplace.\" The Government of India has ratified The above Resolution on June 25, 1993 with some reservations which are not material in The present context.",
     "speaker": "Unknown",
     "importance_score": 0.3,
     "contains_article": false,
@@ -2516,7 +2516,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 71,
+    "token_count": 70,
     "dependency_parse": null
   },
   {
@@ -2620,7 +2620,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 10,
     "paragraph": "P00010",
-    "sentence": "The meaning and content of The fundamental rights guaranteed in The Constitution o~ India are of sufficient amplitude to encompass all The facets of gender equality including prevention of sexual harassment or C abuse. independence of Judiciary forms a part of our constitutional scheine.",
+    "sentence": "The meaning and content of The fundamental rights guaranteed in The Constitution o~ India are of sufficient amplitude to encompass all The facets of gender equality including prevention of sexual harassment or C abuse. independence of Judiciary forms a part of our constitutional scheme.",
     "speaker": "Unknown",
     "importance_score": 0.7,
     "contains_article": false,
@@ -2644,7 +2644,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 10,
     "paragraph": "P00010",
-    "sentence": "The international conventions and norms are to be read into them in The absence of enacted domestic law occupying The field when tJi,ere is no inconsistency between them.",
+    "sentence": "The international conventions and norms are to be read into them in The absence of enacted domestic law occupying The field when there is no inconsistency between them.",
     "speaker": "Unknown",
     "importance_score": 0.5,
     "contains_article": false,
@@ -2812,7 +2812,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 10,
     "paragraph": "P00010",
-    "sentence": "G In view of The above, and The absence of enacted law to provide for The effective enforcement of The basic human right of gender equality and guarantee against sexual harassment and abuse, more particularly against sexual harassment at work places, we lay down The guidelines an.d norms H",
+    "sentence": "G In view of The above, and The absence of enacted law to provide for The effective enforcement of The basic human right of gender equality and guarantee against sexual harassment and abuse, more particularly against sexual harassment at workplaces, we lay down The guidelines an.d norms H",
     "speaker": "Unknown",
     "importance_score": 0.7,
     "contains_article": false,
@@ -2828,7 +2828,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 63,
+    "token_count": 62,
     "dependency_parse": null
   },
   {
@@ -2860,7 +2860,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 11,
     "paragraph": "P00011",
-    "sentence": "A specified hereinafter for due observance at all work places or other institutions, until a legislation is enacted for The purpose.",
+    "sentence": "A specified hereinafter for due observance at all workplaces or other institutions, until a legislation is enacted for The purpose.",
     "speaker": "Unknown",
     "importance_score": 0.5,
     "contains_article": false,
@@ -2876,7 +2876,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 27,
+    "token_count": 26,
     "dependency_parse": null
   },
   {
@@ -2908,7 +2908,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 11,
     "paragraph": "P00011",
-    "sentence": "The GUIDELINES and NORMS prescribed herein are as under: HAY ING REGARD to The definition of 'human rights' in Section C 2{d) of The Protection of Human Right Act,-1993, 1: ' arid TAKING NOTE of The fact that The present civil penal laws in India do not adequately provide for specific protection of women . \\ from sexual harassment in work places and that· enactment of such legislation will take considerable time, D It is necessary and expedient for employers in work places as well as other responsible persons or institutions to observe certain guidelines to ensure The prevention of sexual harassment of women: E 1.",
+    "sentence": "The GUIDELINES and NORMS prescribed herein are as under: HAY ING REGARD to The definition of 'human rights' in Section C 2{d) of The Protection of Human Right Act,-1993, 1: ' arid TAKING NOTE of The fact that The present civil penal laws in India do not adequately provide for specific protection of women . \\ from sexual harassment in workplaces and that· enactment of such legislation will take considerable time, D It is necessary and expedient for employers in workplaces as well as other responsible persons or institutions to observe certain guidelines to ensure The prevention of sexual harassment of women: E 1.",
     "speaker": "Unknown",
     "importance_score": 0.5,
     "contains_article": false,
@@ -2924,7 +2924,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 137,
+    "token_count": 135,
     "dependency_parse": null
   },
   {
@@ -2932,7 +2932,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 11,
     "paragraph": "P00011",
-    "sentence": "Duty of The Employer or other. responsible persons in work places and other institutions : .",
+    "sentence": "Duty of The Employer or other. responsible persons in workplaces and other institutions : .",
     "speaker": "Unknown",
     "importance_score": 0.3,
     "contains_article": false,
@@ -2948,7 +2948,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 20,
+    "token_count": 19,
     "dependency_parse": null
   },
   {
@@ -2956,7 +2956,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 11,
     "paragraph": "P00011",
-    "sentence": "It shall be The duty of The employer or other responsible persons in work places or other institutions to prevent or deter The com mission of acts of sexual harassment and to provide The procedures F for The resolution, settlement or prosecution of acts of sexual harassment by taking all steps required. 2.",
+    "sentence": "It shall be The duty of The employer or other responsible persons in workplaces or other institutions to prevent or deter The com mission of acts of sexual harassment and to provide The procedures F for The resolution, settlement or prosecution of acts of sexual harassment by taking all steps required. 2.",
     "speaker": "Unknown",
     "importance_score": 0.5,
     "contains_article": false,
@@ -2972,7 +2972,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 68,
+    "token_count": 67,
     "dependency_parse": null
   },
   {
@@ -3124,7 +3124,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 12,
     "paragraph": "P00012",
-    "sentence": "Preventive Steps : All employers or persons in charge of work place whether in The public or private sector should take appropriate steps to prevent E sexual harassment.",
+    "sentence": "Preventive Steps : All employers or persons in charge of workplace whether in The public or private sector should take appropriate steps to prevent E sexual harassment.",
     "speaker": "Unknown",
     "importance_score": 0.3,
     "contains_article": false,
@@ -3140,7 +3140,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 36,
+    "token_count": 35,
     "dependency_parse": null
   },
   {
@@ -3148,7 +3148,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 12,
     "paragraph": "P00012",
-    "sentence": "Without prejudice to The generality of this obligation they should take The following steps : (a) Express prohibition of sexual harassment as defined above at The work place should be notified, published and circulated F in appropriate ways. (b) The Rules/Regulations of Government and Public Sector bodi~s relating to conduct and discipline should include rules/regulations prohibiting sexual harassment and provide for appropriate penalties in such rules against The offender.",
+    "sentence": "Without prejudice to The generality of this obligation they should take The following steps : (a) Express prohibition of sexual harassment as defined above at The workplace should be notified, published and circulated F in appropriate ways. (b) The Rules/Regulations of Government and Public Sector bodi~s relating to conduct and discipline should include rules/regulations prohibiting sexual harassment and provide for appropriate penalties in such rules against The offender.",
     "speaker": "Unknown",
     "importance_score": 0.3,
     "contains_article": false,
@@ -3164,7 +3164,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 89,
+    "token_count": 88,
     "dependency_parse": null
   },
   {
@@ -3220,7 +3220,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 13,
     "paragraph": "P00013",
-    "sentence": "A of work, leisure, health and hygiene to further ensure that there is no hostile environment towards women at work places and no employee woman should have reasonable grounds to believe that she is disadvantaged in connection with her employment.",
+    "sentence": "A of work, leisure, health and hygiene to further ensure that there is no hostile environment towards women at workplaces and no employee woman should have reasonable grounds to believe that she is disadvantaged in connection with her employment.",
     "speaker": "Unknown",
     "importance_score": 0.3,
     "contains_article": false,
@@ -3236,7 +3236,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 52,
+    "token_count": 50,
     "dependency_parse": null
   },
   {
@@ -3676,7 +3676,7 @@
     "case_id": "VISHAKA_AND_ORS__2026",
     "page": 15,
     "paragraph": "P00015",
-    "sentence": "A Accordingly, we direct that The above guidelines and norms would be strictly observed in all work places for The preservation and enforcement of The right to gender equality of The working women.",
+    "sentence": "A Accordingly, we direct that The above guidelines and norms would be strictly observed in all workplaces for The preservation and enforcement of The right to gender equality of The working women.",
     "speaker": "Court",
     "importance_score": 0.5,
     "contains_article": false,
@@ -3692,7 +3692,7 @@
     "is_legal_principle": false,
     "sentiment": "neutral",
     "sentence_type": "declarative",
-    "token_count": 42,
+    "token_count": 41,
     "dependency_parse": null
   },
   {

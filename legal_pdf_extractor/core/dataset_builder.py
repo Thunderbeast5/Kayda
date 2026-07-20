@@ -672,36 +672,45 @@ def _extract_party(text: str, party: str) -> str:
     Strategy 1: Labeled field (Petitioner: ...)
     Strategy 2: Parse from case title (X v. Y → petitioner=X, respondent=Y)
     """
-    # Strategy 1: labeled field
+    # Strategy 1: labeled field — strict anchored patterns only
     labels = {
         "petitioner": [
-            r'(?:Petitioner|Appellant|Complainant)[s]?\s*[:\-]\s*([A-Z][^\n]{3,100})',
-            r'(?:Filed by|Filed on behalf of)[:\s]+([A-Z][^\n]{3,100})',
+            r'Petitioner[s]?\s*[:\-]\s*([A-Z][^\n]{3,100})',
+            r'Appellant[s]?\s*[:\-]\s*([A-Z][^\n]{3,100})',
         ],
         "respondent": [
-            r'(?:Respondent|Appellee|Opposite Party)[s]?\s*[:\-]\s*([A-Z][^\n]{3,100})',
-            r'(?:Against|Versus)\s*[:\-]?\s*([A-Z][^\n]{3,100})',
+            r'Respondent[s]?\s*[:\-]\s*([A-Z][^\n]{3,100})',
+            r'Appellee[s]?\s*[:\-]\s*([A-Z][^\n]{3,100})',
         ],
     }
     for pat in labels.get(party, []):
-        m = re.search(pat, text[:5000], re.IGNORECASE)
+        m = re.search(pat, text[:5000])
         if m:
             val = normalize_whitespace(m.group(1)).strip()
-            if len(val) > 3:
-                return val[:200]
+            # Reject if it looks like body text (too long or starts with lowercase)
+            if 3 < len(val) < 150 and val[0].isupper():
+                return val
 
-    # Strategy 2: extract from case title line
-    title_match = re.search(
-        r'([A-Z][A-Z\s\.&]+(?:\s+(?:AND\s+)?ORS\.?)?)?\s+'
-        r'[Vv][Ss]?\.?\s+'
-        r'([A-Z][A-Z\s\.&]+(?:\s+(?:AND\s+)?ORS\.?)?)',
-        text[:3000]
-    )
-    if title_match:
-        if party == "petitioner":
-            return normalize_whitespace(title_match.group(1) or "")[:200]
-        if party == "respondent":
-            return normalize_whitespace(title_match.group(2) or "")[:200]
+    # Strategy 2: extract from case title — the most reliable source
+    # Look for "X AND ORS. v. Y AND ORS." or "X v. Y" pattern
+    title_patterns = [
+        # Full caps style: "VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS."
+        r'^([A-Z][A-Z\s\.\,&]+?)\s+[Vv][Ss]?\.?\s+([A-Z][A-Z\s\.\,&]+)',
+        # Mixed case: "Vishaka and Ors. v. State of Rajasthan"
+        r'([A-Z][a-zA-Z\s\.\,&]+?)\s+(?:vs?\.?|versus)\s+([A-Z][a-zA-Z\s\.\,&]+)',
+    ]
+    for pat in title_patterns:
+        m = re.search(pat, text[:3000], re.MULTILINE)
+        if m:
+            pet = normalize_whitespace(m.group(1))
+            res = normalize_whitespace(m.group(2))
+            # Truncate at common stopwords that indicate sentence continuation
+            res = re.split(r'\s+(?:AUGUST|JANUARY|FEBRUARY|MARCH|APRIL|MAY|JUNE|'
+                           r'JULY|SEPTEMBER|OCTOBER|NOVEMBER|DECEMBER|\d{4})', res)[0]
+            if party == "petitioner" and 3 < len(pet) < 150:
+                return pet.strip()
+            if party == "respondent" and 3 < len(res) < 150:
+                return res.strip()
 
     return ""
 
@@ -728,14 +737,22 @@ def _extract_court(text: str) -> str:
 
 
 def _extract_bench(text: str) -> str:
+    """Extract bench composition — handles SC judgment formats."""
     for pat in [
-        r'(?:BENCH|CORAM|Before\s*:?)\s*\n?([^\n]{10,200})',
-        r'HON\'?BLE\s+(?:MR\.?|MS\.?|DR\.?)?\s*JUSTICE[S]?\s+([^\n]{10,200})',
+        r'(?:BENCH|CORAM|Before\s*:?)\s*\n?([^\n]{10,300})',
+        # "J.S. VERMA, CJI., SUJATA V. MANOHAR AND B.N. KIRPAL, JJ."
+        r'([A-Z][A-Z\.\s]+,\s*(?:C\.?J\.?I?\.?|J\.J\.|JJ\.)[^\n]{0,100})',
+        # HON'BLE style
+        r"HON'?BLE\s+(?:MR\.?|MRS\.?|MS\.?)?\s*JUSTICE[S]?\s+([^\n]{10,200})",
     ]:
         m = re.search(pat, text[:5000], re.IGNORECASE)
         if m:
-            return normalize_whitespace(m.group(1))[:300]
-    return ""
+            val = normalize_whitespace(m.group(1))
+            if len(val) > 5:
+                return val[:300]
+    # Fallback: join judges list
+    judges = _extract_judges(text)
+    return ", ".join(judges) if judges else ""
 
 
 def _extract_judges(text: str) -> list[str]:
@@ -753,13 +770,13 @@ def _extract_judges(text: str) -> list[str]:
 
 
 def _extract_judgment_date(text: str) -> str:
-    """Multi-strategy date extraction."""
+    """Multi-strategy date extraction for SC judgments."""
     from utils.date_utils import parse_date
-    # Strategy 1: labeled date
+
+    # Strategy 1: labeled date line
     for pat in [
-        r'(?:Date of (?:Judgment|Order|Decision)|Decided on|Pronounced on|Delivered on)\s*[:\-]?\s*'
-        r'(\d{1,2}(?:st|nd|rd|th)?\s+\w+\s+\d{4})',
-        r'(?:Date)\s*[:\-]\s*(\d{1,2}[\/\-]\d{1,2}[\/\-]\d{4})',
+        r'(?:Date of (?:Judgment|Order|Decision)|Decided on|Pronounced on|Delivered on)'
+        r'\s*[:\-]?\s*(\d{1,2}(?:st|nd|rd|th)?\s+\w+\s+\d{4})',
         r'(?:Dated?)\s*[:\-]?\s*(\d{1,2}(?:st|nd|rd|th)?\s+\w+,?\s+\d{4})',
     ]:
         m = re.search(pat, text[:5000], re.IGNORECASE)
@@ -768,15 +785,39 @@ def _extract_judgment_date(text: str) -> str:
             if parsed:
                 return parsed
 
-    # Strategy 2: any date in first 2000 chars near "judgment"
+    # Strategy 2: "AUGUST 13, 1997" or "August 13, 1997" style (common in SC headnotes)
+    m = re.search(
+        r'\b(January|February|March|April|May|June|July|August|September|'
+        r'October|November|December)\s+(\d{1,2}),?\s+(\d{4})\b',
+        text[:3000], re.IGNORECASE
+    )
+    if m:
+        parsed = parse_date(f"{m.group(2)} {m.group(1)} {m.group(3)}")
+        if parsed:
+            return parsed
+
+    # Strategy 3: "13 August 1997" or "13th August, 1997"
+    m = re.search(
+        r'\b(\d{1,2})(?:st|nd|rd|th)?\s+'
+        r'(January|February|March|April|May|June|July|August|September|'
+        r'October|November|December),?\s+(\d{4})\b',
+        text[:3000], re.IGNORECASE
+    )
+    if m:
+        parsed = parse_date(f"{m.group(1)} {m.group(2)} {m.group(3)}")
+        if parsed:
+            return parsed
+
+    # Strategy 4: scan full text for date near "judgment" keyword
     for m in re.finditer(
         r'(\d{1,2}(?:st|nd|rd|th)?\s+(?:January|February|March|April|May|June|July|'
         r'August|September|October|November|December),?\s+\d{4})',
-        text[:3000], re.IGNORECASE
+        text[:5000], re.IGNORECASE
     ):
         parsed = parse_date(m.group(1))
         if parsed:
             return parsed
+
     return ""
 
 
@@ -822,9 +863,9 @@ def _detect_jurisdiction(text: str) -> str:
 def _extract_petition_number(text: str) -> str:
     m = re.search(
         r'(?:Writ\s+Petition|Criminal\s+Appeal|Civil\s+Appeal|SLP|'
-        r'Transfer\s+Petition|Contempt\s+Petition)'
-        r'\s*(?:\(Civil\)|\(Criminal\))?\s*No\.?\s*\d+\s*(?:of|\/)\s*\d{4}',
-        text[:5000], re.IGNORECASE
+        r'Transfer\s+Petition|Contempt\s+Petition|Special\s+Leave\s+Petition)'
+        r'\s*(?:\([A-Za-z\.]+\))?\s*(?:Nos?\.?)\s*[\d\-,\s]+\s*(?:of|\/)\s*\d{4}',
+        text[:8000], re.IGNORECASE
     )
     return normalize_whitespace(m.group()) if m else ""
 
