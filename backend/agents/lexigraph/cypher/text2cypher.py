@@ -28,6 +28,7 @@ Usage:
 """
 from __future__ import annotations
 
+import json
 import os
 import re
 import sys
@@ -218,14 +219,95 @@ QA_PROMPT = PromptTemplate(
     template=QA_TEMPLATE,
 )
 
+DECOMPOSE_SYSTEM_PROMPT = """You are a legal-analysis assistant for Indian criminal law (IPC/BNS).
+Given a plain-language description of an incident, identify every DISTINCT
+criminal act described.
+
+For each act output:
+  - "label": a short human-readable name
+  - "query_text": a clean, legally-phrased description suitable for
+    criminal-law retrieval
+  - "raw_span": the portion of the original text this act refers to
+
+Respond with ONLY valid JSON:
+{"acts": [{"label": "...", "query_text": "...", "raw_span": "..."}]}
+"""
+
 WRITE_KEYWORDS = re.compile(
     r"\b(CREATE|MERGE|SET|DELETE|DETACH|REMOVE|DROP|CALL\s+apoc\.)\b",
     re.IGNORECASE,
 )
+MULTI_CRIME_CONNECTOR_RE = re.compile(
+    r"\b(?:and then|then|thereafter|subsequently|later|after that|afterwards|while|during)\b|[.;]",
+    re.IGNORECASE,
+)
+CRIME_FAMILY_PATTERNS = {
+    "kidnapping": ("kidnap", "abduct", "hostage", "ransom"),
+    "theft": ("steal", "stole", "stolen", "theft", "snatch"),
+    "robbery": ("robbery", "robbed", "loot", "looted", "gunpoint"),
+    "murder": ("murder", "killed", "shot", "stabbed", "death", "died"),
+    "hurt": ("hurt", "injury", "injured", "assault", "beat", "beaten"),
+    "rape": ("rape", "sexual assault", "molest"),
+    "cheating": ("cheat", "cheated", "fraud"),
+    "forgery": ("forged", "forgery", "fake document"),
+    "intimidation": ("threat", "threatened", "intimidation", "blackmail"),
+    "extortion": ("extort", "extortion"),
+    "trespass": ("trespass", "housebreaking", "broke into", "entered unlawfully"),
+}
 
 
 def is_read_only(cypher: str) -> bool:
     return not WRITE_KEYWORDS.search(cypher)
+
+
+def _detect_crime_families(text: str) -> set[str]:
+    lowered = text.lower()
+    found = set()
+    for family, patterns in CRIME_FAMILY_PATTERNS.items():
+        if any(pattern in lowered for pattern in patterns):
+            found.add(family)
+    return found
+
+
+def _looks_multi_crime(question: str) -> bool:
+    connectors = len(re.findall(MULTI_CRIME_CONNECTOR_RE, question))
+    families = _detect_crime_families(question)
+    return len(families) >= 2 or connectors >= 2
+
+
+def _decompose_incident(question: str) -> list[dict[str, str]]:
+    try:
+        from langchain_core.messages import HumanMessage, SystemMessage
+
+        response = get_llm(temperature=0.0).invoke(
+            [
+                SystemMessage(content=DECOMPOSE_SYSTEM_PROMPT),
+                HumanMessage(content=question),
+            ]
+        )
+        raw = response.content.strip()
+        raw = re.sub(r"^```(json)?|```$", "", raw, flags=re.MULTILINE).strip()
+        data = json.loads(raw)
+    except Exception:
+        return [{"label": "Reported incident", "query_text": question, "raw_span": question}]
+
+    acts = []
+    for act in data.get("acts", []):
+        label = str(act.get("label") or "").strip()
+        query_text = str(act.get("query_text") or "").strip() or label
+        raw_span = str(act.get("raw_span") or "").strip() or query_text
+        if not query_text:
+            continue
+        acts.append(
+            {
+                "label": label or query_text,
+                "query_text": query_text,
+                "raw_span": raw_span,
+            }
+        )
+    if not acts:
+        return [{"label": "Reported incident", "query_text": question, "raw_span": question}]
+    return acts
 
 
 def build_chain() -> GraphCypherQAChain:
@@ -628,30 +710,38 @@ def answer_with_llm(
     return response.content.strip()
 
 
-def run(question: str, chain: GraphCypherQAChain, driver) -> str:
+def _run_single_query(question: str, chain: GraphCypherQAChain, driver) -> dict[str, Any]:
     try:
         chain_result = chain.invoke({"query": question})
     except Exception as exc:
-        return f"GraphCypherQAChain failed: {exc}"
+        return {"error": f"GraphCypherQAChain failed: {exc}", "question": question}
 
     cypher, rows = _extract_intermediate(chain_result)
 
     if cypher and not is_read_only(cypher):
-        return (
-            "Generated query was not read-only. "
-            "Use read-only Neo4j credentials with this chain.\n\n"
-            f"Generated query was:\n{cypher}"
-        )
+        return {
+            "error": (
+                "Generated query was not read-only. "
+                "Use read-only Neo4j credentials with this chain.\n\n"
+                f"Generated query was:\n{cypher}"
+            ),
+            "question": question,
+            "cypher": cypher,
+        }
 
     _debug_print_rows("BEFORE RERANK", rows)
 
     if not rows:
-        if cypher:
-            return (
+        return {
+            "error": (
                 f"No sections matched above score threshold {FULLTEXT_SCORE_THRESHOLD}.\n\n"
                 f"Generated query was:\n{cypher}"
-            )
-        return "No sections matched."
+                if cypher
+                else "No sections matched."
+            ),
+            "question": question,
+            "cypher": cypher,
+        }
 
     with driver.session() as session:
         direct_section_ids = [section_id for row in rows for section_id in _row_section_ids(row)]
@@ -674,22 +764,37 @@ def run(question: str, chain: GraphCypherQAChain, driver) -> str:
     related_candidates = _build_related_candidates(related, related_section_rows)
     answer = answer_with_llm(question, top_candidates, related_candidates)
 
+    return {
+        "question": question,
+        "cypher": cypher,
+        "answer": answer,
+        "reranker_name": reranker_name,
+        "top_candidates": top_candidates,
+        "related_candidates": related_candidates,
+        "rows": rows,
+    }
+
+
+def _format_single_result(result: dict[str, Any]) -> str:
+    if result.get("error"):
+        return str(result["error"])
+
     lines = []
-    if answer:
-        lines.extend(["Answer:", f"  {answer}", ""])
-    if cypher:
-        lines.extend([f"Cypher used:\n  {cypher}", ""])
+    if result.get("answer"):
+        lines.extend(["Answer:", f"  {result['answer']}", ""])
+    if result.get("cypher"):
+        lines.extend([f"Cypher used:\n  {result['cypher']}", ""])
     lines.extend(
         [
             (
                 f"Retrieval pipeline: full-text > {FULLTEXT_SCORE_THRESHOLD} -> "
-                f"{reranker_name} -> top {FINAL_TOP_K} -> rule expansion"
+                f"{result['reranker_name']} -> top {FINAL_TOP_K} -> rule expansion"
             ),
             "",
             "Top Matches:",
         ]
     )
-    for candidate in top_candidates:
+    for candidate in result["top_candidates"]:
         lines.append(_format_row(candidate))
         lines.append(
             "      Source: "
@@ -699,14 +804,131 @@ def run(question: str, chain: GraphCypherQAChain, driver) -> str:
             f"Final: {candidate.get('final_score', 0.0):.4f}"
         )
 
-    if related_candidates:
+    if result["related_candidates"]:
         lines.extend(["", "Related Legal-Rule Sections:"])
-        for candidate in related_candidates:
+        for candidate in result["related_candidates"]:
             lines.append(_format_row(candidate))
             condition = candidate.get("condition") or "no explicit condition recorded"
             lines.append(f"      Rule relation: {candidate['relationship']} ({condition})")
 
     return "\n".join(lines)
+
+
+def _merge_multi_crime_results(
+    question: str,
+    acts: list[dict[str, str]],
+    results: list[dict[str, Any]],
+) -> str:
+    merged_primary: dict[str, dict[str, Any]] = {}
+    merged_related: dict[str, dict[str, Any]] = {}
+
+    for act, result in zip(acts, results):
+        for candidate in result.get("top_candidates", []):
+            section_id = candidate.get("id")
+            if not section_id:
+                continue
+            existing = merged_primary.get(section_id)
+            candidate_copy = dict(candidate)
+            candidate_copy.setdefault("supporting_acts", []).append(act["label"])
+            if existing is None or candidate_copy.get("final_score", 0.0) > existing.get("final_score", 0.0):
+                if existing and existing.get("supporting_acts"):
+                    candidate_copy["supporting_acts"] = sorted(
+                        set(existing["supporting_acts"] + candidate_copy["supporting_acts"])
+                    )
+                merged_primary[section_id] = candidate_copy
+            else:
+                existing.setdefault("supporting_acts", []).append(act["label"])
+                existing["supporting_acts"] = sorted(set(existing["supporting_acts"]))
+
+        for candidate in result.get("related_candidates", []):
+            section_id = candidate.get("id")
+            if not section_id or section_id in merged_primary:
+                continue
+            existing = merged_related.get(section_id)
+            candidate_copy = dict(candidate)
+            candidate_copy.setdefault("supporting_acts", []).append(act["label"])
+            if existing is None:
+                merged_related[section_id] = candidate_copy
+            else:
+                existing.setdefault("supporting_acts", []).append(act["label"])
+                existing["supporting_acts"] = sorted(set(existing["supporting_acts"]))
+
+    merged_top = sorted(
+        merged_primary.values(),
+        key=lambda candidate: (
+            candidate.get("final_score", 0.0),
+            candidate.get("raw_score", 0.0),
+        ),
+        reverse=True,
+    )[: max(FINAL_TOP_K, len(results))]
+    merged_related_list = list(merged_related.values())
+    merged_answer = answer_with_llm(question, merged_top, merged_related_list)
+
+    lines = ["Overall Answer:", f"  {merged_answer}", "", "Crime Decomposition:"]
+    for idx, act in enumerate(acts, start=1):
+        lines.append(f"{idx}. {act['label']}: {act['query_text']}")
+
+    lines.extend(["", "Per-Crime Retrieval:"])
+    for idx, (act, result) in enumerate(zip(acts, results), start=1):
+        lines.extend(
+            [
+                "",
+                f"[Crime {idx}] {act['label']}",
+                f"Query: {act['query_text']}",
+            ]
+        )
+        if result.get("error"):
+            lines.append(result["error"])
+            continue
+        if result.get("cypher"):
+            lines.append(f"Cypher used:\n  {result['cypher']}")
+        lines.append(f"Answer:\n  {result['answer']}")
+        lines.append("Top Matches:")
+        for candidate in result.get("top_candidates", []):
+            lines.append(_format_row(candidate))
+            lines.append(
+                "      Source: "
+                f"{candidate.get('source', 'unknown')} | "
+                f"Raw: {candidate.get('raw_score', 0.0):.4f} | "
+                f"Rerank: {candidate.get('rerank_score', 0.0):.4f} | "
+                f"Final: {candidate.get('final_score', 0.0):.4f}"
+            )
+
+    lines.extend(["", "Merged Matches:"])
+    for candidate in merged_top:
+        lines.append(_format_row(candidate))
+        lines.append(
+            f"      Supporting acts: {', '.join(candidate.get('supporting_acts', [])) or 'n/a'} | "
+            f"Final: {candidate.get('final_score', 0.0):.4f}"
+        )
+
+    if merged_related_list:
+        lines.extend(["", "Merged Related Legal-Rule Sections:"])
+        for candidate in merged_related_list:
+            lines.append(_format_row(candidate))
+            lines.append(
+                f"      Supporting acts: {', '.join(candidate.get('supporting_acts', [])) or 'n/a'}"
+            )
+            condition = candidate.get("condition") or "no explicit condition recorded"
+            lines.append(f"      Rule relation: {candidate['relationship']} ({condition})")
+
+    return "\n".join(lines)
+
+
+def run(question: str, chain: GraphCypherQAChain, driver) -> str:
+    if not _looks_multi_crime(question):
+        return _format_single_result(_run_single_query(question, chain, driver))
+
+    acts = _decompose_incident(question)
+    if len(acts) <= 1:
+        return _format_single_result(_run_single_query(question, chain, driver))
+
+    results = [_run_single_query(act["query_text"], chain, driver) for act in acts]
+    successful = [result for result in results if not result.get("error")]
+    if not successful:
+        return _format_single_result(_run_single_query(question, chain, driver))
+
+    return _merge_multi_crime_results(question, acts, results)
 
 
 def main() -> None:

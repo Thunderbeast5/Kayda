@@ -750,3 +750,600 @@ Related Legal-Rule Sections:
 (.venv) (base) vedant@Vedants-MacBook-Air cypher % 
 
 
+multi crime 
+
+(.venv) (base) vedant@Vedants-MacBook-Air cypher % python text2cypher.py "A child was kidnapped for ransom and later murdered."
+
+===== BEFORE RERANK =====
+{'id': 'BNS_140', 'act': 'BNS', 'bns_section': '140', 'bns_title': 'Kidnapping for murder/ransom', 'bns_punishment': 'See description', 'ipc_section': '365', 'ipc_title': 'Kidnapping or abducting with intent secretly and wrongfully to confine a person', 'ipc_punishment': '7 Years + Fine', 'score': 10.045231819152832}
+{'id': 'BNS_140', 'act': 'BNS', 'bns_section': '140', 'bns_title': 'Kidnapping for murder/ransom', 'bns_punishment': 'See description', 'ipc_section': '364A', 'ipc_title': 'Kidnapping for ransom, etc.', 'ipc_punishment': 'Death or Life + Fine', 'score': 10.045231819152832}
+{'id': 'BNS_140', 'act': 'BNS', 'bns_section': '140', 'bns_title': 'Kidnapping for murder/ransom', 'bns_punishment': 'See description', 'ipc_section': '364', 'ipc_title': 'Kidnapping or abducting in order to murder', 'ipc_punishment': 'Imprisonment for Life or Rigorous Imprisonment for 10 Years + Fine', 'score': 10.045231819152832}
+{'id': 'BNS_140', 'act': 'BNS', 'bns_section': '140', 'bns_title': 'Kidnapping for murder/ransom', 'bns_punishment': 'See description', 'ipc_section': '367', 'ipc_title': 'Kidnapping or abducting in order to subject a person to grievous hurt, slavery, etc.', 'ipc_punishment': '10 Years + Fine', 'score': 10.045231819152832}
+{'id': 'BNS_87', 'act': 'BNS', 'bns_section': '87', 'bns_title': 'Kidnapping or abducting woman to compel her marriage', 'bns_punishment': 'Imprisonment up to 10 years and fine', 'ipc_section': '366', 'ipc_title': 'Kidnapping or abducting a woman to compel her marriage or to cause her defilement etc.', 'ipc_punishment': '10 Years + Fine', 'score': 5.0}
+{'id': 'BNS_86', 'act': 'BNS', 'bns_section': '86', 'bns_title': 'Kidnapping or abducting in order to compel to marriage', 'bns_punishment': 'Imprisonment up to 10 years and fine', 'ipc_section': '498A', 'ipc_title': 'Punishment for subjecting a married woman to Cruelty', 'ipc_punishment': '3 Years + Fine', 'score': 5.0}
+{'id': 'BNS_111', 'act': 'BNS', 'bns_section': '111', 'bns_title': 'Organised crime', 'bns_punishment': 'If death: death or life and fine min Rs.10L. Otherwise: 5-life and fine min Rs.5L. Abetment: 5-life and fine min Rs.5L. Membership: 5-life and fine min Rs.5L. Harboring: 3-life and fine min Rs.5L', 'ipc_section': None, 'ipc_title': None, 'ipc_punishment': None, 'score': 4.8271894454956055}
+{'id': 'BNS_113', 'act': 'BNS', 'bns_section': '113', 'bns_title': 'Terrorist act', 'bns_punishment': 'If death: death or life and fine. Otherwise: 5-life and fine. Conspiracy: 5-life and fine. Training/recruitment: 5-life and fine. Membership: up to life and fine. Harboring: 3-life and fine', 'ipc_section': None, 'ipc_title': None, 'ipc_punishment': None, 'score': 4.8271894454956055}
+{'id': 'BNS_308', 'act': 'BNS', 'bns_section': '308', 'bns_title': 'Extortion', 'bns_punishment': 'Imprisonment up to 7 years or fine or both. Enhanced: up to 7 years and fine. Various other enhancements', 'ipc_section': '386', 'ipc_title': 'extortion by putting a person in fear of death or grievous hurt', 'ipc_punishment': '10 Years + Fine', 'score': 4.551860332489014}
+{'id': 'BNS_308', 'act': 'BNS', 'bns_section': '308', 'bns_title': 'Extortion', 'bns_punishment': 'Imprisonment up to 7 years or fine or both. Enhanced: up to 7 years and fine. Various other enhancements', 'ipc_section': '385', 'ipc_title': 'Putting or attempting to put in fear of injury, in order to commit extortion', 'ipc_punishment': '2 Years or Fine or Both', 'score': 4.551860332489014}
+{'id': 'BNS_308', 'act': 'BNS', 'bns_section': '308', 'bns_title': 'Extortion', 'bns_punishment': 'Imprisonment up to 7 years or fine or both. Enhanced: up to 7 years and fine. Various other enhancements', 'ipc_section': '384', 'ipc_title': 'Extortion', 'ipc_punishment': '3 Years or Fine or Both', 'score': 4.551860332489014}
+{'id': 'BNS_308', 'act': 'BNS', 'bns_section': '308', 'bns_title': 'Extortion', 'bns_punishment': 'Imprisonment up to 7 years or fine or both. Enhanced: up to 7 years and fine. Various other enhancements', 'ipc_section': '383', 'ipc_title': 'Description of IPC Section 383 According to section 383 of Indian penal code, Wh', 'ipc_punishment': '', 'score': 4.551860332489014}
+Loading weights: 100%|███████████████████████████████████████████████████████████████████████████████████████| 201/201 [00:00<00:00, 7224.99it/s]
+
+===== AFTER RERANK =====
+364A | Kidnapping for ransom, etc. | raw= 10.0452 | rerank= 0.9139 | raw_norm= 1.0000 | final= 1.0000
+140 | Kidnapping for murder/ransom | raw= 10.0452 | rerank= 0.8952 | raw_norm= 1.0000 | final= 0.9857
+365 | Kidnapping or abducting with intent secretly and wrongfully to confine a person | raw= 10.0452 | rerank= 0.8888 | raw_norm= 1.0000 | final= 0.9807
+367 | Kidnapping or abducting in order to subject a person to grievous hurt, slavery, etc. | raw= 10.0452 | rerank= 0.7983 | raw_norm= 1.0000 | final= 0.9114
+364 | Kidnapping or abducting in order to murder | raw= 10.0452 | rerank= 0.6583 | raw_norm= 1.0000 | final= 0.8042
+113 | Terrorist act | raw= 4.8272 | rerank= 0.1307 | raw_norm= 0.0501 | final= 0.1148
+308 | Extortion | raw= 4.5519 | rerank= 0.1485 | raw_norm= 0.0000 | final= 0.1134
+111 | Organised crime | raw= 4.8272 | rerank= 0.1085 | raw_norm= 0.0501 | final= 0.0978
+86 | Kidnapping or abducting in order to compel to marriage | raw= 5.0000 | rerank= 0.0802 | raw_norm= 0.0816 | final= 0.0855
+366 | Kidnapping or abducting a woman to compel her marriage or to cause her defilement etc. | raw= 5.0000 | rerank= 0.0424 | raw_norm= 0.0816 | final= 0.0566
+87 | Kidnapping or abducting woman to compel her marriage | raw= 5.0000 | rerank= 0.0291 | raw_norm= 0.0816 | final= 0.0464
+498A | Punishment for subjecting a married woman to Cruelty | raw= 5.0000 | rerank= 0.0199 | raw_norm= 0.0816 | final= 0.0393
+383 | Description of IPC Section 383 According to section 383 of Indian penal code, Wh | raw= 4.5519 | rerank= 0.0076 | raw_norm= 0.0000 | final= 0.0055
+385 | Putting or attempting to put in fear of injury, in order to commit extortion | raw= 4.5519 | rerank= 0.0007 | raw_norm= 0.0000 | final= 0.0001
+386 | extortion by putting a person in fear of death or grievous hurt | raw= 4.5519 | rerank= 0.0006 | raw_norm= 0.0000 | final= 0.0001
+384 | Extortion | raw= 4.5519 | rerank= 0.0005 | raw_norm= 0.0000 | final= 0.0000
+Received notification from DBMS server: <GqlStatusObject gql_status='01N51', status_description='warn: relationship type does not exist. The relationship type `INCLUDES_ELEMENTS_OF` does not exist in database `feeeda69`. Verify that the spelling is correct.', position=<SummaryInputPosition line=3, column=81, offset=108>, raw_classification='UNRECOGNIZED', classification=<NotificationClassification.UNRECOGNIZED: 'UNRECOGNIZED'>, raw_severity='WARNING', severity=<NotificationSeverity.WARNING: 'WARNING'>, diagnostic_record={'_classification': 'UNRECOGNIZED', '_severity': 'WARNING', '_position': {'offset': 108, 'line': 3, 'column': 81}, 'OPERATION': '', 'OPERATION_CODE': '0', 'CURRENT_SCHEMA': '/'}> for query: '\n        UNWIND $ids AS sid\n        MATCH (l:LawSection {id: sid})-[r:OVERRIDES|MORE_SPECIFIC_THAN|ENHANCES|INCLUDES_ELEMENTS_OF|CANNOT_COEXIST_WITH]-(other:LawSection)\n        RETURN DISTINCT other.id AS id, other.act AS act, other.section AS section,\n               other.title AS title, other.description AS description,\n               other.punishment AS punishment,\n               type(r) AS relationship, r.condition AS condition\n        '
+Received notification from DBMS server: <GqlStatusObject gql_status='01N51', status_description='warn: relationship type does not exist. The relationship type `CANNOT_COEXIST_WITH` does not exist in database `feeeda69`. Verify that the spelling is correct.', position=<SummaryInputPosition line=3, column=102, offset=129>, raw_classification='UNRECOGNIZED', classification=<NotificationClassification.UNRECOGNIZED: 'UNRECOGNIZED'>, raw_severity='WARNING', severity=<NotificationSeverity.WARNING: 'WARNING'>, diagnostic_record={'_classification': 'UNRECOGNIZED', '_severity': 'WARNING', '_position': {'offset': 129, 'line': 3, 'column': 102}, 'OPERATION': '', 'OPERATION_CODE': '0', 'CURRENT_SCHEMA': '/'}> for query: '\n        UNWIND $ids AS sid\n        MATCH (l:LawSection {id: sid})-[r:OVERRIDES|MORE_SPECIFIC_THAN|ENHANCES|INCLUDES_ELEMENTS_OF|CANNOT_COEXIST_WITH]-(other:LawSection)\n        RETURN DISTINCT other.id AS id, other.act AS act, other.section AS section,\n               other.title AS title, other.description AS description,\n               other.punishment AS punishment,\n               type(r) AS relationship, r.condition AS condition\n        '
+
+===== AFTER RULE EXPANSION =====
+{'id': 'IPC_363', 'act': 'IPC', 'section': '363', 'title': 'Kidnapping', 'description': 'Description of IPC Section 363 According to section 363 of Indian penal code, Whoever kidnaps any person from India or from lawful guardianship, shall be punished with imprisonment of either description for a term which may extend to seven years, and shall also be liable to fine. IPC 363 in Simple Words In the Indian Penal Code, anyone who kidnaps a person from India or from lawful guardianship can be punished with imprisonment for up to seven years and fined. Cited by Attorney General For India vs Satish Sartaj Khan vs The State Of Uttarakhand Sunil vs State Of Haryana Mohan Anna Chavan vs State Of Maharashtra Abhishek vs The State Of Maharashtra', 'punishment': '7 Years + Fine', 'relationship': 'OVERRIDES', 'condition': 'Kidnapping or abduction is alleged with ransom, hostage pressure, death threat, or hurt threat.'}
+
+===== BEFORE RERANK =====
+{'id': 'BNS_103', 'act': 'BNS', 'bns_section': '103', 'bns_title': 'Punishment for murder', 'bns_punishment': 'Death or life and fine. Mob lynching: death or life and fine', 'ipc_section': '302', 'ipc_title': 'Murder', 'ipc_punishment': 'Death or Imprisonment for Life + Fine', 'score': 9.881386756896973}
+{'id': 'BNS_101', 'act': 'BNS', 'bns_section': '101', 'bns_title': 'Murder', 'bns_punishment': 'Punished as per Section 103: Death or imprisonment for life and fine', 'ipc_section': '300', 'ipc_title': 'Description of IPC Section 300 According to section 300 of Indian penal code, Ex', 'ipc_punishment': '', 'score': 9.828073501586914}
+{'id': 'BNS_38', 'act': 'BNS', 'bns_section': '38', 'bns_title': 'When right of private defence of body extends to causing death', 'bns_punishment': 'Causing death permitted', 'ipc_section': '100', 'ipc_title': 'When the right of private defence of the body extends to causing death', 'ipc_punishment': '', 'score': 9.128018379211426}
+{'id': 'BNS_109', 'act': 'BNS', 'bns_section': '109', 'bns_title': 'Attempt to murder', 'bns_punishment': 'Imprisonment up to 10 years and fine. If hurt: life. Life-convict with hurt: death or life (natural life)', 'ipc_section': '307', 'ipc_title': 'Attempt to murder', 'ipc_punishment': '10 Years + Fine', 'score': 9.07405948638916}
+{'id': 'BNS_92', 'act': 'BNS', 'bns_section': '92', 'bns_title': 'Causing death of quick unborn child by act amounting to culpable homicide', 'bns_punishment': 'Up to 10 years and fine', 'ipc_section': '316', 'ipc_title': 'Causing death of a quick unborn child by an act amounting to culpable homicide', 'ipc_punishment': '10 Years and Fine', 'score': 9.011533737182617}
+{'id': 'BNS_102', 'act': 'BNS', 'bns_section': '102', 'bns_title': 'Culpable homicide by causing death of person other than person whose death was intended', 'bns_punishment': 'Same as if intended person died', 'ipc_section': '301', 'ipc_title': 'Description of IPC Section 301 According to section 301 of Indian penal code, If', 'ipc_punishment': '', 'score': 8.836329460144043}
+{'id': 'BNS_41', 'act': 'BNS', 'bns_section': '41', 'bns_title': 'When right of private defence of property extends to causing death', 'bns_punishment': 'Causing death permitted', 'ipc_section': '103', 'ipc_title': 'When the right of private defence of property extends to causing death', 'ipc_punishment': '', 'score': 8.75790023803711}
+{'id': 'BNS_110', 'act': 'BNS', 'bns_section': '110', 'bns_title': 'Attempt to commit culpable homicide', 'bns_punishment': 'Imprisonment up to 3 years or fine or both. If hurt: up to 7 years or fine or both', 'ipc_section': '308', 'ipc_title': 'Attempt to commit culpable homicide', 'ipc_punishment': '3 Years or Fine or Both', 'score': 8.618586540222168}
+{'id': 'BNS_106', 'act': 'BNS', 'bns_section': '106', 'bns_title': 'Causing death by negligence', 'bns_punishment': 'Imprisonment up to 5 years and fine. Medical practitioner: up to 2 years and fine. Rash driving + escape: up to 10 years and fine', 'ipc_section': '304A', 'ipc_title': 'Causing death by rash or negligent act', 'ipc_punishment': '2 Years or Fine or Both', 'score': 8.200852394104004}
+{'id': 'BNS_100', 'act': 'BNS', 'bns_section': '100', 'bns_title': 'Culpable homicide', 'bns_punishment': 'Punished as per Section 103 (culpable homicide not amounting to murder: imprisonment up to 10 years or life, and fine) or Section 104/105', 'ipc_section': '299', 'ipc_title': 'Description of IPC Section 299 According to section 299 of Indian penal code, Wh', 'ipc_punishment': '', 'score': 7.9465718269348145}
+{'id': 'BNS_66', 'act': 'BNS', 'bns_section': '66', 'bns_title': 'Punishment for causing death or persistent vegetative state of victim', 'bns_punishment': 'Rigorous imprisonment 20 years to life or death', 'ipc_section': '376A', 'ipc_title': 'Person committing an offence of rape and inflicting injury which causes death or causes the woman to be in a persistent vegetative state', 'ipc_punishment': 'Rigorous Imprisonment for 20 years to Imprisonment for Natural-Life or Death', 'score': 7.41953182220459}
+{'id': 'BNS_91', 'act': 'BNS', 'bns_section': '91', 'bns_title': 'Act done with intent to prevent child being born alive or to cause death after birth', 'bns_punishment': 'If prevents birth: up to 10 years or fine or both. If causes death: same as culpable homicide', 'ipc_section': '315', 'ipc_title': 'Act done with intent to prevent a child being born alive, or to cause it to die after its birth', 'ipc_punishment': '10 Years or Fine or Both', 'score': 7.2986321449279785}
+
+===== AFTER RERANK =====
+300 | Description of IPC Section 300 According to section 300 of Indian penal code, Ex | raw= 9.8281 | rerank= 0.9380 | raw_norm= 0.9794 | final= 0.9666
+301 | Description of IPC Section 301 According to section 301 of Indian penal code, If | raw= 8.8363 | rerank= 0.9733 | raw_norm= 0.5954 | final= 0.8786
+102 | Culpable homicide by causing death of person other than person whose death was intended | raw= 8.8363 | rerank= 0.9668 | raw_norm= 0.5954 | final= 0.8736
+38 | When right of private defence of body extends to causing death | raw= 9.1280 | rerank= 0.9009 | raw_norm= 0.7083 | final= 0.8566
+304A | Causing death by rash or negligent act | raw= 8.2009 | rerank= 0.9452 | raw_norm= 0.3493 | final= 0.7832
+41 | When right of private defence of property extends to causing death | raw= 8.7579 | rerank= 0.8206 | raw_norm= 0.5650 | final= 0.7516
+101 | Murder | raw= 9.8281 | rerank= 0.6524 | raw_norm= 0.9794 | final= 0.7459
+106 | Causing death by negligence | raw= 8.2009 | rerank= 0.8948 | raw_norm= 0.3493 | final= 0.7442
+307 | Attempt to murder | raw= 9.0741 | rerank= 0.7512 | raw_norm= 0.6874 | final= 0.7346
+299 | Description of IPC Section 299 According to section 299 of Indian penal code, Wh | raw= 7.9466 | rerank= 0.8853 | raw_norm= 0.2509 | final= 0.7073
+100 | When the right of private defence of the body extends to causing death | raw= 9.1280 | rerank= 0.7076 | raw_norm= 0.7083 | final= 0.7072
+66 | Punishment for causing death or persistent vegetative state of victim | raw= 7.4195 | rerank= 0.8722 | raw_norm= 0.0468 | final= 0.6359
+308 | Attempt to commit culpable homicide | raw= 8.6186 | rerank= 0.6611 | raw_norm= 0.5111 | final= 0.6122
+376A | Person committing an offence of rape and inflicting injury which causes death or causes the woman to be in a persistent vegetative state | raw= 7.4195 | rerank= 0.8311 | raw_norm= 0.0468 | final= 0.6043
+103 | Punishment for murder | raw= 9.8814 | rerank= 0.4490 | raw_norm= 1.0000 | final= 0.5949
+316 | Causing death of a quick unborn child by an act amounting to culpable homicide | raw= 9.0115 | rerank= 0.5749 | raw_norm= 0.6632 | final= 0.5912
+100 | Culpable homicide | raw= 7.9466 | rerank= 0.6344 | raw_norm= 0.2509 | final= 0.5134
+103 | When the right of private defence of property extends to causing death | raw= 8.7579 | rerank= 0.5001 | raw_norm= 0.5650 | final= 0.5040
+92 | Causing death of quick unborn child by act amounting to culpable homicide | raw= 9.0115 | rerank= 0.4231 | raw_norm= 0.6632 | final= 0.4739
+109 | Attempt to murder | raw= 9.0741 | rerank= 0.2488 | raw_norm= 0.6874 | final= 0.3466
+315 | Act done with intent to prevent a child being born alive, or to cause it to die after its birth | raw= 7.2986 | rerank= 0.4836 | raw_norm= 0.0000 | final= 0.3217
+302 | Murder | raw= 9.8814 | rerank= 0.0672 | raw_norm= 1.0000 | final= 0.3000
+110 | Attempt to commit culpable homicide | raw= 8.6186 | rerank= 0.0781 | raw_norm= 0.5111 | final= 0.1618
+91 | Act done with intent to prevent child being born alive or to cause death after birth | raw= 7.2986 | rerank= 0.1663 | raw_norm= 0.0000 | final= 0.0766
+Received notification from DBMS server: <GqlStatusObject gql_status='01N51', status_description='warn: relationship type does not exist. The relationship type `INCLUDES_ELEMENTS_OF` does not exist in database `feeeda69`. Verify that the spelling is correct.', position=<SummaryInputPosition line=3, column=81, offset=108>, raw_classification='UNRECOGNIZED', classification=<NotificationClassification.UNRECOGNIZED: 'UNRECOGNIZED'>, raw_severity='WARNING', severity=<NotificationSeverity.WARNING: 'WARNING'>, diagnostic_record={'_classification': 'UNRECOGNIZED', '_severity': 'WARNING', '_position': {'offset': 108, 'line': 3, 'column': 81}, 'OPERATION': '', 'OPERATION_CODE': '0', 'CURRENT_SCHEMA': '/'}> for query: '\n        UNWIND $ids AS sid\n        MATCH (l:LawSection {id: sid})-[r:OVERRIDES|MORE_SPECIFIC_THAN|ENHANCES|INCLUDES_ELEMENTS_OF|CANNOT_COEXIST_WITH]-(other:LawSection)\n        RETURN DISTINCT other.id AS id, other.act AS act, other.section AS section,\n               other.title AS title, other.description AS description,\n               other.punishment AS punishment,\n               type(r) AS relationship, r.condition AS condition\n        '
+Received notification from DBMS server: <GqlStatusObject gql_status='01N51', status_description='warn: relationship type does not exist. The relationship type `CANNOT_COEXIST_WITH` does not exist in database `feeeda69`. Verify that the spelling is correct.', position=<SummaryInputPosition line=3, column=102, offset=129>, raw_classification='UNRECOGNIZED', classification=<NotificationClassification.UNRECOGNIZED: 'UNRECOGNIZED'>, raw_severity='WARNING', severity=<NotificationSeverity.WARNING: 'WARNING'>, diagnostic_record={'_classification': 'UNRECOGNIZED', '_severity': 'WARNING', '_position': {'offset': 129, 'line': 3, 'column': 102}, 'OPERATION': '', 'OPERATION_CODE': '0', 'CURRENT_SCHEMA': '/'}> for query: '\n        UNWIND $ids AS sid\n        MATCH (l:LawSection {id: sid})-[r:OVERRIDES|MORE_SPECIFIC_THAN|ENHANCES|INCLUDES_ELEMENTS_OF|CANNOT_COEXIST_WITH]-(other:LawSection)\n        RETURN DISTINCT other.id AS id, other.act AS act, other.section AS section,\n               other.title AS title, other.description AS description,\n               other.punishment AS punishment,\n               type(r) AS relationship, r.condition AS condition\n        '
+
+===== AFTER RULE EXPANSION =====
+{'id': 'IPC_302', 'act': 'IPC', 'section': '302', 'title': 'Murder', 'description': 'Description of IPC Section 302 According to section 302 of Indian penal code, Whoever commits murder shall be punished with death, or imprisonment for life, and shall also be liable to fine. IPC 302 in Simple Words Section 302 of the Indian Penal Code states that anyone who commits murder can be punished with the death penalty or life imprisonment, and may also be fined. Cited by Ramdeo Rai Yadav vs State Of Bihar Mohammad Irfan vs State Of Karnataka Prasad Pradhan vs The State Of Chhattisgarh Nandu Singh vs The State Of Madhya Pradesh Kala Singh Gurnam Singh vs The State Of Punjab', 'punishment': 'Death or Imprisonment for Life + Fine', 'relationship': 'MORE_SPECIFIC_THAN', 'condition': 'Murder is punishable under IPC 302 after the definition under IPC 300 is satisfied.'}
+Overall Answer:
+  The case involves a child being kidnapped for ransom and later murdered. The most relevant sections of the Indian Penal Code (IPC) that apply to this situation are:
+
+1. **IPC 364A - Kidnapping for ransom, etc.**: This section specifically deals with kidnapping or abduction for ransom, and the punishment can be death or life imprisonment, along with a fine. Since the child was kidnapped for ransom and later murdered, this section is directly applicable.
+
+2. **BNS 140 - Kidnapping for murder/ransom**: This is the mapped counterpart of IPC 364A and also deals with kidnapping for ransom or murder, with punishments ranging from life imprisonment to death, depending on the circumstances.
+
+While **IPC 365** (Kidnapping or abducting with intent secretly and wrongfully to confine a person) and **IPC 363** (Kidnapping) are related, they are less specific to the circumstances of kidnapping for ransom and subsequent murder. **IPC 302** (Murder) is also relevant as it deals with the punishment for murder, but in this context, **IPC 364A** and **BNS 140** are more specific and directly applicable due to the kidnapping for ransom aspect.
+
+Therefore, the primary sections to consider in this case are **IPC 364A** and its counterpart **BNS 140**, with **IPC 302** being relevant for the murder aspect but overridden by the more specific provisions of **IPC 364A** for the overall act of kidnapping for ransom and murder.
+
+Crime Decomposition:
+1. Kidnapping for Ransom: kidnapping a person for the purpose of demanding ransom
+2. Murder: causing the death of a person
+
+Per-Crime Retrieval:
+
+[Crime 1] Kidnapping for Ransom
+Query: kidnapping a person for the purpose of demanding ransom
+Cypher used:
+  CALL db.index.fulltext.queryNodes('lawSectionText', 'kidnap* OR abduct* OR ransom OR demand') YIELD node AS b, score WHERE b.act = 'BNS' AND score > 1.5 OPTIONAL MATCH (i:LawSection {act:'IPC'})-[:REPLACED_BY]->(b) RETURN b.id AS id, b.act AS act, b.section AS bns_section, b.title AS bns_title, b.punishment AS bns_punishment, i.section AS ipc_section, i.title AS ipc_title, i.punishment AS ipc_punishment, score ORDER BY score DESC LIMIT 12
+Answer:
+  The act of kidnapping a person for the purpose of demanding ransom falls under **IPC 364A - Kidnapping for ransom, etc.**, which states that whoever kidnaps or abducts any person and threatens to cause death or hurt to such person, or causes hurt or death to such person in order to compel the Government or any other person to pay a ransom, shall be punishable with death or imprisonment for life, and shall also be liable to fine. This section is the most relevant and specific to the act described.
+
+While **BNS 140 - Kidnapping for murder/ransom** and **IPC 365 - Kidnapping or abducting with intent secretly and wrongfully to confine a person** also relate to kidnapping, they are less specific to the act of kidnapping for ransom. **IPC 365** deals with the intent to secretly and wrongfully confine a person, which may not necessarily involve demanding ransom. **BNS 140** does mention kidnapping for ransom but is not an IPC section.
+
+**IPC 363 - Kidnapping** is a more general section dealing with kidnapping from India or from lawful guardianship, without specifying the purpose of the kidnapping. According to the rule relation, **IPC 364A** would override **IPC 363** in cases where kidnapping or abduction is alleged with ransom, hostage pressure, death threat, or hurt threat, making **IPC 364A** the most applicable section in this scenario.
+Top Matches:
+  [IPC 364A] Kidnapping for ransom, etc.
+      Punishment: Death or Life + Fine
+      Bailable: Non-Bailable
+      Cognizable: Cognizable
+      Source: full_text | Raw: 10.0452 | Rerank: 0.9139 | Final: 1.0000
+  [BNS 140] Kidnapping for murder/ransom
+      Punishment: See description
+      Source: full_text | Raw: 10.0452 | Rerank: 0.8952 | Final: 0.9857
+  [IPC 365] Kidnapping or abducting with intent secretly and wrongfully to confine a person
+      Punishment: 7 Years + Fine
+      Bailable: Non-Bailable
+      Cognizable: Cognizable
+      Source: full_text | Raw: 10.0452 | Rerank: 0.8888 | Final: 0.9807
+
+[Crime 2] Murder
+Query: causing the death of a person
+Cypher used:
+  CALL db.index.fulltext.queryNodes('lawSectionText', 'death OR kill* OR caus* OR homic* OR murder*') YIELD node AS b, score WHERE b.act = 'BNS' AND score > 1.5 OPTIONAL MATCH (i:LawSection {act:'IPC'})-[:REPLACED_BY]->(b) RETURN b.id AS id, b.act AS act, b.section AS bns_section, b.title AS bns_title, b.punishment AS bns_punishment, i.section AS ipc_section, i.title AS ipc_title, i.punishment AS ipc_punishment, score ORDER BY score DESC LIMIT 12
+Answer:
+  Causing the death of a person can be considered murder under IPC 300 of the Indian Penal Code if the act is done with the intention of causing death or causing bodily injury likely to cause death. According to IPC 300, culpable homicide is considered murder if the act is done with the intention of causing death, or if the act is so dangerous that it is likely to cause death or serious bodily injury and is done without any excuse for taking such a risk.
+
+However, there are exceptions to this rule. For instance, if the offender is deprived of the power of self-control by grave and sudden provocation, or if the offender is exercising the right of private defence, culpable homicide may not be considered murder (IPC 300, Exceptions 1 and 2).
+
+Additionally, if a person intends or knows that their action is likely to cause death, but as a result, another person dies (whom they did not intend to harm), the offense is treated as if they caused the death of the person they intended or knew they might harm (IPC 301).
+
+It is also important to note that murder is punishable under IPC 302, which states that whoever commits murder shall be punished with death, or imprisonment for life, and shall also be liable to fine. However, IPC 302 is more specific than IPC 300, as it deals with the punishment for murder after the definition under IPC 300 is satisfied. 
+
+The facts of the case would need to be examined to determine whether the death of the person was caused with the intention of causing death or bodily injury, and whether any exceptions apply.
+Top Matches:
+  [IPC 300] Description of IPC Section 300 According to section 300 of Indian penal code, Ex
+      Source: full_text | Raw: 9.8281 | Rerank: 0.9380 | Final: 0.9666
+  [IPC 301] Description of IPC Section 301 According to section 301 of Indian penal code, If
+      Source: full_text | Raw: 8.8363 | Rerank: 0.9733 | Final: 0.8786
+  [BNS 102] Culpable homicide by causing death of person other than person whose death was intended
+      Punishment: Same as if intended person died
+      Source: full_text | Raw: 8.8363 | Rerank: 0.9668 | Final: 0.8736
+
+Merged Matches:
+  [IPC 364A] Kidnapping for ransom, etc.
+      Punishment: Death or Life + Fine
+      Bailable: Non-Bailable
+      Cognizable: Cognizable
+      Supporting acts: Kidnapping for Ransom | Final: 1.0000
+  [BNS 140] Kidnapping for murder/ransom
+      Punishment: See description
+      Supporting acts: Kidnapping for Ransom | Final: 0.9857
+  [IPC 365] Kidnapping or abducting with intent secretly and wrongfully to confine a person
+      Punishment: 7 Years + Fine
+      Bailable: Non-Bailable
+      Cognizable: Cognizable
+      Supporting acts: Kidnapping for Ransom | Final: 0.9807
+
+Merged Related Legal-Rule Sections:
+  [IPC 363] Kidnapping
+      Punishment: 7 Years + Fine
+      Bailable: Bailable
+      Cognizable: Cognizable
+      Supporting acts: Kidnapping for Ransom
+      Rule relation: OVERRIDES (Kidnapping or abduction is alleged with ransom, hostage pressure, death threat, or hurt threat.)
+  [IPC 302] Murder
+      Punishment: Death or Imprisonment for Life + Fine
+      Bailable: Non-Bailable
+      Cognizable: Cognizable
+      Supporting acts: Murder
+      Rule relation: MORE_SPECIFIC_THAN (Murder is punishable under IPC 302 after the definition under IPC 300 is satisfied.)
+(.venv) (base) vedant@Vedants-MacBook-Air cypher % 
+
+
+(.venv) (base) vedant@Vedants-MacBook-Air cypher % python text2cypher.py "A person robbed a jewellery shop and shot the owner dead."
+
+===== BEFORE RERANK =====
+{'id': 'BNS_303', 'matched_act': 'BNS', 'matched_section': '303', 'title': 'Theft', 'punishment': 'Imprisonment up to 3 years or fine or both. Second conviction: rigorous 1-5 years and fine. First time <Rs.5000: community service', 'ipc_section': '379', 'ipc_title': 'Theft', 'score': 10.431057929992676}
+{'id': 'BNS_303', 'matched_act': 'BNS', 'matched_section': '303', 'title': 'Theft', 'punishment': 'Imprisonment up to 3 years or fine or both. Second conviction: rigorous 1-5 years and fine. First time <Rs.5000: community service', 'ipc_section': '378', 'ipc_title': 'Description of IPC Section 378 According to section 378 of Indian penal code, Wh', 'score': 10.431057929992676}
+{'id': 'BNS_305', 'matched_act': 'BNS', 'matched_section': '305', 'title': 'Theft in dwelling house or transport', 'punishment': 'Imprisonment up to 7 years and fine', 'ipc_section': '380', 'ipc_title': 'Theft in a building, tent or vessel', 'score': 9.426387786865234}
+{'id': 'BNS_306', 'matched_act': 'BNS', 'matched_section': '306', 'title': 'Theft by clerk or servant', 'punishment': 'Imprisonment up to 7 years and fine', 'ipc_section': '381', 'ipc_title': 'Theft by clerk or servant of property in possession of master or employer', 'score': 9.059268951416016}
+{'id': 'BNS_307', 'matched_act': 'BNS', 'matched_section': '307', 'title': 'Theft with preparation for violence', 'punishment': 'Rigorous imprisonment up to 10 years and fine', 'ipc_section': '382', 'ipc_title': 'Theft, after preparation having been made for causing death, or hurt, or restraint or fear of death, or of hurt or of restraint, in order to the committing of such theft, or to retiring after committing it, or to retaining property taken by it', 'score': 8.686306953430176}
+{'id': 'BNS_128', 'matched_act': 'BNS', 'matched_section': '128', 'title': 'Force', 'punishment': 'Imprisonment up to 3 years and fine', 'ipc_section': '349', 'ipc_title': 'Description of IPC Section 349 According to section 349 of Indian penal code, A ', 'score': 7.173001289367676}
+{'id': 'BNS_111', 'matched_act': 'BNS', 'matched_section': '111', 'title': 'Organised crime', 'punishment': 'If death: death or life and fine min Rs.10L. Otherwise: 5-life and fine min Rs.5L. Abetment: 5-life and fine min Rs.5L. Membership: 5-life and fine min Rs.5L. Harboring: 3-life and fine min Rs.5L', 'ipc_section': None, 'ipc_title': None, 'score': 7.157230854034424}
+{'id': 'BNS_12', 'matched_act': 'BNS', 'matched_section': '12', 'title': 'Forfeiture of property for acts of State terrorism', 'punishment': 'Forfeiture of property', 'ipc_section': '74', 'ipc_title': 'Limit of solitary confinement', 'score': 6.752236843109131}
+{'id': 'BNS_351', 'matched_act': 'BNS', 'matched_section': '351', 'title': 'Criminal intimidation', 'punishment': 'Imprisonment up to 2 years or fine or both. Enhanced threats: up to 7 years or fine or both. Anonymous: up to 2 years additional', 'ipc_section': '507', 'ipc_title': 'Criminal intimidation by Anonymous communication or having taken precaution to conceal whence the threat comes', 'score': 6.581255912780762}
+{'id': 'BNS_351', 'matched_act': 'BNS', 'matched_section': '351', 'title': 'Criminal intimidation', 'punishment': 'Imprisonment up to 2 years or fine or both. Enhanced threats: up to 7 years or fine or both. Anonymous: up to 2 years additional', 'ipc_section': '506', 'ipc_title': 'Criminal intimidation', 'score': 6.581255912780762}
+{'id': 'BNS_351', 'matched_act': 'BNS', 'matched_section': '351', 'title': 'Criminal intimidation', 'punishment': 'Imprisonment up to 2 years or fine or both. Enhanced threats: up to 7 years or fine or both. Anonymous: up to 2 years additional', 'ipc_section': '503', 'ipc_title': 'Description of IPC Section 503 According to section 503 of Indian penal code, Wh', 'score': 6.581255912780762}
+{'id': 'BNS_129', 'matched_act': 'BNS', 'matched_section': '129', 'title': 'Criminal force', 'punishment': 'Imprisonment up to 2 years or fine or both', 'ipc_section': '350', 'ipc_title': 'Description of IPC Section 350 According to section 350 of Indian penal code, Wh', 'score': 6.2917304039001465}
+Loading weights: 100%|███████████████████████████████████████████████████████████████████████████████████████| 201/201 [00:00<00:00, 8799.51it/s]
+
+===== AFTER RERANK =====
+303 | Theft | raw= 10.4311 | rerank= 0.1172 | raw_norm= 1.0000 | final= 0.9140
+351 | Criminal intimidation | raw= 6.5813 | rerank= 0.1335 | raw_norm= 0.0699 | final= 0.7210
+111 | Organised crime | raw= 7.1572 | rerank= 0.1164 | raw_norm= 0.2091 | final= 0.6722
+506 | Criminal intimidation | raw= 6.5813 | rerank= 0.1218 | raw_norm= 0.0699 | final= 0.6593
+378 | Description of IPC Section 378 According to section 378 of Indian penal code, Wh | raw= 10.4311 | rerank= 0.0688 | raw_norm= 1.0000 | final= 0.6573
+307 | Theft with preparation for violence | raw= 8.6863 | rerank= 0.0622 | raw_norm= 0.5785 | final= 0.4961
+381 | Theft by clerk or servant of property in possession of master or employer | raw= 9.0593 | rerank= 0.0332 | raw_norm= 0.6686 | final= 0.3694
+382 | Theft, after preparation having been made for causing death, or hurt, or restraint or fear of death, or of hurt or of restraint, in order to the committing of such theft, or to retiring after committing it, or to retaining property taken by it | raw= 8.6863 | rerank= 0.0286 | raw_norm= 0.5785 | final= 0.3180
+379 | Theft | raw= 10.4311 | rerank= 0.0027 | raw_norm= 1.0000 | final= 0.3071
+380 | Theft in a building, tent or vessel | raw= 9.4264 | rerank= 0.0159 | raw_norm= 0.7573 | final= 0.3046
+305 | Theft in dwelling house or transport | raw= 9.4264 | rerank= 0.0112 | raw_norm= 0.7573 | final= 0.2797
+306 | Theft by clerk or servant | raw= 9.0593 | rerank= 0.0162 | raw_norm= 0.6686 | final= 0.2795
+507 | Criminal intimidation by Anonymous communication or having taken precaution to conceal whence the threat comes | raw= 6.5813 | rerank= 0.0390 | raw_norm= 0.0699 | final= 0.2208
+503 | Description of IPC Section 503 According to section 503 of Indian penal code, Wh | raw= 6.5813 | rerank= 0.0347 | raw_norm= 0.0699 | final= 0.1976
+350 | Description of IPC Section 350 According to section 350 of Indian penal code, Wh | raw= 6.2917 | rerank= 0.0300 | raw_norm= 0.0000 | final= 0.1518
+349 | Description of IPC Section 349 According to section 349 of Indian penal code, A  | raw= 7.1730 | rerank= 0.0153 | raw_norm= 0.2129 | final= 0.1380
+128 | Force | raw= 7.1730 | rerank= 0.0100 | raw_norm= 0.2129 | final= 0.1099
+129 | Criminal force | raw= 6.2917 | rerank= 0.0150 | raw_norm= 0.0000 | final= 0.0725
+12 | Forfeiture of property for acts of State terrorism | raw= 6.7522 | rerank= 0.0049 | raw_norm= 0.1113 | final= 0.0524
+74 | Limit of solitary confinement | raw= 6.7522 | rerank= 0.0013 | raw_norm= 0.1113 | final= 0.0334
+Received notification from DBMS server: <GqlStatusObject gql_status='01N51', status_description='warn: relationship type does not exist. The relationship type `INCLUDES_ELEMENTS_OF` does not exist in database `feeeda69`. Verify that the spelling is correct.', position=<SummaryInputPosition line=3, column=81, offset=108>, raw_classification='UNRECOGNIZED', classification=<NotificationClassification.UNRECOGNIZED: 'UNRECOGNIZED'>, raw_severity='WARNING', severity=<NotificationSeverity.WARNING: 'WARNING'>, diagnostic_record={'_classification': 'UNRECOGNIZED', '_severity': 'WARNING', '_position': {'offset': 108, 'line': 3, 'column': 81}, 'OPERATION': '', 'OPERATION_CODE': '0', 'CURRENT_SCHEMA': '/'}> for query: '\n        UNWIND $ids AS sid\n        MATCH (l:LawSection {id: sid})-[r:OVERRIDES|MORE_SPECIFIC_THAN|ENHANCES|INCLUDES_ELEMENTS_OF|CANNOT_COEXIST_WITH]-(other:LawSection)\n        RETURN DISTINCT other.id AS id, other.act AS act, other.section AS section,\n               other.title AS title, other.description AS description,\n               other.punishment AS punishment,\n               type(r) AS relationship, r.condition AS condition\n        '
+Received notification from DBMS server: <GqlStatusObject gql_status='01N51', status_description='warn: relationship type does not exist. The relationship type `CANNOT_COEXIST_WITH` does not exist in database `feeeda69`. Verify that the spelling is correct.', position=<SummaryInputPosition line=3, column=102, offset=129>, raw_classification='UNRECOGNIZED', classification=<NotificationClassification.UNRECOGNIZED: 'UNRECOGNIZED'>, raw_severity='WARNING', severity=<NotificationSeverity.WARNING: 'WARNING'>, diagnostic_record={'_classification': 'UNRECOGNIZED', '_severity': 'WARNING', '_position': {'offset': 129, 'line': 3, 'column': 102}, 'OPERATION': '', 'OPERATION_CODE': '0', 'CURRENT_SCHEMA': '/'}> for query: '\n        UNWIND $ids AS sid\n        MATCH (l:LawSection {id: sid})-[r:OVERRIDES|MORE_SPECIFIC_THAN|ENHANCES|INCLUDES_ELEMENTS_OF|CANNOT_COEXIST_WITH]-(other:LawSection)\n        RETURN DISTINCT other.id AS id, other.act AS act, other.section AS section,\n               other.title AS title, other.description AS description,\n               other.punishment AS punishment,\n               type(r) AS relationship, r.condition AS condition\n        '
+
+===== AFTER RULE EXPANSION =====
+
+===== BEFORE RERANK =====
+{'id': 'BNS_109', 'act': 'BNS', 'bns_section': '109', 'bns_title': 'Attempt to murder', 'bns_punishment': 'Imprisonment up to 10 years and fine. If hurt: life. Life-convict with hurt: death or life (natural life)', 'ipc_section': '307', 'ipc_title': 'Attempt to murder', 'ipc_punishment': '10 Years + Fine', 'score': 5.0}
+{'id': 'BNS_103', 'act': 'BNS', 'bns_section': '103', 'bns_title': 'Punishment for murder', 'bns_punishment': 'Death or life and fine. Mob lynching: death or life and fine', 'ipc_section': '302', 'ipc_title': 'Murder', 'ipc_punishment': 'Death or Imprisonment for Life + Fine', 'score': 5.0}
+{'id': 'BNS_101', 'act': 'BNS', 'bns_section': '101', 'bns_title': 'Murder', 'bns_punishment': 'Punished as per Section 103: Death or imprisonment for life and fine', 'ipc_section': '300', 'ipc_title': 'Description of IPC Section 300 According to section 300 of Indian penal code, Ex', 'ipc_punishment': '', 'score': 3.0}
+{'id': 'BNS_104', 'act': 'BNS', 'bns_section': '104', 'bns_title': 'Punishment for murder by life-convict', 'bns_punishment': 'Death or life (natural life)', 'ipc_section': '303', 'ipc_title': 'Murder by a person under Sentence of imprisonment for life', 'ipc_punishment': 'Death', 'score': 3.0}
+{'id': 'BNS_140', 'act': 'BNS', 'bns_section': '140', 'bns_title': 'Kidnapping for murder/ransom', 'bns_punishment': 'See description', 'ipc_section': '364', 'ipc_title': 'Kidnapping or abducting in order to murder', 'ipc_punishment': 'Imprisonment for Life or Rigorous Imprisonment for 10 Years + Fine', 'score': 3.0}
+{'id': 'BNS_140', 'act': 'BNS', 'bns_section': '140', 'bns_title': 'Kidnapping for murder/ransom', 'bns_punishment': 'See description', 'ipc_section': '364A', 'ipc_title': 'Kidnapping for ransom, etc.', 'ipc_punishment': 'Death or Life + Fine', 'score': 3.0}
+{'id': 'BNS_140', 'act': 'BNS', 'bns_section': '140', 'bns_title': 'Kidnapping for murder/ransom', 'bns_punishment': 'See description', 'ipc_section': '367', 'ipc_title': 'Kidnapping or abducting in order to subject a person to grievous hurt, slavery, etc.', 'ipc_punishment': '10 Years + Fine', 'score': 3.0}
+{'id': 'BNS_140', 'act': 'BNS', 'bns_section': '140', 'bns_title': 'Kidnapping for murder/ransom', 'bns_punishment': 'See description', 'ipc_section': '365', 'ipc_title': 'Kidnapping or abducting with intent secretly and wrongfully to confine a person', 'ipc_punishment': '7 Years + Fine', 'score': 3.0}
+{'id': 'BNS_310', 'act': 'BNS', 'bns_section': '310', 'bns_title': 'Dacoity', 'bns_punishment': 'Life or rigorous up to 10 years and fine. If murder: death or life or rigorous min 10 years. Preparing: rigorous up to 10 years. Assembling: rigorous up to 7 years. Gang: life or rigorous up to 10 years', 'ipc_section': '391', 'ipc_title': 'Description of IPC Section 391 According to section 391 of Indian penal code, Wh', 'ipc_punishment': '', 'score': 3.0}
+{'id': 'BNS_310', 'act': 'BNS', 'bns_section': '310', 'bns_title': 'Dacoity', 'bns_punishment': 'Life or rigorous up to 10 years and fine. If murder: death or life or rigorous min 10 years. Preparing: rigorous up to 10 years. Assembling: rigorous up to 7 years. Gang: life or rigorous up to 10 years', 'ipc_section': '395', 'ipc_title': 'Dacoity', 'ipc_punishment': 'Imprisonment for Life or Rigorous Imprisonment for 10 Years + Fine', 'score': 3.0}
+{'id': 'BNS_310', 'act': 'BNS', 'bns_section': '310', 'bns_title': 'Dacoity', 'bns_punishment': 'Life or rigorous up to 10 years and fine. If murder: death or life or rigorous min 10 years. Preparing: rigorous up to 10 years. Assembling: rigorous up to 7 years. Gang: life or rigorous up to 10 years', 'ipc_section': '396', 'ipc_title': 'Murder in Dacoity', 'ipc_punishment': 'Death, Imprisonment for Life, or Rigorous Imprisonment for 10 Years + Fine', 'score': 3.0}
+{'id': 'BNS_105', 'act': 'BNS', 'bns_section': '105', 'bns_title': 'Punishment for culpable homicide not amounting to murder', 'bns_punishment': 'Life or 5-10 years and fine (if intention); up to 10 years and fine (if knowledge without intention)', 'ipc_section': '304', 'ipc_title': 'Culpable homicide not amounting to murder, If act by which the death is caused is done with intention of causing death, etc.', 'ipc_punishment': 'Imprisonment for Life or 10 Years + Fine', 'score': 3.0}
+
+===== AFTER RERANK =====
+103 | Punishment for murder | raw= 5.0000 | rerank= 0.0229 | raw_norm= 1.0000 | final= 1.0000
+307 | Attempt to murder | raw= 5.0000 | rerank= 0.0122 | raw_norm= 1.0000 | final= 0.6706
+302 | Murder | raw= 5.0000 | rerank= 0.0103 | raw_norm= 1.0000 | final= 0.6103
+391 | Description of IPC Section 391 According to section 391 of Indian penal code, Wh | raw= 3.0000 | rerank= 0.0180 | raw_norm= 0.0000 | final= 0.5507
+364 | Kidnapping or abducting in order to murder | raw= 3.0000 | rerank= 0.0171 | raw_norm= 0.0000 | final= 0.5206
+300 | Description of IPC Section 300 According to section 300 of Indian penal code, Ex | raw= 3.0000 | rerank= 0.0157 | raw_norm= 0.0000 | final= 0.4799
+109 | Attempt to murder | raw= 5.0000 | rerank= 0.0046 | raw_norm= 1.0000 | final= 0.4341
+367 | Kidnapping or abducting in order to subject a person to grievous hurt, slavery, etc. | raw= 3.0000 | rerank= 0.0093 | raw_norm= 0.0000 | final= 0.2797
+310 | Dacoity | raw= 3.0000 | rerank= 0.0077 | raw_norm= 0.0000 | final= 0.2318
+364A | Kidnapping for ransom, etc. | raw= 3.0000 | rerank= 0.0069 | raw_norm= 0.0000 | final= 0.2066
+101 | Murder | raw= 3.0000 | rerank= 0.0065 | raw_norm= 0.0000 | final= 0.1935
+365 | Kidnapping or abducting with intent secretly and wrongfully to confine a person | raw= 3.0000 | rerank= 0.0058 | raw_norm= 0.0000 | final= 0.1717
+304 | Culpable homicide not amounting to murder, If act by which the death is caused is done with intention of causing death, etc. | raw= 3.0000 | rerank= 0.0031 | raw_norm= 0.0000 | final= 0.0905
+396 | Murder in Dacoity | raw= 3.0000 | rerank= 0.0013 | raw_norm= 0.0000 | final= 0.0339
+303 | Murder by a person under Sentence of imprisonment for life | raw= 3.0000 | rerank= 0.0013 | raw_norm= 0.0000 | final= 0.0332
+105 | Punishment for culpable homicide not amounting to murder | raw= 3.0000 | rerank= 0.0007 | raw_norm= 0.0000 | final= 0.0158
+395 | Dacoity | raw= 3.0000 | rerank= 0.0007 | raw_norm= 0.0000 | final= 0.0145
+140 | Kidnapping for murder/ransom | raw= 3.0000 | rerank= 0.0003 | raw_norm= 0.0000 | final= 0.0022
+104 | Punishment for murder by life-convict | raw= 3.0000 | rerank= 0.0002 | raw_norm= 0.0000 | final= 0.0000
+Received notification from DBMS server: <GqlStatusObject gql_status='01N51', status_description='warn: relationship type does not exist. The relationship type `INCLUDES_ELEMENTS_OF` does not exist in database `feeeda69`. Verify that the spelling is correct.', position=<SummaryInputPosition line=3, column=81, offset=108>, raw_classification='UNRECOGNIZED', classification=<NotificationClassification.UNRECOGNIZED: 'UNRECOGNIZED'>, raw_severity='WARNING', severity=<NotificationSeverity.WARNING: 'WARNING'>, diagnostic_record={'_classification': 'UNRECOGNIZED', '_severity': 'WARNING', '_position': {'offset': 108, 'line': 3, 'column': 81}, 'OPERATION': '', 'OPERATION_CODE': '0', 'CURRENT_SCHEMA': '/'}> for query: '\n        UNWIND $ids AS sid\n        MATCH (l:LawSection {id: sid})-[r:OVERRIDES|MORE_SPECIFIC_THAN|ENHANCES|INCLUDES_ELEMENTS_OF|CANNOT_COEXIST_WITH]-(other:LawSection)\n        RETURN DISTINCT other.id AS id, other.act AS act, other.section AS section,\n               other.title AS title, other.description AS description,\n               other.punishment AS punishment,\n               type(r) AS relationship, r.condition AS condition\n        '
+Received notification from DBMS server: <GqlStatusObject gql_status='01N51', status_description='warn: relationship type does not exist. The relationship type `CANNOT_COEXIST_WITH` does not exist in database `feeeda69`. Verify that the spelling is correct.', position=<SummaryInputPosition line=3, column=102, offset=129>, raw_classification='UNRECOGNIZED', classification=<NotificationClassification.UNRECOGNIZED: 'UNRECOGNIZED'>, raw_severity='WARNING', severity=<NotificationSeverity.WARNING: 'WARNING'>, diagnostic_record={'_classification': 'UNRECOGNIZED', '_severity': 'WARNING', '_position': {'offset': 129, 'line': 3, 'column': 102}, 'OPERATION': '', 'OPERATION_CODE': '0', 'CURRENT_SCHEMA': '/'}> for query: '\n        UNWIND $ids AS sid\n        MATCH (l:LawSection {id: sid})-[r:OVERRIDES|MORE_SPECIFIC_THAN|ENHANCES|INCLUDES_ELEMENTS_OF|CANNOT_COEXIST_WITH]-(other:LawSection)\n        RETURN DISTINCT other.id AS id, other.act AS act, other.section AS section,\n               other.title AS title, other.description AS description,\n               other.punishment AS punishment,\n               type(r) AS relationship, r.condition AS condition\n        '
+
+===== AFTER RULE EXPANSION =====
+{'id': 'IPC_300', 'act': 'IPC', 'section': '300', 'title': 'Description of IPC Section 300 According to section 300 of Indian penal code, Ex', 'description': "Description of IPC Section 300 According to section 300 of Indian penal code, Except in the cases hereinafter excepted, culpable homicide is murder, if the act by which the death is caused is done with the intention of causing death, or- 2ndly.-If it is done with the intention of causing such bodily injury as the offender knows to be likely to cause the death of the person to whom the harm is caused, or- 3rdly.-If it is done with the intention of causing bodily injury to any person and the bodily injury intended to be inflicted is sufficient in the ordinary course of nature to cause death, or- 4thly.-If the person committing the act knows that it is so imminently dangerous that it must, in all probability, cause death, or such bodily injury as is likely to cause death, and commits such act without any excuse for incurring the risk of causing death or such injury as aforesaid. IPC 300 in Simple Words According to section 300 of the Indian Penal Code, culpable homicide is considered murder if the act is done with the intention of causing death or causing bodily injury likely to cause death, or if the act is so dangerous that it is likely to cause death or serious bodily injury and is done without any excuse for taking such a risk. Illustrations (a) A shoots Z with the intention of killing him. Z dies in consequence. A commits murder. (b) A, knowing that Z is labouring under such a disease that a blow is likely to cause his death, strikes him with the intention of causing bodily injury. Z dies in consequence of the blow. A is guilty of murder, although the blow might not have been sufficient in the ordinary course of nature to cause the death of a person in a sound state of health. But if A, not knowing that Z is labouring under any disease, gives him such a blow as would not in the ordinary course of nature kill a person in a sound state of health, here A, although he may intend to cause bodily injury, is not guilty of murder, if he did not intend to cause death, or such bodily injury as in the ordinary course of nature would cause death. (c) A intentionally gives Z a sword-cut or club-wound sufficient to cause the death of a man in the ordinary course of nature. Z dies in consequence. Here A is guilty of murder, although he may not have intended to cause Z's death. (d) A without any excuse fires a loaded cannon into a crowd of persons and kills one of them. A is guilty of murder, although he may not have had a premeditated design to kill any particular individual. Exception 1.-When culpable homicide is not murder.-Culpable homicide is not murder if the offender, whilst deprived of the power of self-control by grave and sudden provocation, causes the death of the person who gave the provocation or causes the death of any other person by mistake or accident. The above exception is subject to the following provisos:- First.-That the provocation is not sought or voluntarily provoked by the offender as an excuse for killing or doing harm to any person. Secondly.-That the provocation is not given by anything done in obedience to the law, or by a public servant in the lawful exercise of the powers of such public servant. Thirdly.-That the provocation is not given by anything done in the lawful exercise of the right of private defence. Explanation.-Whether the provocation was grave and sudden enough to prevent the offence from amounting to murder is a question of fact. Illustrations (a) A, under the influence of passion excited by a provocation given by Z, intentionally kills Y, Z's child. This is murder, in as much as the provocation was not given by the child, and the death of the child was not caused by accident or misfortune in doing an act caused by the provocation. (b) Y gives grave and sudden provocation to A. A, on this provocation, fires a pistol at Y, neither intending nor knowing himself to be likely to kill Z, who is near him, but out of sight. A kills Z. Here A has not committed murder, but merely culpable homicide. (c) A is lawfully arrested by Z, a bailiff. A is excited to sudden and violent passion by the arrest, and kills Z. This is murder, inasmuch as the provocation was given by a thing done by a public servant in the exercise of his powers. (d) A appears as a witness before Z, a Magistrate. Z says that he does not believe a word of A's deposition, and that A has perjured himself. A is moved to sudden passion by these words, and kills Z. This is murder. (e)A attempts to pull Z's nose. Z, in the exercise of the right of private defence, lays hold of A to prevent him from doing so. A is moved to sudden and violent passion in consequence, and kills Z. This is murder, inasmuch as the provocation was giving by a thing done in the exercise of the right of private defence. (f) Z strikes B. B is by this provocation excited to violent rage. A, a bystander, intending to take advantage of B's rage, and to cause him to kill Z, puts a knife into B's hand for that purpose. B kills Z with the knife. Here B may have committed only culpable homicide, but A is guilty of murder. Exception 2.-Culpable homicide is not murder if the offender in the exercise in good faith of the right of private defence of person or property, exceeds the power given to him by law and causes the death of the person against whom he is exercising such right of defence without premeditation, and without any intention of doing more harm than is necessary for the purpose of such defence. Illustration Z attempts to horsewhip A, not in such a manner as to cause grievous hurt to A. A draws out a pistol. Z persists in the assault. A believing in good faith that he can by no other means prevent himself from being horsewhipped, shoots Z dead. A has not committed murder, but only culpable homicide. Exception 3.-Culpable homicide is not murder if the offender, being a public servant or aiding a public servant acting for the advancement of public justice, exceeds the powers given to him by law, and causes death by doing an act which he, in good faith, believes to be lawful and necessary for the due discharge of his duty as such public servant and without ill-will towards the person whose death is caused. Exception 4.-Culpable homicide is not murder if it is committed without premeditation in a sudden fight", 'punishment': '', 'relationship': 'MORE_SPECIFIC_THAN', 'condition': 'Murder is punishable under IPC 302 after the definition under IPC 300 is satisfied.'}
+{'id': 'IPC_304', 'act': 'IPC', 'section': '304', 'title': 'Culpable homicide not amounting to murder, If act by which the death is caused is done with intention of causing death, etc.', 'description': 'Description of IPC Section 304 According to section 304 of Indian penal code, Whoever commits culpable homicide not amounting to murder shall be punished with imprisonment for life, or imprisonment of either description for a term which may extend to ten years, and shall also be liable to fine, if the act by which the death is caused is done with the intention of causing death, or of causing such bodily injury as is likely to cause death; or with imprisonment of either description for a term which may extend to ten years, or with fine, or with both, if the act is done with the knowledge that it is likely to cause death, but without any intention to cause death, or to cause such bodily injury as is likely to cause death. IPC 304 in Simple Words Section 304 of the Indian Penal Code states that if someone commits culpable homicide (causing death without intending to commit murder), they can be punished with life imprisonment or imprisonment for up to ten years, and may also be fined, depending on whether the act was done with the intention to cause death or with the knowledge that it is likely to cause death. Cited by Paul vs The State Of Kerala Sharad Birdhi Chand Sarda vs State Of Maharashtra Sarla Mudgal, President vs Union Of India The State Of Punjab vs Gurmit Singh', 'punishment': 'Imprisonment for Life or 10 Years + Fine', 'relationship': 'OVERRIDES', 'condition': 'Intentional or knowledge-based killing facts support murder rather than culpable homicide not amounting to murder.'}
+Overall Answer:
+  Based on the provided graph sections, the person who robbed a jewelry shop and shot the owner dead can be charged under **BNS 103 - Punishment for murder** (mapped counterpart: **IPC 302 - Murder**), as the act of shooting the owner dead was done with the intention of causing death. 
+
+The **IPC 300** section provides a description of murder, stating that culpable homicide is considered murder if the act is done with the intention of causing death or causing bodily injury likely to cause death. In this case, the act of shooting the owner dead satisfies the conditions for murder under **IPC 300**, and therefore, **IPC 302** applies.
+
+Additionally, the person can also be charged under **BNS 303 - Theft** (mapped counterpart: **IPC 379 - Theft**) for the act of robbing the jewelry shop.
+
+It is not clear if the person threatened anyone during the robbery, so it is ambiguous whether **BNS 351 - Criminal intimidation** (mapped counterpart: **IPC 507 - Criminal intimidation by Anonymous communication or having taken precaution to conceal whence the threat comes**) applies.
+
+The **IPC 304** section on culpable homicide not amounting to murder is overridden by the intentional killing facts, which support murder rather than culpable homicide not amounting to murder, as stated in the rule relation **OVERRIDES**. 
+
+Therefore, the primary charges against the person would be under **BNS 103 - Punishment for murder** and **BNS 303 - Theft**.
+
+Crime Decomposition:
+1. Robbery: theft of property from a jewellery shop using force or intimidation
+2. Murder: intentional killing of the jewellery shop owner using a firearm
+
+Per-Crime Retrieval:
+
+[Crime 1] Robbery
+Query: theft of property from a jewellery shop using force or intimidation
+Cypher used:
+  CALL db.index.fulltext.queryNodes('lawSectionText', 'theft OR steal* OR property OR jewellery OR force OR intimidation') YIELD node, score WHERE score > 1.5 AND (node.act = 'BNS' OR node.mapping_status = 'deleted_no_bns_successor') OPTIONAL MATCH (i:LawSection {act:'IPC'})-[:REPLACED_BY]->(node) RETURN node.id AS id, node.act AS matched_act, node.section AS matched_section, node.title AS title, node.punishment AS punishment, i.section AS ipc_section, i.title AS ipc_title, score ORDER BY score DESC LIMIT 12
+Answer:
+  The scenario involves theft of property from a jewellery shop using force or intimidation. 
+
+The most relevant section is [BNS 303] Theft, which describes the act of taking dishonestly movable property out of possession without consent. However, since force or intimidation is used, [BNS 351] Criminal intimidation is also applicable. 
+
+[BNS 351] Criminal intimidation deals with threatening a person with injury to person, reputation, or property, intending to cause alarm or make the person do or omit an act. 
+
+It is ambiguous whether the force or intimidation used constitutes an organised crime as described in [BNS 111] Organised crime, as there is no clear indication of a continuing unlawful activity or material benefit. 
+
+Therefore, the applicable sections are [BNS 303] Theft (mapped counterpart IPC 379 - Theft) and [BNS 351] Criminal intimidation (mapped counterpart IPC 507 - Criminal intimidation by Anonymous communication or having taken precaution to conceal whence the threat comes). 
+
+The punishment for [BNS 303] Theft can be imprisonment up to 3 years or fine or both, while for [BNS 351] Criminal intimidation, it can be imprisonment up to 2 years or fine or both, with enhanced punishments for more severe threats.
+Top Matches:
+  [BNS 303] Theft
+      Punishment: Imprisonment up to 3 years or fine or both. Second conviction: rigorous 1-5 years and fine. First time <Rs.5000: community service
+      Source: full_text | Raw: 10.4311 | Rerank: 0.1172 | Final: 0.9140
+  [BNS 351] Criminal intimidation
+      Punishment: Imprisonment up to 2 years or fine or both. Enhanced threats: up to 7 years or fine or both. Anonymous: up to 2 years additional
+      Source: full_text | Raw: 6.5813 | Rerank: 0.1335 | Final: 0.7210
+  [BNS 111] Organised crime
+      Punishment: If death: death or life and fine min Rs.10L. Otherwise: 5-life and fine min Rs.5L. Abetment: 5-life and fine min Rs.5L. Membership: 5-life and fine mi
+      Source: full_text | Raw: 7.1572 | Rerank: 0.1164 | Final: 0.6722
+
+[Crime 2] Murder
+Query: intentional killing of the jewellery shop owner using a firearm
+Cypher used:
+  CALL db.index.fulltext.queryNodes('lawSectionText', 'kill* OR murder* OR firearm* OR intentional') YIELD node AS b, score WHERE b.act = 'BNS' AND score > 1.5 OPTIONAL MATCH (i:LawSection {act:'IPC'})-[:REPLACED_BY]->(b) RETURN b.id AS id, b.act AS act, b.section AS bns_section, b.title AS bns_title, b.punishment AS bns_punishment, i.section AS ipc_section, i.title AS ipc_title, i.punishment AS ipc_punishment, score ORDER BY score DESC LIMIT 12
+Answer:
+  The intentional killing of the jewellery shop owner using a firearm falls under the category of murder as defined in **IPC 300**. According to this section, culpable homicide is considered murder if the act is done with the intention of causing death. Since the killing was intentional, **IPC 302 - Murder** is the most relevant section, which states that whoever commits murder shall be punished with death, or imprisonment for life, and shall also be liable to fine.
+
+The **BNS 103 - Punishment for murder** is the mapped counterpart of **IPC 302**, and it also prescribes a punishment of death or life imprisonment and fine for murder. 
+
+While **IPC 307 - Attempt to murder** and **IPC 304 - Culpable homicide not amounting to murder** are related sections, they are not directly applicable in this case as the killing was intentional and resulted in death, which aligns more closely with the definitions and punishments outlined in **IPC 300** and **IPC 302** for murder. The rule relation **OVERRIDES** indicates that intentional or knowledge-based killing facts support murder rather than culpable homicide not amounting to murder, further supporting the application of **IPC 302** in this scenario.
+Top Matches:
+  [BNS 103] Punishment for murder
+      Punishment: Death or life and fine. Mob lynching: death or life and fine
+      Source: full_text | Raw: 5.0000 | Rerank: 0.0229 | Final: 1.0000
+  [IPC 307] Attempt to murder
+      Punishment: 10 Years + Fine
+      Bailable: Non-Bailable
+      Cognizable: Cognizable
+      Source: full_text | Raw: 5.0000 | Rerank: 0.0122 | Final: 0.6706
+  [IPC 302] Murder
+      Punishment: Death or Imprisonment for Life + Fine
+      Bailable: Non-Bailable
+      Cognizable: Cognizable
+      Source: full_text | Raw: 5.0000 | Rerank: 0.0103 | Final: 0.6103
+
+Merged Matches:
+  [BNS 103] Punishment for murder
+      Punishment: Death or life and fine. Mob lynching: death or life and fine
+      Supporting acts: Murder | Final: 1.0000
+  [BNS 303] Theft
+      Punishment: Imprisonment up to 3 years or fine or both. Second conviction: rigorous 1-5 years and fine. First time <Rs.5000: community service
+      Supporting acts: Robbery | Final: 0.9140
+  [BNS 351] Criminal intimidation
+      Punishment: Imprisonment up to 2 years or fine or both. Enhanced threats: up to 7 years or fine or both. Anonymous: up to 2 years additional
+      Supporting acts: Robbery | Final: 0.7210
+
+Merged Related Legal-Rule Sections:
+  [IPC 300] Description of IPC Section 300 According to section 300 of Indian penal code, Ex
+      Supporting acts: Murder
+      Rule relation: MORE_SPECIFIC_THAN (Murder is punishable under IPC 302 after the definition under IPC 300 is satisfied.)
+  [IPC 304] Culpable homicide not amounting to murder, If act by which the death is caused is done with intention of causing death, etc.
+      Punishment: Imprisonment for Life or 10 Years + Fine
+      Bailable: Non-Bailable
+      Cognizable: Cognizable
+      Supporting acts: Murder
+      Rule relation: OVERRIDES (Intentional or knowledge-based killing facts support murder rather than culpable homicide not amounting to murder.)
+(.venv) (base) vedant@Vedants-MacBook-Air cypher % 
+
+
+(.venv) (base) vedant@Vedants-MacBook-Air cypher % python text2cypher.py "A person broke into a locked house at night and stole jewellery."
+
+===== BEFORE RERANK =====
+{'id': 'BNS_190', 'matched_act': 'BNS', 'matched_section': '190', 'title': 'Every member of unlawful assembly guilty of offence', 'punishment': 'Same punishment as offence committed by assembly', 'ipc_section': '149', 'ipc_title': 'If an offence be committed by any member of an unlawful assembly, every other member of such assembly shall be guilty of the offence', 'score': 9.696584701538086}
+{'id': 'BNS_103', 'matched_act': 'BNS', 'matched_section': '103', 'title': 'Punishment for murder', 'punishment': 'Death or life and fine. Mob lynching: death or life and fine', 'ipc_section': '302', 'ipc_title': 'Murder', 'score': 5.527519226074219}
+{'id': 'BNS_193', 'matched_act': 'BNS', 'matched_section': '193', 'title': 'Owner or occupier of land on which unlawful assembly held', 'punishment': 'Fine up to Rs.10000', 'ipc_section': '155', 'ipc_title': 'Person for whose benefit or on whose behalf a riot takes place not using all lawful means to prevent it', 'score': 5.4068403244018555}
+{'id': 'BNS_193', 'matched_act': 'BNS', 'matched_section': '193', 'title': 'Owner or occupier of land on which unlawful assembly held', 'punishment': 'Fine up to Rs.10000', 'ipc_section': '154', 'ipc_title': 'Owner or occupier of land non giving information of riot, etc.', 'score': 5.4068403244018555}
+{'id': 'BNS_193', 'matched_act': 'BNS', 'matched_section': '193', 'title': 'Owner or occupier of land on which unlawful assembly held', 'punishment': 'Fine up to Rs.10000', 'ipc_section': '156', 'ipc_title': 'Agent of owner or occupier for whose benefit a riot is committed not using all lawful means to prevent it', 'score': 5.4068403244018555}
+{'id': 'BNS_146', 'matched_act': 'BNS', 'matched_section': '146', 'title': 'Unlawful compulsory labour', 'punishment': 'See description', 'ipc_section': '374', 'ipc_title': 'Unlawful compulsory labour', 'score': 4.890592575073242}
+{'id': 'BNS_202', 'matched_act': 'BNS', 'matched_section': '202', 'title': 'Unlawful trade', 'punishment': 'See description', 'ipc_section': '168', 'ipc_title': 'Public servant unlawfully engaging in trade', 'score': 4.55774450302124}
+{'id': 'BNS_330', 'matched_act': 'BNS', 'matched_section': '330', 'title': 'Lurking house-trespass and house-breaking', 'punishment': 'Punished under section 331', 'ipc_section': '445', 'ipc_title': 'Description of IPC Section 445 According to section 445 of Indian penal code, A ', 'score': 4.502939224243164}
+{'id': 'BNS_330', 'matched_act': 'BNS', 'matched_section': '330', 'title': 'Lurking house-trespass and house-breaking', 'punishment': 'Punished under section 331', 'ipc_section': '443', 'ipc_title': 'Description of IPC Section 443 According to section 443 of Indian penal code, Wh', 'score': 4.502939224243164}
+{'id': 'BNS_203', 'matched_act': 'BNS', 'matched_section': '203', 'title': 'Unlawful purchase', 'punishment': 'See description', 'ipc_section': '169', 'ipc_title': 'Public servant unlawfully buying or bidding for property', 'score': 4.381916522979736}
+{'id': 'BNS_84', 'matched_act': 'BNS', 'matched_section': '84', 'title': 'Husband or relative of husband of woman subjecting her to cruelty', 'punishment': 'Imprisonment up to 3 years and fine', 'ipc_section': '498', 'ipc_title': 'Enticing or taking away or detaining with a criminal intent a married woman', 'score': 4.045998573303223}
+{'id': 'BNS_24', 'matched_act': 'BNS', 'matched_section': '24', 'title': 'Offence requiring particular intent not offence if that intent absent due to intoxication', 'punishment': 'N/A - Exception', 'ipc_section': '86', 'ipc_title': 'Offence requiring a particular intent or knowledge committed by one who is intoxicated', 'score': 4.0}
+Loading weights: 100%|███████████████████████████████████████████████████████████████████████████████████████| 201/201 [00:00<00:00, 6789.20it/s]
+
+===== AFTER RERANK =====
+445 | Description of IPC Section 445 According to section 445 of Indian penal code, A  | raw= 4.5029 | rerank= 0.9271 | raw_norm= 0.0883 | final= 0.7265
+443 | Description of IPC Section 443 According to section 443 of Indian penal code, Wh | raw= 4.5029 | rerank= 0.9019 | raw_norm= 0.0883 | final= 0.7075
+149 | If an offence be committed by any member of an unlawful assembly, every other member of such assembly shall be guilty of the offence | raw= 9.6966 | rerank= 0.0261 | raw_norm= 1.0000 | final= 0.3193
+190 | Every member of unlawful assembly guilty of offence | raw= 9.6966 | rerank= 0.0082 | raw_norm= 1.0000 | final= 0.3058
+103 | Punishment for murder | raw= 5.5275 | rerank= 0.1050 | raw_norm= 0.2681 | final= 0.1593
+330 | Lurking house-trespass and house-breaking | raw= 4.5029 | rerank= 0.1383 | raw_norm= 0.0883 | final= 0.1306
+154 | Owner or occupier of land non giving information of riot, etc. | raw= 5.4068 | rerank= 0.0334 | raw_norm= 0.2470 | final= 0.0989
+302 | Murder | raw= 5.5275 | rerank= 0.0164 | raw_norm= 0.2681 | final= 0.0924
+156 | Agent of owner or occupier for whose benefit a riot is committed not using all lawful means to prevent it | raw= 5.4068 | rerank= 0.0072 | raw_norm= 0.2470 | final= 0.0791
+155 | Person for whose benefit or on whose behalf a riot takes place not using all lawful means to prevent it | raw= 5.4068 | rerank= 0.0066 | raw_norm= 0.2470 | final= 0.0787
+193 | Owner or occupier of land on which unlawful assembly held | raw= 5.4068 | rerank= 0.0026 | raw_norm= 0.2470 | final= 0.0756
+374 | Unlawful compulsory labour | raw= 4.8906 | rerank= 0.0076 | raw_norm= 0.1563 | final= 0.0522
+146 | Unlawful compulsory labour | raw= 4.8906 | rerank= 0.0006 | raw_norm= 0.1563 | final= 0.0469
+168 | Public servant unlawfully engaging in trade | raw= 4.5577 | rerank= 0.0068 | raw_norm= 0.0979 | final= 0.0340
+202 | Unlawful trade | raw= 4.5577 | rerank= 0.0013 | raw_norm= 0.0979 | final= 0.0299
+169 | Public servant unlawfully buying or bidding for property | raw= 4.3819 | rerank= 0.0062 | raw_norm= 0.0670 | final= 0.0244
+203 | Unlawful purchase | raw= 4.3819 | rerank= 0.0021 | raw_norm= 0.0670 | final= 0.0213
+24 | Offence requiring particular intent not offence if that intent absent due to intoxication | raw= 4.0000 | rerank= 0.0148 | raw_norm= 0.0000 | final= 0.0107
+86 | Offence requiring a particular intent or knowledge committed by one who is intoxicated | raw= 4.0000 | rerank= 0.0114 | raw_norm= 0.0000 | final= 0.0082
+498 | Enticing or taking away or detaining with a criminal intent a married woman | raw= 4.0460 | rerank= 0.0061 | raw_norm= 0.0081 | final= 0.0066
+84 | Husband or relative of husband of woman subjecting her to cruelty | raw= 4.0460 | rerank= 0.0061 | raw_norm= 0.0081 | final= 0.0066
+Received notification from DBMS server: <GqlStatusObject gql_status='01N51', status_description='warn: relationship type does not exist. The relationship type `INCLUDES_ELEMENTS_OF` does not exist in database `feeeda69`. Verify that the spelling is correct.', position=<SummaryInputPosition line=3, column=81, offset=108>, raw_classification='UNRECOGNIZED', classification=<NotificationClassification.UNRECOGNIZED: 'UNRECOGNIZED'>, raw_severity='WARNING', severity=<NotificationSeverity.WARNING: 'WARNING'>, diagnostic_record={'_classification': 'UNRECOGNIZED', '_severity': 'WARNING', '_position': {'offset': 108, 'line': 3, 'column': 81}, 'OPERATION': '', 'OPERATION_CODE': '0', 'CURRENT_SCHEMA': '/'}> for query: '\n        UNWIND $ids AS sid\n        MATCH (l:LawSection {id: sid})-[r:OVERRIDES|MORE_SPECIFIC_THAN|ENHANCES|INCLUDES_ELEMENTS_OF|CANNOT_COEXIST_WITH]-(other:LawSection)\n        RETURN DISTINCT other.id AS id, other.act AS act, other.section AS section,\n               other.title AS title, other.description AS description,\n               other.punishment AS punishment,\n               type(r) AS relationship, r.condition AS condition\n        '
+Received notification from DBMS server: <GqlStatusObject gql_status='01N51', status_description='warn: relationship type does not exist. The relationship type `CANNOT_COEXIST_WITH` does not exist in database `feeeda69`. Verify that the spelling is correct.', position=<SummaryInputPosition line=3, column=102, offset=129>, raw_classification='UNRECOGNIZED', classification=<NotificationClassification.UNRECOGNIZED: 'UNRECOGNIZED'>, raw_severity='WARNING', severity=<NotificationSeverity.WARNING: 'WARNING'>, diagnostic_record={'_classification': 'UNRECOGNIZED', '_severity': 'WARNING', '_position': {'offset': 129, 'line': 3, 'column': 102}, 'OPERATION': '', 'OPERATION_CODE': '0', 'CURRENT_SCHEMA': '/'}> for query: '\n        UNWIND $ids AS sid\n        MATCH (l:LawSection {id: sid})-[r:OVERRIDES|MORE_SPECIFIC_THAN|ENHANCES|INCLUDES_ELEMENTS_OF|CANNOT_COEXIST_WITH]-(other:LawSection)\n        RETURN DISTINCT other.id AS id, other.act AS act, other.section AS section,\n               other.title AS title, other.description AS description,\n               other.punishment AS punishment,\n               type(r) AS relationship, r.condition AS condition\n        '
+
+===== AFTER RULE EXPANSION =====
+
+===== BEFORE RERANK =====
+{'id': 'BNS_303', 'matched_act': 'BNS', 'matched_section': '303', 'title': 'Theft', 'punishment': 'Imprisonment up to 3 years or fine or both. Second conviction: rigorous 1-5 years and fine. First time <Rs.5000: community service', 'ipc_section': '378', 'ipc_title': 'Description of IPC Section 378 According to section 378 of Indian penal code, Wh', 'score': 8.856111526489258}
+{'id': 'BNS_303', 'matched_act': 'BNS', 'matched_section': '303', 'title': 'Theft', 'punishment': 'Imprisonment up to 3 years or fine or both. Second conviction: rigorous 1-5 years and fine. First time <Rs.5000: community service', 'ipc_section': '379', 'ipc_title': 'Theft', 'score': 8.856111526489258}
+{'id': 'BNS_305', 'matched_act': 'BNS', 'matched_section': '305', 'title': 'Theft in dwelling house or transport', 'punishment': 'Imprisonment up to 7 years and fine', 'ipc_section': '380', 'ipc_title': 'Theft in a building, tent or vessel', 'score': 6.954614639282227}
+{'id': 'BNS_306', 'matched_act': 'BNS', 'matched_section': '306', 'title': 'Theft by clerk or servant', 'punishment': 'Imprisonment up to 7 years and fine', 'ipc_section': '381', 'ipc_title': 'Theft by clerk or servant of property in possession of master or employer', 'score': 6.676529407501221}
+{'id': 'BNS_307', 'matched_act': 'BNS', 'matched_section': '307', 'title': 'Theft with preparation for violence', 'punishment': 'Rigorous imprisonment up to 10 years and fine', 'ipc_section': '382', 'ipc_title': 'Theft, after preparation having been made for causing death, or hurt, or restraint or fear of death, or of hurt or of restraint, in order to the committing of such theft, or to retiring after committing it, or to retaining property taken by it', 'score': 6.610100746154785}
+{'id': 'BNS_112', 'matched_act': 'BNS', 'matched_section': '112', 'title': 'Petty organised crime', 'punishment': 'Imprisonment 1-7 years and fine', 'ipc_section': None, 'ipc_title': None, 'score': 5.049992561340332}
+{'id': 'BNS_333', 'matched_act': 'BNS', 'matched_section': '333', 'title': 'Dishonestly breaking open receptacle', 'punishment': 'Imprisonment up to 2 years or fine or both', 'ipc_section': '452', 'ipc_title': 'House-trespass, having made preparation for causing hurt, assault, etc.', 'score': 4.687255382537842}
+{'id': 'BNS_317', 'matched_act': 'BNS', 'matched_section': '317', 'title': 'Dishonestly receiving stolen property', 'punishment': 'Imprisonment up to 3 years or fine or both. Dacoity: life or rigorous up to 10 years. Habitual: life or up to 10 years', 'ipc_section': '414', 'ipc_title': 'Assisting in concealment or disposal of stolen property, knowing it to be stolen', 'score': 4.5942158699035645}
+{'id': 'BNS_317', 'matched_act': 'BNS', 'matched_section': '317', 'title': 'Dishonestly receiving stolen property', 'punishment': 'Imprisonment up to 3 years or fine or both. Dacoity: life or rigorous up to 10 years. Habitual: life or up to 10 years', 'ipc_section': '413', 'ipc_title': 'Habitually dealing in stolen property', 'score': 4.5942158699035645}
+{'id': 'BNS_317', 'matched_act': 'BNS', 'matched_section': '317', 'title': 'Dishonestly receiving stolen property', 'punishment': 'Imprisonment up to 3 years or fine or both. Dacoity: life or rigorous up to 10 years. Habitual: life or up to 10 years', 'ipc_section': '412', 'ipc_title': 'Dishonestly receiving stolen property, knowing that it was obtained by Dacoity', 'score': 4.5942158699035645}
+{'id': 'BNS_317', 'matched_act': 'BNS', 'matched_section': '317', 'title': 'Dishonestly receiving stolen property', 'punishment': 'Imprisonment up to 3 years or fine or both. Dacoity: life or rigorous up to 10 years. Habitual: life or up to 10 years', 'ipc_section': '411', 'ipc_title': 'Dishonestly receiving stolen property knowing it to be stolen', 'score': 4.5942158699035645}
+{'id': 'BNS_317', 'matched_act': 'BNS', 'matched_section': '317', 'title': 'Dishonestly receiving stolen property', 'punishment': 'Imprisonment up to 3 years or fine or both. Dacoity: life or rigorous up to 10 years. Habitual: life or up to 10 years', 'ipc_section': '410', 'ipc_title': 'Description of IPC Section 410 According to section 410 of Indian penal code, Pr', 'score': 4.5942158699035645}
+
+===== AFTER RERANK =====
+378 | Description of IPC Section 378 According to section 378 of Indian penal code, Wh | raw= 8.8561 | rerank= 0.6930 | raw_norm= 1.0000 | final= 1.0000
+303 | Theft | raw= 8.8561 | rerank= 0.1033 | raw_norm= 1.0000 | final= 0.4042
+379 | Theft | raw= 8.8561 | rerank= 0.0003 | raw_norm= 1.0000 | final= 0.3003
+305 | Theft in dwelling house or transport | raw= 6.9546 | rerank= 0.0009 | raw_norm= 0.5538 | final= 0.1670
+380 | Theft in a building, tent or vessel | raw= 6.9546 | rerank= 0.0008 | raw_norm= 0.5538 | final= 0.1669
+307 | Theft with preparation for violence | raw= 6.6101 | rerank= 0.0173 | raw_norm= 0.4730 | final= 0.1593
+381 | Theft by clerk or servant of property in possession of master or employer | raw= 6.6765 | rerank= 0.0057 | raw_norm= 0.4886 | final= 0.1523
+306 | Theft by clerk or servant | raw= 6.6765 | rerank= 0.0005 | raw_norm= 0.4886 | final= 0.1470
+382 | Theft, after preparation having been made for causing death, or hurt, or restraint or fear of death, or of hurt or of restraint, in order to the committing of such theft, or to retiring after committing it, or to retaining property taken by it | raw= 6.6101 | rerank= 0.0007 | raw_norm= 0.4730 | final= 0.1425
+333 | Dishonestly breaking open receptacle | raw= 4.6873 | rerank= 0.0996 | raw_norm= 0.0218 | final= 0.1071
+410 | Description of IPC Section 410 According to section 410 of Indian penal code, Pr | raw= 4.5942 | rerank= 0.0763 | raw_norm= 0.0000 | final= 0.0770
+112 | Petty organised crime | raw= 5.0500 | rerank= 0.0001 | raw_norm= 0.1069 | final= 0.0321
+414 | Assisting in concealment or disposal of stolen property, knowing it to be stolen | raw= 4.5942 | rerank= 0.0312 | raw_norm= 0.0000 | final= 0.0314
+412 | Dishonestly receiving stolen property, knowing that it was obtained by Dacoity | raw= 4.5942 | rerank= 0.0293 | raw_norm= 0.0000 | final= 0.0295
+413 | Habitually dealing in stolen property | raw= 4.5942 | rerank= 0.0232 | raw_norm= 0.0000 | final= 0.0233
+317 | Dishonestly receiving stolen property | raw= 4.5942 | rerank= 0.0208 | raw_norm= 0.0000 | final= 0.0209
+411 | Dishonestly receiving stolen property knowing it to be stolen | raw= 4.5942 | rerank= 0.0141 | raw_norm= 0.0000 | final= 0.0142
+452 | House-trespass, having made preparation for causing hurt, assault, etc. | raw= 4.6873 | rerank= 0.0015 | raw_norm= 0.0218 | final= 0.0079
+Received notification from DBMS server: <GqlStatusObject gql_status='01N51', status_description='warn: relationship type does not exist. The relationship type `INCLUDES_ELEMENTS_OF` does not exist in database `feeeda69`. Verify that the spelling is correct.', position=<SummaryInputPosition line=3, column=81, offset=108>, raw_classification='UNRECOGNIZED', classification=<NotificationClassification.UNRECOGNIZED: 'UNRECOGNIZED'>, raw_severity='WARNING', severity=<NotificationSeverity.WARNING: 'WARNING'>, diagnostic_record={'_classification': 'UNRECOGNIZED', '_severity': 'WARNING', '_position': {'offset': 108, 'line': 3, 'column': 81}, 'OPERATION': '', 'OPERATION_CODE': '0', 'CURRENT_SCHEMA': '/'}> for query: '\n        UNWIND $ids AS sid\n        MATCH (l:LawSection {id: sid})-[r:OVERRIDES|MORE_SPECIFIC_THAN|ENHANCES|INCLUDES_ELEMENTS_OF|CANNOT_COEXIST_WITH]-(other:LawSection)\n        RETURN DISTINCT other.id AS id, other.act AS act, other.section AS section,\n               other.title AS title, other.description AS description,\n               other.punishment AS punishment,\n               type(r) AS relationship, r.condition AS condition\n        '
+Received notification from DBMS server: <GqlStatusObject gql_status='01N51', status_description='warn: relationship type does not exist. The relationship type `CANNOT_COEXIST_WITH` does not exist in database `feeeda69`. Verify that the spelling is correct.', position=<SummaryInputPosition line=3, column=102, offset=129>, raw_classification='UNRECOGNIZED', classification=<NotificationClassification.UNRECOGNIZED: 'UNRECOGNIZED'>, raw_severity='WARNING', severity=<NotificationSeverity.WARNING: 'WARNING'>, diagnostic_record={'_classification': 'UNRECOGNIZED', '_severity': 'WARNING', '_position': {'offset': 129, 'line': 3, 'column': 102}, 'OPERATION': '', 'OPERATION_CODE': '0', 'CURRENT_SCHEMA': '/'}> for query: '\n        UNWIND $ids AS sid\n        MATCH (l:LawSection {id: sid})-[r:OVERRIDES|MORE_SPECIFIC_THAN|ENHANCES|INCLUDES_ELEMENTS_OF|CANNOT_COEXIST_WITH]-(other:LawSection)\n        RETURN DISTINCT other.id AS id, other.act AS act, other.section AS section,\n               other.title AS title, other.description AS description,\n               other.punishment AS punishment,\n               type(r) AS relationship, r.condition AS condition\n        '
+
+===== AFTER RULE EXPANSION =====
+{'id': 'IPC_379', 'act': 'IPC', 'section': '379', 'title': 'Theft', 'description': 'Description of IPC Section 379 According to section 379 of Indian penal code, Whoever commits theft shall be punished with imprisonment of either description for a term which may extend to three years, or with fine, or with both. IPC 379 in Simple Words In the Indian Penal Code, anyone who commits theft can be punished with imprisonment for up to three years, a fine, or both. Cited by Prahlad Raut vs All India Institute Of Medical Govind Prasad Kejriwal vs The State Of Bihar State Of Nct Of Delhi vs Sanjay Chandran vs State Of Tamil Nadu Manish Jalan vs State Of Karnataka', 'punishment': '3 Years or Fine or Both', 'relationship': 'MORE_SPECIFIC_THAN', 'condition': 'Theft is punishable under IPC 379 after the definition under IPC 378 is satisfied.'}
+{'id': 'IPC_378', 'act': 'IPC', 'section': '378', 'title': 'Description of IPC Section 378 According to section 378 of Indian penal code, Wh', 'description': "Description of IPC Section 378 According to section 378 of Indian penal code, Whoever, intending to take dishonestly any movable property out of the possession of any person without that personâ€™s consent, moves that property in order to such taking, is said to commit theft. IPC 378 in Simple Words In the Indian Penal Code, moving someone's movable property with the intention of dishonestly taking it without their consent constitutes theft.", 'punishment': '', 'relationship': 'MORE_SPECIFIC_THAN', 'condition': 'Theft is punishable under IPC 379 after the definition under IPC 378 is satisfied.'}
+Overall Answer:
+  Based on the provided graph sections, the person who broke into a locked house at night and stole jewellery can be charged under **IPC 378 (Theft)**, as they have dishonestly taken movable property (jewellery) out of the possession of another person without their consent.
+
+Additionally, since the person broke into a locked house, they can also be charged under **IPC 445 (House-breaking)**, as they have entered the house in a manner that is not intended by the occupier, specifically by opening a lock.
+
+It is also possible that the person can be charged under **IPC 443 (Lurking house-trespass)**, as they may have taken precautions to conceal their presence in the house from the person who has a right to exclude or eject them. However, the facts are somewhat ambiguous, and it is not clear if the person took specific precautions to conceal their presence.
+
+Overall, the most relevant sections in this case are **IPC 378 (Theft)** and **IPC 445 (House-breaking)**.
+
+Crime Decomposition:
+1. House Break-in: unlawful entry into a locked house with intent to commit an offence
+2. Theft: dishonestly taking away jewellery with intent to deprive the owner of it
+
+Per-Crime Retrieval:
+
+[Crime 1] House Break-in
+Query: unlawful entry into a locked house with intent to commit an offence
+Cypher used:
+  CALL db.index.fulltext.queryNodes('lawSectionText', 'unlawful OR entry OR housebreaking OR lock* OR intent* OR offence*') YIELD node, score WHERE score > 1.5 AND (node.act = 'BNS' OR node.mapping_status = 'deleted_no_bns_successor') OPTIONAL MATCH (i:LawSection {act:'IPC'})-[:REPLACED_BY]->(node) RETURN node.id AS id, node.act AS matched_act, node.section AS matched_section, node.title AS title, node.punishment AS punishment, i.section AS ipc_section, i.title AS ipc_title, score ORDER BY score DESC LIMIT 12
+Answer:
+  The scenario you've described involves "unlawful entry into a locked house with intent to commit an offence." The most relevant section of the Indian Penal Code (IPC) that applies to this situation is **IPC 445**, which describes "house-breaking." According to **IPC 445**, a person is said to commit house-breaking if they enter a house or any part of it in any of the six specified ways, which include opening any lock in order to commit the house-trespass or quitting the house after a house-trespass. This directly addresses the act of unlawful entry into a locked house, which is a key aspect of your question.
+
+Another relevant section is **IPC 443**, which deals with "lurking house-trespass." This section applies when someone commits house-trespass after taking precautions to conceal their presence from a person who has the right to exclude or eject them. While this section is relevant, it is more about the concealment aspect rather than the specific act of breaking into a locked house with intent to commit an offence.
+
+**IPC 149** discusses the liability of members of an unlawful assembly for offences committed by any member of the assembly. However, this section is less directly relevant to the specific act of unlawful entry into a locked house with intent to commit an offence, unless the context involves an unlawful assembly, which is not explicitly mentioned in your question.
+
+Given the information provided, **IPC 445** is the most directly applicable section for the scenario of unlawful entry into a locked house with the intent to commit an offence. **IPC 443** might also be considered if there are elements of lurking or concealment involved. However, without more specific details about the circumstances of the entry (such as whether the person was part of an unlawful assembly), **IPC 445** remains the primary section of relevance.
+Top Matches:
+  [IPC 445] Description of IPC Section 445 According to section 445 of Indian penal code, A 
+      Source: full_text | Raw: 4.5029 | Rerank: 0.9271 | Final: 0.7265
+  [IPC 443] Description of IPC Section 443 According to section 443 of Indian penal code, Wh
+      Source: full_text | Raw: 4.5029 | Rerank: 0.9019 | Final: 0.7075
+  [IPC 149] If an offence be committed by any member of an unlawful assembly, every other member of such assembly shall be guilty of the offence
+      Punishment: Same As Offence
+      Bailable: Same As Offence
+      Cognizable: Same As Offence
+      Source: full_text | Raw: 9.6966 | Rerank: 0.0261 | Final: 0.3193
+
+[Crime 2] Theft
+Query: dishonestly taking away jewellery with intent to deprive the owner of it
+Cypher used:
+  CALL db.index.fulltext.queryNodes('lawSectionText', 'theft OR dishonestly OR jewellery OR deprive') YIELD node, score WHERE score > 1.5 AND (node.act = 'BNS' OR node.mapping_status = 'deleted_no_bns_successor') OPTIONAL MATCH (i:LawSection {act:'IPC'})-[:REPLACED_BY]->(node) RETURN node.id AS id, node.act AS matched_act, node.section AS matched_section, node.title AS title, node.punishment AS punishment, i.section AS ipc_section, i.title AS ipc_title, score ORDER BY score DESC LIMIT 12
+Answer:
+  The act of dishonestly taking away jewellery with the intent to deprive the owner of it falls under the definition of theft as described in **IPC 378**, which states that whoever intends to take dishonestly any movable property out of the possession of any person without that person's consent, and moves that property in order to such taking, is said to commit theft.
+
+Since the definition of theft under **IPC 378** is satisfied, the punishment for this act would be governed by **IPC 379**, which states that whoever commits theft shall be punished with imprisonment of either description for a term that may extend to three years, or with fine, or with both. 
+
+It's worth noting that **BNS 303** (Theft) is a mapped counterpart to both **IPC 378** and **IPC 379**, but the primary governing sections for this act in the Indian Penal Code are **IPC 378** for the definition of theft and **IPC 379** for the punishment. 
+
+The facts provided are sufficient to determine that the act constitutes theft under Indian law, specifically under **IPC 378** and punishable under **IPC 379**.
+Top Matches:
+  [IPC 378] Description of IPC Section 378 According to section 378 of Indian penal code, Wh
+      Source: full_text | Raw: 8.8561 | Rerank: 0.6930 | Final: 1.0000
+  [BNS 303] Theft
+      Punishment: Imprisonment up to 3 years or fine or both. Second conviction: rigorous 1-5 years and fine. First time <Rs.5000: community service
+      Source: full_text | Raw: 8.8561 | Rerank: 0.1033 | Final: 0.4042
+  [IPC 379] Theft
+      Punishment: 3 Years or Fine or Both
+      Bailable: Non-Bailable
+      Cognizable: Cognizable
+      Source: full_text | Raw: 8.8561 | Rerank: 0.0003 | Final: 0.3003
+
+Merged Matches:
+  [IPC 378] Description of IPC Section 378 According to section 378 of Indian penal code, Wh
+      Supporting acts: Theft | Final: 1.0000
+  [IPC 445] Description of IPC Section 445 According to section 445 of Indian penal code, A 
+      Supporting acts: House Break-in | Final: 0.7265
+  [IPC 443] Description of IPC Section 443 According to section 443 of Indian penal code, Wh
+      Supporting acts: House Break-in | Final: 0.7075
+(.venv) (base) vedant@Vedants-MacBook-Air cypher % 
+
+
+(.venv) (base) vedant@Vedants-MacBook-Air cypher % python text2cypher.py "A man threatened to kill his neighbour."                         
+
+===== BEFORE RERANK =====
+{'id': 'BNS_111', 'act': 'BNS', 'bns_section': '111', 'bns_title': 'Organised crime', 'bns_punishment': 'If death: death or life and fine min Rs.10L. Otherwise: 5-life and fine min Rs.5L. Abetment: 5-life and fine min Rs.5L. Membership: 5-life and fine min Rs.5L. Harboring: 3-life and fine min Rs.5L', 'ipc_section': None, 'ipc_title': None, 'ipc_punishment': None, 'score': 6.0}
+{'id': 'BNS_109', 'act': 'BNS', 'bns_section': '109', 'bns_title': 'Attempt to murder', 'bns_punishment': 'Imprisonment up to 10 years and fine. If hurt: life. Life-convict with hurt: death or life (natural life)', 'ipc_section': '307', 'ipc_title': 'Attempt to murder', 'ipc_punishment': '10 Years + Fine', 'score': 5.0}
+{'id': 'BNS_351', 'act': 'BNS', 'bns_section': '351', 'bns_title': 'Criminal intimidation', 'bns_punishment': 'Imprisonment up to 2 years or fine or both. Enhanced threats: up to 7 years or fine or both. Anonymous: up to 2 years additional', 'ipc_section': '503', 'ipc_title': 'Description of IPC Section 503 According to section 503 of Indian penal code, Wh', 'ipc_punishment': '', 'score': 5.0}
+{'id': 'BNS_351', 'act': 'BNS', 'bns_section': '351', 'bns_title': 'Criminal intimidation', 'bns_punishment': 'Imprisonment up to 2 years or fine or both. Enhanced threats: up to 7 years or fine or both. Anonymous: up to 2 years additional', 'ipc_section': '507', 'ipc_title': 'Criminal intimidation by Anonymous communication or having taken precaution to conceal whence the threat comes', 'ipc_punishment': 'As in Section 506 + 2 Years', 'score': 5.0}
+{'id': 'BNS_351', 'act': 'BNS', 'bns_section': '351', 'bns_title': 'Criminal intimidation', 'bns_punishment': 'Imprisonment up to 2 years or fine or both. Enhanced threats: up to 7 years or fine or both. Anonymous: up to 2 years additional', 'ipc_section': '506', 'ipc_title': 'Criminal intimidation', 'ipc_punishment': '2 Years or Fine or Both', 'score': 5.0}
+{'id': 'BNS_103', 'act': 'BNS', 'bns_section': '103', 'bns_title': 'Punishment for murder', 'bns_punishment': 'Death or life and fine. Mob lynching: death or life and fine', 'ipc_section': '302', 'ipc_title': 'Murder', 'ipc_punishment': 'Death or Imprisonment for Life + Fine', 'score': 5.0}
+{'id': 'BNS_104', 'act': 'BNS', 'bns_section': '104', 'bns_title': 'Punishment for murder by life-convict', 'bns_punishment': 'Death or life (natural life)', 'ipc_section': '303', 'ipc_title': 'Murder by a person under Sentence of imprisonment for life', 'ipc_punishment': 'Death', 'score': 3.0}
+{'id': 'BNS_308', 'act': 'BNS', 'bns_section': '308', 'bns_title': 'Extortion', 'bns_punishment': 'Imprisonment up to 7 years or fine or both. Enhanced: up to 7 years and fine. Various other enhancements', 'ipc_section': '387', 'ipc_title': 'Putting or attempting to put a person in fear of death or grievous hurt in order to commit extortion', 'ipc_punishment': '7 Years + Fine', 'score': 3.0}
+{'id': 'BNS_308', 'act': 'BNS', 'bns_section': '308', 'bns_title': 'Extortion', 'bns_punishment': 'Imprisonment up to 7 years or fine or both. Enhanced: up to 7 years and fine. Various other enhancements', 'ipc_section': '386', 'ipc_title': 'extortion by putting a person in fear of death or grievous hurt', 'ipc_punishment': '10 Years + Fine', 'score': 3.0}
+{'id': 'BNS_308', 'act': 'BNS', 'bns_section': '308', 'bns_title': 'Extortion', 'bns_punishment': 'Imprisonment up to 7 years or fine or both. Enhanced: up to 7 years and fine. Various other enhancements', 'ipc_section': '385', 'ipc_title': 'Putting or attempting to put in fear of injury, in order to commit extortion', 'ipc_punishment': '2 Years or Fine or Both', 'score': 3.0}
+{'id': 'BNS_308', 'act': 'BNS', 'bns_section': '308', 'bns_title': 'Extortion', 'bns_punishment': 'Imprisonment up to 7 years or fine or both. Enhanced: up to 7 years and fine. Various other enhancements', 'ipc_section': '384', 'ipc_title': 'Extortion', 'ipc_punishment': '3 Years or Fine or Both', 'score': 3.0}
+{'id': 'BNS_308', 'act': 'BNS', 'bns_section': '308', 'bns_title': 'Extortion', 'bns_punishment': 'Imprisonment up to 7 years or fine or both. Enhanced: up to 7 years and fine. Various other enhancements', 'ipc_section': '383', 'ipc_title': 'Description of IPC Section 383 According to section 383 of Indian penal code, Wh', 'ipc_punishment': '', 'score': 3.0}
+Loading weights: 100%|███████████████████████████████████████████████████████████████████████████████████████| 201/201 [00:00<00:00, 7412.91it/s]
+
+===== AFTER RERANK =====
+503 | Description of IPC Section 503 According to section 503 of Indian penal code, Wh | raw= 5.0000 | rerank= 0.0506 | raw_norm= 0.6667 | final= 0.9000
+307 | Attempt to murder | raw= 5.0000 | rerank= 0.0220 | raw_norm= 0.6667 | final= 0.4986
+507 | Criminal intimidation by Anonymous communication or having taken precaution to conceal whence the threat comes | raw= 5.0000 | rerank= 0.0211 | raw_norm= 0.6667 | final= 0.4869
+111 | Organised crime | raw= 6.0000 | rerank= 0.0022 | raw_norm= 1.0000 | final= 0.3216
+351 | Criminal intimidation | raw= 5.0000 | rerank= 0.0086 | raw_norm= 0.6667 | final= 0.3115
+302 | Murder | raw= 5.0000 | rerank= 0.0064 | raw_norm= 0.6667 | final= 0.2807
+383 | Description of IPC Section 383 According to section 383 of Indian penal code, Wh | raw= 3.0000 | rerank= 0.0204 | raw_norm= 0.0000 | final= 0.2769
+506 | Criminal intimidation | raw= 5.0000 | rerank= 0.0061 | raw_norm= 0.6667 | final= 0.2761
+109 | Attempt to murder | raw= 5.0000 | rerank= 0.0058 | raw_norm= 0.6667 | final= 0.2713
+103 | Punishment for murder | raw= 5.0000 | rerank= 0.0037 | raw_norm= 0.6667 | final= 0.2418
+385 | Putting or attempting to put in fear of injury, in order to commit extortion | raw= 3.0000 | rerank= 0.0081 | raw_norm= 0.0000 | final= 0.1040
+303 | Murder by a person under Sentence of imprisonment for life | raw= 3.0000 | rerank= 0.0078 | raw_norm= 0.0000 | final= 0.1000
+308 | Extortion | raw= 3.0000 | rerank= 0.0070 | raw_norm= 0.0000 | final= 0.0887
+387 | Putting or attempting to put a person in fear of death or grievous hurt in order to commit extortion | raw= 3.0000 | rerank= 0.0061 | raw_norm= 0.0000 | final= 0.0754
+386 | extortion by putting a person in fear of death or grievous hurt | raw= 3.0000 | rerank= 0.0054 | raw_norm= 0.0000 | final= 0.0662
+104 | Punishment for murder by life-convict | raw= 3.0000 | rerank= 0.0028 | raw_norm= 0.0000 | final= 0.0296
+384 | Extortion | raw= 3.0000 | rerank= 0.0007 | raw_norm= 0.0000 | final= 0.0000
+Received notification from DBMS server: <GqlStatusObject gql_status='01N51', status_description='warn: relationship type does not exist. The relationship type `INCLUDES_ELEMENTS_OF` does not exist in database `feeeda69`. Verify that the spelling is correct.', position=<SummaryInputPosition line=3, column=81, offset=108>, raw_classification='UNRECOGNIZED', classification=<NotificationClassification.UNRECOGNIZED: 'UNRECOGNIZED'>, raw_severity='WARNING', severity=<NotificationSeverity.WARNING: 'WARNING'>, diagnostic_record={'_classification': 'UNRECOGNIZED', '_severity': 'WARNING', '_position': {'offset': 108, 'line': 3, 'column': 81}, 'OPERATION': '', 'OPERATION_CODE': '0', 'CURRENT_SCHEMA': '/'}> for query: '\n        UNWIND $ids AS sid\n        MATCH (l:LawSection {id: sid})-[r:OVERRIDES|MORE_SPECIFIC_THAN|ENHANCES|INCLUDES_ELEMENTS_OF|CANNOT_COEXIST_WITH]-(other:LawSection)\n        RETURN DISTINCT other.id AS id, other.act AS act, other.section AS section,\n               other.title AS title, other.description AS description,\n               other.punishment AS punishment,\n               type(r) AS relationship, r.condition AS condition\n        '
+Received notification from DBMS server: <GqlStatusObject gql_status='01N51', status_description='warn: relationship type does not exist. The relationship type `CANNOT_COEXIST_WITH` does not exist in database `feeeda69`. Verify that the spelling is correct.', position=<SummaryInputPosition line=3, column=102, offset=129>, raw_classification='UNRECOGNIZED', classification=<NotificationClassification.UNRECOGNIZED: 'UNRECOGNIZED'>, raw_severity='WARNING', severity=<NotificationSeverity.WARNING: 'WARNING'>, diagnostic_record={'_classification': 'UNRECOGNIZED', '_severity': 'WARNING', '_position': {'offset': 129, 'line': 3, 'column': 102}, 'OPERATION': '', 'OPERATION_CODE': '0', 'CURRENT_SCHEMA': '/'}> for query: '\n        UNWIND $ids AS sid\n        MATCH (l:LawSection {id: sid})-[r:OVERRIDES|MORE_SPECIFIC_THAN|ENHANCES|INCLUDES_ELEMENTS_OF|CANNOT_COEXIST_WITH]-(other:LawSection)\n        RETURN DISTINCT other.id AS id, other.act AS act, other.section AS section,\n               other.title AS title, other.description AS description,\n               other.punishment AS punishment,\n               type(r) AS relationship, r.condition AS condition\n        '
+
+===== AFTER RULE EXPANSION =====
+{'id': 'IPC_506', 'act': 'IPC', 'section': '506', 'title': 'Criminal intimidation', 'description': 'Description of IPC Section 506 According to section 506 of Indian penal code, Whoever commits the offence of criminal intimidation shall be punished with imprisonment of either description for a term which may extend to two years, or with fine, or with both; If threat be to cause death or grievous hurt, etc â€” and if the threat be to cause death or grievous hurt, or to cause the destruction of any property by fire, or to cause an offence punishable with death or imprisonment for life, of with imprisonment for a term which may extend to seven years, or to impute unchastity to a woman, shall be punished with imprisonment of either description for a term which may extend to seven years, or with fine, or with both. IPC 506 in Simple Words If someone commits the offense of criminal intimidation, they can be punished with imprisonment for up to two years, a fine, or both; and if the threat involves serious harm, destruction of property by fire, or imputing unchastity to a woman, the punishment can extend to seven years of imprisonment, a fine, or both. Cited by Ruchi Agarwal vs Amit Kumar Agrawal and Ors K. M. Nanavati vs State Of Maharashtra State Of Orissa vs Debendra Nath Padhi State Of Maharashtra And Another vs Madhukar Narayan Mardikar', 'punishment': '2 Years or Fine or Both', 'relationship': 'MORE_SPECIFIC_THAN', 'condition': 'Criminal intimidation is punishable under IPC 506 after the definition under IPC 503 is satisfied.'}
+Answer:
+  Based on the provided graph sections, the man's action of threatening to kill his neighbor falls under **IPC 503 - Criminal intimidation** and **IPC 506 - Criminal intimidation**, as the threat involves causing death, which is a serious harm. 
+
+**IPC 503** defines criminal intimidation, stating that whoever threatens another with any injury to their person, reputation, or property, with intent to cause alarm or coerce them into doing something they are not legally bound to do, commits criminal intimidation.
+
+**IPC 506** provides the punishment for criminal intimidation, which can extend to seven years of imprisonment, a fine, or both, if the threat involves serious harm, such as causing death.
+
+While **IPC 307 - Attempt to murder** has a lower score, it is not directly applicable in this scenario as there is no indication that the man has taken any action to carry out the threat.
+
+**IPC 507 - Criminal intimidation by Anonymous communication or having taken precaution to conceal whence the threat comes** is also not directly applicable, as there is no information about the man using anonymous communication or concealing his identity.
+
+Therefore, the man's action is primarily covered under **IPC 503** and **IPC 506**, with **IPC 506** providing the specific punishment for the offense.
+
+Cypher used:
+  CALL db.index.fulltext.queryNodes('lawSectionText', 'threat* OR kill* OR murder* OR intimidat*') YIELD node AS b, score WHERE b.act = 'BNS' AND score > 1.5 OPTIONAL MATCH (i:LawSection {act:'IPC'})-[:REPLACED_BY]->(b) RETURN b.id AS id, b.act AS act, b.section AS bns_section, b.title AS bns_title, b.punishment AS bns_punishment, i.section AS ipc_section, i.title AS ipc_title, i.punishment AS ipc_punishment, score ORDER BY score DESC LIMIT 12
+
+Retrieval pipeline: full-text > 1.5 -> CrossEncoder(BAAI/bge-reranker-base) -> top 3 -> rule expansion
+
+Top Matches:
+  [IPC 503] Description of IPC Section 503 According to section 503 of Indian penal code, Wh
+      Source: full_text | Raw: 5.0000 | Rerank: 0.0506 | Final: 0.9000
+  [IPC 307] Attempt to murder
+      Punishment: 10 Years + Fine
+      Bailable: Non-Bailable
+      Cognizable: Cognizable
+      Source: full_text | Raw: 5.0000 | Rerank: 0.0220 | Final: 0.4986
+  [IPC 507] Criminal intimidation by Anonymous communication or having taken precaution to conceal whence the threat comes
+      Punishment: As in Section 506 + 2 Years
+      Bailable: Bailable
+      Cognizable: Non-Cognizable
+      Source: full_text | Raw: 5.0000 | Rerank: 0.0211 | Final: 0.4869
+
+Related Legal-Rule Sections:
+  [IPC 506] Criminal intimidation
+      Punishment: 2 Years or Fine or Both
+      Bailable: Bailable
+      Cognizable: Non-Cognizable
+      Rule relation: MORE_SPECIFIC_THAN (Criminal intimidation is punishable under IPC 506 after the definition under IPC 503 is satisfied.)
+(.venv) (base) vedant@Vedants-MacBook-Air cypher % 
+
+
+
