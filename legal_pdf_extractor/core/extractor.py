@@ -21,6 +21,7 @@ from core.dataset_builder import (
     build_rag_chunks, build_training_data, build_qa_dataset
 )
 from nlp.sentence_segmenter import extract_sentences
+from nlp.ollama_cleaner import OllamaCleaner, clean_datasets
 
 logger = get_logger("extractor", CONFIG["LOG_FILE"], CONFIG["LOG_LEVEL"])
 
@@ -94,6 +95,15 @@ def extract_pdf(pdf_path: str, config: dict = None) -> dict:
 
     logger.info(f"  ✓ All 15 datasets built for {case_id}")
     _log_counts(result)
+
+    # Step 6: Ollama LLM cleaning (optional — controlled by USE_OLLAMA config)
+    cleaner = OllamaCleaner(
+        url     = cfg.get("OLLAMA_URL",   "http://127.0.0.1:11434"),
+        model   = cfg.get("OLLAMA_MODEL", "llama3.1:latest"),
+        enabled = cfg.get("USE_OLLAMA",   False),
+    )
+    result = clean_datasets(result, cleaner)
+
     return result
 
 

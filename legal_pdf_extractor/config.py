@@ -45,6 +45,12 @@ CONFIG = {
 
     # Version
     "EXTRACTION_VERSION": "1.0.0",
+
+    # ── Ollama LLM Cleaning ──────────────────────────────────────────────────
+    # Set USE_OLLAMA=True to enable post-extraction cleaning via local Ollama
+    "USE_OLLAMA":          False,          # True = enabled | False = disabled
+    "OLLAMA_URL":          "http://127.0.0.1:11434",
+    "OLLAMA_MODEL":        "llama3.1:latest",
 }
 
 # Indian legal citation patterns

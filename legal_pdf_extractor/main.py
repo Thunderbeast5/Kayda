@@ -68,6 +68,10 @@ def main():
                         default=CONFIG["OUTPUT_FORMATS"],
                         choices=["csv", "json", "jsonl", "parquet"],
                         help="Output formats")
+    parser.add_argument("--no-ollama", action="store_true",
+                        help="Disable Ollama LLM cleaning even if USE_OLLAMA=True in config")
+    parser.add_argument("--ollama-model", default=None,
+                        help="Override Ollama model (e.g. llama3.1:latest, mistral:latest)")
 
     args = parser.parse_args()
     ensure_dirs(args.output, "logs", "checkpoints")
@@ -78,6 +82,15 @@ def main():
         if not os.path.isfile(args.input):
             print(f"ERROR: File not found: {args.input}")
             sys.exit(1)
+
+        # Apply CLI overrides to config
+        if args.no_ollama:
+            CONFIG["USE_OLLAMA"] = False
+            logger.info("Ollama cleaning: disabled via --no-ollama flag")
+        if args.ollama_model:
+            CONFIG["OLLAMA_MODEL"] = args.ollama_model
+            logger.info(f"Ollama model override: {args.ollama_model}")
+
         process_single(args.input, args.output, args.formats)
 
     print(f"\n✅ Extraction complete. Outputs saved to: {args.output}")
