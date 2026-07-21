@@ -1,0 +1,188 @@
+entity_id,entity,entity_type,page,paragraph,context,confidence,position_start,position_end,normalized_form
+ENT00001,VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST,Case_Name,1,P00001,"VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13, 1997 [J.S. VERMA CJ, SUJATA V. MANOHAR AND B.N. KIRPAL,",0.92,0,55,Vishaka And Ors. V. State Of Rajasthan And Ors. August
+ENT00002,SUJATA V. MANOHAR AND B.N. KIRPAL,Case_Name,1,P00001,"STATE OF RAJASTHAN AND ORS. AUGUST 13, 1997 [J.S. VERMA CJ, SUJATA V. MANOHAR AND B.N. KIRPAL, JJ.] Constitution of India-Articles 14, 15, 19 and 21-fund",0.92,80,113,Sujata V. Manohar And B.N. Kirpal
+ENT00003,Constitution of India,Act,1,P00001,"997 [J.S. VERMA CJ, SUJATA V. MANOHAR AND B.N. KIRPAL, JJ.] Constitution of India-Articles 14, 15, 19 and 21-fundamental Rights-Working women",0.93,120,141,Constitution Of India
+ENT00004,Articles 14,Article,1,P00001,"JATA V. MANOHAR AND B.N. KIRPAL, JJ.] Constitution of India-Articles 14, 15, 19 and 21-fundamental Rights-Working women-Gender equa",0.97,142,153,Articles 14
+ENT00005,Articles 51,Article,1,P00001,"e profession or to carry out occupation, trade or business. Articles 51 (c ), 253--power of Parliament to enact laws-Absence of dom",0.97,449,460,Articles 51
+ENT00006,Articles 32,Article,1,P00001,"ment has The power to enact laws for implementing The same. Articles 32, 141-Power of The Supreme Court to enforce fundamental Righ",0.97,756,767,Articles 32
+ENT00007,Article 32,Article,1,P00001,"mulating guidelines and norms H in exercise of powers under Article 32 of The Constitution, this Court",0.97,1852,1862,Article 32
+ENT00008,International Convention,Convention,1,P00001,"estic law occupying The field-Value and significance of The International Convention and norms-Held, The International Convention and norms are",0.9,580,604,International Convention
+ENT00009,Rajasthan,Location,1,P00001,"VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13, 1997 [J.S. VERMA CJ, SUJATA V. MANOHAR",0.88,29,38,Rajasthan
+ENT00010,VISHAKA,Case_Name,1,P00001,VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13,0.72,0,7,Vishaka
+ENT00011,"AUGUST 13, 1997",Date,1,P00001,"VISHAKA AND ORS. v. STATE OF RAJASTHAN AND ORS. AUGUST 13, 1997 [J.S. VERMA CJ, SUJATA V. MANOHAR AND B.N. KIRPAL",0.72,48,63,"August 13, 1997"
+ENT00012,SUJATA V. MANOHAR,Person,1,P00001,"AJASTHAN AND ORS. AUGUST 13, 1997 [J.S. VERMA CJ, SUJATA V. MANOHAR AND B.N. KIRPAL, JJ.] Constitution of India-Artic",0.72,80,97,Sujata V. Manohar
+ENT00013,B.N. KIRPAL,Person,1,P00001,"ST 13, 1997 [J.S. VERMA CJ, SUJATA V. MANOHAR AND B.N. KIRPAL, JJ.] Constitution of India-Articles 14, 15, 19 a",0.72,102,113,B.N. Kirpal
+ENT00014,Parliament,Organization,1,P00001,"rade or business. Articles 51 (c ), 253--power of Parliament to enact laws-Absence of domestic law occupying T",0.72,481,491,Parliament
+ENT00015,The International Convention,Concept,1,P00001,"law occupying The field-Value and significance of The International Convention and norms-Held, The International Convention and",0.72,576,604,The International Convention
+ENT00016,The Supreme Court,Organization,1,P00001,"implementing The same. Articles 32, 141-Power of The Supreme Court to enforce fundamental Rights-To lay down guideli",0.72,782,799,The Supreme Court
+ENT00017,The Constitution of India,Organization,1,P00001,"of working women under Articles 14, 19 and 21 of The Constitution of India. It was brought as a class action by certain soci",0.72,1205,1230,The Constitution Of India
+ENT00018,Article 32 of The Constitution,Act,1,P00001,"uidelines and norms H in exercise of powers under Article 32 of The Constitution, this Court",0.72,1852,1882,Article 32 Of The Constitution
+ENT00019,VISHAKA v. STATE,Case_Name,2,P00002,VISHAKA v. STATE 405 HELD : 1. Each incident of sexual harassment of working,0.92,0,17,Vishaka V. State
+ENT00020,Constitution of India,Act,2,P00002,ing and content of The fundamental rights guaranteed in The Constitution of India are of significant amplitude to encompass all The facts. of,0.93,2032,2053,Constitution Of India
+ENT00021,Articles 14,Article,2,P00002,"e and Liberty'. It is a clear violation of The rights under Articles 14, 15 and 21 of The Constitution. One of The logical conseque",0.97,228,239,Articles 14
+ENT00022,Article 19(1)(g),Article,2,P00002,"also The violation of The victim's fundamental rights under Article 19(1)(g) 'to practice any profession or to carry on any occupation,",0.97,384,400,Article 19(1)(G)
+ENT00023,Article 51(c),Article,2,P00002,t sexual harassment implicit therein. This is implicit from Article 51(c) and The enabling power of The Parliament to enact laws for,0.97,976,989,Article 51(C)
+ENT00024,Article 253,Article,2,P00002,enting The international Conventions and norms by virtue of Article 253 read with Entry 14 of The Union List in Seventh Schedule of,0.97,1115,1126,Article 253
+ENT00025,Article 32,Article,2,P00002,itution. [ 410-A-C] 3. The power of The Supreme Court under Article 32 for enforcement of fundamental rights and The executive pow,0.97,1256,1266,Article 32
+ENT00026,International Convention,Convention,2,P00002,"ent of working women at all working places, The contents of International Convention and norms are significant for The purpose of interpretation",0.9,670,694,International Convention
+ENT00027,VISHAKA,Case_Name,2,P00002,VISHAKA v. STATE 405 HELD : 1. Each incident of sexual ha,0.72,0,7,Vishaka
+ENT00028,Article 19(1)(g,Act,2,P00002,iolation of The victim's fundamental rights under Article 19(1)(g) 'to practice any profession or to carry on any o,0.72,384,399,Article 19(1)(G
+ENT00029,Constitution,Act,2,P00002,"hrined in Articles 14, 15, 19(1)(g) and 21 of The Constitution and The safeguards against sexual harassment impl",0.72,878,890,Constitution
+ENT00030,Article 51(c,Act,2,P00002,arassment implicit therein. This is implicit from Article 51(c) and The enabling power of The Parliament to enac,0.72,976,988,Article 51(C
+ENT00031,Parliament,Organization,2,P00002,from Article 51(c) and The enabling power of The Parliament to enact laws for implementing The international,0.72,1020,1030,Parliament
+ENT00032,The Union List,Organization,2,P00002,ms by virtue of Article 253 read with Entry 14 of The Union List in Seventh Schedule of The Constitution. [ 410-A-,0.72,1149,1163,The Union List
+ENT00033,The Supreme Court,Organization,2,P00002,e of The Constitution. [ 410-A-C] 3. The power of The Supreme Court under Article 32 for enforcement of fundamental r,0.72,1232,1249,The Supreme Court
+ENT00034,The Union,Organization,2,P00002,of fundamental rights and The executive power of The Union have to meet The challenge to protect The working,0.72,1332,1341,The Union
+ENT00035,The International Convention,Organization,2,P00002,ent of this right has achieved global acceptance. The International Convention and norms are of great significance in The formul,0.72,1828,1856,The International Convention
+ENT00036,The Constitution of India,Organization,2,P00002,d content of The fundamental rights guaranteed in The Constitution of India are of significant amplitude to encompass all The,0.72,2028,2053,The Constitution Of India
+ENT00037,Minister for Immigration and Ethnic Affairs v. Teoh,Case_Name,3,P00003,"en them and there is a void in The domestic law. [ 413-C-D] Minister for Immigration and Ethnic Affairs v. Teoh, 128 ALR 353 and Nilabati Behera v. State of Orissa, (1993]",0.92,170,221,Minister For Immigration And Ethnic Affairs V. Teoh
+ENT00038,and Nilabati Behera v. State of Orissa,Case_Name,3,P00003,"ter for Immigration and Ethnic Affairs v. Teoh, 128 ALR 353 and Nilabati Behera v. State of Orissa, (1993] 2 SCC 746, referred to. B 6. Laying down The guidel",0.92,235,273,And Nilabati Behera V. State Of Orissa
+ENT00039,Constitution of India,Act,3,P00003,"tion (Crl.) Nos. 666-70 of 1992. · (Under Article 32 of The Constitution of India.) Mr. F.S. Nariman, Ms. Meenakshi Arora and Ms. Niti Dixit",0.93,793,814,Constitution Of India
+ENT00040,Article 32,Article,3,P00003,"e purpose, is done in exercise of The power available under Article 32 of The Constitution for enforcement of The fundamental righ",0.97,505,515,Article 32
+ENT00041,Article 141,Article,3,P00003,d be treated as The law declared by The Supreme Court under Article 141 of The Constitution. [414-B] CRIMINAL ORIGINAL JURISDICTION,0.97,652,663,Article 141
+ENT00042,Articles 14,Article,3,P00003,"forcement of The fundamental rights of working women .under Articles 14, 19 and 21 of The Constitution of India in view of The prev",0.97,1181,1192,Articles 14
+ENT00043,Rajasthan,Location,3,P00003,alleged brutal gang rape of a social worker in a village of Rajasthan.,0.88,2071,2080,Rajasthan
+ENT00044,SUPREME Court,Organization,3,P00003,406 SUPREME Court REPORTS [1997] SUPP. 3 S.C.R. A construing domest,0.72,4,17,Supreme Court
+ENT00045,Nilabati Behera,Organization,3,P00003,"ation and Ethnic Affairs v. Teoh, 128 ALR 353 and Nilabati Behera v. State of Orissa, (1993] 2 SCC 746, referred to",0.72,239,254,Nilabati Behera
+ENT00046,Article 32 of The Constitution for enforcement of The,Act,3,P00003,is done in exercise of The power available under Article 32 of The Constitution for enforcement of The fundamental rights and these would be treated as,0.72,505,558,Article 32 Of The Constitution For Enforcement Of The
+ENT00047,The Supreme Court,Organization,3,P00003,and these would be treated as The law declared by The Supreme Court under Article 141 of The Constitution. [414-B] CR,0.72,628,645,The Supreme Court
+ENT00048,Article 141 of The Constitution,Act,3,P00003,ed as The law declared by The Supreme Court under Article 141 of The Constitution. [414-B] CRIMINAL ORIGINAL JURISDICTION Writ Peti,0.72,652,683,Article 141 Of The Constitution
+ENT00049,Nos,Person,3,P00003,IMINAL ORIGINAL JURISDICTION Writ Petition (Crl.) Nos. 666-70 of 1992. · (Under Article 32 of The Const,0.72,745,748,Nos
+ENT00050,Article 32 of The Constitution of India,Act,3,P00003,"rit Petition (Crl.) Nos. 666-70 of 1992. · (Under Article 32 of The Constitution of India.) Mr. F.S. Nariman, Ms. Meenakshi Arora and Ms. N",0.72,775,814,Article 32 Of The Constitution Of India
+ENT00051,F.S. Nariman,Person,3,P00003,"der Article 32 of The Constitution of India.) Mr. F.S. Nariman, Ms. Meenakshi Arora and Ms. Niti Dixit for The p",0.72,821,833,F.S. Nariman
+ENT00052,Meenakshi Arora,Person,3,P00003,"The Constitution of India.) Mr. F.S. Nariman, Ms. Meenakshi Arora and Ms. Niti Dixit for The petitioners. T.R. Andh",0.72,839,854,Meenakshi Arora
+ENT00053,Niti Dixit,Person,3,P00003,"a.) Mr. F.S. Nariman, Ms. Meenakshi Arora and Ms. Niti Dixit for The petitioners. T.R. Andhyarujina, Solicitor",0.72,863,873,Niti Dixit
+ENT00054,T.R. Andhyarujina,Person,3,P00003,"shi Arora and Ms. Niti Dixit for The petitioners. T.R. Andhyarujina, Solicitor General, Mukul Mudgal, Ms. Suvira Lal,",0.72,895,912,T.R. Andhyarujina
+ENT00055,Mukul Mudgal,Person,3,P00003,"etitioners. T.R. Andhyarujina, Solicitor General, Mukul Mudgal, Ms. Suvira Lal, C.V.S. Rao, K.S. Bhati and M.K.",0.72,933,945,Mukul Mudgal
+ENT00056,Suvira Lal,Person,3,P00003,"ndhyarujina, Solicitor General, Mukul Mudgal, Ms. Suvira Lal, C.V.S. Rao, K.S. Bhati and M.K. Singh for The re",0.72,951,961,Suvira Lal
+ENT00057,C.V.S. Rao,Person,3,P00003,"Solicitor General, Mukul Mudgal, Ms. Suvira Lal, C.V.S. Rao, K.S. Bhati and M.K. Singh for The respondents. T",0.72,963,973,C.V.S. Rao
+ENT00058,K.S. Bhati,Person,3,P00003,"eneral, Mukul Mudgal, Ms. Suvira Lal, C.V.S. Rao, K.S. Bhati and M.K. Singh for The respondents. The judgment",0.72,975,985,K.S. Bhati
+ENT00059,M.K. Singh,Person,3,P00003,"udgal, Ms. Suvira Lal, C.V.S. Rao, K.S. Bhati and M.K. Singh for The respondents. The judgment of The Court wa",0.72,990,1000,M.K. Singh
+ENT00060,VERMA,Case_Name,3,P00003,"dents. The judgment of The Court was delivered by VERMA, CJI. This Writ Petition has been filed for The e",0.72,1065,1070,Verma
+ENT00061,This Writ Petition,Organization,3,P00003,"udgment of The Court was delivered by VERMA, CJI. This Writ Petition has been filed for The enforcement of The fundame",0.72,1077,1095,This Writ Petition
+ENT00062,The Constitution of India,Organization,3,P00003,"of working women .under Articles 14, 19 and 21 of The Constitution of India in view of The prevailing climate in which The F",0.72,1207,1232,The Constitution Of India
+ENT00063,Articles 14,Article,4,P00004,"and Liberty'. It is a. clear violation of The rights under Articles 14, 15 and 21 of The Constitution. One of The logical conseque",0.97,691,702,Articles 14
+ENT00064,Article 19(1)(g),Article,4,P00004,"also The violation of The victim's fundamental right under Article 19(1)(g) 'to practice any profession or to carry out any occupation,",0.97,849,865,Article 19(1)(G)
+ENT00065,Article 32,Article,4,P00004,"ness'. Such violations, therefore, attract The remedy under Article 32 for The enforcement of these fun damental rights of women.",0.97,999,1009,Article 32
+ENT00066,Rajasthan,Location,4,P00004,acuum. The notice of The petition was given to The State of Rajasthan and The Union of India. The learned Solicitor General appea,0.88,2083,2092,Rajasthan
+ENT00067,VISHAKAv,Organization,4,P00004,"VISHAKAv. STATE[VERMA, CJI.] 407 That incident is The subj",0.72,0,8,Vishakav
+ENT00068,STATE[VERMA,Person,4,P00004,"VISHAKAv. STATE[VERMA, CJI.] 407 That incident is The subject matter of",0.72,10,21,State[Verma
+ENT00069,Article 19(1)(g,Act,4,P00004,violation of The victim's fundamental right under Article 19(1)(g) 'to practice any profession or to carry out any,0.72,849,864,Article 19(1)(G
+ENT00070,Article 32 of The Constitution,Act,4,P00004,damental rights of women. This class action under Article 32 of The Constitution is for this reason. A writ of mandamus in such a,0.72,1093,1123,Article 32 Of The Constitution
+ENT00071,The State of Rajasthan,Organization,4,P00004,e vacuum. The notice of The petition was given to The State of Rajasthan and The Union of India. The learned Solicitor Gen,0.72,2070,2092,The State Of Rajasthan
+ENT00072,The Union of India,Organization,4,P00004,petition was given to The State of Rajasthan and The Union of India. The learned Solicitor General appeared for The U,0.72,2097,2115,The Union Of India
+ENT00073,Solicitor General,Organization,4,P00004,of Rajasthan and The Union of India. The learned Solicitor General appeared for The Union of India and rendered valu,0.72,2129,2146,Solicitor General
+ENT00074,Meenakshi Arora,Person,4,P00004,lem of considerable magnitude. In addition to Ms. Meenakshi Arora and Ms. Naina Kapur who assisted The Court with f,0.72,2351,2366,Meenakshi Arora
+ENT00075,Naina Kapur,Person,4,P00004,"itude. In addition to Ms. Meenakshi Arora and Ms. Naina Kapur who assisted The Court with full commitment, Shri",0.72,2375,2386,Naina Kapur
+ENT00076,Shri Fali S. Nariman,Person,4,P00004,"apur who assisted The Court with full commitment, Shri Fali S. Nariman appeared as Amicus Curiae and rendered great assi",0.72,2432,2452,Shri Fali S. Nariman
+ENT00077,Amicus Curiae,Organization,4,P00004,"full commitment, Shri Fali S. Nariman appeared as Amicus Curiae and rendered great assistance. We place on record",0.72,2465,2478,Amicus Curiae
+ENT00078,The Court,Organization,4,P00004,in The case and tendered The needed assistance to The Court which has enabled us to deal,0.72,2633,2642,The Court
+ENT00079,Constitution of India,Act,5,P00005,"te for a cause of this nature. Apart from Article 32 of The Constitution of India, we may refer to some other provisions which envisage judic",0.93,169,190,Constitution Of India
+ENT00080,Article 32,Article,5,P00005,"nsidered appropriate for a cause of this nature. Apart from Article 32 of The Constitution of India, we may refer to some other pr",0.97,151,161,Article 32
+ENT00081,Articles 14,Article,5,P00005,"al evil. Some provisions in The Constitution in addition to Articles 14, 19(1)(g) and 21, which have relevance are : Article 15: ""1",0.97,356,367,Articles 14
+ENT00082,Article 15,Article,5,P00005,"to Articles 14, 19(1)(g) and 21, which have relevance are : Article 15: ""15. Prohibition of discrimination on grounds of religion,",0.97,413,423,Article 15
+ENT00083,Article 42,Article,5,P00005,"special provisions for women and Children. (4) xxx xxx xxx"" Article 42: ""42. Provision for just and humane conditions of work and",0.97,795,805,Article 42
+ENT00084,Article 51A,Article,5,P00005,"st and humane conditions of work and for maternity relief'. Article 51A : ""Article 51A. fundamental duties. -It shall be The duty o",0.97,990,1001,Article 51A
+ENT00085,SUPREME Court,Organization,5,P00005,408 SUPREME Court REPORTS [1997] SUPP. 3 S.C.R. A with this unusual,0.72,4,17,Supreme Court
+ENT00086,The Constitution of India,Organization,5,P00005,"a cause of this nature. Apart from Article 32 of The Constitution of India, we may refer to some other provisions which envi",0.72,165,190,The Constitution Of India
+ENT00087,Constitution,Act,5,P00005,"tion of. this social evil. Some provisions in The Constitution in addition to Articles 14, 19(1)(g) and 21, whic",0.72,328,340,Constitution
+ENT00088,State,Organization,5,P00005,", race, caste, c sex or place of birth. - (1) The State shall not discriminate against any citizen on onl",0.72,532,537,State
+ENT00089,Children,Person,5,P00005,"from making any special provisions for women and Children. (4) xxx xxx xxx"" Article 42: ""42. Provision for",0.72,768,776,Children
+ENT00090,Article 51A.,Act,5,P00005,"of work and for maternity relief'. Article 51A : ""Article 51A. fundamental duties. -It shall be The duty of ever",0.72,1005,1017,Article 51A.
+ENT00091,India,Location,5,P00005,"duties. -It shall be The duty of every citizen of India, - (a) to abide by The Constitution and respect i",0.72,1080,1085,India
+ENT00092,VISHAKA v. STATE,Case_Name,6,P00006,"VISHAKA v. STATE [VERMA, CJI.] 409 tices derogatory to The dignity of women;",0.92,0,17,Vishaka V. State
+ENT00093,Article 51,Article,6,P00006,"e Constitution which permit such use. These provisions are: Article 51 : ""51. Promotion of international peace and security -The S",0.97,378,388,Article 51
+ENT00094,Article 253,Article,6,P00006,"ngs of organised people with one another; and xxx xxx xxx'' Article 253 : ""253. Legislation for giving effect to international agre",0.97,621,632,Article 253
+ENT00095,international convention,Convention,6,P00006,The dignity of women; xxx xxx xxx'' Before we refer to The international conventions and norms having relevance in this field and The manner in,0.9,114,138,International Convention
+ENT00096,VERMA,Case_Name,6,P00006,"VISHAKA v. STATE [VERMA, CJI.] 409 tices derogatory to The dignity of wom",0.72,18,23,Verma
+ENT00097,Constitution,Act,6,P00006,"on, we may advert to some other provisions in The Constitution which permit such use. These provisions are: Arti",0.72,320,332,Constitution
+ENT00098,Chapter,Organization,6,P00006,"ding anything in The foregoing provisions of this Chapter, Parliament has power to make any law for The who",0.72,764,771,Chapter
+ENT00099,Parliament,Organization,6,P00006,"hing in The foregoing provisions of this Chapter, Parliament has power to make any law for The whole or any pa",0.72,773,783,Parliament
+ENT00100,India,Location,6,P00006,"law for The whole or any part of The territory of India for implementing any treaty, agreement or convent",0.72,856,861,India
+ENT00101,Articles 14,Article,7,P00007,"tee of gender equality, right to work with human dignity in Articles 14, 15, B 19(1)(g) and 21 of The Constitution and The safeguar",0.97,382,393,Articles 14
+ENT00102,Article 51,Article,7,P00007,ect to The constitutional guarantee. This is 'implicit from Article 51( c) and The enabling power of The Parliament to enact laws,0.97,762,772,Article 51
+ENT00103,Article 253,Article,7,P00007,enting The International Conventions and norms by virtue of Article 253 read with Entry 14 of The Union List in Seventh Schedule of,0.97,904,915,Article 253
+ENT00104,Article 73,Article,7,P00007,of The Union List in Seventh Schedule of The Constitution. Article 73 also is relevant. It provides that The executive power of T,0.97,994,1004,Article 73
+ENT00105,Article 32,Article,7,P00007,"eeded to curb The evil. Thus, The power of this Court under Article 32 for enforcement of The fundamental rights and The executive",0.97,1349,1359,Article 32
+ENT00106,International Convention,Convention,7,P00007,"assment of working women at all workplaces, The contents of International Conventions and norms are significant for The purpose of interpretatio",0.9,223,247,International Convention
+ENT00107,SUPREME Court,Organization,7,P00007,410 SUPREME Court REPORTS [1997] SUPP. 3 S.C.R. In The absence of d,0.72,4,17,Supreme Court
+ENT00108,International Conventions,Organization,7,P00007,"working women at all workplaces, The contents of International Conventions and norms are significant for The purpose of inte",0.72,223,248,International Conventions
+ENT00109,Constitution,Act,7,P00007,"nity in Articles 14, 15, B 19(1)(g) and 21 of The Constitution and The safeguards against sexual harassment impl",0.72,424,436,Constitution
+ENT00110,Any International Convention,Organization,7,P00007,uards against sexual harassment implicit therein. Any International Convention not inconsistent with The fundamental rights and,0.72,500,528,Any International Convention
+ENT00111,Parliament,Organization,7,P00007,from Article 51( c) and The enabling power of The Parliament to enact laws for C implementing The Internationa,0.72,807,817,Parliament
+ENT00112,The International Conventions,Act,7,P00007,f The Parliament to enact laws for C implementing The International Conventions and norms by virtue of Article 253 read with Entr,0.72,851,880,The International Conventions
+ENT00113,The Union List,Organization,7,P00007,ms by virtue of Article 253 read with Entry 14 of The Union List in Seventh Schedule of The Constitution. Article,0.72,938,952,The Union List
+ENT00114,The Union,Organization,7,P00007,"nt has power to make laws. The executive power of The Union is, D therefore, available till The Parliament en",0.72,1181,1190,The Union
+ENT00115,Solicitor General,Organization,7,P00007,th this common perception shared with The learned Solicitor General and other members of The bar who rendered valuabl,0.72,1802,1819,Solicitor General
+ENT00116,The Union of India,Organization,7,P00007,minated in The formulation of guidelines to which The Union of India gave its consent through The learned Solicitor Ge,0.72,2033,2051,The Union Of India
+ENT00117,VISHAKA v. STATE,Case_Name,8,P00008,"VISHAKA v. STATE [VERMA, CJI.] 411 great significance in The formulation of T",0.92,0,17,Vishaka V. State
+ENT00118,Article 32,Article,8,P00008,to achieve this purpose. The obligation of this Court under Article 32-of The Constitution for The enforcement of these fundamenta,0.97,151,161,Article 32
+ENT00119,Article 11,Article,8,P00008,"against Women', of significance in The present context are: Article 11 ; ""l. States parties shall take all appropriate measures to",0.97,1284,1294,Article 11
+ENT00120,Convention on The Elimination of All Forms of Discrimination against Women,Convention,8,P00008,"and between persons and The State"". Some provisions in The 'Convention on The Elimination of All Forms of Discrimination against Women', of significance in The present context are: Article 11 ;",0.9,1163,1237,Convention On The Elimination Of All Forms Of Discrimination Against Women
+ENT00121,Beijing Statement,Convention,8,P00008,be viewed along with The role of judiciary envisaged in The Beijing Statement of Principles of The independence of The Judiciary in The L,0.9,325,342,Beijing Statement
+ENT00122,VERMA,Case_Name,8,P00008,"VISHAKA v. STATE [VERMA, CJI.] 411 great significance in The formulation",0.72,18,23,Verma
+ENT00123,Article 32-of The Constitution for The enforcement of these fundamental,Act,8,P00008,this purpose. The obligation of this Court under Article 32-of The Constitution for The enforcement of these fundamental rights in The absence of legislation must be view,0.72,151,222,Article 32-Of The Constitution For The Enforcement Of These Fundamental
+ENT00124,The Beijing Statement of Principles,Organization,8,P00008,wed along with The role of judiciary envisaged in The Beijing Statement of Principles of The independence of The Judiciary in The LAWAS,0.72,321,356,The Beijing Statement Of Principles
+ENT00125,The Pacific,Organization,8,P00008,re accepted by The Chief Justices of The Asia and The Pacific at Beijing in 1995 as those representing The mini,0.72,486,497,The Pacific
+ENT00126,Beijing,Location,8,P00008,The Chief Justices of The Asia and The Pacific at Beijing in 1995 as those representing The minimum standar,0.72,501,508,Beijing
+ENT00127,The Beijing Statement,Organization,8,P00008,"ary. The objectives of The judiciary mentioned in The Beijing Statement are : ""Objectives of The Judiciary : 10. The obje",0.72,713,734,The Beijing Statement
+ENT00128,The Judiciary,Organization,8,P00008,Judiciary : 10. The objectives .and functions of The Judiciary include The \\ following: (a) to ensure that all,0.72,809,822,The Judiciary
+ENT00129,State,Organization,8,P00008,"rtially among persons and between persons and The State"". Some provisions in The 'Convention on The Elimi",0.72,1131,1136,State
+ENT00130,The 'Convention on The Elimination of All Forms of Discrimination against Women',Organization,8,P00008,"etween persons and The State"". Some provisions in The 'Convention on The Elimination of All Forms of Discrimination against Women', of significance in The present context are: Arti",0.72,1158,1238,The 'Convention On The Elimination Of All Forms Of Discrimination Against Women'
+ENT00131,l. States,Location,8,P00008,"ficance in The present context are: Article 11 ; ""l. States parties shall take all appropriate measures to el",0.72,1298,1307,L. States
+ENT00132,Article 24,Article,9,P00009,"safeguarding of The function of reproduction. xxx xxx xxx"" Article 24 : ""States Parties undertake to adopt all necessary measures",0.97,198,208,Article 24
+ENT00133,Article 11,Article,9,P00009,"eral recommendations of CEDAW in this context in respect of Article 11 are : ""Violence and equality in employment : 22. Equality i",0.97,451,461,Article 11
+ENT00134,CEDAW,Convention,9,P00009,"in The present Convention."" The general recommendations of CEDAW in this context in respect of Article 11 are : ""Violence an",0.9,415,420,Cedaw
+ENT00135,SUPREME Court,Organization,9,P00009,412 SUPREME Court REPORTS [1997] SUPP. 3 S.C.R. A (f) The right to,0.72,4,17,Supreme Court
+ENT00136,The Government of India,Organization,9,P00009,"forms of violence of coercion in The workplace."" The Government of India has ratified The above Resolution on June 25, 199",0.72,1465,1488,The Government Of India
+ENT00137,"Resolution on June 25, 1993",Act,9,P00009,"."" The Government of India has ratified The above Resolution on June 25, 1993 with some reservations which are not material in",0.72,1512,1539,"Resolution On June 25, 1993"
+ENT00138,The Fourth World Conference on Women,Organization,9,P00009,"which are not material in The present context. At The Fourth World Conference on Women in Beijing, The Government",0.72,1613,1649,The Fourth World Conference On Women
+ENT00139,VISHAKA v. STATE,Case_Name,10,P00010,"VISHAKA v. STATE [VERMA, OI.J 413 of India has also made an official commitme",0.92,0,17,Vishaka V. State
+ENT00140,Constitution of India,Act,10,P00010,nstruing The fundamental rights expressly guaranteed in The Constitution of India which embody The basic concept of general equality in all s,0.93,2079,2100,Constitution Of India
+ENT00141,Article 32,Article,10,P00010,"rcement of a guaranteed right, as a public law remedy under Article 32, distinct from The private law remedy in torts. There is no",0.97,1862,1872,Article 32
+ENT00142,ICCPR,Convention,10,P00010,"ra v. State of Orissa, (1993] 2 SCC 746, a provision in The ICCPR was referred to support The view taken that an enforceable",0.9,1680,1685,Iccpr
+ENT00143,international convention,Convention,10,P00010,of Judiciary forms a part of our constitutional scheme. The international conventions and norms are to be read into them in The absence of enact,0.9,915,939,International Convention
+ENT00144,VERMA,Case_Name,10,P00010,"VISHAKA v. STATE [VERMA, OI.J 413 of India has also made an official comm",0.72,18,23,Verma
+ENT00145,India,Location,10,P00010,"VISHAKA v. STATE [VERMA, OI.J 413 of India has also made an official commitment, inter alia,",0.72,37,42,India
+ENT00146,inter alia,Person,10,P00010,"13 of India has also made an official commitment, inter alia, to formulate and .. operationalize a national po",0.72,81,91,Inter Alia
+ENT00147,Commission for Women's Rights,Organization,10,P00010,n at every level and in every sector; to set up a Commission for Women's Rights to act as a public defender of women's human righ,0.72,251,280,Commission For Women'S Rights
+ENT00148,Constitution,Act,10,P00010,onstitutional guarantee of gender equality in our Constitution. The meaning and content of The fundamental right,0.72,611,623,Constitution
+ENT00149,The Constitution o~ India,Organization,10,P00010,d content of The fundamental rights guaranteed in The Constitution o~ India are of sufficient amplitude to encompass all The,0.72,689,714,The Constitution O~ India
+ENT00150,The High Court of Australia,Organization,10,P00010,een them and there is a void in The domestic law. The High Court of Australia in Minister for Immigration and Ethnic Af fa irs,0.72,1308,1335,The High Court Of Australia
+ENT00151,Minister for Immigration and Ethnic Af,Organization,10,P00010,"The domestic law. The High Court of Australia in Minister for Immigration and Ethnic Af fa irs v. Teoh, 128 ALR 353, has recognised The c",0.72,1339,1377,Minister For Immigration And Ethnic Af
+ENT00152,irs,Organization,10,P00010,"alia in Minister for Immigration and Ethnic Af fa irs v. Teoh, 128 ALR 353, has recognised The concept",0.72,1381,1384,Irs
+ENT00153,a Bill of Rights is The Constitution of Australia,Act,10,P00010,"ary legislative provision, even in The absence of a Bill of Rights is The Constitution of Australia. In Nilabati Behera v. State of Orissa, (1993] 2",0.72,1553,1602,A Bill Of Rights Is The Constitution Of Australia
+ENT00154,Nilabati Behera,Organization,10,P00010,"ll of Rights is The Constitution of Australia. In Nilabati Behera v. State of Orissa, (1993] 2 SCC 746, a provision",0.72,1607,1622,Nilabati Behera
+ENT00155,The Constitution of India,Organization,10,P00010,ng The fundamental rights expressly guaranteed in The Constitution of India which embody The basic concept of general equalit,0.72,2075,2100,The Constitution Of India
+ENT00156,Article 32,Article,11,P00011,pose. This is done in exercise of The power available under Article 32 of The Constitution for enforcement of The fundamental righ,0.97,234,244,Article 32
+ENT00157,Article 141,Article,11,P00011,is would be treated as The law declared by this Court under Article 141 of The Constitution. The GUIDELINES and NORMS prescribed he,0.97,403,414,Article 141
+ENT00158,SUPREME Court,Organization,11,P00011,414 SUPREME Court REPORTS [1997] SUPP. 3 S.C.R. A specified hereina,0.72,4,17,Supreme Court
+ENT00159,Article 32 of The Constitution for enforcement of The,Act,11,P00011,is done in exercise of The power available under Article 32 of The Constitution for enforcement of The fundamental rights and It is further emphasised t,0.72,234,287,Article 32 Of The Constitution For Enforcement Of The
+ENT00160,Article 141 of The Constitution,Act,11,P00011,e treated as The law declared by this Court under Article 141 of The Constitution. The GUIDELINES and NORMS prescribed herein are a,0.72,403,434,Article 141 Of The Constitution
+ENT00161,GUIDELINES,Case_Name,11,P00011,Court under Article 141 of The Constitution. The GUIDELINES and NORMS prescribed herein are as under: HAY ING,0.72,440,450,Guidelines
+ENT00162,NORMS,Case_Name,11,P00011,ticle 141 of The Constitution. The GUIDELINES and NORMS prescribed herein are as under: HAY ING REGARD to,0.72,455,460,Norms
+ENT00163,"The Protection of Human Right Act,-1993",Organization,11,P00011,"definition of 'human rights' in Section C 2(d) of The Protection of Human Right Act,-1993, 1: ' arid TAKING NOTE of The fact that The prese",0.72,565,604,"The Protection Of Human Right Act,-1993"
+ENT00164,India,Location,11,P00011,of The fact that The present civil penal laws in India do not adequately provide for specific protection,0.72,677,682,India
+ENT00165,VISHAKA v. STATE,Case_Name,12,P00012,"VISHAKA v. STATE [VERMA, CJI.] 415 ( c) sexually coloured remarks; ( d) showi",0.92,0,17,Vishaka V. State
+ENT00166,"Act, 1946",Act,12,P00012,"ing orders under The Industrial employment.(Standing Orders) Act, 1946. (d) Appropriate work conditions should be provided in resp",0.93,1732,1742,"Act, 1946"
+ENT00167,VERMA,Case_Name,12,P00012,"VISHAKA v. STATE [VERMA, CJI.] 415 ( c) sexually coloured remarks; ( d) s",0.72,18,23,Verma
+ENT00168,Complaints Committee,Committee,13,P00013,"hanism should ensure time bound treatment of complaints. 7. Complaints Committee : The complaint mechanism, referred to in ( 6) above, shoul",0.88,1372,1392,Complaints Committee
+ENT00169,SUPREME Court,Organization,13,P00013,"416 SUPREME Court REPORTS (1997] SUPP. 3 S.C.R. A of work, leisure,",0.72,4,17,Supreme Court
+ENT00170,The Indian Penal Code,Organization,13,P00013,such conduct amounts to a specific offence under The Indian Penal Code or under any other law The employer shall initiat,0.72,376,397,The Indian Penal Code
+ENT00171,The Complaints Committee,Organization,13,P00013,"e, including The main tenance of confidentiality. The Complaints Committee should be headed by a woman and not",0.72,1613,1637,The Complaints Committee
+ENT00172,VISHAKA v. STATE,Case_Name,14,P00014,"VISHAKA v. STATE [VERMA, CJI.) 417 less than half of its member should be wom",0.92,0,17,Vishaka V. State
+ENT00173,Complaints Committee,Committee,14,P00014,"of any undue pressure or influence from senior levels, such Complaints Committee should involve a third party, either NGO or other body who",0.88,177,197,Complaints Committee
+ENT00174,VERMA,Case_Name,14,P00014,"VISHAKA v. STATE [VERMA, CJI.) 417 less than half of its member should be",0.72,18,23,Verma
+ENT00175,NGO,Case_Name,14,P00014,"ts Committee should involve a third party, either NGO or other body who is familiar with The issue of s",0.72,235,238,Ngo
+ENT00176,The Complaints Committee,Organization,14,P00014,is familiar with The issue of sexual harassment. The Complaints Committee must make an annual report to The Government depa,0.72,306,330,The Complaints Committee
+ENT00177,annual,Date,14,P00014,harassment. The Complaints Committee must make an annual report to The Government department concerned of,0.72,344,350,Annual
+ENT00178,The Government,Organization,14,P00014,omplaints Committee must make an annual report to The Government department concerned of The complaints and action,0.72,361,375,The Government
+ENT00179,Complaints,Organization,14,P00014,resaid guidelines including on The reports of The Complaints committee to The Government department. 8. Worker,0.72,573,583,Complaints
+ENT00180,Employer-Employee Meetings,Organization,14,P00014,forum and it should be affirmatively discussed in Employer-Employee Meetings. 9. Awareness : Awareness of The rights of female,0.72,811,837,Employer-Employee Meetings
+ENT00181,Third Party,Organization,14,P00014,enacted on The subject) in a suitable manner. 10. Third Party harassment : Where sexual harassment occurs as a,0.72,1069,1080,Third Party
+ENT00182,The Central/State Governments,Organization,14,P00014,on in terms of support and preventive action. 11: The Central/State Governments are requested to consider adopting suitable measu,0.72,1347,1376,The Central/State Governments
+ENT00183,The Protection of Human Rights Act,Organization,14,P00014,"nes will not prejudice any rights available under The Protection of Human Rights Act, 1993.",0.72,1627,1661,The Protection Of Human Rights Act
+ENT00184,SUPREME Court,Organization,15,P00015,"418 SUPREME Court REPORTS [1997] SUPP. 3 S.C.R. Accordingly, we dir",0.72,4,17,Supreme Court
+ENT00185,S.C.R. Accordingly,Organization,15,P00015,"418 SUPREME Court REPORTS [1997] SUPP. 3 S.C.R. Accordingly, we direct that The above guidelines and norms wo",0.72,41,59,S.C.R. Accordingly
+ENT00186,These Writ Petitions,Organization,15,P00015,"table legislation is enacted to occupy The field. These Writ Petitions are disposed of, accordingly . K.H.N.S. .P etitio",0.72,359,379,These Writ Petitions
+ENT00187,K.H.N.S.,Location,15,P00015,"ese Writ Petitions are disposed of, accordingly . K.H.N.S. .P etitions disposed of.",0.72,411,419,K.H.N.S.

@@ -103,14 +103,29 @@ def extract_entities(paragraphs: list[dict], case_id: str,
         if spacy_nlp:
             entities.extend(_extract_spacy(text, page, para_id, case_id, spacy_nlp))
 
-    # Deduplicate by (entity text, entity_type, paragraph)
-    seen = set()
-    unique = []
+    # Deduplicate: keep highest confidence per (entity_text_lower, paragraph)
+    # Rule-based wins over spaCy when same text appears with both
+    seen: dict[tuple, dict] = {}
     for e in entities:
-        key = (e["entity"].lower(), e["entity_type"], e["paragraph"])
-        if key not in seen:
-            seen.add(key)
-            unique.append(e)
+        key = (e["entity"].lower()[:60], e["paragraph"])
+        existing = seen.get(key)
+        if existing is None or e["confidence"] > existing["confidence"]:
+            seen[key] = e
+
+    # Also remove clearly bad entities: bare "Articles", "Judicial", fragments < 2 chars
+    BAD_ENTITIES = {"articles", "judicial", "the", "of", "in", "and", "or",
+                    "that", "this", "which", "court", "j.s.", "alr"}
+    unique = []
+    for e in seen.values():
+        ent_lower = e["entity"].lower().strip()
+        if ent_lower in BAD_ENTITIES:
+            continue
+        if len(e["entity"].strip()) < 3:
+            continue
+        # Remove entities that are just "Article 32 of The Constitution for enforcement of The" etc.
+        if len(e["entity"].split()) > 12:
+            continue
+        unique.append(e)
 
     # Assign sequential IDs
     for i, e in enumerate(unique):

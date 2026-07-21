@@ -18,6 +18,13 @@ GUIDELINE_BLOCK_TRIGGERS = [
     r'shall\s+be\s+(?:treated|observed)\s+as\s+(?:the\s+)?law',
     r'directions?\s+(?:are|is)\s+(?:as\s+follows|given)',
     r'(?:employer|person in charge)\s+shall',
+    r'GUIDELINES\s+and\s+NORMS',        # exact Vishaka text
+    r'guidelines\s+and\s+norms\s+prescribed',
+    r'HAY\s*ING\s+REGARD',              # Vishaka preamble (OCR variant)
+    r'HAVING\s+REGARD',
+    r'TAKING\s+NOTE\s+of',
+    r'necessary\s+and\s+expedient\s+for\s+employers',
+    r'Duty\s+of\s+(?:The\s+)?Employer',  # Guideline 1 heading
 ]
 
 # Numbered item pattern — "1." or "1)" or "i." at start of content

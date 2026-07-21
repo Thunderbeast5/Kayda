@@ -129,12 +129,65 @@ def _fix_ocr_artifacts(text: str) -> str:
             text = re.sub(pattern, replacement, text, flags=re.IGNORECASE)
         except re.error:
             pass
-    # Remove lone junk lines (single chars, only symbols)
-    text = re.sub(r'^\s*[|\\/_~*#@$%^&]{1,3}\s*$', '', text, flags=re.MULTILINE)
+
+    # ── Remove SCC column/margin markers (A B C ... H on their own or inline) ──
+    # Pattern: capital letter A-H surrounded by spaces or at line boundaries
+    # These are SCC law report marginal line markers, e.g. "...working women A results..."
+    text = re.sub(r'(?<=[a-z,\.;])\s+[A-H]\s+(?=[A-Z])', ' ', text)  # mid-sentence markers
+    text = re.sub(r'\s+[A-H]\s*$', '', text, flags=re.MULTILINE)       # end-of-line markers
+    text = re.sub(r'^\s*[A-H]\s+(?=[A-Z])', '', text, flags=re.MULTILINE)  # start-of-line
+
     # Fix broken words with stray spaces inside: "Ar ticle" → "Article"
     text = re.sub(r'\bAr\s+ticle\b', 'Article', text, flags=re.IGNORECASE)
     text = re.sub(r'\bSe\s+ction\b', 'Section', text, flags=re.IGNORECASE)
     text = re.sub(r'\bJus\s+tice\b', 'Justice', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bim\s+plementing\b', 'implementing', text, flags=re.IGNORECASE)
+    text = re.sub(r'\bab\s+sence\b', 'absence', text, flags=re.IGNORECASE)
+    text = re.sub(r'\binter\s+national\b', 'international', text, flags=re.IGNORECASE)
+    text = re.sub(r'\blin[Hh]\s*guistic\b', 'linguistic', text, flags=re.IGNORECASE)
+    text = re.sub(r'\ban\.d\b', 'and', text)
+    text = re.sub(r'\bo~\b', 'of', text)
+    text = re.sub(r'\bbein~\b', 'beings', text)
+    text = re.sub(r'\bprac-\s*\n\s*tices\b', 'practices', text)
+    text = re.sub(r'The\s*,e\s+nforcement', 'The enforcement', text)
+
+    # Fix Article number OCR errors
+    # "Article 5 lA" / "5 lA" → "Article 51A" (lowercase l misread as 1, space inserted)
+    text = re.sub(r'\bArticle\s+5\s+[lI]A\b', 'Article 51A', text)
+    text = re.sub(r'\b5\s+[lI]A\b(?!\s*\d)', 'Article 51A', text)
+    # "5 I. Promotion" → "51. Promotion"
+    text = re.sub(r'\b5\s+I\.\s+Promotion', '51. Promotion', text)
+    # "JS. Prohibition" → "15. Prohibition" (J=1, S=5)
+    text = re.sub(r'\bJS\.\s+Prohibition', '15. Prohibition', text)
+    # CTI → CJI (common OCR error in SC judgments)
+    text = re.sub(r'\bCTI\b', 'CJI', text)
+    text = re.sub(r'\bCTI\.\b', 'CJI.', text)
+    text = re.sub(r'\bC\.T\.I\.\b', 'C.J.I.', text)
+    # "/ife" → "life", "/iberty" → "liberty" (l misread as /)
+    text = re.sub(r'\b/ife\b', 'life', text)
+    text = re.sub(r'\b/iberty\b', 'liberty', text)
+    text = re.sub(r'\b/aw\b', 'law', text)
+    # "ofsexual" → "of sexual" (missing space)
+    text = re.sub(r'\bof(sexual|working|women)\b', r'of \1', text, flags=re.IGNORECASE)
+    # "rdief" → "relief"
+    text = re.sub(r'\brdief\b', 'relief', text, flags=re.IGNORECASE)
+    # "religfon" → "religion"
+    text = re.sub(r'\breligfon\b', 'religion', text, flags=re.IGNORECASE)
+    # "The filed" → "The field"  (d/d+l confusion)
+    text = re.sub(r'\bthe\s+filed\b', 'the field', text, flags=re.IGNORECASE)
+    # Bracket normalisation: [4 10-E] → [410-E]
+    text = re.sub(r'\[4\s+10-([A-Z])\]', r'[410-\1]', text)
+    text = re.sub(r'\[4\s+10-f?C[JI]?\]', '[410-C]', text)
+    # Middle dot to hyphen in citations: [407·A] → [407-A]
+    text = re.sub(r'\[(\d+)[·•]([A-Z])\]', r'[\1-\2]', text)
+    # Curly brace to parenthesis: C 2{d) → 2(d)
+    text = re.sub(r'\{([a-z])\)', r'(\1)', text)
+    # "A_s" → "As"
+    text = re.sub(r'\bA_s\b', 'As', text)
+    # "mater nity" → "maternity"
+    text = re.sub(r'\bmater\s+nity\b', 'maternity', text, flags=re.IGNORECASE)
+    # Remove lone special characters on their own lines
+    text = re.sub(r'^\s*[|\\/_~*#@$%^&]{1,3}\s*$', '', text, flags=re.MULTILINE)
     return text
 
 
