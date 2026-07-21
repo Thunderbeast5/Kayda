@@ -76,7 +76,5 @@ backend/**/*.pyd
 secrets/
 backend/firebase-key.json
 backend/vision-ai.json
-
-
-
+**/vision-ai.json
 

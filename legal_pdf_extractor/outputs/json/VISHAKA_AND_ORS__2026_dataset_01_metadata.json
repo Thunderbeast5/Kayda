@@ -15,32 +15,32 @@
     "petition_number": "Writ Petition (Crl.) Nos. 666-70 of 1992",
     "decision": "Allowed",
     "acts_referred": [
+      "Protection of Human Rights Act, 1993",
       "These guidelines will not prejudice any rights available under The Protection of Human Rights Act, 1993",
+      "Industrial Employment (Standing Orders) Act, 1946",
+      "Constitution of India — Union List in Seventh Schedule of The Constitution",
       "Indian Penal Code",
       "(Standing Orders) Act, 1946",
-      "Constitution of India — Union List in Seventh Schedule of The Constitution",
-      "Industrial Employment (Standing Orders) Act, 1946",
-      "Constitution of India",
-      "Protection of Human Rights Act, 1993"
+      "Constitution of India"
     ],
     "articles_referred": [
-      "51",
-      "11",
-      "51(c)",
       "19(1)(g)",
+      "11",
+      "32",
+      "15",
+      "141",
       "73",
+      "24",
+      "14",
+      "42",
       "5",
       "253",
-      "141",
-      "24",
-      "15",
-      "42",
-      "14",
-      "32"
+      "51",
+      "51(c)"
     ],
     "sections_referred": [
-      "14",
-      ""
+      "",
+      "14"
     ],
     "keywords": [
       "norms",
@@ -230,7 +230,7 @@
     "source_pdf": "VISHAKA AND ORS..pdf",
     "document_hash": "8c17852eb2d7501fb10d728622a741e9e54097a75f7869da40226e80b2ef2794",
     "extraction_confidence": 0.85,
-    "extraction_timestamp": "2026-07-20T10:42:12.267037",
+    "extraction_timestamp": "2026-07-20T11:10:03.436181",
     "paragraph_count": 15,
     "word_count": 4508,
     "has_guidelines": false,

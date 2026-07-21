@@ -27,12 +27,13 @@ def process_single(pdf_path: str, output_dir: str, formats: list[str]):
     logger.info(f"Processing: {pdf_path}")
     start = time.time()
     result = extract_pdf(pdf_path, CONFIG)
-    case_id = list(result["dataset_01_metadata"])[0] if result["dataset_01_metadata"] else "UNKNOWN"
+    case_id = "UNKNOWN"
     if result["dataset_01_metadata"]:
         case_id = result["dataset_01_metadata"][0].get("case_id", "UNKNOWN")
-    save_all(result, output_dir, case_id, formats)
+    run_dir = save_all(result, output_dir, case_id, formats)
     elapsed = round(time.time() - start, 2)
     logger.info(f"Done: {os.path.basename(pdf_path)} in {elapsed}s")
+    print(f"\n  Output saved to: {run_dir}")
     return result
 
 

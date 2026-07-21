@@ -4,11 +4,11 @@ config.py — Central configuration for Legal PDF Extractor
 
 CONFIG = {
     # PDF Processing
-    "OCR_ENGINE": "tesseract",       # "tesseract" or "google_vision"
+    "OCR_ENGINE": "google_vision",   # "google_vision" | "tesseract"
     "OCR_LANGUAGE": "eng",
-    "MAX_PAGES": None,               # None = all pages
+    "MAX_PAGES": None,
     "DETECT_TABLES": True,
-    "DPI": 300,                      # DPI for image rendering
+    "DPI": 300,
 
     # Extraction toggles
     "EXTRACT_CITATIONS": True,
