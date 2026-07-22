@@ -1,0 +1,968 @@
+{
+  "2024_INSC_101": {
+    "categories": [
+      "dowry",
+      "homicide",
+      "matrimonial_cruelty",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "false_promise_marriage: matched Section 22; dowry: matched dowry, Section 498A; homicide: matched 101, Section 101",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "22",
+      "498A",
+      "101",
+      "498A",
+      "482"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_1011": {
+    "categories": [
+      "voyeurism",
+      "homicide",
+      "matrimonial_cruelty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched Section 64; false_promise_marriage: matched Section 22; dowry: matched Section 498A",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "64",
+      "22",
+      "498A",
+      "77",
+      "74",
+      "302",
+      "101",
+      "498A"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_1019": {
+    "categories": [
+      "false_promise_marriage",
+      "dowry",
+      "matrimonial_cruelty",
+      "marital_discord",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched Section 63; false_promise_marriage: matched Section 90, Section 22; dowry: matched dowry, Section 498A, Section 85",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "63",
+      "90",
+      "22",
+      "498A",
+      "85",
+      "363",
+      "101",
+      "498A",
+      "85",
+      "482"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_181": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "matrimonial_cruelty",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, Section 375, Section 376; false_promise_marriage: matched promise of marriage, false promise, promise to marry; matrimonial_cruelty: matched divorce, matrimonial",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "375",
+      "376",
+      "64",
+      "22",
+      "482"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_216": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "modesty",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched Section 375, Section 376; false_promise_marriage: matched promise of marriage, false promise, promise to marry; stalking: matched Section 354D",
+    "victim_type": "woman",
+    "context": "marital",
+    "sections_mentioned": [
+      "375",
+      "376",
+      "22",
+      "354D",
+      "354",
+      "482"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_247": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "kidnapping",
+      "voyeurism",
+      "acid_attack",
+      "pocso",
+      "modesty",
+      "homicide"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, Section 63; false_promise_marriage: matched Section 22; kidnapping: matched Section 363",
+    "victim_type": "woman",
+    "context": "familial",
+    "sections_mentioned": [
+      "63",
+      "22",
+      "363",
+      "77",
+      "124",
+      "POCSO",
+      "74",
+      "302",
+      "101"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_343": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "dowry",
+      "trafficking",
+      "voyeurism",
+      "acid_attack",
+      "pocso",
+      "modesty",
+      "homicide",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, Section 376, Section 63; false_promise_marriage: matched Section 22; dowry: matched dowry, Section 80",
+    "victim_type": "woman",
+    "context": "familial",
+    "sections_mentioned": [
+      "376",
+      "63",
+      "22",
+      "80",
+      "143",
+      "77",
+      "326A",
+      "POCSO",
+      "74",
+      "302"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_371": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "dowry",
+      "stalking",
+      "voyeurism",
+      "modesty",
+      "matrimonial_cruelty",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, sexual assault, Section 376; false_promise_marriage: matched Section 90, Section 22; dowry: matched Section 80, Section 85",
+    "victim_type": "woman",
+    "context": "familial",
+    "sections_mentioned": [
+      "376",
+      "63",
+      "90",
+      "22",
+      "80",
+      "85",
+      "78",
+      "77",
+      "74",
+      "85",
+      "482"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_393": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "dowry",
+      "voyeurism"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, gang rape, Section 376; false_promise_marriage: matched Section 90, Section 22; dowry: matched Section 80, Section 85",
+    "victim_type": "woman",
+    "context": "unknown",
+    "sections_mentioned": [
+      "376",
+      "63",
+      "64",
+      "90",
+      "22",
+      "80",
+      "85",
+      "363",
+      "77",
+      "74",
+      "85"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_448": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "dowry",
+      "kidnapping",
+      "stalking",
+      "voyeurism",
+      "acid_attack",
+      "pocso",
+      "modesty",
+      "homicide",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, Section 376, Section 63; false_promise_marriage: matched Section 90, Section 22; dowry: matched Section 80, Section 85",
+    "victim_type": "woman",
+    "context": "familial",
+    "sections_mentioned": [
+      "376",
+      "63",
+      "64",
+      "90",
+      "22",
+      "80",
+      "85",
+      "137",
+      "138",
+      "78",
+      "77",
+      "124",
+      "POCSO",
+      "354",
+      "74",
+      "302",
+      "304",
+      "101",
+      "85"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_481": {
+    "categories": [
+      "rape",
+      "false_promise_marriage"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, Section 375, Section 376; false_promise_marriage: matched promise of marriage, false promise, promise to marry; quashing_proceedings: matched quash, quashing",
+    "victim_type": "woman",
+    "context": "marital",
+    "sections_mentioned": [
+      "375",
+      "376",
+      "64",
+      "90",
+      "22"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_523": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "dowry",
+      "stalking",
+      "voyeurism",
+      "modesty",
+      "homicide",
+      "matrimonial_cruelty",
+      "marital_discord"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched Section 63, Section 64; false_promise_marriage: matched Section 90, Section 22; dowry: matched Section 85",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "63",
+      "64",
+      "90",
+      "22",
+      "85",
+      "78",
+      "77",
+      "74",
+      "304",
+      "85"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_613": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "dowry"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, sexual assault, Section 63; false_promise_marriage: matched Section 22; dowry: matched Section 80",
+    "victim_type": "woman",
+    "context": "familial",
+    "sections_mentioned": [
+      "63",
+      "22",
+      "80"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_614": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "dowry",
+      "trafficking",
+      "kidnapping",
+      "stalking",
+      "voyeurism",
+      "pocso",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, sexual assault, Section 375; false_promise_marriage: matched Section 90, Section 22; dowry: matched dowry, Section 80, Section 85",
+    "victim_type": "woman",
+    "context": "marital",
+    "sections_mentioned": [
+      "375",
+      "376",
+      "63",
+      "90",
+      "22",
+      "80",
+      "85",
+      "363",
+      "78",
+      "77",
+      "POCSO",
+      "74",
+      "85",
+      "482"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_639": {
+    "categories": [
+      "dowry",
+      "voyeurism",
+      "matrimonial_cruelty",
+      "marital_discord",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched Section 63; false_promise_marriage: matched Section 22; dowry: matched dowry, Section 85",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "63",
+      "22",
+      "85",
+      "370",
+      "77",
+      "74",
+      "85",
+      "482"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_665": {
+    "categories": [
+      "dowry",
+      "voyeurism",
+      "matrimonial_cruelty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "false_promise_marriage: matched Section 22; dowry: matched dowry, dowry death, Section 304B; voyeurism: matched 77, Section 77",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "22",
+      "304B",
+      "498A",
+      "80",
+      "77",
+      "304",
+      "498A"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_684": {
+    "categories": [
+      "modesty",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "modesty: matched Section 74; quashing_proceedings: matched quash, quashing",
+    "victim_type": "woman",
+    "context": "familial",
+    "sections_mentioned": [
+      "74"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_716": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "dowry",
+      "trafficking",
+      "kidnapping",
+      "stalking",
+      "voyeurism",
+      "acid_attack",
+      "pocso",
+      "homicide",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, sexual assault, Section 376; false_promise_marriage: matched Section 90, Section 22; dowry: matched Section 80, Section 85",
+    "victim_type": "woman",
+    "context": "familial",
+    "sections_mentioned": [
+      "376",
+      "63",
+      "64",
+      "90",
+      "22",
+      "80",
+      "85",
+      "370",
+      "143",
+      "137",
+      "138",
+      "78",
+      "77",
+      "124",
+      "POCSO",
+      "74",
+      "302",
+      "304",
+      "101",
+      "85",
+      "482"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_717": {
+    "categories": [
+      "false_promise_marriage",
+      "dowry",
+      "homicide",
+      "matrimonial_cruelty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "false_promise_marriage: matched Section 22; dowry: matched Section 498A; homicide: matched 101, Section 101",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "22",
+      "498A",
+      "101",
+      "498A"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_720": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "pocso",
+      "homicide"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, Section 376, Section 63; false_promise_marriage: matched Section 90, Section 22; dowry: matched Section 85",
+    "victim_type": "unknown",
+    "context": "familial",
+    "sections_mentioned": [
+      "376",
+      "63",
+      "64",
+      "90",
+      "22",
+      "85",
+      "POCSO",
+      "74",
+      "302",
+      "85"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_732": {
+    "categories": [
+      "false_promise_marriage",
+      "dowry",
+      "domestic_violence",
+      "modesty",
+      "matrimonial_cruelty",
+      "marital_discord"
+    ],
+    "confidence": 1.0,
+    "reasoning": "false_promise_marriage: matched Section 22; dowry: matched Section 85; domestic_violence: matched domestic violence, protection order",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "22",
+      "85",
+      "74",
+      "85"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_735": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "dowry",
+      "kidnapping",
+      "stalking",
+      "acid_attack",
+      "modesty",
+      "homicide",
+      "matrimonial_cruelty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched Section 63, Section 64; false_promise_marriage: matched Section 22; dowry: matched Section 80, Section 85",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "63",
+      "64",
+      "22",
+      "80",
+      "85",
+      "364",
+      "78",
+      "124",
+      "74",
+      "302",
+      "85"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_737": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "dowry",
+      "stalking",
+      "voyeurism",
+      "matrimonial_cruelty",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched Section 376, Section 63, Section 64; false_promise_marriage: matched Section 90, Section 22; dowry: matched dowry, dowry demand, Section 498A",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "376",
+      "63",
+      "64",
+      "90",
+      "22",
+      "498A",
+      "78",
+      "77",
+      "74",
+      "498A",
+      "482"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_766": {
+    "categories": [
+      "false_promise_marriage",
+      "dowry",
+      "modesty",
+      "homicide",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "false_promise_marriage: matched Section 22; dowry: matched dowry, Section 80; modesty: matched Section 74",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "22",
+      "80",
+      "74",
+      "302",
+      "482"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_782": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "stalking",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, Section 375, Section 376; false_promise_marriage: matched promise of marriage, false promise, promise to marry; stalking: matched 78, Section 78",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "375",
+      "376",
+      "63",
+      "64",
+      "90",
+      "22",
+      "78",
+      "74",
+      "482"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_790": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "dowry",
+      "trafficking",
+      "kidnapping",
+      "stalking",
+      "voyeurism",
+      "acid_attack",
+      "child_marriage",
+      "pocso",
+      "homicide"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, sexual assault, Section 375; false_promise_marriage: matched Section 90, Section 22; dowry: matched dowry, Section 80, Section 85",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "375",
+      "376",
+      "63",
+      "64",
+      "90",
+      "22",
+      "80",
+      "85",
+      "143",
+      "137",
+      "138",
+      "78",
+      "77",
+      "124",
+      "Child Marriage Act",
+      "POCSO",
+      "74",
+      "304",
+      "101",
+      "85"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_82": {
+    "categories": [
+      "rape",
+      "pocso",
+      "modesty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, Section 375, Section 376; false_promise_marriage: matched Section 22; dowry: matched Section 85",
+    "victim_type": "woman",
+    "context": "unknown",
+    "sections_mentioned": [
+      "375",
+      "376",
+      "63",
+      "64",
+      "22",
+      "85",
+      "370",
+      "363",
+      "354D",
+      "354C",
+      "POCSO",
+      "354",
+      "85"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_846": {
+    "categories": [
+      "rape",
+      "dowry",
+      "trafficking",
+      "stalking",
+      "pocso",
+      "modesty",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, sexual assault, Section 63; false_promise_marriage: matched Section 22; dowry: matched dowry, Section 80",
+    "victim_type": "woman",
+    "context": "familial",
+    "sections_mentioned": [
+      "63",
+      "64",
+      "22",
+      "80",
+      "78",
+      "POCSO",
+      "354",
+      "74",
+      "482"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_876": {
+    "categories": [
+      "false_promise_marriage",
+      "dowry",
+      "matrimonial_cruelty",
+      "marital_discord"
+    ],
+    "confidence": 1.0,
+    "reasoning": "false_promise_marriage: matched Section 22; dowry: matched Section 80; matrimonial_cruelty: matched cruelty, divorce, matrimonial",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "22",
+      "80"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_877": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "voyeurism"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched Section 376; false_promise_marriage: matched Section 22; voyeurism: matched 77, Section 77",
+    "victim_type": "woman",
+    "context": "unknown",
+    "sections_mentioned": [
+      "376",
+      "22",
+      "77"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_879": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, sexual assault, Section 375; false_promise_marriage: matched promise of marriage, false promise, promise to marry; quashing_proceedings: matched quash, quashing, section 482",
+    "victim_type": "woman",
+    "context": "marital",
+    "sections_mentioned": [
+      "375",
+      "376",
+      "64",
+      "22",
+      "482"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_897": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "modesty",
+      "homicide",
+      "matrimonial_cruelty",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, Section 375, Section 376; false_promise_marriage: matched promise of marriage, false promise, promise to marry; dowry: matched Section 85",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "375",
+      "376",
+      "90",
+      "22",
+      "85",
+      "354",
+      "302",
+      "85",
+      "482"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_909": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "stalking"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, Section 376, Section 64; false_promise_marriage: matched Section 90, Section 22; stalking: matched 78, Section 78",
+    "victim_type": "woman",
+    "context": "familial",
+    "sections_mentioned": [
+      "376",
+      "64",
+      "90",
+      "22",
+      "78"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_919": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "dowry",
+      "stalking",
+      "voyeurism",
+      "modesty",
+      "homicide"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, Section 376; false_promise_marriage: matched Section 22; dowry: matched Section 80",
+    "victim_type": "woman",
+    "context": "unknown",
+    "sections_mentioned": [
+      "376",
+      "22",
+      "80",
+      "78",
+      "77",
+      "354",
+      "74",
+      "302",
+      "304"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_953": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "dowry",
+      "matrimonial_cruelty",
+      "marital_discord",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched Section 63, Section 64; false_promise_marriage: matched Section 90, Section 22; dowry: matched dowry, Section 498A",
+    "victim_type": "woman",
+    "context": "spousal",
+    "sections_mentioned": [
+      "63",
+      "64",
+      "90",
+      "22",
+      "498A",
+      "498A",
+      "482"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_96": {
+    "categories": [
+      "false_promise_marriage",
+      "pocso"
+    ],
+    "confidence": 1.0,
+    "reasoning": "false_promise_marriage: matched Section 22; pocso: matched pocso, protection of children, Section POCSO",
+    "victim_type": "woman",
+    "context": "familial",
+    "sections_mentioned": [
+      "22",
+      "POCSO"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  },
+  "2024_INSC_987": {
+    "categories": [
+      "rape",
+      "false_promise_marriage",
+      "dowry",
+      "kidnapping",
+      "stalking",
+      "voyeurism",
+      "pocso",
+      "modesty",
+      "homicide",
+      "matrimonial_cruelty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: matched rape, sexual assault, Section 64; false_promise_marriage: matched Section 90, Section 22; dowry: matched Section 80, Section 85",
+    "victim_type": "woman",
+    "context": "familial",
+    "sections_mentioned": [
+      "64",
+      "90",
+      "22",
+      "80",
+      "85",
+      "364",
+      "78",
+      "77",
+      "POCSO",
+      "74",
+      "302",
+      "85"
+    ],
+    "is_new_category": false,
+    "category_type": "base"
+  }
+}

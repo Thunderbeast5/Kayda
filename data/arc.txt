@@ -16,4 +16,4 @@
         Crosswalks
                    │
                    ▼
-             LLM Reasoning
+             LLM Reasonin
