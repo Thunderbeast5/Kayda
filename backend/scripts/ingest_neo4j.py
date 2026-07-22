@@ -50,9 +50,9 @@
 # # --------------------------------------------------------------------
 # # Other Config
 # # --------------------------------------------------------------------
-# CSV_PATH = BASE_DIR.parent.parent / "data" / "ipc_sections.csv"
+# CSV_PATH = BASE_DIR.parent.parent / "data" / "new" / "ipc_sections.csv"
 # JSON_PATH = BASE_DIR.parent.parent / "data" / "ipc.json"
-# BNS_CSV_PATH = BASE_DIR.parent.parent / "data" / "bns_sections.csv"
+# BNS_CSV_PATH = BASE_DIR.parent.parent / "data" / "new" / "bns_sections_clean.csv"
 # PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 # PINECONE_INDEX_NAME = "legal-embeddings"
 
@@ -335,9 +335,9 @@ if not NEO4J_URI or not NEO4J_USER or not NEO4J_PASSWORD:
 # --------------------------------------------------------------------
 # Other Config
 # --------------------------------------------------------------------
-CSV_PATH = BASE_DIR.parent.parent / "data" / "ipc_sections_clean.csv"
+CSV_PATH = BASE_DIR.parent.parent / "data" / "new" / "ipc_sections.csv"
 JSON_PATH = BASE_DIR.parent.parent / "data" / "ipc.json"
-BNS_CSV_PATH = BASE_DIR.parent.parent / "data" / "bns_sections_clean.csv"
+BNS_CSV_PATH = BASE_DIR.parent.parent / "data" / "new" / "bns_sections1.csv"
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 PINECONE_INDEX_NAME = "legal-embeddings"
 
@@ -357,21 +357,29 @@ def extract_section_number(section_str: str) -> str:
     return match.group(1) if match else str(section_str)
 
 
-def read_csv_rows(path: Path) -> list[dict]:
+def read_csv_rows(path: Path):
+
     rows = []
+
     if not path.exists():
-        print(f"Warning: File not found at {path}")
+        print(f"Warning: {path} not found")
         return rows
 
     with open(path, "r", encoding="utf-8") as f:
+
         reader = csv.DictReader(f)
+
         for row in reader:
-            # Standardize Title/Offense early
+
             if "Title" not in row or not row.get("Title"):
                 row["Title"] = row.get("Offense", "") or row.get("Title_BNS", "")
 
             row["Section_Number"] = extract_section_number(row.get("Section", ""))
+
+            row["Sub_Sections"] = row.get("Sub_Sections", "")
+
             rows.append(row)
+
     return rows
 
 
@@ -420,13 +428,21 @@ def clean_rows(rows: list[dict], title_lookup: dict) -> list[dict]:
 
 
 def ingest_neo4j(rows: list[dict], act: str) -> int:
-    driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
+
+    driver = GraphDatabase.driver(
+        NEO4J_URI,
+        auth=(NEO4J_USER, NEO4J_PASSWORD)
+    )
+
     count = 0
     skipped = 0
 
     with driver.session() as session:
+
         for row in rows:
+
             section = row.get("Section_Number", "")
+            subsection = row.get("Sub_Sections", "")
             desc = row.get("Description", "").strip()
             punish = row.get("Punishment", "").strip()
 
@@ -436,30 +452,38 @@ def ingest_neo4j(rows: list[dict], act: str) -> int:
 
             session.run(
                 """
-                MERGE (l:LawSection {act: $act, section: $section})
+                MERGE (l:LawSection {
+                    act:$act,
+                    section:$section
+                })
+
                 SET
                     l.title = $title,
                     l.description = $desc,
                     l.punishment = $punish,
-                    l.chapter = $chapter
+                    l.chapter = $chapter,
+                    l.sub_sections = $sub_sections
 
                 WITH l
 
-                MERGE (a:Act {name: $act})
+                MERGE (a:Act {name:$act})
                 MERGE (a)-[:HAS_SECTION]->(l)
                 """,
+
                 act=act,
                 section=section,
                 title=row.get("Title") or row.get("Offense", ""),
                 desc=desc,
                 punish=punish,
-                chapter=row.get("Chapter_Title", "")
+                chapter=row.get("Chapter_Title", ""),
+                sub_sections=subsection
             )
 
             count += 1
 
     driver.close()
-    print(f"  Skipped {skipped} rows (empty section or offense)")
+
+    print(f"Skipped {skipped} rows")
     return count
 
 

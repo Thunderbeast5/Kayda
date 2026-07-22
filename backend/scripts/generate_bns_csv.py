@@ -6,8 +6,8 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent
 
-PDF_PATH = BASE_DIR.parent.parent / "data" / "BNS.pdf"
-OUTPUT_CSV = BASE_DIR.parent.parent / "data" / "bns_sections.csv"
+PDF_PATH = BASE_DIR.parent.parent / "data" / "new" / "BNS.pdf"
+OUTPUT_CSV = BASE_DIR.parent.parent / "data" / "new"/ "bns_sections1.csv"
 
 doc = fitz.open(PDF_PATH)
 
@@ -29,6 +29,7 @@ rows = []
 current_section = None
 current_title = ""
 current_desc = ""
+current_subsections = []
 
 for line in lines:
 
@@ -56,43 +57,53 @@ for line in lines:
         if current_section is not None:
             rows.append({
                 "Section": current_section,
+                "Sub_Sections": ",".join(current_subsections),
                 "Title": current_title,
                 "Description": current_desc.strip(),
                 "Punishment": "",
                 "Chapter": chapter,
                 "Chapter_Title": chapter_title
             })
-
         current_section = m.group(1)
         current_title = m.group(2)
         current_desc = ""
+        current_subsections = []
 
     else:
+
         if current_section:
+
+            # Detect subsection numbers like (1), (2), (a), (b), (i), (ii)
+            sub = re.match(r"^\(([0-9]+|[a-z]+|[ivxlcdm]+)\)", line, re.IGNORECASE)
+
+            if sub:
+                current_subsections.append(sub.group(1))
+
             current_desc += line + " "
 
 # Save last section
 if current_section:
     rows.append({
         "Section": current_section,
+        "Sub_Sections": ",".join(current_subsections),
         "Title": current_title,
         "Description": current_desc.strip(),
         "Punishment": "",
         "Chapter": chapter,
         "Chapter_Title": chapter_title
     })
-
 with open(OUTPUT_CSV, "w", newline="", encoding="utf-8") as f:
     writer = csv.DictWriter(
         f,
         fieldnames=[
             "Section",
+            "Sub_Sections",
             "Title",
             "Description",
             "Punishment",
             "Chapter",
             "Chapter_Title",
-        ],
+        ]
     )
 
     writer.writeheader()
