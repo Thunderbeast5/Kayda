@@ -28,15 +28,36 @@
   --color-textPrimary: #212121;
   --color-textMuted: #757575;
 
-  --font-heading: "Lora", serif;
-  --font-body: "Inter", sans-serif;
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Poppins", sans-serif;
   --font-mono: "Roboto Mono", monospace;
 }
 
 @layer base {
+  html, body, #root {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
   body {
     background-color: var(--color-surface-court);
     color: var(--color-textPrimary);
     font-family: var(--font-body);
+  }
+
+  /* Custom premium scrollbar utility */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(62, 39, 35, 0.15); /* wood-dark with low opacity */
+    border-radius: 99px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(197, 160, 89, 0.5); /* gold with hover opacity */
   }
 }

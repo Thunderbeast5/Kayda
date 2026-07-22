@@ -1,5 +1,5 @@
 """
-API Server for the MootCourt Agent System
+API Server for the Kayda Agent System
 Provides REST endpoints for frontend integration.
 """
 
@@ -65,7 +65,7 @@ def health_check():
     """
     return jsonify({
         "status": "healthy",
-        "message": "MootCourt Agent API is running"
+        "message": "Kayda Agent API is running"
     }), 200
 
 

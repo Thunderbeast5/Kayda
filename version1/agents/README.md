@@ -1,6 +1,6 @@
-# MootCourt Agents Backend
+# Kayda Agents Backend
 
-This folder contains the Python backend for the MootCourt AI agent system. The system consists of three agents:
+This folder contains the Python backend for the Kayda AI agent system. The system consists of three agents:
 
 - **Orchestrator Agent**: Main controller that routes queries to appropriate agents
 - **Prosecutor Agent**: Handles prosecution-related logic and responses
