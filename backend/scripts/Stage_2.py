@@ -45,8 +45,8 @@ class Config:
     
     project_root: Path = Path(__file__).parent.parent.parent
     data_dir: Path = project_root / 'data'
-    candidates_file: Path = data_dir / 'candidate_cases_2024.csv'
-    pdf_output_dir: Path = data_dir / 'pdf_downloads'
+    candidates_file: Path = data_dir / 'candidate_cases_2025.csv'
+    pdf_output_dir: Path = data_dir / 'pdf_downloads_2025'
     
     s3_bucket: str = "indian-supreme-court-judgments"
     s3_region: str = "ap-south-1"

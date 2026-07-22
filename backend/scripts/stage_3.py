@@ -1,14 +1,27 @@
 #!/usr/bin/env python3
 """
-Stage 3: OCR / Text Extraction from PDFs
+Stage 3: ACCURATE PDF TO JSON EXTRACTOR
 
-Handles both digital and scanned PDFs:
-1. Digital PDF → Extract text directly (pdfplumber / pymupdf)
-2. Scanned PDF → OCR using Tesseract (pdf2image + pytesseract)
+Extracts structured data from Supreme Court judgment PDFs and saves as JSON.
 
-Input:  data/pdf_downloads/*.pdf
-Output: data/extracted_text/*.txt
-        data/extraction_results.csv
+For each PDF, extracts:
+- case_id (from filename)
+- issue_for_consideration
+- headnotes
+- list_of_acts
+- list_of_keywords
+- judgment_text (full)
+- case_arising_from
+- appearances
+- judges
+- decision_date
+- ipc_sections_referred
+- bns_sections_referred
+- acts_referred
+
+Input:  data/pdf_downloads_2025/*.pdf
+Output: data/json_output_2025/*.json
+        data/extraction_summary.csv
 """
 
 import os
@@ -16,23 +29,15 @@ import re
 import json
 import logging
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple, Any
 from dataclasses import dataclass, field
+from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
-import time
-import hashlib
 
 import pandas as pd
 from tqdm import tqdm
-
-# PDF Processing
 import pdfplumber
 import fitz  # PyMuPDF
-
-# OCR
-from pdf2image import convert_from_path
-import pytesseract
-from PIL import Image
 
 # ============================================================
 # LOGGING
@@ -51,456 +56,325 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class Config:
-    """Configuration for text extraction"""
-    
-    project_root: Path = Path(__file__).parent.parent.parent
+    project_root: Path = Path(__file__).parent.parent.parent if '__file__' in globals() else Path.cwd()
     data_dir: Path = project_root / 'data'
     
-    # Input PDFs from Stage 2
-    pdf_input_dir: Path = data_dir / 'pdf_downloads'
+    # Input PDFs
+    pdf_input_dir: Path = data_dir / 'pdf_downloads_2025'
     
     # Output directories
-    text_output_dir: Path = data_dir / 'extracted_text'
-    ocr_temp_dir: Path = data_dir / 'temp_ocr'
+    json_output_dir: Path = data_dir / 'json_output_2025'
+    summary_file: Path = data_dir / 'extraction_summary.csv'
     
-    # OCR settings
-    ocr_language: str = 'eng'  # Language for Tesseract
-    ocr_dpi: int = 300  # DPI for image conversion
-    ocr_workers: int = 2  # Concurrent OCR processes
-    max_pages_for_ocr: int = 50  # Max pages to OCR per PDF
-    pdf2image_timeout: int = 60  # Seconds per page
-    
-    # Text extraction settings
-    min_text_length: int = 100  # Minimum characters to consider "digital"
+    # Extraction settings
+    max_pages: int = 100
+    num_workers: int = 4
     
     def __post_init__(self):
-        """Create necessary directories"""
-        self.text_output_dir.mkdir(parents=True, exist_ok=True)
-        self.ocr_temp_dir.mkdir(parents=True, exist_ok=True)
+        self.json_output_dir.mkdir(parents=True, exist_ok=True)
 
 
 # ============================================================
-# TEXT EXTRACTOR
+# HIGH-PRECISION PDF PARSER
 # ============================================================
 
-class PDFTextExtractor:
-    """
-    Extract text from PDFs using multiple methods.
-    
-    Methods:
-    1. pdfplumber (best for digital PDFs with tables)
-    2. PyMuPDF (fast, good for digital PDFs)
-    3. Tesseract OCR (for scanned PDFs)
-    """
+class SupremeCourtPDFParser:
+    """Parse Supreme Court judgment PDFs with accurate legal section parsing."""
     
     def __init__(self, config: Config):
         self.config = config
-        self.stats = {
-            'total': 0,
-            'digital': 0,
-            'scanned_ocr': 0,
-            'failed': 0,
-            'skipped_exists': 0,
-            'empty_text': 0
-        }
-    
-    def _extract_with_pdfplumber(self, pdf_path: Path) -> Tuple[str, bool]:
+
+    def extract_clean_text(self, pdf_path: Path) -> Tuple[str, int, bool]:
         """
-        Extract text using pdfplumber.
-        Returns: (text, has_text)
+        Extracts clean full text using PyMuPDF block layout mode first, 
+        falling back to pdfplumber.
         """
+        full_text = ""
+        pages_count = 0
+        is_digital = False
+
+        # Strategy 1: PyMuPDF Block Layout (Fast & Preserves Structure)
         try:
-            text_parts = []
+            doc = fitz.open(pdf_path)
+            pages_count = len(doc)
+            text_blocks = []
+
+            for page_idx in range(min(pages_count, self.config.max_pages)):
+                page = doc[page_idx]
+                # 'blocks' sorts text elements in reading order (top-to-bottom, left-to-right)
+                blocks = page.get_text("blocks")
+                for b in blocks:
+                    # b[4] contains text content
+                    clean_b = b[4].strip()
+                    if clean_b:
+                        text_blocks.append(clean_b)
+            
+            full_text = "\n\n".join(text_blocks)
+            if len(full_text.strip()) > 100:
+                is_digital = True
+                doc.close()
+                return full_text, pages_count, is_digital
+            doc.close()
+        except Exception as e:
+            logger.debug(f"PyMuPDF block extraction failed for {pdf_path.name}: {e}")
+
+        # Strategy 2: pdfplumber fallback
+        try:
             with pdfplumber.open(pdf_path) as pdf:
-                for page in pdf.pages:
-                    page_text = page.extract_text() or ''
-                    if page_text.strip():
-                        text_parts.append(page_text)
-            
-            full_text = '\n'.join(text_parts)
-            has_text = len(full_text.strip()) > self.config.min_text_length
-            return full_text, has_text
-            
+                pages_count = len(pdf.pages)
+                page_texts = []
+                for page in pdf.pages[:self.config.max_pages]:
+                    t = page.extract_text(layout=False) or ""
+                    if t.strip():
+                        page_texts.append(t.strip())
+                
+                full_text = "\n\n".join(page_texts)
+                if len(full_text.strip()) > 100:
+                    is_digital = True
+                    return full_text, pages_count, is_digital
         except Exception as e:
             logger.debug(f"pdfplumber failed for {pdf_path.name}: {e}")
-            return "", False
-    
-    def _extract_with_pymupdf(self, pdf_path: Path) -> Tuple[str, bool]:
-        """
-        Extract text using PyMuPDF (fitz).
-        Returns: (text, has_text)
-        """
-        try:
-            text_parts = []
-            doc = fitz.open(pdf_path)
-            for page in doc:
-                page_text = page.get_text()
-                if page_text.strip():
-                    text_parts.append(page_text)
-            doc.close()
-            
-            full_text = '\n'.join(text_parts)
-            has_text = len(full_text.strip()) > self.config.min_text_length
-            return full_text, has_text
-            
-        except Exception as e:
-            logger.debug(f"PyMuPDF failed for {pdf_path.name}: {e}")
-            return "", False
-    
-    def _extract_with_ocr(self, pdf_path: Path, max_pages: int = None) -> Tuple[str, bool]:
-        """
-        Extract text using OCR (Tesseract).
-        Returns: (text, success)
-        """
-        if max_pages is None:
-            max_pages = self.config.max_pages_for_ocr
-        
-        try:
-            text_parts = []
-            
-            # Convert PDF to images
-            images = convert_from_path(
-                str(pdf_path),
-                dpi=self.config.ocr_dpi,
-                timeout=self.config.pdf2image_timeout,
-                first_page=1,
-                last_page=max_pages
-            )
-            
-            # OCR each image
-            for i, image in enumerate(images):
-                # Preprocess image for better OCR
-                image = self._preprocess_image(image)
-                
-                # OCR
-                page_text = pytesseract.image_to_string(
-                    image,
-                    lang=self.config.ocr_language,
-                    config='--psm 6'  # Assume uniform text block
-                )
-                
-                if page_text.strip():
-                    text_parts.append(f"--- Page {i+1} ---\n{page_text}")
-            
-            full_text = '\n'.join(text_parts)
-            has_text = len(full_text.strip()) > self.config.min_text_length
-            
-            # Clean up temp images if needed
-            if not self.config.ocr_temp_dir.exists():
-                self.config.ocr_temp_dir.mkdir(parents=True, exist_ok=True)
-            
-            return full_text, has_text
-            
-        except Exception as e:
-            logger.debug(f"OCR failed for {pdf_path.name}: {e}")
-            return "", False
-    
-    def _preprocess_image(self, image: Image.Image) -> Image.Image:
-        """
-        Preprocess image for better OCR results.
-        - Convert to grayscale
-        - Apply thresholding
-        """
-        try:
-            # Convert to grayscale
-            if image.mode != 'L':
-                image = image.convert('L')
-            
-            # Apply threshold (optional)
-            # image = image.point(lambda x: 0 if x < 128 else 255, '1')
-            
-            return image
-        except:
-            return image
-    
-    def _get_text_from_pdf(self, pdf_path: Path) -> Dict:
-        """
-        Extract text from a PDF using the best available method.
-        
-        Returns:
-            Dict with: text, method, has_text, success, error
-        """
+
+        return full_text, pages_count, is_digital
+
+    def parse_pdf(self, pdf_path: Path) -> Dict[str, Any]:
+        """Parse a single PDF into structured metadata and judgment components."""
         result = {
+            'case_id': pdf_path.stem,
             'file_name': pdf_path.name,
             'file_size': pdf_path.stat().st_size,
-            'text': '',
-            'method': 'none',
-            'has_text': False,
-            'success': False,
-            'error': '',
-            'word_count': 0
-        }
-        
-        # Try digital extraction methods first
-        methods = [
-            ('pdfplumber', self._extract_with_pdfplumber),
-            ('pymupdf', self._extract_with_pymupdf),
-        ]
-        
-        for method_name, method_func in methods:
-            try:
-                text, has_text = method_func(pdf_path)
-                if has_text:
-                    result['text'] = text
-                    result['method'] = method_name
-                    result['has_text'] = True
-                    result['success'] = True
-                    result['word_count'] = len(text.split())
-                    return result
-            except Exception as e:
-                logger.debug(f"Method {method_name} failed: {e}")
-                continue
-        
-        # If no digital text found, try OCR
-        logger.info(f"🔄 No digital text found in {pdf_path.name}, trying OCR...")
-        
-        try:
-            text, success = self._extract_with_ocr(pdf_path)
-            if success:
-                result['text'] = text
-                result['method'] = 'ocr_tesseract'
-                result['has_text'] = True
-                result['success'] = True
-                result['word_count'] = len(text.split())
-                return result
-        except Exception as e:
-            logger.warning(f"OCR failed for {pdf_path.name}: {e}")
-            result['error'] = str(e)
-        
-        # All methods failed
-        result['error'] = 'No text could be extracted'
-        return result
-    
-    def extract_text_from_pdf(self, pdf_path: Path) -> Dict:
-        """
-        Extract text from a single PDF file.
-        Handles both digital and scanned PDFs.
-        """
-        result = {
-            'file_name': pdf_path.name,
-            'file_path': str(pdf_path),
-            'file_size': pdf_path.stat().st_size,
-            'text': '',
-            'method': 'none',
-            'has_text': False,
-            'success': False,
-            'error': '',
-            'word_count': 0
-        }
-        
-        # Check if output already exists
-        output_file = self.config.text_output_dir / f"{pdf_path.stem}.txt"
-        
-        if output_file.exists() and output_file.stat().st_size > 100:
-            # Read existing text
-            try:
-                with open(output_file, 'r', encoding='utf-8') as f:
-                    text = f.read()
-                result['text'] = text
-                result['method'] = 'cached'
-                result['has_text'] = True
-                result['success'] = True
-                result['word_count'] = len(text.split())
-                self.stats['skipped_exists'] += 1
-                return result
-            except:
-                pass
-        
-        # Extract text from PDF
-        try:
-            extraction_result = self._get_text_from_pdf(pdf_path)
-            result.update(extraction_result)
-            
-            # Save extracted text
-            if result['has_text']:
-                with open(output_file, 'w', encoding='utf-8') as f:
-                    f.write(result['text'])
-                
-                # Update stats
-                if result['method'] in ['pdfplumber', 'pymupdf']:
-                    self.stats['digital'] += 1
-                elif result['method'] == 'ocr_tesseract':
-                    self.stats['scanned_ocr'] += 1
-                
-                logger.info(f"✅ Extracted: {pdf_path.name} ({result['word_count']:,} words, method: {result['method']})")
-            else:
-                self.stats['empty_text'] += 1
-                logger.warning(f"⚠️  No text extracted: {pdf_path.name}")
-            
-        except Exception as e:
-            result['success'] = False
-            result['error'] = str(e)
-            self.stats['failed'] += 1
-            logger.error(f"❌ Failed: {pdf_path.name} - {e}")
-        
-        return result
-    
-    def extract_all_pdfs(self, pdf_files: List[Path], max_workers: int = 4) -> pd.DataFrame:
-        """
-        Extract text from all PDF files.
-        
-        Args:
-            pdf_files: List of PDF file paths
-            max_workers: Number of concurrent workers
-            
-        Returns:
-            DataFrame with extraction results
-        """
-        self.stats['total'] = len(pdf_files)
-        
-        logger.info(f"\n📥 Extracting text from {len(pdf_files)} PDFs...")
-        logger.info(f"   Output directory: {self.config.text_output_dir}")
-        logger.info(f"   Concurrent workers: {max_workers}")
-        
-        results = []
-        
-        # Process sequentially (OCR can be resource-intensive)
-        if max_workers == 1:
-            for pdf_path in tqdm(pdf_files, desc="Extracting"):
-                result = self.extract_text_from_pdf(pdf_path)
-                results.append(result)
-        else:
-            # Process concurrently
-            with ThreadPoolExecutor(max_workers=max_workers) as executor:
-                futures = {
-                    executor.submit(self.extract_text_from_pdf, pdf_path): pdf_path
-                    for pdf_path in pdf_files
-                }
-                
-                with tqdm(total=len(futures), desc="Extracting") as pbar:
-                    for future in as_completed(futures):
-                        pdf_path = futures[future]
-                        try:
-                            result = future.result()
-                            results.append(result)
-                        except Exception as e:
-                            logger.error(f"Error processing {pdf_path.name}: {e}")
-                            results.append({
-                                'file_name': pdf_path.name,
-                                'file_path': str(pdf_path),
-                                'success': False,
-                                'error': str(e)
-                            })
-                        pbar.update(1)
-        
-        # Create DataFrame
-        df = pd.DataFrame(results)
-        
-        # Log statistics
-        self._log_stats()
-        
-        return df
-    
-    def _log_stats(self):
-        """Log extraction statistics"""
-        logger.info("\n" + "=" * 60)
-        logger.info("TEXT EXTRACTION STATISTICS")
-        logger.info("=" * 60)
-        logger.info(f"Total PDFs: {self.stats['total']:,}")
-        logger.info(f"Digital PDFs (pdfplumber/pymupdf): {self.stats['digital']:,}")
-        logger.info(f"Scanned PDFs (OCR): {self.stats['scanned_ocr']:,}")
-        logger.info(f"Already extracted: {self.stats['skipped_exists']:,}")
-        logger.info(f"Empty/No text: {self.stats['empty_text']:,}")
-        logger.info(f"Failed: {self.stats['failed']:,}")
-        logger.info("=" * 60)
-
-
-# ============================================================
-# TEXT CLEANING AND METADATA EXTRACTION
-# ============================================================
-
-class TextCleaner:
-    """Clean extracted text and extract metadata"""
-    
-    @staticmethod
-    def clean_text(text: str) -> str:
-        """Clean extracted text"""
-        if not text:
-            return ""
-        
-        # Remove excessive whitespace
-        text = re.sub(r'\s+', ' ', text)
-        
-        # Remove page number headers/footers (common patterns)
-        text = re.sub(r'\bPage\s+\d+\b', '', text, flags=re.IGNORECASE)
-        text = re.sub(r'\b\d+\s+of\s+\d+\b', '', text)
-        
-        # Remove special characters (keep Indian language characters)
-        text = re.sub(r'[^\w\s.,;:!?()\[\]{}\'\"-]', ' ', text)
-        
-        # Normalize multiple spaces
-        text = re.sub(r'\s+', ' ', text)
-        
-        return text.strip()
-    
-    @staticmethod
-    def extract_metadata(text: str) -> Dict:
-        """Extract key metadata from text"""
-        metadata = {
-            'case_number': None,
-            'year': None,
+            'extraction_date': datetime.now().isoformat(),
+            'pages': 0,
+            'full_text': '',
+            'issue_for_consideration': '',
+            'headnotes': '',
+            'list_of_acts': [],
+            'list_of_keywords': [],
+            'judgment_text': '',
+            'case_arising_from': '',
+            'appearances': '',
             'judges': [],
-            'parties': [],
+            'decision_date': '',
+            'citation': '',
             'acts_referred': [],
-            'sections_referred': []
+            'ipc_sections_referred': [],
+            'bns_sections_referred': [],
+            'is_digital': False,
+            'has_error': False,
+            'error_message': ''
         }
         
-        if not text:
-            return metadata
+        full_text, pages_count, is_digital = self.extract_clean_text(pdf_path)
+        result['pages'] = pages_count
+        result['is_digital'] = is_digital
+        result['full_text'] = full_text
+
+        if not full_text or len(full_text.strip()) < 50:
+            result['has_error'] = True
+            result['error_message'] = "Empty or unreadable scanned PDF text"
+            return result
+
+        try:
+            # 1. Structural metadata blocks
+            self._parse_structured_blocks(full_text, result)
+            
+            # 2. Extract References
+            ipc_sec, bns_sec = self._extract_sections(full_text)
+            result['ipc_sections_referred'] = ipc_sec
+            result['bns_sections_referred'] = bns_sec
+            result['acts_referred'] = self._extract_acts(full_text)
+            
+        except Exception as e:
+            result['has_error'] = True
+            result['error_message'] = f"Parsing error: {str(e)}"
+            logger.error(f"Error parsing metadata for {pdf_path.name}: {e}")
         
-        # Extract year
-        year_match = re.search(r'\b(19[5-9][0-9]|20[0-2][0-9])\b', text)
-        if year_match:
-            metadata['year'] = year_match.group(1)
-        
-        # Extract case number patterns
-        patterns = [
-            r'(?:Writ\s+Petition|Civil\s+Appeal|Criminal\s+Appeal)\s+\(?[A-Z]\)?\s+No\.?\s+(\d+/\d+)',
-            r'(?:SLP|Review\s+Petition)\s+\(?[A-Z]\)?\s+No\.?\s+(\d+/\d+)',
-            r'Case\s+No\.?\s*([A-Z0-9/\-]+)',
+        return result
+    
+    def _parse_structured_blocks(self, text: str, result: Dict):
+        """Extract explicit legal headers using robust matching patterns."""
+
+        # 1. Issue for Consideration
+        issue_patterns = [
+            r'(?:##\s*|\n|\b)Issue(?:s)?\s+for\s+Consideration\s*[:\n\-]+(.*?)(?=\n\s*(?:##|Headnote|List of Acts|Held|Judgment|ORDER)|$)',
+            r'(?:##\s*|\n|\b)Point(?:s)?\s+for\s+Determination\s*[:\n\-]+(.*?)(?=\n\s*(?:##|Headnote|List of Acts|Held|Judgment|ORDER)|$)',
+            r'HELD\s*:\s*(.*?)(?=\n\s*(?:Judgment|ORDER|Case Law Cited)|$)'
         ]
-        
+        result['issue_for_consideration'] = self._extract_first_match(text, issue_patterns, dotall=True)
+
+        # 2. Headnotes
+        headnote_patterns = [
+            r'(?:##\s*|\n|\b)Headnote(?:s)?\b†?\s*[:\n\-]+(.*?)(?=\n\s*(?:##|List of Acts|List of Keywords|Case Arising From|Judgment|ORDER)|$)',
+            r'\[\s*Headnote\s*\]\s*(.*?)(?=\n\s*\[|\n\s*JUDGMENT|$)'
+        ]
+        result['headnotes'] = self._extract_first_match(text, headnote_patterns, dotall=True)
+
+        # 3. List of Acts
+        acts_patterns = [
+            r'(?:##\s*|\n|\b)(?:List of Acts|Acts Referred|Statutes Referred)\s*[:\n\-]+(.*?)(?=\n\s*(?:##|List of Keywords|Headnote|Case Arising From|Judgment)|$)'
+        ]
+        acts_str = self._extract_first_match(text, acts_patterns, dotall=True)
+        result['list_of_acts'] = self._split_list_items(acts_str)
+
+        # 4. List of Keywords
+        keywords_patterns = [
+            r'(?:##\s*|\n|\b)(?:List of Keywords|Keywords|Subject Index)\s*[:\n\-]+(.*?)(?=\n\s*(?:##|Case Arising From|Headnote|List of Acts|Judgment)|$)'
+        ]
+        kw_str = self._extract_first_match(text, keywords_patterns, dotall=True)
+        result['list_of_keywords'] = self._split_list_items(kw_str)
+
+        # 5. Case Arising From
+        arising_patterns = [
+            r'(?:##\s*|\n|\b)Case Arising From\s*[:\n\-]+(.*?)(?=\n\s*(?:##|Appearances|Judges|Judgment)|$)',
+            r'IN\s+THE\s+SUPREME\ court\s+OF\s+INDIA\s*\n(.*?)(?=\n\s*JUDGMENT|\n\s*ORDER|$)'
+        ]
+        result['case_arising_from'] = self._extract_first_match(text, arising_patterns, dotall=True)
+
+        # 6. Appearances
+        appearances_patterns = [
+            r'(?:##\s*|\n|\b)Appearances\s*(?:for Parties)?\s*[:\n\-]+(.*?)(?=\n\s*(?:##|JUDGMENT|ORDER|CORAM)|$)',
+            r'For\s+Petitioner\(s\)\s*:\s*(.*?)(?=\n\s*For\s+Respondent|\n\s*JUDGMENT|$)'
+        ]
+        result['appearances'] = self._extract_first_match(text, appearances_patterns, dotall=True)
+
+        # 7. Judges / Bench
+        judges_patterns = [
+            r'(?:BENCH|CORAM|PRESENT)\s*:\s*(.*?)(?=\n\n|\n[A-Z\s]{4,}:|$)',
+            r'Hon\'ble\s+Mr\.\s+Justice\s+([A-Za-z\s\.]+)(?:and|&)\s+Hon\'ble\s+Mr\.\s+Justice\s+([A-Za-z\s\.]+)',
+            r'\[\s*([A-Z\s\.]+,\s*J\.)\s*\]'
+        ]
+        raw_judges = self._extract_first_match(text, judges_patterns)
+        result['judges'] = self._clean_judges(raw_judges)
+
+        # 8. Decision Date
+        date_patterns = [
+            r'(?:Decided|Dated|Date of Judgment|Pronounced on)\s*[:\n\-]*\s*([0-9]{1,2}(?:st|nd|rd|th)?\s+[A-Za-z]+\s*,\s*[0-9]{4})',
+            r'([0-9]{1,2}\s+(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+[0-9]{4})',
+            r'([0-9]{2}[\/\.-][0-9]{2}[\/\.-][0-9]{4})'
+        ]
+        result['decision_date'] = self._extract_first_match(text, date_patterns)
+
+        # 9. Citation
+        citation_patterns = [
+            r'([0-9]{4}\s+INSC\s+[0-9]+)',
+            r'([0-9]{4}\s*\(\s*[0-9]+\s*\)\s*S\.C\.R\.\s+[0-9]+)',
+            r'([0-9]{4}\s+[0-9]+\s+SCC\s+[0-9]+)'
+        ]
+        result['citation'] = self._extract_first_match(text, citation_patterns)
+
+        # 10. Judgment Text Body
+        judgment_patterns = [
+            r'(?:##\s*|\n)(?:JUDGMENT|ORDER)\s*\n+(.*?)(?=\Z)',
+            r'J U D G M E N T\s*\n+(.*?)(?=\Z)',
+            r'O R D E R\s*\n+(.*?)(?=\Z)'
+        ]
+        j_text = self._extract_first_match(text, judgment_patterns, dotall=True)
+        result['judgment_text'] = j_text if j_text else text
+
+    def _extract_first_match(self, text: str, patterns: List[str], dotall: bool = False) -> str:
+        flags = re.IGNORECASE | (re.DOTALL if dotall else 0)
         for pattern in patterns:
-            match = re.search(pattern, text, re.IGNORECASE)
+            match = re.search(pattern, text, flags)
             if match:
-                metadata['case_number'] = match.group(1)
-                break
+                # Retrieve first non-empty capturing group
+                groups = [g for g in match.groups() if g]
+                if groups:
+                    return groups[0].strip()
+        return ""
+
+    def _split_list_items(self, text: str) -> List[str]:
+        if not text:
+            return []
+        # Split by semicolons, bullet points, or line breaks
+        items = re.split(r'[;\n\•\*\-]', text)
+        cleaned = []
+        for item in items:
+            item = item.strip(' \t\n\r-•*,;')
+            if item and len(item) > 1:
+                cleaned.append(item)
+        return cleaned
+
+    def _clean_judges(self, raw_text: str) -> List[str]:
+        if not raw_text:
+            return []
+        cleaned = []
+        # Filter typical judge titles
+        names = re.split(r'[,;\n&]|and', raw_text, flags=re.IGNORECASE)
+        for name in names:
+            n = re.sub(r'\b(Hon\'ble|Mr\.|Mrs\.|Justice|J\.|C\.J\.I\.)\b', '', name, flags=re.IGNORECASE).strip()
+            if len(n) > 2:
+                cleaned.append(n)
+        return list(dict.fromkeys(cleaned))
+
+    def _extract_sections(self, text: str) -> Tuple[List[str], List[str]]:
+        """Separately extract sections for IPC and BNS based on immediate context."""
+        ipc_sections = set()
+        bns_sections = set()
+
+        sec_num_pattern = r'[0-9]{1,4}(?:-[A-Z]+|[A-Z]+)?(?:\([0-9a-z]+\))?'
+
+        # 1. Capture sections where the act name follows (e.g. "Section 302 of IPC", "u/s 103, BNS")
+        ipc_postfix = re.findall(rf'\b(?:Section|Sec\.|S\.|u/s|u/ss)\s*({sec_num_pattern})\s*(?:of\b|in\b|,)?\s*(?:the\b\s*)?(?:IPC|Indian Penal Code)', text, re.IGNORECASE)
+        bns_postfix = re.findall(rf'\b(?:Section|Sec\.|S\.|u/s|u/ss)\s*({sec_num_pattern})\s*(?:of\b|in\b|,)?\s*(?:the\b\s*)?(?:BNS|Bharatiya Nyaya Sanhita)', text, re.IGNORECASE)
+
+        # 2. Capture sections where the act name precedes (e.g. "IPC Section 302", "BNS u/s 103")
+        ipc_prefix = re.findall(rf'\b(?:IPC|Indian Penal Code)\s*(?:,|\b)?\s*(?:Section|Sec\.|S\.|u/s|u/ss)?\s*({sec_num_pattern})', text, re.IGNORECASE)
+        bns_prefix = re.findall(rf'\b(?:BNS|Bharatiya Nyaya Sanhita)\s*(?:,|\b)?\s*(?:Section|Sec\.|S\.|u/s|u/ss)?\s*({sec_num_pattern})', text, re.IGNORECASE)
+
+        ipc_sections.update(ipc_postfix)
+        ipc_sections.update(ipc_prefix)
+        bns_sections.update(bns_postfix)
+        bns_sections.update(bns_prefix)
+
+        # 3. Fallback: If generic section references exist without an explicit act name in the same sentence,
+        # assign them to IPC or BNS depending on overall document context.
+        if not ipc_sections and not bns_sections:
+            generic_matches = re.findall(rf'\b(?:Section|Sec\.|S\.|u/s|u/ss)\s*({sec_num_pattern})', text, re.IGNORECASE)
+            if generic_matches:
+                if re.search(r'\b(BNS|Bharatiya Nyaya Sanhita)\b', text, re.IGNORECASE):
+                    bns_sections.update(generic_matches)
+                else:
+                    ipc_sections.update(generic_matches)
+
+        return sorted(list(ipc_sections)), sorted(list(bns_sections))
+
+    def _extract_acts(self, text: str) -> List[str]:
+        """Detect presence of major criminal/special statutes."""
+        act_mapping = {
+            "Indian Penal Code": [r"\bIndian Penal Code\b", r"\bIPC\b"],
+            "Bharatiya Nyaya Sanhita": [r"\bBharatiya Nyaya Sanhita\b", r"\bBNS\b"],
+            "Code of Criminal Procedure": [r"\bCode of Criminal Procedure\b", r"\bCrPC\b"],
+            "Bharatiya Nagarik Suraksha Sanhita": [r"\bBharatiya Nagarik Suraksha Sanhita\b", r"\bBNSS\b"],
+            "Dowry Prohibition Act": [r"\bDowry Prohibition Act\b", r"\bDowry Act\b"],
+            "POCSO": [r"\bProtection of Children from Sexual Offences\b", r"\bPOCSO\b"],
+            "Indian Evidence Act": [r"\bIndian Evidence Act\b", r"\bEvidence Act\b"],
+            "Domestic Violence Act": [r"\bDomestic Violence Act\b", r"\bDV Act\b"]
+        }
         
-        # Extract judge names
-        judge_patterns = [
-            r'(?:Hon\'?ble|Justice|J\.)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)',
-            r'([A-Z][a-z]+(?:\s+[A-Z][a-z]+)*)\s+J\.',
-        ]
+        found_acts = set()
+        for act_name, patterns in act_mapping.items():
+            for pat in patterns:
+                if re.search(pat, text, re.IGNORECASE):
+                    found_acts.add(act_name)
+                    break
+        return sorted(list(found_acts))
+
+    def process_pdf(self, pdf_path: Path) -> Dict[str, Any]:
+        """Process PDF file and immediately dump structured JSON output."""
+        result = self.parse_pdf(pdf_path)
+        json_path = self.config.json_output_dir / f"{result['case_id']}.json"
         
-        judges = set()
-        for pattern in judge_patterns:
-            matches = re.findall(pattern, text)
-            judges.update(matches)
-        
-        metadata['judges'] = list(judges)
-        
-        # Extract sections referred
-        section_pattern = r'\bSection\s+(\d+[A-Z]?)\b'
-        sections = set(re.findall(section_pattern, text, re.IGNORECASE))
-        metadata['sections_referred'] = list(sections)
-        
-        # Extract acts referred
-        act_patterns = [
-            r'Indian\s+Penal\s+Code',
-            r'Code\s+of\s+Criminal\s+Procedure',
-            r'Indian\s+Evidence\s+Act',
-            r'Protection\s+of\s+Children\s+from\s+Sexual\s+Offences',
-            r'POCSO',
-            r'Dowry\s+Prohibition\s+Act',
-            r'Domestic\s+Violence\s+Act',
-            r'Juvenile\s+Justice\s+Act'
-        ]
-        
-        for pattern in act_patterns:
-            if re.search(pattern, text, re.IGNORECASE):
-                metadata['acts_referred'].append(pattern)
-        
-        return metadata
+        try:
+            with open(json_path, 'w', encoding='utf-8') as f:
+                json.dump(result, f, indent=2, ensure_ascii=False)
+            result['json_saved'] = True
+            result['json_path'] = str(json_path)
+        except Exception as e:
+            result['json_saved'] = False
+            result['json_error'] = str(e)
+            logger.error(f"Failed to save JSON for {pdf_path.name}: {e}")
+
+        return result
 
 
 # ============================================================
@@ -508,91 +382,58 @@ class TextCleaner:
 # ============================================================
 
 def main():
-    """Main entry point"""
     print("=" * 70)
-    print("STAGE 3: OCR / TEXT EXTRACTION")
-    print("Extracting text from PDFs (digital + scanned)")
+    print("STAGE 3: HIGH-ACCURACY PDF TO JSON EXTRACTOR")
     print("=" * 70)
     
     config = Config()
     
-    print(f"\n📁 Project root: {config.project_root}")
-    print(f"📁 Data directory: {config.data_dir}")
-    print(f"📁 PDF input directory: {config.pdf_input_dir}")
-    print(f"📁 Text output directory: {config.text_output_dir}")
-    
-    # Check if PDFs exist
     if not config.pdf_input_dir.exists():
         logger.error(f"❌ PDF directory not found: {config.pdf_input_dir}")
-        print("\n⚠️  No PDFs found. Please run Stage 2 first.")
         return
-    
-    # Get all PDF files
+
     pdf_files = list(config.pdf_input_dir.glob('*.pdf'))
-    
     if not pdf_files:
         logger.error(f"❌ No PDFs found in: {config.pdf_input_dir}")
         return
-    
-    logger.info(f"✅ Found {len(pdf_files)} PDF files")
-    
-    # Check Tesseract availability
-    try:
-        pytesseract.get_tesseract_version()
-        logger.info("✅ Tesseract OCR available")
-    except:
-        logger.warning("⚠️  Tesseract OCR not found. Scanned PDFs will fail.")
-        logger.warning("   Install Tesseract: https://github.com/UB-Mannheim/tesseract/wiki")
-    
-    # Initialize extractor
-    extractor = PDFTextExtractor(config)
-    
-    # Extract text from all PDFs
-    result_df = extractor.extract_all_pdfs(
-        pdf_files,
-        max_workers=2  # OCR is memory-intensive, use fewer workers
-    )
-    
-    # Save results
-    results_file = config.data_dir / 'extraction_results.csv'
-    result_df.to_csv(results_file, index=False)
-    logger.info(f"💾 Extraction results saved to: {results_file}")
-    
-    # Print summary
-    print("\n" + "=" * 70)
-    print("STAGE 3 COMPLETE")
-    print("=" * 70)
-    
-    successful = result_df[result_df['success'] == True]
-    failed = result_df[result_df['success'] == False]
-    
-    print(f"\n📊 Summary:")
-    print(f"   Total PDFs: {len(pdf_files)}")
-    print(f"   Successfully extracted: {len(successful)}")
-    print(f"   Failed: {len(failed)}")
-    
-    if len(successful) > 0:
-        avg_words = successful['word_count'].mean()
-        print(f"   Average words per document: {avg_words:,.0f}")
-        
-        # Method breakdown
-        method_counts = successful['method'].value_counts()
-        print(f"\n   Extraction methods:")
-        for method, count in method_counts.items():
-            print(f"      - {method}: {count}")
-    
-    print(f"\n📁 Extracted text saved to: {config.text_output_dir}")
-    
-    # Show sample extracted text
-    if len(successful) > 0:
-        sample = successful.iloc[0]
-        print(f"\n📋 Sample extracted text ({sample['file_name']}):")
-        text_preview = sample['text'][:500] + "..." if len(sample['text']) > 500 else sample['text']
-        print(f"   {text_preview}")
-    
-    print("\n" + "=" * 70)
-    print("✅ Stage 3 complete. Ready for Stage 4 classification.")
 
+    logger.info(f"✅ Found {len(pdf_files)} PDF files to extract")
+    parser = SupremeCourtPDFParser(config)
+    results = []
+
+    # Parallel Execution with ThreadPoolExecutor
+    print(f"\n📄 Extracting JSONs using {config.num_workers} threads...")
+    with ThreadPoolExecutor(max_workers=config.num_workers) as executor:
+        futures = {executor.submit(parser.process_pdf, pdf): pdf for pdf in pdf_files}
+        
+        for future in tqdm(as_completed(futures), total=len(pdf_files), desc="Extracting"):
+            try:
+                res = future.result()
+                results.append(res)
+            except Exception as e:
+                pdf_path = futures[future]
+                logger.error(f"Unhandled exception processing {pdf_path.name}: {e}")
+
+    # Summary Generation
+    df = pd.DataFrame(results)
+    config.summary_file.parent.mkdir(parents=True, exist_ok=True)
+    
+    # Exclude massive text block from CSV summary for cleanliness
+    summary_df = df.drop(columns=['full_text', 'judgment_text'], errors='ignore')
+    summary_df.to_csv(config.summary_file, index=False)
+
+    successes = len([r for r in results if not r.get('has_error', False)])
+    failures = len(results) - successes
+
+    print("\n" + "=" * 70)
+    print("EXTRACTION COMPLETE SUMMARY")
+    print("=" * 70)
+    print(f"Total PDFs Processed: {len(pdf_files)}")
+    print(f"Successful Extraction: {successes}")
+    print(f"Failed / Empty Texts: {failures}")
+    print(f"\n📁 JSON Output Saved to: {config.json_output_dir}")
+    print(f"📁 Summary Report Saved to: {config.summary_file}")
+    print("=" * 70)
 
 if __name__ == "__main__":
     main()
