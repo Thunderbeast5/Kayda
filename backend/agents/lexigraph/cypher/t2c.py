@@ -3,7 +3,7 @@ LexiGraph — Text2Cypher Agent (schema-aligned)
 ==============================================
 Natural-language crime query -> LangChain GraphCypherQAChain generates
 read-only Cypher -> query runs on Neo4j -> rows are expanded with legal
-rule edges -> reranked -> concise legal answer.
+rule edges -> ranked by lexical score -> concise legal answer.
 
 This version is aligned with the updated ingestion graph:
 - :LawSection unified label
@@ -53,15 +53,10 @@ NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
 FULLTEXT_SCORE_THRESHOLD = float(os.getenv("LEXIGRAPH_FULLTEXT_SCORE_THRESHOLD", "1.5"))
 INITIAL_RETRIEVAL_LIMIT = int(os.getenv("LEXIGRAPH_INITIAL_TOP_K", "12"))
 FINAL_TOP_K = int(os.getenv("LEXIGRAPH_FINAL_TOP_K", "3"))
-RERANKER_MODEL = os.getenv("LEXIGRAPH_RERANKER_MODEL", "BAAI/bge-reranker-large")
-RERANKER_WEIGHT = float(os.getenv("LEXIGRAPH_RERANKER_WEIGHT", "0.7"))
 DEBUG_RANKING = os.getenv("LEXIGRAPH_DEBUG_RANKING", "").strip().lower() in {"1", "true", "yes", "on"}
 
 STATUS_DELETED_NO_BNS = "deleted_no_bns_successor"
 STATUS_NEW_NO_IPC = "new_no_ipc_predecessor"
-
-_RERANKER = None
-_RERANKER_ERROR: str | None = None
 
 # ----------------------------------------------------------------------
 # Schema context given to Cypher generator.
@@ -182,11 +177,18 @@ Rules:
   MATCH, OPTIONAL MATCH, WITH, WHERE, RETURN, ORDER BY, LIMIT, UNWIND,
   CALL db.index.fulltext.queryNodes.
 - NEVER use CREATE, MERGE, SET, DELETE, DETACH, REMOVE, DROP, CALL apoc.*, or procedures other than db.index.fulltext.queryNodes.
-- For narrative incidents, extract 3-6 legal keywords and use Lucene OR syntax.
-  Example: 'kidnap* OR ransom OR hostage'. Do not pass raw sentence as search string.
+- For narrative incidents, UNDERSTAND THE CRIME AND INTENT first, then extract 3-6 legal keywords:
+  * "hit someone" -> 'hurt* OR assault OR voluntarily'
+  * "killed" -> 'murder OR culpable homicide OR death intention'
+  * "took money by force" -> 'robbery OR extortion OR theft force'
+  * "broke into house" -> 'housebreaking OR trespass OR theft'
+  * "threatened" -> 'intimidation OR threat OR criminal force'
+  * "touched inappropriately" -> 'modesty OR assault OR sexual harassment'
+  Use Lucene OR syntax. Do NOT pass raw sentence as search string.
 - For full-text queries, enforce: WHERE score > {FULLTEXT_SCORE_THRESHOLD}
   except direct exact section lookups.
-- Prefer BNS-first retrieval and map to IPC via REPLACES/REPLACED_BY as needed.
+- Prefer BNS-first retrieval. When returning results, use OPTIONAL MATCH to attach the IPC counterpart
+  via REPLACED_BY/REPLACES so the caller can deduplicate mapped pairs.
 - mapping_status values are exact strings:
   '{STATUS_DELETED_NO_BNS}', '{STATUS_NEW_NO_IPC}'.
 - Do not retrieve on victim-type words alone (minor/woman/child) without offense words.
@@ -205,6 +207,11 @@ QA_TEMPLATE = """You are a legal graph assistant for Indian criminal law.
 Answer the user using only the context below.
 - If context is empty, say no matching section was found.
 - Prefer section numbers, titles, punishments, and mapping counterpart where present.
+- IMPORTANT: IPC and BNS sections that are mapped counterparts describe the SAME crime under different laws.
+  Present them as one unified entry: e.g. "Murder is covered under BNS Section 103 (formerly IPC Section 302)".
+  Do NOT list IPC 302 and BNS 103 as two separate offences.
+- Understand the user's intent: if they describe an act colloquially ("beat up", "took money"),
+  identify the legal crime and explain which section applies.
 - Do not invent facts.
 
 Question:
@@ -227,10 +234,16 @@ QA_PROMPT = PromptTemplate(
 DECOMPOSE_SYSTEM_PROMPT = """You are a legal-analysis assistant for Indian criminal law (IPC/BNS).
 Given an incident description, identify each DISTINCT criminal act.
 
+Important:
+- Understand the INTENT behind the act (e.g. "hit someone" = voluntarily causing hurt, "took money by force" = robbery/extortion)
+- Identify the CRIME TYPE even if the user doesn't use legal terminology
+- Consider aggravating factors: weapon used, victim type (child/woman), group action, premeditation
+- Map colloquial descriptions to legal concepts (e.g. "beat up" = hurt/grievous hurt, "broke in" = housebreaking/trespass)
+
 For each act output:
-  - "label"
-  - "query_text"
-  - "raw_span"
+  - "label" (legal crime name)
+  - "query_text" (legal description suitable for graph search)
+  - "raw_span" (original words from input)
 
 Respond ONLY valid JSON:
 {"acts":[{"label":"...","query_text":"...","raw_span":"..."}]}
@@ -245,17 +258,51 @@ MULTI_CRIME_CONNECTOR_RE = re.compile(
     re.IGNORECASE,
 )
 CRIME_FAMILY_PATTERNS = {
-    "kidnapping": ("kidnap", "abduct", "hostage", "ransom"),
-    "theft": ("steal", "stole", "stolen", "theft", "snatch"),
-    "robbery": ("robbery", "robbed", "loot", "looted", "gunpoint"),
-    "murder": ("murder", "killed", "shot", "stabbed", "death", "died"),
-    "hurt": ("hurt", "injury", "injured", "assault", "beat", "beaten"),
-    "rape": ("rape", "sexual assault", "molest"),
-    "cheating": ("cheat", "cheated", "fraud"),
-    "forgery": ("forged", "forgery", "fake document"),
-    "intimidation": ("threat", "threatened", "intimidation", "blackmail"),
-    "extortion": ("extort", "extortion"),
-    "trespass": ("trespass", "housebreaking", "broke into", "entered unlawfully"),
+    "kidnapping": ("kidnap", "abduct", "hostage", "ransom", "took away", "carried off"),
+    "theft": ("steal", "stole", "stolen", "theft", "snatch", "pickpocket", "took without"),
+    "robbery": ("robbery", "robbed", "loot", "looted", "gunpoint", "snatched at"),
+    "murder": ("murder", "killed", "shot", "stabbed", "death", "died", "poisoned", "strangled", "beat to death"),
+    "hurt": ("hurt", "injury", "injured", "assault", "beat", "beaten", "hit", "punched", "slapped", "attacked"),
+    "grievous_hurt": ("grievous", "fracture", "broken bone", "disfigure", "permanent", "acid", "severe injury"),
+    "rape": ("rape", "sexual assault", "molest", "forced intercourse", "non consensual"),
+    "cheating": ("cheat", "cheated", "fraud", "deceived", "false promise", "duped"),
+    "forgery": ("forged", "forgery", "fake document", "fabricated"),
+    "intimidation": ("threat", "threatened", "intimidation", "blackmail", "coerce"),
+    "extortion": ("extort", "extortion", "demanded money", "forced to pay"),
+    "trespass": ("trespass", "housebreaking", "broke into", "entered unlawfully", "broke open"),
+    "stalking": ("stalk", "following", "monitoring", "watching repeatedly"),
+    "dowry": ("dowry", "harassment for dowry", "dowry demand"),
+    "negligence": ("negligent", "rash driving", "accident", "careless"),
+}
+
+
+# Intent keywords that map to legal search terms
+INTENT_TO_LEGAL = {
+    "hit": "hurt assault",
+    "beat": "hurt assault voluntarily",
+    "punch": "hurt assault",
+    "slap": "hurt assault",
+    "kill": "murder culpable homicide death",
+    "stab": "murder hurt weapon",
+    "shoot": "murder hurt weapon",
+    "strangle": "murder hurt",
+    "poison": "murder hurt poison",
+    "steal": "theft",
+    "rob": "robbery theft extortion",
+    "loot": "robbery dacoity",
+    "kidnap": "kidnapping abduction",
+    "abduct": "kidnapping abduction",
+    "rape": "rape sexual assault",
+    "molest": "sexual assault modesty",
+    "threaten": "criminal intimidation threat",
+    "blackmail": "extortion intimidation",
+    "cheat": "cheating fraud",
+    "forge": "forgery document",
+    "trespass": "trespass housebreaking",
+    "break in": "housebreaking trespass",
+    "stalk": "stalking following",
+    "harass": "harassment cruelty",
+    "dowry": "dowry death cruelty",
 }
 
 
@@ -490,77 +537,6 @@ def _extract_intermediate(result: dict[str, Any]) -> tuple[str, list[dict[str, A
     return cypher, rows
 
 
-def _load_reranker():
-    global _RERANKER, _RERANKER_ERROR
-    if _RERANKER is not None or _RERANKER_ERROR is not None:
-        return _RERANKER
-    try:
-        from sentence_transformers import CrossEncoder
-
-        _RERANKER = CrossEncoder(RERANKER_MODEL)
-    except Exception as exc:
-        _RERANKER_ERROR = f"{type(exc).__name__}: {exc}"
-    return _RERANKER
-
-
-def _candidate_text(candidate: dict[str, Any]) -> str:
-    parts = [
-        f"Act: {candidate.get('act', '')}",
-        f"Section: {candidate.get('section', '')}",
-        "",
-        "Title:",
-        candidate.get("title", "") or "",
-        "",
-        "Description:",
-        candidate.get("description", "") or "",
-        "",
-        "Keywords:",
-        candidate.get("keywords", "") or "",
-        "",
-        "Punishment:",
-        candidate.get("punishment", "") or "",
-        "",
-        "Mapping status:",
-        candidate.get("mapping_status", "") or "",
-    ]
-    if candidate.get("counterpart_act") and candidate.get("counterpart_section"):
-        parts.extend(
-            [
-                "",
-                "Mapped counterpart:",
-                f"{candidate['counterpart_act']} {candidate['counterpart_section']} {candidate.get('counterpart_title', '')}".strip(),
-            ]
-        )
-    if candidate.get("relationship"):
-        parts.extend(
-            [
-                "",
-                "Rule relation:",
-                f"{candidate['relationship']} {candidate.get('condition', '') or ''}".strip(),
-            ]
-        )
-    return "\n".join(part for part in parts if part is not None)
-
-
-def _lexical_fallback_score(question: str, candidate: dict[str, Any]) -> float:
-    query_terms = {term.lower() for term in re.findall(r"[A-Za-z]+", question) if len(term) > 3}
-    doc_terms = {term.lower() for term in re.findall(r"[A-Za-z]+", _candidate_text(candidate)) if len(term) > 3}
-    overlap = len(query_terms & doc_terms)
-    raw_score = float(candidate.get("raw_score") or 0.0)
-    rule_bonus = 0.2 if candidate.get("relationship") else 0.0
-    return overlap + raw_score + rule_bonus
-
-
-def _normalize_score_map(values: list[float]) -> list[float]:
-    if not values:
-        return []
-    lo = min(values)
-    hi = max(values)
-    if hi == lo:
-        return [1.0 for _ in values]
-    return [(v - lo) / (hi - lo) for v in values]
-
-
 def _debug_print_rows(label: str, rows: list[dict[str, Any]]) -> None:
     if not DEBUG_RANKING:
         return
@@ -580,51 +556,39 @@ def _debug_print_candidates(label: str, candidates: list[dict[str, Any]]) -> Non
             c.get("title", ""),
             "| raw=",
             f"{c.get('raw_score', 0.0):.4f}",
-            "| rerank=",
-            f"{c.get('rerank_score', 0.0):.4f}",
-            "| raw_norm=",
-            f"{c.get('raw_score_norm', 0.0):.4f}",
-            "| final=",
-            f"{c.get('final_score', 0.0):.4f}",
         )
 
 
-def rerank_candidates(question: str, candidates: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], str]:
-    model = _load_reranker()
-    reranker_name = f"CrossEncoder({RERANKER_MODEL})"
+def _score_candidate(question: str, candidate: dict[str, Any]) -> float:
+    """Score a candidate by lexical overlap with the query, boosted by raw fulltext score."""
+    # Expand query with intent mappings
+    expanded = question.lower()
+    for intent, legal in INTENT_TO_LEGAL.items():
+        if intent in expanded:
+            expanded += " " + legal
 
-    if model is not None:
-        pairs = [(question, _candidate_text(c)) for c in candidates]
-        scores = model.predict(pairs)
-        for c, score in zip(candidates, scores):
-            c["rerank_score"] = float(score)
-    else:
-        reranker_name = f"fallback lexical reranker ({_RERANKER_ERROR})"
-        for c in candidates:
-            c["rerank_score"] = _lexical_fallback_score(question, c)
+    query_terms = {t for t in re.findall(r"[a-z]+", expanded) if len(t) > 3}
+    doc = " ".join(filter(None, [
+        candidate.get("title", ""),
+        candidate.get("description", ""),
+        candidate.get("keywords", ""),
+        candidate.get("punishment", ""),
+    ])).lower()
+    doc_terms = {t for t in re.findall(r"[a-z]+", doc) if len(t) > 3}
+    overlap = len(query_terms & doc_terms)
+    raw = float(candidate.get("raw_score") or 0.0)
+    rule_bonus = 0.15 if candidate.get("relationship") else 0.0
+    return overlap + raw + rule_bonus
 
-    rerank_values = [float(c.get("rerank_score", 0.0)) for c in candidates]
-    raw_values = [float(c.get("raw_score", 0.0)) for c in candidates]
-    rerank_norm = _normalize_score_map(rerank_values)
-    raw_norm = _normalize_score_map(raw_values)
 
-    for c, rrn, rn in zip(candidates, rerank_norm, raw_norm):
-        c["rerank_score_norm"] = rrn
-        c["raw_score_norm"] = rn
-        c["final_score"] = RERANKER_WEIGHT * rrn + (1.0 - RERANKER_WEIGHT) * rn
-
-    ranked = sorted(
-        candidates,
-        key=lambda c: (c.get("final_score", 0.0), c.get("rerank_score", 0.0), c.get("raw_score", 0.0)),
-        reverse=True,
-    )
-    return ranked, reranker_name
+def rank_candidates(question: str, candidates: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    for c in candidates:
+        c["final_score"] = _score_candidate(question, c)
+    return sorted(candidates, key=lambda c: c.get("final_score", 0.0), reverse=True)
 
 
 def _build_direct_candidates(direct_rows: list[dict[str, Any]], section_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
-    candidates: dict[str, dict[str, Any]] = {}
     raw_scores: dict[str, float] = {}
-
     for row in direct_rows:
         score = row.get("score")
         try:
@@ -634,6 +598,10 @@ def _build_direct_candidates(direct_rows: list[dict[str, Any]], section_rows: li
         for sid in _row_section_ids(row):
             raw_scores[sid] = max(score_value, raw_scores.get(sid, float("-inf")))
 
+    # Build candidates, but deduplicate IPC/BNS mapped pairs:
+    # If IPC X maps to BNS Y, keep only the BNS section (prefer current law)
+    # and attach the IPC info as counterpart.
+    candidates: dict[str, dict[str, Any]] = {}
     for row in section_rows:
         sid = row["id"]
         candidate = dict(row)
@@ -641,7 +609,17 @@ def _build_direct_candidates(direct_rows: list[dict[str, Any]], section_rows: li
         candidate["source"] = "full_text_or_exact_match"
         candidates[sid] = candidate
 
-    return list(candidates.values())
+    # Suppress IPC entries that have a BNS counterpart already in the result set
+    bns_counterpart_ipc_sections = set()
+    for sid, c in candidates.items():
+        if c.get("act") == "BNS" and c.get("counterpart_act") == "IPC" and c.get("counterpart_section"):
+            bns_counterpart_ipc_sections.add(f"IPC_{c['counterpart_section']}")
+
+    deduped = {
+        sid: c for sid, c in candidates.items()
+        if sid not in bns_counterpart_ipc_sections
+    }
+    return list(deduped.values())
 
 
 def _build_related_candidates(related_rows: list[dict[str, Any]], section_rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
@@ -699,6 +677,10 @@ def answer_with_llm(question: str, primary_candidates: list[dict[str, Any]], rel
         "Answer ONLY from retrieved graph context.\n"
         "- Prioritize higher-ranked direct matches.\n"
         "- Mention IPC/BNS section numbers and titles explicitly.\n"
+        "- IMPORTANT: IPC and BNS mapped counterparts describe the SAME crime. "
+        "Present them as ONE entry, e.g. 'Murder: BNS 103 (formerly IPC 302)'. "
+        "Do NOT list them as two separate offences.\n"
+        "- Understand the user's intent from their description even if non-legal language is used.\n"
         "- If uncertain, say uncertain.\n"
         "- Use rule-expansion as supporting context only; do not override top direct hits unless rule relation clearly indicates precedence.\n"
         "- If a section has mapping_status deleted_no_bns_successor or new_no_ipc_predecessor, mention that implication briefly.\n\n"
@@ -746,8 +728,8 @@ def _run_single_query(question: str, chain: GraphCypherQAChain, driver) -> dict[
         direct_section_rows = fetch_sections(session, direct_ids)
 
         candidates = _build_direct_candidates(rows, direct_section_rows)
-        ranked, reranker_name = rerank_candidates(question, candidates)
-        _debug_print_candidates("AFTER RERANK", ranked)
+        ranked = rank_candidates(question, candidates)
+        _debug_print_candidates("AFTER RANK", ranked)
         top_candidates = ranked[:FINAL_TOP_K]
 
         related_rows = expand_with_rules(session, [c["id"] for c in top_candidates if c.get("id")])
@@ -762,7 +744,6 @@ def _run_single_query(question: str, chain: GraphCypherQAChain, driver) -> dict[
         "question": question,
         "cypher": cypher,
         "answer": answer,
-        "reranker_name": reranker_name,
         "top_candidates": top_candidates,
         "related_candidates": related_candidates,
         "rows": rows,
@@ -780,7 +761,7 @@ def _format_single_result(result: dict[str, Any]) -> str:
         lines.extend([f"Cypher used:\n  {result['cypher']}", ""])
     lines.extend(
         [
-            f"Retrieval pipeline: full-text > {FULLTEXT_SCORE_THRESHOLD} -> {result['reranker_name']} -> top {FINAL_TOP_K} -> rule expansion",
+            f"Retrieval pipeline: full-text > {FULLTEXT_SCORE_THRESHOLD} -> lexical rank -> top {FINAL_TOP_K} -> rule expansion",
             "",
             "Top Matches:",
         ]
@@ -791,7 +772,6 @@ def _format_single_result(result: dict[str, Any]) -> str:
             "      Source: "
             f"{c.get('source', 'unknown')} | "
             f"Raw: {c.get('raw_score', 0.0):.4f} | "
-            f"Rerank: {c.get('rerank_score', 0.0):.4f} | "
             f"Final: {c.get('final_score', 0.0):.4f}"
         )
 
@@ -867,7 +847,6 @@ def _merge_multi_crime_results(question: str, acts: list[dict[str, str]], result
                 "      Source: "
                 f"{c.get('source', 'unknown')} | "
                 f"Raw: {c.get('raw_score', 0.0):.4f} | "
-                f"Rerank: {c.get('rerank_score', 0.0):.4f} | "
                 f"Final: {c.get('final_score', 0.0):.4f}"
             )
 

@@ -89,7 +89,7 @@ def clean(v: Any) -> str:
 
 def stable_id(*parts: str) -> str:
     raw = "|".join(parts)
-    return hashlib.sha1(raw.encode("utf-8")).hexdigest()[:16]
+    return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
 
 
 def read_csv(path: Path) -> list[dict]:
@@ -649,12 +649,13 @@ def ingest_mappings(driver, mappings: list[dict]):
 
         if ipc_no_successor:
             s.run(
-                f"""
+                """
             UNWIND $ids AS id
-            MATCH (l:LawSection {{id: id}})
-            SET l.mapping_status = '{STATUS_DELETED_NO_BNS}'
+            MATCH (l:LawSection {id: id})
+            SET l.mapping_status = $status
             """,
                 ids=list(ipc_no_successor),
+                status=STATUS_DELETED_NO_BNS,
             )
 
     print(f"Mapping edges ensured: {len(pair_rows)}")
@@ -664,12 +665,13 @@ def ingest_mappings(driver, mappings: list[dict]):
 def tag_bns_without_ipc_predecessor(driver) -> int:
     with driver.session() as s:
         result = s.run(
-            f"""
-            MATCH (b:LawSection {{act:'BNS'}})
-            WHERE NOT (b)-[:REPLACES]->(:LawSection {{act:'IPC'}})
-            SET b.mapping_status = '{STATUS_NEW_NO_IPC}'
-            RETURN count(b) AS c
             """
+            MATCH (b:LawSection {act:'BNS'})
+            WHERE NOT (b)-[:REPLACES]->(:LawSection {act:'IPC'})
+            SET b.mapping_status = $status
+            RETURN count(b) AS c
+            """,
+            status=STATUS_NEW_NO_IPC,
         ).single()
     count = int(result["c"]) if result else 0
     print(f"BNS sections tagged {STATUS_NEW_NO_IPC}: {count}")
