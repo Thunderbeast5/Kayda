@@ -1,0 +1,21 @@
+Query,Primary Offence,Expected Section 1,Expected Section 2,Expected Section 3
+A man stabbed another person during a fight and the victim died later in hospital.,Murder,IPC 302 / BNS 103,IPC 324 / BNS 118,IPC 34 / BNS 3(5)
+Three men robbed a jewellery shop while carrying pistols and injured the owner.,Robbery with hurt,IPC 394 / BNS 309,IPC 397 / BNS 311,IPC 34 / BNS 3(5)
+A woman kidnapped a child for ransom and later murdered the child.,Kidnapping and Murder,IPC 364A / BNS 140,IPC 302 / BNS 103,IPC 120B / BNS 61
+A group of people set a house on fire knowing the family was inside.,Arson and Attempt to Murder,IPC 436 / BNS 326,IPC 307 / BNS 109,IPC 34 / BNS 3(5)
+A person forged a property document and used it to sell land illegally.,Forgery,IPC 467 / BNS 336,IPC 471 / BNS 340,IPC 420 / BNS 318
+A bank employee stole cash from the bank vault and falsified records.,Criminal Breach of Trust,IPC 409 / BNS 316,IPC 477A / BNS 342,IPC 120B / BNS 61
+A man entered a house at night, assaulted the owner, and stole jewellery.,House Trespass and Theft,IPC 460 / BNS 331,IPC 379 / BNS 303,IPC 323 / BNS 115
+A person threatened another with death and demanded money.,Extortion,IPC 386 / BNS 308,IPC 506 / BNS 351,IPC 34 / BNS 3(5)
+A doctor performed an illegal abortion without the woman's consent causing her death.,Illegal Abortion,IPC 314 / BNS 90,IPC 302 / BNS 103,IPC 120B / BNS 61
+A driver intentionally ran over a pedestrian after an argument.,Murder,IPC 302 / BNS 103,IPC 279 / BNS 281,IPC 34 / BNS 3(5)
+A public servant accepted money to award a government contract.,Corruption,IPC 169 / Relevant BNS,Prevention of Corruption Act,IPC 120B / BNS 61
+A person hacked into a company's server and stole customer information.,Cyber Crime,IT Act 66,IT Act 43,IPC 379 / BNS 303
+A man assaulted his wife repeatedly for dowry and she later died.,Dowry Death,IPC 304B / BNS 80,IPC 498A / Relevant BNS,IPC 34 / BNS 3(5)
+A group attacked a police officer while preventing an arrest.,Assault on Public Servant,IPC 353 / BNS 132,IPC 332 / BNS 121,IPC 34 / BNS 3(5)
+A businessman cheated investors by creating fake investment documents.,Cheating,IPC 420 / BNS 318,IPC 468 / BNS 337,IPC 471 / BNS 340
+A person secretly recorded private videos and threatened to publish them unless paid.,Criminal Intimidation,IPC 384 / BNS 308,IPC 506 / BNS 351,IT Act 66E
+A man poisoned another person's food intending to kill him, but the victim survived.,Attempt to Murder,IPC 307 / BNS 109,IPC 328 / BNS 123,IPC 120B / BNS 61
+A gang kidnapped a businessman, assaulted him, and robbed him before releasing him.,Kidnapping and Robbery,IPC 365 / BNS 137,IPC 394 / BNS 309,IPC 34 / BNS 3(5)
+A woman impersonated a government officer to collect money from villagers.,Cheating by Personation,IPC 419 / BNS 319,IPC 420 / BNS 318,IPC 170 / Relevant BNS
+A person destroyed evidence after committing murder.,Destruction of Evidence,IPC 302 / BNS 103,IPC 201 / BNS 238,IPC 120B / BNS 61
