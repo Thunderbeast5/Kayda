@@ -19,8 +19,8 @@ For each PDF, extracts:
 - bns_sections_referred
 - acts_referred
 
-Input:  data/pdf_downloads_2025/*.pdf
-Output: data/json_output_2025/*.json
+Input:  data/pdf_downloads_2023/*.pdf
+Output: data/json_output_2023/*.json
         data/extraction_summary.csv
 """
 
@@ -60,10 +60,10 @@ class Config:
     data_dir: Path = project_root / 'data'
     
     # Input PDFs
-    pdf_input_dir: Path = data_dir / 'pdf_downloads_2025'
+    pdf_input_dir: Path = data_dir / 'pdf_downloads_2023'
     
     # Output directories
-    json_output_dir: Path = data_dir / 'json_output_2025'
+    json_output_dir: Path = data_dir / 'json_output_2023'
     summary_file: Path = data_dir / 'extraction_summary.csv'
     
     # Extraction settings

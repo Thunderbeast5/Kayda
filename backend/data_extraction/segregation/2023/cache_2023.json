@@ -1,0 +1,1117 @@
+{
+  "2023_INSC_148": {
+    "case_id": "2023_INSC_148",
+    "categories": [
+      "homicide",
+      "evidence_destruction",
+      "dowry"
+    ],
+    "confidence": 1.0,
+    "reasoning": "homicide: Issue mentions murder/death; evidence_destruction: Issue mentions evidence destruction; dowry: IPC 304B",
+    "ipc_sections": [
+      "304B"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "304B"
+    ],
+    "section_details": [
+      "IPC 304B: Dowry death"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "3. Briefly stated the facts are that FIR No. 270 dated 09.07.2017"
+    ],
+    "category_scores": {
+      "dowry": 2.0,
+      "homicide": 3.0,
+      "evidence_destruction": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_182": {
+    "case_id": "2023_INSC_182",
+    "categories": [
+      "kidnapping",
+      "homicide",
+      "evidence_destruction"
+    ],
+    "confidence": 1.0,
+    "reasoning": "kidnapping: IPC 363, IPC 364; homicide: Issue mentions murder/death; evidence_destruction: Issue mentions evidence destruction",
+    "ipc_sections": [
+      "363",
+      "364",
+      "364A",
+      "365"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "363",
+      "364",
+      "364A",
+      "365"
+    ],
+    "section_details": [
+      "IPC 363: Kidnapping",
+      "IPC 364: Kidnapping for murder",
+      "IPC 364A: Kidnapping for ransom",
+      "IPC 365: Kidnapping with intent"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "of the present case",
+      "the conviction of the"
+    ],
+    "category_scores": {
+      "kidnapping": 11.0,
+      "homicide": 3.0,
+      "evidence_destruction": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_197": {
+    "case_id": "2023_INSC_197",
+    "categories": [
+      "pocso",
+      "evidence_destruction",
+      "homicide",
+      "kidnapping",
+      "rape",
+      "workplace_sexual_harassment",
+      "juvenile_justice"
+    ],
+    "confidence": 1.0,
+    "reasoning": "pocso: POCSO 14, POCSO 15; evidence_destruction: IPC 201, Issue mentions evidence destruction; homicide: IPC 302, Issue mentions murder/death; kidnapping: IPC 363, Issue mentions kidnapping/abduction; rape: Issue mentions rape; workplace_sexual_harassment: POSH 18; juvenile_justice: Special Act detected",
+    "ipc_sections": [
+      "201",
+      "302",
+      "363"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [
+      "14",
+      "15"
+    ],
+    "posh_sections": [
+      "18"
+    ],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "201",
+      "302",
+      "363",
+      "14",
+      "15",
+      "18"
+    ],
+    "section_details": [
+      "IPC 201: Causing disappearance of evidence",
+      "IPC 302: Murder",
+      "IPC 363: Kidnapping",
+      "POCSO Act, 2012 14: Using child for pornographic purposes",
+      "POCSO Act, 2012 15: Punishment for using child for pornography",
+      "POSH Act, 2013 18: Appeal"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "of the present case",
+      "the above argument of the learned counsel for"
+    ],
+    "category_scores": {
+      "evidence_destruction": 5.0,
+      "homicide": 5.0,
+      "kidnapping": 5.0,
+      "pocso": 7.0,
+      "workplace_sexual_harassment": 2.0,
+      "juvenile_justice": 2.0,
+      "rape": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_252": {
+    "case_id": "2023_INSC_252",
+    "categories": [
+      "rape",
+      "evidence_destruction",
+      "modesty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: IPC 375, IPC 376; evidence_destruction: Issue mentions evidence destruction; modesty: IPC 354",
+    "ipc_sections": [
+      "354",
+      "375",
+      "376"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "354",
+      "375",
+      "376"
+    ],
+    "section_details": [
+      "IPC 354: Assault to outrage modesty",
+      "IPC 375: Rape definition",
+      "IPC 376: Punishment for rape"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "OF THE CASE"
+    ],
+    "category_scores": {
+      "modesty": 2.0,
+      "rape": 7.0,
+      "evidence_destruction": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_404": {
+    "case_id": "2023_INSC_404",
+    "categories": [
+      "evidence_destruction",
+      "homicide",
+      "dowry",
+      "matrimonial_cruelty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "evidence_destruction: IPC 201, Issue mentions evidence destruction; homicide: IPC 304, Issue mentions murder/death; dowry: IPC 304B; matrimonial_cruelty: IPC 498A",
+    "ipc_sections": [
+      "201",
+      "304",
+      "304B",
+      "498A"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "201",
+      "304",
+      "304B",
+      "498A"
+    ],
+    "section_details": [
+      "IPC 201: Causing disappearance of evidence",
+      "IPC 304: Culpable homicide",
+      "IPC 304B: Dowry death",
+      "IPC 498A: Cruelty by husband"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "enumerated"
+    ],
+    "category_scores": {
+      "evidence_destruction": 5.0,
+      "homicide": 5.0,
+      "dowry": 2.0,
+      "matrimonial_cruelty": 2.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_426": {
+    "case_id": "2023_INSC_426",
+    "categories": [
+      "rape",
+      "homicide",
+      "evidence_destruction"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: IPC 376, IPC 376A; homicide: IPC 302, Issue mentions murder/death; evidence_destruction: Issue mentions evidence destruction",
+    "ipc_sections": [
+      "302",
+      "376",
+      "376A"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [
+      "376(2)",
+      "376(3)"
+    ],
+    "all_sections": [
+      "302",
+      "376",
+      "376A",
+      "376(2)",
+      "376(3)"
+    ],
+    "section_details": [
+      "IPC 302: Murder",
+      "IPC 376(2): Punishment for rape",
+      "IPC 376(3): Punishment for rape",
+      "IPC 376: Punishment for rape",
+      "IPC 376A: Rape causing death"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "of the case",
+      "the sentence of 14 years\u2019 imprisonment would"
+    ],
+    "category_scores": {
+      "homicide": 5.0,
+      "rape": 11.0,
+      "evidence_destruction": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_494": {
+    "case_id": "2023_INSC_494",
+    "categories": [
+      "rape",
+      "workplace_sexual_harassment",
+      "evidence_destruction",
+      "criminal_procedure"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: Issue mentions rape; workplace_sexual_harassment: Issue mentions workplace sexual harassment; evidence_destruction: Issue mentions evidence destruction; criminal_procedure: IPC 120B",
+    "ipc_sections": [
+      "120B"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "120B"
+    ],
+    "section_details": [
+      "IPC 120B: Criminal conspiracy"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "as baseless",
+      "without further scrutiny and examination \u2013"
+    ],
+    "category_scores": {
+      "criminal_procedure": 2.0,
+      "rape": 3.0,
+      "workplace_sexual_harassment": 3.0,
+      "evidence_destruction": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_519": {
+    "case_id": "2023_INSC_519",
+    "categories": [
+      "rape",
+      "pocso",
+      "evidence_destruction"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: IPC 376, BNS 67; pocso: Issue mentions POCSO; evidence_destruction: Issue mentions evidence destruction",
+    "ipc_sections": [
+      "376"
+    ],
+    "bns_sections": [
+      "67"
+    ],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "376",
+      "67"
+    ],
+    "section_details": [
+      "BNS 67: Rape by authority",
+      "IPC 376: Punishment for rape"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "the impugned judgment not interfered"
+    ],
+    "category_scores": {
+      "rape": 7.0,
+      "pocso": 3.0,
+      "evidence_destruction": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_527": {
+    "case_id": "2023_INSC_527",
+    "categories": [
+      "workplace_sexual_harassment",
+      "kidnapping",
+      "evidence_destruction",
+      "pocso"
+    ],
+    "confidence": 1.0,
+    "reasoning": "workplace_sexual_harassment: Special Act detected, Issue mentions workplace sexual harassment; kidnapping: Issue mentions kidnapping/abduction; evidence_destruction: Issue mentions evidence destruction; pocso: POCSO 11",
+    "ipc_sections": [],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [
+      "11"
+    ],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "11"
+    ],
+    "section_details": [
+      "POCSO Act, 2012 11: Sexual harassment"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "and circumstances of a case."
+    ],
+    "category_scores": {
+      "pocso": 2.0,
+      "workplace_sexual_harassment": 5.0,
+      "kidnapping": 3.0,
+      "evidence_destruction": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_585": {
+    "case_id": "2023_INSC_585",
+    "categories": [
+      "rape",
+      "homicide",
+      "evidence_destruction"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: IPC 376, Issue mentions rape; homicide: Issue mentions murder/death; evidence_destruction: Issue mentions evidence destruction",
+    "ipc_sections": [
+      "376"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "376"
+    ],
+    "section_details": [
+      "IPC 376: Punishment for rape"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "2. As per the prosecution version",
+      "the appellant came to the"
+    ],
+    "category_scores": {
+      "rape": 5.0,
+      "homicide": 3.0,
+      "evidence_destruction": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_603": {
+    "case_id": "2023_INSC_603",
+    "categories": [
+      "pocso",
+      "evidence_destruction"
+    ],
+    "confidence": 1.0,
+    "reasoning": "pocso: Issue mentions POCSO; evidence_destruction: Issue mentions evidence destruction",
+    "ipc_sections": [],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [],
+    "section_details": [],
+    "keywords_found": [],
+    "acts_found": [
+      "of the"
+    ],
+    "category_scores": {
+      "pocso": 3.0,
+      "evidence_destruction": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_660": {
+    "case_id": "2023_INSC_660",
+    "categories": [
+      "evidence_destruction",
+      "matrimonial_cruelty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "evidence_destruction: Issue mentions evidence destruction; matrimonial_cruelty: IPC 498A",
+    "ipc_sections": [
+      "498A"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "498A"
+    ],
+    "section_details": [
+      "IPC 498A: Cruelty by husband"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "are that the appellant and the second"
+    ],
+    "category_scores": {
+      "matrimonial_cruelty": 2.0,
+      "evidence_destruction": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_676": {
+    "case_id": "2023_INSC_676",
+    "categories": [
+      "pocso",
+      "kidnapping",
+      "homicide",
+      "evidence_destruction",
+      "trafficking",
+      "child_marriage",
+      "juvenile_justice"
+    ],
+    "confidence": 1.0,
+    "reasoning": "pocso: POCSO 10, POCSO 14; kidnapping: IPC 366, Issue mentions kidnapping/abduction; homicide: Issue mentions murder/death; evidence_destruction: Issue mentions evidence destruction; trafficking: IPC 366A; child_marriage: Special Act detected; juvenile_justice: Special Act detected",
+    "ipc_sections": [
+      "366",
+      "366A"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [
+      "10",
+      "14"
+    ],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "366",
+      "366A",
+      "10",
+      "14"
+    ],
+    "section_details": [
+      "IPC 366: Kidnapping for marriage",
+      "IPC 366A: Procuration of minor",
+      "POCSO Act, 2012 10: Punishment for aggravated sexual assault",
+      "POCSO Act, 2012 14: Using child for pornographic purposes"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "of the"
+    ],
+    "category_scores": {
+      "kidnapping": 5.0,
+      "trafficking": 2.0,
+      "pocso": 7.0,
+      "child_marriage": 2.0,
+      "juvenile_justice": 2.0,
+      "homicide": 3.0,
+      "evidence_destruction": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_729": {
+    "case_id": "2023_INSC_729",
+    "categories": [
+      "reproductive_rights"
+    ],
+    "confidence": 1.0,
+    "reasoning": "reproductive_rights: Special Act detected",
+    "ipc_sections": [],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [],
+    "section_details": [],
+    "keywords_found": [],
+    "acts_found": [
+      "of cruelty committed"
+    ],
+    "category_scores": {
+      "reproductive_rights": 2.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_761": {
+    "case_id": "2023_INSC_761",
+    "categories": [
+      "rape",
+      "pocso",
+      "homicide",
+      "cyber_crime"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: IPC 376, IPC 376D; pocso: POCSO 5, Issue mentions POCSO; homicide: IPC 302; cyber_crime: IT Act 66D",
+    "ipc_sections": [
+      "302",
+      "376",
+      "376D"
+    ],
+    "bns_sections": [
+      "66"
+    ],
+    "it_act_sections": [
+      "66D"
+    ],
+    "pocso_sections": [
+      "5"
+    ],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "302",
+      "376",
+      "376D",
+      "66",
+      "66D",
+      "5"
+    ],
+    "section_details": [
+      "BNS 66: Rape of child",
+      "IPC 302: Murder",
+      "IPC 376: Punishment for rape",
+      "IPC 376D: Gang rape",
+      "IT Act, 2000 66D: Cheating by impersonation",
+      "POCSO Act, 2012 5: Aggravated penetrative assault"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "while considering the prayer for bail",
+      "\u2013 Court framed charges",
+      "prima facie discloses the possibility and reasonable"
+    ],
+    "category_scores": {
+      "homicide": 2.0,
+      "rape": 9.0,
+      "cyber_crime": 2.0,
+      "pocso": 5.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_779": {
+    "case_id": "2023_INSC_779",
+    "categories": [
+      "matrimonial_cruelty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "matrimonial_cruelty: IPC 498A",
+    "ipc_sections": [
+      "498A"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "498A"
+    ],
+    "section_details": [
+      "IPC 498A: Cruelty by husband"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "are also of pertinence and may be noted."
+    ],
+    "category_scores": {
+      "matrimonial_cruelty": 2.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_793": {
+    "case_id": "2023_INSC_793",
+    "categories": [
+      "kidnapping",
+      "homicide",
+      "rape",
+      "trafficking",
+      "pocso",
+      "evidence_destruction",
+      "criminal_procedure",
+      "workplace_sexual_harassment",
+      "juvenile_justice"
+    ],
+    "confidence": 1.0,
+    "reasoning": "kidnapping: IPC 366, IPC 367; homicide: IPC 302, Issue mentions murder/death; rape: IPC 376, Issue mentions rape; trafficking: IPC 370, IPC 372; pocso: Issue mentions POCSO; evidence_destruction: Issue mentions evidence destruction; criminal_procedure: IPC 120B; workplace_sexual_harassment: POSH 26; juvenile_justice: Special Act detected",
+    "ipc_sections": [
+      "120B",
+      "302",
+      "366",
+      "367",
+      "368",
+      "370",
+      "372",
+      "376"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [
+      "26"
+    ],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "120B",
+      "302",
+      "366",
+      "367",
+      "368",
+      "370",
+      "372",
+      "376",
+      "26"
+    ],
+    "section_details": [
+      "IPC 120B: Criminal conspiracy",
+      "IPC 302: Murder",
+      "IPC 366: Kidnapping for marriage",
+      "IPC 367: Kidnapping for slavery",
+      "IPC 368: Wrongful confinement",
+      "IPC 370: Trafficking",
+      "IPC 372: Selling minor for prostitution",
+      "IPC 376: Punishment for rape",
+      "POSH Act, 2013 26: Penalty for non-compliance"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "(ii) the contradiction of such witness also by the"
+    ],
+    "category_scores": {
+      "criminal_procedure": 2.0,
+      "homicide": 5.0,
+      "kidnapping": 6.0,
+      "trafficking": 4.0,
+      "rape": 5.0,
+      "workplace_sexual_harassment": 2.0,
+      "juvenile_justice": 2.0,
+      "pocso": 3.0,
+      "evidence_destruction": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_814": {
+    "case_id": "2023_INSC_814",
+    "categories": [
+      "pocso",
+      "matrimonial_cruelty",
+      "workplace_sexual_harassment"
+    ],
+    "confidence": 1.0,
+    "reasoning": "pocso: POCSO 10, POCSO 11; matrimonial_cruelty: IPC 498A; workplace_sexual_harassment: POSH 13",
+    "ipc_sections": [
+      "498A"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [
+      "10",
+      "11"
+    ],
+    "posh_sections": [
+      "13"
+    ],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "498A",
+      "10",
+      "11",
+      "13"
+    ],
+    "section_details": [
+      "IPC 498A: Cruelty by husband",
+      "POCSO Act, 2012 10: Punishment for aggravated sexual assault",
+      "POCSO Act, 2012 11: Sexual harassment",
+      "POSH Act, 2013 13: Action on inquiry report"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "and"
+    ],
+    "category_scores": {
+      "matrimonial_cruelty": 2.0,
+      "pocso": 4.0,
+      "workplace_sexual_harassment": 2.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_85": {
+    "case_id": "2023_INSC_85",
+    "categories": [
+      "rape",
+      "homicide",
+      "evidence_destruction"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: IPC 375, IPC 376; homicide: Issue mentions murder/death; evidence_destruction: Issue mentions evidence destruction",
+    "ipc_sections": [
+      "375",
+      "376"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "375",
+      "376"
+    ],
+    "section_details": [
+      "IPC 375: Rape definition",
+      "IPC 376: Punishment for rape"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "Provided that a woman who does not physically resist to the act"
+    ],
+    "category_scores": {
+      "rape": 7.0,
+      "homicide": 3.0,
+      "evidence_destruction": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_879": {
+    "case_id": "2023_INSC_879",
+    "categories": [
+      "homicide",
+      "kidnapping",
+      "matrimonial_cruelty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "homicide: IPC 302, IPC 306; kidnapping: IPC 364; matrimonial_cruelty: IPC 498A",
+    "ipc_sections": [
+      "302",
+      "306",
+      "364",
+      "498A"
+    ],
+    "bns_sections": [
+      "101",
+      "103"
+    ],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "302",
+      "306",
+      "364",
+      "498A",
+      "101",
+      "103"
+    ],
+    "section_details": [
+      "BNS 101: Murder",
+      "BNS 103: Death by negligence",
+      "IPC 302: Murder",
+      "IPC 306: Abetment of suicide",
+      "IPC 364: Kidnapping for murder",
+      "IPC 498A: Cruelty by husband"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "which ought to be especially within his"
+    ],
+    "category_scores": {
+      "homicide": 8.0,
+      "kidnapping": 2.0,
+      "matrimonial_cruelty": 2.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_907": {
+    "case_id": "2023_INSC_907",
+    "categories": [
+      "homicide",
+      "rape"
+    ],
+    "confidence": 1.0,
+    "reasoning": "homicide: IPC 302, Issue mentions murder/death; rape: Issue mentions rape",
+    "ipc_sections": [
+      "302"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "302"
+    ],
+    "section_details": [
+      "IPC 302: Murder"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "\u2013 Connectivity between reputation and character \u2013 Evidentiary"
+    ],
+    "category_scores": {
+      "homicide": 5.0,
+      "rape": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_927": {
+    "case_id": "2023_INSC_927",
+    "categories": [
+      "pocso",
+      "workplace_sexual_harassment",
+      "evidence_destruction"
+    ],
+    "confidence": 1.0,
+    "reasoning": "pocso: POCSO 10, POCSO 11; workplace_sexual_harassment: POSH 13, POSH 26; evidence_destruction: Issue mentions evidence destruction",
+    "ipc_sections": [],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [
+      "10",
+      "11",
+      "14",
+      "16",
+      "17"
+    ],
+    "posh_sections": [
+      "13",
+      "26"
+    ],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "10",
+      "11",
+      "14",
+      "16",
+      "17",
+      "13",
+      "26"
+    ],
+    "section_details": [
+      "POCSO Act, 2012 10: Punishment for aggravated sexual assault",
+      "POCSO Act, 2012 11: Sexual harassment",
+      "POCSO Act, 2012 14: Using child for pornographic purposes",
+      "POCSO Act, 2012 16: Abetment",
+      "POCSO Act, 2012 17: Attempt",
+      "POSH Act, 2013 13: Action on inquiry report",
+      "POSH Act, 2013 26: Penalty for non-compliance"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "and (c) ensure the"
+    ],
+    "category_scores": {
+      "pocso": 10.0,
+      "workplace_sexual_harassment": 9.0,
+      "evidence_destruction": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_933": {
+    "case_id": "2023_INSC_933",
+    "categories": [
+      "homicide",
+      "dowry",
+      "matrimonial_cruelty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "homicide: IPC 302, IPC 304; dowry: IPC 304B; matrimonial_cruelty: IPC 498A",
+    "ipc_sections": [
+      "302",
+      "304",
+      "304B",
+      "306",
+      "498A"
+    ],
+    "bns_sections": [
+      "101"
+    ],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "302",
+      "304",
+      "304B",
+      "306",
+      "498A",
+      "101"
+    ],
+    "section_details": [
+      "BNS 101: Murder",
+      "IPC 302: Murder",
+      "IPC 304: Culpable homicide",
+      "IPC 304B: Dowry death",
+      "IPC 306: Abetment of suicide",
+      "IPC 498A: Cruelty by husband"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "whether the conviction of the accused u/s. 304 B IPC would be"
+    ],
+    "category_scores": {
+      "homicide": 8.0,
+      "dowry": 2.0,
+      "matrimonial_cruelty": 2.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_936": {
+    "case_id": "2023_INSC_936",
+    "categories": [
+      "homicide",
+      "rape",
+      "kidnapping"
+    ],
+    "confidence": 1.0,
+    "reasoning": "homicide: IPC 302, Issue mentions murder/death; rape: Issue mentions rape; kidnapping: IPC 363",
+    "ipc_sections": [
+      "302",
+      "363"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "302",
+      "363"
+    ],
+    "section_details": [
+      "IPC 302: Murder",
+      "IPC 363: Kidnapping"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "which may lead to the discovery of the fact issue and"
+    ],
+    "category_scores": {
+      "homicide": 5.0,
+      "kidnapping": 2.0,
+      "rape": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_959": {
+    "case_id": "2023_INSC_959",
+    "categories": [
+      "rape"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: IPC 375, IPC 376",
+    "ipc_sections": [
+      "375",
+      "376"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "375",
+      "376"
+    ],
+    "section_details": [
+      "IPC 375: Rape definition",
+      "IPC 376: Punishment for rape"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "cast a doubt on the prosecution case \u2013 Evidence",
+      "as to the age or even rape"
+    ],
+    "category_scores": {
+      "rape": 7.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_975": {
+    "case_id": "2023_INSC_975",
+    "categories": [
+      "workplace_sexual_harassment",
+      "evidence_destruction",
+      "modesty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "workplace_sexual_harassment: Special Act detected, Issue mentions workplace sexual harassment; evidence_destruction: Issue mentions evidence destruction; modesty: IPC 354",
+    "ipc_sections": [
+      "354"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "354"
+    ],
+    "section_details": [
+      "IPC 354: Assault to outrage modesty"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "no prejudice could be said to have been caused"
+    ],
+    "category_scores": {
+      "modesty": 2.0,
+      "workplace_sexual_harassment": 5.0,
+      "evidence_destruction": 3.0
+    },
+    "method": "accurate_classifier"
+  },
+  "2023_INSC_989": {
+    "case_id": "2023_INSC_989",
+    "categories": [
+      "homicide",
+      "matrimonial_cruelty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "homicide: IPC 306; matrimonial_cruelty: IPC 498A",
+    "ipc_sections": [
+      "306",
+      "498A"
+    ],
+    "bns_sections": [],
+    "it_act_sections": [],
+    "pocso_sections": [],
+    "posh_sections": [],
+    "ipc_with_subsections": [],
+    "all_sections": [
+      "306",
+      "498A"
+    ],
+    "section_details": [
+      "IPC 306: Abetment of suicide",
+      "IPC 498A: Cruelty by husband"
+    ],
+    "keywords_found": [],
+    "acts_found": [
+      "OF THE CASE:"
+    ],
+    "category_scores": {
+      "homicide": 2.0,
+      "matrimonial_cruelty": 2.0
+    },
+    "method": "accurate_classifier"
+  }
+}

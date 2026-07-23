@@ -521,27 +521,27 @@ def main():
     print("Offences Against Women and Children")
     print("=" * 70)
 
-    PROJECT_ROOT = Path(__file__).parent.parent.parent
-    DATA_DIR = PROJECT_ROOT / 'data'
-    METADATA_DIR = PROJECT_ROOT / 'metadata_2025'
+    PROJECT_ROOT = Path(__file__).parent.parent.parent          # → MOOTCOURT
+    BACKEND_DIR = PROJECT_ROOT / 'backend'                     # → MOOTCOURT/backend
+    METADATA_BASE1 = BACKEND_DIR / 'data_extraction'                   # → MOOTCOURT/backend/metadata
+    METADATA_BASE2 = METADATA_BASE1 / 'metadata'
+    METADATA_DIR = METADATA_BASE2/ 'metadata_2022'
+    
     
     possible_inputs = [
         METADATA_DIR / 'metadata.parquet',
         METADATA_DIR / 'metadata_parquet',
-        DATA_DIR / 'metadata_2025' / 'metadata.parquet',
-        DATA_DIR / 'metadata_2025' / 'metadata_parquet',
-        DATA_DIR / 'metadata_2024' / 'metadata.parquet',
-        DATA_DIR / 'metadata_2024' / 'metadata_parquet',
-        DATA_DIR / 'metadata.parquet',
     ]
-    
+
     INPUT_FILE = None
     for path in possible_inputs:
         if path.exists():
             INPUT_FILE = path
             break
     
-    OUTPUT_FILE = DATA_DIR / 'candidate_cases_2025.csv'
+    SEGREGATION = BACKEND_DIR / 'data_extraction'   
+    SEGREGATION_DIR = SEGREGATION/'segregation' 
+    OUTPUT_FILE = SEGREGATION_DIR / 'cases_2022.csv'
 
     if not INPUT_FILE:
         logger.error("Input file not found!")

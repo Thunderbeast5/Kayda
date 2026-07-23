@@ -38,10 +38,10 @@ class Config:
     project_root: Path = Path(__file__).parent.parent.parent
     data_dir: Path = project_root / 'data'
     
-    json_input_dir: Path = data_dir / 'json_output_2025'
-    output_csv: Path = data_dir / 'classified_accurate_v6_2025.csv'
-    output_json: Path = data_dir / 'classified_accurate_v6_2025.json'
-    cache_file: Path = data_dir / 'accurate_cache_v6_2025.json'
+    json_input_dir: Path = data_dir / 'json_output_2023'
+    output_csv: Path = data_dir / 'classified_accurate_v6_2023.csv'
+    output_json: Path = data_dir / 'classified_accurate_v6_2023.json'
+    cache_file: Path = data_dir / 'accurate_cache_v6_2023.json'
     
     def __post_init__(self):
         self.data_dir.mkdir(parents=True, exist_ok=True)
