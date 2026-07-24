@@ -32,7 +32,8 @@ import {
   Check,
   Compass,
   Gavel,
-  Users
+  Users,
+  Eye
 } from "lucide-react";
 
 import heroBg from "../assets/hero1.png";
@@ -250,9 +251,6 @@ function LandingPage({ userRole, setUserRole, onEnterCourt }) {
         />
 
         <main className="relative z-10 pt-32 px-6 md:px-14 max-w-[1400px] mx-auto min-h-screen flex flex-col justify-center pb-24">
-          <p className="text-[10px] md:text-[11px] uppercase tracking-[0.3em] font-bold text-[#C5A059] mb-6 font-mono">
-            Court of Record // Legal AI Workspace
-          </p>
           <h1 className="font-heading text-[46px] md:text-[58px] lg:text-[64px] font-bold leading-[1.05] tracking-[-0.02em] text-[#2C1810] mb-6">
             Step Into the Courtroom. <br/>
             <span className="italic font-normal">Master the Art of Legal Practice.</span>
@@ -280,106 +278,71 @@ function LandingPage({ userRole, setUserRole, onEnterCourt }) {
 
 
       {/* 2. CHOOSE YOUR ROLE SECTION */}
-      <section id="choose-role" className="py-24 md:py-32 px-6 md:px-12 border-b border-surface-border bg-[#FAF8F5]">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-gold font-bold mb-2 block">
+      <section id="choose-role" className="py-28 md:py-36 px-6 md:px-12 border-b border-surface-border bg-[#FAF8F5]">
+        <div className="max-w-6xl mx-auto flex flex-col items-center">
+          <div className="text-center mb-16 md:mb-20">
+            <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-[#C5A059] font-bold mb-3 block">
               ADVOCACY OR ADJUDICATION
             </span>
-            <h2 className="font-heading text-3xl md:text-5xl text-wood-dark tracking-tight mb-4">
-              Enter the Well
+            <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-[#2C1810] tracking-tight mb-4">
+              Proceed as Counsel or Adjudicator
             </h2>
-            <p className="font-body text-sm md:text-base text-primaryBrown/85 max-w-2xl mx-auto leading-relaxed">
-              Choose your station. Every role defines the legal burdens you must carry and the procedural parameters you must operate under.
+            <p className="font-body text-sm md:text-base text-[#5D4037]/80 max-w-xl mx-auto leading-relaxed">
+              Select your procedural capacity to initiate the simulation.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 max-w-5xl w-full justify-center">
             {[
               {
                 id: "prosecutor",
                 title: "Public Prosecutor",
-                metadata: "ROLE: PROSECUTION // LEVEL: THE WELL",
-                desc: "Build the state’s case, introduce incriminating evidence, examine witnesses, and counter defense objections.",
-                accent: "border-l-[#1E3A8A]"
+                icon: <Scale className="text-[#2C1810] group-hover:text-[#D4AF37] transition-colors duration-300 w-7 h-7" strokeWidth={1.5} />,
+                desc: "Construct the state's accusation, manage critical evidence, and argue for conviction.",
               },
               {
                 id: "defense",
                 title: "Defense Counsel",
-                metadata: "ROLE: DEFENSE // LEVEL: THE WELL",
-                desc: "Protect the rights of the accused, uncover logical flaws in the state's reasoning, and raise objections in real time.",
-                accent: "border-l-[#991B1B]"
+                icon: <Shield className="text-[#2C1810] group-hover:text-[#D4AF37] transition-colors duration-300 w-7 h-7" strokeWidth={1.5} />,
+                desc: "Advocate for the accused, contest evidence viability, and assert procedural rights.",
               },
               {
                 id: "judge",
-                title: "Hon'ble Judge",
-                metadata: "ROLE: JUDICIARY // LEVEL: THE BENCH",
-                desc: "Rule on counsel objections, direct the course of the trial, review evidence, and deliver final written judgments.",
-                accent: "border-l-gold"
+                title: "Judge",
+                icon: <Gavel className="text-[#2C1810] group-hover:text-[#D4AF37] transition-colors duration-300 w-7 h-7" strokeWidth={1.5} />,
+                desc: "Arbitrate objections, direct court proceedings, and deliver binding judgments.",
               },
               {
                 id: "observer",
-                title: "Court Observer",
-                metadata: "ROLE: GALLERY // LEVEL: GENERAL AUDIT",
-                desc: "Monitor high-profile AI proceedings, audit transcript files, inspect agent performance, and assess case strength.",
-                accent: "border-l-primaryBrown/30"
+                title: "Observer",
+                icon: <Eye className="text-[#2C1810] group-hover:text-[#D4AF37] transition-colors duration-300 w-7 h-7" strokeWidth={1.5} />,
+                desc: "Monitor simulated proceedings, inspect agent reasoning, and audit trial dockets.",
               }
             ].map(role => (
               <div 
                 key={role.id}
-                onClick={() => role.id !== "observer" && setUserRole(role.id)}
-                className={`bg-white p-6 border border-surface-border flex flex-col justify-between cursor-pointer transition-all duration-300 relative ${role.id === "observer" ? "opacity-60 cursor-not-allowed" : ""} ${userRole === role.id && role.id !== "observer" ? "ring-2 ring-gold border-gold shadow-md translate-y-[-4px]" : "hover:shadow-md hover:translate-y-[-2px]"}`}
+                onClick={() => {
+                  setUserRole(role.id);
+                  onEnterCourt();
+                }}
+                className="group cursor-pointer flex flex-col items-center select-none text-center bg-[#FAF9F7] border border-[#2C1810]/12 rounded-xl p-8 md:p-10 transition-all duration-300 transform hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-[0_8px_30px_rgba(212,175,55,0.06)]"
               >
-                <div>
-                  <div className="flex justify-between items-start mb-4">
-                    <span className="font-mono text-[9px] text-textMuted tracking-wider font-bold">
-                      {role.metadata}
-                    </span>
-                    {userRole === role.id && role.id !== "observer" && (
-                      <span className="w-2.5 h-2.5 rounded-full bg-gold animate-pulse"></span>
-                    )}
-                  </div>
-                  <h3 className="font-heading text-lg font-bold text-wood-dark mb-3">
-                    {role.title}
-                  </h3>
-                  <p className="font-body text-xs text-textMuted leading-relaxed mb-6">
-                    {role.desc}
-                  </p>
+                {/* Emblem Circle Wrapper */}
+                <div className="w-16 h-16 rounded-full bg-[#2C1810]/5 flex items-center justify-center mb-6 group-hover:bg-[#D4AF37]/10 transition-colors duration-300">
+                  {role.icon}
                 </div>
-                {role.id !== "observer" ? (
-                  <button 
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setUserRole(role.id);
-                      onEnterCourt();
-                    }}
-                    className={`w-full py-2.5 font-body text-[10px] uppercase tracking-wider font-bold transition-all border ${userRole === role.id ? 'bg-gold text-wood-dark border-gold' : 'border-surface-border text-wood-dark hover:bg-[#FAF8F5]'}`}
-                  >
-                    Enter Trial
-                  </button>
-                ) : (
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-textMuted text-center block pt-2.5">
-                    Archived View Only
-                  </span>
-                )}
+
+                {/* Role Label */}
+                <h3 className="font-heading text-xs md:text-sm tracking-[0.15em] font-bold uppercase text-[#2C1810] mb-2.5 transition-colors duration-300">
+                  {role.title}
+                </h3>
+                
+                {/* One Sentence Description */}
+                <p className="font-body text-[11px] md:text-xs text-[#5D4037]/75 leading-relaxed max-w-[200px] group-hover:text-[#2C1810] transition-colors duration-300">
+                  {role.desc}
+                </p>
               </div>
             ))}
-          </div>
-
-          <div className="bg-white border border-surface-border p-6 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-start gap-4">
-              <Scale className="text-gold shrink-0 w-8 h-8 mt-1" strokeWidth={1.5} />
-              <div>
-                <h4 className="font-heading text-base font-bold text-wood-dark">Ready to present oral arguments in an active indictment?</h4>
-                <p className="font-body text-xs text-textMuted mt-1">Upload your own discovery files, select your advocate role, and step directly into the simulated session.</p>
-              </div>
-            </div>
-            <button 
-              onClick={onEnterCourt}
-              className="bg-primaryBrown text-white font-body text-xs uppercase tracking-widest px-8 py-3.5 hover:bg-wood-light transition-all font-bold shrink-0 w-full md:w-auto text-center"
-            >
-              Start Practice Trial
-            </button>
           </div>
         </div>
       </section>
@@ -1060,7 +1023,8 @@ function CourtroomInterface({ userRole, onExit }) {
   const roleNameMap = {
     prosecutor: "Public Prosecutor",
     defense: "Defense Counsel",
-    judge: "Hon’ble Judge"
+    judge: "Hon’ble Judge",
+    observer: "Court Observer"
   };
 
   const handleEvent = (event) => {
@@ -1234,21 +1198,6 @@ function CourtroomInterface({ userRole, onExit }) {
               </h1>
             </div>
             <div className="flex items-center gap-2">
-              <button 
-                onClick={() => fileInputRef.current && fileInputRef.current.click()}
-                className="relative p-1.5 md:p-2 bg-white border border-surface-border shadow-sm rounded-lg text-primaryBrown hover:bg-gold/10 hover:text-gold transition-all cursor-pointer" 
-                title="Upload Case Files"
-              >
-                 <Briefcase size={18} />
-              </button>
-              {/* Hidden file input */}
-              <input 
-                ref={fileInputRef}
-                type="file"
-                accept="application/pdf"
-                className="hidden"
-                onChange={handleSidebarFileUpload}
-              />
               <button className="md:hidden relative p-1.5 border border-transparent text-wood-dark" onClick={() => setSidebarOpen(false)}>
                  <X size={20} />
               </button>

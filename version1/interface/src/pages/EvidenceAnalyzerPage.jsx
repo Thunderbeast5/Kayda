@@ -36,6 +36,108 @@ export default function EvidenceAnalyzerPage({ onBack }) {
   const [showFacts, setShowFacts] = useState(false);
   const [expandedSection, setExpandedSection] = useState("who");
   const textRef = useRef(null);
+  const [error, setError] = useState(null);
+  const fileInputRef = useRef(null);
+
+  const handleFileUpload = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setError(null);
+    setSelectedCase({
+      id: `uploaded_${Date.now()}`,
+      filename: file.name,
+      label: `Uploaded — ${file.name}`,
+      description: "Processing case document via backend intelligence pipeline...",
+      rawText: "",
+      facts: null,
+    });
+    setCurrentStep(1);
+    setOcrProgress(0);
+    setAnalysisProgress(0);
+    setDisplayedText("");
+    setShowFacts(false);
+
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5001";
+    xhr.open("POST", `${apiUrl}/api/evidence/analyze`, true);
+
+    xhr.upload.onprogress = (event) => {
+      if (event.lengthComputable) {
+        const percentComplete = Math.round((event.loaded / event.total) * 100);
+        // Show progress up to 90% during upload phase
+        setOcrProgress(Math.min(90, Math.round(percentComplete * 0.9)));
+      }
+    };
+
+    xhr.onload = () => {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        try {
+          const res = JSON.parse(xhr.responseText);
+          if (res.success) {
+            setOcrProgress(100);
+            const { rawText, facts } = res.data;
+            
+            // Set raw OCR output text
+            setDisplayedText(rawText);
+            
+            // Move to Analysis phase
+            setCurrentStep(2);
+            
+            // Fast visual progression for the analysis progress bar (feels responsive and satisfying)
+            let prog = 0;
+            const interval = setInterval(() => {
+              prog += Math.random() * 15 + 10;
+              if (prog >= 100) {
+                prog = 100;
+                clearInterval(interval);
+                setAnalysisProgress(100);
+                setTimeout(() => {
+                  setSelectedCase((prev) => ({
+                    ...prev,
+                    rawText,
+                    facts,
+                  }));
+                  setCurrentStep(3);
+                  setShowFacts(true);
+                }, 600);
+              } else {
+                setAnalysisProgress(Math.min(prog, 100));
+              }
+            }, 150);
+          } else {
+            setError(res.message || "Analysis failed.");
+            setCurrentStep(0);
+            setSelectedCase(null);
+          }
+        } catch (err) {
+          setError("Failed to parse API response.");
+          setCurrentStep(0);
+          setSelectedCase(null);
+        }
+      } else {
+        try {
+          const res = JSON.parse(xhr.responseText);
+          setError(res.message || `Error ${xhr.status}: ${xhr.statusText}`);
+        } catch (err) {
+          setError(`Server returned status code ${xhr.status}`);
+        }
+        setCurrentStep(0);
+        setSelectedCase(null);
+      }
+    };
+
+    xhr.onerror = () => {
+      setError("Network connection failed. Make sure the backend server is running.");
+      setCurrentStep(0);
+      setSelectedCase(null);
+    };
+
+    xhr.send(formData);
+  };
 
   // ─── Simulate the pipeline when a case is selected ─────────────
   const startAnalysis = (caseData) => {
@@ -169,8 +271,28 @@ export default function EvidenceAnalyzerPage({ onBack }) {
               </p>
             </div>
 
+            {error && (
+              <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3 text-red-800 animate-[fadeIn_0.3s_ease-out]">
+                <AlertTriangle size={18} className="text-red-600 shrink-0 mt-0.5" />
+                <div className="text-xs">
+                  <p className="font-bold">Error Processing Document</p>
+                  <p className="mt-0.5 opacity-90">{error}</p>
+                </div>
+              </div>
+            )}
+
             {/* Upload zone */}
-            <div className="border-2 border-dashed border-[#D4AF37]/40 rounded-xl p-8 md:p-12 bg-white/60 hover:bg-white hover:border-[#D4AF37] transition-all mb-8 text-center cursor-pointer group">
+            <div 
+              onClick={() => fileInputRef.current && fileInputRef.current.click()}
+              className="border-2 border-dashed border-[#D4AF37]/40 rounded-xl p-8 md:p-12 bg-white/60 hover:bg-white hover:border-[#D4AF37] transition-all mb-8 text-center cursor-pointer group"
+            >
+              <input
+                ref={fileInputRef}
+                type="file"
+                className="hidden"
+                onChange={handleFileUpload}
+                accept="application/pdf,image/*"
+              />
               <Upload size={36} className="mx-auto mb-4 text-[#D4AF37] group-hover:scale-110 transition-transform" strokeWidth={1.5} />
               <p className="font-heading text-lg font-bold text-[#2C1810] mb-1">
                 Drop your document here

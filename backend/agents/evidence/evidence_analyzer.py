@@ -30,7 +30,7 @@ try:
 except Exception:
     _VISION_AVAILABLE = False
 
-BASE_DIR = Path(__file__).resolve().parent.parent  # backend/
+BASE_DIR = Path(__file__).resolve().parent.parent.parent  # backend/
 load_dotenv(BASE_DIR / ".env")
 
 FIREBASE_CREDENTIALS_PATH = os.getenv("FIREBASE_CREDENTIALS_PATH")
