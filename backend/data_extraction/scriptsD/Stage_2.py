@@ -43,10 +43,10 @@ logger = logging.getLogger(__name__)
 class Config:
     """Configuration for PDF access"""
     
-    project_root: Path = Path(__file__).parent.parent.parent
-    data_dir: Path = project_root / 'data'
-    candidates_file: Path = data_dir / 'candidate_cases_2023.csv'
-    pdf_output_dir: Path = data_dir / 'pdf_downloads_2023'
+    # Script is in: backend/data_extraction/scriptsD/Stage_2.py
+    data_extraction_dir: Path = Path(__file__).parent.parent  # → backend/data_extraction
+    candidates_file: Path = data_extraction_dir / 'segregation' / '2016'/ 'cases_2016.csv'
+    pdf_output_dir: Path = data_extraction_dir / 'pdfs' / 'pdf_downloads_2016'
     
     s3_bucket: str = "indian-supreme-court-judgments"
     s3_region: str = "ap-south-1"
@@ -80,7 +80,7 @@ class S3PDFFinder:
         self.year_pdfs = {}  # year -> list of s3_keys
         
         # Check if we already have a cache
-        self.cache_file = config.data_dir / 's3_pdf_cache.json'
+        self.cache_file = config.data_extraction_dir / 's3_pdf_cache.json'
         self._load_cache()
     
     def _load_cache(self):
@@ -450,8 +450,8 @@ def main():
     
     config = Config()
     
-    print(f"\n📁 Project root: {config.project_root}")
-    print(f"📁 Data directory: {config.data_dir}")
+    print(f"\n📁 Data extraction directory: {config.data_extraction_dir}")
+    print(f"📁 Candidates file: {config.candidates_file}")
     print(f"📁 PDF output directory: {config.pdf_output_dir}")
     print(f"📁 S3 Bucket: {config.s3_bucket}")
     print(f"📁 S3 Prefix: {config.s3_prefix}")
@@ -478,7 +478,7 @@ def main():
     result_df = downloader.download_cases(df)
     
     # Save results
-    result_file = config.data_dir / 'pdf_download_results.csv'
+    result_file = config.data_extraction_dir / 'pdf_download_results_2016.csv'
     result_df.to_csv(result_file, index=False)
     logger.info(f"💾 Download results saved to: {result_file}")
     

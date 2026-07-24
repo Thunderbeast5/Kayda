@@ -1,0 +1,272 @@
+{
+  "metadata": {
+    "version": "1.0",
+    "last_updated": "2026-07-23",
+    "description": "Comprehensive legal taxonomy for KAYDA - Offences Against Women and Children",
+    "jurisdiction": "India",
+    "purpose": "Classification, keyword extraction, and semantic search for Supreme Court judgments"
+  },
+  
+  "acts": {
+    "pocso": {
+      "full_name": "Protection of Children from Sexual Offences Act, 2012",
+      "short_names": ["POCSO Act", "POCSO", "POCSO Act 2012"],
+      "abbreviations": ["POCSO"],
+      "keywords": ["child sexual abuse", "CSA", "sexual assault on child", "aggravated sexual assault", "penetrative sexual assault", "child pornography", "using child for pornography"],
+      "sections": ["3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "19", "21", "29", "30", "31", "33", "35", "37", "42", "42A"]
+    },
+    
+    "ipc": {
+      "full_name": "Indian Penal Code, 1860",
+      "short_names": ["IPC", "Indian Penal Code", "Penal Code"],
+      "abbreviations": ["IPC"],
+      "women_children_sections": {
+        "rape_sexual_assault": ["354", "354A", "354B", "354C", "354D", "375", "376", "376A", "376AB", "376B", "376C", "376D", "376DA", "376DB", "376E", "377"],
+        "kidnapping_abduction": ["363", "364", "365", "366", "366A", "366B", "367", "368"],
+        "trafficking": ["370", "370A", "372", "373"],
+        "dowry": ["304B", "498A"],
+        "cruelty": ["498A"],
+        "murder_related": ["302", "304B", "306", "313", "314", "315", "316"],
+        "outraging_modesty": ["354", "509"],
+        "marriage_related": ["493", "494", "495", "496", "498", "498A"],
+        "evidence_tampering": ["201", "228A"]
+      }
+    },
+    
+    "bns": {
+      "full_name": "Bharatiya Nyaya Sanhita, 2023",
+      "short_names": ["BNS", "Bharatiya Nyaya Sanhita"],
+      "abbreviations": ["BNS"],
+      "note": "Replaces IPC from 2024 onwards. Courts may cite both during transition."
+    },
+    
+    "crpc": {
+      "full_name": "Code of Criminal Procedure, 1973",
+      "short_names": ["CrPC", "Code of Criminal Procedure", "Cr.P.C."],
+      "abbreviations": ["CrPC", "Cr.P.C."],
+      "key_sections": ["154", "156", "157", "161", "164", "173", "195", "197", "227", "228", "229", "313", "438", "437", "482"]
+    },
+    
+    "bnss": {
+      "full_name": "Bharatiya Nagarik Suraksha Sanhita, 2023",
+      "short_names": ["BNSS", "Bharatiya Nagarik Suraksha Sanhita"],
+      "abbreviations": ["BNSS"],
+      "note": "Replaces CrPC from 2024 onwards"
+    },
+    
+    "evidence_act": {
+      "full_name": "Indian Evidence Act, 1872",
+      "short_names": ["Evidence Act", "Indian Evidence Act"],
+      "abbreviations": ["IEA"],
+      "key_sections": ["8", "9", "24", "25", "26", "27", "32", "45", "46", "114A", "146"]
+    },
+    
+    "bsa": {
+      "full_name": "Bharatiya Sakshya Adhiniyam, 2023",
+      "short_names": ["BSA", "Bharatiya Sakshya Adhiniyam"],
+      "abbreviations": ["BSA"],
+      "note": "Replaces Evidence Act from 2024 onwards"
+    },
+    
+    "domestic_violence": {
+      "full_name": "Protection of Women from Domestic Violence Act, 2005",
+      "short_names": ["Domestic Violence Act", "PWDVA", "DV Act", "PWDV Act"],
+      "abbreviations": ["PWDVA", "DV", "DV Act"],
+      "keywords": ["domestic violence", "domestic abuse", "mental cruelty", "physical cruelty", "economic abuse", "emotional abuse", "shared household", "protection order", "residence order"]
+    },
+    
+    "dowry_prohibition": {
+      "full_name": "Dowry Prohibition Act, 1961",
+      "short_names": ["Dowry Prohibition Act", "Dowry Act", "DPA"],
+      "abbreviations": ["DPA"],
+      "sections": ["2", "3", "4", "6", "7", "8"],
+      "keywords": ["dowry", "dowry death", "dowry demand", "dowry harassment", "dowry torture", "stridhan"]
+    },
+    
+    "posh": {
+      "full_name": "Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013",
+      "short_names": ["POSH Act", "Sexual Harassment Act", "Workplace Sexual Harassment Act"],
+      "abbreviations": ["POSH"],
+      "keywords": ["workplace sexual harassment", "hostile work environment", "sexual favours", "quid pro quo", "internal complaints committee", "ICC"]
+    },
+    
+    "child_marriage": {
+      "full_name": "Prohibition of Child Marriage Act, 2006",
+      "short_names": ["Child Marriage Act", "PCMA"],
+      "abbreviations": ["PCMA"],
+      "keywords": ["child marriage", "minor marriage", "marriage before 18", "marriage before 21"]
+    },
+    
+    "juvenile_justice": {
+      "full_name": "Juvenile Justice (Care and Protection of Children) Act, 2015",
+      "short_names": ["Juvenile Justice Act", "JJ Act", "Juvenile Justice Act 2015"],
+      "abbreviations": ["JJ Act", "JJA"],
+      "keywords": ["juvenile", "child in conflict with law", "child in need of care", "juvenility", "juvenile justice board", "JJB"]
+    },
+    
+    "indecent_representation": {
+      "full_name": "Indecent Representation of Women (Prohibition) Act, 1986",
+      "short_names": ["Indecent Representation Act", "IRWA"],
+      "abbreviations": ["IRWA"],
+      "keywords": ["indecent representation", "obscene depiction", "derogatory depiction"]
+    },
+    
+    "immoral_traffic": {
+      "full_name": "Immoral Traffic (Prevention) Act, 1956",
+      "short_names": ["Immoral Traffic Act", "ITPA", "ITP Act"],
+      "abbreviations": ["ITPA", "ITP"],
+      "keywords": ["immoral traffic", "trafficking", "prostitution", "brothel", "commercial sexual exploitation"]
+    },
+    
+    "information_technology": {
+      "full_name": "Information Technology Act, 2000",
+      "short_names": ["IT Act", "Information Technology Act"],
+      "abbreviations": ["IT Act"],
+      "key_sections": ["66A", "66C", "66D", "66E", "67", "67A", "67B"],
+      "keywords": ["cyber pornography", "cyber stalking", "cyber harassment", "morphing", "revenge porn", "voyeurism online"]
+    },
+    
+    "pcpndt": {
+      "full_name": "Pre-Conception and Pre-Natal Diagnostic Techniques (Prohibition of Sex Selection) Act, 1994",
+      "short_names": ["PC-PNDT Act", "PCPNDT Act", "Pre-Natal Diagnostic Techniques Act"],
+      "abbreviations": ["PCPNDT", "PC-PNDT"],
+      "keywords": ["female foeticide", "sex determination", "sex selection", "pre-natal diagnostic"]
+    }
+  },
+  
+  "offence_categories": {
+    "sexual_offences": {
+      "primary": ["rape", "gang rape", "custodial rape", "marital rape", "attempt to rape", "sexual assault", "penetrative assault", "aggravated rape", "sexual abuse", "sexual violence"],
+      "variants": ["molestation", "outraging modesty", "eve teasing", "unwelcome touch"],
+      "child_specific": ["child sexual abuse", "child rape", "penetrative sexual assault", "aggravated penetrative sexual assault"],
+      "related_terms": ["sexual intercourse", "carnal knowledge", "unnatural offence"]
+    },
+    
+    "harassment": {
+      "primary": ["sexual harassment", "workplace sexual harassment", "cyber harassment", "stalking", "cyber stalking", "verbal harassment", "physical harassment"],
+      "variants": ["eve teasing", "unwelcome advances", "hostile environment"],
+      "digital": ["cyber stalking", "online harassment", "trolling", "doxing"]
+    },
+    
+    "modesty_offences": {
+      "primary": ["outraging modesty", "modesty", "assault to outrage modesty"],
+      "related": ["eve teasing", "molestation", "indecent gesture", "unwelcome touch"]
+    },
+    
+    "privacy_offences": {
+      "primary": ["voyeurism", "video recording", "hidden camera", "privacy violation"],
+      "digital": ["revenge porn", "morphing", "deepfake", "non-consensual intimate images"]
+    },
+    
+    "domestic_offences": {
+      "primary": ["domestic violence", "domestic abuse", "cruelty", "mental cruelty", "physical cruelty", "economic abuse", "emotional abuse"],
+      "dowry_related": ["dowry", "dowry death", "dowry harassment", "dowry demand", "dowry torture", "dowry articles", "stridhan"]
+    },
+    
+    "acid_attacks": {
+      "primary": ["acid attack", "attempt to acid attack", "acid throwing"],
+      "related": ["corrosive substance", "disfigurement"]
+    },
+    
+    "kidnapping_abduction": {
+      "primary": ["kidnapping", "abduction", "kidnapping woman", "abducting woman", "wrongful confinement", "illegal confinement"],
+      "purpose": ["kidnapping for marriage", "kidnapping for ransom", "kidnapping for murder"]
+    },
+    
+    "trafficking": {
+      "primary": ["human trafficking", "sex trafficking", "trafficking", "child trafficking"],
+      "related": ["forced prostitution", "brothel", "commercial sexual exploitation", "bonded labour", "forced labour", "child labour"]
+    },
+    
+    "marriage_offences": {
+      "primary": ["forced marriage", "child marriage", "fraudulent marriage", "bigamy"],
+      "related": ["marriage by deceit", "concealing prior marriage"]
+    },
+    
+    "reproductive_offences": {
+      "primary": ["forced abortion", "forced miscarriage", "female foeticide", "female infanticide"],
+      "related": ["sex determination", "sex selection", "causing miscarriage"]
+    },
+    
+    "child_offences": {
+      "primary": ["child abuse", "child sexual abuse", "child trafficking", "child labour", "child marriage", "child pornography"],
+      "related": ["juvenile", "minor", "girl child", "boy child", "school child", "infant", "adolescent"],
+      "acts": ["abandonment", "neglect", "physical abuse", "emotional abuse", "mental abuse", "exploitation"]
+    },
+    
+    "murder_related": {
+      "primary": ["murder", "attempt to murder", "dowry death", "honour killing", "abetment of suicide"],
+      "related": ["culpable homicide", "causing death"]
+    }
+  },
+  
+  "legal_terminology": {
+    "victims": ["victim", "survivor", "prosecutrix", "complainant", "informant", "aggrieved person", "minor girl", "minor child", "girl child"],
+    
+    "accused": ["accused", "appellant", "respondent", "petitioner", "convict", "offender", "perpetrator"],
+    
+    "relationships": {
+      "family": ["wife", "daughter", "mother", "stepmother", "sister", "grandmother", "aunt", "daughter-in-law", "sister-in-law"],
+      "romantic": ["girlfriend", "fiancee", "live-in partner", "spouse"],
+      "authority": ["teacher", "principal", "coach", "guardian", "uncle", "father", "brother", "employer", "manager", "supervisor"],
+      "professional": ["colleague", "employee", "intern", "student", "patient"]
+    },
+    
+    "locations": ["office", "workplace", "school", "college", "hospital", "factory", "residence", "shared household", "public place"],
+    
+    "investigation": {
+      "documents": ["FIR", "charge sheet", "chargesheet", "investigation report", "closure report"],
+      "procedures": ["investigation", "medical examination", "DNA test", "forensic examination", "postmortem", "autopsy"],
+      "evidence": ["medical report", "FSL report", "forensic report", "victim statement", "164 statement", "161 statement", "dying declaration"],
+      "identification": ["TIP test", "test identification parade", "identification parade", "identification"]
+    },
+    
+    "medical_evidence": {
+      "findings": ["injury", "bruise", "laceration", "hymen", "hymeneal tear", "DNA", "semen", "blood stain"],
+      "samples": ["vaginal swab", "clothes", "undergarments", "nail clippings", "hair samples"],
+      "reports": ["medical examination report", "postmortem report", "FSL report", "DNA report"]
+    },
+    
+    "court_terms": {
+      "proceedings": ["trial", "conviction", "sentence", "acquittal", "appeal", "revision", "quashing"],
+      "orders": ["anticipatory bail", "regular bail", "protection order", "residence order", "compensation order"],
+      "evidence": ["examination-in-chief", "cross-examination", "re-examination", "hostile witness"]
+    },
+    
+    "age_determination": {
+      "terms": ["juvenility", "age determination", "ossification test", "dental examination", "school leaving certificate", "birth certificate"],
+      "age_groups": ["juvenile", "minor", "child", "adolescent", "infant", "major", "adult"]
+    }
+  },
+  
+  "crime_synonyms": {
+    "rape": ["sexual assault", "criminal assault", "ravish", "carnal knowledge", "forcible intercourse"],
+    "molestation": ["outraging modesty", "indecent assault", "unwelcome touch"],
+    "eve_teasing": ["sexual harassment", "street harassment", "verbal harassment"],
+    "dowry": ["dahej", "jahez", "bride price"],
+    "trafficking": ["human trade", "sex trade", "commercial sexual exploitation"],
+    "acid_attack": ["vitriolage", "acid throwing", "corrosive attack"],
+    "honour_killing": ["honor crime", "family honour killing", "shame killing"]
+  },
+  
+  "search_optimization": {
+    "high_priority_keywords": [
+      "rape", "child", "minor", "juvenile", "sexual assault", "POCSO", 
+      "dowry death", "acid attack", "trafficking", "domestic violence",
+      "498A", "376", "354", "363", "370"
+    ],
+    
+    "context_indicators": {
+      "present_case": [
+        "the appellant", "the accused", "the present case", "the respondent",
+        "the trial court", "the prosecutrix", "the victim", "the FIR",
+        "the incident", "charged", "convicted", "sentenced", "prosecuted"
+      ],
+      
+      "cited_case": [
+        "v. State of", "v. Union of", "as held in", "in the case of",
+        "referred to", "relied upon", "cited", "quoted", "illustration"
+      ]
+    }
+  }
+}

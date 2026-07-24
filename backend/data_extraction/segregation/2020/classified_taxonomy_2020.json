@@ -1,0 +1,1573 @@
+[
+  {
+    "case_id": "2020_INSC_103",
+    "file_name": "2020_INSC_103.pdf",
+    "case_title": "MUKESH KUMAR v. UNION OF INDIA AND OTHERS",
+    "citation": "[2020] 1 S.C.R. 761",
+    "decision_date": "JANUARY 29, 2020",
+    "judges": [
+      "R. BANUMATHI",
+      "ASHOK BHUSHAN",
+      "A.S. BOPANNA"
+    ],
+    "ipc_sections": [
+      "154",
+      "30(2)"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "murder_related"
+    ],
+    "detailed_classification": {
+      "murder_related": [
+        "murder"
+      ]
+    },
+    "confidence_score": 0.1,
+    "priority_score": 0.0,
+    "acts_involved": [],
+    "acts_details": {},
+    "acts_mentions": {},
+    "crime_keywords": [
+      "murder"
+    ],
+    "priority_keywords_matched": [],
+    "victim_types": [],
+    "relationships": [
+      "brother"
+    ],
+    "locations": [
+      "office"
+    ],
+    "section_categories": [
+      "other"
+    ],
+    "section_summary": [
+      "IPC 154 (other)",
+      "IPC 30(2) (other)"
+    ],
+    "search_queries": [
+      "IPC sections 154, 30(2)",
+      "sexual offences cases",
+      "murder related cases",
+      "gang rape",
+      "murder",
+      "rape"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:49.759268",
+    "pages": 18,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Murder Related | Keywords: murder | IPC sections: 154, 30(2)"
+  },
+  {
+    "case_id": "2020_INSC_192",
+    "file_name": "2020_INSC_192.pdf",
+    "case_title": "S.C.R. v. SANTOSH PRASAD @ SANTOSH KUMAR",
+    "citation": "[2020] 2 S.C.R. 798",
+    "decision_date": "FEBRUARY 14, 2020",
+    "judges": [
+      "ASHOK BHUSHAN",
+      "M.R. SHAH"
+    ],
+    "ipc_sections": [
+      "376",
+      "450"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "162"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences",
+      "domestic_offences",
+      "murder_related"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape"
+      ],
+      "domestic_offences": [
+        "dowry"
+      ],
+      "murder_related": [
+        "abetment of suicide"
+      ]
+    },
+    "confidence_score": 0.3,
+    "priority_score": 0.13333333333333333,
+    "acts_involved": [
+      "ipc",
+      "evidence_act",
+      "dowry_prohibition"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "evidence_act": "Indian Evidence Act, 1872",
+      "dowry_prohibition": "Dowry Prohibition Act, 1961"
+    },
+    "acts_mentions": {
+      "ipc": 17,
+      "evidence_act": 2,
+      "dowry_prohibition": 0
+    },
+    "crime_keywords": [
+      "abetment of suicide",
+      "dowry",
+      "rape"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "376"
+    ],
+    "victim_types": [
+      "victim",
+      "prosecutrix"
+    ],
+    "relationships": [
+      "wife",
+      "mother",
+      "father",
+      "brother",
+      "intern"
+    ],
+    "locations": [
+      "office"
+    ],
+    "section_categories": [
+      "rape_sexual_assault",
+      "other"
+    ],
+    "section_summary": [
+      "IPC 376 (rape_sexual_assault)",
+      "IPC 450 (other)"
+    ],
+    "search_queries": [
+      "IPC sections 376, 450",
+      "sexual offences cases",
+      "domestic offences cases",
+      "abetment of suicide",
+      "dowry",
+      "rape"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:49.871255",
+    "pages": 13,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Acts: IPC, EVIDENCE_ACT, DOWRY_PROHIBITION | Keywords: abetment of suicide, dowry, rape | IPC sections: 376, 450"
+  },
+  {
+    "case_id": "2020_INSC_355",
+    "file_name": "2020_INSC_355.pdf",
+    "case_title": "S.C.R.\n\nNISHA PRIYA BHATIA v. UNION OF INDIA & ANR.",
+    "citation": "[2020] 10 S.C.R. 596",
+    "decision_date": "APRIL 24, 2020",
+    "judges": [
+      "A. M KHANWILKAR",
+      "DINESH MAHESHWARI"
+    ],
+    "ipc_sections": [
+      "167"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "197"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "harassment"
+    ],
+    "detailed_classification": {
+      "harassment": [
+        "sexual harassment"
+      ]
+    },
+    "confidence_score": 0.1,
+    "priority_score": 0.06666666666666667,
+    "acts_involved": [
+      "ipc",
+      "crpc"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973"
+    },
+    "acts_mentions": {
+      "ipc": 17,
+      "crpc": 2
+    },
+    "crime_keywords": [
+      "sexual harassment"
+    ],
+    "priority_keywords_matched": [
+      "370"
+    ],
+    "victim_types": [
+      "victim",
+      "complainant"
+    ],
+    "relationships": [
+      "wife",
+      "daughter",
+      "principal",
+      "guardian",
+      "employer",
+      "manager",
+      "colleague",
+      "employee",
+      "intern"
+    ],
+    "locations": [
+      "office",
+      "workplace",
+      "school"
+    ],
+    "section_categories": [
+      "other"
+    ],
+    "section_summary": [
+      "IPC 167 (other)"
+    ],
+    "search_queries": [
+      "IPC sections 167",
+      "harassment cases",
+      "sexual harassment"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:50.443131",
+    "pages": 81,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Harassment | Acts: IPC, CRPC | Keywords: sexual harassment | IPC sections: 167"
+  },
+  {
+    "case_id": "2020_INSC_493",
+    "file_name": "2020_INSC_493.pdf",
+    "case_title": "PREET PAL SINGH v. THE STATE OF UTTAR PRADESH & ANR.",
+    "citation": "[2020] 6 S.C.R. 967",
+    "decision_date": "AUGUST 14, 2020",
+    "judges": [
+      "ARUN MISHRA",
+      "INDIRA BANERJEE"
+    ],
+    "ipc_sections": [
+      "304B",
+      "406",
+      "411",
+      "498A"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [
+      "3",
+      "4"
+    ],
+    "crpc_sections": [
+      "313",
+      "389",
+      "439"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "domestic_offences",
+      "murder_related"
+    ],
+    "detailed_classification": {
+      "domestic_offences": [
+        "cruelty",
+        "dowry",
+        "dowry death"
+      ],
+      "murder_related": [
+        "dowry death"
+      ]
+    },
+    "confidence_score": 0.3,
+    "priority_score": 0.13333333333333333,
+    "acts_involved": [
+      "ipc",
+      "crpc",
+      "dowry_prohibition"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973",
+      "dowry_prohibition": "Dowry Prohibition Act, 1961"
+    },
+    "acts_mentions": {
+      "ipc": 25,
+      "crpc": 14,
+      "dowry_prohibition": 9
+    },
+    "crime_keywords": [
+      "cruelty",
+      "dowry",
+      "dowry death"
+    ],
+    "priority_keywords_matched": [
+      "dowry death",
+      "498A"
+    ],
+    "victim_types": [
+      "victim",
+      "complainant"
+    ],
+    "relationships": [
+      "wife",
+      "daughter",
+      "mother",
+      "sister",
+      "grandmother",
+      "aunt",
+      "father",
+      "brother"
+    ],
+    "locations": [
+      "office",
+      "residence"
+    ],
+    "section_categories": [
+      "dowry",
+      "other"
+    ],
+    "section_summary": [
+      "IPC 304B (dowry)",
+      "IPC 406 (other)",
+      "IPC 411 (other)",
+      "IPC 498A (dowry)"
+    ],
+    "search_queries": [
+      "IPC sections 304B, 406, 411, 498A",
+      "domestic offences cases",
+      "murder related cases",
+      "cruelty",
+      "dowry",
+      "dowry death"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:50.561580",
+    "pages": 16,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Domestic Offences | Acts: IPC, CRPC, DOWRY_PROHIBITION | Keywords: cruelty, dowry, dowry death | IPC sections: 304B, 406, 411"
+  },
+  {
+    "case_id": "2020_INSC_564",
+    "file_name": "2020_INSC_564.pdf",
+    "case_title": "MAHESHWAR TIGGA v. THE STATE OF JHARKHAND",
+    "citation": "[2020] 9 S.C.R. 482",
+    "decision_date": "SEPTEMBER 28, 2020",
+    "judges": [
+      "R. F. NARIMAN",
+      "NAVIN SINHA",
+      "INDIRA BANERJEE"
+    ],
+    "ipc_sections": [
+      "323",
+      "341",
+      "375",
+      "376",
+      "90"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "313"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences",
+      "modesty_offences"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape",
+        "sexual intercourse"
+      ],
+      "modesty_offences": [
+        "modesty"
+      ]
+    },
+    "confidence_score": 0.3,
+    "priority_score": 0.13333333333333333,
+    "acts_involved": [
+      "ipc",
+      "crpc"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973"
+    },
+    "acts_mentions": {
+      "ipc": 14,
+      "crpc": 4
+    },
+    "crime_keywords": [
+      "modesty",
+      "rape",
+      "sexual intercourse"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "376"
+    ],
+    "victim_types": [
+      "prosecutrix",
+      "informant"
+    ],
+    "relationships": [
+      "wife",
+      "sister",
+      "brother"
+    ],
+    "locations": [
+      "school",
+      "factory"
+    ],
+    "section_categories": [
+      "rape_sexual_assault",
+      "other"
+    ],
+    "section_summary": [
+      "IPC 323 (other)",
+      "IPC 341 (other)",
+      "IPC 375 (rape_sexual_assault)",
+      "IPC 376 (rape_sexual_assault)",
+      "IPC 90 (other)"
+    ],
+    "search_queries": [
+      "IPC sections 323, 341, 375, 376, 90",
+      "sexual offences cases",
+      "modesty offences cases",
+      "modesty",
+      "rape",
+      "sexual intercourse"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:50.666696",
+    "pages": 12,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Acts: IPC, CRPC | Keywords: modesty, rape, sexual intercourse | IPC sections: 323, 341, 375"
+  },
+  {
+    "case_id": "2020_INSC_596",
+    "file_name": "2020_INSC_596.pdf",
+    "case_title": "GANESAN v. STATE REPRESENTED BY ITS INSPECTOR OF POLICE",
+    "citation": "[2020] 8 S.C.R. 768",
+    "decision_date": "OCTOBER 14, 2020",
+    "judges": [
+      "ASHOK BHUSHAN",
+      "R. SUBHASH REDDY",
+      "M. R. SHAH"
+    ],
+    "ipc_sections": [
+      "118"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [
+      "7",
+      "8"
+    ],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences",
+      "harassment",
+      "modesty_offences"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape",
+        "sexual assault",
+        "molestation",
+        "sexual intercourse"
+      ],
+      "harassment": [
+        "sexual harassment"
+      ],
+      "modesty_offences": [
+        "molestation"
+      ],
+      "child_offences": [
+        "minor"
+      ]
+    },
+    "confidence_score": 0.6,
+    "priority_score": 0.3333333333333333,
+    "acts_involved": [
+      "pocso",
+      "evidence_act"
+    ],
+    "acts_details": {
+      "pocso": "Protection of Children from Sexual Offences Act, 2012",
+      "evidence_act": "Indian Evidence Act, 1872"
+    },
+    "acts_mentions": {
+      "pocso": 26,
+      "evidence_act": 2
+    },
+    "crime_keywords": [
+      "minor",
+      "molestation",
+      "rape",
+      "sexual assault",
+      "sexual harassment",
+      "sexual intercourse"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "child",
+      "minor",
+      "sexual assault",
+      "POCSO"
+    ],
+    "victim_types": [
+      "victim",
+      "prosecutrix",
+      "complainant",
+      "minor girl"
+    ],
+    "relationships": [
+      "mother",
+      "father"
+    ],
+    "locations": [
+      "office"
+    ],
+    "section_categories": [
+      "other"
+    ],
+    "section_summary": [
+      "IPC 118 (other)",
+      "POCSO 7",
+      "POCSO 8"
+    ],
+    "search_queries": [
+      "IPC sections 118",
+      "POCSO Act sections 7, 8",
+      "sexual offences cases",
+      "harassment cases",
+      "minor",
+      "molestation",
+      "rape"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:50.796734",
+    "pages": 14,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Acts: POCSO, EVIDENCE_ACT | Keywords: minor, molestation, rape | IPC sections: 118 | POCSO case"
+  },
+  {
+    "case_id": "2020_INSC_599",
+    "file_name": "2020_INSC_599.pdf",
+    "case_title": "SATISH CHANDER AHUJA v. SNEHA AHUJA",
+    "citation": "[2020] 12 S.C.R. 189",
+    "decision_date": "OCTOBER 15, 2020",
+    "judges": [
+      "ASHOK BHUSHAN",
+      "R. SUBHASH REDDY",
+      "M. R. SHAH"
+    ],
+    "ipc_sections": [
+      "406"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "12",
+      "18",
+      "19",
+      "20",
+      "23",
+      "482",
+      "82"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "domestic_offences",
+      "kidnapping_abduction",
+      "child_offences"
+    ],
+    "detailed_classification": {
+      "domestic_offences": [
+        "domestic violence",
+        "cruelty"
+      ],
+      "kidnapping_abduction": [
+        "wrongful confinement"
+      ],
+      "child_offences": [
+        "mental abuse"
+      ]
+    },
+    "confidence_score": 0.4,
+    "priority_score": 0.3333333333333333,
+    "acts_involved": [
+      "ipc",
+      "crpc",
+      "evidence_act",
+      "domestic_violence"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973",
+      "evidence_act": "Indian Evidence Act, 1872",
+      "domestic_violence": "Protection of Women from Domestic Violence Act, 2005"
+    },
+    "acts_mentions": {
+      "ipc": 10,
+      "crpc": 6,
+      "evidence_act": 26,
+      "domestic_violence": 30
+    },
+    "crime_keywords": [
+      "cruelty",
+      "domestic violence",
+      "mental abuse",
+      "wrongful confinement"
+    ],
+    "priority_keywords_matched": [
+      "child",
+      "domestic violence",
+      "498A",
+      "363",
+      "370"
+    ],
+    "victim_types": [
+      "victim",
+      "complainant",
+      "aggrieved person"
+    ],
+    "relationships": [
+      "wife",
+      "daughter",
+      "mother",
+      "sister",
+      "aunt",
+      "daughter-in-law",
+      "spouse",
+      "principal",
+      "uncle",
+      "father",
+      "brother",
+      "employee",
+      "intern",
+      "patient"
+    ],
+    "locations": [
+      "office",
+      "college",
+      "residence",
+      "shared household"
+    ],
+    "section_categories": [
+      "other"
+    ],
+    "section_summary": [
+      "IPC 406 (other)"
+    ],
+    "search_queries": [
+      "IPC sections 406",
+      "domestic offences cases",
+      "kidnapping abduction cases",
+      "cruelty",
+      "domestic violence",
+      "mental abuse"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:51.519545",
+    "pages": 90,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Domestic Offences | Acts: IPC, CRPC, EVIDENCE_ACT | Keywords: cruelty, domestic violence, mental abuse | IPC sections: 406"
+  },
+  {
+    "case_id": "2020_INSC_601",
+    "file_name": "2020_INSC_601.pdf",
+    "case_title": "STATE OF U.P. v. GAYATRI PRASAD PRAJAPATI",
+    "citation": "[2020] 7 S.C.R. 959",
+    "decision_date": "OCTOBER 15, 2020",
+    "judges": [
+      "ASHOK BHUSHAN",
+      "R. SUBHASH REDDY",
+      "M. R. SHAH"
+    ],
+    "ipc_sections": [],
+    "bns_sections": [],
+    "pocso_sections": [
+      "3"
+    ],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [],
+    "detailed_classification": {},
+    "confidence_score": 0.0,
+    "priority_score": 0.0,
+    "acts_involved": [],
+    "acts_details": {},
+    "acts_mentions": {},
+    "crime_keywords": [],
+    "priority_keywords_matched": [],
+    "victim_types": [
+      "prosecutrix"
+    ],
+    "relationships": [
+      "patient"
+    ],
+    "locations": [
+      "office",
+      "hospital",
+      "residence"
+    ],
+    "section_categories": [
+      "other"
+    ],
+    "section_summary": [
+      "POCSO 3"
+    ],
+    "search_queries": [
+      "POCSO Act sections 3"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:51.595518",
+    "pages": 9,
+    "is_relevant": false,
+    "relevance_reason": "POCSO case"
+  },
+  {
+    "case_id": "2020_INSC_612",
+    "file_name": "2020_INSC_612.pdf",
+    "case_title": "SATYAMA DUBEY & ORS. v. UNION OF INDIA & ORS.",
+    "citation": "[2020] 9 S.C.R. 517",
+    "decision_date": "OCTOBER 27, 2020",
+    "judges": [],
+    "ipc_sections": [],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences",
+      "murder_related"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape"
+      ],
+      "murder_related": [
+        "murder"
+      ]
+    },
+    "confidence_score": 0.2,
+    "priority_score": 0.06666666666666667,
+    "acts_involved": [
+      "ipc"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860"
+    },
+    "acts_mentions": {
+      "ipc": 3
+    },
+    "crime_keywords": [
+      "murder",
+      "rape"
+    ],
+    "priority_keywords_matched": [
+      "rape"
+    ],
+    "victim_types": [
+      "victim"
+    ],
+    "relationships": [
+      "mother",
+      "sister",
+      "grandmother",
+      "sister-in-law",
+      "father",
+      "brother"
+    ],
+    "locations": [
+      "office",
+      "hospital"
+    ],
+    "section_categories": [],
+    "section_summary": [],
+    "search_queries": [
+      "sexual offences cases",
+      "murder related cases",
+      "murder",
+      "rape"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:51.687575",
+    "pages": 13,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Acts: IPC | Keywords: murder, rape"
+  },
+  {
+    "case_id": "2020_INSC_624",
+    "file_name": "2020_INSC_624.pdf",
+    "case_title": "SHATRUGHNA BABAN MESHRAM v. STATE OF MAHARASHTRA",
+    "citation": "[2020] 13 S.C.R. 1",
+    "decision_date": "NOVEMBER 02, 2020",
+    "judges": [
+      "UDAY UMESH LALIT",
+      "INDU MALHOTRA",
+      "KRISHNA MURARI"
+    ],
+    "ipc_sections": [
+      "299",
+      "300",
+      "302",
+      "304",
+      "34",
+      "363",
+      "375",
+      "376",
+      "376A"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [
+      "1",
+      "5",
+      "6"
+    ],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "235(2)",
+      "313",
+      "354(3)"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences",
+      "child_offences",
+      "murder_related"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape",
+        "gang rape",
+        "sexual assault",
+        "sexual violence",
+        "penetrative sexual assault",
+        "aggravated penetrative sexual assault",
+        "sexual intercourse"
+      ],
+      "domestic_offences": [
+        "cruelty"
+      ],
+      "kidnapping_abduction": [
+        "kidnapping"
+      ],
+      "child_offences": [
+        "minor",
+        "girl child",
+        "infant",
+        "exploitation"
+      ],
+      "murder_related": [
+        "murder",
+        "attempt to murder",
+        "culpable homicide",
+        "causing death"
+      ]
+    },
+    "confidence_score": 1.0,
+    "priority_score": 0.5333333333333333,
+    "acts_involved": [
+      "pocso",
+      "ipc",
+      "crpc",
+      "evidence_act"
+    ],
+    "acts_details": {
+      "pocso": "Protection of Children from Sexual Offences Act, 2012",
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973",
+      "evidence_act": "Indian Evidence Act, 1872"
+    },
+    "acts_mentions": {
+      "pocso": 35,
+      "ipc": 163,
+      "crpc": 16,
+      "evidence_act": 3
+    },
+    "crime_keywords": [
+      "aggravated penetrative sexual assault",
+      "attempt to murder",
+      "causing death",
+      "cruelty",
+      "culpable homicide",
+      "exploitation",
+      "gang rape",
+      "girl child",
+      "infant",
+      "kidnapping",
+      "minor",
+      "murder",
+      "penetrative sexual assault",
+      "rape",
+      "sexual assault",
+      "sexual intercourse",
+      "sexual violence"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "child",
+      "minor",
+      "sexual assault",
+      "POCSO",
+      "376",
+      "354",
+      "363"
+    ],
+    "victim_types": [
+      "victim",
+      "complainant",
+      "informant",
+      "minor girl",
+      "minor child",
+      "girl child"
+    ],
+    "relationships": [
+      "wife",
+      "daughter",
+      "mother",
+      "teacher",
+      "principal",
+      "guardian",
+      "uncle",
+      "father",
+      "brother",
+      "intern",
+      "student"
+    ],
+    "locations": [
+      "office",
+      "school",
+      "college",
+      "factory"
+    ],
+    "section_categories": [
+      "rape_sexual_assault",
+      "kidnapping_abduction",
+      "murder_related",
+      "other"
+    ],
+    "section_summary": [
+      "IPC 299 (other)",
+      "IPC 300 (other)",
+      "IPC 302 (murder_related)",
+      "IPC 304 (other)",
+      "IPC 34 (other)",
+      "IPC 363 (kidnapping_abduction)",
+      "IPC 375 (rape_sexual_assault)",
+      "IPC 376 (rape_sexual_assault)",
+      "IPC 376A (rape_sexual_assault)",
+      "POCSO 1",
+      "POCSO 5",
+      "POCSO 6"
+    ],
+    "search_queries": [
+      "IPC sections 299, 300, 302, 304, 34",
+      "POCSO Act sections 1, 5, 6",
+      "sexual offences cases",
+      "child offences cases",
+      "aggravated penetrative sexual assault",
+      "attempt to murder",
+      "causing death"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:52.557851",
+    "pages": 128,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Acts: POCSO, IPC, CRPC | Keywords: aggravated penetrative sexual assault, attempt to murder, causing death | IPC sections: 299, 300, 302 | POCSO case"
+  },
+  {
+    "case_id": "2020_INSC_670",
+    "file_name": "2020_INSC_670.pdf",
+    "case_title": "NIMAY SAH v. STATE OF JHARKHAND",
+    "citation": "[2020] 13 S.C.R. 566",
+    "decision_date": "DECEMBER 02, 2020",
+    "judges": [
+      "N. V. RAMANA",
+      "SURYA KANT"
+    ],
+    "ipc_sections": [
+      "109",
+      "34"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "313"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "domestic_offences",
+      "murder_related"
+    ],
+    "detailed_classification": {
+      "domestic_offences": [
+        "dowry",
+        "dowry death"
+      ],
+      "murder_related": [
+        "dowry death"
+      ]
+    },
+    "confidence_score": 0.2,
+    "priority_score": 0.13333333333333333,
+    "acts_involved": [
+      "ipc",
+      "crpc",
+      "dowry_prohibition"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973",
+      "dowry_prohibition": "Dowry Prohibition Act, 1961"
+    },
+    "acts_mentions": {
+      "ipc": 12,
+      "crpc": 2,
+      "dowry_prohibition": 0
+    },
+    "crime_keywords": [
+      "dowry",
+      "dowry death"
+    ],
+    "priority_keywords_matched": [
+      "dowry death",
+      "498A"
+    ],
+    "victim_types": [
+      "complainant"
+    ],
+    "relationships": [
+      "uncle",
+      "father",
+      "brother"
+    ],
+    "locations": [],
+    "section_categories": [
+      "other"
+    ],
+    "section_summary": [
+      "IPC 109 (other)",
+      "IPC 34 (other)"
+    ],
+    "search_queries": [
+      "IPC sections 109, 34",
+      "domestic offences cases",
+      "murder related cases",
+      "dowry",
+      "dowry death"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:52.605135",
+    "pages": 5,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Domestic Offences | Acts: IPC, CRPC, DOWRY_PROHIBITION | Keywords: dowry, dowry death | IPC sections: 109, 34"
+  },
+  {
+    "case_id": "2020_INSC_671",
+    "file_name": "2020_INSC_671.pdf",
+    "case_title": "SANDEEP KUMAR AND OTHERS v. STATE OF UTTARAKHAND AND ANOTHER",
+    "citation": "[2020] 13 S.C.R. 848",
+    "decision_date": "DECEMBER 02, 2020",
+    "judges": [
+      "R. F. NARIMAN",
+      "K.M. JOSEPH",
+      "ANIRUDDHA BOSE"
+    ],
+    "ipc_sections": [
+      "304B",
+      "362",
+      "498A"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "106",
+      "161",
+      "313",
+      "362"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "domestic_offences",
+      "murder_related",
+      "child_offences"
+    ],
+    "detailed_classification": {
+      "domestic_offences": [
+        "cruelty",
+        "physical cruelty",
+        "dowry",
+        "dowry death"
+      ],
+      "child_offences": [
+        "minor"
+      ],
+      "murder_related": [
+        "murder",
+        "dowry death"
+      ]
+    },
+    "confidence_score": 0.6,
+    "priority_score": 0.26666666666666666,
+    "acts_involved": [
+      "ipc",
+      "crpc",
+      "evidence_act",
+      "domestic_violence",
+      "dowry_prohibition"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973",
+      "evidence_act": "Indian Evidence Act, 1872",
+      "domestic_violence": "Protection of Women from Domestic Violence Act, 2005",
+      "dowry_prohibition": "Dowry Prohibition Act, 1961"
+    },
+    "acts_mentions": {
+      "ipc": 26,
+      "crpc": 8,
+      "evidence_act": 6,
+      "domestic_violence": 0,
+      "dowry_prohibition": 2
+    },
+    "crime_keywords": [
+      "cruelty",
+      "dowry",
+      "dowry death",
+      "minor",
+      "murder",
+      "physical cruelty"
+    ],
+    "priority_keywords_matched": [
+      "child",
+      "minor",
+      "dowry death",
+      "498A"
+    ],
+    "victim_types": [
+      "victim",
+      "complainant"
+    ],
+    "relationships": [
+      "wife",
+      "daughter",
+      "mother",
+      "sister",
+      "aunt",
+      "daughter-in-law",
+      "teacher",
+      "father",
+      "brother",
+      "intern",
+      "patient"
+    ],
+    "locations": [
+      "office",
+      "college",
+      "hospital"
+    ],
+    "section_categories": [
+      "dowry",
+      "other"
+    ],
+    "section_summary": [
+      "IPC 304B (dowry)",
+      "IPC 362 (other)",
+      "IPC 498A (dowry)"
+    ],
+    "search_queries": [
+      "IPC sections 304B, 362, 498A",
+      "domestic offences cases",
+      "murder related cases",
+      "cruelty",
+      "dowry",
+      "dowry death"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:52.915414",
+    "pages": 38,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Domestic Offences | Acts: IPC, CRPC, EVIDENCE_ACT | Keywords: cruelty, dowry, dowry death | IPC sections: 304B, 362, 498A"
+  },
+  {
+    "case_id": "2020_INSC_703",
+    "file_name": "2020_INSC_703.pdf",
+    "case_title": "SEELAN @ JEYASEELAN v. THE INSPECTOR OF POLICE",
+    "citation": "[2020] 13 S.C.R. 1235",
+    "decision_date": "DECEMBER 16, 2020",
+    "judges": [],
+    "ipc_sections": [
+      "376",
+      "376(1)",
+      "376(2)"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape"
+      ]
+    },
+    "confidence_score": 0.1,
+    "priority_score": 0.13333333333333333,
+    "acts_involved": [
+      "ipc"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860"
+    },
+    "acts_mentions": {
+      "ipc": 3
+    },
+    "crime_keywords": [
+      "rape"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "376"
+    ],
+    "victim_types": [
+      "victim"
+    ],
+    "relationships": [
+      "mother"
+    ],
+    "locations": [],
+    "section_categories": [
+      "rape_sexual_assault",
+      "other"
+    ],
+    "section_summary": [
+      "IPC 376 (rape_sexual_assault)",
+      "IPC 376(1) (other)",
+      "IPC 376(2) (other)"
+    ],
+    "search_queries": [
+      "IPC sections 376, 376(1), 376(2)",
+      "sexual offences cases",
+      "rape"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:52.926738",
+    "pages": 2,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Acts: IPC | Keywords: rape | IPC sections: 376, 376(1), 376(2)"
+  },
+  {
+    "case_id": "2020_INSC_706",
+    "file_name": "2020_INSC_706.pdf",
+    "case_title": "DR NARESH KUMAR MANGLA v. SMT. ANITA AGARWAL & ORS. ETC.",
+    "citation": "[2020] 14 S.C.R. 294",
+    "decision_date": "DECEMBER 17, 2020",
+    "judges": [
+      "DR. DHANANJAYA Y CHANDRACHUD",
+      "INDU MALHOTRA",
+      "INDIRA BANERJEE"
+    ],
+    "ipc_sections": [
+      "468"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "154"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "domestic_offences",
+      "child_offences",
+      "murder_related"
+    ],
+    "detailed_classification": {
+      "domestic_offences": [
+        "dowry"
+      ],
+      "child_offences": [
+        "girl child"
+      ],
+      "murder_related": [
+        "murder"
+      ]
+    },
+    "confidence_score": 0.3,
+    "priority_score": 0.13333333333333333,
+    "acts_involved": [
+      "ipc",
+      "crpc",
+      "dowry_prohibition"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973",
+      "dowry_prohibition": "Dowry Prohibition Act, 1961"
+    },
+    "acts_mentions": {
+      "ipc": 9,
+      "crpc": 4,
+      "dowry_prohibition": 2
+    },
+    "crime_keywords": [
+      "dowry",
+      "girl child",
+      "murder"
+    ],
+    "priority_keywords_matched": [
+      "child",
+      "498A"
+    ],
+    "victim_types": [
+      "victim",
+      "complainant",
+      "informant",
+      "girl child"
+    ],
+    "relationships": [
+      "wife",
+      "daughter",
+      "mother",
+      "sister",
+      "sister-in-law",
+      "spouse",
+      "principal",
+      "father",
+      "brother"
+    ],
+    "locations": [
+      "office",
+      "hospital",
+      "residence"
+    ],
+    "section_categories": [
+      "other"
+    ],
+    "section_summary": [
+      "IPC 468 (other)"
+    ],
+    "search_queries": [
+      "IPC sections 468",
+      "domestic offences cases",
+      "murder related cases",
+      "dowry",
+      "dowry death",
+      "girl child"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:53.161892",
+    "pages": 33,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Domestic Offences | Acts: IPC, CRPC, DOWRY_PROHIBITION | Keywords: dowry, girl child, murder | IPC sections: 468"
+  },
+  {
+    "case_id": "2020_INSC_77",
+    "file_name": "2020_INSC_77.pdf",
+    "case_title": "SHYAMLAL DEVDA AND OTHERS v. PARIMALA",
+    "citation": "[2020] 1 S.C.R. 125",
+    "decision_date": "JANUARY 22, 2020",
+    "judges": [
+      "R. BANUMATHI",
+      "A. S. BOPANNA",
+      "HRISHIKESH ROY"
+    ],
+    "ipc_sections": [
+      "18",
+      "19",
+      "20",
+      "27",
+      "482"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "482"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "domestic_offences"
+    ],
+    "detailed_classification": {
+      "domestic_offences": [
+        "domestic violence"
+      ]
+    },
+    "confidence_score": 0.1,
+    "priority_score": 0.06666666666666667,
+    "acts_involved": [
+      "domestic_violence"
+    ],
+    "acts_details": {
+      "domestic_violence": "Protection of Women from Domestic Violence Act, 2005"
+    },
+    "acts_mentions": {
+      "domestic_violence": 8
+    },
+    "crime_keywords": [
+      "domestic violence"
+    ],
+    "priority_keywords_matched": [
+      "domestic violence"
+    ],
+    "victim_types": [
+      "victim",
+      "complainant"
+    ],
+    "relationships": [
+      "wife",
+      "mother",
+      "sister",
+      "father",
+      "brother"
+    ],
+    "locations": [
+      "residence"
+    ],
+    "section_categories": [
+      "other"
+    ],
+    "section_summary": [
+      "IPC 18 (other)",
+      "IPC 19 (other)",
+      "IPC 20 (other)",
+      "IPC 27 (other)",
+      "IPC 482 (other)"
+    ],
+    "search_queries": [
+      "IPC sections 18, 19, 20, 27, 482",
+      "domestic offences cases",
+      "domestic violence"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:53.216711",
+    "pages": 7,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Domestic Offences | Acts: DOMESTIC_VIOLENCE | Keywords: domestic violence | IPC sections: 18, 19, 20"
+  },
+  {
+    "case_id": "2020_INSC_93",
+    "file_name": "2020_INSC_93.pdf",
+    "case_title": "S.C.R.\n\nDR. VIJAYAKUMARAN C.P.V. v. CENTRAL UNIVERSITY OF KERALA & ORS.",
+    "citation": "[2020] 3 S.C.R. 374",
+    "decision_date": "JANUARY 28, 2020",
+    "judges": [
+      "A. M. KHANWILKAR",
+      "HEMANT GUPTA",
+      "DINESH MAHESHWARI"
+    ],
+    "ipc_sections": [],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "harassment",
+      "child_offences"
+    ],
+    "detailed_classification": {
+      "harassment": [
+        "sexual harassment"
+      ],
+      "child_offences": [
+        "minor"
+      ]
+    },
+    "confidence_score": 0.2,
+    "priority_score": 0.13333333333333333,
+    "acts_involved": [
+      "posh"
+    ],
+    "acts_details": {
+      "posh": "Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013"
+    },
+    "acts_mentions": {
+      "posh": 0
+    },
+    "crime_keywords": [
+      "minor",
+      "sexual harassment"
+    ],
+    "priority_keywords_matched": [
+      "child",
+      "minor"
+    ],
+    "victim_types": [
+      "complainant",
+      "aggrieved person"
+    ],
+    "relationships": [
+      "daughter",
+      "teacher",
+      "principal",
+      "employer",
+      "manager",
+      "employee",
+      "intern",
+      "student"
+    ],
+    "locations": [
+      "office",
+      "workplace",
+      "college",
+      "factory"
+    ],
+    "section_categories": [],
+    "section_summary": [],
+    "search_queries": [
+      "harassment cases",
+      "child offences cases",
+      "minor",
+      "sexual harassment"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:13:53.578181",
+    "pages": 44,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Harassment | Acts: POSH | Keywords: minor, sexual harassment"
+  }
+]

@@ -521,12 +521,13 @@ def main():
     print("Offences Against Women and Children")
     print("=" * 70)
 
-    PROJECT_ROOT = Path(__file__).parent.parent.parent          # → MOOTCOURT
-    BACKEND_DIR = PROJECT_ROOT / 'backend'                     # → MOOTCOURT/backend
-    METADATA_BASE1 = BACKEND_DIR / 'data_extraction'                   # → MOOTCOURT/backend/metadata
-    METADATA_BASE2 = METADATA_BASE1 / 'metadata'
-    METADATA_DIR = METADATA_BASE2/ 'metadata_2022'
+    # Script is in: MootCourt/backend/data_extraction/scriptsD/stage_1.py
+    # Go up 2 levels to get to data_extraction folder
+    DATA_EXTRACTION_DIR = Path(__file__).parent.parent         # → MootCourt/backend/data_extraction
+    METADATA_DIR = DATA_EXTRACTION_DIR / 'metadata' / 'metadata_2016'
     
+    logger.info(f"Data extraction dir: {DATA_EXTRACTION_DIR}")
+    logger.info(f"Metadata dir: {METADATA_DIR}")
     
     possible_inputs = [
         METADATA_DIR / 'metadata.parquet',
@@ -535,13 +536,13 @@ def main():
 
     INPUT_FILE = None
     for path in possible_inputs:
+        logger.info(f"Checking path: {path} - Exists: {path.exists()}")
         if path.exists():
             INPUT_FILE = path
             break
     
-    SEGREGATION = BACKEND_DIR / 'data_extraction'   
-    SEGREGATION_DIR = SEGREGATION/'segregation' 
-    OUTPUT_FILE = SEGREGATION_DIR / 'cases_2022.csv'
+    SEGREGATION_DIR = DATA_EXTRACTION_DIR / 'segregation'
+    OUTPUT_FILE = SEGREGATION_DIR / '2016'/'cases_2016.csv'
 
     if not INPUT_FILE:
         logger.error("Input file not found!")
