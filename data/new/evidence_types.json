@@ -1,0 +1,63 @@
+[
+  {
+    "name": "Medical Report",
+    "linked_sections": [
+      {"act": "BNS", "section": "101"},
+      {"act": "BNS", "section": "309"}
+    ]
+  },
+  {
+    "name": "Witness Statement",
+    "linked_sections": [
+      {"act": "BNS", "section": "303"},
+      {"act": "BNS", "section": "305"},
+      {"act": "BNS", "section": "309"},
+      {"act": "BNS", "section": "101"},
+      {"act": "BNS", "section": "80"}
+    ]
+  },
+  {
+    "name": "Dying Declaration",
+    "linked_sections": [
+      {"act": "BNS", "section": "101"},
+      {"act": "BNS", "section": "80"}
+    ]
+  },
+  {
+    "name": "Forensic Report",
+    "linked_sections": [
+      {"act": "BNS", "section": "101"},
+      {"act": "BNS", "section": "309"},
+      {"act": "BNS", "section": "303"}
+    ]
+  },
+  {
+    "name": "FSL Report",
+    "linked_sections": [
+      {"act": "BNS", "section": "101"},
+      {"act": "BNS", "section": "309"}
+    ]
+  },
+  {
+    "name": "Electronic Evidence",
+    "linked_sections": [
+      {"act": "BNS", "section": "303"},
+      {"act": "BNS", "section": "305"},
+      {"act": "BNS", "section": "309"}
+    ]
+  },
+  {
+    "name": "CCTV",
+    "linked_sections": [
+      {"act": "BNS", "section": "303"},
+      {"act": "BNS", "section": "305"},
+      {"act": "BNS", "section": "309"}
+    ]
+  },
+  {
+    "name": "DNA Report",
+    "linked_sections": [
+      {"act": "BNS", "section": "101"}
+    ]
+  }
+]
