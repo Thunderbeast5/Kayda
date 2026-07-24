@@ -42,17 +42,17 @@ logger = logging.getLogger(__name__)
 # ============================================================
 
 @dataclass
+@dataclass
 class Config:
     # __file__ is in backend/data_extraction/scriptsD/stage_3.py
     # parent.parent.parent goes to project root (MootCourt)
     project_root: Path = Path(__file__).parent.parent.parent.parent
     
     # Input PDFs
-    pdf_input_dir: Path = project_root / 'backend' / 'data_extraction' / 'pdfs' / 'pdf_downloads_2011'
+    pdf_input_dir: Path = project_root / 'backend' / 'data_extraction' / 'pdfs' / 'pdf_downloads_2008'
     
     # Output directories
-    json_output_dir: Path = project_root / 'backend' / 'data_extraction' / 'json' / 'json_output_2011'
-    summary_file: Path = project_root / 'backend' / 'data_extraction' / 'extraction_summary_2011.csv'
+    json_output_dir: Path = project_root / 'backend' / 'data_extraction' / 'json' / 'json_output_2008'
     
     # Extraction settings
     max_pages: int = 150
@@ -1042,14 +1042,6 @@ def main():
                 pdf_path = futures[future]
                 logger.error(f"Exception processing {pdf_path.name}: {e}")
 
-    # Generate summary
-    df = pd.DataFrame(results)
-    config.summary_file.parent.mkdir(parents=True, exist_ok=True)
-    
-    # Exclude massive text from CSV
-    summary_cols = [c for c in df.columns if c not in ['full_text', 'judgment_text']]
-    df[summary_cols].to_csv(config.summary_file, index=False)
-
     successes = len([r for r in results if not r.get('has_error', False)])
     failures = len(results) - successes
 
@@ -1060,7 +1052,6 @@ def main():
     print(f"Successful: {successes}")
     print(f"Failed: {failures}")
     print(f"\n📁 JSON Output: {config.json_output_dir}")
-    print(f"📁 Summary: {config.summary_file}")
     print("=" * 70)
 
 if __name__ == "__main__":
