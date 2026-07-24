@@ -524,7 +524,7 @@ def main():
     # Script is in: MootCourt/backend/data_extraction/scriptsD/stage_1.py
     # Go up 2 levels to get to data_extraction folder
     DATA_EXTRACTION_DIR = Path(__file__).parent.parent         # → MootCourt/backend/data_extraction
-    METADATA_DIR = DATA_EXTRACTION_DIR / 'metadata' / 'metadata_2016'
+    METADATA_DIR = DATA_EXTRACTION_DIR / 'metadata' / 'metadata_2011'
     
     logger.info(f"Data extraction dir: {DATA_EXTRACTION_DIR}")
     logger.info(f"Metadata dir: {METADATA_DIR}")
@@ -542,7 +542,7 @@ def main():
             break
     
     SEGREGATION_DIR = DATA_EXTRACTION_DIR / 'segregation'
-    OUTPUT_FILE = SEGREGATION_DIR / '2016'/'cases_2016.csv'
+    OUTPUT_FILE = SEGREGATION_DIR / '2011'/'cases_2011.csv'
 
     if not INPUT_FILE:
         logger.error("Input file not found!")

@@ -41,10 +41,10 @@ logger = logging.getLogger(__name__)
 class Config:
     project_root: Path = Path(__file__).parent.parent.parent.parent
     
-    json_input_dir: Path = project_root / 'backend' / 'data_extraction' / 'json' / 'json_output_2017'
-    output_csv: Path = project_root / 'backend' / 'data_extraction' / 'segregation' / '2017' / 'classified_taxonomy_2017.csv'
-    output_json: Path = project_root / 'backend' / 'data_extraction' / 'segregation' / '2017' / 'classified_taxonomy_2017.json'
-    cache_file: Path = project_root / 'backend' / 'data_extraction' / 'segregation' / '2017' / 'taxonomy_cache_2017.json'
+    json_input_dir: Path = project_root / 'backend' / 'data_extraction' / 'json' / 'json_output_2011'
+    output_csv: Path = project_root / 'backend' / 'data_extraction' / 'segregation' / '2011' / 'classified_taxonomy_2011.csv'
+    output_json: Path = project_root / 'backend' / 'data_extraction' / 'segregation' / '2011' / 'classified_taxonomy_2011.json'
+    cache_file: Path = project_root / 'backend' / 'data_extraction' / 'segregation' / '2011' / 'taxonomy_cache_2011.json'
     
     def __post_init__(self):
         self.output_csv.parent.mkdir(parents=True, exist_ok=True)

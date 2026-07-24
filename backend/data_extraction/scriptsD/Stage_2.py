@@ -45,8 +45,8 @@ class Config:
     
     # Script is in: backend/data_extraction/scriptsD/Stage_2.py
     data_extraction_dir: Path = Path(__file__).parent.parent  # → backend/data_extraction
-    candidates_file: Path = data_extraction_dir / 'segregation' / '2016'/ 'cases_2016.csv'
-    pdf_output_dir: Path = data_extraction_dir / 'pdfs' / 'pdf_downloads_2016'
+    candidates_file: Path = data_extraction_dir / 'segregation' / '2011'/ 'cases_2011.csv'
+    pdf_output_dir: Path = data_extraction_dir / 'pdfs' / 'pdf_downloads_2011'
     
     s3_bucket: str = "indian-supreme-court-judgments"
     s3_region: str = "ap-south-1"
@@ -478,7 +478,7 @@ def main():
     result_df = downloader.download_cases(df)
     
     # Save results
-    result_file = config.data_extraction_dir / 'pdf_download_results_2016.csv'
+    result_file = config.data_extraction_dir / 'pdf_download_results_2011.csv'
     result_df.to_csv(result_file, index=False)
     logger.info(f"💾 Download results saved to: {result_file}")
     

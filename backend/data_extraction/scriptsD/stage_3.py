@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """
-Stage 3: HIGHLY ACCURATE PDF TO JSON EXTRACTOR FOR 2017 SUPREME COURT JUDGMENTS
+Stage 3: HIGHLY ACCURATE PDF TO JSON EXTRACTOR FOR 2015 SUPREME COURT JUDGMENTS
 
-This script is specifically optimized for the 2017 Supreme Court PDF structure
+This script is specifically optimized for the 2015 Supreme Court PDF structure
 which uses a distinctive format with proper headings and structured sections.
 
 Key improvements:
-- Better handling of 2017 PDF structure with explicit section markers
+- Better handling of 2015 PDF structure with explicit section markers
 - Improved section extraction for IPC, BNS, POCSO, IT Act sections
 - More accurate parsing of judges, appearances, dates
 - Better handling of headnotes and case metadata
@@ -48,11 +48,11 @@ class Config:
     project_root: Path = Path(__file__).parent.parent.parent.parent
     
     # Input PDFs
-    pdf_input_dir: Path = project_root / 'backend' / 'data_extraction' / 'pdfs' / 'pdf_downloads_2017'
+    pdf_input_dir: Path = project_root / 'backend' / 'data_extraction' / 'pdfs' / 'pdf_downloads_2011'
     
     # Output directories
-    json_output_dir: Path = project_root / 'backend' / 'data_extraction' / 'json' / 'json_output_2017'
-    summary_file: Path = project_root / 'backend' / 'data_extraction' / 'extraction_summary_2017.csv'
+    json_output_dir: Path = project_root / 'backend' / 'data_extraction' / 'json' / 'json_output_2011'
+    summary_file: Path = project_root / 'backend' / 'data_extraction' / 'extraction_summary_2011.csv'
     
     # Extraction settings
     max_pages: int = 150
@@ -63,11 +63,11 @@ class Config:
 
 
 # ============================================================
-# IMPROVED PDF PARSER FOR 2017 SUPREME COURT JUDGMENTS
+# IMPROVED PDF PARSER FOR 2015 SUPREME COURT JUDGMENTS
 # ============================================================
 
-class SupremeCourtPDFParser2017:
-    """Enhanced parser specifically for 2017 SC judgment structure with PRECISION extraction"""
+class SupremeCourtPDFParser2015:
+    """Enhanced parser specifically for 2015 SC judgment structure with PRECISION extraction"""
     
     # PRECISION EXTRACTION - Present case indicators
     PRESENT_CASE_INDICATORS = [
@@ -298,7 +298,7 @@ class SupremeCourtPDFParser2017:
         return result
 
     def _extract_case_title(self, text: str) -> str:
-        """Extract case title (petitioner vs respondent) - ENHANCED FOR 2017-2022"""
+        """Extract case title (petitioner vs respondent) - ENHANCED FOR 2015-2022"""
         # Multiple patterns to handle various formats in SC judgments
         patterns = [
             # Pattern 1: Handle "ETC." format (2017): "AJAY KUMAR GHOSHAL ETC.\n\nSTATE OF BIHAR & ANR."
@@ -1027,7 +1027,7 @@ def main():
         return
 
     logger.info(f"Found {len(pdf_files)} PDF files to extract")
-    parser = SupremeCourtPDFParser2017(config)
+    parser = SupremeCourtPDFParser2015(config)
     results = []
 
     print(f"\nExtracting JSONs using {config.num_workers} threads...")
