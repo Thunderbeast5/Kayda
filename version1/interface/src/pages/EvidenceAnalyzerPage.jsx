@@ -515,6 +515,35 @@ export default function EvidenceAnalyzerPage({ onBack }) {
                       {facts.property.cash && <FactRow label="Cash" value={facts.property.cash} />}
                       {facts.property.gold && <FactRow label="Gold / Ornaments" value={facts.property.gold} />}
                       {facts.property.documents && <FactRow label="Documents" value={facts.property.documents} />}
+                      
+                      {/* Vehicles */}
+                      {facts.property.vehicles?.length > 0 && (
+                        <div className="mt-4 space-y-3">
+                          <div className="text-[10px] font-bold uppercase tracking-wider text-[#8C5A3C] mb-3">
+                            Vehicles ({facts.property.vehicles.length})
+                          </div>
+                          {facts.property.vehicles.map((vehicle, idx) => (
+                            <div key={idx} className="bg-[#FAF8F5] border border-[#2C1810]/10 rounded-lg p-4 space-y-2">
+                              {vehicle.type && (
+                                <FactRow label="Type" value={vehicle.type} />
+                              )}
+                              {vehicle.make_model && (
+                                <FactRow label="Make / Model" value={vehicle.make_model} />
+                              )}
+                              {vehicle.registration_no && (
+                                <FactRow label="Registration No." value={vehicle.registration_no} highlight />
+                              )}
+                              {vehicle.engine_chassis_no && (
+                                <FactRow label="Engine / Chassis No." value={vehicle.engine_chassis_no} />
+                              )}
+                              {vehicle.estimated_value && (
+                                <FactRow label="Estimated Value" value={vehicle.estimated_value} />
+                              )}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                      
                       {facts.property.other_property?.length > 0 && (
                         <FactRow label="Other Property" value={facts.property.other_property.join("; ")} />
                       )}
