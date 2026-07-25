@@ -20,7 +20,7 @@ from typing import Any
 # Add the parent directory containing t3c.py to sys.path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from t3c import (
+from backend.agents.lexigraph.cypher.old.t3c import (
     _run_single_query,
     build_chain,
     run,

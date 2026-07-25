@@ -42,7 +42,8 @@ class Settings(BaseSettings):
 
     # ── LLM (Groq / OpenAI-compatible) ────────────────────────────────────
     groq_api_key: Optional[str] = Field(default=None, description="Groq API key")
-    groq_model: str = Field(default="llama-3.3-70b-versatile", description="Default Groq model")
+    groq_model: str = Field(default="llama-3.1-8b-instant", description="Default Groq model (fast instant model)")
+    # groq_model: str = Field(default="llama-3.3-70b-versatile", description="Default Groq model")
     groq_base_url: str = Field(
         default="https://api.groq.com/openai/v1",
         description="OpenAI-compatible base URL for Groq",
