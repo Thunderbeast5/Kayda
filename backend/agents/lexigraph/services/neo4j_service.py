@@ -1,5 +1,18 @@
 import os
+from pathlib import Path
 from typing import Dict, Any, List
+from dotenv import load_dotenv
+
+env_candidates = [
+    Path(__file__).resolve().parents[3] / ".env",
+    Path(__file__).resolve().parents[4] / "backend" / ".env",
+    Path("backend/.env"),
+    Path(".env")
+]
+for candidate in env_candidates:
+    if candidate.exists():
+        load_dotenv(candidate)
+        break
 
 NEO4J_URI = os.getenv("NEO4J_URI", "")
 NEO4J_USER = os.getenv("NEO4J_USER", "")

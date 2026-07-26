@@ -1,0 +1,55 @@
+{
+  "case_name": "Lalita Kumari v. Government of UP",
+  "citation": "(2014) 2 SCC 1",
+  "court": "Supreme Court of India",
+  "year": 2014,
+  "bench": "P. Sathasivam, B.S. Chauhan, Ranjan Gogoi, S.A. Bobde, M.Y. Eqbal",
+  "judgment_date": "2013-11-12",
+  "summary": "Landmark Constitution Bench ruling on mandatory registration of FIR upon receipt of cognizable offence information.",
+  "ratio_decidendi": "Registration of FIR under Section 154 CrPC (now BNSS 173) is mandatory if the information discloses commission of a cognizable offence. Police have no discretion to conduct preliminary inquiry prior to FIR in clear cognizable offences.",
+  "holding": "Mandated immediate FIR registration for cognizable offences including rape, dowry death, murder, and kidnapping.",
+  "keywords": [
+    "mandatory FIR",
+    "cognizable offence",
+    "police duty",
+    "investigation procedure",
+    "BNS 80",
+    "BNS 63",
+    "BNS 101"
+  ],
+  "interpreted_sections": [
+    {
+      "act": "BNS",
+      "section": "80"
+    },
+    {
+      "act": "BNS",
+      "section": "63"
+    },
+    {
+      "act": "BNS",
+      "section": "101"
+    },
+    {
+      "act": "BNSS",
+      "section": "173"
+    }
+  ],
+  "constitutional_articles": [
+    "Article 14",
+    "Article 21",
+    "Article 22",
+    "Article 141"
+  ],
+  "legal_principles": [
+    "Mandatory Duty of State",
+    "Rule of Law",
+    "Access to Justice"
+  ],
+  "related_evidence": [
+    "FIR Copy",
+    "Written Complaint",
+    "Police Logbook",
+    "Call Detail Records (CDR)"
+  ]
+}

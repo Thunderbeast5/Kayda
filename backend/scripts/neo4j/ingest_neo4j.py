@@ -309,7 +309,7 @@ from neo4j import GraphDatabase, TrustCustomCAs
 # Load .env
 # --------------------------------------------------------------------
 BASE_DIR = Path(__file__).resolve().parent
-ENV_PATH = BASE_DIR.parent / ".env"
+ENV_PATH = BASE_DIR.parent.parent / ".env"
 
 load_dotenv(ENV_PATH)
 
@@ -335,11 +335,11 @@ if not NEO4J_URI or not NEO4J_USER or not NEO4J_PASSWORD:
 # --------------------------------------------------------------------
 # Other Config
 # --------------------------------------------------------------------
-CSV_PATH = BASE_DIR.parent.parent / "data" / "ipc_sections_clean.csv"
-JSON_PATH = BASE_DIR.parent.parent / "data" / "ipc.json"
-BNS_CSV_PATH = BASE_DIR.parent.parent / "data" / "bns_sections_clean.csv"
+CSV_PATH = BASE_DIR.parent.parent.parent / "data" / "cleaned" / "ipc.csv"
+JSON_PATH = BASE_DIR.parent.parent.parent / "data" / "ipc.json"
+BNS_CSV_PATH = BASE_DIR.parent.parent.parent / "data" / "cleaned" / "bns_sections_clean.csv"
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
-PINECONE_INDEX_NAME = "legal-embeddings"
+PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME", "ipc-index")
 
 
 def clean(value: str | None) -> str:
@@ -421,46 +421,48 @@ def clean_rows(rows: list[dict], title_lookup: dict) -> list[dict]:
 
 def ingest_neo4j(rows: list[dict], act: str) -> int:
     driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
-    count = 0
+    seen_sections = set()
+    batch = []
     skipped = 0
 
+    for row in rows:
+        section = row.get("Section_Number", "")
+        desc = row.get("Description", "").strip()
+        punish = row.get("Punishment", "").strip()
+        if not section or section in seen_sections:
+            skipped += 1
+            continue
+        seen_sections.add(section)
+        batch.append({
+            "section": section,
+            "title": row.get("Title") or row.get("Offense", ""),
+            "desc": desc,
+            "punish": punish,
+            "chapter": row.get("Chapter_Title", "")
+        })
+
     with driver.session() as session:
-        for row in rows:
-            section = row.get("Section_Number", "")
-            desc = row.get("Description", "").strip()
-            punish = row.get("Punishment", "").strip()
+        session.run(
+            """
+            UNWIND $batch AS item
+            MERGE (l:LawSection {act: $act, section: item.section})
+            SET
+                l.title = item.title,
+                l.description = item.desc,
+                l.punishment = item.punish,
+                l.chapter = item.chapter
 
-            if not section:
-                skipped += 1
-                continue
-
-            session.run(
-                """
-                MERGE (l:LawSection {act: $act, section: $section})
-                SET
-                    l.title = $title,
-                    l.description = $desc,
-                    l.punishment = $punish,
-                    l.chapter = $chapter
-
-                WITH l
-
-                MERGE (a:Act {name: $act})
-                MERGE (a)-[:HAS_SECTION]->(l)
-                """,
-                act=act,
-                section=section,
-                title=row.get("Title") or row.get("Offense", ""),
-                desc=desc,
-                punish=punish,
-                chapter=row.get("Chapter_Title", "")
-            )
-
-            count += 1
+            WITH l, item
+            MERGE (a:Act {name: $act})
+            MERGE (a)-[:HAS_SECTION]->(l)
+            """,
+            act=act,
+            batch=batch
+        )
 
     driver.close()
     print(f"  Skipped {skipped} rows (empty section or offense)")
-    return count
+    return len(batch)
 
 
 def ingest_pinecone(rows: list[dict], act: str) -> int:
@@ -492,7 +494,7 @@ def ingest_pinecone(rows: list[dict], act: str) -> int:
 
     for row in rows:
         section = row.get("Section_Number", "")
-        desc = row.get("Description", "").strip()
+        desc = (row.get("Description") or row.get("Legal_Description") or row.get("Simple_Words") or "").strip()
         if not section or not desc:
             continue
         title = row.get("Title") or row.get("Offense", "")

@@ -1,0 +1,1076 @@
+[
+  {
+    "case_id": "2024_INSC_101",
+    "categories": [
+      "matrimonial_cruelty",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "matrimonial_cruelty: IPC 498A, Keyword: matrimonial; quashing_proceedings: CrPC 482",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "docket order",
+      "reopening/re-initiating criminal proceedings",
+      "matrimonial"
+    ],
+    "acts_found": [
+      "crpc",
+      "dowry_act"
+    ],
+    "ipc_sections": [
+      "498A"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [
+      "482"
+    ],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_1011",
+    "categories": [
+      "homicide",
+      "matrimonial_cruelty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "homicide: IPC 302, IPC 201; matrimonial_cruelty: IPC 498A, Keyword: matrimonial",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "concurrent conviction",
+      "concurrent finding",
+      "murder",
+      "matrimonial"
+    ],
+    "acts_found": [
+      "crpc"
+    ],
+    "ipc_sections": [
+      "302",
+      "201",
+      "498A"
+    ],
+    "bns_sections": [
+      "101"
+    ],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_1019",
+    "categories": [
+      "quashing_proceedings",
+      "matrimonial_cruelty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "quashing_proceedings: CrPC 482, Keyword: fir quashing; matrimonial_cruelty: IPC 498A, Keyword: cruelty",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "cruelty",
+      "miscarriage",
+      "fir quashing",
+      "inherent power of high"
+    ],
+    "acts_found": [
+      "crpc",
+      "dowry_act"
+    ],
+    "ipc_sections": [
+      "498A"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [
+      "482"
+    ],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_181",
+    "categories": [
+      "false_promise_marriage",
+      "rape",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "false_promise_marriage: Section 376 + false pretext, Keyword: rape of a woman on false pretext of marriage; rape: IPC 375, Keyword: rape of a woman on false pretext of marriage; quashing_proceedings: CrPC 482, Keyword: quashing of fir",
+    "method": "rule_based",
+    "is_false_pretext": true,
+    "keywords_found": [
+      "rape of a woman on false pretext of marriage",
+      "quashing of fir"
+    ],
+    "acts_found": [
+      "crpc"
+    ],
+    "ipc_sections": [
+      "375",
+      "376"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [
+      "482"
+    ],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_216",
+    "categories": [
+      "false_promise_marriage",
+      "rape",
+      "stalking",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "false_promise_marriage: Section 376 + false pretext, Keyword: false promise of marriage; rape: IPC 375, Keyword: consent; stalking: IPC 354D; quashing_proceedings: CrPC 482",
+    "method": "rule_based",
+    "is_false_pretext": true,
+    "keywords_found": [
+      "false promise of marriage",
+      "consent",
+      "sexual relationship",
+      "forced"
+    ],
+    "acts_found": [
+      "crpc"
+    ],
+    "ipc_sections": [
+      "354D",
+      "375",
+      "376"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [
+      "482"
+    ],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_247",
+    "categories": [
+      "homicide",
+      "juvenile_justice",
+      "kidnapping",
+      "pocso"
+    ],
+    "confidence": 1.0,
+    "reasoning": "homicide: IPC 302, IPC 201; juvenile_justice: Act: jj_act, Keyword: juvenile; kidnapping: IPC 363; pocso: Act: pocso",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "juvenile",
+      "child in conflict with law",
+      "children’s court"
+    ],
+    "acts_found": [
+      "crpc",
+      "jj_act",
+      "pocso"
+    ],
+    "ipc_sections": [
+      "363",
+      "302",
+      "201"
+    ],
+    "bns_sections": [
+      "101"
+    ],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_343",
+    "categories": [
+      "homicide",
+      "rape",
+      "pocso",
+      "acid_attack",
+      "sentencing"
+    ],
+    "confidence": 1.0,
+    "reasoning": "homicide: IPC 302; rape: IPC 376; pocso: Act: pocso; acid_attack: Keyword: acid attack case; sentencing: Keyword: suspension of sentence",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "acid attack case",
+      "suspension of sentence",
+      "life imprisonment"
+    ],
+    "acts_found": [
+      "crpc",
+      "pocso"
+    ],
+    "ipc_sections": [
+      "302",
+      "376"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_371",
+    "categories": [
+      "rape",
+      "reproductive_rights",
+      "pocso"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: IPC 376, Keyword: sexual assault; reproductive_rights: Act: mtp_act, Keyword: termination of pregnancy; pocso: Act: pocso, Keyword: sexual assault",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "termination of pregnancy",
+      "sexual assault",
+      "order recalled by the"
+    ],
+    "acts_found": [
+      "mtp_act",
+      "pocso"
+    ],
+    "ipc_sections": [
+      "376"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_393",
+    "categories": [
+      "rape",
+      "criminal_procedure"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: IPC 376, Keyword: gang rape; criminal_procedure: Keyword: evidence",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "gang rape",
+      "hostile witnesses",
+      "evidence",
+      "cross examination"
+    ],
+    "acts_found": [
+      "crpc"
+    ],
+    "ipc_sections": [
+      "376"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_448",
+    "categories": [
+      "rape",
+      "homicide",
+      "modesty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: IPC 376, IPC 376A; homicide: IPC 304, IPC 302; modesty: IPC 354, BNS 74",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "sentencing",
+      "sentencing policy",
+      "need for sentencing policy"
+    ],
+    "acts_found": [
+      "crpc",
+      "pocso"
+    ],
+    "ipc_sections": [
+      "304",
+      "376",
+      "376A",
+      "376AB",
+      "376B",
+      "376C",
+      "376D",
+      "376DA",
+      "376DB",
+      "354",
+      "302"
+    ],
+    "bns_sections": [
+      "101",
+      "63",
+      "74",
+      "71",
+      "138"
+    ],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_481",
+    "categories": [
+      "false_promise_marriage",
+      "rape"
+    ],
+    "confidence": 1.0,
+    "reasoning": "false_promise_marriage: Section 376 + false pretext; rape: IPC 375, Keyword: rape",
+    "method": "rule_based",
+    "is_false_pretext": true,
+    "keywords_found": [
+      "rape",
+      "section 376(2)(n) of penal code",
+      "1860",
+      "section 90 of penal"
+    ],
+    "acts_found": [
+      "crpc"
+    ],
+    "ipc_sections": [
+      "376",
+      "375"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_523",
+    "categories": [
+      "sentencing"
+    ],
+    "confidence": 1.0,
+    "reasoning": "sentencing: Keyword: sentencing, Keyword: undeserving leniency and sympathy",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "sentencing",
+      "undeserving leniency and sympathy",
+      "undergo"
+    ],
+    "acts_found": [
+      "crpc"
+    ],
+    "ipc_sections": [],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_613",
+    "categories": [
+      "rape",
+      "homicide"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: Keyword: rape; homicide: Keyword: murder",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "r.g. kar hospital case",
+      "trainee doctor",
+      "rape",
+      "murder",
+      "health"
+    ],
+    "acts_found": [
+      "posh_act"
+    ],
+    "ipc_sections": [],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_614",
+    "categories": [
+      "rape",
+      "kidnapping",
+      "pocso",
+      "quashing_proceedings",
+      "juvenile_justice"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: IPC 376, IPC 375; kidnapping: IPC 363, IPC 366; pocso: Act: pocso, Keyword: section 6 of protection of children from sexual offences act; quashing_proceedings: CrPC 482; juvenile_justice: Act: jj_act",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "section 6 of protection of children from sexual offences act",
+      "2012",
+      "section 376(2)(n) of penal code",
+      "1860",
+      "article 21 of the"
+    ],
+    "acts_found": [
+      "crpc",
+      "jj_act",
+      "pocso"
+    ],
+    "ipc_sections": [
+      "376",
+      "363",
+      "366",
+      "375"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [
+      "482"
+    ],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_639",
+    "categories": [
+      "quashing_proceedings",
+      "dowry"
+    ],
+    "confidence": 1.0,
+    "reasoning": "quashing_proceedings: CrPC 482; dowry: Keyword: section 6 of dowry prohibition",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "section 406 of penal code",
+      "1860",
+      "section 6 of dowry prohibition"
+    ],
+    "acts_found": [
+      "crpc",
+      "dowry_act"
+    ],
+    "ipc_sections": [],
+    "bns_sections": [],
+    "crpc_sections": [
+      "482"
+    ],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_665",
+    "categories": [
+      "homicide",
+      "matrimonial_cruelty",
+      "dowry"
+    ],
+    "confidence": 1.0,
+    "reasoning": "homicide: IPC 306, IPC 304; matrimonial_cruelty: IPC 498A, Keyword: section 498a of penal code; dowry: IPC 304B",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "section 498a of penal code",
+      "1860",
+      "section 304b of penal code",
+      "section 306 of penal code",
+      "presumption u/s. 113b of"
+    ],
+    "acts_found": [
+      "dowry_act"
+    ],
+    "ipc_sections": [
+      "498A",
+      "306",
+      "304B",
+      "304"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_684",
+    "categories": [
+      "sex_selection",
+      "reproductive_rights"
+    ],
+    "confidence": 1.0,
+    "reasoning": "sex_selection: Act: pcpndt_act; reproductive_rights: Keyword: medical termination of",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "sex determination of a foetus",
+      "racket",
+      "medical termination of"
+    ],
+    "acts_found": [
+      "pcpndt_act"
+    ],
+    "ipc_sections": [],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_716",
+    "categories": [
+      "pocso",
+      "modesty",
+      "rape",
+      "kidnapping",
+      "false_promise_marriage",
+      "quashing_proceedings",
+      "cyber_crime"
+    ],
+    "confidence": 1.0,
+    "reasoning": "pocso: Act: pocso, Keyword: section 15 of the protection of children from sexual offences; modesty: BNS 79; rape: BNS 67; kidnapping: BNS 138; false_promise_marriage: BNS 69; quashing_proceedings: CrPC 482; cyber_crime: Act: it_act",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "section 15 of the protection of children from sexual offences"
+    ],
+    "acts_found": [
+      "crpc",
+      "it_act",
+      "pocso"
+    ],
+    "ipc_sections": [],
+    "bns_sections": [
+      "79",
+      "67",
+      "138",
+      "69"
+    ],
+    "crpc_sections": [
+      "482"
+    ],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_717",
+    "categories": [
+      "matrimonial_cruelty",
+      "homicide"
+    ],
+    "confidence": 1.0,
+    "reasoning": "matrimonial_cruelty: IPC 498A, Keyword: subjecting wife to cruelty and forcing her to commit suicide; homicide: IPC 306",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "subjecting wife to cruelty and forcing her to commit suicide",
+      "abetment"
+    ],
+    "acts_found": [
+      "crpc"
+    ],
+    "ipc_sections": [
+      "498A",
+      "306"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_720",
+    "categories": [
+      "rape",
+      "homicide",
+      "pocso"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: IPC 376D, IPC 376A; homicide: IPC 302; pocso: Act: pocso",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "section 450 of ipc",
+      "section 376(2)(i) of ipc",
+      "section 376d of ipc"
+    ],
+    "acts_found": [
+      "pocso"
+    ],
+    "ipc_sections": [
+      "376D",
+      "376A",
+      "302"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_732",
+    "categories": [
+      "domestic_violence"
+    ],
+    "confidence": 1.0,
+    "reasoning": "domestic_violence: Act: dv_act, Keyword: domestic violence",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "women victims",
+      "domestic violence",
+      "section 25 of protection"
+    ],
+    "acts_found": [
+      "dv_act",
+      "crpc"
+    ],
+    "ipc_sections": [],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_735",
+    "categories": [
+      "homicide",
+      "kidnapping"
+    ],
+    "confidence": 1.0,
+    "reasoning": "homicide: IPC 302, Keyword: murder; kidnapping: IPC 364, Keyword: abduction",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "abduction",
+      "murder",
+      "abduction and murder of woman",
+      "circumstantial"
+    ],
+    "acts_found": [
+      "crpc"
+    ],
+    "ipc_sections": [
+      "302",
+      "364"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_737",
+    "categories": [
+      "matrimonial_cruelty",
+      "quashing_proceedings",
+      "domestic_violence",
+      "dowry"
+    ],
+    "confidence": 1.0,
+    "reasoning": "matrimonial_cruelty: IPC 498A, Keyword: cruelty; quashing_proceedings: CrPC 482, Keyword: quashing; domestic_violence: Act: dv_act; dowry: Keyword: dowry demand",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "quashing",
+      "cruelty",
+      "dowry demand",
+      "matrimonial disputes",
+      "dispute"
+    ],
+    "acts_found": [
+      "dv_act",
+      "crpc"
+    ],
+    "ipc_sections": [
+      "498A"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [
+      "482"
+    ],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_766",
+    "categories": [
+      "homicide",
+      "quashing_proceedings",
+      "matrimonial_cruelty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "homicide: IPC 302, IPC 201; quashing_proceedings: CrPC 482, Keyword: quashing of charges; matrimonial_cruelty: IPC 498A",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "abetment to commit suicide",
+      "quashing of charges",
+      "abuse"
+    ],
+    "acts_found": [
+      "crpc"
+    ],
+    "ipc_sections": [
+      "498A",
+      "302",
+      "201",
+      "306"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [
+      "482"
+    ],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_782",
+    "categories": [
+      "quashing_proceedings",
+      "false_promise_marriage",
+      "rape"
+    ],
+    "confidence": 1.0,
+    "reasoning": "quashing_proceedings: CrPC 482, Keyword: section 482; false_promise_marriage: Section 376 + false pretext; rape: IPC 375",
+    "method": "rule_based",
+    "is_false_pretext": true,
+    "keywords_found": [
+      "section 482",
+      "code of criminal procedure",
+      "1973",
+      "inherent power"
+    ],
+    "acts_found": [
+      "crpc"
+    ],
+    "ipc_sections": [
+      "376",
+      "375"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [
+      "482"
+    ],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_790",
+    "categories": [
+      "rape",
+      "kidnapping",
+      "child_marriage",
+      "homicide",
+      "pocso",
+      "juvenile_justice",
+      "domestic_violence"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: IPC 375, BNS 63; kidnapping: BNS 137, BNS 138; child_marriage: Act: pcm_act, Keyword: child marriage; homicide: BNS 105; pocso: Act: pocso; juvenile_justice: Act: jj_act; domestic_violence: Act: dv_act",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "child marriage",
+      "guidelines for prevention",
+      "elimination of child"
+    ],
+    "acts_found": [
+      "crpc",
+      "pocso",
+      "jj_act",
+      "dv_act",
+      "pcm_act"
+    ],
+    "ipc_sections": [
+      "375"
+    ],
+    "bns_sections": [
+      "137",
+      "138",
+      "63",
+      "105"
+    ],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_82",
+    "categories": [
+      "kidnapping",
+      "rape",
+      "modesty",
+      "sentencing",
+      "cyber_crime",
+      "pocso"
+    ],
+    "confidence": 1.0,
+    "reasoning": "kidnapping: IPC 363, IPC 366; rape: IPC 376; modesty: IPC 509; sentencing: Keyword: sentence, Keyword: sentencing; cyber_crime: Act: it_act; pocso: Act: pocso",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "sentence",
+      "sentencing",
+      "modification of sentence",
+      "fixed term of"
+    ],
+    "acts_found": [
+      "crpc",
+      "it_act",
+      "pocso"
+    ],
+    "ipc_sections": [
+      "376",
+      "363",
+      "366",
+      "509"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_846",
+    "categories": [
+      "sexual_harassment",
+      "trafficking",
+      "quashing_proceedings",
+      "pocso"
+    ],
+    "confidence": 1.0,
+    "reasoning": "sexual_harassment: IPC 354A; trafficking: IPC 372; quashing_proceedings: CrPC 482; pocso: Act: pocso",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "locus standi of third party to challenge criminal proceeding"
+    ],
+    "acts_found": [
+      "crpc",
+      "pocso"
+    ],
+    "ipc_sections": [
+      "354A",
+      "372"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [
+      "482"
+    ],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_876",
+    "categories": [
+      "unclassified"
+    ],
+    "confidence": 0.1,
+    "reasoning": "No clear category detected",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "divorce",
+      "interim maintenance",
+      "reducing the quantum of maintenance"
+    ],
+    "acts_found": [],
+    "ipc_sections": [],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_877",
+    "categories": [
+      "rape",
+      "criminal_procedure"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: IPC 376; criminal_procedure: Keyword: anticipatory bail",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "anticipatory bail",
+      "conditions imposed",
+      "complaint lodged after eight"
+    ],
+    "acts_found": [
+      "crpc"
+    ],
+    "ipc_sections": [
+      "376"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_879",
+    "categories": [
+      "false_promise_marriage",
+      "rape",
+      "quashing_proceedings"
+    ],
+    "confidence": 1.0,
+    "reasoning": "false_promise_marriage: Section 376 + false pretext; rape: IPC 375; quashing_proceedings: CrPC 482",
+    "method": "rule_based",
+    "is_false_pretext": true,
+    "keywords_found": [
+      "section 376(2)(n) of penal code",
+      "1860",
+      "section 506 of penal"
+    ],
+    "acts_found": [
+      "crpc"
+    ],
+    "ipc_sections": [
+      "375",
+      "376"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [
+      "482"
+    ],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_897",
+    "categories": [
+      "false_promise_marriage",
+      "rape",
+      "modesty",
+      "quashing_proceedings",
+      "pocso"
+    ],
+    "confidence": 1.0,
+    "reasoning": "false_promise_marriage: Section 376 + false pretext, Keyword: false promise of marriage; rape: IPC 375, Keyword: consent; modesty: IPC 354; quashing_proceedings: CrPC 482; pocso: Act: pocso",
+    "method": "rule_based",
+    "is_false_pretext": true,
+    "keywords_found": [
+      "false promise of marriage",
+      "forciable sexual intercourse",
+      "consent"
+    ],
+    "acts_found": [
+      "crpc",
+      "pocso"
+    ],
+    "ipc_sections": [
+      "376",
+      "354",
+      "375"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [
+      "482"
+    ],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_909",
+    "categories": [
+      "rape",
+      "criminal_procedure"
+    ],
+    "confidence": 1.0,
+    "reasoning": "rape: IPC 376D, Keyword: enlarged on bail in rape case; criminal_procedure: Keyword: enlarged on bail in rape case, Keyword: bail",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "enlarged on bail in rape case",
+      "bail",
+      "rape",
+      "discrepancies in fir"
+    ],
+    "acts_found": [
+      "crpc"
+    ],
+    "ipc_sections": [
+      "376D"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_919",
+    "categories": [
+      "homicide",
+      "rape",
+      "kidnapping"
+    ],
+    "confidence": 1.0,
+    "reasoning": "homicide: IPC 304, IPC 201; rape: IPC 376; kidnapping: IPC 366",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "role of public prosecutor",
+      "appointment of legal aid lawyers"
+    ],
+    "acts_found": [
+      "crpc"
+    ],
+    "ipc_sections": [
+      "304",
+      "376",
+      "366",
+      "201"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_953",
+    "categories": [
+      "quashing_proceedings",
+      "matrimonial_cruelty"
+    ],
+    "confidence": 1.0,
+    "reasoning": "quashing_proceedings: CrPC 482, Keyword: quashing; matrimonial_cruelty: IPC 498A",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "quashing",
+      "refusal to quash",
+      "fir",
+      "ongoing criminal proceedings"
+    ],
+    "acts_found": [
+      "crpc",
+      "dowry_act"
+    ],
+    "ipc_sections": [
+      "498A"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [
+      "482"
+    ],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_96",
+    "categories": [
+      "pocso",
+      "sentencing"
+    ],
+    "confidence": 1.0,
+    "reasoning": "pocso: Act: pocso, Keyword: protection of children from sexual offences; sentencing: Keyword: quantum of sentence",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "protection of children from sexual offences",
+      "quantum of sentence"
+    ],
+    "acts_found": [
+      "pocso"
+    ],
+    "ipc_sections": [],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  },
+  {
+    "case_id": "2024_INSC_987",
+    "categories": [
+      "homicide",
+      "kidnapping",
+      "pocso",
+      "rape"
+    ],
+    "confidence": 1.0,
+    "reasoning": "homicide: IPC 302, Keyword: murder; kidnapping: IPC 364, Keyword: kidnapping; pocso: Act: pocso, Keyword: sexual assault; rape: Keyword: sexual assault, Keyword: brutal sexual assault",
+    "method": "rule_based",
+    "is_false_pretext": false,
+    "keywords_found": [
+      "murder",
+      "kidnapping",
+      "sexual assault",
+      "brutal sexual assault",
+      "death"
+    ],
+    "acts_found": [
+      "crpc",
+      "pocso"
+    ],
+    "ipc_sections": [
+      "302",
+      "364"
+    ],
+    "bns_sections": [],
+    "crpc_sections": [],
+    "special_act_sections": []
+  }
+]

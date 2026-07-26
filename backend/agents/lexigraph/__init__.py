@@ -4,8 +4,8 @@ def retrieve(query_text: str, section_hint=None) -> dict:
     """Backwards-compatible retrieve function calling the new LexiGraphAgent pipeline."""
     from .lexigraph_agent import LexiGraphAgent
     agent = LexiGraphAgent()
-    output = agent.process_query(query_text)
-    ranked_candidates = output.get("ranked_candidates") or []
+    output = agent.process_query(query_text, debug=True)
+    ranked_candidates = output.get("debug", {}).get("ranked_candidates") or output.get("recommended_sections") or []
     
     mapped_sections = []
     for s in ranked_candidates:

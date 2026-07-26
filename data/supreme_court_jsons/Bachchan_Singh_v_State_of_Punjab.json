@@ -1,0 +1,57 @@
+{
+  "case_name": "Bachchan Singh v. State of Punjab",
+  "citation": "(1980) 2 SCC 684",
+  "court": "Supreme Court of India",
+  "year": 1980,
+  "bench": "Y.V. Chandrachud, R.S. Sarkaria, A.C. Gupta, N.L. Untwalia, P.N. Bhagwati",
+  "judgment_date": "1980-05-09",
+  "summary": "Constitutional Bench judgment laying down the 'rarest of rare cases' doctrine for capital punishment in murder trials.",
+  "ratio_decidendi": "Death penalty for murder under penal provisions is constitutionally valid under Article 21 if restricted to the 'rarest of rare cases' where alternative option of life imprisonment is unquestionably foreclosed.",
+  "holding": "Upheld constitutionality of capital punishment for murder under Section 302 IPC (now BNS 103), establishing balancing test between aggravating and mitigating circumstances.",
+  "keywords": [
+    "murder",
+    "rarest of rare",
+    "capital punishment",
+    "death penalty",
+    "mitigating circumstances",
+    "BNS 101",
+    "BNS 103"
+  ],
+  "interpreted_sections": [
+    {
+      "act": "BNS",
+      "section": "101"
+    },
+    {
+      "act": "BNS",
+      "section": "103"
+    },
+    {
+      "act": "IPC",
+      "section": "300"
+    },
+    {
+      "act": "IPC",
+      "section": "302"
+    }
+  ],
+  "constitutional_articles": [
+    "Article 14",
+    "Article 19",
+    "Article 21",
+    "Article 72",
+    "Article 141"
+  ],
+  "legal_principles": [
+    "Rarest of Rare Doctrine",
+    "Proportionality in Sentencing",
+    "Human Dignity"
+  ],
+  "related_evidence": [
+    "Postmortem Report",
+    "FSL Report",
+    "Weapon Recovery Memo",
+    "DNA Report",
+    "CCTV Footage"
+  ]
+}
