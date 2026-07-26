@@ -1,0 +1,55 @@
+{
+  "case_name": "Satbir Singh v. State of Haryana",
+  "citation": "2021 SCC OnLine SC 404",
+  "court": "Supreme Court of India",
+  "year": 2021,
+  "bench": "N.V. Ramana, Aniruddha Bose, Krishna Murari",
+  "judgment_date": "2021-05-28",
+  "summary": "Landmark ruling clarifying the interpretation of 'soon before her death' in dowry death cases and mandatory trial court guidelines under Section 304B IPC (now BNS 80).",
+  "ratio_decidendi": "The phrase 'soon before' in dowry death provisions does not mean 'immediately before'. There must be a proximate and live link between the dowry demand/cruelty and the unnatural death.",
+  "holding": "Upheld conviction for dowry death under Section 304B IPC; issued mandatory directions to trial courts for recording Section 313 statements cautiously in dowry death trials.",
+  "keywords": [
+    "dowry death",
+    "soon before death",
+    "cruelty",
+    "proximity nexus",
+    "presumption",
+    "BNS 80",
+    "BNS 85"
+  ],
+  "interpreted_sections": [
+    {
+      "act": "BNS",
+      "section": "80"
+    },
+    {
+      "act": "BNS",
+      "section": "85"
+    },
+    {
+      "act": "IPC",
+      "section": "304B"
+    },
+    {
+      "act": "IPC",
+      "section": "498A"
+    }
+  ],
+  "constitutional_articles": [
+    "Article 14",
+    "Article 21",
+    "Article 141"
+  ],
+  "legal_principles": [
+    "Presumption of Dowry Death",
+    "Burden of Proof",
+    "Proximity Nexus"
+  ],
+  "related_evidence": [
+    "Medical Report",
+    "Postmortem Report",
+    "Marriage Certificate",
+    "Witness Statement",
+    "WhatsApp Chats"
+  ]
+}

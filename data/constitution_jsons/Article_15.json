@@ -1,0 +1,75 @@
+{
+  "article_number": "Article 15",
+  "title": "Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth",
+  "part": "Part III - Fundamental Rights",
+  "chapter": "Right to Equality",
+  "category": "Gender Justice & Protective Discrimination",
+  "full_text": "(1) The State shall not discriminate against any citizen on grounds only of religion, race, caste, sex, place of birth or any of them. (3) Nothing in this article shall prevent the State from making any special provision for women and children.",
+  "summary": "Prohibits state discrimination on grounds of sex, caste, or religion, while explicitly permitting special protective criminal and welfare provisions for women and children under Clause (3).",
+  "importance_score": 0.95,
+  "relevance_reason": "Article 15(3) provides the constitutional justification for special penal laws protecting women and children, including statutory offences like dowry death, rape, and cruelty.",
+  "keywords": [
+    "Prohibition of Discrimination",
+    "Special Provisions for Women",
+    "Protection of Children",
+    "Gender Justice",
+    "Substantive Equality",
+    "Protective Discrimination",
+    "Women Rights"
+  ],
+  "legal_principles": [
+    "Substantive Equality",
+    "Protective Discrimination",
+    "Gender Justice"
+  ],
+  "criminal_law_relevance": [
+    "Constitutional validity of gender-specific offences protecting women",
+    "Enactment of special penal statutes for child protection (POCSO, Child Labour)",
+    "Affirmative state action in victim rehabilitation"
+  ],
+  "possible_related_bns_topics": [
+    "BNS 80 (Dowry Death)",
+    "BNS 85 (Cruelty by Husband/Relatives)",
+    "BNS 63 (Rape)",
+    "BNS 74 (Outraging Modesty)"
+  ],
+  "graph_relationships": {
+    "related_bns_sections": [
+      "BNS 80",
+      "BNS 85",
+      "BNS 63",
+      "BNS 74",
+      "BNS 75"
+    ],
+    "related_bnss_topics": [
+      "Special trial procedure for sexual offences against women and children"
+    ],
+    "related_bsa_topics": [
+      "Presumption as to dowry death under Section 113B BSA"
+    ],
+    "related_offence_categories": [
+      "Women Offences",
+      "Child Offences",
+      "Sexual Offences"
+    ],
+    "related_constitutional_principles": [
+      "Gender Justice",
+      "Substantive Equality"
+    ],
+    "possible_landmark_cases": [
+      "Vishaka v. State of Rajasthan",
+      "State of Punjab v. Gurmit Singh",
+      "Independent Thought v. Union of India"
+    ],
+    "recommended_evidence_types": [
+      "Dying Declaration",
+      "Medical Report",
+      "Witness Statement"
+    ]
+  },
+  "graph_metadata": {
+    "node_type": "ConstitutionArticle",
+    "source": "Constitution of India",
+    "jurisdiction": "India"
+  }
+}

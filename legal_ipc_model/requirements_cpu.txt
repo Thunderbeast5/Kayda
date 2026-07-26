@@ -1,0 +1,14 @@
+# CPU-only requirements — works without GPU
+# For the Ollama-based pipeline (step1 → step2 → step3)
+
+# Data processing
+pandas==2.2.0
+scikit-learn==1.4.0
+tqdm==4.66.0
+
+# HTTP for Ollama API
+requests==2.32.3
+
+# Utilities
+python-dotenv==1.0.0
+loguru==0.7.2

@@ -1,6 +1,6 @@
-# MootCourt.ai Design System & Styling Rules
+# Kayda Design System & Styling Rules
 
-Welcome to the central design matrix for MootCourt.ai. Because this application simulates a highly professional, high-stakes legal environment, **strict adherence to these UI rules is required** to prevent the app from feeling like a generic generic chat tool.
+Welcome to the central design matrix for Kayda. Because this application simulates a highly professional, high-stakes legal environment, **strict adherence to these UI rules is required** to prevent the app from feeling like a generic generic chat tool.
 
 ## Philosophy
 The UI should feel tactile, grounded, and physical. We achieve this by mapping out rich wooden aesthetics, manila-paper textures, and traditional serif typography, contrasted perfectly with glowing digital semantic elements.
