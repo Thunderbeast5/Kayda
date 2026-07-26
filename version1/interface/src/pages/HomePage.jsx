@@ -37,7 +37,7 @@ import {
 } from "lucide-react";
 
 import heroBg from "../assets/hero1.png";
-import logo from "../assets/logo1.svg";
+import logo from "../assets/12.svg";
 import { getMockResponse } from "../data/mockTrialResponses";
 import { uploadCaseFile } from "../firebase";
 
@@ -195,11 +195,11 @@ function LandingPage({ userRole, setUserRole, onEnterCourt }) {
           
           {/* Logo + Emblem */}
           <div 
-            className="flex items-center gap-3 cursor-pointer select-none"
+            className="flex items-center gap-3.5 cursor-pointer select-none"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            <img src={logo} alt="Kayda Logo" className="w-6 h-auto" />
-            <span className="font-heading text-xl font-bold tracking-tight text-[#2C1810]">Kayda</span>
+            <img src={logo} alt="Kayda Logo" className="w-14 h-auto" />
+            <span className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-[#2C1810]">Kayda</span>
           </div>
 
           {/* Navigation Links */}

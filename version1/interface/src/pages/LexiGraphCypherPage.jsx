@@ -89,7 +89,7 @@ export default function LexiGraphCypherPage({ onBack }) {
               <ArrowLeft className="w-5 h-5" />
             </button>
             <div className="flex items-center gap-3">
-              <img src={logo} alt="Kayda Logo" className="w-7 h-auto" />
+              <img src={logo} alt="Kayda Logo" className="w-14 h-auto" />
               <div>
                 <span className="font-heading text-xl font-bold tracking-tight text-[#2C1810]">
                   LexiGraph Cypher Engine

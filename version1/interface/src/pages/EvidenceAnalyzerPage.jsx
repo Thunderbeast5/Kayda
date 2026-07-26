@@ -210,8 +210,8 @@ export default function EvidenceAnalyzerPage({ onBack }) {
             </button>
             <div className="w-px h-5 bg-[#2C1810]/15" />
             <div className="flex items-center gap-2.5 cursor-pointer" onClick={onBack}>
-              <img src={logo} alt="Kayda" className="w-5 h-auto" />
-              <span className="font-heading font-bold text-lg text-[#2C1810] tracking-tight">Kayda</span>
+              <img src={logo} alt="Kayda" className="w-12 h-auto" />
+              <span className="font-heading font-bold text-2xl text-[#2C1810] tracking-tight">Kayda</span>
             </div>
           </div>
           <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8C5A3C] font-bold">
