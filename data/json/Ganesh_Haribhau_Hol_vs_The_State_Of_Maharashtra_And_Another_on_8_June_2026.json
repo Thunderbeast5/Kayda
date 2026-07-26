@@ -1,0 +1,154 @@
+{
+    "metadata": {
+        "case_name": "Ganesh Haribhau Hol vs The State Of Maharashtra And Another",
+        "court": "High Court of Judicature at Bombay, Circuit Bench at Kolhapur",
+        "date": "8 June 2026",
+        "judge": "Mehroz K. Pathan",
+        "citation": "2026:BHC-KOL:3932"
+    },
+    "facts": [
+        {
+            "id": "F1",
+            "text": "The applicant, Ganesh Haribhau Hol, filed an anticipatory bail application in connection with Crime No. 216/2025 registered with Koregaon Police Station, District Satara, for offences under Sections 69 and 351(3) of the Bharatiya Nyaya Sanhita, 2023."
+        },
+        {
+            "id": "F2",
+            "text": "The prosecution alleges that after the informant's husband's death in 2013, she organized a Satyanarayan Pooja and invited doctors, including the accused, where the accused became acquainted with the informant."
+        },
+        {
+            "id": "F3",
+            "text": "The accused disclosed to the informant in 2013 that he loved her and wanted to marry her, but she refused due to her responsibility to raise two children."
+        },
+        {
+            "id": "F4",
+            "text": "The accused repeatedly met the informant, claimed matrimonial disputes with his wife and intention to divorce, leading the informant to decide to marry him."
+        },
+        {
+            "id": "F5",
+            "text": "After the informant agreed, the accused demanded physical relations; initially she refused, but later consented under the pretext of marriage and divorce, leading to repeated sexual relations."
+        },
+        {
+            "id": "F6",
+            "text": "Between 17 January 2019 and September 2024, the accused repeatedly committed sexual assault on the victim under the pretext of marriage and assurance of divorce."
+        },
+        {
+            "id": "F7",
+            "text": "The FIR was registered based on these allegations."
+        },
+        {
+            "id": "F8",
+            "text": "The applicant is a 45-year-old doctor, not a flight risk, has deep roots in society, and has cooperated with investigation; an interim bail was granted on 03.09.2025."
+        },
+        {
+            "id": "F9",
+            "text": "The prosecution claims the applicant exploited the victim by promising marriage, obtained consent by fraud, is in possession of objectionable material, may circulate it, tamper with evidence, and influence witnesses."
+        },
+        {
+            "id": "F10",
+            "text": "The complainant (victim) is about 49 years old, has two daughters; the applicant has one son aged 18."
+        },
+        {
+            "id": "F11",
+            "text": "The court noted no violation of interim bail conditions, no threat to victim, and investigation is complete; mobile phone seized; custodial interrogation not necessary."
+        },
+        {
+            "id": "F12",
+            "text": "The court imposed conditions: not to enter Koregaon village, not tamper with evidence, not threaten the complainant, and any violation would permit cancellation of bail."
+        }
+    ],
+    "issues": [
+        {
+            "id": "I1",
+            "text": "Whether the anticipatory bail application should be granted in view of alleged offences under Sections 69 and 351(3) of the Bharatiya Nyaya Sanhita."
+        },
+        {
+            "id": "I2",
+            "text": "Whether consent obtained by fraud vitiates consent, making Section 69 applicable."
+        },
+        {
+            "id": "I3",
+            "text": "Whether the applicant poses a risk of tampering with evidence, influencing witnesses, or harassing the complainant, justifying denial of bail."
+        }
+    ],
+    "ipc_bns_sections": [
+        {
+            "act": "BNS",
+            "section": "69",
+            "title": ""
+        },
+        {
+            "act": "BNS",
+            "section": "351",
+            "sub-section": "(3)",
+            "title": ""
+        }
+    ],
+    "prosecution_arguments": [
+        {
+            "id": "P1",
+            "text": "The applicant exploited the victim by promising marriage, obtained consent by fraud, thus consent is vitiated and Section 69 BNS applies, punishable up to ten years."
+        },
+        {
+            "id": "P2",
+            "text": "The applicant possesses objectionable material and may circulate it to harass the victim."
+        },
+        {
+            "id": "P3",
+            "text": "The applicant may tamper with evidence and influence witnesses, posing a risk to the prosecution case."
+        }
+    ],
+    "defense_arguments": [
+        {
+            "id": "D1",
+            "text": "The applicant is falsely implicated; the FIR does not disclose any offence under Section 69 and the relationship was consensual."
+        },
+        {
+            "id": "D2",
+            "text": "The applicant is a 45-year-old doctor, not a flight risk, has deep societal roots, has complied with interim bail conditions, and is ready to abide by further conditions."
+        },
+        {
+            "id": "D3",
+            "text": "Investigation is complete, the mobile phone has been seized, and custodial interrogation is unnecessary."
+        }
+    ],
+    "judge_reasoning": [
+        {
+            "id": "R1",
+            "text": "The court examined the prosecution's case and found no violation of the interim bail conditions."
+        },
+        {
+            "id": "R2",
+            "text": "The applicant has cooperated with the investigation, has no flight risk, and has family responsibilities."
+        },
+        {
+            "id": "R3",
+            "text": "The risk of tampering with evidence or harassment can be mitigated by imposing strict conditions on bail."
+        },
+        {
+            "id": "R4",
+            "text": "Since the investigation is complete and custodial interrogation is unnecessary, there is no impediment to confirming the interim bail."
+        },
+        {
+            "id": "R5",
+            "text": "Accordingly, the anticipatory bail is granted with conditions restricting movement, tampering with evidence, and threatening the complainant."
+        }
+    ],
+    "decision": {
+        "outcome": "Anticipatory bail granted",
+        "summary": "The court confirmed the interim bail order of 03.09.2025, imposed conditions restricting the applicant's movement, tampering with evidence, and threatening the complainant, and disposed of the application."
+    },
+    "legal_principles": [
+        {
+            "id": "LP1",
+            "text": "Consent obtained by fraud is not valid consent under criminal law."
+        },
+        {
+            "id": "LP2",
+            "text": "Anticipatory bail may be granted if the applicant is not a flight risk and conditions can safeguard the investigation."
+        },
+        {
+            "id": "LP3",
+            "text": "The court can impose conditions on bail to prevent tampering with evidence and intimidation of witnesses."
+        }
+    ]
+}

@@ -50,9 +50,9 @@
 # # --------------------------------------------------------------------
 # # Other Config
 # # --------------------------------------------------------------------
-# CSV_PATH = BASE_DIR.parent.parent / "data" / "ipc_sections.csv"
+# CSV_PATH = BASE_DIR.parent.parent / "data" / "new" / "ipc_sections.csv"
 # JSON_PATH = BASE_DIR.parent.parent / "data" / "ipc.json"
-# BNS_CSV_PATH = BASE_DIR.parent.parent / "data" / "bns_sections.csv"
+# BNS_CSV_PATH = BASE_DIR.parent.parent / "data" / "new" / "bns_sections_clean.csv"
 # PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
 # PINECONE_INDEX_NAME = "legal-embeddings"
 
@@ -357,21 +357,29 @@ def extract_section_number(section_str: str) -> str:
     return match.group(1) if match else str(section_str)
 
 
-def read_csv_rows(path: Path) -> list[dict]:
+def read_csv_rows(path: Path):
+
     rows = []
+
     if not path.exists():
-        print(f"Warning: File not found at {path}")
+        print(f"Warning: {path} not found")
         return rows
 
     with open(path, "r", encoding="utf-8") as f:
+
         reader = csv.DictReader(f)
+
         for row in reader:
-            # Standardize Title/Offense early
+
             if "Title" not in row or not row.get("Title"):
                 row["Title"] = row.get("Offense", "") or row.get("Title_BNS", "")
 
             row["Section_Number"] = extract_section_number(row.get("Section", ""))
+
+            row["Sub_Sections"] = row.get("Sub_Sections", "")
+
             rows.append(row)
+
     return rows
 
 
@@ -442,6 +450,45 @@ def ingest_neo4j(rows: list[dict], act: str) -> int:
         })
 
     with driver.session() as session:
+        session.run(
+            """
+            UNWIND $batch AS item
+            MERGE (l:LawSection {act: $act, section: item.section})
+            SET
+                l.title = item.title,
+                l.description = item.desc,
+                l.punishment = item.punish,
+                l.chapter = item.chapter
+
+                WITH l
+
+                MERGE (a:Act {name:$act})
+                MERGE (a)-[:HAS_SECTION]->(l)
+                """,
+
+                act=act,
+                section=section,
+                title=row.get("Title") or row.get("Offense", ""),
+                desc=desc,
+                punish=punish,
+                chapter=row.get("Chapter_Title", ""),
+                sub_sections=subsection
+            )
+
+            count += 1
+            WITH l, item
+            MERGE (a:Act {name: $act})
+            MERGE (a)-[:HAS_SECTION]->(l)
+            """,
+            act=act,
+            batch=batch
+        )
+
+    driver.close()
+
+    print(f"Skipped {skipped} rows")
+    return count
+=======
         session.run(
             """
             UNWIND $batch AS item
