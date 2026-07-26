@@ -1,0 +1,58 @@
+# ── Virtual environments ──────────────────────────────────────────────────────
+venv_cpu/
+venv/
+.venv/
+env/
+
+# ── Python cache ──────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# ── Data — raw JSON files (26k files, too large for git) ─────────────────────
+data/raw/
+data/processed/train/
+data/processed/val/
+data/processed/test/
+
+# ── Trained models (large binary files) ──────────────────────────────────────
+models/
+*.gguf
+*.bin
+*.safetensors
+*.pt
+*.pth
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+logs/
+*.log
+
+# ── Ollama Modelfile (auto-generated, rebuild with step2) ────────────────────
+models/legal_ipc/
+
+# ── Credentials / secrets ────────────────────────────────────────────────────
+.env
+*.json
+!sample_dataset/*.json
+
+# ── OS files ──────────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── IDE ───────────────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Jupyter ───────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb
+
+# ── Distribution / packaging ─────────────────────────────────────────────────
+dist/
+build/
+*.egg-info/
