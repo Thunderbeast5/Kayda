@@ -80,3 +80,15 @@ backend/vision-ai.json
 **vision-ai.json
 
 
+
+# Legal IPC Model — large generated files
+legal_ipc_model/llama.cpp/
+legal_ipc_model/venv_cpu/
+legal_ipc_model/models/merged/
+legal_ipc_model/models/gguf/
+legal_ipc_model/models/adapters/
+legal_ipc_model/data/raw/
+legal_ipc_model/data/processed/
+legal_ipc_model/logs/
+legal_ipc_model/__pycache__/
+legal_ipc_model/**/__pycache__/

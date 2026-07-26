@@ -56,3 +56,5 @@ desktop.ini
 dist/
 build/
 *.egg-info/
+
+prompts.md

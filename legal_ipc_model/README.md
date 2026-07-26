@@ -1,199 +1,178 @@
-# Legal IPC Model — Run From Scratch
+# Legal IPC Model — CPU LoRA Fine-tuning Pipeline
 
-Predicts IPC/BNS sections from Indian Supreme Court case descriptions using Ollama + llama3.1. Works on CPU, no GPU required.
-
----
-
-## Prerequisites
-
-Before starting, make sure you have:
-
-1. **Python 3.10+** — check with `python --version`
-2. **Ollama installed** — download from https://ollama.ai
-3. **llama3.1 model pulled** — run `ollama pull llama3.1:latest`
-4. **Ollama server running** — run `ollama serve` in a separate terminal
+Fine-tunes `Qwen/Qwen2-0.5B-Instruct` on Indian Supreme Court cases to predict
+IPC/BNS sections. Fully CPU-compatible. Exports to GGUF for Ollama inference.
 
 ---
 
-## Step 0 — One-Time Setup
+## Machine Requirements
 
-Open a terminal in this folder:
+| Component | Minimum | Your machine |
+|-----------|---------|--------------|
+| RAM | 8 GB | 16.8 GB ✓ |
+| CPU | Any x86-64 | Intel i7-13th gen ✓ |
+| Disk | 5 GB free | — |
+| GPU | Not required | CPU only ✓ |
+
+---
+
+## Pipeline Overview
+
+```
+sample_dataset/ (3 files)  OR  data/raw/ (26k files)
+          │
+          ▼
+01_validate_dataset.py     ← Check JSON quality, section counts
+          │
+          ▼
+02_prepare_dataset.py      ← Build train/val/test JSONL splits
+          │
+          ▼
+03_analyze_dataset.py      ← Inspect lengths, leakage, distribution
+          │
+          ▼
+04_test_base_model.py      ← Baseline metrics (untuned model)
+          │
+          ▼
+05_train_lora_cpu.py       ← LoRA fine-tuning on CPU
+          │
+          ▼
+06_evaluate_lora.py        ← Compare fine-tuned vs baseline
+          │
+          ▼
+07_merge_lora.py           ← Merge adapter into base model
+          │
+          ▼
+08_convert_gguf.py         ← Convert to GGUF (needs llama.cpp)
+          │
+          ▼
+09_test_gguf.py            ← Sanity check GGUF
+          │
+          ▼
+10_build_ollama.py         ← Register trained model in Ollama
+          │
+          ▼
+11_predict.py              ← Interactive / batch inference
+```
+
+---
+
+## Quick Start — From Scratch
+
+### Step 0: Setup (run once)
 
 ```cmd
 cd d:\khete\mootcourt\legal_ipc_model
-```
 
-Create a virtual environment and install dependencies:
-
-```cmd
 python -m venv venv_cpu
-venv_cpu\Scripts\pip install -r requirements_cpu.txt
+venv_cpu\Scripts\pip install -r requirements.txt
 ```
 
-Verify Ollama is running and llama3.1 is available:
+### Step 1: Validate data
 
 ```cmd
-ollama list
+:: Sample (3 files — for testing)
+venv_cpu\Scripts\python scripts\01_validate_dataset.py --data_dir sample_dataset
+
+:: Full 26k files
+venv_cpu\Scripts\python scripts\01_validate_dataset.py --data_dir data/raw
 ```
 
-You should see `llama3.1:latest` in the list. If not:
+### Step 2: Prepare dataset
 
 ```cmd
-ollama pull llama3.1:latest
+venv_cpu\Scripts\python scripts\02_prepare_dataset.py --data_dir sample_dataset
+```
+
+### Step 3: Analyze dataset
+
+```cmd
+venv_cpu\Scripts\python scripts\03_analyze_dataset.py
+```
+
+### Step 4: Baseline (optional but recommended)
+
+Downloads Qwen2-0.5B (~850 MB, first run only):
+```cmd
+venv_cpu\Scripts\python scripts\04_test_base_model.py
+```
+
+### Step 5: Smoke test training (verify pipeline — ~5 min)
+
+```cmd
+venv_cpu\Scripts\python scripts\05_train_lora_cpu.py --limit 1 --epochs 1
+```
+
+You should see:
+```
+Trainable params: 884,736 / 494,917,504 (0.18%)
+Epoch 1  Step    1  loss=X.XXXX
+Final adapter saved → models/adapters/legal-ipc-lora/final
+```
+
+### Step 6: Real training
+
+After smoke test passes, train with more data:
+
+```cmd
+:: 100-example experiment (~10 min on CPU)
+venv_cpu\Scripts\python scripts\05_train_lora_cpu.py --limit 100 --epochs 1
+
+:: 1000-example experiment (~2 hours on CPU)
+venv_cpu\Scripts\python scripts\05_train_lora_cpu.py --limit 1000 --epochs 2
+
+:: Full dataset (run overnight)
+venv_cpu\Scripts\python scripts\05_train_lora_cpu.py --epochs 3
+```
+
+### Step 7: Evaluate
+
+```cmd
+venv_cpu\Scripts\python scripts\06_evaluate_lora.py
+```
+
+### Step 8: Merge + Convert + Deploy to Ollama
+
+```cmd
+venv_cpu\Scripts\python scripts\07_merge_lora.py
+venv_cpu\Scripts\python scripts\08_convert_gguf.py
+venv_cpu\Scripts\python scripts\09_test_gguf.py
+venv_cpu\Scripts\python scripts\10_build_ollama.py
+```
+
+### Step 9: Predict
+
+```cmd
+:: Interactive
+venv_cpu\Scripts\python scripts\11_predict.py --interactive
+
+:: Single query
+venv_cpu\Scripts\python scripts\11_predict.py --text "A man raped a woman and threatened her."
 ```
 
 ---
 
-## Step 1 — Prepare Training Data
+## Resume After Interruption
 
-This reads your JSON case files and builds a clean JSONL dataset.
-
-**With the 3 sample files (for testing):**
-```cmd
-venv_cpu\Scripts\python step1_prepare_data.py --data_dir sample_dataset
-```
-
-**With your full 26,000 JSON files:**
-```cmd
-venv_cpu\Scripts\python step1_prepare_data.py --data_dir data/raw
-```
-
-**With a custom folder path:**
-```cmd
-venv_cpu\Scripts\python step1_prepare_data.py --data_dir C:\path\to\your\json\files
-```
-
-Expected output:
-```
-Found 3 JSON files in sample_dataset
-Valid records: 3  |  Skipped (no IPC sections): 0
-
-Top 10 IPC sections in dataset:
-  Section 376: 3 cases
-  ...
-
-Split → train:1  val:1  test:1
-Data preparation complete.
-```
-
-Output files are saved to `data/processed/train/`, `data/processed/val/`, `data/processed/test/`.
-
----
-
-## Step 2 — Build and Register the Model
-
-This takes your training examples, injects them into a system prompt, and registers a new model with Ollama called `legal_ipc`.
+Training saves checkpoints every 50 steps. To resume:
 
 ```cmd
-venv_cpu\Scripts\python step2_build_ollama_model.py
-```
-
-**With more examples (better accuracy with 26k files):**
-```cmd
-venv_cpu\Scripts\python step2_build_ollama_model.py --examples 25
-```
-
-**With a different base model:**
-```cmd
-venv_cpu\Scripts\python step2_build_ollama_model.py --base_model llama3.1:latest --examples 20
-```
-
-Expected output:
-```
-Loaded 2 training records
-Selected 2 diverse examples
-Sections covered: 323, 354, 375, 376, 506
-Building system prompt with examples...
-Modelfile saved: models/legal_ipc/Modelfile
-Registering 'legal_ipc' with Ollama...
-✅ Model 'legal_ipc' registered successfully!
+venv_cpu\Scripts\python scripts\05_train_lora_cpu.py --resume models/adapters/legal-ipc-lora/checkpoints/step-000050
 ```
 
 ---
 
-## Step 3 — Predict IPC Sections
+## Training Time Estimates (CPU, Intel i7-13th gen)
 
-**Interactive mode (type cases one by one):**
-```cmd
-venv_cpu\Scripts\python step3_predict.py --interactive
-```
+| Examples | Epochs | Est. Time |
+|----------|--------|-----------|
+| 1 (smoke test) | 1 | ~30 sec |
+| 100 | 1 | ~10 min |
+| 1,000 | 1 | ~2 hours |
+| 5,000 | 2 | ~20 hours |
+| 26,000 | 3 | ~4 days |
 
-**Single query:**
-```cmd
-venv_cpu\Scripts\python step3_predict.py --text "A man entered a woman's house at night and committed rape. He threatened to kill her if she reported it."
-```
-
-**Process a text file (one case per line):**
-```cmd
-venv_cpu\Scripts\python step3_predict.py --file my_cases.txt
-```
-
-**Get JSON output (for integration):**
-```cmd
-venv_cpu\Scripts\python step3_predict.py --text "..." --json_out
-```
-
-Example output:
-```
-=================================================================
-LEGAL IPC SECTION PREDICTOR
-=================================================================
-INPUT: A man entered a woman's house at night and committed rape...
------------------------------------------------------------------
-IPC Sections : 376, 452, 506
-BNS (2023)   : 64, 332, 351
-Reasoning    : The facts establish offences involving rape,
-               house-trespass, and criminal intimidation.
------------------------------------------------------------------
-```
-
----
-
-## When You Add More Data (26,000 files)
-
-Copy your JSON files to `data/raw/` then rerun steps 1 and 2:
-
-```cmd
-:: 1. Prepare data from full dataset
-venv_cpu\Scripts\python step1_prepare_data.py --data_dir data/raw
-
-:: 2. Rebuild model with 25 diverse examples
-venv_cpu\Scripts\python step2_build_ollama_model.py --examples 25
-
-:: 3. Predict
-venv_cpu\Scripts\python step3_predict.py --interactive
-```
-
----
-
-## Full Command Reference
-
-### step1_prepare_data.py
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--data_dir` | `sample_dataset` | Folder containing JSON case files |
-| `--output_dir` | `data/processed` | Where to save JSONL splits |
-| `--val_ratio` | `0.1` | Fraction for validation set |
-| `--test_ratio` | `0.1` | Fraction for test set |
-
-### step2_build_ollama_model.py
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--base_model` | `llama3.1:latest` | Ollama base model to use |
-| `--model_name` | `legal_ipc` | Name for the new model |
-| `--examples` | `15` | Number of training examples to inject (5–25) |
-| `--data_dir` | `data/processed` | Where to read JSONL splits from |
-| `--no_register` | off | Build Modelfile without registering |
-
-### step3_predict.py
-| Flag | Default | Description |
-|------|---------|-------------|
-| `--model` | `legal_ipc` | Ollama model name |
-| `--text` | — | Single case description |
-| `--file` | — | Text file with one case per line |
-| `--interactive` | off | Interactive mode |
-| `--json_out` | off | Output as JSON |
-| `--url` | `http://127.0.0.1:11434` | Ollama server URL |
+> Tip: Train overnight with 1,000–5,000 examples first. Evaluate. Only proceed to full training if results improve over baseline.
 
 ---
 
@@ -201,64 +180,58 @@ venv_cpu\Scripts\python step3_predict.py --interactive
 
 ```
 legal_ipc_model/
-├── README.md                        ← You are here
-├── requirements_cpu.txt             ← CPU-only dependencies
+├── README.md
+├── requirements.txt            ← Install with: pip install -r requirements.txt
+├── .gitignore
 │
-├── step1_prepare_data.py            ← Build training dataset from JSONs
-├── step2_build_ollama_model.py      ← Create and register Ollama model
-├── step3_predict.py                 ← Predict IPC sections
+├── scripts/
+│   ├── 01_validate_dataset.py
+│   ├── 02_prepare_dataset.py
+│   ├── 03_analyze_dataset.py
+│   ├── 04_test_base_model.py
+│   ├── 05_train_lora_cpu.py    ← Main training script
+│   ├── 06_evaluate_lora.py
+│   ├── 07_merge_lora.py
+│   ├── 08_convert_gguf.py
+│   ├── 09_test_gguf.py
+│   ├── 10_build_ollama.py
+│   └── 11_predict.py
 │
-├── sample_dataset/                  ← 3 sample JSON files for testing
-│   ├── 2017_INSC_1030.json
-│   ├── 2017_INSC_1201.json
-│   └── 2017_INSC_1205.json
-│
+├── sample_dataset/             ← 3 sample JSON files
 ├── data/
-│   ├── raw/                         ← PUT YOUR 26,000 JSON FILES HERE
-│   └── processed/                   ← Auto-generated by step1
+│   ├── raw/                    ← PUT 26,000 JSON FILES HERE
+│   └── processed/
 │       ├── train/dataset.jsonl
 │       ├── val/dataset.jsonl
 │       └── test/dataset.jsonl
 │
 ├── models/
-│   └── legal_ipc/
-│       └── Modelfile                ← Auto-generated by step2
+│   ├── adapters/legal-ipc-lora/  ← LoRA adapter (saved by script 05)
+│   │   ├── best/
+│   │   ├── final/
+│   │   └── checkpoints/
+│   ├── merged/legal-ipc/         ← Merged model (script 07)
+│   └── gguf/                     ← GGUF files (script 08)
 │
-└── venv_cpu/                        ← Auto-generated virtual environment
+├── logs/
+│   ├── validation_report.json
+│   ├── baseline_results.json
+│   ├── lora_eval_results.json
+│   └── training_log.jsonl
+│
+└── venv_cpu/                   ← Virtual environment
 ```
 
 ---
 
 ## Troubleshooting
 
-**"Cannot connect to Ollama"**
-```cmd
-:: Start Ollama server in a separate terminal window
-ollama serve
-```
+**"torch_dtype is deprecated"** — harmless warning, ignore it.
 
-**"Model 'legal_ipc' not found"**
-```cmd
-:: Rerun step 2
-venv_cpu\Scripts\python step2_build_ollama_model.py
-```
+**symlinks warning on Windows** — harmless, models still download fine.
 
-**"No valid records found" in step 1**
-```cmd
-:: Check your JSON files have 'ipc_sections_referred' field
-python -c "import json; d=json.load(open('sample_dataset/2017_INSC_1205.json')); print(d.get('ipc_sections_referred'))"
-```
+**"loss did not decrease" with --limit 1** — expected, smoke test only uses 1 example.
 
-**Model gives wrong or incomplete answers**
-```cmd
-:: Add more examples from your 26k dataset
-venv_cpu\Scripts\python step2_build_ollama_model.py --examples 25 --data_dir data/processed
-```
+**Out of memory** — reduce `--limit` or set `MAX_SEQ_LEN=256` in `05_train_lora_cpu.py`.
 
-**Slow prediction on CPU**
-- llama3.1:latest on CPU takes 30–90 seconds per query — this is normal
-- For faster inference use `--base_model llama3.2:latest` (3B params, half the size)
-  ```cmd
-  ollama pull llama3.2:latest
-  venv_cpu\Scripts\python step2_build_ollama_model.py --base_model llama3.2:latest
-  ```
+**Training too slow** — reduce `--limit`. With 16 GB RAM, 1000 examples x 1 epoch is the sweet spot before touching the full dataset.
