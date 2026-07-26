@@ -1,0 +1,79 @@
+{
+  "article_number": "Article 14",
+  "title": "Equality before law",
+  "part": "Part III - Fundamental Rights",
+  "chapter": "Right to Equality",
+  "category": "Fundamental Rights & Constitutional Protections",
+  "full_text": "The State shall not deny to any person equality before the law or the equal protection of the laws within the territory of India.",
+  "summary": "Guarantees equality before the law and equal protection of the laws to all persons. In criminal law, it prohibits arbitrary state classification, discriminatory prosecution, unguided executive discretion, and procedural unfairness.",
+  "importance_score": 0.98,
+  "relevance_reason": "Article 14 is the cornerstone against arbitrary police action, selective prosecution, unequal bail terms, and unguided executive power under criminal statutes.",
+  "keywords": [
+    "Equality Before Law",
+    "Equal Protection of Laws",
+    "Arbitrary Action",
+    "Rule of Law",
+    "Non-Discrimination",
+    "Procedural Fairness",
+    "Selective Prosecution",
+    "Article 14 Violation",
+    "Classification Test",
+    "Manifest Arbitrariness"
+  ],
+  "legal_principles": [
+    "Rule of Law",
+    "Non-Arbitrariness",
+    "Equal Protection",
+    "Procedural Fairness"
+  ],
+  "criminal_law_relevance": [
+    "Challenging arbitrary penal provisions or discriminatory criminal procedure",
+    "Ensuring non-discriminatory grant of bail and parole",
+    "Preventing selective or malice-driven criminal prosecutions by state agencies"
+  ],
+  "possible_related_bns_topics": [
+    "BNS 101 (Murder)",
+    "BNS 63 (Rape)",
+    "BNS 351 (Criminal Intimidation)",
+    "BNS 111 (Organised Crime)"
+  ],
+  "graph_relationships": {
+    "related_bns_sections": [
+      "BNS 80",
+      "BNS 85",
+      "BNS 63",
+      "BNS 101"
+    ],
+    "related_bnss_topics": [
+      "Section 482 BNSS (Inherent powers of High Court)",
+      "Bail provisions under BNSS"
+    ],
+    "related_bsa_topics": [
+      "Burden of Proof under BSA"
+    ],
+    "related_offence_categories": [
+      "Women Offences",
+      "Violent Offences",
+      "Organised Crime"
+    ],
+    "related_constitutional_principles": [
+      "Rule of Law",
+      "Non-Arbitrariness"
+    ],
+    "possible_landmark_cases": [
+      "E.P. Royappa v. State of Tamil Nadu",
+      "Maneka Gandhi v. Union of India",
+      "Shayara Bano v. Union of India"
+    ],
+    "recommended_evidence_types": [
+      "Witness Statement",
+      "Official Record",
+      "CCTV Footage"
+    ]
+  },
+  "graph_metadata": {
+    "node_type": "ConstitutionArticle",
+    "source": "Constitution of India",
+    "jurisdiction": "India"
+  }
+}

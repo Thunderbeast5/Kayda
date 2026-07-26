@@ -101,20 +101,22 @@ class RerankingService:
 
     def rerank_candidates(self, input_json: Dict[str, Any]) -> Dict[str, Any]:
         """
-        Computes final multi-signal confidence scores for candidates and ranks them using Step 5 formula:
+        Computes final multi-signal confidence scores for candidates and ranks them using multi-signal formula:
         
-        Final Score = 0.45 * Semantic Similarity 
+        Final Score = 0.40 * Semantic Similarity 
                     + 0.20 * Keyword Match 
                     + 0.15 * Graph Score 
-                    + 0.15 * Community Match
+                    + 0.10 * Community Match
+                    + 0.10 * Case Similarity
                     + 0.05 * Metadata Score
         """
         verified_candidates = input_json.get("verified_candidates") or []
         primary_intent = input_json.get("primary_intent_community") or ""
+        avg_top_case_sim = float(input_json.get("top_case_similarity", 0.70))
         ranked_list = []
 
         for candidate in verified_candidates:
-            # 1. Semantic Similarity (0.45 weight)
+            # 1. Semantic Similarity (0.40 weight)
             similarity = float(candidate.get("similarity") if candidate.get("similarity") is not None else candidate.get("vector_similarity", 0.0))
             
             # 2. Keyword Match (0.20 weight)
@@ -141,7 +143,7 @@ class RerankingService:
                 else:
                     graph_score = 1.0 if candidate.get("graph_verified") else 0.5
 
-            # 4. Community Match (0.15 weight)
+            # 4. Community Match (0.10 weight)
             cand_comm = candidate.get("community_id") or candidate.get("community", {}).get("candidate_community_id") or ""
             target_comm = primary_intent or candidate.get("community", {}).get("community_id") or ""
             
@@ -158,17 +160,25 @@ class RerankingService:
             else:
                 community_match = 0.5
 
-            # 5. Metadata Score (0.05 weight)
+            # 5. Case Similarity (0.10 weight)
+            cand_case_sim = candidate.get("case_similarity")
+            if cand_case_sim is not None:
+                case_similarity = float(cand_case_sim)
+            else:
+                case_similarity = avg_top_case_sim
+
+            # 6. Metadata Score (0.05 weight)
             if "metadata_completeness" in candidate and candidate["metadata_completeness"] is not None:
                 metadata_score = float(candidate["metadata_completeness"])
             else:
                 metadata_score = 1.0 if candidate.get("metadata_verified") else 0.5
 
-            # Calculate Step 5 Final Score
-            confidence = (0.45 * similarity) + \
+            # Calculate Final Score (40% Sim, 20% KW, 15% Graph, 10% Comm, 10% Case, 5% Meta)
+            confidence = (0.40 * similarity) + \
                          (0.20 * keyword_match) + \
                          (0.15 * graph_score) + \
-                         (0.15 * community_match) + \
+                         (0.10 * community_match) + \
+                         (0.10 * case_similarity) + \
                          (0.05 * metadata_score)
             
             confidence = round(min(max(confidence, 0.0), 1.0), 4)
@@ -179,11 +189,13 @@ class RerankingService:
             updated_candidate["similarity"] = round(similarity, 4)
             updated_candidate["keyword_match"] = round(keyword_match, 4)
             updated_candidate["community_match"] = round(community_match, 4)
+            updated_candidate["case_similarity"] = round(case_similarity, 4)
             updated_candidate["score_breakdown"] = {
                 "semantic_similarity": round(similarity, 4),
                 "keyword_match": round(keyword_match, 4),
                 "graph_score": round(graph_score, 4),
                 "community_match": round(community_match, 4),
+                "case_similarity": round(case_similarity, 4),
                 "metadata_score": round(metadata_score, 4),
                 "confidence": confidence,
             }

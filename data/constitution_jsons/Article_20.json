@@ -1,0 +1,76 @@
+{
+  "article_number": "Article 20",
+  "title": "Protection in respect of conviction for offences",
+  "part": "Part III - Fundamental Rights",
+  "chapter": "Right to Freedom",
+  "category": "Criminal Jurisprudence & Trial Safeguards",
+  "full_text": "(1) No person shall be convicted of any offence except for violation of a law in force at the time of the commission of the act charged as an offence, nor be subjected to a penalty greater than that which might have been inflicted under the law in force at the time of the commission of the offence. (2) No person shall be prosecuted and punished for the same offence more than once. (3) No person accused of any offence shall be compelled to be a witness against himself.",
+  "summary": "Establishes three sacred safeguards of criminal jurisprudence: (1) Protection against ex post facto criminal laws, (2) Protection against Double Jeopardy, and (3) Right against Self-Incrimination.",
+  "importance_score": 1.0,
+  "relevance_reason": "Article 20 directly governs criminal liability, trial procedure, evidentiary admissibility of confessions/narco-analysis, and protection against multiple convictions.",
+  "keywords": [
+    "Ex Post Facto Law",
+    "Double Jeopardy",
+    "Self Incrimination",
+    "Confession under Coercion",
+    "Retroactive Criminal Law",
+    "Nemo Vexari",
+    "Nemo Tenetur",
+    "Narco Analysis",
+    "Polygraph Protection"
+  ],
+  "legal_principles": [
+    "Protection against Ex Post Facto Law",
+    "Double Jeopardy",
+    "Right against Self-Incrimination",
+    "Nemo Tenetur"
+  ],
+  "criminal_law_relevance": [
+    "Invalidates retroactive application of newly enacted criminal laws or enhanced penalties",
+    "Bars re-prosecution of accused for the same offence after final conviction/acquittal",
+    "Protects accused from involuntary confessions, forced narco-analysis, or coerced testimony"
+  ],
+  "possible_related_bns_topics": [
+    "BNS 1 (Short title, extent and commencement)",
+    "General Exceptions under BNS"
+  ],
+  "graph_relationships": {
+    "related_bns_sections": [
+      "BNS 1",
+      "BNS 80",
+      "BNS 101"
+    ],
+    "related_bnss_topics": [
+      "Autrefois acquit and autrefois convict under BNSS"
+    ],
+    "related_bsa_topics": [
+      "Inadmissibility of police confessions under BSA"
+    ],
+    "related_offence_categories": [
+      "Criminal Trial Safeguards",
+      "Penal Procedure",
+      "Evidence Law"
+    ],
+    "related_constitutional_principles": [
+      "Double Jeopardy",
+      "Right against Self-Incrimination",
+      "Ex Post Facto Protection"
+    ],
+    "possible_landmark_cases": [
+      "Selvi v. State of Karnataka",
+      "M.P. Sharma v. Satish Chandra",
+      "Kathi Kalu Oghad v. State of Bombay",
+      "Nandini Satpathy v. P.L. Dani"
+    ],
+    "recommended_evidence_types": [
+      "Statement under Section 164",
+      "FSL Report",
+      "Witness Statement"
+    ]
+  },
+  "graph_metadata": {
+    "node_type": "ConstitutionArticle",
+    "source": "Constitution of India",
+    "jurisdiction": "India"
+  }
+}

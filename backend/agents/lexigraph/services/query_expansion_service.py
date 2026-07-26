@@ -2,7 +2,7 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import Dict, Any
+from typing import Dict, Any, List
 
 try:
     from config.llm_config import get_llm
@@ -15,69 +15,80 @@ class QueryExpansionService:
     QueryExpansionService
     
     A specialized legal retrieval component of Kayda AI.
-    Your ONLY responsibility is to generate multiple semantically diverse search queries
-    from the structured legal concepts produced by QueryUnderstandingService.
+    Your ONLY responsibility is to generate semantically diverse search queries
+    using pure legal concepts, terminology, and crime elements.
+    DO NOT guess or invent section numbers (BNS/IPC/Articles). Citation resolution is the retrieval engine's job.
     """
 
     def __init__(self):
-        # Using temperature=0.0 for deterministic expansions
         self.llm = get_llm(temperature=0.0)
 
     def expand_query(self, qu_input: Dict[str, Any]) -> Dict[str, Any]:
         """
         Takes structured query understanding output and generates semantically diverse search queries
-        enriched with formal statutory legal terminology.
+        enriched with formal statutory legal concepts, excluding ungrounded section numbers.
         """
         raw_text = f"{qu_input.get('expanded_query', '')} {' '.join(qu_input.get('offences', []))} {' '.join(qu_input.get('keywords', []))}".lower()
 
-        # Step 2 Legal Terminology Expansion Rules
+        # Pure Legal Concept & Terminology Expansions (Incident Classification Rules)
         legal_expansions = []
-        if "rape" in raw_text or "sexual intercourse" in raw_text:
+        if any(w in raw_text for w in ["following", "calling", "monitoring", "social media", "messages", "stalking", "tracking", "boyfriend", "ex-partner"]):
             legal_expansions.extend([
-                "sexual intercourse without consent",
-                "offence against woman rape BNS provisions",
-                "sexual violence and forced sexual intercourse BNS 63 BNS 64 BNS 66",
-                "punishment for rape causing death or persistent vegetative state BNS 66"
+                "stalking and following woman repeatedly or monitoring electronic communication",
+                "cyber stalking and sending threatening electronic messages to woman",
+                "criminal intimidation and persistent unwanted following of female victim",
+                "offence of stalking and outraging modesty of woman by electronic means"
             ])
-        if "sexual assault" in raw_text or "modesty" in raw_text:
+        if any(w in raw_text for w in ["threatened", "threatening", "threat", "kill", "harm", "coercion"]):
+            legal_expansions.extend([
+                "criminal intimidation threatening injury to person reputation or property",
+                "threatening to kill or cause grievous hurt to victim if reported"
+            ])
+        if any(w in raw_text for w in ["entered", "house", "trespass", "home", "forcibly"]):
+            legal_expansions.extend([
+                "house trespass with intent to commit offence or assault woman",
+                "lurking house trespass after preparation for hurt or assault"
+            ])
+        if any(w in raw_text for w in ["rape", "sexual intercourse", "penetrat"]):
+            legal_expansions.extend([
+                "sexual intercourse without consent and sexual violence against woman",
+                "offence of rape and forced sexual assault on female victim",
+                "rape causing death or persistent vegetative state"
+            ])
+        if any(w in raw_text for w in ["sexual assault", "modesty", "assaulted", "touched"]):
             legal_expansions.extend([
                 "assault or criminal force to woman with intent to outrage modesty",
-                "sexual harassment and assault against woman BNS 74 BNS 75"
+                "sexual harassment and physical assault against woman"
             ])
         if "dowry" in raw_text:
             legal_expansions.extend([
-                "dowry death death of woman within seven years of marriage BNS 80",
-                "cruelty by husband or relative of husband for dowry demand BNS 84"
+                "dowry death and unnatural death of married woman within seven years of marriage",
+                "cruelty and harassment by husband or relatives for dowry demand"
             ])
-        if "murder" in raw_text or "death" in raw_text or "died" in raw_text or "fatal" in raw_text:
+        if any(w in raw_text for w in ["murder", "death", "died", "fatal", "killed"]):
             legal_expansions.extend([
-                "culpable homicide amounting to murder causing death BNS 101 BNS 103",
-                "causing death of victim BNS 66 BNS 105"
+                "culpable homicide amounting to murder causing death of victim",
+                "intentional bodily injury causing death"
             ])
-        if "married woman" in raw_text or "wife" in raw_text:
+        if any(w in raw_text for w in ["married woman", "wife", "domestic", "husband", "partner"]):
             legal_expansions.extend([
-                "offences relating to marriage cruelty to married woman",
-                "sexual intercourse with married woman BNS 67 BNS 84"
+                "offences relating to marriage and cruelty to married woman",
+                "husband or partner subjecting woman to domestic abuse and harassment"
             ])
-        if "minor" in raw_text or "child" in raw_text:
+        if any(w in raw_text for w in ["minor", "child", "girl", "boy"]):
             legal_expansions.extend([
-                "kidnapping of minor child protection provisions BNS 137 BNS 140",
-                "offence against minor child POCSO BNS child provisions"
+                "kidnapping and abduction of minor child from lawful guardianship",
+                "offence against minor child child protection statutory provisions"
             ])
-        if "kidnapping" in raw_text or "kidnapped" in raw_text or "abduct" in raw_text:
+        if any(w in raw_text for w in ["kidnapping", "kidnapped", "abduct"]):
             legal_expansions.extend([
-                "kidnapping and abduction from lawful guardianship BNS 137 BNS 140",
-                "kidnapping minor for marriage BNS 137"
+                "kidnapping and abduction from lawful guardianship",
+                "abduction of minor for forced marriage or confinement"
             ])
-        if "acid attack" in raw_text or "acid" in raw_text:
+        if any(w in raw_text for w in ["acid attack", "acid", "corrosive"]):
             legal_expansions.extend([
-                "voluntarily causing grievous hurt by use of acid BNS 124",
-                "acid attack provisions on woman BNS 124"
-            ])
-        if "domestic violence" in raw_text or "cruelty" in raw_text:
-            legal_expansions.extend([
-                "husband or relative subjecting woman to cruelty BNS 84",
-                "domestic abuse and harassment of married woman BNS 84"
+                "voluntarily causing grievous hurt by use of acid or corrosive substance",
+                "acid attack causing disfigurement to woman"
             ])
 
         prompt = f"""
@@ -85,12 +96,13 @@ You are QueryExpansionService, a specialized legal retrieval component of Kayda 
 
 Your ONLY responsibility is to generate multiple semantically diverse search queries from the structured legal concepts produced by QueryUnderstandingService.
 
-You are NOT a legal reasoning engine.
+CRITICAL DIRECTIVE ON CITATIONS:
+- Focus STRICTLY on legal concepts, crime elements, synonyms, and formal statutory terminology (e.g., "dowry death", "cruelty by husband", "unnatural death within seven years", "sexual assault outraging modesty").
+- DO NOT invent, guess, or include any section numbers or article numbers (such as BNS 80, IPC 304B, Article 21). Section resolution is handled downstream by the vector search and knowledge graph.
 
 TASKS
-1. Generate FIVE search queries focused on key statutory legal aspects.
-2. Use formal legal terminology (e.g., "sexual intercourse without consent", "dowry death", "culpable homicide", "kidnapping of minor").
-3. Include relevant BNS section markers (e.g. BNS 63, BNS 66, BNS 80, BNS 101, BNS 103) if relevant to the facts.
+1. Generate FIVE search queries focused on key factual and legal terminology.
+2. Use formal legal terms and crime elements.
 
 Return ONLY valid JSON matching:
 {{
@@ -119,17 +131,20 @@ Input JSON:
 
         all_queries = legal_expansions + llm_queries + [qu_input.get("expanded_query", "")]
         
-        # Deduplicate while preserving order
-        unique_queries = []
+        # Clean any accidental section number patterns from queries to enforce pure conceptual expansion
+        cleaned_queries = []
         seen = set()
         for q in all_queries:
-            q_clean = str(q).strip()
+            q_str = str(q).strip()
+            # Strip explicit section/article patterns if present
+            q_clean = re.sub(r'\b(?:BNS|IPC|Section|Sec|Art|Article)\s*\d+[A-Z]?\b', '', q_str, flags=re.IGNORECASE)
+            q_clean = re.sub(r'\s+', ' ', q_clean).strip()
             if q_clean and q_clean.lower() not in seen:
                 seen.add(q_clean.lower())
-                unique_queries.append(q_clean)
+                cleaned_queries.append(q_clean)
 
         return {
-            "search_queries": unique_queries[:8]
+            "search_queries": cleaned_queries[:8]
         }
 
     def _normalize_response(self, data: Dict[str, Any]) -> Dict[str, Any]:
@@ -138,4 +153,3 @@ Input JSON:
 
     def _get_empty_response(self) -> Dict[str, Any]:
         return {"search_queries": ["Legal search query"]}
-

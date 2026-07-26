@@ -1,0 +1,71 @@
+{
+  "article_number": "Article 226",
+  "title": "Power of High Courts to issue certain writs",
+  "part": "Part VI - The States",
+  "chapter": "Chapter V - The High Courts in the States",
+  "category": "High Court Writ Jurisdiction & Quashing Powers",
+  "full_text": "(1) Notwithstanding anything in Article 32, every High Court shall have power, throughout the territories in relation to which it exercises jurisdiction, to issue to any person or authority... directions, orders or writs, including writs in the nature of habeas corpus, mandamus, prohibition, quo warranto and certiorari...",
+  "summary": "Empowers High Courts to issue constitutional writs for the enforcement of Fundamental Rights and any other legal right, serving as the cornerstone for challenging illegal arrests, quashing malicious FIRs, and granting protective bail.",
+  "importance_score": 0.98,
+  "relevance_reason": "Article 226 is the primary writ remedy invoked in High Courts to quash malicious criminal prosecutions, grant interim protection against arrest, and issue Habeas Corpus for unlawful police detention.",
+  "keywords": [
+    "High Court Writ Jurisdiction",
+    "Quashing FIR",
+    "Habeas Corpus",
+    "Certiorari",
+    "Protection against Arrest",
+    "Malicious Prosecution"
+  ],
+  "legal_principles": [
+    "Judicial Review",
+    "High Court Writ Jurisdiction",
+    "Protection against Malicious Prosecution"
+  ],
+  "criminal_law_relevance": [
+    "Quashing malicious FIRs and criminal chargesheets under Article 226 read with Section 482 BNSS",
+    "Issuing writs of Habeas Corpus for illegal detention by police or private individuals",
+    "Granting interim protection against coercive action during investigation"
+  ],
+  "possible_related_bns_topics": [
+    "All BNS criminal statutory sections"
+  ],
+  "graph_relationships": {
+    "related_bns_sections": [
+      "BNS 80",
+      "BNS 85",
+      "BNS 63",
+      "BNS 101"
+    ],
+    "related_bnss_topics": [
+      "Section 482 BNSS inherent powers",
+      "Quashing of FIR"
+    ],
+    "related_bsa_topics": [
+      "Evidentiary threshold for quashing"
+    ],
+    "related_offence_categories": [
+      "High Court Writs",
+      "Quashing FIR",
+      "Illegal Custody"
+    ],
+    "related_constitutional_principles": [
+      "Judicial Review",
+      "Writ Jurisdiction"
+    ],
+    "possible_landmark_cases": [
+      "State of Haryana v. Bhajan Lal",
+      "Neeharika Infrastructure v. State of Maharashtra",
+      "Arnab Goswami v. State of Maharashtra"
+    ],
+    "recommended_evidence_types": [
+      "FIR Copy",
+      "Writ Petition Affidavit",
+      "Alibi Record"
+    ]
+  },
+  "graph_metadata": {
+    "node_type": "ConstitutionArticle",
+    "source": "Constitution of India",
+    "jurisdiction": "India"
+  }
+}

@@ -1,8 +1,21 @@
 import os
+from pathlib import Path
 from typing import Dict, Any, List
+from dotenv import load_dotenv
+
+env_candidates = [
+    Path(__file__).resolve().parents[3] / ".env",
+    Path(__file__).resolve().parents[4] / "backend" / ".env",
+    Path("backend/.env"),
+    Path(".env")
+]
+for candidate in env_candidates:
+    if candidate.exists():
+        load_dotenv(candidate)
+        break
 
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY", "")
-PINECONE_INDEX_NAME = "legal-embeddings"
+PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME", "ipc-index")
 
 _pinecone_index = None
 
@@ -27,7 +40,7 @@ class PineconeService:
             _pinecone_index = pc.Index(PINECONE_INDEX_NAME)
         return _pinecone_index
 
-    def query_index(self, input_json: Dict[str, Any], top_k: int = 10) -> Dict[str, Any]:
+    def query_index(self, input_json: Dict[str, Any], top_k: int = 10, namespace: str = "legal_sections") -> Dict[str, Any]:
         """
         Queries Pinecone index for every embedding independently.
         Returns Top 10 most relevant matches, preserving the query association.
@@ -44,13 +57,24 @@ class PineconeService:
                 continue
                 
             try:
-                response = index.query(
-                    vector=vector,
-                    top_k=top_k,
-                    include_metadata=True
-                )
-                
+                query_kwargs = {
+                    "vector": vector,
+                    "top_k": top_k,
+                    "include_metadata": True
+                }
+                if namespace:
+                    query_kwargs["namespace"] = namespace
+
+                response = index.query(**query_kwargs)
                 raw_matches = response.get("matches") or []
+
+                # Fallback to default namespace if specified namespace returned no matches
+                if not raw_matches and namespace and namespace != "":
+                    fallback_kwargs = dict(query_kwargs)
+                    fallback_kwargs.pop("namespace", None)
+                    fallback_response = index.query(**fallback_kwargs)
+                    raw_matches = fallback_response.get("matches") or []
+
                 matches = []
                 for match in raw_matches:
                     matches.append({

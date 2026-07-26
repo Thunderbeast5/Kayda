@@ -24,12 +24,18 @@ from neo4j import GraphDatabase
 
 # ── Config ────────────────────────────────────────────────────────────────────
 BASE_DIR = Path(__file__).resolve().parent
-ENV_PATH = BASE_DIR.parent / ".env"
-DATA_DIR = BASE_DIR.parent.parent / "data" / "update_combine_Dataset"
+# .env lives at backend/.env (two levels up from scripts/neo4j/)
+_env_candidates = [
+    BASE_DIR.parent / ".env",          # scripts/.env  (legacy)
+    BASE_DIR.parent.parent / ".env",   # backend/.env  (correct)
+    Path(".env"),
+]
+ENV_PATH = next((p for p in _env_candidates if p.exists()), None)
+DATA_DIR = BASE_DIR.parent.parent.parent / "data" / "update_combine_Dataset"
 IPC_CSV  = DATA_DIR / "ipc.csv"
 BNS_CSV  = DATA_DIR / "bns.csv"
 
-load_dotenv(ENV_PATH)
+load_dotenv(ENV_PATH) if ENV_PATH else load_dotenv()
 NEO4J_URI      = os.getenv("NEO4J_URI")
 NEO4J_USER     = os.getenv("NEO4J_USER")
 NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
@@ -589,65 +595,102 @@ def create_constraints(session):
 
 
 def ingest_ipc_nodes(session, rows: list[dict]) -> int:
-    count = 0
-    for r in rows:
-        session.run("""
-            MERGE (n:IPCSection {section: $section})
-            SET n.title=$title, n.description=$description, n.punishment=$punishment,
-                n.chapter=$chapter, n.category=$category, n.keywords=$keywords,
-                n.cognizable=$cognizable, n.bailable=$bailable, n.court=$court, n.act='IPC'
-        """, **r)
-        count += 1
-    return count
+    # Batch all rows in a single UNWIND query — one network round-trip instead of N
+    batch = [
+        {
+            "section":     r["section"],
+            "title":       r["title"],
+            "description": r["description"],
+            "punishment":  r["punishment"],
+            "chapter":     r["chapter"],
+            "category":    r["category"],
+            "keywords":    r["keywords"],
+            "cognizable":  r["cognizable"],
+            "bailable":    r["bailable"],
+            "court":       r["court"],
+        }
+        for r in rows
+    ]
+    session.run("""
+        UNWIND $batch AS r
+        MERGE (n:IPCSection {section: r.section})
+        SET n.title=r.title, n.description=r.description, n.punishment=r.punishment,
+            n.chapter=r.chapter, n.category=r.category, n.keywords=r.keywords,
+            n.cognizable=r.cognizable, n.bailable=r.bailable, n.court=r.court, n.act='IPC'
+    """, batch=batch)
+    return len(batch)
 
 
 def ingest_bns_nodes(session, rows: list[dict]) -> int:
-    count = 0
-    for r in rows:
-        session.run("""
-            MERGE (n:BNSSection {section: $section})
-            SET n.title=$title, n.description=$description, n.punishment=$punishment,
-                n.chapter=$chapter, n.category=$category, n.keywords=$keywords,
-                n.status=$status, n.act='BNS'
-        """, section=r["section"], title=r["title"], description=r["description"],
-             punishment=r["punishment"], chapter=r["chapter"], category=r["category"],
-             keywords=r["keywords"], status=r["status"])
-        count += 1
-    return count
+    # Batch all rows in a single UNWIND query — one network round-trip instead of N
+    batch = [
+        {
+            "section":     r["section"],
+            "title":       r["title"],
+            "description": r["description"],
+            "punishment":  r["punishment"],
+            "chapter":     r["chapter"],
+            "category":    r["category"],
+            "keywords":    r["keywords"],
+            "status":      r["status"],
+        }
+        for r in rows
+    ]
+    session.run("""
+        UNWIND $batch AS r
+        MERGE (n:BNSSection {section: r.section})
+        SET n.title=r.title, n.description=r.description, n.punishment=r.punishment,
+            n.chapter=r.chapter, n.category=r.category, n.keywords=r.keywords,
+            n.status=r.status, n.act='BNS'
+    """, batch=batch)
+    return len(batch)
 
 
 def ingest_bns_ipc_links(session, bns_rows: list[dict]) -> int:
-    count = 0
-    for r in bns_rows:
-        for ipc_ref in r["ipc_refs"]:
-            session.run("""
-                MATCH (b:BNSSection {section: $bns_sec})
-                MERGE (i:IPCSection {section: $ipc_sec})
-                MERGE (b)-[r1:REPLACES]->(i)    SET r1.status = $status
-                MERGE (i)-[r2:REPLACED_BY]->(b) SET r2.status = $status
-            """, bns_sec=r["section"], ipc_sec=ipc_ref, status=r["status"])
-            count += 1
-    return count
+    # Flatten BNS->IPC pairs and batch in one UNWIND query
+    pairs = [
+        {"bns_sec": r["section"], "ipc_sec": ipc_ref, "status": r["status"]}
+        for r in bns_rows
+        for ipc_ref in r["ipc_refs"]
+    ]
+    if not pairs:
+        return 0
+    session.run("""
+        UNWIND $pairs AS p
+        MATCH (b:BNSSection {section: p.bns_sec})
+        MERGE (i:IPCSection {section: p.ipc_sec})
+        MERGE (b)-[r1:REPLACES]->(i)    SET r1.status = p.status
+        MERGE (i)-[r2:REPLACED_BY]->(b) SET r2.status = p.status
+    """, pairs=pairs)
+    return len(pairs)
 
 
 def ingest_relationships(session, mapping: list[tuple]) -> dict:
     counts = {"CO_CHARGED_WITH": 0, "ESCALATES_TO": 0, "ABETS": 0,
               "AGGRAVATED_BY": 0, "PROCEDURAL_FOR": 0}
+    # Group by relationship type and batch each group in one UNWIND query
+    from collections import defaultdict
+    by_type = defaultdict(list)
     for (sec_a, sec_b, rel_type, note) in mapping:
+        by_type[rel_type].append({"sec_a": sec_a, "sec_b": sec_b, "note": note})
+
+    for rel_type, pairs in by_type.items():
         if rel_type == "CO_CHARGED_WITH":
             session.run(f"""
-                MERGE (a:IPCSection {{section: $sec_a}})
-                MERGE (b:IPCSection {{section: $sec_b}})
-                MERGE (a)-[r:CO_CHARGED_WITH]->(b) SET r.note=$note
-                MERGE (b)-[r2:CO_CHARGED_WITH]->(a) SET r2.note=$note
-            """, sec_a=sec_a, sec_b=sec_b, note=note)
+                UNWIND $pairs AS p
+                MERGE (a:IPCSection {{section: p.sec_a}})
+                MERGE (b:IPCSection {{section: p.sec_b}})
+                MERGE (a)-[r:CO_CHARGED_WITH]->(b) SET r.note=p.note
+                MERGE (b)-[r2:CO_CHARGED_WITH]->(a) SET r2.note=p.note
+            """, pairs=pairs)
         else:
             session.run(f"""
-                MERGE (a:IPCSection {{section: $sec_a}})
-                MERGE (b:IPCSection {{section: $sec_b}})
-                MERGE (a)-[r:{rel_type}]->(b) SET r.note=$note
-            """, sec_a=sec_a, sec_b=sec_b, note=note)
-        counts[rel_type] = counts.get(rel_type, 0) + 1
+                UNWIND $pairs AS p
+                MERGE (a:IPCSection {{section: p.sec_a}})
+                MERGE (b:IPCSection {{section: p.sec_b}})
+                MERGE (a)-[r:{rel_type}]->(b) SET r.note=p.note
+            """, pairs=pairs)
+        counts[rel_type] = len(pairs)
     return counts
 
 

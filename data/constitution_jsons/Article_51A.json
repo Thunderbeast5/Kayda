@@ -1,0 +1,66 @@
+{
+  "article_number": "Article 51A",
+  "title": "Fundamental duties (Clause e - Dignity of Women)",
+  "part": "Part IVA - Fundamental Duties",
+  "chapter": "Fundamental Duties",
+  "category": "Fundamental Duties & Women Dignity",
+  "full_text": "It shall be the duty of every citizen of India... (e) to promote harmony and the spirit of common brotherhood amongst all the people of India transcending religious, linguistic and regional or sectional diversities; to renounce practices derogatory to the dignity of women.",
+  "summary": "Enshrines the fundamental duty of every citizen to renounce practices derogatory to the dignity of women, reinforcing penal legislation against sexual harassment and domestic cruelty.",
+  "importance_score": 0.85,
+  "relevance_reason": "Serves as a constitutional directive upholding dignity of women in interpretations of sexual harassment, dowry harassment, and domestic abuse penal provisions.",
+  "keywords": [
+    "Fundamental Duties",
+    "Dignity of Women",
+    "Renounce Practices Derogatory to Women",
+    "Gender Respect"
+  ],
+  "legal_principles": [
+    "Dignity of Women",
+    "Civic Responsibility"
+  ],
+  "criminal_law_relevance": [
+    "Judicial interpretation of offences affecting female modesty and dignity",
+    "Reinforcing social policy behind anti-dowry and anti-cruelty penal statutes"
+  ],
+  "possible_related_bns_topics": [
+    "BNS 80 (Dowry Death)",
+    "BNS 85 (Cruelty)",
+    "BNS 74 (Outraging Modesty)",
+    "BNS 79 (Insulting Modesty)"
+  ],
+  "graph_relationships": {
+    "related_bns_sections": [
+      "BNS 80",
+      "BNS 85",
+      "BNS 74",
+      "BNS 79"
+    ],
+    "related_bnss_topics": [
+      "Protection of female victims during trial"
+    ],
+    "related_bsa_topics": [
+      "Presumption of female witness credibility"
+    ],
+    "related_offence_categories": [
+      "Women Offences",
+      "Dignity Offences"
+    ],
+    "related_constitutional_principles": [
+      "Dignity of Women"
+    ],
+    "possible_landmark_cases": [
+      "Vishaka v. State of Rajasthan",
+      "State of UP v. Ram Swarup"
+    ],
+    "recommended_evidence_types": [
+      "Witness Statement",
+      "Audio Recording",
+      "WhatsApp Chats"
+    ]
+  },
+  "graph_metadata": {
+    "node_type": "ConstitutionArticle",
+    "source": "Constitution of India",
+    "jurisdiction": "India"
+  }
+}

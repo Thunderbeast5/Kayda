@@ -1,0 +1,2026 @@
+{
+  "2018_INSC_1017": {
+    "case_id": "2018_INSC_1017",
+    "file_name": "2018_INSC_1017.pdf",
+    "case_title": "",
+    "citation": "[2018] 14 S.C.R. 78",
+    "decision_date": "OCTOBER 30, 2018",
+    "judges": [
+      "R. BANUMATHI",
+      "INDIRA BANERJEE"
+    ],
+    "ipc_sections": [
+      "160",
+      "34",
+      "376",
+      "376(2)(G)"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "193",
+      "195",
+      "211",
+      "313",
+      "391"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape",
+        "gang rape",
+        "sexual intercourse"
+      ]
+    },
+    "confidence_score": 0.3,
+    "priority_score": 0.2,
+    "acts_involved": [
+      "ipc",
+      "crpc",
+      "immoral_traffic"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973",
+      "immoral_traffic": "Immoral Traffic (Prevention) Act, 1956"
+    },
+    "acts_mentions": {
+      "ipc": 54,
+      "crpc": 8,
+      "immoral_traffic": 0
+    },
+    "crime_keywords": [
+      "gang rape",
+      "rape",
+      "sexual intercourse"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "376",
+      "370"
+    ],
+    "victim_types": [
+      "victim",
+      "prosecutrix",
+      "complainant"
+    ],
+    "relationships": [
+      "mother",
+      "manager",
+      "patient"
+    ],
+    "locations": [
+      "office",
+      "hospital",
+      "public place"
+    ],
+    "section_categories": [
+      "rape_sexual_assault",
+      "other"
+    ],
+    "section_summary": [
+      "IPC 160 (other)",
+      "IPC 34 (other)",
+      "IPC 376 (rape_sexual_assault)",
+      "IPC 376(2)(G) (other)"
+    ],
+    "search_queries": [
+      "IPC sections 160, 34, 376, 376(2)(G)",
+      "sexual offences cases",
+      "gang rape",
+      "rape",
+      "sexual intercourse"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:31.788104",
+    "pages": 25,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Acts: IPC, CRPC, IMMORAL_TRAFFIC | Keywords: gang rape, rape, sexual intercourse | IPC sections: 160, 34, 376"
+  },
+  "2018_INSC_1023": {
+    "case_id": "2018_INSC_1023",
+    "file_name": "2018_INSC_1023.pdf",
+    "case_title": "AMBADAS LAXMAN SHINDE AND ORS. v. THE STATE OF MAH",
+    "citation": "[2018] 13  S.C.R. 1188",
+    "decision_date": "OCTOBER 31, 2018",
+    "judges": [
+      "KURIAN JOSEPH",
+      "A. M. KHANWILKAR",
+      "DR. DHANANJAYA Y CHANDRACHUD"
+    ],
+    "ipc_sections": [
+      "302",
+      "376"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "366"
+    ],
+    "posh_sections": [],
+    "primary_categories": [],
+    "detailed_classification": {},
+    "confidence_score": 0.0,
+    "priority_score": 0.06666666666666667,
+    "acts_involved": [
+      "ipc",
+      "crpc"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973"
+    },
+    "acts_mentions": {
+      "ipc": 2,
+      "crpc": 1
+    },
+    "crime_keywords": [],
+    "priority_keywords_matched": [
+      "376"
+    ],
+    "victim_types": [],
+    "relationships": [],
+    "locations": [],
+    "section_categories": [
+      "murder_related",
+      "rape_sexual_assault"
+    ],
+    "section_summary": [
+      "IPC 302 (murder_related)",
+      "IPC 376 (rape_sexual_assault)"
+    ],
+    "search_queries": [
+      "IPC sections 302, 376",
+      "sexual offences cases",
+      "murder related cases",
+      "murder",
+      "rape"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:31.834590",
+    "pages": 5,
+    "is_relevant": true,
+    "relevance_reason": "Acts: IPC, CRPC | IPC sections: 302, 376"
+  },
+  "2018_INSC_1120": {
+    "case_id": "2018_INSC_1120",
+    "file_name": "2018_INSC_1120.pdf",
+    "case_title": "THE STATE OF HIMACHAL PRADESH v. MANGA SINGH (C",
+    "citation": "[2018] 14 S.C.R. 904",
+    "decision_date": "NOVEMBER 28, 2018",
+    "judges": [
+      "R. BANUMATHI",
+      "INDIRA BANERJEE"
+    ],
+    "ipc_sections": [
+      "376"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences",
+      "modesty_offences",
+      "child_offences"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape",
+        "sexual assault",
+        "molestation",
+        "sexual intercourse"
+      ],
+      "modesty_offences": [
+        "molestation"
+      ],
+      "child_offences": [
+        "minor"
+      ],
+      "murder_related": [
+        "murder"
+      ]
+    },
+    "confidence_score": 0.6,
+    "priority_score": 0.3333333333333333,
+    "acts_involved": [],
+    "acts_details": {},
+    "acts_mentions": {},
+    "crime_keywords": [
+      "minor",
+      "molestation",
+      "murder",
+      "rape",
+      "sexual assault",
+      "sexual intercourse"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "child",
+      "minor",
+      "sexual assault",
+      "376"
+    ],
+    "victim_types": [
+      "victim",
+      "prosecutrix"
+    ],
+    "relationships": [
+      "mother",
+      "aunt",
+      "teacher",
+      "brother"
+    ],
+    "locations": [
+      "school"
+    ],
+    "section_categories": [
+      "rape_sexual_assault"
+    ],
+    "section_summary": [
+      "IPC 376 (rape_sexual_assault)"
+    ],
+    "search_queries": [
+      "IPC sections 376",
+      "sexual offences cases",
+      "modesty offences cases",
+      "minor",
+      "molestation",
+      "murder"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:31.919411",
+    "pages": 10,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Keywords: minor, molestation, murder | IPC sections: 376"
+  },
+  "2018_INSC_1134": {
+    "case_id": "2018_INSC_1134",
+    "file_name": "2018_INSC_1134.pdf",
+    "case_title": "OMVEER SINGH v. STATE OF UTTAR PRADESH & ANR.",
+    "citation": "[2018] 14 S.C.R. 456",
+    "decision_date": "DECEMBER 03, 2018",
+    "judges": [
+      "ABHAY MANOHAR SAPRE",
+      "INDU MALHOTRA"
+    ],
+    "ipc_sections": [],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "482"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "domestic_offences"
+    ],
+    "detailed_classification": {
+      "domestic_offences": [
+        "dowry"
+      ]
+    },
+    "confidence_score": 0.1,
+    "priority_score": 0.13333333333333333,
+    "acts_involved": [
+      "ipc",
+      "crpc",
+      "dowry_prohibition"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973",
+      "dowry_prohibition": "Dowry Prohibition Act, 1961"
+    },
+    "acts_mentions": {
+      "ipc": 7,
+      "crpc": 1,
+      "dowry_prohibition": 2
+    },
+    "crime_keywords": [
+      "dowry"
+    ],
+    "priority_keywords_matched": [
+      "498A",
+      "376"
+    ],
+    "victim_types": [],
+    "relationships": [],
+    "locations": [],
+    "section_categories": [],
+    "section_summary": [],
+    "search_queries": [
+      "domestic offences cases",
+      "dowry"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:31.949201",
+    "pages": 3,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Domestic Offences | Acts: IPC, CRPC, DOWRY_PROHIBITION | Keywords: dowry"
+  },
+  "2018_INSC_1135": {
+    "case_id": "2018_INSC_1135",
+    "file_name": "2018_INSC_1135.pdf",
+    "case_title": "DR. JAGDISH PRASAD & ORS. v. STATE OF UTTAR PRADESH & ANR.",
+    "citation": "[2018] 14 S.C.R. 459",
+    "decision_date": "DECEMBER 03, 2018",
+    "judges": [
+      "ABHAY MANOHAR SAPRE",
+      "INDU MALHOTRA"
+    ],
+    "ipc_sections": [],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "domestic_offences"
+    ],
+    "detailed_classification": {
+      "domestic_offences": [
+        "dowry"
+      ]
+    },
+    "confidence_score": 0.1,
+    "priority_score": 0.06666666666666667,
+    "acts_involved": [
+      "ipc",
+      "crpc",
+      "dowry_prohibition"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973",
+      "dowry_prohibition": "Dowry Prohibition Act, 1961"
+    },
+    "acts_mentions": {
+      "ipc": 4,
+      "crpc": 2,
+      "dowry_prohibition": 3
+    },
+    "crime_keywords": [
+      "dowry"
+    ],
+    "priority_keywords_matched": [
+      "498A"
+    ],
+    "victim_types": [],
+    "relationships": [],
+    "locations": [],
+    "section_categories": [],
+    "section_summary": [],
+    "search_queries": [
+      "domestic offences cases",
+      "dowry"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:31.978875",
+    "pages": 3,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Domestic Offences | Acts: IPC, CRPC, DOWRY_PROHIBITION | Keywords: dowry"
+  },
+  "2018_INSC_1138": {
+    "case_id": "2018_INSC_1138",
+    "file_name": "2018_INSC_1138.pdf",
+    "case_title": "GEETA & ORS. v. STATE OF UTTAR PRADESH & ANR.",
+    "citation": "[2018] 14 S.C.R. 466",
+    "decision_date": "DECEMBER 03, 2018",
+    "judges": [
+      "ABHAY MANOHAR SAPRE",
+      "INDU MALHOTRA"
+    ],
+    "ipc_sections": [],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [],
+    "detailed_classification": {},
+    "confidence_score": 0.0,
+    "priority_score": 0.0,
+    "acts_involved": [
+      "ipc",
+      "crpc"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973"
+    },
+    "acts_mentions": {
+      "ipc": 5,
+      "crpc": 1
+    },
+    "crime_keywords": [],
+    "priority_keywords_matched": [],
+    "victim_types": [],
+    "relationships": [],
+    "locations": [],
+    "section_categories": [],
+    "section_summary": [],
+    "search_queries": [],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:32.011753",
+    "pages": 4,
+    "is_relevant": true,
+    "relevance_reason": "Acts: IPC, CRPC"
+  },
+  "2018_INSC_1192": {
+    "case_id": "2018_INSC_1192",
+    "file_name": "2018_INSC_1192.pdf",
+    "case_title": "NIPUN SAXENA & ANR. v. UNION OF INDIA & ORS.",
+    "citation": "[2018] 14 S.C.R. 755",
+    "decision_date": "DECEMBER 11, 2018",
+    "judges": [
+      "MADAN B. LOKUR",
+      "DEEPAK GUPTA"
+    ],
+    "ipc_sections": [
+      "376",
+      "376A",
+      "376B",
+      "376C",
+      "376D",
+      "376E"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "173",
+      "228A",
+      "25",
+      "327",
+      "327(2)",
+      "357A",
+      "372"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences",
+      "child_offences",
+      "murder_related"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape",
+        "gang rape",
+        "sexual assault",
+        "sexual abuse",
+        "sexual violence"
+      ],
+      "child_offences": [
+        "juvenile",
+        "minor"
+      ],
+      "murder_related": [
+        "murder"
+      ]
+    },
+    "confidence_score": 0.8,
+    "priority_score": 0.4666666666666667,
+    "acts_involved": [
+      "pocso",
+      "ipc",
+      "crpc",
+      "evidence_act",
+      "juvenile_justice"
+    ],
+    "acts_details": {
+      "pocso": "Protection of Children from Sexual Offences Act, 2012",
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973",
+      "evidence_act": "Indian Evidence Act, 1872",
+      "juvenile_justice": "Juvenile Justice (Care and Protection of Children) Act, 2015"
+    },
+    "acts_mentions": {
+      "pocso": 40,
+      "ipc": 53,
+      "crpc": 24,
+      "evidence_act": 1,
+      "juvenile_justice": 0
+    },
+    "crime_keywords": [
+      "gang rape",
+      "juvenile",
+      "minor",
+      "murder",
+      "rape",
+      "sexual abuse",
+      "sexual assault",
+      "sexual violence"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "child",
+      "minor",
+      "juvenile",
+      "sexual assault",
+      "POCSO",
+      "376"
+    ],
+    "victim_types": [
+      "victim",
+      "prosecutrix"
+    ],
+    "relationships": [
+      "daughter",
+      "guardian",
+      "father",
+      "employee"
+    ],
+    "locations": [
+      "office",
+      "school",
+      "residence"
+    ],
+    "section_categories": [
+      "rape_sexual_assault"
+    ],
+    "section_summary": [
+      "IPC 376 (rape_sexual_assault)",
+      "IPC 376A (rape_sexual_assault)",
+      "IPC 376B (rape_sexual_assault)",
+      "IPC 376C (rape_sexual_assault)",
+      "IPC 376D (rape_sexual_assault)",
+      "IPC 376E (rape_sexual_assault)"
+    ],
+    "search_queries": [
+      "IPC sections 376, 376A, 376B, 376C, 376D",
+      "sexual offences cases",
+      "child offences cases",
+      "gang rape",
+      "juvenile",
+      "minor"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:32.277835",
+    "pages": 36,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Acts: POCSO, IPC, CRPC | Keywords: gang rape, juvenile, minor | IPC sections: 376, 376A, 376B"
+  },
+  "2018_INSC_1194": {
+    "case_id": "2018_INSC_1194",
+    "file_name": "2018_INSC_1194.pdf",
+    "case_title": "RAJENDRA PRALHADRAO WASNIK v. STATE OF MAHARASHTRA",
+    "citation": "[2018] 14 S.C.R. 585",
+    "decision_date": "DECEMBER 12, 2018",
+    "judges": [
+      "MADAN B. LOKUR",
+      "S. ABDUL NAZEER",
+      "DEEPAK GUPTA"
+    ],
+    "ipc_sections": [
+      "302",
+      "75"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "360"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences",
+      "child_offences",
+      "murder_related"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape"
+      ],
+      "child_offences": [
+        "minor"
+      ],
+      "murder_related": [
+        "murder"
+      ]
+    },
+    "confidence_score": 0.3,
+    "priority_score": 0.4,
+    "acts_involved": [
+      "ipc",
+      "crpc",
+      "evidence_act"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973",
+      "evidence_act": "Indian Evidence Act, 1872"
+    },
+    "acts_mentions": {
+      "ipc": 25,
+      "crpc": 6,
+      "evidence_act": 4
+    },
+    "crime_keywords": [
+      "minor",
+      "murder",
+      "rape"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "child",
+      "minor",
+      "376",
+      "354",
+      "363"
+    ],
+    "victim_types": [
+      "victim",
+      "minor girl"
+    ],
+    "relationships": [
+      "principal",
+      "student"
+    ],
+    "locations": [
+      "office",
+      "hospital",
+      "residence"
+    ],
+    "section_categories": [
+      "murder_related",
+      "other"
+    ],
+    "section_summary": [
+      "IPC 302 (murder_related)",
+      "IPC 75 (other)"
+    ],
+    "search_queries": [
+      "IPC sections 302, 75",
+      "sexual offences cases",
+      "child offences cases",
+      "minor",
+      "murder",
+      "rape"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:32.586809",
+    "pages": 42,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Acts: IPC, CRPC, EVIDENCE_ACT | Keywords: minor, murder, rape | IPC sections: 302, 75"
+  },
+  "2018_INSC_125": {
+    "case_id": "2018_INSC_125",
+    "file_name": "2018_INSC_125.pdf",
+    "case_title": "SAMPURNA BEHURA v. UNION OF INDIA & ORS.",
+    "citation": "[2018] 2  S.C.R. 940",
+    "decision_date": "FEBRUARY 09, 2018",
+    "judges": [
+      "MADAN B. LOKUR",
+      "DEEPAK GUPTA"
+    ],
+    "ipc_sections": [
+      "63"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "child_offences",
+      "sexual_offences",
+      "trafficking"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "sexual abuse",
+        "child sexual abuse"
+      ],
+      "domestic_offences": [
+        "domestic violence"
+      ],
+      "trafficking": [
+        "trafficking",
+        "child labour"
+      ],
+      "marriage_offences": [
+        "child marriage"
+      ],
+      "child_offences": [
+        "child sexual abuse",
+        "child labour",
+        "child marriage",
+        "juvenile",
+        "adolescent",
+        "neglect",
+        "exploitation"
+      ]
+    },
+    "confidence_score": 1.0,
+    "priority_score": 0.26666666666666666,
+    "acts_involved": [
+      "pocso",
+      "ipc",
+      "domestic_violence",
+      "child_marriage",
+      "juvenile_justice",
+      "immoral_traffic"
+    ],
+    "acts_details": {
+      "pocso": "Protection of Children from Sexual Offences Act, 2012",
+      "ipc": "Indian Penal Code, 1860",
+      "domestic_violence": "Protection of Women from Domestic Violence Act, 2005",
+      "child_marriage": "Prohibition of Child Marriage Act, 2006",
+      "juvenile_justice": "Juvenile Justice (Care and Protection of Children) Act, 2015",
+      "immoral_traffic": "Immoral Traffic (Prevention) Act, 1956"
+    },
+    "acts_mentions": {
+      "pocso": 0,
+      "ipc": 2,
+      "domestic_violence": 0,
+      "child_marriage": 2,
+      "juvenile_justice": 78,
+      "immoral_traffic": 0
+    },
+    "crime_keywords": [
+      "adolescent",
+      "child labour",
+      "child marriage",
+      "child sexual abuse",
+      "domestic violence",
+      "exploitation",
+      "juvenile",
+      "neglect",
+      "sexual abuse",
+      "trafficking"
+    ],
+    "priority_keywords_matched": [
+      "child",
+      "juvenile",
+      "trafficking",
+      "domestic violence"
+    ],
+    "victim_types": [
+      "victim"
+    ],
+    "relationships": [
+      "teacher",
+      "principal",
+      "father",
+      "manager",
+      "employee",
+      "intern"
+    ],
+    "locations": [
+      "office",
+      "school",
+      "factory",
+      "residence"
+    ],
+    "section_categories": [
+      "other"
+    ],
+    "section_summary": [
+      "IPC 63 (other)"
+    ],
+    "search_queries": [
+      "IPC sections 63",
+      "child offences cases",
+      "sexual offences cases",
+      "adolescent",
+      "child labour",
+      "child marriage"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:32.944277",
+    "pages": 51,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Child Offences | Acts: POCSO, IPC, DOMESTIC_VIOLENCE | Keywords: adolescent, child labour, child marriage | IPC sections: 63"
+  },
+  "2018_INSC_236": {
+    "case_id": "2018_INSC_236",
+    "file_name": "2018_INSC_236.pdf",
+    "case_title": "UNION OF INDIA v. INDIAN RADIOLOGICAL AND IMAGING ASSOCIATION AND ORS. ETC. ETC. (I.A. N",
+    "citation": "[2018] 3 S.C.R. 649",
+    "decision_date": "MARCH 14, 2018",
+    "judges": [],
+    "ipc_sections": [],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "reproductive_offences"
+    ],
+    "detailed_classification": {
+      "reproductive_offences": [
+        "sex selection"
+      ]
+    },
+    "confidence_score": 0.1,
+    "priority_score": 0.0,
+    "acts_involved": [
+      "pcpndt"
+    ],
+    "acts_details": {
+      "pcpndt": "Pre-Conception and Pre-Natal Diagnostic Techniques (Prohibition of Sex Selection) Act, 1994"
+    },
+    "acts_mentions": {
+      "pcpndt": 9
+    },
+    "crime_keywords": [
+      "sex selection"
+    ],
+    "priority_keywords_matched": [],
+    "victim_types": [],
+    "relationships": [
+      "spouse",
+      "supervisor",
+      "patient"
+    ],
+    "locations": [
+      "hospital"
+    ],
+    "section_categories": [],
+    "section_summary": [],
+    "search_queries": [
+      "reproductive offences cases",
+      "child offences cases",
+      "female foeticide",
+      "girl child",
+      "sex determination"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:33.030066",
+    "pages": 14,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Reproductive Offences | Acts: PCPNDT | Keywords: sex selection"
+  },
+  "2018_INSC_239": {
+    "case_id": "2018_INSC_239",
+    "file_name": "2018_INSC_239.pdf",
+    "case_title": "SRI RAMESHWAR YADAV & ORS. v. THE STATE OF BIHAR & ANR.",
+    "citation": "[2018] 4 S.C.R. 1055",
+    "decision_date": "MARCH 16, 2018",
+    "judges": [
+      "A. K. SIKRI",
+      "ASHOK BHUSHAN"
+    ],
+    "ipc_sections": [
+      "498",
+      "498A"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [
+      "4"
+    ],
+    "crpc_sections": [
+      "205",
+      "317",
+      "482"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "domestic_offences"
+    ],
+    "detailed_classification": {
+      "domestic_offences": [
+        "dowry"
+      ]
+    },
+    "confidence_score": 0.1,
+    "priority_score": 0.06666666666666667,
+    "acts_involved": [
+      "ipc",
+      "crpc",
+      "dowry_prohibition"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973",
+      "dowry_prohibition": "Dowry Prohibition Act, 1961"
+    },
+    "acts_mentions": {
+      "ipc": 6,
+      "crpc": 1,
+      "dowry_prohibition": 3
+    },
+    "crime_keywords": [
+      "dowry"
+    ],
+    "priority_keywords_matched": [
+      "498A"
+    ],
+    "victim_types": [
+      "complainant"
+    ],
+    "relationships": [
+      "wife",
+      "father",
+      "student"
+    ],
+    "locations": [
+      "residence"
+    ],
+    "section_categories": [
+      "dowry",
+      "marriage_related"
+    ],
+    "section_summary": [
+      "IPC 498 (marriage_related)",
+      "IPC 498A (dowry)"
+    ],
+    "search_queries": [
+      "IPC sections 498, 498A",
+      "domestic offences cases",
+      "dowry"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:33.099210",
+    "pages": 8,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Domestic Offences | Acts: IPC, CRPC, DOWRY_PROHIBITION | Keywords: dowry | IPC sections: 498, 498A"
+  },
+  "2018_INSC_402": {
+    "case_id": "2018_INSC_402",
+    "file_name": "2018_INSC_402.pdf",
+    "case_title": "KAVITA CHANDRAKANT LAKHANI v. STATE OF MAHARASHTRA & ANR.",
+    "citation": "[2018] 3 S.C.R. 994",
+    "decision_date": "APRIL 24, 2018",
+    "judges": [
+      "A. K. SIKRI",
+      "R. K. AGRAWAL"
+    ],
+    "ipc_sections": [
+      "342",
+      "363",
+      "366"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "modesty_offences",
+      "kidnapping_abduction",
+      "sexual_offences"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "molestation"
+      ],
+      "modesty_offences": [
+        "modesty",
+        "molestation"
+      ],
+      "kidnapping_abduction": [
+        "kidnapping",
+        "abduction"
+      ]
+    },
+    "confidence_score": 0.4,
+    "priority_score": 0.2,
+    "acts_involved": [
+      "ipc"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860"
+    },
+    "acts_mentions": {
+      "ipc": 47
+    },
+    "crime_keywords": [
+      "abduction",
+      "kidnapping",
+      "modesty",
+      "molestation"
+    ],
+    "priority_keywords_matched": [
+      "376",
+      "354",
+      "363"
+    ],
+    "victim_types": [
+      "prosecutrix",
+      "complainant"
+    ],
+    "relationships": [
+      "mother",
+      "father"
+    ],
+    "locations": [],
+    "section_categories": [
+      "kidnapping_abduction",
+      "other"
+    ],
+    "section_summary": [
+      "IPC 342 (other)",
+      "IPC 363 (kidnapping_abduction)",
+      "IPC 366 (kidnapping_abduction)"
+    ],
+    "search_queries": [
+      "IPC sections 342, 363, 366",
+      "modesty offences cases",
+      "kidnapping abduction cases",
+      "abduction",
+      "kidnapping",
+      "modesty"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:33.180759",
+    "pages": 10,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Modesty Offences | Acts: IPC | Keywords: abduction, kidnapping, modesty | IPC sections: 342, 363, 366"
+  },
+  "2018_INSC_433": {
+    "case_id": "2018_INSC_433",
+    "file_name": "2018_INSC_433.pdf",
+    "case_title": "ALAKH ALOK SRIVASTAVA v. UNION O",
+    "citation": "[2018] 6 S.C.R. 972",
+    "decision_date": "MAY 01, 2018",
+    "judges": [],
+    "ipc_sections": [
+      "28"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences",
+      "child_offences",
+      "harassment"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape",
+        "sexual assault",
+        "sexual abuse",
+        "penetrative sexual assault",
+        "aggravated penetrative sexual assault"
+      ],
+      "harassment": [
+        "sexual harassment"
+      ],
+      "child_offences": [
+        "child abuse",
+        "girl child",
+        "infant",
+        "abandonment",
+        "exploitation"
+      ]
+    },
+    "confidence_score": 1.0,
+    "priority_score": 0.26666666666666666,
+    "acts_involved": [
+      "pocso",
+      "immoral_traffic"
+    ],
+    "acts_details": {
+      "pocso": "Protection of Children from Sexual Offences Act, 2012",
+      "immoral_traffic": "Immoral Traffic (Prevention) Act, 1956"
+    },
+    "acts_mentions": {
+      "pocso": 64,
+      "immoral_traffic": 0
+    },
+    "crime_keywords": [
+      "abandonment",
+      "aggravated penetrative sexual assault",
+      "child abuse",
+      "exploitation",
+      "girl child",
+      "infant",
+      "penetrative sexual assault",
+      "rape",
+      "sexual abuse",
+      "sexual assault",
+      "sexual harassment"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "child",
+      "sexual assault",
+      "POCSO"
+    ],
+    "victim_types": [
+      "victim",
+      "girl child"
+    ],
+    "relationships": [
+      "mother",
+      "guardian",
+      "father",
+      "patient"
+    ],
+    "locations": [
+      "office",
+      "school",
+      "hospital"
+    ],
+    "section_categories": [
+      "other"
+    ],
+    "section_summary": [
+      "IPC 28 (other)"
+    ],
+    "search_queries": [
+      "IPC sections 28",
+      "sexual offences cases",
+      "child offences cases",
+      "abandonment",
+      "aggravated penetrative sexual assault",
+      "child abuse"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:33.279288",
+    "pages": 11,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Acts: POCSO, IMMORAL_TRAFFIC | Keywords: abandonment, aggravated penetrative sexual assault, child abuse | IPC sections: 28"
+  },
+  "2018_INSC_585": {
+    "case_id": "2018_INSC_585",
+    "file_name": "2018_INSC_585.pdf",
+    "case_title": "LALIT YADAV v. THE STATE OF CHHATTISGARH",
+    "citation": "[2018] 10 S.C.R. 771",
+    "decision_date": "JULY 05, 2018",
+    "judges": [
+      "ABHAY MANOHAR SAPRE",
+      "UDAY UMESH LALIT"
+    ],
+    "ipc_sections": [
+      "228",
+      "228A",
+      "342",
+      "376"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape"
+      ]
+    },
+    "confidence_score": 0.1,
+    "priority_score": 0.13333333333333333,
+    "acts_involved": [
+      "ipc"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860"
+    },
+    "acts_mentions": {
+      "ipc": 11
+    },
+    "crime_keywords": [
+      "rape"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "376"
+    ],
+    "victim_types": [
+      "victim"
+    ],
+    "relationships": [],
+    "locations": [],
+    "section_categories": [
+      "rape_sexual_assault",
+      "other",
+      "evidence_tampering"
+    ],
+    "section_summary": [
+      "IPC 228 (other)",
+      "IPC 228A (evidence_tampering)",
+      "IPC 342 (other)",
+      "IPC 376 (rape_sexual_assault)"
+    ],
+    "search_queries": [
+      "IPC sections 228, 228A, 342, 376",
+      "sexual offences cases",
+      "rape"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:33.320600",
+    "pages": 2,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Acts: IPC | Keywords: rape | IPC sections: 228, 228A, 342"
+  },
+  "2018_INSC_590": {
+    "case_id": "2018_INSC_590",
+    "file_name": "2018_INSC_590.pdf",
+    "case_title": "MUKESH v. STATE OF NCT OF DELHI R",
+    "citation": "[2018] 7 S.C.R. 898",
+    "decision_date": "JULY 09, 2018",
+    "judges": [],
+    "ipc_sections": [
+      "391"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "313"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences",
+      "child_offences"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape",
+        "gang rape"
+      ],
+      "child_offences": [
+        "minor"
+      ]
+    },
+    "confidence_score": 0.3,
+    "priority_score": 0.13333333333333333,
+    "acts_involved": [],
+    "acts_details": {},
+    "acts_mentions": {},
+    "crime_keywords": [
+      "gang rape",
+      "minor",
+      "rape"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "minor"
+    ],
+    "victim_types": [
+      "victim",
+      "prosecutrix",
+      "complainant"
+    ],
+    "relationships": [
+      "brother"
+    ],
+    "locations": [
+      "hospital"
+    ],
+    "section_categories": [
+      "other"
+    ],
+    "section_summary": [
+      "IPC 391 (other)"
+    ],
+    "search_queries": [
+      "IPC sections 391",
+      "sexual offences cases",
+      "child offences cases",
+      "gang rape",
+      "minor",
+      "murder"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:33.481548",
+    "pages": 21,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Keywords: gang rape, minor, rape | IPC sections: 391"
+  },
+  "2018_INSC_591": {
+    "case_id": "2018_INSC_591",
+    "file_name": "2018_INSC_591.pdf",
+    "case_title": "VINAY SHARMA & ANR. v. STATE OF NCT OF DELHI",
+    "citation": "[2018] 7 S.C.R. 919",
+    "decision_date": "JULY 09, 2018",
+    "judges": [],
+    "ipc_sections": [],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "child_offences",
+      "sexual_offences",
+      "murder_related"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape"
+      ],
+      "child_offences": [
+        "juvenile",
+        "minor"
+      ],
+      "murder_related": [
+        "murder"
+      ]
+    },
+    "confidence_score": 0.4,
+    "priority_score": 0.26666666666666666,
+    "acts_involved": [
+      "ipc",
+      "crpc",
+      "juvenile_justice"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973",
+      "juvenile_justice": "Juvenile Justice (Care and Protection of Children) Act, 2015"
+    },
+    "acts_mentions": {
+      "ipc": 8,
+      "crpc": 2,
+      "juvenile_justice": 0
+    },
+    "crime_keywords": [
+      "juvenile",
+      "minor",
+      "murder",
+      "rape"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "minor",
+      "juvenile",
+      "354"
+    ],
+    "victim_types": [
+      "victim",
+      "prosecutrix",
+      "complainant"
+    ],
+    "relationships": [
+      "mother",
+      "father",
+      "brother",
+      "manager",
+      "intern"
+    ],
+    "locations": [
+      "office",
+      "school",
+      "hospital"
+    ],
+    "section_categories": [],
+    "section_summary": [],
+    "search_queries": [
+      "sexual offences cases",
+      "child offences cases",
+      "gang rape",
+      "juvenile",
+      "minor"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:33.656452",
+    "pages": 20,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Child Offences | Acts: IPC, CRPC, JUVENILE_JUSTICE | Keywords: juvenile, minor, murder"
+  },
+  "2018_INSC_667": {
+    "case_id": "2018_INSC_667",
+    "file_name": "2018_INSC_667.pdf",
+    "case_title": "DR. SR. TESSY JOSE AND OTHERS v. STATE OF KERALA",
+    "citation": "[2018] 9 S.C.R. 479",
+    "decision_date": "AUGUST 01, 2018",
+    "judges": [
+      "A. K. SIKRI",
+      "ASHOK BHUSHAN"
+    ],
+    "ipc_sections": [
+      "201"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [
+      "1",
+      "19"
+    ],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences",
+      "child_offences"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape",
+        "sexual intercourse"
+      ],
+      "child_offences": [
+        "juvenile",
+        "minor"
+      ]
+    },
+    "confidence_score": 0.4,
+    "priority_score": 0.3333333333333333,
+    "acts_involved": [
+      "pocso",
+      "ipc",
+      "juvenile_justice"
+    ],
+    "acts_details": {
+      "pocso": "Protection of Children from Sexual Offences Act, 2012",
+      "ipc": "Indian Penal Code, 1860",
+      "juvenile_justice": "Juvenile Justice (Care and Protection of Children) Act, 2015"
+    },
+    "acts_mentions": {
+      "pocso": 11,
+      "ipc": 2,
+      "juvenile_justice": 1
+    },
+    "crime_keywords": [
+      "juvenile",
+      "minor",
+      "rape",
+      "sexual intercourse"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "child",
+      "minor",
+      "juvenile",
+      "POCSO"
+    ],
+    "victim_types": [
+      "victim",
+      "informant"
+    ],
+    "relationships": [
+      "mother",
+      "patient"
+    ],
+    "locations": [
+      "hospital"
+    ],
+    "section_categories": [
+      "other",
+      "evidence_tampering"
+    ],
+    "section_summary": [
+      "IPC 201 (evidence_tampering)",
+      "POCSO 1",
+      "POCSO 19"
+    ],
+    "search_queries": [
+      "IPC sections 201",
+      "POCSO Act sections 1, 19",
+      "sexual offences cases",
+      "child offences cases",
+      "juvenile",
+      "minor",
+      "rape"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:33.714982",
+    "pages": 7,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Acts: POCSO, IPC, JUVENILE_JUSTICE | Keywords: juvenile, minor, rape | IPC sections: 201 | POCSO case"
+  },
+  "2018_INSC_684": {
+    "case_id": "2018_INSC_684",
+    "file_name": "2018_INSC_684.pdf",
+    "case_title": "SIDDALING v. THE STATE, THROUGH KALAGI POLICE STATION",
+    "citation": "[2018] 10 S.C.R. 906",
+    "decision_date": "AUGUST 09, 2018",
+    "judges": [
+      "R. BANUMATHI",
+      "VINEET SARAN"
+    ],
+    "ipc_sections": [
+      "306",
+      "498A"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "domestic_offences"
+    ],
+    "detailed_classification": {
+      "domestic_offences": [
+        "cruelty",
+        "dowry",
+        "dowry harassment",
+        "dowry demand"
+      ]
+    },
+    "confidence_score": 0.4,
+    "priority_score": 0.0,
+    "acts_involved": [
+      "dowry_prohibition"
+    ],
+    "acts_details": {
+      "dowry_prohibition": "Dowry Prohibition Act, 1961"
+    },
+    "acts_mentions": {
+      "dowry_prohibition": 1
+    },
+    "crime_keywords": [
+      "cruelty",
+      "dowry",
+      "dowry demand",
+      "dowry harassment"
+    ],
+    "priority_keywords_matched": [],
+    "victim_types": [
+      "victim"
+    ],
+    "relationships": [
+      "wife",
+      "mother",
+      "father",
+      "brother"
+    ],
+    "locations": [],
+    "section_categories": [
+      "murder_related",
+      "dowry"
+    ],
+    "section_summary": [
+      "IPC 306 (murder_related)",
+      "IPC 498A (dowry)"
+    ],
+    "search_queries": [
+      "IPC sections 306, 498A",
+      "domestic offences cases",
+      "cruelty",
+      "dowry",
+      "dowry demand"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:33.752214",
+    "pages": 4,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Domestic Offences | Acts: DOWRY_PROHIBITION | Keywords: cruelty, dowry, dowry demand | IPC sections: 306, 498A"
+  },
+  "2018_INSC_757": {
+    "case_id": "2018_INSC_757",
+    "file_name": "2018_INSC_757.pdf",
+    "case_title": "STATE OF MADHYA PRADESH v. PREETAM",
+    "citation": "[2018] 10 S.C.R. 627",
+    "decision_date": "AUGUST 29, 2018",
+    "judges": [
+      "R. BANUMATHI",
+      "VINEET SARAN"
+    ],
+    "ipc_sections": [
+      "375",
+      "376",
+      "376(1)"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape",
+        "sexual intercourse"
+      ]
+    },
+    "confidence_score": 0.2,
+    "priority_score": 0.13333333333333333,
+    "acts_involved": [],
+    "acts_details": {},
+    "acts_mentions": {},
+    "crime_keywords": [
+      "rape",
+      "sexual intercourse"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "376"
+    ],
+    "victim_types": [
+      "victim",
+      "prosecutrix"
+    ],
+    "relationships": [
+      "daughter",
+      "sister",
+      "teacher",
+      "uncle",
+      "father",
+      "student"
+    ],
+    "locations": [
+      "school"
+    ],
+    "section_categories": [
+      "rape_sexual_assault",
+      "other"
+    ],
+    "section_summary": [
+      "IPC 375 (rape_sexual_assault)",
+      "IPC 376 (rape_sexual_assault)",
+      "IPC 376(1) (other)"
+    ],
+    "search_queries": [
+      "IPC sections 375, 376, 376(1)",
+      "sexual offences cases",
+      "rape",
+      "sexual intercourse"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:33.807142",
+    "pages": 7,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Keywords: rape, sexual intercourse | IPC sections: 375, 376, 376(1)"
+  },
+  "2018_INSC_799": {
+    "case_id": "2018_INSC_799",
+    "file_name": "2018_INSC_799.pdf",
+    "case_title": "MAQBOOL v. THE STATE OF UTTAR PRADESH AND ANOTHER",
+    "citation": "[2018] 12 S.C.R. 885",
+    "decision_date": "SEPTEMBER 07, 2018",
+    "judges": [
+      "KURIAN JOSEPH",
+      "SANJAY KISHAN KAUL"
+    ],
+    "ipc_sections": [
+      "326A",
+      "326B"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "acid_attacks"
+    ],
+    "detailed_classification": {
+      "acid_attacks": [
+        "acid attack",
+        "corrosive substance",
+        "disfigurement"
+      ]
+    },
+    "confidence_score": 0.3,
+    "priority_score": 0.06666666666666667,
+    "acts_involved": [
+      "ipc"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860"
+    },
+    "acts_mentions": {
+      "ipc": 32
+    },
+    "crime_keywords": [
+      "acid attack",
+      "corrosive substance",
+      "disfigurement"
+    ],
+    "priority_keywords_matched": [
+      "acid attack"
+    ],
+    "victim_types": [
+      "victim"
+    ],
+    "relationships": [],
+    "locations": [],
+    "section_categories": [
+      "other"
+    ],
+    "section_summary": [
+      "IPC 326A (other)",
+      "IPC 326B (other)"
+    ],
+    "search_queries": [
+      "IPC sections 326A, 326B",
+      "acid attacks cases",
+      "acid attack",
+      "corrosive substance",
+      "disfigurement"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:33.883684",
+    "pages": 10,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Acid Attacks | Acts: IPC | Keywords: acid attack, corrosive substance, disfigurement | IPC sections: 326A, 326B"
+  },
+  "2018_INSC_820": {
+    "case_id": "2018_INSC_820",
+    "file_name": "2018_INSC_820.pdf",
+    "case_title": "SOCIAL ACTION FORUM FOR MANAV ADHIKAR AND ANOTHER v. UNION OF INDIA MINISTRY OF LAW",
+    "citation": "[2018] 12 S.C.R. 19",
+    "decision_date": "SEPTEMBER 14, 2018",
+    "judges": [],
+    "ipc_sections": [
+      "498",
+      "498A"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "41",
+      "41(1)"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "domestic_offences",
+      "murder_related",
+      "sexual_offences"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape"
+      ],
+      "domestic_offences": [
+        "domestic abuse",
+        "cruelty",
+        "mental cruelty",
+        "physical cruelty",
+        "dowry",
+        "dowry death"
+      ],
+      "child_offences": [
+        "minor"
+      ],
+      "murder_related": [
+        "murder",
+        "dowry death"
+      ]
+    },
+    "confidence_score": 0.9,
+    "priority_score": 0.3333333333333333,
+    "acts_involved": [
+      "ipc",
+      "crpc",
+      "evidence_act",
+      "domestic_violence",
+      "dowry_prohibition"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973",
+      "evidence_act": "Indian Evidence Act, 1872",
+      "domestic_violence": "Protection of Women from Domestic Violence Act, 2005",
+      "dowry_prohibition": "Dowry Prohibition Act, 1961"
+    },
+    "acts_mentions": {
+      "ipc": 81,
+      "crpc": 39,
+      "evidence_act": 13,
+      "domestic_violence": 0,
+      "dowry_prohibition": 2
+    },
+    "crime_keywords": [
+      "cruelty",
+      "domestic abuse",
+      "dowry",
+      "dowry death",
+      "mental cruelty",
+      "minor",
+      "murder",
+      "physical cruelty",
+      "rape"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "child",
+      "minor",
+      "dowry death",
+      "498A"
+    ],
+    "victim_types": [
+      "victim",
+      "complainant",
+      "minor child"
+    ],
+    "relationships": [
+      "wife",
+      "mother",
+      "sister",
+      "father",
+      "brother",
+      "employee"
+    ],
+    "locations": [
+      "office"
+    ],
+    "section_categories": [
+      "dowry",
+      "marriage_related"
+    ],
+    "section_summary": [
+      "IPC 498 (marriage_related)",
+      "IPC 498A (dowry)"
+    ],
+    "search_queries": [
+      "IPC sections 498, 498A",
+      "domestic offences cases",
+      "murder related cases",
+      "cruelty",
+      "domestic abuse",
+      "dowry"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:34.132419",
+    "pages": 32,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Domestic Offences | Acts: IPC, CRPC, EVIDENCE_ACT | Keywords: cruelty, domestic abuse, dowry | IPC sections: 498, 498A"
+  },
+  "2018_INSC_909": {
+    "case_id": "2018_INSC_909",
+    "file_name": "2018_INSC_909.pdf",
+    "case_title": "HEMUDAN NANBHA GADHVI v. STATE OF GUJARAT",
+    "citation": "[2018] 12 S.C.R. 672",
+    "decision_date": "SEPTEMBER 28, 2018",
+    "judges": [
+      "RANJAN GOGOI",
+      "NAVIN SINHA",
+      "K. M. JOSEPH"
+    ],
+    "ipc_sections": [
+      "376",
+      "376(2)(F)"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [
+      "313"
+    ],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences",
+      "child_offences"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "sexual assault"
+      ],
+      "child_offences": [
+        "minor"
+      ]
+    },
+    "confidence_score": 0.2,
+    "priority_score": 0.2,
+    "acts_involved": [
+      "ipc",
+      "crpc",
+      "evidence_act"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860",
+      "crpc": "Code of Criminal Procedure, 1973",
+      "evidence_act": "Indian Evidence Act, 1872"
+    },
+    "acts_mentions": {
+      "ipc": 4,
+      "crpc": 6,
+      "evidence_act": 2
+    },
+    "crime_keywords": [
+      "minor",
+      "sexual assault"
+    ],
+    "priority_keywords_matched": [
+      "minor",
+      "sexual assault",
+      "376"
+    ],
+    "victim_types": [
+      "victim",
+      "prosecutrix"
+    ],
+    "relationships": [
+      "mother"
+    ],
+    "locations": [
+      "hospital"
+    ],
+    "section_categories": [
+      "rape_sexual_assault",
+      "other"
+    ],
+    "section_summary": [
+      "IPC 376 (rape_sexual_assault)",
+      "IPC 376(2)(F) (other)"
+    ],
+    "search_queries": [
+      "IPC sections 376, 376(2)(F)",
+      "sexual offences cases",
+      "child offences cases",
+      "minor",
+      "sexual assault"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:34.213845",
+    "pages": 10,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Acts: IPC, CRPC, EVIDENCE_ACT | Keywords: minor, sexual assault | IPC sections: 376, 376(2)(F)"
+  },
+  "2018_INSC_986": {
+    "case_id": "2018_INSC_986",
+    "file_name": "2018_INSC_986.pdf",
+    "case_title": "THE STATE OF MADHYA PRADESH v. RAJARAM @ RAJA",
+    "citation": "[2018] 14 S.C.R. 294",
+    "decision_date": "OCTOBER 24, 2018",
+    "judges": [
+      "N. V. RAMANA",
+      "MOHAN M. SHANTANAGOUDAR"
+    ],
+    "ipc_sections": [
+      "306",
+      "376"
+    ],
+    "bns_sections": [],
+    "pocso_sections": [],
+    "it_act_sections": [],
+    "dowry_act_sections": [],
+    "crpc_sections": [],
+    "posh_sections": [],
+    "primary_categories": [
+      "sexual_offences"
+    ],
+    "detailed_classification": {
+      "sexual_offences": [
+        "rape"
+      ]
+    },
+    "confidence_score": 0.1,
+    "priority_score": 0.2,
+    "acts_involved": [
+      "ipc"
+    ],
+    "acts_details": {
+      "ipc": "Indian Penal Code, 1860"
+    },
+    "acts_mentions": {
+      "ipc": 4
+    },
+    "crime_keywords": [
+      "rape"
+    ],
+    "priority_keywords_matched": [
+      "rape",
+      "child",
+      "376"
+    ],
+    "victim_types": [],
+    "relationships": [
+      "daughter",
+      "sister",
+      "father"
+    ],
+    "locations": [],
+    "section_categories": [
+      "murder_related",
+      "rape_sexual_assault"
+    ],
+    "section_summary": [
+      "IPC 306 (murder_related)",
+      "IPC 376 (rape_sexual_assault)"
+    ],
+    "search_queries": [
+      "IPC sections 306, 376",
+      "sexual offences cases",
+      "rape"
+    ],
+    "classification_method": "taxonomy_hierarchical",
+    "classification_timestamp": "2026-07-23T17:39:34.258441",
+    "pages": 5,
+    "is_relevant": true,
+    "relevance_reason": "Primary category: Sexual Offences | Acts: IPC | Keywords: rape | IPC sections: 306, 376"
+  }
+}
