@@ -19,7 +19,7 @@ try:
 except ImportError:
     pass
 
-AGENTS_DIR = Path(__file__).resolve().parents[2]
+AGENTS_DIR = Path(__file__).resolve().parents[3]
 if str(AGENTS_DIR) not in sys.path:
     sys.path.insert(0, str(AGENTS_DIR))
 
