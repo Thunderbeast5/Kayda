@@ -207,6 +207,9 @@ function LandingPage({ userRole, setUserRole, onEnterCourt }) {
             <button onClick={() => scrollToSection("choose-role")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1.5">
               Moot Court <span className="text-[10px] text-[#D4AF37]">✦</span>
             </button>
+            <button onClick={() => { window.location.hash = '#/text2cypher'; }} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1">
+              LexiGraph Cypher <span className="text-[10px] text-[#D4AF37]">✦</span>
+            </button>
             <button onClick={() => { window.location.hash = '#/evidence-analyzer'; }} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1">
               Document Suite <span className="text-[10px] text-[#2C1810]/40">▾</span>
             </button>

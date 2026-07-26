@@ -144,9 +144,9 @@ def _get_punishments(section_ids: List[str]) -> List[LinkedNode]:
     rows = run_cypher(cypher, {"sids": section_ids})
     return [
         LinkedNode(
-            node_id=r["node_id"],
+            node_id=r.get("node_id") or f"PUN_{r.get('source_section', 'UNKNOWN')}",
             label="Punishment",
-            name=r.get("name", ""),
+            name=r.get("name") or r.get("source_section") or "Punishment",
             score=1.0,
             properties={"source_section": r.get("source_section", "")},
         )

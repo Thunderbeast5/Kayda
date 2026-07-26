@@ -2,16 +2,24 @@ import os
 import sys
 import shutil
 import uuid
+import asyncio
 from pathlib import Path
 from fastapi import FastAPI, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from pydantic import BaseModel
 
-# Add agents directory to system path so that internal imports work
+# Add agents directory and MootCourt root to system path so that internal imports work
 backend_dir = Path(__file__).resolve().parent
+mootcourt_root = backend_dir.parent
 agents_dir = backend_dir / "agents"
+
 if str(agents_dir) not in sys.path:
     sys.path.insert(0, str(agents_dir))
+if str(backend_dir) not in sys.path:
+    sys.path.insert(0, str(backend_dir))
+if str(mootcourt_root) not in sys.path:
+    sys.path.insert(0, str(mootcourt_root))
 
 from evidence.evidence_analyzer import (
     build_session_id,
@@ -21,8 +29,10 @@ from evidence.evidence_analyzer import (
     store_to_pinecone,
     IMAGE_EXTENSIONS,
 )
+from backend.agents.lexigraph.cypher.legal_text2cypher.agents.pipeline import run_pipeline
+from backend.agents.lexigraph.cypher.legal_text2cypher.config.settings import get_settings
 
-app = FastAPI(title="MootCourt Evidence Analyzer API")
+app = FastAPI(title="MootCourt Legal Intelligence & Evidence API")
 
 # Enable CORS for localhost and 127.0.0.1 on various ports
 app.add_middleware(
@@ -43,6 +53,62 @@ app.add_middleware(
 
 TEMP_DIR = backend_dir / "temp_uploads"
 TEMP_DIR.mkdir(exist_ok=True)
+
+
+class CypherQueryRequest(BaseModel):
+    query: str
+
+
+@app.get("/api/cypher/health")
+async def cypher_health():
+    try:
+        cfg = get_settings()
+        return {
+            "status": "online",
+            "neo4j_uri": cfg.neo4j_uri,
+            "model": cfg.groq_model,
+        }
+    except Exception as e:
+        return {"status": "degraded", "error": str(e)}
+
+
+@app.post("/api/cypher/query")
+@app.post("/api/lexigraph/query")
+@app.post("/api/query")
+async def cypher_query_endpoint(req: CypherQueryRequest):
+    if not req.query or not req.query.strip():
+        return JSONResponse(
+            status_code=400,
+            content={"success": False, "message": "Query string cannot be empty."}
+        )
+    
+    try:
+        # Run synchronous Text2Cypher multi-stage pipeline in threadpool
+        result = await asyncio.to_thread(run_pipeline, req.query.strip())
+        
+        # Dump model to json-serializable dict
+        data = result.model_dump(mode="json")
+        
+        intent_val = result.intent.value if hasattr(result.intent, "value") else str(result.intent)
+        
+        return {
+            "success": True,
+            "data": data,
+            "intent": intent_val,
+            "answer": result.answer,
+            "response": result.answer,
+            "agent": "LexiGraph Cypher",
+        }
+    except Exception as e:
+        print(f"Error executing Text2Cypher pipeline: {str(e)}", file=sys.stderr)
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "message": f"Legal Text2Cypher pipeline error: {str(e)}"
+            }
+        )
+
 
 @app.post("/api/evidence/analyze")
 async def analyze_evidence_endpoint(file: UploadFile = File(...)):
@@ -105,6 +171,8 @@ async def analyze_evidence_endpoint(file: UploadFile = File(...)):
             except Exception as cleanup_err:
                 print(f"Error cleaning up temp file {temp_file_path}: {cleanup_err}", file=sys.stderr)
 
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("app:app", host="0.0.0.0", port=5001, reload=True)
+

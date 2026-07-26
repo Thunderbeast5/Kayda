@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import HomePage from "./pages/HomePage";
 import EvidenceAnalyzerPage from "./pages/EvidenceAnalyzerPage";
+import LexiGraphCypherPage from "./pages/LexiGraphCypherPage";
 
 export default function App() {
   const [page, setPage] = useState(getPageFromHash());
@@ -21,6 +22,16 @@ export default function App() {
     );
   }
 
+  if (page === "text2cypher" || page === "lexigraph" || page === "cypher") {
+    return (
+      <LexiGraphCypherPage
+        onBack={() => {
+          window.location.hash = "#/";
+        }}
+      />
+    );
+  }
+
   return <HomePage />;
 }
 
@@ -28,3 +39,4 @@ function getPageFromHash() {
   const hash = window.location.hash.replace("#/", "").replace("#", "");
   return hash || "home";
 }
+
