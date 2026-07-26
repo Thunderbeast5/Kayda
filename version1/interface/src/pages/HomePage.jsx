@@ -207,9 +207,6 @@ function LandingPage({ userRole, setUserRole, onEnterCourt }) {
             <button onClick={() => scrollToSection("choose-role")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1.5">
               Moot Court <span className="text-[10px] text-[#D4AF37]">✦</span>
             </button>
-            <button onClick={() => { window.location.hash = '#/text2cypher'; }} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1">
-              LexiGraph Cypher <span className="text-[10px] text-[#D4AF37]">✦</span>
-            </button>
             <button onClick={() => { window.location.hash = '#/evidence-analyzer'; }} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1">
               Document Suite <span className="text-[10px] text-[#2C1810]/40">▾</span>
             </button>
@@ -282,20 +279,20 @@ function LandingPage({ userRole, setUserRole, onEnterCourt }) {
 
       {/* 2. CHOOSE YOUR ROLE SECTION */}
       <section id="choose-role" className="py-28 md:py-36 px-6 md:px-12 border-b border-surface-border bg-[#FAF8F5]">
-        <div className="max-w-6xl mx-auto flex flex-col items-center">
+        <div className="max-w-7xl mx-auto flex flex-col items-center">
           <div className="text-center mb-16 md:mb-20">
             <span className="font-mono text-[10px] md:text-xs uppercase tracking-[0.3em] text-[#C5A059] font-bold mb-3 block">
-              ADVOCACY OR ADJUDICATION
+              ADVOCACY, ADJUDICATION & GRAPH INTELLIGENCE
             </span>
             <h2 className="font-heading text-3xl md:text-4xl lg:text-5xl font-bold text-[#2C1810] tracking-tight mb-4">
-              Proceed as Counsel or Adjudicator
+              Proceed as Counsel, Adjudicator or Intelligence Engine
             </h2>
             <p className="font-body text-sm md:text-base text-[#5D4037]/80 max-w-xl mx-auto leading-relaxed">
-              Select your procedural capacity to initiate the simulation.
+              Select your procedural capacity to initiate the simulation or access graph intelligence.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 max-w-5xl w-full justify-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 md:gap-8 max-w-6xl w-full justify-center">
             {[
               {
                 id: "prosecutor",
@@ -320,16 +317,34 @@ function LandingPage({ userRole, setUserRole, onEnterCourt }) {
                 title: "Observer",
                 icon: <Eye className="text-[#2C1810] group-hover:text-[#D4AF37] transition-colors duration-300 w-7 h-7" strokeWidth={1.5} />,
                 desc: "Monitor simulated proceedings, inspect agent reasoning, and audit trial dockets.",
+              },
+              {
+                id: "lexigraph",
+                title: "LexiGraph Cypher",
+                badge: "AI GRAPH",
+                icon: <Network className="text-[#2C1810] group-hover:text-[#D4AF37] transition-colors duration-300 w-7 h-7" strokeWidth={1.5} />,
+                desc: "Query the IPC & BNS legal graph in natural language with deterministic Cypher generation.",
+                action: () => { window.location.hash = "#/text2cypher"; }
               }
             ].map(role => (
               <div 
                 key={role.id}
                 onClick={() => {
-                  setUserRole(role.id);
-                  onEnterCourt();
+                  if (role.action) {
+                    role.action();
+                  } else {
+                    setUserRole(role.id);
+                    onEnterCourt();
+                  }
                 }}
-                className="group cursor-pointer flex flex-col items-center select-none text-center bg-[#FAF9F7] border border-[#2C1810]/12 rounded-xl p-8 md:p-10 transition-all duration-300 transform hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-[0_8px_30px_rgba(212,175,55,0.06)]"
+                className="group cursor-pointer flex flex-col items-center select-none text-center bg-[#FAF9F7] border border-[#2C1810]/12 rounded-xl p-8 md:p-10 transition-all duration-300 transform hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-[0_8px_30px_rgba(212,175,55,0.06)] relative overflow-hidden"
               >
+                {role.badge && (
+                  <span className="absolute top-3 right-3 px-2 py-0.5 text-[9px] font-mono font-bold tracking-wider uppercase bg-[#D4AF37]/20 text-[#8C5A3C] border border-[#D4AF37]/40 rounded-full">
+                    {role.badge}
+                  </span>
+                )}
+
                 {/* Emblem Circle Wrapper */}
                 <div className="w-16 h-16 rounded-full bg-[#2C1810]/5 flex items-center justify-center mb-6 group-hover:bg-[#D4AF37]/10 transition-colors duration-300">
                   {role.icon}
