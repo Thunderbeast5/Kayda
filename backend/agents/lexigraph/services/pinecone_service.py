@@ -49,6 +49,13 @@ class PineconeService:
         index = self._get_index()
         retrieval_results = []
 
+        namespaces_to_query = [namespace]
+        if namespace != "legal_cases":
+            if namespace and namespace != "":
+                namespaces_to_query = [namespace, ""]
+            else:
+                namespaces_to_query = [""]
+
         for item in embeddings_list:
             query_str = item.get("query") or ""
             vector = item.get("embedding") or []
@@ -57,35 +64,34 @@ class PineconeService:
                 continue
                 
             try:
-                query_kwargs = {
-                    "vector": vector,
-                    "top_k": top_k,
-                    "include_metadata": True
-                }
-                if namespace:
-                    query_kwargs["namespace"] = namespace
+                combined_matches_dict = {}
+                for ns in namespaces_to_query:
+                    query_kwargs = {
+                        "vector": vector,
+                        "top_k": top_k,
+                        "include_metadata": True
+                    }
+                    if ns:
+                        query_kwargs["namespace"] = ns
 
-                response = index.query(**query_kwargs)
-                raw_matches = response.get("matches") or []
+                    response = index.query(**query_kwargs)
+                    raw_matches = response.get("matches") or []
 
-                # Fallback to default namespace if specified namespace returned no matches
-                if not raw_matches and namespace and namespace != "":
-                    fallback_kwargs = dict(query_kwargs)
-                    fallback_kwargs.pop("namespace", None)
-                    fallback_response = index.query(**fallback_kwargs)
-                    raw_matches = fallback_response.get("matches") or []
+                    for match in raw_matches:
+                        m_id = match.get("id") or ""
+                        score = float(match.get("score") if match.get("score") is not None else 0.0)
+                        if m_id not in combined_matches_dict or score > combined_matches_dict[m_id]["score"]:
+                            combined_matches_dict[m_id] = {
+                                "id": m_id,
+                                "score": score,
+                                "metadata": match.get("metadata") or {}
+                            }
 
-                matches = []
-                for match in raw_matches:
-                    matches.append({
-                        "id": match.get("id") or "",
-                        "score": float(match.get("score") if match.get("score") is not None else 0.0),
-                        "metadata": match.get("metadata") or {}
-                    })
-                    
+                sorted_matches = sorted(combined_matches_dict.values(), key=lambda x: x["score"], reverse=True)[:top_k]
+
                 retrieval_results.append({
                     "query": query_str,
-                    "matches": matches
+                    "matches": sorted_matches
                 })
             except Exception as e:
                 print(f"[PineconeService] Failed to query Pinecone for query '{query_str}': {e}")
