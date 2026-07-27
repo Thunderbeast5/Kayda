@@ -17,7 +17,7 @@ from pathlib import Path
 from collections import defaultdict
 
 
-BASE_MODEL  = "Qwen/Qwen2-0.5B-Instruct"
+BASE_MODEL  = "google/gemma-3-4b-it"
 MAX_NEW_TOK = 80
 
 
@@ -136,7 +136,7 @@ def load_baseline() -> dict | None:
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--adapter",  default="models/adapters/legal-ipc-lora/final")
+    parser.add_argument("--adapter",  default="models/adapters/gemma3-legal-lora/final")
     parser.add_argument("--model",    default=BASE_MODEL)
     parser.add_argument("--data_dir", default="data/processed")
     parser.add_argument("--limit",    type=int, default=0)

@@ -182,7 +182,7 @@ def main():
         print(f"ERROR: Directory not found: {data_dir}")
         return
 
-    json_files = sorted(data_dir.glob("*.json"))
+    json_files = sorted(data_dir.rglob("*.json"))  # rglob = recursive, finds files in subfolders
     if not json_files:
         print(f"ERROR: No JSON files found in {data_dir}")
         return

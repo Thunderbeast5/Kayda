@@ -26,7 +26,7 @@ from pathlib import Path
 from collections import defaultdict
 
 
-BASE_MODEL   = "Qwen/Qwen2-0.5B-Instruct"
+BASE_MODEL  = "google/gemma-3-4b-it"
 MAX_NEW_TOK  = 80    # output is short: "IPC Sections: 302, 34\nBNS: ..."
 
 

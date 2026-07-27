@@ -53,14 +53,14 @@ def contains_section(text: str, section: str) -> bool:
 
 def main():
     parser = argparse.ArgumentParser(description="Test GGUF model")
-    parser.add_argument("--gguf", default="models/gguf/legal-ipc-Q4_K_M.gguf")
+    parser.add_argument("--gguf", default="models/gguf/gemma3-legal-Q4_K_M.gguf")
     parser.add_argument("--n_ctx", type=int, default=2048)
     args = parser.parse_args()
 
     gguf_path = Path(args.gguf)
     if not gguf_path.exists():
         # Try FP16 fallback
-        fp16 = Path("models/gguf/legal-ipc-f16.gguf")
+        fp16 = Path("models/gguf/gemma3-legal-f16.gguf")
         if fp16.exists():
             print(f"Q4 GGUF not found, using FP16: {fp16}")
             gguf_path = fp16

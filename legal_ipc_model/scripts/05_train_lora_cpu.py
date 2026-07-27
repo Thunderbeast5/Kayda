@@ -38,15 +38,16 @@ from pathlib import Path
 
 
 # ── Config ────────────────────────────────────────────────────────────────────
-BASE_MODEL    = "Qwen/Qwen2-0.5B-Instruct"
-ADAPTER_DIR   = "models/adapters/legal-ipc-lora"
-CHECKPOINT_DIR= "models/adapters/legal-ipc-lora/checkpoints"
+BASE_MODEL    = "google/gemma-3-4b-it"
+ADAPTER_DIR   = "models/adapters/gemma3-legal-lora"
+CHECKPOINT_DIR= "models/adapters/gemma3-legal-lora/checkpoints"
 LOG_FILE      = "logs/training_log.jsonl"
 
-LORA_R        = 8
-LORA_ALPHA    = 16
+LORA_R        = 16           # increased from 8 — Gemma-3-4B benefits from higher rank
+LORA_ALPHA    = 32
 LORA_DROPOUT  = 0.05
-TARGET_MODULES= ["q_proj", "v_proj", "o_proj"]   # safe for Qwen2
+TARGET_MODULES= ["q_proj", "k_proj", "v_proj", "o_proj",
+                 "gate_proj", "up_proj", "down_proj"]  # Gemma-3 full attention + MLP
 
 BATCH_SIZE    = 1
 GRAD_ACCUM    = 8
@@ -69,21 +70,20 @@ def load_jsonl(path: Path) -> list:
 
 
 def format_prompt(record: dict, tokenizer) -> str:
-    """Format a record as a chat prompt + answer for SFT."""
+    """Format a record as a chat prompt + answer for SFT — Gemma-3 format."""
     instruction = record.get("instruction", "")
     input_text  = record.get("input", "")
     output      = record.get("output", "")
 
     messages = [
-        {"role": "system", "content": instruction},
-        {"role": "user",   "content": input_text},
+        {"role": "user", "content": f"{instruction}\n\n{input_text}"},
     ]
     try:
         prompt_only = tokenizer.apply_chat_template(
             messages, tokenize=False, add_generation_prompt=True
         )
     except Exception:
-        prompt_only = f"System: {instruction}\nUser: {input_text}\nAssistant:"
+        prompt_only = f"<start_of_turn>user\n{instruction}\n\n{input_text}<end_of_turn>\n<start_of_turn>model\n"
 
     return prompt_only + output + tokenizer.eos_token
 
