@@ -7,11 +7,15 @@ export default function LandingNavbar({ scrollToSection }) {
         
         {/* Logo + Emblem */}
         <div 
-          className="flex items-center gap-3.5 cursor-pointer select-none"
+          className="flex items-center cursor-pointer select-none"
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
           <img src={logo} alt="Kayda Logo" className="w-14 h-auto" />
-          <span className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-[#2C1810]">Kayda</span>
+          
+          {/* Reduced the top margin to mt-0.5 to bring it slightly up from the last adjustment */}
+          <span className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-[#2C1810] -ml-[16px] mt-0.5">
+            ayda
+          </span>
         </div>
 
         {/* Navigation Links */}
