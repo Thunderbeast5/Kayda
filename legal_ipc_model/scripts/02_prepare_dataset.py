@@ -251,8 +251,8 @@ def main():
     data_dir = Path(args.data_dir)
     out_dir  = Path(args.output_dir)
 
-    json_files = sorted(data_dir.glob("*.json"))
-    print(f"\nFound {len(json_files)} JSON files in {data_dir}")
+    json_files = sorted(data_dir.rglob("*.json"))  # rglob = recursive subfolders
+    print(f"\nFound {len(json_files)} JSON files in {data_dir} (including subfolders)")
 
     records        = []
     skipped        = 0

@@ -121,7 +121,7 @@ def analyze_split(name: str, records: list) -> dict:
 def print_analysis(stats: dict):
     name  = stats["name"]
     count = stats["count"]
-    print(f"\n── {name.upper()} ({count} records) ─────────────────────────")
+    print(f"\n-- {name.upper()} ({count} records) -------------------------")
     if count == 0:
         print("  (empty)")
         return
@@ -223,12 +223,12 @@ def main():
 
     # Show 1 sample record
     if train:
-        print("── SAMPLE TRAINING RECORD ──────────────────────────────")
+        print("-- SAMPLE TRAINING RECORD ------------------------------------------")
         r = train[0]
         print(f"  INSTRUCTION: {r.get('instruction','')[:80]}...")
         print(f"  INPUT (first 200 chars): {r.get('input','')[:200]}")
         print(f"  OUTPUT: {r.get('output','')}")
-        print("────────────────────────────────────────────────────────\n")
+        print("--------------------------------------------------------------------\n")
 
 
 if __name__ == "__main__":

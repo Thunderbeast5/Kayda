@@ -19,8 +19,8 @@ import os
 from pathlib import Path
 
 
-GGUF_PATH   = "models/gguf/legal-ipc-Q4_K_M.gguf"
-MODEL_NAME  = "legal-ipc-trained"
+GGUF_PATH   = "models/gguf/gemma3-legal-Q4_K_M.gguf"
+MODEL_NAME  = "gemma3-legal"
 MODELFILE   = "models/gguf/Modelfile"
 
 SYSTEM_PROMPT = (
@@ -83,7 +83,7 @@ def main():
     # Prefer Q4 GGUF, fall back to FP16
     gguf_path = Path(args.gguf)
     if not gguf_path.exists():
-        fp16 = Path("models/gguf/legal-ipc-f16.gguf")
+        fp16 = Path("models/gguf/gemma3-legal-f16.gguf")
         if fp16.exists():
             print(f"Q4 GGUF not found, using FP16: {fp16}")
             gguf_path = fp16

@@ -16,9 +16,9 @@ import argparse
 from pathlib import Path
 
 
-BASE_MODEL  = "Qwen/Qwen2-0.5B-Instruct"
-ADAPTER_DIR = "models/adapters/legal-ipc-lora/final"
-MERGED_DIR  = "models/merged/legal-ipc"
+BASE_MODEL  = "google/gemma-3-4b-it"
+ADAPTER_DIR = "models/adapters/gemma3-legal-lora/final"
+MERGED_DIR  = "models/merged/gemma3-legal"
 
 
 def main():

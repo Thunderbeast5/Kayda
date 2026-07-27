@@ -25,11 +25,11 @@ import sys
 from pathlib import Path
 
 
-MERGED_DIR   = "models/merged/legal-ipc"
+MERGED_DIR   = "models/merged/gemma3-legal"
 GGUF_DIR     = "models/gguf"
 LLAMA_CPP_DIR= "llama.cpp"
-FP16_GGUF    = "models/gguf/legal-ipc-f16.gguf"
-QUANT_GGUF   = "models/gguf/legal-ipc-Q4_K_M.gguf"
+FP16_GGUF    = "models/gguf/gemma3-legal-f16.gguf"
+QUANT_GGUF   = "models/gguf/gemma3-legal-Q4_K_M.gguf"
 QUANT_TYPE   = "Q4_K_M"
 
 

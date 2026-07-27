@@ -21,7 +21,7 @@ import requests
 from pathlib import Path
 
 
-DEFAULT_MODEL = "legal-ipc-trained"
+DEFAULT_MODEL = "gemma3-legal"
 OLLAMA_URL    = "http://127.0.0.1:11434"
 
 # Deterministic IPC→BNS mapping (same as 02_prepare_dataset.py)
