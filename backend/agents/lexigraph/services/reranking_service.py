@@ -38,18 +38,18 @@ class RerankingService:
         if user_query:
             query_lower = user_query.lower()
             critical_terms = {
-                "assault": ["assault", "force", "attack", "threaten", "beat", "hit", "struck", "strike"],
-                "murder": ["murder", "kill", "death", "dead", "homicide", "slay", "body"],
-                "rape": ["rape", "sexual", "molest", "assault"],
-                "kidnapping": ["kidnap", "abduct", "take away", "hostage"],
+                "assault": ["assault", "force", "attack", "threaten", "beat", "hit", "struck", "strike", "grab", "touch", "groped"],
+                "murder": ["murder", "kill", "death", "dead", "homicide", "slay", "body", "burn", "fire", "flames", "stab", "strangle", "poison"],
+                "rape": ["rape", "sexual", "molest", "assault", "intercourse", "penetrat"],
+                "kidnapping": ["kidnap", "abduct", "take away", "hostage", "detain"],
                 "forgery": ["forge", "forger", "fake", "falsify", "counterfeit"],
                 "counterfeit": ["counterfeit", "fake", "forge", "coin", "currency", "notes"],
                 "extortion": ["extortion", "extort", "blackmail", "threaten"],
                 "dacoity": ["dacoity", "dacoit", "gang robbery"],
                 "robbery": ["robbery", "rob", "heist"],
                 "suicide": ["suicide", "kill self"],
-                "dowry": ["dowry", "marriage gift"],
-                "cruelty": ["cruelty", "harass", "abuse"],
+                "dowry": ["dowry", "marriage gift", "demands"],
+                "cruelty": ["cruelty", "harass", "abuse", "beaten", "torture", "threatened"],
                 "defamation": ["defamation", "defame", "slander", "libel"]
             }
             
@@ -119,10 +119,11 @@ class RerankingService:
             # 1. Semantic Similarity (0.40 weight)
             similarity = float(candidate.get("similarity") if candidate.get("similarity") is not None else candidate.get("vector_similarity", 0.0))
             
-            # 2. Keyword Match (0.20 weight)
-            keyword_match = float(
-                candidate.get("keyword_match") if candidate.get("keyword_match") is not None
-                else candidate.get("keyword_overlap", 0.0)
+            # 2. Ingredient Score (0.20 weight) - Statutory ingredient satisfaction & mandatory checks
+            ing_score = float(
+                candidate.get("ingredient_confidence")
+                if candidate.get("ingredient_confidence") is not None
+                else candidate.get("ingredient_score", 0.75)
             )
 
             # 3. Graph Score (0.15 weight)
@@ -156,7 +157,7 @@ class RerankingService:
             elif cand_comm == "general_offences" or not cand_comm:
                 community_match = 0.5
             elif target_comm and cand_comm and cand_comm != target_comm:
-                community_match = 0.0
+                community_match = 0.3
             else:
                 community_match = 0.5
 
@@ -167,19 +168,20 @@ class RerankingService:
             else:
                 case_similarity = avg_top_case_sim
 
-            # 6. Metadata Score (0.05 weight)
+            # 6. Metadata Score (0.10 weight)
             if "metadata_completeness" in candidate and candidate["metadata_completeness"] is not None:
                 metadata_score = float(candidate["metadata_completeness"])
             else:
                 metadata_score = 1.0 if candidate.get("metadata_verified") else 0.5
 
-            # Calculate Final Score (40% Sim, 20% KW, 15% Graph, 10% Comm, 10% Case, 5% Meta)
-            confidence = (0.40 * similarity) + \
-                         (0.20 * keyword_match) + \
+            # Calculate Legally-Meaningful Multi-Signal Confidence:
+            # 35% Similarity, 20% Ingredients, 15% Graph, 10% Community, 10% Case, 10% Metadata
+            confidence = (0.35 * similarity) + \
+                         (0.20 * ing_score) + \
                          (0.15 * graph_score) + \
                          (0.10 * community_match) + \
                          (0.10 * case_similarity) + \
-                         (0.05 * metadata_score)
+                         (0.10 * metadata_score)
             
             confidence = round(min(max(confidence, 0.0), 1.0), 4)
 
@@ -187,16 +189,16 @@ class RerankingService:
             updated_candidate = dict(candidate)
             updated_candidate["confidence"] = confidence
             updated_candidate["similarity"] = round(similarity, 4)
-            updated_candidate["keyword_match"] = round(keyword_match, 4)
+            updated_candidate["ingredient_score"] = round(ing_score, 4)
             updated_candidate["community_match"] = round(community_match, 4)
             updated_candidate["case_similarity"] = round(case_similarity, 4)
             updated_candidate["score_breakdown"] = {
-                "semantic_similarity": round(similarity, 4),
-                "keyword_match": round(keyword_match, 4),
-                "graph_score": round(graph_score, 4),
-                "community_match": round(community_match, 4),
-                "case_similarity": round(case_similarity, 4),
-                "metadata_score": round(metadata_score, 4),
+                "vector_similarity_35": round(similarity, 4),
+                "ingredient_validation_20": round(ing_score, 4),
+                "graph_enrichment_15": round(graph_score, 4),
+                "community_match_10": round(community_match, 4),
+                "case_precedents_10": round(case_similarity, 4),
+                "metadata_completeness_10": round(metadata_score, 4),
                 "confidence": confidence,
             }
             

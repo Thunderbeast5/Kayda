@@ -12,6 +12,9 @@ from .services.verification_service import VerificationService
 from .services.reranking_service import RerankingService
 from .services.legal_reasoning_service import LegalReasoningService
 from .services.community_retrieval_service import CommunityRetrievalService
+from .services.fact_extractor_service import FactExtractorService
+from .services.ingredient_validator_service import IngredientValidatorService
+from .services.evidence_ranking_service import EvidenceRankingService
 
 _IPC_ID_RE = re.compile(r"^IPC_\d+[A-Za-z]*$")
 _BNS_ID_RE = re.compile(r"^BNS_\d+[A-Za-z]*$")
@@ -108,6 +111,9 @@ class LexiGraphAgent:
         self.community_retrieval_service = CommunityRetrievalService()
         self.reranking_service = RerankingService()
         self.legal_reasoning_service = LegalReasoningService()
+        self.fact_extractor_service = FactExtractorService()
+        self.ingredient_validator_service = IngredientValidatorService(self.verification_service.neo4j_service)
+        self.evidence_ranking_service = EvidenceRankingService()
 
     def process_query(self, query: str, debug: bool = False) -> Dict[str, Any]:
         """
@@ -323,6 +329,7 @@ class LexiGraphAgent:
         # ── STEP 7: Community-aware Scoring & Reranking ────────────────────
         print("[LexiGraphAgent] Step 7: Multi-Signal Scoring & Reranking (40% Sim, 20% KW, 15% Graph, 10% Comm, 10% Case, 5% Meta)...")
         unranked_candidates = []
+        rejected_by_validation = []
 
         for item in enriched_list:
             scoring = self.reranking_service.compute_retrieval_score(
@@ -332,7 +339,7 @@ class LexiGraphAgent:
             )
             keyword_match = scoring["keyword_overlap"]
 
-            unranked_candidates.append({
+            cand_obj = {
                 "section": item["section"],
                 "act": item["act"],
                 "section_num": item["section_num"],
@@ -347,7 +354,19 @@ class LexiGraphAgent:
                 "sources": item["sources"],
                 "relationships": item.get("relationships") or {},
                 "community_id": item.get("community_id") or item.get("community", {}).get("candidate_community_id")
-            })
+            }
+
+            # Run Ingredient Validation to attach ingredient_confidence before multi-signal reranking
+            is_valid, val_reason = self._validate_legal_applicability(cand_obj, query, primary_intent)
+            cand_obj["is_valid"] = is_valid
+            cand_obj["validation_reason"] = val_reason
+
+            if is_valid:
+                unranked_candidates.append(cand_obj)
+            else:
+                cand_obj["rejection_reason"] = val_reason
+                rejected_by_validation.append(cand_obj)
+                print(f"[LegalValidation] Rejected {cand_obj.get('section')}: {cand_obj.get('title')} | Reason: {val_reason}")
 
         rerank_output = self.reranking_service.rerank_candidates({
             "verified_candidates": unranked_candidates,
@@ -355,20 +374,7 @@ class LexiGraphAgent:
             "top_case_similarity": top_case_sim
         })
         ranked_candidates = rerank_output.get("ranked_candidates") or []
-
-        # Legal Validation
-        validated_candidates = []
-        rejected_by_validation = []
-
-        for cand in ranked_candidates:
-            is_valid, val_reason = self._validate_legal_applicability(cand, query, primary_intent)
-            if is_valid:
-                validated_candidates.append(cand)
-            else:
-                cand_copy = dict(cand)
-                cand_copy["rejection_reason"] = val_reason
-                rejected_by_validation.append(cand_copy)
-                print(f"[LegalValidation] Rejected {cand.get('section')}: {cand.get('title')} | Reason: {val_reason}")
+        validated_candidates = ranked_candidates
 
         # Truncate to RERANK_TOP_K (Top 5)
         top_5_candidates = validated_candidates[:RERANK_TOP_K]
@@ -473,9 +479,27 @@ class LexiGraphAgent:
                 else:
                     act_val, sec_val = _normalize_section_params("", sec_raw)
                     node_info = self.verification_service.get_node_info(act_val, sec_val)
-                    title_val = node_info.get("title") or item.get("title") or ""
+                    title_val = (node_info.get("title") if node_info else "") or item.get("title") or ""
 
                 eq_sec = self.verification_service.get_equivalent_ipc_section(act_val, sec_val)
+
+                # Ensure primary output consistently uses chosen legal code (IPC if explicitly asked, else default BNS)
+                target_primary_act = "IPC" if user_asked_ipc else "BNS"
+                if act_val != target_primary_act and eq_sec and eq_sec.get("act") == target_primary_act:
+                    orig_act = act_val
+                    orig_sec = sec_val
+
+                    act_val = eq_sec["act"]
+                    sec_val = eq_sec["section"]
+                    node_info = self.verification_service.get_node_info(act_val, sec_val)
+                    if node_info and node_info.get("title"):
+                        title_val = node_info["title"]
+
+                    eq_sec = {
+                        "act": orig_act,
+                        "section": orig_sec,
+                        "mapping_verified": True
+                    }
 
                 top_recommended.append({
                     "act": act_val,
@@ -529,7 +553,14 @@ class LexiGraphAgent:
 
         graph_ev = supporting_graph.get("evidence") or []
         llm_ev = (case_analysis.get("supporting_evidence") if case_analysis else None) or []
-        supporting_evidence = sorted(list(set(graph_ev + llm_ev)))
+        raw_evidence_set = list(set(graph_ev + llm_ev))
+        extracted_facts = self.fact_extractor_service.extract_facts(query)
+        supporting_evidence = self.evidence_ranking_service.rank_evidence(
+            evidence_list=raw_evidence_set,
+            query=query,
+            facts=extracted_facts,
+            max_items=6
+        )
 
         graph_prin = supporting_graph.get("principles") or []
         llm_prin = (case_analysis.get("supporting_principles") if case_analysis else None) or []
@@ -700,45 +731,12 @@ class LexiGraphAgent:
     ) -> tuple[bool, str]:
         """
         Step 6: Legal Validation.
-        Question: 'Does this offence logically apply to the facts?'
-        If NO -> Reject.
+        Delegates statutory ingredient verification (Actus Reus & Mens Rea) to IngredientValidatorService.
         """
-        title = (candidate.get("title") or "").lower()
-        desc = (candidate.get("description") or "").lower()
-        q_lower = query.lower()
-
-        # Reject auction/bidding/financial reporting for sexual/body crimes
-        if any(w in q_lower for w in ["rape", "sexual", "dowry", "married woman", "murder", "death", "acid"]):
-            if any(unrel in title for unrel in ["bid", "furnishing false", "unlawful purchase", "fraudulent claim", "coin", "currency", "forgery"]):
-                return False, "No factual overlap (Financial/Property/Procedure offence applied to violent/sexual crime)."
-
-        # Statutory Ingredient Check for Rape (BNS 63 / BNS 64):
-        # Rape requires non-consensual penetration/intercourse. If query uses general 'sexually assaulted'
-        # without alleging penetration, rape (BNS 63/64) elements are unverified -> Prefer BNS 355 / BNS 74 (Outraging Modesty).
-        sec_str = str(candidate.get("section") or "")
-        has_penetration_alleged = any(p_kw in q_lower for p_kw in ["penetrat", "intercourse", "raped", "rape"])
-        if ("bns 63" in sec_str.lower() or "bns 64" in sec_str.lower() or "rape" in title) and not has_penetration_alleged:
-            return False, "Statutory ingredient of Rape (penetration/intercourse) is unalleged in query. Outraging modesty (BNS 355/74) applies."
-
-        # Dowry death validation
-        if "dowry" in q_lower:
-            relevant_dowry_kw = ["dowry", "cruelty", "husband", "marriage", "woman", "death", "homicide", "murder", "harm"]
-            if not any(kw in title or kw in desc for kw in relevant_dowry_kw):
-                return False, "No factual overlap with dowry facts."
-
-        # Kidnapping validation
-        if "kidnap" in q_lower or "abduct" in q_lower:
-            relevant_kidnap_kw = ["kidnap", "abduct", "minor", "child", "guardianship", "confinement", "custody"]
-            if not any(kw in title or kw in desc for kw in relevant_kidnap_kw):
-                return False, "No factual overlap with kidnapping facts."
-
-        # Acid attack validation
-        if "acid" in q_lower:
-            relevant_acid_kw = ["acid", "grievous hurt", "hurt", "assault", "poison", "corrosive"]
-            if not any(kw in title or kw in desc for kw in relevant_acid_kw):
-                return False, "No factual overlap with acid attack facts."
-
-        return True, "Factual overlap verified."
+        extracted_facts = self.fact_extractor_service.extract_facts(query)
+        is_valid, conf, reason = self.ingredient_validator_service.validate_candidate(candidate, extracted_facts)
+        candidate["ingredient_confidence"] = conf
+        return is_valid, reason
 
 
 

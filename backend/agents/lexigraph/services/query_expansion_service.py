@@ -65,10 +65,11 @@ class QueryExpansionService:
                 "dowry death and unnatural death of married woman within seven years of marriage",
                 "cruelty and harassment by husband or relatives for dowry demand"
             ])
-        if any(w in raw_text for w in ["murder", "death", "died", "fatal", "killed"]):
+        if any(w in raw_text for w in ["murder", "death", "died", "fatal", "killed", "shoot", "shoots", "shot", "stab", "stabbed", "strangle", "poison", "firearm", "gun", "pistol", "rifle", "weapon"]):
             legal_expansions.extend([
                 "culpable homicide amounting to murder causing death of victim",
-                "intentional bodily injury causing death"
+                "intentional bodily injury causing death",
+                "murder by shooting stabbing or deadly weapon"
             ])
         if any(w in raw_text for w in ["married woman", "wife", "domestic", "husband", "partner"]):
             legal_expansions.extend([
