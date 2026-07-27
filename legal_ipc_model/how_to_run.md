@@ -626,3 +626,26 @@ python scripts\08_convert_gguf.py
 python scripts\10_build_ollama.py     --model_name legal-ipc-trained
 python scripts\11_predict.py          --model legal-ipc-trained --interactive
 ```
+
+
+
+Step 1 — Accept the Gemma license (browser, 1 minute)
+
+Open: https://huggingface.co/google/gemma-3-4b-it
+Log in to HuggingFace (create account if needed — it's free)
+Click "Agree and access repository"
+Fill the form and submit
+Step 2 — Get your HuggingFace token
+
+Go to: https://huggingface.co/settings/tokens
+Click "New token"
+Name: anything (e.g. legal-model)
+Role: Read
+Click Generate token
+Copy the token (starts with hf_...)
+Step 3 — Login on your machine
+
+
+
+cd d:\khete\mootcourt\legal_ipc_model
+venv_cpu\Scripts\huggingface-cli login
