@@ -96,7 +96,7 @@ User statement to analyze:
             return "women_offences"
         if any(w in q for w in ["minor", "child", "children", "infant", "kidnap", "abduct"]):
             return "children_offences"
-        if any(w in q for w in ["murder", "homicide", "death", "killed", "die", "hurt", "injury", "assault"]):
+        if any(w in q for w in ["murder", "homicide", "death", "killed", "die", "hurt", "injury", "assault", "shoot", "shoots", "shot", "stab", "stabbed", "pistol", "gun", "weapon"]):
             return "human_body_offences"
         if any(w in q for w in ["theft", "stole", "robbery", "burglary", "extortion", "trespass", "almirah", "housebreak"]):
             return "property_offences"
