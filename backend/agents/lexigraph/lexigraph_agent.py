@@ -18,15 +18,17 @@ from .services.evidence_ranking_service import EvidenceRankingService
 
 _IPC_ID_RE = re.compile(r"^IPC_\d+[A-Za-z]*$")
 _BNS_ID_RE = re.compile(r"^BNS_\d+[A-Za-z]*$")
+_POCSO_ID_RE = re.compile(r"^POCSO_\d+[A-Za-z]*$")
 _SECTION_RE = re.compile(r"^\d+[A-Za-z]*$")
 
 
 def _is_legal_section_hit(match_id: str, meta: Dict[str, Any]) -> bool:
-    """Return True if the match corresponds to an IPC or BNS legal section, false for CASE/Evidence."""
-    if _IPC_ID_RE.match(match_id) or _BNS_ID_RE.match(match_id):
+    """Return True if the match corresponds to a statutory legal section, false for CASE/Evidence."""
+    if _IPC_ID_RE.match(match_id) or _BNS_ID_RE.match(match_id) or _POCSO_ID_RE.match(match_id):
         return True
     sec = str(meta.get("section", ""))
-    return bool(sec and _SECTION_RE.match(sec))
+    sec_num = str(meta.get("section_num", ""))
+    return bool((sec and _SECTION_RE.match(sec)) or (sec_num and _SECTION_RE.match(sec_num)))
 
 
 def _normalize_section_params(act: str, section_num: str) -> tuple[str, str]:

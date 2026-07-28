@@ -32,6 +32,16 @@ from evidence.evidence_analyzer import (
 from backend.agents.lexigraph.cypher.legal_text2cypher.agents.pipeline import run_pipeline
 from backend.agents.lexigraph.cypher.legal_text2cypher.config.settings import get_settings
 
+lexigraph_agent_instance = None
+
+
+def get_lexigraph_agent():
+    global lexigraph_agent_instance
+    if lexigraph_agent_instance is None:
+        from backend.agents.lexigraph.lexigraph_agent import LexiGraphAgent
+        lexigraph_agent_instance = LexiGraphAgent()
+    return lexigraph_agent_instance
+
 app = FastAPI(title="MootCourt Legal Intelligence & Evidence API")
 
 # Enable CORS for localhost and 127.0.0.1 on various ports
@@ -59,6 +69,11 @@ class CypherQueryRequest(BaseModel):
     query: str
 
 
+class LexiGraphAgentQueryRequest(BaseModel):
+    query: str
+    debug: bool = False
+
+
 @app.get("/api/cypher/health")
 async def cypher_health():
     try:
@@ -73,7 +88,6 @@ async def cypher_health():
 
 
 @app.post("/api/cypher/query")
-@app.post("/api/lexigraph/query")
 @app.post("/api/query")
 async def cypher_query_endpoint(req: CypherQueryRequest):
     if not req.query or not req.query.strip():
@@ -106,6 +120,34 @@ async def cypher_query_endpoint(req: CypherQueryRequest):
             content={
                 "success": False,
                 "message": f"Legal Text2Cypher pipeline error: {str(e)}"
+            }
+        )
+
+
+@app.post("/api/lexigraph-agent/query")
+@app.post("/api/lexigraph/agent/query")
+@app.post("/api/lexigraph/query")
+async def lexigraph_agent_query_endpoint(req: LexiGraphAgentQueryRequest):
+    if not req.query or not req.query.strip():
+        return JSONResponse(
+            status_code=400,
+            content={"success": False, "message": "Query string cannot be empty."}
+        )
+    try:
+        agent = get_lexigraph_agent()
+        result = await asyncio.to_thread(agent.process_query, req.query.strip(), req.debug)
+        return {
+            "success": True,
+            "data": result,
+            "agent": "LexiGraph Agent",
+        }
+    except Exception as e:
+        print(f"Error executing LexiGraph Agent pipeline: {str(e)}", file=sys.stderr)
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "message": f"LexiGraph Agent error: {str(e)}"
             }
         )
 

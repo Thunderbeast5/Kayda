@@ -17,6 +17,7 @@ import {
   Copy,
   Check,
   ShieldCheck,
+  Network,
 } from "lucide-react";
 import logo from "../assets/logo1.svg";
 
@@ -102,18 +103,13 @@ export default function LexiGraphCypherPage({ onBack }) {
           </div>
 
           <div className="flex items-center gap-3">
-            <a
-              href="#/evidence-analyzer"
-              className="px-4 py-2 text-xs font-semibold uppercase tracking-wider text-[#2C1810] hover:text-[#8C5A3C] transition-colors"
+            <button
+              onClick={() => { window.location.hash = "#/lexigraph-agent"; }}
+              className="px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-[#2C1810] bg-white border border-[#2C1810]/20 rounded-lg hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all flex items-center gap-2 cursor-pointer"
             >
-              Document Suite
-            </a>
-            <a
-              href="#/"
-              className="px-4 py-2 text-xs font-semibold uppercase tracking-wider bg-[#2C1810] text-[#FAF9F7] rounded-full border border-[#D4AF37] hover:bg-[#8C5A3C] transition-all"
-            >
-              Moot Courtroom
-            </a>
+              <Network className="w-3.5 h-3.5 text-[#8C5A3C]" />
+              Switch to Legal Agent
+            </button>
           </div>
         </div>
       </header>
