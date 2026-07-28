@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Search,
   Network,
@@ -21,6 +21,11 @@ import {
   ShieldCheck,
   Check,
   Copy,
+  Clock,
+  Database,
+  X,
+  CloudCheck,
+  Cloud,
 } from "lucide-react";
 import logo from "../assets/logo1.svg";
 
@@ -50,6 +55,33 @@ export default function LexiGraphAgentPage({ onBack, onSwitchToCypher }) {
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
   const [copiedIndex, setCopiedIndex] = useState(null);
+  const [queryMeta, setQueryMeta] = useState(null); // { query_id, created_at, saved_to_firestore }
+
+  // History Drawer State
+  const [showHistory, setShowHistory] = useState(false);
+  const [historyItems, setHistoryItems] = useState([]);
+  const [loadingHistory, setLoadingHistory] = useState(false);
+  const [loadingHistoryId, setLoadingHistoryId] = useState(null);
+
+  const fetchHistory = async () => {
+    setLoadingHistory(true);
+    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5001";
+    try {
+      const response = await fetch(`${apiUrl}/api/lexigraph-agent/history`);
+      const data = await response.json();
+      if (response.ok && data.success) {
+        setHistoryItems(data.data || []);
+      }
+    } catch (err) {
+      console.error("Failed to fetch LexiGraph history:", err);
+    } finally {
+      setLoadingHistory(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchHistory();
+  }, []);
 
   const handleSearch = async (e, customQuery) => {
     if (e) e.preventDefault();
@@ -59,6 +91,7 @@ export default function LexiGraphAgentPage({ onBack, onSwitchToCypher }) {
     setLoading(true);
     setError(null);
     setResult(null);
+    setQueryMeta(null);
     setCurrentStep(0);
 
     // Step animation simulator
@@ -81,12 +114,47 @@ export default function LexiGraphAgentPage({ onBack, onSwitchToCypher }) {
       }
 
       setResult(data.data);
+      setQueryMeta({
+        query_id: data.query_id,
+        created_at: data.created_at,
+        saved_to_firestore: data.saved_to_firestore,
+      });
+
+      // Refresh history sidebar list
+      fetchHistory();
     } catch (err) {
       console.error("LexiGraph Agent query error:", err);
       setError(err.message || "Unable to reach LexiGraph Agent backend service.");
     } finally {
       clearInterval(stepInterval);
       setLoading(false);
+    }
+  };
+
+  const loadHistoryItem = async (query_id, itemQuery) => {
+    setLoadingHistoryId(query_id);
+    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5001";
+    try {
+      const response = await fetch(`${apiUrl}/api/lexigraph-agent/history/${query_id}`);
+      const data = await response.json();
+      if (!response.ok || !data.success) {
+        throw new Error(data.message || "Failed to load past session record.");
+      }
+
+      const session = data.data;
+      setQuery(itemQuery || session.query || "");
+      setResult(session.result);
+      setQueryMeta({
+        query_id: session.query_id,
+        created_at: session.created_at,
+        saved_to_firestore: session.saved_to_firestore || session.source === "firestore",
+      });
+      setShowHistory(false);
+    } catch (err) {
+      console.error("Failed to load history session:", err);
+      setError(`Unable to load past query response: ${err.message}`);
+    } finally {
+      setLoadingHistoryId(null);
     }
   };
 
@@ -97,7 +165,7 @@ export default function LexiGraphAgentPage({ onBack, onSwitchToCypher }) {
   };
 
   return (
-    <div className="min-h-screen bg-[#FAF8F5] text-[#2C1810] font-body selection:bg-gold/30">
+    <div className="min-h-screen bg-[#FAF8F5] text-[#2C1810] font-body selection:bg-gold/30 relative">
       {/* Top Header Nav */}
       <header className="sticky top-0 z-40 bg-[#FAF9F7]/90 backdrop-blur-md border-b border-[#D4AF37]/30 px-6 py-4 shadow-sm">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -123,6 +191,24 @@ export default function LexiGraphAgentPage({ onBack, onSwitchToCypher }) {
           </div>
 
           <div className="flex items-center gap-3">
+            {/* Query History Drawer Toggle Button */}
+            <button
+              onClick={() => {
+                setShowHistory(!showHistory);
+                if (!showHistory) fetchHistory();
+              }}
+              className="px-3.5 py-2 text-xs font-mono font-bold uppercase tracking-wider text-[#2C1810] bg-[#FAF9F7] border border-[#2C1810]/20 rounded-lg hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all flex items-center gap-2 cursor-pointer relative"
+              title="View Firebase Saved Searches"
+            >
+              <Clock className="w-3.5 h-3.5 text-[#8C5A3C]" />
+              Query History
+              {historyItems.length > 0 && (
+                <span className="ml-1 px-1.5 py-0.2 text-[9px] bg-[#D4AF37] text-[#2C1810] rounded-full font-extrabold">
+                  {historyItems.length}
+                </span>
+              )}
+            </button>
+
             <button
               onClick={onSwitchToCypher || (() => { window.location.hash = "#/text2cypher"; })}
               className="px-4 py-2 text-xs font-mono font-bold uppercase tracking-wider text-[#2C1810] bg-white border border-[#2C1810]/20 rounded-lg hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all flex items-center gap-2 cursor-pointer"
@@ -143,7 +229,7 @@ export default function LexiGraphAgentPage({ onBack, onSwitchToCypher }) {
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#8C5A3C] uppercase tracking-widest mb-2">
               <Sparkles className="w-4 h-4 text-[#D4AF37]" />
-              Multi-Stage GraphRAG Legal Retriever
+              Multi-Stage GraphRAG Legal Retriever • Firebase Persisted
             </div>
 
             <h1 className="font-heading text-3xl md:text-4xl font-bold text-[#2C1810] tracking-tight mb-3">
@@ -234,7 +320,7 @@ export default function LexiGraphAgentPage({ onBack, onSwitchToCypher }) {
               </div>
 
               <span className="font-body text-xs text-[#5D4037]/70">
-                Grounding citations, traversing Neo4j knowledge graph & verifying statutory elements...
+                Grounding citations, traversing Neo4j knowledge graph & persisting to Firebase Firestore...
               </span>
             </div>
           </div>
@@ -298,8 +384,14 @@ export default function LexiGraphAgentPage({ onBack, onSwitchToCypher }) {
                 </div>
               </div>
 
-              {/* Stats badges */}
+              {/* Stats & Firestore Sync badges */}
               <div className="flex items-center gap-3">
+                {queryMeta && (
+                  <div className="px-3 py-1.5 bg-[#FAF9F7] border border-[#D4AF37]/30 rounded-lg flex items-center gap-1.5 text-xs font-mono text-[#8C5A3C] font-bold">
+                    <Database className="w-3.5 h-3.5 text-[#D4AF37]" />
+                    <span>Saved to Firebase</span>
+                  </div>
+                )}
                 <div className="px-3 py-1.5 bg-[#FAF9F7] border border-[#2C1810]/10 rounded-lg text-center">
                   <span className="font-heading text-sm font-bold text-[#2C1810] block">
                     {result.recommended_sections?.length || 0}
@@ -638,6 +730,91 @@ export default function LexiGraphAgentPage({ onBack, onSwitchToCypher }) {
           </div>
         )}
       </main>
+
+      {/* Query History Slide-Over Drawer */}
+      {showHistory && (
+        <div className="fixed inset-0 z-50 overflow-hidden bg-[#2C1810]/50 backdrop-blur-sm animate-fadeIn">
+          <div className="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div className="w-screen max-w-md bg-[#FAF9F7] border-l border-[#D4AF37]/40 shadow-2xl flex flex-col">
+              {/* Drawer Header */}
+              <div className="p-6 border-b border-[#2C1810]/10 flex items-center justify-between bg-white">
+                <div className="flex items-center gap-2">
+                  <Database className="w-5 h-5 text-[#8C5A3C]" />
+                  <div>
+                    <h3 className="font-heading text-lg font-bold text-[#2C1810]">
+                      Firebase Query History
+                    </h3>
+                    <span className="font-mono text-[10px] text-[#5D4037]/70 font-semibold block">
+                      Saved Sessions & Cached Responses
+                    </span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => setShowHistory(false)}
+                  className="p-2 text-[#5D4037] hover:text-[#2C1810] rounded-full hover:bg-[#2C1810]/5 transition-colors cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Drawer List Body */}
+              <div className="flex-1 overflow-y-auto p-6 space-y-4">
+                {loadingHistory ? (
+                  <div className="text-center py-12">
+                    <RefreshCw className="w-8 h-8 text-[#8C5A3C] animate-spin mx-auto mb-3" />
+                    <span className="font-mono text-xs text-[#5D4037]/80">Loading saved sessions...</span>
+                  </div>
+                ) : historyItems.length > 0 ? (
+                  historyItems.map((item, idx) => (
+                    <div
+                      key={item.query_id || idx}
+                      onClick={() => loadHistoryItem(item.query_id, item.query)}
+                      className={`p-4 bg-white border rounded-xl hover:border-[#D4AF37] hover:shadow-md transition-all cursor-pointer relative overflow-hidden group ${
+                        queryMeta?.query_id === item.query_id ? "border-[#D4AF37] bg-[#D4AF37]/5" : "border-[#2C1810]/12"
+                      }`}
+                    >
+                      {loadingHistoryId === item.query_id && (
+                        <div className="absolute inset-0 bg-white/80 backdrop-blur-sm flex items-center justify-center">
+                          <RefreshCw className="w-5 h-5 text-[#8C5A3C] animate-spin" />
+                        </div>
+                      )}
+
+                      <div className="flex items-center justify-between gap-2 mb-2">
+                        <span className="px-2 py-0.5 text-[9px] font-mono font-bold uppercase bg-[#D4AF37]/20 text-[#8C5A3C] rounded-full border border-[#D4AF37]/30">
+                          {Math.round((item.pipeline_confidence || 0) * 100)}% Confidence
+                        </span>
+                        <span className="font-mono text-[9px] text-[#5D4037]/60">
+                          {item.created_at ? new Date(item.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : "Recent"}
+                        </span>
+                      </div>
+
+                      <h4 className="font-heading text-xs font-bold text-[#2C1810] line-clamp-2 mb-2 group-hover:text-[#8C5A3C] transition-colors">
+                        "{item.query}"
+                      </h4>
+
+                      <div className="flex items-center justify-between text-[10px] font-mono text-[#5D4037]/70 pt-2 border-t border-[#2C1810]/5">
+                        <span className="capitalize">{item.primary_intent?.replace("_", " ") || "Offence"}</span>
+                        <span>{item.recommended_count} Secs • {item.precedents_count} Precedents</span>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="text-center py-12 bg-white rounded-xl border border-[#2C1810]/10 p-6">
+                    <Clock className="w-8 h-8 text-[#5D4037]/40 mx-auto mb-2" />
+                    <p className="font-body text-xs text-[#5D4037]">No past query sessions recorded yet.</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Drawer Footer */}
+              <div className="p-4 border-t border-[#2C1810]/10 bg-white text-center font-mono text-[10px] text-[#5D4037]/70 flex items-center justify-center gap-2">
+                <Database className="w-3.5 h-3.5 text-[#8C5A3C]" />
+                <span>Synced with Firebase Firestore</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
