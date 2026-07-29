@@ -1,5 +1,585 @@
 [
   {
+    "query_id": "lexi_827ede854032",
+    "query": "My sister was burned alive by her in-laws after they demanded 10 lakhs more dowry. She died in the hospital after 3 days.",
+    "created_at": "2026-07-29T17:48:36.240888+00:00",
+    "pipeline_confidence": 0.8239,
+    "primary_intent": null,
+    "recommended_count": 3,
+    "precedents_count": 8,
+    "result": {
+      "pipeline_confidence": 0.8239,
+      "recommended_sections": [
+        {
+          "act": "BNS",
+          "section": "85",
+          "title": "Husband or relative of husband of a woman subjecting her to cruelty",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "498A",
+            "mapping_verified": true
+          },
+          "confidence": 0.8239,
+          "applicability": "Secondary offence: Cruelty by husband or relative of husband, as the in-laws subjected the woman to cruelty and harassment for dowry demand.",
+          "reason": "The facts of the case also match the description of Section 85, which deals with cruelty by the husband or his relatives towards the woman. The in-laws' demand for dowry and their subsequent actions of burning the woman alive constitute cruelty."
+        },
+        {
+          "act": "BNS",
+          "section": "80",
+          "title": "Dowry death",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "304B",
+            "mapping_verified": true
+          },
+          "confidence": 0.8044,
+          "applicability": "Primary offence: Dowry death, as the woman died due to burns caused by her in-laws after they demanded dowry.",
+          "reason": "The facts of the case match the description of Section 80, which deals with dowry death. The woman's death occurred within 7 years of marriage, and she was subjected to cruelty and harassment for dowry demand by her husband or relatives."
+        },
+        {
+          "act": "BNS",
+          "section": "103",
+          "title": "Punishment for murder",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "302",
+            "mapping_verified": true
+          },
+          "confidence": 0.7369,
+          "applicability": "Primary offence: Murder, as the in-laws intentionally killed the woman by burning her alive.",
+          "reason": "The facts of the case also match the description of Section 103, which deals with murder. The in-laws' actions of burning the woman alive were intentional and resulted in her death, making it a case of murder."
+        }
+      ],
+      "supporting_cases": [
+        {
+          "case_name": "State of West Bengal v. Orilal Jaiswal",
+          "citation": "(1994) 1 SCC 73",
+          "interprets": [
+            "IPC 304B",
+            "IPC 498A",
+            "BNS 80",
+            "BNS 85"
+          ],
+          "binding_under": "Article 141",
+          "legal_principles": [
+            "Mens Rea",
+            "Presumption of Dowry Death",
+            "Standard of Proof in Cruelty"
+          ],
+          "required_evidence": [
+            "Witness Statement",
+            "Dying Declaration",
+            "Postmortem Report",
+            "Inquest Report"
+          ],
+          "reason": "Landmark precedent defining the standard of proof required to establish abetment of suicide and cruelty by husband and in-laws."
+        },
+        {
+          "case_name": "Satbir Singh v. State of Haryana",
+          "citation": "2021 SCC OnLine SC 404",
+          "interprets": [
+            "IPC 304B",
+            "IPC 498A",
+            "BNS 80",
+            "BNS 85"
+          ],
+          "binding_under": "Article 141",
+          "legal_principles": [
+            "Burden of Proof",
+            "Presumption of Dowry Death",
+            "Proximity Nexus"
+          ],
+          "required_evidence": [
+            "Medical Report",
+            "Witness Statement",
+            "Postmortem Report",
+            "Marriage Certificate",
+            "WhatsApp Chats"
+          ],
+          "reason": "Landmark ruling clarifying the interpretation of 'soon before her death' in dowry death cases and mandatory trial court guidelines under Section 304B IPC (now BNS 80)."
+        },
+        {
+          "case_name": "Arnesh Kumar v. State of Bihar",
+          "citation": "(2014) 8 SCC 273",
+          "interprets": [
+            "IPC 498A",
+            "BNS 80",
+            "BNS 85"
+          ],
+          "binding_under": "Article 141",
+          "legal_principles": [
+            "Magisterial Scrutiny",
+            "Protection against Arbitrary Arrest",
+            "Personal Liberty"
+          ],
+          "required_evidence": [
+            "Arrest Memo",
+            "Police Logbook",
+            "Notice under Section 35 BNSS"
+          ],
+          "reason": "Landmark precedent regulating arbitrary police arrests in matrimonial cruelty and offences punishable up to 7 years imprisonment."
+        },
+        {
+          "case_name": "Lalita Kumari v. Government of UP",
+          "citation": "(2014) 2 SCC 1",
+          "interprets": [
+            "BNS 63",
+            "BNS 80",
+            "BNS 101"
+          ],
+          "binding_under": "Article 141",
+          "legal_principles": [
+            "Rule of Law",
+            "Access to Justice",
+            "Mandatory Duty of State"
+          ],
+          "required_evidence": [
+            "Call Detail Records (CDR)",
+            "FIR Copy",
+            "Police Logbook",
+            "Written Complaint"
+          ],
+          "reason": "Landmark Constitution Bench ruling on mandatory registration of FIR upon receipt of cognizable offence information."
+        },
+        {
+          "case_name": "Bachchan Singh v. State of Punjab",
+          "citation": "(1980) 2 SCC 684",
+          "interprets": [
+            "IPC 300",
+            "IPC 302",
+            "BNS 101",
+            "BNS 103"
+          ],
+          "binding_under": "Article 141",
+          "legal_principles": [
+            "Presumption of Innocence",
+            "Rarest of Rare Cases",
+            "Human Dignity",
+            "Rarest of Rare Doctrine",
+            "Proportionality in Sentencing"
+          ],
+          "required_evidence": [
+            "FSL Report",
+            "DNA Report",
+            "Postmortem Report",
+            "Weapon Recovery Memo",
+            "CCTV Footage"
+          ],
+          "reason": "Constitutional Bench judgment laying down the 'rarest of rare cases' doctrine for capital punishment in murder trials."
+        }
+      ],
+      "similar_cases": [
+        {
+          "case_name": "I A STATE OF U.P. I. v. SANTOSH KUMAR (C",
+          "court": "Supreme Court of India",
+          "similarity": 0.6964,
+          "reasoning": "The case is similar as it involves a married woman being harassed for dowry and burnt alive. The conviction of the accused under sections 304B, 498A, and the Dowry Prohibition Act is relevant to the present case."
+        },
+        {
+          "case_name": "SUKHWINDER SINGH v. STATE OF PUNJAB (C",
+          "court": "Supreme Court of India",
+          "similarity": 0.6935,
+          "reasoning": "The case is similar as it involves a dowry death, and the evidence on record discloses that the accused had a hostile attitude towards the deceased and made demands for dowry."
+        },
+        {
+          "case_name": "V. K. MISHRA&ANR. v. STATE OF UTIARAKHAND &ANR.",
+          "court": "Supreme Court of India",
+          "similarity": 0.6751,
+          "reasoning": "The case is similar as it involves a dowry death, and the prosecution established that the deceased was subjected to cruelty and harassment by her husband and in-laws in connection with the demand for dowry."
+        }
+      ],
+      "supporting_articles": [
+        "Article 14 - Equality before law - Equality before law",
+        "Article 15 - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth",
+        "Article 20 - Protection in respect of conviction for offences - Protection in respect of conviction for offences",
+        "Article 21 - Protection of life and personal liberty - Protection of life and personal liberty",
+        "Article 51A - Fundamental duties (Clause e - Dignity of Women) - Fundamental duties (Clause e - Dignity of Women)"
+      ],
+      "supporting_evidence": [
+        "Dying Declaration",
+        "Postmortem Report",
+        "Medical Report",
+        "Inquest Report",
+        "Witness Statement",
+        "Marriage Certificate"
+      ],
+      "supporting_principles": [
+        "Burden of Proof",
+        "Human Dignity",
+        "Magisterial Scrutiny",
+        "Mens Rea",
+        "Personal Liberty",
+        "Presumption of Dowry Death",
+        "Presumption of Innocence",
+        "Proportionality in Sentencing",
+        "Protection against Arbitrary Arrest",
+        "Proximity Nexus",
+        "Rarest of Rare Cases",
+        "Rarest of Rare Doctrine",
+        "Standard of Proof in Cruelty"
+      ],
+      "supporting_graph": {
+        "articles": [
+          "Article 14 - Equality before law - Equality before law",
+          "Article 15 - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth",
+          "Article 20 - Protection in respect of conviction for offences - Protection in respect of conviction for offences",
+          "Article 21 - Protection of life and personal liberty - Protection of life and personal liberty",
+          "Article 51A - Fundamental duties (Clause e - Dignity of Women) - Fundamental duties (Clause e - Dignity of Women)"
+        ],
+        "cases": [
+          "Arnesh Kumar v. State of Bihar",
+          "Bachchan Singh v. State of Punjab",
+          "Lalita Kumari v. Government of UP",
+          "Satbir Singh v. State of Haryana",
+          "State of West Bengal v. Orilal Jaiswal"
+        ],
+        "evidence": [
+          "Audio Recording",
+          "Bank Transaction",
+          "Birth Certificate",
+          "Dying Declaration",
+          "Inquest Report",
+          "Marriage Certificate",
+          "Medical Report",
+          "Postmortem Report",
+          "WhatsApp Chats",
+          "Witness Statement"
+        ],
+        "principles": [
+          "Burden of Proof",
+          "Human Dignity",
+          "Magisterial Scrutiny",
+          "Mens Rea",
+          "Personal Liberty",
+          "Presumption of Dowry Death",
+          "Presumption of Innocence",
+          "Proportionality in Sentencing",
+          "Protection against Arbitrary Arrest",
+          "Proximity Nexus",
+          "Rarest of Rare Cases",
+          "Rarest of Rare Doctrine",
+          "Standard of Proof in Cruelty"
+        ]
+      },
+      "community": {
+        "community_id": "women_offences",
+        "community_name": "Women Offences",
+        "community_summary": "This community contains offences relating to sexual assault, dowry, domestic violence, rape, and cruelty to married women.\n\nImportant Sections: BNS 73, BNS 80, BNS 74, BNS 74A, BNS 87, BNS 63, BNS 64, BNS 64A, BNS 64AB, BNS 64B, BNS 64C, BNS 64D, BNS 64DA, BNS 64DB, BNS 64E\nRelevant Constitution: Article 21\nRelevant Evidence: Witness Statement, Dying Declaration\nRelevant Legal Principles: Burden of Proof\nRelevant Supreme Court Cases: None",
+        "community_score": 0.4393
+      },
+      "rejected_sections": [
+        {
+          "section": "BNS 101",
+          "reason": "Statutory ingredient match score (0.33) below minimum applicability threshold (0.45). (Provisional: 'Human Victim' unverified in query prompt; Provisional: 'Act Causing Death' unverified in query prompt)"
+        }
+      ],
+      "prediction_id": "df397424-bb3d-440d-b65a-3069e5727346"
+    }
+  },
+  {
+    "query_id": "lexi_faeee9b73da7",
+    "query": "My neighbor broke into my house and stole gold ornaments worth 5 lakhs",
+    "created_at": "2026-07-29T17:34:54.258403+00:00",
+    "pipeline_confidence": 0.7345,
+    "primary_intent": null,
+    "recommended_count": 3,
+    "precedents_count": 2,
+    "result": {
+      "pipeline_confidence": 0.7345,
+      "recommended_sections": [
+        {
+          "act": "BNS",
+          "section": "329",
+          "title": "Criminal trespass",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "441",
+            "mapping_verified": true
+          },
+          "confidence": 0.7345,
+          "applicability": "Primary offence: Trespass into the complainant's house with intent to commit an offence",
+          "reason": "The section deals with criminal trespass, which is relevant to the facts of the case where the neighbor broke into the complainant's house with intent to commit theft."
+        },
+        {
+          "act": "BNS",
+          "section": "330",
+          "title": "Lurking house-trespass and house-breaking",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "443",
+            "mapping_verified": true
+          },
+          "confidence": 0.7221,
+          "applicability": "Primary offence: Lurking house-trespass and house-breaking with intent to commit an offence",
+          "reason": "The section deals with lurking house-trespass and house-breaking, which is relevant to the facts of the case where the neighbor broke into the complainant's house with intent to commit theft."
+        },
+        {
+          "act": "BNS",
+          "section": "305",
+          "title": "Theft in dwelling house or transport",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "380",
+            "mapping_verified": true
+          },
+          "confidence": 0.6996,
+          "applicability": "Primary offence: Theft of gold ornaments worth 5 lakhs from the complainant's house",
+          "reason": "The section deals with theft in a dwelling house, which is relevant to the facts of the case where the neighbor broke into the complainant's house and stole gold ornaments."
+        }
+      ],
+      "supporting_cases": [],
+      "similar_cases": [
+        {
+          "case_name": "A PATEL MAHESHBHAI RANCHODBHAI AND OTHERS v. STATE OF GUJARAT (C",
+          "court": "Supreme Court of India",
+          "similarity": 0.4397,
+          "reasoning": "The case deals with the issue of harassment and severe beatings, which is not directly relevant to the facts of the case, but the court's reasoning on the issue of intention and mens rea may be applicable."
+        },
+        {
+          "case_name": "ONKARNATHMISHRA v. STATE",
+          "court": "Supreme Court of India",
+          "similarity": 0.4336,
+          "reasoning": "The case deals with the issue of framing of charges under section 498A and 406, which is not directly relevant to the facts of the case, but the court's reasoning on the issue of entrustment of property may be applicable."
+        }
+      ],
+      "supporting_articles": [
+        "Article 14 - Equality before law - Equality before law",
+        "Article 21 - Protection of life and personal liberty - Protection of life and personal liberty"
+      ],
+      "supporting_evidence": [
+        "Medical Report",
+        "FSL Report",
+        "Witness Statement",
+        "CCTV",
+        "Electronic Evidence",
+        "Forensic Report"
+      ],
+      "supporting_principles": [
+        "Actus Reus",
+        "Mens Rea",
+        "Presumption of Innocence",
+        "Reasonable Doubt"
+      ],
+      "supporting_graph": {
+        "articles": [
+          "Article 14 - Equality before law - Equality before law",
+          "Article 21 - Protection of life and personal liberty - Protection of life and personal liberty"
+        ],
+        "cases": [
+          "Ramesh v. State of Maharashtra",
+          "State of Delhi v. Sanjay Kumar"
+        ],
+        "evidence": [
+          "CCTV",
+          "Electronic Evidence",
+          "FSL Report",
+          "Forensic Report",
+          "Medical Report",
+          "Witness Statement"
+        ],
+        "principles": [
+          "Actus Reus",
+          "Mens Rea",
+          "Presumption of Innocence",
+          "Reasonable Doubt"
+        ]
+      },
+      "community": {
+        "community_id": "property_offences",
+        "community_name": "Property Offences",
+        "community_summary": "This community contains offences relating to theft, robbery, burglary, mischief, extortion, and trespass.\n\nImportant Sections: IPC 145, IPC 150, IPC 151, IPC 157, IPC 158, IPC 297, IPC 356, IPC 378, IPC 379, IPC 380, IPC 381, IPC 382, IPC 383, IPC 384, IPC 385\nRelevant Constitution: Article 14, Article 21\nRelevant Evidence: Witness Statement, Forensic Report, Electronic Evidence, CCTV, Medical Report, FSL Report\nRelevant Legal Principles: Natural Justice, Presumption of Innocence, Mens Rea, Actus Reus, Reasonable Doubt\nRelevant Supreme Court Cases: Lalita Kumari v. Govt of UP",
+        "community_score": 0.6815
+      },
+      "rejected_sections": [
+        {
+          "section": "BNS 74",
+          "reason": "Hard Rejection: Mandatory statutory ingredient 'Assault or Criminal Force' contradicted by facts."
+        },
+        {
+          "section": "BNS 355",
+          "reason": "Hard Rejection: Mandatory statutory ingredient 'Assault or Criminal Force' contradicted by facts."
+        }
+      ],
+      "prediction_id": "6bc25cfb-f48e-43f9-913c-ebbc7794fd72"
+    }
+  },
+  {
+    "query_id": "lexi_23aa9a4a2333",
+    "query": "My neighbor broke into my house and stole gold ornaments worth 5 lakhs",
+    "created_at": "2026-07-29T17:34:20.050384+00:00",
+    "pipeline_confidence": 0.7221,
+    "primary_intent": null,
+    "recommended_count": 2,
+    "precedents_count": 2,
+    "result": {
+      "pipeline_confidence": 0.7221,
+      "recommended_sections": [
+        {
+          "act": "BNS",
+          "section": "330",
+          "title": "Lurking house-trespass and house-breaking",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "443",
+            "mapping_verified": true
+          },
+          "confidence": 0.7221,
+          "applicability": "Relevant provision for query facts.",
+          "reason": "Candidate BNS 330 validated provisionally [WARNING: no ingredients ingested in graph]."
+        },
+        {
+          "act": "BNS",
+          "section": "329",
+          "title": "Criminal trespass",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "441",
+            "mapping_verified": true
+          },
+          "confidence": 0.7155,
+          "applicability": "Relevant provision for query facts.",
+          "reason": "Candidate BNS 329 validated provisionally [WARNING: no ingredients ingested in graph]."
+        }
+      ],
+      "supporting_cases": [],
+      "similar_cases": [
+        {
+          "case_id": "2014_INSC_687",
+          "case_name": "A PATEL MAHESHBHAI RANCHODBHAI AND OTHERS v. STATE OF GUJARAT (C",
+          "title": "A PATEL MAHESHBHAI RANCHODBHAI AND OTHERS v. STATE OF GUJARAT (C",
+          "court": "Supreme Court of India",
+          "year": 2014,
+          "similarity": 0.4397,
+          "vector_similarity": 0.439709753,
+          "facts": "A - Suicide by married woman in her matrimonial home within three years of her marriage - Dying declaration alleging harassment and severe beatings - Conviction of husband and sentence of 3 days i.",
+          "reasoning": "High Court has",
+          "judgment_summary": "High Court has",
+          "sections": [
+            "114",
+            "306",
+            "498A"
+          ],
+          "metadata": {
+            "bns_sections": [],
+            "case_id": "2014_INSC_687",
+            "case_name": "A PATEL MAHESHBHAI RANCHODBHAI AND OTHERS v. STATE OF GUJARAT (C",
+            "community": "domestic_offences",
+            "court": "Supreme Court of India",
+            "crime_type": "domestic_offences",
+            "facts": "A - Suicide by married woman in her matrimonial home within three years of her marriage - Dying declaration alleging harassment and severe beatings - Conviction of husband and sentence of 3 days i.",
+            "ipc_sections": [
+              "114",
+              "306",
+              "498A"
+            ],
+            "judgment_summary": "High Court has",
+            "keywords": [
+              "child",
+              "cruelty",
+              "death"
+            ],
+            "reasoning": "High Court has",
+            "year": 2014
+          }
+        },
+        {
+          "case_id": "2007_INSC_1301",
+          "case_name": "ONKARNATHMISHRA v. STATE",
+          "title": "ONKARNATHMISHRA v. STATE",
+          "court": "Supreme Court of India",
+          "year": 2007,
+          "similarity": 0.4336,
+          "vector_similarity": 0.433562368,
+          "facts": "Framing of charges under-FIR by wife alleging commission of offence u/s 498A and 406134 by in-laws and husband, on basis of complaint before Women Cell-Charges framed ,. against in-laws and husband u/s 498A and 406134-Challenge to- - Held.",
+          "reasoning": "There was no allegation of entrustment of property by",
+          "judgment_summary": "There was no allegation of entrustment of property by",
+          "sections": [
+            "406",
+            "498A"
+          ],
+          "metadata": {
+            "bns_sections": [],
+            "case_id": "2007_INSC_1301",
+            "case_name": "ONKARNATHMISHRA v. STATE",
+            "community": "domestic_offences",
+            "court": "Supreme Court of India",
+            "crime_type": "domestic_offences, murder_related",
+            "facts": "Framing of charges under-FIR by wife alleging commission of offence u/s 498A and 406134 by in-laws and husband, on basis of complaint before Women Cell-Charges framed ,. against in-laws and husband u/s 498A and 406134-Challenge to- - Held.",
+            "ipc_sections": [
+              "406",
+              "498A"
+            ],
+            "judgment_summary": "There was no allegation of entrustment of property by",
+            "keywords": [
+              "cruelty"
+            ],
+            "reasoning": "There was no allegation of entrustment of property by",
+            "year": 2007
+          }
+        }
+      ],
+      "supporting_articles": [
+        "Article 14 - Equality before law - Equality before law",
+        "Article 21 - Protection of life and personal liberty - Protection of life and personal liberty"
+      ],
+      "supporting_evidence": [
+        "Medical Report",
+        "FSL Report",
+        "Witness Statement",
+        "CCTV",
+        "Electronic Evidence",
+        "Forensic Report"
+      ],
+      "supporting_principles": [
+        "Actus Reus",
+        "Mens Rea",
+        "Presumption of Innocence",
+        "Reasonable Doubt"
+      ],
+      "supporting_graph": {
+        "articles": [
+          "Article 14 - Equality before law - Equality before law",
+          "Article 21 - Protection of life and personal liberty - Protection of life and personal liberty"
+        ],
+        "cases": [
+          "Ramesh v. State of Maharashtra",
+          "State of Delhi v. Sanjay Kumar"
+        ],
+        "evidence": [
+          "CCTV",
+          "Electronic Evidence",
+          "FSL Report",
+          "Forensic Report",
+          "Medical Report",
+          "Witness Statement"
+        ],
+        "principles": [
+          "Actus Reus",
+          "Mens Rea",
+          "Presumption of Innocence",
+          "Reasonable Doubt"
+        ]
+      },
+      "community": {
+        "community_id": "property_offences",
+        "community_name": "Property Offences",
+        "community_summary": "This community contains offences relating to theft, robbery, burglary, mischief, extortion, and trespass.\n\nImportant Sections: IPC 145, IPC 150, IPC 151, IPC 157, IPC 158, IPC 297, IPC 356, IPC 378, IPC 379, IPC 380, IPC 381, IPC 382, IPC 383, IPC 384, IPC 385\nRelevant Constitution: Article 14, Article 21\nRelevant Evidence: Witness Statement, Forensic Report, Electronic Evidence, CCTV, Medical Report, FSL Report\nRelevant Legal Principles: Natural Justice, Presumption of Innocence, Mens Rea, Actus Reus, Reasonable Doubt\nRelevant Supreme Court Cases: Lalita Kumari v. Govt of UP",
+        "community_score": 0.7119
+      },
+      "rejected_sections": [
+        {
+          "section": "BNS 74",
+          "reason": "Hard Rejection: Mandatory statutory ingredient 'Assault or Criminal Force' contradicted by facts."
+        },
+        {
+          "section": "BNS 355",
+          "reason": "Hard Rejection: Mandatory statutory ingredient 'Assault or Criminal Force' contradicted by facts."
+        }
+      ],
+      "prediction_id": "e903e0ca-c6de-49ea-ac57-0f8fed7bf989"
+    }
+  },
+  {
     "query_id": "lexi_178ddc754bb9",
     "query": "A complainant alleged that the accused hid the fact that he was already married and falsely assured her of marriage to obtain her consent for a sexual relationship.",
     "created_at": "2026-07-28T04:45:22.562409+00:00",
