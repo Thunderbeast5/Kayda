@@ -92,3 +92,12 @@ legal_ipc_model/data/processed/
 legal_ipc_model/logs/
 legal_ipc_model/__pycache__/
 legal_ipc_model/**/__pycache__/
+
+# FineTune — raw PDFs and all generated outputs (never push source data)
+FineTune/raw_pdfs/
+FineTune/extracted_text/
+FineTune/extracted_records/
+FineTune/training_data/
+FineTune/manifest/
+FineTune/venv/
+FineTune/.venv/

@@ -1,0 +1,29 @@
+# ── Raw source PDFs — never push to GitHub ────────────────────────────────────
+raw_pdfs/
+
+# ── Extracted outputs — generated, not source ─────────────────────────────────
+extracted_text/
+extracted_records/
+training_data/
+
+# ── Manifest / logs — local run state ─────────────────────────────────────────
+manifest/
+
+# ── Python virtual environment ────────────────────────────────────────────────
+venv/
+.venv/
+
+# ── Python cache ──────────────────────────────────────────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+
+# ── OS / editor noise ─────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+development_roadmap.md
