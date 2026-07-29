@@ -19,24 +19,30 @@ import time
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 
-from prediction_logger import PredictionLogger
-from outcome_verification_service import OutcomeVerificationService
+from .prediction_logger import PredictionLogger
+from .outcome_verification_service import OutcomeVerificationService
 
 try:
     from agents.lexigraph.eval.failure_analyzer import FailureAnalyzer
 except ModuleNotFoundError:
-    FailureAnalyzer = None  # eval/ layout may differ in production; degrade gracefully
+    try:
+        from ..eval.failure_analyzer import FailureAnalyzer
+    except (ImportError, ModuleNotFoundError):
+        FailureAnalyzer = None  # eval/ layout may differ in production; degrade gracefully
+
+
+_DEFAULT_STORAGE = str(Path(__file__).resolve().parent / "storage")
 
 
 class FeedbackService:
     """Resolves labels for logged predictions and surfaces retuning signal."""
 
-    def __init__(self, storage_dir: str = "feedback"):
-        self.storage_dir = Path(storage_dir)
+    def __init__(self, storage_dir: str | None = None):
+        self.storage_dir = Path(storage_dir or _DEFAULT_STORAGE)
         self.storage_dir.mkdir(parents=True, exist_ok=True)
         self.human_feedback_path = self.storage_dir / "human_feedback.jsonl"
 
-        self.logger = PredictionLogger(storage_dir=storage_dir)
+        self.logger = PredictionLogger(storage_dir=str(self.storage_dir))
         self.judge = OutcomeVerificationService()
         self.analyzer = FailureAnalyzer() if FailureAnalyzer else None
 

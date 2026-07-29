@@ -36,6 +36,7 @@ class PredictionLogger:
         extracted_facts: Dict[str, Any],
         pipeline_output: Dict[str, Any],
         ranked_candidates: Optional[List[Dict[str, Any]]] = None,
+        config_version: str = "default",
     ) -> str:
         """
         Persists one process_query() call. Returns the prediction_id so the
@@ -66,6 +67,7 @@ class PredictionLogger:
         record = {
             "prediction_id": prediction_id,
             "timestamp": time.time(),
+            "config_version": config_version,
             "query": query,
             "extracted_facts": extracted_facts,
             "recommended_sections": recommended_with_signals,

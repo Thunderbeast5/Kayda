@@ -276,6 +276,7 @@ async def lexigraph_agent_query_endpoint(req: LexiGraphAgentQueryRequest):
         return {
             "success": True,
             "query_id": query_id,
+            "prediction_id": result.get("prediction_id"),
             "created_at": saved_session.get("created_at"),
             "saved_to_firestore": saved_session.get("saved_to_firestore", False),
             "data": result,
@@ -289,6 +290,90 @@ async def lexigraph_agent_query_endpoint(req: LexiGraphAgentQueryRequest):
                 "success": False,
                 "message": f"LexiGraph Agent error: {str(e)}"
             }
+        )
+
+
+# ── Feedback Loop Endpoints ────────────────────────────────────────────────
+class FeedbackRequest(BaseModel):
+    prediction_id: str
+    correct: bool
+    corrected_section: str | None = None
+    notes: str = ""
+
+
+def _get_feedback_service():
+    """Returns the FeedbackService from the singleton LexiGraphAgent."""
+    return get_lexigraph_agent().feedback_service
+
+
+@app.post("/api/feedback")
+async def submit_feedback_endpoint(req: FeedbackRequest):
+    """Human feedback intake — attaches a label to a logged prediction."""
+    try:
+        svc = _get_feedback_service()
+        record = await asyncio.to_thread(
+            svc.submit_feedback,
+            prediction_id=req.prediction_id,
+            correct=req.correct,
+            corrected_section=req.corrected_section,
+            notes=req.notes,
+        )
+        return {"success": True, "status": "ok", "data": record}
+    except Exception as e:
+        print(f"Error submitting feedback: {e}", file=sys.stderr)
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "message": f"Feedback submission failed: {str(e)}"}
+        )
+
+
+@app.get("/api/feedback/pending")
+async def list_pending_predictions(limit: int = 50):
+    """Lists predictions awaiting human review or LLM-judge resolution."""
+    try:
+        svc = _get_feedback_service()
+        pending = await asyncio.to_thread(svc.logger.list_pending, limit)
+        return {
+            "success": True,
+            "count": len(pending),
+            "data": pending,
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "message": f"Failed to list pending: {str(e)}"}
+        )
+
+
+@app.post("/api/feedback/resolve")
+async def resolve_pending_endpoint(limit: int = 100):
+    """Batch-resolves all pending predictions via LLM judge (or human labels if available)."""
+    try:
+        svc = _get_feedback_service()
+        resolved = await asyncio.to_thread(svc.resolve_all_pending, limit)
+        return {
+            "success": True,
+            "resolved_count": len(resolved),
+            "data": resolved,
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "message": f"Resolution failed: {str(e)}"}
+        )
+
+
+@app.get("/api/feedback/breakdown")
+async def failure_breakdown_endpoint(min_trust: str = "soft"):
+    """Returns failure-stage breakdown from resolved incorrect/partial predictions."""
+    try:
+        svc = _get_feedback_service()
+        breakdown = await asyncio.to_thread(svc.get_failure_breakdown, min_trust)
+        return {"success": True, "data": breakdown}
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "message": f"Breakdown failed: {str(e)}"}
         )
 
 
