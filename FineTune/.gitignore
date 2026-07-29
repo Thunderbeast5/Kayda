@@ -26,4 +26,15 @@ Thumbs.db
 *.swp
 *~
 
+# ── Model weights — never commit (multi-GB files) ─────────────────────────────
+models/
+*.bin
+*.safetensors
+*.gguf
+*.pt
+*.pth
+
+# ── Training logs ─────────────────────────────────────────────────────────────
+logs/
+
 development_roadmap.md

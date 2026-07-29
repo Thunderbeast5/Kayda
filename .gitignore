@@ -101,3 +101,7 @@ FineTune/training_data/
 FineTune/manifest/
 FineTune/venv/
 FineTune/.venv/
+FineTune/models/
+FineTune/logs/
+FineTune/**/__pycache__/
+FineTune/**/*.pyc
