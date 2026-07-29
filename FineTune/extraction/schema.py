@@ -84,11 +84,13 @@ MODIFICATION_KEYWORDS: list[str] = [
 
 # Bail outcome classification labels
 BAIL_OUTCOME_LABELS = {
-    "granted": "Bail granted by this court",
-    "modified": "Bail conditions modified (original bail upheld, conditions changed)",
-    "deleted": "Onerous bail condition removed entirely",
-    "refused": "Bail application rejected",
-    "dismissed": "Appeal dismissed (lower court's bail order upheld)",
+    "granted":   "Bail granted by this court",
+    "modified":  "Bail conditions modified (original bail upheld, conditions changed)",
+    "deleted":   "Onerous bail condition removed entirely",
+    "refused":   "Bail application rejected or cancelled",
+    "dismissed": "Appeal dismissed (lower court's bail order upheld unchanged)",
+    "referred":  "Matter referred to larger bench — no final bail order",
+    "interim":   "Interim protection from arrest granted pending further hearing",
 }
 
 # ── Triage threshold ──────────────────────────────────────────────────────────

@@ -27,7 +27,7 @@ EXTRACTED_RECORDS_DIR = Path("extracted_records")
 MANIFEST_DIR = Path("manifest")
 REPORT_PATH = MANIFEST_DIR / "validation_report.json"
 
-VALID_OUTCOMES = {"granted", "modified", "deleted", "refused", "dismissed"}
+VALID_OUTCOMES = {"granted", "modified", "deleted", "refused", "dismissed", "referred", "interim"}
 RS_PATTERN = re.compile(r"Rs\.?\s*[\d,]+", re.IGNORECASE)
 
 

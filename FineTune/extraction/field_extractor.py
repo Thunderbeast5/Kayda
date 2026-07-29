@@ -298,45 +298,122 @@ def _determine_bail_outcome(paragraphs: list[dict], headnote_raw: str) -> str | 
     """
     Classify the court's outcome as one of:
       "granted"    — bail granted (fresh grant by SC, was rejected below)
-      "modified"   — existing bail upheld but conditions modified
-      "deleted"    — onerous condition removed entirely, no replacement
-      "refused"    — bail refused by SC
+      "modified"   — existing bail upheld but conditions modified/confirmed with changes
+      "deleted"    — onerous condition removed entirely, no replacement amount
+      "refused"    — bail refused / cancelled by SC
       "dismissed"  — appeal dismissed (lower court order upheld unchanged)
+      "referred"   — matter referred to larger bench (no final order)
+      "interim"    — interim protection granted pending further hearing
 
-    Signal phrases (in priority order) checked in paragraphs + headnote.
-    This is the single most important derived field for classification fine-tuning.
+    Checked in full text of all paragraphs + headnote, in priority order.
     """
     all_text = " ".join(p["text"] for p in paragraphs) + " " + (headnote_raw or "")
     text_lower = all_text.lower()
 
-    # Priority 1: explicit deletion of condition (no replacement)
+    # ── Priority 1: Referral to larger bench ──────────────────────────────
+    if re.search(r"refer\w*\s+(?:the\s+)?(?:following\s+)?questions?\s+for\s+consideration", text_lower):
+        return "referred"
+    if re.search(r"place\s+(?:the\s+)?papers?\s+before\s+(?:hon'?ble\s+)?the\s+chief\s+justice", text_lower):
+        return "referred"
+    if re.search(r"refer\w*\s+to\s+a\s+(?:larger|constitution|five.judge|seven.judge)\s+bench", text_lower):
+        return "referred"
+
+    # ── Priority 2: Interim protection ────────────────────────────────────
+    if re.search(r"(?:grant|extend|interim)\s+(?:interim\s+)?protection\s+from\s+arrest", text_lower):
+        return "interim"
+    if re.search(r"interim\s+(?:anticipatory\s+)?bail\s+(?:is\s+)?(?:granted|extended)", text_lower):
+        return "interim"
+
+    # ── Priority 3: Cancellation / refusal of bail ────────────────────────
+    if re.search(r"cancel(?:l(?:ing|ed|ation))?\s+(?:the\s+)?(?:anticipatory\s+)?bail", text_lower):
+        return "refused"
+    if re.search(r"(?:set\s+aside|quash(?:ing|ed)?)\s+(?:the\s+)?(?:order\s+)?(?:of|granting)\s+anticipatory\s+bail", text_lower):
+        return "refused"
+    if re.search(r"bail\s+is\s+(?:hereby\s+)?(?:refused|rejected|denied)", text_lower):
+        return "refused"
+    # "allow appeal AND quash/dismiss/upset bail order" = bail refused
+    if re.search(r"(?:quash|upset|set\s+aside)\s+the\s+impugned\s+order\s+and\s+dismiss\s+the\s+application", text_lower):
+        return "refused"
+    if re.search(r"dismiss\s+the\s+application\s+(?:of\s+the\s+respondent\s+)?filed\s+under\s+s\.\s*438", text_lower):
+        return "refused"
+    if re.search(r"quash\s+the\s+order\s+of\s+the\s+high\s+court\s+granting\s+anticipatory\s+bail", text_lower):
+        return "refused"
+    if re.search(r"(?:petition|application)\s+(?:for\s+anticipatory\s+bail\s+)?(?:is\s+)?dismissed", text_lower):
+        return "refused"
+
+    # ── Priority 4: Explicit deletion of an onerous condition ────────────
     if re.search(r"delet(?:e|ing|ed)\s+the\s+(?:direction|condition|requirement)\s+to\s+deposit", text_lower):
         return "deleted"
-    if re.search(r"(?:set aside|struck down|quash)\s+the\s+condition", text_lower):
+    if re.search(r"(?:set\s+aside|struck\s+down|quash(?:ed)?)\s+the\s+condition\s+of\s+deposit", text_lower):
+        return "deleted"
+    if re.search(r"without\s+(?:the\s+)?condition\s+(?:of\s+)?deposit", text_lower):
         return "deleted"
 
-    # Priority 2: modification (condition changed to a different amount)
+    # ── Priority 5: Modification of conditions ────────────────────────────
     if re.search(r"in\s+modification\s+of", text_lower):
         return "modified"
-    if re.search(r"modif(?:y|ying|ied|ication)\s+the\s+(?:order|condition|bail)", text_lower):
+    if re.search(r"modif(?:y|ying|ied|ication|ies)\s+the\s+(?:impugned|said|order\s+of|conditions?)", text_lower):
         return "modified"
-    if re.search(r"modif(?:y|ying|ied|ication)\s+the\s+(?:impugned|said)\s+order", text_lower):
+    if re.search(r"modified\s+to\s+the\s+extent\s+indicated", text_lower):
+        return "modified"
+    if re.search(r"appeal(?:s)?\s+(?:is|are)\s+allowed\s+in\s+part", text_lower):
+        return "modified"
+    if re.search(r"while\s+confirming\s+the\s+order\s+granting\s+anticipatory\s+bail", text_lower):
+        return "modified"
+    if re.search(r"subject\s+to\s+(?:the\s+)?(?:following\s+)?(?:modified\s+)?conditions?", text_lower):
+        return "modified"
+    if re.search(r"conditions?\s+(?:are|is)\s+(?:hereby\s+)?modified", text_lower):
         return "modified"
 
-    # Priority 3: fresh grant (bail was refused below, SC grants it)
-    if re.search(r"grant\s+anticipatory\s+bail", text_lower):
+    # ── Priority 6: Fresh grant of bail ───────────────────────────────────
+    if re.search(r"(?:we\s+)?grant\s+anticipatory\s+bail\s+to\s+the\s+(?:appellant|petitioner|accused)", text_lower):
         return "granted"
-    if re.search(r"allow\s+the\s+appeal[s]?\s+and\s+grant", text_lower):
+    if re.search(r"allow\s+the\s+appeal[s]?\s+and\s+grant\s+anticipatory\s+bail", text_lower):
         return "granted"
+    if re.search(r"(?:petition|application)\s+(?:for\s+anticipatory\s+bail\s+)?is\s+(?:hereby\s+)?allowed", text_lower):
+        return "granted"
+    if re.search(r"anticipatory\s+bail\s+is\s+(?:hereby\s+)?granted", text_lower):
+        return "granted"
+    if re.search(r"(?:we\s+)?accede\s+to\s+the\s+request\s+.*\s+grant\s+(?:them\s+)?anticipatory\s+bail", text_lower):
+        return "granted"
+    # "order release of the petitioner" — short-form bail grant
+    if re.search(r"order\s+release\s+of\s+the\s+(?:petitioner|appellant|accused)", text_lower):
+        return "granted"
+    # "appeal allowed" + giving fresh bail conditions = granted
+    if re.search(r"appeal(?:s)?\s+(?:is|are)\s+allowed", text_lower):
+        if re.search(r"(?:shall|will|directed\s+to)\s+(?:abide|comply|cooperate|execute\s+bond|furnish)", text_lower):
+            return "granted"
+    # "allowed to the extent indicated" with "continue on bail" = granted/modified
+    if re.search(r"allowed\s+to\s+the\s+extent\s+indicated", text_lower):
+        return "modified"
 
-    # Priority 4: refusal
-    if re.search(r"(?:dismiss|reject|refuse)\s+the\s+(?:appeal|petition|application)", text_lower):
-        if "anticipatory bail" in text_lower:
-            return "refused"
-
-    # Priority 5: appeal dismissed (lower order upheld)
-    if re.search(r"appeal\s+(?:is\s+)?dismissed", text_lower):
+    # ── Priority 7: Dismissal ─────────────────────────────────────────────
+    if re.search(r"appeal(?:s)?\s+(?:is|are)\s+(?:hereby\s+)?dismissed", text_lower):
         return "dismissed"
+    if re.search(r"special\s+leave\s+petition\s+(?:is\s+)?dismissed", text_lower):
+        return "dismissed"
+    if re.search(r"no\s+(?:ground|reason|merit)\s+to\s+interfere", text_lower):
+        return "dismissed"
+    if re.search(r"we\s+(?:do\s+not\s+find|find\s+no)\s+(?:any\s+)?(?:reason|ground|merit)\s+to\s+(?:grant|allow)", text_lower):
+        return "dismissed"
+    if re.search(r"not\s+a\s+case\s+for\s+exercising\s+the\s+direction\s+under\s+section\s+438", text_lower):
+        return "refused"
+
+    # ── Priority 8: Remand / set aside for fresh consideration ───────────
+    if re.search(r"remand\s+(?:the\s+)?matter\s+to\s+the\s+high\s+court\s+for\s+fresh", text_lower):
+        return "modified"  # outcome uncertain — classify as modified (court order disturbed)
+    if re.search(r"set\s+aside\s+the\s+order\s+of\s+the\s+high\s+court\s+and\s+remand", text_lower):
+        return "modified"
+
+    # ── Priority 8: Disposed (catch-all for non-categorised disposals) ────
+    # "disposed" alone is ambiguous — only use if we also see direction language
+    if re.search(r"appeal(?:s)?\s+(?:is|are)\s+(?:accordingly\s+)?disposed", text_lower):
+        # Try to infer from what the court directed
+        if re.search(r"(?:shall|directed\s+to)\s+(?:abide|comply|execute\s+bond|furnish\s+bail|cooperate)", text_lower):
+            return "granted"
+        if re.search(r"no\s+(?:further|other)\s+condition|conditions?\s+(?:stand|remain)\s+vacated", text_lower):
+            return "deleted"
+        return "modified"  # disposing an appeal against bail order = some form of modification
 
     return None
 
