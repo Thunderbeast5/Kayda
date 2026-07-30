@@ -114,6 +114,44 @@ class Paragraph:
 
 
 @dataclass
+class ActSection:
+    """
+    One statutory section reference found in the judgment.
+    Covers IPC, CrPC, and any other act.
+    """
+    act_name: str              # "Indian Penal Code, 1860" | "Code of Criminal Procedure, 1973"
+    act_short_name: str        # "IPC" | "CrPC" | "NDPS" etc.
+    act_year: Optional[int]    # 1860 | 1973 etc.
+    section: str               # "376" | "438" | "120B"
+    subsection: Optional[str]  # "2" if S.438(2)
+    section_title: Optional[str]  # "Punishment for rape"
+    how_used: Optional[str]    # "Charged" | "Applied" | "Referred" | "Interpreted"
+    context: Optional[str]     # surrounding sentence where referenced
+    is_charged: bool = False   # accused charged under this section
+    is_convicted: bool = False # accused convicted under this section
+    is_applied: bool = False   # court applied this section
+    is_interpreted: bool = False  # court interpreted the section
+    interpretation: Optional[str] = None  # court's interpretation if any
+
+
+@dataclass
+class ProceduralHistory:
+    """
+    Procedural chain: FIR → sessions court → high court → supreme court.
+    Not every case will have all levels.
+    """
+    fir_number: Optional[str] = None       # "Crime No. 1192 of 2024"
+    fir_date: Optional[str] = None         # raw date string from judgment
+    police_station: Optional[str] = None
+    district: Optional[str] = None
+    sessions_court_order_date: Optional[str] = None
+    sessions_court_decision: Optional[str] = None  # "Bail granted" | "Rejected"
+    high_court_order_date: Optional[str] = None
+    high_court_bench: Optional[str] = None         # "Kerala High Court"
+    high_court_decision: Optional[str] = None
+
+
+@dataclass
 class CaseRecord:
     """
     One extracted case — maps 1:1 to one source PDF.
@@ -153,9 +191,19 @@ class CaseRecord:
     cited_judgments: list[str] = field(default_factory=list)
 
     # ── ACTS ──────────────────────────────────────────────────────────────────
-    # List of section references e.g. ["S.438", "S.438(2)"]
-    # Critical: this IS the statutory anchor for fine-tuning
+    # Simple list: ["S.438", "S.438(2)"] — quick lookup
     referred_acts: list[str] = field(default_factory=list)
+
+    # Structured act/section records — full detail for each statutory reference
+    # Each entry is an ActSection serialized to dict
+    act_sections: list[dict] = field(default_factory=list)
+
+    # Convenience views — derived from act_sections, populated after extraction
+    ipc_sections_mentioned: list[str] = field(default_factory=list)   # ["376", "506"]
+    crpc_sections_mentioned: list[str] = field(default_factory=list)  # ["438", "438(2)"]
+
+    # Procedural history — FIR → sessions → high court chain
+    procedural_history: Optional[dict] = None
 
     # ── HEADNOTE ──────────────────────────────────────────────────────────────
     # Raw full headnote block (for cases where point splitting fails)

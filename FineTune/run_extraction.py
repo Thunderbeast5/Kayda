@@ -17,6 +17,7 @@ import argparse
 import gc
 import json
 import logging
+import re
 import sys
 from pathlib import Path
 
@@ -60,14 +61,31 @@ def process_pdf(pdf_path: Path, resume: bool = False) -> bool:
     Returns True on success, False on failure.
     """
     pdf_name = pdf_path.name
-    stem = pdf_path.stem
+    # Build a unique stem that includes the batch folder name to avoid collisions
+    # e.g. "Batch 1/TheLawsSuperOnline-1.pdf" → stem = "Batch1__TheLawsSuperOnline-1"
+    # Root-level PDFs keep their stem unchanged.
+    try:
+        relative = pdf_path.relative_to(RAW_PDFS_DIR)
+        parts = relative.parts  # e.g. ("Batch 1", "TheLawsSuperOnline-1.pdf") or ("foo.pdf",)
+    except ValueError:
+        parts = (pdf_path.name,)
 
-    if resume and already_processed(pdf_name):
-        logger.info(f"[skip] {pdf_name} — already succeeded (use without --resume to re-run)")
+    if len(parts) > 1:
+        # Sanitise folder name: remove spaces, special chars
+        folder_prefix = re.sub(r"[^A-Za-z0-9_-]", "", parts[0]) + "__"
+        stem = folder_prefix + pdf_path.stem
+    else:
+        stem = pdf_path.stem
+
+    # Manifest key includes the relative path for uniqueness
+    manifest_key = str(Path(*parts)) if len(parts) > 1 else pdf_path.name
+
+    if resume and already_processed(manifest_key):
+        logger.info(f"[skip] {manifest_key} — already succeeded")
         return True
 
     logger.info(f"\n{'─'*55}")
-    logger.info(f"[start] Processing: {pdf_name}")
+    logger.info(f"[start] Processing: {manifest_key}")
 
     classification = "TEXT_LAYER"
     page_count = 0
@@ -77,8 +95,8 @@ def process_pdf(pdf_path: Path, resume: bool = False) -> bool:
     try:
         classification = triage_pdf(pdf_path)
     except Exception as e:
-        write_entry(pdf_name, "UNKNOWN", "FAILED", error=f"Triage failed: {e}")
-        logger.error(f"[triage] {pdf_name} failed: {e}")
+        write_entry(manifest_key, "UNKNOWN", "FAILED", error=f"Triage failed: {e}")
+        logger.error(f"[triage] {manifest_key} failed: {e}")
         return False
 
     # ── Step 2: Extract text ──────────────────────────────────────────────
@@ -86,11 +104,11 @@ def process_pdf(pdf_path: Path, resume: bool = False) -> bool:
         if classification == "TEXT_LAYER":
             clean_text, page_count = text_layer_extract(pdf_path)
         else:
-            logger.warning(f"[ocr] {pdf_name} classified as SCANNED — using Tesseract fallback")
+            logger.warning(f"[ocr] {manifest_key} classified as SCANNED — using Tesseract fallback")
             clean_text, page_count = ocr_extract(pdf_path)
     except Exception as e:
-        write_entry(pdf_name, classification, "FAILED", page_count=page_count, error=f"Extraction failed: {e}")
-        logger.error(f"[extract] {pdf_name} failed: {e}")
+        write_entry(manifest_key, classification, "FAILED", page_count=page_count, error=f"Extraction failed: {e}")
+        logger.error(f"[extract] {manifest_key} failed: {e}")
         return False
 
     # Save clean text for manual inspection
@@ -99,10 +117,10 @@ def process_pdf(pdf_path: Path, resume: bool = False) -> bool:
 
     # ── Step 3: Parse fields ──────────────────────────────────────────────
     try:
-        record = extract_fields(clean_text, pdf_name, classification)
+        record = extract_fields(clean_text, manifest_key, classification)
     except Exception as e:
-        write_entry(pdf_name, classification, "FAILED", page_count=page_count, error=f"Field parsing failed: {e}")
-        logger.error(f"[fields] {pdf_name} failed: {e}")
+        write_entry(manifest_key, classification, "FAILED", page_count=page_count, error=f"Field parsing failed: {e}")
+        logger.error(f"[fields] {manifest_key} failed: {e}")
         return False
 
     # ── Step 4: Write record to disk immediately (memory discipline) ──────
@@ -110,7 +128,7 @@ def process_pdf(pdf_path: Path, resume: bool = False) -> bool:
     out_path.write_text(record.to_json(), encoding="utf-8")
 
     # ── Step 5: Manifest entry ────────────────────────────────────────────
-    missing_critical = record.missing_critical_fields  # returns list of missing fields
+    missing_critical = record.missing_critical_fields
     status = "PARTIAL" if (record.missing_anchors or missing_critical) else "SUCCESS"
 
     fields_present = [
@@ -126,7 +144,7 @@ def process_pdf(pdf_path: Path, resume: bool = False) -> bool:
     ]
 
     write_entry(
-        pdf_name=pdf_name,
+        pdf_name=manifest_key,
         classification=classification,
         status=status,
         page_count=page_count,
@@ -136,10 +154,9 @@ def process_pdf(pdf_path: Path, resume: bool = False) -> bool:
         output_file=str(out_path),
     )
 
-    # Log what was extracted
     para_count = len(record.numbered_paragraphs)
     logger.info(
-        f"[done] {pdf_name} → {status} | "
+        f"[done] {manifest_key} → {status} | "
         f"paragraphs={para_count} | "
         f"bail_orig={record.bail_amount_original} | "
         f"bail_mod={record.bail_amount_modified} | "
@@ -161,8 +178,9 @@ def process_pdf(pdf_path: Path, resume: bool = False) -> bool:
 
 # ── Batch runner ──────────────────────────────────────────────────────────────
 def run_all(resume: bool = False) -> None:
-    """Process every PDF in raw_pdfs/ sequentially."""
-    pdfs = sorted(RAW_PDFS_DIR.glob("*.pdf"))
+    """Process every PDF in raw_pdfs/ and all subfolders sequentially."""
+    # rglob("*.pdf") finds PDFs at any depth: raw_pdfs/*.pdf, raw_pdfs/Batch 1/*.pdf, etc.
+    pdfs = sorted(RAW_PDFS_DIR.rglob("*.pdf"))
 
     if not pdfs:
         logger.warning(f"No PDFs found in {RAW_PDFS_DIR}/")

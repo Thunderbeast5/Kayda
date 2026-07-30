@@ -368,6 +368,158 @@ def gen_onerous_condition_reasoning(rec: dict) -> list[dict]:
              "metadata": _meta(rec, "onerous_condition_reasoning")}]
 
 
+def gen_ipc_section_reasoning(rec: dict) -> list[dict]:
+    """
+    Pair type: ipc_section_reasoning
+    For each IPC section mentioned, generate a Q&A about why it was invoked.
+    """
+    ipc = [s for s in rec.get("act_sections", []) if s.get("act_short_name") == "IPC"]
+    if not ipc:
+        return []
+
+    paras = rec.get("numbered_paragraphs", [])
+    context = " ".join(_clean(p["text"]) for p in paras[:4])
+    if len(context) < MIN_PARA_LENGTH:
+        return []
+
+    pairs = []
+    seen_sections: set[str] = set()
+    for s in ipc:
+        sec = s["section"]
+        if sec in seen_sections:
+            continue
+        seen_sections.add(sec)
+
+        title = s.get("section_title") or f"Section {sec} IPC"
+        how = s.get("how_used", "mentioned")
+        ctx = s.get("context", "")
+
+        instruction = (
+            f"Why was Section {sec} of the Indian Penal Code ({title}) "
+            "invoked in this case? Explain its relevance."
+        )
+        output = (
+            f"Section {sec} IPC ({title}) was {how.lower()} in this case. "
+        )
+        if ctx:
+            output += _clean(ctx)
+        if s.get("is_charged"):
+            output += " The accused was charged under this section."
+        if s.get("is_interpreted"):
+            output += " The court interpreted this section."
+
+        pairs.append({
+            "instruction": instruction,
+            "input": context[:800],
+            "output": output,
+            "metadata": _meta(rec, "ipc_section_reasoning"),
+        })
+
+    return pairs[:2]  # cap at 2 per case to avoid repetition
+
+
+def gen_crpc_section_reasoning(rec: dict) -> list[dict]:
+    """
+    Pair type: crpc_section_reasoning
+    For each CrPC section mentioned, generate a Q&A about how it was applied.
+    """
+    crpc = [s for s in rec.get("act_sections", []) if s.get("act_short_name") == "CrPC"]
+    if not crpc:
+        return []
+
+    paras = rec.get("numbered_paragraphs", [])
+    context = " ".join(_clean(p["text"]) for p in paras[:4])
+    if len(context) < MIN_PARA_LENGTH:
+        return []
+
+    pairs = []
+    seen_sections: set[str] = set()
+    for s in crpc:
+        sec = s["section"]
+        if sec in seen_sections:
+            continue
+        seen_sections.add(sec)
+
+        title = s.get("section_title") or f"Section {sec} CrPC"
+        how = s.get("how_used", "applied")
+        ctx = s.get("context", "")
+
+        instruction = (
+            f"What is Section {sec} of CrPC ({title}) "
+            "and how was it applied in this case?"
+        )
+        output = (
+            f"Section {sec} CrPC deals with {title}. "
+            f"In this case, it was {how.lower()}. "
+        )
+        if ctx:
+            output += _clean(ctx)
+
+        pairs.append({
+            "instruction": instruction,
+            "input": context[:800],
+            "output": output,
+            "metadata": _meta(rec, "crpc_section_reasoning"),
+        })
+
+    return pairs[:2]
+
+
+def gen_procedural_history(rec: dict) -> list[dict]:
+    """
+    Pair type: procedural_history
+    Summarise the procedural chain from FIR to SC.
+    """
+    proc = rec.get("procedural_history")
+    if not proc:
+        return []
+
+    paras = rec.get("numbered_paragraphs", [])
+    context = " ".join(_clean(p["text"]) for p in paras[:3])
+    if len(context) < MIN_PARA_LENGTH:
+        return []
+
+    instruction = (
+        "Describe the procedural history of this case from the FIR stage "
+        "to the Supreme Court."
+    )
+
+    lines = []
+    if proc.get("fir_number"):
+        fir_line = f"FIR: {proc['fir_number']}"
+        if proc.get("fir_date"):
+            fir_line += f" dated {proc['fir_date']}"
+        if proc.get("police_station"):
+            fir_line += f", registered at {proc['police_station']}"
+        if proc.get("district"):
+            fir_line += f", {proc['district']}"
+        lines.append(fir_line)
+    if proc.get("sessions_court_decision"):
+        lines.append(f"Sessions Court: {_clean(proc['sessions_court_decision'])[:120]}")
+    if proc.get("high_court_bench") or proc.get("high_court_order_date"):
+        hc = proc.get("high_court_bench", "High Court")
+        date = proc.get("high_court_order_date", "")
+        decision = proc.get("high_court_decision", "")
+        hc_line = f"{hc}"
+        if date:
+            hc_line += f" (order dated {date})"
+        if decision:
+            hc_line += f": {_clean(decision)[:100]}"
+        lines.append(hc_line)
+
+    if not lines:
+        return []
+
+    output = " → ".join(lines)
+
+    return [{
+        "instruction": instruction,
+        "input": context[:800],
+        "output": output,
+        "metadata": _meta(rec, "procedural_history"),
+    }]
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Pair generation orchestrator
 # ─────────────────────────────────────────────────────────────────────────────
@@ -380,6 +532,9 @@ GENERATORS = [
     gen_section_identification,
     gen_case_summary,
     gen_onerous_condition_reasoning,
+    gen_ipc_section_reasoning,
+    gen_crpc_section_reasoning,
+    gen_procedural_history,
 ]
 
 

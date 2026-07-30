@@ -14,7 +14,7 @@ Extraction design notes:
 
 import re
 from datetime import datetime
-from .schema import CaseRecord, SECTION_ANCHORS, MODIFICATION_KEYWORDS
+from .schema import CaseRecord, SECTION_ANCHORS, MODIFICATION_KEYWORDS, ActSection, ProceduralHistory
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -84,11 +84,19 @@ def _extract_court(before_first: str) -> str | None:
 
 def _extract_multiline_field(raw: str) -> str:
     """
-    For fields like Appeal Type that wrap across lines — collect ALL lines
-    until the content naturally ends (blank line or next anchor already consumed).
+    For fields like Appeal Type that wrap across lines — collect ALL lines.
+    Also marks truncated years with a sentinel; extract_fields completes them
+    from decided_on_year after that field is populated.
     """
     lines = [l.strip() for l in raw.splitlines() if l.strip()]
-    return " ".join(lines)
+    result = " ".join(lines)
+    # Fix trailing truncated year if it's already complete in raw (rare)
+    truncated_year = re.search(r'\bof\s+(1\d|20)\s*$', result)
+    if truncated_year:
+        full_year = re.search(r'\bof\s+(\d{4})\b', raw)
+        if full_year:
+            result = result[:truncated_year.start()] + "of " + full_year.group(1)
+    return result
 
 
 def _extract_referred_acts(raw: str) -> list[str]:
@@ -404,6 +412,12 @@ def _determine_bail_outcome(paragraphs: list[dict], headnote_raw: str) -> str | 
         return "modified"  # outcome uncertain — classify as modified (court order disturbed)
     if re.search(r"set\s+aside\s+the\s+order\s+of\s+the\s+high\s+court\s+and\s+remand", text_lower):
         return "modified"
+    # "set aside the impugned orders" — SC overturns HC's bail-related direction
+    if re.search(r"set\s+aside\s+the\s+impugned\s+orders", text_lower):
+        return "modified"
+    # "appeal allowed" as catch-all when no more specific pattern matched
+    if re.search(r"appeal(?:s)?\s+(?:is|are)\s+allowed", text_lower):
+        return "granted"
 
     # ── Priority 8: Disposed (catch-all for non-categorised disposals) ────
     # "disposed" alone is ambiguous — only use if we also see direction language
@@ -703,6 +717,316 @@ def _infer_verdict_from_paragraphs(paragraphs: list[dict]) -> str | None:
 # Main entry point
 # ─────────────────────────────────────────────────────────────────────────────
 
+def _extract_act_sections(full_text: str, paragraphs: list[dict]) -> list[dict]:
+    """
+    Extract structured IPC and CrPC section references from the full judgment text.
+
+    Patterns handled:
+      IPC: "Section 376 IPC", "Ss. 302 and 34 IPC", "under S. 376 of the IPC",
+           "Sections 376, 506 of the Indian Penal Code"
+      CrPC: "Section 438 CrPC", "under S. 438 of the Cr.P.C.",
+            "Section 438 of the Code of Criminal Procedure"
+      BNS: "Section 64 BNS" (Bharatiya Nyaya Sanhita — new IPC replacement)
+
+    Returns list of dicts (serialized ActSection objects).
+    """
+    # Known section titles — expand as more cases are processed
+    IPC_TITLES: dict[str, str] = {
+        "302": "Punishment for murder",
+        "304": "Punishment for culpable homicide not amounting to murder",
+        "304B": "Dowry death",
+        "306": "Abetment of suicide",
+        "307": "Attempt to murder",
+        "324": "Voluntarily causing hurt",
+        "326": "Voluntarily causing grievous hurt",
+        "354": "Assault or criminal force to woman with intent to outrage her modesty",
+        "363": "Punishment for kidnapping",
+        "376": "Punishment for rape",
+        "376A": "Punishment for causing death or resulting in persistent vegetative state",
+        "376D": "Gang rape",
+        "379": "Punishment for theft",
+        "384": "Punishment for extortion",
+        "406": "Punishment for criminal breach of trust",
+        "420": "Cheating and dishonestly inducing delivery of property",
+        "426": "Punishment for mischief",
+        "467": "Forgery of valuable security",
+        "468": "Forgery for purpose of cheating",
+        "471": "Using as genuine a forged document",
+        "489A": "Counterfeiting currency notes",
+        "498A": "Husband or relative of husband of a woman subjecting her to cruelty",
+        "506": "Punishment for criminal intimidation",
+        "509": "Word, gesture or act intended to insult the modesty of a woman",
+        "34": "Acts done by several persons in furtherance of common intention",
+        "120B": "Punishment of criminal conspiracy",
+    }
+
+    CRPC_TITLES: dict[str, str] = {
+        "41": "When police may arrest without warrant",
+        "154": "Information in cognizable cases (FIR)",
+        "156": "Police officer's power to investigate cognizable case",
+        "161": "Examination of witnesses by police",
+        "164": "Recording of confessions and statements",
+        "173": "Report of police officer on completion of investigation",
+        "197": "Prosecution of Judges and public servants",
+        "204": "Issue of process",
+        "227": "Discharge",
+        "228": "Framing of charge",
+        "239": "When accused shall be discharged",
+        "240": "Framing of charge",
+        "309": "Power to postpone or adjourn proceedings",
+        "313": "Power to examine the accused",
+        "374": "Appeals from convictions",
+        "397": "Revision of lower court orders",
+        "407": "Power of High Court to transfer cases",
+        "437": "When bail may be taken in case of non-bailable offence",
+        "437A": "Bail to require accused to appear before next appellate court",
+        "438": "Direction for grant of bail to person apprehending arrest",
+        "438(2)": "Conditions for anticipatory bail",
+        "439": "Special powers of High Court or Court of Session regarding bail",
+        "482": "Saving of inherent powers of High Court",
+    }
+
+    # Act name normalisation
+    ACT_PATTERNS: list[tuple[re.Pattern, str, str, int]] = [
+        # pattern, act_name, short_name, year
+        (re.compile(r'\bI\.?P\.?C\.?\b|\bIndian\s+Penal\s+Code\b', re.I),
+         "Indian Penal Code, 1860", "IPC", 1860),
+        (re.compile(r'\bCr\.?P\.?C\.?\b|\bCode\s+of\s+Criminal\s+Procedure\b|\bCriminal\s+Procedure\s+Code\b', re.I),
+         "Code of Criminal Procedure, 1973", "CrPC", 1973),
+        (re.compile(r'\bB\.?N\.?S\.?\b|\bBharatiya\s+Nyaya\s+Sanhita\b', re.I),
+         "Bharatiya Nyaya Sanhita, 2023", "BNS", 2023),
+        (re.compile(r'\bB\.?N\.?S\.?S\.?\b|\bBharatiya\s+Nagarik\s+Suraksha\s+Sanhita\b', re.I),
+         "Bharatiya Nagarik Suraksha Sanhita, 2023", "BNSS", 2023),
+        (re.compile(r'\bN\.?D\.?P\.?S\.?\b|\bNarcotic\s+Drugs\s+and\s+Psychotropic\b', re.I),
+         "Narcotic Drugs and Psychotropic Substances Act, 1985", "NDPS", 1985),
+        (re.compile(r'\bP\.?C\.?\s*Act\b|\bPrevention\s+of\s+Corruption\b', re.I),
+         "Prevention of Corruption Act, 1988", "PCA", 1988),
+    ]
+
+    # Section extraction: captures "S.376", "Sec.438", "Section 438(2)", "Ss. 302, 306"
+    SECTION_PAT = re.compile(
+        r'(?:Sections?\s*|Ss\.\s*|S\.\s*)(\d{1,4}[A-Z]?(?:\s*\(\s*\d+\s*\))?)'
+        r'(?:\s*(?:,|and|&)\s*(\d{1,4}[A-Z]?(?:\s*\(\s*\d+\s*\))?))*',
+        re.IGNORECASE
+    )
+
+    found: list[dict] = []
+    seen: set[str] = set()  # deduplicate by (short_name, section)
+
+    # Split text into sentences for context extraction
+    sentences = re.split(r'(?<=[.!?])\s+', full_text)
+
+    # Per-section act inference:
+    # For each section mention, find the NEAREST act identifier in the same sentence.
+    # This correctly handles headnotes like "CrPC S.438 ... IPC S.420" where both
+    # acts appear in the same sentence.
+    #
+    # Strategy: build a list of (position, act_info) for all act mentions in the
+    # sentence, then assign each section to the closest preceding act mention.
+
+    for sentence in sentences:
+        # Build a positional map of all act mentions in this sentence
+        act_positions: list[tuple[int, str, str, int]] = []
+        for act_pattern, act_name, short_name, year in ACT_PATTERNS:
+            for m in act_pattern.finditer(sentence):
+                act_positions.append((m.start(), act_name, short_name, year))
+
+        if not act_positions:
+            continue
+
+        # Sort by position
+        act_positions.sort(key=lambda x: x[0])
+
+        def _act_for_position(pos: int) -> tuple[str, str, int]:
+            """Return act info for the nearest act mention before/at pos."""
+            best = act_positions[0]  # default: first act in sentence
+            for ap in act_positions:
+                if ap[0] <= pos:
+                    best = ap
+                else:
+                    break
+            return best[1], best[2], best[3]  # act_name, short_name, year
+
+        # Extract section numbers with position
+        for m in SECTION_PAT.finditer(sentence):
+            raw_section = re.sub(r"\s+", "", m.group(1)).upper()  # normalise to uppercase
+            section_num = re.sub(r"\([^)]+\)", "", raw_section)
+            subsection_match = re.search(r"\((\d+)\)", raw_section)
+            subsection = subsection_match.group(1) if subsection_match else None
+
+            # Assign to nearest act
+            act_name, short_name, year = _act_for_position(m.start())
+
+            # Override: if section is in the authoritative CrPC list, force CrPC
+            # regardless of which act appeared nearest (guards against ambiguous sentences)
+            AUTHORITATIVE_CRPC = {
+                "41", "154", "156", "161", "164", "173", "197", "204",
+                "227", "228", "239", "240", "309", "313", "374", "397",
+                "407", "437", "438", "439", "482",
+            }
+            if section_num in AUTHORITATIVE_CRPC:
+                act_name = "Code of Criminal Procedure, 1973"
+                short_name = "CrPC"
+                year = 1973
+
+            key = (short_name, raw_section)
+            if key in seen:
+                continue
+            seen.add(key)
+
+            # Title lookup
+            title_map = IPC_TITLES if short_name == "IPC" else CRPC_TITLES
+            title = title_map.get(raw_section) or title_map.get(section_num)
+
+            how_used = _infer_section_usage(sentence)
+            is_charged = _is_charged(sentence)
+            is_interpreted = bool(re.search(
+                r'interpret|constru|held that|means|refers to', sentence, re.I
+            ))
+            is_applied = bool(re.search(
+                r'applied|invok|grant|reject|allow|dismiss|under section', sentence, re.I
+            ))
+
+            ctx = re.sub(r"\s+", " ", sentence).strip()[:300]
+
+            entry = {
+                "act_name":       act_name,
+                "act_short_name": short_name,
+                "act_year":       year,
+                "section":        raw_section,
+                "subsection":     subsection,
+                "section_title":  title,
+                "how_used":       how_used,
+                "context":        ctx,
+                "is_charged":     is_charged,
+                "is_convicted":   False,
+                "is_applied":     is_applied,
+                "is_interpreted": is_interpreted,
+                "interpretation": None,
+            }
+            found.append(entry)
+
+    return found
+
+
+def _infer_section_usage(sentence: str) -> str:
+    """Classify how a section was used in the sentence."""
+    s = sentence.lower()
+    if re.search(r'charg|accus|fir|offenc|alleged', s):
+        return "Charged"
+    if re.search(r'anticipatory bail|bail application|pre.arrest', s):
+        return "Applied for bail"
+    if re.search(r'interpret|constru|explain|means', s):
+        return "Interpreted"
+    if re.search(r'invok|appl|under section|pursuant', s):
+        return "Applied"
+    if re.search(r'refer|cit|mention', s):
+        return "Referenced"
+    return "Mentioned"
+
+
+def _is_charged(sentence: str) -> bool:
+    """Return True if the sentence indicates a charge was filed under the section."""
+    return bool(re.search(
+        r'charg(?:ed|es?)\s+under'
+        r'|offenc(?:e|es?)\s+under'
+        r'|FIR.*(?:under|for)\s+S(?:ec(?:tion)?)?'
+        r'|complaint.*(?:under|for)\s+S(?:ec(?:tion)?)?'
+        r'|under\s+S(?:ec(?:tion)?)?\s*\d+.*(?:IPC|I\.P\.C|Indian\s+Penal)'
+        r'|(?:IPC|I\.P\.C)\s+was\s+filed'
+        r'|read\s+with\s+section\s*\d+\s*(?:IPC|I\.P\.C)'
+        r'|criminal\s+complaint.*section\s*\d+',
+        sentence, re.I | re.DOTALL
+    ))
+
+
+def _extract_procedural_history(full_text: str, paragraphs: list[dict]) -> dict | None:
+    """
+    Extract the procedural chain: FIR → sessions court → high court.
+
+    Patterns found across the corpus:
+      FIR:      "Crime No. 1192 of 2024 dtd. 27/8/2024"
+                "FIR No. 16 dated 15.01.2010"
+      Station:  "registered at Police Station Museum"
+      HC:       "order dated 24/9/2024 passed by the High Court of Kerala"
+      Sessions: "Sessions Court ... rejected"
+    """
+    all_text = " ".join(p["text"] for p in paragraphs) if paragraphs else full_text
+    all_text = re.sub(r"\s+", " ", all_text)
+
+    result: dict = {}
+
+    # ── FIR ──────────────────────────────────────────────────────────────
+    fir_patterns = [
+        r'(?:Crime|FIR|F\.I\.R\.?)\s*No\.?\s*([\w/]+\s+of\s+\d{4}|\d+\s*(?:/\s*\d+)?)',
+        r'First\s+Information\s+Report\s*No\.?\s*([\w/]+)',
+        r'Crime\s+No\.\s*([\d/]+)',
+    ]
+    for pat in fir_patterns:
+        m = re.search(pat, all_text, re.I)
+        if m:
+            result["fir_number"] = m.group(1).strip()
+            break
+
+    # FIR date
+    fir_date_m = re.search(
+        r'(?:FIR|F\.I\.R|Crime\s+No\.[^,]{0,40}?)\s+(?:dtd?\.?|dated?)\s+([\d./\-]+(?:\s*(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\w*)?(?:\s*\d{4})?)',
+        all_text, re.I
+    )
+    if fir_date_m:
+        result["fir_date"] = fir_date_m.group(1).strip()
+
+    # Police station
+    ps_m = re.search(
+        r'(?:Police\s+Station|P\.S\.)\s+([A-Z][A-Za-z\s]+?)(?:\s*,|\s+District|\s+in\s|\s+at\s|\.|$)',
+        all_text
+    )
+    if ps_m:
+        result["police_station"] = ps_m.group(1).strip()
+
+    # District
+    dist_m = re.search(r'District\s+([A-Z][A-Za-z\s]+?)(?:\s*,|\s*\.|$)', all_text)
+    if dist_m:
+        result["district"] = dist_m.group(1).strip()
+
+    # ── High Court order ─────────────────────────────────────────────────
+    hc_m = re.search(
+        r'(?:order|judgment)\s+(?:dtd?\.?|dated?)\s+([\d./\-]+)',
+        all_text, re.I
+    )
+    if hc_m:
+        result["high_court_order_date"] = hc_m.group(1).strip()
+
+    # High Court name — match greedily up to a comma, period, or line end
+    hc_name_m = re.search(
+        r'((?:High\s+Court|HC)\s+of\s+[A-Z][A-Za-z\s&]+?'
+        r'(?:\s+at\s+[A-Z][A-Za-z]+)?)'
+        r'(?=\s*[,\.;]|\s+(?:dated?|by|in|has|had|grant|reject|allow|dismiss|pass)|\s*$)',
+        all_text, re.MULTILINE
+    )
+    if hc_name_m:
+        result["high_court_bench"] = re.sub(r"\s+", " ", hc_name_m.group(1)).strip()
+
+    # HC decision on bail
+    hc_decision_m = re.search(
+        r'High\s+Court\s+(?:has\s+)?(?:grant(?:ed|ing)|reject(?:ed|ing)|dismiss(?:ed|ing)|allow(?:ed|ing))\s+(?:the\s+)?(?:anticipatory\s+)?bail',
+        all_text, re.I
+    )
+    if hc_decision_m:
+        result["high_court_decision"] = hc_decision_m.group(0).strip()
+
+    # ── Sessions Court ────────────────────────────────────────────────────
+    sess_m = re.search(
+        r'(?:Sessions?\s+(?:Court|Judge)|Additional\s+Sessions?\s+Judge)[^.]{0,100}?'
+        r'(grant(?:ed|ing)|reject(?:ed|ing)|dismiss(?:ed|ing)|allow(?:ed|ing))',
+        all_text, re.I
+    )
+    if sess_m:
+        result["sessions_court_decision"] = sess_m.group(0).strip()[:200]
+
+    return result if result else None
+
+
 def extract_fields(clean_text: str, source_file: str, extraction_path: str) -> CaseRecord:
     """
     Main extraction function. Given a cleaned full-document string, extract
@@ -740,6 +1064,14 @@ def extract_fields(clean_text: str, source_file: str, extraction_path: str) -> C
 
     final_verdict_raw = sections.get("Final Verdict :", "")
     record.final_verdict = final_verdict_raw.splitlines()[0].strip() if final_verdict_raw else None
+
+    # Complete any truncated appeal year (e.g. "of 20" → "of 2004") using decided_on_year
+    if record.appeal_type and record.decided_on_year:
+        record.appeal_type = re.sub(
+            r'\bof\s+(1\d|20)\s*$',
+            f'of {record.decided_on_year}',
+            record.appeal_type,
+        )
 
     # ── 2. Parties ─────────────────────────────────────────────────────────
     appellant_raw = sections.get("Appellant(s) :", "")
@@ -834,7 +1166,39 @@ def extract_fields(clean_text: str, source_file: str, extraction_path: str) -> C
     # ── 12. Dispute nature ─────────────────────────────────────────────────
     record.dispute_nature = _extract_dispute_nature(record.numbered_paragraphs)
 
-    # ── 13. Quality flags ──────────────────────────────────────────────────
+    # ── 13. IPC/CrPC section extraction ────────────────────────────────────
+    all_text = clean_text
+    record.act_sections = _extract_act_sections(all_text, record.numbered_paragraphs)
+
+    # Post-pass: re-check is_charged against judgment paragraphs for any section
+    # that was extracted from a non-complaint sentence (e.g. headnote citation block).
+    # A section is charged if ANY paragraph in the full text has charge language
+    # referencing that section number.
+    para_text = " ".join(p["text"] for p in record.numbered_paragraphs)
+    for entry in record.act_sections:
+        if not entry["is_charged"] and entry["act_short_name"] == "IPC":
+            sec = entry["section"]
+            # Look for charge language near this section number anywhere in paragraphs
+            charge_near_section = re.search(
+                r'(?:complaint|FIR|charg|offenc).{0,150}?' + re.escape(sec) +
+                r'|' + re.escape(sec) + r'.{0,80}?(?:IPC|Indian\s+Penal)',
+                para_text, re.I | re.DOTALL
+            )
+            if charge_near_section and _is_charged(charge_near_section.group(0)):
+                entry["is_charged"] = True
+                entry["how_used"] = "Charged"
+
+    record.ipc_sections_mentioned = sorted({
+        s["section"] for s in record.act_sections if s.get("act_short_name") == "IPC"
+    })
+    record.crpc_sections_mentioned = sorted({
+        s["section"] for s in record.act_sections if s.get("act_short_name") == "CrPC"
+    })
+
+    # ── 14. Procedural history ─────────────────────────────────────────────
+    record.procedural_history = _extract_procedural_history(all_text, record.numbered_paragraphs)
+
+    # ── 15. Quality flags ──────────────────────────────────────────────────
     critical_anchors = ["Referred Act(s) :", "Headnote:", "Judgment :"]
     for anchor in critical_anchors:
         if anchor not in sections:
