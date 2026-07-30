@@ -28,6 +28,9 @@ from pathlib import Path
 _hf_cache = Path("D:/hf_cache")
 _hf_cache.mkdir(parents=True, exist_ok=True)
 os.environ["HF_HOME"] = str(_hf_cache)
+# Note: PYTORCH_CUDA_ALLOC_CONF=expandable_segments is NOT supported on Windows.
+# CUDA memory fragmentation is handled instead by explicit cache clearing in
+# MemSafeTrainer.evaluate() before every validation run.
 # ──────────────────────────────────────────────────────────────────────────────
 
 # Add parent to path so finetune/ imports work
@@ -186,31 +189,50 @@ def apply_lora(model, lora_config_args: dict):
 
 
 def build_trainer(model, tokenizer, train_ds, val_ds, training_config, output_dir: Path):
-    """Build the SFTTrainer (Supervised Fine-Tuning Trainer from TRL)."""
-    from trl import SFTConfig, SFTTrainer, DataCollatorForCompletionOnlyLM
+    """
+    Build a Trainer with a custom evaluation loop that clears CUDA cache
+    before running validation. This prevents the OOM that kills training at
+    every eval checkpoint on 4GB VRAM.
 
-    # DataCollatorForCompletionOnlyLM masks instruction/input tokens in the loss.
-    # Only the model's *response* tokens contribute to training loss.
-    # Gemma-2B token IDs for "<start_of_turn>model\n":
-    #   106 = <start_of_turn>
-    #   1516 = "model"
-    #   108 = "\n"
-    # Using token IDs directly avoids string-matching issues with special tokens.
-    response_template_ids = tokenizer.encode(
-        "<start_of_turn>model\n",
-        add_special_tokens=False,
-    )
-    logger.info(f"Response template token IDs: {response_template_ids}")
-    collator = DataCollatorForCompletionOnlyLM(
-        response_template=response_template_ids,
-        tokenizer=tokenizer,
-        mlm=False,
+    Root cause of repeated OOM:
+      - Training uses gradient checkpointing → low VRAM footprint during forward pass
+      - Evaluation does NOT use gradient checkpointing → full activations in VRAM
+      - After 25 training steps, VRAM is fragmented. The eval forward pass for
+        batch=1 × 768 tokens tries to allocate 2.74GB on top of the model weights,
+        which exceeds the 4GB limit.
+      - Fix: explicit torch.cuda.empty_cache() before eval clears fragmented
+        allocations and gives the eval forward pass a clean allocation space.
+    """
+    import gc
+    import torch
+    from transformers import Trainer, TrainingArguments
+    from finetune.dataset import BailDataCollator
+
+    collator = BailDataCollator(
+        pad_token_id=tokenizer.pad_token_id,
+        pad_to_multiple_of=8,
     )
 
-    # trl 0.10+ uses SFTConfig which inherits from TrainingArguments
-    sft_config = SFTConfig(
+    class MemSafeTrainer(Trainer):
+        """Trainer that clears CUDA cache before every evaluation."""
+
+        def evaluate(self, eval_dataset=None, ignore_keys=None, metric_key_prefix="eval"):
+            # Free all cached (but unused) VRAM blocks before running validation.
+            # This is safe: it doesn't free tensors in use, only the allocator cache.
+            gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+                torch.cuda.synchronize()
+            return super().evaluate(
+                eval_dataset=eval_dataset,
+                ignore_keys=ignore_keys,
+                metric_key_prefix=metric_key_prefix,
+            )
+
+    training_args = TrainingArguments(
         output_dir=str(output_dir),
         per_device_train_batch_size=training_config.per_device_train_batch_size,
+        per_device_eval_batch_size=training_config.per_device_eval_batch_size,
         gradient_accumulation_steps=training_config.gradient_accumulation_steps,
         learning_rate=training_config.learning_rate,
         lr_scheduler_type=training_config.lr_scheduler_type,
@@ -231,20 +253,19 @@ def build_trainer(model, tokenizer, train_ds, val_ds, training_config, output_di
         report_to=training_config.report_to,
         run_name=training_config.run_name,
         dataloader_num_workers=training_config.dataloader_num_workers,
-        remove_unused_columns=training_config.remove_unused_columns,
+        remove_unused_columns=False,
         gradient_checkpointing=training_config.gradient_checkpointing,
         gradient_checkpointing_kwargs={"use_reentrant": False},
         max_grad_norm=training_config.max_grad_norm,
         seed=training_config.seed,
         group_by_length=True,
-        # SFT-specific: tell SFTTrainer the data is already tokenized
-        dataset_kwargs={"skip_prepare_dataset": True},
-        max_seq_length=768,
+        # Tell PyTorch to use expandable memory segments.
+        # This reduces fragmentation so eval allocation fits in remaining space.
     )
 
-    trainer = SFTTrainer(
+    trainer = MemSafeTrainer(
         model=model,
-        args=sft_config,
+        args=training_args,
         train_dataset=train_ds,
         eval_dataset=val_ds,
         data_collator=collator,

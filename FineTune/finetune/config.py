@@ -99,10 +99,12 @@ class TrainingConfig:
     gradient_accumulation_steps: int = 16
     # Increased from 8 to 16 to maintain effective batch size of 16 (1 × 16 = 16).
 
+    per_device_eval_batch_size: int = 1
+    # Must be 1. Evaluation runs without gradient checkpointing, so full activations
+    # are stored. On 4GB VRAM this OOMs at batch=2. Batch=1 is the safe maximum.
+
     # --- Learning rate schedule ---
     learning_rate: float = 2e-4
-    # Standard QLoRA learning rate for instruction fine-tuning.
-    # Lower (1e-4): slower convergence. Higher (3e-4): unstable on 509 examples.
 
     lr_scheduler_type: str = "cosine"
     # Cosine decay: starts at learning_rate, decays smoothly to near-zero.
