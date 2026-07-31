@@ -38,37 +38,38 @@ def merge_and_save(adapter_path: Path, output_path: Path, base_model_id: str) ->
     from peft import PeftModel
 
     logger.info(f"Loading base model: {base_model_id}")
-    # Load base model in float16 for merging (not quantized — quantized models can't be merged)
-    base_model = AutoModelForCausalLM.from_pretrained(
+    # Load in float16 on CPU — merging doesn't require GPU and avoids the 4GB VRAM limit.
+    # On CPU this is slower to load (~2 min) but completes without OOM.
+    model = AutoModelForCausalLM.from_pretrained(
         base_model_id,
         torch_dtype=torch.float16,
-        device_map="auto",
+        device_map="cpu",           # CPU only — no VRAM needed for merge
         trust_remote_code=True,
+        low_cpu_mem_usage=True,
     )
 
     logger.info(f"Loading LoRA adapter: {adapter_path}")
-    model = PeftModel.from_pretrained(base_model, str(adapter_path))
+    model = PeftModel.from_pretrained(
+        model,
+        str(adapter_path),
+        device_map="cpu",
+    )
 
     logger.info("Merging adapter into base model weights...")
     model = model.merge_and_unload()
-    # merge_and_unload(): mathematically merges W' = W + (B @ A) * (alpha/r)
-    # Result is a standard HuggingFace model with no PEFT dependency
 
     logger.info(f"Saving merged model → {output_path}")
     output_path.mkdir(parents=True, exist_ok=True)
     model.save_pretrained(str(output_path), safe_serialization=True)
 
-    # Save tokenizer too
     tokenizer = AutoTokenizer.from_pretrained(str(adapter_path), trust_remote_code=True)
     tokenizer.save_pretrained(str(output_path))
 
     logger.info("Merge complete.")
-    logger.info(f"Use for inference: model_path = '{output_path}'")
+    logger.info(f"Merged model saved to: {output_path}")
 
-    del model, base_model
+    del model
     gc.collect()
-    if torch.cuda.is_available():
-        torch.cuda.empty_cache()
 
 
 def main() -> None:
