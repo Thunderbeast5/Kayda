@@ -15,6 +15,7 @@ from .services.community_retrieval_service import CommunityRetrievalService
 from .services.fact_extractor_service import FactExtractorService
 from .services.ingredient_validator_service import IngredientValidatorService
 from .services.evidence_ranking_service import EvidenceRankingService
+from .feedback.feedback_service import FeedbackService
 
 _IPC_ID_RE = re.compile(r"^IPC_\d+[A-Za-z]*$")
 _BNS_ID_RE = re.compile(r"^BNS_\d+[A-Za-z]*$")
@@ -116,6 +117,7 @@ class LexiGraphAgent:
         self.fact_extractor_service = FactExtractorService()
         self.ingredient_validator_service = IngredientValidatorService(self.verification_service.neo4j_service)
         self.evidence_ranking_service = EvidenceRankingService()
+        self.feedback_service = FeedbackService()
 
     def process_query(self, query: str, debug: bool = False) -> Dict[str, Any]:
         """
@@ -622,6 +624,19 @@ class LexiGraphAgent:
                 "ranked_candidates": top_5_candidates,
                 "case_analysis": case_analysis
             }
+
+        # ── Feedback Loop: log prediction for labeling ──────────────────────
+        try:
+            prediction_id = self.feedback_service.logger.log_prediction(
+                query=query,
+                extracted_facts=extracted_facts,
+                pipeline_output=production_output,
+                ranked_candidates=ranked_candidates,
+                config_version="reranking_v1_40-20-15-10-10-5",
+            )
+            production_output["prediction_id"] = prediction_id
+        except Exception as fb_err:
+            print(f"[FeedbackLoop] Non-fatal error logging prediction: {fb_err}")
 
         return production_output
 

@@ -27,11 +27,22 @@ from evidence.evidence_analyzer import (
     extract_facts,
     store_to_firestore,
     store_to_pinecone,
+    _get_firestore_client,
     IMAGE_EXTENSIONS,
 )
 from backend.agents.lexigraph.cypher.legal_text2cypher.agents.pipeline import run_pipeline
 from backend.agents.lexigraph.cypher.legal_text2cypher.config.settings import get_settings
 from backend.agents.lexigraph.lexigraph_agent import LexiGraphAgent
+
+lexigraph_agent_instance = None
+
+
+def get_lexigraph_agent():
+    global lexigraph_agent_instance
+    if lexigraph_agent_instance is None:
+        from backend.agents.lexigraph.lexigraph_agent import LexiGraphAgent
+        lexigraph_agent_instance = LexiGraphAgent()
+    return lexigraph_agent_instance
 
 app = FastAPI(title="MootCourt Legal Intelligence & Evidence API")
 
@@ -63,8 +74,9 @@ class CypherQueryRequest(BaseModel):
     query: str
 
 
-class LexiGraphQueryRequest(BaseModel):
+class LexiGraphAgentQueryRequest(BaseModel):
     query: str
+    debug: bool = False
 
 
 @app.get("/api/cypher/health")
@@ -81,7 +93,6 @@ async def cypher_health():
 
 
 @app.post("/api/cypher/query")
-@app.post("/api/lexigraph/query")
 @app.post("/api/query")
 async def cypher_query_endpoint(req: CypherQueryRequest):
     if not req.query or not req.query.strip():
@@ -115,6 +126,296 @@ async def cypher_query_endpoint(req: CypherQueryRequest):
                 "success": False,
                 "message": f"Legal Text2Cypher pipeline error: {str(e)}"
             }
+        )
+
+
+import json
+from datetime import datetime, timezone
+
+HISTORY_FILE = TEMP_DIR / "lexigraph_history.json"
+
+
+def _get_firestore_db():
+    try:
+        return _get_firestore_client()
+    except Exception as e:
+        print(f"[Firebase] Firestore client unavailable from evidence_analyzer: {e}", file=sys.stderr)
+        return None
+
+
+def save_lexigraph_query_session(query_id: str, query: str, result: dict) -> dict:
+    created_at = datetime.now(timezone.utc).isoformat()
+    session_data = {
+        "query_id": query_id,
+        "query": query,
+        "created_at": created_at,
+        "pipeline_confidence": result.get("pipeline_confidence", 0.0),
+        "primary_intent": result.get("community", {}).get("primary_intent") if isinstance(result.get("community"), dict) else "general_offences",
+        "recommended_count": len(result.get("recommended_sections") or []),
+        "precedents_count": len(result.get("supporting_cases") or []) + len(result.get("similar_cases") or []),
+        "result": result,
+    }
+
+    # 1. Save to Firebase Firestore if client available
+    firestore_saved = False
+    try:
+        db = _get_firestore_db()
+        if db:
+            db.collection("lexigraph_queries").document(query_id).set(session_data)
+            firestore_saved = True
+            print(f"[Firebase] Saved LexiGraph query '{query_id}' to Firestore collection 'lexigraph_queries'")
+    except Exception as e:
+        print(f"[Firebase] Firestore set error: {e}", file=sys.stderr)
+
+    # 2. Local JSON fallback file persistence (always updated)
+    try:
+        history = []
+        if HISTORY_FILE.exists():
+            with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+                try:
+                    history = json.load(f)
+                except Exception:
+                    history = []
+        # Prepend latest
+        history.insert(0, session_data)
+        # Cap local storage at 100 entries
+        history = history[:100]
+        with open(HISTORY_FILE, "w", encoding="utf-8") as f:
+            json.dump(history, f, indent=2)
+    except Exception as local_err:
+        print(f"[Firebase] Local history file write error: {local_err}", file=sys.stderr)
+
+    session_data["saved_to_firestore"] = firestore_saved
+    return session_data
+
+
+def list_lexigraph_history(limit: int = 50) -> list:
+    sessions = []
+    
+    # Try Firestore first
+    try:
+        db = _get_firestore_db()
+        if db:
+            docs = db.collection("lexigraph_queries").order_by("created_at", direction="DESCENDING").limit(limit).stream()
+            for doc in docs:
+                data = doc.to_dict()
+                sessions.append({
+                    "query_id": data.get("query_id") or doc.id,
+                    "query": data.get("query", ""),
+                    "created_at": data.get("created_at", ""),
+                    "pipeline_confidence": data.get("pipeline_confidence", 0.0),
+                    "primary_intent": data.get("primary_intent", "general_offences"),
+                    "recommended_count": data.get("recommended_count", 0),
+                    "precedents_count": data.get("precedents_count", 0),
+                    "source": "firestore"
+                })
+            if sessions:
+                return sessions
+    except Exception as e:
+        print(f"[Firebase] Could not fetch history from Firestore: {e}", file=sys.stderr)
+
+    # Fallback to local JSON store
+    if HISTORY_FILE.exists():
+        try:
+            with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+                history = json.load(f)
+                for item in history[:limit]:
+                    sessions.append({
+                        "query_id": item.get("query_id", ""),
+                        "query": item.get("query", ""),
+                        "created_at": item.get("created_at", ""),
+                        "pipeline_confidence": item.get("pipeline_confidence", 0.0),
+                        "primary_intent": item.get("primary_intent", "general_offences"),
+                        "recommended_count": item.get("recommended_count", 0),
+                        "precedents_count": item.get("precedents_count", 0),
+                        "source": "local"
+                    })
+        except Exception as local_err:
+            print(f"[Firebase] Error reading local history: {local_err}", file=sys.stderr)
+
+    return sessions
+
+
+def get_lexigraph_session_by_id(query_id: str) -> dict:
+    # Try Firestore
+    try:
+        db = _get_firestore_db()
+        if db:
+            doc = db.collection("lexigraph_queries").document(query_id).get()
+            if doc.exists:
+                return doc.to_dict()
+    except Exception as e:
+        print(f"[Firebase] Could not fetch doc '{query_id}' from Firestore: {e}", file=sys.stderr)
+
+    # Fallback to local JSON
+    if HISTORY_FILE.exists():
+        try:
+            with open(HISTORY_FILE, "r", encoding="utf-8") as f:
+                history = json.load(f)
+                for item in history:
+                    if item.get("query_id") == query_id:
+                        return item
+        except Exception as local_err:
+            print(f"[Firebase] Local history lookup error: {local_err}", file=sys.stderr)
+
+    return None
+
+
+@app.post("/api/lexigraph-agent/query")
+@app.post("/api/lexigraph/agent/query")
+@app.post("/api/lexigraph/query")
+async def lexigraph_agent_query_endpoint(req: LexiGraphAgentQueryRequest):
+    if not req.query or not req.query.strip():
+        return JSONResponse(
+            status_code=400,
+            content={"success": False, "message": "Query string cannot be empty."}
+        )
+    try:
+        agent = get_lexigraph_agent()
+        result = await asyncio.to_thread(agent.process_query, req.query.strip(), req.debug)
+        
+        query_id = f"lexi_{uuid.uuid4().hex[:12]}"
+        saved_session = await asyncio.to_thread(save_lexigraph_query_session, query_id, req.query.strip(), result)
+
+        return {
+            "success": True,
+            "query_id": query_id,
+            "prediction_id": result.get("prediction_id"),
+            "created_at": saved_session.get("created_at"),
+            "saved_to_firestore": saved_session.get("saved_to_firestore", False),
+            "data": result,
+            "agent": "LexiGraph Agent",
+        }
+    except Exception as e:
+        print(f"Error executing LexiGraph Agent pipeline: {str(e)}", file=sys.stderr)
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "message": f"LexiGraph Agent error: {str(e)}"
+            }
+        )
+
+
+# ── Feedback Loop Endpoints ────────────────────────────────────────────────
+class FeedbackRequest(BaseModel):
+    prediction_id: str
+    correct: bool
+    corrected_section: str | None = None
+    notes: str = ""
+
+
+def _get_feedback_service():
+    """Returns the FeedbackService from the singleton LexiGraphAgent."""
+    return get_lexigraph_agent().feedback_service
+
+
+@app.post("/api/feedback")
+async def submit_feedback_endpoint(req: FeedbackRequest):
+    """Human feedback intake — attaches a label to a logged prediction."""
+    try:
+        svc = _get_feedback_service()
+        record = await asyncio.to_thread(
+            svc.submit_feedback,
+            prediction_id=req.prediction_id,
+            correct=req.correct,
+            corrected_section=req.corrected_section,
+            notes=req.notes,
+        )
+        return {"success": True, "status": "ok", "data": record}
+    except Exception as e:
+        print(f"Error submitting feedback: {e}", file=sys.stderr)
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "message": f"Feedback submission failed: {str(e)}"}
+        )
+
+
+@app.get("/api/feedback/pending")
+async def list_pending_predictions(limit: int = 50):
+    """Lists predictions awaiting human review or LLM-judge resolution."""
+    try:
+        svc = _get_feedback_service()
+        pending = await asyncio.to_thread(svc.logger.list_pending, limit)
+        return {
+            "success": True,
+            "count": len(pending),
+            "data": pending,
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "message": f"Failed to list pending: {str(e)}"}
+        )
+
+
+@app.post("/api/feedback/resolve")
+async def resolve_pending_endpoint(limit: int = 100):
+    """Batch-resolves all pending predictions via LLM judge (or human labels if available)."""
+    try:
+        svc = _get_feedback_service()
+        resolved = await asyncio.to_thread(svc.resolve_all_pending, limit)
+        return {
+            "success": True,
+            "resolved_count": len(resolved),
+            "data": resolved,
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "message": f"Resolution failed: {str(e)}"}
+        )
+
+
+@app.get("/api/feedback/breakdown")
+async def failure_breakdown_endpoint(min_trust: str = "soft"):
+    """Returns failure-stage breakdown from resolved incorrect/partial predictions."""
+    try:
+        svc = _get_feedback_service()
+        breakdown = await asyncio.to_thread(svc.get_failure_breakdown, min_trust)
+        return {"success": True, "data": breakdown}
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "message": f"Breakdown failed: {str(e)}"}
+        )
+
+
+@app.get("/api/lexigraph-agent/history")
+@app.get("/api/lexigraph/history")
+async def get_lexigraph_history_endpoint(limit: int = 50):
+    try:
+        history = await asyncio.to_thread(list_lexigraph_history, limit)
+        return {
+            "success": True,
+            "count": len(history),
+            "data": history
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "message": f"Failed to fetch history: {str(e)}"}
+        )
+
+
+@app.get("/api/lexigraph-agent/history/{query_id}")
+@app.get("/api/lexigraph/history/{query_id}")
+async def get_lexigraph_session_endpoint(query_id: str):
+    try:
+        session = await asyncio.to_thread(get_lexigraph_session_by_id, query_id)
+        if not session:
+            return JSONResponse(
+                status_code=404,
+                content={"success": False, "message": f"Query record '{query_id}' not found."}
+            )
+        return {
+            "success": True,
+            "data": session
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "message": f"Failed to fetch query session: {str(e)}"}
         )
 
 

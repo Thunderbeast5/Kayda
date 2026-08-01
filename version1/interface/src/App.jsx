@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import HomePage from "./pages/HomePage";
 import EvidenceAnalyzerPage from "./pages/EvidenceAnalyzerPage";
 import LexiGraphCypherPage from "./pages/LexiGraphCypherPage";
-import LexiGraphExplorerPage from "./pages/LexiGraphExplorerPage";
+import LexiGraphAgentPage from "./pages/LexiGraphAgentPage";
 
 export default function App() {
   const [page, setPage] = useState(getPageFromHash());
@@ -23,11 +23,14 @@ export default function App() {
     );
   }
 
-  if (page === "lexigraph-explorer") {
+  if (page === "lexigraph-agent" || page === "lexigraph_agent") {
     return (
-      <LexiGraphExplorerPage
+      <LexiGraphAgentPage
         onBack={() => {
           window.location.hash = "#/";
+        }}
+        onSwitchToCypher={() => {
+          window.location.hash = "#/text2cypher";
         }}
       />
     );
