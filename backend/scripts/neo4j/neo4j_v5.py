@@ -175,8 +175,8 @@ def parse_bns_targets(raw_target: str) -> list[str]:
         part = part.strip()
         if not part:
             continue
-        # Match section number with optional subsection: e.g., "309(2)" or "5"
-        m = re.match(r"^\s*(\d+(?:\(\d+\))?)", part)
+        # Match section number with optional subsection: e.g., "8(1)", "309(2)", "2(19)", or "5"
+        m = re.match(r"^\s*(\d+(?:\([0-9A-Za-z]+\))?)", part)
         if not m:
             continue
         sec = m.group(1)
@@ -948,13 +948,15 @@ def ingest_mappings(driver, mappings: list[dict]):
             continue
 
         for b in targets:
-            # FIXED: Extract base section number for ID lookup, but store full subsection in note
             b_base = str(extract_leading_int(b))
             pair_rows.append(
                 {
                     "ipc_id": ipc_id,
-                    "bns_id": f"BNS_{b_base}",  # Use base section for node ID
-                    "bns_subsection": b,  # Store full subsection (with (1), (2) etc) in metadata
+                    "bns_id": f"BNS_{b}",  # Distinct node ID e.g. BNS_8(1)
+                    "bns_base_id": f"BNS_{b_base}",
+                    "bns_section": b,
+                    "bns_title_hint": m["bns_title_hint"],
+                    "bns_subsection": b,
                     "note": m["note"],
                     "bns_raw": m["bns_raw"],
                     "status": STATUS_ACTIVE,
@@ -967,11 +969,21 @@ def ingest_mappings(driver, mappings: list[dict]):
                 """
             UNWIND $rows AS row
             MATCH (i:LawSection {id: row.ipc_id})
-            MATCH (b:LawSection {id: row.bns_id})
+            OPTIONAL MATCH (baseBns:LawSection {id: row.bns_base_id})
+            MERGE (b:LawSection {id: row.bns_id})
+            ON CREATE SET b.act = 'BNS',
+                          b.section = row.bns_section,
+                          b.title = COALESCE(baseBns.title, row.bns_title_hint),
+                          b.description = COALESCE(baseBns.description, ''),
+                          b.punishment = COALESCE(baseBns.punishment, ''),
+                          b.category = COALESCE(baseBns.category, 'General Provisions'),
+                          b.keywords = COALESCE(baseBns.keywords, ''),
+                          b.data_complete = True
             MERGE (i)-[r1:REPLACED_BY]->(b)
             SET r1.note = row.note,
                 r1.raw_mapping = row.bns_raw,
                 r1.bns_subsection = row.bns_subsection,
+                r1.target_section = row.bns_subsection,
                 r1.status = row.status
             MERGE (b)-[r2:REPLACES]->(i)
             SET r2.note = row.note,
@@ -1013,9 +1025,12 @@ def ingest_crpc_bnss_mappings(driver, mappings: list[dict]):
             crpc_no_successor.add(f"CrPC_{crpc_sec}")
             continue
         
+        bnss_base = str(extract_leading_int(bnss_sec)) if extract_leading_int(bnss_sec) else bnss_sec
         pair_rows.append({
             "crpc_id": f"CrPC_{crpc_sec}",
             "bnss_id": f"BNSS_{bnss_sec}",
+            "bnss_base_id": f"BNSS_{bnss_base}",
+            "bnss_section": bnss_sec,
             "note": m["note"],
             "status": STATUS_ACTIVE,
         })
@@ -1026,9 +1041,18 @@ def ingest_crpc_bnss_mappings(driver, mappings: list[dict]):
                 """
             UNWIND $rows AS row
             MATCH (c:LawSection {id: row.crpc_id})
-            MATCH (b:LawSection {id: row.bnss_id})
+            OPTIONAL MATCH (baseBnss:LawSection {id: row.bnss_base_id})
+            MERGE (b:LawSection {id: row.bnss_id})
+            ON CREATE SET b.act = 'BNSS',
+                          b.section = row.bnss_section,
+                          b.title = COALESCE(baseBnss.title, ''),
+                          b.description = COALESCE(baseBnss.description, ''),
+                          b.chapter = COALESCE(baseBnss.chapter, ''),
+                          b.year = 2023,
+                          b.data_complete = True,
+                          b.status = 'active'
             MERGE (c)-[r1:REPLACED_BY]->(b)
-            SET r1.note = row.note, r1.status = row.status
+            SET r1.note = row.note, r1.target_section = row.bnss_section, r1.status = row.status
             MERGE (b)-[r2:REPLACES]->(c)
             SET r2.note = row.note, r2.status = row.status
             """,
@@ -1066,9 +1090,12 @@ def ingest_iea_bsa_mappings(driver, mappings: list[dict]):
             iea_no_successor.add(f"IEA_{iea_sec}")
             continue
         
+        bsa_base = str(extract_leading_int(bsa_sec)) if extract_leading_int(bsa_sec) else bsa_sec
         pair_rows.append({
             "iea_id": f"IEA_{iea_sec}",
             "bsa_id": f"BSA_{bsa_sec}",
+            "bsa_base_id": f"BSA_{bsa_base}",
+            "bsa_section": bsa_sec,
             "note": m["note"],
             "status": STATUS_ACTIVE,
         })
@@ -1079,9 +1106,17 @@ def ingest_iea_bsa_mappings(driver, mappings: list[dict]):
                 """
             UNWIND $rows AS row
             MATCH (i:LawSection {id: row.iea_id})
-            MATCH (b:LawSection {id: row.bsa_id})
+            OPTIONAL MATCH (baseBsa:LawSection {id: row.bsa_base_id})
+            MERGE (b:LawSection {id: row.bsa_id})
+            ON CREATE SET b.act = 'BSA',
+                          b.section = row.bsa_section,
+                          b.title = COALESCE(baseBsa.title, ''),
+                          b.description = COALESCE(baseBsa.description, ''),
+                          b.year = 2023,
+                          b.data_complete = True,
+                          b.status = 'active'
             MERGE (i)-[r1:REPLACED_BY]->(b)
-            SET r1.note = row.note, r1.status = row.status
+            SET r1.note = row.note, r1.target_section = row.bsa_section, r1.status = row.status
             MERGE (b)-[r2:REPLACES]->(i)
             SET r2.note = row.note, r2.status = row.status
             """,
