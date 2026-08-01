@@ -1,0 +1,267 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-5.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2003-10-66",
+  "court": "SUPREME COURT OF INDIA (FROM: PATNA)",
+  "coram": "N.SANTOSH HEGDE, B.P.SINGH JJ.",
+  "decided_on": "October 08, 2003",
+  "decided_on_year": 2003,
+  "appeal_type": "Criminal Appeal No. 1250 of 2003",
+  "final_verdict": "Appeal allowed",
+  "appellant": "Bharat Chaudhary And Anr. Appellants",
+  "respondent": "State Of Bihar And Anr. Opponents",
+  "advocates": "B.B.SINGH, HIMANSHU SHEKHAR, PRASHANT CHAUDHARY, SHAHID AZAD,\nVIKASH SINGH, YUNUS MALIK",
+  "equivalent_citations": [
+    "AIR(SC)-2003-0-4662",
+    "AIR(SCW)-2003-0-5092",
+    "ALD(CRI)-2003-2-976",
+    "ALLCRIC-2003-47-1123",
+    "ALLCRIR-2004-1-578",
+    "AIC-2003-12-768",
+    "ALLMR(CRI)-2003-0-2379",
+    "ALT(CRI)(SC)-2004-1-38",
+    "ALT(SC)-2004-1-4",
+    "BCR(CRI)-2004-1-543",
+    "BLJ-2003-3-132",
+    "BLJR-2003-3-2202",
+    "CALCRILR-2003-0-939",
+    "CRIAPPR-2003-0-536",
+    "CRIMES(SC)-2003-4-264",
+    "CRLR(SC)-2004-0-10",
+    "DMC-2003-2-715",
+    "DT(SC)-2003-1-973",
+    "EASTCRIC-2003-3-153",
+    "GLH-2003-3-704",
+    "INDLD-2003-11-511",
+    "JCR(SC)-2003-4-237",
+    "JLJR-2003-4-139",
+    "JT-2003-SUPP2-542",
+    "KERLT-2003-3-956",
+    "LAWS(SC)-2003-10-66",
+    "LRI-2003-4-455",
+    "MHLJ-2004-1-1078",
+    "MPLJ-2004-1-490",
+    "OCR-2003-26-641",
+    "PATLJR(SC)-2003-4-217",
+    "RAJCRIC-2004-1-1",
+    "RCR(CRI)-2003-4-716",
+    "SCALE-2003-8-340",
+    "SCC-2003-8-77",
+    "SCC(CR)-2003-0-1953",
+    "SCCRIR-2004-0-347",
+    "SHIMLC-2004-1-155",
+    "SLT-2003-6-135",
+    "SRJ-2004-1-220",
+    "SUPREME-2003-7-224",
+    "TLPRE-2003-0-456",
+    "UJ-2004-1-255",
+    "AD(CR)-2004-1-624",
+    "AICLR-2003-4-710",
+    "CRICC-2004-1-322",
+    "CLJ-2004-1-483",
+    "JCC-2003-3-1535",
+    "CCR-2003-4-176",
+    "CRLJ-2003-0-5038",
+    "GLHEL-2003-0-3357",
+    "AIRJHARHCR-2003-0-1300",
+    "WLC-2004-1-205",
+    "ILR(KAR)-2003-0-4648 Referred Judgement(s) : - Salauddin Abdulsamad Shaikh Vs. State Of Maharashtra",
+    "[1995 9 JT 165] [Referred]"
+  ],
+  "cited_judgments": [
+    "Jayesh Vs. State Of Gujarat, [LAWS(GJH)-2003-11-41] [Referred To]",
+    "Pradip Das Vs. State Of Tripura, [LAWS(GAU)-2007-2-8] [Referred To]",
+    "Hariom Lokhande Vs. M P State Electricity Board, [LAWS(MPH)-2005-9-10] [Referred To]",
+    "R Sarathkumar Vs. Inspector Of Police C 9 Police Station Neelankarai Cheenai, [LAWS(MAD)- 2004-3-350] [Referred To]",
+    "Sreekumar Vs. State Of Kerala, [LAWS(KER)-2008-8-61] [Referred To]",
+    "J Ravindranath J Suryamarayama Vs. State Of Maharashtra, [LAWS(BOM)-2004-5-4] [Referred To]",
+    "Shivaji Dattaray Pahinkar Vs. State Of Maharashtra, [LAWS(BOM)-2007-11-100] [Referred To]",
+    "Arun Marotrao Patil Vs. State Of Maharashtra, [LAWS(BOM)-2008-4-31] [Referred To]",
+    "Chetan Taxman Khambala Vs. State Of Maharashtra , [LAWS(BOM)-2006-9-257] [Referred To]",
+    "Manak Chand Vs. State Of Rajasthan, [LAWS(RAJ)-2011-4-37] [Referred To]",
+    "Bishnudeo Sahu Vs. State Of Bihar, [LAWS(PAT)-2010-5-197] [Referred To]",
+    "Rajendera Das, P.S. New Capital Complex, West Tripura Vs. State Of Tripura, [LAWS(TRIP)-2014- 5-10] [Referred To]",
+    "Kamlesh Kumar Alias Navlesh Vs. State, [LAWS(PAT)-2005-6-29] [Referred To]",
+    "Maheswar Behera Vs. State Of Orissa, [LAWS(ORI)-2014-8-43] [Referred To]",
+    "Laykat Rai Vs. State Of Punjab, [LAWS(P&H)-2015-4-111] [Referred To]",
+    "Chinnanan @ Narayanan & Ors. .. Vs. The Inspector Of Police, Thirupellaivanam Police Station, Thiruvallur District, [LAWS(MAD)-2006-6-349] [Referred To]",
+    "Sania Vs. State Of Odisha, [LAWS(ORI)-2015-6-22] [Referred To]",
+    "Harpal Singh Vs. State Of Nct Of Delhi, [LAWS(DLH)-2010-12-401] [Referred To]",
+    "Sajjan Kumar Vs. The State (Through C.B.I.), [LAWS(DLH)-2010-2-456] [Referred To]",
+    "H N Chavda Vs. State Of Gujarat, [LAWS(GJH)-2010-12-2] [Referred To]",
+    "Jayesh G Ramani Vs. State Of Gujarat, [LAWS(GJH)-2004-7-26] [Referred To]",
+    "State Govt. Of Nct Of Delhi Vs. Sushil Kumar And Ors., [LAWS(DLH)-2016-2-167] [Referred To]",
+    "Sharad Kumar Vs. Central Bureau Of Investigation, [LAWS(DLH)-2011-6-25] [Referred To]",
+    "Phulchand Tirkey Vs. Central Bureau Of Investigation, [LAWS(JHAR)-2010-9-88] [Referred To]",
+    "H D Kumaraswamy Vs. State Of Karnataka By Lokayukta Police, [LAWS(KAR)-2012-6-57] [Referred To]",
+    "N K K P Raja Vs. State, [LAWS(MAD)-2009-9-294] [Referred To]",
+    "Hoshiar Singh Vs. State Of Punjab, [LAWS(P&H)-2004-9-27] [Referred To]",
+    "Anil Kumar Vs. The State Of Bihar, [LAWS(PAT)-2014-9-61] [Referred To]",
+    "Deepak Kumar Vs. State Of Rajasthan, [LAWS(RAJ)-2013-12-97] [Referred To]",
+    "Jyothish Vs. State Of Kerala, [LAWS(KER)-2005-8-13] [Referred To]",
+    "Bahal Singh And Another Vs. State Of Punjab, [LAWS(P&H)-2015-7-838] [Referred]",
+    "Sharad Kumar Vs. Central Bureau Of Investigation, [LAWS(DLH)-2011-6-26] [Referred To]",
+    "Sajjan Kumar Vs. State (Through C.B.I.), [LAWS(DLH)-2010-2-368] [Referred To]",
+    "Sudip Sen Vs. State Of West Bengal, [LAWS(CAL)-2010-9-99] [Referred To]",
+    "Mayank Vs. State Of M P, [LAWS(MPH)-2014-1-88] [Referred To]",
+    "Vinay Kumar Kedia Vs. State Of M P, [LAWS(MPH)-2010-5-53] [Referred To]",
+    "M/S. Vijayawada Ayurved Bhandar Vs. S.K. Parthasarathi, Rep. Public Prosecutor Vijayawada, And Another, [LAWS(APH)-2017-8-14] [Referred To]",
+    "Basudev Samantaray Vs. State Of Odisha, [LAWS(ORI)-2013-11-7] [Referred To]",
+    "M/S. Vijayawada Ayurved Bhandar Vs. S.K. Parthasarathi, [LAWS(APH)-2016-8-91] [Referred To]",
+    "Purushan Eloor S/O Velayudhan Vs. State Of Kerala Represented By Public Prosecutor, [LAWS(KER)-2018-2-158] [Referred To]",
+    "Prasanna Kumar Mohanty Vs. State Of Odisha (Vig ), [LAWS(ORI)-2017-3-125] [Referred To]",
+    "Sania @ Sanatan Mohanty Vs. State Of Odisha, [LAWS(ORI)-2015-6-59] [Referred To]",
+    "Sunil K S/O Sukumaran Vs. State Of Kerala Represented By Public Prosecutor, [LAWS(KER)- 2018-7-29] [Referred To]",
+    "Bishundeo Sahu Vs. State Of Bihar, [LAWS(PAT)-2011-1-114] [Referred To]",
+    "Bishnudeo Sahu Vs. State Of Bihar, [LAWS(JHAR)-2010-5-205] [Referred]",
+    "Deepak Anand Vs. State & Anr, [LAWS(DLH)-2018-10-130] [Referred To]",
+    "K.K. Mathur S/O Shri Ganesh Vallabh Mathur Vs. State Of Rajasthan, [LAWS(RAJ)-2017-4-217] [Referred To]",
+    "Lachchhi Vs. State Of Rajasthan, [LAWS(RAJ)-2004-2-54] [Referred To]",
+    "Anil Vashishtha Vs. State Of Rajasthan & Another, [LAWS(RAJ)-2003-11-59] [Referred To]",
+    "Smt. P Kalpana Vs. The State Of Telangana Rep By Its Public Prosecutor High Court Of Judicature At Hyderabad For The State Of Telangana And The State Of Ap Hyderabad, [LAWS(APH)-2018-6- 67] [Referred To]",
+    "Ankit Vs. State Of Himachal Pradesh, [LAWS(HPH)-2018-9-95] [Referred To]",
+    "Moti Lal Jindal Vs. Central Bureau Of Investigation, [LAWS(P&H)-2012-10-222] [Referred]",
+    "Abhimanyu Pratap Singh Tyagi Vs. C.B.I., [LAWS(ALL)-2020-1-328] [Referred To]",
+    "Vaddi Gopal Reddy Vs. State Of Telanana, [LAWS(TLNG)-2019-11-73] [Referred To]",
+    "Balveer Singh Bundela Vs. State Of Madhya Pradesh, [LAWS(MPH)-2020-5-621] [Referred To]",
+    "Prakash Tripathi Vs. State Of U.P., [LAWS(ALL)-2019-10-282] [Referred To]",
+    "Rajni Puruswani Vs. State Of Madhya Pradesh, [LAWS(MPH)-2020-6-994] [Referred To]",
+    "Rajni Puruswani Vs. State Of Madhya Pradesh, [LAWS(MPH)-2020-6-994] [Referred To]",
+    "Savita Vs. State Of Madhya Pradesh , [LAWS(MPH)-2020-7-37] [Referred To]",
+    "Ami Chand Vs. State Of Himachal Pradesh, [LAWS(HPH)-2020-9-26] [Referred To]",
+    "Amar Kumar Chaudhary Vs. State Of Madhya Pradesh , [LAWS(MPH)-2021-5-6] [Referred To]",
+    "Puspa Bai Vs. State Of Madhya Pradesh, [LAWS(MPH)-2019-2-261] [Referred To]",
+    "Chhabiram Tomar Vs. State Of Madhya Pradesh, [LAWS(MPH)-2019-1-333] [Referred To]",
+    "Haji Mahtab Vs. State Of U.P. , [LAWS(ALL)-2022-5-1] [Referred To]",
+    "Sujay Uday Desai Vs. Central Bureau Of Investigation, [LAWS(ALL)-2022-9-58] [Referred To]",
+    "Sukh Dass Vs. State Of Himachal Pradesh, [LAWS(HPH)-2022-4-79] [Referred To]",
+    "Mahalom Hoque Vs. State Of Meghalaya, [LAWS(MEGH)-2022-10-12] [Referred To]",
+    "Vijay Shukla Vs. Serious Fraud Investigation Officer, [LAWS(P&H)-2021-4-70] [Referred To]",
+    "Rahul Tripathi Vs. State Of Chhattisgarh, [LAWS(CHH)-2023-4-13] [Referred To]",
+    "Yashraj Bhardwaj Vs. State Of Rajasthan, [LAWS(RAJ)-2022-9-104] [Referred To]",
+    "Saubhagya Bhagat Vs. State Of Uttarakhand, [LAWS(UTN)-2023-8-1] [Referred To]",
+    "Sandeep Kumar Garg Vs. State Of U.P., [LAWS(ALL)-2023-7-50] [Referred To]",
+    "Kartikeya Sharma Vs. State Of U.P., [LAWS(ALL)-2023-5-92] [Referred To]",
+    "Nijam Vs. State Of Kerala, [LAWS(KER)-2022-12-201] [Referred To]",
+    "Abraham George Vs. Serious Fraud Investigation Office, [LAWS(DLH)-2024-3-11] [Referred To]",
+    "Sandeep Kumar Garg Vs. State Of Uttar Pradesh, [LAWS(ALL)-2023-7-121] [Referred To]",
+    "Rishabh Singh Vs. State Of U.P., [LAWS(ALL)-2023-4-235] [Referred To]",
+    "Santosh Yadav Vs. State Of Bihar, [LAWS(PAT)-2022-7-107] [Referred To]",
+    "Deepankar Vishwas Vs. State Of M.P., [LAWS(MPH)-2025-2-7] [Referred To]",
+    "Sarat Kumar Sahoo Vs. Enforcement Directorate , [LAWS(ORI)-2024-3-162] [Referred To]",
+    "Sumit Vs. State Of U.P., [LAWS(SC)-2026-2-30] [Referred To]",
+    "Girraj Agarwal Vs. State Of Rajasthan , [LAWS(RAJ)-2023-7-205] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "State Of Rajasthan , [LAWS(RAJ)-2023-7-205] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [],
+  "crpc_sections_mentioned": [
+    "438"
+  ],
+  "procedural_history": {
+    "high_court_bench": "High Court of Judicature at Patna"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person apprehending arrest - The gravity of the offence is an important factor to be taken into consideration while granting such anticipatory bail so also the need for custodial interrogation, but these are only factors that must be borne in mind by the concerned Courts while entertaining a petition for grant of anticipatory bail and the fact of taking cognizance or filing of charge-sheet cannot by themselves be construed as a prohibition against the grant of anticipatory bail. - It is, therefore, necessary that such anticipatory bail orders should be of a limited duration only and ordinarily on the expiry of that duration or extended duration, the Court granting anticipatory bail should leave it to the regular Court to deal with the matter on an appreciation of evidence placed before it after the investigation has made progress or the charge-sheet is submitted.Ordinarily the Court granting anticipatory bail should not substitute itself for the original Court which is expected to deal with the offence. - This judgment only lays down a guideline that while considering the prima facie case against an accused the factum of cognizance having been taken and the laying of charge-sheet would be of some assistance for coming to the conclusion whether the claimant for an anticipatory bail is entitled for such bail or not. - This is clear from the following observations of the Court in the above case :\"It is, therefore, necessary that such anticipatory bail orders should be of limited duration only and ordinarily on the expiry of the duration or extended duration, Court, granting anticipatory bail, should leave it to the regular Court to deal with the matter on an appreciation of evidence placed before it after the investigation has made progress or charge-sheet is submitted.\" B. cannot be used for granting anticipatory bail even by this Court and the only remedy available to the appellants is to approach the trial Court and surrender, thereafter apply for regular bail under S. - namely Salauddin Abdulsamad Shaikh, a three-Judge Bench of this Court stated thus:\"When the Court of Session or the High Court is granting anticipatory bail, it is granted at a stage when the investigation is incomplete and, therefore, it is not informed about the nature of evidence against the alleged offender. - It is, therefore, necessary that such anticipatory bail orders should be of a limited duration only and ordinarily on the expiry of that duration or extended duration, the Court granting anticipatory bail should leave it to the regular Court to deal with the matter on an appreciation of evidence placed before it after the investigation has made progress or the charge-sheet is submitted.Ordinarily the Court granting anticipatory bail should not substitute itself for the original Court which is expected to deal with the offence. - This is clear from the following observations of the Court in the above case :\"It is, therefore, necessary that such anticipatory bail orders should be of limited duration only and ordinarily on the expiry of the duration or extended duration, Court, granting anticipatory bail, should leave it to the regular Court to deal with the matter on an appreciation of evidence placed before it after the investigation has made progress or charge-sheet is submitted.\" C. As observed above and having heard the learned counsel for the parties, we are of the considered opinion that the appellants in this case should be released on bail, in the event of their being arrested, on their furnishing a self-bond each for a sum of Rs. 5,000/- and a surety to the like sum. The appellants shall abide by the conditions enumerated in S. 438 of the Code.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest - The gravity of the offence is an important factor to be taken into\nconsideration while granting such anticipatory bail so also the need for custodial\ninterrogation, but these are only factors that must be borne in mind by the concerned Courts\nwhile entertaining a petition for grant of anticipatory bail and the fact of taking cognizance or\nfiling of charge-sheet cannot by themselves be construed as a prohibition against the grant of\nanticipatory bail. - It is, therefore, necessary that such anticipatory bail orders should be of a\nlimited duration only and ordinarily on the expiry of that duration or extended duration, the\nCourt granting anticipatory bail should leave it to the regular Court to deal with the matter\non an appreciation of evidence placed before it after the investigation has made progress or\nthe charge-sheet is submitted.Ordinarily the Court granting anticipatory bail should not\nsubstitute itself for the original Court which is expected to deal with the offence. - This\njudgment only lays down a guideline that while considering the prima facie case against an\naccused the factum of cognizance having been taken and the laying of charge-sheet would be\nof some assistance for coming to the conclusion whether the claimant for an anticipatory bail\nis entitled for such bail or not. - This is clear from the following observations of the Court in\nthe above case :\"It is, therefore, necessary that such anticipatory bail orders should be of\nlimited duration only and ordinarily on the expiry of the duration or extended duration,\nCourt, granting anticipatory bail, should leave it to the regular Court to deal with the matter\non an appreciation of evidence placed before it after the investigation has made progress or\ncharge-sheet is submitted.\""
+    },
+    {
+      "label": "B",
+      "text": "cannot be used for granting anticipatory bail even by this Court and the only remedy\navailable to the appellants is to approach the trial Court and surrender, thereafter apply for\nregular bail under S. - namely Salauddin Abdulsamad Shaikh, a three-Judge Bench of this\nCourt stated thus:\"When the Court of Session or the High Court is granting anticipatory\nbail, it is granted at a stage when the investigation is incomplete and, therefore, it is not\ninformed about the nature of evidence against the alleged offender. - It is, therefore,\n\nnecessary that such anticipatory bail orders should be of a limited duration only and\nordinarily on the expiry of that duration or extended duration, the Court granting\nanticipatory bail should leave it to the regular Court to deal with the matter on an\nappreciation of evidence placed before it after the investigation has made progress or the\ncharge-sheet is submitted.Ordinarily the Court granting anticipatory bail should not\nsubstitute itself for the original Court which is expected to deal with the offence. - This is\nclear from the following observations of the Court in the above case :\"It is, therefore,\nnecessary that such anticipatory bail orders should be of limited duration only and ordinarily\non the expiry of the duration or extended duration, Court, granting anticipatory bail, should\nleave it to the regular Court to deal with the matter on an appreciation of evidence placed\nbefore it after the investigation has made progress or charge-sheet is submitted.\""
+    },
+    {
+      "label": "C",
+      "text": "As observed above and having heard the learned counsel for the parties, we are of the considered\nopinion that the appellants in this case should be released on bail, in the event of their being arrested,\non their furnishing a self-bond each for a sum of Rs. 5,000/- and a surety to the like sum. The\nappellants shall abide by the conditions enumerated in S. 438 of the Code."
+    }
+  ],
+  "judgment_author": "Santosh Hegde, J.",
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Heard learned counsel for the parties."
+    },
+    {
+      "number": "2",
+      "text": "Leave granted."
+    },
+    {
+      "number": "3",
+      "text": "Appellants in this case are husband and wife and were accused by their daughter-in-law of\noffences punishable under Ss. 504, 498-A and 406 of the Indian Penal Code and Ss. 3/4 of the Dowry\nProhibition Act. Their application, filed under S. 438 of the Crl. P.C. for grant of anticipatory bail has\nbeen rejected by the High Court of Judicature at Patna. The said order is under challenge in this\nappeal. When this matter came up for preliminary hearing of 19th May, 2003, we issued notice to the\nrespondents and also made an interim order not to arrest the appellants in the meantime. Today after\nhearing the parties on facts, we are inclined to grant anticipatory bail to the appellants."
+    },
+    {
+      "number": "4",
+      "text": "Shri B. B. Singh, learned counsel appearing for the respondent-State, however, raised a legal\nobjection. His contention was that since the Court of first instance has taken cognizance of the offence\nin question, S. 438 of the Crl. P.C. cannot be used for granting anticipatory bail even by this Court and\nthe only remedy available to the appellants is to approach the trial Court and surrender, thereafter\napply for regular bail under S. 439 of the Crl. P.C. In support of this contention the learned counsel\nrelied on the judgment of this Court in the case of Salauddin Abdulsamad Shaikh vs. State of\nMaharashtra (1996) 1 SCC 667)."
+    },
+    {
+      "number": "5",
+      "text": "If the arguments of the learned counsel for the respondent-State is to be accepted then in each and\nevery case, where a complaint is made of an non-bailable offence and cognizance is taken by the\ncompetent Court then every Court under the Code including this Court would be denuded of its power to grant anticipatory bail under S. 438 of the Cr. P.C."
+    },
+    {
+      "number": "6",
+      "text": "We do not think that was the intention of the legislature when it incorporated S. 438 in the Cri.\nP.C. which reads thus :\n\"When any person has reason to believe that he may be arrested on an accusation of having\ncommitted a non-bailable offence, he may apply to the High Court or the Court of Session for\ndirection under this section; and that Court may, if it thinks fit, direct that in the event of such arrest he\nshall be released on bail.\""
+    },
+    {
+      "number": "7",
+      "text": "From the perusal of this part of S. 438 of the Crl. P.C., we find no restriction in regard to exercise\nof this power in a suitable case either by the Court of Sessions, High Court or this Court even when\ncognizance is taken or charge-sheet is filed. The object of S. 438 is to prevent undue harassment of the\naccused persons by pre-trial arrest and detention. The fact, that a Court has either taken cognizance of\nthe complaint or the investigating agency has filed a charge-sheet, would not by itself, in our opinion,\nprevent the concerned Courts from granting anticipatory bail in appropriate cases. The gravity of the\noffence is an important factor to be taken into consideration while granting such anticipatory bail so\nalso the need for custodial interrogation, but these are only factors that must be borne in mind by the\nconcerned Courts while entertaining a petition for grant of anticipatory bail and the fact of taking\ncognizance or filing of charge-sheet cannot by themselves be construed as a prohibition against the\ngrant of anticipatory bail. In our opinion, the Courts i.e. the Court of Sessions, High Court or this\nCourt has the necessary power vested in them to grant anticipatory bail in non-bailable offences under\nS. 438 of the Crl. P.C. even when cognizance is taken or charge-sheet is filed provided the facts of the\ncase require the Court to do so."
+    },
+    {
+      "number": "8",
+      "text": "The learned counsel, as stated above, has relied on the judgment of this Court referred to herein\nabove. In that case i.e. namely Salauddin Abdulsamad Shaikh, a three-Judge Bench of this Court stated\nthus:\n\"When the Court of Session or the High Court is granting anticipatory bail, it is granted at a\nstage when the investigation is incomplete and, therefore, it is not informed about the nature of\nevidence against the alleged offender. It is, therefore, necessary that such anticipatory bail orders\nshould be of a limited duration only and ordinarily on the expiry of that duration or extended duration,\nthe Court granting anticipatory bail should leave it to the regular Court to deal with the matter on an\nappreciation of evidence placed before it after the investigation has made progress or the charge-sheet\nis submitted.\nOrdinarily the Court granting anticipatory bail should not substitute itself for the original\nCourt which is expected to deal with the offence. It is that Court which has then to consider whether,\nhaving regard to the material placed before it, the accused person is entitled to bail.\""
+    },
+    {
+      "number": "9",
+      "text": "From a careful reading of the said judgment we do not find any restriction or absolute bar on the\nconcerned Court granting anticipatory bail even in cases where either cognizance has been taken or a\ncharge-sheet has been filed. This judgment only lays down a guideline that while considering the prima facie case against an accused the factum of cognizance having been taken and the laying of\ncharge-sheet would be of some assistance for coming to the conclusion whether the claimant for an\nanticipatory bail is entitled for such bail or not. This is clear from the following observations of the\nCourt in the above case :\n\"It is, therefore, necessary that such anticipatory bail orders should be of limited duration\nonly and ordinarily on the expiry of the duration or extended duration, Court, granting anticipatory\nbail, should leave it to the regular Court to deal with the matter on an appreciation of evidence placed\nbefore it after the investigation has made progress or charge-sheet is submitted.\""
+    },
+    {
+      "number": "10",
+      "text": "From the above observations, we are unable to read any restriction on the power of the Courts\nempowered to grant anticipatory bail under S. 438 of the Crl. P.C."
+    },
+    {
+      "number": "11",
+      "text": "We respectfully agree with the observations of this Court in the said case that the duration of\nanticipatory bail should be normally limited till the trial Court has the necessary material before it to\npass such orders and it thinks fit on the material available before it. That is only a restriction in regard\nto blanket anticipatory bail for an unspecified period. This judgment in our opinion does not support\nthe extreme argument addressed on behalf of the learned counsel for the respondent-State that the\nCourts specified in S. 438 of the Crl. P.C. are denuded of their power under the said section where\neither the cognizance is taken by the concerned Court or charge-sheet is filed before the appropriate\nCourt. As stated above this would only amount to defeat the very object for which S. 438 was\nintroduced in the Crl. P.C. in the year 1973."
+    },
+    {
+      "number": "12",
+      "text": "As observed above and having heard the learned counsel for the parties, we are of the considered\nopinion that the appellants in this case should be released on bail, in the event of their being arrested,\non their furnishing a self-bond each for a sum of Rs. 5,000/- and a surety to the like sum. The\nappellants shall abide by the conditions enumerated in S. 438 of the Code."
+    },
+    {
+      "number": "13",
+      "text": "Appeal allowed."
+    }
+  ],
+  "bail_amount_original": "Rs. 5,000",
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": "Rs. 5,000",
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "granted",
+  "bail_conditions": [
+    "As observed above and having heard the learned counsel for the parties, we are of the considered opinion that the appellants in this case should be released on bail, in the event of their being arrested, on their furnishing a self-bond each for a sum of Rs. 5,000/- and a surety to the like sum"
+  ],
+  "ratio_decidendi": "We respectfully agree with the observations of this Court in the said case that the duration of\nanticipatory bail should be normally limited till the trial Court has the necessary material before it to\npass such orders and it thinks fit on the material available before it. That is only a restriction in regard\nto blanket anticipatory bail for an unspecified period. This judgment in our opinion does not support\nthe extreme argument addressed on behalf of the learned counsel for the respondent-State that the\nCourts specified in S. 438 of the Crl. P.C. are denuded of their power under the said section where\neither the cognizance is taken by the concerned Court or charge-sheet is filed before the appropriate\nCourt. As stated above this would only amount to defeat the very object for which S. 438 was\nintroduced in the Crl. P.C. in the year 1973.",
+  "ratio_para_number": "11",
+  "dispute_nature": "matrimonial",
+  "missing_anchors": [],
+  "warnings": [
+    "headnote_points backfilled from judgment paragraphs (source PDF had truncated headnote at page boundary)"
+  ]
+}

@@ -1,0 +1,146 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-11.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2018-10-38",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "KURIAN JOSEPH, S.ABDUL NAZEER JJ.",
+  "decided_on": "October 09, 2018",
+  "decided_on_year": 2018,
+  "appeal_type": "Criminal Appeal 1268 of 2018",
+  "final_verdict": "Appeal disposed",
+  "appellant": "PRAKASH CHAND MEENA",
+  "respondent": "State Of Rajasthan And Anr",
+  "advocates": "SATYA MITRA GARG, MANJU AGARWAL, P.V.Yogeshwaran, Asish K.Upadhay,\nA.K.CHOUDHARY, Giriraj P.Sharma",
+  "equivalent_citations": [
+    "LAWS(SC)-2018-10-38",
+    "SCALE-2018-14-236",
+    "CRIMES(SC)-2018-4-92",
+    "SCJ-2019-6-352"
+  ],
+  "cited_judgments": [],
+  "referred_acts": [
+    "S.438",
+    "S.438(2)"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "Decided On : October 09, 2018 Appeal Type : Criminal Appeal 1268 of 2018 Final Verdict : Appeal disposed Appellant(s) : PRAKASH CHAND MEENA Respondent(s) : State Of Rajasthan And Anr Advocate(s) : SATYA MITRA GARG, MANJU AGARWAL, P.V.Yogeshwaran, Asish K.Upadhay, A.K.CHOUDHARY, Giriraj P.Sharma Equi",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438(2)",
+      "subsection": "2",
+      "section_title": "Conditions for anticipatory bail",
+      "how_used": "Referenced",
+      "context": "Decided On : October 09, 2018 Appeal Type : Criminal Appeal 1268 of 2018 Final Verdict : Appeal disposed Appellant(s) : PRAKASH CHAND MEENA Respondent(s) : State Of Rajasthan And Anr Advocate(s) : SATYA MITRA GARG, MANJU AGARWAL, P.V.Yogeshwaran, Asish K.Upadhay, A.K.CHOUDHARY, Giriraj P.Sharma Equi",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "1",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Charged",
+      "context": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person apprehending arrest, S.438(2) - Direction for grant of bail to person apprehending arrest - This Court, on 201.2018, passed the following order:-\"Issue notice.In the event of the petitioner being arrested in connection ",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [],
+  "crpc_sections_mentioned": [
+    "1",
+    "438",
+    "438(2)"
+  ],
+  "procedural_history": {
+    "fir_number": "202",
+    "police_station": "Banipark",
+    "high_court_order_date": "15.02.2018"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, S.438(2) - Direction for grant of bail to person apprehending arrest -\nThis Court, on 201.2018, passed the following order:-\"Issue notice.In the event of the\npetitioner being arrested in connection with FIR No.202 dated 05.10.2017 registered at Police\nStation Banipark, District Jaipur (West), he shall be released on execution of bond for a sum\nof Rs.1,00,000/- (Rupees One Lac) with two solvent sureties for the like amount.We make it\nclear that this order is passed subject to other conditions under Section 438(2) of the Cr.P.C.\nB. It will be open to the de facto complainant to approach the Trial Court. - Pending\napplications, if any, shall stand disposed of.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, S.438(2) - Direction for grant of bail to person apprehending arrest -\nThis Court, on 201.2018, passed the following order:-\"Issue notice.In the event of the\npetitioner being arrested in connection with FIR No.202 dated 05.10.2017 registered at Police\nStation Banipark, District Jaipur (West), he shall be released on execution of bond for a sum\nof Rs.1,00,000/- (Rupees One Lac) with two solvent sureties for the like amount.We make it\nclear that this order is passed subject to other conditions under Section 438(2) of the Cr.P.C."
+    },
+    {
+      "label": "B",
+      "text": "It will be open to the de facto complainant to approach the Trial Court. - Pending\napplications, if any, shall stand disposed of."
+    }
+  ],
+  "judgment_author": "Kurian Joseph, J.",
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "The appellant approached this Court aggrieved by the denial of protection under Section 438\nCr.P.C. in respect of FIR No.202 dated 05.10.2017 registered at Police Station Banipark, District\nJaipur (West)."
+    },
+    {
+      "number": "3",
+      "text": "This Court, on 201.2018, passed the following order:-\n\"Issue notice.\nIn the event of the petitioner being arrested in connection with FIR No.202 dated\n05.10.2017 registered at Police Station Banipark, District Jaipur (West), he shall be released on\nexecution of bond for a sum of Rs.1,00,000/- (Rupees One Lac) with two solvent sureties for the like\namount.\nWe make it clear that this order is passed subject to other conditions under Section 438(2)\nof the Cr.P.C. and the petitioner shall cooperate with the investigation.\""
+    },
+    {
+      "number": "4",
+      "text": "We are informed that the investigation has been completed and the final report has been filed. The\nCourt has taken cognizance. The appellant has been summoned. Now the case is at the stage of\nconsideration of charge. In the meanwhile, by order dated 15.02.2018, it appears the petitioner has\nbeen released on regular bail by the Trial Court, apparently on the basis that the appellant has been\ngranted anticipatory bail by this Court. On going through the order dated 15.02.2018, we do not find\nany other consideration. Since the matter is referred to a larger Bench, we do not propose to deal with\nthe issue any further as to whether the Trial Court could have granted regular bail solely based on the\nprotection granted by this Court."
+    },
+    {
+      "number": "5",
+      "text": "However, we make it clear that it will be open to the de fact complainant to approach the Trial\nCourt to modify the conditions of bail."
+    },
+    {
+      "number": "6",
+      "text": "Without prejudice to such liberty, this appeal is disposed of."
+    },
+    {
+      "number": "7",
+      "text": "Learned counsel appearing for the de facto complainant submits that orders may be passed\ncompelling the appellant to make appropriate deposit before the Trial Court in view of the conduct of\nthe appellant and the quantum involved."
+    },
+    {
+      "number": "8",
+      "text": "We do not think that it will be appropriate for us to go into this question. It will be open to the de\nfacto complainant to approach the Trial Court."
+    },
+    {
+      "number": "9",
+      "text": "Pending applications, if any, shall stand disposed of."
+    }
+  ],
+  "bail_amount_original": "Rs. 1,00,000",
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": "Rs. 1,00,000",
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "referred",
+  "bail_conditions": [
+    "We make it clear that this order is passed subject to other conditions under Section 438(2) of the Cr.P.C. and the petitioner shall cooperate with the investigation.\""
+  ],
+  "ratio_decidendi": "We do not think that it will be appropriate for us to go into this question. It will be open to the de\nfacto complainant to approach the Trial Court.",
+  "ratio_para_number": "8",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": []
+}

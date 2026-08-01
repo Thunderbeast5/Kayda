@@ -1,0 +1,113 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-8.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2012-3-18",
+  "court": "SUPREME COURT OF INDIA (FROM: PUNJAB & HARYANA)",
+  "coram": "H.L.DATTU, CHANDRAMAULI KUMAR PRASAD JJ.",
+  "decided_on": "March 12, 2012",
+  "decided_on_year": 2012,
+  "appeal_type": "CRIMINAL APPEAL NO. 501 OF 2012",
+  "final_verdict": "Appeal disposed",
+  "appellant": "SATISH",
+  "respondent": "STATE OF HARYANA",
+  "advocates": null,
+  "equivalent_citations": [
+    "LAWS(SC)-2012-3-18",
+    "SCC-2012-4-509",
+    "SCC(CR)-2012-2-454",
+    "TLPRE-2012-0-139",
+    "KHC-2012-0-4179",
+    "GLHEL-2012-0-51171",
+    "RCR(CRI)-2014-6-170"
+  ],
+  "cited_judgments": [
+    "Naorem Priyobarta Singh Vs. Officer In Charge, Kakching Police Station, [LAWS(MANIP)-2025-1- 2] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438(2)"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438(2)",
+      "subsection": "2",
+      "section_title": "Conditions for anticipatory bail",
+      "how_used": "Charged",
+      "context": "Officer In Charge, Kakching Police Station, [LAWS(MANIP)-2025-1- 2] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438(2) Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "20",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Mentioned",
+      "context": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438(2) - Direction for grant of bail to person apprehending arrest - This Court, on 31.10.2011, while issuing notice, has ordered for release of the appellant on his furnishing the personal bond of Rs.20,000/- with one surety in the like amount to the satisfactio",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [],
+  "crpc_sections_mentioned": [
+    "20",
+    "438(2)"
+  ],
+  "procedural_history": {
+    "high_court_order_date": "16.09.2011",
+    "high_court_bench": "High Court of Punjab & Haryana at Chandigarh"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438(2) - Direction for grant of bail to person\napprehending arrest - This Court, on 31.10.2011, while issuing notice, has ordered for release\nof the appellant on his furnishing the personal bond of Rs.20,000/- with one surety in the like\namount to the satisfaction of the Investigating Officer, subject to the condition that he will\njoin the investigation as and when required and shall abide by the provisions of Section\n438(2) of the Code of Criminal Procedure.\nB. This appeal is filed against the judgment and order dated 16.09.2011 passed in anticipatory\nbail application by the High Court of Punjab & Haryana at Chandigarh in Criminal\nMiscellaneous No.M- 26433 - This Court, on 31.10.2011, while issuing notice, has ordered for\nrelease of the appellant on his furnishing the personal bond of Rs.20,000/- with one surety in\nthe like amount to the satisfaction of the Investigating Officer, subject to the condition that he\nwill join the investigation as and when required and shall abide by the provisions of Section\n438(2) of the Code of Criminal Procedure.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438(2) - Direction for grant of bail to person\napprehending arrest - This Court, on 31.10.2011, while issuing notice, has ordered for release\nof the appellant on his furnishing the personal bond of Rs.20,000/- with one surety in the like\namount to the satisfaction of the Investigating Officer, subject to the condition that he will\njoin the investigation as and when required and shall abide by the provisions of Section\n438(2) of the Code of Criminal Procedure."
+    },
+    {
+      "label": "B",
+      "text": "This appeal is filed against the judgment and order dated 16.09.2011 passed in anticipatory\nbail application by the High Court of Punjab & Haryana at Chandigarh in Criminal\nMiscellaneous No.M- 26433 - This Court, on 31.10.2011, while issuing notice, has ordered for\nrelease of the appellant on his furnishing the personal bond of Rs.20,000/- with one surety in\nthe like amount to the satisfaction of the Investigating Officer, subject to the condition that he\nwill join the investigation as and when required and shall abide by the provisions of Section\n438(2) of the Code of Criminal Procedure."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Application for impleadment/intervention is rejected."
+    },
+    {
+      "number": "2",
+      "text": "Leave granted."
+    },
+    {
+      "number": "3",
+      "text": "This appeal is filed against the judgment and order dated 16.09.2011 passed in anticipatory bail\napplication by the High Court of Punjab & Haryana at Chandigarh in Criminal Miscellaneous No.M-\n26433 of 2011. The High Court has rejected the application for anticipatory bail."
+    },
+    {
+      "number": "4",
+      "text": "This Court, on 31.10.2011, while issuing notice, has ordered for release of the appellant on his\nfurnishing the personal bond of Rs.20,000/- with one surety in the like amount to the satisfaction of\nthe Investigating Officer, subject to the condition that he will join the investigation as and when\nrequired and shall abide by the provisions of Section 438(2) of the Code of Criminal Procedure. In\nour opinion, the aforesaid order should be made absolute and is made absolute. Appeal is disposed of\naccordingly."
+    }
+  ],
+  "bail_amount_original": "Rs. 20,000",
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": "Rs. 20,000",
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "modified",
+  "bail_conditions": [
+    "This Court, on 31.10.2011, while issuing notice, has ordered for release of the appellant on his furnishing the personal bond of Rs.20,000/- with one surety in the like amount to the satisfaction of the Investigating Officer, subject to the condition that he will join the investigation as and when required and shall abide by the provisions of Section 438(2) of the Code of Criminal Procedure"
+  ],
+  "ratio_decidendi": "This appeal is filed against the judgment and order dated 16.09.2011 passed in anticipatory bail\napplication by the High Court of Punjab & Haryana at Chandigarh in Criminal Miscellaneous No.M-\n26433 of 2011. The High Court has rejected the application for anticipatory bail.",
+  "ratio_para_number": "3",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": []
+}

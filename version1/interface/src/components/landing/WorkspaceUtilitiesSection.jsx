@@ -1,7 +1,7 @@
 export default function WorkspaceUtilitiesSection() {
   const tools = [
-    { title: "Evidence Analyzer", desc: "Instantly scan and index discovery folders, identifying procedural inconsistencies across multiple witness testimonies.", link: true },
-    { title: "LexiGraph Explorer", desc: "Generate visual network graphs connecting legal actors, corporate bodies, transaction dates, and cited dockets." },
+    { title: "Evidence Analyzer", desc: "Instantly scan and index discovery folders, identifying procedural inconsistencies across multiple witness testimonies.", link: true, href: "#/evidence-analyzer" },
+    { title: "LexiGraph Explorer", desc: "Generate visual network graphs connecting legal actors, corporate bodies, transaction dates, and cited dockets.", link: true, href: "#/lexigraph-explorer" },
     { title: "Upload & Query", desc: "Interact directly with dense case briefs, pleading files, and administrative records through a semantic conversational panel." },
     { title: "Legal Drafting Desk", desc: "Generate legal templates, custom complaints, written declarations, and structured affidavits in standard court layouts." },
     { title: "Contract Analysis", desc: "Isolate complex contract clauses, highlight latent liabilities, and receive risk assessments mapped to federal law." },
@@ -30,7 +30,7 @@ export default function WorkspaceUtilitiesSection() {
             <div 
               key={i} 
               className={`bg-white p-6 border border-surface-border relative group hover:border-gold hover:shadow-sm transition-all duration-300 ${tool.link ? 'cursor-pointer' : ''}`}
-              onClick={() => tool.link && (window.location.hash = '#/evidence-analyzer')}
+              onClick={() => tool.link && tool.href && (window.location.hash = tool.href)}
             >
               <h3 className="font-heading text-base font-bold text-wood-dark mb-2">
                 {tool.title}

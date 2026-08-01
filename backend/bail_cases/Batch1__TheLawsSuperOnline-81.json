@@ -1,0 +1,169 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-81.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2004-10-109",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "Y.K.SABHARWAL, D.M.DHARMADHIKARI JJ.",
+  "decided_on": "October 25, 2004",
+  "decided_on_year": 2004,
+  "appeal_type": "Crl. A. No. 1217 of 2004",
+  "final_verdict": "Appeal allowed",
+  "appellant": "Manager Pandey",
+  "respondent": "STATE OF BIHAR",
+  "advocates": null,
+  "equivalent_citations": [
+    "TLPRE-2004-0-6262",
+    "LAWS(SC)-2004-10-109",
+    "KHC-2004-0-1981",
+    "SCC-2004-13-458",
+    "SCC(CR)-2006-1-337",
+    "GLHEL-2004-0-36777 Referred Judgement(s) : - Bharat Chaudhary V. State Of Bihar",
+    "[2003 0 KHC 1216] [Referred To]"
+  ],
+  "cited_judgments": [
+    "Iqbal Hasanali Syed Vs. State Of Gujarat, [LAWS(GJH)-2022-6-1694] [Referred To]",
+    "Sant Gurmeet Ram Rahim Singh Insan Vs. Central Bureau Of Investigation, [LAWS(P&H)-2007-9- 140] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.27",
+    "S.438",
+    "S.302"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "27",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Referenced",
+      "context": "Central Bureau Of Investigation, [LAWS(P&H)-2007-9- 140] [Referred To] Referred Act(s) : - Arms Act, 1959, S.27 - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.302 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "Central Bureau Of Investigation, [LAWS(P&H)-2007-9- 140] [Referred To] Referred Act(s) : - Arms Act, 1959, S.27 - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.302 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "302",
+      "subsection": null,
+      "section_title": "Punishment for murder",
+      "how_used": "Referenced",
+      "context": "Central Bureau Of Investigation, [LAWS(P&H)-2007-9- 140] [Referred To] Referred Act(s) : - Arms Act, 1959, S.27 - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.302 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "27",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Mentioned",
+      "context": "302 IPC and Section 27 of the Arms Act.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "27",
+    "302"
+  ],
+  "crpc_sections_mentioned": [
+    "27",
+    "438"
+  ],
+  "procedural_history": {
+    "high_court_order_date": "26.8.2002",
+    "high_court_decision": "High Court has granted anticipatory bail"
+  },
+  "headnote_raw": "A. ARMS ACT, 1959 - S.27 - Punishment for using arms, etc, CODE OF CRIMINAL\nPROCEDURE, 1973 - S.438 - Direction for grant of bail to person apprehending arrest,\nINDIAN PENAL CODE, 1860 - S.302 - Punishment for murder - The Chief Judicial\nMagistrate, Gopal Ganj, by a detailed order dated 26.8.2002, on consideration of the first\ninformation report, case diary and the police report, came to the conclusion that there is a\nstrong prima facie case against the second respondent and sufficient material to proceed\nagainst the said respondent for offence u/s. - Having regard to the facts and circumstances of\nthe case, the learned Sessions Judge observed that in a case where a police officer is said to\nhave intentionally killed a member of public to satisfy his ego and vent his annoyance, he was\nnot inclined to extend the benefit of anticipatory bail. - The High Court, it appears, has lost sight of the detailed order passed by the Chief Judicial Magistrate and also the Sessions\nJudge referred to hereinbefore, in one strong prima facie case was found against Respondent\n2 and in the other cogent reasons were recorded to decline anticipatory bail to the accused.\nB. It is true that on direction of the Human Rights Commission, a joint enquiry was held by the\nCommissioner, Saran Range, and the DIG of the said range and in that report Respondent 2\nwas not found guilty of the offence. - 438 Code of Criminal Procedure was not maintainable,\nand therefore Respondent 2 could seek regular bail only after surrender.\nC. The High Court, it appears, has lost sight of the detailed order passed by the Chief Judicial\nMagistrate and also the Sessions Judge referred to hereinbefore, in one strong prima facie\ncase was found against Respondent 2 and in the other cogent reasons were recorded to decline\nanticipatory bail to the accused. - Respondent 2 shall surrender within four weeks.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "ARMS ACT, 1959 - S.27 - Punishment for using arms, etc, CODE OF CRIMINAL\nPROCEDURE, 1973 - S.438 - Direction for grant of bail to person apprehending arrest,\nINDIAN PENAL CODE, 1860 - S.302 - Punishment for murder - The Chief Judicial\nMagistrate, Gopal Ganj, by a detailed order dated 26.8.2002, on consideration of the first\ninformation report, case diary and the police report, came to the conclusion that there is a\nstrong prima facie case against the second respondent and sufficient material to proceed\nagainst the said respondent for offence u/s. - Having regard to the facts and circumstances of\nthe case, the learned Sessions Judge observed that in a case where a police officer is said to\nhave intentionally killed a member of public to satisfy his ego and vent his annoyance, he was\nnot inclined to extend the benefit of anticipatory bail. - The High Court, it appears, has lost sight of the detailed order passed by the Chief Judicial Magistrate and also the Sessions\nJudge referred to hereinbefore, in one strong prima facie case was found against Respondent\n2 and in the other cogent reasons were recorded to decline anticipatory bail to the accused."
+    },
+    {
+      "label": "B",
+      "text": "It is true that on direction of the Human Rights Commission, a joint enquiry was held by the\nCommissioner, Saran Range, and the DIG of the said range and in that report Respondent 2\nwas not found guilty of the offence. - 438 Code of Criminal Procedure was not maintainable,\nand therefore Respondent 2 could seek regular bail only after surrender."
+    },
+    {
+      "label": "C",
+      "text": "The High Court, it appears, has lost sight of the detailed order passed by the Chief Judicial\nMagistrate and also the Sessions Judge referred to hereinbefore, in one strong prima facie\ncase was found against Respondent 2 and in the other cogent reasons were recorded to decline\nanticipatory bail to the accused. - Respondent 2 shall surrender within four weeks."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "In an incident dated 16.8.2000, son of the appellant was killed. Respondent 2 herein is a police\nofficer, who at the relevant time was the officer-in-charge of the police station concerned. According\nto the appellant, Respondent 2 fired a shot at his son Anand Pandey who met instantaneous death. It is\ntrue that on direction of the Human Rights Commission, a joint enquiry was held by the\nCommissioner, Saran Range, and the DIG of the said range and in that report Respondent 2 was not\nfound guilty of the offence. But at the same time, it may also be noticed that on the appellant filing a\nwrit petition making allegations against the investigating agencies, this Court directed the appellant to\nfile a proper protest petition before the Court seized of the matter. The Chief Judicial Magistrate,\nGopal Ganj, by a detailed order dated 26.8.2002, on consideration of the first information report, case\ndiary and the police report, came to the conclusion that there is a strong prima facie case against the\nsecond respondent and sufficient material to proceed against the said respondent for offence u/s. 302\nIPC and Section 27 of the Arms Act."
+    },
+    {
+      "number": "3",
+      "text": "An application filed by Respondent 2 before the Sessions Judge, Gopal Ganj, u/s. 438, Criminal\nProcedure Code was also dismissed by a detailed order, prima facie, noticing that Respondent 2 being\na police officer possibly influenced the policemen to give a doctored report. Having regard to the facts\nand circumstances of the case, the learned Sessions Judge observed that in a case where a police\nofficer is said to have intentionally killed a member of public to satisfy his ego and vent his\nannoyance, he was not inclined to extend the benefit of anticipatory bail. The bail application was\naccordingly rejected on 7.4.2003."
+    },
+    {
+      "number": "4",
+      "text": "By the impugned order dated 11.7.2003, the High Court has granted anticipatory bail to\nRespondent 2 and that order is under challenge in this appeal filed by the father of the deceased."
+    },
+    {
+      "number": "5",
+      "text": "Mr B.B. Singh, learned counsel for the State, relying upon the decision in the case of K.L. Verma\nV/s. State submits that after the cognizance had been taken, application u/s. 438 Code of Criminal\n\nProcedure was not maintainable, and therefore Respondent 2 could seek regular bail only after\nsurrender. Learned counsel has also brought to our notice another decision in Bharat Chaudhary V/s.\nState of Bihar taking somewhat contrary view. Both these decisions are by a Bench of two Hon'ble\nJudges. For the view we are taking on merits of the present case, it is not necessary to decide the\naforesaid question in this matter."
+    },
+    {
+      "number": "6",
+      "text": "The High Court for granting anticipatory bail to the second respondent has given two reasons.\nThey are: (1) the order by the Human Rights Commission for a joint enquiry, as noticed above, and (2)\nRespondent 2 not having been found guilty in the said enquiry."
+    },
+    {
+      "number": "7",
+      "text": "The High Court, it appears, has lost sight of the detailed order passed by the Chief Judicial\nMagistrate and also the Sessions Judge referred to hereinbefore, in one strong prima facie case was\nfound against Respondent 2 and in the other cogent reasons were recorded to decline anticipatory bail\nto the accused. Having heard learned counsel for the parties and in the above circumstances, we are\nunable to sustain the impugned order of the High Court granting anticipatory bail to Respondent 2.\nThe impugned order is accordingly set aside. It would, of course, be open to Respondent 2 to file\nappropriate application u/s. 439 Code of Criminal Procedure after surrender. That application would\nbe considered on its own merits without being influenced by the orders earlier passed by the Chief\nJudicial Magistrate, the Sessions Court or this order."
+    },
+    {
+      "number": "8",
+      "text": "The appeal is accordingly allowed. Respondent 2 shall surrender within four weeks."
+    }
+  ],
+  "bail_amount_original": "Rs. ,",
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": "Rs. ,",
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": null,
+  "bail_conditions": [],
+  "ratio_decidendi": "The appeal is accordingly allowed. Respondent 2 shall surrender within four weeks.",
+  "ratio_para_number": "8",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": [
+    "Could not determine bail_outcome — add a signal phrase to _determine_bail_outcome for this case"
+  ]
+}

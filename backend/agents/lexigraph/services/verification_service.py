@@ -1,4 +1,4 @@
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from .neo4j_service import Neo4jService
 
 
@@ -50,7 +50,7 @@ class VerificationService:
                 })
         return mappings
 
-    def get_equivalent_ipc_section(self, act: str = "", section: str = "") -> Dict[str, Any] | None:
+    def get_equivalent_ipc_section(self, act: str = "", section: str = "") -> Optional[Dict[str, Any]]:
         """
         Retrieves official IPC ↔ BNS equivalent successor mapping for a given section.
         

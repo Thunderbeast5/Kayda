@@ -1,0 +1,114 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-2.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2019-1-391",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "A.M.KHANWILKAR, AJAY RASTOGI JJ.",
+  "decided_on": "January 15, 2019",
+  "decided_on_year": 2019,
+  "appeal_type": "Criminal Appeal; Special Leave Petition (Criminal) 80 of 2019, 81 of 2019; 9514 of 2018, 9532 of 2018",
+  "final_verdict": "Appeal disposed",
+  "appellant": "KAMLESH",
+  "respondent": "State Of Maharashtra And Anr",
+  "advocates": "SUDHANSHU S.CHOUDHARI, Surabhi Guleria, Nishant Ramakantrao Katneshwarkar",
+  "equivalent_citations": [
+    "LAWS(SC)-2019-1-391"
+  ],
+  "cited_judgments": [],
+  "referred_acts": [
+    "S.438(2)"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438(2)",
+      "subsection": "2",
+      "section_title": "Conditions for anticipatory bail",
+      "how_used": "Referenced",
+      "context": "Decided On : January 15, 2019 Appeal Type : Criminal Appeal; Special Leave Petition (Criminal) 80 of 2019, 81 of 2019; 9514 of 2018, 9532 of 2018 Final Verdict : Appeal disposed Appellant(s) : KAMLESH Respondent(s) : State Of Maharashtra And Anr Advocate(s) : SUDHANSHU S.CHOUDHARI, Surabhi Guleria, ",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "50",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Applied for bail",
+      "context": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438(2) - Direction for grant of bail to person apprehending arrest - Accordingly, we allow the appeals and grant anticipatory bail to the appellants on condition that the appellants shall execute personal bonds of Rs.50,000/- each and that the appellants will ext",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [],
+  "crpc_sections_mentioned": [
+    "438(2)",
+    "50"
+  ],
+  "procedural_history": {
+    "fir_number": "0190 of 2018",
+    "district": "Aurangabad",
+    "high_court_bench": "High Court of Judicature at Bombay"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438(2) - Direction for grant of bail to person\napprehending arrest - Accordingly, we allow the appeals and grant anticipatory bail to the\nappellants on condition that the appellants shall execute personal bonds of Rs.50,000/- each\nand that the appellants will extend full cooperation for the purposes of investigation of the\ncase, if still not complete and also abide by all the conditions specified in Section 438(2) of\nCriminal Procedure Code.\nB. Accordingly, we allow the appeals and grant anticipatory bail to the appellants on condition\nthat the appellants shall execute personal bonds of Rs.50,000/- each and that the appellants\nwill extend full cooperation for the purposes of investigation of the case, if still not complete\nand also abide by all the conditions specified in Section 438(2) of Criminal Procedure Code. -\nAppeals are disposed of in the above terms.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438(2) - Direction for grant of bail to person\napprehending arrest - Accordingly, we allow the appeals and grant anticipatory bail to the\nappellants on condition that the appellants shall execute personal bonds of Rs.50,000/- each\nand that the appellants will extend full cooperation for the purposes of investigation of the\ncase, if still not complete and also abide by all the conditions specified in Section 438(2) of\nCriminal Procedure Code."
+    },
+    {
+      "label": "B",
+      "text": "Accordingly, we allow the appeals and grant anticipatory bail to the appellants on condition\nthat the appellants shall execute personal bonds of Rs.50,000/- each and that the appellants\nwill extend full cooperation for the purposes of investigation of the case, if still not complete\nand also abide by all the conditions specified in Section 438(2) of Criminal Procedure Code. -\nAppeals are disposed of in the above terms."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "Heard learned counsel for the parties."
+    },
+    {
+      "number": "3",
+      "text": "These appeals are directed against the judgment and order of the High Court of Judicature at\nBombay, Bench at Aurangabad, passed in Anticipatory Bail Application Nos. 659 and 694 of 2018\ndated 15.10.2018, rejecting the prayer for grant of anticipatory bail in connection with common FIR\nNo. 0190 of 2018, dated 31.05.2018 registered with Gandhi Chowk Police Station, District\nAurangabad, Maharashtra."
+    },
+    {
+      "number": "4",
+      "text": "After having heard the learned counsel for the parties and considering the fact that the subject FIR\nhas been registered after 11 years and taking overall view of the matter, we accede to the request of the\nappellants to grant them anticipatory bail. We refrain from recording detailed reasons as it might\nimpact the pending investigation and/or trial of the case."
+    },
+    {
+      "number": "5",
+      "text": "Accordingly, we allow the appeals and grant anticipatory bail to the appellants on condition that\nthe appellants shall execute personal bonds of Rs.50,000/- each and that the appellants will extend full\ncooperation for the purposes of investigation of the case, if still not complete and also abide by all the\nconditions specified in Section 438(2) of Criminal Procedure Code."
+    },
+    {
+      "number": "6",
+      "text": "Appeals are disposed of in the above terms."
+    }
+  ],
+  "bail_amount_original": "Rs. 50,000",
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": "Rs. 50,000",
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "granted",
+  "bail_conditions": [
+    "Accordingly, we allow the appeals and grant anticipatory bail to the appellants on condition that the appellants shall execute personal bonds of Rs.50,000/- each and that the appellants will extend full cooperation for the purposes of investigation of the case, if still not complete and also abide by all the conditions specified in Section 438(2) of Criminal Procedure Code."
+  ],
+  "ratio_decidendi": "After having heard the learned counsel for the parties and considering the fact that the subject FIR\nhas been registered after 11 years and taking overall view of the matter, we accede to the request of the\nappellants to grant them anticipatory bail. We refrain from recording detailed reasons as it might\nimpact the pending investigation and/or trial of the case.",
+  "ratio_para_number": "4",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": []
+}

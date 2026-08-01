@@ -1,0 +1,141 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-92.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2001-4-25",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "K.T.THOMAS, R.P.SETHI JJ.",
+  "decided_on": "April 16, 2001",
+  "decided_on_year": 2001,
+  "appeal_type": "Criminal Appeal 446 of 2001",
+  "final_verdict": "Appeal disposed",
+  "appellant": "KAMAL KAPOOR",
+  "respondent": "SACHIN KARTAR SINGH",
+  "advocates": null,
+  "equivalent_citations": [
+    "ALLMR(CRI)-2001-0-1970",
+    "CRIMES(SC)-2001-3-308",
+    "LAWS(SC)-2001-4-25",
+    "SUPREME-2001-5-225",
+    "GLHEL-2001-0-13788"
+  ],
+  "cited_judgments": [
+    "Prakash Gupta Vs. State Of Delhi, [LAWS(DLH)-2017-7-62] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438",
+    "S.363",
+    "S.376"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "State Of Delhi, [LAWS(DLH)-2017-7-62] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.363, S.376 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "363",
+      "subsection": null,
+      "section_title": "Punishment for kidnapping",
+      "how_used": "Charged",
+      "context": "State Of Delhi, [LAWS(DLH)-2017-7-62] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.363, S.376 Headnote: A.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "376",
+      "subsection": null,
+      "section_title": "Punishment for rape",
+      "how_used": "Charged",
+      "context": "State Of Delhi, [LAWS(DLH)-2017-7-62] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.363, S.376 Headnote: A.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "363",
+    "376"
+  ],
+  "crpc_sections_mentioned": [
+    "438"
+  ],
+  "procedural_history": null,
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.363 - Punishment for kidnapping,\nS.376 - Punishment for rape - But we are not inclined to enter into that aspect in the appeal,\nparticularly since we can read that order as Tanta mounting to cancellation of the bail\nalready granted to the respondents. - Learned counsel for the respondents submitted that the\nsection for offence had been escalated to Section 376 of the Indian Penal Code on the strength\nof the statements allegedly made by the minor girls. - He read out the earlier statements of the\ngirls to show that there are clear contradictions between the two versions, one recorded at the\n1st instance and the other recorded later after the interval of one day.\nB. Hence it is necessary to arrest the accused. - We, therefore, set aside the impugned order\nwithout prejudice to the right of the respondents to move for regular bail.\nC. We, therefore, set aside the impugned order without prejudice to the right of the respondents\nto move for regular bail. - This appeal is disposed of accordingly.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.363 - Punishment for kidnapping,\nS.376 - Punishment for rape - But we are not inclined to enter into that aspect in the appeal,\nparticularly since we can read that order as Tanta mounting to cancellation of the bail\nalready granted to the respondents. - Learned counsel for the respondents submitted that the\nsection for offence had been escalated to Section 376 of the Indian Penal Code on the strength\nof the statements allegedly made by the minor girls. - He read out the earlier statements of the\ngirls to show that there are clear contradictions between the two versions, one recorded at the\n1st instance and the other recorded later after the interval of one day."
+    },
+    {
+      "label": "B",
+      "text": "Hence it is necessary to arrest the accused. - We, therefore, set aside the impugned order\nwithout prejudice to the right of the respondents to move for regular bail."
+    },
+    {
+      "label": "C",
+      "text": "We, therefore, set aside the impugned order without prejudice to the right of the respondents\nto move for regular bail. - This appeal is disposed of accordingly."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Xx xx xx"
+    },
+    {
+      "number": "2",
+      "text": "Leave granted."
+    },
+    {
+      "number": "3",
+      "text": "The appellant is the father of the girls alleged to have been raped by the respondents. At the first\ninstance the case was only for the offence under Section 363 of the Indian Penal Code and the\nrespondents applied for bail and were released on bail. Subsequently, the Investigating Officers came\nto know that the offence under Section 376, Indian Penal Code was also involved. Then an application\nwas made for cancellation of the bail. On the said application the Court passed the following order on\n18.8.2000:\n\"The accused are released on bail while offence under Section 363 was registered. Offence\nunder Section 376, Indian Penal Code was disclosed later on. Hence it is necessary to arrest the\naccused. Permission is granted to arrest the accused. \""
+    },
+    {
+      "number": "4",
+      "text": "It was doubtful whether a Court can order re-arrest of a person when that person was already on\nbail without cancelling the first bail order. But we are not inclined to enter into that aspect in the\nappeal, particularly since we can read that order as Tanta mounting to cancellation of the bail already\ngranted to the respondents. Whether it is right or wrong the respondents also had taken it like that and\nthat is why they applied for anticipatory bail before the High Court under Section 438 of the Code of\nCriminal Procedure. By the impugned order the High Court has granted them the pre-arrest bail order\nwhich is being challenged now."
+    },
+    {
+      "number": "5",
+      "text": "Learned counsel for the respondents submitted that the section for offence had been escalated to\nSection 376 of the Indian Penal Code on the strength of the statements allegedly made by the minor\ngirls. He read out the earlier statements of the girls to show that there are clear contradictions between\nthe two versions, one recorded at the 1st instance and the other recorded later after the interval of one\nday. We do not think that it is proper for us to consider at this stage when pre-arrest bail order is\nsought for, by making a comparison between those two statements. Of course that aspect can also be\nconsidered by the Court when the accused apply for regular bail after surrendering."
+    },
+    {
+      "number": "6",
+      "text": "We, therefore, set aside the impugned order without prejudice to the right of the respondents to\nmove for regular bail."
+    },
+    {
+      "number": "7",
+      "text": "This appeal is disposed of accordingly. Appeal disposed of."
+    }
+  ],
+  "bail_amount_original": null,
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": null,
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "modified",
+  "bail_conditions": [],
+  "ratio_decidendi": "We, therefore, set aside the impugned order without prejudice to the right of the respondents to\nmove for regular bail.",
+  "ratio_para_number": "6",
+  "dispute_nature": "sexual offence",
+  "missing_anchors": [],
+  "warnings": []
+}

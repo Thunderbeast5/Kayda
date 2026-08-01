@@ -1,0 +1,137 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-60.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2022-3-20",
+  "court": "SUPREME COURT OF INDIA (FROM: RAJASTHAN)",
+  "coram": "Uday Umesh Lalit, S.RAVINDRA BHAT JJ.",
+  "decided_on": "March 07, 2022",
+  "decided_on_year": 2022,
+  "appeal_type": "CRIMINAL APPEAL NO.358 OF 2022 (Arising out of SLP (Crl.) No.5960 of 2018)",
+  "final_verdict": "Appeal allowed",
+  "appellant": "Dheeraj Bhadviya",
+  "respondent": "STATE OF RAJASTHAN",
+  "advocates": "MRINMAY BHATTMEWARA, Samprati Bhattmewara, Ankit Verma, VIVEK GUPTA,\nVishal Meghwal, MILIND KUMAR, Ronak Karanpuria, VISHWA PAL SINGH",
+  "equivalent_citations": [
+    "LAWS(SC)-2022-3-20",
+    "SCC-2022-6-63",
+    "SCC(CR)-2022-2-490"
+  ],
+  "cited_judgments": [
+    "Manminder Singh Vs. Govt Of Nct Delhi, [LAWS(DLH)-2024-2-77] [Referred To]",
+    "Ramkaran Singh Vs. State Of Rajasthan , [LAWS(RAJ)-2023-5-314] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438",
+    "S.306"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "State Of Rajasthan , [LAWS(RAJ)-2023-5-314] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.306 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "306",
+      "subsection": null,
+      "section_title": "Abetment of suicide",
+      "how_used": "Referenced",
+      "context": "State Of Rajasthan , [LAWS(RAJ)-2023-5-314] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.306 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "50",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Mentioned",
+      "context": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person apprehending arrest, INDIAN PENAL CODE, 1860 - S.306 - Abetment of Suicide - Consequently, without making any reflection on merits of the matter, we allow this appeal, set-aside the order passed by the High Court, and d",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "306",
+    "50"
+  ],
+  "crpc_sections_mentioned": [
+    "438"
+  ],
+  "procedural_history": {
+    "fir_number": "345/2017",
+    "police_station": "Ambamata",
+    "district": "Udaipur",
+    "high_court_order_date": "5/2/2018",
+    "high_court_bench": "High Court of Judicature for Rajasthan at Jodhpur"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.306 - Abetment of Suicide -\nConsequently, without making any reflection on merits of the matter, we allow this appeal,\nset-aside the order passed by the High Court, and direct as under:a) In case the appellant is\narrested in connection with the aforesaid crime, the Arresting Officer shall release the\nappellant on bail subject to his furnishing cash security in the sum of Rs.50,000.00 (Rupees\nFifty Thousand Only) with two like sureties.b) The appellant shall extend complete co-\noperation in the ensuing investigation and in order to facilitate the investigation, the appellant\nshall present himself before the Investigating Officer on 14/3/2022 at 11.00 a.m. and shall\ncontinue to remain present from 11.00 a.m. to 5.00 p.m. during the entire week.\nB. Consequently, without making any reflection on merits of the matter, we allow this appeal,\nset-aside the order passed by the High Court, and direct as under:a) In case the appellant is arrested in connection with the aforesaid crime, the Arresting Officer shall release the\nappellant on bail subject to his furnishing cash security in the sum of Rs.50,000.00 (Rupees\nFifty Thousand Only) with two like sureties.b) The appellant shall extend complete co-\noperation in the ensuing investigation and in order to facilitate the investigation, the appellant\nshall present himself before the Investigating Officer on 14/3/2022 at 11.00 a.m. and shall\ncontinue to remain present from 11.00 a.m. to 5.00 p.m. during the entire week. - With these\nobservations, the appeal is allowed.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.306 - Abetment of Suicide -\nConsequently, without making any reflection on merits of the matter, we allow this appeal,\nset-aside the order passed by the High Court, and direct as under:a) In case the appellant is\narrested in connection with the aforesaid crime, the Arresting Officer shall release the\nappellant on bail subject to his furnishing cash security in the sum of Rs.50,000.00 (Rupees\nFifty Thousand Only) with two like sureties.b) The appellant shall extend complete co-\noperation in the ensuing investigation and in order to facilitate the investigation, the appellant\nshall present himself before the Investigating Officer on 14/3/2022 at 11.00 a.m. and shall\ncontinue to remain present from 11.00 a.m. to 5.00 p.m. during the entire week."
+    },
+    {
+      "label": "B",
+      "text": "Consequently, without making any reflection on merits of the matter, we allow this appeal,\nset-aside the order passed by the High Court, and direct as under:a) In case the appellant is arrested in connection with the aforesaid crime, the Arresting Officer shall release the\nappellant on bail subject to his furnishing cash security in the sum of Rs.50,000.00 (Rupees\nFifty Thousand Only) with two like sureties.b) The appellant shall extend complete co-\noperation in the ensuing investigation and in order to facilitate the investigation, the appellant\nshall present himself before the Investigating Officer on 14/3/2022 at 11.00 a.m. and shall\ncontinue to remain present from 11.00 a.m. to 5.00 p.m. during the entire week. - With these\nobservations, the appeal is allowed."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "This appeal challenges the judgment and order dtd. 5/2/2018 passed by the High Court of\nJudicature for Rajasthan at Jodhpur in S.B. Criminal Misc. Bail No.9433 of 2017."
+    },
+    {
+      "number": "3",
+      "text": "Apprehending arrest in connection with crime registered pursuant to First Information Report\nNo.345/2017 dtd. 19/8/2017 lodged with Police Station Ambamata, District Udaipur, Rajasthan, for\nthe offence punishable under Sec. 306 IPC, the appellant preferred an application for anticipatory bail\nin terms of Sec. 438 of the Code of Criminal Procedure, 1973. The application having been rejected by\nthe High Court, the present appeal has been preferred."
+    },
+    {
+      "number": "4",
+      "text": "While issuing notice vide order dtd. 13/8/2018, the interim relief of stay of arrest was granted to\nthe appellant, which relief the appellant has enjoyed for the last 3 1/2 years."
+    },
+    {
+      "number": "5",
+      "text": "Consequently, without making any reflection on merits of the matter, we allow this appeal, set-\naside the order passed by the High Court, and direct as under:\na) In case the appellant is arrested in connection with the aforesaid crime, the Arresting\nOfficer shall release the appellant on bail subject to his furnishing cash security in the sum of\nRs.50,000.00 (Rupees Fifty Thousand Only) with two like sureties.\nb) The appellant shall extend complete co-operation in the ensuing investigation and in\norder to facilitate the investigation, the appellant shall present himself before the Investigating Officer\non 14/3/2022 at 11.00 a.m. and shall continue to remain present from 11.00 a.m. to 5.00 p.m. during\nthe entire week."
+    },
+    {
+      "number": "6",
+      "text": "With these observations, the appeal is allowed."
+    }
+  ],
+  "bail_amount_original": "Rs. 50,000",
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": "Rs. 50,000",
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "granted",
+  "bail_conditions": [],
+  "ratio_decidendi": "Consequently, without making any reflection on merits of the matter, we allow this appeal, set-\naside the order passed by the High Court, and direct as under:\na) In case the appellant is arrested in connection with the aforesaid crime, the Arresting\nOfficer shall release the appellant on bail subject to his furnishing cash security in the sum of\nRs.50,000.00 (Rupees Fifty Thousand Only) with two like sureties.\nb) The appellant shall extend complete co-operation in the ensuing investigation and in\norder to facilitate the investigation, the appellant shall present himself before the Investigating Officer\non 14/3/2022 at 11.00 a.m. and shall continue to remain present from 11.00 a.m. to 5.00 p.m. during\nthe entire week.",
+  "ratio_para_number": "5",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": []
+}

@@ -31,6 +31,7 @@ from evidence.evidence_analyzer import (
 )
 from backend.agents.lexigraph.cypher.legal_text2cypher.agents.pipeline import run_pipeline
 from backend.agents.lexigraph.cypher.legal_text2cypher.config.settings import get_settings
+from backend.agents.lexigraph.lexigraph_agent import LexiGraphAgent
 
 app = FastAPI(title="MootCourt Legal Intelligence & Evidence API")
 
@@ -54,8 +55,15 @@ app.add_middleware(
 TEMP_DIR = backend_dir / "temp_uploads"
 TEMP_DIR.mkdir(exist_ok=True)
 
+# Initialize LexiGraph Agent
+lexigraph_agent = LexiGraphAgent()
+
 
 class CypherQueryRequest(BaseModel):
+    query: str
+
+
+class LexiGraphQueryRequest(BaseModel):
     query: str
 
 
@@ -170,6 +178,59 @@ async def analyze_evidence_endpoint(file: UploadFile = File(...)):
                 os.remove(temp_file_path)
             except Exception as cleanup_err:
                 print(f"Error cleaning up temp file {temp_file_path}: {cleanup_err}", file=sys.stderr)
+
+
+@app.post("/api/lexigraph/analyze")
+async def lexigraph_analyze_endpoint(req: LexiGraphQueryRequest):
+    """
+    LexiGraph Explorer endpoint that processes legal queries using the full
+    hierarchical GraphRAG pipeline (lexigraph_agent.py).
+    
+    Expected JSON:
+    {
+        "query": "legal scenario description"
+    }
+    
+    Returns:
+    {
+        "success": true/false,
+        "data": {
+            "pipeline_confidence": 0.85,
+            "recommended_sections": [...],
+            "supporting_cases": [...],
+            "supporting_evidence": [...],
+            "supporting_articles": [...],
+            "supporting_principles": [...],
+            "rejected_sections": [...]
+        }
+    }
+    """
+    if not req.query or not req.query.strip():
+        return JSONResponse(
+            status_code=400,
+            content={"success": False, "message": "Query string cannot be empty."}
+        )
+    
+    try:
+        # Run the LexiGraph hierarchical retrieval pipeline in threadpool
+        result = await asyncio.to_thread(lexigraph_agent.process_query, req.query.strip(), debug=False)
+        
+        return {
+            "success": True,
+            "data": result,
+            "agent": "LexiGraph Explorer"
+        }
+    except Exception as e:
+        print(f"Error executing LexiGraph pipeline: {str(e)}", file=sys.stderr)
+        import traceback
+        traceback.print_exc()
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "message": f"LexiGraph pipeline error: {str(e)}"
+            }
+        )
 
 
 if __name__ == "__main__":

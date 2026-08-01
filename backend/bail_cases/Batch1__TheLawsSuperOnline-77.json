@@ -1,0 +1,183 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-77.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2002-1-57",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "G.B.PATTANAIK, R.P.SETHI JJ.",
+  "decided_on": "January 08, 2002",
+  "decided_on_year": 2002,
+  "appeal_type": "Criminal Appeal 13 of 2002 and SLP(Crl.) 3548 of 2001",
+  "final_verdict": "Appeal allowed",
+  "appellant": "AMARJIT SINGH",
+  "respondent": "STATE OF NCT OF DELHI",
+  "advocates": null,
+  "equivalent_citations": [
+    "ALT(CRI)(SC)-2002-1-382",
+    "DLT-2002-96-59",
+    "JT-2002-1-291",
+    "LAWS(SC)-2002-1-57",
+    "RAJLW-2002-3-361",
+    "SUPREME-2002-2-249",
+    "AICLR-2002-1-650",
+    "RCR(CRI)-2002-2-543",
+    "SCC-2009-13-769",
+    "KHC-2009-0-6038",
+    "GLHEL-2002-0-1064",
+    "SCC(CR)-2010-1-1199"
+  ],
+  "cited_judgments": [
+    "Anilbhai Baijnath Bajpayee Vs. State Of Gujarat, [LAWS(GJH)-2011-1-162] [Referred To]",
+    "Meena Anand Vs. Directorate Of Enforcement Government Of India, [LAWS(ALL)-2024-4-77] [Referred To]",
+    "Rajesh @ Munno Trambakbhai Trivedi Vs. State Of Gujarat, [LAWS(GJH)-2012-11-122] [Referred To]",
+    "Amit Kumar Kataria Vs. State Of U. P., [LAWS(ALL)-2021-2-99] [Referred To]",
+    "Archana Singh D/O Shri Kiran Singh, Resident Of Garmour Mohalla J.E.C. Road Jorhat, Assam Vs. State Of Himachal Pradesh, [LAWS(HPH)-2012-7-336] [Referred To]",
+    "Ranjitbhai Gambhirbhai Vasava Vs. State Of Gujarat, [LAWS(GJH)-2013-10-71] [Referred To]",
+    "Ramakrishna Pillai Vs. State Of Kerala, [LAWS(KER)-2012-7-563] [Referred To]",
+    "Rajesh Biyani Vs. The State Of Bihar And Ors., [LAWS(PAT)-2015-7-68] [Referred To]",
+    "Rakesh Kumar S/O Ram Bihari Prasad Singh Vs. State Of Bihar And Ors, [LAWS(PAT)-2015-12- 139] [Referred]",
+    "Rashmikant R Shah Vs. State Of Gujarat & 1, [LAWS(GJH)-2012-6-182] [Referred To]",
+    "Lakshveer Vs. State Of Haryana, [LAWS(P&H)-2012-10-717] [Referred]",
+    "Navaneetha Krishnan And Ors. Vs. State, [LAWS(MAD)-2015-4-16] [Referred To]",
+    "Ramathal Vs. Inspector Of Police, [LAWS(SC)-2009-3-75] [Referred To]",
+    "Sajani Khanna Vs. State, [LAWS(DLH)-2002-3-144] [Relied]",
+    "Sumit Mehta Vs. State Of N.C.T. Of Delhi, [LAWS(SC)-2013-9-37] [Referred To]",
+    "Krishna Menan Vs. State Of Bihar, [LAWS(PAT)-2016-4-156] [Referred To]",
+    "Manubhai Bhupatbhai Khachar Vs. State Of Gujarat, [LAWS(GJH)-2022-3-957] [Referred To]",
+    "Subodh Nagardas Panchal Sole Prop Vs. State Of Gujarat, [LAWS(GJH)-2012-10-182] [Referred To]",
+    "Rameshbhai Parbatbhai Parmar Vs. State Of Gujarat, [LAWS(GJH)-2013-1-381] [Referred To]",
+    "Msource India Private Limited Vs. Regional Provident Fund Commissioner - I, [LAWS(KAR)-2020- 2-217] [Referred To]",
+    "I Glaskasden Grace Vs. Inspector Of Police, [LAWS(SC)-2009-3-86] [Referred To]",
+    "Jayesh Kantilal Mehta Vs. State Of Gujarat, [LAWS(GJH)-2018-2-149] [Referred To]",
+    "Lekha Vs. State Of Kerala, [LAWS(KER)-2019-7-169] [Referred To]",
+    "Runa Pasricha Rajpoot Vs. State Of Haryana, [LAWS(P&H)-2019-3-108] [Referred To]",
+    "Kunal Prakash And Other Vs. The State Of Bihar And Another, [LAWS(PAT)-2016-1-114] [Referred To]",
+    "Narendra Prasad @ Nagendra Prasad S/O Late Sukhi Sah Vs. State Of Bihar And Ors, [LAWS(PAT)-2015-12-141] [Referred]",
+    "Md. Amarul Haque Vs. State Of Bihar, [LAWS(PAT)-2015-8-156] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438",
+    "S.406",
+    "S.420"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "State Of Bihar, [LAWS(PAT)-2015-8-156] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.406, S.420 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "406",
+      "subsection": null,
+      "section_title": "Punishment for criminal breach of trust",
+      "how_used": "Charged",
+      "context": "State Of Bihar, [LAWS(PAT)-2015-8-156] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.406, S.420 Headnote: A.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "420",
+      "subsection": null,
+      "section_title": "Cheating and dishonestly inducing delivery of property",
+      "how_used": "Charged",
+      "context": "State Of Bihar, [LAWS(PAT)-2015-8-156] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.406, S.420 Headnote: A.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438(2)",
+      "subsection": "2",
+      "section_title": "Conditions for anticipatory bail",
+      "how_used": "Charged",
+      "context": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person apprehending arrest, INDIAN PENAL CODE, 1860 - S.406 - Punishment for Criminal breach of trust, S.420 - Cheating and dishonestly inducing delivery of property - The contention of the learned counsel appearing for the ap",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "406",
+    "420"
+  ],
+  "crpc_sections_mentioned": [
+    "438",
+    "438(2)"
+  ],
+  "procedural_history": {
+    "high_court_order_date": "11-4-2001",
+    "sessions_court_decision": "additional sessions judge while invoking his jurisdiction under section 438 of the Criminal procedure Code and granting"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.406 - Punishment for Criminal\nbreach of trust, S.420 - Cheating and dishonestly inducing delivery of property - The\ncontention of the learned counsel appearing for the appellant is, that notwithstanding the fact\nthat under section 438 (2) of the Criminal Procedure Code, the court is empowered to include\nsuch conditions in such directions in the light of the fact of the particular case, as it may think\nfit, while invoking the power under sub-section (1) of section 438, but the expression \"such\ncondition\" in sub-section (2) would not be unreasonable condition which would be difficult\nfor the accused to comply with and imposition of an unreasonable condition would\ntantamount to refusal of invoking the discretion under sub-section (1) of section 438. -\n25,000/- with two solvent sureties to the satisfaction of the concerned magistrate, and further\nthat the accused shall make himself available for interrogation whenever is required and the\naccused should surrender his passport immediately to the concerned magistrate where the\nmatter is pending and would not leave this country without appropriate permission from the\ncourt, he would be entitled to the order granting him anticipatory bail.\nB. 15 lacs is an impossible condition and must be held to be an arbitrary condition imposed by\nthe court even after deciding to invoke the discretion under sub-section (1) of section 438. - 15\nlacs in the form of FDR in the trial court is an unreasonable condition and, therefore, we set\naside the said condition as a condition precedent for granting anticipatory bail to the accused/appellant.\nC. The contention of the learned counsel appearing for the appellant is, that notwithstanding the\nfact that under section 438 (2) of the Criminal Procedure Code, the court is empowered to\ninclude such conditions in such directions in the light of the fact of the particular case, as it\nmay think fit, while invoking the power under sub-section (1) of section 438, but the\nexpression \"such condition\" in sub-section (2) would not be unreasonable condition which\nwould be difficult for the accused to comply with and imposition of an unreasonable condition\nwould tantamount to refusal of invoking the discretion under sub-section (1) of section 438. -\n25,000/- with two solvent sureties to the satisfaction of the concerned magistrate, and further\nthat the accused shall make himself available for interrogation whenever is required and the\naccused should surrender his passport immediately to the concerned magistrate where the\nmatter is pending and would not leave this country without appropriate permission from the\ncourt, he would be entitled to the order granting him anticipatory bail.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.406 - Punishment for Criminal\nbreach of trust, S.420 - Cheating and dishonestly inducing delivery of property - The\ncontention of the learned counsel appearing for the appellant is, that notwithstanding the fact\nthat under section 438 (2) of the Criminal Procedure Code, the court is empowered to include\nsuch conditions in such directions in the light of the fact of the particular case, as it may think\nfit, while invoking the power under sub-section (1) of section 438, but the expression \"such\ncondition\" in sub-section (2) would not be unreasonable condition which would be difficult\nfor the accused to comply with and imposition of an unreasonable condition would\ntantamount to refusal of invoking the discretion under sub-section (1) of section 438. -\n25,000/- with two solvent sureties to the satisfaction of the concerned magistrate, and further\nthat the accused shall make himself available for interrogation whenever is required and the\naccused should surrender his passport immediately to the concerned magistrate where the\nmatter is pending and would not leave this country without appropriate permission from the\ncourt, he would be entitled to the order granting him anticipatory bail."
+    },
+    {
+      "label": "B",
+      "text": "15 lacs is an impossible condition and must be held to be an arbitrary condition imposed by\nthe court even after deciding to invoke the discretion under sub-section (1) of section 438. - 15\nlacs in the form of FDR in the trial court is an unreasonable condition and, therefore, we set\naside the said condition as a condition precedent for granting anticipatory bail to the accused/appellant."
+    },
+    {
+      "label": "C",
+      "text": "The contention of the learned counsel appearing for the appellant is, that notwithstanding the\nfact that under section 438 (2) of the Criminal Procedure Code, the court is empowered to\ninclude such conditions in such directions in the light of the fact of the particular case, as it\nmay think fit, while invoking the power under sub-section (1) of section 438, but the\nexpression \"such condition\" in sub-section (2) would not be unreasonable condition which\nwould be difficult for the accused to comply with and imposition of an unreasonable condition\nwould tantamount to refusal of invoking the discretion under sub-section (1) of section 438. -\n25,000/- with two solvent sureties to the satisfaction of the concerned magistrate, and further\nthat the accused shall make himself available for interrogation whenever is required and the\naccused should surrender his passport immediately to the concerned magistrate where the\nmatter is pending and would not leave this country without appropriate permission from the\ncourt, he would be entitled to the order granting him anticipatory bail."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "The accused is the appellant and assails the condition imposed by the learned additional sessions\njudge while invoking his jurisdiction under section 438 of the Criminal procedure Code and granting\nanticipatory bail to the accused, which condition was affirmed by the High Court. Be it be stated that\nan FIR having been lodged alleging commission of an offence by the appellant under section 406/420\nof Indian Penal Code, the appellant moved the learned additional sessions judge, Delhi for grant of\nanticipatory bail invoking his jurisdiction under Section 438 of the Criminal procedure Code. By order\ndated 11-4-2001, the learned Additional Sessions Judge came to the conclusion that the appellant\nwould be entitled for grant of anticipatory bail, but it should be subject to the deposit of a sum of Rs.\n15 lacs in the form of FDR in the name of the trial court as a security for the deposit amount, which\nwas allegedly settled between them. He accordingly directed that in the event of arrest, he shall be\nadmitted to bail on furnishing personal bond in the sum of Rs. 10,000. 00 with one surety in the like\namount subject to the condition that he surrenders the FDR for a sum of Rs. 15 lacs in the name of the\ntrial court to the investigating officer/arresting officer who shall forward the same alongwith the\nchallan, whenever it is filed in the court. The accused being aggrieved by the condition requiring to\ndeposit the sum of Rs. 15 lacs, moved the High court. The High Court by the impugned order having\naffirmed the same, the accused has moved this Court."
+    },
+    {
+      "number": "3",
+      "text": "The contention of the learned counsel appearing for the appellant is, that notwithstanding the fact\nthat under section 438 (2) of the Criminal Procedure Code, the court is empowered to include such\nconditions in such directions in the light of the fact of the particular case, as it may think fit, while\ninvoking the power under sub-section (1) of section 438, but the expression \"such condition\" in sub-\nsection (2) would not be unreasonable condition which would be difficult for the accused to comply with and imposition of an unreasonable condition would tantamount to refusal of invoking the\ndiscretion under sub-section (1) of section 438. According to learned counsel, the condition imposed\nin the case in hand, to deposit in the form of FDR Rs. 15 lacs is an impossible condition and must be\nheld to be an arbitrary condition imposed by the court even after deciding to invoke the discretion\nunder sub-section (1) of section 438. In support of this contention, reliance was placed on a decision of\nthis Court in Sandeep Jain v. National Capital Territory of Delhi [jt 2000 (1) SC 166]. The learned\ncounsel appearing for the state, on the other hand objected to the variation of the condition,\nparticularly when according to the learned counsel the accused himself conceded to the amount being\nkept in deposit. From the order of the learned additional sessions judge, it transpires that the accused\nobviously conceded for such legal conditions to be imposed by the court for grant of anticipatory bail\nand there was no agreement on the part of the accused that he would deposit the sum of Rs. 15 lacs."
+    },
+    {
+      "number": "4",
+      "text": "Having regard to the facts and circumstances of the present case, we have no hesitation in coming\nto the conclusion that the imposition of condition to deposit the sum of rs. 15 lacs in the form of FDR\nin the trial court is an unreasonable condition and, therefore, we set aside the said condition as a\ncondition precedent for granting anticipatory bail to the accused/appellant. We accordingly allow this\nappeal and set aside the condition imposed by the learned additional sessions judge to deposit the sum\nof Rs. 15 lacs in the form of fdr in the trial court, and on the other hand direct that on executing a bond\nto the tune of rs. 25,000/- with two solvent sureties to the satisfaction of the concerned magistrate, and\nfurther that the accused shall make himself available for interrogation whenever is required and the\naccused should surrender his passport immediately to the concerned magistrate where the matter is\npending and would not leave this country without appropriate permission from the court, he would be\nentitled to the order granting him anticipatory bail. This appeal is disposed of accordingly. Appeal\nallowed."
+    }
+  ],
+  "bail_amount_original": "Rs. 15",
+  "bail_amount_modified": "Rs. 10,000",
+  "bail_amount_original_normalized": "Rs. 15",
+  "bail_amount_modified_normalized": "Rs. 10,000",
+  "bail_outcome": "modified",
+  "bail_conditions": [
+    "He accordingly directed that in the event of arrest, he shall be admitted to bail on furnishing personal bond in the sum of Rs. 10,000. 00 with one surety in the like amount subject to the condition that he surrenders the FDR for a sum of Rs. 15 lacs in the name of the trial court to the investigating officer/arresting officer who shall forward the same alongwith the challan, whenever it is filed in the court"
+  ],
+  "ratio_decidendi": "Having regard to the facts and circumstances of the present case, we have no hesitation in coming\nto the conclusion that the imposition of condition to deposit the sum of rs. 15 lacs in the form of FDR\nin the trial court is an unreasonable condition and, therefore, we set aside the said condition as a\ncondition precedent for granting anticipatory bail to the accused/appellant. We accordingly allow this\nappeal and set aside the condition imposed by the learned additional sessions judge to deposit the sum\nof Rs. 15 lacs in the form of fdr in the trial court, and on the other hand direct that on executing a bond\nto the tune of rs. 25,000/- with two solvent sureties to the satisfaction of the concerned magistrate, and\nfurther that the accused shall make himself available for interrogation whenever is required and the\naccused should surrender his passport immediately to the concerned magistrate where the matter is\npending and would not leave this country without appropriate permission from the court, he would be\nentitled to the order granting him anticipatory bail. This appeal is disposed of accordingly. Appeal\nallowed.",
+  "ratio_para_number": "4",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": []
+}

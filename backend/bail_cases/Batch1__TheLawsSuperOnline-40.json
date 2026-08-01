@@ -1,0 +1,419 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-40.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2004-9-70",
+  "court": "SUPREME COURT OF INDIA (FROM: MADHYA PRADESH)",
+  "coram": "ARIJIT PASAYAT, C.K.THAKKER JJ.",
+  "decided_on": "September 01, 2004",
+  "decided_on_year": 2004,
+  "appeal_type": "Criminal Appeal 978 of 2004",
+  "final_verdict": "Appeal allowed",
+  "appellant": "NIRMAL JEET KAUR",
+  "respondent": "STATE OF MADHYA PRADESH",
+  "advocates": "B.S.RAJESH AGRAJIT, Y.K.PRASAD, RANJIT KUMAR, S.P.SHARMA, VARINDER\nKUMAR SHARMA, R.P.GUPTA, SHEKHAR KUMAR, VASUDEV SHARMA, KAMAKSHI\nS.MEHIVAL, P.D.SHARMA",
+  "equivalent_citations": [
+    "ALD(CRI)-2004-2-651",
+    "ALT(CRI)(SC)-2004-2-306",
+    "BLJR-2004-3-1795",
+    "DMC-2004-2-471",
+    "DT(SC)-2004-1-945",
+    "JT-2004-7-161",
+    "KERLJ-2004-2-757",
+    "KERLT-2004-3-391",
+    "LAWS(SC)-2004-9-70",
+    "PATLJR(SC)-2005-1-37",
+    "SCC-2004-7-558",
+    "SUPREME-2004-6-337",
+    "UJ-2004-2-1346",
+    "AD(CR)-2004-3-557",
+    "AICLR-2004-4-370",
+    "CRICC-2005-1-377",
+    "RCR(CRI)-2004-4-376",
+    "SCALE-2004-7-324",
+    "KHC-2004-0-1139",
+    "SCCRIR-2005-0-1369",
+    "ACC-2004-3-474",
+    "SCC(CR)-2004-0-1989",
+    "CRIMES(SC)-2004-3-331",
+    "ACR-2004-3-2528",
+    "CGLJ-2004-2-283",
+    "SCR-2004-SUPP3-1006",
+    "UC-2004-2-1286",
+    "TNLR-2004-2-537",
+    "GLHEL-2004-0-19781",
+    "GCD-2005-1-144",
+    "RAJCRIC-2004-3-819",
+    "WLC-2005-1-40",
+    "KANTLJ-2004-2-757",
+    "AIC-2004-23-708",
+    "ALLCJ-2004-2-2052",
+    "JLJR-2004-4-165 Referred Judgement(s) : - Balchand Jain Vs. State Of Madhya Pradesh",
+    "[1976 4 SCC 572] [Referred To] - Gurbaksh Singhsibbia Sarbajit Singh Vs. State Of Punjab",
+    "[1980 2 SCC 565] [Referred To] - State Of Uttar Pradesh Vs. Synthetics And Chemicals Limited",
+    "[1991 4 SCC 139] [Referred To] - Salauddin Abdulsamad Shaikh Vs. State Of Maharashtra",
+    "[AIR 1996 SC 1042] [Referred To] - Suvaran Rajaram Bandekar Vs. Narayan R Bandekar",
+    "[1996 7 SCALE 20] [Referred To] - State Vs. Ratan Lal Arora",
+    "[2004 4 SCC 590] [Referred To]"
+  ],
+  "cited_judgments": [
+    "M K Rugi Vs. State Of Chhattisgarh, [LAWS(CHH)-2007-3-9] [Referred To]",
+    "Prem Kumar Singh Vs. State Of U P, [LAWS(ALL)-2011-1-81] [Referred To]",
+    "Dux Jitendrabhai Parmar Vs. State Of Gujarat, [LAWS(GJH)-2017-8-282] [Referred To]",
+    "C Surendran Vs. Government Of India, [LAWS(APH)-2014-9-130] [Referred To]",
+    "Radha Kapoor Khanna Vs. Central Bureau Of Investigation, [LAWS(BOM)-2021-9-124] [Referred To]",
+    "Prabhu Singh Narendra Singh Walia Vs. State Of Maharashtra, [LAWS(BOM)-2010-5-9] [Referred To]",
+    "Sharad Kumar Vs. Central Bureau Of Investigation, [LAWS(DLH)-2011-6-25] [Referred To]",
+    "Paharpur Cooling Towers Ltd Vs. Anuradha Masala Udhyog Pvt Ltd, [LAWS(ALL)-2007-12-209] [Referred]",
+    "Manju Devi Vs. Onkarjit Singh Ahluwalia @ Omkarjeet Singh & Others, [LAWS(SC)-2017-3-60] [Referred To]",
+    "Kunnashada Muthukoya Vs. Administrator U T Of Lakshadweep, [LAWS(SC)-2008-8-112] [Referred To]",
+    "Global Waste Recyclers Ltd Vs. Government Of Tamil Nadu, [LAWS(MAD)-2024-4-77] [Referred To]",
+    "Thalapathi Parthiban Vs. Superintending Engineer, [LAWS(MAD)-2013-7-389] [Referred]",
+    "Oriental Insurance Company Ltd Vs. Sudip Ranjan Deb, [LAWS(GAU)-2007-4-35] [Referred To]",
+    "Ram Pravesh Thakur Vs. State Of Bihar, [LAWS(PAT)-2019-5-53] [Referred To]",
+    "D.K. Shrivastava Vs. The State Of Jharkhand, [LAWS(JHAR)-2006-8-152] [Referred To]",
+    "Rashmi Rekha Thatoi Vs. State Of Orissa, [LAWS(SC)-2012-5-9] [Referred To]",
+    "Devendra Construction Co. Vs. State Of Rajasthan, [LAWS(RAJ)-2022-5-249] [Referred To]",
+    "Jai Balaji Industries Ltd Vs. Union Of India, [LAWS(GAU)-2011-1-34] [Referred To]",
+    "Chetan Taxman Khambala Vs. State Of Maharashtra , [LAWS(BOM)-2006-9-257] [Referred To]",
+    "Hyderabad Beverages Private Limited Vs. State Of A P, [LAWS(APH)-2006-4-1] [Referred To]",
+    "Aman Kumar Singh Vs. State Of Chhattisgarh, [LAWS(CHH)-2023-3-30] [Referred To]",
+    "Vijay Singh Vs. State (Govt. Of Nct Of Delhi), [LAWS(DLH)-2017-1-145] [Referred To]",
+    "Principal Commissioner Of Income Tax, Ranchi Vs. Manoj Kapoor, [LAWS(JHAR)-2023-8-124] [Referred To]",
+    "Satyendra Kumar Verma Vs. State Of U.P. And Ors., [LAWS(ALL)-2021-1-158] [Referred To]",
+    "Atul Kumar Singh Vs. State Of U. P., [LAWS(ALL)-2019-9-145] [Referred To]",
+    "Sharad Kumar Vs. Central Bureau Of Investigation, [LAWS(DLH)-2011-6-26] [Referred To]",
+    "Sunil Kumar Sharma Vs. State (Nct Of Delhi), [LAWS(DLH)-2005-6-6] [Referred To]",
+    "Manjunath And Ors. Vs. State Of Karnataka And Ors., [LAWS(KAR)-2019-4-415] [Referred To]",
+    "Freed Vs. State Of H.P., [LAWS(HPH)-2020-7-8] [Referred To]",
+    "Naresh Kumar Yadav Vs. Ravindra Kumar, [LAWS(SC)-2007-10-96] [Referred To]",
+    "Sunil Gupta Vs. State Of M P, [LAWS(MPH)-2005-5-1] [Referred To]",
+    "Sonu Alias Shahazad Vs. State Of M P, [LAWS(MPH)-2010-1-141] [Referred To]",
+    "Shivangini Mahendroo & Others Vs. State Of Haryana And Another, [LAWS(P&H)-2013-2-446] [Referred]",
+    "Kotak Mahindra Bank Limited Vs. A. Balakrishnan, [LAWS(SC)-2022-5-115] [Referred To]",
+    "Parvinderjit Singh Vs. State U T Chandigarh, [LAWS(SC)-2008-11-130] [Referred To]",
+    "State Of Orissa Vs. Mamata Mohanty, [LAWS(SC)-2011-2-45] [Referred To]",
+    "Punam Arya Vs. State Of Jharkhand, [LAWS(JHAR)-2006-5-13] [Referred To]",
+    "Bishnudeo Sahu Vs. State Of Bihar, [LAWS(JHAR)-2010-5-205] [Referred]",
+    "R Sunil Agrawal Vs. State, [LAWS(MAD)-2010-7-363] [Referred To]",
+    "Bhanu Kumar And Ors. Vs. The State Of Bihar And Ors., [LAWS(PAT)-2015-11-42] [Referred To]",
+    "Sadhu Sharan Yadav And Ors. Vs. The State Of Bihar, [LAWS(PAT)-2015-5-105] [Referred To]",
+    "Om Prakash Mund Vs. State Of Rajasthan, [LAWS(RAJ)-2013-9-79] [Referred To]",
+    "Jyothish Vs. State Of Kerala, [LAWS(KER)-2005-8-13] [Referred To]",
+    "Parthasarathi Vs. State, [LAWS(MAD)-2014-3-168] [Referred To]",
+    "Joydeb Pradhan Vs. Stat, [LAWS(CAL)-2005-7-51] [Referred To]",
+    "Jitendra Narayan Tyagi Alias Syed Waseem Rizvi Vs. State Of U.P., [LAWS(ALL)-2023-2-67] [Referred To]",
+    "Rishabh Singh Vs. State Of U.P., [LAWS(ALL)-2023-4-235] [Referred To]",
+    "Ankur Agarwal Vs. State Of U.P., [LAWS(ALL)-2024-10-18] [Referred To]",
+    "Brijesh Garg Vs. State Of Madhya Pradesh, [LAWS(MPH)-2005-8-63] [Referred To]",
+    "M Chummiahmed Vs. Kelis Thabah, [LAWS(GAU)-2007-7-18] [Referred To]",
+    "B R Vasudevamurthy Vs. Minister For Revenue Government Of Karnataka, [LAWS(KAR)-2006-12- 1] [Referred To]",
+    "Mahesh Mahendrakumar Bhura Vs. State Of Gujarat, [LAWS(GJH)-2022-12-1438] [Referred To]",
+    "Pramod Kuamr Mehta Vs. State Of Chhattisgarh, [LAWS(CHH)-2007-2-7] [Referred To]",
+    "Yelamarthi Sarath Kumar Vs. State Of Andhra Pradesh, [LAWS(APH)-2011-3-98] [Referred To]",
+    "Urveshbhai Baldevbhai Patel Vs. State Of Gujarat, [LAWS(GJH)-2014-12-3] [Referred To]",
+    "Nipulbhai Gangdasbhai Santoki Vs. State Of Gujarat, [LAWS(GJH)-2023-8-534] [Referred To]",
+    "New India Assurance Co. Ltd. Vs. Sanjeev Kumar, [LAWS(ALL)-2012-9-286] [Referred To]",
+    "Malav Ajitbhai Mehta Vs. State Of Gujarat, [LAWS(GJH)-2022-12-1118] [Referred To]",
+    "P S R Krishna Vs. Union Of India, [LAWS(APH)-2006-9-126] [Referred To]",
+    "Leading Aircraftsman Ansari Aaftab Ahmed; Mohammed Zubair Corporal Vs. Union Of India And Others, [LAWS(P&H)-2008-7-166] [Referred]",
+    "Mool Singh Vs. State Of Rajasthan, [LAWS(RAJ)-2011-4-21] [Referred To]",
+    "U Barkath Vs. Director General Of Police, [LAWS(MAD)-2019-8-197] [Referred To]",
+    "Gunasekar Vs. Special Tahsildar Adi Dravidar, [LAWS(MAD)-2008-3-329] [Referred To]",
+    "Sunita Devi Vs. State Of Bihar, [LAWS(SC)-2004-12-53] [Referred To]",
+    "D K Ganesh Babu Vs. P T Manokaran, [LAWS(SC)-2007-2-71] [Referred To]",
+    "Gowri Shanker Gupta Vs. State Of A.P., [LAWS(APH)-2012-12-32] [Referred To]",
+    "Vinod Kumar Sharma Vs. State Of U P, [LAWS(ALL)-2015-7-140] [Referred To]",
+    "Sukhbir Singh Vs. Dy Director Of Consolidation, Meerut, [LAWS(ALL)-2015-8-11] [Referred To]",
+    "Ramji Singh Vs. Directorate Of Enforcement Allahabad Sub Zonal Office, [LAWS(ALL)-2023-9- 29] [Referred To]",
+    "Tapas Sur Vs. State Of W B, [LAWS(CAL)-2005-1-56] [Referred To]",
+    "Sudip Sen Vs. State Of West Bengal, [LAWS(CAL)-2010-9-99] [Referred To]",
+    "State Of Arunachal Pradesh Vs. Chechung Chuku, [LAWS(GAU)-2011-1-46] [Referred To]",
+    "Buhari Sons Pvt. Ltd. Vs. State Of Tamil Nadu, [LAWS(MAD)-2014-6-42] [Referred To]",
+    "State Of Rajasthan Vs. Ravishankar Srivastava, [LAWS(RAJ)-2005-6-13] [Referred To]",
+    "Adri Dharan Das Vs. State Of W B, [LAWS(SC)-2005-2-89] [Referred To]",
+    "Zainab Fatimarubi Vs. State Of U.P., [LAWS(ALL)-2023-4-69] [Referred To]",
+    "Prakash Tripathi Vs. State Of U.P., [LAWS(ALL)-2019-10-282] [Referred To]",
+    "M.V. Varghese Vs. Vijayakumar P. , [LAWS(KER)-2012-9-406] [Referred To]",
+    "Maheshkumar Chhatrapati Dave Vs. Inspector General Of Registation, [LAWS(GJH)-2013-9-33] [Referred To]",
+    "Panmati Alias Parvati Devi Vs. D D C Azamgarh, [LAWS(ALL)-2014-11-126] [Referred To]",
+    "C Ganga Vs. Lakshmi Ammal, [LAWS(KER)-2008-3-30] [Referred To]",
+    "Shanavas Muhammed Vs. State Of Kerala, [LAWS(KER)-2007-1-151] [Followed On]",
+    "Ami Chand Vs. State Of Himachal Pradesh, [LAWS(HPH)-2020-9-26] [Referred To]",
+    "Gurua Naik Vs. State Of Orissa, [LAWS(ORI)-2009-5-57] [Referred To]",
+    "Gunasekar Vs. Special Tahsildar Adi Dravidar, [LAWS(MAD)-2008-3-303] [Referred To]",
+    "Bishnudeo Sahu Vs. State Of Bihar, [LAWS(PAT)-2010-5-197] [Referred To]",
+    "Bishundeo Sahu Vs. State Of Bihar, [LAWS(PAT)-2011-1-114] [Referred To]",
+    "Sushila Aggarwal Vs. State, [LAWS(SC)-2020-1-88] [Referred To]",
+    "Narmada Bachao Andolan Vs. State Of Madhya Pradesh, [LAWS(SC)-2011-5-36] [Referred To]",
+    "Achchey Lal Jaiswal Vs. State Of U.P., [LAWS(ALL)-2024-7-29] [Referred To]",
+    "Meerabai Shankar Gajbhe Vs. Suman Parmeshwar Rangari, [LAWS(BOM)-2010-4-104] [Referred To]",
+    "Vinod Singh Sirohi Vs. State Of U. P., [LAWS(ALL)-2021-12-195] [Referred To]",
+    "Priya Murlidhar Chaini Vs. Govind Prasad Shriwastav, [LAWS(BOM)-2006-10-100] [Referred To]",
+    "Rajeshree W/O. Aman Hemani Vs. State Of Maharashtra, [LAWS(BOM)-2006-3-197] [Referred To]",
+    "Pranab Rauth Vs. State Of Assam, [LAWS(GAU)-2008-8-40] [Referred To]",
+    "Shyamapada Mandal Vs. State Of West Bengal, [LAWS(CAL)-2010-3-13] [Referred To]",
+    "Ravi Gautam Vs. State Of U P, [LAWS(ALL)-2014-12-61] [Referred To]",
+    "Pankaj Bansal Vs. State (Govt. Of Nct Of Delhi), [LAWS(DLH)-2023-6-44] [Referred To]",
+    "Municipal Corporation Of Guntur Vs. B Syamala Kumai, [LAWS(APH)-2006-9-99] [Referred To]",
+    "Md. Narul Hoque Laskar Vs. State Of Assam, [LAWS(GAU)-2021-3-32] [Referred To]",
+    "Santosh Karnani Vs. State Of Gujarat, [LAWS(GJH)-2022-12-41] [Referred To]",
+    "Rupeet Swani Vs. State Of Punjab, [LAWS(P&H)-2014-5-56] [Referred To]",
+    "Sushila Aggarwal & Ors Vs. State (Nct Of Delhi) & Anr, [LAWS(SC)-2018-5-67] [Referred To]",
+    "Vaman Narain Ghiya Vs. State Of Rajasthan, [LAWS(SC)-2008-12-109] [Referred To]",
+    "Usha Bharti Vs. State Of U.P., [LAWS(SC)-2014-3-60] [Referred To]",
+    "Gurcharan Kaur And Others Vs. State Of Punjab And Others, [LAWS(P&H)-2012-10-175] [Referred]",
+    "Mamta Kumari Wife Of Sri Bijay Kishore Prasad Vs. State Of Bihar, [LAWS(PAT)-2010-3-270] [Referred To]",
+    "Elangovan M Vs. Madras Refineries Ltd, [LAWS(MAD)-2005-1-119] [Referred To]",
+    "Pawan Kumar Vs. State Of Himachal Pradesh, [LAWS(HPH)-2022-3-109] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438",
+    "S.439"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "State Of Himachal Pradesh, [LAWS(HPH)-2022-3-109] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438, S.439 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "439",
+      "subsection": null,
+      "section_title": "Special powers of High Court or Court of Session regarding bail",
+      "how_used": "Referenced",
+      "context": "State Of Himachal Pradesh, [LAWS(HPH)-2022-3-109] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438, S.439 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "437",
+      "subsection": null,
+      "section_title": "When bail may be taken in case of non-bailable offence",
+      "how_used": "Charged",
+      "context": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person apprehending arrest, S.439 - Special powers of High Court or Court of Session regarding bail - By order dated 15.5.2003 the High Court disposed of the application to the following directions:\"(i) That the petitioner sha",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "498A",
+      "subsection": null,
+      "section_title": "Husband or relative of husband of a woman subjecting her to cruelty",
+      "how_used": "Charged",
+      "context": "She alleged commission of offences punishable under Sections 498A and 506 read with Section 34 of the Indian Penal Code 1860 (for short the IPC) and Sections 3 and 4 of the Dowry Prohibition Act, 1961 (in short the Dowry Act) against respondent No.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "34",
+      "subsection": null,
+      "section_title": "Acts done by several persons in furtherance of common intention",
+      "how_used": "Charged",
+      "context": "She alleged commission of offences punishable under Sections 498A and 506 read with Section 34 of the Indian Penal Code 1860 (for short the IPC) and Sections 3 and 4 of the Dowry Prohibition Act, 1961 (in short the Dowry Act) against respondent No.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "3",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Charged",
+      "context": "She alleged commission of offences punishable under Sections 498A and 506 read with Section 34 of the Indian Penal Code 1860 (for short the IPC) and Sections 3 and 4 of the Dowry Prohibition Act, 1961 (in short the Dowry Act) against respondent No.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "3",
+    "34",
+    "498A"
+  ],
+  "crpc_sections_mentioned": [
+    "437",
+    "438",
+    "439"
+  ],
+  "procedural_history": {
+    "high_court_order_date": "15.5.2003",
+    "high_court_bench": "High Court of Madhya Pradesh",
+    "sessions_court_decision": "Sessions Court, Jabalpur, but that also was rejected"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, S.439 - Special powers of High Court or Court of Session regarding bail\n- By order dated 15.5.2003 the High Court disposed of the application to the following\ndirections:\"(i) That the petitioner shall make himself available to the police for investigation\nin connection with the above offences as and when required in this behalf;(ii) That the\npetitioner shall not, directly or indirectly, tamper with the prosecution evidence.(iii) The\npetitioner may approach the appropriate court within the period of four weeks for regular\nbail.\" - (1) A High Court, or Court of Session may direct -(a) that any person accused of an\noffence and in custody be released on bail, and if the offence is of the nature specified in Sub-\nsection (3) of Section 437, may impose any condition which it considers necessary for the\npurposes mentioned in that sub section;(b) that any condition imposed by the Magistrate\nwhen releasing any person on bail be set aside or modified.\"(underlined for emphasis) 10.\nB. The crucial question is when a person is in custody, within the meaning of Section 439\nCriminal Procedure Code When he is in duress either because he is held by the investigating\nagency or other police or allied authority or is under the control of the court having been\nremanded by judicial order, or having, offered himself to the courts jurisdiction and\nsubmitted to its orders by physical presence. - (Sixth Edn.), the expression \"custody\" has\nbeen explained in the following manner:\".....The term is very elastic and may mean actual\nimprisonment or physical detention....within statute requiring that petitioner be in custody to\nbe entitled to federal habeas corpus relief does not necessarily mean actual physical detention\nin jail or prison but rather is synonymous with restraint of liberty....\nC. The crucial question is when a person is in custody, within the meaning of Section 439\nCriminal Procedure Code When he is in duress either because he is held by the investigating\nagency or other police or allied authority or is under the control of the court having been\nremanded by judicial order, or having, offered himself to the courts jurisdiction and\nsubmitted to its orders by physical presence.\nD. 2 would surrender to custody as required in law so that his application under Section 439 of\nthe Code can be taken for disposal. - The appeal is allowed to the extent indicated.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, S.439 - Special powers of High Court or Court of Session regarding bail\n- By order dated 15.5.2003 the High Court disposed of the application to the following\ndirections:\"(i) That the petitioner shall make himself available to the police for investigation\nin connection with the above offences as and when required in this behalf;(ii) That the\npetitioner shall not, directly or indirectly, tamper with the prosecution evidence.(iii) The\npetitioner may approach the appropriate court within the period of four weeks for regular\nbail.\" - (1) A High Court, or Court of Session may direct -(a) that any person accused of an\noffence and in custody be released on bail, and if the offence is of the nature specified in Sub-\nsection (3) of Section 437, may impose any condition which it considers necessary for the\npurposes mentioned in that sub section;(b) that any condition imposed by the Magistrate\nwhen releasing any person on bail be set aside or modified.\"(underlined for emphasis) 10."
+    },
+    {
+      "label": "B",
+      "text": "The crucial question is when a person is in custody, within the meaning of Section 439\nCriminal Procedure Code When he is in duress either because he is held by the investigating\nagency or other police or allied authority or is under the control of the court having been\nremanded by judicial order, or having, offered himself to the courts jurisdiction and\nsubmitted to its orders by physical presence. - (Sixth Edn.), the expression \"custody\" has\nbeen explained in the following manner:\".....The term is very elastic and may mean actual\nimprisonment or physical detention....within statute requiring that petitioner be in custody to\nbe entitled to federal habeas corpus relief does not necessarily mean actual physical detention\nin jail or prison but rather is synonymous with restraint of liberty...."
+    },
+    {
+      "label": "C",
+      "text": "The crucial question is when a person is in custody, within the meaning of Section 439\nCriminal Procedure Code When he is in duress either because he is held by the investigating\nagency or other police or allied authority or is under the control of the court having been\nremanded by judicial order, or having, offered himself to the courts jurisdiction and\nsubmitted to its orders by physical presence."
+    },
+    {
+      "label": "D",
+      "text": "2 would surrender to custody as required in law so that his application under Section 439 of\nthe Code can be taken for disposal. - The appeal is allowed to the extent indicated."
+    }
+  ],
+  "judgment_author": "Arijit Pasayat, J.",
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "Projection to the respondent No. 2 Dr. Harminder Singh Bhawara under Section 438 of the Code\nof Criminal Procedure 1973 (in short the Code) is assailed by the appellant."
+    },
+    {
+      "number": "3",
+      "text": "A brief reference to the factual aspects would suffice."
+    },
+    {
+      "number": "4",
+      "text": "Appellant and respondent No. 2 entered into a wedlock on 11.5.1997. Alleging that she has been\nsubjected to physical and mental torture for not satisfying the demand for dowry, a complaint was\nlodged at Women Police Station, Jabalpur (Madhya Pradesh) on 24.2.2003 by the appellant. She\nalleged commission of offences punishable under Sections 498A and 506 read with Section 34 of the\nIndian Penal Code 1860 (for short the IPC) and Sections 3 and 4 of the Dowry Prohibition Act, 1961\n(in short the Dowry Act) against respondent No. 2 and some of his relatives. On 28.4.2003 respondent\nNo. 2 filed an application for protection in terms of Section 438 of the Code before the High Court of\nMadhya Pradesh, Jabalpur Bench, which was registered as Misc. Crl. Case No. 2890/2003. By order\ndated 15.5.2003 the High Court disposed of the application to the following directions:\n\"(i) That the petitioner shall make himself available to the police for investigation in\nconnection with the above offences as and when required in this behalf;\n(ii) That the petitioner shall not, directly or indirectly, tamper with the prosecution\nevidence.\n(iii) The petitioner may approach the appropriate court within the period of four weeks for\nregular bail.\""
+    },
+    {
+      "number": "5",
+      "text": "It appears that respondent No. 2 applied for regular bail before the Judicial Magistrate, First\nClass, Jabalpur, which was rejected. On 5.6.2003 prayer for bail was made before the Sessions Court,\nJabalpur, but that also was rejected. On 7.6.2003 respondent No. 2 filed an application in terms of\nSection 439 of the Code before the High Court. On 12.6.2003 the matter was listed before the vacation\nJudge. The matter was adjourned to 16.6.2003 when the impugned order was passed. The same reads\nas follows:\n\"This Court on 15.5.2003 in M. Cr. C. No. 2890/2003 allowed the application for bail for a\nperiod of four weeks. Looking to the nature of the case, the application of ad-interim anticipatory bail\nis hereby allowed on the condition of furnishing a personal bond of Rs. 20,000/- with one surety of the\nlike amount to the satisfaction of the station Officer In-charge concerned.\""
+    },
+    {
+      "number": "6",
+      "text": "According to the appellant M. Cr. C No. 3697/2003 which was filed in terms of Section 439 of\nthe Code is still pending. The case diary was called for and in M.(Crl.)P. No. 2734/2003 the order as\nquoted above has been passed."
+    },
+    {
+      "number": "7",
+      "text": "According to the learned counsel for the appellant the impugned order is clearly at variance with\nthe earlier order dated 15.5.2003. By the said order the application in terms of Section 438 of the Code\nwas disposed of and four weeks time was granted to respondent No. 2 for making application in terms of Section 439 of the Code. The period was over by the time the High Court passed the subsequent\norder. It is a blanket order extending the ad-interim arrangement indicated in the earlier order. Since\nthe period indicated in the earlier order was over and the respondent No. 2 is not in custody in terms of\nSection 439 of the Code, the order is clearly not maintainable. Learned counsel for the State of\nMadhya Pradesh supported the stand of the appellant."
+    },
+    {
+      "number": "8",
+      "text": "Per contra, learned counsel for the respondent No. 2 submitted that in view of what has been\nstated in K.L. Verma v. State and Anr. , protection given by the High Court is clearly in order. It was\nsubmitted that for the purpose of making an application in terms of Section 439 of the Code, when the\nsame is pursuant to an order passed on application under Section 438 of the Code, it is not necessary\nthat the applicant should be in custody."
+    },
+    {
+      "number": "9",
+      "text": "Sections 438 and 439 operate in different fields. Section 439 of the Code reads as follows:\n\"439. (1) A High Court, or Court of Session may direct -\n(a) that any person accused of an offence and in custody be released on bail, and if the\noffence is of the nature specified in Sub-section (3) of Section 437, may impose any condition which it\nconsiders necessary for the purposes mentioned in that sub section;\n(b) that any condition imposed by the Magistrate when releasing any person on bail be set\naside or modified.\"\n(underlined for emphasis)"
+    },
+    {
+      "number": "10",
+      "text": "It is clear from a bare reading of the provisions that for making an application in terms of\nSection 439 of the Code a person has to be in custody. Section 438 of the Code deals with \"Direction\nfor grant of bail to person apprehending arrest\". In Bal Chand Jain v. State of M.P. (1977) 2 SCR 52 it\nwas observed that the expression \"anticipatory bail\" is really a misnomer because what Section 438\ncontemplates is not an anticipator bail, but merely an order directing the release of an accused on bail\non the event of his arrest. It is, therefore, manifest that there is no question of bail unless a person is\narrested in connection with a non-bailable offence by the police. The distinction between an order in\nterms of Section 438 and that in terms of Section 439 is that the latter is passed after arrest whereas\nformer is passed in anticipation of arrest and become effective at the very moment of arrest. (See Gur\nBaksh Singh v. State of Punjab 1980 CriLJ 1125 )."
+    },
+    {
+      "number": "11",
+      "text": "In Salauddin Abdulsamad Shaikh v. State of Maharashtra 1996 CriLJ 1368 it was observed as\nfollows:\n\"Anticipatory bail is granted in anticipation of arrest in non-bailable cases, but that does not\nmean that the regular court, which is to try the offender, is sought to be bypassed and that is the reason\nwhy the High Court very rightly fixed the outer date for the continuance of the bail and on the date of\nits expiry directed the petitioner to move the regular court for bail. That is the correct procedure to\nfollow because it must be realised that when the Court of Sessions or the High Court is granting\nanticipatory bail, it is granted at a stage when the investigation is incomplete and, therefore, it is not informed about the nature of evidence against the alleged offender. It is, therefore, necessary that such\nanticipatory bail orders should be of a limited duration only and ordinarily on the expiry of that\nduration or extended duration the court granting anticipatory bail should leave it to the regular court to\ndeal with the matter on an appreciation of evidence placed before it after the investigation has made\nprogress or the charge-sheet is submitted\".\n(Emphasis supplied)"
+    },
+    {
+      "number": "12",
+      "text": "In K.L. Vermas case (supra) this Court observed as follows:\n\"This Court further observed that anticipatory bail is granted in anticipation of arrest in\nnon-bailable cases, but that does not mean that the regular court, which is to try the offender, is sought\nto be bypassed. It was, therefore, pointed out that it was necessary that such anticipatory bail orders\nshould be of a limited duration only and ordinarily on the expiry of that duration or extended duration\nthe court granting anticipatory bail should leave it to the regular court to deal with the matter on an\nappreciation of evidence placed before it after the investigation has made progress or the charge-sheet\nis submitted. By this, what the Court desired to convey was that an order of anticipatory bail does not\nenure till the end of trial but it must be of limited duration as the regular court cannot be bypassed. The\nlimited duration must be determined having regard to the facts of the case and the need to give the\naccused sufficient time to move the regular court for bail and to give the regular court sufficient time\nto determine the bail application. In other words, till the bail application is disposed of one way or the\nother the court may allow the accused to remain on anticipatory bail. To put it differently, anticipatory\nbail may be granted for a duration which may extend to the date on which the bail application is\nDISPOSED OF OR EVEN A FEW DAYS there after to enable the accused persons to move the\nhigher court, if they so desire.\"\n(Emphasis supplied)"
+    },
+    {
+      "number": "13",
+      "text": "The reference to this Courts observation as quoted above was to Salauddins case (supra)."
+    },
+    {
+      "number": "14",
+      "text": "The grey area according to us is the following part of the judgment in K.L. Vermas case (supra)\n\"or even a few days there after to enable the accused persons to move the Higher Court, if they so\ndesire\"."
+    },
+    {
+      "number": "15",
+      "text": "Obviously, the requirement of Section 439 of the Code is not wiped out by the above\nobservations. Section 439 comes into operation only when a person is \"in custody\". In K.L. Vermas\ncase (supra) reference was made to Salauddins case (supra). In the said case there was no such\nindication as given in K.L. Vermas case (supra), that a few days can be granted to the accused to move\nthe higher Court if they so desire. The statutory requirement of Section 439 of the Code cannot be said\nto have been rendered totally inoperative by the said observation."
+    },
+    {
+      "number": "16",
+      "text": "In view of the clear language of Section 439 and in view of the decision of this Court in\nNiranjan Singh and Anr. v. Prabhakar Rajaram Kharote and Ors. 1980 CriLJ 426 , there cannot be any\ndoubt that unless a person is in custody, an application for bail under Section 439 of the Code would not be maintainable. The question when a person can be said to be in custody within the meaning of\nSection 439 of the Code came up for consideration before this Court in the aforesaid decision."
+    },
+    {
+      "number": "17",
+      "text": "The crucial question is when a person is in custody, within the meaning of Section 439 Criminal\nProcedure Code When he is in duress either because he is held by the investigating agency or other\npolice or allied authority or is under the control of the court having been remanded by judicial order,\nor having, offered himself to the courts jurisdiction and submitted to its orders by physical presence.\nNo lexical dexterity nor precedential profusion is needed to come to the realistic conclusion that he\nwho is under the control of the court or is in the physical hold to an officer with coercive power is in\ncustody for the purpose of Section 439. The word is of elastic semantics but its core meaning is that\nthe law has taken control of the person. The equivocatory quibblings and hide-and-seek niceties\nsometimes heard in court that the police have taken a man into informal custody but not arrested him,\nhave detained him for interrogation but not taken him into formal custody and other like\nterminological dubieties are unfair evasions of the straightforwardness of the law."
+    },
+    {
+      "number": "18",
+      "text": "Since the expression \"custody\" though used in various provisions of the Code, including Section\n439, has not been defined in the Code, it has to be understood in setting in which it is used and the\nprovisions contained in Section 437 which relates to jurisdiction of the Magistrate to release an\naccused on bail under certain circumstances which can be characterized as \"in custody\" in a generic\nsense. The expression \"custody\" as used in Section 439, must be taken to be a compendious expression\nreferring to the events on the happening of which Magistrate can entertain a bail petition of an\naccused. Section 437 envisages, inter alia, that the Magistrate may release an accused on bail, if such\naccused appears before the Magistrate. There cannot be any doubt that such appearance before the\nMagistrate must be physical appearance and the consequential surrender to the jurisdiction of the\nCourt of the Magistrate."
+    },
+    {
+      "number": "19",
+      "text": "In Blacks Law Dictionary by Henry Campbell Black, M.A. (Sixth Edn.), the expression\n\"custody\" has been explained in the following manner:\n\".....The term is very elastic and may mean actual imprisonment or physical\ndetention....within statute requiring that petitioner be in custody to be entitled to federal habeas corpus\nrelief does not necessarily mean actual physical detention in jail or prison but rather is synonymous\nwith restraint of liberty.... .Accordingly, persons on probation or parole or released on bail or on own\nrecognizance have been held to be in custody for purposes of habeas corpus proceeding.\""
+    },
+    {
+      "number": "20",
+      "text": "It is to be noted that in K.L. Vermas case (supra) the Court only indicated that time may be\nextended to \"move\" the higher court. In Blacks Law Dictionary the said expression has been explained\nas follows:\n\"Move: to make an application to a Court for a rule or order, or to take action in any matter.\nThe term comprehends all things necessary to be done by a litigant to obtain an order of the Court\ndirecting the relief sought.\""
+    },
+    {
+      "number": "21",
+      "text": "In Salauddins case (supra) also this Court observed that the regular Court has to be moved for bail. Obviously, an application under Section 439 of the Code must be in a manner in accordance with\nlaw and accused seeking remedy under Section 439 must ensure that it would be lawful for the Court\nto deal with the application. Unless the applicant is in custody his making application only under\nSection 439 of the Code will not confer jurisdiction on the Court to which the application is made. The\nview regarding extension of time to \"move\" the higher Court as culled out from the decision in K.L.\nVermas case (supra) shall have to be treated as having been rendered per incuriam, as no reference\nwas made to the prescr iption in Section 439 requiring the accused to be in custody. In State through\nS.P. New Delhi v. Ratan Lal Arora 2004 CriLJ 2105 it was held that where in a case the decision has\nbeen rendered without reference to statutory bars, the same cannot have any precedent value and shall\nhave to be treated as having been rendered per incuriam. The present case stands at par, if not, on a\nbetter footing. The provisions of Section 439 do not appear to have been taken note of."
+    },
+    {
+      "number": "22",
+      "text": "\"incuriam\" literally means \"carelessness\". In practice, per incuriam is taken to mean per\nignoratium. English Courts have developed this principle in relaxation of the rule of stare decisis. The\n\"quotable in law\", as held in Young v. Bristol Aeroplane Co. Ltd. (1944) 2 A.E.R. 293, is avoided and\nignored if it is rendered, \"in ignoratium of a statute or other binding authority\". Same has been\naccepted, approved and adopted, by this Court while interpreting Article 141 of the Constitution of\nIndia, 1950 (in short the Constitution) which embodies the doctrine of precedents as a matter of law.\nThe above position was highlighted in State of U.P. and Anr. v. Synthetics and Chemicals Ltd. and\nAnr. 1993 (41)ECC326 . To perpetuate an error is no heroism. To rectify it is the compulsion of the\njudicial conscience."
+    },
+    {
+      "number": "23",
+      "text": "For making an application under Section 439 the fundamental requirement is that the accused\nshould be in custody. As observed in Salauddins case (supra) the protection in terms of Section 438 is\nfor a limited duration during which the regular Court has to be moved for bail. Obviously, such bail is\nbail in terms of Section 439 of the Code, mandating the applicant to be in custody. Otherwise, the\ndistinction between orders under Sections 438 and 439 shall be rendered meaningless and redundant."
+    },
+    {
+      "number": "24",
+      "text": "If the protective umbrella of Section 438 is extended beyond what was laid down in Salauddins,\ncase (supra) the result would be clear bypassing of what is mandated in Section 439 regarding custody.\nIn other words, till the applicant avails remedies upto higher Courts, the requirements of Section 439\nbecome dead letter. No part of a statute can be rendered redundant in that manner."
+    },
+    {
+      "number": "25",
+      "text": "In the aforesaid background, the protection given to the respondent No. 2 by the High Court\nwhile the application under Section 439 of the Code is pending is clearly unsustainable. Respondent\nNo. 2 would surrender to custody as required in law so that his application under Section 439 of the\nCode can be taken for disposal. We are very sure that the High Court will take up the matter for\ndisposal in accordance with law immediately after the respondent No. 2 is in custody as required under\nSection 439 of the Code. We make it clear that we are not expressing any opinion on the merits of the\nmatter."
+    },
+    {
+      "number": "26",
+      "text": "The appeal is allowed to the extent indicated."
+    }
+  ],
+  "bail_amount_original": "Rs. 1980",
+  "bail_amount_modified": "Rs. 20,000",
+  "bail_amount_original_normalized": "Rs. 1980",
+  "bail_amount_modified_normalized": "Rs. 20,000",
+  "bail_outcome": "granted",
+  "bail_conditions": [
+    "Looking to the nature of the case, the application of ad-interim anticipatory bail is hereby allowed on the condition of furnishing a personal bond of Rs. 20,000/- with one surety of the like amount to the satisfaction of the station Officer In-charge concerned.\""
+  ],
+  "ratio_decidendi": "In the aforesaid background, the protection given to the respondent No. 2 by the High Court\nwhile the application under Section 439 of the Code is pending is clearly unsustainable. Respondent\nNo. 2 would surrender to custody as required in law so that his application under Section 439 of the\nCode can be taken for disposal. We are very sure that the High Court will take up the matter for\ndisposal in accordance with law immediately after the respondent No. 2 is in custody as required under\nSection 439 of the Code. We make it clear that we are not expressing any opinion on the merits of the\nmatter.",
+  "ratio_para_number": "25",
+  "dispute_nature": "matrimonial",
+  "missing_anchors": [],
+  "warnings": []
+}

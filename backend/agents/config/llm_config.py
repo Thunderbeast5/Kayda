@@ -17,19 +17,27 @@ if not GROQ_API_KEY:
     raise ValueError("GROQ_API_KEY not found in .env")
 
 
-def get_llm(temperature: float = 0.2, model_name: str = "llama-3.3-70b-versatile"):
+def get_llm(temperature: float = 0.2, model_name: str = "llama-3.1-8b-instant"):
+    """
+    Get LLM instance. Defaults to llama-3.1-8b-instant (faster, higher rate limits).
+    Use llama-3.3-70b-versatile for more complex reasoning when needed.
+    """
     try:
         return ChatGroq(
             model=model_name,
             api_key=GROQ_API_KEY,
             temperature=temperature,
             max_retries=3,
+            timeout=30,  # Add timeout to catch connection issues faster
         )
-    except Exception:
+    except Exception as e:
+        print(f"[LLM] Primary model {model_name} failed: {e}")
+        print("[LLM] Falling back to llama-3.1-8b-instant...")
         return ChatGroq(
             model="llama-3.1-8b-instant",
             api_key=GROQ_API_KEY,
             temperature=temperature,
             max_retries=3,
+            timeout=30,
         )
 

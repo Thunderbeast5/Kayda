@@ -1,0 +1,344 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-29.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2002-10-53",
+  "court": "SUPREME COURT OF INDIA (FROM: PUNJAB & HARYANA)",
+  "coram": "DORAISWAMY RAJU, SHIVARAJ PATIL JJ.",
+  "decided_on": "October 24, 2002",
+  "decided_on_year": 2002,
+  "appeal_type": "Criminal Appeal 1087 of 2002",
+  "final_verdict": "Appeal allowed",
+  "appellant": "MAHANT CHAND NATH YOGI",
+  "respondent": "STATE OF HARYANA",
+  "advocates": "SUSHIL KUMAR, SANJAY JAIN, ADOLF MATHEW, MINAKSHI ARORA,\nN.S.BHINDER, H.P.S.BHINDER, J.P.DHANDA, RAJ RANI DHANDA, SUNDER KHATRI",
+  "equivalent_citations": [
+    "AIR(SC)-2003-0-18",
+    "AIR(SCW)-2002-0-4401",
+    "ALD(CRI)-2002-2-864",
+    "ALLCRIR-2003-1-939",
+    "AIC-2003-1-958",
+    "ALT(CRI)(SC)-2002-2-364",
+    "CALCRILR-2003-0-361",
+    "CRIMES(SC)-2003-1-49",
+    "CRLJ-2003-0-76",
+    "EASTCRIC-2003-1-106",
+    "JT-2002-8-343",
+    "LAWS(SC)-2002-10-53",
+    "LRI-2002-4-807",
+    "OCR-2003-24-416",
+    "RAJLW-2003-2-183",
+    "RCR(CRI)-2003-1-764",
+    "SCALE-2002-7-466",
+    "SCC-2003-1-326",
+    "SCC(CR)-2003-0-312",
+    "SCCRIR-2003-0-308",
+    "SLT-2002-6-182",
+    "SRJ-2002-10-309",
+    "SUPREME-2002-7-381",
+    "TLPRE-2002-0-587",
+    "CGLJ-2003-1-107",
+    "KHC-2003-0-746",
+    "CCR-2002-4-220",
+    "GLHEL-2002-0-16556",
+    "AD(SC)-2002-9-370 Referred Judgement(s) : - Dolat Ram Vs. State Of Haryana",
+    "[1995 1 JT 127] [Referred To] - Subhendu Mishra Vs. Subrat Kumar Mishra",
+    "[1999 0 AIR(SCW) 2955] [Referred To] - Harjeet Singh Alias Seeta Vs. State Of Punjab",
+    "[2001 10 JT 336] [Referred To]"
+  ],
+  "cited_judgments": [
+    "State Of Kerala Vs. Suraj, [LAWS(KER)-2003-10-13] [Referred To]",
+    "State Of West Bengal Vs. Smt. Sabitri Rai, [LAWS(SIK)-2017-12-2] [Referred To]",
+    "Radhakrishnan Alias R K Vs. State, [LAWS(MAD)-2003-5-3] [Referred To]",
+    "Imran, S/O. Abdul Lathiff Vs. State Of Karnataka, [LAWS(KAR)-2021-8-53] [Referred To]",
+    "State Of Punjab Vs. Deepak Gakhar Alias Deepak Arora, [LAWS(P&H)-2003-7-140] [Referred To]",
+    "State Of Gujarat Vs. Babu Alias Babu Bajrangi Rajabhai Patel, [LAWS(GJH)-2011-12-71] [Referred To]",
+    "M Sahul Hameed Vs. Jamal Alias Jamaluddin, [LAWS(MAD)-2009-10-522] [Referred To]",
+    "State Of Gujarat Vs. M N Dinesh, [LAWS(GJH)-2008-1-86] [Referred To]",
+    "State Of Maharashtra Police Station Officer Vs. Devendra Chhattija Atthuram, [LAWS(BOM)-2004- 5-10] [Referred To]",
+    "State Through Special Investigation Team S.I.T.(1984 Riots) Vs. Sajjan Kumar, [LAWS(DLH)- 2018-2-565] [Referred To]",
+    "State Vs. Manjunatha, [LAWS(KAR)-2004-3-13] [Referred To]",
+    "Anjani Kumar Singh Vs. State Of Orissa, [LAWS(ORI)-2003-3-31] [Referred To]",
+    "Bhikhaji Chaturji Thakore Vs. State Of Gujarat, [LAWS(GJH)-2007-5-37] [Referred To]",
+    "Mohammad Aasim Salim Ahemad Vs. State Of Gujarat, [LAWS(GJH)-2020-2-19] [Referred To]",
+    "State Of West Bengal Vs. Sanjay Chandak, [LAWS(CAL)-2009-12-20] [Referred To]",
+    "Aniben Vs. Krishnankutty, [LAWS(KER)-2012-3-489] [Referred To]",
+    "State Of Gujarat Vs. Narendra K Amin, [LAWS(GJH)-2008-1-337] [Referred To]",
+    "State Of Gujarat Vs. Kanaksinh Mohansinh Mangrola, [LAWS(GJH)-2004-10-63] [Referred To]",
+    "Nabanita Das Nee Maity Vs. State Of West Bengal, [LAWS(CAL)-2008-5-91] [Referred To]",
+    "Uganti Vs. Kajore Mal, [LAWS(RAJ)-2005-9-34] [Referred To]",
+    "Bitem Lego Vs. Roding Pertin, [LAWS(GAU)-2004-12-20] [Referred To]",
+    "Gaffarbhai Noormohammed Parmar Vs. State Of Gujarat, [LAWS(GJH)-2017-6-174] [Referred To]",
+    "State Of Kerala Vs. Eldose Kunnappilly, [LAWS(KER)-2022-12-82] [Referred To]",
+    "State Of Rajasthan Vs. Ravishankar Srivastava, [LAWS(RAJ)-2005-6-13] [Referred To]",
+    "Joginder Singh Vs. State Of Haryana, [LAWS(P&H)-2021-9-11] [Referred To]",
+    "Rekha Singhal Vs. State Of Karnataka, [LAWS(KAR)-2022-1-71] [Referred To]",
+    "Kewal Krishan Indoria Vs. State Of H.P., [LAWS(HPH)-2011-5-259] [Referred To]",
+    "Mahersing Or His Sucessor In Office Intelligence Officer Vs. Pradipkumar Bharatlal Poddar Director Of Suvidha, [LAWS(GJH)-2003-9-25] [Referred]",
+    "State Of Maharashtra Vs. Pratapsinha Alias Sanjay Shankarrao Chavan, [LAWS(BOM)-2006-8-99] [Referred To]",
+    "Laxmandas Vishandas Sahani Vs. State Of Gujarat, [LAWS(GJH)-2012-4-163] [Referred To]",
+    "State Of Tripura Vs. Sukanta Gupta, [LAWS(TRIP)-2021-5-13] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "Sukanta Gupta, [LAWS(TRIP)-2021-5-13] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "120",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Charged",
+      "context": "- According to learned Senior Counsel, the appellants did not misuse the anticipatory bail granted by the learned Additional Sessions Judge, the application filed for cancellation of the orders dated 9-4-2001 and 5-6-2001 is primarily based on the contention that the appellants are not joining inves",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "302",
+      "subsection": null,
+      "section_title": "Punishment for murder",
+      "how_used": "Charged",
+      "context": "17/99 dated 24-1-1999 registered under Sections 302/120-B, IPC and Section 25/54/59 of the Arms Act.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "25",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Charged",
+      "context": "17/99 dated 24-1-1999 registered under Sections 302/120-B, IPC and Section 25/54/59 of the Arms Act.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "387",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Applied",
+      "context": "42 dated 5-2-2001 was registered under Section 387, IPC.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "439(2)",
+      "subsection": "2",
+      "section_title": "Special powers of High Court or Court of Session regarding bail",
+      "how_used": "Mentioned",
+      "context": "27699-M of 2001 on 18-7-2001 under Section 439 (2) r/w Section 482 , Cr.P.C.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "482",
+      "subsection": null,
+      "section_title": "Saving of inherent powers of High Court",
+      "how_used": "Mentioned",
+      "context": "27699-M of 2001 on 18-7-2001 under Section 439 (2) r/w Section 482 , Cr.P.C.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "362",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Mentioned",
+      "context": "27699-M of 2001 in view of the express and clear bar contained in Section 362, Cr.P.C.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "120B",
+      "subsection": null,
+      "section_title": "Punishment of criminal conspiracy",
+      "how_used": "Charged",
+      "context": "1 is a very influential person and is not co-operating in investigation; in order to investigate, particularly as regards the offence under Section 120B, IPC in the facts and circumstances of the case, the custodial interrogation of the appellants is very much required; he took pains to narrate the ",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "120",
+    "120B",
+    "25",
+    "302",
+    "387"
+  ],
+  "crpc_sections_mentioned": [
+    "362",
+    "438",
+    "439(2)",
+    "482"
+  ],
+  "procedural_history": {
+    "fir_number": "17/99",
+    "high_court_order_date": "6-6-2001.",
+    "sessions_court_decision": "Sessions Court, Rewari, after hearing both sides initially granted"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest - 1 was rigorously interrogated on 24-6-1999 by various police officials\nincluding Inspector, CID/Crime, Faridabad and found that the appellants were not involved\nand found them innocent after the investigation was verified by the superior officers. -\nAccording to learned Senior Counsel, the appellants did not misuse the anticipatory bail\ngranted by the learned Additional Sessions Judge, the application filed for cancellation of the\norders dated 9-4-2001 and 5-6-2001 is primarily based on the contention that the appellants are not joining investigation and that they are tempering with the evidence but the High\nCourt has failed to appreciate that the appellants after grant of anticipatory bail on 9-4-2001\njoined investigation on more than one occasion and they were interrogated sufficiently and\nthat even the case was committed for trial having completed the investigation; - 17/99 of\npolice station, Bawal had not been recorded till then regarding identity of Manjit Singh,\naccused as assailant, who is said to have committed the murder, the alleged disclosure\nstatement of Kishan on the basis of which offence under Section 120-B, IPC was added later\nafter about four and half months from the date of the murder against the appellants , was\nproved to be false and police even got the said Kishan discharged in terms of the order dated\n8-11-1999.\nB. According to the respondent, previous Investigating Officer and Supervisory Officers acted\nmala fidely and illegally and this aspect was being investigated seriously and that it would\ntake some time to collect evidence, the evidence collected in second phase of investigation is in\nthe form of statements of three persons, namely, accused Manjit Singh, accused Ashok\nKumar and Jai Prakash Dayiya; - The appellants were named as accused for committing\noffence under Section 120-B, IPC almost after a period of four and half months from the date\nof the murder, that too based on the disclosure statement of hardened criminal, the statement\nof Kishan on whose statement the appellants were involved in the offence was proved to be\nfalse and police got him discharged.\nC. Thus, in our view, the High Court committed a manifest and serious error in passing the\nimpugned orders setting aside the anticipatory bail granted to the appellants by the order\ndated 9-4-2001 as confirmed by the order dated 5-6-2001 of the learned Addl. - Hence, we set\naside the impugned orders and restore the order dated 5-6-2001 passed by the learned Addl.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest - 1 was rigorously interrogated on 24-6-1999 by various police officials\nincluding Inspector, CID/Crime, Faridabad and found that the appellants were not involved\nand found them innocent after the investigation was verified by the superior officers. -\nAccording to learned Senior Counsel, the appellants did not misuse the anticipatory bail\ngranted by the learned Additional Sessions Judge, the application filed for cancellation of the\norders dated 9-4-2001 and 5-6-2001 is primarily based on the contention that the appellants are not joining investigation and that they are tempering with the evidence but the High\nCourt has failed to appreciate that the appellants after grant of anticipatory bail on 9-4-2001\njoined investigation on more than one occasion and they were interrogated sufficiently and\nthat even the case was committed for trial having completed the investigation; - 17/99 of\npolice station, Bawal had not been recorded till then regarding identity of Manjit Singh,\naccused as assailant, who is said to have committed the murder, the alleged disclosure\nstatement of Kishan on the basis of which offence under Section 120-B, IPC was added later\nafter about four and half months from the date of the murder against the appellants , was\nproved to be false and police even got the said Kishan discharged in terms of the order dated\n8-11"
+    },
+    {
+      "label": "B",
+      "text": "According to the respondent, previous Investigating Officer and Supervisory Officers acted\nmala fidely and illegally and this aspect was being investigated seriously and that it would\ntake some time to collect evidence, the evidence collected in second phase of investigation is in\nthe form of statements of three persons, namely, accused Manjit Singh, accused Ashok\nKumar and Jai Prakash Dayiya; - The appellants were named as accused for committing\noffence under Section 120-B, IPC almost after a period of four and half months from the date\nof the murder, that too based on the disclosure statement of hardened criminal, the statement\nof Kishan on whose statement the appellants were involved in the offence was proved to be\nfalse and police got him discharged."
+    },
+    {
+      "label": "C",
+      "text": "Thus, in our view, the High Court committed a manifest and serious error in passing the\nimpugned orders setting aside the anticipatory bail granted to the appellants by the order\ndated 9-4-2001 as confirmed by the order dated 5-6-2001 of the learned Addl. - Hence, we set\naside the impugned orders and restore the order dated 5-6-2001 passed by the learned Addl."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "Heard learned counsel for the parties at length."
+    },
+    {
+      "number": "3",
+      "text": "We feel it necessary to state the facts leading to the filing of these appeals giving some details.\nThere is a Trust by name Shri Baba Mast Nath Ayurvedic and Sanskrit Shikshan Sanathan, Mahant\nSh. Shreyo Nath removed Karan Nath, Azad Nath and others from the Committee of the Trust and\nappointed the appellant No. 1 as his successor. Mahant Shreyo Nath expired on 7-1-1985. The\nappellant No. 1 became the Mahant of the Gaddi of Shri Baba Mast Nath Math at Asthal Bohar,\nRohtak. The appellant No. 1 claims to have dedicated himself to the field of development of education,\nsocial reforms and all-round progress of various institutions run and established by the Math; he is the\nfounder and the chairperson of number of institutions including the dental college and hospital,\nengineering college, Ayurvedic college, charitable eye hospital named after Baba Mast Nath; he has\nundertaken projects for setting up a blind school, orphanage, deaf and dumb school, Shree Mast Nath\n\nMedical College and Shree Baba Mast Nath Deemed University; and claims to serve the poor and\ndowntrodden persons to uplift their educational status. It is also stated that the various institutions run\nby Math do not receive any aid from the Government or Non-Governmental Organizations."
+    },
+    {
+      "number": "4",
+      "text": "He contested election in the year 1999 to Haryana State Assembly as an Independent candidate\nagainst the wishes of Shri Om Prakash Chautala who wanted him to contest from his party. It is further\nalleged that Shri Chautala demanded money and the appellant No. 1 invited his wrath by refusing to\nmeet his demand. He states that Shri O.P. Kaushik, the Vice-Chancellor of M.D. University, Rohtak,\nalso demanded huge sum of money from him who subsequetly contested Assembly election in the year\n1999 on the party ticket of Shri Om Prakash Chautala. Shri Kaushik had passed orders cancelling\nadmissions made to the institutions run by the appellant No. 1 which were subsequently set aside by\nthe Courts. He is falsely involved in the case in the background stated above with the change of\nGovernment in the State."
+    },
+    {
+      "number": "5",
+      "text": "An FIR was registered with police station Bawal stating that on 24-1-1999 at about 5.00 p.m.\ncomplainant Randhir Singh, S/o Chhote Lal had gone to see Baba Azad Nath (deceased) in Shiv\ntemple at village Assalwas. At about 6-15 p.m. Baba Azad Nath came out and was sitting with Sewaks\nTaj Pal, S/o Ami Lal, Jaina S/o of Prabhata and Ombir S/o of Ram Pal and others. At that time, one\nman aged 25/28 years wearing a pant and shirt and a black loi came there and wanted to smoke sulpha,\non which Baba replied that it could not be done but he could take meal. The young man refused to take\nmeal. On asking, he said that he was Sangwan from Jind. Baba told him to go from front gate if he did\nnot want to take meal. Thereafter, complainant and others started taking meals and Baba had gone for\nurination. Within 4-5 minutes, there was a big noise of Phatakas (fire works) and Baba gave a call\n\"Bhajjio\" (run). On hearing, the complainant and others left their meals and went towards back side\nand found that Baba was lying with his mouth downward near a tree with bleeding from the right side\nof his chest. In the FIR, it is further stated that complainant and others had doubts that person by\nhiding in the cover of darkness had fired at Baba and he died because of gun shots and that if the\nperson comes before them, they could identify him."
+    },
+    {
+      "number": "6",
+      "text": "It is the case of the appellant No. 1 that the police with mala fide and oblique motive and under\nthe pressure of the present Government of Haryana wanted to implicate him in FIR No. 17/99 dated\n24-1-1999 registered under Sections 302/120-B, IPC and Section 25/54/59 of the Arms Act. A false\ncase was tried to be made out against him to mar his reputation and create hurdles in the\ndevelopmental activities. The police officials attempted to falsely involve him in the criminal case\nwith the aid of one Kishan, S/o of Randhir Singh, resident of Mehandipur. The said Kishan is a\nhardened criminal and a life convict against whom several criminal cases pertaining to heinous\noffences are pending. It was alleged by the police that the said Kishan in custody made a disclosure\nstatement implicating the appellants under Section 120-B of the IPC. In that connection, the appellant\nNo. 1 was rigorously interrogated on 24-6-1999 by various police officials including Inspector,\nCID/Crime, Faridabad and found that the appellants were not involved and found them innocent after\nthe investigation was verified by the superior officers. However, on finding that the disclosure statement of Kishan was wrong, on an application made for discharge, the CJM, Rawari passed the\norder of discharge on 3-11-1999 which reads as under:\n\"An application for discharge of the accused has been filed which is allowed as the accused\nhas been found innocent during the investigation of the case and, therefore, the accused is discharged.\nHe be released forthwith if not required in the other case. File after needful be consigned to the record\nroom.\""
+    },
+    {
+      "number": "7",
+      "text": "In February, 2001, the appellant No. 1 received threatening demand over phone to pay Rs. 10/-\ncrores by March, 2001, failing which he would be kidnapped and murdered. On this, he filed a\ncomplaint and FIR No. 42 dated 5-2-2001 was registered under Section 387, IPC. He requested for\nadequate security. On police refusing to do so, he approached the District and Sessions Judge who\ndirected the S.P., Rohtak to provide adequate security. Even then, no security was provided to him."
+    },
+    {
+      "number": "8",
+      "text": "The police at the behest of senior politicians made yet another attempt to implicate him with the\nhelp of another hardened criminal Manjit Singh, S/o Tek Ram and Ashok Kumar, resident of Delhi.\nManjit Singh had remained in police and judicial custody in various criminal cases. No plausible\nexplanation has been given by Manjit Singh as to why he did not disclose alleged involvement of\nappellants in the crime after the registration of aforesaid FIR No. 17 dated 24-1-1999 and till his arrest\non 10-3-2001 in the present case.]"
+    },
+    {
+      "number": "9",
+      "text": "Under these circumstances and due to continued illegal acts of the police, the appellants filed an\napplication for bail under Section 438, Cr. P.C. on 20-3-2001 in the Sessions Court. The learned Addl.\nSessions Court, Rewari, after hearing both sides initially granted anticipatory bail on 9-4-2001 for six\nweeks, which was confirmed and bail was continued by the order dated 6-6-2001."
+    },
+    {
+      "number": "10",
+      "text": "The State filed a Criminal (Misc.) Application No. 27699-M of 2001 on 18-7-2001 under\nSection 439 (2) r/w Section 482 , Cr.P.C. in the High Court for cancellation of anticipatory bail\ngranted to the appellants. The appellant No. 1 sent letters dated 23-7-2001, 21-8-2001 and 15-9-2001\nto Incharge, CIA Staff Police, Sonepat offering to join the investigation which letters were\nacknowledge. Although the appellants went to join investigation in response to the notice dated 19-9-\n2001 but nothing was done and they were sent back saying that they would be called on some other\ndate. Suspecting some evil designs, the appellants made an application to the CJM, who after notice to\nthe State fixed 27-10-2001 for joining investigation at CIA Staff police, Sonepat. The appellants did\nappear for investigation on that date. They were interrogated upto 2.00 pm. on 27-10-2001 and for two\nhours again on 28-10-2001. The Investigating Officer completed the investigation. The appellants filed\na detailed reply to the petition filed by the State under Section 439(2) r/w Section 482, Cr.P.C. placing\non record all material documents of facts. The High Court after considering the matter on 21-12-2001\npartially allowed the said Criminal Misc. Application and set aside the order of the Addl. Sessions\nJudge dated 9-4-2001 but the High Court did not deal with the bail Order dated 5-6-2001 inasmuch as\nthe High Court did not consider the facts and subsequent circumstances, as taken into consideration by\nthe learned Addl. Sessions Judge, while confirming bail. Thus the bail order dated 5-6-2001 remained\nundisturbed; despite the same, police tried to arrest the appellants, hence they filed Criminal Misc.\n\nApplication No. 52331-M/2001 under Section 438 r/w 482, Cr.P.C. restraining the respondents from\narresting them. The High Court on 28-12-2001 issued notice on the application returnable by 8-3-2002\nand directed the respondent not to arrest the appellants in the meanwhile. The respondent-State filed\nan application on 4-1-2002 under Section 482, Cr.P.C. for clarification/modification of order dated 21-\n12-2001 to the effect that the order dated 5-6-2001 granting bail by the Addl. Sessions Judge is also set\naside; Criminal Misc. Application No. 52331-M/2001 be heard along with the application filed for\nclarification; notice issued for 8-3-2002 by Hon'ble Mr. Justice R.L. Anand be preponed and for some\nother directions. The High Court by the order dated 22-2-2002 allowed the application filed for\nclarification holding that by oversight or omission, the order dated 9-4-2001 was mentioned instead of\n5-6-2001 and that the real intention was to cancel the order dated 5-6-2001. By the same order dated\n22-2-2002, the learned Judge set aside the order dated 28-12-2001 passed by another learned Judge of\nthe coordinate bench of the High Court in Criminal Misc. Application No. 52331-M of 2001 observing\nthat the learned Judge ought not to have passed such an order and the said order in any case became\ninfructuous. Hence these appeals."
+    },
+    {
+      "number": "11",
+      "text": "The learned Senior Counsel for the appellants in support of these appeals strongly contended\nthat the learned Judge who passed the impugned orders seriously erred in allowing the application\nfiled by the respondent for recalling the order dated 28-12-2001 passed by another learned Judge of\nthe co-ordinate bench; such an application was itself not maintainble in view of the decision of this\nCourt in Harjit Singh v. State of Punjab [(2002) 1 SCC 649] the respondent was not entitled to the\nreleif sought for in respect of the order dated 28-12-2001 passed in Criminal Misc. No. 27699-M of\n2001 in view of the express and clear bar contained in Section 362, Cr.P.C. in the matter of\nalteration/review of a judgment; the High Court also has failed to apprecaite that there is a political\nrivalry and the police officials are acting at the behest of certain politicians and higher officials, the\nappellant No. 1 having dedicated himself to the service of the poor and has deep roots in the society\nwith name and good reputation, from the facts narrated and the records, it is clear that the appellants\nwere falsely implicated in the case to wreck personal vendetta, the High Court has also failed to see\nthat the appellants were already rigorously interrogated by the police officials and it was found that\nthey were not involved in the offence as alleged. According to learned Senior Counsel, the appellants\ndid not misuse the anticipatory bail granted by the learned Additional Sessions Judge, the application\nfiled for cancellation of the orders dated 9-4-2001 and 5-6-2001 is primarily based on the contention\nthat the appellants are not joining investigation and that they are tempering with the evidence but the\nHigh Court has failed to appreciate that the appellants after grant of anticipatory bail on 9-4-2001\njoined investigation on more than one occasion and they were interrogated sufficiently and that even\nthe case was committed for trial having completed the investigation; further a co-accused Ashok\nKumar had been released on bail on 3-9-2001 during the pendency of Criminal Misc. Petition before\nthe High Court, he finally submitted that the police officials at the instance of politicians are bent upon\nto harass the appellants by getting them into police custody."
+    },
+    {
+      "number": "12",
+      "text": "In opposition, the learned counsel for the State seriously contended that the appellant No. 1 is a\nvery influential person and is not co-operating in investigation; in order to investigate, particularly as regards the offence under Section 120B, IPC in the facts and circumstances of the case, the custodial\ninterrogation of the appellants is very much required; he took pains to narrate the details about the\nprosecution case and the investigation done so far. He made submissions in support and justification of\nthe impugned orders. He maintained that the accidental error could be corrected by the High Court on\nthe application filed for clarification by the State; the powers of High Court to cancel the bail are wide\nenough to cover the cases like the one on hand particularly when the order of bail granted by the\nlearned Addl. Sessions Judge was not based on proper judicial discretion. He urged that in the interest\nof justice, the impugned orders may be sustained. He reiterated the submissions that where made\nbefore the High Court."
+    },
+    {
+      "number": "13",
+      "text": "We have carefully considered the contentions and submissions made on behalf of either side."
+    },
+    {
+      "number": "14",
+      "text": "We consider it unnecessary to deal with the contentions whether an order of clarification or\nmodification could be passed by the High Court as is done in the impunged order dated 22-2-2002 or\nwhether the bar contained under Section 362, Cr.P.C. applies to the present case or whether an order\npassed by one learned Judge of co-ordinate bench of the High Court could be recalled by another\nlearned Judge. Keeping in view the facts and circumstances of the case, in the backdrop of facts\nnarrated in sufficient details, we think it is just and appropriate to examine the main question and\ndecide whether the anticipatory bail granted to the appellants could be sustained or not. The case\nagainst the appellants is for an offence under Section 120-B, IPC i.e. conspiracy for the murder of\nBaba Azad Nath and in furtherance of the same, co-accused Manjit Singh had murdered the said Baba\nAzad Nath on 24-1-1999 at about 6.15 pm. the learned Sessions Judge, Rewari, after elaborate and\ndetailed consideration, keeping in view the rival contentions granted anticipatory bail for six weeks on\n9-4-2001; as can be seen from this very order, everyone of the contentions raised by the learned Public\nProsecutor are dealt with, it is noticed in the said order that the statements of the eye witnesses named\nin the FIR No. 17/99 of police station, Bawal had not been recorded till then regarding identity of\nManjit Singh, accused as assailant, who is said to have committed the murder, the alleged disclosure\nstatement of Kishan on the basis of which offence under Section 120-B, IPC was added later after\nabout four and half months from the date of the murder against the appellants , was proved to be false\nand police even got the said Kishan discharged in terms of the order dated 8-11-1999. According to\nthe respondent, previous Investigating Officer and Supervisory Officers acted mala fidely and illegally\nand this aspect was being investigated seriously and that it would take some time to collect evidence,\nthe evidence collected in second phase of investigation is in the form of statements of three persons,\nnamely, accused Manjit Singh, accused Ashok Kumar and Jai Prakash Dayiya; the statements of first\ntwo persons being co-accused, their disclosure statements without leading to any recovery may not\nturn out to be a lawful evidence, the statement of third person was prima facie tested in the light of the\nfacts though witness Jai Prakash joined investigation some time in June, 1999; he made the statement\nfor the first time on 13-3-2001 and his statement runs contrary to the certificate issued by the Branch\nManager in regard to conversion of cash of Rs. 20,00,000/- from currency notes of Rs. 100/- to\ncurrency notes of Rs. 500/- which amount alleged to have been paid to the killer and if there was threat\nto witness Jai Prakash to the knowledge of the police, they could have taken steps; keeping in view the decisions cited at the bar and the totality of the circumstances, the learned Addl. Sessions Judge\nexercised judicial discretion in granting bail to the appellants on 9-4-2001."
+    },
+    {
+      "number": "15",
+      "text": "Learned Addl. Sessions Judge, Rewari, by his order dated 5-6-2001 confirmed the aforesaid\norder dated 9-4-2001 passed by his predecessor. In the order dated 5-6-2001, the learned Addl.\nSessions Judge has again objectively considered the submissions made on either side in the light of the\nfacts of the case. In the said order, it is observed that the concession of anticipatory bail granted to the\nappellants was not misused; undisputably, the appellant No. 1 had succeeded to the Gaddi of the Math\non 21-5-1984 in the life time of Mahant Shreyo Nath; admittedly, there was no legal fight between the\nappellant No. 1 and Baba Azad Nath regarding succession to Gaddi of the Math; Baba Azad Nath was\nmurdered on 24-1-1999 about 15 years after succession to the Gaddi of the Math, the allegation of\ntampering of evidence raised by the learned Public Prosecutor related to the period prior to the\ngranting of anticipatory bail on 9-4-2001; the investigation against three co-accused namely, Manjit\nSingh, Rajesh and Ashok Kumar had almost been completed and challan was likely to be submitted.\nThe learned Addl. Sessions Judge, in para 11 of the said order, has summed up thus :\n\"11. Admittedly, the State had never approached the Court for withdrawal of the\nanticpatory bail order dated 9-4-2001, alleging that the petitioners were not joining the investigation.\nIn such circumstances, the contention raised by learned counsel for the petitioners has same substance.\nThus, in view of the fact that petitioner Mehant Chand Nath Yogi had succeeded to the Gaddi of the\nMath as early as on 21-5-1984 in the life time of his Guru Sri Shreyo Nath without any protest from\nBaba Azad Nath; that no legal or otherwise battle ensued between the deceased and the petitioner\nregarding the succession of the Gaddi to the Math; that death of Baba Azad Nath was caused as late as\non 24-1-1999; that in case, the petitioners had refused to join the investigation, the police had never\napproached the Court for the cancellation of the bail order dated 9-4-2001 or for seeking fresh\ndirections to the petitioners to join the investigation as and when required; that the investigation of the\ncase, at least concerning other three co-accused, has already been completed; that the petitioners have\nbeen availing the benefit of anticipatory bail since 9-4-2001 and have not misused the concession of\nbail (except the allegation that they did not join the investigation, which has already been discussed\nabove); and also taking into consideration the attending facts and circumstances of the entire case,\nwithout expressing may opinion on the merits of the case. I hereby find merit in the bail application\nand confirm the order dated 9-4-2001 .............\""
+    },
+    {
+      "number": "16",
+      "text": "After perusing the orders of the learned Addl. Sessions Judges dated 9-4-2001 and 5-6-2001 and\nrecords, we do not get any impression that the judicial discretion, in granting anticipatory bail was\nexercised either erroneously or on any irrelevant consideration. The serious contention advanced\nbefore us by the learned Public Prosecutor is that for further investigation of the case, custodial\ninterrogation of the appellant is very much required. While stating the facts in the beginning, we have\nnoticed that the appellants joined investigation whenever required and as a matter of fact they were\ninterrogated on two occasions for sufficient time. The appellants were named as accused for\ncommitting offence under Section 120-B, IPC almost after a period of four and half months from the date of the murder, that too based on the disclosure statement of hardened criminal, the statement of\nKishan on whose statement the appellants were involved in the offence was proved to be false and\npolice got him discharged. The submission of the learned Public Prosecutor that earlier investigation\nmade by the police officers and scrutinized by the superiors was faulty and mala fide, is not a ground\nto put against the appellants at this stage. The appellant No. 1 has also alleged that he is falsely\ninvolved in the case because of political rivalry and he was threatened for extracting money; in that\nregard he had also made complaint to the police seeking protection. Unfortunately, the High Court in\nthe impugned order dated 21-12-2001, cancelling the anticipatory bail granted to the appellants and in\nthe subsequent order dated 22-2-2002, did not consider the contentions raised on behalf of the parties\nobjectively and in proper perspective and did not deal with the reasons recorded and consideration\nmade by the learned Addl. Sessions Judges in the orders dated 9-4-2001 and 5-6-2001 granting\nanticipatory bail. The High Court has simply observed in the order dated 21-12-2001 that the learned\nAddl. Sessions Judge, Rewari, had not taken all facts into account and that he granted anticipatory bail\nto the appellants on 9-4-2001 when the case was at initial stage. We find this statement is factually\nincorrect looking to the order of the learned Addl. Sessions Judge and the records of the case. The\nlearned Sessions Judge had taken pains to notice the relevant facts and circumstances of the case and\nthat the case was not at the initial stage. The High Court has simply stated that the order of the learned\nSessions Judge is based on exercise of judicial discretion in erroneous manner without considering the\nmaterial on the file. It is strange that the High Court has made such an observation without showing\nhow the judicial discretion exercised by the learned Addl. Sessions Judge was erronous. A considered\norder of the learned Addl. Sessions Judge supported by reasons in exercise of judicial discretion does\nnot become erroneous by merely dubbing or calling it as such. In our view, in the light of what is\nstated above, both the orders of the learned Addl. Sessions Judges dated 9-4-2001 and 5-6-2001 after\ndue consideration of the facts and circumstances of the case to the extent required for exercise of\njudicial discretion in the matter of granting bail are sustainable. The judicial discretion exercised in\ngranting anticipatory bail, in our opinion, is neither perverse nor erroneous. On the other hand, they\nare based on relevant considerations supported by reasons. The High Court has observed \"it is alleged\nin the present case that the appellant No. 1 wielded great influence and had obtained bail by dubious\nmeans\". This observation is not based on any finding. When the learned Addl. Sessions Judges have\npassed the orders granting anticipatory bail exercising judicial discretion, there is no warrant to say\nthat such an order of bail is obtained by dubious means. The High Court, except referring to two\ndecisions as to the position of law, failed to notice the facts and relevant aspects of the case on hand to\napply them."
+    },
+    {
+      "number": "17",
+      "text": "This Court in Subhendu Mishra v. Subrat Kumar Mishra and another [2000 SCC (Cri) 1508]\nfollowing the principles stated in Dolat Ram and others v. State of Haryana, [(1995) 1 SCC 349] has\nreiterated that there is a distinction between rejection of bail in a non-bailable case at the initial stage\nand the cancellation of bail already granted. Normally, very cogent and overwhelming grounds or\ncircumstances are required to cancel the bail already granted. In the present case, the High Court, it\nappears, did not bear this distinction in mind and cancelled the bail in a mechanical manner."
+    },
+    {
+      "number": "18",
+      "text": "Thus, in our view, the High Court committed a manifest and serious error in passing the\nimpugned orders setting aside the anticipatory bail granted to the appellants by the order dated 9-4-\n2001 as confirmed by the order dated 5-6-2001 of the learned Addl. Sessions Judge. The impugned\norders of the High Court under the circumstances are unsustainable. It is needless to state that the\nobservations made either by learned Addl. Sessions Judges or the High Court or this Court in dealing\nwith the matter relating to grant of anticipatory bail do not impair or injure the prosecution case or\nprejudice the defence at the trial. Further, nothing said or observed by the High Court or this Court\nshall be taken as any expression of opinion on the merits of the case."
+    },
+    {
+      "number": "19",
+      "text": "Hence, we set aside the impugned orders and restore the order dated 5-6-2001 passed by the\nlearned Addl. Sessions Judge, Rewari. The appeals are allowed accordingly.\nAppeals allowed."
+    }
+  ],
+  "bail_amount_original": "Rs. 10",
+  "bail_amount_modified": "Rs. 20,00,000",
+  "bail_amount_original_normalized": "Rs. 10",
+  "bail_amount_modified_normalized": "Rs. 20,00,000",
+  "bail_outcome": "refused",
+  "bail_conditions": [],
+  "ratio_decidendi": "Hence, we set aside the impugned orders and restore the order dated 5-6-2001 passed by the\nlearned Addl. Sessions Judge, Rewari. The appeals are allowed accordingly.\nAppeals allowed.",
+  "ratio_para_number": "19",
+  "dispute_nature": "homicide",
+  "missing_anchors": [],
+  "warnings": []
+}

@@ -1,0 +1,168 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-35.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2013-10-75",
+  "court": "SUPREME COURT OF INDIA (FROM: ORISSA)",
+  "coram": "R.P.DESAI, MADAN B.LOKUR JJ.",
+  "decided_on": "October 25, 2013",
+  "decided_on_year": 2013,
+  "appeal_type": "CRIMINAL APPEAL NO.1862 OF 2013",
+  "final_verdict": "Appeal disposed",
+  "appellant": "Sudam Charan Dash",
+  "respondent": "STATE OF ORISSA",
+  "advocates": "C.B.Aditya, AMARJIT SINGH BEDI, Avijit Patnaik, R.VENKATRAMANI, SHIVAJI\nM.JADHAV",
+  "equivalent_citations": [
+    "SCALE-2013-13-269",
+    "RCR(CRI)-2014-1-337",
+    "CRLR(SC)-2014-0-430",
+    "NCC-2014-1-127",
+    "SCR-2013-10-284",
+    "AICLR-2014-1-693",
+    "MHLJ(CRI)-2014-2-241",
+    "CRIMES(SC)-2013-4-608",
+    "MADLW(CRI)-2014-1-662",
+    "EASTCRIC-2014-1-109",
+    "JCC-2013-4-2807",
+    "AIR(SC)-2014-SUPP-536",
+    "CCR-2013-4-458",
+    "LAWS(SC)-2013-10-75",
+    "SCC-2014-2-141",
+    "SUPREME-2013-8-401",
+    "AIR(SC)(CRI)-2014-0-484",
+    "AD(SC)-2013-12-265",
+    "JT-2013-14-200",
+    "ORISSALR-2013-2-936",
+    "RAJ-2014-1-76",
+    "AIR(SCW)-2014-0-359",
+    "TLPRE-2013-0-800",
+    "SCC(CR)-2014-1-760",
+    "MADLJ-2013-4-532",
+    "KHC-2013-4-462",
+    "RAJLW-2013-4-3680",
+    "ALLCRIC-2013-83-945",
+    "MADLJ(CRI)-2013-4-532",
+    "AIC-2013-132-31",
+    "UC-2014-1-66",
+    "ALD(CRI)-2014-1-1038",
+    "GLHEL-2013-0-54625",
+    "SCCRIR-2013-2-2137",
+    "PATLJR(SC)-2014-1-551 Referred Judgement(s) : - Gurbaksh Singhsibbia Sarbajit Singh Vs. State Of Punjab",
+    "[1980 2 SCC 565] [Referred To] - Savitri Agarwal Vs. State Of Maharashtra",
+    "[2009 8 SCC 325] [Referred To] - Rashmi Rekha Thatoi Vs. State Of Orissa",
+    "[2012 5 SCC 690] [Referred To]"
+  ],
+  "cited_judgments": [
+    "Prashant Jain Vs. State Of Rajasthan And Ors., [LAWS(RAJ)-2015-3-34] [Referred To]",
+    "Narsinhbhai Khodabhai Makwana Vs. State Of Gujarat & 5, [LAWS(GJH)-2018-2-146] [Referred To]",
+    "Ranjit Kumar Haldar Vs. State Of Sikkim, [LAWS(SC)-2019-7-101] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438",
+    "S.439"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "State Of Sikkim, [LAWS(SC)-2019-7-101] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438, S.439 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "439",
+      "subsection": null,
+      "section_title": "Special powers of High Court or Court of Session regarding bail",
+      "how_used": "Referenced",
+      "context": "State Of Sikkim, [LAWS(SC)-2019-7-101] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438, S.439 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [],
+  "crpc_sections_mentioned": [
+    "438",
+    "439"
+  ],
+  "procedural_history": {
+    "high_court_order_date": "11/6/2013"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, S.439 - Special powers of High Court or Court of Session regarding bail\n- The appellant ultimately filed a writ petition in the - 2, it did not think it to be a fit case for\ngrant of anticipatory - State of Orissa & Ors., 2012 5 SCC 690, this Court took a strong view\nof the\nB. deem fit and proper or the superior court would - impose conditions for grant of bail on such\n- to consider the bail application on merits and grant or reject - granting bail to respondent 2\npursuant to the impugned\nC. We direct the Registry of this Court to forward a copy of this - The appeal is disposed of in\nthe aforestated terms.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, S.439 - Special powers of High Court or Court of Session regarding bail\n- The appellant ultimately filed a writ petition in the - 2, it did not think it to be a fit case for\ngrant of anticipatory - State of Orissa & Ors., 2012 5 SCC 690, this Court took a strong view\nof the"
+    },
+    {
+      "label": "B",
+      "text": "deem fit and proper or the superior court would - impose conditions for grant of bail on such\n- to consider the bail application on merits and grant or reject - granting bail to respondent 2\npursuant to the impugned"
+    },
+    {
+      "label": "C",
+      "text": "We direct the Registry of this Court to forward a copy of this - The appeal is disposed of in\nthe aforestated terms."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "The appellant's son Rajib Das was murdered on 5/1/2009 in a hotel. FIR was lodged in respect\nthereof on 6/1/2009. PS Case No. 4 of 2009 was registered. It is the appellant's case that the police did\nnot investigate the case properly. The appellant ultimately filed a writ petition in the Orissa High\nCourt. Thereafter, the investigation gained momentum. On 3/1/2013, non-bailable warrant was issued\nagainst Mr. Sweekar Nayak, who is respondent 2, by the SDJM, Rayagada. Respondent 2 preferred an\napplication for anticipatory bail in the Orissa High Court. The High Court disposed of the said\napplication by the impugned order. We notice that in the impugned order, the High Court has made a\ncategorical observation that considering the nature of the allegations made against respondent 2, it did\nnot think it to be a fit case for grant of anticipatory bail. Surprisingly, however, the High Court gave a\ndirection that in the event respondent 2 surrenders before the learned SDJM, Rayagada within four\nweeks and moves an application for bail, he shall be released on bail on such terms and conditions as\nthe learned Magistrate deems fit and proper. Pursuant to this direction, respondent 2 surrendered\nbefore the learned Magistrate and was released on bail on 11/06/2013."
+    },
+    {
+      "number": "3",
+      "text": "We are surprised at the direction issued by the High Court to the trial court to release respondent\n2 on bail. When the High Court rejected the application for anticipatory bail, it was sufficient\nindication that the High Court thought it fit not to put a fetter on the investigating agency's power to\narrest respondent 2. In such a situation, the investigating agency, if it so desired and if it thought that\nthe custodial interrogation of respondent 2 was necessary, could have arrested him. Therefore, after\nrejecting the prayer for anticipatory bail, the High Court should not have negated its own order by\ndirecting that respondent 2 should be released on bail. This is contradiction in terms. It dilutes the\norder rejecting anticipatory bail. Such order is not legally sound. It overlooks the scope and purport of\nSections 438 and 439 of the Code of Criminal Procedure, 1973."
+    },
+    {
+      "number": "4",
+      "text": "In a similar situation in Rashmi Rekha Thatoi & Anr. v. State of Orissa & Ors., 2012 5 SCC 690,\nthis Court took a strong view of the matter and observed that such orders have no sanctity in law.\nRelevant observations of this Court could be quoted:\n\"33. We have referred to the aforesaid pronouncements to highlight how the Constitution\nBench in Gurbaksh Singh Sibbia v. State of Punjab, 1980 2 SCC 565 had analysed and explained the\nintrinsic underlying concepts under Section 438 of the Code, the nature of orders to be passed while\nconferring the said privilege, the conditions that are imposable and the discretions to be used by the\ncourts. On a reading of the said authoritative pronouncement and the principles that have been culled\nout in Savitri Agarwal v. State of Maharashtra, 2009 8 SCC 325 there is remotely no indication that\nthe Court of Session or the High Court can pass an order that on surrendering of the accused before the\nMagistrate he shall be released on bail on such terms and conditions as the learned Magistrate may\ndeem fit and proper or the superior court would impose conditions for grant of bail on such surrender.\nWhen the High Court in categorical terms has expressed the view that it is not inclined to grant\nanticipatory bail to the petitioner-accused it could not have issued such a direction which would\ntantamount to conferment of benefit by which the accused would be in a position to avoid arrest. It is\nin clear violation of the language employed in the statutory provision and in flagrant violation of the\ndictum laid down in Gurbaksh Singh Sibbia and the principles culled out in Savitri Agarwal\".\nThe operative portion of the order passed in that case reads as follows:\n\"Judging on the foundation of aforesaid well-settled principles, the irresistible conclusion is\nthat the impugned orders directing enlargement of bail of the accused persons, namely, Uttam Das,\nAbhimanyu Das and Murlidhar Patra by the Magistrate on their surrendering are wholly unsustainable\nand bound to founder and accordingly the said directions are set aside. Consequently, the bail bonds of\nthe aforenamed accused persons are cancelled and they shall be taken into custody forthwith. It needs\nno special emphasis to state that they are entitled to move applications for grant of bail under Section\n439 of the Code which shall be considered on their own merits.\""
+    },
+    {
+      "number": "5",
+      "text": "We respectfully agree with these observations. We also feel that such orders put restriction on the\npower of the trial court to consider the bail application on merits and grant or reject prayer for bail. We\nare of the opinion that such orders should never be passed."
+    },
+    {
+      "number": "6",
+      "text": "In the circumstances, we set aside the impugned order."
+    },
+    {
+      "number": "7",
+      "text": "We have perused the order passed by the SDJM, Rayagada granting bail to respondent 2 pursuant\nto the impugned order. Obviously, the SDJM released respondent 2 on bail solely on the ground that\nthe High Court had issued the above mentioned direction. The SDJM had no alternative but to do so.\nThus, there is no consideration of the application for bail filed by respondent 2 on merits. We,\ntherefore, quash the consequential order dated 11/6/2013 passed by the SDJM, Rayagada. Ordinarily,\nwe would have directed respondent 2 to surrender today. But, we refrain from giving any such\ndirection. In the circumstances, if respondent 2 appears and surrenders before the SDJM, Rayagada on\n29/10/2013 and prefers an application for bail, we direct the SDJM, Rayagada to decide respondent 2's application on merits and in accordance with law. The appellant may remain present in the court and\noppose the bail application if he so desires."
+    },
+    {
+      "number": "8",
+      "text": "We direct the Registry of this Court to forward a copy of this judgment to the Chief Justice of the\nOrissa High Court. We request the Chief Justice of Orissa High Court to circulate a copy of this order\nto the learned Judges of the Orissa High Court."
+    },
+    {
+      "number": "9",
+      "text": "The appeal is disposed of in the aforestated terms."
+    }
+  ],
+  "bail_amount_original": "Rs. ,",
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": "Rs. ,",
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "granted",
+  "bail_conditions": [],
+  "ratio_decidendi": "We direct the Registry of this Court to forward a copy of this judgment to the Chief Justice of the\nOrissa High Court. We request the Chief Justice of Orissa High Court to circulate a copy of this order\nto the learned Judges of the Orissa High Court.",
+  "ratio_para_number": "8",
+  "dispute_nature": "homicide",
+  "missing_anchors": [],
+  "warnings": []
+}

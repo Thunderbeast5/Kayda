@@ -1,0 +1,116 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-24.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2017-3-33",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "KURIAN JOSEPH, R.BANUMATHI JJ.",
+  "decided_on": "March 30, 2017",
+  "decided_on_year": 2017,
+  "appeal_type": "Criminal Appeal No.615 of 2017 (@ Special Leave Petition (Crl) No. 2406 of 2017).",
+  "final_verdict": "Appeal stands disposed of",
+  "appellant": "Rani Dudeja",
+  "respondent": "STATE OF HARYANA",
+  "advocates": "AMIT ARORA, RAVI PANWAR, ANURADHA MUTATKAR",
+  "equivalent_citations": [
+    "LAWS(SC)-2017-3-33",
+    "SCALE-2017-4-524",
+    "CRLR(SC)-2017-0-335",
+    "ALLCRIC-2017-100-309",
+    "AIC-2017-175-262",
+    "ALLSCR(CRI)-2017-0-1239",
+    "JT-2017-6-487",
+    "OCR-2017-67-265",
+    "CRLJ-2017-0-335",
+    "SCC-2017-13-555"
+  ],
+  "cited_judgments": [
+    "Arjun Bhanot Vs. State Of Punjab, [LAWS(P&H)-2021-8-109] [Referred To]",
+    "Neeraj Jagatramka Vs. State Of Chhattisgarh, [LAWS(CHH)-2022-2-64] [Referred To]",
+    "Deepak Gupta Vs. State Of Orissa, [LAWS(ORI)-2019-8-1] [Referred To]",
+    "Vinod Gautam Vs. State Of Mp, [LAWS(MPH)-2019-4-189] [Referred To]",
+    "Mohammad Tosik Vs. State Of Jharkhand, [LAWS(JHAR)-2021-2-95] [Referred To]",
+    "Yashraj Bhardwaj Vs. State Of Rajasthan, [LAWS(RAJ)-2022-9-104] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "State Of Rajasthan, [LAWS(RAJ)-2022-9-104] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [],
+  "crpc_sections_mentioned": [
+    "438"
+  ],
+  "procedural_history": {
+    "high_court_order_date": "7.2017"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest - In the nature of order we propose to pass in this appeal, it is not\nnecessary to issue notice, since we propose to send the matter back to the High Court. - By the\nimpugned order dated 7.2017, the petition was rejected on the ground that the appellant had\nfiled a petition earlier and the same had been withdrawn and, therefore, the appellant cannot\nbe allowed to re-agitate the matter on merits.\nB. By the impugned order dated 7.2017, the petition was rejected on the ground that the appellant had filed a petition earlier and the same had been withdrawn and, therefore, the\nappellant cannot be allowed to re-agitate the matter on merits.\nC. The matter be posted before the appropriate Court on 3.4.2017 for consideration, in\naccordance with law. - With the above observations and directions, the appeal stands\ndisposed of.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest - In the nature of order we propose to pass in this appeal, it is not\nnecessary to issue notice, since we propose to send the matter back to the High Court. - By the\nimpugned order dated 7.2017, the petition was rejected on the ground that the appellant had\nfiled a petition earlier and the same had been withdrawn and, therefore, the appellant cannot\nbe allowed to re-agitate the matter on merits."
+    },
+    {
+      "label": "B",
+      "text": "By the impugned order dated 7.2017, the petition was rejected on the ground that the appellant had filed a petition earlier and the same had been withdrawn and, therefore, the\nappellant cannot be allowed to re-agitate the matter on merits."
+    },
+    {
+      "label": "C",
+      "text": "The matter be posted before the appropriate Court on 3.4.2017 for consideration, in\naccordance with law. - With the above observations and directions, the appeal stands\ndisposed of."
+    }
+  ],
+  "judgment_author": "Kurian, J.",
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "In the nature of order we propose to pass in this appeal, it is not necessary to issue notice, since\nwe propose to send the matter back to the High Court."
+    },
+    {
+      "number": "3",
+      "text": "The appellant approached the High Court with a petition under Sec. 438 of the Crimial P.C. By\nthe impugned order dated 7.2017, the petition was rejected on the ground that the appellant had filed a\npetition earlier and the same had been withdrawn and, therefore, the appellant cannot be allowed to re-\nagitate the matter on merits."
+    },
+    {
+      "number": "4",
+      "text": "We are afraid, the stand taken by the High Court cannot be appreciated. The petition was for\nanticipatory bail and the one which had been filed earlier might have been withdrawn in a given\nsituation, without inviting the Court to consider the same on merits. On change of circumstances,\nwhen another application under Sec. 438 Crimial P.C. was filed, the High Court should have\nconsidered the same on merits. The principle of res judicata could not have operated in an application\nfor bail."
+    },
+    {
+      "number": "5",
+      "text": "The order dated 7.3.2017 is set aside. Crl. Misc. No.M-7712 of 2017(O & M) will stand revived\nbefore the High Court. The matter be posted before the appropriate Court on 3.4.2017 for\nconsideration, in accordance with law."
+    },
+    {
+      "number": "6",
+      "text": "With the above observations and directions, the appeal stands disposed of."
+    }
+  ],
+  "bail_amount_original": null,
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": null,
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": null,
+  "bail_conditions": [],
+  "ratio_decidendi": "With the above observations and directions, the appeal stands disposed of.",
+  "ratio_para_number": "6",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": [
+    "Could not determine bail_outcome — add a signal phrase to _determine_bail_outcome for this case"
+  ]
+}
