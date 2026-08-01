@@ -1,0 +1,329 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-71.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2009-3-86",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "S.B.SINHA, MUKUNDAKAM SHARMA JJ.",
+  "decided_on": "March 03, 2009",
+  "decided_on_year": 2009,
+  "appeal_type": null,
+  "final_verdict": "Appeal disposed",
+  "appellant": "I Glaskasden Grace",
+  "respondent": "INSPECTOR OF POLICE",
+  "advocates": null,
+  "equivalent_citations": [
+    "AIR(SC)-2009-0-1629",
+    "AIR(SCW)-2009-0-2551",
+    "ALLMR(CRI)-2009-0-2115",
+    "JT-2009-3-320",
+    "LAWS(SC)-2009-3-86",
+    "MADLJ(CRI)-2010-2-615",
+    "SCALE-2009-3-554",
+    "SCC-2009-12-769",
+    "SCC(CR)-2010-1-738",
+    "AICLR-2009-2-566",
+    "RAJ-2009-4-117",
+    "RCR(CRI)-2009-3-395",
+    "KHC-2009-0-4806",
+    "SCR-2009-3-990",
+    "TNLR-2009-1-261",
+    "GLH(NOC)-2009-2-5",
+    "GLHEL-2009-0-42905",
+    "CALCRILR-2009-2-736",
+    "LRC-2009-2-401 Referred Judgement(s) : - Sandeep Jain Vs. National Capital Territory Of Delhi Rep",
+    "[2000 1 JT 166] [Referred To] - Amarjit Singh Vs. State Of National Capital Territory Of Delhi",
+    "[2002 1 JT 291] [Referred To]"
+  ],
+  "cited_judgments": [
+    "Pankajbhai Pranlal Dave Vs. State Of Gujarat, [LAWS(GJH)-2012-7-31] [Referred To]",
+    "Mahesh Thakkar Alias Mahes Manubhai Gadhai Vs. State Of Maharashtra, [LAWS(BOM)-2011-8- 96] [Referred To]",
+    "M M Cooperative Bank Ltd Vs. J P Bhimani, [LAWS(SC)-2009-7-166] [Referred To]",
+    "R. Shaji Vs. State Of Kerala, [LAWS(SC)-2013-2-4] [Referred To]",
+    "Ranjitbhai Gambhirbhai Vasava Vs. State Of Gujarat, [LAWS(GJH)-2013-10-71] [Referred To]",
+    "Archana Singh D/O Shri Kiran Singh, Resident Of Garmour Mohalla J.E.C. Road Jorhat, Assam Vs. State Of Himachal Pradesh, [LAWS(HPH)-2012-7-336] [Referred To]",
+    "Sumit Mehta Vs. State Of N.C.T. Of Delhi, [LAWS(SC)-2013-9-37] [Referred To]",
+    "Krishna Menan Vs. State Of Bihar, [LAWS(PAT)-2016-4-156] [Referred To]",
+    "Rajo Devi Vs. State Of Bihar, [LAWS(PAT)-2017-6-10] [Referred To]",
+    "Jayesh Kantilal Mehta Vs. State Of Gujarat, [LAWS(GJH)-2018-2-149] [Referred To]",
+    "Bashir Yasin Shaikh Vs. State Of Gujarat, [LAWS(GJH)-2014-1-248] [Referred To]",
+    "Runa Pasricha Rajpoot Vs. State Of Haryana, [LAWS(P&H)-2019-3-108] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438",
+    "S.438(2)",
+    "S.120",
+    "S.466",
+    "S.467",
+    "S.468",
+    "S.471",
+    "S.419",
+    "S.420"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "State Of Haryana, [LAWS(P&H)-2019-3-108] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438, S.438(2) - Indian Penal Code, 1860, S.120B, S.466, S.467, S.468, S.471, S.419, S.420 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438(2)",
+      "subsection": "2",
+      "section_title": "Conditions for anticipatory bail",
+      "how_used": "Referenced",
+      "context": "State Of Haryana, [LAWS(P&H)-2019-3-108] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438, S.438(2) - Indian Penal Code, 1860, S.120B, S.466, S.467, S.468, S.471, S.419, S.420 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "120B",
+      "subsection": null,
+      "section_title": "Punishment of criminal conspiracy",
+      "how_used": "Charged",
+      "context": "State Of Haryana, [LAWS(P&H)-2019-3-108] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438, S.438(2) - Indian Penal Code, 1860, S.120B, S.466, S.467, S.468, S.471, S.419, S.420 Headnote: A.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "466",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Charged",
+      "context": "State Of Haryana, [LAWS(P&H)-2019-3-108] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438, S.438(2) - Indian Penal Code, 1860, S.120B, S.466, S.467, S.468, S.471, S.419, S.420 Headnote: A.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "467",
+      "subsection": null,
+      "section_title": "Forgery of valuable security",
+      "how_used": "Charged",
+      "context": "State Of Haryana, [LAWS(P&H)-2019-3-108] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438, S.438(2) - Indian Penal Code, 1860, S.120B, S.466, S.467, S.468, S.471, S.419, S.420 Headnote: A.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "468",
+      "subsection": null,
+      "section_title": "Forgery for purpose of cheating",
+      "how_used": "Charged",
+      "context": "State Of Haryana, [LAWS(P&H)-2019-3-108] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438, S.438(2) - Indian Penal Code, 1860, S.120B, S.466, S.467, S.468, S.471, S.419, S.420 Headnote: A.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "471",
+      "subsection": null,
+      "section_title": "Using as genuine a forged document",
+      "how_used": "Charged",
+      "context": "State Of Haryana, [LAWS(P&H)-2019-3-108] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438, S.438(2) - Indian Penal Code, 1860, S.120B, S.466, S.467, S.468, S.471, S.419, S.420 Headnote: A.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "419",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Charged",
+      "context": "State Of Haryana, [LAWS(P&H)-2019-3-108] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438, S.438(2) - Indian Penal Code, 1860, S.120B, S.466, S.467, S.468, S.471, S.419, S.420 Headnote: A.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "420",
+      "subsection": null,
+      "section_title": "Cheating and dishonestly inducing delivery of property",
+      "how_used": "Referenced",
+      "context": "State Of Haryana, [LAWS(P&H)-2019-3-108] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438, S.438(2) - Indian Penal Code, 1860, S.120B, S.466, S.467, S.468, S.471, S.419, S.420 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "120B",
+    "419",
+    "420",
+    "466",
+    "467",
+    "468",
+    "471"
+  ],
+  "crpc_sections_mentioned": [
+    "438",
+    "438(2)"
+  ],
+  "procedural_history": {
+    "high_court_order_date": "2.9.2008"
+  },
+  "headnote_raw": "A. The present appeal is filed by the appellants being aggrieved by a part of the direction contained in the Order dated 2.9.2008 passed by the learned Single Judge of the Punjab & Haryana High Court in Criminal Original Petition No. 21442 of 2008 whereby the High Court allowed the application filed by the appellants under Section 438 of the Code of Criminal Procedure, 1973 (for short the \"Code\") and granted the relief of anticipatory bail as prayed for on the alleged grounds of imposing conditions which are unreasonable as submitted before us. B. It was also pointed out that the appellants intentionally and knowing fully well the entire position and actual ownership of the property misrepresented the fact and cheated the complainant and therefore, such conditions were required to be put up for grant of anticipatory bail to the said persons. - We accordingly, set aside the impugned order and remit back the matter to the High Court to consider the prayer for anticipatory bail of the appellants afresh in accordance with law taking into consideration the facts and circumstances of the case including the gravity of the offence alleged and analysing the prayer of the appellants whether to grant or not to grant the prayer for anticipatory bail. C. It was also pointed out that the appellants intentionally and knowing fully well the entire position and actual ownership of the property misrepresented the fact and cheated the complainant and therefore, such conditions were required to be put up for grant of anticipatory bail to the said persons. D. We accordingly, set aside the impugned order and remit back the matter to the High Court to consider the prayer for anticipatory bail of the appellants afresh in accordance with law taking into consideration the facts and circumstances of the case including the gravity of the offence alleged and analysing the prayer of the appellants whether to grant or not to grant the prayer for anticipatory bail.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "The present appeal is filed by the appellants being aggrieved by a part of the direction contained in the Order dated 2.9.2008 passed by the learned Single Judge of the Punjab & Haryana High Court\nin Criminal Original Petition No. 21442 of 2008 whereby the High Court allowed the application filed\nby the appellants under Section 438 of the Code of Criminal Procedure, 1973 (for short the \"Code\")\nand granted the relief of anticipatory bail as prayed for on the alleged grounds of imposing conditions\nwhich are unreasonable as submitted before us."
+    },
+    {
+      "label": "B",
+      "text": "It was also pointed out that the appellants intentionally and knowing fully well the entire\nposition and actual ownership of the property misrepresented the fact and cheated the\ncomplainant and therefore, such conditions were required to be put up for grant of\nanticipatory bail to the said persons. - We accordingly, set aside the impugned order and\nremit back the matter to the High Court to consider the prayer for anticipatory bail of the\nappellants afresh in accordance with law taking into consideration the facts and\ncircumstances of the case including the gravity of the offence alleged and analysing the prayer\nof the appellants whether to grant or not to grant the prayer for anticipatory bail."
+    },
+    {
+      "label": "C",
+      "text": "It was also pointed out that the appellants intentionally and knowing fully well the entire\nposition and actual ownership of the property misrepresented the fact and cheated the\ncomplainant and therefore, such conditions were required to be put up for grant of\nanticipatory bail to the said persons."
+    },
+    {
+      "label": "D",
+      "text": "We accordingly, set aside the impugned order and remit back the matter to the High Court to\nconsider the prayer for anticipatory bail of the appellants afresh in accordance with law\ntaking into consideration the facts and circumstances of the case including the gravity of the\noffence alleged and analysing the prayer of the appellants whether to grant or not to grant the\nprayer for anticipatory bail."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "The present appeal is filed by the appellants being aggrieved by a part of the direction contained in the Order dated 2.9.2008 passed by the learned Single Judge of the Punjab & Haryana High Court\nin Criminal Original Petition No. 21442 of 2008 whereby the High Court allowed the application filed\nby the appellants under Section 438 of the Code of Criminal Procedure, 1973 (for short the \"Code\")\nand granted the relief of anticipatory bail as prayed for on the alleged grounds of imposing conditions\nwhich are unreasonable as submitted before us."
+    },
+    {
+      "number": "3",
+      "text": "A complaint was filed by one B. Nagalakshmi W/o Balagovindarajulu, Complainant - Respondent\nNo. 2 contending inter alia that she approached one M. Mani, a land broker, for the purchase of house\nsites bearing Nos. 9, 10, 11 and 12 in Sasi West Extension, Vilakrichi Village, Sern Nagar,\nCoimbatore. Mani informed that K. Sakthivel is the owner of site No. 12, and other site owners reside\nat Tiruppur and Selvapuram. Encumbrance Certificate issued by the Sub- Registrar and sale deed of 4\nsites were shown, which reflected that the land were in the name of appellants. K. Sakthivel made\nassurance to the complainant that he will arrange for the sale of the four sites to her by the site owners\nby making them to execute a sale deed in her favour. The total sale amount for the four sites was fixed\nat Rs. 62,62,000/-. As alleged when the complainant came forward to tender white money for the\nentire amount, the accused Sakthivel asked her to tender white money only for Rs. 7,72,700/- and the\nrest in black, and represented that he would execute the sale deed in her favour only then.\nAccordingly, she had parted a sum of Rs. 7,72,700/- through four demand drafts and cash of Rs.\n54,89,300/- to the accused, on the day of registration and got the sale deed executed in her favour on\n15.05.2007. Subsequently, on 03.06.2007 when the respondent No. 2 attempted to put up a boundary\naround the land, she came to know that the said four sites originally belonged to some other person."
+    },
+    {
+      "number": "4",
+      "text": "It further transpires that accused/appellants conspired and forged the encumbrance certificate and\nimpersonated themselves as original owners of the house sites, prepared a false sale deed and\nregistered the same in favour of complainant and cheated the complainant to the tune of Rs.\n62,62,000/-."
+    },
+    {
+      "number": "5",
+      "text": "On receipt of the aforesaid complaint, a case was registered treating the said complaint as the\nFirst Information Report."
+    },
+    {
+      "number": "6",
+      "text": "The appellants herein apprehending their arrest in the aforesaid case registered under Sections\n120B, 466, 467, 468, 471, 419 and 420 IPC filed a petition in the High Court under Section 438 of the\nCode seeking anticipatory bail."
+    },
+    {
+      "number": "7",
+      "text": "On perusal of the submissions made and material on record, the High Court passed an order\ngranting anticipatory bail as prayed for on condition that in the event of arrest, the appellants shall be\nenlarged on bail on their depositing the title deeds of property worth Rs. 20,00,000/- standing either in\ntheir name or in the name of third parties and also on their executing a personal bond of Rs. 25,000/-\nwith two sureties for the likesum to his satisfaction."
+    },
+    {
+      "number": "8",
+      "text": "Aggrieved by the aforesaid order, the appellants approached this Court on the ground that the\nconditions imposed by the High Court while granting anticipatory bail are not only unreasonable and\nonerous but the same also amounts to putting a fetter on the right of appellants being admitted to bail,\n\nin terms of the order passed."
+    },
+    {
+      "number": "9",
+      "text": "The said petition filed by the appellants was placed before this Court whereupon inter alia the\nfollowing order was passed on 13.8.2008.\nIssue notice. However, it is made clear that, in the event, it is found that the petitioners are\nnot otherwise entitled to grant of an order of anticipatory bail, this Court may pass an appropriate\norder. In the meantime, only that portion of the order whereby conditions have been imposed for grant\nof anticipatory bail other than those contained in Sub-section (2) of Section 438 of the Code of\nCriminal Procedure shall remain stayed...."
+    },
+    {
+      "number": "10",
+      "text": "Notice was issued to respondents and therefore, the matter was listed for hearing before us on\nwhich we heard the learned Counsel appearing for the parties at length."
+    },
+    {
+      "number": "11",
+      "text": "Learned Counsel appearing for the appellants submitted before us that the conditions imposed\nby the High Court while granting anticipatory bail to the appellants were not only onerous but also\nunreasonable. It was also submitted that conditions imposed by the High Court for granting\nanticipatory bail on their deposit of title deeds of property worth Rs. 20,00,000/- standing either in\ntheir name or in the name of third parties amounts to putting a fetter on the order granting anticipatory\nbail as the appellants are unable to satisfy the conditions which are beyond their means and powers."
+    },
+    {
+      "number": "12",
+      "text": "Learned Counsel appearing for the respondent, however, submitted that the aforesaid pre-\nconditions put by the Court for grant of anticipatory bail to the appellants were called for and justified\nin the facts and circumstances of the present case. It was also pointed out that the appellants\nintentionally and knowing fully well the entire position and actual ownership of the property\nmisrepresented the fact and cheated the complainant and therefore, such conditions were required to be\nput up for grant of anticipatory bail to the said persons."
+    },
+    {
+      "number": "13",
+      "text": "In the light of the aforesaid submissions by the counsel appearing for the parties, we have also\nconsidered the records placed before us. The facts and circumstances of the case when analysed have\nindicated that receipt of Rs. 62,62,000/- towards sale consideration of the property was alleged to be\non misrepresentation of the fact by the appellants herein."
+    },
+    {
+      "number": "14",
+      "text": "It is disclosed that the said property originally belonged to some other person. The allegations\nmade are serious as it is alleged that accused/appellants conspired and forged the encumbrance\ncertificate and impersonated themselves as original owners of the house sites and cheated the\nrespondent No. 2 (complainant) to the tune of Rs. 62,62,000/- by preparing a false sale deed and\ngetting it registered in favour of Respondent No. 2."
+    },
+    {
+      "number": "15",
+      "text": "It appears that in the aforesaid facts and circumstances, the High Court passed the impugned\norder with the intention of protecting the interest of the complainant in the matter. In our considered\nopinion the approach of the High Court was incorrect as under the impugned order a very\nunreasonable and onerous condition has been laid down by the Court as a condition precedent for\ngrant of anticipatory bail."
+    },
+    {
+      "number": "16",
+      "text": "This Court in Amarjit Singh v. State of NCT of Delhi reported in , held as under:\n4. Having regard to the facts and circumstances of the present case, we have no hesitation\nin coming to the conclusion that the imposition of condition to deposit the sum of Rs. 15 lacks in the\nform of FDR in the Trial Court is an unreasonable condi- tion and, therefore, we set aside the said\ncondition as a condition precedent for granting anticipatory bail to the accused/appellant....\nIn Sandeep Jain v. National Capital Terriotry of Delhi reported in , this Court held that:\n4. We are unable to appreciate even the first order passed by the Metropolitan Magistrate\nimposing the onerous condition that an accused at the FIR stage should pay a huge sum of Rs. 2 lakhs\nto be set at liberty. If he had paid it is a different matter. But the fact that he was not able to pay that\namount and in default thereof he is to languish in jail for more than 10 months now, is sufficient\nindication that he was unable to make up the amount. Can he be detained in custody endlessly for his\ninability to pay the amount in the range of Rs. 2 lakhs. If the cheques issued by his surety were\ndishonoured, the Court could perhaps have taken it as a ground to suggest to the payee of the cheques\nto resort to his legal remedies provided by law. Similarly if the court was dissatisfied with the conduct\nof the sure- ty as for his failure to raise funds for honouring the cheques issued by him, the court could\nhave direct- ed the appellant to substitute him with another surety. But to keep him in prison for such a\nlong period, that too in a case where bail would normal- ly be granted for the offences alleged, is not\nonly hard but improper. It must be remembered that the Court has not even come to the conclusion that\nthe allegations made in the FIR are true. That can be decided only when the trial concludes, if the case\nis charge-sheeted by the police."
+    },
+    {
+      "number": "17",
+      "text": "It is not disclosed from the record that the High Court considered the entire facts of the case in\nproper perspective and proceeded to dispose of the prayer for anticipatory bail oblivious of the facts of\nthe case and contrary to correct legal position with regard to law relating to grant of anticipatory bail.\nThe High Court should have considered the entire facts of the case including the gravity of the offence\nalleged and in the light thereof should have considered the prayer for grant of anticipatory bail. In that\nview of the matter, we feel that the entire order passed by the High Court is required to be set aside\nand the matter to be reconsidered in accordance with law and in terms of observations made herein."
+    },
+    {
+      "number": "18",
+      "text": "We accordingly, set aside the impugned order and remit back the matter to the High Court to\nconsider the prayer for anticipatory bail of the appellants afresh in accordance with law taking into\nconsideration the facts and circumstances of the case including the gravity of the offence alleged and\nanalysing the prayer of the appellants whether to grant or not to grant the prayer for anticipatory bail.\nThe High Court shall dispose of the matter in accordance with law, giving reasons for its decision, as\nexpeditiously as possible, preferably within a period of six weeks from the date of the communication\nof this order."
+    },
+    {
+      "number": "19",
+      "text": "Accordingly, the appeal is disposed of."
+    }
+  ],
+  "bail_amount_original": "Rs. 62,62,000",
+  "bail_amount_modified": "Rs. 62,62,000",
+  "bail_amount_original_normalized": "Rs. 62,62,000",
+  "bail_amount_modified_normalized": "Rs. 62,62,000",
+  "bail_outcome": "modified",
+  "bail_conditions": [
+    "On perusal of the submissions made and material on record, the High Court passed an order granting anticipatory bail as prayed for on condition that in the event of arrest, the appellants shall be enlarged on bail on their depositing the title deeds of property worth Rs. 20,00,000/- standing either in their name or in the name of third parties and also on their executing a personal bond of Rs. 25,000/- with two sureties for the likesum to his satisfaction.",
+    "If the cheques issued by his surety were dishonoured, the Court could perhaps have taken it as a ground to suggest to the payee of the cheques to resort to his legal remedies provided by law"
+  ],
+  "ratio_decidendi": "We accordingly, set aside the impugned order and remit back the matter to the High Court to\nconsider the prayer for anticipatory bail of the appellants afresh in accordance with law taking into\nconsideration the facts and circumstances of the case including the gravity of the offence alleged and\nanalysing the prayer of the appellants whether to grant or not to grant the prayer for anticipatory bail.\nThe High Court shall dispose of the matter in accordance with law, giving reasons for its decision, as\nexpeditiously as possible, preferably within a period of six weeks from the date of the communication\nof this order.",
+  "ratio_para_number": "18",
+  "dispute_nature": "property/land dispute",
+  "missing_anchors": [],
+  "warnings": [
+    "headnote_points backfilled from judgment paragraphs (source PDF had truncated headnote at page boundary)"
+  ]
+}

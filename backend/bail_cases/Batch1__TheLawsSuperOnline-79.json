@@ -1,0 +1,246 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-79.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2020-12-59",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "Dhananjaya Y.Chandrachud, Indu Malhotra, INDIRA BANERJEE JJ.",
+  "decided_on": "December 17, 2020",
+  "decided_on_year": 2020,
+  "appeal_type": "Criminal Appeal No 883 of 2020 (Arising out of SLP (Crl) No 5693 of 2020)",
+  "final_verdict": "Appeal allowed",
+  "appellant": "Rahna Jalal",
+  "respondent": "STATE OF KERALA And ORS.",
+  "advocates": "RADHA SHYAM JENA, Harshad V.Hameed",
+  "equivalent_citations": [
+    "CTC-2021-5-99",
+    "JT-2021-1-110",
+    "AIR(SC)-2021-0-225",
+    "SCC-2021-1-733",
+    "ALD(SC)-2021-4-213",
+    "KERLJ-2021-1-775",
+    "MHLJ(CRI)-2022-2-67",
+    "KERLT-2021-1-176",
+    "ILR(KER)-2021-1-161",
+    "SCC(CR)-2021-1-492",
+    "AIR(SC)(CRI)-2021-0-537",
+    "RAJLW-2021-1-220",
+    "KHC-2021-1-97",
+    "SCR-2020-13-621",
+    "BLJ-2021-3-35",
+    "LAWS(SC)-2020-12-59",
+    "CRIMES(SC)-2021-2-136",
+    "CRICC-2021-2-531",
+    "CRLR(SC)-2021-0-596",
+    "SCALE-2020-14-472 Referred Judgement(s) : - Balchand Jain Vs. State Of Madhya Pradesh",
+    "[1976 4 SCC 572] [Referred To] - Hema Mishra Vs. State Of U.P.",
+    "[2014 4 SCC 453] [Referred To] - Shayara Bano Vs. Union Of India And Others",
+    "[2017 9 SCC 1] [Referred To] - Prathvi Raj Chauhan Vs. Union Of India",
+    "[2020 4 SCC 727] [Referred To]"
+  ],
+  "cited_judgments": [
+    "Laduben Jaydevbhai Brahman Vs. State Of Gujarat, [LAWS(GJH)-2021-7-541] [Referred To]",
+    "Mohammad Sadiq Ahmed Vs. State Of Chhattisgarh, [LAWS(CHH)-2022-7-21] [Referred To]",
+    "Pankaj Singh Vs. State Of C.G., [LAWS(CHH)-2022-5-104] [Referred To]",
+    "Chandrama Prasad Singh Vs. State Of Bihar, [LAWS(PAT)-2023-8-72] [Referred To]",
+    "Aliya Vs. State Of Madhya Pradesh, [LAWS(MPH)-2024-7-24] [Referred To]",
+    "Chandrapal Prabhatjee Khatik Vs. State Of Gujarat, [LAWS(GJH)-2021-9-50] [Referred To]",
+    "Narendrapuri Ladhupuri Goswami Vs. State Of Gujarat, [LAWS(GJH)-2021-7-379] [Referred To]",
+    "P.S. Mahesh Vs. State Of Karnataka, [LAWS(KAR)-2022-1-115] [Referred To]",
+    "Panchakshari Vs. State Of Karnataka, [LAWS(KAR)-2024-5-44] [Referred To]",
+    "Shajan Skaria Vs. State Of Kerala, [LAWS(SC)-2024-8-60] [Referred To]",
+    "Gagan Jaipuriya Vs. State Of Chhattisgarh, [LAWS(CHH)-2022-4-74] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438",
+    "Constitution Of India, Art.136",
+    "S.498",
+    "S.34"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "State Of Chhattisgarh, [LAWS(CHH)-2022-4-74] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Constitution Of India, Art.136 - Indian Penal Code, 1860, S.498A, S.34 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "498A",
+      "subsection": null,
+      "section_title": "Husband or relative of husband of a woman subjecting her to cruelty",
+      "how_used": "Referenced",
+      "context": "State Of Chhattisgarh, [LAWS(CHH)-2022-4-74] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Constitution Of India, Art.136 - Indian Penal Code, 1860, S.498A, S.34 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "34",
+      "subsection": null,
+      "section_title": "Acts done by several persons in furtherance of common intention",
+      "how_used": "Charged",
+      "context": "State Of Chhattisgarh, [LAWS(CHH)-2022-4-74] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Constitution Of India, Art.136 - Indian Penal Code, 1860, S.498A, S.34 Headnote: A.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "34",
+    "498A"
+  ],
+  "crpc_sections_mentioned": [
+    "438"
+  ],
+  "procedural_history": {
+    "fir_number": "908",
+    "district": "Ernakulam Rural",
+    "high_court_order_date": "14/9/2020",
+    "high_court_bench": "High Court of Kerala"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, CONSTITUTION OF INDIA - ART.136 - Special leave to appeal by the\nSupreme Court, INDIAN PENAL CODE, 1860 - S.498A - Husband or relative of husband of\na woman subjecting her to cruelty, S.34 - Acts done by several persons in furtherance of\ncommon intention - Offences to be cognizable, compoundable, etc: Notwithstanding anything\ncontained in the Code of Criminal Procedure, 1973, -(a) an offence punishable under this Act\nshall be cognizable, if information relating to the commission of the offence is given to an\nofficer in charge of a police station by the married Muslim woman upon whom talaq is\npronounced or any person related to her by blood or marriage;(b) an offence punishable\nunder this Act shall be compoundable, at the instance of the married Muslim woman upon\nwhom talaq is pronounced with the permission of the Magistrate, on such terms and\nconditions as he may determine;(c) no person accused of an offence punishable under this Act\nshall be released on bail unless the Magistrate, on an application filed by the accused and\nafter hearing the married Muslim woman upon whom talaq is pronounced, is satisfied that\nthere are reasonable grounds for granting bail to such person.\"The provisions of Sec.\nB. Notwithstanding anything contained in the CrPC, 1898 (V of 1898) no person accused or\nconvicted of a contravention of these Rules or orders made thereunder shall, if in custody, be\nreleased on bail or his own bond unless-(a) the prosecution has been given an opportunity to\noppose the application for such release, and(b) where the prosecution opposes the application\nand the contravention is of any such provision of these Rules or orders made thereunder as\nthe Central Government or the State Government may by notified order specify in this\nbehalf, the Court is satisfied that there are reasonable grounds for believing that he is not\nguilty of such contravention.\"The issue before this Court was whether an order of\nanticipatory bail can be made by a Court of Session or High Court in the case of an alleged\noffence falling under Rule 184.\nC. Bhagwati (as he then was) held:\"3...It is not possible to read Rule 184 as laying down a self-\ncontained code for grant of bail in case of a person accused or convicted of contravention of\nany rule or order made under the Rules so that the power to grant bail in such a case must be\nfound only in Rule 184 and not in the Code of Criminal Procedure. - unless a notice has been\nissued to the prosecution giving it an opportunity to oppose the application and in case the\ncontravention is of a rule or order specially notified in this behalf, the court is satisfied that\nthere are reasonable grounds for believing that he is not guilty of such contravention..\"Justice\nFazal Ali in his concurring opinion held that the above view is in consonance with the principles applicable to the interpretation of non obstante clauses in statutes.\nD. The appeal is allowed in the above terms. - Pending applications, if any, stand disposed of.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, CONSTITUTION OF INDIA - ART.136 - Special leave to appeal by the\nSupreme Court, INDIAN PENAL CODE, 1860 - S.498A - Husband or relative of husband of\na woman subjecting her to cruelty, S.34 - Acts done by several persons in furtherance of\ncommon intention - Offences to be cognizable, compoundable, etc: Notwithstanding anything\ncontained in the Code of Criminal Procedure, 1973, -(a) an offence punishable under this Act\nshall be cognizable, if information relating to the commission of the offence is given to an\nofficer in charge of a police station by the married Muslim woman upon whom talaq is\npronounced or any person related to her by blood or marriage;(b) an offence punishable\nunder this Act shall be compoundable, at the instance of the married Muslim woman upon\nwhom talaq is pronounced with the permission of the Magistrate, on such terms and\nconditions as he may determine;(c) no person accused of an offence punishable under this Act\nshall be released on bail unless the Magistrate, on an application filed by the accused and\nafter hearing the married Muslim woman upon whom talaq is pronounced, is satisfied that\nthere are reasonable grounds for granting bail to such person.\"The provisions of Sec."
+    },
+    {
+      "label": "B",
+      "text": "Notwithstanding anything contained in the CrPC, 1898 (V of 1898) no person accused or\nconvicted of a contravention of these Rules or orders made thereunder shall, if in custody, be\nreleased on bail or his own bond unless-(a) the prosecution has been given an opportunity to\noppose the application for such release, and(b) where the prosecution opposes the application\nand the contravention is of any such provision of these Rules or orders made thereunder as\nthe Central Government or the State Government may by notified order specify in this\nbehalf, the Court is satisfied that there are reasonable grounds for believing that he is not\nguilty of such contravention.\"The issue before this Court was whether an order of\nanticipatory bail can be made by a Court of Session or High Court in the case of an alleged\noffence falling under Rule 184."
+    },
+    {
+      "label": "C",
+      "text": "Bhagwati (as he then was) held:\"3...It is not possible to read Rule 184 as laying down a self-\ncontained code for grant of bail in case of a person accused or convicted of contravention of\nany rule or order made under the Rules so that the power to grant bail in such a case must be\nfound only in Rule 184 and not in the Code of Criminal Procedure. - unless a notice has been\nissued to the prosecution giving it an opportunity to oppose the application and in case the\ncontravention is of a rule or order specially notified in this behalf, the court is satisfied that\nthere are reasonable grounds for believing that he is not guilty of such contravention..\"Justice\nFazal Ali in his concurring opinion held that the above view is in consonance with the principles applicable to the interpretation of non obstante clauses in statutes."
+    },
+    {
+      "label": "D",
+      "text": "The appeal is allowed in the above terms. - Pending applications, if any, stand disposed of."
+    }
+  ],
+  "judgment_author": "DR DHANANJAYA Y.CHANDRACHUD,J.",
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "This appeal arises from a judgment of a learned Single Judge of the High Court of Kerala,\nrejecting the application for anticipatory bail under Sec. 438 of the Code of Criminal Procedure\n1973(CrPC). Originally, the Special Leave Petition under Art. 136 of the Constitution was filed by two\npetitioners. The first petitioner is the spouse of the second respondent, who has filed the complaint\nleading to the registration of the first information report. The second petitioner is the mother of the\nfirst petitioner. By an order of this Court dated 3 December 2020, the Special Leave Petition was not\nentertained at the behest of the first petitioner and he was granted time to surrender before the\ncompetent court of jurisdiction and apply for regular bail."
+    },
+    {
+      "number": "3",
+      "text": "The issue which survives in the present appeal is whether the High Court was justified in\ndeclining the prayer for anticipatory bail moved by the appellant (the second petitioner in the Special\nLeave Petition as it was originally filed). The marriage between the second respondent and the\nappellant's son was solemnized on 14 May 2016. They have a child who was born in May 2017. On\n27/8/2020, the second respondent lodged a first information report, complaining of offences under the\nprovisions of Sec. 498-A read with Sec. 34 of the Indian Penal Code(IPC) and the Muslim Women\n(Protection of Rights on Marriage) Act 2019(Act). On 27 August 2020, the first information report,\nbeing FIR No 908, was lodged at North Parur Police Station, District Ernakulam Rural. Insofar as is\nmaterial to the controversy in the present appeal, the FIR contains an allegation that on 5 December\n2019, at about 2.30pm, the appellant's son pronounced talaq three times at their house. Following this,\nit has been stated, the appellant's son entered into a second marriage."
+    },
+    {
+      "number": "4",
+      "text": "The Kerala High Court was moved with an application for anticipatory bail by both petitioners.\nThe first application was withdrawn(B.A. No. 5748 of 2020, order dated 14/9/2020 (Kerala High\nCourt)), apparently due to a lack of proper pleadings. The second application, it has been recorded by\nthe High Court,(B.A. No. 5944 of 2020, order dated 9/10/2020 (Kerala High Court)) was not pressed\nsince there was a chance of a settlement between the complainant and her spouse. Since no settlement\noccurred, the High Court was moved for grant of anticipatory bail.(B.A. No. 6981 of 2020) The Single\nJudge of the High Court, on 2/11/2020, while declining to grant anticipatory bail observed:\n\" If the prosecution case is correct, the 1st petitioner is now enjoying with his second wife\nwhen the matrimonial relationship with the de facto complainant is in existence.\"\nThe order of the High Court contains no reason why the appellant was being denied\nanticipatory bail."
+    },
+    {
+      "number": "5",
+      "text": "We have heard Mr Haris Beeran, learned counsel on behalf of the appellant. Mr. V.\nChitambaresh, learned senior counsel with Mr. Harshad V. Hameed, learned counsel for the second\nrespondent; and Mr. G. Prakash, learned counsel for the State of Kerala."
+    },
+    {
+      "number": "6",
+      "text": "Mr. V. Chitambaresh, learned senior counsel has submitted that the power of the court to grant\nanticipatory bail under Sec. 438 of the CrPC has been taken away by the provisions of Sec. 7(c) of the\nAct. Opposing this submission, Mr. Haris Beeran has argued that Sec. 7(c) of the Act provides no\nexpress prohibition on the exercise of the power of the court to grant anticipatory bail.(We note that\nthe appellant's counsel has placed reliance on the judgment and order of the Kerala High Court dated\n3/8/2020 in the case of Nahas vs. State of Kerala, B.A. No. 9163 of 2019 to support their submission.)\nThis submission needs close scrutiny for the court to deduce as to whether the provisions of Sec. 7(c)\nwould bar the grant of anticipatory bail under Sec. 438 of the CrPC."
+    },
+    {
+      "number": "7",
+      "text": "Ss. 3 and 4 of the Act provide as follows:\n\"3. Talaq to be void and illegal: Any pronouncement of talaq by a Muslim husband upon\nhis wife, by words, either spoken or written or in electronic form or in any other manner whatsoever,\nshall be void and illegal.\n4. Punishment for pronouncing talaq: Any Muslim husband who pronounces talaq referred\nto in Sec. 3 upon his wife shall be punished with imprisonment for a term which may extend to three\nyears, and shall also be liable to fine.\""
+    },
+    {
+      "number": "8",
+      "text": "Under Sec. 3, a pronouncement of talaq by a Muslim husband upon his wife has been rendered\nvoid and illegal. Under Sec. 4, a Muslim husband who pronounces talaq upon his wife, as referred to\nin Sec. 3, is punishable with imprisonment for a term, which may extend to three years. The\nprohibition in Ss. 3 and 4 is evidently one which operates in relation to a Muslim husband alone. This\nis supported by the Statement of Objects and Reasons accompanying the Muslim Women (Protection\nof Rights on Marriage) Bill 2019, when it was introduced in the Parliament. The reasons for the\nintroduction of the bill specifically stated that the bill was to give effect to the ruling of this court in\nShayara Bano vs. Union of India [(2017) 9 SCC 1] , and to liberate' Muslim women from the\ncustomary practice of talaq-e-biddat (divorce by triple talaq) by Muslim men. It is in this context that\nthe provisions of Sec. 7 would have to be interpreted. Sec. 7 provides as follows:\n\"7. Offences to be cognizable, compoundable, etc: Notwithstanding anything contained in\nthe Code of Criminal Procedure, 1973, -\n(a) an offence punishable under this Act shall be cognizable, if information relating to the\ncommission of the offence is given to an officer in charge of a police station by the married Muslim\nwoman upon whom talaq is pronounced or any person related to her by blood or marriage;\n(b) an offence punishable under this Act shall be compoundable, at the instance of the\nmarried Muslim woman upon whom talaq is pronounced with the permission of the Magistrate, on\nsuch terms and conditions as he may determine;\n\n(c) no person accused of an offence punishable under this Act shall be released on bail unless the\nMagistrate, on an application filed by the accused and after hearing the married Muslim woman upon\nwhom talaq is pronounced, is satisfied that there are reasonable grounds for granting bail to such\nperson.\"\nThe provisions of Sec. 7(c) apply to the Muslim husband. The offence which is created by\nSec. 3 is on the pronouncement of a talaq by a Muslim husband upon his wife. Sec. 3 renders the\npronouncement of talaq void and illegal. Sec. 4 makes the Act of the Muslim husband punishable with\nimprisonment. Thus, on a preliminary analysis, it is clear that the appellant as the mother-in-law of the\nsecond respondent cannot be accused of the offence of pronouncement of triple talaq under the Act as\nthe offence can only be committed by a Muslim man."
+    },
+    {
+      "number": "9",
+      "text": "Having said that, we shall now deal with the contention that Sec. 7(c) of the Act bars the power of\nthe court to grant anticipatory bail under Sec. 438 of the CrPC. Under clause (c) of Sec. 7, Parliament\nhas provided that no person who is accused of an offence punishable under the Act shall be released\non bail unless the Magistrate, on an application filed by the accused and after hearing the married\nMuslim woman upon whom the talaq is pronounced, is satisfied that there are reasonable grounds for\ngranting bail."
+    },
+    {
+      "number": "10",
+      "text": "Sec. 7 begins with a non-obstante clause, which operates \"notwithstanding anything contained\"\nin the CrPC. However, it is equally necessary to emphasize that the non-obstante clause operates only\nin the area covered by clauses (a), (b) and (c). Under clause (a), the offence is cognizable if the\ninformation is given by the married Muslim woman or a person related to her by blood or marriage to\nthe officer in charge of a police station of the commission of the offence. Under clause (b), the offence\nis compoundable at the instance of the married Muslim woman upon whom the talaq is pronounced.\nHowever, in clause (b), the permission of the Magistrate is required. The Magistrate can specify the\nterms and conditions for compounding. Facially, clause (c) begins with the words \"no person accused\nof an offence punishable under this Act shall be released on bail\". But what follows is equally\nimportant, because it conditions what precedes it. Two conditions follow. One of them is in the realm\nof procedure while the second is substantive. The former requires a hearing to be given to the married\nMuslim woman upon whom talaq has been pronounced. The latter requires the court to be \"satisfied\nthat there are reasonable grounds for granting bail to such person\". This substantive condition is only a\nrecognition of something which is implicit in the judicial power to grant bail. No court will grant bail\nunless there are reasonable grounds to grant bail. All judicial discretion has to be exercised on\nreasonable grounds. Hence, the substantive condition in clause (c) does not deprive the court of its\npower to grant bail. Parliament has not overridden the provisions of Sec. 438 of the CrPC. There is no\nspecific provision in Sec. 7(c), or elsewhere in the Act, making Sec. 438 inapplicable to an offence\npunishable under the Act. The power of the court to grant bail is a recognition of the presumption of\ninnocence (where a trial and conviction is yet to take place) and of the value of personal liberty in all\ncases. Liberty can, of course, be regulated by a law which is substantively and procedurally fair, just\nand reasonable under Art. 21. In Hema Mishra vs. State of U.P. (2014) 4 SCC 453, this Court emphasized on the mandate of a constitutional court to protect the liberty of a person from being put in\njeopardy on account of baseless charges. This Court held that a writ court is even empowered to grant\nanticipatory bail inspite of a statutory bar imposed against the grant of such relief."
+    },
+    {
+      "number": "11",
+      "text": "The statutory text indicates that Sec. 7(c) does not impose an absolute bar to the grant of bail. On\nthe contrary, the Magistrate may grant bail, if satisfied that \"there are reasonable grounds for granting\nbail to such person\" and upon complying with the requirement of hearing the married Muslim woman\nupon whom talaq is pronounced. Hence, though Sec. 7 begins with a non obstante clause which\noperates in relation to the CrPC, a plain construction of Sec. 7(c) would indicate that it does not\nimpose a fetter on the power of the Magistrate to grant bail, save and except, for the stipulation that\nbefore doing so, the married Muslim woman, upon whom talaq is pronounced, must be heard and there\nshould be a satisfaction of the Magistrate of the existence of reasonable grounds for granting bail to\nthe person. This implies that even while entertaining an application for grant of anticipatory bail for an\noffence under the Act, the competent court must hear the married Muslim woman who has made the\ncomplaint, as prescribed under Sec. 7(c) of the Act. Only after giving the married Muslim woman a\nhearing, can the competent court grant bail to the accused."
+    },
+    {
+      "number": "12",
+      "text": "The above interpretation is fortified by the fact that the legislature has not expressly barred the\napplication of Sec. 438 of CrPC. In this context, it would be useful to refer to an earlier decision of this\nCourt in Balchand Jain vs. State of Madhya Pradesh (1976) 4 SCC 572. A three judge Bench of this\nCourt had to interpret Rule 184 of the Defence and Internal Security of India Rules, 1971, which\nprovided as follows:\n\"Rule 184. Notwithstanding anything contained in the CrPC, 1898 (V of 1898) no person\naccused or convicted of a contravention of these Rules or orders made thereunder shall, if in custody,\nbe released on bail or his own bond unless-\n(a) the prosecution has been given an opportunity to oppose the application for such\nrelease, and\n(b) where the prosecution opposes the application and the contravention is of any such\nprovision of these Rules or orders made thereunder as the Central Government or the State\nGovernment may by notified order specify in this behalf, the Court is satisfied that there are\nreasonable grounds for believing that he is not guilty of such contravention.\"\nThe issue before this Court was whether an order of anticipatory bail can be made by a\nCourt of Session or High Court in the case of an alleged offence falling under Rule 184. This Court\nspeaking through Justice P.N. Bhagwati (as he then was) held:\n\"3...It is not possible to read Rule 184 as laying down a self-contained code for grant of bail\nin case of a person accused or convicted of contravention of any rule or order made under the Rules so\nthat the power to grant bail in such a case must be found only in Rule 184 and not in the Code of\nCriminal Procedure. Rule 184 cannot be construed as displacing altogether the provisions of the CrPC\nin regard to bail in case of a person accused or convicted of contravention of any Rule or order made under the Rules. These provisions of the CrPC must be read along with Rule 184 and full effect must\nbe given to them except in so far as they are, by reason of the non obstante clause overridden by Rule\n184.\"\nThis Court, harmoniously constructed Rule 184 and Sec. 438 of the CrPC and held:\n\"4... Sec. 438 and Rule 184 thus operate at different stages, one prior to arrest and the other,\nafter the arrest and there is no overlapping between these two provisions so as to give rise to a conflict\nbetween them. And consequently, it must follow as a necessary corollary that Rule 184 does not stand\nin the way of a Court of Session of a High Court granting \"anticipatory bail\" under Sec. 438 to a\nperson apprehending arrest on an accusation of having committed contravention of any rule or order\nmade under the Rules.\n5. But even if Rule 184 does not apply in such a case, the policy behind this rule would\nhave to be borne in mind by the court while exercising its power to grant \"anticipatory bail\" under Sec.\n438....When a person apprehending arrest on accusation of having committed contravention of any\nrule or order made under the Rules applies to the court for a direction under Sec. 438, the court should\nnot ordinarily grant him \"anticipatory bail\" under that Sec. unless a notice has been issued to the\nprosecution giving it an opportunity to oppose the application and in case the contravention is of a rule\nor order specially notified in this behalf, the court is satisfied that there are reasonable grounds for\nbelieving that he is not guilty of such contravention..\"\nJustice Fazal Ali in his concurring opinion held that the above view is in consonance with\nthe principles applicable to the interpretation of non obstante clauses in statutes. The learned judge\nobserved:\n\"15....Now if the intention of the Legislature were that the provisions of Sec. 438 should\nnot be applicable in cases falling within Rule 184, it is difficult to see why the Legislature should not\nhave expressly saved Rule 184 which was already there when the new Code of 1973 was enacted and\nexcepted Rule 184 out of the ambit of Sec. 438. In other words, if the intention of provision of Rule\n184 of the Rules were to override the provisions of Sec. 438 of the Code, then the Legislature should\nhave expressly stated in so many words that the provisions of Sec. 438 of the Code shall not apply to\noffences contemplated by Rule 184 of the Rules. There is, however, no such provision in the Code. In\nthese circumstances, therefore, the Legislature in its wisdom left it to the Court to bring about a\nharmonious construction of the two statutes so that the two may work and stand together. This is also\nfully in consonance with the principles laid down by this Court in construing the non obstante clauses\nin the statutes...\"\n(emphasis added)"
+    },
+    {
+      "number": "13",
+      "text": "Certain other statutes expressly exclude the provisions of Sec. 438 of the CrPC. The provisions\nof Sec. 7(c) of the Act must be distinguished from provisions which are contained in such statutes. For\ninstance, the Maharashtra Control of Organised Crime Act, 1999(MCOCA) explicitly excludes the\napplication of Sec. 438 of CrPC. Sec. 21 (3) of MCOCA stipulates:\n\n\"(3) Nothing in Sec. 438 of the Code shall apply in relation to any case involving the arrest\nof any person on an accusation of having committed an offence punishable under this Act.\""
+    },
+    {
+      "number": "14",
+      "text": "The Scheduled Castes and Scheduled Tribes (Prevention of Atrocities) Act 1989 also contains\nsimilar provisions, which exclude the application of Sec. 438 of CrPC. Ss. 18 and 18-A provide as\nfollows:\n\"18. Sec. 438 of the Code not to apply to persons committing an offence under the Act.-\nNothing in Sec. 438 of the Code shall apply in relation to any case involving the arrest of any person\non an accusation of having committed an offence under this Act.\n18-A. No enquiry or approval required.-(1) For the purposes of this Act-\n(a) preliminary enquiry shall not be required for registration of a first information report\nagainst any person; or\n(b) the investigating officer shall not require approval for the arrest, if necessary, of any\nperson, against whom an accusation of having committed an offence under this Act has been made,\nand no procedure other than that provided under this Act or the Code shall apply."
+    },
+    {
+      "number": "2",
+      "text": "The provisions of Sec. 438 of the Code shall not apply to a case under this Act,\nnotwithstanding any judgment or order or direction of any Court.\""
+    },
+    {
+      "number": "15",
+      "text": "Sec. 18 explicitly excludes the application of Sec. 438 of the CrPC in relation to any case\ninvolving the arrest of any person on an accusation of having committed an offence under the Act.\nSub-section (2) of Sec. 18-A specifically excludes the application of the provisions of Sec. 438 of the\nCrPC, notwithstanding any judgment, order or direction of a court. The provisions of Sec. 18 and 18A\nhave been interpreted by a three Judge Bench of this Court in Prathvi Raj Chauhan vs. Union of India\nand Others (2020) 4 SCC 727 (\"Chauhan\"). Justice Arun Mishra speaking for himself and Justice\nVineet Saran, while construing these provisions, observed that:\n\"11. Concerning the applicability of provisions of Sec. 438 CrPC, it shall not apply to the\ncases under the 1989 Act. However, if the complaint does not make out a prima facie case for\napplicability of the provisions of the 1989 Act, the bar created by Ss. 18 and 18-A(/) shall not apply.\nWe have clarified this aspect while deciding the review petitions.\""
+    },
+    {
+      "number": "16",
+      "text": "The same view has been taken in the concurring judgment of Justice S Ravindra Bhat, in the\nfollowing observations:\n\"32. As far as the provision of Sec. 18-A and anticipatory bail is concerned, the judgment\nof Mishra, J. has stated that in cases where no prima facie materials exist warranting arrest in a\ncomplaint, the court has the inherent power to direct a pre-arrest bail.\""
+    },
+    {
+      "number": "17",
+      "text": "Thus, even in the context of legislation, such as the Scheduled Castes and Scheduled Tribes\n(Prevention of Atrocities) Act 1989, where a bar is interposed by the provisions of Sec. 18 and Sub-\nsection (2) of Sec. 18-A on the application of Sec. 438 of the CrPC, this Court has held that the bar will not apply where the complaint does not make out \"a prima facie case\" for the applicability of the\nprovisions of the Act. A statutory exclusion of the right to access remedies for bail is construed\nstrictly, for a purpose. Excluding access to bail as a remedy, impinges upon human liberty. Hence, the\ndecision in Chauhan (supra) held that the exclusion will not be attracted where the complaint does not\nprima facie indicate a case attracting the applicability of the provisions of the Scheduled Castes and\nScheduled Tribes (Prevention of Atrocities) Act 1989."
+    },
+    {
+      "number": "18",
+      "text": "For the above reasons, we have come to the conclusion that on a true and harmonious\nconstruction of Sec. 438 of CrPC and Sec. 7(c) of the Act, there is no bar on granting anticipatory bail\nfor an offence committed under the Act, provided that the competent court must hear the married\nMuslim woman who has made the complaint before granting the anticipatory bail. It would be at the\ndiscretion of the court to grant ad-interim relief to the accused during the pendency of the anticipatory\nbail application, having issued notice to the married Muslim woman."
+    },
+    {
+      "number": "19",
+      "text": "By the order of this Court dated 3 December 2020, interim protection from arrest has been\ngranted to the appellant. The primary allegation which is pressed in aid to deny anticipatory bail is the\npronouncement of triple talaq by the spouse of the second respondent. In the preceding paragraphs we\nhave observed that an offence under the Act is by the Muslim man who has pronounced talaq upon his\nspouse, and not the appellant, who is the mother-in-law of the second respondent. Though, Mr. G.\nPrakash, learned counsel appearing on behalf of the State of Kerala has adverted to the allegations\nunder Sec. 498A of the CrPC to oppose the grant of bail, we are of the view that having regard to the\nvague and general nature of those allegations in the FIR, bereft of details, the appellant (whose son is\nin a marital relationship with the second respondent) should not be denied the benefit of the grant of\nanticipatory bail. It must also be noted that the Judicial Magistrate First Class-I, North Parur, by an\norder dated23 October 2020, while deciding the second respondent's application(CMP 1529/2020 and\nCMP 1530/2020 in MC 28/2020) under Sec. 23 of the Protection of Women from Domestic Violence\nAct, 2005 did not find any substance in the allegations against the appellant."
+    },
+    {
+      "number": "20",
+      "text": "We accordingly order and direct that in the event of the arrest of the appellant, she shall be\nreleased on bail by the competent court, subject to her filing a personal bond of Rs 25,000. The\nappellant shall cooperate in the course of the investigation by the Investigating Officer."
+    },
+    {
+      "number": "21",
+      "text": "The appeal is allowed in the above terms."
+    },
+    {
+      "number": "22",
+      "text": "Pending applications, if any, stand disposed of."
+    }
+  ],
+  "bail_amount_original": "Rs. ,",
+  "bail_amount_modified": "Rs. 25,000",
+  "bail_amount_original_normalized": "Rs. ,",
+  "bail_amount_modified_normalized": "Rs. 25,000",
+  "bail_outcome": "interim",
+  "bail_conditions": [
+    "We accordingly order and direct that in the event of the arrest of the appellant, she shall be released on bail by the competent court, subject to her filing a personal bond of Rs 25,000. The appellant shall cooperate in the course of the investigation by the Investigating Officer."
+  ],
+  "ratio_decidendi": "Sec. 7 begins with a non-obstante clause, which operates \"notwithstanding anything contained\"\nin the CrPC. However, it is equally necessary to emphasize that the non-obstante clause operates only\nin the area covered by clauses (a), (b) and (c). Under clause (a), the offence is cognizable if the\ninformation is given by the married Muslim woman or a person related to her by blood or marriage to\nthe officer in charge of a police station of the commission of the offence. Under clause (b), the offence\nis compoundable at the instance of the married Muslim woman upon whom the talaq is pronounced.\nHowever, in clause (b), the permission of the Magistrate is required. The Magistrate can specify the\nterms and conditions for compounding. Facially, clause (c) begins with the words \"no person accused\nof an offence punishable under this Act shall be released on bail\". But what follows is equally\nimportant, because it conditions what precedes it. Two conditions follow. One of them is in the realm\nof procedure while the second is substantive. The former requires a hearing to be given to the married\nMuslim woman upon whom talaq has been pronounced. The latter requires the court to be \"satisfied\nthat there are reasonable grounds for granting bail to such person\". This substantive condition is only a\nrecognition of something which is implicit in the judicial power to grant bail. No court will grant bail\nunless there are reasonable grounds to grant bail. All judicial discretion has to be exercised on\nreasonable grounds. Hence, the substantive condition in clause (c) does not deprive the court of its\npower to grant bail. Parliament has not overridden the provisions of Sec. 438 of the CrPC. There is no\nspecific provision in Sec. 7(c), or elsewhere in the Act, making Sec. 438 inapplicable to an offence\npunishable under the Act. The power of the court to grant bail is a recognition of the presumption of\ninnocence (where a trial and conviction is yet to take place) and of the value of personal liberty in all\ncases. Liberty can, of course, be regulated by a law which is substantively and procedurally fair, just\nand reasonable under Art. 21. In Hema Mishra vs. State of U.P. (2014) 4 SCC 453, this Court emphasized on the mandate of a constitutional court to protect the liberty of a person from being put in\njeopardy on account of baseless charges. This Court held that a writ court is even empowered to grant\nanticipatory bail inspite of a statutory bar imposed against the grant of such relief.",
+  "ratio_para_number": "10",
+  "dispute_nature": "matrimonial",
+  "missing_anchors": [],
+  "warnings": []
+}

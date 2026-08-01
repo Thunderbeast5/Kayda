@@ -10,7 +10,7 @@ BASE_DIR = Path(__file__).resolve().parents[3]
 load_dotenv(BASE_DIR / "backend" / ".env")
 
 PINECONE_API_KEY = os.getenv("PINECONE_API_KEY", "")
-PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME", "ipc-index")
+PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME", "cases")
 
 
 def find_judgment_jsons(base_dir: Path) -> List[Path]:

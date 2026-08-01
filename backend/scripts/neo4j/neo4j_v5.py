@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import csv
 import hashlib
+import json
 import os
 import re
 from pathlib import Path
@@ -56,6 +57,15 @@ IPC_CSV = "ipc.csv"
 BNS_CSV = "bns_sections_clean.csv"
 MAP_CSV = "ipc2bns.csv"
 
+# Procedural and Evidence Acts paths
+ALL_ACTS_DIR = BASE_DIR.parent.parent / "all_acts"
+BNSS_JSON = ALL_ACTS_DIR / "bnss" / "bnss_all_sections.json"
+CRPC_JSON = ALL_ACTS_DIR / "bnss" / "crpc.json"
+CRPC_BNSS_MAP_CSV = ALL_ACTS_DIR / "bnss" / "crpc2bnss.csv"
+BSA_CSV = ALL_ACTS_DIR / "bsa" / "bsa_sections.csv"
+IEA_JSON = ALL_ACTS_DIR / "bsa" / "iea.json"
+IEA_BSA_MAP_CSV = ALL_ACTS_DIR / "bsa" / "iea2bsa.csv"
+
 # canonical mapping statuses used by text2cypher schema/prompt
 STATUS_DELETED_NO_BNS = "deleted_no_bns_successor"
 STATUS_NEW_NO_IPC = "new_no_ipc_predecessor"
@@ -99,6 +109,20 @@ def read_csv(path: Path) -> list[dict]:
         return []
     with open(path, "r", encoding="utf-8-sig", newline="") as f:
         return list(csv.DictReader(f))
+
+
+def read_json(path: Path) -> list[dict]:
+    """Read JSON file and return data as list of dicts."""
+    if not path.exists():
+        print(f"WARNING: Missing file: {path}")
+        return []
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+            return data if isinstance(data, list) else []
+    except Exception as e:
+        print(f"ERROR reading JSON {path}: {e}")
+        return []
 
 
 def batched(items: list, n: int):
@@ -327,6 +351,198 @@ def load_mapping(csv_dir: Path, ipc: dict[str, dict], bns: dict[str, dict]) -> l
     return mappings
 
 
+def load_bnss() -> dict[str, dict]:
+    """Load BNSS (Bharatiya Nagarik Suraksha Sanhita) sections from JSON."""
+    rows = read_json(BNSS_JSON)
+    bnss: dict[str, dict] = {}
+    
+    for r in rows:
+        sec = clean(r.get("section_no"))
+        if not sec:
+            continue
+            
+        bnss[sec] = {
+            "act": "BNSS",
+            "section": sec,
+            "title": clean(r.get("title")),
+            "description": clean(r.get("body")),
+            "chapter": clean(r.get("chapter")),
+            "year": r.get("year", 2023),
+            "legal_topic": clean(r.get("legal_topic")),
+            "procedural_stage": clean(r.get("procedural_stage")),
+            "bail_related": r.get("bail_related", False),
+            "investigation_related": r.get("investigation_related", False),
+            "court_related": r.get("court_related", False),
+            "rights_related": r.get("rights_related", False),
+            "data_complete": True,
+        }
+    
+    print(f"BNSS loaded: {len(rows)} rows -> {len(bnss)} unique sections")
+    return bnss
+
+
+def load_crpc() -> dict[str, dict]:
+    """Load CrPC (Code of Criminal Procedure) sections from JSON."""
+    rows = read_json(CRPC_JSON)
+    crpc: dict[str, dict] = {}
+    
+    for r in rows:
+        sec = normalize_section_number(r.get("section"))
+        if not sec:
+            continue
+            
+        crpc[sec] = {
+            "act": "CrPC",
+            "section": sec,
+            "title": clean(r.get("section_title")),
+            "description": clean(r.get("section_desc")),
+            "chapter": clean(r.get("chapter")),
+            "year": 1973,
+            "data_complete": True,
+        }
+    
+    print(f"CrPC loaded: {len(rows)} rows -> {len(crpc)} unique sections")
+    return crpc
+
+
+def load_crpc_bnss_mapping(crpc: dict[str, dict], bnss: dict[str, dict]) -> list[dict]:
+    """Load CrPC to BNSS mapping from CSV."""
+    rows = read_csv(CRPC_BNSS_MAP_CSV)
+    mappings: list[dict] = []
+    stub_crpc = 0
+    
+    for r in rows:
+        crpc_sec = clean(r.get("CrPC Section"))
+        bnss_sec = clean(r.get("BNSS Section"))
+        notes = clean(r.get("Key Changes / Notes"))
+        
+        if not crpc_sec:
+            continue
+            
+        # Add stub for CrPC if not exists
+        if crpc_sec and crpc_sec not in crpc:
+            crpc[crpc_sec] = {
+                "act": "CrPC",
+                "section": crpc_sec,
+                "title": clean(r.get("CrPC Subject")),
+                "description": "",
+                "chapter": "",
+                "year": 1973,
+                "data_complete": False,
+            }
+            stub_crpc += 1
+        
+        # Only map if BNSS section exists and is not "Removed" or "-"
+        if bnss_sec and bnss_sec != "-" and bnss_sec.upper() not in {"REMOVED", "N/A", "NA"}:
+            mappings.append({
+                "crpc_section": crpc_sec,
+                "bnss_section": bnss_sec,
+                "note": notes,
+            })
+    
+    print(f"CrPC-BNSS Mapping loaded: {len(rows)} rows -> {len(mappings)} mappings ({stub_crpc} CrPC stubs)")
+    return mappings
+
+
+def load_bsa() -> dict[str, dict]:
+    """Load BSA (Bharatiya Sakshya Adhiniyam) sections from CSV."""
+    rows = read_csv(BSA_CSV)
+    bsa: dict[str, dict] = {}
+    
+    for r in rows:
+        sec = clean(r.get("Section") or r.get("section"))
+        if not sec:
+            continue
+        
+        # Try different possible column names for title
+        title = (clean(r.get("Section _name")) or  # Note: space in column name
+                clean(r.get("Section_name")) or
+                clean(r.get("Title")) or 
+                clean(r.get("title")))
+            
+        bsa[sec] = {
+            "act": "BSA",
+            "section": sec,
+            "title": title,
+            "description": clean(r.get("Description") or r.get("description")),
+            "year": 2023,
+            "data_complete": True,
+        }
+    
+    print(f"BSA loaded: {len(rows)} rows -> {len(bsa)} unique sections")
+    return bsa
+
+
+def load_iea() -> dict[str, dict]:
+    """Load IEA (Indian Evidence Act) sections from JSON."""
+    rows = read_json(IEA_JSON)
+    iea: dict[str, dict] = {}
+    
+    for r in rows:
+        sec = normalize_section_number(r.get("section"))
+        if not sec:
+            continue
+            
+        iea[sec] = {
+            "act": "IEA",
+            "section": sec,
+            "title": clean(r.get("section_title") or r.get("title")),
+            "description": clean(r.get("section_desc") or r.get("description")),
+            "chapter": clean(r.get("chapter")),
+            "year": 1872,
+            "data_complete": True,
+        }
+    
+    print(f"IEA loaded: {len(rows)} rows -> {len(iea)} unique sections")
+    return iea
+
+
+def load_iea_bsa_mapping(iea: dict[str, dict], bsa: dict[str, dict]) -> list[dict]:
+    """Load IEA to BSA mapping from CSV."""
+    rows = read_csv(IEA_BSA_MAP_CSV)
+    mappings: list[dict] = []
+    stub_iea = 0
+    
+    for r in rows:
+        iea_sec = clean(r.get("IEA Section"))
+        bsa_sec = clean(r.get("BSA Section"))
+        notes = clean(r.get("Key Changes / Notes"))
+        
+        if not iea_sec:
+            continue
+            
+        # Add stub for IEA if not exists
+        if iea_sec and iea_sec not in iea:
+            iea[iea_sec] = {
+                "act": "IEA",
+                "section": iea_sec,
+                "title": clean(r.get("IEA Subject")),
+                "description": "",
+                "chapter": "",
+                "year": 1872,
+                "data_complete": False,
+            }
+            stub_iea += 1
+        
+        # Only map if BSA section exists and is not "Removed" or "-"
+        if bsa_sec and bsa_sec != "-" and bsa_sec.upper() not in {"REMOVED", "N/A", "NA"}:
+            mappings.append({
+                "iea_section": iea_sec,
+                "bsa_section": bsa_sec,
+                "note": notes,
+            })
+    
+    print(f"IEA-BSA Mapping loaded: {len(rows)} rows -> {len(mappings)} mappings ({stub_iea} IEA stubs)")
+    return mappings
+
+
+def normalize_section_number(section: Any) -> str:
+    """Normalize section number to string format."""
+    if section is None:
+        return ""
+    return str(section).strip()
+
+
 # =========================
 # Neo4j
 # =========================
@@ -384,6 +600,10 @@ def ingest_acts(driver):
     rows = [
         {"code": "IPC", "name": "Indian Penal Code"},
         {"code": "BNS", "name": "Bharatiya Nyaya Sanhita, 2023"},
+        {"code": "CrPC", "name": "Code of Criminal Procedure, 1973"},
+        {"code": "BNSS", "name": "Bharatiya Nagarik Suraksha Sanhita, 2023"},
+        {"code": "IEA", "name": "Indian Evidence Act, 1872"},
+        {"code": "BSA", "name": "Bharatiya Sakshya Adhiniyam, 2023"},
     ]
     with driver.session() as s:
         s.run(
@@ -394,7 +614,7 @@ def ingest_acts(driver):
         """,
             rows=rows,
         )
-    print("Act nodes ensured.")
+    print("Act nodes ensured (IPC, BNS, CrPC, BNSS, IEA, BSA).")
 
 
 def ingest_chapters(driver, bns: dict[str, dict]) -> int:
@@ -494,6 +714,113 @@ def ingest_sections(driver, ipc: dict[str, dict], bns: dict[str, dict]):
             )
 
     print(f"LawSection nodes ensured: IPC={len(ipc_rows)}, BNS={len(bns_rows)}")
+
+
+def ingest_procedural_sections(driver, bnss: dict[str, dict], crpc: dict[str, dict]):
+    """Ingest BNSS and CrPC procedural law sections."""
+    bnss_rows = [{"id": f"BNSS_{r['section']}", **r} for r in bnss.values()]
+    crpc_rows = [{"id": f"CrPC_{r['section']}", **r} for r in crpc.values()]
+    
+    with driver.session() as s:
+        # Ingest BNSS
+        for batch in batched(bnss_rows, BATCH_SIZE):
+            s.run(
+                """
+            UNWIND $rows AS row
+            MERGE (l:LawSection:ProceduralLaw {id: row.id})
+            SET l.act = row.act,
+                l.section = row.section,
+                l.title = row.title,
+                l.description = row.description,
+                l.chapter = row.chapter,
+                l.year = row.year,
+                l.legal_topic = row.legal_topic,
+                l.procedural_stage = row.procedural_stage,
+                l.bail_related = row.bail_related,
+                l.investigation_related = row.investigation_related,
+                l.court_related = row.court_related,
+                l.rights_related = row.rights_related,
+                l.data_complete = row.data_complete,
+                l.status = 'active'
+            WITH l, row
+            MATCH (a:Act {code: 'BNSS'})
+            MERGE (a)-[:HAS_SECTION]->(l)
+            """,
+                rows=batch,
+            )
+        
+        # Ingest CrPC
+        for batch in batched(crpc_rows, BATCH_SIZE):
+            s.run(
+                """
+            UNWIND $rows AS row
+            MERGE (l:LawSection:ProceduralLaw {id: row.id})
+            SET l.act = row.act,
+                l.section = row.section,
+                l.title = row.title,
+                l.description = row.description,
+                l.chapter = row.chapter,
+                l.year = row.year,
+                l.data_complete = row.data_complete,
+                l.status = 'replaced'
+            WITH l, row
+            MATCH (a:Act {code: 'CrPC'})
+            MERGE (a)-[:HAS_SECTION]->(l)
+            """,
+                rows=batch,
+            )
+    
+    print(f"Procedural LawSection nodes ensured: BNSS={len(bnss_rows)}, CrPC={len(crpc_rows)}")
+
+
+def ingest_evidence_sections(driver, bsa: dict[str, dict], iea: dict[str, dict]):
+    """Ingest BSA and IEA evidence law sections."""
+    bsa_rows = [{"id": f"BSA_{r['section']}", **r} for r in bsa.values()]
+    iea_rows = [{"id": f"IEA_{r['section']}", **r} for r in iea.values()]
+    
+    with driver.session() as s:
+        # Ingest BSA
+        for batch in batched(bsa_rows, BATCH_SIZE):
+            s.run(
+                """
+            UNWIND $rows AS row
+            MERGE (l:LawSection:EvidenceLaw {id: row.id})
+            SET l.act = row.act,
+                l.section = row.section,
+                l.title = row.title,
+                l.description = row.description,
+                l.year = row.year,
+                l.data_complete = row.data_complete,
+                l.status = 'active'
+            WITH l, row
+            MATCH (a:Act {code: 'BSA'})
+            MERGE (a)-[:HAS_SECTION]->(l)
+            """,
+                rows=batch,
+            )
+        
+        # Ingest IEA
+        for batch in batched(iea_rows, BATCH_SIZE):
+            s.run(
+                """
+            UNWIND $rows AS row
+            MERGE (l:LawSection:EvidenceLaw {id: row.id})
+            SET l.act = row.act,
+                l.section = row.section,
+                l.title = row.title,
+                l.description = row.description,
+                l.chapter = row.chapter,
+                l.year = row.year,
+                l.data_complete = row.data_complete,
+                l.status = 'replaced'
+            WITH l, row
+            MATCH (a:Act {code: 'IEA'})
+            MERGE (a)-[:HAS_SECTION]->(l)
+            """,
+                rows=batch,
+            )
+    
+    print(f"Evidence LawSection nodes ensured: BSA={len(bsa_rows)}, IEA={len(iea_rows)}")
 
 
 def ingest_keywords(driver, bns: dict[str, dict], ipc: dict[str, dict]) -> int:
@@ -670,6 +997,112 @@ def ingest_mappings(driver, mappings: list[dict]):
     print(f"IPC sections tagged {STATUS_DELETED_NO_BNS}: {len(ipc_no_successor)}")
 
 
+def ingest_crpc_bnss_mappings(driver, mappings: list[dict]):
+    """Ingest CrPC to BNSS replacement mappings."""
+    pair_rows = []
+    crpc_no_successor = set()
+    
+    for m in mappings:
+        crpc_sec = m["crpc_section"]
+        bnss_sec = m["bnss_section"]
+        
+        if not crpc_sec:
+            continue
+            
+        if not bnss_sec:
+            crpc_no_successor.add(f"CrPC_{crpc_sec}")
+            continue
+        
+        pair_rows.append({
+            "crpc_id": f"CrPC_{crpc_sec}",
+            "bnss_id": f"BNSS_{bnss_sec}",
+            "note": m["note"],
+            "status": STATUS_ACTIVE,
+        })
+    
+    with driver.session() as s:
+        for batch in batched(pair_rows, BATCH_SIZE):
+            s.run(
+                """
+            UNWIND $rows AS row
+            MATCH (c:LawSection {id: row.crpc_id})
+            MATCH (b:LawSection {id: row.bnss_id})
+            MERGE (c)-[r1:REPLACED_BY]->(b)
+            SET r1.note = row.note, r1.status = row.status
+            MERGE (b)-[r2:REPLACES]->(c)
+            SET r2.note = row.note, r2.status = row.status
+            """,
+                rows=batch,
+            )
+        
+        if crpc_no_successor:
+            s.run(
+                """
+            UNWIND $ids AS id
+            MATCH (l:LawSection {id: id})
+            SET l.mapping_status = $status
+            """,
+                ids=list(crpc_no_successor),
+                status=STATUS_DELETED_NO_BNS,
+            )
+    
+    print(f"CrPC-BNSS mapping edges ensured: {len(pair_rows)}")
+    print(f"CrPC sections without BNSS successor: {len(crpc_no_successor)}")
+
+
+def ingest_iea_bsa_mappings(driver, mappings: list[dict]):
+    """Ingest IEA to BSA replacement mappings."""
+    pair_rows = []
+    iea_no_successor = set()
+    
+    for m in mappings:
+        iea_sec = m["iea_section"]
+        bsa_sec = m["bsa_section"]
+        
+        if not iea_sec:
+            continue
+            
+        if not bsa_sec:
+            iea_no_successor.add(f"IEA_{iea_sec}")
+            continue
+        
+        pair_rows.append({
+            "iea_id": f"IEA_{iea_sec}",
+            "bsa_id": f"BSA_{bsa_sec}",
+            "note": m["note"],
+            "status": STATUS_ACTIVE,
+        })
+    
+    with driver.session() as s:
+        for batch in batched(pair_rows, BATCH_SIZE):
+            s.run(
+                """
+            UNWIND $rows AS row
+            MATCH (i:LawSection {id: row.iea_id})
+            MATCH (b:LawSection {id: row.bsa_id})
+            MERGE (i)-[r1:REPLACED_BY]->(b)
+            SET r1.note = row.note, r1.status = row.status
+            MERGE (b)-[r2:REPLACES]->(i)
+            SET r2.note = row.note, r2.status = row.status
+            """,
+                rows=batch,
+            )
+        
+        if iea_no_successor:
+            s.run(
+                """
+            UNWIND $ids AS id
+            MATCH (l:LawSection {id: id})
+            SET l.mapping_status = $status
+            """,
+                ids=list(iea_no_successor),
+                status=STATUS_DELETED_NO_BNS,
+            )
+    
+    print(f"IEA-BSA mapping edges ensured: {len(pair_rows)}")
+    print(f"IEA sections without BSA successor: {len(iea_no_successor)}")
+
+
 def tag_bns_without_ipc_predecessor(driver) -> int:
     with driver.session() as s:
         result = s.run(
@@ -742,6 +1175,10 @@ def print_summary(driver):
         "Chapter": "MATCH (n:Chapter) RETURN count(n) AS c",
         "LawSection IPC": "MATCH (n:LawSection {act:'IPC'}) RETURN count(n) AS c",
         "LawSection BNS": "MATCH (n:LawSection {act:'BNS'}) RETURN count(n) AS c",
+        "LawSection CrPC": "MATCH (n:LawSection {act:'CrPC'}) RETURN count(n) AS c",
+        "LawSection BNSS": "MATCH (n:LawSection {act:'BNSS'}) RETURN count(n) AS c",
+        "LawSection IEA": "MATCH (n:LawSection {act:'IEA'}) RETURN count(n) AS c",
+        "LawSection BSA": "MATCH (n:LawSection {act:'BSA'}) RETURN count(n) AS c",
         "Crime": "MATCH (n:Crime) RETURN count(n) AS c",
         "Punishment": "MATCH (n:Punishment) RETURN count(n) AS c",
         "Keyword": "MATCH (n:Keyword) RETURN count(n) AS c",
@@ -769,24 +1206,42 @@ def print_summary(driver):
 # Main
 # =========================
 def main():
-    parser = argparse.ArgumentParser(description="Ingest IPC-BNS legal graph from ipc.csv, bns_sections_clean.csv, ipc2bns.csv")
+    parser = argparse.ArgumentParser(description="Ingest IPC-BNS-CrPC-BNSS-IEA-BSA legal graph from CSV and JSON files")
     parser.add_argument("--csv-dir", type=Path, default=DEFAULT_CSV_DIR, help="Directory containing CSV files")
     parser.add_argument("--wipe", action="store_true", help="Wipe graph before ingest")
     parser.add_argument("--dry-run", action="store_true", help="Parse/validate only, no DB writes")
     args = parser.parse_args()
 
     print(f"CSV directory: {args.csv_dir.resolve()}")
+    print(f"All Acts directory: {ALL_ACTS_DIR.resolve()}")
 
     print("\n--- Loading data ---")
+    # Criminal Laws
     ipc = load_ipc(args.csv_dir)
     bns = load_bns(args.csv_dir)
     mappings = load_mapping(args.csv_dir, ipc, bns)
+    
+    # Procedural Laws
+    bnss = load_bnss()
+    crpc = load_crpc()
+    crpc_bnss_mappings = load_crpc_bnss_mapping(crpc, bnss)
+    
+    # Evidence Laws
+    bsa = load_bsa()
+    iea = load_iea()
+    iea_bsa_mappings = load_iea_bsa_mapping(iea, bsa)
 
     if args.dry_run:
         print("\nDRY RUN complete.")
         print(f"IPC sections: {len(ipc)}")
         print(f"BNS sections: {len(bns)}")
-        print(f"Mapping rows: {len(mappings)}")
+        print(f"IPC-BNS mappings: {len(mappings)}")
+        print(f"CrPC sections: {len(crpc)}")
+        print(f"BNSS sections: {len(bnss)}")
+        print(f"CrPC-BNSS mappings: {len(crpc_bnss_mappings)}")
+        print(f"IEA sections: {len(iea)}")
+        print(f"BSA sections: {len(bsa)}")
+        print(f"IEA-BSA mappings: {len(iea_bsa_mappings)}")
         return
 
     driver = get_driver()
@@ -798,14 +1253,29 @@ def main():
         create_constraints(driver)
         ingest_acts(driver)
         ingest_chapters(driver, bns)
+        
+        # Ingest criminal law sections
         ingest_sections(driver, ipc, bns)
+        
+        # Ingest procedural law sections
+        ingest_procedural_sections(driver, bnss, crpc)
+        
+        # Ingest evidence law sections
+        ingest_evidence_sections(driver, bsa, iea)
+        
+        # Ingest keywords, crimes, punishments
         ingest_keywords(driver, bns, ipc)
         ingest_crimes(driver, ipc, bns)
         ingest_punishments(driver, ipc, bns)
+        
+        # Ingest all mappings
         ingest_mappings(driver, mappings)
+        ingest_crpc_bnss_mappings(driver, crpc_bnss_mappings)
+        ingest_iea_bsa_mappings(driver, iea_bsa_mappings)
+        
         tag_bns_without_ipc_predecessor(driver)
         ingest_reasoning_rules(driver)
-        create_fulltext_indexes(driver)  # required by text2cypher.py
+        create_fulltext_indexes(driver)
         print_summary(driver)
     finally:
         driver.close()

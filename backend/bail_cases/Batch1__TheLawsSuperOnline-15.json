@@ -1,0 +1,269 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-15.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2018-5-67",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "KURIAN JOSEPH, MOHAN SHANTANAGOUDAR, NAVIN SINHA JJ.",
+  "decided_on": "May 15, 2018",
+  "decided_on_year": 2018,
+  "appeal_type": "Special Leave Petition (Criminal) 7281 of 2017, 7282 of 2017",
+  "final_verdict": null,
+  "appellant": "Sushila Aggarwal And Ors",
+  "respondent": "State (Nct Of Delhi) And Anr",
+  "advocates": "ABHAY KUMAR, VINEET KUMAR SINGH, SAURABH MISHRA, B.V.BALARAM\nDAS, C.S.N.MOHAN RAO",
+  "equivalent_citations": [
+    "LAWS(SC)-2018-5-67",
+    "JT-2018-5-137",
+    "SCALE-2018-7-549",
+    "ALLCRIC-2018-103-995",
+    "AIC-2018-186-36",
+    "CRLR(SC)-2018-0-567",
+    "AICLR-2018-3-189",
+    "ALT(CRI)(SC)-2018-2-206",
+    "BCR(CRI)-2018-3-240",
+    "CRIMES(SC)-2018-3-17",
+    "DRJ-2018-170-247",
+    "SCCRIR-2018-1-607",
+    "SCC-2018-7-731",
+    "EASTCRIC-2018-3-88",
+    "ORISSALR-2018-2-404",
+    "NCC-2018-2-646",
+    "SCC(CR)-2018-3-331",
+    "RAJCRIC-2018-3-900",
+    "SCJ-2018-6-12",
+    "CUTLT-2019-127-309",
+    "SUPREME-2018-5-312",
+    "MADLW(CRI)-2019-1-794",
+    "SCR-2018-6-825 Referred Judgement(s) : - Gurbaksh Singhsibbia Sarbajit Singh Vs. State Of Punjab",
+    "[1980 2 SCC 565] [Referred To] - Salauddin Abdulsamad Shaikh Vs. State Of Maharashtra",
+    "[1996 1 SCC 667] [Referred To] - K L Verma Vs. State",
+    "[1998 9 SCC 348] [Referred To] - Nirmal Jeet Kaur Vs. State Of Madhya Pradesh",
+    "[2004 7 SCC 558] [Referred To] - Sunita Devi Vs. State Of Bihar",
+    "[2005 1 SCC 608] [Referred To] - Adri Dharan Das Vs. State Of W B",
+    "[2005 4 SCC 303] [Referred To] - Hdfc Bank Ltd Vs. J J Mannan Alias J M John Paul",
+    "[2010 1 SCC 679] [Referred To] - Siddharam Satlingappa Mhetre Vs. State Of Maharashtra",
+    "[2011 1 SCC 694] [Referred To] - Bhadresh Bipinbhai Sheth Vs. State Of Gujarat And Ors.",
+    "[2016 1 SCC 152] [Referred To]"
+  ],
+  "cited_judgments": [
+    "Rakesh Kumar Pandey Vs. State Of U.P., [LAWS(ALL)-2019-11-227] [Referred To]",
+    "Abhimanyu Pratap Singh Tyagi Vs. C.B.I., [LAWS(ALL)-2020-1-328] [Referred To]",
+    "Ram Ashrey Singh Kushwaha Vs. State Of U.P., [LAWS(ALL)-2019-11-349] [Referred To]",
+    "Ankur Mishra Vs. State Of U.P., [LAWS(ALL)-2019-10-260] [Referred To]",
+    "Prakash Tripathi Vs. State Of U.P., [LAWS(ALL)-2019-10-282] [Referred To]",
+    "Freed Vs. State Of H.P., [LAWS(HPH)-2020-7-8] [Referred To]",
+    "Rohit Kumar Rana Vs. State Of Himachal Pradesh, [LAWS(HPH)-2020-9-44] [Referred To]",
+    "Brij Bala Vs. State Of Himachal Pradesh, [LAWS(HPH)-2019-6-123] [Referred To]",
+    "Mangal Singh Negi Vs. Central Bureau Of Investigation, [LAWS(HPH)-2021-4-5] [Referred To]",
+    "Vinod Kumar Vs. State Of Himachal Pradesh, [LAWS(HPH)-2020-9-111] [Referred To]",
+    "Hem Kumar Sharma Vs. State Of H.P, [LAWS(HPH)-2022-8-20] [Referred To]",
+    "Ajay Kumar Gupta Vs. State Of Himachal Pradesh, [LAWS(HPH)-2022-12-16] [Referred To]",
+    "Pratibha Manchanda Vs. State Of Haryana, [LAWS(SC)-2023-7-22] [Referred To]",
+    "Pawan Kumar Vs. State Of Himachal Pradesh, [LAWS(HPH)-2022-3-109] [Referred To]",
+    "Vikram Chandel Vs. State Of Himachal Pradesh, [LAWS(HPH)-2024-5-8] [Referred To]",
+    "Anurav Jaju Vs. State Of Nct Delhi, [LAWS(DLH)-2024-2-272] [Referred To]",
+    "Shaili Pranav Shah Vs. State Of Gujarat , [LAWS(GJH)-2025-9-13] [Referred To]",
+    "Bacchi Devi Vs. State Of U.P, [LAWS(ALL)-2025-8-36] [Referred To]",
+    "Govinder Singh Dhaliwal Vs. State Of Punjab, [LAWS(P&H)-2025-12-132] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "State Of Punjab, [LAWS(P&H)-2025-12-132] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "21",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Interpreted",
+      "context": "State of Punjab, wherein the application of Section 438 CrPC had been considered in detail, Mr Dutta submitted that the said provision had been interpreted to be a beneficent provision relating to personal liberty guaranteed under Section 21 of the Constitution.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": true,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "240",
+      "subsection": null,
+      "section_title": "Framing of charge",
+      "how_used": "Charged",
+      "context": "If what has been submitted on behalf of the appellant that Respondent 1 has never appeared before the trial court is to be accepted, it will lead to the absurd situation that charge was framed against the accused in his absence, which would defeat the very purpose of sub-section (2) of Section 240 C",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "173(2)",
+      "subsection": "2",
+      "section_title": "Report of police officer on completion of investigation",
+      "how_used": "Charged",
+      "context": "is available to the accused only till the court summons the accused based on the charge sheet (report under Section 173(2), Cr.P.C.).",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "439",
+      "subsection": null,
+      "section_title": "Special powers of High Court or Court of Session regarding bail",
+      "how_used": "Charged",
+      "context": "On such appearance, the accused has to seek regular bail under Section 439 Cr.P.C.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "46",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Mentioned",
+      "context": "The broad foundation of this rule is stated to be that Section 46 of the Code of Criminal Procedure does not contemplate any formality before a person can be said to be taken in custody: submission to the custody by word or action by a person is sufficient.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [],
+  "crpc_sections_mentioned": [
+    "173(2)",
+    "21",
+    "240",
+    "438",
+    "439",
+    "46"
+  ],
+  "procedural_history": {
+    "high_court_order_date": "9-10-1996"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest - Under Section 438 of the Code of Criminal Procedure when any person\nhas reason to believe that he may be arrested on an accusation of having committed a\nnonbailable offence, the High Court or the Court of Session may, if it thinks fit, direct that in\nthe event of such arrest, he shall be released on bail and in passing that order, it may include\nsuch conditions having regard to the facts of the particular case, as it may deem appropriate.\n- It was, therefore, pointed out that it was necessary that such anticipatory bail orders should\nbe of a limited duration only and ordinarily on the expiry of that duration or extended\nduration the court granting anticipatory bail should leave it to the regular court to deal with\nthe matter on an appreciation of evidence placed before it after the investigation has made\nprogress or the charge-sheet is submitted.\nB. The limited duration must be determined having regard to the facts of the case and the need\nto give the accused sufficient time to move the regular court for bail and to give the regular\ncourt sufficient time to determine the bail application. - The same view was reiterated in\nSalauddin case wherein it was, inter alia, observed that anticipatory bail should be of limited\nduration only and primarily on the expiry of that duration or extended duration, the court\ngranting anticipatory bail should leave it to the regular court to deal with the matter on an\nappreciation of evidence placed before it after the investigation has made progress or the\ncharge-sheet is submitted.19.\nC. Therefore, we refer the following questions for consideration by a larger Bench :-(1) Whether the protection granted to a person under Section 438 CrPC should be limited to a fixed period\nso as to enable the person to surrender before the Trial Court and seek regular bail.(2)\nWhether the life of an anticipatory bail should end at the time and stage when the accused is\nsummoned by the court.\nD. Therefore, we refer the following questions for consideration by a larger Bench :-(1) Whether\nthe protection granted to a person under Section 438 CrPC should be limited to a fixed period\nso as to enable the person to surrender before the Trial Court and seek regular bail.(2)\nWhether the life of an anticipatory bail should end at the time and stage when the accused is\nsummoned by the court. - Accordingly, we direct the Registry to place the papers before\nHon'ble the Chief Justice of India.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest - Under Section 438 of the Code of Criminal Procedure when any person\nhas reason to believe that he may be arrested on an accusation of having committed a\nnonbailable offence, the High Court or the Court of Session may, if it thinks fit, direct that in\nthe event of such arrest, he shall be released on bail and in passing that order, it may include\nsuch conditions having regard to the facts of the particular case, as it may deem appropriate.\n- It was, therefore, pointed out that it was necessary that such anticipatory bail orders should\nbe of a limited duration only and ordinarily on the expiry of that duration or extended\nduration the court granting anticipatory bail should leave it to the regular court to deal with\nthe matter on an appreciation of evidence placed before it after the investigation has made\nprogress or the charge-sheet is submitted."
+    },
+    {
+      "label": "B",
+      "text": "The limited duration must be determined having regard to the facts of the case and the need\nto give the accused sufficient time to move the regular court for bail and to give the regular\ncourt sufficient time to determine the bail application. - The same view was reiterated in\nSalauddin case wherein it was, inter alia, observed that anticipatory bail should be of limited\nduration only and primarily on the expiry of that duration or extended duration, the court\ngranting anticipatory bail should leave it to the regular court to deal with the matter on an\nappreciation of evidence placed before it after the investigation has made progress or the\ncharge-sheet is submitted.19."
+    },
+    {
+      "label": "C",
+      "text": "Therefore, we refer the following questions for consideration by a larger Bench :-(1) Whether the protection granted to a person under Section 438 CrPC should be limited to a fixed period\nso as to enable the person to surrender before the Trial Court and seek regular bail.(2)\nWhether the life of an anticipatory bail should end at the time and stage when the accused is\nsummoned by the court."
+    },
+    {
+      "label": "D",
+      "text": "Therefore, we refer the following questions for consideration by a larger Bench :-(1) Whether\nthe protection granted to a person under Section 438 CrPC should be limited to a fixed period\nso as to enable the person to surrender before the Trial Court and seek regular bail.(2)\nWhether the life of an anticipatory bail should end at the time and stage when the accused is\nsummoned by the court. - Accordingly, we direct the Registry to place the papers before\nHon'ble the Chief Justice of India."
+    }
+  ],
+  "judgment_author": "Kurian Joseph, J.",
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Whether an anticipatory bail should be for a limited period of time is the issue before us on which\nthere are two divergent views."
+    },
+    {
+      "number": "2",
+      "text": "The line of judgments that anticipatory bail should not be for a limited period places its reliance\non the Constitution Bench decision of this Court in Shri Gurbaksh Singh Sibbia and others v. State of\nPunjab, 1980 2 SCC 565."
+    },
+    {
+      "number": "3",
+      "text": "Siddharam Satlingappa Mhetre v. State of Maharashtra and others, 2011 1 SCC 694 is a very\ndetailed judgment by a Bench of two Judges on the scope and object of an anticipatory bail. In Mhetre\n, this Court took the view that the Constitution Bench has held that anticipatory bail granted by the\ncourt should ordinarily continue till the trial of the case. To quote:\n\"94. The proper course of action ought to be that after evaluating the averments and\naccusation available on the record if the court is inclined to grant anticipatory bail then an interim bail\nbe granted and notice be issued to the Public Prosecutor. After hearing the Public Prosecutor the court\nmay either reject the bail application or confirm the initial order of granting bail. The court would\ncertainly be entitled to impose conditions for the grant of bail. The Public Prosecutor or the\ncomplainant would be at liberty to move the same court for cancellation or modifying the conditions\nof bail any time if liberty granted by the court is misused. The bail granted by the court should\nordinarily be continued till the trial of the case.\n95. The order granting anticipatory bail for a limited duration and thereafter directing the\naccused to surrender and apply for a regular bail is contrary to the legislative intention and the\njudgment of the Constitution Bench in Sibbia case.\"\nThe decision in Mhetre was recently followed in Bhadresh Bipinbhai Sheth v. State of\nGujarat and another, 2016 1 SCC 152."
+    },
+    {
+      "number": "4",
+      "text": "The other line of judgments is that orders of anticipatory bail should be of a limited duration.\nSalauddin Abdulsamad Shaikh v. State of Maharashtra, 1996 1 SCC 667 is one of the earlier decisions\nof a three Judge Bench. True, there is no reference to the Constitution Bench in Sibbia's case .\nHowever, discussing the concept of anticipatory bail, this Court took the view that :-\n\"2. Under Section 438 of the Code of Criminal Procedure when any person has reason to\nbelieve that he may be arrested on an accusation of having committed a nonbailable offence, the High\nCourt or the Court of Session may, if it thinks fit, direct that in the event of such arrest, he shall be\nreleased on bail and in passing that order, it may include such conditions having regard to the facts of\nthe particular case, as it may deem appropriate. Anticipatory bail is granted in anticipation of arrest in\nnon-bailable cases, but that does not mean that the regular court, which is to try the offender, is sought\nto be bypassed and that is the reason why the High Court very rightly fixed the outer date for the\ncontinuance of the bail and on the date of its expiry directed the petitioner to move the regular court\nfor bail. That is the correct procedure to follow because it must be realised that when the Court of\nSession or the High Court is granting anticipatory bail, it is granted at a stage when the investigation is\nincomplete and, therefore, it is not informed about the nature of evidence against the alleged offender.\nIt is, therefore, necessary that such anticipatory bail orders should be of a limited duration only and\nordinarily on the expiry of that duration or extended duration the court granting anticipatory bail\nshould leave it to the regular court to deal with the matter on an appreciation of evidence placed before\nit after the investigation has made progress or the charge-sheet is submitted.\n3. It should be realised that an order of anticipatory bail could even be obtained in cases of\na serious nature as for example murder and, therefore, it is essential that the duration of that order\nshould be limited and ordinarily the court granting anticipatory bail should not substitute itself for the\noriginal court which is expected to deal with the offence. It is that court which has then to consider\nwhether, having regard to the material placed before it, the accused person is entitled to bail.\"\nThis view has also been followed in K. L. Verma v. State and another, 1998 9 SCC 348 ,\nSunita Devi v. State of Bihar and another, 2005 1 SCC 608 , Adri Dharan Das v. State of W. B., 2005\n4 SCC 303. In K. L. Verma , after referring to Salauddin , this Court held as follows:\n\"3. We have carefully examined both the orders of 9-10-1996 and 11-10-1996 and have\nalso heard counsel for the accused as well as counsel for the CBI and we are of the opinion that the\nproper course for the High Court was to decide on the question of the requirement of sanction and if\nthe High Court could not do so, to have stayed further proceedings till that vital question was\nanswered. On the other question emanating from the order dated 9-10-1996, we find that the High\nCourt placed reliance on this Court's decision in Salauddin Abdulsamad Shaikh v. State of\nMaharashtra which was a case in which the High Court, while granting interim anticipatory bail,\nimposed certain conditions, one of which was that the accused should move for regular bail before the\nCourt which was in seisin of the case pending against him. The High Court also observed that the\napplication should be disposed of uninfluenced by the observations made in the earlier order. The\nspecial leave petition was directed against that order of the High Court. While dealing with that order,\n\nthis Court observed that under Section 438 of the Code, when any person has reason to believe that he\nmay be arrested on an accusation of having committed a non-bailable offence, the High Court or the\nCourt of Session may, if it thinks fit, direct that in the event of such arrest, he shall be released on bail\nand in passing that order, it may include such conditions as it may deem appropriate. This Court\nfurther observed that anticipatory bail is granted in anticipation of arrest in non-bailable cases, but that\ndoes not mean that the regular court, which is to try the offender, is sought to be bypassed. It was,\ntherefore, pointed out that it was necessary that such anticipatory bail orders should be of a limited\nduration only and ordinarily on the expiry of that duration or extended duration the court granting\nanticipatory bail should leave it to the regular court to deal with the matter on an appreciation of\nevidence placed before it after the investigation has made progress or the charge-sheet is submitted.\nBy this, what the Court desired to convey was that an order of anticipatory bail does not enure till the\nend of trial but it must be of limited duration as the regular court cannot be bypassed. The limited\nduration must be determined having regard to the facts of the case and the need to give the accused\nsufficient time to move the regular court for bail and to give the regular court sufficient time to\ndetermine the bail application. In other words, till the bail application is disposed of one way or the\nother the court may allow the accused to remain on anticipatory bail. To put it differently, anticipatory\nbail may be granted for a duration which may extend to the date on which the bail application is\ndisposed of or even a few days thereafter to enable the accused persons to move the higher court, if\nthey so desire. This decision was not intended to convey that as soon as the accused persons are\nproduced before the regular court the anticipatory bail ends even if the court is yet to decide the\nquestion of bail on merits. The decision in Salauddin case has to be so understood.\"\nIn Nirmal Jeet Kaur v. State of M.P. and another, 2004 7 SCC 558 K.L. Verma in so far as\nit stated that \"...or even a few days thereafter to enable the accused persons to move the higher court, if\nthey so desire ...\" was held to be in conflict with the statutory requirement under Section 439. To\nquote:\n\"13. The grey area according to us is the following part of the judgment in K.L. Verma case\n\"or even a few days thereafter to enable the accused persons to move the higher court, if they so\ndesire\".\nxxx xxx xxx xxx\n20. In Salauddin case also this Court observed that the regular court has to be moved for\nbail. Obviously, an application under Section 439 of the Code must be in a manner in accordance with\nlaw and the accused seeking remedy under Section 439 must ensure that it would be lawful for the\ncourt to deal with the application. Unless the applicant is in custody his making application only under\nSection 439 of the Code will not confer jurisdiction on the court to which the application is made. The\nview regarding extension of time to \"move\" the higher court as culled out from the decision in K.L.\nVerma case shall have to be treated as having been rendered per incuriam, as no reference was made to\nthe prescription in Section 439 requiring the accused to be in custody. In State v. Ratan Lal Arora it\nwas held that where in a case the decision has been rendered without reference to statutory bars, the same cannot have any precedential value and shall have to be treated as having been rendered per\nincuriam. The present case stands at par, if not, on a better footing. The provisions of Section 439 do\nnot appear to have been taken note of.\nxxx xxx xxx xxx\n23. If the protective umbrella of Section 438 is extended beyond what was laid down in\nSalauddin case the result would be clear bypassing of what is mandated in Section 439 regarding\ncustody. In other words, till the applicant avails remedies up to higher courts, the requirements of\nSection 439 become dead letter. No part of a statute can be rendered redundant in that manner.\""
+    },
+    {
+      "number": "5",
+      "text": "This Court in HDFC Bank Limited v. J.J. Mannan, 2010 1 SCC 679 has referred to a contention\nbased on the Constitution Bench decision in Sibbia and yet it has taken the view that the protection\nunder Section 438 is only till the investigation is completed and chargesheet is filed. To quote\nparagraphs 14 and 18 to 20 :-\n\"14. Referring to the decision of the Constitution Bench in Gurbaksh Singh Sibbia v. State\nof Punjab, wherein the application of Section 438 CrPC had been considered in detail, Mr Dutta\nsubmitted that the said provision had been interpreted to be a beneficent provision relating to personal\nliberty guaranteed under Section 21 of the Constitution. Mr Dutta submitted that the Constitution\nBench had observed that since denial of bail amounts to deprivation of personal liberty, the court\nshould lean against the imposition of unnecessary restrictions on the scope of Section 438 CrPC.\nxxx xxx xxx xxx\n18. Furthermore, it has also been consistently indicated that no blanket order could be\npassed under Section 438 CrPC to prevent the accused from being arrested at all in connection with\nthe case. To avoid such an eventuality it was observed in Adri Dharan Das case that anticipatory bail is\ngiven for a limited duration to enable the accused to surrender and to obtain regular bail. The same\nview was reiterated in Salauddin case wherein it was, inter alia, observed that anticipatory bail should\nbe of limited duration only and primarily on the expiry of that duration or extended duration, the court\ngranting anticipatory bail should leave it to the regular court to deal with the matter on an appreciation\nof evidence placed before it after the investigation has made progress or the charge-sheet is submitted.\n19. The object of Section 438 CrPC has been repeatedly explained by this Court and the\nHigh Courts to mean that a person should not be harassed or humiliated in order to satisfy the grudge\nor personal vendetta of the complainant. But at the same time the provisions of Section 438 CrPC\ncannot also be invoked to exempt the accused from surrendering to the court after the investigation is\ncomplete and if charge-sheet is filed against him. Such an interpretation would amount to violence to\nthe provisions of Section 438 CrPC, since even though a charge-sheet may be filed against an accused\nand charge is framed against him, he may still not appear before the court at all even during the trial.\n20. Section 438 CrPC contemplates arrest at the stage of investigation and provides a\nmechanism for an accused to be released on bail should he be arrested during the period of investigation. Once the investigation makes out a case against him and he is included as an accused in\nthe charge-sheet, the accused has to surrender to the custody of the court and pray for regular bail. On\nthe strength of an order granting anticipatory bail, an accused against whom charge has been framed,\ncannot avoid appearing before the trial court.\n21. If what has been submitted on behalf of the appellant that Respondent 1 has never\nappeared before the trial court is to be accepted, it will lead to the absurd situation that charge was\nframed against the accused in his absence, which would defeat the very purpose of sub-section (2) of\nSection 240 CrPC.\""
+    },
+    {
+      "number": "6",
+      "text": "In Satpal Singh v. The State of Punjab,2018 SCCOnline 415 (SC) at paragraph 14, it has been\nheld:\n\"14. In any case, the protection under Section 438, Cr.P.C. is available to the accused only\ntill the court summons the accused based on the charge sheet (report under Section 173(2), Cr.P.C.).\nOn such appearance, the accused has to seek regular bail under Section 439 Cr.P.C. and that\napplication has to be considered by the court on its own merits. Merely because an accused was under\nthe protection of anticipatory bail granted under Section 438 Cr.P.C. that does not mean that he is\nautomatically entitled to regular bail under Section 439 Cr.P.C. The satisfaction of the court for\ngranting protection under Section 438 Cr.P.C. is different from the one under Section 439 Cr.P.C.\nwhile considering regular bail.\""
+    },
+    {
+      "number": "7",
+      "text": "It is relevant to point out that placing reliance on Sibbia , the two-Judge Bench in Mhetre has\ntaken the stand that the decisions in Salauddin , KL Verma , Adri Dharan Das and Sunita Devi are per\nincuriam. To quote:-\n\"123. In view of the clear declaration of law laid down by the Constitution Bench in Sibbia\ncase, it would not be proper to limit the life of anticipatory bail. When the Court observed that the\nanticipatory bail is for limited duration and thereafter the accused should apply to the regular court for\nbail, that means the life of Section 438 CrPC would come to an end after that limited duration. This\nlimitation has not been envisaged by the legislature. The Constitution Bench in Sibbia case clearly\nobserved that it is not necessary to rewrite Section 438 CrPC. Therefore, in view of the clear\ndeclaration of the law by the Constitution Bench, the life of the order under Section 438 CrPC granting\nbail cannot be curtailed.\n124. The ratio of the judgment of the Constitution Bench in Sibbia case perhaps was not\nbrought to the notice of Their Lordships who had decided the cases of Salauddin Abdulsamad Shaikh\nv. State of Maharashtra, K.L. Verma v. State, Adri Dharan Das v. State of W.B. and Sunita Devi v.\nState of Bihar.\n125. In Naresh Kumar Yadav v. Ravindra Kumar a two-Judge Bench of this Court\nobserved: (SCC p. 632d)\n\"the power exercisable under Section 438 CrPC is somewhat extraordinary in character and it [should be exercised] only in exceptional cases.\"\nThis approach is contrary to the legislative intention and the Constitution Bench's decision\nin Sibbia case.\nxxx xxx xxx xxx\n127. The judgments and orders mentioned in paras 124 and 125 are clearly contrary to the\nlaw declared by the Constitution Bench of this Court in Sibbia case\n1. These judgments and orders are also contrary to the legislative intention. The Court\nwould not be justified in rewriting Section 438 CrPC.\nxxx xxx xxx xxx\n138. The analysis of English and Indian law clearly leads to the irresistible conclusion that\nnot only the judgment of a larger strength is binding on a judgment of smaller strength but the\njudgment of a coequal strength is also binding on a Bench of Judges of coequal strength. In the instant\ncase, judgments mentioned in paras 124 and 125 are by two or three Judges of this Court.\nThese judgments have clearly ignored the Constitution Bench judgment of this Court in\nSibbia case which has comprehensively dealt with all the facets of anticipatory bail enumerated under\nSection 438 CrPC. Consequently, the judgments mentioned in paras 124 and 125 of this judgment are\nper incuriam.\""
+    },
+    {
+      "number": "8",
+      "text": "Shri Harin P. Raval, learned Senior Counsel and Amicus Curiae submits that in the light of the\ntwo conflicting schools of thought the matter needs consideration by a larger Bench. According to him\neven the Constitution Bench in Sibbia does not, in so many words, lay down a proposition that the\nprotection of anticipatory bail is available to an accused till the conclusion of the trial."
+    },
+    {
+      "number": "9",
+      "text": "Also having heard learned counsel appearing on both sides, we are of the prima facie view that\nthe Constitution Bench in Sibbia has not laid down the law that once an anticipatory bail, it is an\nanticipatory bail forever."
+    },
+    {
+      "number": "10",
+      "text": "In Sibbia , this Court has briefly dealt with the question of duration of anticipatory bail. It seems\nto us that the discussion primarily pertained to grant of anticipatory bail at the pre-FIR stage (see\nparagraph 43 quoted below). It appears that there are indications in Sibbia that anticipatory bail may\nbe for a limited period. To quote paragraphs 19, 40, 42 and 43:-\n\"19. While granting relief under Section 438(1), appropriate conditions can be imposed\nunder Section 438"
+    },
+    {
+      "number": "2",
+      "text": "so as to ensure an uninterrupted investigation. One of such conditions can even be that\nin the event of the police making out a case of a likely discovery under Section 27 of the Evidence\nAct, the person released on bail shall be liable to be taken in police custody for facilitating the\ndiscovery. Besides, if and when the occasion arises, it may be possible for the prosecution to claim the benefit of Section 27 of the Evidence Act in regard to a discovery of facts made in pursuance of\ninformation supplied by a person released on bail by invoking the principle stated by this Court in\nState of U.P. v. Deoman Upadhyaya to the effect that when a person not in custody approaches a\npolice officer investigating an offence and offers to give information leading to the discovery of a fact,\nhaving a bearing on the charge which may be made against him, he may appropriately be deemed so\nhave surrendered himself to the police. The broad foundation of this rule is stated to be that Section 46\nof the Code of Criminal Procedure does not contemplate any formality before a person can be said to\nbe taken in custody: submission to the custody by word or action by a person is sufficient. For similar\nreasons, we are unable to agree that anticipatory bail should be refused if a legitimate case for the\nremand of the offender to the police custody under Section 167(2) of the Code is made out by the\ninvestigating agency.\nxxx xxx xxx xxx\n40. We have said that there is one proposition formulated by the High Court with which we\nare inclined to agree. That is proposition (2). We agree that a 'blanket order' of anticipatory bail should\nnot generally be passed. This flows from the very language of the section which, as discussed above,\nrequires the applicant to show that he has \"reason to believe\" that he may be arrested. A belief can be\nsaid to be founded on reasonable grounds only if there is something tangible to go by on the basis of\nwhich it can be said that the applicant's apprehension that he may be arrested is genuine. That is why,\nnormally, a direction should not issue under Section 438(1) to the effect that the applicant shall be\nreleased on bail \"whenever arrested for whichever offence whatsoever\". That is what is meant by a\n'blanket order' of anticipatory bail, an order which serves as a blanket to cover or protect any and every\nkind of allegedly unlawful activity, in fact any eventuality, likely or unlikely regarding which, no\nconcrete information can possibly be had. The rationale of a direction under Section 438(1) is the\nbelief of the applicant founded on reasonable grounds that he may be arrested for a non-bailable\noffence. It is unrealistic to expect the applicant to draw up his application with the meticulousness of a\npleading in a civil case and such is not requirement of the section. But specific events and facts must\nbe disclosed by the applicant in order to enable the court to judge of the reasonableness of his belief,\nthe existence of which is the sine qua non of the exercise of power conferred by the section.\nxxx xxx xxx xxx\n42. There was some discussion before us on certain minor modalities regarding the passing\nof bail orders under Section 438(1). Can an order of bail be passed under the section without notice to\nthe Public Prosecutor? It can be. But notice should issue to the Public Prosecutor or the Government\nAdvocate forthwith and the question of bail should be re-examined in the light of the respective\ncontentions of the parties. The ad interim order too must conform to the requirements of the section\nand suitable conditions should be imposed on the applicant even at that stage. Should the operation of\nan order passed under Section 438(1) be limited in point of time? Not necessarily. The court may, if\nthere are reasons for doing so, limit the operation of the order to a short period until after the filing of\nan FIR in respect of the matter covered by the order. The applicant may in such cases be directed to obtain an order of bail under Section 437 or 439 of the Code within a reasonably short period after the\nfiling of the FIR as aforesaid. But this need not be followed as an invariable rule. The normal rule\nshould be not to limit the operation of the order in relation to a period of time.\n43. During the last couple of years this Court, while dealing with appeals against orders\npassed by various High Courts, has granted anticipatory bail to many a person by imposing conditions\nset out in Section 438(2) (i), (ii) and (iii). The court has, in addition, directed in most of those cases\nthat (a) the applicant should surrender himself to the police for a brief period if a discovery is to be\nmade under Section 27 of the Evidence Act or that he should be deemed to have surrendered himself if\nsuch a discovery is to be made. In certain exceptional cases, the court has, in view of the material\nplaced before it, directed that the order of anticipatory bail will remain in operation only for a week or\nso until after the filing of the FIR in respect of matters covered by the order. These orders, on the\nwhole, have worked satisfactorily, causing the least inconvenience to the individuals concerned and\nleast interference with the investigational rights of the police. The court has attempted through those\norders to strike a balance between the individual's right to personal freedom and the investigational\nrights of the police. The appellants who were refused anticipatory bail by various courts have long\nsince been released by this Court under Section 438(1) of the Code.\""
+    },
+    {
+      "number": "11",
+      "text": "In the light of the conflicting views of the different Benches of varying strength, we are of the\nopinion that the legal position needs to be authoritatively settled in clear and unambiguous terms.\nTherefore, we refer the following questions for consideration by a larger Bench :-"
+    },
+    {
+      "number": "1",
+      "text": "Whether the protection granted to a person under Section 438 CrPC should be limited to\na fixed period so as to enable the person to surrender before the Trial Court and seek regular bail."
+    },
+    {
+      "number": "2",
+      "text": "Whether the life of an anticipatory bail should end at the time and stage when the\naccused is summoned by the court."
+    },
+    {
+      "number": "12",
+      "text": "Accordingly, we direct the Registry to place the papers before Hon'ble the Chief Justice of India."
+    }
+  ],
+  "bail_amount_original": "Rs. ,",
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": "Rs. ,",
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "referred",
+  "bail_conditions": [],
+  "ratio_decidendi": "This Court in HDFC Bank Limited v. J.J. Mannan, 2010 1 SCC 679 has referred to a contention\nbased on the Constitution Bench decision in Sibbia and yet it has taken the view that the protection\nunder Section 438 is only till the investigation is completed and chargesheet is filed. To quote\nparagraphs 14 and 18 to 20 :-\n\"14. Referring to the decision of the Constitution Bench in Gurbaksh Singh Sibbia v. State\nof Punjab, wherein the application of Section 438 CrPC had been considered in detail, Mr Dutta\nsubmitted that the said provision had been interpreted to be a beneficent provision relating to personal\nliberty guaranteed under Section 21 of the Constitution. Mr Dutta submitted that the Constitution\nBench had observed that since denial of bail amounts to deprivation of personal liberty, the court\nshould lean against the imposition of unnecessary restrictions on the scope of Section 438 CrPC.\nxxx xxx xxx xxx\n18. Furthermore, it has also been consistently indicated that no blanket order could be\npassed under Section 438 CrPC to prevent the accused from being arrested at all in connection with\nthe case. To avoid such an eventuality it was observed in Adri Dharan Das case that anticipatory bail is\ngiven for a limited duration to enable the accused to surrender and to obtain regular bail. The same\nview was reiterated in Salauddin case wherein it was, inter alia, observed that anticipatory bail should\nbe of limited duration only and primarily on the expiry of that duration or extended duration, the court\ngranting anticipatory bail should leave it to the regular court to deal with the matter on an appreciation\nof evidence placed before it after the investigation has made progress or the charge-sheet is submitted.\n19. The object of Section 438 CrPC has been repeatedly explained by this Court and the\nHigh Courts to mean that a person should not be harassed or humiliated in order to satisfy the grudge\nor personal vendetta of the complainant. But at the same time the provisions of Section 438 CrPC\ncannot also be invoked to exempt the accused from surrendering to the court after the investigation is\ncomplete and if charge-sheet is filed against him. Such an interpretation would amount to violence to\nthe provisions of Section 438 CrPC, since even though a charge-sheet may be filed against an accused\nand charge is framed against him, he may still not appear before the court at all even during the trial.\n20. Section 438 CrPC contemplates arrest at the stage of investigation and provides a\nmechanism for an accused to be released on bail should he be arrested during the period of investigation. Once the investigation makes out a case against him and he is included as an accused in\nthe charge-sheet, the accused has to surrender to the custody of the court and pray for regular bail. On\nthe strength of an order granting anticipatory bail, an accused against whom charge has been framed,\ncannot avoid appearing before the trial court.\n21. If what has been submitted on behalf of the appellant that Respondent 1 has never\nappeared before the trial court is to be accepted, it will lead to the absurd situation that charge was\nframed against the accused in his absence, which would defeat the very purpose of sub-section (2) of\nSection 240 CrPC.\"",
+  "ratio_para_number": "5",
+  "dispute_nature": "homicide",
+  "missing_anchors": [],
+  "warnings": []
+}

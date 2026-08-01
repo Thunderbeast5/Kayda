@@ -1,0 +1,144 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-90.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2024-11-46",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "B.M.TRIVEDI, S.C.SHARMA JJ.",
+  "decided_on": "November 19, 2024",
+  "decided_on_year": 2024,
+  "appeal_type": "CRIMINAL APPEAL NO.4625 OF 2024 (Arising out of SLP(Criminal) No.13463 of 2024)",
+  "final_verdict": null,
+  "appellant": "SIDDIQUE",
+  "respondent": "STATE OF KERALA",
+  "advocates": null,
+  "equivalent_citations": [
+    "CRICC-2025-2-512",
+    "CRIMES(SC)-2024-4-461",
+    "LAWS(SC)-2024-11-46"
+  ],
+  "cited_judgments": [],
+  "referred_acts": [
+    "S.438",
+    "S.376",
+    "S.506"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "Decided On : November 19, 2024 Appeal Type : CRIMINAL APPEAL NO.4625 OF 2024 (Arising out of SLP(Criminal) No.13463 of 2024) Appellant(s) : SIDDIQUE Respondent(s) : STATE OF KERALA Equivalent Citation : CRICC-2025-2-512, CRIMES(SC)-2024-4-461, LAWS(SC)-2024-11-46 Referred Act(s) : - Code Of Criminal",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "376",
+      "subsection": null,
+      "section_title": "Punishment for rape",
+      "how_used": "Charged",
+      "context": "Decided On : November 19, 2024 Appeal Type : CRIMINAL APPEAL NO.4625 OF 2024 (Arising out of SLP(Criminal) No.13463 of 2024) Appellant(s) : SIDDIQUE Respondent(s) : STATE OF KERALA Equivalent Citation : CRICC-2025-2-512, CRIMES(SC)-2024-4-461, LAWS(SC)-2024-11-46 Referred Act(s) : - Code Of Criminal",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "506",
+      "subsection": null,
+      "section_title": "Punishment for criminal intimidation",
+      "how_used": "Charged",
+      "context": "Decided On : November 19, 2024 Appeal Type : CRIMINAL APPEAL NO.4625 OF 2024 (Arising out of SLP(Criminal) No.13463 of 2024) Appellant(s) : SIDDIQUE Respondent(s) : STATE OF KERALA Equivalent Citation : CRICC-2025-2-512, CRIMES(SC)-2024-4-461, LAWS(SC)-2024-11-46 Referred Act(s) : - Code Of Criminal",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "376",
+    "506"
+  ],
+  "crpc_sections_mentioned": [
+    "438"
+  ],
+  "procedural_history": {
+    "fir_number": "1192 of 2024",
+    "fir_date": "27/8/2024",
+    "police_station": "Museum",
+    "district": "Thiruvananthapuram City",
+    "high_court_order_date": "24/9/2024",
+    "high_court_bench": "High Court of Kerala at Ernakulam"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.376 - Punishment for rape, S.506 -\nPunishment for criminal ,intimidation - The present appeal is directed against the judgment\nand order dtd. - 2024, rejecting the said application filed by the appellant - - accused seeking\nanticipatory bail under Sec. - Heard learned senior counsel/counsel for the parties at length. -\nHaving regard to the submissions made by the learned senior counsels for the parties and\nperusing the documents - In that view of the matter, it is directed that in the event of arrest of\nappellant in connection with the\nB. Subject to the afore-stated, the present appeal stands allowed. - Pending application(s), if\nany, shall stand disposed of.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.376 - Punishment for rape, S.506 -\nPunishment for criminal ,intimidation - The present appeal is directed against the judgment\nand order dtd. - 2024, rejecting the said application filed by the appellant - - accused seeking\nanticipatory bail under Sec. - Heard learned senior counsel/counsel for the parties at length. -\nHaving regard to the submissions made by the learned senior counsels for the parties and\nperusing the documents - In that view of the matter, it is directed that in the event of arrest of\nappellant in connection with the"
+    },
+    {
+      "label": "B",
+      "text": "Subject to the afore-stated, the present appeal stands allowed. - Pending application(s), if\nany, shall stand disposed of."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "The present appeal is directed against the judgment and order dtd. 24/9/2024, passed by the High\nCourt of Kerala at Ernakulam in Bail Application No.7331 of 2024, rejecting the said application filed\nby the appellant - accused seeking anticipatory bail under Sec. 438 of the Cr.P.C. in connection with the F.I.R. being Crime No.1192 of 2024 dtd. 27/8/2024 registered at Police Station Museum, District\nThiruvananthapuram City, for the offence under Ss. 376 and 506 IPC."
+    },
+    {
+      "number": "3",
+      "text": "Heard learned senior counsel/counsel for the parties at length."
+    },
+    {
+      "number": "4",
+      "text": "Having regard to the submissions made by the learned senior counsels for the parties and perusing\nthe documents on record including the pleadings, we deem it appropriate not to assign elaborate\nreasons, particularly considering the sensitivity of the case. However, considering the fact that the\ncomplainant had lodged the complaint almost eight years after the alleged incident, which had taken\nplace in 2016 and the fact that she had also posted the post on facebook somewhere in 2018, making\nallegations against about 14 people, including the appellant with regard to the alleged sexual abuse, as\nalso the fact that she had not gone to the Justice Hema Committee constituted by the High Court of\nKerala for ventilating her grievance, we are inclined to accept the present appeal, subject to certain\nconditions mentioned hereinafter."
+    },
+    {
+      "number": "5",
+      "text": "In that view of the matter, it is directed that in the event of arrest of appellant in connection with\nthe F.I.R. being Crime No.1192 of 2024 dtd. 27/8/2024 registered at Police Station Museum, District\nThiruvananthapuram City, for the offence under Ss. 376 and 506 IPC, he shall be released on bail,\nsubject to the conditions that may be imposed by the Trial Court, including the condition that the\nappellant shall deposit the passport before the Trial Court and shall cooperate with the Investigating\nOfficer in carrying out the investigation."
+    },
+    {
+      "number": "6",
+      "text": "It is needless to say that any breach of the conditions that may be imposed by the Trial Court for\nreleasing him on bail, shall entail cancellation of the bail."
+    },
+    {
+      "number": "7",
+      "text": "Subject to the afore-stated, the present appeal stands allowed."
+    },
+    {
+      "number": "8",
+      "text": "Pending application(s), if any, shall stand disposed of."
+    }
+  ],
+  "bail_amount_original": null,
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": null,
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "modified",
+  "bail_conditions": [],
+  "ratio_decidendi": "Subject to the afore-stated, the present appeal stands allowed.",
+  "ratio_para_number": "7",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": []
+}

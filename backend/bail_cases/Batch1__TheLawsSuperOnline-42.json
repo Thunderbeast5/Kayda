@@ -1,0 +1,448 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-42.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2004-12-53",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "ARIJIT PASAYAT, S.H.KAPADIA JJ.",
+  "decided_on": "December 06, 2004",
+  "decided_on_year": 2004,
+  "appeal_type": "Criminal Appeal 1424 of 2004",
+  "final_verdict": "Appeal allowed",
+  "appellant": "SUNITA DEVI",
+  "respondent": "STATE OF BIHAR",
+  "advocates": "AJAY AMRITRAJ, ANIRUDDHA P.MAYI, B.B.SINGH, D.K.SINHA, SUMIT KUMAR,\nSUNIL VERMA, SUNITA R.SINGH, VIJAY KUMAR",
+  "equivalent_citations": [
+    "AIR(SC)-2005-0-498",
+    "AIR(SCW)-2004-0-7116",
+    "ALD(CRI)-2005-1-314",
+    "ALLCRIC-2005-51-220",
+    "ALLCRIR-2005-1-20",
+    "ALLMR(CRI)-2005-0-511",
+    "ALT(CRI)(SC)-2005-2-35",
+    "BLJ-2005-2-106",
+    "BLJR-2005-1-40",
+    "CALCRILR-2005-0-239",
+    "CGLJ-2005-1-257",
+    "CRIMES(SC)-2005-1-86",
+    "CRLJ-2005-0-213",
+    "CRLR(SC)-2005-0-213",
+    "CCR-2004-4-378",
+    "DLT-2004-115-517",
+    "EASTCRIC-2005-1-1",
+    "GHJ-2005-8-235",
+    "GLR-2005-2-1096",
+    "JCR(SC)-2005-1-7",
+    "JLJR-2005-1-178",
+    "JT-2004-10-491",
+    "KERLT-2005-1-748",
+    "KHC-2005-0-124",
+    "LAWS(SC)-2004-12-53",
+    "MHLJ-2005-2-534",
+    "MPLJ-2005-2-406",
+    "OCR-2005-30-215",
+    "ORISSALR-2005-1-153",
+    "RCR(CRI)-2005-1-410",
+    "SCALE-2004-10-227",
+    "SCC-2005-1-608",
+    "SCCRIR-2006-0-802",
+    "SCJ-2005-3-134",
+    "SLT-2004-7-469",
+    "SRJ-2005-3-303",
+    "SUPREME-2004-8-760",
+    "TLPRE-2004-0-620",
+    "AD(CR)-2005-1-244",
+    "AICLR-2005-1-543",
+    "CRICC-2005-1-415",
+    "GLHEL-2004-0-30889",
+    "AD(SC)-2005-1-189",
+    "SCR-2004-SUPP6-707",
+    "AIRJHARHCR-2005-0-457",
+    "KCCR-2005-1-615",
+    "SCC(CR)-2005-0-435",
+    "AIC-2005-25-7",
+    "WLC-2005-1-233",
+    "PATLJR(SC)-2005-1-270",
+    "BBCJ-2005-2-119",
+    "AIRJHARR-2005-0-457 Referred Judgement(s) : - Noor Khan Vs. State Of Rajasthan",
+    "[AIR 1964 SC 286] [Referred To] - Balchand Jain Vs. State Of Madhya Pradesh",
+    "[1976 4 SCC 572] [Referred To] - Niranjan Singh Vs. Prabhakar Rajaram Kharote",
+    "[AIR 1980 SC 785] [Referred To] - Gurbaksh Singhsibbia Sarbajit Singh Vs. State Of Punjab",
+    "[1980 2 SCC 565] [Referred To] - State Of Uttar Pradesh Vs. Synthetics And Chemicals Limited",
+    "[1991 4 SCC 139] [Referred To] - Salauddin Abdulsamad Shaikh Vs. State Of Maharashtra",
+    "[AIR 1996 SC 1042] [Referred To] - Suvaran Rajaram Bandekar Vs. Narayan R Bandekar",
+    "[1996 7 Scale 20] [Referred To] - Shakila Abdul Gafar Khan Vs. Vasant Raghunath Dhoble",
+    "[ 2003 7 SCC 749] [Referred To] - State Vs. Ratan Lal Arora",
+    "[2004 4 SCC 590] [Referred To] - Nirmal Jeet Kaur Vs. State Of Madhya Pradesh",
+    "[2004 7 JT 161] [Referred To]"
+  ],
+  "cited_judgments": [
+    "Kantibhai Patel Vs. State Of Gujarat, [LAWS(GJH)-2010-1-82] [Referred To]",
+    "Registrar Of Companies Vs. Kamal Infosys Ltd, [LAWS(ALL)-2005-3-197] [Referred To]",
+    "Ramjeet Bind And Jagdish Bind Both Sons Vs. State Of U P, [LAWS(ALL)-2006-1-125] [Referred To]",
+    "Punam Arya Vs. State Of Jharkhand, [LAWS(JHAR)-2006-5-13] [Referred To]",
+    "Pranab Rauth Vs. State Of Assam, [LAWS(GAU)-2008-8-40] [Referred To]",
+    "Minakshi Das Alias Minakshi Das Saud Vs. Nur Azam Ali Alias Nur Alam, [LAWS(GAU)-2009-8- 57] [Referred To]",
+    "Jitendra Kumar Bajpai Vs. State Of Up, [LAWS(ALL)-2009-11-25] [Referred To]",
+    "Simbholi Sugars Ltd Vs. State Of U P, [LAWS(ALL)-2010-4-132] [Referred To]",
+    "Sunil Gupta Vs. State Of M P, [LAWS(MPH)-2005-5-1] [Referred To]",
+    "Brijesh Garg Vs. State Of Madhya Pradesh, [LAWS(MPH)-2005-8-63] [Referred To]",
+    "Ashoka Das Vs. State Of W B, [LAWS(CAL)-2005-4-17] [Referred To]",
+    "Monoranjan Jana Vs. State Of West Bengal, [LAWS(CAL)-2005-5-59] [Referred To]",
+    "Yogesh Ganore Vs. State Of Madhya Pradesh, [LAWS(MPH)-2008-1-13] [Referred To]",
+    "Joydeb Pradhan Vs. Stat, [LAWS(CAL)-2005-7-51] [Referred To]",
+    "Sonu Alias Shahazad Vs. State Of M P, [LAWS(MPH)-2010-1-141] [Referred To]",
+    "Sukumaran Vs. State Of Kerala, [LAWS(KER)-2005-3-28] [Referred To]",
+    "Shiji P Antony Vs. State Of Kerala, [LAWS(KER)-2005-12-5] [Referred To]",
+    "Shanavas Muhammed Vs. State Of Kerala, [LAWS(KER)-2007-1-151] [Followed On]",
+    "S Sivagnanam Vaidyar Vs. Government Of Tamil Nadu, [LAWS(MAD)-2006-9-11] [Referred To]",
+    "Joseph Paul Vs. Shelly Dhall Sanjesh, [LAWS(BOM)-2005-3-4] [Referred To]",
+    "Balkrishna Dhondu Raul Vs. Manik Motiram Jagtap, [LAWS(BOM)-2005-3-56] [Referred To]",
+    "Palanikumar Vs. State Of Tamil Nadu, [LAWS(MAD)-2007-7-122] [Referred To]",
+    "Ritesh Prem Gayal Vs. Senior Inspector Of Police, [LAWS(BOM)-2008-2-43] [Referred To]",
+    "Prashant Kishor Meheta Vs. State Of Maharashtra, [LAWS(BOM)-2008-4-8] [Referred To]",
+    "Maria Monica Susairaj Vs. State Of Maharashtra, [LAWS(BOM)-2008-10-30] [Referred To]",
+    "Maharashtra State Co Operative Bank Ltd Vs. Assistant Provident Fund Commissioner, [LAWS(BOM)-2010-3-173] [Referred To]",
+    "Chetan Taxman Khambala Vs. State Of Maharashtra , [LAWS(BOM)-2006-9-257] [Referred To]",
+    "Pramod Kuamr Mehta Vs. State Of Chhattisgarh, [LAWS(CHH)-2007-2-7] [Referred To]",
+    "M K Rugi Vs. State Of Chhattisgarh, [LAWS(CHH)-2007-3-9] [Referred To]",
+    "State Of Rajasthan Vs. Ravishankar Srivastava, [LAWS(RAJ)-2005-6-13] [Referred To]",
+    "Digambar S/O Pandurang Kadu Vs. State Of Maharashtra, [LAWS(BOM)-2012-10-185] [Referred To]",
+    "Kazi Ahmed Mohiuddin Farooqui Vs. State Of Maharashtra, [LAWS(BOM)-2009-3-148] [Referred To]",
+    "Ramjeet Bind Vs. State Of U P, [LAWS(ALL)-2006-2-39] [Referred To]",
+    "Sudama Vs. State Of U P, [LAWS(ALL)-2006-5-179] [Referred To]",
+    "Sudhansu Sekhar Sabat Vs. State Of Odisha, [LAWS(ORI)-2013-12-6] [Referred To]",
+    "Harendra Rai Vs. State Of Bihar, [LAWS(PAT)-2007-3-19] [Referred To]",
+    "Chhotan Oraon Alias Rabindra Oraon Vs. State Of Jharkhand, [LAWS(JHAR)-2013-4-200] [Referred To]",
+    "Kamlesh Kumar Alias Navlesh Vs. State, [LAWS(PAT)-2005-6-29] [Referred To]",
+    "Chhotelal Rai Vs. State Of M.P., [LAWS(MPH)-2005-11-110] [Referred To]",
+    "Lalit Mohan Srivastava Vs. District Judge And 11 Ors., [LAWS(ALL)-2007-2-288] [Referred To]",
+    "Ashok Chawla Vs. Ram Chander Garvan, [LAWS(DLH)-2011-2-327] [Referred To]",
+    "Pramod S/O Madhukar Kalpund Vs. Savita W/O Rajendra Kalpund, [LAWS(BOM)-2015-2-12] [Referred To]",
+    "Pramod Vs. Savita And Ors., [LAWS(BOM)-2015-2-15] [Referred To]",
+    "Ashok Khirhar Vs. State Of Bihar, [LAWS(PAT)-2008-2-204] [Referred To]",
+    "Varghese M.U. Vs. Central Bureau Of Investigation, (Cbi), Acb, [LAWS(KER)-2015-6-39] [Referred To]",
+    "Urveshbhai Baldevbhai Patel Vs. State Of Gujarat, [LAWS(GJH)-2014-12-3] [Referred To]",
+    "Thounaojam Shyamkumar Singh Vs. State, [LAWS(DLH)-2009-2-294] [Referred To]",
+    "Pradeep N Sharma Vs. State Of Gujarat, [LAWS(GJH)-2011-2-82] [Refereed To]",
+    "H N Chavda Vs. State Of Gujarat, [LAWS(GJH)-2010-12-2] [Referred To]",
+    "Rajaji Hegolji Thakore Vs. State Of Gujarat, [LAWS(GJH)-2005-2-50] [Referred To]",
+    "Pradeep Sharma Vs. State Of Gujarat, [LAWS(GJH)-2010-10-256] [Referred To]",
+    "State Of U.P. Vs. Rakesh Kumar, [LAWS(ALL)-2010-12-102] [Referred To]",
+    "Cantonment Board Vs. District Judge (Incharge) , [LAWS(ALL)-2006-4-324] [Referred To]",
+    "State Of Manipur Vs. Tokchom Jadumani Singh, [LAWS(GAU)-2009-1-25] [Referred To]",
+    "D.K. Shrivastava Vs. The State Of Jharkhand, [LAWS(JHAR)-2006-8-152] [Referred To]",
+    "Vipin Nandan Varrier Vs. State Of Karnataka, [LAWS(KAR)-2015-1-156] [Referred To]",
+    "Priya Murlidhar Chaini Vs. Govind Prasad Shriwastav, [LAWS(BOM)-2006-10-100] [Referred To]",
+    "Centurion University Of Technology Vs. State Of Odisha, [LAWS(ORI)-2013-9-21] [Referred To]",
+    "Madhusudan Behera Vs. District Judge, [LAWS(ORI)-2009-3-113] [Referred To]",
+    "Bidya Bhuan Mohanty Vs. State Of Orissa, [LAWS(ORI)-2007-3-5] [Referred To]",
+    "Rashmi Rekha Thatoi Vs. State Of Orissa, [LAWS(SC)-2012-5-9] [Referred To]",
+    "Siddharam Satlingappa Mhetre Vs. State Of Maharashtra, [LAWS(SC)-2010-12-2] [Referred To]",
+    "State Of Nct Of Delhi Vs. Ravi Kant Sharma, [LAWS(SC)-2007-2-5] [Referred To]",
+    "Parkash Singh Badal Vs. State Of Punjab, [LAWS(SC)-2006-12-22] [Referred To]",
+    "Vijay Singh Vs. State (Govt. Of Nct Of Delhi), [LAWS(DLH)-2017-1-145] [Referred To]",
+    "Jyothish Vs. State Of Kerala, [LAWS(KER)-2005-8-13] [Referred To]",
+    "K K Mishra Vs. State Of M P, [LAWS(MPH)-2016-9-111] [Referred]",
+    "Banwari Lal Jatav Vs. State Of M P, [LAWS(MPH)-2013-9-406] [Referred]",
+    "Jairajsinh Temubha Jadeja Vs. State Of Gujarat, [LAWS(GJH)-2009-10-1] [Referred]",
+    "Kulwant Kumar Kalsan And Ors. Vs. State Of Haryana And Ors., [LAWS(P&H)-2015-4-92] [Referred To]",
+    "Vol : 3; Sunni Central Board Of Waqfs And Ors Vs. Gopal Singh Visharad And Ors, [LAWS(ALL)- 2010-9-627] [Referred]",
+    "Central Bureau Of Investigation, Anti Corruption Branch Vs. State Of U.P., [LAWS(ALL)-2013-8- 53] [Referred To]",
+    "R.P.Mishra Vs. State Of U.P., [LAWS(ALL)-2014-2-20] [Referred To]",
+    "Soumik Dandapath Vs. State Of West Bengal, [LAWS(CAL)-2011-8-88] [Referred To]",
+    "Sudip Sen Vs. State Of West Bengal, [LAWS(CAL)-2010-9-99] [Referred To]",
+    "Sudip Sen Vs. State Of West Bengal, [LAWS(CAL)-2010-8-64] [Referred To]",
+    "M S Tirupathi Vs. C H Ramakrishna Rao, [LAWS(CAL)-2010-1-36] [Referred To]",
+    "Mani Kumar Subba Vs. State Of Assam, [LAWS(GAU)-2010-10-8] [Referred To]",
+    "National Hydroelectric Power Corporation Ltd Vs. Vijay Kumar Sharma, [LAWS(HPH)-2013-1-97] [Referred]",
+    "Nazir Ahmad Shah Vs. State & Ors, [LAWS(J&K)-2013-7-71] [Referred]",
+    "Simanchala Samal Vs. State Of Orissa, [LAWS(ORI)-2017-11-8] [Referred To]",
+    "Ram Surat Mishra Vs. State Of U P, [LAWS(ALL)-2013-7-64] [Referred To]",
+    "Ram Surat Mishra Vs. State Of U P, [LAWS(ALL)-2013-7-64] [Referred To]",
+    "R Sunil Agrawal Vs. State, [LAWS(MAD)-2010-7-363] [Referred To]",
+    "Shree Narayan Jha S/O Late Harinarayan Jha Vs. State Of Bihar, [LAWS(PAT)-2018-2-131] [Referred To]",
+    "Sushila Aggarwal & Ors Vs. State (Nct Of Delhi) & Anr, [LAWS(SC)-2018-5-67] [Referred To]",
+    "Mandeep Kaur Vs. State Of Haryana, [LAWS(P&H)-2018-5-76] [Referred To]",
+    "Davinder Bhadana Vs. State Of Haryana, [LAWS(P&H)-2018-8-182] [Referred To]",
+    "Dux Jitendrabhai Parmar Vs. State Of Gujarat, [LAWS(GJH)-2017-8-282] [Referred To]",
+    "Eknath Chindha Patil Vs. State Of Maharashtra, [LAWS(BOM)-2019-3-108] [Referred To]",
+    "Shivangini Mahendroo & Others Vs. State Of Haryana And Another, [LAWS(P&H)-2013-2-446] [Referred]",
+    "Vinod Gautam Vs. State Of Mp, [LAWS(MPH)-2019-4-189] [Referred To]",
+    "Prakash Tripathi Vs. State Of U.P., [LAWS(ALL)-2019-10-282] [Referred To]",
+    "Freed Vs. State Of H.P., [LAWS(HPH)-2020-7-8] [Referred To]",
+    "Sushila Aggarwal Vs. State, [LAWS(SC)-2020-1-88] [Referred To]",
+    "Arvind Kejriwal Vs. State Nct Of Delhi , [LAWS(DLH)-2020-10-1] [Referred To]",
+    "Brij Bala Vs. State Of Himachal Pradesh, [LAWS(HPH)-2019-6-123] [Referred To]",
+    "Mukesh P. Meena Vs. Cbi, Acb, [LAWS(BOM)-2021-11-117] [Referred To]",
+    "Rahul Kumar Vs. State Of M.P., [LAWS(MPH)-2021-8-73] [Referred To]",
+    "Satyendra Kumar Verma Vs. State Of U.P. And Ors., [LAWS(ALL)-2021-1-158] [Referred To]",
+    "Zulfikar Nasir & Ors Vs. State Of Uttar Pradesh & Ors, [LAWS(DLH)-2018-10-396] [Referred To]",
+    "Jitendra Vs. State Of U.P., [LAWS(ALL)-2022-9-65] [Referred To]",
+    "Shobha Vs. State Of Punjab, [LAWS(P&H)-2021-8-96] [Referred To]",
+    "Santosh Karnani Vs. State Of Gujarat, [LAWS(GJH)-2022-12-41] [Referred To]",
+    "Mahesh Mahendrakumar Bhura Vs. State Of Gujarat, [LAWS(GJH)-2022-12-1438] [Referred To]",
+    "Malav Ajitbhai Mehta Vs. State Of Gujarat, [LAWS(GJH)-2022-12-1118] [Referred To]",
+    "Shyam Babu Sharma Vs. State Of U.P., [LAWS(ALL)-2023-1-30] [Referred To]",
+    "Nipulbhai Gangdasbhai Santoki Vs. State Of Gujarat, [LAWS(GJH)-2023-8-534] [Referred To]",
+    "Jitendra Narayan Tyagi Alias Syed Waseem Rizvi Vs. State Of U.P., [LAWS(ALL)-2023-2-67] [Referred To]",
+    "Pawan Kumar Vs. State Of Himachal Pradesh, [LAWS(HPH)-2022-3-109] [Referred To]",
+    "Rishabh Singh Vs. State Of U.P., [LAWS(ALL)-2023-4-235] [Referred To]",
+    "Sheshnath Singh Vs. State Of U. P., [LAWS(ALL)-2023-11-158] [Referred To]",
+    "Dudekula Chand Pasha Vs. Mirza Hussain Ali, [LAWS(TLNG)-2026-4-3] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438",
+    "S.439"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "Mirza Hussain Ali, [LAWS(TLNG)-2026-4-3] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438, S.439 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "439",
+      "subsection": null,
+      "section_title": "Special powers of High Court or Court of Session regarding bail",
+      "how_used": "Referenced",
+      "context": "Mirza Hussain Ali, [LAWS(TLNG)-2026-4-3] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438, S.439 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "437",
+      "subsection": null,
+      "section_title": "When bail may be taken in case of non-bailable offence",
+      "how_used": "Charged",
+      "context": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person apprehending arrest, S.439 - Special powers of High Court or Court of Session regarding bail - (1) A High Court or Court of Session may direct-(a) that any person accused of an offence and in custody be released on bail",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "384",
+      "subsection": null,
+      "section_title": "Punishment for extortion",
+      "how_used": "Charged",
+      "context": "Case No.15/2002 under Sections 384/376/511 read with Section 34 of the Indian Penal Code, 1860 (in short the IPC).",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "34",
+      "subsection": null,
+      "section_title": "Acts done by several persons in furtherance of common intention",
+      "how_used": "Charged",
+      "context": "Case No.15/2002 under Sections 384/376/511 read with Section 34 of the Indian Penal Code, 1860 (in short the IPC).",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "341",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Charged",
+      "context": "It appears that on the same day, an FIR was lodged by Anuj Kumar alleging commission of offences punishable under Sections 341/323 read with Section 34, IPC against the informants brother Suresh Vishwakarma and Chhotey Lal Pandit.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "34",
+    "341",
+    "384"
+  ],
+  "crpc_sections_mentioned": [
+    "437",
+    "438",
+    "439"
+  ],
+  "procedural_history": {
+    "police_station": "Case No",
+    "high_court_order_date": "4-"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, S.439 - Special powers of High Court or Court of Session regarding bail\n- (1) A High Court or Court of Session may direct-(a) that any person accused of an offence\nand in custody be released on bail, and if the offence is of the nature specified in sub-section\n(3) of Section 437, may impose any condition which it considers necessary for the purposes\nmentioned in that sub-section ;(b) that any condition imposed by the Magistrate when\nreleasing any person on bail be set aside or modified.\"(Underlined for emphasis) 8. - State of\nMaharashtra (AIR 1996 SC 1042) it was observed as follows :\"Anticipatory bail is granted in\nanticipation of arrest in non-bailable cases, but that does not mean that the regular Court,\nwhich is to try the offender, is sought to be bypassed and that is the reason why the High\nCourt very rightly fixed the outer date for the continuance of the bail and on the date of its\nexpiry directed the petitioner to move the regular Court for bail. - It is, therefore, necessary\nthat such anticipatory bail orders should be of a limited duration only and ordinarily on the\nexpiry of that duration or extended duration the Court granting anticipatory bail should\nleave it to the regular Court to deal with the matter on an appreciation of evidence placed\nbefore it after the investigation has made progress or the charge-sheet is\nsubmitted\".(Emphasis supplied) 10. - It was, therefore, pointed out that it was necessary that\nsuch anticipatory bail orders should be of a limited duration only and ordinarily on the\nexpiry of that duration or extended duration the Court granting anticipatory bail should\nleave it to the regular Court to deal with the matter on an appreciation of evidence placed\nbefore it after the investigation has made progress or the charge-sheet is submitted. - (Sixth\n\nEdn.), the expression \"custody\" has been explained in the following manner :\"......The term is\nvery elastic and may mean actual imprisonment or physical detention.....within statute\nrequiring that petitioner be in custody to be entitled to federal habeas corpus relief does not\nnecessarily mean actual physical detention in jail or prison but rather is synonymous with\nrestraint of liberty........Accordingly, persons on probation or parole or released on bail or on\nown recognizance have been held to be in custody for purposes of habeas corpus\nproceedings.\" - The said sections read as follows :\"Section 207- Supply to the accused of copy\nof police report and other documents : In any case where the proceeding has been instituted\non a police report, the Magistrate shall without delay furnish to the accused, free of cost, a\ncopy of each of the following :-(i) the police report;(ii) the first information report recorded\nunder Section 154;(iii) the statements recorded under sub-section (3) of Section 161 of all\npersons whom the prosecution proposes to examine as its witnesses, excluding therefrom any\npart in regard to which a request for such exclusion has been made by the police officer under\nsub-section (6) of Section 173;(iv) the confessions and statements, if any, recorded under\nSection 164;(v) any other document or relevant extract thereof forwarded to the Magistrate\nwith the police report under sub-section (5) of Section 173 :Provided that the Magistrate may,\nafter perusing any such part of a statement as is referred to in clause (iii) and considering the\nreasons given by the police officer for the request, direct that a copy of that part of the\nstatement or of such portion thereof as the Magistrate thinks proper, shall be furnished to the\naccused :Provided further that if the Magistrate is satisfied that any document referred to in\nclause (v) is voluminous, he shall, instead of furnishing the accused with a copy thereof, direct\nthat he will only be allowed to inspect it either personally or through pleader in Court.Section\n208- Supply of copies of statements and documents to accused in other cases triable by Court\nof Session - Where, in a case instituted otherwise than on a police report, it appears to the\nMagistrate issuing process under Section 204 that the offence is triable exclusively by the\nCourt of Session, the Magistrate shall without delay furnish to the accused, free of cost, a\ncopy of each of the following :-(i) the statements recorded under Section 200 or Section 202,\nor all persons examined by the Magistrate;(ii) the statements and confessions, if any, recorded\nunder Section 161 or Section 164;(iii) any documents produced before the Magistrate on\nwhich the prosecution proposes to rely :Provided that if the Magistrate is satisfied that any\nsuch document is voluminous, he shall, instead of furnishing the accused with a copy thereof,\ndirect that he will only be allowed to inspect it either personally or through pleader in\nCourt.\"\nB. When the informant came for his rescue, she too was assaulted by fists and legs and the said\nAnuj Kumar demonstrating the revolver said that since her brother has not given the money,\ntherefore outraged the modesty of his sister in the presence of all. - It is, therefore, necessary\nthat such anticipatory bail orders should be of a limited duration only and ordinarily on the\nexpiry of that duration or extended duration the Court granting anticipatory bail should\nleave it to the regular Court to deal with the matter on an appreciation of evidence placed\nbefore it after the investigation has made progress or the charge-sheet is submitted\".(Emphasis supplied) 10. - It was, therefore, pointed out that it was necessary that\nsuch anticipatory bail orders should be of a limited duration only and ordinarily on the\nexpiry of that duration or extended duration the Court granting anticipatory bail should\nleave it to the regular Court to deal with the matter on an appreciation of evidence placed\nbefore it after the investigation has made progress or the charge-sheet is submitted. - The\ncrucial question is when a person is in custody, within the meaning of Section 439 of the Code\nWhen he is in duress either because he is held by the investigating agency or other police or\nallied authority or is under the control of the court having been remanded by judicial order,\nor having offered himself to the courts jurisdiction and submitted to its orders by physical\npresence. - (Sixth Edn.), the expression \"custody\" has been explained in the following manner\n:\"......The term is very elastic and may mean actual imprisonment or physical\ndetention.....within statute requiring that petitioner be in custody to be entitled to federal\nhabeas corpus relief does not necessarily mean actual physical detention in jail or prison but\nrather is synonymous with restraint of liberty........Accordingly, persons on probation or\nparole or released on bail or on own recognizance have been held to be in custody for\npurposes of habeas corpus proceedings.\"\nC. As many instances have come to light when the parties, as in the present case, make reference\nto the supervision notes, the inevitable conclusion is that they have unauthorized access to the\nofficial records. - We, therefore, direct the Chief Secretary of each State and Union Territory\nand the concerned Director General of Police to ensure that the supervision notes are not\nmade available to any person and to ensure that confidentiality of the supervision notes is\nprotected. - The appeal is allowed to the aforesaid extent.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, S.439 - Special powers of High Court or Court of Session regarding bail\n- (1) A High Court or Court of Session may direct-(a) that any person accused of an offence\nand in custody be released on bail, and if the offence is of the nature specified in sub-section\n(3) of Section 437, may impose any condition which it considers necessary for the purposes\nmentioned in that sub-section ;(b) that any condition imposed by the Magistrate when\nreleasing any person on bail be set aside or modified.\"(Underlined for emphasis) 8. - State of\nMaharashtra (AIR 1996 SC 1042) it was observed as follows :\"Anticipatory bail is granted in\nanticipation of arrest in non-bailable cases, but that does not mean that the regular Court,\nwhich is to try the offender, is sought to be bypassed and that is the reason why the High\nCourt very rightly fixed the outer date for the continuance of the bail and on the date of its\nexpiry directed the petitioner to move the regular Court for bail. - It is, therefore, necessary\nthat such anticipatory bail orders should be of a limited duration only and ordinarily on the\nexpiry of that duration or extended duration the Court granting anticipatory bail should\nleave it to the regular Court to deal with the matter on an appreciation of evidence placed\nbefore it after the investigation has made progress or the charge-sheet is\nsubmitted\".(Emphasis supplied) 10. - It was, therefore, pointed out that it was necessary that\nsuch anticipatory bail orders should be of a limited duration only and ordinarily on the\nexpiry of that duration or extended duration the Court granting anticipatory bail should\nleave it to the regular Court to deal with the matter on an appreciation of evidence placed\nbefore it after the investigation has made progress or the charge-sheet is submitted. - (Sixth\n\nEdn.), the expression \"custody\" has been explained in the following manner :\"......The term is\nvery elastic and may mean actual imprisonment or physical detention.....within statute\nrequiring that petitioner be in custody to be entitled to federal habeas corpus relief does not\nnecessarily mean actual physical detention in jail or prison but rather is synonymous with\nrestraint of liberty........Accordingly, persons on probation or parole or released on bail or on\nown recognizance have been held to be in custody for purposes of habeas corpus\nproceedings.\" - The said sections read as follows :\"Section 207- Supply to the accused of copy\nof police report and other documents : In any case where the proceeding has been instituted\non a police report, the Magistrate shall without delay furnish to the accused, free of cost, a\ncopy of each of the following :-(i) the police report;(ii) the first information report recorded\nunder Section 154;(iii) the statements recorded under sub-section (3) of Section 161 of all\npersons whom the prosecution proposes to examine as its witnesses, excluding therefrom any\npart in regard to which a request for such exclusion has been made by the police officer under\nsub-section (6) of Section 173;(iv) the confessions and statements, if any, recorded under\nSection 164;(v) any other document or relevant extract thereof forwarded to the Magistrate\nwith the police report under sub-section (5) of Section 173 :Provided that the Magistrate may,\nafter perusing any such part of a statement as is referred to in clause (iii) and considering the\nreasons given by the police officer for the request, direct that a copy of that part of the\nstatement or of such portion thereof as the Magistrate thinks proper, shall be furnished to the\naccused :Provided further that if the Magistrate is satisfied that any document referred to in\nclause (v) is voluminous, he shall, instead of furnishing the accused with a copy thereof, direct\nthat he will only be allowed to inspect it either personally or through pleader in Court.Section\n208- Supply of copies of statements and documents to accused in other cases triable by Court\nof Session - Where, in a case instituted otherwise than on a police report, it appears to the\nMagistrate issuing process under Section 204 that the offence is triable exclusively by the\nCourt of Session, the Magistrate shall without delay furnish to the accused, free of cost, a\ncopy of each of the following :-(i) the statements recorded under Section 200 or Section 202,\nor all persons examined by the Magistrate;(ii) the statements and confessions, if any, recorded\nunder Section 161 or Section 164;(iii) any documents produced before the Magistrate on\nwhich the prosecution proposes to rely :Provided that if the Magistrate is satisfied that any\nsuch document is voluminous, he shall, instead of furnishing the accused with a copy thereof,\ndirect that he will only be allowed to inspect it either personally or through pleader in\nCourt.\""
+    },
+    {
+      "label": "B",
+      "text": "When the informant came for his rescue, she too was assaulted by fists and legs and the said\nAnuj Kumar demonstrating the revolver said that since her brother has not given the money,\ntherefore outraged the modesty of his sister in the presence of all. - It is, therefore, necessary\nthat such anticipatory bail orders should be of a limited duration only and ordinarily on the\nexpiry of that duration or extended duration the Court granting anticipatory bail should\nleave it to the regular Court to deal with the matter on an appreciation of evidence placed\nbefore it after the investigation has made progress or the charge-sheet is submitted\".(Emphasis supplied) 10. - It was, therefore, pointed out that it was necessary that\nsuch anticipatory bail orders should be of a limited duration only and ordinarily on the\nexpiry of that duration or extended duration the Court granting anticipatory bail should\nleave it to the regular Court to deal with the matter on an appreciation of evidence placed\nbefore it after the investigation has made progress or the charge-sheet is submitted. - The\ncrucial question is when a person is in custody, within the meaning of Section 439 of the Code\nWhen he is in duress either because he is held by the investigating agency or other police or\nallied authority or is under the control of the court having been remanded by judicial order,\nor having offered himself to the courts jurisdiction and submitted to its orders by physical\npresence. - (Sixth Edn.), the expression \"custody\" has been explained in the following manner\n:\"......The term is very elastic and may mean actual imprisonment or physical\ndetention.....within statute requiring that petitioner be in custody to be entitled to federal\nhabeas corpus relief does not necessarily mean actual physical detention in jail or prison but\nrather is synonymous with restraint of liberty........Accordingly, persons on probation or\nparole or released on bail or on own recognizance have been held to be in custody for\npurposes of habeas corpus proceedings.\""
+    },
+    {
+      "label": "C",
+      "text": "As many instances have come to light when the parties, as in the present case, make reference\nto the supervision notes, the inevitable conclusion is that they have unauthorized access to the\nofficial records. - We, therefore, direct the Chief Secretary of each State and Union Territory\nand the concerned Director General of Police to ensure that the supervision notes are not\nmade available to any person and to ensure that confidentiality of the supervision notes is\nprotected. - The appeal is allowed to the aforesaid extent."
+    }
+  ],
+  "judgment_author": "Arijit Pasayat, J.",
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "Protection to the respondent No.2-Anuj Kumar under Section 438 of the Code of Criminal\nProcedure, 1973 (in short the Code) is assailed by the appellant."
+    },
+    {
+      "number": "3",
+      "text": "A brief reference to the factual aspects would suffice. On 13-2-2002 the appellant (hereinafter\nreferred to as the informant) lodged a written complaint before the officer-in-charge, Sirdala P.S.\nNawadah that on 13-2-2002 at about 10.00 p.m. respondent No. 2 Anju Kumar, headman on Londh\nPanchayat armed with revolver, Anil Kumar armed with lathi, Sunil Kumar armed with lathi and\nothers armed with weapons entered into her house and the said Anuj Kumar demanded Rs.1000/- from\nher elder brother Suresh Vishwakarma. When Suresh Vishwakarma refused to give the same showing\nhis inability to arrange such a huge amount, Anuj Kumar assaulted him by the butt of revolver on his\nhead and below his eye. When the informant came for his rescue, she too was assaulted by fists and\nlegs and the said Anuj Kumar demonstrating the revolver said that since her brother has not given the money, therefore outraged the modesty of his sister in the presence of all. Saying this, the headman\nAnuj Kumar pulled the informant-Sunita Devi, put her on the ground and lifting her petticoat and saree\nlied down on her and attempted to commit rape on her. Further, when seeing the entire incident the\ninformants sister Usha Devi came to rescue her, Anil Kumar hit her on her left thumb and legs with\nlathi. Thereafter, Anil and Sunil assaulted the sons of her brother Suresh Vishwakarma, namely\nAmarjit and Sujit and her mother with lathi on their faces. Then the informants family started crying\nand hearing this the villagers namely Chhotey Lal Pandit, Puran Singh and others came and have seen\nthe incident. However, because of the fear of revolver they could not apprehend accused persons. The\naccused Anuj Kumar thereafter fired thrice in the air from his revolver and exhorted his men to loot\nthe shop of Suresh Vishwakarma and then all of them looted the articles worth Rs.10,000/- from his\nshop which included watches, radio, loudspeakers etc."
+    },
+    {
+      "number": "4",
+      "text": "On the basis of the said complaint of the informant, FIR was lodged on 15-2-2002 which was\nregistered as Sirdala P.S. Case No.15/2002 under Sections 384/376/511 read with Section 34 of the\nIndian Penal Code, 1860 (in short the IPC). It appears that on the same day, an FIR was lodged by\nAnuj Kumar alleging commission of offences punishable under Sections 341/323 read with Section\n34, IPC against the informants brother Suresh Vishwakarma and Chhotey Lal Pandit. The respondent\nNo.2 filed an application for protection in terms of Section 438 of the Code before the Patna High\nCourt and the same was numbered as Criminal Misc.14464 of 2003. By the impugned Order dated 4-\n7-2003 the protection was granted, inter alia, on the following terms :\n\"Considering all the facts and circumstances of the case the prayer for anticipatory bail is\nallowed. In the event of arrest/surrender Petitioner Anuj Kumar shall be enlarged on bail on furnishing\nbail bond of Rs. 10,000/- with two sureties of the like amount each to the satisfaction of the Chief\nJudicial Magistrate Nawadah in connection with Sirdala P.S. Case No.15/2002, subject to the\ncondition laid down under Section 438(2), Cr. P.C.\""
+    },
+    {
+      "number": "5",
+      "text": "In support of the present appeal, it has been contended that the blanket protection given is\ncontrary to the scheme of the Code and the legislative intent. The protection if any can be given for a\nlimited period in order to enable the accused to apply for bail in terms of Section 439 of the Code\nbefore the appropriate Court. The applicant has to be in custody for moving such application."
+    },
+    {
+      "number": "6",
+      "text": "Per contra, learned counsel for respondent No.2 submitted that in view of what has been stated in\nK.L. Verma vs. State and another (1996) 7 SCALE 20, protection given by the High Court is clearly in\norder. It was submitted that for the purpose of making an application in terms of Section 439 of the\nCode, when the same is pursuant to an order passed on application under Section 438 of the Code, it is\nnot necessary that the applicant should be in custody."
+    },
+    {
+      "number": "7",
+      "text": "Sections 438 and 439 operate in different fields. Section 439 of the Code reads as follows :\n\"439. (1) A High Court or Court of Session may direct-\n(a) that any person accused of an offence and in custody be released on bail, and if the\noffence is of the nature specified in sub-section (3) of Section 437, may impose any condition which it considers necessary for the purposes mentioned in that sub-section ;\n(b) that any condition imposed by the Magistrate when releasing any person on bail be set\naside or modified.\"\n(Underlined for emphasis)"
+    },
+    {
+      "number": "8",
+      "text": "It is clear from a bare reading of the provisions that for making an application in terms of Section\n439 of the Code a person has to be in custody. Section 438 of the Code deals with \"Direction for grant\nof bail to person apprehending arrest\". In Bal Chand Jain vs. State of M.P. (1976) 4 SCC 572 it was\nobserved that the expression \"anticipatory bail\" is really a misnomer because what Section 438\ncontemplates is not an anticipatory bail, but merely an order directing the release of an accused on bail\non the event of his arrest. It is, therefore, manifest that there is no question of bail unless a person is\narrested in connection with a non-bailable offence by the police. The distinction between an order in\nterms of Section 438 and that in terms of Section 439 is that the latter is passed after arrest whereas\nformer is passed in anticipation of arrest and becomes effective at the very moment of arrest. (See Gur\nBaksh Singh vs. State of Punjab (1980) 2 SCC 565."
+    },
+    {
+      "number": "9",
+      "text": "In Salauddin Abdulsamad Shaikh vs. State of Maharashtra (AIR 1996 SC 1042) it was observed\nas follows :\n\"Anticipatory bail is granted in anticipation of arrest in non-bailable cases, but that does not\nmean that the regular Court, which is to try the offender, is sought to be bypassed and that is the\nreason why the High Court very rightly fixed the outer date for the continuance of the bail and on the\ndate of its expiry directed the petitioner to move the regular Court for bail. That is the correct\nprocedure to follow because it must be realised that when the Court of Session or the High Court is\ngranting anticipatory bail, it is granted at a stage when the investigation is incomplete and, therefore, it\nis not informed about the nature of evidence against the alleged offender. It is, therefore, necessary\nthat such anticipatory bail orders should be of a limited duration only and ordinarily on the expiry of\nthat duration or extended duration the Court granting anticipatory bail should leave it to the regular\nCourt to deal with the matter on an appreciation of evidence placed before it after the investigation has\nmade progress or the charge-sheet is submitted\".\n(Emphasis supplied)"
+    },
+    {
+      "number": "10",
+      "text": "In K.L. Vermas case (supra) this Court observed as follows :\n\"This Court further observed that anticipatory bail is granted in anticipation of arrest in\nnon-bailable cases, but that does not mean that the regular Court, which is to try the offender, is sought\nto be bypassed. It was, therefore, pointed out that it was necessary that such anticipatory bail orders\nshould be of a limited duration only and ordinarily on the expiry of that duration or extended duration\nthe Court granting anticipatory bail should leave it to the regular Court to deal with the matter on an\nappreciation of evidence placed before it after the investigation has made progress or the charge-sheet\nis submitted. By this, what the Court desired to convey was that an order of anticipatory bail does not enure till the end of trial but it must be of limited duration as the regular Court cannot be bypassed.\nThe limited duration must be determined having regard to the facts of the case and the need to give the\naccused sufficient time to move the regular Court for bail and to give the regular Court sufficient time\nto determine the bail application. In other words, till the bail application is disposed of one way or the\nother the Court may allow the accused to remain on anticipatory bail. To put it differently, anticipatory\nbail may be granted for a duration which may extend to the date on which the bail application is\ndisposed of or even a few days thereafter to enable the accused persons to move the higher Court, if\nthey so desire.\"\n(Emphasis supplied)"
+    },
+    {
+      "number": "11",
+      "text": "The reference to this Courts observation as quoted above was to Salauddins case (supra)."
+    },
+    {
+      "number": "12",
+      "text": "The grey area according to us is the following part of the judgment in K.L. Vermas case (supra)\n\"or even a few days thereafter to enable the accused persons to move the Higher Court, if they so\ndesire\"."
+    },
+    {
+      "number": "13",
+      "text": "Obviously, the requirement of Section 439 of the Code is not wiped out by the above\nobservations. Section 439 comes into operation only when a person is \"in custody\". In K.L. Vermas\ncase (supra) reference was made to Salauddins case (supra). In the said case there was no such\nindication as given in K. L. Vermas case (supra), that a few days can be granted to the accused to\nmove the higher Court if they so desire. The statutory requirement of Section 439 of the Code cannot\nbe said to have been rendered totally inoperative by the said observation."
+    },
+    {
+      "number": "14",
+      "text": "In view of the clear language of Section 439 and in view of the decision of this Court in\nNiranjan Singh and Anr. vs. Prabhakar Rajaram Kharote and Ors. (AIR 1980 SC 785), there cannot be\nany doubt that unless a person is in custody, an application for bail under Section 439 of the Code\nwould not be maintainable. The question when a person can be said to be in custody within the\nmeaning of Section 439 of the Code came up for consideration before this Court in the aforesaid\ndecision."
+    },
+    {
+      "number": "15",
+      "text": "The crucial question is when a person is in custody, within the meaning of Section 439 of the\nCode When he is in duress either because he is held by the investigating agency or other police or\nallied authority or is under the control of the court having been remanded by judicial order, or having\noffered himself to the courts jurisdiction and submitted to its orders by physical presence. No lexical\ndexterity nor precedential profusion is needed to come to the realistic conclusion that he who is under\nthe control of the court or is in the physical hold to an officer with coercive power is in custody for the\npurpose of Section 439. The word is of elastic semantics but its core meaning is that the law has taken\ncontrol of the person. The equivocatory quibblings and hide-and-seek niceties sometimes heard in\ncourt that the police have taken a man into informal custody but not arrested him, have detained him\nfor interrogation but not taken him into formal custody and other like terminological dubieties are\nunfair evasions of the straightforwardness of the law."
+    },
+    {
+      "number": "16",
+      "text": "Since the expression \"custody\" though used in various provisions of the Code, including Section\n\n439, has not been defined in the Code, it has to be understood in setting in which it is used and the\nprovisions contained in Section 437 which relates to jurisdiction of the Magistrate to release an\naccused on bail under certain circumstances which can be characterized as \"in custody\" in a generic\nsense. The expression \"custody\" as used in Section 439, must be taken to be a compendious expression\nreferring to the events on the happening of which Magistrate can entertain a bail petition of an\naccused. Section 437 envisages, inter alia, that the Magistrate may release an accused on bail, if such\naccused appears before the Magistrate. There cannot be any doubt that such appearance before the\nMagistrate must be physical appearance and the consequential surrender to the jurisdiction of the\nCourt of the Magistrate."
+    },
+    {
+      "number": "17",
+      "text": "In Blacks Law Dictionary by Henry Campbell Black, M.A. (Sixth Edn.), the expression\n\"custody\" has been explained in the following manner :\n\"......The term is very elastic and may mean actual imprisonment or physical\ndetention.....within statute requiring that petitioner be in custody to be entitled to federal habeas corpus\nrelief does not necessarily mean actual physical detention in jail or prison but rather is synonymous\nwith restraint of liberty........Accordingly, persons on probation or parole or released on bail or on own\nrecognizance have been held to be in custody for purposes of habeas corpus proceedings.\""
+    },
+    {
+      "number": "18",
+      "text": "It is to be noted that in K. L. Vermas case (supra) the Court only indicated that time may be\nextended to \"move\" the higher court. In Blacks Law Dictionary the said expression has been explained\nas follows :\n\"Move: to make an application to a Court for a rule or order, or to take action in any matter.\nThe term comprehends all things necessary to be done by a litigant to obtain an order of the Court\ndirecting the relief sought.\""
+    },
+    {
+      "number": "19",
+      "text": "In Salauddins case (supra) also this Court observed that the regular Court has to be moved for\nbail. Obviously, an application under Section 439 of the Code must be in a manner in accordance with\nlaw and accused seeking remedy under Section 439 must ensure that it would be lawful for the Court\nto deal with the application. Unless the applicant is in custody his making application only under\nSection 439 of the Code will not confer jurisdiction on the Court to which the application is made. The\nview regarding extension of time to \"move\" the higher Court as culled out from the decision in K.L.\nVermas case (supra) shall have to be treated as having been rendered per incuriam, as no reference\nwas made to the prescription in Section 439 requiring the accused to be in custody. In State through\nS.P. New Delhi vs. Ratan Lal Arora (2004) 4 SCC 590, it was held that where in a case the decision\nhas been rendered without reference to statutory bars, the same cannot have any precedent value and\nshall have to be treated as having been rendered per incuriam.The present case stands at par, if not, on\na better footing. The provisions of Section 439 do not appear to have been taken note of."
+    },
+    {
+      "number": "20",
+      "text": "\"Incuria\" literally means \"carelessness\". In practice per incuriam is taken to mean per\nignoratium. English Courts have developed this principle in relaxation of the rule of stare decisis. The\n\"quotable in law\", as held in Young vs. Bristol Aeroplane Co. Ltd. (1944) 2 All ER 293, is avoided and ignored if it is rendered, \"in ignoratium of a statute or other binding authority\". Same has been\naccepted, approved and adopted by this Court while interpreting Article 141 of the Constitution of\nIndia, 1950 (in short the Constitution) which embodies the doctrine of precedents as a matter of law.\nThe above position was highlighted in State of U.P. and another vs. Synthetics and Chemicals Ltd. and\nanother (1991) 4 SCC 139. To perpetuate an error is no heroism. To rectify it is the compulsion of the\njudicial conscience."
+    },
+    {
+      "number": "21",
+      "text": "For making an application under Section 439 the fundamental requirement is that the accused\nshould be in custody. As observed in Salauddins case (supra) the protection in terms of Section 438 is\nfor a limited duration during which the regular Court has to be moved for bail. Obviously, such bail is\nbail in terms of Section 439 of the Code, mandating the applicant to be in custody. Otherwise, the\ndistinction between orders under Sections 438 and 439 shall be rendered meaningless and redundant."
+    },
+    {
+      "number": "22",
+      "text": "If the protective umbrella of Section 438 is extended beyond what was laid down in Salauddins\ncase (supra) the result would be clear bypassing of what is mandated in Section 439 regarding custody.\nIn other words, till the applicant avails remedies upto higher Courts, the requirements of Section 439\nbecome dead letter. No part of a statute can be rendered redundant in that manner."
+    },
+    {
+      "number": "23",
+      "text": "These aspects were recently highlighted in Nirmal Jeet Kaur vs. The State of Madhya Pradesh\nand Anr. JT 2004 (7) SC 161. Therefore the order of the High Court granting unconditional protection\nis clearly untenable and is set aside. However the petitioner is granted a months time from today to\napply for regular bail after surrendering to custody before the concerned Court which shall deal with\nthe application in accordance with law. We express no opinion about the merits of the case."
+    },
+    {
+      "number": "24",
+      "text": "Respondent No.2 would surrender to custody as required in law so that his application under\nSection 439 of the Code can be taken for disposal."
+    },
+    {
+      "number": "25",
+      "text": "Before saying omega, a few factors need to be noted."
+    },
+    {
+      "number": "26",
+      "text": "From the petition filed in this Court and the counter affidavit filed by Respondent No.2 some\nbaffling features are noticed. Both the appellant and respondent No.2 have referred to the supervision\nnotes of the supervisory police officers. When asked as to how they could know about contents of\nsupervision notes, evasive replies were given. Many instances have come in light when reference to\nthe supervision notes have been made by the accused persons while seeking bail and also during trial."
+    },
+    {
+      "number": "27",
+      "text": "Sections 207 and 208 of the Code deal with documents which are commonly known as police\npapers, which are to be supplied to the accused. The said sections read as follows :\n\"Section 207- Supply to the accused of copy of police report and other documents : In any\ncase where the proceeding has been instituted on a police report, the Magistrate shall without delay\nfurnish to the accused, free of cost, a copy of each of the following :-\n(i) the police report;\n(ii) the first information report recorded under Section 154;\n\n(iii) the statements recorded under sub-section (3) of Section 161 of all persons whom the prosecution\nproposes to examine as its witnesses, excluding therefrom any part in regard to which a request for\nsuch exclusion has been made by the police officer under sub-section (6) of Section 173;\n(iv) the confessions and statements, if any, recorded under Section 164;\n(v) any other document or relevant extract thereof forwarded to the Magistrate with the\npolice report under sub-section (5) of Section 173 :\nProvided that the Magistrate may, after perusing any such part of a statement as is referred\nto in clause (iii) and considering the reasons given by the police officer for the request, direct that a\ncopy of that part of the statement or of such portion thereof as the Magistrate thinks proper, shall be\nfurnished to the accused :\nProvided further that if the Magistrate is satisfied that any document referred to in clause\n(v) is voluminous, he shall, instead of furnishing the accused with a copy thereof, direct that he will\nonly be allowed to inspect it either personally or through pleader in Court.\nSection 208- Supply of copies of statements and documents to accused in other cases triable by Court\nof Session - Where, in a case instituted otherwise than on a police report, it appears to the Magistrate\nissuing process under Section 204 that the offence is triable exclusively by the Court of Session, the\nMagistrate shall without delay furnish to the accused, free of cost, a copy of each of the following :-\n(i) the statements recorded under Section 200 or Section 202, or all persons examined by\nthe Magistrate;\n(ii) the statements and confessions, if any, recorded under Section 161 or Section 164;\n(iii) any documents produced before the Magistrate on which the prosecution proposes to\nrely :\nProvided that if the Magistrate is satisfied that any such document is voluminous, he shall,\ninstead of furnishing the accused with a copy thereof, direct that he will only be allowed to inspect it\neither personally or through pleader in Court.\""
+    },
+    {
+      "number": "28",
+      "text": "The supervision notes can in no count be called. They are not a part of the papers which are\nsupplied to the accused. Moreover, the informant is not entitled to the copy of the supervision notes.\nThe supervision notes are recorded by the supervising officer. The documents in terms of Sections 207\nand 208 are supplied to make the accused aware of the materials which are sought to be utilized\nagainst him. The object is to enable the accused to defend himself properly. The idea behind the\nsupply of copies is to put him on notice of what he has to meet at the trial. The effect of non-supply of\ncopies has been considered by this Court in Noor Khan vs. State of Rajasthan (AIR 1964 SC 286) and\nShakila Abdul Gafar Khan (Smt.) vs. Vasant Raghunath Dhoble and Anr. (2003) 7 SCC 749. It was\nheld that non-supply is not necessarily prejudicial to the accused. The Court has to give a definite\nfinding about the prejudice or otherwise. The supervision notes cannot be utilized by the prosecution as a piece of material or evidence against the accused. At the same time the accused cannot make any\nreference to them for any purpose. If any reference is made before any court to the supervision notes,\nas has noted above they are not to be taken note of by the concerned court. As many instances have\ncome to light when the parties, as in the present case, make reference to the supervision notes, the\ninevitable conclusion is that they have unauthorized access to the official records. We, therefore, direct\nthe Chief Secretary of each State and Union Territory and the concerned Director General of Police to\nensure that the supervision notes are not made available to any person and to ensure that\nconfidentiality of the supervision notes is protected. If it comes to light that any official is involved in\nenabling any person to get the same appropriate action should be taken against such official. Due care\nand caution should be taken to see that while supplying police papers supervision notes are not given."
+    },
+    {
+      "number": "29",
+      "text": "The appeal is allowed to the aforesaid extent."
+    }
+  ],
+  "bail_amount_original": "Rs. 1000",
+  "bail_amount_modified": "Rs. 10,000",
+  "bail_amount_original_normalized": "Rs. 1000",
+  "bail_amount_modified_normalized": "Rs. 10,000",
+  "bail_outcome": "modified",
+  "bail_conditions": [],
+  "ratio_decidendi": "The supervision notes can in no count be called. They are not a part of the papers which are\nsupplied to the accused. Moreover, the informant is not entitled to the copy of the supervision notes.\nThe supervision notes are recorded by the supervising officer. The documents in terms of Sections 207\nand 208 are supplied to make the accused aware of the materials which are sought to be utilized\nagainst him. The object is to enable the accused to defend himself properly. The idea behind the\nsupply of copies is to put him on notice of what he has to meet at the trial. The effect of non-supply of\ncopies has been considered by this Court in Noor Khan vs. State of Rajasthan (AIR 1964 SC 286) and\nShakila Abdul Gafar Khan (Smt.) vs. Vasant Raghunath Dhoble and Anr. (2003) 7 SCC 749. It was\nheld that non-supply is not necessarily prejudicial to the accused. The Court has to give a definite\nfinding about the prejudice or otherwise. The supervision notes cannot be utilized by the prosecution as a piece of material or evidence against the accused. At the same time the accused cannot make any\nreference to them for any purpose. If any reference is made before any court to the supervision notes,\nas has noted above they are not to be taken note of by the concerned court. As many instances have\ncome to light when the parties, as in the present case, make reference to the supervision notes, the\ninevitable conclusion is that they have unauthorized access to the official records. We, therefore, direct\nthe Chief Secretary of each State and Union Territory and the concerned Director General of Police to\nensure that the supervision notes are not made available to any person and to ensure that\nconfidentiality of the supervision notes is protected. If it comes to light that any official is involved in\nenabling any person to get the same appropriate action should be taken against such official. Due care\nand caution should be taken to see that while supplying police papers supervision notes are not given.",
+  "ratio_para_number": "28",
+  "dispute_nature": "assault/hurt",
+  "missing_anchors": [],
+  "warnings": []
+}

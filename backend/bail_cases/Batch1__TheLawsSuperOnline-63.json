@@ -1,0 +1,168 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-63.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2009-5-25",
+  "court": "SUPREME COURT OF INDIA (FROM: PUNJAB & HARYANA)",
+  "coram": "MARKANDEY KATJU, DEEPAK VERMA JJ.",
+  "decided_on": "May 18, 2009",
+  "decided_on_year": 2009,
+  "appeal_type": "S.L.P. (CRL.) NO. 3529 OF 2009",
+  "final_verdict": "Petition disposed",
+  "appellant": "SUKHWANT SINGH",
+  "respondent": "STATE OF PUNJAB",
+  "advocates": "GAUTAM GODARA, RAVINDRA KESHAVRAO",
+  "equivalent_citations": [
+    "AIR(SCW)-2010-0-1185",
+    "CALCRILR-2009-2-666",
+    "CGLJ-2010-2-54",
+    "CRLJ-2010-0-1435",
+    "JT-2009-12-437",
+    "KHC-2009-3-465",
+    "LAWS(SC)-2009-5-25",
+    "MADLJ(CRI)-2010-1-401",
+    "MPWN-2010-1-66",
+    "SCALE-2009-7-700",
+    "SCC-2009-7-559",
+    "SCC(CR)-2009-3-487",
+    "UJ-2009-5-2364",
+    "AICLR-2010-1-113",
+    "JCC-2009-3-1716",
+    "RAJ-2009-6-106",
+    "RCR(CRI)-2009-4-868",
+    "KLD-2009-2-116",
+    "BLJR-2009-57-2291",
+    "JT-2009-12-436",
+    "MPHT(SC)-2009-5-139",
+    "PUNLR-2010-157-230",
+    "SCR-2009-10-821",
+    "GLHEL-2009-0-44076",
+    "AIRJHARR-2010-3-802",
+    "CCR-2009-4-384",
+    "CRICC-2010-1-57",
+    "CRLR(SC)-2010-0-286",
+    "LRC-2009-4-142 Referred Judgement(s) : - Deepak Bajaj Vs. State Of Maharashtra",
+    "[AIR 2009 SC 628] [Referred To] - Lal Kamlendra Pratap Singh Vs. State Of U P",
+    "[2009 7 JT 327] [Referred To]"
+  ],
+  "cited_judgments": [
+    "Mian Abdul Qayoom Vs. State Of Jammu And Kashmir, [LAWS(J&K)-2010-12-6] [Referred To]",
+    "Talluri Srinivas Vs. State, [LAWS(APH)-2009-10-82] [Referred To]",
+    "Pramod S/O Madhukar Kalpund Vs. Savita W/O Rajendra Kalpund, [LAWS(BOM)-2015-2-12] [Referred To]",
+    "Kaiptan Singh Vs. State Of U.P. And Another, [LAWS(ALL)-2013-1-369] [Referred To]",
+    "Pramod Vs. Savita And Ors., [LAWS(BOM)-2015-2-15] [Referred To]",
+    "Jerome Vs. State Of Kerala, [LAWS(KER)-2012-11-585] [Referred To]",
+    "Smt. Shanti Devi Vs. State Of U.P. And Another, [LAWS(ALL)-2012-1-819] [Referred To]",
+    "Ok Play India Limited Vs. Mayank Aggarwal & Ors, [LAWS(DLH)-2016-7-12] [Referred To]",
+    "M.C. Jayasingh Vs. Mishra Dhatu Nigam Limited, [LAWS(MAD)-2014-1-38] [Referred To]",
+    "Anita Kushwaha Vs. Pushap Sudan, [LAWS(SC)-2016-7-72] [Referred To]",
+    "Satvinder Singh Vs. Jasvinder Kaur, [LAWS(DLH)-2015-9-714] [Referred]",
+    "Khemchand And Others Vs. State Of U P And Another, [LAWS(ALL)-2011-12-485] [Referred]",
+    "Vishwa Mitra Patel Vs. State Of Uttar Pradesh, [LAWS(ALL)-2011-12-469] [Referred]",
+    "Mallan Vs. State Of Uttar Pradesh And Another, [LAWS(ALL)-2011-12-455] [Referred]",
+    "Deen Mohammad And Others Vs. State Of Uttar Pradesh And Another, [LAWS(ALL)-2011-12-459] [Referred]",
+    "Imtiyazul Hassan @ Salim Vs. State Of Uttar Pradesh And Another, [LAWS(ALL)-2011-11-556] [Referred]",
+    "Renu Kureel And Others Vs. State Of U P And Another, [LAWS(ALL)-2011-10-220] [Referred]",
+    "Prati Pal Singh And Others Vs. State Of U P And Another, [LAWS(ALL)-2011-9-728] [Referred]",
+    "Kesar Khatoon @ Kesar Khan And Others Vs. State Of U P And Another, [LAWS(ALL)-2011-9- 730] [Referred]",
+    "Vinay Kumar And Others Vs. State Of U P & Another, [LAWS(ALL)-2011-9-716] [Referred]",
+    "Naushad And Others Vs. State Of U P & Another, [LAWS(ALL)-2011-9-720] [Referred]",
+    "Indra Pal Yadav Vs. State Of U P, [LAWS(ALL)-2011-9-709] [Referred]",
+    "Rajesh Sharma Vs. State Of U P And Another, [LAWS(ALL)-2011-9-679] [Referred]",
+    "Nirmal Devi Vs. State Of U P And Another, [LAWS(ALL)-2010-12-255] [Referred]",
+    "Kamal Kumar Bohra Vs. State Of West Bengal, [LAWS(CAL)-2010-7-19] [Referred To]",
+    "Paramjit Singh Chahal Vs. State Of Punjab, [LAWS(P&H)-2014-3-36] [Referred To]",
+    "Devangana Kalita Vs. Delhi Police , [LAWS(DLH)-2020-7-11] [Referred To]",
+    "Ami Chand Vs. State Of Himachal Pradesh, [LAWS(HPH)-2020-9-26] [Referred To]",
+    "Smt. Vijayalaxmi Shetty Vs. Mr. Kochu Shetty, [LAWS(KAR)-2020-11-7] [Referred To]",
+    "Vijayalaxmi Shetty Vs. Kochu Shetty, [LAWS(KAR)-2020-11-318] [Referred To]",
+    "Ngaitlang Suchiang Vs. State Of Meghalaya, [LAWS(MEGH)-2020-11-10] [Referred To]",
+    "Tulsidas Bhiku Naik Vs. Dumen Silveira, [LAWS(BOM)-2021-12-221] [Referred To]",
+    "Pankaj Brijmohan Khosla Vs. State Of Gujarat, [LAWS(GJH)-2023-10-35] [Referred To]",
+    "Chowgule And Company Vs. Public Prosecutor, [LAWS(BOM)-2024-8-32] [Referred To]",
+    "Amutha Vs. State, [LAWS(MAD)-2025-8-18] [Referred To]",
+    "Loyola Johnson Vs. State, [LAWS(MAD)-2024-12-107] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438",
+    "Constitution Of India, Art.21"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "State, [LAWS(MAD)-2024-12-107] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Constitution Of India, Art.21 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [],
+  "crpc_sections_mentioned": [
+    "438"
+  ],
+  "procedural_history": {
+    "high_court_order_date": "24.03.2009"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, CONSTITUTION OF INDIA - ART.21 - Protection of life and personal\nliberty - When a person applies for regular bail then the court concerned ordinarily lists that\napplication after a few days so that it can look into the case diary which has to be obtained from the police authorities and in the meantime the applicant has to go to jail. - In the present\ncase, if the petitioners surrender before the Court concerned and makes a prayer for grant of\ninterim bail pending final disposal of the bail application, the same shall be considered and\ndecided on the same day.\nB. Even if the applicant is released on bail thereafter, his reputation may be tarnished\nirreparably in society. - Hence, we are of the opinion that in the power to grant bail there is\ninherent power in the court concerned to grant interim bail to a person pending final disposal\nof the bail application.\nC. In the present case, if the petitioners surrender before the Court concerned and makes a\nprayer for grant of interim bail pending final disposal of the bail application, the same shall\nbe considered and decided on the same day. - With the abovesaid observations, the petition\nstands disposed of.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, CONSTITUTION OF INDIA - ART.21 - Protection of life and personal\nliberty - When a person applies for regular bail then the court concerned ordinarily lists that\napplication after a few days so that it can look into the case diary which has to be obtained from the police authorities and in the meantime the applicant has to go to jail. - In the present\ncase, if the petitioners surrender before the Court concerned and makes a prayer for grant of\ninterim bail pending final disposal of the bail application, the same shall be considered and\ndecided on the same day."
+    },
+    {
+      "label": "B",
+      "text": "Even if the applicant is released on bail thereafter, his reputation may be tarnished\nirreparably in society. - Hence, we are of the opinion that in the power to grant bail there is\ninherent power in the court concerned to grant interim bail to a person pending final disposal\nof the bail application."
+    },
+    {
+      "label": "C",
+      "text": "In the present case, if the petitioners surrender before the Court concerned and makes a\nprayer for grant of interim bail pending final disposal of the bail application, the same shall\nbe considered and decided on the same day. - With the abovesaid observations, the petition\nstands disposed of."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Heard learned Counsel for the petitioners."
+    },
+    {
+      "number": "2",
+      "text": "This petition has been filed challenging the judgment and order dated 24.03.2009 of a learned\nSingle Judge of the High Court of Punjab and Haryana at Chandigarh whereby the Application u/s 438\nof the Cr.P.C. for grant of anticipatory bail has been dismissed."
+    },
+    {
+      "number": "3",
+      "text": "We are not inclined to interfere with the impugned judgment and order. However, following the\ndecision of this Court in the case of Lal Kamlendra Pratap Singh Vs. State of U.P. and Others, , we\nreiterate that a Court hearing a regular bail application has got inherent power to grant interim bail\npending final disposal of the bail application. In our opinion, this is the proper view in view of Article\n21 of the Constitution of India which protects the life and liberty of every person. When a person\napplies for regular bail then the court concerned ordinarily lists that application after a few days so that\nit can look into the case diary which has to be obtained from the police authorities and in the meantime\nthe applicant has to go to jail. Even if the applicant is released on bail thereafter, his reputation may be\ntarnished irreparably in society. The reputation of a person is his valuable asset, and is a facet of his\nright under Article 21 of the Constitution vide Deepak Bajaj Vs. State of Maharashtra and Another, ."
+    },
+    {
+      "number": "4",
+      "text": "Hence, we are of the opinion that in the power to grant bail there is inherent power in the court\nconcerned to grant interim bail to a person pending final disposal of the bail application. Of course, it\nis in the discretion of the court concerned to grant interim bail or not but the power is certainly there."
+    },
+    {
+      "number": "5",
+      "text": "In the present case, if the petitioners surrender before the Court concerned and makes a prayer for\ngrant of interim bail pending final disposal of the bail application, the same shall be considered and\ndecided on the same day."
+    },
+    {
+      "number": "6",
+      "text": "With the abovesaid observations, the petition stands disposed of."
+    }
+  ],
+  "bail_amount_original": "Rs. ,",
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": "Rs. ,",
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": null,
+  "bail_conditions": [],
+  "ratio_decidendi": "With the abovesaid observations, the petition stands disposed of.",
+  "ratio_para_number": "6",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": [
+    "Could not determine bail_outcome — add a signal phrase to _determine_bail_outcome for this case"
+  ]
+}
