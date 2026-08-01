@@ -482,7 +482,7 @@ async def analyze_evidence_endpoint(file: UploadFile = File(...)):
 
 
 @app.post("/api/lexigraph/analyze")
-async def lexigraph_analyze_endpoint(req: LexiGraphQueryRequest):
+async def lexigraph_analyze_endpoint(req: LexiGraphAgentQueryRequest):
     """
     LexiGraph Explorer endpoint that processes legal queries using the full
     hierarchical GraphRAG pipeline (lexigraph_agent.py).
