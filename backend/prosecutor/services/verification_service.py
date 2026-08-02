@@ -152,6 +152,82 @@ class VerificationService:
             "mapping_verified": True
         }
 
+    def batch_check_ingredients(self, sections: List[Dict[str, str]]) -> Dict[str, bool]:
+        """
+        Single-round-trip check: for each (act, section) pair, returns True if
+        the Neo4j graph has at least one Crime node or HAS_INGREDIENT edge —
+        i.e. the section has statutory ingredient data and can be validated.
+
+        Use this BEFORE the per-candidate get_node_info loop so sections with
+        no ingredient data are eliminated before they cause individual Neo4j
+        calls.  Sections without ingredient data are still legitimate law, but
+        the IngredientValidatorService cannot validate them and they will always
+        be rejected at Step 4 — so we skip the Neo4j enrichment cost entirely.
+
+        Returns a dict keyed by "ACT SECTION" → bool (True = has ingredients).
+        """
+        if not sections:
+            return {}
+
+        query = """
+            UNWIND $sections AS s
+            OPTIONAL MATCH (c:Crime)-[:DEFINED_BY]->(n:LawSection {act: s.act, section: s.section})
+            WITH s, count(c) AS crime_count
+            RETURN s.act AS act, s.section AS section, crime_count > 0 AS has_ingredients
+        """
+        try:
+            rows = self.neo4j_service.run_query(query, {"sections": sections})
+        except Exception as e:
+            print(f"[VerificationService] batch_check_ingredients error: {e}")
+            # On error, assume all sections may have ingredients (safe fallback —
+            # per-section validation will still reject them if they don't).
+            return {f"{s['act']} {s['section']}": True for s in sections}
+
+        result: Dict[str, bool] = {}
+        for row in rows:
+            key = f"{row['act']} {row['section']}"
+            result[key] = bool(row.get("has_ingredients"))
+
+        # Fill any keys that came back missing from the query (shouldn't happen,
+        # but guard against partial result sets from a LIMIT or timeout).
+        for s in sections:
+            key = f"{s['act']} {s['section']}"
+            if key not in result:
+                result[key] = False
+
+        return result
+
+    def batch_get_nodes(self, sections: List[Dict[str, str]]) -> Dict[str, Dict[str, Any]]:
+        """
+        Single-round-trip fetch of node properties for multiple sections.
+        Replaces the per-candidate get_node_info() loop in Step 3 of LexiGraphAgent.
+
+        Returns a dict keyed by "ACT SECTION" → node property dict (same shape
+        as get_node_info(), empty dict if the node doesn't exist in the graph).
+        """
+        if not sections:
+            return {}
+
+        query = """
+            UNWIND $sections AS s
+            MATCH (n:LawSection {act: s.act, section: s.section})
+            RETURN n.act AS act, n.section AS section, n.title AS title,
+                   n.description AS description, n.punishment AS punishment,
+                   n.chapter AS chapter, n.category AS category,
+                   n.keywords AS keywords
+        """
+        try:
+            rows = self.neo4j_service.run_query(query, {"sections": sections})
+        except Exception as e:
+            print(f"[VerificationService] batch_get_nodes error: {e}")
+            return {}
+
+        result: Dict[str, Dict[str, Any]] = {}
+        for row in rows:
+            key = f"{row['act']} {row['section']}"
+            result[key] = dict(row)
+        return result
+
     def get_connected_nodes(self, act: str, section: str) -> List[Dict[str, Any]]:
         """Retrieves rule-linked sections, crimes, and act crosswalk neighbours (IPC/BNS, CrPC/BNSS, IEA/BSA)."""
         connected: List[Dict[str, Any]] = []

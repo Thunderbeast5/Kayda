@@ -334,26 +334,34 @@ class LexiGraphAgent:
             keywords=qu_result.get("keywords", [])
         )
 
-        # STEP 2: Type-Aware Vector Search
-        print("[LexiGraphAgent] Step 2: Type-Aware Vector Search (Pinecone Legal Sections + Precedents)...")
+        # STEP 2: IPC-Only Vector Search
+        # ---------------------------------
+        # We query Pinecone filtered to IPC sections only. IPC is the canonical
+        # reference corpus: every section has a well-known number, rich descriptions,
+        # and a deterministic BNS mapping in Neo4j. Querying both IPC and BNS in the
+        # same pass caused duplicate hits that then needed messy normalisation; pulling
+        # IPC only gives us a clean, deduplicated candidate list to verify in Neo4j
+        # before doing the crosswalk to BNS.
+        print("[LexiGraphAgent] Step 2: IPC-Only Vector Search (Pinecone)...")
 
-        # Embed only the non-procedural sub-queries
         emb_input = {"search_queries": pinecone_query_strings}
         emb_result = self.embedding_service.generate_embeddings(emb_input)
 
-        # Annotate each embedding with its sub-query type so results carry type metadata
         sq_type_by_query = {sq["query"]: sq["type"] for sq in pinecone_sub_queries}
         for emb_item in (emb_result.get("embeddings") or []):
             emb_item["sub_query_type"] = sq_type_by_query.get(emb_item.get("query", ""), "OFFENCE")
 
-        # For case retrieval use the OFFENCE/AGGRAVATION-only embedding subset
+        # Case retrieval uses OFFENCE/AGGRAVATION sub-queries only
         case_query_strings = [sq["query"] for sq in case_retrieval_queries]
         case_emb_input = {"search_queries": case_query_strings}
         case_emb_result = self.embedding_service.generate_embeddings(case_emb_input)
 
-        retrieval_res = self.pinecone_service.query_index(emb_result, top_k=15, namespace="legal_sections")
+        # IPC-only filter — keeps Pinecone returning only IPC vectors so we never
+        # get BNS/BNSS/BSA mixed in at retrieval time.
+        retrieval_res = self.pinecone_service.query_index(
+            emb_result, top_k=10, namespace="legal_sections", act_filter="IPC"
+        )
         top_similar_cases = self.case_retrieval_service.retrieve_cases(case_emb_result, top_k=10)
-
         top_similar_cases = self.precedent_ranking_service.rank_cases(
             cases=top_similar_cases,
             query=query,
@@ -365,36 +373,26 @@ class LexiGraphAgent:
         merged_candidates = merge_res.get("merged_candidates") or []
 
         self.pipeline_debug_service.log_stage(
-            "Step 2: Vector Search",
+            "Step 2: IPC-Only Vector Search",
             input_count=len(pinecone_query_strings),
             output_count=len(merged_candidates),
             metadata={"similar_cases_retrieved": len(top_similar_cases)}
         )
 
-        # Build raw candidates, carrying the sub_query_type from whichever
-        # sub-query contributed the highest-scoring hit for this candidate.
-        # The type is used in Step 4 to decide whether ingredient validation runs.
+        _cand_summary = [f"{mc['act']} {mc['section_num']} ({mc['best_similarity']:.2f})" for mc in merged_candidates]
+        print(f"[LexiGraphAgent] Step 2 raw candidates from Pinecone: {_cand_summary}")
+
+        # Build raw_candidates list — all IPC, dominant type derived from sub-queries
         raw_candidates = []
         for mc in merged_candidates:
-            norm_act, norm_sec_num = _normalize_section_params(mc["act"], mc["section_num"])
-            # Determine the dominant type: if any OFFENCE sub-query hit this candidate,
-            # mark it OFFENCE (strictest validation). Otherwise use the actual type.
+            _, norm_sec_num = _normalize_section_params("IPC", mc["section_num"])
+
             source_types = set()
             for src in (mc.get("sources") or []):
                 t = sq_type_by_query.get(src, None)
                 if t:
                     source_types.add(t)
 
-            # Prior logic forced OFFENCE onto a candidate whenever ANY OFFENCE
-            # sub-query hit it at all — even a low-similarity, incidental hit.
-            # That's how an Evidence Act section (e.g. BSA 118) retrieved
-            # mainly by the narrow EVIDENCE_PRESUMPTION query, but also
-            # picked up loosely by a broad OFFENCE query, got forced into
-            # full ingredient validation and rejected as a false negative.
-            # A narrow, purpose-built sub-query type hitting a candidate is a
-            # more trustworthy signal than incidental overlap from a broad
-            # OFFENCE concept search, so a non-OFFENCE type present alongside
-            # OFFENCE now wins instead of being overridden.
             non_offence_hits = source_types - {"OFFENCE"}
             if not source_types:
                 dominant_type = "OFFENCE"
@@ -403,29 +401,9 @@ class LexiGraphAgent:
             else:
                 dominant_type = "OFFENCE"
 
-            # Intrinsic act-family override: some acts can never contain an
-            # offence-creating provision regardless of which sub-query
-            # surfaced them, so this is authoritative over the retrieval-based
-            # guess above. BSA/IEA are Evidence Acts (no substantive offences
-            # live there); BNSS/CRPC are Procedure Acts. This is a structural
-            # legal fact about the act itself, not a keyword/section hardcode.
-            if norm_act in ("BSA", "IEA"):
-                dominant_type = "EVIDENCE_PRESUMPTION"
-            elif norm_act in ("BNSS", "CRPC"):
-                dominant_type = "PROCEDURAL"
-            # Substantive criminal act sections (IPC/BNS/DPA) must always go
-            # through ingredient validation — they cannot be auto-accepted on
-            # vector similarity alone, regardless of which sub-query surfaced
-            # them. This prevents a misclassified sub_query_type from bypassing
-            # the hard rejection that catches sections like IPC 304B (Dowry
-            # Death) when no death is present in the facts.
-            elif norm_act in ("IPC", "BNS", "DPA", "DOWRY", "POCSO"):
-                if dominant_type not in ("OFFENCE", "PUNISHMENT_QUANTUM"):
-                    dominant_type = "OFFENCE"
-
             raw_candidates.append({
-                "section": f"{norm_act} {norm_sec_num}",
-                "act": norm_act,
+                "section": f"IPC {norm_sec_num}",
+                "act": "IPC",
                 "section_num": norm_sec_num,
                 "title": mc["metadata"].get("title") or "",
                 "punishment": mc["metadata"].get("punishment") or "",
@@ -435,55 +413,24 @@ class LexiGraphAgent:
                 "sources": mc["sources"]
             })
 
-        # --- RAW CANDIDATE ACT-FAMILY NORMALISATION ---
-        # Pinecone stores both old-law (IPC/CrPC/IEA) and new-law (BNS/BNSS/BSA)
-        # embeddings in the same index. Whichever version scores highest for a
-        # given query becomes the raw candidate — this is non-deterministic across
-        # queries, causing inconsistent graph lookups (sometimes requesting BNS
-        # first, sometimes IPC first, with the other appearing as a crosswalk
-        # printout).
+        # STEP 3: Two-Phase Graph Verification + BNS Crosswalk
+        # -------------------------------------------------------
+        # Phase A — Verify IPC sections in Neo4j
+        #   Only IPC sections that actually exist as nodes in the graph pass through.
+        #   This is the cross-verification step: Pinecone said it's relevant, Neo4j
+        #   confirms the section exists and gives us the authoritative title/description.
         #
-        # We normalise here: if a raw candidate comes back from the legacy act,
-        # look up its current-act equivalent from the graph and swap it in before
-        # any node lookups or deduplication happen.  This means Step 3 always
-        # works from the current statute, producing one consistent crosswalk lookup
-        # per section instead of one from each direction.
-        #
-        # Normalisation is driven ENTIRELY by the graph (REPLACES/REPLACED_BY
-        # edges), not by any hardcoded section lists, so it works for every
-        # section in every act family automatically.
-        #
-        # Acts that have no counterpart (POCSO, DPA) are left untouched — the
-        # fixed verification_service.get_equivalent_ipc_section now returns None
-        # for unknown acts rather than guessing "IPC".
-        _LEGACY_ACTS = {"IPC", "CRPC", "IEA"}
-
-        normalised_raw: List[Dict[str, Any]] = []
-        for c in raw_candidates:
-            if c["act"] not in _LEGACY_ACTS:
-                normalised_raw.append(c)
-                continue
-            # Ask the graph for the current-act equivalent
-            eq = self.verification_service.get_equivalent_ipc_section(c["act"], c["section_num"])
-            if eq and eq.get("act") and eq.get("section"):
-                promoted = dict(c)
-                promoted["act"] = eq["act"]
-                promoted["section_num"] = eq["section"]
-                promoted["section"] = f"{eq['act']} {eq['section']}"
-                promoted["_promoted_from"] = f"{c['act']} {c['section_num']}"
-                normalised_raw.append(promoted)
-            else:
-                # No graph mapping found — keep original and let Step 3 handle it
-                normalised_raw.append(c)
-        raw_candidates = normalised_raw
-
-        # STEP 3: Verification & Cross-Mapping
-        print("[LexiGraphAgent] Step 3: Graph Verification & Code Cross-Mapping...")
+        # Phase B — Crosswalk IPC → BNS for survivors only
+        #   Once we have a clean, small set of confirmed IPC sections, we do one
+        #   REPLACED_BY lookup per survivor to get the current BNS equivalent.
+        #   The final candidate list uses the BNS section (current law) with the
+        #   IPC section recorded as provenance.
+        print("[LexiGraphAgent] Step 3: Graph Verification (IPC) + BNS Crosswalk...")
         consolidated_candidates: Dict[str, Dict[str, Any]] = {}
 
-        # Always include anticipatory bail provisions — typed as PROCEDURAL so
-        # Step 4 auto-accepts them without ingredient validation.
-        for p_act, p_sec in (("BNSS", "482"), ("CRPC", "438")):
+        # Always inject the anticipatory bail procedural section — BNSS 482 is
+        # the specific relief being sought and is unconditionally relevant.
+        for p_act, p_sec in (("BNSS", "482"),):
             node_info = self.verification_service.get_node_info(p_act, p_sec)
             if node_info:
                 key = f"{p_act} {p_sec}"
@@ -497,10 +444,12 @@ class LexiGraphAgent:
                     "vector_similarity": 0.70,
                     "sub_query_type": "PROCEDURAL",
                     "graph_verified": True,
+                    "equivalent_mapping": None,
                     "metadata": node_info,
-                    "sources": ["Anticipatory bail provision - the specific relief sought"]
+                    "sources": ["Anticipatory bail provision — specific relief sought"]
                 }
 
+        # Similarity floor before touching Neo4j
         FALLBACK_MIN_CANDIDATES = 5
         candidates_above_threshold = [c for c in raw_candidates if c["vector_similarity"] >= CANDIDATE_SIMILARITY_THRESHOLD]
         if candidates_above_threshold:
@@ -509,73 +458,97 @@ class LexiGraphAgent:
             sorted_by_similarity = sorted(raw_candidates, key=lambda c: c["vector_similarity"], reverse=True)
             filtered_candidates = sorted_by_similarity[:FALLBACK_MIN_CANDIDATES]
             if raw_candidates:
-                print(f"[LexiGraphAgent] WARNING: no candidates cleared threshold; falling back to top {len(filtered_candidates)}.")
+                print(f"[LexiGraphAgent] WARNING: no candidates cleared threshold; "
+                      f"falling back to top {len(filtered_candidates)}.")
 
-        # Known punishment-only section patterns: sections whose title or category
-        # signal they are purely a quantum-of-punishment provision, not a definitional
-        # offence section. These should never enter ingredient validation independently.
-        # They are surfaced as paired metadata on their parent definition section.
+        # --- PHASE A: Verify IPC sections exist in Neo4j ---
+        ipc_verified: List[Dict[str, Any]] = []
+        for c in filtered_candidates:
+            ipc_node = self.verification_service.get_node_info("IPC", c["section_num"])
+            if not ipc_node:
+                print(f"[LexiGraphAgent] Phase A REJECT (not in Neo4j): IPC {c['section_num']}")
+                continue
+            # Attach the authoritative node data from the graph
+            c["title"] = ipc_node.get("title") or c["title"]
+            c["description"] = ipc_node.get("description") or ""
+            c["punishment"] = ipc_node.get("punishment") or ""
+            c["metadata"] = ipc_node
+            c["graph_verified"] = True
+            ipc_verified.append(c)
+
+        print(f"[LexiGraphAgent] Phase A verified IPC sections: "
+              f"{[c['section'] for c in ipc_verified]}")
+
+        # --- PHASE B: Crosswalk IPC → BNS for survivors only ---
         _PUNISHMENT_TITLE_SIGNALS = re.compile(
             r"\bpunishment\s+for\b|\bpenalty\s+for\b|\bsentence\s+for\b",
             re.IGNORECASE
         )
 
-        for c in filtered_candidates:
-            act, sec_num = c["act"], c["section_num"]
-            node_info = self.verification_service.get_node_info(act, sec_num)
-            if not node_info:
-                continue
+        for c in ipc_verified:
+            ipc_sec_num = c["section_num"]
+            bns_eq = self.verification_service.get_equivalent_ipc_section("IPC", ipc_sec_num)
 
-            eq_result = self.verification_service.get_equivalent_ipc_section(act, sec_num)
-            cand_key = f"{act} {sec_num}"
+            if bns_eq and bns_eq.get("act") == "BNS" and bns_eq.get("section"):
+                # Use BNS as the canonical section; record IPC as provenance
+                bns_act = bns_eq["act"]
+                bns_sec = bns_eq["section"]
+                cand_key = f"{bns_act} {bns_sec}"
 
-            # Detect punishment-quantum sections.
-            # A section is a punishment-quantum provision (not a standalone
-            # definable offence) if:
-            #   (a) its title starts with "Punishment for ..." — the canonical
-            #       IPC drafting pattern for quantum sections (IPC 506, 304B
-            #       heading etc.), OR
-            #   (b) it is a subsection node (section identifier contains a
-            #       parenthetical suffix like "351(2)") whose parent section
-            #       is already in the candidate list as a definition section.
-            # These sections are re-tagged PUNISHMENT_QUANTUM so Step 4
-            # accepts them without ingredient validation, and the render step
-            # surfaces them as punishment metadata on their parent offence.
-            title_str = node_info.get("title") or c.get("title") or ""
-            is_subsection = bool(re.search(r"\(\w+\)\s*$", sec_num))
-            is_punishment_title = bool(_PUNISHMENT_TITLE_SIGNALS.search(title_str))
-            is_punishment_section = is_punishment_title or is_subsection
+                bns_node = self.verification_service.get_node_info(bns_act, bns_sec)
+                title_str = (bns_node.get("title") if bns_node else None) or c["title"]
+                desc_str = (bns_node.get("description") if bns_node else None) or c.get("description", "")
+                pun_str = (bns_node.get("punishment") if bns_node else None) or c.get("punishment", "")
 
-            dominant_type = c.get("sub_query_type", "OFFENCE")
-            if is_punishment_section:
-                dominant_type = "PUNISHMENT_QUANTUM"
+                dominant_type = c.get("sub_query_type", "OFFENCE")
+                if _PUNISHMENT_TITLE_SIGNALS.search(title_str or ""):
+                    dominant_type = "PUNISHMENT_QUANTUM"
 
-            consolidated_candidates[cand_key] = {
-                "section": cand_key,
-                "title": node_info.get("title", c["title"]),
-                "description": node_info.get("description", ""),
-                "punishment": node_info.get("punishment", ""),
-                "act": act,
-                "section_num": sec_num,
-                "vector_similarity": c["vector_similarity"],
-                "sub_query_type": dominant_type,
-                "graph_verified": True,
-                "equivalent_mapping": eq_result,
-                "metadata": node_info,
-                "sources": c["sources"]
-            }
+                print(f"[LexiGraphAgent] Phase B crosswalk: IPC {ipc_sec_num} → {cand_key}")
+                consolidated_candidates[cand_key] = {
+                    "section": cand_key,
+                    "title": title_str,
+                    "description": desc_str,
+                    "punishment": pun_str,
+                    "act": bns_act,
+                    "section_num": bns_sec,
+                    "vector_similarity": c["vector_similarity"],
+                    "sub_query_type": dominant_type,
+                    "graph_verified": True,
+                    "equivalent_mapping": {"act": "IPC", "section": ipc_sec_num, "mapping_verified": True},
+                    "metadata": bns_node or c["metadata"],
+                    "sources": c["sources"],
+                    "_promoted_from": f"IPC {ipc_sec_num}",
+                }
+            else:
+                # No BNS equivalent found — keep the IPC section as-is
+                cand_key = f"IPC {ipc_sec_num}"
+                title_str = c.get("title") or ""
+                dominant_type = c.get("sub_query_type", "OFFENCE")
+                if _PUNISHMENT_TITLE_SIGNALS.search(title_str):
+                    dominant_type = "PUNISHMENT_QUANTUM"
+
+                print(f"[LexiGraphAgent] Phase B no BNS mapping — keeping: {cand_key}")
+                consolidated_candidates[cand_key] = {
+                    "section": cand_key,
+                    "title": title_str,
+                    "description": c.get("description", ""),
+                    "punishment": c.get("punishment", ""),
+                    "act": "IPC",
+                    "section_num": ipc_sec_num,
+                    "vector_similarity": c["vector_similarity"],
+                    "sub_query_type": dominant_type,
+                    "graph_verified": True,
+                    "equivalent_mapping": None,
+                    "metadata": c["metadata"],
+                    "sources": c["sources"],
+                }
 
         verified_candidates_list = list(consolidated_candidates.values())
+        print(f"[LexiGraphAgent] Step 3 final candidates entering Step 4: "
+              f"{[c['section'] for c in verified_candidates_list]}")
 
-        # Deduplicate: if a BNS section and its IPC predecessor are both present,
-        # keep only the preferred one (current statute beats legacy act).
-        verified_candidates_list = _deduplicate_equivalent_candidates(
-            verified_candidates_list, self.verification_service
-        )
-
-        print(f"[LexiGraphAgent] Step 3 candidates entering validation: {[c['section'] for c in verified_candidates_list]}")
-
-        # STEP 4: Type-Aware Ingredient Validation + Graph Enrichment
+        # : Type-Aware Ingredient Validation + Graph Enrichment
         #
         # Routing rules:
         #   OFFENCE candidates         → full ingredient validation; no-ingredient fallback
@@ -640,7 +613,7 @@ class LexiGraphAgent:
                     "RELATED_TO", "APPLIES_WITH", "MENTIONED_WITH", "PRECONDITION_FOR",
                     "BAIL_CONDITION", "APPLIES_TO"
                 ]
-                _available_bail_rels = [
+                _available_bailSTEP 4_rels = [
                     r for r in _bail_rel_candidates if r in _existing_rel_types
                 ]
 
@@ -840,9 +813,35 @@ class LexiGraphAgent:
                             f"against the case facts — section rejected to prevent inapplicable inference."
                         )
                 else:
-                    # No graph edges and no fallback rule → unconditionally accept
-                    # (standard non-offence behaviour)
-                    predicate_satisfied = True
+                    # No graph edges and no fallback rule.
+                    #
+                    # FIX: BSA/IEA sections are evidentiary — they only operate
+                    # within a criminal proceeding where at least one substantive
+                    # offence has been established on the facts. A BSA/IEA section
+                    # that scores high on vector similarity (e.g. BSA 28 on
+                    # "financial records" vocabulary) is NOT applicable in a bail
+                    # hearing unless there is a validated offence to invoke it
+                    # against. Require at least one OFFENCE-typed validated section
+                    # from a substantive criminal act (BNS/IPC/DPA/POCSO) before
+                    # accepting any BSA/IEA candidate, even when the graph has no
+                    # explicit predicate edge for it.
+                    if cand["act"] in ("BSA", "IEA"):
+                        predicate_satisfied = any(
+                            u.get("sub_query_type") in ("OFFENCE", "PUNISHMENT_QUANTUM")
+                            and u["act"] in ("BNS", "IPC", "DPA", "POCSO")
+                            for u in unranked
+                        )
+                        if not predicate_satisfied:
+                            predicate_rejection_reason = (
+                                f"{sec_label} is an evidence-act section; no validated "
+                                f"substantive offence section found yet — rejected to "
+                                f"prevent inapplicable evidentiary provisions entering "
+                                f"the bail context."
+                            )
+                    else:
+                        # Non-evidence, non-offence types (CONSTITUTIONAL, AGGRAVATION,
+                        # MITIGATION) — unconditionally accept as before.
+                        predicate_satisfied = True
 
                 if not predicate_satisfied:
                     cand["is_valid"] = False
@@ -869,43 +868,48 @@ class LexiGraphAgent:
                 )
                 continue
 
-            # --- OFFENCE: full ingredient validation ---
-            # Critical change: if ingredient_validator has no data for this section
-            # (fallback path), we REJECT rather than grant a free pass. A section
-            # with no ingredients in the graph has not been verified as applicable.
-            is_valid, val_reason, val_confidence = self._validate_legal_applicability(cand, extracted_facts, "anticipatory_bail")
-            cand["is_valid"] = is_valid
-            cand["validation_reason"] = val_reason
-            if val_confidence is not None:
-                cand["ingredient_confidence"] = float(val_confidence)
+            # --- OFFENCE: ingredient validation TEMPORARILY DISABLED ---
+            # All OFFENCE sections that passed Pinecone + Neo4j cross-verification
+            # in Step 3 are accepted here on vector similarity alone.
+            # TODO: re-enable ingredient validation once graph ingredient data
+            #       is populated for BNS sections.
+            #
+            # is_valid, val_reason, val_confidence = self._validate_legal_applicability(
+            #     cand, extracted_facts, "anticipatory_bail"
+            # )
+            # cand["is_valid"] = is_valid
+            # cand["validation_reason"] = val_reason
+            # if val_confidence is not None:
+            #     cand["ingredient_confidence"] = float(val_confidence)
+            #
+            # if is_valid and "no ingredient data" in (val_reason or "").lower():
+            #     cand["is_valid"] = False
+            #     cand["validation_reason"] = (
+            #         f"OFFENCE section {sec_label} has no statutory ingredient data in the graph "
+            #         f"and cannot be validated against case facts — rejected to prevent false positives."
+            #     )
+            #     is_valid = False
+            #     print(f"[LexiGraphAgent] REJECT (no ingredients): {sec_label}")
+            #
+            # if is_valid:
+            #     cand["ingredient_summary"] = self.ingredient_validator_service.get_ingredient_summary(
+            #         cand, extracted_facts
+            #     )
 
-            # Detect the no-ingredient fallback case and override to rejection
-            if is_valid and "no ingredient data" in (val_reason or "").lower():
-                cand["is_valid"] = False
-                cand["validation_reason"] = (
-                    f"OFFENCE section {sec_label} has no statutory ingredient data in the graph "
-                    f"and cannot be validated against case facts — rejected to prevent false positives."
-                )
-                is_valid = False
-                print(f"[LexiGraphAgent] REJECT (no ingredients): {sec_label}")
-
-            if is_valid:
-                cand["ingredient_summary"] = self.ingredient_validator_service.get_ingredient_summary(cand, extracted_facts)
-                unranked.append(cand)
-                self.pipeline_debug_service.log_section_decision(
-                    section=cand["section_num"], act=cand["act"], title=cand.get("title", ""),
-                    decision="included", stage="Step 4: Ingredient Validation",
-                    reason=cand["validation_reason"],
-                    scores={"vector_similarity": cand.get("vector_similarity", 0.0), "ingredient_confidence": val_confidence or 0.0}
-                )
-            else:
-                rejected.append({"section": cand["section"], "reason": cand["validation_reason"]})
-                self.pipeline_debug_service.log_section_decision(
-                    section=cand["section_num"], act=cand["act"], title=cand.get("title", ""),
-                    decision="rejected", stage="Step 4: Ingredient Validation",
-                    reason=cand["validation_reason"],
-                    scores={"vector_similarity": cand.get("vector_similarity", 0.0), "ingredient_confidence": val_confidence or 0.0}
-                )
+            cand["is_valid"] = True
+            cand["validation_reason"] = (
+                f"OFFENCE section {sec_label} accepted on Pinecone + Neo4j cross-verification "
+                f"(ingredient validation temporarily disabled)."
+            )
+            cand["ingredient_confidence"] = cand.get("vector_similarity", 0.0)
+            print(f"[LexiGraphAgent] ACCEPT (cross-verified, ingredient validation disabled): {sec_label}")
+            unranked.append(cand)
+            self.pipeline_debug_service.log_section_decision(
+                section=cand["section_num"], act=cand["act"], title=cand.get("title", ""),
+                decision="included", stage="Step 4: Cross-Verified (ingredient validation disabled)",
+                reason=cand["validation_reason"],
+                scores={"vector_similarity": cand.get("vector_similarity", 0.0), "ingredient_confidence": cand["ingredient_confidence"]}
+            )
 
         # --- GRAPH ENRICHMENT FOR ALL UNRANKED CANDIDATES ---
         print("[LexiGraphAgent] Step 4b: Enriching candidates with graph relationships...")

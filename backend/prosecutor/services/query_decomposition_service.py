@@ -282,6 +282,20 @@ CARDINAL RULES:
    either. If the facts disclose 5 legally distinct concepts, write 5 — no more,
    no fewer, and never invent a 6th that isn't stated.
 
+   IMPORTANT — falsification is DISTINCT from criminal breach of trust:
+   When facts state both (a) misappropriation AND (b) manipulation/alteration
+   of records/accounts/documents to conceal it, these are TWO legally distinct
+   offence concepts requiring TWO separate sub-queries:
+     Sub-query 1: Criminal Breach of Trust (the misappropriation)
+     Sub-query 2: Falsification of accounts / false entry in books of account
+                  (the concealment act — maps to BNS 344 / IPC 477A)
+   If the concealment involved creation of a false document with intent to
+   cheat a specific person, also add:
+     Sub-query 3: Forgery for purpose of cheating / making false document
+                  (maps to BNS 338 / IPC 468)
+   Do NOT collapse all three into one query. Do NOT omit the falsification
+   query just because it is secondary to the misappropriation.
+
 2. Facts are SACRED. Report every fact exactly as stated. Never invert meaning,
    and never add conduct that is not stated (no hallucinated offences).
    "Has cooperated" → MITIGATION. "Has not cooperated" → AGGRAVATION.
@@ -344,18 +358,29 @@ CORRECT decomposition — note three things:
 {{
   "sub_queries": [
     {{"type": "OFFENCE", "query": "criminal breach of trust by employee agent clerk manager servant entrustment dominion over property fiduciary capacity dishonest misappropriation in the way of business", "priority": 1}},
-    {{"type": "OFFENCE", "query": "dishonest misappropriation of property entrusted in the way of business or employer employee relationship", "priority": 1}},
     {{"type": "OFFENCE", "query": "falsification of accounts books of account ledger false entry fabrication alteration concealment financial statement", "priority": 1}},
+    {{"type": "OFFENCE", "query": "making false document or false entry in books of account with intent to defraud or conceal misappropriation forgery for purpose of cheating", "priority": 1}},
     {{"type": "MITIGATION", "query": "accused has no prior criminal record", "priority": 2}},
     {{"type": "MITIGATION", "query": "accused cooperated with investigation joined investigation", "priority": 2}},
     {{"type": "PROCEDURAL", "query": "anticipatory bail application", "priority": 1}}
   ]
 }}
 
-Note what is NOT in the correct output: no invented offences like "forgery"
-or "cheating" (not stated), no "manipulation of financial records" paraphrase
-(replaced with statutory synonym chain), and "accounting errors" is the
-accused's claim — neutral, not a sub-query.
+Note what IS and IS NOT in the correct output:
+  - "falsification of accounts" IS present because "manipulated financial
+    records to conceal the transactions" is explicitly stated — this maps
+    directly to the offence of falsification of accounts / false entry in
+    books of account. Always include this when record manipulation is stated.
+  - "forgery for cheating" (BNS 338 equivalent) MAY be present if the facts
+    describe creation of a false document with intent to deceive — but in this
+    example it is not separately stated, so it is not added.
+  - "cheating" as a standalone offence is NOT present because no victim was
+    induced to deliver property — misappropriation from an employer is CBT,
+    not cheating. Do not conflate the two.
+  - "manipulation of financial records" as a raw paraphrase is NOT present —
+    it is replaced with the statutory synonym chain (falsification, books of
+    account, ledger, false entry, fabrication, concealment).
+  - "accounting errors" is the accused's defence claim — neutral, not a sub-query.
 
 ---
 INPUT:
