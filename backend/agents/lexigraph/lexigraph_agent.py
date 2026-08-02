@@ -169,7 +169,7 @@ class LexiGraphAgent:
         
         # Statutory Laws Retrieval (Namespace: legal_sections)
         retrieval_res = self.pinecone_service.query_index(
-            emb_result, top_k=PINECONE_TOP_K, namespace="legal_sections"
+            emb_result, top_k=PINECONE_TOP_K, namespace=""
         )
         
         # Precedent Cases Retrieval (Namespace: legal_cases)
