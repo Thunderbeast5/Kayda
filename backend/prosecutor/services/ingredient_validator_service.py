@@ -218,16 +218,28 @@ class IngredientValidatorService:
     def _get_section_ingredients(self, act: str, sec_num: str) -> List[Dict[str, Any]]:
         """
         Queries Neo4j for statutory ingredients linked via :HAS_INGREDIENT.
-        If direct ingredients are not found, it automatically follows
-        :REPLACES and :REPLACED_BY relationships (both directions) to find
-        an equivalent section and uses its ingredients.
 
-        This is fully dynamic – no act names are hardcoded.
+        Traversal order (stops as soon as rows are found):
+
+        1. Direct: section itself has :HAS_INGREDIENT nodes.
+           e.g. IPC 498A, IPC 304B, BNS 85 — full definition sections.
+
+        2. One-hop equivalent: follow :REPLACES/:REPLACED_BY to a counterpart
+           section (e.g. IPC 498A → BNS 85) and use its ingredients.
+           This handles cases where ingredients are modelled on only one side
+           of the IPC↔BNS equivalence pair.
+
+        NOTE: Punishment-quantum sections (e.g. IPC 506, BNS 351(2)) that have
+        no :HAS_INGREDIENT edges and whose one-hop equivalent is also a
+        punishment-quantum section will correctly return [] here. Those sections
+        are pre-classified as PUNISHMENT_QUANTUM in the agent's Step 3 and
+        never reach this method for validation — they are auto-accepted as
+        co-applicable once their paired definition section is validated.
         """
         if not self.neo4j_service:
             return []
 
-        # First, try to get ingredients directly from the given section.
+        # --- 1. Direct ---
         direct_query = """
         MATCH (n:LawSection {act: $act, section: $sec_num})
         MATCH (n)-[:HAS_INGREDIENT]->(i:Ingredient)
@@ -239,8 +251,7 @@ class IngredientValidatorService:
         if rows:
             return rows
 
-        # If no direct ingredients, look for an equivalent section via REPLACES/REPLACED_BY.
-        # We query both directions: from n to other, and from other to n.
+        # --- 2. One-hop equivalent (REPLACES / REPLACED_BY in both directions) ---
         equivalent_query = """
         MATCH (n:LawSection {act: $act, section: $sec_num})
         OPTIONAL MATCH (n)-[:REPLACES|REPLACED_BY]-(other:LawSection)

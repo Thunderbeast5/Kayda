@@ -100,8 +100,12 @@ class VerificationService:
         if not act_clean:
             act_clean = "BNS"
 
-        # Determine target act using crosswalk mapping dictionary
-        target_act = self.ACT_CROSSWALK_MAP.get(act_clean, "IPC")
+        # Determine target act using crosswalk mapping dictionary.
+        # If the act isn't in the map it has no known counterpart — return None
+        # rather than guessing "IPC", which would produce spurious crosswalk hits.
+        target_act = self.ACT_CROSSWALK_MAP.get(act_clean)
+        if not target_act:
+            return None
 
         query = """
             MATCH (b:LawSection {act: $act, section: $section})

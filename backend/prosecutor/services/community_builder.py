@@ -6,336 +6,657 @@ from datetime import datetime
 from dotenv import load_dotenv
 from neo4j import GraphDatabase
 
-# Set up paths and sys.path
-BASE_DIR = Path(__file__).resolve().parent.parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(BASE_DIR / ".env")
+sys.path.insert(0, str(BASE_DIR))
 
-sys.path.append(str(BASE_DIR))
+from agents.config.llm_config import get_llm
 
-# Import LLM config helper
-try:
-    from config.llm_config import get_llm
-except ModuleNotFoundError:
-    from agents.config.llm_config import get_llm
-
-NEO4J_URI = os.getenv("NEO4J_URI")
-NEO4J_USER = os.getenv("NEO4J_USER")
+NEO4J_URI      = os.getenv("NEO4J_URI")
+NEO4J_USER     = os.getenv("NEO4J_USER")
 NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD")
 NEO4J_DATABASE = os.getenv("NEO4J_DATABASE", "neo4j")
 
-
+# ---------------------------------------------------------------------------
+# COMMUNITY DEFINITIONS
+# Expanded for anticipatory bail scope:
+#   - Added  "anticipatory_bail"  community (BNSS 482, CrPC 438, related
+#     procedural relief provisions)
+#   - Added  "bail_and_bonds"     community (general bail, surety, bonds)
+#   - Added  "dowry_offences"     community (distinct from generic women
+#     offences so dowry-specific sections rank correctly)
+#   - Added  "sexual_offences"    community (POCSO, rape, trafficking —
+#     separated from the broader women_offences bucket)
+#   - Kept all original communities; updated descriptions to BNS language
+# ---------------------------------------------------------------------------
 COMMUNITY_DEFS = {
+    "anticipatory_bail": {
+        "name": "Anticipatory Bail",
+        "description": (
+            "Provisions governing pre-arrest bail, personal liberty, and "
+            "custodial rights under BNSS 482/483 and CrPC 438/439. Includes "
+            "conditions for grant or rejection of anticipatory bail, "
+            "prosecutorial opposition, court discretion, and related "
+            "procedural safeguards under Article 21."
+        ),
+        "keywords": [
+            "anticipatory bail", "pre-arrest bail", "bail", "bnss 482",
+            "crpc 438", "personal liberty", "article 21", "custodial",
+            "pre-arrest", "apprehension of arrest", "anticipatory",
+        ],
+        "category": "Procedure",
+    },
+    "bail_and_bonds": {
+        "name": "Bail and Bonds",
+        "description": (
+            "General bail provisions, bailable offences, surety, bonds, "
+            "and release conditions under BNSS/CrPC."
+        ),
+        "keywords": [
+            "bail", "surety", "bond", "bailable", "non-bailable",
+            "release", "custody", "remand",
+        ],
+        "category": "Procedure",
+    },
     "women_offences": {
         "name": "Women Offences",
-        "description": "Offences relating to sexual assault, dowry, domestic violence, rape, and cruelty to married women.",
-        "keywords": ["rape", "dowry", "cruelty", "modesty", "marriage", "husband", "wife", "harassment", "women"],
-        "category": "Offences against Human Body"
+        "description": (
+            "Offences relating to cruelty by husband or relatives, "
+            "domestic violence, harassment, and offences against the "
+            "dignity of women (BNS 85/86, formerly IPC 498A)."
+        ),
+        "keywords": [
+            "cruelty", "harassment", "married women", "husband",
+            "wife", "domestic violence", "women", "modesty",
+        ],
+        "category": "Offences against Human Body",
+    },
+    "dowry_offences": {
+        "name": "Dowry Offences",
+        "description": (
+            "Offences relating to dowry demand, dowry death, and "
+            "prohibition of dowry under BNS 80/84/85 and the "
+            "Dowry Prohibition Act."
+        ),
+        "keywords": [
+            "dowry", "dowry death", "dowry demand", "dowry prohibition",
+            "dpa", "stridhan",
+        ],
+        "category": "Offences against Human Body",
+    },
+    "sexual_offences": {
+        "name": "Sexual Offences",
+        "description": (
+            "Offences relating to rape, sexual assault, trafficking, "
+            "POCSO, and outraging the modesty of women "
+            "(BNS 63-73, POCSO)."
+        ),
+        "keywords": [
+            "rape", "sexual assault", "pocso", "trafficking",
+            "modesty", "outraging", "sexual", "molestation",
+        ],
+        "category": "Offences against Human Body",
     },
     "children_offences": {
         "name": "Children Offences",
-        "description": "Offences relating to kidnapping, abduction, and assault of minors or children.",
+        "description": (
+            "Offences relating to kidnapping, abduction, and assault "
+            "of minors or children."
+        ),
         "keywords": ["child", "minor", "children", "kidnapping", "infant"],
-        "category": "Offences against Human Body"
+        "category": "Offences against Human Body",
     },
     "property_offences": {
         "name": "Property Offences",
-        "description": "Offences relating to theft, robbery, burglary, mischief, extortion, and trespass.",
-        "keywords": ["theft", "robbery", "burglary", "extortion", "trespass", "mischief"],
-        "category": "Offences against Property"
+        "description": (
+            "Offences relating to theft, robbery, burglary, mischief, "
+            "extortion, and trespass."
+        ),
+        "keywords": [
+            "theft", "robbery", "burglary", "extortion",
+            "trespass", "mischief",
+        ],
+        "category": "Offences against Property",
     },
     "cyber_crime": {
         "name": "Cyber Crime",
-        "description": "Offences committed using computer systems, networks, and electronic devices.",
-        "keywords": ["cyber", "computer", "hacking", "electronic", "internet", "information technology"],
-        "category": "Cyber Crime"
+        "description": (
+            "Offences committed using computer systems, networks, "
+            "and electronic devices."
+        ),
+        "keywords": [
+            "cyber", "computer", "hacking", "electronic",
+            "internet", "information technology",
+        ],
+        "category": "Cyber Crime",
     },
     "financial_crime": {
         "name": "Financial Crime",
-        "description": "Offences relating to forgery, counterfeiting, cheating, tax fraud, and currency manipulation.",
-        "keywords": ["forgery", "counterfeit", "cheating", "fraud", "coin", "currency"],
-        "category": "Financial Crime"
+        "description": (
+            "Offences relating to forgery, counterfeiting, cheating, "
+            "tax fraud, and currency manipulation."
+        ),
+        "keywords": [
+            "forgery", "counterfeit", "cheating", "fraud",
+            "coin", "currency",
+        ],
+        "category": "Financial Crime",
     },
     "human_body_offences": {
         "name": "Offences Against Human Body",
-        "description": "Offences relating to homicide, murder, hurt, wrongful restraint, and causing death by negligence.",
-        "keywords": ["murder", "homicide", "negligence", "hurt", "assault", "kidnap", "injury", "death"],
-        "category": "Offences against Human Body"
+        "description": (
+            "Offences relating to homicide, murder, hurt, wrongful "
+            "restraint, and causing death by negligence."
+        ),
+        "keywords": [
+            "murder", "homicide", "negligence", "hurt",
+            "assault", "kidnap", "injury", "death",
+        ],
+        "category": "Offences against Human Body",
     },
     "evidence_law": {
         "name": "Evidence Law",
-        "description": "Provisions governing the relevancy, proof, and admissibility of facts and witness statements.",
-        "keywords": ["evidence", "witness", "confession", "dying declaration", "admissibility"],
-        "category": "Evidence"
+        "description": (
+            "Provisions governing the relevancy, proof, and admissibility "
+            "of facts and witness statements under BSA/IEA."
+        ),
+        "keywords": [
+            "evidence", "witness", "confession", "dying declaration",
+            "admissibility", "presumption",
+        ],
+        "category": "Evidence",
     },
     "criminal_procedure": {
         "name": "Criminal Procedure",
-        "description": "Provisions governing police processes, arrests, summonses, justice administration, and public order.",
-        "keywords": ["court", "judge", "police", "arrest", "summons", "procedure", "justice"],
-        "category": "Procedure"
+        "description": (
+            "Provisions governing police processes, arrests, summonses, "
+            "justice administration, and public order under BNSS/CrPC."
+        ),
+        "keywords": [
+            "court", "judge", "police", "arrest", "summons",
+            "procedure", "justice", "fir", "charge",
+        ],
+        "category": "Procedure",
     },
     "constitutional_rights": {
         "name": "Constitutional Rights",
-        "description": "Fundamental constitutional protections, personal liberty, equality, and state directives.",
-        "keywords": ["constitution", "fundamental rights", "article", "liberty", "equality"],
-        "category": "Constitutional"
+        "description": (
+            "Fundamental constitutional protections, personal liberty, "
+            "equality, and state directives."
+        ),
+        "keywords": [
+            "constitution", "fundamental rights", "article",
+            "liberty", "equality",
+        ],
+        "category": "Constitutional",
     },
     "general_offences": {
         "name": "General Offences",
-        "description": "General provisions, fallbacks, miscellaneous public order offences, and exceptions.",
+        "description": (
+            "General provisions, fallbacks, miscellaneous public order "
+            "offences, and exceptions."
+        ),
         "keywords": ["general", "provisions", "offences", "fallback", "public order"],
-        "category": "General"
-    }
+        "category": "General",
+    },
 }
 
 
+# ---------------------------------------------------------------------------
+# CLASSIFIER
+# Priority order matters — more specific communities are checked first.
+# Anticipatory bail and dowry are now checked before the generic buckets
+# they used to fall into (criminal_procedure and women_offences).
+# ---------------------------------------------------------------------------
 def classify_section(act: str, section: str, title: str, description: str, category: str) -> str:
-    """Classifies a section into a community using rule-based classification."""
-    act_upper = act.upper()
-    title_lower = title.lower()
-    desc_lower = description.lower()
-    cat_lower = (category or "").lower()
+    act_upper  = act.upper()
+    title_l    = title.lower()
+    desc_l     = description.lower()
+    cat_l      = (category or "").lower()
+    section_l  = section.lower()
 
     # 1. Constitutional Rights
-    if act_upper == "COI" or "constitution" in title_lower or "article" in title_lower:
+    if act_upper == "COI" or "constitution" in title_l or "fundamental right" in desc_l:
         return "constitutional_rights"
 
-    # 2. Evidence Law
-    if act_upper == "IEA" or "evidence" in desc_lower or "witness" in desc_lower:
+    # 2. Evidence Law  (BSA is the BNS-era replacement for IEA)
+    if act_upper in ("IEA", "BSA") or "evidence" in desc_l or "admissib" in desc_l:
         return "evidence_law"
 
-    # 3. Women Offences
-    for w in ["rape", "dowry", "cruelty", "modesty", "marriage", "husband", "wife", "harassment", "women"]:
-        if w in title_lower or w in desc_lower or "women" in cat_lower:
-            return "women_offences"
+    # 3. Anticipatory Bail  — check BEFORE generic criminal_procedure
+    #    BNSS 482 = anticipatory bail; BNSS 483 = direction for grant; CrPC 438/439
+    _bail_sections = {"482", "483", "438", "439"}
+    if (
+        any(kw in title_l or kw in desc_l for kw in
+            ["anticipatory bail", "pre-arrest bail", "apprehension of arrest",
+             "direction for bail"])
+        or (act_upper in ("BNSS", "CRPC") and section in _bail_sections)
+    ):
+        return "anticipatory_bail"
 
-    # 4. Children Offences
-    for w in ["child", "minor", "children", "kidnapping a minor", "kidnaps minor"]:
-        if w in title_lower or w in desc_lower or "children" in cat_lower:
-            return "children_offences"
+    # 4. General bail / bonds — check BEFORE generic criminal_procedure
+    if any(kw in title_l or kw in desc_l for kw in
+           ["bail in bailable", "bail in non-bailable", "surety", "bail bond",
+            "release on bail"]):
+        return "bail_and_bonds"
 
-    # 5. Cyber Crime
-    for w in ["cyber", "computer", "hacking", "electronic record", "information technology"]:
-        if w in title_lower or w in desc_lower:
-            return "cyber_crime"
+    # 5. Dowry Offences  — more specific than women_offences
+    if (
+        act_upper == "DPA"
+        or any(kw in title_l or kw in desc_l for kw in
+               ["dowry death", "dowry demand", "dowry prohibition", "stridhan",
+                "dowry"])
+    ):
+        return "dowry_offences"
 
-    # 6. Financial Crime
-    for w in ["forgery", "counterfeit", "cheating", "fraud", "coin", "currency", "financial"]:
-        if w in title_lower or w in desc_lower:
-            return "financial_crime"
+    # 6. Sexual Offences  — more specific than women_offences
+    if any(kw in title_l or kw in desc_l for kw in
+           ["rape", "sexual assault", "pocso", "trafficking", "outraging",
+            "modesty", "molestation"]):
+        return "sexual_offences"
 
-    # 7. Property Offences
-    if "property" in cat_lower or any(p in title_lower or p in desc_lower for p in ["theft", "robbery", "burglary", "extortion", "trespass", "mischief"]):
+    # 7. Women Offences  (cruelty, domestic violence, harassment — NOT dowry/sexual)
+    if any(kw in title_l or kw in desc_l for kw in
+           ["cruelty by husband", "cruelty by relative", "domestic violence",
+            "harassment", "married women", "husband or relative"]) or "women" in cat_l:
+        return "women_offences"
+
+    # 8. Children Offences
+    if any(kw in title_l or kw in desc_l for kw in
+           ["child", "minor", "kidnapping a minor", "kidnaps minor", "infant"]) \
+       or "children" in cat_l:
+        return "children_offences"
+
+    # 9. Cyber Crime
+    if any(kw in title_l or kw in desc_l for kw in
+           ["cyber", "computer", "hacking", "electronic record",
+            "information technology"]):
+        return "cyber_crime"
+
+    # 10. Financial Crime
+    if any(kw in title_l or kw in desc_l for kw in
+           ["forgery", "counterfeit", "cheating", "fraud", "coin", "currency",
+            "financial"]):
+        return "financial_crime"
+
+    # 11. Property Offences
+    if "property" in cat_l or any(kw in title_l or kw in desc_l for kw in
+                                   ["theft", "robbery", "burglary", "extortion",
+                                    "trespass", "mischief"]):
         return "property_offences"
 
-    # 8. Offences Against Human Body
-    if "human body" in cat_lower or any(h in title_lower or h in desc_lower for h in ["murder", "homicide", "negligence", "hurt", "assault", "kidnap", "injury", "death"]):
+    # 12. Offences Against Human Body
+    if "human body" in cat_l or any(kw in title_l or kw in desc_l for kw in
+                                     ["murder", "homicide", "negligence", "hurt",
+                                      "assault", "kidnap", "injury", "death"]):
         return "human_body_offences"
 
-    # 9. Criminal Procedure
-    if "justice" in cat_lower or "order" in cat_lower or any(c in title_lower or c in desc_lower for c in ["court", "judge", "police", "arrest", "summons", "public servant"]):
+    # 13. Criminal Procedure  (everything procedural that isn't bail)
+    if "justice" in cat_l or "order" in cat_l or \
+       any(kw in title_l or kw in desc_l for kw in
+           ["court", "judge", "police", "arrest", "summons", "public servant",
+            "fir", "charge sheet", "cognizance"]):
         return "criminal_procedure"
 
-    # 10. General fallbacks
-    if "general" in cat_lower:
+    if "general" in cat_l:
         return "general_offences"
 
     return "general_offences"
 
 
+# ---------------------------------------------------------------------------
+# BUILD
+# ---------------------------------------------------------------------------
 def build_communities():
     if not all([NEO4J_URI, NEO4J_USER, NEO4J_PASSWORD]):
         print("[community_builder] Error: Missing Neo4j credentials.")
         return
 
     driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
-    
+
     with driver.session(database=NEO4J_DATABASE) as session:
-        # Create constraint
+
+        # ── Constraint ──────────────────────────────────────────────────────
         print("[community_builder] Creating Community unique constraint...")
-        session.run("CREATE CONSTRAINT community_unique IF NOT EXISTS FOR (c:Community) REQUIRE c.community_id IS UNIQUE")
-        
-        # Create Community nodes
+        session.run(
+            "CREATE CONSTRAINT community_unique IF NOT EXISTS "
+            "FOR (c:Community) REQUIRE c.community_id IS UNIQUE"
+        )
+
+        # ── Upsert Community nodes ───────────────────────────────────────────
         print("[community_builder] Ingesting Community nodes...")
         for cid, details in COMMUNITY_DEFS.items():
-            session.run("""
+            session.run(
+                """
                 MERGE (c:Community {community_id: $community_id})
-                SET c.name = $name,
+                SET c.name        = $name,
                     c.description = $description,
-                    c.keywords = $keywords,
-                    c.category = $category,
-                    c.created_at = $created_at
-            """, community_id=cid, name=details["name"], description=details["description"],
-               keywords=details["keywords"], category=details["category"], created_at=datetime.utcnow().isoformat())
+                    c.keywords    = $keywords,
+                    c.category    = $category,
+                    c.created_at  = $created_at
+                """,
+                community_id=cid,
+                name=details["name"],
+                description=details["description"],
+                keywords=details["keywords"],
+                category=details["category"],
+                created_at=datetime.utcnow().isoformat(),
+            )
 
-        # Retrieve all BNS & IEA & COI sections to classify first (to establish ground truths)
-        print("[community_builder] Classifying BNS/IEA/COI sections...")
-        res = session.run("""
+        # ── Classify primary acts: BNS, IEA, BSA, BNSS, COI ────────────────
+        # BNSS and BSA were previously missing from this pass.
+        PRIMARY_ACTS = ["BNS", "BNSS", "BSA", "COI"]  # ground truths only; IEA/IPC/CrPC inherit below
+        print(f"[community_builder] Classifying {PRIMARY_ACTS} sections...")
+        res = session.run(
+            """
             MATCH (n:LawSection)
-            WHERE n.act IN ['BNS', 'IEA', 'COI']
-            RETURN id(n) as node_id, n.act as act, n.section as section, 
-                   n.title as title, n.description as description, n.category as category
-        """)
-        
-        bns_assignments = {} # section -> community
-        for r in res:
-            assigned = classify_section(r["act"], r["section"], r["title"] or "", r["description"] or "", r["category"] or "")
-            bns_assignments[f"{r['act']}_{r['section']}"] = assigned
-            session.run("""
-                MATCH (n) WHERE id(n) = $node_id
+            WHERE n.act IN $acts
+            RETURN elementId(n) AS node_id,
+                   n.act        AS act,
+                   n.section    AS section,
+                   n.title      AS title,
+                   n.description AS description,
+                   n.category   AS category
+            """,
+            acts=PRIMARY_ACTS,
+        )
+
+        primary_assignments = {}
+        rows = list(res)
+        print(f"[community_builder] Found {len(rows)} primary-act sections.")
+        for r in rows:
+            assigned = classify_section(
+                r["act"], r["section"],
+                r["title"] or "", r["description"] or "", r["category"] or "",
+            )
+            primary_assignments[f"{r['act']}_{r['section']}"] = assigned
+            session.run(
+                """
+                MATCH (n) WHERE elementId(n) = $node_id
                 MATCH (c:Community {community_id: $community_id})
                 MERGE (n)-[:BELONGS_TO]->(c)
-            """, node_id=r["node_id"], community_id=assigned)
-            
-        print(f"[community_builder] Classified {len(bns_assignments)} non-IPC sections.")
+                """,
+                node_id=r["node_id"],
+                community_id=assigned,
+            )
 
-        # Classify IPC sections based on BNS successor mappings if available, otherwise rules
+        print(f"[community_builder] Classified {len(primary_assignments)} primary sections.")
+
+        # ── Classify IPC (inherit from BNS successor where possible) ────────
         print("[community_builder] Classifying IPC sections...")
-        res_ipc = session.run("""
+        res_ipc = session.run(
+            """
             MATCH (n:LawSection {act: 'IPC'})
-            RETURN id(n) as node_id, n.section as section, n.title as title, n.description as description
-        """)
-        
+            RETURN elementId(n) AS node_id,
+                   n.section    AS section,
+                   n.title      AS title,
+                   n.description AS description
+            """
+        )
+
         ipc_count = 0
         for r in res_ipc:
-            # Check replacements mappings
-            map_res = session.run("""
-                MATCH (n:LawSection {act: 'IPC', section: $section})-[r:REPLACED_BY|REPLACES]-(other:LawSection {act: 'BNS'})
-                RETURN other.section as bns_section
+            map_res = session.run(
+                """
+                MATCH (n:LawSection {act: 'IPC', section: $section})
+                      -[r:REPLACED_BY|REPLACES]-
+                      (other:LawSection {act: 'BNS'})
+                RETURN other.section AS bns_section
                 LIMIT 1
-            """, section=r["section"])
-            
+                """,
+                section=r["section"],
+            )
             bns_sec = None
             for row in map_res:
                 bns_sec = row["bns_section"]
-                
-            assigned = None
-            if bns_sec and f"BNS_{bns_sec}" in bns_assignments:
-                assigned = bns_assignments[f"BNS_{bns_sec}"]
+
+            if bns_sec and f"BNS_{bns_sec}" in primary_assignments:
+                assigned = primary_assignments[f"BNS_{bns_sec}"]
             else:
-                assigned = classify_section("IPC", r["section"], r["title"] or "", r["description"] or "", "")
-                
-            session.run("""
-                MATCH (n) WHERE id(n) = $node_id
+                assigned = classify_section(
+                    "IPC", r["section"],
+                    r["title"] or "", r["description"] or "", "",
+                )
+
+            session.run(
+                """
+                MATCH (n) WHERE elementId(n) = $node_id
                 MATCH (c:Community {community_id: $community_id})
                 MERGE (n)-[:BELONGS_TO]->(c)
-            """, node_id=r["node_id"], community_id=assigned)
+                """,
+                node_id=r["node_id"],
+                community_id=assigned,
+            )
             ipc_count += 1
-            
+
         print(f"[community_builder] Classified {ipc_count} IPC sections.")
 
-        # Recalculate node counts and edge counts for metadata
+        # ── Classify CRPC (inherit from BNSS successor where possible) ──────
+        print("[community_builder] Classifying CrPC sections...")
+        res_crpc = session.run(
+            """
+            MATCH (n:LawSection {act: 'CRPC'})
+            RETURN elementId(n) AS node_id,
+                   n.section    AS section,
+                   n.title      AS title,
+                   n.description AS description
+            """
+        )
+
+        crpc_count = 0
+        for r in res_crpc:
+            map_res = session.run(
+                """
+                MATCH (n:LawSection {act: 'CRPC', section: $section})
+                      -[r:REPLACED_BY|REPLACES]-
+                      (other:LawSection {act: 'BNSS'})
+                RETURN other.section AS bnss_section
+                LIMIT 1
+                """,
+                section=r["section"],
+            )
+            bnss_sec = None
+            for row in map_res:
+                bnss_sec = row["bnss_section"]
+
+            if bnss_sec and f"BNSS_{bnss_sec}" in primary_assignments:
+                assigned = primary_assignments[f"BNSS_{bnss_sec}"]
+            else:
+                assigned = classify_section(
+                    "CRPC", r["section"],
+                    r["title"] or "", r["description"] or "", "",
+                )
+
+            session.run(
+                """
+                MATCH (n) WHERE elementId(n) = $node_id
+                MATCH (c:Community {community_id: $community_id})
+                MERGE (n)-[:BELONGS_TO]->(c)
+                """,
+                node_id=r["node_id"],
+                community_id=assigned,
+            )
+            crpc_count += 1
+
+        print(f"[community_builder] Classified {crpc_count} CrPC sections.")
+
+        # ── Classify IEA (inherit from BSA successor where possible) ─────────
+        print("[community_builder] Classifying IEA sections...")
+        res_iea = session.run(
+            """
+            MATCH (n:LawSection {act: 'IEA'})
+            RETURN elementId(n) AS node_id,
+                   n.section    AS section,
+                   n.title      AS title,
+                   n.description AS description
+            """
+        )
+
+        iea_count = 0
+        for r in res_iea:
+            map_res = session.run(
+                """
+                MATCH (n:LawSection {act: 'IEA', section: $section})
+                      -[r:REPLACED_BY|REPLACES]-
+                      (other:LawSection {act: 'BSA'})
+                RETURN other.section AS bsa_section
+                LIMIT 1
+                """,
+                section=r["section"],
+            )
+            bsa_sec = None
+            for row in map_res:
+                bsa_sec = row["bsa_section"]
+
+            if bsa_sec and f"BSA_{bsa_sec}" in primary_assignments:
+                assigned = primary_assignments[f"BSA_{bsa_sec}"]
+            else:
+                assigned = classify_section(
+                    "IEA", r["section"],
+                    r["title"] or "", r["description"] or "", "",
+                )
+
+            session.run(
+                """
+                MATCH (n) WHERE elementId(n) = $node_id
+                MATCH (c:Community {community_id: $community_id})
+                MERGE (n)-[:BELONGS_TO]->(c)
+                """,
+                node_id=r["node_id"],
+                community_id=assigned,
+            )
+            iea_count += 1
+
+        print(f"[community_builder] Classified {iea_count} IEA sections.")
+
+        # ── Update node/edge counts ──────────────────────────────────────────
         print("[community_builder] Updating community metadata counts...")
         for cid in COMMUNITY_DEFS.keys():
-            # Node count
-            node_count = session.run("""
-                MATCH (:LawSection)-[:BELONGS_TO]->(c:Community {community_id: $community_id})
-                RETURN count(*) as c
-            """, community_id=cid).single()["c"]
-            
-            # Edge count
-            edge_count = session.run("""
-                MATCH (n:LawSection)-[:BELONGS_TO]->(c:Community {community_id: $community_id})
-                MATCH (n)-[r]-()
-                RETURN count(DISTINCT r) as c
-            """, community_id=cid).single()["c"]
-            
-            session.run("""
-                MATCH (c:Community {community_id: $community_id})
-                SET c.node_count = $node_count,
-                    c.edge_count = $edge_count
-            """, community_id=cid, node_count=node_count, edge_count=edge_count)
+            node_count = session.run(
+                """
+                MATCH (:LawSection)-[:BELONGS_TO]->(c:Community {community_id: $cid})
+                RETURN count(*) AS c
+                """,
+                cid=cid,
+            ).single()["c"]
 
-        # Generate summaries using the LLM
+            edge_count = session.run(
+                """
+                MATCH (n:LawSection)-[:BELONGS_TO]->(c:Community {community_id: $cid})
+                MATCH (n)-[r]-()
+                RETURN count(DISTINCT r) AS c
+                """,
+                cid=cid,
+            ).single()["c"]
+
+            session.run(
+                """
+                MATCH (c:Community {community_id: $cid})
+                SET c.node_count = $node_count, c.edge_count = $edge_count
+                """,
+                cid=cid,
+                node_count=node_count,
+                edge_count=edge_count,
+            )
+            print(f"  {cid}: {node_count} sections, {edge_count} edges")
+
+        # ── LLM Summaries ────────────────────────────────────────────────────
         print("[community_builder] Generating Community Summaries using LLM...")
         llm = get_llm(temperature=0.2)
-        
+
         for cid, details in COMMUNITY_DEFS.items():
             print(f"  Summarizing community: {details['name']}...")
-            
-            # Fetch sections in this community
-            sec_rows = session.run("""
-                MATCH (n:LawSection)-[:BELONGS_TO]->(c:Community {community_id: $community_id})
-                RETURN n.act as act, n.section as section, n.title as title, n.description as description
+
+            sec_rows = session.run(
+                """
+                MATCH (n:LawSection)-[:BELONGS_TO]->(c:Community {community_id: $cid})
+                RETURN n.act AS act, n.section AS section,
+                       n.title AS title, n.description AS description
                 LIMIT 15
-            """, community_id=cid)
-            sections_list = [f"{row['act']} {row['section']} - {row['title']}: {row['description']}" for row in sec_rows]
-            
-            # Fetch connected constitutional articles
-            const_rows = session.run("""
-                MATCH (n:LawSection)-[:BELONGS_TO]->(c:Community {community_id: $community_id})
+                """,
+                cid=cid,
+            )
+            sections_list = [
+                f"{r['act']} {r['section']} - {r['title']}: {r['description']}"
+                for r in sec_rows
+            ]
+
+            const_rows = session.run(
+                """
+                MATCH (n:LawSection)-[:BELONGS_TO]->(c:Community {community_id: $cid})
                 MATCH (n)-[:PROTECTED_BY]->(a:ConstitutionalArticle)
-                RETURN DISTINCT a.article as article, a.title as title
-            """, community_id=cid)
-            articles = [f"{row['article']} ({row['title']})" for row in const_rows]
+                RETURN DISTINCT a.article AS article, a.title AS title
+                """,
+                cid=cid,
+            )
+            articles = [f"{r['article']} ({r['title']})" for r in const_rows]
 
-            # Fetch connected evidence types
-            ev_rows = session.run("""
-                MATCH (n:LawSection)-[:BELONGS_TO]->(c:Community {community_id: $community_id})
+            ev_rows = session.run(
+                """
+                MATCH (n:LawSection)-[:BELONGS_TO]->(c:Community {community_id: $cid})
                 MATCH (n)-[:SUPPORTED_BY]->(et:EvidenceType)
-                RETURN DISTINCT et.name as name
-            """, community_id=cid)
-            evidence = [row["name"] for row in ev_rows]
+                RETURN DISTINCT et.name AS name
+                """,
+                cid=cid,
+            )
+            evidence = [r["name"] for r in ev_rows]
 
-            # Fetch connected legal principles
-            lp_rows = session.run("""
-                MATCH (n:LawSection)-[:BELONGS_TO]->(c:Community {community_id: $community_id})
+            lp_rows = session.run(
+                """
+                MATCH (n:LawSection)-[:BELONGS_TO]->(c:Community {community_id: $cid})
                 MATCH (lp:LegalPrinciple)-[:APPLIES_TO]->(n)
-                RETURN DISTINCT lp.name as name
-            """, community_id=cid)
-            principles = [row["name"] for row in lp_rows]
+                RETURN DISTINCT lp.name AS name
+                """,
+                cid=cid,
+            )
+            principles = [r["name"] for r in lp_rows]
 
-            # Fetch connected cases. INTERPRETED_BY does not exist in this
-            # database (confirmed via CALL db.relationshipTypes()) - case
-            # nodes are connected to sections via APPLIES_SECTION under the
-            # generic :Case label.
-            sc_rows = session.run("""
-                MATCH (n:LawSection)-[:BELONGS_TO]->(c:Community {community_id: $community_id})
+            sc_rows = session.run(
+                """
+                MATCH (n:LawSection)-[:BELONGS_TO]->(c:Community {community_id: $cid})
                 MATCH (n)<-[:APPLIES_SECTION]-(sc:Case)
-                RETURN DISTINCT sc.case_name as name
-            """, community_id=cid)
-            cases = [row["name"] for row in sc_rows]
+                RETURN DISTINCT sc.case_name AS name
+                """,
+                cid=cid,
+            )
+            cases = [r["name"] for r in sc_rows]
 
-            sections_info = "\n".join(sections_list)
-            
-            prompt = f"""
-You are an expert legal annotator summarizing legal knowledge graph communities for Kayda AI.
+            prompt = f"""You are an expert legal annotator summarizing legal knowledge graph communities for Kayda AI.
 
 Write a summary for the community: "{details['name']}".
 Description: {details['description']}
 
 Here are some example law sections in this community:
-{sections_info}
+{chr(10).join(sections_list) if sections_list else "None found"}
 
-Here are the connected graph elements:
+Connected graph elements:
 Relevant Constitutional Articles: {", ".join(articles) if articles else "None"}
 Relevant Evidence Types: {", ".join(evidence) if evidence else "None"}
 Relevant Legal Principles: {", ".join(principles) if principles else "None"}
 Relevant Supreme Court Cases: {", ".join(cases) if cases else "None"}
 
 Please produce the summary in this exact format:
-This community contains offences relating to <list of core criminal topics like rape, theft, murder, etc.>.
+This community contains offences relating to <list of core criminal topics>.
 
-Important Sections: <comma-separated list of section numbers, e.g. 63, 66, 80>
-Relevant Constitution: <comma-separated list of constitutional articles, e.g. Article 14, Article 21>
-Relevant Evidence: <comma-separated list of evidence types, e.g. Witness Statement, Medical Report>
-Relevant Legal Principles: <comma-separated list of principles, e.g. Burden of Proof, Mens Rea>
-Relevant Supreme Court Cases: <comma-separated list of SC case names, e.g. Lalita Kumari>
+Important Sections: <comma-separated list of section numbers>
+Relevant Constitution: <comma-separated list of constitutional articles>
+Relevant Evidence: <comma-separated list of evidence types>
+Relevant Legal Principles: <comma-separated list of principles>
+Relevant Supreme Court Cases: <comma-separated list of SC case names>
 """
             try:
                 response = llm.invoke(prompt)
                 summary_text = response.content.strip()
-                
-                # Save to database
-                session.run("""
-                    MATCH (c:Community {community_id: $community_id})
-                    SET c.summary = $summary
-                """, community_id=cid, summary=summary_text)
-                
+                session.run(
+                    "MATCH (c:Community {community_id: $cid}) SET c.summary = $summary",
+                    cid=cid,
+                    summary=summary_text,
+                )
             except Exception as e:
                 print(f"    Error generating summary for {details['name']}: {e}")
-                
-        print("[community_builder] Success! All communities built, assignments completed, and summaries stored.")
-        
+
+        print("[community_builder] Done. All communities built and summaries stored.")
+
     driver.close()
 
 
