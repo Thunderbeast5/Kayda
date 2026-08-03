@@ -30,6 +30,43 @@ export default function CourtroomInterface({ userRole, onExit }) {
     evidenceLinked: true
   });
 
+  const observerSourceRef = useRef(null);
+
+  // This is the piece that was missing: nothing in the app previously
+  // opened a connection to /api/simulate/<case_id>. Selecting a case only
+  // ever updated the sidebar's case card — the trial itself never started.
+  const runObserverSimulation = (caseId) => {
+    if (observerSourceRef.current) {
+      observerSourceRef.current.close(); // stop any playback already in flight
+    }
+
+    setMessages([]);
+    setActiveSpeaker(null);
+    setTrialPhase("PROCEEDINGS INITIATION");
+
+    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5001";
+    const es = new EventSource(`${apiUrl}/api/simulate/${caseId}`);
+    observerSourceRef.current = es;
+
+    es.onmessage = (e) => {
+      const evt = JSON.parse(e.data);
+      if (evt.type === "verdict") {
+        setActiveSpeaker(null);
+        setTrialPhase("PROCEEDINGS CONCLUDED");
+        es.close();
+        observerSourceRef.current = null;
+        return;
+      }
+      handleEvent(evt);
+    };
+
+    es.onerror = (err) => {
+      console.error("Observer stream error:", err);
+      es.close();
+      observerSourceRef.current = null;
+    };
+  };
+
   const handleSelectCase = async (caseId) => {
     try {
       setSelectedCaseId(caseId);
@@ -40,6 +77,9 @@ export default function CourtroomInterface({ userRole, onExit }) {
         if (data.caseData) {
           setCaseData(data.caseData);
         }
+      }
+      if (userRole === "observer") {
+        runObserverSimulation(caseId); // restart playback for the newly picked case
       }
     } catch (err) {
       console.error("Error fetching case details:", err);
@@ -199,6 +239,9 @@ export default function CourtroomInterface({ userRole, onExit }) {
       if (window.speechSynthesis) {
         window.speechSynthesis.cancel();
       }
+      if (observerSourceRef.current) {
+        observerSourceRef.current.close();
+      }
     };
   }, []);
 
@@ -257,7 +300,9 @@ export default function CourtroomInterface({ userRole, onExit }) {
     setStatus("running");
     setSidebarOpen(false); // Close sidebar on mobile when started
     
-    if (userRole === "defense") {
+    if (userRole === "observer") {
+        runObserverSimulation(selectedCaseId);
+    } else if (userRole === "defense") {
         setTrialPhase("PROSECUTION OPENING STATEMENT");
         setActiveSpeaker("judge");
         setTimeout(() => {
@@ -454,17 +499,19 @@ export default function CourtroomInterface({ userRole, onExit }) {
         
         <ChatPanel messages={messages} userRole={userRole} speakText={speakText} />
 
-        <CourtroomInputBar
-          status={status}
-          activeSpeaker={activeSpeaker}
-          inputText={inputText}
-          setInputText={setInputText}
-          submitUserInput={submitUserInput}
-          isListening={isListening}
-          toggleListening={toggleListening}
-          ttsEnabled={ttsEnabled}
-          setTtsEnabled={setTtsEnabled}
-        />
+        {userRole !== "observer" && (
+          <CourtroomInputBar
+            status={status}
+            activeSpeaker={activeSpeaker}
+            inputText={inputText}
+            setInputText={setInputText}
+            submitUserInput={submitUserInput}
+            isListening={isListening}
+            toggleListening={toggleListening}
+            ttsEnabled={ttsEnabled}
+            setTtsEnabled={setTtsEnabled}
+          />
+        )}
       </div>
     </div>
   );
