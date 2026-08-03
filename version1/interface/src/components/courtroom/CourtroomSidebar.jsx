@@ -6,6 +6,7 @@ export default function CourtroomSidebar({
   sidebarCollapsed,
   onExit,
   caseData,
+  onOpenCaseModal,
   uploadStatus,
   uploadProgress,
   uploadedFileName,
@@ -66,10 +67,20 @@ export default function CourtroomSidebar({
           </div>
         ) : (
           <div className="bg-white shadow-[0_2px_10px_rgba(0,0,0,0.05)] rounded-tr-xl rounded-b-xl border border-surface-border px-3.5 py-3 relative mt-3 h-auto z-10">
-            <div className="absolute -top-[23px] left-[-1px] bg-white px-3 md:px-4 py-1.5 rounded-t-lg border-t border-l border-r border-surface-border text-[8px] md:text-[9px] font-black text-primaryBrown uppercase tracking-wider">
-              Case File {caseData.fileId}
+            <div className="flex justify-between items-center -top-[23px] left-[-1px] absolute right-0">
+              <div className="bg-white px-3 md:px-4 py-1.5 rounded-t-lg border-t border-l border-r border-surface-border text-[8px] md:text-[9px] font-black text-primaryBrown uppercase tracking-wider">
+                Case File {caseData.fileId}
+              </div>
+              {onOpenCaseModal && (
+                <button
+                  onClick={onOpenCaseModal}
+                  className="text-[9px] font-bold uppercase tracking-wider text-[#FAF8F5] bg-[#2C1810] hover:bg-[#8C5A3C] border border-[#D4AF37]/50 px-2 py-0.5 rounded transition-all cursor-pointer shadow-sm flex items-center gap-1"
+                >
+                  Select Case
+                </button>
+              )}
             </div>
-            <h2 className="font-heading font-bold mb-2 text-[14px] md:text-[16px] leading-tight text-wood-dark">
+            <h2 className="font-heading font-bold mb-2 text-[14px] md:text-[16px] leading-tight text-wood-dark mt-1">
               {caseData.title.split(" vs. ")[0]} <span className="text-[10px] md:text-xs italic font-normal">vs.</span> {caseData.title.split(" vs. ")[1] || ""}
             </h2>
             <ul className="text-[11px] md:text-xs space-y-2 text-textPrimary/90 font-mono">

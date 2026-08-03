@@ -19,7 +19,7 @@ import time
 
 from flask import Blueprint, Response, jsonify, stream_with_context
 
-from case_service import list_cases, get_case, normalize_case_data, build_events
+from backend.observer.case_service import list_cases, get_case, normalize_case_data, build_events, _turn_delay
 
 case_bp = Blueprint("case_bp", __name__)
 

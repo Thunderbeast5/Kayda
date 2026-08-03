@@ -44,6 +44,9 @@ def get_lexigraph_agent():
         lexigraph_agent_instance = LexiGraphAgent()
     return lexigraph_agent_instance
 
+from fastapi.responses import StreamingResponse
+from backend.observer.case_service import list_cases, get_case, normalize_case_data, build_events, _turn_delay
+
 app = FastAPI(title="MootCourt Legal Intelligence & Evidence API")
 
 # Enable CORS for localhost and 127.0.0.1 on various ports
@@ -62,6 +65,51 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+# ── Observer Mode Case Bank Endpoints ─────────────────────────────────────
+@app.get("/api/cases")
+async def api_list_cases():
+    cases = await asyncio.to_thread(list_cases)
+    return cases
+
+
+@app.get("/api/cases/{case_id}")
+async def api_get_case(case_id: str):
+    case = await asyncio.to_thread(get_case, case_id)
+    if case is None:
+        return JSONResponse(status_code=404, content={"error": "Case not found"})
+
+    return {
+        "caseData": normalize_case_data(case, case_id),
+        "metadata": case.get("case_metadata", {}),
+        "participants": case.get("participants", {}),
+        "legal_principles": case.get("legal_principles_established", []),
+    }
+
+
+@app.get("/api/simulate/{case_id}")
+async def api_simulate(case_id: str):
+    events = await asyncio.to_thread(build_events, case_id)
+    if events is None:
+        return JSONResponse(status_code=404, content={"error": "Case not found"})
+
+    async def event_generator():
+        for evt in events:
+            delay = _turn_delay(evt["full_text"])
+            await asyncio.sleep(delay)
+            yield f"data: {json.dumps(evt)}\n\n"
+        yield f"data: {json.dumps({'type': 'verdict', 'message': 'Court stands adjourned.'})}\n\n"
+
+    return StreamingResponse(
+        event_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "X-Accel-Buffering": "no",
+        },
+    )
+
 
 TEMP_DIR = backend_dir / "temp_uploads"
 TEMP_DIR.mkdir(exist_ok=True)

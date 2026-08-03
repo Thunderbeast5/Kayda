@@ -12,7 +12,11 @@ import os
 import re
 import glob
 
-CASES_DIR = os.path.join(os.path.dirname(__file__), "data", "observer")
+# Resolves to root MootCourt/data/observer
+CASES_DIR = os.path.abspath(
+    os.path.join(os.path.dirname(__file__), "..", "..", "data", "observer")
+)
+
 
 
 def _load_case_file(path: str) -> dict:
@@ -22,6 +26,14 @@ def _load_case_file(path: str) -> dict:
 
 def _case_id_from_path(path: str) -> str:
     return os.path.splitext(os.path.basename(path))[0]
+
+
+def _turn_delay(text: str) -> float:
+    """
+    Rough pacing so replay doesn't dump the whole transcript instantly.
+    Scales with dialogue length, capped so long speeches don't stall the demo.
+    """
+    return min(0.5 + len(text) / 200, 2.5)
 
 
 def list_cases() -> list[dict]:

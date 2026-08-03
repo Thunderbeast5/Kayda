@@ -4,6 +4,7 @@ import CourtroomStage from "../CourtroomStage";
 import ChatPanel from "../ChatPanel";
 import CourtroomSidebar from "./CourtroomSidebar";
 import CourtroomInputBar from "./CourtroomInputBar";
+import CaseSelectionModal from "./CaseSelectionModal";
 import { getMockResponse } from "../../data/mockTrialResponses";
 import { uploadCaseFile } from "../../firebase";
 
@@ -18,14 +19,33 @@ export default function CourtroomInterface({ userRole, onExit }) {
   const [ttsEnabled, setTtsEnabled] = useState(false);
   const ttsEnabledRef = useRef(false);
 
-  // PDF Case File Upload States
+  // Case Selection & Observer Mode state
+  const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
+  const [selectedCaseId, setSelectedCaseId] = useState("1");
   const [caseData, setCaseData] = useState({
-    fileId: "402-B",
-    title: "State vs. Sharma",
-    firNo: "2024/005",
-    charge: "IPC 379",
+    fileId: "1",
+    title: "Sasikala Pushpa vs. State of Tamil Nadu",
+    firNo: "LAWS(SC)-2019-5-25",
+    charge: "S.438 CrPC / IPC 193",
     evidenceLinked: true
   });
+
+  const handleSelectCase = async (caseId) => {
+    try {
+      setSelectedCaseId(caseId);
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5001";
+      const res = await fetch(`${apiUrl}/api/cases/${caseId}`);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.caseData) {
+          setCaseData(data.caseData);
+        }
+      }
+    } catch (err) {
+      console.error("Error fetching case details:", err);
+    }
+  };
+
   const [uploadStatus, setUploadStatus] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [uploadedFileName, setUploadedFileName] = useState("");
@@ -373,6 +393,7 @@ export default function CourtroomInterface({ userRole, onExit }) {
         sidebarCollapsed={sidebarCollapsed}
         onExit={onExit}
         caseData={caseData}
+        onOpenCaseModal={() => setIsCaseModalOpen(true)}
         uploadStatus={uploadStatus}
         uploadProgress={uploadProgress}
         uploadedFileName={uploadedFileName}
@@ -381,6 +402,13 @@ export default function CourtroomInterface({ userRole, onExit }) {
         inputText={inputText}
         activeSpeaker={activeSpeaker}
         status={status}
+      />
+
+      <CaseSelectionModal
+        isOpen={isCaseModalOpen}
+        onClose={() => setIsCaseModalOpen(false)}
+        onSelectCase={handleSelectCase}
+        currentCaseId={selectedCaseId}
       />
 
       {/* RIGHT PANEL */}
