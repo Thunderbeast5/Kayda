@@ -45,19 +45,19 @@
     font-family: var(--font-body);
   }
 
-  /* Custom premium scrollbar utility */
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  /* Hide scrollbars while preserving scrolling */
+  html,
+  body,
+  #root,
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: rgba(62, 39, 35, 0.15); /* wood-dark with low opacity */
-    border-radius: 99px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(197, 160, 89, 0.5); /* gold with hover opacity */
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar,
+  #root::-webkit-scrollbar,
+  *::-webkit-scrollbar {
+    display: none;
   }
 }

@@ -19,6 +19,8 @@ import {
 } from "lucide-react";
 import logo from "../assets/logo1.svg";
 
+import StandardNavbar from "../components/StandardNavbar";
+
 // ─── Progress Steps ──────────────────────────────────────────────
 const STEPS = [
   { id: "upload", label: "Upload Document", icon: Upload },
@@ -197,30 +199,10 @@ export default function EvidenceAnalyzerPage({ onBack }) {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] font-body text-[#2C1810]">
-      {/* ─── Top Bar ─────────────────────────────────────────────── */}
-      <header className="fixed top-0 inset-x-0 z-50 bg-[#FAF8F5]/90 backdrop-blur-md border-b border-[#2C1810]/10">
-        <div className="max-w-7xl mx-auto px-6 py-3.5 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={onBack}
-              className="flex items-center gap-2 text-[12px] font-semibold uppercase tracking-widest text-[#8C5A3C] hover:text-[#2C1810] transition-colors"
-            >
-              <ArrowLeft size={14} />
-              Back
-            </button>
-            <div className="w-px h-5 bg-[#2C1810]/15" />
-            <div className="flex items-center gap-2.5 cursor-pointer" onClick={onBack}>
-              <img src={logo} alt="Kayda" className="w-12 h-auto" />
-              <span className="font-heading font-bold text-2xl text-[#2C1810] tracking-tight">Kayda</span>
-            </div>
-          </div>
-          <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#8C5A3C] font-bold">
-            Evidence Analyzer // Demo Mode
-          </span>
-        </div>
-      </header>
+      {/* ─── Reusable Sticky Top Navbar ─────────────────────────── */}
+      <StandardNavbar onBack={onBack} title="Evidence Analyzer" subtitle="Demo Mode" />
 
-      <div className="pt-20 max-w-7xl mx-auto px-6 pb-24">
+      <div className="pt-6 max-w-7xl mx-auto px-6 pb-24">
         {/* ─── Progress Steps Bar ────────────────────────────────── */}
         <div className="flex items-center justify-center gap-2 md:gap-4 py-8">
           {STEPS.map((step, i) => {
