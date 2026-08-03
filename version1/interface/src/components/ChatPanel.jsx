@@ -127,7 +127,7 @@ export default function ChatPanel({ messages, userRole, speakText }) {
 
         {messages.map((msg, i) => {
           const isUser = msg.agentId === userRole;
-          const isProsecutor = msg.agentId === "prosecutor";
+          const isProsecutor = msg.agentId === "prosecutor" || msg.agentId === "accused";
           const isJudge = msg.agentId === "judge";
           const isDefense = msg.agentId === "defense";
 
@@ -137,37 +137,55 @@ export default function ChatPanel({ messages, userRole, speakText }) {
           else if (isJudge) Icon = Gavel;
           else if (isDefense) Icon = Shield;
 
+          // Alignment logic: Defense -> Left, Judge -> Center, Prosecutor/User -> Right
+          let alignContainer = "justify-start";
+          let alignBubbleContainer = "items-start";
+          if (isJudge) {
+            alignContainer = "justify-center";
+            alignBubbleContainer = "items-center text-center";
+          } else if (isProsecutor || isUser) {
+            alignContainer = "justify-end";
+            alignBubbleContainer = "items-end";
+          }
+
           // Dynamic Bubble Styling for distinct AI personas
-          let bubbleStyle = "bg-white text-[#2C1810] border border-[#2C1810]/10 rounded-tl-sm"; // Default AI fallback
+          let bubbleStyle = "bg-white text-[#2C1810] border border-[#2C1810]/10 rounded-tl-sm"; // Default fallback
           if (isUser) {
             bubbleStyle = "bg-[#2C1810] text-[#FAF9F7] rounded-tr-sm";
           } else if (isProsecutor) {
-            bubbleStyle = "bg-blue-50 text-[#2C1810] border border-blue-200/60 rounded-tl-sm";
+            bubbleStyle = "bg-blue-50/90 text-[#2C1810] border border-blue-200/80 rounded-tr-sm shadow-sm";
           } else if (isJudge) {
-            bubbleStyle = "bg-amber-50/70 text-[#2C1810] border border-amber-200/60 rounded-tl-sm";
+            bubbleStyle = "bg-amber-50 text-[#2C1810] border border-amber-300/70 rounded-2xl shadow-md";
           } else if (isDefense) {
-            bubbleStyle = "bg-rose-50 text-[#2C1810] border border-rose-200/60 rounded-tl-sm";
+            bubbleStyle = "bg-rose-50/90 text-[#2C1810] border border-rose-200/80 rounded-tl-sm shadow-sm";
           }
 
           return (
-            <div key={i} className={`flex w-full gap-3 md:gap-4 ${isUser ? "justify-end" : "justify-start"} animate-fadeIn`}>
+            <div key={i} className={`flex w-full gap-3 md:gap-4 ${alignContainer} animate-fadeIn`}>
               
-              {/* AI Avatar */}
-              {!isUser && (
+              {/* Left Avatar (Defense / AI) */}
+              {!isJudge && !isProsecutor && !isUser && (
                 <div className="w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full bg-white border border-[#D4AF37]/30 flex items-center justify-center shadow-sm mt-1">
-                  <Icon size={18} className={isProsecutor ? "text-blue-700" : isJudge ? "text-amber-600" : isDefense ? "text-red-700" : "text-[#8C5A3C]"} />
+                  <Icon size={18} className="text-red-700" />
+                </div>
+              )}
+
+              {/* Center Avatar (Judge) */}
+              {isJudge && (
+                <div className="w-9 h-9 md:w-11 md:h-11 shrink-0 rounded-full bg-amber-100 border-2 border-[#D4AF37] flex items-center justify-center shadow-md mt-1">
+                  <Icon size={20} className="text-amber-700" />
                 </div>
               )}
 
               {/* Message Content Container */}
-              <div className={`flex flex-col gap-1.5 max-w-[85%] md:max-w-[75%] ${isUser ? "items-end" : "items-start"}`}>
+              <div className={`flex flex-col gap-1.5 max-w-[85%] md:max-w-[70%] ${alignBubbleContainer}`}>
                 
                 {/* Header (Speaker Name & Verification Badge) */}
-                <div className="flex items-center gap-3 px-1.5">
+                <div className="flex items-center gap-2.5 px-1.5">
                   <span className="text-xs font-semibold text-[#5D4037] capitalize">
                     {msg.speaker} {isUser ? "(You)" : ""}
                   </span>
-                  {msg.citations?.length > 0 && !isUser && (
+                  {msg.citations?.length > 0 && (
                     <span className="flex items-center gap-1 text-[9px] uppercase font-bold tracking-wider bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full border border-emerald-200">
                       <CheckCircle2 size={10} strokeWidth={3} /> Verified
                     </span>
@@ -180,7 +198,7 @@ export default function ChatPanel({ messages, userRole, speakText }) {
                 </div>
 
                 {/* Bottom Actions Bar (TTS & Citations) */}
-                <div className={`flex flex-wrap items-center gap-2 mt-1 px-1.5 ${isUser ? "flex-row-reverse" : "flex-row"}`}>
+                <div className={`flex flex-wrap items-center gap-2 mt-1 px-1.5 ${isProsecutor || isUser ? "flex-row-reverse" : "flex-row"}`}>
                   
                   {speakText && (
                     <button
@@ -209,10 +227,18 @@ export default function ChatPanel({ messages, userRole, speakText }) {
 
               </div>
 
-              {/* User Avatar */}
-              {isUser && (
-                <div className="w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#8C5A3C] flex items-center justify-center mt-1 shadow-sm">
-                  <User size={18} className="text-white" />
+              {/* Right Avatar (Prosecutor / User) */}
+              {(isProsecutor || isUser) && (
+                <div className={`w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full flex items-center justify-center mt-1 shadow-sm ${
+                  isUser 
+                    ? "bg-gradient-to-br from-[#D4AF37] to-[#8C5A3C]" 
+                    : "bg-white border border-blue-300"
+                }`}>
+                  {isUser ? (
+                    <User size={18} className="text-white" />
+                  ) : (
+                    <Icon size={18} className="text-blue-700" />
+                  )}
                 </div>
               )}
 
