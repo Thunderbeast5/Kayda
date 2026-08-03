@@ -1,0 +1,332 @@
+{
+  "case_metadata": {
+    "case_name": "Sasikala Pushpa v. State of Tamil Nadu",
+    "citation": "LAWS(SC)-2019-5-25",
+    "court": "Supreme Court of India",
+    "coram": ["Justice R. Banumathi", "Justice S. Abdul Nazeer"],
+    "decided_on": "May 07, 2019",
+    "appeal_type": "Criminal Appeal No. 855 of 2019",
+    "appellant": "Sasikala Pushpa",
+    "respondent": "State of Tamil Nadu",
+    "laws_referred": [
+      "Code of Criminal Procedure, 1973 - S.438, S.340",
+      "Indian Penal Code, 1860 - S.193, S.466, S.468, S.471, S.294(B), S.323, S.344, S.354(A), S.506(I), S.199, S.200, S.147, S.148, S.448",
+      "Tamil Nadu Prohibition of Harassment of Women Act, 1998 - S.4",
+      "Protection of Children from Sexual Offences Act, 2012 - S.9(I)(n), S.10, S.16, S.17",
+      "Tamil Nadu Public Property (Prevention of Damage and Loss) Act, 1992 - S.3"
+    ]
+  },
+  "participants": {
+    "judge": {
+      "name": "Justice R. Banumathi",
+      "role": "Presiding Judge, Supreme Court of India",
+      "remarks": "Authored the unanimous judgment. Emphasized the expediency requirement under Section 340 CrPC and the absence of mens rea."
+    },
+    "judge_2": {
+      "name": "Justice S. Abdul Nazeer",
+      "role": "Co-Judge, Supreme Court of India",
+      "remarks": "Concurred fully with Justice Banumathi's judgment."
+    },
+    "defense_counsel": {
+      "name": "Mr. Sanjay Hegde",
+      "role": "Senior Counsel for Appellants",
+      "arguments": [
+        "The date on the vakalatnama was a clerical error.",
+        "High Court failed to record expediency under Section 340 CrPC.",
+        "Vakalatnama is merely procedural.",
+        "Appellants admitted their signatures.",
+        "No mens rea for forgery."
+      ]
+    },
+    "prosecution_counsel": {
+      "name": "Mr. Yogesh Kanna",
+      "role": "Counsel for State of Tamil Nadu",
+      "arguments": [
+        "First appellant did not sign in Madurai.",
+        "This is a fraud upon the court.",
+        "Appellants gave evasive replies.",
+        "Handwriting expert's report suggests discrepancies."
+      ]
+    },
+    "appellant_1": {
+      "name": "Sasikala Pushpa",
+      "role": "First Appellant / Accused",
+      "remarks": "Former MP. Explained she signed in New Delhi on 16.08.2016."
+    },
+    "appellant_3": {
+      "name": "Husband of Sasikala Pushpa",
+      "role": "Third Appellant / Accused",
+      "remarks": "Businessman. Explained he delivered the vakalatnama to Madurai."
+    },
+    "advocate_vijaykumar": {
+      "name": "Mr. S. Vijaykumar",
+      "role": "Advocate at Madurai High Court",
+      "remarks": "Attested the vakalatnama in good faith."
+    },
+    "witness_banumathi": {
+      "name": "Banumathi",
+      "role": "Complainant in Crime No. 5/2016",
+      "remarks": "Alleged harassment by the appellants."
+    },
+    "investigating_officer": {
+      "name": "Inspector, K. Pudur Police Station",
+      "role": "Investigating Officer in Crime No. 1331/2016",
+      "remarks": "Registered FIR and filed chargesheet."
+    }
+  },
+  "procedural_history": [
+    {
+      "date": "11.08.2016",
+      "event": "Delhi High Court granted interim protection to appellants in Crime No. 5/2016."
+    },
+    {
+      "date": "16.08.2016",
+      "event": "Appellant No.1 and son signed vakalatnama in New Delhi."
+    },
+    {
+      "date": "17.08.2016",
+      "event": "Appellant No.1 left for Singapore. Appellant No.3 delivered vakalatnama to advocate in Madurai."
+    },
+    {
+      "date": "18.08.2016",
+      "event": "Appellants filed anticipatory bail with vakalatnama showing Madurai date."
+    },
+    {
+      "date": "22.08.2016",
+      "event": "POCSO charges added in Crime No. 5/2016."
+    },
+    {
+      "date": "23.08.2016",
+      "event": "High Court directed appellants to explain discrepancy."
+    },
+    {
+      "date": "29.08.2016",
+      "event": "Appellants filed affidavit stating clerical error."
+    },
+    {
+      "date": "14.09.2016",
+      "event": "Madras High Court dismissed bail and directed complaint for forgery."
+    },
+    {
+      "date": "19.09.2016",
+      "event": "FIR registered under Sections 193, 466, 468, 471 IPC."
+    },
+    {
+      "date": "26.09.2016",
+      "event": "Supreme Court granted interim protection."
+    },
+    {
+      "date": "18.11.2016",
+      "event": "High Court granted bail to Appellants 2 & 3 in Crime No. 276/2016, denied to Appellant 1."
+    },
+    {
+      "date": "22.11.2016",
+      "event": "Supreme Court granted interim protection to Appellant 1 in Crime No. 276/2016."
+    },
+    {
+      "date": "07.05.2019",
+      "event": "Supreme Court allowed appeals."
+    }
+  ],
+  "key_legal_issues": [
+    {
+      "issue": "Whether High Court was justified in directing criminal complaint for forgery based on mistaken date.",
+      "finding": "No. The mistake was inadvertent and did not amount to fraud or forgery."
+    },
+    {
+      "issue": "Whether High Court complied with Section 340 CrPC expediency requirement.",
+      "finding": "No. High Court failed to record such a finding."
+    },
+    {
+      "issue": "Whether appellants had mens rea for forgery.",
+      "finding": "No. Signatures were admitted. No wrongful gain or loss."
+    }
+  ],
+  "final_judgment_and_orders": [
+    {
+      "case": "SLP(Crl) No.7252/2016 (Crime No. 1331/2016)",
+      "order": "Appeal allowed. FIR and charge sheet quashed."
+    },
+    {
+      "case": "SLP(Crl) Nos. 7287/2016 and 8206/2016 (Crime No. 5/2016)",
+      "order": "Interim protection extended till disposal."
+    },
+    {
+      "case": "SLP(Crl) Nos. 9064/2016 and 9065/2016 (Crime No. 276/2016)",
+      "order": "Interim protection extended. Anticipatory bail granted. Liberty to approach High Court for quashing."
+    }
+  ],
+  "legal_principles_established": [
+    "Before prosecution under Section 340 CrPC, court must record satisfaction that it is 'expedient in the interest of justice'.",
+    "Expediency is judged by impact on administration of justice, not injury to individual.",
+    "Incorrect statement in vakalatnama does not automatically constitute fraud or forgery.",
+    "Mens rea is essential for forgery.",
+    "Vakalatnama is procedural; its date does not affect merits."
+  ],
+  "simulation_conversation": [
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "Mr. Hegde, please begin your arguments for the appellants."
+    },
+    {
+      "speaker": "Defense Counsel",
+      "dialogue": "My Lord, the date on the vakalatnama was a clerical error. The appellants have admitted their signatures."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "Mr. Kanna, what is the State's response?"
+    },
+    {
+      "speaker": "Prosecution Counsel",
+      "dialogue": "My Lord, the first appellant was in Singapore. She never came to Madurai. This is fraud."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "But the signatures are admitted. Where is the forgery?"
+    },
+    {
+      "speaker": "Prosecution Counsel",
+      "dialogue": "My Lord, the document states it was signed in Madurai. That is false."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "Mr. Hegde, what about the requirement of Section 340 CrPC?"
+    },
+    {
+      "speaker": "Defense Counsel",
+      "dialogue": "My Lord, the High Court did not record that it was expedient in the interest of justice."
+    },
+    {
+      "speaker": "Judge Nazeer",
+      "dialogue": "Was any finding recorded regarding expediency?"
+    },
+    {
+      "speaker": "Defense Counsel",
+      "dialogue": "No, My Lord. The High Court jumped to the conclusion of fraud."
+    },
+    {
+      "speaker": "Prosecution Counsel",
+      "dialogue": "My Lord, fraud on the court vitiates everything. This Court held so in Sachida Nand Singh."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "But what is the impact on administration of justice? It is a procedural document."
+    },
+    {
+      "speaker": "Prosecution Counsel",
+      "dialogue": "My Lord, a false document filed in court is itself an impact."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "Mr. Hegde, explain the sequence of events."
+    },
+    {
+      "speaker": "Defense Counsel",
+      "dialogue": "My Lord, Appellant No.1 signed in Delhi on 16th. Appellant No.3 took it to Madurai on 17th."
+    },
+    {
+      "speaker": "Judge Nazeer",
+      "dialogue": "And the date on the vakalatnama?"
+    },
+    {
+      "speaker": "Defense Counsel",
+      "dialogue": "Mistakenly recorded as 17th at Madurai. It should have been 16th at Delhi."
+    },
+    {
+      "speaker": "Prosecution Counsel",
+      "dialogue": "My Lord, the handwriting expert has given a report. The signatures may not be genuine."
+    },
+    {
+      "speaker": "Defense Counsel",
+      "dialogue": "My Lord, the appellants have admitted their signatures. Expert opinion cannot override that."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "Ms. Sasikala, do you have anything to say?"
+    },
+    {
+      "speaker": "Appellant 1",
+      "dialogue": "My Lord, I never intended to commit fraud. It was a mistake. I am deeply sorry."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "Mr. Vijaykumar, you attested the vakalatnama. What do you say?"
+    },
+    {
+      "speaker": "Advocate Vijaykumar",
+      "dialogue": "My Lord, I acted in good faith. I received the document from Appellant No.3."
+    },
+    {
+      "speaker": "Judge Nazeer",
+      "dialogue": "Was the date mentioned by you?"
+    },
+    {
+      "speaker": "Advocate Vijaykumar",
+      "dialogue": "No, My Lord. The date was pre-filled. I verified the signatures only."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "Ms. Banumathi, you are the complainant. What is your view?"
+    },
+    {
+      "speaker": "Witness Banumathi",
+      "dialogue": "My Lord, these people have harassed me. They are capable of anything."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "But do you have personal knowledge of the vakalatnama?"
+    },
+    {
+      "speaker": "Witness Banumathi",
+      "dialogue": "No, My Lord. But they are liars and cheats."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "Inspector, what did your investigation reveal?"
+    },
+    {
+      "speaker": "Investigating Officer",
+      "dialogue": "My Lord, we filed chargesheet based on the High Court's direction."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "Did you find any evidence of wrongful gain?"
+    },
+    {
+      "speaker": "Investigating Officer",
+      "dialogue": "No, My Lord. But the false statement is itself an offence."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "This Court has considered all submissions. The appellants have admitted their signatures. The incorrect date is a clerical error. There is no mens rea. The High Court failed to record expediency under Section 340."
+    },
+    {
+      "speaker": "Judge Nazeer",
+      "dialogue": "I agree. The power under Section 340 cannot be used casually. The impact on administration of justice is minimal here."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "The appeal is allowed. FIR and charge sheet in Crime No. 1331/2016 are quashed."
+    },
+    {
+      "speaker": "Judge Nazeer",
+      "dialogue": "What about the other cases?"
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "Interim protection in Crime No. 5/2016 and Crime No. 276/2016 is extended till disposal."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "Appellants are granted anticipatory bail in Crime No. 276/2016. They may approach High Court for quashing."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "The appellants shall not resort to any consequential proceedings based on this quashing."
+    },
+    {
+      "speaker": "Judge Banumathi",
+      "dialogue": "With these observations, all appeals are disposed of. Court stands adjourned."
+    }
+  ]
+}

@@ -1,5 +1,518 @@
 [
   {
+    "query_id": "lexi_3e56ecb7c6f6",
+    "query": "a man kidnapped a child for ransom",
+    "created_at": "2026-08-03T08:57:04.175591+00:00",
+    "pipeline_confidence": 0.6925,
+    "primary_intent": null,
+    "recommended_count": 2,
+    "precedents_count": 2,
+    "result": {
+      "pipeline_confidence": 0.6925,
+      "recommended_sections": [
+        {
+          "act": "POCSO",
+          "section": "POCSO 42",
+          "title": "Alternative punishment clause",
+          "equivalent_section": null,
+          "confidence": 0.6925,
+          "applicability": "Relevant provision for query facts.",
+          "reason": "Candidate POCSO POCSO 42 validated provisionally [WARNING: no ingredients ingested in graph]."
+        },
+        {
+          "act": "POCSO",
+          "section": "POCSO 9",
+          "title": "Aggravated sexual assault",
+          "equivalent_section": null,
+          "confidence": 0.6876,
+          "applicability": "Relevant provision for query facts.",
+          "reason": "Candidate POCSO POCSO 9 validated provisionally [WARNING: no ingredients ingested in graph]."
+        }
+      ],
+      "supporting_cases": [],
+      "similar_cases": [
+        {
+          "case_id": "2019_INSC_549",
+          "case_name": "KUMAR GHIMIREY v. THE STATE OF SIKKIM (C",
+          "title": "KUMAR GHIMIREY v. THE STATE OF SIKKIM (C",
+          "court": "Supreme Court of India",
+          "year": 2019,
+          "similarity": 0.6177,
+          "vector_similarity": 0.617733061,
+          "facts": "Sexual assault on seven year old girl \u2013 Appellant convicted under ss.9/10 of POSCO Act and under s.341 IPC and awarded simple imprisonment for a period of 7 years and imposed fine of Rs.50,000/- and imprisonment of one month for offence under s.341 IPC \u2013 Appeal against conviction under s.",
+          "reasoning": "There can be no doubt with regard to the power of",
+          "judgment_summary": "There can be no doubt with regard to the power of",
+          "sections": [
+            "10",
+            "302",
+            "341",
+            "376"
+          ],
+          "metadata": {
+            "bns_sections": [],
+            "case_id": "2019_INSC_549",
+            "case_name": "KUMAR GHIMIREY v. THE STATE OF SIKKIM (C",
+            "community": "sexual_offences",
+            "court": "Supreme Court of India",
+            "crime_type": "sexual_offences, child_offences, murder_related",
+            "facts": "Sexual assault on seven year old girl \u2013 Appellant convicted under ss.9/10 of POSCO Act and under s.341 IPC and awarded simple imprisonment for a period of 7 years and imposed fine of Rs.50,000/- and imprisonment of one month for offence under s.341 IPC \u2013 Appeal against conviction under s.",
+            "ipc_sections": [
+              "10",
+              "302",
+              "341",
+              "376"
+            ],
+            "judgment_summary": "There can be no doubt with regard to the power of",
+            "keywords": [
+              "child",
+              "minor",
+              "sexual assault"
+            ],
+            "reasoning": "There can be no doubt with regard to the power of",
+            "year": 2019
+          }
+        },
+        {
+          "case_id": "2023_INSC_676",
+          "case_name": "S.C.R.\n\nP. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE",
+          "title": "S.C.R.\n\nP. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE",
+          "court": "Supreme Court of India",
+          "year": 2023,
+          "similarity": 0.6088,
+          "vector_similarity": 0.608834326,
+          "facts": "whether a person is a child or not, such question shall be determined by the Special Court after satisfying itself about the age of such person and it shall record in writing its reasons for such determination.",
+          "reasoning": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+          "judgment_summary": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+          "sections": [
+            "10",
+            "351",
+            "366",
+            "366A",
+            "506"
+          ],
+          "metadata": {
+            "bns_sections": [],
+            "case_id": "2023_INSC_676",
+            "case_name": "S.C.R.\n\nP. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE",
+            "community": "sexual_offences",
+            "court": "Supreme Court of India",
+            "crime_type": "sexual_offences, child_offences, kidnapping_abduction",
+            "facts": "whether a person is a child or not, such question shall be determined by the Special Court after satisfying itself about the age of such person and it shall record in writing its reasons for such determination.",
+            "ipc_sections": [
+              "10",
+              "351",
+              "366",
+              "366A",
+              "506"
+            ],
+            "judgment_summary": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+            "keywords": [
+              "child",
+              "juvenile",
+              "minor",
+              "sexual assault"
+            ],
+            "reasoning": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+            "year": 2023
+          }
+        }
+      ],
+      "supporting_articles": [],
+      "supporting_evidence": [],
+      "supporting_principles": [],
+      "supporting_graph": {
+        "articles": [],
+        "cases": [],
+        "evidence": [],
+        "principles": []
+      },
+      "community": {
+        "community_id": "general_offences",
+        "community_name": "Community general_offences",
+        "community_summary": "Graph community clustered by GDS Leiden (general_offences).",
+        "community_score": 0.25
+      },
+      "rejected_sections": [],
+      "debug": {
+        "decision": {
+          "invoke_reasoning": true,
+          "reason": "Confidence below threshold or verification incomplete."
+        },
+        "ranked_candidates": [
+          {
+            "section": "POCSO POCSO 42",
+            "act": "POCSO",
+            "section_num": "POCSO 42",
+            "title": "Alternative punishment clause",
+            "description": "",
+            "punishment": "Governs sentencing priority: greater punishment prevails.",
+            "similarity": 0.6106,
+            "keyword_match": 0.0,
+            "case_similarity": 0.6177,
+            "metadata_verified": true,
+            "graph_verified": false,
+            "sources": [
+              "offence against minor child child protection statutory provisions"
+            ],
+            "relationships": {
+              "related_offences": [],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "children_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate POCSO POCSO 42 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6925,
+            "ingredient_score": 0.71,
+            "community_match": 1.0,
+            "score_breakdown": {
+              "vector_similarity_35": 0.6106,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.5,
+              "community_match_10": 1.0,
+              "case_precedents_10": 0.6177,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6925
+            }
+          },
+          {
+            "section": "POCSO POCSO 9",
+            "act": "POCSO",
+            "section_num": "POCSO 9",
+            "title": "Aggravated sexual assault",
+            "description": "",
+            "punishment": "Imprisonment of either description for a term which shall not be less than five years but which may extend to seven years, and fine.",
+            "similarity": 0.5967,
+            "keyword_match": 0.0,
+            "case_similarity": 0.6177,
+            "metadata_verified": true,
+            "graph_verified": false,
+            "sources": [
+              "A male individual committed the offence of kidnapping by taking a child for ransom.",
+              "kidnapping and abduction of minor child from lawful guardianship",
+              "offence against minor child child protection statutory provisions"
+            ],
+            "relationships": {
+              "related_offences": [],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "children_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate POCSO POCSO 9 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6876,
+            "ingredient_score": 0.71,
+            "community_match": 1.0,
+            "score_breakdown": {
+              "vector_similarity_35": 0.5967,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.5,
+              "community_match_10": 1.0,
+              "case_precedents_10": 0.6177,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6876
+            }
+          },
+          {
+            "section": "POCSO POCSO 5",
+            "act": "POCSO",
+            "section_num": "POCSO 5",
+            "title": "Aggravated penetrative sexual assault",
+            "description": "",
+            "punishment": "Imprisonment for a term not less than twenty years, but which may extend to imprisonment for life (remainder of natural life) or death, and fine.",
+            "similarity": 0.5935,
+            "keyword_match": 0.0,
+            "case_similarity": 0.6177,
+            "metadata_verified": true,
+            "graph_verified": false,
+            "sources": [
+              "kidnapping and abduction of minor child from lawful guardianship",
+              "offence against minor child child protection statutory provisions"
+            ],
+            "relationships": {
+              "related_offences": [],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "children_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate POCSO POCSO 5 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6865,
+            "ingredient_score": 0.71,
+            "community_match": 1.0,
+            "score_breakdown": {
+              "vector_similarity_35": 0.5935,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.5,
+              "community_match_10": 1.0,
+              "case_precedents_10": 0.6177,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6865
+            }
+          },
+          {
+            "section": "POCSO POCSO 8",
+            "act": "POCSO",
+            "section_num": "POCSO 8",
+            "title": "Punishment for sexual assault",
+            "description": "",
+            "punishment": "Imprisonment for 3 to 5 years and fine.",
+            "similarity": 0.5914,
+            "keyword_match": 0.0,
+            "case_similarity": 0.6177,
+            "metadata_verified": true,
+            "graph_verified": false,
+            "sources": [
+              "offence against minor child child protection statutory provisions"
+            ],
+            "relationships": {
+              "related_offences": [],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "children_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate POCSO POCSO 8 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6858,
+            "ingredient_score": 0.71,
+            "community_match": 1.0,
+            "score_breakdown": {
+              "vector_similarity_35": 0.5914,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.5,
+              "community_match_10": 1.0,
+              "case_precedents_10": 0.6177,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6858
+            }
+          },
+          {
+            "section": "BNS 20",
+            "act": "BNS",
+            "section_num": "20",
+            "title": "Act of child under seven years",
+            "description": "Nothing offence done by child under 7 years of age.",
+            "punishment": "N/A - Exception",
+            "similarity": 0.6621,
+            "keyword_match": 0.25,
+            "case_similarity": 0.6177,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "kidnapping and abduction of minor child from lawful guardianship",
+              "offence against minor child child protection statutory provisions"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "IPC_BNS_MAPPING",
+                  "section": "IPC 82",
+                  "title": "Act of a child under seven years of age.",
+                  "kind": "act_mapping"
+                },
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Act of child under seven years",
+                  "title": "Act of child under seven years",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "general_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate BNS 20 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6755,
+            "ingredient_score": 0.71,
+            "community_match": 0.5,
+            "score_breakdown": {
+              "vector_similarity_35": 0.6621,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.6,
+              "community_match_10": 0.5,
+              "case_precedents_10": 0.6177,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6755
+            }
+          }
+        ],
+        "case_analysis": {
+          "pipeline_confidence": 0.7,
+          "recommended_sections": [
+            {
+              "act": "POCSO",
+              "section": "POCSO 42",
+              "title": "Alternative punishment clause",
+              "confidence": 0.6925,
+              "applicability": "Relevant provision for query facts.",
+              "reason": "Candidate POCSO POCSO 42 validated provisionally [WARNING: no ingredients ingested in graph]."
+            },
+            {
+              "act": "POCSO",
+              "section": "POCSO 9",
+              "title": "Aggravated sexual assault",
+              "confidence": 0.6876,
+              "applicability": "Relevant provision for query facts.",
+              "reason": "Candidate POCSO POCSO 9 validated provisionally [WARNING: no ingredients ingested in graph]."
+            }
+          ],
+          "similar_cases": [
+            {
+              "case_id": "2019_INSC_549",
+              "case_name": "KUMAR GHIMIREY v. THE STATE OF SIKKIM (C",
+              "title": "KUMAR GHIMIREY v. THE STATE OF SIKKIM (C",
+              "court": "Supreme Court of India",
+              "year": 2019,
+              "similarity": 0.6177,
+              "vector_similarity": 0.617733061,
+              "facts": "Sexual assault on seven year old girl \u2013 Appellant convicted under ss.9/10 of POSCO Act and under s.341 IPC and awarded simple imprisonment for a period of 7 years and imposed fine of Rs.50,000/- and imprisonment of one month for offence under s.341 IPC \u2013 Appeal against conviction under s.",
+              "reasoning": "There can be no doubt with regard to the power of",
+              "judgment_summary": "There can be no doubt with regard to the power of",
+              "sections": [
+                "10",
+                "302",
+                "341",
+                "376"
+              ],
+              "metadata": {
+                "bns_sections": [],
+                "case_id": "2019_INSC_549",
+                "case_name": "KUMAR GHIMIREY v. THE STATE OF SIKKIM (C",
+                "community": "sexual_offences",
+                "court": "Supreme Court of India",
+                "crime_type": "sexual_offences, child_offences, murder_related",
+                "facts": "Sexual assault on seven year old girl \u2013 Appellant convicted under ss.9/10 of POSCO Act and under s.341 IPC and awarded simple imprisonment for a period of 7 years and imposed fine of Rs.50,000/- and imprisonment of one month for offence under s.341 IPC \u2013 Appeal against conviction under s.",
+                "ipc_sections": [
+                  "10",
+                  "302",
+                  "341",
+                  "376"
+                ],
+                "judgment_summary": "There can be no doubt with regard to the power of",
+                "keywords": [
+                  "child",
+                  "minor",
+                  "sexual assault"
+                ],
+                "reasoning": "There can be no doubt with regard to the power of",
+                "year": 2019
+              }
+            },
+            {
+              "case_id": "2023_INSC_676",
+              "case_name": "S.C.R.\n\nP. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE",
+              "title": "S.C.R.\n\nP. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE",
+              "court": "Supreme Court of India",
+              "year": 2023,
+              "similarity": 0.6088,
+              "vector_similarity": 0.608834326,
+              "facts": "whether a person is a child or not, such question shall be determined by the Special Court after satisfying itself about the age of such person and it shall record in writing its reasons for such determination.",
+              "reasoning": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+              "judgment_summary": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+              "sections": [
+                "10",
+                "351",
+                "366",
+                "366A",
+                "506"
+              ],
+              "metadata": {
+                "bns_sections": [],
+                "case_id": "2023_INSC_676",
+                "case_name": "S.C.R.\n\nP. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE",
+                "community": "sexual_offences",
+                "court": "Supreme Court of India",
+                "crime_type": "sexual_offences, child_offences, kidnapping_abduction",
+                "facts": "whether a person is a child or not, such question shall be determined by the Special Court after satisfying itself about the age of such person and it shall record in writing its reasons for such determination.",
+                "ipc_sections": [
+                  "10",
+                  "351",
+                  "366",
+                  "366A",
+                  "506"
+                ],
+                "judgment_summary": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+                "keywords": [
+                  "child",
+                  "juvenile",
+                  "minor",
+                  "sexual assault"
+                ],
+                "reasoning": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+                "year": 2023
+              }
+            }
+          ],
+          "supporting_articles": [],
+          "supporting_evidence": [],
+          "supporting_principles": [],
+          "rejected_sections": []
+        }
+      },
+      "prediction_id": "ac48194c-c4fd-4065-96c5-d1a94a96aa12"
+    }
+  },
+  {
     "query_id": "lexi_827ede854032",
     "query": "My sister was burned alive by her in-laws after they demanded 10 lakhs more dowry. She died in the hospital after 3 days.",
     "created_at": "2026-07-29T17:48:36.240888+00:00",
