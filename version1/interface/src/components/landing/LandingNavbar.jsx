@@ -50,7 +50,7 @@ import logo from "../../assets/12.svg";
 export default function LandingNavbar({ scrollToSection }) {
   return (
     <div className="fixed top-5 inset-x-0 z-50 flex justify-center px-6 pointer-events-none">
-      <nav className="pointer-events-auto flex items-center justify-between w-full max-w-6xl px-7 py-3.5 rounded-full bg-[#FAF9F7]/80 backdrop-blur-md border border-[#D4AF37]/30 shadow-[0_10px_30px_rgba(44,24,16,0.08)]">
+      <nav className="pointer-events-auto flex items-center justify-between w-full max-w-6xl px-7 py-2 rounded-full bg-[#FAF9F7]/80 backdrop-blur-md border border-[#D4AF37]/30 shadow-[0_10px_30px_rgba(44,24,16,0.08)]">
         
         {/* Logo + Emblem */}
         <div 
@@ -88,7 +88,7 @@ export default function LandingNavbar({ scrollToSection }) {
           </button>
           <button 
             onClick={() => scrollToSection("choose-role")}
-            className="px-6 py-2.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-[#FAF9F7] bg-[#2C1810] border border-[#D4AF37] rounded-full hover:bg-[#8C5A3C] hover:-translate-y-[1px] hover:shadow-[0_4px_20px_rgba(212,175,55,0.35)] transition-all duration-300 cursor-pointer"
+            className="px-6 py-1.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-[#FAF9F7] bg-[#2C1810] border border-[#D4AF37] rounded-full hover:bg-[#8C5A3C] hover:-translate-y-[1px] hover:shadow-[0_4px_20px_rgba(212,175,55,0.35)] transition-all duration-300 cursor-pointer"
           >
             Launch App
           </button>

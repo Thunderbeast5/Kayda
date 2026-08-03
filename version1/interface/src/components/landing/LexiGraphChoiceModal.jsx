@@ -1,5 +1,5 @@
 import { X, Terminal, Network, ArrowRight, ShieldCheck, Database, Layers } from "lucide-react";
-import logo from "../../assets/logo1.svg";
+import logo from "../../assets/12.svg";
 
 export default function LexiGraphChoiceModal({ isOpen, onClose, onSelectCypher, onSelectAgent }) {
   if (!isOpen) return null;
