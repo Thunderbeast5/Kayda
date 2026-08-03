@@ -1,0 +1,189 @@
+IEA_Section,IEA_Title,BSA_Section_Raw,BSA_Section_Clean,BSA_Title,Category,NodeType,ParentSection,mapping_type,cardinality,Notes,content_available,content_source,requires_backfill,data_complete
+1,Short Title Extent and Commencement,1,1,Short Title Extent and Commencement,PLAIN,SECTION,1,ONE_TO_ONE,ONE_TO_ONE,Name changed to Bharatiya Sakshya Adhiniyam 2023; Applies to all judicial proceedings,YES,source_dataset,NO,true
+2,Repeal of Enactments,Removed,Removed,-,REMOVED,SPECIAL_STATUS,,REMOVED,ONE_TO_ZERO,Repealed by the Repealing Act 1938 (Historically removed),NO,not_applicable,NO,false
+3,Interpretation Clause,2,2,Definitions,PLAIN,SECTION,2,MERGED,MANY_TO_ONE,'Document' expanded to include 'Electronic and Digital Records' explicitly,YES,source_dataset,NO,true
+4,Presumptions,2(1),2(1),Presumptions,SUBSECTION,SUBSECTION,2,MERGED,MANY_TO_ONE,Merged into the definition section,YES,source_dataset,NO,true
+5,Evidence may be given of facts in issue and relevant facts,3,3,Evidence Given,PLAIN,SECTION,3,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+6,Relevancy of facts forming part of same transaction,4,4,Res Gestae,PLAIN,SECTION,4,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+7,Facts which are occasion cause or effect of facts in issue,5,5,Occasion/Cause/Effect,PLAIN,SECTION,5,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+8,Motive preparation and conduct,6,6,Motive/Preparation,PLAIN,SECTION,6,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+9,Facts necessary to explain or introduce relevant facts,7,7,Identity/TIP,PLAIN,SECTION,7,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+10,Things said or done by conspirator in reference to common design,8,8,Conspiracy,PLAIN,SECTION,8,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+11,When facts not otherwise relevant become relevant,9,9,Alibi,PLAIN,SECTION,9,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+12,In suits for damages facts tending to enable Court to determine amount are relevant,10,10,Damages (Suits),PLAIN,SECTION,10,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+13,Facts relevant when right or custom is in question,11,11,Right or Custom,PLAIN,SECTION,11,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+14,Facts showing existence of state of mind or of body or bodily feeling,12,12,State of Mind/Body,PLAIN,SECTION,12,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+15,Facts bearing on question whether act was accidental or intentional,13,13,Accidental/Intentional,PLAIN,SECTION,13,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+16,Existence of course of business when relevant,14,14,Course of Business,PLAIN,SECTION,14,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+17,Admission defined,15,15,Admission Defined,PLAIN,SECTION,15,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+18,Admission by party to proceeding or his agent,16,16,Admission by Party,PLAIN,SECTION,16,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+19,Admissions by persons whose position must be proved as against party to suit,17,17,Admission (Third Person),PLAIN,SECTION,17,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+20,Admissions by persons expressly referred to by party to suit,18,18,Admission (Referee),PLAIN,SECTION,18,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+21,Proof of admissions against persons making them and by or on their behalf,19,19,Proof of Admission,PLAIN,SECTION,19,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+22,When oral admissions as to contents of documents are relevant,20,20,Oral Admissions (Docs),PLAIN,SECTION,20,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+22A,When oral admissions as to contents of electronic records are relevant,Removed,Removed,-,REMOVED,SPECIAL_STATUS,,REMOVED,ONE_TO_ZERO,Omitted in BSA - oral admissions as to contents of electronic records dropped as separate provision,NO,not_applicable,NO,false
+23,Admissions in civil cases when relevant,21,21,Civil Admissions,PLAIN,SECTION,21,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+24,Confession caused by inducement threat or promise,22,22,Confession (Inducement),AMENDMENT_ANNOTATION,SUBSECTION,22,MERGED,MANY_TO_ONE,Subsections renumbered; core principle remains,YES,source_dataset,NO,true
+25,Confession to police officer not to be proved,23(1),23(1),Confession to Police,SUBSECTION,SUBSECTION,23,MERGED,MANY_TO_ONE,Strictly maintains confession to police is NOT admissible,YES,source_dataset,NO,true
+26,Confession by accused while in custody of police not to be proved against him,23(2),23(2),Confession in Custody,EXCEPTION,SUBSECTION,23,MERGED,MANY_TO_ONE,Exception: Admissible if made in immediate presence of Magistrate,YES,source_dataset,NO,true
+27,How much of information received from accused may be proved,23(Prov),23(Prov),Discovery Statement,PROVISO,SUBSECTION,23,MERGED,MANY_TO_ONE,Merged as Proviso to Section 23; Concept remains same,YES,source_dataset,NO,true
+28,Confession made after removal of impression caused by inducement etc.,22(1st Proviso),22(1st Proviso),Confession (Free),PROVISO,SUBSECTION,22,MERGED,MANY_TO_ONE,Merged into Section 22,YES,source_dataset,NO,true
+29,Confession otherwise relevant not to become irrelevant because of promise of secrecy etc.,22(2nd Proviso),22(2nd Proviso),Confession (Valid),PROVISO,SUBSECTION,22,MERGED,MANY_TO_ONE,No significant change,YES,source_dataset,NO,true
+30,Consideration of proved confession affecting person making it and others jointly tried,24,24,Joint Trial Confession,PLAIN,SECTION,24,ONE_TO_ONE,ONE_TO_ONE,Expanded: Includes cases where accused has absconded or cannot be found (Trial in absentia relevance),YES,source_dataset,NO,true
+31,Admissions not conclusive proof but may estop,25,25,Admissions not Conclusive,PLAIN,SECTION,25,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+32,Cases in which statement of relevant fact by person who is dead or cannot be found etc. is relevant,26,26,Dying Declaration,PLAIN,SECTION,26,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+33,Relevancy of certain evidence for proving in subsequent proceeding the truth of facts therein stated,27,27,Previous Evidence,PLAIN,SECTION,27,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+34,Entries in books of account when relevant,28,28,Books of Account,PLAIN,SECTION,28,ONE_TO_ONE,ONE_TO_ONE,Includes books kept in 'electronic form',YES,source_dataset,NO,true
+35,Relevancy of entry in public record made in performance of duty,29,29,Public Records,PLAIN,SECTION,29,ONE_TO_ONE,ONE_TO_ONE,Includes 'electronic records',YES,source_dataset,NO,true
+36,Relevancy of statements in maps charts and plans,30,30,Maps and Charts,PLAIN,SECTION,30,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+37,Relevancy of statement as to fact of public nature contained in certain Acts or notifications,31,31,Acts and Notifications,PLAIN,SECTION,31,ONE_TO_ONE,ONE_TO_ONE,Includes digital/electronic notifications,YES,source_dataset,NO,true
+38,Relevancy of statements as to any law contained in law books,32,32,Law Books,PLAIN,SECTION,32,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+39,What evidence to be given when statement forms part of a conversation document etc.,33,33,Evidence of Statement,PLAIN,SECTION,33,ONE_TO_ONE,ONE_TO_ONE,Clarified context for electronic records,YES,source_dataset,NO,true
+40,Previous judgments relevant to bar a second suit or trial,34,34,Previous Judgments (Bar),PLAIN,SECTION,34,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+41,Relevancy of certain judgments in probate etc. jurisdiction,35,35,Probate/Matrimonial,PLAIN,SECTION,35,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+42,Relevancy and effect of judgments orders or decrees other than those mentioned in section 41,36,36,Other Judgments,PLAIN,SECTION,36,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+43,Judgments etc. other than those mentioned in sections 40 to 42 when relevant,37,37,Judgments (Irrelevant),PLAIN,SECTION,37,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+44,Fraud or collusion in obtaining judgment or incompetency of Court may be proved,38,38,Fraud in Judgment,PLAIN,SECTION,38,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+45,Opinions of experts,39(1),39(1),Expert Opinion,SUBSECTION,SUBSECTION,39,MERGED,MANY_TO_ONE,No significant change,YES,source_dataset,NO,true
+45A,Opinion of Examiner of Electronic Evidence,39(2),39(2),Electronic Examiner,SUBSECTION,SUBSECTION,39,MERGED,MANY_TO_ONE,Merged into Expert Opinion section,YES,source_dataset,NO,true
+46,Facts bearing upon opinions of experts,40,40,Facts on Experts,PLAIN,SECTION,40,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+47,Opinion as to handwriting when relevant,41(1),41(1),Handwriting Opinion,SUBSECTION,SUBSECTION,41,MERGED,MANY_TO_ONE,No significant change,YES,source_dataset,NO,true
+47A,Opinion as to digital signature where relevant,41(2),41(2),Digital Signature Opinion,SUBSECTION,SUBSECTION,41,MERGED,MANY_TO_ONE,Terminology updated to 'Electronic Signature',YES,source_dataset,NO,true
+48,Opinion as to existence of right or custom when relevant,42,42,Rights/Customs Opinion,PLAIN,SECTION,42,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+49,Opinion as to usages tenets etc. when relevant,43,43,Usages Opinion,PLAIN,SECTION,43,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+50,Opinion on relationship when relevant,44,44,Relationship Opinion,PLAIN,SECTION,44,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+51,Grounds of opinion when relevant,45,45,Grounds of Opinion,PLAIN,SECTION,45,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+52,In civil cases character to prove conduct imputed irrelevant,46,46,Character (Civil),PLAIN,SECTION,46,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+53,In criminal cases previous good character relevant,47,47,Character (Criminal),PLAIN,SECTION,47,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+53A,Evidence of character or previous sexual experience not relevant in certain cases,48,48,Character (Sexual Offence),PLAIN,SECTION,48,ONE_TO_ONE,ONE_TO_ONE,References updated to BNS sexual offences sections,YES,source_dataset,NO,true
+54,Previous bad character not relevant except in reply,49,49,Bad Character,PLAIN,SECTION,49,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+55,Character as affecting damages,50,50,Character Damages,PLAIN,SECTION,50,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+56,Facts judicially noticeable need not be proved,51,51,Judicial Notice,PLAIN,SECTION,51,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+57,Facts of which Court must take judicial notice,52,52,Facts for Judicial Notice,PLAIN,SECTION,52,ONE_TO_ONE,ONE_TO_ONE,List updated to include international treaties and new Indian laws,YES,source_dataset,NO,true
+58,Facts admitted need not be proved,53,53,Admitted Facts,PLAIN,SECTION,53,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+59,Proof of facts by oral evidence,54,54,Oral Evidence,PLAIN,SECTION,54,ONE_TO_ONE,ONE_TO_ONE,Provided that contents of documents or electronic records cannot be proved by oral evidence,YES,source_dataset,NO,true
+60,Oral evidence must be direct,55,55,Oral Evidence Direct,PLAIN,SECTION,55,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+61,Proof of contents of documents,56,56,Proof of Contents,PLAIN,SECTION,56,ONE_TO_ONE,ONE_TO_ONE,Explicitly mentions 'electronic records' to be proved by primary or secondary evidence,YES,source_dataset,NO,true
+62,Primary evidence,57,57,Primary Evidence,EXPLANATION,EXPLANATION,57,ONE_TO_ONE,ONE_TO_ONE,Includes electronic records produced for inspection; Explanations added for video recordings,YES,source_dataset,NO,true
+63,Secondary evidence,58,58,Secondary Evidence,PLAIN,SECTION,58,ONE_TO_ONE,ONE_TO_ONE,Expanded list: Includes oral admissions written admissions and copies made from original by mechanical processes,YES,source_dataset,NO,true
+64,Proof of documents by primary evidence,59,59,Proof by Primary,PLAIN,SECTION,59,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+65,Cases in which secondary evidence relating to documents may be given,60,60,When Secondary Admissible,PLAIN,SECTION,60,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+Not Applicable,-,61,61,Electronic/Digital Record,NEW_SECTION,SECTION,61,NEW_SECTION,ZERO_TO_ONE,New section in BSA (no IEA equivalent) - electronic and digital records placed on par with paper documents as primary evidence subject to Section 63,NO,not_applicable,NO,false
+65A,Special provisions as to evidence relating to electronic record,62,62,Electronic Evidence Rule,PLAIN,SECTION,62,ONE_TO_ONE,ONE_TO_ONE,States that electronic records are admissible subject to Section 63 (Certificate),YES,source_dataset,NO,true
+65B,Admissibility of electronic records,63,63,Admissibility of Electronic Records,PLAIN,SECTION,63,ONE_TO_ONE,ONE_TO_ONE,MAJOR CHANGE: Electronic records treated as documents. Certificate format standardized (Schedule added in BSA),YES,source_dataset,NO,true
+66,Notice to produce documents,64,64,Notice to Produce,PLAIN,SECTION,64,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+67,Proof of signature and handwriting of person alleged to have signed or written document,65,65,Proof of Signature,PLAIN,SECTION,65,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+67A,Proof as to electronic signature,66,66,Proof of E-Signature,PLAIN,SECTION,66,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+68,Proof of execution of document required by law to be attested,67,67,Attested Document,PLAIN,SECTION,67,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+69,Proof where no attesting witness found,68,68,No Attesting Witness,PLAIN,SECTION,68,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+70,Admission of execution by party to attested document,69,69,Admission of Execution,PLAIN,SECTION,69,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+71,Proof when attesting witness denies the execution,70,70,Witness Denying,PLAIN,SECTION,70,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+72,Proof of document not required by law to be attested,71,71,Docs Not Attested,PLAIN,SECTION,71,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+73,Comparison of signature writing or seal with others admitted or proved,72,72,Comparison of Signature,PLAIN,SECTION,72,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+73A,Proof as to verification of digital signature,73,73,Verification Digital Sig,PLAIN,SECTION,73,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+74,Public documents,74(1),74(1),Public Documents,SUBSECTION,SUBSECTION,74,MERGED,MANY_TO_ONE,No significant change,YES,source_dataset,NO,true
+75,Private documents,74(2),74(2),Private Documents,SUBSECTION,SUBSECTION,74,MERGED,MANY_TO_ONE,No significant change,YES,source_dataset,NO,true
+76,Certified copies of public documents,75,75,Certified Copies,PLAIN,SECTION,75,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+77,Proof of documents by production of certified copies,76,76,Proof by Copies,PLAIN,SECTION,76,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+78,Proof of other official documents,77,77,Official Documents,PLAIN,SECTION,77,ONE_TO_ONE,ONE_TO_ONE,Includes electronic notifications/gazettes,YES,source_dataset,NO,true
+79,Presumption as to genuineness of certified copies,78,78,Presumption (Certified),PLAIN,SECTION,78,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+80,Presumption as to documents produced as record of evidence,79,79,Presumption (Evidence),PLAIN,SECTION,79,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+81,Presumption as to Gazettes in electronic forms,80,80,Presumption (Gazettes),PLAIN,SECTION,80,ONE_TO_ONE,ONE_TO_ONE,Includes electronic forms of Gazettes,YES,source_dataset,NO,true
+81A,Presumption as to electronic records,81,81,Presumption (Digital),PLAIN,SECTION,81,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+82,Presumption as to document admissible in England without proof of seal or signature,Removed,Removed,-,REMOVED,SPECIAL_STATUS,,REMOVED,ONE_TO_ZERO,Omitted in BSA - colonial provision,NO,not_applicable,NO,false
+83,Presumption as to maps or plans made by authority of Government,82,82,Presumption (Maps),PLAIN,SECTION,82,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+84,Presumption as to collections of laws and reports of decisions,83,83,Presumption (Laws),PLAIN,SECTION,83,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+85,Presumption as to powers of attorney,84,84,Presumption (PoA),PLAIN,SECTION,84,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+85A,Presumption as to electronic agreements,85,85,Presumption (E-Agreement),PLAIN,SECTION,85,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+85B,Presumption as to electronic records and digital signatures,86,86,Presumption (E-Record),PLAIN,SECTION,86,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+85C,Presumption as to electronic signature certificates,87,87,Presumption (E-Cert),PLAIN,SECTION,87,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+86,Presumption as to certified copies of foreign judicial records,88,88,Presumption (Foreign),PLAIN,SECTION,88,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+87,Presumption as to books maps and charts,89,89,Presumption (Books),PLAIN,SECTION,89,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+88,Presumption as to telegraphic messages,Removed,Removed,-,REMOVED,SPECIAL_STATUS,,REMOVED,ONE_TO_ZERO,Omitted in BSA - telegraph-message presumption obsolete (electronic messages covered by BSA 90),NO,not_applicable,NO,false
+88A,Presumption as to electronic messages,90,90,Presumption (E-Messages),PLAIN,SECTION,90,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+89,Presumption as to due execution etc. of documents not produced,91,91,Presumption (Not Produced),PLAIN,SECTION,91,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+90,Presumption as to documents thirty years old,92,92,Presumption (30 Years),PLAIN,SECTION,92,ONE_TO_ONE,ONE_TO_ONE,MAJOR CHANGE: Period reduced to 20 YEARS (was 30 years in IEA),YES,source_dataset,NO,true
+90A,Presumption as to electronic records five years old,93,93,Presumption (5 Years),PLAIN,SECTION,93,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+91,Evidence of terms of contracts grants and other dispositions of property reduced to form of document,94,94,Evidence of Contract,PLAIN,SECTION,94,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+92,Exclusion of evidence of oral agreement,95,95,Exclusion of Oral,PLAIN,SECTION,95,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+93,Exclusion of evidence to explain or amend ambiguous document,96,96,Ambiguity (Patent),PLAIN,SECTION,96,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+94,Exclusion of evidence against application of document to existing facts,97,97,Application of Docs,PLAIN,SECTION,97,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+95,Evidence as to document unmeaning in reference to existing facts,98,98,Meaningless Docs,PLAIN,SECTION,98,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+96,Evidence as to application of language which can apply to one only of several persons,99,99,Multiple Applicability,PLAIN,SECTION,99,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+97,Evidence as to application of language to one of two sets of facts,100,100,Partial Applicability,PLAIN,SECTION,100,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+98,Evidence as to meaning of illegible characters etc.,101,101,Illegible Characters,PLAIN,SECTION,101,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+99,Who may give evidence of agreement varying terms of document,102,102,Evidence by Third Party,PLAIN,SECTION,102,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+100,Save as otherwise provided in Chapter 8 evidence may not be given as to the contents of documents,103,103,Savings (Wills),PLAIN,SECTION,103,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+101,Burden of proof,104,104,Burden of Proof,PLAIN,SECTION,104,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+102,On whom burden of proof lies,105,105,On Whom Burden Lies,PLAIN,SECTION,105,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+103,Burden of proof as to particular fact,106,106,Particular Fact,PLAIN,SECTION,106,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+104,Burden of proving fact to be proved to make evidence admissible,107,107,Admissibility Proof,PLAIN,SECTION,107,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+105,Burden of proving that case of accused comes within exceptions,108,108,Exception Case,PLAIN,SECTION,108,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+106,Burden of proving fact especially within knowledge,109,109,Special Knowledge,PLAIN,SECTION,109,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+107,Burden of proving death of person known to have been alive within thirty years,110,110,Death (30 Years),PLAIN,SECTION,110,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+108,Burden of proving that person is alive who has not been heard of for seven years,111,111,Alive (7 Years),PLAIN,SECTION,111,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+109,Burden of proof as to relationship in the cases of partners landlord and tenant principal and agent,112,112,Relationship Proof,PLAIN,SECTION,112,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+110,Burden of proof as to ownership,113,113,Ownership Proof,PLAIN,SECTION,113,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+111,Proof of good faith in transactions where one party is in relation of active confidence,114,114,Good Faith Proof,PLAIN,SECTION,114,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+111A,Presumption as to certain offences in disturbed areas,115,115,Presumption (Disturbed Areas),PLAIN,SECTION,115,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+112,Birth during marriage conclusive proof of legitimacy,116,116,Legitimacy of Child,PLAIN,SECTION,116,ONE_TO_ONE,ONE_TO_ONE,No significant change (DNA evidence application governed by case law text remains similar),YES,source_dataset,NO,true
+113,Cession of territory,Removed,Removed,-,REMOVED,SPECIAL_STATUS,,REMOVED,ONE_TO_ZERO,Removed as obsolete,NO,not_applicable,NO,false
+113A,Presumption as to abetment of suicide by married woman,117,117,Abetment of Suicide,PLAIN,SECTION,117,ONE_TO_ONE,ONE_TO_ONE,Period remains 7 years from marriage,YES,source_dataset,NO,true
+113B,Presumption as to dowry death,118,118,Dowry Death,PLAIN,SECTION,118,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+114,Court may presume existence of certain facts,119,119,Existence of Facts,PLAIN,SECTION,119,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+114A,Presumption as to absence of consent in certain prosecutions for rape,120,120,Consent (Rape),PLAIN,SECTION,120,ONE_TO_ONE,ONE_TO_ONE,References updated to BNS sexual offences,YES,source_dataset,NO,true
+115,Estoppel,121,121,Estoppel,PLAIN,SECTION,121,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+116,Estoppel of tenant and of licensee of person in possession,122,122,Tenant Estoppel,PLAIN,SECTION,122,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+117,Estoppel of acceptor of bill of exchange bailee or licensee,123,123,Bill of Exchange Estoppel,PLAIN,SECTION,123,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+118,Who may testify,124,124,Who May Testify,PLAIN,SECTION,124,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+119,Dumb witnesses,125,125,Dumb Witness,PLAIN,SECTION,125,ONE_TO_ONE,ONE_TO_ONE,Terminology updated: 'Dumb' removed focuses on inability to speak/hear; Written/Sign evidence deemed oral evidence,YES,source_dataset,NO,true
+120,Parties to civil suit and their wives or husbands,126,126,Parties to Suit,PLAIN,SECTION,126,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+121,Judges and Magistrates,127,127,Judges/Magistrates,PLAIN,SECTION,127,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+122,Communications during marriage,128,128,Marriage Communication,PLAIN,SECTION,128,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+123,Evidence as to affairs of State,129,129,State Affairs,PLAIN,SECTION,129,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+124,Official communications,130,130,Official Communication,PLAIN,SECTION,130,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+125,Information as to commission of offences,131,131,Information of Commission,PLAIN,SECTION,131,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+126,Professional communications,132(1)-(2),132(1)-(2),Professional Communication,SUBSECTION,SUBSECTION,132,MERGED,MANY_TO_ONE,No significant change,YES,source_dataset,NO,true
+127,Section 126 to apply to interpreters etc.,132(3),132(3),Interpreters (Privilege),SUBSECTION,SUBSECTION,132,MERGED,MANY_TO_ONE,No significant change,YES,source_dataset,NO,true
+128,Privilege not waived by volunteering evidence,133,133,Waiver of Privilege,PLAIN,SECTION,133,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+129,Confidential communications with legal advisers,134,134,Legal Adviser (Confidential),PLAIN,SECTION,134,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+130,Production of title deeds of witness not a party,135,135,Title Deeds (Witness),PLAIN,SECTION,135,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+131,Production of documents or electronic records which another person having possession could refuse to produce,136,136,Documents (Other),PLAIN,SECTION,136,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+132,Witness not excused from answering on ground that answer will criminate,137,137,Witness Not Excused,PROVISO,SUBSECTION,137,ONE_TO_ONE,ONE_TO_ONE,Proviso protects witness from arrest/prosecution based on answer (Self-incrimination),YES,source_dataset,NO,true
+133,Accomplice,138,138,Accomplice,PLAIN,SECTION,138,ONE_TO_ONE,ONE_TO_ONE,Competent witness against accused; conviction not illegal merely because of uncorroborated testimony,YES,source_dataset,NO,true
+134,Number of witnesses,139,139,Number of Witnesses,PLAIN,SECTION,139,ONE_TO_ONE,ONE_TO_ONE,No particular number required (Quality over Quantity),YES,source_dataset,NO,true
+135,Order of production and examination of witnesses,140,140,Order of Production,PLAIN,SECTION,140,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+136,Judge to decide as to admissibility of evidence,141,141,Judge Decides Admissibility,PLAIN,SECTION,141,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+137,Examination-in-chief Cross-examination and Re-examination,142,142,Examination Types,PLAIN,SECTION,142,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+138,Order of examinations,143,143,Order of Examination,PLAIN,SECTION,143,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+139,Cross-examination of person called to produce a document,144,144,Cross-Exam (Document),PLAIN,SECTION,144,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+140,Witnesses to character,145,145,Character Witnesses,PLAIN,SECTION,145,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+141,Leading questions,146(1),146(1),Leading Questions,SUBSECTION,SUBSECTION,146,MERGED,MANY_TO_ONE,No significant change,YES,source_dataset,NO,true
+142,When they must not be asked,146(2)-(3),146(2)-(3),When Leading Questions,SUBSECTION,SUBSECTION,146,MERGED,MANY_TO_ONE,No significant change,YES,source_dataset,NO,true
+143,When they may be asked,146(4),146(4),Leading (Cross-Exam),SUBSECTION,SUBSECTION,146,MERGED,MANY_TO_ONE,No significant change,YES,source_dataset,NO,true
+144,Evidence as to matters in writing,147,147,Evidence (Written),PLAIN,SECTION,147,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+145,Cross-examination as to previous statements in writing,148,148,Cross-Exam (Previous),PLAIN,SECTION,148,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+146,Questions lawful in cross-examination,149,149,Questions Lawful,PLAIN,SECTION,149,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+147,When witness to be compelled to answer,150,150,Compel Answer,PLAIN,SECTION,150,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+148,Court to decide when question shall be asked and when witness compelled to answer,151,151,Court Decision (Questions),PLAIN,SECTION,151,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+149,Question not to be asked without reasonable grounds,152,152,Reasonable Grounds,PLAIN,SECTION,152,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+150,Procedure of Court in case of question being asked without reasonable grounds,153,153,Procedure (No Grounds),PLAIN,SECTION,153,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+151,Indecent and scandalous questions,154,154,Indecent Questions,PLAIN,SECTION,154,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+152,Questions intended to insult or annoy,155,155,Insulting Questions,PLAIN,SECTION,155,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+153,Exclusion of evidence to contradict answers to questions testing veracity,156,156,Contradicting Veracity,PLAIN,SECTION,156,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+154,Question by party to his own witness (Hostile Witness),157,157,Hostile Witness,PLAIN,SECTION,157,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+155,Impeaching credit of witness,158,158,Impeaching Credit,PLAIN,SECTION,158,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+156,Questions tending to corroborate evidence of relevant fact admissible,159,159,Corroboration,PLAIN,SECTION,159,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+157,Former statements of witness may be proved to corroborate later testimony as to same fact,160,160,Former Statements,PLAIN,SECTION,160,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+158,What matters may be proved in connection with proved statement under section 32 or 33,161,161,Statements (32/33),PLAIN,SECTION,161,ONE_TO_ONE,ONE_TO_ONE,References updated to BSA 26 and 27,YES,source_dataset,NO,true
+159,Refreshing memory,162,162,Refreshing Memory,PLAIN,SECTION,162,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+160,Testimony to facts stated in document mentioned in section 159,163,163,Testimony (Memory),PLAIN,SECTION,163,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+161,Right of adverse party as to writing used to refresh memory,164,164,Adverse Party (Memory),PLAIN,SECTION,164,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+162,Production of documents,165,165,Production of Documents,PLAIN,SECTION,165,ONE_TO_ONE,ONE_TO_ONE,No significant change,YES,source_dataset,NO,true
+163,Giving as evidence of document called for and produced on notice,166,166,Docs (Notice),PLAIN,SECTION,166,ONE_TO_ONE,ONE_TO_ONE,Renumbered to 166 in BSA,YES,source_dataset,NO,true
+164,Using as evidence of document production of which was refused on notice,167,167,Using Document,PLAIN,SECTION,167,ONE_TO_ONE,ONE_TO_ONE,Renumbered to 167 in BSA,YES,source_dataset,NO,true
+165,Judge's power to put questions or order production,168,168,Judge's Power,PLAIN,SECTION,168,ONE_TO_ONE,ONE_TO_ONE,Renumbered to 168 in BSA,YES,source_dataset,NO,true
+166,Power of jury or assessors to put questions,Removed,Removed,-,REMOVED,SPECIAL_STATUS,,REMOVED,ONE_TO_ZERO,Removed (Obsolete),NO,not_applicable,NO,false
+167,No new trial for improper admission or rejection of evidence,169,169,Improper Admission,PLAIN,SECTION,169,ONE_TO_ONE,ONE_TO_ONE,Renumbered to 169 in BSA,YES,source_dataset,NO,true
+Not Applicable,-,170,170,Repeal and Savings,NEW_SECTION,SECTION,170,NEW_SECTION,ZERO_TO_ONE,Repeals Indian Evidence Act 1872,NO,not_applicable,NO,false
+Not Applicable,-,Schedule,Schedule,Certificate Form,NEW_SECTION,SECTION,Schedule,NEW_SECTION,ZERO_TO_ONE,New Schedule added in BSA defining the standard format for Electronic Evidence Certificate,NO,not_applicable,NO,false

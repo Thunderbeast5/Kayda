@@ -1,0 +1,114 @@
+{
+  "status": "PASSED",
+  "total_rows": 539,
+  "counts": {
+    "plain": 519,
+    "removed_deleted_crpc": 11,
+    "new_bnss_sections": 5,
+    "real_hierarchy_nodes": 3,
+    "subsections": 2,
+    "clauses": 1,
+    "amendment_annotations": 2
+  },
+  "real_hierarchy_details": [
+    {
+      "CrPC_Section": "41",
+      "BNSS_Section_Clean": "35(1)",
+      "Category": "SUBSECTION",
+      "ParentSection": "35",
+      "SubsectionNumber": "1",
+      "Clause": ""
+    },
+    {
+      "CrPC_Section": "41A",
+      "BNSS_Section_Clean": "35(3)",
+      "Category": "SUBSECTION",
+      "ParentSection": "35",
+      "SubsectionNumber": "3",
+      "Clause": ""
+    }
+  ],
+  "amendment_annotation_details": [
+    {
+      "CrPC_Section": "357A",
+      "BNSS_Section_Raw": "396(Subs)",
+      "BNSS_Section_Clean": "396",
+      "AmendmentType": "subs"
+    },
+    {
+      "CrPC_Section": "357C",
+      "BNSS_Section_Raw": "397(Subs)",
+      "BNSS_Section_Clean": "397",
+      "AmendmentType": "subs"
+    }
+  ],
+  "removed_sections_details": [
+    {
+      "CrPC_Section": "8",
+      "CrPC_Subject": "Metropolitan Areas"
+    },
+    {
+      "CrPC_Section": "10",
+      "CrPC_Subject": "Subordination of Sessions Judges"
+    },
+    {
+      "CrPC_Section": "16",
+      "CrPC_Subject": "Metropolitan Magistrates"
+    },
+    {
+      "CrPC_Section": "17",
+      "CrPC_Subject": "Chief Metropolitan Magistrate"
+    },
+    {
+      "CrPC_Section": "18",
+      "CrPC_Subject": "Special Metropolitan Magistrates"
+    },
+    {
+      "CrPC_Section": "19",
+      "CrPC_Subject": "Subordination of Metropolitan Magistrates"
+    },
+    {
+      "CrPC_Section": "27",
+      "CrPC_Subject": "Jurisdiction in case of Juveniles"
+    },
+    {
+      "CrPC_Section": "144A",
+      "CrPC_Subject": "Power to prohibit carrying arms in processions"
+    },
+    {
+      "CrPC_Section": "153",
+      "CrPC_Subject": "Inspection of weights and measures"
+    },
+    {
+      "CrPC_Section": "355",
+      "CrPC_Subject": "Metropolitan Magistrate's judgment"
+    },
+    {
+      "CrPC_Section": "404",
+      "CrPC_Subject": "Statement by Magistrate of grounds of his decision"
+    }
+  ],
+  "new_bnss_sections_details": [
+    {
+      "BNSS_Section_Clean": "37(c)",
+      "BNSS_Subject": "Designated Officer to receive information"
+    },
+    {
+      "BNSS_Section_Clean": "356",
+      "BNSS_Subject": "Trial in absentia of proclaimed offenders"
+    },
+    {
+      "BNSS_Section_Clean": "398",
+      "BNSS_Subject": "Witness Protection Scheme"
+    },
+    {
+      "BNSS_Section_Clean": "472",
+      "BNSS_Subject": "Mercy Petition"
+    },
+    {
+      "BNSS_Section_Clean": "530",
+      "BNSS_Subject": "Electronic mode of trial and inquiry"
+    }
+  ],
+  "assertion_errors": []
+}

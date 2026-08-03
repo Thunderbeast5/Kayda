@@ -40,9 +40,9 @@ NODES: Dict[str, NodeDef] = {
     "LawSection": NodeDef(
         label="LawSection",
         properties=frozenset({
-            "id", "act", "section", "title", "description", "punishment",
+            "id", "act", "section", "node_type", "title", "description", "punishment",
             "mapping_status", "cognizable", "bailable", "court",
-            "category", "keywords", "chapter_raw", "data_complete",
+            "category", "keywords", "aliases", "chapter_raw", "data_complete",
             "source_url",
         }),
     ),
@@ -82,16 +82,22 @@ class RelDef:
 RELATIONSHIPS: Dict[str, RelDef] = {
     "HAS_CHAPTER": RelDef("HAS_CHAPTER", "Act", "Chapter"),
     "HAS_SECTION": RelDef("HAS_SECTION", "Act", "LawSection"),  # also Chapter->LawSection
+    "HAS_SUBSECTION": RelDef("HAS_SUBSECTION", "LawSection", "LawSection", frozenset({"level"})),
+    "HAS_CLAUSE": RelDef("HAS_CLAUSE", "LawSection", "LawSection", frozenset({"level"})),
+    "HAS_EXPLANATION": RelDef("HAS_EXPLANATION", "LawSection", "LawSection", frozenset({"type"})),
+    "HAS_ILLUSTRATION": RelDef("HAS_ILLUSTRATION", "LawSection", "LawSection", frozenset({"type"})),
+    "HAS_EXCEPTION": RelDef("HAS_EXCEPTION", "LawSection", "LawSection", frozenset({"type"})),
+    "HAS_PROVISO": RelDef("HAS_PROVISO", "LawSection", "LawSection", frozenset({"type"})),
     "DEFINED_BY": RelDef("DEFINED_BY", "Crime", "LawSection"),
     "HAS_PUNISHMENT": RelDef("HAS_PUNISHMENT", "LawSection", "Punishment"),
     "HAS_KEYWORD": RelDef("HAS_KEYWORD", "LawSection", "Keyword"),
     "REPLACED_BY": RelDef(
         "REPLACED_BY", "LawSection", "LawSection",
-        frozenset({"note", "status", "bns_subsection", "raw_mapping"}),
+        frozenset({"note", "status", "mapping_type", "official_mapping", "effective_date", "mapping_status", "amendment_type", "provenance"}),
     ),
     "REPLACES": RelDef(
         "REPLACES", "LawSection", "LawSection",
-        frozenset({"note", "status", "ipc_subsection", "raw_mapping"}),
+        frozenset({"note", "status", "mapping_type", "official_mapping", "effective_date", "mapping_status", "amendment_type", "provenance"}),
     ),
     "MORE_SPECIFIC_THAN": RelDef("MORE_SPECIFIC_THAN", "LawSection", "LawSection"),
     "OVERRIDES": RelDef("OVERRIDES", "LawSection", "LawSection"),
@@ -106,6 +112,12 @@ VALID_RELATIONSHIPS: FrozenSet[str] = frozenset(RELATIONSHIPS.keys())
 
 # Subset used for graph expansion
 EXPANSION_RELATIONSHIPS: List[str] = [
+    "HAS_SUBSECTION",
+    "HAS_CLAUSE",
+    "HAS_EXPLANATION",
+    "HAS_ILLUSTRATION",
+    "HAS_EXCEPTION",
+    "HAS_PROVISO",
     "MORE_SPECIFIC_THAN",
     "OVERRIDES",
     "ENHANCES",
@@ -137,7 +149,7 @@ FULLTEXT_INDEXES: Dict[str, FulltextIndex] = {
     "lawSectionText": FulltextIndex(
         name="lawSectionText",
         label="LawSection",
-        properties=["title", "description", "punishment", "keywords"],
+        properties=["title", "description", "keywords", "aliases", "punishment"],
     ),
 }
 

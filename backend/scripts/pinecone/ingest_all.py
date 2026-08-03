@@ -298,11 +298,53 @@ def load_generic_act_sections(csv_dir: Path, filename: str | None, act_name: str
     return out
 
 
+def fetch_all_nodes_from_neo4j() -> list[dict]:
+    """Fetches all 7 statutory node types (SECTION, SUBSECTION, CLAUSE, EXPLANATION, ILLUSTRATION, EXCEPTION, PROVISO) from Neo4j."""
+    import os
+    from neo4j import GraphDatabase
+    from dotenv import load_dotenv
+
+    load_dotenv(Path(__file__).resolve().parents[2] / ".env")
+    uri = os.getenv("NEO4J_URI")
+    user = os.getenv("NEO4J_USER")
+    pwd = os.getenv("NEO4J_PASSWORD")
+
+    if not uri:
+        print("  WARNING: NEO4J_URI not set, skipping Neo4j direct fetching.")
+        return []
+
+    driver = GraphDatabase.driver(uri, auth=(user, pwd))
+    query = """
+    MATCH (n:LawSection)
+    WHERE n.description IS NOT NULL AND n.description <> ''
+    RETURN n.id AS id,
+           n.act AS act,
+           n.section AS section,
+           COALESCE(n.node_type, 'SECTION') AS node_type,
+           COALESCE(n.title, '') AS title,
+           n.description AS description,
+           COALESCE(n.punishment, '') AS punishment,
+           COALESCE(n.chapter, '') AS chapter_title,
+           COALESCE(n.keywords, '') AS keywords,
+           COALESCE(n.data_complete, true) AS data_complete
+    """
+    with driver.session() as s:
+        records = s.run(query).data()
+    driver.close()
+    print(f"  Neo4j: Fetched {len(records)} statutory nodes across all 7 node types.")
+    return records
+
+
 # ----------------------------------------------------------------------
 # Embedding text construction
 # ----------------------------------------------------------------------
 def build_embedding_text(r: dict) -> str:
-    lines = [f"Act: {r['act']}", f"Section: {r['section']}", f"Title: {r['title']}"]
+    lines = [
+        f"Act: {r['act']}",
+        f"Section: {r['section']}",
+        f"Node Type: {r.get('node_type', 'SECTION')}",
+        f"Title: {r['title']}"
+    ]
 
     if r.get("chapter_title"):
         lines.append(f"Chapter: {r['chapter_title']}")
@@ -310,16 +352,9 @@ def build_embedding_text(r: dict) -> str:
         lines.append(f"Category: {r['category']}")
 
     if r.get("description"):
-        lines.append(f"\nDescription:\n{r['description']}")
+        lines.append(f"\nDescription / Statutory Text:\n{r['description']}")
     if r.get("punishment"):
         lines.append(f"\nPunishment:\n{r['punishment']}")
-
-    if r.get("cognizable"):
-        lines.append(f"Cognizable: {r['cognizable']}")
-    if r.get("bailable"):
-        lines.append(f"Bailable: {r['bailable']}")
-    if r.get("court"):
-        lines.append(f"Court: {r['court']}")
 
     if r.get("keywords"):
         lines.append(f"\nKeywords: {r['keywords']}")
@@ -331,6 +366,7 @@ def build_metadata(r: dict) -> dict:
     meta = {
         "act": r["act"],
         "section": r["section"],
+        "node_type": r.get("node_type", "SECTION"),
         "title": r["title"],
         "data_complete": r["data_complete"],
     }
@@ -446,28 +482,41 @@ def main() -> None:
     parser.add_argument("--include-stubs", action="store_true",
                          help="Also embed stub sections that have a title but no description")
     parser.add_argument("--batch-size", type=int, default=100)
+    parser.add_argument("--from-neo4j", action="store_true",
+                         help="Fetch all 7 statutory node types (SECTION, SUBSECTION, CLAUSE, EXPLANATION, ILLUSTRATION, EXCEPTION, PROVISO) directly from live Neo4j")
     parser.add_argument("--dry-run", action="store_true",
                          help="Parse + build embedding text only, no model load, no API calls")
     args = parser.parse_args()
 
-    print(f"CSV directory: {args.csv_dir}")
-    print("\n--- Loading CSVs ---")
-    ipc = load_ipc_sections(args.csv_dir)
-    bns = load_bns_sections(args.csv_dir)
-    bnss = load_generic_act_sections(args.csv_dir, args.bnss_csv or None, "BNSS")
-    crpc = load_generic_act_sections(args.csv_dir, args.crpc_csv or None, "CRPC")
-    bsa = load_generic_act_sections(args.csv_dir, args.bsa_csv or None, "BSA")
-    iea = load_generic_act_sections(args.csv_dir, args.iea_csv or None, "IEA")
+    if args.from_neo4j:
+        print("\n--- Fetching Statutory Nodes Directly from Neo4j ---")
+        records = fetch_all_nodes_from_neo4j()
+    else:
+        print(f"CSV directory: {args.csv_dir}")
+        print("\n--- Loading CSVs ---")
+        ipc = load_ipc_sections(args.csv_dir)
+        bns = load_bns_sections(args.csv_dir)
+        bnss = load_generic_act_sections(args.csv_dir, args.bnss_csv or None, "BNSS")
+        crpc = load_generic_act_sections(args.csv_dir, args.crpc_csv or None, "CRPC")
+        bsa = load_generic_act_sections(args.csv_dir, args.bsa_csv or None, "BSA")
+        iea = load_generic_act_sections(args.csv_dir, args.iea_csv or None, "IEA")
 
-    records = (list(ipc.values()) + list(bns.values())
-               + list(bnss.values()) + list(crpc.values())
-               + list(bsa.values()) + list(iea.values()))
+        records = (list(ipc.values()) + list(bns.values())
+                   + list(bnss.values()) + list(crpc.values())
+                   + list(bsa.values()) + list(iea.values()))
+        if not records:
+            print("\n--- No CSV records found; falling back to fetching from live Neo4j ---")
+            records = fetch_all_nodes_from_neo4j()
+
+    type_counts = {}
+    for r in records:
+        nt = r.get("node_type", "SECTION")
+        type_counts[nt] = type_counts.get(nt, 0) + 1
 
     if args.dry_run:
-        print(f"\n--dry-run set: {len(records)} total sections loaded "
-              f"({len(ipc)} IPC, {len(bns)} BNS, {len(bnss)} BNSS, "
-              f"{len(crpc)} CRPC, {len(bsa)} BSA, {len(iea)} IEA).")
-        sample = next((r for r in records if r["data_complete"] and r["description"]), None)
+        print(f"\n--dry-run set: {len(records)} total statutory nodes loaded across all 7 node types.")
+        print("NodeType Breakdown:", type_counts)
+        sample = next((r for r in records if r.get("description")), None)
         if sample:
             print("\nSample embedding text:\n" + "-" * 60)
             print(build_embedding_text(sample))

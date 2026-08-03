@@ -1,0 +1,218 @@
+{
+  "total_rows": 188,
+  "total_iea_sections_mapped": 185,
+  "total_bsa_sections_mapped": 182,
+  "category_breakdown": {
+    "PLAIN": 159,
+    "REMOVED": 6,
+    "SUBSECTION": 13,
+    "AMENDMENT_ANNOTATION": 1,
+    "EXCEPTION": 1,
+    "PROVISO": 4,
+    "EXPLANATION": 1,
+    "NEW_SECTION": 3
+  },
+  "mapping_type_breakdown": {
+    "ONE_TO_ONE": 160,
+    "REMOVED": 6,
+    "MERGED": 19,
+    "NEW_SECTION": 3
+  },
+  "cardinality_breakdown": {
+    "ONE_TO_ONE": 160,
+    "ONE_TO_ZERO": 6,
+    "MANY_TO_ONE": 19,
+    "ZERO_TO_ONE": 3
+  },
+  "content_source_breakdown": {
+    "source_dataset": 179,
+    "not_applicable": 9
+  },
+  "requires_backfill_count": 0,
+  "data_complete_true_count": 179,
+  "data_complete_false_count": 9,
+  "merged_provisions": [
+    {
+      "IEA_Section": "3",
+      "IEA_Title": "Interpretation Clause",
+      "BSA_Section_Clean": "2",
+      "BSA_Title": "Definitions",
+      "Notes": "'Document' expanded to include 'Electronic and Digital Records' explicitly"
+    },
+    {
+      "IEA_Section": "4",
+      "IEA_Title": "Presumptions",
+      "BSA_Section_Clean": "2(1)",
+      "BSA_Title": "Presumptions",
+      "Notes": "Merged into the definition section"
+    },
+    {
+      "IEA_Section": "24",
+      "IEA_Title": "Confession caused by inducement threat or promise",
+      "BSA_Section_Clean": "22",
+      "BSA_Title": "Confession (Inducement)",
+      "Notes": "Subsections renumbered; core principle remains"
+    },
+    {
+      "IEA_Section": "25",
+      "IEA_Title": "Confession to police officer not to be proved",
+      "BSA_Section_Clean": "23(1)",
+      "BSA_Title": "Confession to Police",
+      "Notes": "Strictly maintains confession to police is NOT admissible"
+    },
+    {
+      "IEA_Section": "26",
+      "IEA_Title": "Confession by accused while in custody of police not to be proved against him",
+      "BSA_Section_Clean": "23(2)",
+      "BSA_Title": "Confession in Custody",
+      "Notes": "Exception: Admissible if made in immediate presence of Magistrate"
+    },
+    {
+      "IEA_Section": "27",
+      "IEA_Title": "How much of information received from accused may be proved",
+      "BSA_Section_Clean": "23(Prov)",
+      "BSA_Title": "Discovery Statement",
+      "Notes": "Merged as Proviso to Section 23; Concept remains same"
+    },
+    {
+      "IEA_Section": "28",
+      "IEA_Title": "Confession made after removal of impression caused by inducement etc.",
+      "BSA_Section_Clean": "22(1st Proviso)",
+      "BSA_Title": "Confession (Free)",
+      "Notes": "Merged into Section 22"
+    },
+    {
+      "IEA_Section": "29",
+      "IEA_Title": "Confession otherwise relevant not to become irrelevant because of promise of secrecy etc.",
+      "BSA_Section_Clean": "22(2nd Proviso)",
+      "BSA_Title": "Confession (Valid)",
+      "Notes": "No significant change"
+    },
+    {
+      "IEA_Section": "45",
+      "IEA_Title": "Opinions of experts",
+      "BSA_Section_Clean": "39(1)",
+      "BSA_Title": "Expert Opinion",
+      "Notes": "No significant change"
+    },
+    {
+      "IEA_Section": "45A",
+      "IEA_Title": "Opinion of Examiner of Electronic Evidence",
+      "BSA_Section_Clean": "39(2)",
+      "BSA_Title": "Electronic Examiner",
+      "Notes": "Merged into Expert Opinion section"
+    },
+    {
+      "IEA_Section": "47",
+      "IEA_Title": "Opinion as to handwriting when relevant",
+      "BSA_Section_Clean": "41(1)",
+      "BSA_Title": "Handwriting Opinion",
+      "Notes": "No significant change"
+    },
+    {
+      "IEA_Section": "47A",
+      "IEA_Title": "Opinion as to digital signature where relevant",
+      "BSA_Section_Clean": "41(2)",
+      "BSA_Title": "Digital Signature Opinion",
+      "Notes": "Terminology updated to 'Electronic Signature'"
+    },
+    {
+      "IEA_Section": "74",
+      "IEA_Title": "Public documents",
+      "BSA_Section_Clean": "74(1)",
+      "BSA_Title": "Public Documents",
+      "Notes": "No significant change"
+    },
+    {
+      "IEA_Section": "75",
+      "IEA_Title": "Private documents",
+      "BSA_Section_Clean": "74(2)",
+      "BSA_Title": "Private Documents",
+      "Notes": "No significant change"
+    },
+    {
+      "IEA_Section": "126",
+      "IEA_Title": "Professional communications",
+      "BSA_Section_Clean": "132(1)-(2)",
+      "BSA_Title": "Professional Communication",
+      "Notes": "No significant change"
+    },
+    {
+      "IEA_Section": "127",
+      "IEA_Title": "Section 126 to apply to interpreters etc.",
+      "BSA_Section_Clean": "132(3)",
+      "BSA_Title": "Interpreters (Privilege)",
+      "Notes": "No significant change"
+    },
+    {
+      "IEA_Section": "141",
+      "IEA_Title": "Leading questions",
+      "BSA_Section_Clean": "146(1)",
+      "BSA_Title": "Leading Questions",
+      "Notes": "No significant change"
+    },
+    {
+      "IEA_Section": "142",
+      "IEA_Title": "When they must not be asked",
+      "BSA_Section_Clean": "146(2)-(3)",
+      "BSA_Title": "When Leading Questions",
+      "Notes": "No significant change"
+    },
+    {
+      "IEA_Section": "143",
+      "IEA_Title": "When they may be asked",
+      "BSA_Section_Clean": "146(4)",
+      "BSA_Title": "Leading (Cross-Exam)",
+      "Notes": "No significant change"
+    }
+  ],
+  "removed_sections": [
+    {
+      "IEA_Section": "2",
+      "IEA_Title": "Repeal of Enactments",
+      "Notes": "Repealed by the Repealing Act 1938 (Historically removed)"
+    },
+    {
+      "IEA_Section": "22A",
+      "IEA_Title": "When oral admissions as to contents of electronic records are relevant",
+      "Notes": "Omitted in BSA - oral admissions as to contents of electronic records dropped as separate provision"
+    },
+    {
+      "IEA_Section": "82",
+      "IEA_Title": "Presumption as to document admissible in England without proof of seal or signature",
+      "Notes": "Omitted in BSA - colonial provision"
+    },
+    {
+      "IEA_Section": "88",
+      "IEA_Title": "Presumption as to telegraphic messages",
+      "Notes": "Omitted in BSA - telegraph-message presumption obsolete (electronic messages covered by BSA 90)"
+    },
+    {
+      "IEA_Section": "113",
+      "IEA_Title": "Cession of territory",
+      "Notes": "Removed as obsolete"
+    },
+    {
+      "IEA_Section": "166",
+      "IEA_Title": "Power of jury or assessors to put questions",
+      "Notes": "Removed (Obsolete)"
+    }
+  ],
+  "new_sections": [
+    {
+      "BSA_Section_Clean": "61",
+      "BSA_Title": "Electronic/Digital Record",
+      "Notes": "New section in BSA (no IEA equivalent) - electronic and digital records placed on par with paper documents as primary evidence subject to Section 63"
+    },
+    {
+      "BSA_Section_Clean": "170",
+      "BSA_Title": "Repeal and Savings",
+      "Notes": "Repeals Indian Evidence Act 1872"
+    },
+    {
+      "BSA_Section_Clean": "Schedule",
+      "BSA_Title": "Certificate Form",
+      "Notes": "New Schedule added in BSA defining the standard format for Electronic Evidence Certificate"
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "total_base_sections": 170,
+  "total_hierarchy_nodes_detected": 267,
+  "node_type_breakdown": {
+    "SUBSECTION": 73,
+    "CLAUSE": 102,
+    "EXPLANATION": 42,
+    "PROVISO": 29,
+    "ILLUSTRATION": 15,
+    "EXCEPTION": 6
+  },
+  "sample_nodes": [
+    {
+      "ParentSection": "1",
+      "NodeType": "SUBSECTION",
+      "HierarchyLevel": 1,
+      "ChildIdentifier": "1(1)",
+      "TextSlice": "(1) This Act may be called the Bharatiya Sakshya Adhiniyam, 2023"
+    },
+    {
+      "ParentSection": "1",
+      "NodeType": "SUBSECTION",
+      "HierarchyLevel": 1,
+      "ChildIdentifier": "1(2)",
+      "TextSlice": ".\n(2) It applies to all judicial proceedings in or before any Court, including Courts-martial, but not to affidavits presented to any Court or officer..."
+    },
+    {
+      "ParentSection": "1",
+      "NodeType": "SUBSECTION",
+      "HierarchyLevel": 1,
+      "ChildIdentifier": "1(3)",
+      "TextSlice": ".\n(3) It shall come into force on such date1 as the Central Government may, by notification in the Official Gazette, appoint."
+    },
+    {
+      "ParentSection": "2",
+      "NodeType": "SUBSECTION",
+      "HierarchyLevel": 1,
+      "ChildIdentifier": "2(1)",
+      "TextSlice": "(1) In this Adhiniyam, unless the context otherwise requires,--\n(a) \"Court\" includes all Judges and Magistrates, and all persons, except arbitrators, ..."
+    },
+    {
+      "ParentSection": "2(1)",
+      "NodeType": "CLAUSE",
+      "HierarchyLevel": 2,
+      "ChildIdentifier": "2(1)(a)",
+      "TextSlice": "(a) \"Court\" includes all Judges and Magistrates, and all persons, except arbitrators, legally authorised to take evidence;"
+    },
+    {
+      "ParentSection": "2(1)",
+      "NodeType": "CLAUSE",
+      "HierarchyLevel": 2,
+      "ChildIdentifier": "2(1)(b)",
+      "TextSlice": "(b) \"conclusive proof\" means when one fact is declared by this Adhiniyam to be conclusive proof of another, the Court shall, on proof of the one fact,..."
+    },
+    {
+      "ParentSection": "2(1)",
+      "NodeType": "CLAUSE",
+      "HierarchyLevel": 2,
+      "ChildIdentifier": "2(1)(c)",
+      "TextSlice": "(c) \"disproved\" in relation to a fact, means when, after considering the matters before it, the Court either believes that it does not exist, or consi..."
+    },
+    {
+      "ParentSection": "2(1)",
+      "NodeType": "CLAUSE",
+      "HierarchyLevel": 2,
+      "ChildIdentifier": "2(1)(d)",
+      "TextSlice": "(d) \"document\" means any matter expressed or described or otherwise recorded upon any substance by means of letters, figures or marks or any other mea..."
+    },
+    {
+      "ParentSection": "2(1)",
+      "NodeType": "CLAUSE",
+      "HierarchyLevel": 2,
+      "ChildIdentifier": "2(1)(i)",
+      "TextSlice": ".\n(i) A writing is a document.\n(ii) Words printed, lithographed or photographed are documents.\n(iii) A map or plan is a document.\n(iv) An inscription ..."
+    },
+    {
+      "ParentSection": "2(1)",
+      "NodeType": "CLAUSE",
+      "HierarchyLevel": 2,
+      "ChildIdentifier": "2(1)(v)",
+      "TextSlice": ".\n(v) A caricature is a document.\n(vi) An electronic record on emails, server logs, documents on computers, laptop or smartphone, messages, websites, ..."
+    },
+    {
+      "ParentSection": "2(1)",
+      "NodeType": "CLAUSE",
+      "HierarchyLevel": 2,
+      "ChildIdentifier": "2(1)(e)",
+      "TextSlice": "(e) \"evidence\" means and includes--"
+    },
+    {
+      "ParentSection": "2(1)",
+      "NodeType": "CLAUSE",
+      "HierarchyLevel": 2,
+      "ChildIdentifier": "2(1)(i)",
+      "TextSlice": "(i) all statements including statements given electronically which the Court permits or requires to be made before it by witnesses in relation to matt..."
+    },
+    {
+      "ParentSection": "2(1)",
+      "NodeType": "CLAUSE",
+      "HierarchyLevel": 2,
+      "ChildIdentifier": "2(1)(f)",
+      "TextSlice": "(f) \"fact\" means and includes--"
+    },
+    {
+      "ParentSection": "2(1)",
+      "NodeType": "CLAUSE",
+      "HierarchyLevel": 2,
+      "ChildIdentifier": "2(1)(i)",
+      "TextSlice": "(i) any thing, state of things, or relation of things, capable of being perceived by the senses;\n(ii) any mental condition of which any person is cons..."
+    },
+    {
+      "ParentSection": "2(1)",
+      "NodeType": "CLAUSE",
+      "HierarchyLevel": 2,
+      "ChildIdentifier": "2(1)(i)",
+      "TextSlice": ".\n(i) That there are certain objects arranged in a certain order in a certain place, is a fact.\n(ii) That a person heard or saw something, is a fact\n(..."
+    }
+  ]
+}

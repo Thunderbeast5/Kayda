@@ -1,0 +1,15 @@
+Metric,Value
+Total Raw Rows Processed,575
+Total Expanded Clean Rows,576
+Valid Mappings Count,539
+Special Status Mappings Count,37
+Missing Parent Mappings Count,0
+Invalid Format / Unknown Mappings,0
+SECTION Node Type Count,348
+SUBSECTION Node Type Count,183
+CLAUSE Node Type Count,7
+EXPLANATION Node Type Count,1
+SPECIAL_STATUS Node Type Count,37
+UNKNOWN Node Type Count,0
+Unique Duplicate BNS Target IDs,15
+Total Rows Flagged for Manual Review,54

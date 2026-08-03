@@ -1,0 +1,540 @@
+RowIndex,CrPC_Section,CrPC_Subject,BNSS_Section_Raw,BNSS_Section_Clean,BNSS_Subject,Category,NodeType,ParentSection,SubsectionNumber,Clause,AmendmentType,ValidationStatus,Notes
+1,1,Short Title Extent & Commencement,1,1,Short Title Extent & Commencement,PLAIN,SECTION,,,,,VALID,Repealed and re-enacted | Standard 1:1 section mapping
+2,2,Definitions,2,2,Definitions,PLAIN,SECTION,,,,,VALID,Repealed and re-enacted with updated definitions | Standard 1:1 section mapping
+3,3,Construction of References,3,3,Construction of References,PLAIN,SECTION,,,,,VALID,Identical in principle | Standard 1:1 section mapping
+4,4,Trial of Offences under IPC & Other Laws,4,4,Trial of Offences under Bharatiya Nyaya Sanhita & Other Laws,PLAIN,SECTION,,,,,VALID,Identical in principle | Standard 1:1 section mapping
+5,5,Savings,5,5,Savings,PLAIN,SECTION,,,,,VALID,Identical in principle | Standard 1:1 section mapping
+6,6,Classes of Criminal Courts,6,6,Classes of Criminal Courts,PLAIN,SECTION,,,,,VALID,Repealed and re-enacted | Standard 1:1 section mapping
+7,7,Territorial Divisions,7,7,Territorial Divisions,PLAIN,SECTION,,,,,VALID,Repealed and re-enacted | Standard 1:1 section mapping
+8,8,Metropolitan Areas,Removed,REMOVED,-,REMOVED,SPECIAL_STATUS,,,,,VALID,Concept abolished | Deleted CrPC Section (No BNSS Successor)
+9,9,Court of Session,8,8,Court of Session,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+10,10,Subordination of Sessions Judges,Removed,REMOVED,-,REMOVED,SPECIAL_STATUS,,,,,VALID,Merged/Subsumed | Deleted CrPC Section (No BNSS Successor)
+11,11,Judicial Magistrates,9,9,Judicial Magistrates,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+12,12,Chief Judicial Magistrate & Addl. CJM,10,10,Chief Judicial Magistrate & Addl. CJM,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+13,13,Special Judicial Magistrates,11,11,Special Judicial Magistrates,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+14,14,Local Jurisdiction of Judicial Magistrates,12,12,Local Jurisdiction of Judicial Magistrates,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+15,15,Subordination of Judicial Magistrates,13,13,Subordination of Judicial Magistrates,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+16,16,Metropolitan Magistrates,Removed,REMOVED,-,REMOVED,SPECIAL_STATUS,,,,,VALID,Concept abolished | Deleted CrPC Section (No BNSS Successor)
+17,17,Chief Metropolitan Magistrate,Removed,REMOVED,-,REMOVED,SPECIAL_STATUS,,,,,VALID,Concept abolished | Deleted CrPC Section (No BNSS Successor)
+18,18,Special Metropolitan Magistrates,Removed,REMOVED,-,REMOVED,SPECIAL_STATUS,,,,,VALID,Concept abolished | Deleted CrPC Section (No BNSS Successor)
+19,19,Subordination of Metropolitan Magistrates,Removed,REMOVED,-,REMOVED,SPECIAL_STATUS,,,,,VALID,Concept abolished | Deleted CrPC Section (No BNSS Successor)
+20,20,Executive Magistrates,14,14,Executive Magistrates,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+21,21,Special Executive Magistrates,15,15,Special Executive Magistrates,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+22,22,Local Jurisdiction of Executive Magistrates,16,16,Local Jurisdiction of Executive Magistrates,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+23,23,Subordination of Executive Magistrates,17,17,Subordination of Executive Magistrates,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+24,24,Public Prosecutors,18,18,Public Prosecutors,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+25,25,Assistant Public Prosecutors,19,19,Assistant Public Prosecutors,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+26,25A,Direcorate of Prosecution,20,20,Direcorate of Prosecution,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+27,26,Courts by which Offences are Triable,21,21,Courts by which Offences are Triable,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+28,27,Jurisdiction in case of Juveniles,Removed,REMOVED,-,REMOVED,SPECIAL_STATUS,,,,,VALID,Covered by Juvenile Justice Act 2015 | Deleted CrPC Section (No BNSS Successor)
+29,28,Sentences High Courts & Sessions Judges may pass,22,22,Sentences High Courts & Sessions Judges may pass,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+30,29,Sentences which Magistrates may pass,23,23,Sentences which Magistrates may pass,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+31,30,Sentence of Imprisonment in default of fine,24,24,Sentence of Imprisonment in default of fine,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+32,31,Sentence in cases of conviction of several offences,25,25,Sentence in cases of conviction of several offences,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+33,32,Mode of conferring powers,26,26,Mode of conferring powers,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+34,33,Powers of officers appointed,27,27,Powers of officers appointed,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+35,34,Withdrawal of powers,28,28,Withdrawal of powers,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+36,35,Powers of Judges and Magistrates exercisable by successors,29,29,Powers of Judges and Magistrates exercisable by successors,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+37,36,Powers of superior officers of police,30,30,Powers of superior officers of police,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+38,37,Public assistance to police,31,31,Public assistance to police,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+39,38,Aid to person executing warrant,32,32,Aid to person executing warrant,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+40,39,Duty to give information of certain offences,33,33,Duty to give information of certain offences,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+41,40,Duty of village officers to report certain matters,34,34,Duty of village officers to report certain matters,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+42,41,When police may arrest without warrant,35(1),35(1),When police may arrest without warrant,SUBSECTION,SUBSECTION,35,1,,,VALID,Re-numbered with new sub-sections | Hierarchy subsection under 35
+43,41A,Notice of appearance before police officer,35(3),35(3),Notice of appearance before police officer,SUBSECTION,SUBSECTION,35,3,,,VALID,Re-numbered | Hierarchy subsection under 35
+44,41B,Procedure of arrest and duties of officer making arrest,36,36,Procedure of arrest and duties of officer making arrest,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+45,41C,Control room at district and state level,37,37,Control room at district and state level,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+46,41D,Right of arrested person to meet an advocate,38,38,Right of arrested person to meet an advocate,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+47,42,Arrest on refusal to give name and residence,39,39,Arrest on refusal to give name and residence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+48,43,Arrest by private person and procedure on such arrest,40,40,Arrest by private person and procedure on such arrest,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+49,44,Arrest by Magistrate,41,41,Arrest by Magistrate,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+50,45,Protection of members of the Armed Forces from arrest,42,42,Protection of members of the Armed Forces from arrest,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+51,46,Arrest how made,43,43,Arrest how made,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+52,47,Search of place entered by person sought to be arrested,44,44,Search of place entered by person sought to be arrested,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+53,Not Applicable,-,37(c),37(c),Designated Officer to receive information,NEW_SECTION,CLAUSE,37,,c,,VALID,New Section | New BNSS Clause under 37 (No CrPC Predecessor)
+54,48,Pursuit of offenders into other jurisdictions,45,45,Pursuit of offenders into other jurisdictions,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+55,49,No unnecessary restraint,46,46,No unnecessary restraint,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+56,50,Right to know grounds of arrest,47,47,Right to know grounds of arrest,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+57,50A,Obligation to inform about arrest to nominated person,48,48,Obligation to inform about arrest to nominated person,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+58,51,Search of arrested person,49,49,Search of arrested person,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+59,52,Power to seize offensive weapons,50,50,Power to seize offensive weapons,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+60,53,Examination of accused by medical practitioner at request of police,51,51,Examination of accused by medical practitioner at request of police,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+61,53A,Examination of person accused of rape by medical practitioner,52,52,Examination of person accused of rape by medical practitioner,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+62,54,Examination of arrested person by medical practitioner,53,53,Examination of arrested person by medical practitioner,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+63,54A,Identification of person arrested,54,54,Identification of person arrested,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+64,55,Procedure when police officer deputes subordinate to arrest without warrant,55,55,Procedure when police officer deputes subordinate to arrest without warrant,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+65,55A,Health and safety of arrested person,56,56,Health and safety of arrested person,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+66,56,Person arrested to be taken before Magistrate or officer in charge of police station,57,57,Person arrested to be taken before Magistrate or officer in charge of police station,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+67,57,Person arrested not to be detained more than twenty-four hours,58,58,Person arrested not to be detained more than twenty-four hours,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+68,58,Police to report apprehensions,59,59,Police to report apprehensions,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+69,59,Discharge of person apprehended,60,60,Discharge of person apprehended,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+70,60,Power on escape to pursue and retake,61,61,Power on escape to pursue and retake,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+71,60A,Arrest to be made strictly according to Code,62,62,Arrest to be made strictly according to Code,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+72,61,Form of summons,63,63,Form of summons,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+73,62,Summons how served,64,64,Summons how served,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+74,63,Service of summons on corporate bodies and societies,65,65,Service of summons on corporate bodies and societies,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+75,64,Service when person summoned cannot be found,66,66,Service when person summoned cannot be found,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+76,65,Procedure when service cannot be effected as before provided,67,67,Procedure when service cannot be effected as before provided,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+77,66,Service on Government servant,68,68,Service on Government servant,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+78,67,Service of summons outside local limits,69,69,Service of summons outside local limits,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+79,68,Proof of service in such cases,70,70,Proof of service in such cases,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+80,69,Service of summons on witness by post,71,71,Service of summons on witness by post,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+81,70,Form of warrant of arrest and duration,72,72,Form of warrant of arrest and duration,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+82,71,Power to direct security to be taken,73,73,Power to direct security to be taken,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+83,72,Warrants to whom directed,74,74,Warrants to whom directed,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+84,73,Warrant may be directed to any person,75,75,Warrant may be directed to any person,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+85,74,Warrant directed to police officer,76,76,Warrant directed to police officer,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+86,75,Notification of substance of warrant,77,77,Notification of substance of warrant,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+87,76,Person arrested to be brought before Court without delay,78,78,Person arrested to be brought before Court without delay,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+88,77,Where warrant may be executed,79,79,Where warrant may be executed,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+89,78,Warrant forwarded for execution outside jurisdiction,80,80,Warrant forwarded for execution outside jurisdiction,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+90,79,Warrant directed to police officer for execution outside jurisdiction,81,81,Warrant directed to police officer for execution outside jurisdiction,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+91,80,Procedure on arrest of person against whom warrant is issued,82,82,Procedure on arrest of person against whom warrant is issued,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+92,81,Procedure by Magistrate before whom such person arrested is brought,83,83,Procedure by Magistrate before whom such person arrested is brought,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+93,82,Proclamation for person absconding,84,84,Proclamation for person absconding,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+94,83,Attachment of property of person absconding,85,85,Attachment of property of person absconding,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+95,84,Claims and objections to attachment,87,87,Claims and objections to attachment,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+96,85,Release sale and restoration of attached property,88,88,Release sale and restoration of attached property,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+97,86,Appeal from orders rejecting application for restoration of attached property,89,89,Appeal from orders rejecting application for restoration of attached property,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+98,87,Issue of warrant in lieu of or in addition to summons,90,90,Issue of warrant in lieu of or in addition to summons,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+99,88,Power to take bond for appearance,91,91,Power to take bond for appearance,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+100,89,Arrest on breach of bond for appearance,92,92,Arrest on breach of bond for appearance,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+101,90,Provisions of this Chapter generally applicable to summonses and warrants of arrest,93,93,Provisions of this Chapter generally applicable to summonses and warrants of arrest,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+102,91,Summons to produce document or other thing,94,94,Summons to produce document or other thing,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+103,92,Procedure as to letters and telegrams,95,95,Procedure as to letters and telegrams,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+104,93,Search-warrant,96,96,Search-warrant,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+105,94,Search of place suspected to contain stolen property etc.,97,97,Search of place suspected to contain stolen property etc.,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+106,95,Power to declare certain publications forfeited and to issue search-warrant for the same,98,98,Power to declare certain publications forfeited and to issue search-warrant for the same,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+107,96,Application to High Court to set aside declaration of forfeiture,99,99,Application to High Court to set aside declaration of forfeiture,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+108,97,Search for persons wrongfully confined,100,100,Search for persons wrongfully confined,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+109,98,Power to compel restoration of abducted females,101,101,Power to compel restoration of abducted females,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+110,99,Direction etc. of search-warrants,102,102,Direction etc. of search-warrants,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+111,100,Persons in charge of closed place to allow search,103,103,Persons in charge of closed place to allow search,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+112,101,Disposal of things found in search beyond jurisdiction,104,104,Disposal of things found in search beyond jurisdiction,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+113,102,Power of police officer to seize certain property,106,106,Power of police officer to seize certain property,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+114,103,Magistrate may direct search in his presence,108,108,Magistrate may direct search in his presence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+115,104,Power to impound document etc. produced,109,109,Power to impound document etc. produced,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+116,105A,Definitions (Reciprocal),111,111,Definitions (Reciprocal),PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+117,105B,Assistance in transfer of property,114,114,Assistance in transfer of property,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+118,105C,Assistance in identifying property,115,115,Assistance in identifying property,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+119,105D,Identifying property for seizure,116,116,Identifying property for seizure,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+120,105E,Seizure of property,117,117,Seizure of property,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+121,105F,Management of property,118,118,Management of property,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+122,105G,Notice of forfeiture of property,119,119,Notice of forfeiture of property,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+123,105H,Forfeiture order,120,120,Forfeiture order,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+124,105I,Fine in lieu of forfeiture,121,121,Fine in lieu of forfeiture,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+125,105J,Void transfers,122,122,Void transfers,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+126,105K,Letter of request to contracting state,123,123,Letter of request to contracting state,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+127,105L,Application of Chapter,124,124,Application of Chapter,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+128,106,Security for keeping peace on conviction,125,125,Security for keeping peace on conviction,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+129,107,Security for keeping peace in other cases,126,126,Security for keeping peace in other cases,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+130,108,Security for good behaviour from persons disseminating seditious matters,127,127,Security for good behaviour from persons disseminating seditious matters,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+131,109,Security for good behaviour from suspected persons,128,128,Security for good behaviour from suspected persons,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+132,110,Security for good behaviour from habitual offenders,129,129,Security for good behaviour from habitual offenders,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+133,111,Order to be made,130,130,Order to be made,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+134,112,Procedure in respect of person present in Court,131,131,Procedure in respect of person present in Court,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+135,113,Summons or warrant in case of person not so present,132,132,Summons or warrant in case of person not so present,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+136,114,Copy of order to accompany summons/warrant,133,133,Copy of order to accompany summons/warrant,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+137,115,Power to dispense with personal attendance,134,134,Power to dispense with personal attendance,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+138,116,Inquiry as to truth of information,135,135,Inquiry as to truth of information,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+139,117,Order to give security,136,136,Order to give security,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+140,118,Discharge of person informed against,137,137,Discharge of person informed against,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+141,119,Commencement of period for which security is required,138,138,Commencement of period for which security is required,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+142,120,Contents of bond,139,139,Contents of bond,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+143,121,Power to reject sureties,140,140,Power to reject sureties,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+144,122,Imprisonment in default of security,141,141,Imprisonment in default of security,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+145,123,Power to release persons imprisoned for failing to give security,142,142,Power to release persons imprisoned for failing to give security,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+146,124,Security for unexpired period of bond,143,143,Security for unexpired period of bond,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+147,125,Order for maintenance of wives children and parents,144,144,Order for maintenance of wives children and parents,PLAIN,SECTION,,,,,VALID,New provision for interim maintenance | Standard 1:1 section mapping
+148,126,Procedure for maintenance proceedings,145,145,Procedure for maintenance proceedings,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+149,127,Alteration in allowance,146,146,Alteration in allowance,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+150,128,Enforcement of order of maintenance,147,147,Enforcement of order of maintenance,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+151,129,Power to disperse assembly with civil force,148,148,Power to disperse assembly with civil force,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+152,130,Use of armed forces to disperse,149,149,Use of armed forces to disperse,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+153,131,Power of armed forces to disperse,150,150,Power of armed forces to disperse,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+154,132,Protection against prosecution for acts under sections 129-131,151,151,Protection against prosecution for acts under sections 129-131,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+155,133,Conditional order for removal of nuisance,152,152,Conditional order for removal of nuisance,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+156,134,Service or notification of order,153,153,Service or notification of order,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+157,135,Person to whom order is addressed to obey,154,154,Person to whom order is addressed to obey,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+158,136,Consequences of his failure to obey,155,155,Consequences of his failure to obey,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+159,137,Procedure where existence of public right is denied,156,156,Procedure where existence of public right is denied,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+160,138,Procedure where he appears to show cause,157,157,Procedure where he appears to show cause,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+161,139,Power of Magistrate to direct local investigation,158,158,Power of Magistrate to direct local investigation,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+162,140,Power of Magistrate to furnish written instructions,159,159,Power of Magistrate to furnish written instructions,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+163,141,Procedure on order being made absolute,160,160,Procedure on order being made absolute,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+164,142,Injunction pending inquiry,161,161,Injunction pending inquiry,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+165,143,Magistrate may prohibit repetition or continuance of nuisance,162,162,Magistrate may prohibit repetition or continuance of nuisance,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+166,144,Power to issue order in urgent cases of nuisance or apprehended danger,163,163,Power to issue order in urgent cases of nuisance or apprehended danger,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+167,144A,Power to prohibit carrying arms in processions,Removed,REMOVED,-,REMOVED,SPECIAL_STATUS,,,,,VALID,Included in BNSS 163 | Deleted CrPC Section (No BNSS Successor)
+168,145,Procedure where dispute concerning land or water is likely to cause breach of peace,164,164,Procedure where dispute concerning land or water is likely to cause breach of peace,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+169,146,Power to attach subject of dispute,165,165,Power to attach subject of dispute,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+170,147,Dispute concerning right of use of land or water,166,166,Dispute concerning right of use of land or water,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+171,148,Local inquiry,167,167,Local inquiry,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+172,149,Police to prevent cognizable offences,168,168,Police to prevent cognizable offences,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+173,150,Information of design to commit cognizable offences,169,169,Information of design to commit cognizable offences,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+174,151,Arrest to prevent the commission of cognizable offences,170,170,Arrest to prevent the commission of cognizable offences,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+175,152,Prevention of injury to public property,171,171,Prevention of injury to public property,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+176,153,Inspection of weights and measures,Removed,REMOVED,-,REMOVED,SPECIAL_STATUS,,,,,VALID,Covered by other specific laws | Deleted CrPC Section (No BNSS Successor)
+177,154,Information in cognizable cases (FIR),173,173,Information in cognizable cases (FIR),PLAIN,SECTION,,,,,VALID,Mandates electronic recording and Zero FIR | Standard 1:1 section mapping
+178,155,Information in non-cognizable cases,174,174,Information in non-cognizable cases,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+179,156,Police officer's power to investigate cognizable case,175,175,Police officer's power to investigate cognizable case,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+180,157,Procedure for investigation,176,176,Procedure for investigation,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+181,158,Report to Magistrate,177,177,Report to Magistrate,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+182,159,Power to hold investigation or preliminary inquiry,178,178,Power to hold investigation or preliminary inquiry,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+183,160,Police officer's power to require attendance of witnesses,179,179,Police officer's power to require attendance of witnesses,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+184,161,Examination of witnesses by police,180,180,Examination of witnesses by police,PLAIN,SECTION,,,,,VALID,Audio-video recording permitted | Standard 1:1 section mapping
+185,162,Statements to police not to be signed,181,181,Statements to police not to be signed,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+186,163,No inducement to be offered,182,182,No inducement to be offered,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+187,164,Recording of confessions and statements,183,183,Recording of confessions and statements,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+188,164A,Medical examination of the victim of rape,184,184,Medical examination of the victim of rape,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+189,165,Search by police officer,185,185,Search by police officer,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+190,166,When officer in charge of police station may require another to issue search-warrant,186,186,When officer in charge of police station may require another to issue search-warrant,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+191,166A,Letter of request to investigate in other countries,112,112,Letter of request to investigate in other countries,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+192,166B,Letter of request from a country outside India,113,113,Letter of request from a country outside India,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+193,167,Remand of accused to police custody,187,187,Remand of accused to police custody,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+194,168,Report to superior officer,188,188,Report to superior officer,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+195,169,Release of accused when evidence deficient,189,189,Release of accused when evidence deficient,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+196,170,Cases to be sent to Magistrate when evidence is sufficient,190,190,Cases to be sent to Magistrate when evidence is sufficient,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+197,171,Witnesses to accompany police officer,191,191,Witnesses to accompany police officer,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+198,172,Case diary,192,192,Case diary,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+199,173,Police report (Challan),193,193,Police report (Challan),PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+200,174,Inquiry in case of suicide etc.,194,194,Inquiry in case of suicide etc.,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+201,175,Power to summon persons for inquest,195,195,Power to summon persons for inquest,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+202,176,Inquiry by Magistrate into cause of death,196,196,Inquiry by Magistrate into cause of death,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+203,177,Ordinary place of inquiry and trial,197,197,Ordinary place of inquiry and trial,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+204,178,Place of inquiry or trial where offence committed in more than one jurisdiction,198,198,Place of inquiry or trial where offence committed in more than one jurisdiction,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+205,179,Place of trial where act is done or consequence ensues,199,199,Place of trial where act is done or consequence ensues,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+206,180,Place of trial where offence is committed in relation to property,200,200,Place of trial where offence is committed in relation to property,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+207,181,Place of trial in case of certain offences,201,201,Place of trial in case of certain offences,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+208,182,Place of trial for offences committed in the course of transmission by post etc.,202,202,Place of trial for offences committed in the course of transmission by post etc.,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+209,183,Offence committed on a journey or voyage,203,203,Offence committed on a journey or voyage,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+210,184,Place of trial for offences triable together,204,204,Place of trial for offences triable together,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+211,185,Power to order cases to be tried in different sessions divisions,205,205,Power to order cases to be tried in different sessions divisions,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+212,186,High Court to decide in case of doubt as to jurisdiction,206,206,High Court to decide in case of doubt as to jurisdiction,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+213,187,Power to issue summons or warrant for offence committed beyond local jurisdiction,207,207,Power to issue summons or warrant for offence committed beyond local jurisdiction,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+214,188,Offence committed outside India,208,208,Offence committed outside India,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+215,189,Receipt of evidence relating to offences committed outside India,209,209,Receipt of evidence relating to offences committed outside India,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+216,190,Cognizance of offences by Magistrates,210,210,Cognizance of offences by Magistrates,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+217,191,Transfer on application of accused,211,211,Transfer on application of accused,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+218,192,Making over of cases to Magistrates,212,212,Making over of cases to Magistrates,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+219,193,Cognizance of offences by Court of Session,213,213,Cognizance of offences by Court of Session,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+220,194,Additional Sessions Judge to try cases,214,214,Additional Sessions Judge to try cases,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+221,195,Prosecution for contempt of lawful authority of public servants,215,215,Prosecution for contempt of lawful authority of public servants,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+222,195A,Prosecution for threatening witness,216,216,Prosecution for threatening witness,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+223,196,Prosecution for offences against the State,217,217,Prosecution for offences against the State,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+224,197,Prosecution of Judges and public servants,218,218,Prosecution of Judges and public servants,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+225,198,Prosecution for offences against marriage,219,219,Prosecution for offences against marriage,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+226,198A,Prosecution for offences of cruelty to woman,220,220,Prosecution for offences of cruelty to woman,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+227,198B,Cognizance of offence under section 376B IPC,221,221,Cognizance of offence under section 376B BNS,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+228,199,Prosecution for defamation,222,222,Prosecution for defamation,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+229,200,Examination of complainant,223,223,Examination of complainant,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+230,201,Procedure by Magistrate not competent to take cognizance,224,224,Procedure by Magistrate not competent to take cognizance,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+231,202,Postponement of issue of process,225,225,Postponement of issue of process,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+232,203,Dismissal of complaint,226,226,Dismissal of complaint,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+233,204,Issue of process,227,227,Issue of process,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+234,205,Magistrate may dispense with personal attendance of accused,228,228,Magistrate may dispense with personal attendance of accused,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+235,206,Special summons in cases of petty offence,229,229,Special summons in cases of petty offence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+236,207,Supply to the accused of copy of police report and other documents,230,230,Supply to the accused of copy of police report and other documents,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+237,208,Supply of copies of statements and documents to accused in other cases triable by Court of Session,231,231,Supply of copies of statements and documents to accused in other cases triable by Court of Session,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+238,209,Commitment of case to Court of Session when offence is triable exclusively by it,232,232,Commitment of case to Court of Session when offence is triable exclusively by it,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+239,210,Procedure to be followed when there is a complaint case and police investigation in respect of the same offence,233,233,Procedure to be followed when there is a complaint case and police investigation in respect of the same offence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+240,211,Contents of charge,234,234,Contents of charge,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+241,212,Particulars as to time place and person,235,235,Particulars as to time place and person,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+242,213,When manner of committing offence must be stated,236,236,When manner of committing offence must be stated,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+243,214,Words in charge to be understood according to sense,237,237,Words in charge to be understood according to sense,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+244,215,Effect of errors,238,238,Effect of errors,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+245,216,Court may alter charge,239,239,Court may alter charge,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+246,217,Recall of witnesses when charge altered,240,240,Recall of witnesses when charge altered,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+247,218,Separate charges for distinct offences,241,241,Separate charges for distinct offences,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+248,219,Three offences of same kind within year may be charged together,242,242,Three offences of same kind within year may be charged together,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+249,220,Trial for more than one offence,243,243,Trial for more than one offence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+250,221,Where it is doubtful what offence has been committed,244,244,Where it is doubtful what offence has been committed,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+251,222,When offence proved included in offence charged,245,245,When offence proved included in offence charged,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+252,223,What persons may be charged jointly,246,246,What persons may be charged jointly,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+253,224,Withdrawal of remaining charges,247,247,Withdrawal of remaining charges,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+254,225,Trial to be conducted by Public Prosecutor,248,248,Trial to be conducted by Public Prosecutor,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+255,226,Opening case for prosecution,249,249,Opening case for prosecution,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+256,227,Discharge of accused,250,250,Discharge of accused,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+257,228,Framing of charge,251,251,Framing of charge,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+258,229,Conviction on plea of guilty,252,252,Conviction on plea of guilty,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+259,230,Date for prosecution evidence,253,253,Date for prosecution evidence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+260,231,Evidence for prosecution,254,254,Evidence for prosecution,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+261,232,Acquittal,255,255,Acquittal,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+262,233,Defence,256,256,Defence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+263,234,Arguments,257,257,Arguments,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+264,235,Judgment,258,258,Judgment,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+265,236,Previous conviction,259,259,Previous conviction,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+266,237,Trial for defamation etc.,260,260,Trial for defamation etc.,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+267,238,Compliance with section 207,261,261,Compliance with section 207,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+268,239,When accused shall be discharged,262,262,When accused shall be discharged,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+269,240,Framing of charge,263,263,Framing of charge,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+270,241,Conviction on plea of guilty,264,264,Conviction on plea of guilty,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+271,242,Evidence for prosecution,265,265,Evidence for prosecution,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+272,243,Evidence for defence,266,266,Evidence for defence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+273,244,Evidence for prosecution in complaint case,267,267,Evidence for prosecution in complaint case,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+274,245,When accused shall be discharged,268,268,When accused shall be discharged,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+275,246,Procedure where accused is not discharged,269,269,Procedure where accused is not discharged,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+276,247,Evidence for defence,270,270,Evidence for defence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+277,248,Acquittal or conviction,271,271,Acquittal or conviction,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+278,249,Absence of complainant,272,272,Absence of complainant,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+279,250,Compensation for accusation without reasonable cause,273,273,Compensation for accusation without reasonable cause,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+280,251,Substance of accusation to be stated,274,274,Substance of accusation to be stated,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+281,252,Conviction on plea of guilty,275,275,Conviction on plea of guilty,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+282,253,Conviction on plea of guilty in absence of accused in petty cases,276,276,Conviction on plea of guilty in absence of accused in petty cases,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+283,254,Procedure when not convicted,277,277,Procedure when not convicted,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+284,255,Acquittal or conviction,278,278,Acquittal or conviction,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+285,256,Non-appearance or death of complainant,279,279,Non-appearance or death of complainant,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+286,257,Withdrawal of complaint,280,280,Withdrawal of complaint,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+287,258,Power to stop proceedings in certain cases,281,281,Power to stop proceedings in certain cases,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+288,259,Power of Court to convert summons case into warrant case,282,282,Power of Court to convert summons case into warrant case,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+289,260,Power to try summarily,283,283,Power to try summarily,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+290,261,Summary trial by Magistrate of second class,284,284,Summary trial by Magistrate of second class,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+291,262,Procedure for summary trials,285,285,Procedure for summary trials,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+292,263,Record in summary trials,286,286,Record in summary trials,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+293,264,Judgment in cases tried summarily,287,287,Judgment in cases tried summarily,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+294,265,Language of record and judgment,288,288,Language of record and judgment,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+295,265A,Application for plea bargaining,289,289,Application for plea bargaining,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+296,265B,Procedure for plea bargaining,290,290,Procedure for plea bargaining,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+297,265C,Guidelines for mutually satisfactory disposition,291,291,Guidelines for mutually satisfactory disposition,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+298,265D,Report of the mutually satisfactory disposition,292,292,Report of the mutually satisfactory disposition,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+299,265E,Disposal of the case,293,293,Disposal of the case,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+300,265F,Judgment of the Court,294,294,Judgment of the Court,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+301,265G,Finality of judgment,295,295,Finality of judgment,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+302,265H,Power of Court in plea bargaining,296,296,Power of Court in plea bargaining,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+303,265I,Period of detention to be set off,297,297,Period of detention to be set off,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+304,265J,Savings,298,298,Savings,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+305,265K,Statements of accused not to be used,299,299,Statements of accused not to be used,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+306,265L,Non-application of Chapter,300,300,Non-application of Chapter,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+307,266,Definitions of Prisoners,301,301,Definitions of Prisoners,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+308,267,Power to order attendance of prisoners,302,302,Power to order attendance of prisoners,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+309,268,Power to exclude from operation of section 267,303,303,Power to exclude from operation of section 267,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+310,269,Officer in charge of prison to abstain from carrying out order,304,304,Officer in charge of prison to abstain from carrying out order,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+311,270,Procedure on receipt of order,305,305,Procedure on receipt of order,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+312,271,Commission for examination of prisoner,306,306,Commission for examination of prisoner,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+313,272,Language of Courts,307,307,Language of Courts,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+314,273,Evidence to be taken in presence of accused,308,308,Evidence to be taken in presence of accused,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+315,274,Record in summons case,309,309,Record in summons case,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+316,275,Record in warrant case,310,310,Record in warrant case,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+317,276,Record in Sessions case,311,311,Record in Sessions case,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+318,277,Language of record of evidence,312,312,Language of record of evidence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+319,278,Procedure where evidence has been taken down,313,313,Procedure where evidence has been taken down,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+320,279,Interpretation of evidence to accused or his pleader,314,314,Interpretation of evidence to accused or his pleader,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+321,280,Remarks respecting demeanour of witness,315,315,Remarks respecting demeanour of witness,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+322,281,Record of examination of accused,316,316,Record of examination of accused,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+323,282,Interpreter to be appointed,317,317,Interpreter to be appointed,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+324,283,Record in High Court,318,318,Record in High Court,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+325,284,When witnesses may be examined by commission,319,319,When witnesses may be examined by commission,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+326,285,Commission to whom to be issued,320,320,Commission to whom to be issued,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+327,286,Execution of commission,321,321,Execution of commission,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+328,287,Return of commission,322,322,Return of commission,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+329,288,Adjournment of proceeding,323,323,Adjournment of proceeding,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+330,289,Commission for examination of witness in prison,324,324,Commission for examination of witness in prison,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+331,290,Commission for examination of witness outside India,325,325,Commission for examination of witness outside India,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+332,291,Evidence of medical witness,326,326,Evidence of medical witness,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+333,291A,Identification report of Magistrate,327,327,Identification report of Magistrate,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+334,292,Evidence of officers of the Mint,328,328,Evidence of officers of the Mint,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+335,293,Evidence of scientific experts,329,329,Evidence of scientific experts,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+336,294,No formal proof of certain documents,330,330,No formal proof of certain documents,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+337,295,Affidavit as to conduct of public servant,331,331,Affidavit as to conduct of public servant,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+338,296,Evidence by affidavits,332,332,Evidence by affidavits,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+339,297,Authorities before whom affidavits may be sworn,333,333,Authorities before whom affidavits may be sworn,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+340,298,Previous conviction or acquittal how proved,334,334,Previous conviction or acquittal how proved,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+341,299,Recording of evidence in absence of accused,335,335,Recording of evidence in absence of accused,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+342,300,Person once convicted or acquitted not to be tried for same offence,337,337,Person once convicted or acquitted not to be tried for same offence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+343,301,Appearance by Public Prosecutor,338,338,Appearance by Public Prosecutor,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+344,302,Permission to conduct prosecution,339,339,Permission to conduct prosecution,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+345,303,Right of person against whom proceedings are instituted to be defended,340,340,Right of person against whom proceedings are instituted to be defended,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+346,304,Legal aid to accused at State expense,341,341,Legal aid to accused at State expense,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+347,305,Procedure when corporation is accused,342,342,Procedure when corporation is accused,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+348,306,Tender of pardon to accomplice,343,343,Tender of pardon to accomplice,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+349,307,Power to direct tender of pardon,344,344,Power to direct tender of pardon,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+350,308,Trial of person not complying with conditions of pardon,345,345,Trial of person not complying with conditions of pardon,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+351,309,Power to postpone or adjourn proceedings,346,346,Power to postpone or adjourn proceedings,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+352,310,Local inspection,347,347,Local inspection,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+353,311,Power to summon material witness or examine person present,348,348,Power to summon material witness or examine person present,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+354,311A,Power to take specimen of signatures or handwriting,349,349,Power to take specimen of signatures or handwriting,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+355,312,Expenses of complainants and witnesses,350,350,Expenses of complainants and witnesses,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+356,313,Power to examine the accused,351,351,Power to examine the accused,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+357,314,Oral arguments and written arguments,352,352,Oral arguments and written arguments,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+358,315,Accused person to be competent witness,353,353,Accused person to be competent witness,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+359,316,No influence to be used,354,354,No influence to be used,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+360,317,Provision for inquiries and trial being held in the absence of accused in certain cases,355,355,Provision for inquiries and trial being held in the absence of accused in certain cases,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+361,Not Applicable,-,356,356,Trial in absentia of proclaimed offenders,NEW_SECTION,SECTION,,,,,VALID,New Section | New BNSS Section (No CrPC Predecessor)
+362,318,Procedure where accused does not understand proceedings,357,357,Procedure where accused does not understand proceedings,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+363,319,Power to proceed against other persons appearing to be guilty of offence,358,358,Power to proceed against other persons appearing to be guilty of offence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+364,320,Compounding of offences,359,359,Compounding of offences,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+365,321,Withdrawal from prosecution,360,360,Withdrawal from prosecution,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+366,322,Procedure in cases which Magistrate cannot dispose of,361,361,Procedure in cases which Magistrate cannot dispose of,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+367,323,Procedure when after commencement of inquiry or trial Magistrate finds case should be committed,362,362,Procedure when after commencement of inquiry or trial Magistrate finds case should be committed,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+368,324,Procedure in cases of offence relating to coinage etc.,363,363,Procedure in cases of offence relating to coinage etc.,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+369,325,Procedure when Magistrate cannot pass sentence sufficiently severe,364,364,Procedure when Magistrate cannot pass sentence sufficiently severe,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+370,326,Evidence recorded by one Magistrate how to be dealt with by successor,365,365,Evidence recorded by one Magistrate how to be dealt with by successor,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+371,327,Court to be open,366,366,Court to be open,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+372,328,Procedure in case of accused being of unsound mind,367,367,Procedure in case of accused being of unsound mind,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+373,329,Procedure in case of person of unsound mind tried before Court,368,368,Procedure in case of person of unsound mind tried before Court,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+374,330,Release of person of unsound mind pending investigation or trial,369,369,Release of person of unsound mind pending investigation or trial,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+375,331,Resumption of inquiry or trial,370,370,Resumption of inquiry or trial,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+376,332,Procedure on accused appearing before Magistrate or Court,371,371,Procedure on accused appearing before Magistrate or Court,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+377,333,When accused appears to have been of sound mind,372,372,When accused appears to have been of sound mind,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+378,334,Judgment of acquittal on ground of unsoundness of mind,373,373,Judgment of acquittal on ground of unsoundness of mind,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+379,335,Person acquitted on such ground to be detained in safe custody,374,374,Person acquitted on such ground to be detained in safe custody,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+380,336,Power of Magistrate to discharge,375,375,Power of Magistrate to discharge,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+381,337,Procedure where person of unsound mind is in need of care,376,376,Procedure where person of unsound mind is in need of care,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+382,338,Order for discharge of person of unsound mind,377,377,Order for discharge of person of unsound mind,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+383,339,Delivery of person of unsound mind to relations,378,378,Delivery of person of unsound mind to relations,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+384,340,Procedure in cases mentioned in section 195,379,379,Procedure in cases mentioned in section 195,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+385,341,Appeal,380,380,Appeal,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+386,342,Power to order costs,381,381,Power to order costs,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+387,343,Procedure of Magistrate taking cognizance,382,382,Procedure of Magistrate taking cognizance,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+388,344,Summary procedure for trial for giving false evidence,383,383,Summary procedure for trial for giving false evidence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+389,345,Procedure in certain cases of contempt,384,384,Procedure in certain cases of contempt,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+390,346,Procedure where Court considers that case should not be dealt with under section 345,385,385,Procedure where Court considers that case should not be dealt with under section 345,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+391,347,When Registrar may exercise powers of Magistrate,386,386,When Registrar may exercise powers of Magistrate,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+392,348,Discharge of offender on submission of apology,387,387,Discharge of offender on submission of apology,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+393,349,Power to punish for contempt,388,388,Power to punish for contempt,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+394,350,Summary procedure for punishment for non-attendance by witness,389,389,Summary procedure for punishment for non-attendance by witness,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+395,351,Appeals from convictions under sections 344 345 349 and 350,390,390,Appeals from convictions under sections 344 345 349 and 350,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+396,352,When Judge or Magistrate is a witness,391,391,When Judge or Magistrate is a witness,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+397,353,Judgment,392,392,Judgment,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+398,354,Language and contents of judgment,393,393,Language and contents of judgment,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+399,355,Metropolitan Magistrate's judgment,Removed,REMOVED,-,REMOVED,SPECIAL_STATUS,,,,,VALID,Concept abolished | Deleted CrPC Section (No BNSS Successor)
+400,356,Order for notifying address of previously convicted offender,394,394,Order for notifying address of previously convicted offender,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+401,357,Order to pay compensation,395,395,Order to pay compensation,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+402,357A,Victim Compensation Scheme,396(Subs),396,Victim Compensation Scheme,AMENDMENT_ANNOTATION,SECTION,,,,subs,VALID,Re-numbered | Legislative history annotation: Subs mapped to base section 396
+403,357B,Compensation to be in addition to fine,396,396,Compensation to be in addition to fine,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+404,357C,Medical treatment of victim,397(Subs),397,Medical treatment of victim,AMENDMENT_ANNOTATION,SECTION,,,,subs,VALID,Re-numbered | Legislative history annotation: Subs mapped to base section 397
+405,Not Applicable,-,398,398,Witness Protection Scheme,NEW_SECTION,SECTION,,,,,VALID,New Section | New BNSS Section (No CrPC Predecessor)
+406,358,Compensation for groundless arrest,399,399,Compensation for groundless arrest,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+407,359,Order to pay costs in non-cognizable cases,400,400,Order to pay costs in non-cognizable cases,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+408,360,Order to release on probation of good conduct,401,401,Order to release on probation of good conduct,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+409,361,Special reasons to be recorded,402,402,Special reasons to be recorded,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+410,362,Court not to alter judgment,403,403,Court not to alter judgment,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+411,363,Copy of judgment to be given to accused,404,404,Copy of judgment to be given to accused,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+412,364,Judgment when to be translated,405,405,Judgment when to be translated,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+413,365,Court of Session to send copy of finding and sentence to District Magistrate,406,406,Court of Session to send copy of finding and sentence to District Magistrate,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+414,366,Sentence of death to be submitted by Court of Session for confirmation,407,407,Sentence of death to be submitted by Court of Session for confirmation,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+415,367,Power to direct further inquiry to be made,408,408,Power to direct further inquiry to be made,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+416,368,Power of High Court to confirm sentence or annul conviction,409,409,Power of High Court to confirm sentence or annul conviction,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+417,369,Confirmation or new sentence to be signed by two Judges,410,410,Confirmation or new sentence to be signed by two Judges,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+418,370,Procedure in case of difference of opinion,411,411,Procedure in case of difference of opinion,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+419,371,Procedure in cases submitted to High Court,412,412,Procedure in cases submitted to High Court,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+420,372,No appeal to lie unless otherwise provided,413,413,No appeal to lie unless otherwise provided,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+421,373,Appeal from orders requiring security or refusal to accept or rejecting surety,414,414,Appeal from orders requiring security or refusal to accept or rejecting surety,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+422,374,Appeals from convictions,415,415,Appeals from convictions,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+423,375,No appeal in certain cases when accused pleads guilty,416,416,No appeal in certain cases when accused pleads guilty,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+424,376,No appeal in petty cases,417,417,No appeal in petty cases,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+425,377,Appeal by State Government against sentence,418,418,Appeal by State Government against sentence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+426,378,Appeal in case of acquittal,419,419,Appeal in case of acquittal,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+427,379,Appeal against conviction by High Court in certain cases,420,420,Appeal against conviction by High Court in certain cases,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+428,380,Special right of appeal in certain cases,421,421,Special right of appeal in certain cases,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+429,381,Appeal from convictions by Sessions Judge or Additional Sessions Judge,422,422,Appeal from convictions by Sessions Judge or Additional Sessions Judge,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+430,382,Petition of appeal,423,423,Petition of appeal,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+431,383,Procedure when appellant in jail,424,424,Procedure when appellant in jail,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+432,384,Summary dismissal of appeal,425,425,Summary dismissal of appeal,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+433,385,Procedure for hearing appeals not dismissed summarily,426,426,Procedure for hearing appeals not dismissed summarily,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+434,386,Powers of Appellate Court,427,427,Powers of Appellate Court,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+435,387,Judgment of subordinate Appellate Court,428,428,Judgment of subordinate Appellate Court,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+436,388,Order of High Court on appeal to be certified to lower Court,429,429,Order of High Court on appeal to be certified to lower Court,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+437,389,Suspension of sentence pending appeal,430,430,Suspension of sentence pending appeal,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+438,390,Arrest of accused in appeal from acquittal,431,431,Arrest of accused in appeal from acquittal,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+439,391,Appellate Court may take further evidence,432,432,Appellate Court may take further evidence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+440,392,Procedure where Judges of Court of Appeal are equally divided,433,433,Procedure where Judges of Court of Appeal are equally divided,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+441,393,Finality of judgments and orders on appeal,434,434,Finality of judgments and orders on appeal,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+442,394,Abatement of appeals,435,435,Abatement of appeals,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+443,395,Reference to High Court,436,436,Reference to High Court,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+444,396,Disposal of case according to decision of High Court,437,437,Disposal of case according to decision of High Court,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+445,397,Calling for records to exercise powers of revision,438,438,Calling for records to exercise powers of revision,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+446,398,Power to order inquiry,439,439,Power to order inquiry,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+447,399,Sessions Judge's powers of revision,440,440,Sessions Judge's powers of revision,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+448,400,Power of Additional Sessions Judge,441,441,Power of Additional Sessions Judge,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+449,401,High Court's powers of revision,442,442,High Court's powers of revision,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+450,402,Power of Court to withdraw revision,443,443,Power of Court to withdraw revision,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+451,403,Option of Court to hear parties,444,444,Option of Court to hear parties,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+452,404,Statement by Magistrate of grounds of his decision,Removed,REMOVED,-,REMOVED,SPECIAL_STATUS,,,,,VALID,Covered elsewhere | Deleted CrPC Section (No BNSS Successor)
+453,405,Order of High Court on revision to be certified to lower Court,445,445,Order of High Court on revision to be certified to lower Court,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+454,406,Power of Supreme Court to transfer cases and appeals,446,446,Power of Supreme Court to transfer cases and appeals,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+455,407,Power of High Court to transfer cases and appeals,447,447,Power of High Court to transfer cases and appeals,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+456,408,Power of Sessions Judge to transfer cases and appeals,448,448,Power of Sessions Judge to transfer cases and appeals,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+457,409,Withdrawal of cases and appeals by Sessions Judge,449,449,Withdrawal of cases and appeals by Sessions Judge,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+458,410,Withdrawal of cases by Judicial Magistrates,450,450,Withdrawal of cases by Judicial Magistrates,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+459,411,Withdrawal of cases by Executive Magistrates,451,451,Withdrawal of cases by Executive Magistrates,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+460,412,Reasons to be recorded,452,452,Reasons to be recorded,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+461,413,Execution of death sentence,453,453,Execution of death sentence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+462,414,Execution of sentence of death passed by High Court,454,454,Execution of sentence of death passed by High Court,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+463,415,Postponement of execution of sentence of death,455,455,Postponement of execution of sentence of death,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+464,416,Execution of sentence of death on pregnant woman,456,456,Execution of sentence of death on pregnant woman,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+465,417,Place of imprisonment,457,457,Place of imprisonment,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+466,418,Execution of sentence of imprisonment,458,458,Execution of sentence of imprisonment,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+467,419,Execution of warrant,459,459,Execution of warrant,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+468,420,Warrant with whom to be lodged,460,460,Warrant with whom to be lodged,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+469,421,Levy of fine,461,461,Levy of fine,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+470,422,Effect of such warrant,462,462,Effect of such warrant,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+471,423,Warrant for levy of fine issued by a Court in any territory,463,463,Warrant for levy of fine issued by a Court in any territory,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+472,424,Suspension of execution of sentence of imprisonment,464,464,Suspension of execution of sentence of imprisonment,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+473,425,Who may issue warrant,465,465,Who may issue warrant,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+474,426,Appearance of escaped convict,466,466,Appearance of escaped convict,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+475,427,Sentence on offender already sentenced for another offence,467,467,Sentence on offender already sentenced for another offence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+476,428,Period of detention undergone by the accused to be set off against the sentence of imprisonment,468,468,Period of detention undergone by the accused to be set off against the sentence of imprisonment,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+477,429,Saving,469,469,Saving,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+478,430,Return of warrant on execution of sentence,470,470,Return of warrant on execution of sentence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+479,431,Money ordered to be paid to be recoverable as fine,471,471,Money ordered to be paid to be recoverable as fine,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+480,Not Applicable,-,472,472,Mercy Petition,NEW_SECTION,SECTION,,,,,VALID,New Section | New BNSS Section (No CrPC Predecessor)
+481,432,Power to suspend or remit sentences,473,473,Power to suspend or remit sentences,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+482,433,Power to commute sentence,474,474,Power to commute sentence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+483,433A,Restriction on powers of remission,475,475,Restriction on powers of remission,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+484,434,Concurrent power of Central Government in case of death sentences,476,476,Concurrent power of Central Government in case of death sentences,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+485,435,State Government to act after consultation with Central Government in certain cases,477,477,State Government to act after consultation with Central Government in certain cases,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+486,436,In what cases bail to be taken,478,478,In what cases bail to be taken,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+487,436A,Maximum period for which an undertrial prisoner can be detained,479,479,Maximum period for which an undertrial prisoner can be detained,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+488,437,When bail may be taken in case of non-bailable offence,480,480,When bail may be taken in case of non-bailable offence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+489,437A,Bail to require accused to appear before next appellate court,481,481,Bail to require accused to appear before next appellate court,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+490,438,Direction for grant of bail to person apprehending arrest (Anticipatory Bail),482,482,Direction for grant of bail to person apprehending arrest (Anticipatory Bail),PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+491,439,Special powers of High Court or Court of Session regarding bail,483,483,Special powers of High Court or Court of Session regarding bail,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+492,440,Amount of bond and reduction thereof,484,484,Amount of bond and reduction thereof,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+493,441,Bond of accused and sureties,485,485,Bond of accused and sureties,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+494,441A,Declaration by sureties,486,486,Declaration by sureties,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+495,442,Discharge from custody,487,487,Discharge from custody,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+496,443,Power to order sufficient sureties when previous surety is insufficient,488,488,Power to order sufficient sureties when previous surety is insufficient,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+497,444,Discharge of sureties,489,489,Discharge of sureties,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+498,445,Deposit instead of recognizance,490,490,Deposit instead of recognizance,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+499,446,Procedure when bond has been forfeited,491,491,Procedure when bond has been forfeited,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+500,446A,Cancellation of bond and bail-bond,492,492,Cancellation of bond and bail-bond,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+501,447,Procedure in case of insolvency or death of surety,493,493,Procedure in case of insolvency or death of surety,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+502,448,Bond required from minor,494,494,Bond required from minor,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+503,449,Appeal from orders under section 446,495,495,Appeal from orders under section 446,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+504,450,Power to direct levy of amount due on certain recognizances,496,496,Power to direct levy of amount due on certain recognizances,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+505,451,Order for custody and disposal of property,497,497,Order for custody and disposal of property,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+506,452,Order for disposal of property at conclusion of trial,498,498,Order for disposal of property at conclusion of trial,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+507,453,Payment to innocent purchaser of money etc.,499,499,Payment to innocent purchaser of money etc.,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+508,454,Appeal against orders under section 452 or section 453,500,500,Appeal against orders under section 452 or section 453,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+509,455,Destruction of libellous and other matter,501,501,Destruction of libellous and other matter,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+510,456,Power to restore possession of immovable property,502,502,Power to restore possession of immovable property,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+511,457,Procedure by police upon seizure of property,503,503,Procedure by police upon seizure of property,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+512,458,Procedure where no claimant appears within six months,504,504,Procedure where no claimant appears within six months,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+513,459,Power to sell perishable property,505,505,Power to sell perishable property,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+514,460,Irregularities which do not vitiate proceedings,506,506,Irregularities which do not vitiate proceedings,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+515,461,Irregularities which vitiate proceedings,507,507,Irregularities which vitiate proceedings,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+516,462,Proceedings in wrong place,508,508,Proceedings in wrong place,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+517,463,Non-compliance with provisions of section 164 or section 281,509,509,Non-compliance with provisions of section 164 or section 281,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+518,464,Effect of omission to frame or absence of or error in charge,510,510,Effect of omission to frame or absence of or error in charge,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+519,465,Finding or sentence when reversible by reason of error,511,511,Finding or sentence when reversible by reason of error,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+520,466,Defect or error not to make attachment unlawful,512,512,Defect or error not to make attachment unlawful,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+521,467,Definitions of limitation,513,513,Definitions of limitation,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+522,468,Bar to taking cognizance after lapse of the period of limitation,514,514,Bar to taking cognizance after lapse of the period of limitation,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+523,469,Commencement of the period of limitation,515,515,Commencement of the period of limitation,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+524,470,Exclusion of time in certain cases,516,516,Exclusion of time in certain cases,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+525,471,Exclusion of date on which Court is closed,517,517,Exclusion of date on which Court is closed,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+526,472,Continuing offence,518,518,Continuing offence,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+527,473,Extension of period of limitation in certain cases,519,519,Extension of period of limitation in certain cases,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+528,474,High Court may direct trial of certain offences summarily,520,520,High Court may direct trial of certain offences summarily,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+529,475,Delivery to Commanding Officer of persons liable to be tried by Court-martial,521,521,Delivery to Commanding Officer of persons liable to be tried by Court-martial,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+530,476,Forms,522,522,Forms,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+531,477,Power of High Court to make rules,523,523,Power of High Court to make rules,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+532,478,Power to alter functions allocated to Executive Magistrates,524,524,Power to alter functions allocated to Executive Magistrates,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+533,479,Case in which Judge or Magistrate is personally interested,525,525,Case in which Judge or Magistrate is personally interested,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+534,480,Practice and procedure of pleaders,526,526,Practice and procedure of pleaders,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+535,481,Pleading at a police station,527,527,Pleading at a police station,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+536,482,Saving of inherent powers of High Court,528,528,Saving of inherent powers of High Court,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+537,483,Duty of High Court to exercise continuous superintendence over Courts of Judicial Magistrates,529,529,Duty of High Court to exercise continuous superintendence over Courts of Judicial Magistrates,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
+538,Not Applicable,-,530,530,Electronic mode of trial and inquiry,NEW_SECTION,SECTION,,,,,VALID,New Section | New BNSS Section (No CrPC Predecessor)
+539,484,Repeal and Savings,531,531,Repeal and Savings,PLAIN,SECTION,,,,,VALID,Re-numbered | Standard 1:1 section mapping
