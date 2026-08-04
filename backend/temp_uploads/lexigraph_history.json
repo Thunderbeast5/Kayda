@@ -1,5 +1,611 @@
 [
   {
+    "query_id": "lexi_c25824bec5ad",
+    "query": "A man stabbed his neighbour during an argument, and the victim died in the hospital.",
+    "created_at": "2026-08-04T15:18:46.197456+00:00",
+    "pipeline_confidence": 0.6967,
+    "primary_intent": null,
+    "recommended_count": 2,
+    "precedents_count": 2,
+    "result": {
+      "pipeline_confidence": 0.6967,
+      "recommended_sections": [
+        {
+          "act": "BNS",
+          "section": "101",
+          "title": "Murder",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "300",
+            "mapping_verified": true
+          },
+          "confidence": 0.6967,
+          "applicability": "Relevant provision for query facts.",
+          "reason": "Candidate BNS 101 validated provisionally [WARNING: no ingredients ingested in graph]."
+        },
+        {
+          "act": "BNS",
+          "section": "102",
+          "title": "Culpable homicide by causing death of person other than person whose death was intended",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "301",
+            "mapping_verified": true
+          },
+          "confidence": 0.6901,
+          "applicability": "Relevant provision for query facts.",
+          "reason": "Candidate BNS 102 validated provisionally [WARNING: no ingredients ingested in graph]."
+        }
+      ],
+      "supporting_cases": [],
+      "similar_cases": [
+        {
+          "case_id": "2007_INSC_182",
+          "case_name": "A MOHANLAL AND ORS. ...",
+          "title": "A MOHANLAL AND ORS. ...",
+          "court": "Supreme Court of India",
+          "year": 2007,
+          "similarity": 0.5646,
+          "vector_similarity": 0.564635336,
+          "facts": "+ c Dowry death-In-laws allegedly harassing daughter in law - Causing death by setting her on fire-Dying declaration-Trial Court found in-laws guilty (lf committing crime under s. 302 rlw s. 34 !PC, convicted and sentence.",
+          "reasoning": "Situation in which a person is on death bed, being exceedingly solemn,",
+          "judgment_summary": "Situation in which a person is on death bed, being exceedingly solemn,",
+          "sections": [
+            "302",
+            "34"
+          ],
+          "metadata": {
+            "bns_sections": [],
+            "case_id": "2007_INSC_182",
+            "case_name": "A MOHANLAL AND ORS. ...",
+            "community": "domestic_offences",
+            "court": "Supreme Court of India",
+            "crime_type": "domestic_offences, murder_related",
+            "facts": "+ c Dowry death-In-laws allegedly harassing daughter in law - Causing death by setting her on fire-Dying declaration-Trial Court found in-laws guilty (lf committing crime under s. 302 rlw s. 34 !PC, convicted and sentence.",
+            "ipc_sections": [
+              "302",
+              "34"
+            ],
+            "judgment_summary": "Situation in which a person is on death bed, being exceedingly solemn,",
+            "keywords": [
+              "death",
+              "dowry death"
+            ],
+            "reasoning": "Situation in which a person is on death bed, being exceedingly solemn,",
+            "year": 2007
+          }
+        },
+        {
+          "case_id": "2013_INSC_87",
+          "case_name": "O RAYSINGH RATHOD v. STATE OF MAHARASHTRA (C",
+          "title": "O RAYSINGH RATHOD v. STATE OF MAHARASHTRA (C",
+          "court": "Supreme Court of India",
+          "year": 2013,
+          "similarity": 0.5525,
+          "vector_similarity": 0.552455962,
+          "facts": "A - Presumption as to abetment of suicide - 'Cruelty' - Suicide by second wife of appellant -. Conviction of appellant ulss 306 and 498-A - Held : It is not the case of \nprosecution that appellant had subjected the deceased to \ncruelty of the nature described in clause (b) of Explanation 0 \nto s.",
+          "reasoning": "It is not the case of",
+          "judgment_summary": "It is not the case of",
+          "sections": [
+            "306",
+            "34",
+            "498A"
+          ],
+          "metadata": {
+            "bns_sections": [],
+            "case_id": "2013_INSC_87",
+            "case_name": "O RAYSINGH RATHOD v. STATE OF MAHARASHTRA (C",
+            "community": "domestic_offences",
+            "court": "Supreme Court of India",
+            "crime_type": "domestic_offences, murder_related",
+            "facts": "A - Presumption as to abetment of suicide - 'Cruelty' - Suicide by second wife of appellant -. Conviction of appellant ulss 306 and 498-A - Held : It is not the case of \nprosecution that appellant had subjected the deceased to \ncruelty of the nature described in clause (b) of Explanation 0 \nto s.",
+            "ipc_sections": [
+              "306",
+              "34",
+              "498A"
+            ],
+            "judgment_summary": "It is not the case of",
+            "keywords": [
+              "child",
+              "cruelty",
+              "death"
+            ],
+            "reasoning": "It is not the case of",
+            "year": 2013
+          }
+        }
+      ],
+      "supporting_articles": [],
+      "supporting_evidence": [],
+      "supporting_principles": [],
+      "supporting_graph": {
+        "articles": [],
+        "cases": [],
+        "evidence": [],
+        "principles": []
+      },
+      "community": {
+        "community_id": "general_offences",
+        "community_name": "Community general_offences",
+        "community_summary": "Graph community clustered by GDS Leiden (general_offences).",
+        "community_score": 0.25
+      },
+      "rejected_sections": [],
+      "debug": {
+        "decision": {
+          "invoke_reasoning": true,
+          "reason": "Confidence below threshold or verification incomplete."
+        },
+        "ranked_candidates": [
+          {
+            "section": "BNS 101",
+            "act": "BNS",
+            "section_num": "101",
+            "title": "Murder",
+            "description": "Culpable homicide is murder when: act causing death done with intention of causing death; intention of causing bodily injury known likely to cause death; intention of causing bodily injury sufficient in ordinary course to cause death; knowing act so imminently dangerous it must cause death or bodily injury likely to cause death. Exceptions: grave sudden provocation, exceeding private defense, public servant exceeding powers, sudden fight without premeditation, adult consent.",
+            "punishment": "Punished as per Section 103: Death or imprisonment for life and fine",
+            "similarity": 0.7379,
+            "keyword_match": 0.0,
+            "case_similarity": 0.5646,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "A man committed assault on his neighbour during an argument, resulting in the neighbour's death at the hospital.",
+              "culpable homicide amounting to murder causing death of victim",
+              "intentional bodily injury causing death",
+              "murder by shooting stabbing or deadly weapon"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "IPC_BNS_MAPPING",
+                  "section": "IPC 300",
+                  "title": "Except in the cases hereinafter excepted, culpable homicide is murder, if the act by which the death",
+                  "kind": "act_mapping"
+                },
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Murder",
+                  "title": "Murder",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "general_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate BNS 101 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6967,
+            "ingredient_score": 0.71,
+            "community_match": 0.5,
+            "score_breakdown": {
+              "vector_similarity_35": 0.7379,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.6,
+              "community_match_10": 0.5,
+              "case_precedents_10": 0.5646,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6967
+            }
+          },
+          {
+            "section": "BNS 102",
+            "act": "BNS",
+            "section_num": "102",
+            "title": "Culpable homicide by causing death of person other than person whose death was intended",
+            "description": "When intending or knowing likely to cause death, causes death of different person (transferred malice).",
+            "punishment": "Same as if intended person died",
+            "similarity": 0.6975,
+            "keyword_match": 0.1667,
+            "case_similarity": 0.5646,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "A man committed assault on his neighbour during an argument, resulting in the neighbour's death at the hospital.",
+              "culpable homicide amounting to murder causing death of victim",
+              "intentional bodily injury causing death",
+              "murder by shooting stabbing or deadly weapon"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "MORE_SPECIFIC_THAN",
+                  "section": "BNS 103",
+                  "title": "Punishment for murder",
+                  "kind": "rule_expansion"
+                },
+                {
+                  "relation": "IPC_BNS_MAPPING",
+                  "section": "IPC 301",
+                  "title": "If a person, by doing anything which he intends or knows to be likely to cause death, commits culpab",
+                  "kind": "act_mapping"
+                },
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Culpable homicide by causing death of person other than person whose death was intended",
+                  "title": "Culpable homicide by causing death of person other than person whose death was intended",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "general_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate BNS 102 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6901,
+            "ingredient_score": 0.71,
+            "community_match": 0.5,
+            "score_breakdown": {
+              "vector_similarity_35": 0.6975,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.65,
+              "community_match_10": 0.5,
+              "case_precedents_10": 0.5646,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6901
+            }
+          },
+          {
+            "section": "BNS 100",
+            "act": "BNS",
+            "section_num": "100",
+            "title": "Culpable homicide",
+            "description": "Whoever causes death by doing act with: intention of causing death; intention of causing bodily injury likely to cause death; knowledge that act likely to cause death.",
+            "punishment": "Punished as per Section 103 (culpable homicide not amounting to murder: imprisonment up to 10 years or life, and fine) or Section 104/105",
+            "similarity": 0.7023,
+            "keyword_match": 0.0,
+            "case_similarity": 0.5646,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "A man committed assault on his neighbour during an argument, resulting in the neighbour's death at the hospital.",
+              "culpable homicide amounting to murder causing death of victim",
+              "intentional bodily injury causing death",
+              "murder by shooting stabbing or deadly weapon"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "IPC_BNS_MAPPING",
+                  "section": "IPC 299",
+                  "title": "Whoever causes death by doing an act with the intention of causing death, or with the intention of c",
+                  "kind": "act_mapping"
+                },
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Culpable homicide",
+                  "title": "Culpable homicide",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "general_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate BNS 100 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6843,
+            "ingredient_score": 0.71,
+            "community_match": 0.5,
+            "score_breakdown": {
+              "vector_similarity_35": 0.7023,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.6,
+              "community_match_10": 0.5,
+              "case_precedents_10": 0.5646,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6843
+            }
+          },
+          {
+            "section": "BNS 105",
+            "act": "BNS",
+            "section_num": "105",
+            "title": "Punishment for culpable homicide not amounting to murder",
+            "description": "Commits culpable homicide not amounting to murder (under exceptions to section 101: provocation, exceeding defense, sudden fight, consent).",
+            "punishment": "Life or 5-10 years and fine (if intention); up to 10 years and fine (if knowledge without intention)",
+            "similarity": 0.674,
+            "keyword_match": 0.0,
+            "case_similarity": 0.5646,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "A man committed assault on his neighbour during an argument, resulting in the neighbour's death at the hospital.",
+              "culpable homicide amounting to murder causing death of victim",
+              "intentional bodily injury causing death",
+              "murder by shooting stabbing or deadly weapon"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "IPC_BNS_MAPPING",
+                  "section": "IPC 304",
+                  "title": "Culpable homicide not amounting to murder, If act by which the death is caused is done with intention of causing death, etc.",
+                  "kind": "act_mapping"
+                },
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Punishment for culpable homicide not amounting to murder",
+                  "title": "Punishment for culpable homicide not amounting to murder",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "general_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate BNS 105 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6744,
+            "ingredient_score": 0.71,
+            "community_match": 0.5,
+            "score_breakdown": {
+              "vector_similarity_35": 0.674,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.6,
+              "community_match_10": 0.5,
+              "case_precedents_10": 0.5646,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6744
+            }
+          },
+          {
+            "section": "BNS 110",
+            "act": "BNS",
+            "section_num": "110",
+            "title": "Attempt to commit culpable homicide",
+            "description": "Does act intending/knowing if caused death would be culpable homicide not murder (provocation/sudden fight).",
+            "punishment": "Imprisonment up to 3 years or fine or both. If hurt: up to 7 years or fine or both",
+            "similarity": 0.6404,
+            "keyword_match": 0.0,
+            "case_similarity": 0.5646,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "A man committed assault on his neighbour during an argument, resulting in the neighbour's death at the hospital.",
+              "culpable homicide amounting to murder causing death of victim",
+              "intentional bodily injury causing death",
+              "murder by shooting stabbing or deadly weapon"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "IPC_BNS_MAPPING",
+                  "section": "IPC 308",
+                  "title": "Attempt to commit culpable homicide",
+                  "kind": "act_mapping"
+                },
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Attempt to commit culpable homicide",
+                  "title": "Attempt to commit culpable homicide",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "general_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate BNS 110 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6626,
+            "ingredient_score": 0.71,
+            "community_match": 0.5,
+            "score_breakdown": {
+              "vector_similarity_35": 0.6404,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.6,
+              "community_match_10": 0.5,
+              "case_precedents_10": 0.5646,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6626
+            }
+          }
+        ],
+        "case_analysis": {
+          "pipeline_confidence": 0.7,
+          "recommended_sections": [
+            {
+              "act": "BNS",
+              "section": "101",
+              "title": "Murder",
+              "confidence": 0.6967,
+              "applicability": "Relevant provision for query facts.",
+              "reason": "Candidate BNS 101 validated provisionally [WARNING: no ingredients ingested in graph]."
+            },
+            {
+              "act": "BNS",
+              "section": "102",
+              "title": "Culpable homicide by causing death of person other than person whose death was intended",
+              "confidence": 0.6901,
+              "applicability": "Relevant provision for query facts.",
+              "reason": "Candidate BNS 102 validated provisionally [WARNING: no ingredients ingested in graph]."
+            }
+          ],
+          "similar_cases": [
+            {
+              "case_id": "2007_INSC_182",
+              "case_name": "A MOHANLAL AND ORS. ...",
+              "title": "A MOHANLAL AND ORS. ...",
+              "court": "Supreme Court of India",
+              "year": 2007,
+              "similarity": 0.5646,
+              "vector_similarity": 0.564635336,
+              "facts": "+ c Dowry death-In-laws allegedly harassing daughter in law - Causing death by setting her on fire-Dying declaration-Trial Court found in-laws guilty (lf committing crime under s. 302 rlw s. 34 !PC, convicted and sentence.",
+              "reasoning": "Situation in which a person is on death bed, being exceedingly solemn,",
+              "judgment_summary": "Situation in which a person is on death bed, being exceedingly solemn,",
+              "sections": [
+                "302",
+                "34"
+              ],
+              "metadata": {
+                "bns_sections": [],
+                "case_id": "2007_INSC_182",
+                "case_name": "A MOHANLAL AND ORS. ...",
+                "community": "domestic_offences",
+                "court": "Supreme Court of India",
+                "crime_type": "domestic_offences, murder_related",
+                "facts": "+ c Dowry death-In-laws allegedly harassing daughter in law - Causing death by setting her on fire-Dying declaration-Trial Court found in-laws guilty (lf committing crime under s. 302 rlw s. 34 !PC, convicted and sentence.",
+                "ipc_sections": [
+                  "302",
+                  "34"
+                ],
+                "judgment_summary": "Situation in which a person is on death bed, being exceedingly solemn,",
+                "keywords": [
+                  "death",
+                  "dowry death"
+                ],
+                "reasoning": "Situation in which a person is on death bed, being exceedingly solemn,",
+                "year": 2007
+              }
+            },
+            {
+              "case_id": "2013_INSC_87",
+              "case_name": "O RAYSINGH RATHOD v. STATE OF MAHARASHTRA (C",
+              "title": "O RAYSINGH RATHOD v. STATE OF MAHARASHTRA (C",
+              "court": "Supreme Court of India",
+              "year": 2013,
+              "similarity": 0.5525,
+              "vector_similarity": 0.552455962,
+              "facts": "A - Presumption as to abetment of suicide - 'Cruelty' - Suicide by second wife of appellant -. Conviction of appellant ulss 306 and 498-A - Held : It is not the case of \nprosecution that appellant had subjected the deceased to \ncruelty of the nature described in clause (b) of Explanation 0 \nto s.",
+              "reasoning": "It is not the case of",
+              "judgment_summary": "It is not the case of",
+              "sections": [
+                "306",
+                "34",
+                "498A"
+              ],
+              "metadata": {
+                "bns_sections": [],
+                "case_id": "2013_INSC_87",
+                "case_name": "O RAYSINGH RATHOD v. STATE OF MAHARASHTRA (C",
+                "community": "domestic_offences",
+                "court": "Supreme Court of India",
+                "crime_type": "domestic_offences, murder_related",
+                "facts": "A - Presumption as to abetment of suicide - 'Cruelty' - Suicide by second wife of appellant -. Conviction of appellant ulss 306 and 498-A - Held : It is not the case of \nprosecution that appellant had subjected the deceased to \ncruelty of the nature described in clause (b) of Explanation 0 \nto s.",
+                "ipc_sections": [
+                  "306",
+                  "34",
+                  "498A"
+                ],
+                "judgment_summary": "It is not the case of",
+                "keywords": [
+                  "child",
+                  "cruelty",
+                  "death"
+                ],
+                "reasoning": "It is not the case of",
+                "year": 2013
+              }
+            }
+          ],
+          "supporting_articles": [],
+          "supporting_evidence": [],
+          "supporting_principles": [],
+          "rejected_sections": []
+        }
+      },
+      "prediction_id": "1f9f6a8e-ecb2-422b-bd1e-462a564e56e5"
+    }
+  },
+  {
     "query_id": "lexi_3e56ecb7c6f6",
     "query": "a man kidnapped a child for ransom",
     "created_at": "2026-08-03T08:57:04.175591+00:00",
