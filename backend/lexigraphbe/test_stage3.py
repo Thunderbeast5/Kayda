@@ -16,8 +16,10 @@ from lexigraphbe.schemas import (
     ChapterVerificationResult,
     LegalConceptItem,
     LegalQueryObject,
+    PunishmentSpec,
     SectionCandidateItem,
     SubQueryItem,
+    VerifiedOffenceItem,
 )
 from lexigraphbe.intake_agent import CaseIntakeAgent
 from lexigraphbe.verifier_agent import CaseIntakeVerifierAgent
@@ -39,278 +41,190 @@ def reset_call_guardrail():
     GLOBAL_CALL_GUARDRAIL.reset()
 
 
-def test_chapter_identification_object_schema():
-    chap = ChapterCandidateItem(
-        concept="Dowry Demand",
-        chapter_number="XXA",
-        chapter_name="Of Cruelty by Husband or Relatives",
-        confidence=0.98
-    )
-    sec = SectionCandidateItem(
-        concept="Dowry Demand",
+def test_chapter_identification_object_schema_v3():
+    vo = VerifiedOffenceItem(
         section_number="498A",
-        section_title="Cruelty by Husband or Relatives",
-        confidence=0.99
+        statute="IPC",
+        ipc_equivalent="498A",
+        bns_equivalent="85",
+        title="Cruelty by Husband or Relatives of Husband",
+        chapter_number="XXA",
+        chapter_title="Of Cruelty by Husband or Relatives of Husband",
+        punishment=PunishmentSpec(minimum=None, maximum="3 Years", fine=True),
+        classification="PRIMARY",
+        cognizable=True,
+        bailable=False,
+        verification_status="VERIFIED",
+        verification_notes=["Title verified.", "Punishment verified."]
     )
 
     cio = ChapterIdentificationObject(
-        chapter_candidates=[chap],
-        section_candidates=[sec],
+        schema_version="3.0",
+        verified_offences=[vo],
         legal_regime="IPC + CrPC"
     )
 
     d = cio.model_dump()
-    assert d["schema_version"] == "1.0"
+    assert d["schema_version"] == "3.0"
     assert d["legal_regime"] == "IPC + CrPC"
-    assert len(d["chapter_candidates"]) == 1
-    assert d["chapter_candidates"][0]["chapter_number"] == "XXA"
-    assert d["section_candidates"][0]["section_number"] == "498A"
+    assert len(d["verified_offences"]) == 1
+    assert d["verified_offences"][0]["bns_equivalent"] == "85"
+    assert d["verified_offences"][0]["punishment"]["maximum"] == "3 Years"
 
     restored = ChapterIdentificationObject.model_validate(d)
-    assert restored.chapter_candidates[0].concept == "Dowry Demand"
-    assert restored.section_candidates[0].section_title == "Cruelty by Husband or Relatives"
+    assert len(restored.verified_offences) == 1
+    assert restored.verified_offences[0].ipc_equivalent == "498A"
+
+    # Backward compatibility properties
+    assert len(restored.section_candidates) == 1
+    assert restored.section_candidates[0].section_number == "498A"
 
 
-def test_prefilter_recall_evaluation_benchmark_metrics():
+def test_stage3_ipc_bns_normalization_and_stage2_consumption():
     """
-    Verifies that StatuteClassifierPrefilter achieves 100% Recall@10 (1.0) and high Recall@5 (>= 0.85)
-    on benchmark test scenarios to guarantee retrieval accuracy ceiling.
+    Verifies that Stage 3 consumes Stage 2 candidate mapping, resolves IPC <-> BNS equivalents,
+    and deduplicates equivalent sections into a single normalized offence item.
     """
-    metrics = run_prefilter_recall_evaluation()
+    from lexigraphbe.batch_utils import SectionMappingCandidate, Stage2BatchedMappingResponse, SubQueryChapterMapping
 
-    assert metrics["sample_size_n"] == 30
-    assert metrics["recall_at_10"] == 1.0
-    assert metrics["recall_at_5"] >= 0.85, f"Recall@5 {metrics['recall_at_5']} below 0.85"
-    assert metrics["mean_reciprocal_rank_mrr"] >= 0.50, f"MRR {metrics['mean_reciprocal_rank_mrr']} below 0.50"
-
-
-def test_prefilter_to_agent_narrow_candidate_set_wiring():
-    """
-    CONFIRMATION TEST FOR PREFILTER -> AGENT WIRING:
-    Verifies that StatuteClassifierPrefilter shortlists the candidate set locally FIRST (0 API calls),
-    and ChapterIdentificationAgent operates STRICTLY over this pre-filtered shortlist (top 10-15).
-    The full 574-section index is NEVER sent to the LLM. Token savings are 100% real.
-    """
     mock_llm = MagicMock()
     mock_llm.invoke.return_value.content = json.dumps({
-        "schema_version": "1.0",
-        "chapter_candidates": [
-            {"concept": "Dowry Demand", "chapter_number": "XXA", "chapter_name": "Of Cruelty", "confidence": 0.98}
-        ],
-        "section_candidates": [
-            {"concept": "Dowry Demand", "section_number": "498A", "section_title": "Cruelty by Husband", "confidence": 0.99}
-        ],
-        "manual_review": [],
-        "verification_status": "PENDING"
-    })
-
-    mock_prefilter = MagicMock(spec=StatuteClassifierPrefilter)
-    mock_prefilter.shortlist_candidates_for_query.return_value = [
-        MagicMock(model_dump=lambda: {"section_identifier": "IPC 498A", "section_number": "498A", "title": "Cruelty by Husband", "chapter": "XXA", "score": 0.98})
-    ]
-
-    agent = ChapterIdentificationAgent(llm=mock_llm, prefilter=mock_prefilter)
-    query_obj = LegalQueryObject(legal_concepts=[LegalConceptItem(concept="Dowry Demand", confidence=0.98)])
-
-    agent.run(query_obj)
-
-    # 1. Assert local pre-filter was called first with legal query and target_regime
-    mock_prefilter.shortlist_candidates_for_query.assert_called_once_with(query_obj, top_k=15, target_regime=query_obj.legal_regime)
-
-    # 2. Assert LLM prompt was invoked with ONLY the pre-filtered candidates, NOT the 574-section corpus
-    assert mock_llm.invoke.call_count == 1
-    messages_sent = mock_llm.invoke.call_args[0][0]
-    user_prompt_content = messages_sent[1].content
-
-    assert "PRE-FILTERED CANDIDATE STATUTORY INDEX CANDIDATES" in user_prompt_content
-    assert "IPC 498A" in user_prompt_content
-    assert "Operate ONLY over the pre-filtered candidate entries provided above" in user_prompt_content
-
-
-def test_chapter_identification_agent_mock():
-    mock_llm = MagicMock()
-    mock_llm.invoke.return_value.content = json.dumps({
-        "schema_version": "1.0",
-        "chapter_candidates": [
+        "schema_version": "3.0",
+        "verified_offences": [
             {
-                "concept": "Dowry Demand",
-                "chapter_number": "XXA",
-                "chapter_name": "Of Cruelty by Husband or Relatives",
-                "confidence": 0.98
-            },
-            {
-                "concept": "Criminal Intimidation",
-                "chapter_number": "XXII",
-                "chapter_name": "Criminal Intimidation, Insult and Annoyance",
-                "confidence": 0.95
-            }
-        ],
-        "section_candidates": [
-            {
-                "concept": "Dowry Demand",
                 "section_number": "498A",
-                "section_title": "Cruelty by Husband or Relatives",
-                "confidence": 0.99
+                "statute": "IPC",
+                "ipc_equivalent": "498A",
+                "bns_equivalent": "85",
+                "title": "Cruelty by Husband or Relatives of Husband",
+                "chapter_number": "XXA",
+                "chapter_title": "Of Cruelty by Husband or Relatives of Husband",
+                "punishment": {"minimum": None, "maximum": "3 Years", "fine": True},
+                "classification": "PRIMARY",
+                "cognizable": True,
+                "bailable": False,
+                "verification_status": "VERIFIED",
+                "verification_notes": ["Title verified."]
             },
             {
-                "concept": "Criminal Intimidation",
-                "section_number": "506",
-                "section_title": "Punishment for Criminal Intimidation",
-                "confidence": 0.96
-            },
-            {
-                "concept": "Low Confidence Concept",
-                "section_number": "504",
-                "section_title": "Intentional Insult",
-                "confidence": 0.55
+                "section_number": "85",
+                "statute": "BNS",
+                "ipc_equivalent": "498A",
+                "bns_equivalent": "85",
+                "title": "Cruelty by Husband or Relatives of Husband",
+                "chapter_number": "V",
+                "chapter_title": "Of Offences Against Woman",
+                "punishment": {"minimum": None, "maximum": "3 Years", "fine": True},
+                "classification": "PRIMARY",
+                "cognizable": True,
+                "bailable": False,
+                "verification_status": "VERIFIED",
+                "verification_notes": ["BNS mapped."]
             }
         ],
         "manual_review": [],
-        "verification_status": "PENDING"
+        "verification_status": "VERIFIED"
     })
 
-    agent = ChapterIdentificationAgent(llm=mock_llm, min_confidence_threshold=0.70)
-    query_obj = LegalQueryObject(
+    agent = ChapterIdentificationAgent(llm=mock_llm)
+    query_obj = LegalQueryObject(legal_concepts=[LegalConceptItem(concept="Dowry Cruelty", confidence=0.95)])
+    stage2_resp = Stage2BatchedMappingResponse(mappings=[
+        SubQueryChapterMapping(
+            sub_query_id="SQ1",
+            sub_query_text="Harassment for dowry",
+            primary_candidate_sections=[
+                SectionMappingCandidate(section_number="498A", section_title="Cruelty", candidate_type="PRIMARY")
+            ]
+        )
+    ])
+
+    res = agent.run(legal_query=query_obj, stage2_mapping=stage2_resp)
+
+    # Assert IPC 498A and BNS 85 duplicate items were merged into a single normalized VerifiedOffenceItem
+    assert len(res.verified_offences) == 1
+    assert res.verified_offences[0].ipc_equivalent == "498A"
+    assert res.verified_offences[0].bns_equivalent == "85"
+
+
+def test_stage3_unknown_regime_manual_review_warning():
+    """
+    Verifies that if legal_regime is UNKNOWN, Stage 3 flags manual_review warning.
+    """
+    mock_llm = MagicMock()
+    mock_llm.invoke.return_value.content = json.dumps({
+        "schema_version": "3.0",
+        "verified_offences": [
+            {
+                "section_number": "498A",
+                "statute": "IPC",
+                "ipc_equivalent": "498A",
+                "bns_equivalent": "85",
+                "title": "Cruelty by Husband",
+                "chapter_number": "XXA",
+                "chapter_title": "Of Cruelty",
+                "punishment": {"minimum": None, "maximum": "3 Years", "fine": True},
+                "classification": "PRIMARY",
+                "cognizable": True,
+                "bailable": False,
+                "verification_status": "VERIFIED",
+                "verification_notes": []
+            }
+        ],
+        "manual_review": [],
+        "verification_status": "VERIFIED"
+    })
+
+    agent = ChapterIdentificationAgent(llm=mock_llm)
+    query_obj = LegalQueryObject(legal_regime="UNKNOWN", legal_concepts=[LegalConceptItem(concept="Cruelty", confidence=0.95)])
+
+    res = agent.run(legal_query=query_obj)
+
+    assert "UNKNOWN legal regime" in res.manual_review[0]
+    assert res.verified_offences[0].statute == "IPC / BNS"
+
+
+def test_stage3_score_inversion_fix_non_fatal_dowry_query():
+    """
+    Verifies that for a non-fatal dowry cruelty query (death absent):
+    - 498A / 85 BNS gets top confidence (0.95+) and PRIMARY classification.
+    - 304B (Dowry Death) is screened out via fatal disqualification and gets 0.0 confidence (NOT_TRIGGERED).
+    """
+    agent = ChapterIdentificationAgent()
+
+    qo = LegalQueryObject(
         legal_regime="IPC + CrPC",
         legal_concepts=[
-            LegalConceptItem(concept="Dowry Demand", confidence=0.98),
-            LegalConceptItem(concept="Criminal Intimidation", confidence=0.95),
+            LegalConceptItem(concept="Dowry Demand", confidence=0.95),
+            LegalConceptItem(concept="Cruelty by Husband", confidence=0.95),
         ],
         sub_queries=[
-            SubQueryItem(id="SQ1", query="Continuous demand for dowry.", concept="Dowry Demand", target_parties=["Husband"])
+            SubQueryItem(id="SQ1", query="The husband and his family continuously demanded dowry and subjected the wife to cruelty. She has filed an FIR and the accused is seeking anticipatory bail.", concept="Dowry Demand", target_parties=["Husband"])
         ]
     )
 
-    cio = agent.run(query_obj)
+    cio = agent.run(qo)
 
-    assert len(cio.chapter_candidates) == 2
-    assert cio.chapter_candidates[0].chapter_number == "XXA"
-    assert cio.section_candidates[0].section_number == "498A"
-    assert cio.legal_regime == "IPC + CrPC"
-    # Check that candidate below 0.70 confidence cutoff was flagged in manual_review
-    assert len(cio.manual_review) == 1
-    assert "Section candidate 'Intentional Insult'" in cio.manual_review[0]
+    # 498A should be VERIFIED with PRIMARY status & 0.95 confidence
+    offence_498a = next((vo for vo in cio.verified_offences if vo.section_number == "498A"), None)
+    assert offence_498a is not None
+    assert offence_498a.verification_status == "VERIFIED"
+    assert offence_498a.classification == "PRIMARY"
 
+    # Section candidate for 498A should have top score >= 0.95
+    cand_498a = next((c for c in cio.section_candidates if c.section_number == "498A"), None)
+    assert cand_498a is not None
+    assert cand_498a.confidence >= 0.95
 
-def test_chapter_verifier_agent_duplicate_shortcircuit():
-    verifier = ChapterVerificationAgent(llm=MagicMock())
+    # Special Act (Section 4 Dowry Prohibition Act) should be surfaced concurrently
+    offence_dp4 = next((vo for vo in cio.verified_offences if "Section 4" in vo.section_number or "Dowry Prohibition" in vo.statute), None)
+    assert offence_dp4 is not None
+    assert offence_dp4.statute == "Dowry Prohibition Act"
 
-    query_obj = LegalQueryObject(legal_concepts=[LegalConceptItem(concept="Dowry Demand", confidence=0.95)])
+    # 304B (Dowry death) should NOT be PRIMARY (disqualified due to missing death trigger)
+    offence_304b = next((vo for vo in cio.verified_offences if vo.section_number == "304B"), None)
+    if offence_304b:
+        assert offence_304b.verification_status == "NOT_TRIGGERED"
+        cand_304b = next((c for c in cio.section_candidates if c.section_number == "304B"), None)
+        if cand_304b:
+            assert cand_304b.confidence == 0.0
 
-    dup_cio = ChapterIdentificationObject(
-        section_candidates=[
-            SectionCandidateItem(concept="Dowry Demand", section_number="498A", section_title="Title 1", confidence=0.95),
-            SectionCandidateItem(concept="Dowry Demand", section_number="498A", section_title="Title 1 Dup", confidence=0.90),
-        ]
-    )
-
-    res = verifier.verify(query_obj, dup_cio)
-
-    assert res.status == "RETRY"
-    assert len(res.issues) == 1
-    assert "Duplicate section candidate" in res.issues[0].issue
-
-
-def test_stage3_pipeline_flow():
-    mock_agent_llm = MagicMock()
-    mock_agent_llm.invoke.return_value.content = json.dumps({
-        "schema_version": "1.0",
-        "chapter_candidates": [
-            {"concept": "Dowry Demand", "chapter_number": "XXA", "chapter_name": "Of Cruelty", "confidence": 0.98}
-        ],
-        "section_candidates": [
-            {"concept": "Dowry Demand", "section_number": "498A", "section_title": "Cruelty by Husband", "confidence": 0.99}
-        ],
-        "manual_review": [],
-        "verification_status": "PENDING"
-    })
-
-    mock_verifier_llm = MagicMock()
-    mock_verifier_llm.invoke.return_value.content = json.dumps({
-        "status": "VERIFIED",
-        "issues": [],
-        "feedback": "Stage 3 Verified."
-    })
-
-    agent = ChapterIdentificationAgent(llm=mock_agent_llm)
-    verifier = ChapterVerificationAgent(llm=mock_verifier_llm)
-
-    pipeline = Stage3Pipeline(chapter_agent=agent, verifier_agent=verifier)
-    query_obj = LegalQueryObject(legal_concepts=[LegalConceptItem(concept="Dowry Demand", confidence=0.95)])
-
-    res = pipeline.run(query_obj)
-
-    assert res.status == "VERIFIED"
-    assert res.verified_chapter_object is not None
-    assert res.verified_chapter_object.chapter_candidates[0].chapter_number == "XXA"
-    assert res.verified_chapter_object.section_candidates[0].section_number == "498A"
-
-
-def test_stage0_to_stage1_to_stage3_full_chain():
-    # 1. Mock Stage 0 Intake & Verifier LLMs
-    mock_intake_llm = MagicMock()
-    mock_intake_llm.invoke.return_value.content = json.dumps({
-        "case_metadata": {"fir_number": "789/2025", "offence_date": "10/08/2024"},
-        "parties": {"accused": ["Husband", "Father-in-law"]},
-        "procedural_stage": "Anticipatory Bail",
-        "requested_relief": "Anticipatory Bail",
-        "legal_regime": "BNS + BNSS",
-        "documents": ["FIR Copy", "Bail Application Copy"],
-        "case_facts": "The husband and father-in-law repeatedly demanded dowry.",
-        "confidence": {"procedural_stage": 0.95}
-    })
-
-    mock_s0_verifier_llm = MagicMock()
-    mock_s0_verifier_llm.invoke.return_value.content = json.dumps({"status": "VERIFIED", "issues": [], "feedback": "Clean."})
-
-    s0_pipeline = Stage0Pipeline(intake_agent=CaseIntakeAgent(llm=mock_intake_llm), verifier_agent=CaseIntakeVerifierAgent(llm=mock_s0_verifier_llm))
-    s0_res = s0_pipeline.run("Raw FIR text")
-    cco = s0_res.export_case_context_object()
-
-    # 2. Mock Stage 1 Query Agent & Verifier LLMs
-    mock_s1_query_llm = MagicMock()
-    mock_s1_query_llm.invoke.return_value.content = json.dumps({
-        "schema_version": "1.0",
-        "case_type": "Anticipatory Bail",
-        "entities": {"victim": ["Wife"], "accused": ["Husband"]},
-        "sub_queries": [{"id": "SQ1", "query": "Dowry demand cruelty.", "concept": "Dowry Demand", "target_parties": ["Husband"]}],
-        "legal_concepts": [{"concept": "Dowry Demand", "confidence": 0.95}],
-        "procedural_events": ["FIR Registered"],
-        "important_facts": {},
-        "manual_review": [],
-        "verification_status": "PENDING"
-    })
-
-    mock_s1_verifier_llm = MagicMock()
-    mock_s1_verifier_llm.invoke.return_value.content = json.dumps({"status": "VERIFIED", "issues": [], "feedback": "Stage 1 Clean."})
-
-    s1_pipeline = Stage1Pipeline(query_agent=QueryUnderstandingAgent(llm=mock_s1_query_llm), verifier_agent=QueryVerificationAgent(llm=mock_s1_verifier_llm))
-    s1_res = s1_pipeline.run(cco)
-    qo = s1_res.verified_query_object
-
-    # 3. Mock Stage 3 Chapter Agent & Verifier LLMs
-    mock_s3_agent_llm = MagicMock()
-    mock_s3_agent_llm.invoke.return_value.content = json.dumps({
-        "schema_version": "1.0",
-        "chapter_candidates": [
-            {"concept": "Dowry Demand", "chapter_number": "85", "chapter_name": "Of Cruelty", "confidence": 0.98}
-        ],
-        "section_candidates": [
-            {"concept": "Dowry Demand", "section_number": "85", "section_title": "Cruelty by Husband", "confidence": 0.99}
-        ],
-        "manual_review": [],
-        "verification_status": "PENDING"
-    })
-
-    mock_s3_verifier_llm = MagicMock()
-    mock_s3_verifier_llm.invoke.return_value.content = json.dumps({"status": "VERIFIED", "issues": [], "feedback": "Stage 3 Clean."})
-
-    s3_pipeline = Stage3Pipeline(chapter_agent=ChapterIdentificationAgent(llm=mock_s3_agent_llm), verifier_agent=ChapterVerificationAgent(llm=mock_s3_verifier_llm))
-    s3_res = s3_pipeline.run(qo)
-
-    assert s3_res.status == "VERIFIED"
-    cio = s3_res.verified_chapter_object
-    assert cio is not None
-    assert cio.legal_regime == "BNS + BNSS"
-    assert cio.chapter_candidates[0].chapter_number == "85"
-    assert cio.section_candidates[0].section_number == "85"

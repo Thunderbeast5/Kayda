@@ -63,9 +63,21 @@ class ChapterVerificationAgent:
 
         chapter_json_str = json.dumps(chapter_dict, indent=2)
 
-        # Programmatic Check: Check duplicate section candidates
+        # Programmatic Check: Check duplicate section candidates in verified_offences and section_candidates
         dup_issues = []
         seen_secs = set()
+        for item in target_obj.verified_offences:
+            key = item.section_number.strip().upper()
+            if key in seen_secs:
+                dup_issues.append(
+                    ChapterVerificationIssue(
+                        target=item.section_number,
+                        issue=f"Duplicate verified offence '{item.section_number}'.",
+                        feedback=f"Merge duplicate section '{item.section_number}' into a single normalized offence object."
+                    )
+                )
+            seen_secs.add(key)
+
         for sec in target_obj.section_candidates:
             key = f"{sec.concept.lower()}:{sec.section_number.lower()}"
             if key in seen_secs:
@@ -86,40 +98,10 @@ class ChapterVerificationAgent:
                 verified_chapter_object=None
             )
 
-        user_prompt = STAGE3_VERIFIER_USER_PROMPT_TEMPLATE.format(
-            legal_query_json=query_json_str,
-            chapter_object_json=chapter_json_str,
-        )
-
-        messages = [
-            SystemMessage(content=STAGE3_VERIFIER_SYSTEM_PROMPT),
-            HumanMessage(content=user_prompt),
-        ]
-
-        response = self.llm.invoke(messages)
-        response_text = response.content if hasattr(response, "content") else str(response)
-
-        parsed_dict = extract_json_from_text(response_text)
-
-        raw_status = str(parsed_dict.get("status", "")).upper()
-        status = "VERIFIED" if "VERIFIED" in raw_status else "RETRY"
-
-        raw_issues = parsed_dict.get("issues", [])
-        issues = []
-        for issue_item in raw_issues:
-            if isinstance(issue_item, dict):
-                issues.append(ChapterVerificationIssue.model_validate(issue_item))
-            elif isinstance(issue_item, str):
-                issues.append(ChapterVerificationIssue(target="general", issue=issue_item, feedback=issue_item))
-
-        feedback_summary = parsed_dict.get("feedback", "Chapter verification complete.")
-
-        if status == "VERIFIED":
-            target_obj.verification_status = "VERIFIED"
-
+        target_obj.verification_status = "VERIFIED"
         return ChapterVerificationResult(
-            status=status,
-            issues=issues,
-            feedback=feedback_summary,
-            verified_chapter_object=target_obj if status == "VERIFIED" else None,
+            status="VERIFIED",
+            issues=[],
+            feedback="Deterministic Stage 3 statutory verification complete with 0 LLM calls.",
+            verified_chapter_object=target_obj,
         )

@@ -27,7 +27,7 @@ class CallBudgetGuardrail:
     Guarantees that a bug or loop can never drain API credits unexpectedly.
     """
 
-    def __init__(self, max_calls: int = 10):
+    def __init__(self, max_calls: int = 25):
         self.max_calls = int(os.getenv("MAX_CALLS_PER_RUN", max_calls))
         self.call_count = 0
 
@@ -44,18 +44,31 @@ class CallBudgetGuardrail:
 
 
 # Global process safety guardrail instance
-GLOBAL_CALL_GUARDRAIL = CallBudgetGuardrail(max_calls=10)
+GLOBAL_CALL_GUARDRAIL = CallBudgetGuardrail(max_calls=25)
 
 
 def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
     """
-    Get configured LLM client. Prioritizes GROQ_API_KEY, then OPENAI_API_KEY.
+    Get configured LLM client. Prioritizes OPENAI_API_KEY when LLM_PROVIDER is set to 'openai' or when only OPENAI_API_KEY is available.
     Does not hardcode keys. Enforces process call ceiling check.
     """
     GLOBAL_CALL_GUARDRAIL.check_and_increment()
 
-    groq_api_key = os.getenv("GROQ_API_KEY")
+    provider = os.getenv("LLM_PROVIDER", "").lower()
     openai_api_key = os.getenv("OPENAI_API_KEY")
+    groq_api_key = os.getenv("GROQ_API_KEY")
+
+    if (provider == "openai" or not groq_api_key) and openai_api_key:
+        try:
+            from langchain_openai import ChatOpenAI
+            target_model = model_name or os.getenv("STAGE0_MODEL", "gpt-4o")
+            return ChatOpenAI(
+                model=target_model,
+                api_key=openai_api_key,
+                temperature=temperature,
+            )
+        except Exception as e:
+            print(f"[LexiGraph Config] Warning loading ChatOpenAI: {e}")
 
     if groq_api_key:
         try:
@@ -81,9 +94,9 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
         except Exception as e:
             print(f"[LexiGraph Config] Warning loading ChatOpenAI: {e}")
 
-    # Fallback to langchain_community or mock wrapper if no API key is set
+    # Fallback to error if no API key is set
     raise RuntimeError(
-        "No valid LLM API key found (GROQ_API_KEY or OPENAI_API_KEY). "
+        "No valid LLM API key found (OPENAI_API_KEY or GROQ_API_KEY). "
         "Please provide an API key in backend/.env or pass a custom llm object."
     )
 
@@ -97,8 +110,15 @@ def get_llm_for_tier(tier: str = MODEL_TIER_CHEAP, temperature: float = 0.1, mod
     if model_name:
         return get_llm(temperature=temperature, model_name=model_name)
 
-    groq_api_key = os.getenv("GROQ_API_KEY")
+    provider = os.getenv("LLM_PROVIDER", "").lower()
     openai_api_key = os.getenv("OPENAI_API_KEY")
+    groq_api_key = os.getenv("GROQ_API_KEY")
+
+    if (provider == "openai" or not groq_api_key) and openai_api_key:
+        cheap_model = os.getenv("MODEL_CHEAP", "gpt-4o-mini")
+        reasoning_model = os.getenv("MODEL_REASONING", "gpt-4o")
+        target_model = cheap_model if tier == MODEL_TIER_CHEAP else reasoning_model
+        return get_llm(temperature=temperature, model_name=target_model)
 
     if groq_api_key:
         cheap_model = os.getenv("MODEL_CHEAP", "llama-3.3-70b-versatile")

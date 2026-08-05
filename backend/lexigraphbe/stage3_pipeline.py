@@ -30,15 +30,17 @@ class Stage3Pipeline:
     def run(
         self,
         legal_query: Union[LegalQueryObject, Dict[str, Any], str],
+        stage2_mapping: Optional[Any] = None,
     ) -> ChapterVerificationResult:
         """
-        Runs full Stage 3 pipeline on LegalQueryObject.
+        Runs full Stage 3 pipeline on LegalQueryObject and Stage 2 verified mapping.
 
         Args:
             legal_query: LegalQueryObject instance or equivalent JSON/dict from Stage 1.
+            stage2_mapping: Stage2BatchedMappingResponse instance or JSON/dict from Stage 2.
 
         Returns:
-            ChapterVerificationResult containing final verified ChapterIdentificationObject and audit details.
+            ChapterVerificationResult containing final verified Schema v3.0 ChapterIdentificationObject.
         """
         correction_feedback = None
         current_attempt = 0
@@ -49,9 +51,10 @@ class Stage3Pipeline:
         while current_attempt <= self.max_retries:
             current_attempt += 1
 
-            # Step 1: Chapter & Section Title Identification
+            # Step 1: Statutory Verification & Normalization
             last_chapter_obj = self.chapter_agent.run(
                 legal_query=legal_query,
+                stage2_mapping=stage2_mapping,
                 correction_feedback=correction_feedback,
             )
 

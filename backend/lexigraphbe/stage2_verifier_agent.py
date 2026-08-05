@@ -81,6 +81,33 @@ class Stage2MappingVerifierAgent:
             elif isinstance(issue_item, str):
                 issues.append(Stage2VerificationIssue(target="general", issue=issue_item, feedback=issue_item))
 
+        # Programmatic Audit: Check fatal disqualification enforcement (e.g. 304B without death)
+        facts_summary = (query_json_str or "").lower()
+        has_death = any(kw in facts_summary for kw in ["death", "deceased", "dead", "died", "suicide", "killed", "body"])
+
+        programmatic_issues = []
+        for mapping in target_resp.mappings:
+            candidate_sec_nums = set()
+            for p in mapping.primary_candidate_sections:
+                candidate_sec_nums.add(p.section_number.upper())
+            for s in mapping.secondary_candidate_sections:
+                candidate_sec_nums.add(s.section_number.upper())
+            for sec_str in mapping.candidate_sections:
+                candidate_sec_nums.add(sec_str.upper())
+
+            if not has_death and any("304B" in num or num == "80" for num in candidate_sec_nums):
+                programmatic_issues.append(
+                    Stage2VerificationIssue(
+                        target=mapping.sub_query_id,
+                        issue="Fatal disqualification violation: Section 304B/80 (Dowry Death) included in candidates despite no death reported in case facts.",
+                        feedback="Remove Section 304B from candidates and place it in not_triggered_sections with explicit reason 'No death alleged'.",
+                    )
+                )
+
+        if programmatic_issues:
+            status = "RETRY"
+            issues.extend(programmatic_issues)
+
         feedback_summary = parsed_dict.get("feedback", "Stage 2 sub-query mapping audit complete.")
 
         return Stage2VerificationResult(

@@ -212,3 +212,99 @@ def test_full_stage0_to_stage2_integration():
     resp = s2_res.batched_mapping_response
     assert resp is not None
     assert resp.mappings[0].candidate_sections == ["498A"]
+
+
+def test_stage2_factual_trigger_detection_and_multi_offence_mapping():
+    """
+    Verifies that StatuteClassifierPrefilter detects factual triggers (dowry cruelty, DP Act, stridhan, threats, hurt)
+    and proposes multi-offence Primary and Secondary candidates.
+    """
+    from lexigraphbe.classifier_prefilter import StatuteClassifierPrefilter
+
+    facts = "Husband and family continuously demanded dowry, retained stridhan gold, threatened wife, and slapped her."
+    triggers = StatuteClassifierPrefilter.detect_factual_triggers(facts, statute_type="IPC")
+
+    sec_nums = [t["section_number"] for t in triggers]
+    assert "498A" in sec_nums
+    assert "Section 4" in sec_nums
+    assert "406" in sec_nums
+    assert "506" in sec_nums
+    assert "323" in sec_nums
+
+
+def test_stage2_knowledge_base_rules_and_not_triggered_screening():
+    """
+    Verifies that StatuteClassifierPrefilter.evaluate_fatal_disqualification leverages STATUTE_KNOWLEDGE_BASE
+    to screen non-triggered sections like Section 304B (Dowry Death) when death is absent.
+    """
+    from lexigraphbe.classifier_prefilter import StatuteClassifierPrefilter, STATUTE_KNOWLEDGE_BASE
+
+    assert len(STATUTE_KNOWLEDGE_BASE) >= 8
+
+    facts_no_death = "Continuous dowry demand and mental cruelty by husband and in-laws."
+    not_triggered, reason, missing_mands = StatuteClassifierPrefilter.evaluate_fatal_disqualification("304B", "IPC", facts_no_death)
+    assert not_triggered is True
+    assert "Screening non-trigger" in reason
+    assert "death_of_woman" in missing_mands
+
+    facts_with_death = "Wife found dead under suspicious circumstances following dowry harassment."
+    not_triggered2, reason2, missing2 = StatuteClassifierPrefilter.evaluate_fatal_disqualification("304B", "IPC", facts_with_death)
+    assert not_triggered2 is False
+    assert reason2 is None
+    assert missing2 == []
+
+
+def test_stage2_missing_facts_and_not_triggered_sections():
+    """
+    Verifies that SectionMappingCandidate supports missing_facts array and
+    SubQueryChapterMapping supports not_triggered_sections array with backward compatibility.
+    """
+    from lexigraphbe.batch_utils import NotTriggeredSectionItem, SectionMappingCandidate, SubQueryChapterMapping
+
+    primary_item = SectionMappingCandidate(
+        section_number="498A",
+        section_title="Cruelty by Husband",
+        candidate_type="PRIMARY",
+        score=0.94,
+        ingredients_matched=["Marriage", "Dowry demand", "Harassment"],
+        missing_facts=[],
+        relevance_reasoning="Direct legal nexus: Marriage + Dowry demand + Cruelty"
+    )
+
+    secondary_item = SectionMappingCandidate(
+        section_number="406",
+        section_title="Criminal Breach of Trust",
+        candidate_type="SECONDARY",
+        score=0.76,
+        ingredients_matched=["Entrustment of stridhan property"],
+        missing_facts=["Entrustment of specific stridhan articles", "Refusal to return stridhan on demand"],
+        relevance_reasoning="Secondary legal nexus: Ancillary offence regarding stridhan retention"
+    )
+
+    not_triggered_item = NotTriggeredSectionItem(
+        section_number="304B",
+        section_title="Dowry Death",
+        not_triggered_reason="Screening non-trigger: Section 304B requires death of woman. No death reported in case facts.",
+        missing_mandatory_ingredients=["death_of_woman", "within_7_years_of_marriage"]
+    )
+
+    mapping = SubQueryChapterMapping(
+        sub_query_id="SQ1",
+        sub_query_text="Dowry demand and threats",
+        primary_candidate_sections=[primary_item],
+        secondary_candidate_sections=[secondary_item],
+        not_triggered_sections=[not_triggered_item],
+    )
+
+    assert len(mapping.primary_candidate_sections) == 1
+    assert mapping.primary_candidate_sections[0].missing_facts == []
+    assert len(mapping.secondary_candidate_sections) == 1
+    assert "Entrustment of specific stridhan articles" in mapping.secondary_candidate_sections[0].missing_facts
+    assert len(mapping.not_triggered_sections) == 1
+    assert mapping.not_triggered_sections[0].section_number == "304B"
+
+    # Backward compatibility properties
+    assert mapping.rejected_sections[0].section_number == "304B"
+    assert mapping.rejected_sections[0].rejection_reason == "Screening non-trigger: Section 304B requires death of woman. No death reported in case facts."
+    assert mapping.candidate_sections == ["498A", "406"]
+

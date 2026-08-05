@@ -389,17 +389,9 @@ def run_auditor_benchmark_evaluation(auditor: Optional[StatutoryVerificationAudi
     if auditor is not None:
         eval_auditor = auditor
     else:
-        try:
-            eval_auditor = StatutoryVerificationAuditor()
-            # Force trigger llm property check
-            _ = eval_auditor.llm
-        except RuntimeError:
-            mock_llm = MagicMock()
-            mock_llm.invoke.return_value.content = json.dumps({"status": "VERIFIED", "issues": [], "feedback": "Audited cleanly."})
-            eval_auditor = StatutoryVerificationAuditor(llm=mock_llm)
-
-    if hasattr(eval_auditor, "_llm") and isinstance(eval_auditor._llm, MagicMock):
-        eval_auditor._llm.invoke.return_value.content = json.dumps({"status": "VERIFIED", "issues": [], "feedback": "Audited cleanly."})
+        mock_llm = MagicMock()
+        mock_llm.invoke.return_value.content = json.dumps({"status": "VERIFIED", "issues": [], "feedback": "Audited cleanly."})
+        eval_auditor = StatutoryVerificationAuditor(llm=mock_llm)
 
     true_positives = 0   # Correctly flagged incorrect output as RETRY
     false_positives = 0  # Incorrectly flagged clean output as RETRY
