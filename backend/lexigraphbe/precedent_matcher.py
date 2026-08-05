@@ -6,7 +6,7 @@ and judicial bail factor alignment scores in Python code (0 LLM opinion / 0 fals
 
 import math
 import re
-from typing import Any, Dict, List, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 from pydantic import BaseModel, Field
 
 from .schemas import BailReasoningObject, CaseContextObject, LegalQueryObject, StatutoryVerificationObject

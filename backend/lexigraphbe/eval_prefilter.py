@@ -5,7 +5,7 @@ against ground-truth statutory section labels across a 30-case representative be
 """
 
 import json
-from typing import Dict, List, Tuple
+from typing import Any, Dict, List, Optional, Tuple
 from pydantic import BaseModel
 
 from .classifier_prefilter import StatuteClassifierPrefilter
