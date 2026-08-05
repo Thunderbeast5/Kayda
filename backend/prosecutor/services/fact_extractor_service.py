@@ -114,11 +114,15 @@ class FactExtractorService:
                 lines = lines[:-1]
             text_clean = "\n".join(lines).strip()
 
-        # Robust JSON extraction - find first { and last }
-        json_match = re.search(r'\{.*\}', text_clean, re.DOTALL)
+        # Robust JSON extraction — use raw_decode to stop at first complete object,
+        # ignoring any trailing text or extra objects the LLM appends.
+        json_match = re.search(r'\{', text_clean)
         if json_match:
-            json_str = json_match.group(0)
-            data = json.loads(json_str)
+            try:
+                decoder = json.JSONDecoder()
+                data, _ = decoder.raw_decode(text_clean, json_match.start())
+            except json.JSONDecodeError:
+                raise ValueError("No valid JSON object found in LLM response")
         else:
             raise ValueError("No JSON object found in LLM response")
 

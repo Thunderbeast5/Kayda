@@ -34,6 +34,7 @@ from collections import Counter
 from dataclasses import dataclass, field, asdict
 from typing import Optional
 from tqdm import tqdm
+import time
 import fitz
 from pinecone import Pinecone
 from sentence_transformers import SentenceTransformer
@@ -63,6 +64,11 @@ LONG_NODE_WARN_CHARS = 4000         # flag suspiciously long node text for manua
 PINECONE_BATCH_SIZE  = 100
 LOG_FILE             = "ipc_parse.log"
 STRUCTURED_JSON_PATH = "ipc_structured.json"
+# ---------- NEO4J CONFIG ----------
+NEO4J_URI      = os.getenv("NEO4J_URI",      "bolt://localhost:7687")
+NEO4J_USER     = os.getenv("NEO4J_USER",     "neo4j")
+NEO4J_PASSWORD = os.getenv("NEO4J_PASSWORD", "")
+
 
 logging.basicConfig(
     level=logging.INFO,
@@ -828,49 +834,234 @@ def collapse_to_section_level(nodes: list) -> list:
     )
     return sections
 
-# ---------- STEP 3: EMBEDDING ----------
-def build_embed_text(node: IPCNode) -> str:
+# ---------- STEP 2.5: NEO4J GRAPH ENRICHMENT ----------
+# Fetches ingredients, keywords, crimes, cross-links for every IPC section
+# from Neo4j so the embed text is richer than raw PDF text alone.
+
+_NEO4J_FETCH_QUERY = """
+MATCH (s:LawSection)
+WHERE s.act = 'IPC'
+OPTIONAL MATCH (s)-[:HAS_INGREDIENT]->(ing:Ingredient)
+OPTIONAL MATCH (s)-[:HAS_KEYWORD]->(kw:Keyword)
+OPTIONAL MATCH (s)-[:PRESCRIBES]->(pun:Punishment)
+OPTIONAL MATCH (s)-[:APPLIES_TO]->(cr:Crime)
+OPTIONAL MATCH (s)-[:MORE_SPECIFIC_THAN]->(parent:LawSection)
+OPTIONAL MATCH (s)-[:HAS_EXCEPTION]->(exc:Exception)
+OPTIONAL MATCH (s)-[:REPLACED_BY]->(new_s:LawSection)
+RETURN
+    s.id          AS id,
+    s.section     AS section,
+    s.title       AS title,
+    s.description AS description,
+    s.category    AS category,
+    s.keywords    AS raw_keywords,
+    collect(DISTINCT {
+        name: ing.name, element_type: ing.element_type,
+        fact_key: ing.fact_key, mandatory: ing.mandatory
+    }) AS ingredients,
+    collect(DISTINCT kw.name)            AS keywords,
+    collect(DISTINCT {cognizable: pun.cognizable, bailable: pun.bailable, term: pun.term}) AS punishments,
+    collect(DISTINCT cr.name)            AS crimes,
+    collect(DISTINCT parent.title)       AS parent_titles,
+    collect(DISTINCT exc.description)    AS exceptions,
+    collect(DISTINCT new_s.section + ' ' + new_s.act) AS replaced_by_sections
+ORDER BY s.section
+"""
+
+
+def _neo4j_fetch_graph_data() -> dict:
+    """
+    Returns a dict keyed by IPC section number (e.g. '415') → graph record.
+    Returns empty dict if Neo4j is unavailable — pipeline degrades gracefully
+    to PDF-text-only embedding in that case.
+    """
+    if not NEO4J_PASSWORD:
+        log.warning("[Neo4j] NEO4J_PASSWORD not set — skipping graph enrichment. "
+                    "Set NEO4J_URI / NEO4J_USER / NEO4J_PASSWORD in .env to enable.")
+        return {}
+    try:
+        from neo4j import GraphDatabase
+        driver = GraphDatabase.driver(NEO4J_URI, auth=(NEO4J_USER, NEO4J_PASSWORD))
+        driver.verify_connectivity()
+        with driver.session() as session:
+            records = [dict(r) for r in session.run(_NEO4J_FETCH_QUERY)]
+        driver.close()
+        log.info(f"[Neo4j] Fetched graph data for {len(records)} IPC sections")
+        return {str(r["section"]): r for r in records if r.get("section")}
+    except Exception as e:
+        log.warning(f"[Neo4j] Graph fetch failed ({e}) — falling back to PDF-text-only embedding")
+        return {}
+
+
+def _clean(val) -> str:
+    if val is None:
+        return ""
+    return str(val).strip()
+
+
+def _dedup_list(lst: list) -> list:
+    seen, out = set(), []
+    for item in lst:
+        key = str(item).strip()
+        if key and key not in seen and key != "None":
+            seen.add(key)
+            out.append(key)
+    return out
+
+
+def _ingredients_text(ingredients: list) -> str:
+    if not ingredients or all(not i.get("name") for i in ingredients):
+        return ""
+    mandatory, optional = [], []
+    for ing in ingredients:
+        name = _clean(ing.get("name"))
+        if not name:
+            continue
+        element_type = _clean(ing.get("element_type"))
+        fact_key     = _clean(ing.get("fact_key"))
+        parts = [name]
+        if element_type:
+            parts.append(f"[{element_type}]")
+        if fact_key and fact_key != name:
+            parts.append(f"({fact_key})")
+        entry = " ".join(parts)
+        if ing.get("mandatory", True):
+            mandatory.append(entry)
+        else:
+            optional.append(entry)
+    lines = []
+    if mandatory:
+        lines.append("Required elements: " + "; ".join(mandatory))
+    if optional:
+        lines.append("Optional elements: " + "; ".join(optional))
+    return "\n".join(lines)
+
+
+def _punishment_text_from_nodes(punishments: list, fallback: str) -> str:
+    clean_puns = [p for p in punishments if p.get("term")]
+    if not clean_puns:
+        return fallback
     parts = []
-    if node.chapter and node.chapter_title:
-        parts.append(f"{node.chapter} — {node.chapter_title}.")
-    if node.section_title:
-        parts.append(f"Section {node.section_number} — {node.section_title}.")
-    else:
-        parts.append(f"Section {node.section_number}.")
-    if node.node_type == "subsection" and node.subsection_key:
-        parts.append(f"Subsection ({node.subsection_key}):")
-    elif node.node_type == "nested_subsection" and node.subsection_key:
-        parts.append(f"Sub-clause ({node.subsection_key}):")
-    if node.is_state_amendment:
-        label = {
-            "state_amendment": "State Amendment",
-            "state_amendment_item": "State Amendment clause",
-            "state_amendment_subitem": "State Amendment sub-clause",
-        }.get(node.node_type, "State Amendment")
-        parts.append(f"[{label} — {node.state}, Section {node.amended_section}]")
-    parts.append(node.text)
+    for p in clean_puns:
+        term   = _clean(p.get("term"))
+        cogniz = p.get("cognizable")
+        bail   = p.get("bailable")
+        flags  = []
+        if cogniz is not None:
+            flags.append("cognizable" if cogniz else "non-cognizable")
+        if bail is not None:
+            flags.append("bailable" if bail else "non-bailable")
+        line = term + (" | " + ", ".join(flags) if flags else "")
+        parts.append(line)
+    return "; ".join(parts)
+
+
+# ---------- STEP 3: EMBEDDING ----------
+def build_embed_text(node: IPCNode, graph_record: dict = None) -> str:
+    """
+    Build the embedding text for a node.
+
+    When a Neo4j graph_record is provided (ingredients, keywords, crimes,
+    cross-links), those fields are merged in to produce a richly-contextualised
+    block that dramatically improves retrieval precision for offence queries.
+
+    When graph_record is None (Neo4j unavailable), falls back to PDF-text-only
+    embedding: section_title + statutory text + explanations + illustrations.
+
+    What is EXCLUDED from the embed text regardless:
+      - chapter / chapter_title  : identical boilerplate across all sections in
+                                   a chapter; pulls unrelated sections together.
+      - node_type / is_state_amendment / state / citation : schema metadata,
+                                   not legal signal.
+      - punishment clause text   : identical boilerplate across many sections;
+                                   only punishment *type* (cognizable/bailable)
+                                   is included via the graph record.
+    """
+    lines = []
+
+    # ── Header (graph-aware) ─────────────────────────────────────────────────
+    header_parts = ["[ACT: IPC]", f"[SECTION: {node.section_number}]"]
+    if graph_record:
+        category = _clean(graph_record.get("category"))
+        crimes   = _dedup_list(graph_record.get("crimes") or [])
+        if category:
+            header_parts.append(f"[TYPE: {category}]")
+        if crimes:
+            header_parts.append(f"[DOMAIN: {', '.join(crimes[:5])}]")
+    lines.append(" ".join(header_parts))
+
+    # ── Title ────────────────────────────────────────────────────────────────
+    title = (graph_record.get("title") if graph_record else None) or node.section_title
+    if title:
+        lines.append(f"Title: {_clean(title)}")
+
+    # ── Statutory text (from PDF — most authoritative source) ────────────────
+    if node.text:
+        lines.append(f"Description: {node.text}")
+
+    # ── Graph enrichment (only when Neo4j data available) ────────────────────
+    if graph_record:
+        crimes = _dedup_list(graph_record.get("crimes") or [])
+        if crimes:
+            lines.append(f"Applies to: {', '.join(crimes)}")
+
+        ing_text = _ingredients_text(graph_record.get("ingredients") or [])
+        if ing_text:
+            lines.append(ing_text)
+
+        keywords     = _dedup_list(graph_record.get("keywords") or [])
+        raw_kw_str   = graph_record.get("raw_keywords") or ""
+        raw_kw       = _dedup_list(raw_kw_str.split(",") if raw_kw_str else [])
+        all_keywords = _dedup_list(keywords + raw_kw)
+        if all_keywords:
+            lines.append(f"Keywords: {', '.join(all_keywords)}")
+
+        pun_text = _punishment_text_from_nodes(
+            graph_record.get("punishments") or [],
+            _clean(graph_record.get("punishment_text", ""))
+        )
+        if pun_text:
+            lines.append(f"Punishment: {pun_text}")
+
+        parents = _dedup_list(graph_record.get("parent_titles") or [])
+        if parents:
+            lines.append(f"More specific than: {', '.join(parents)}")
+
+        replaced_by = _dedup_list(graph_record.get("replaced_by_sections") or [])
+        if replaced_by:
+            lines.append(f"Replaced by: {', '.join(replaced_by)}")
+
+    # ── PDF-sourced enrichment (always included) ─────────────────────────────
     for exp in node.explanation:
-        parts.append(f"Explanation: {exp}")
-    for exc in node.exception:
-        parts.append(f"Exception: {exc}")
+        lines.append(f"Explanation: {exp}")
+
+    exceptions_src = []
+    if graph_record:
+        exceptions_src = _dedup_list(graph_record.get("exceptions") or [])
+    if not exceptions_src:
+        exceptions_src = node.exception
+    for exc in exceptions_src[:3]:
+        lines.append(f"Exception: {exc}")
+
+    # Illustrations: highest-value signal — plain-language fact patterns that
+    # closely mirror the vocabulary of real case-fact queries
     for ill in node.illustration:
-        parts.append(f"Illustration: {ill}")
+        lines.append(f"Illustration: {ill}")
+
     for pro in node.proviso:
-        parts.append(f"Proviso: {pro}")
-    if node.citation:
-        parts.append(node.citation)
-    if node.state_amendments:
-        for state, entry in node.state_amendments.items():
-            for item in entry.get("items", []):
-                parts.append(f"[State Amendment — {state}] {item.get('text', '')}")
-                for sub in item.get("subitems", []):
-                    parts.append(sub.get("text", ""))
-    return " ".join(p for p in parts if p)
+        lines.append(f"Proviso: {pro}")
+
+    return "\n".join(l for l in lines if l)
 
 def embed_nodes(nodes: list[IPCNode], model: SentenceTransformer) -> list[IPCNode]:
-    # Every parsed node gets embedded — none are dropped. Even a node with an
-    # empty `text` field still carries chapter/section context via
-    # build_embed_text, so it's still meaningful to search against.
+    # Fetch Neo4j graph data once (ingredients, keywords, crimes, cross-links).
+    # Returns empty dict if Neo4j is unavailable — build_embed_text degrades
+    # gracefully to PDF-text-only in that case.
+    graph_data = _neo4j_fetch_graph_data()
+    if graph_data:
+        log.info(f"[Neo4j] Graph enrichment active for {len(graph_data)} sections")
+    else:
+        log.warning("[Neo4j] Graph enrichment unavailable — using PDF text only")
 
     # Hard cap on tokens: attention memory grows with the SQUARE of sequence
     # length, so one abnormally long node (almost always a parsing artifact —
@@ -880,7 +1071,7 @@ def embed_nodes(nodes: list[IPCNode], model: SentenceTransformer) -> list[IPCNod
     # means a rogue node gets truncated instead of crashing the whole run.
     model.max_seq_length = EMBED_MAX_SEQ_TOKENS
 
-    texts = [build_embed_text(n) for n in nodes]
+    texts = [build_embed_text(n, graph_data.get(n.section_number)) for n in nodes]
 
     long_nodes = [(n.id, len(t)) for n, t in zip(nodes, texts) if len(t) > LONG_NODE_WARN_CHARS]
     if long_nodes:
@@ -892,11 +1083,23 @@ def embed_nodes(nodes: list[IPCNode], model: SentenceTransformer) -> list[IPCNod
         )
 
     log.info(f"Embedding {len(nodes)} nodes...")
+    # task="retrieval.passage" tells jina-v3 these are documents being stored,
+    # not search queries.  At search time, EmbeddingService uses the paired
+    # task="retrieval.query" so query and passage vectors live in the same
+    # asymmetric space — this is the correct usage of jina-embeddings-v3 and
+    # gives meaningfully better retrieval precision than generic (no-task) encoding.
+    # normalize_embeddings=True is kept so cosine similarity == dot product,
+    # which is what Pinecone computes internally.
+    # prompt_name="retrieval.passage" is the correct sentence-transformers API
+    # for jina-embeddings-v3 task-aware encoding (v3.0+ uses prompt_name, not task=).
+    # At query time, EmbeddingService uses prompt_name="retrieval.query" so the
+    # two vectors live in the same asymmetric space.
     vecs = model.encode(
         texts,
         batch_size=EMBED_BATCH_SIZE,
         show_progress_bar=True,
         normalize_embeddings=True,
+        prompt_name="retrieval.passage",
     )
     for node, vec in zip(nodes, vecs):
         node.embedding = vec.tolist()
@@ -971,7 +1174,12 @@ def wait_for_manual_review(json_path: str) -> list[IPCNode]:
 def main():
     pc = Pinecone(api_key=os.environ["PINECONE_API_KEY"])
     index = pc.Index(os.getenv("PINECONE_INDEX_NAME", ""))
-    model = SentenceTransformer(EMBED_MODEL, trust_remote_code=True, local_files_only=True)
+    model = SentenceTransformer(
+        EMBED_MODEL,
+        trust_remote_code=True,
+        local_files_only=True,
+        tokenizer_kwargs={"fix_mistral_regex": True},   # suppresses tokenizer warning
+    )
 
     pages = extract_structured_text(PDF_PATH, IPC_START_PAGE)
     tagged_text = pages_to_tagged_text(pages)

@@ -1,29 +1,21 @@
 """
 query_decomposition_service.py
 ================================
-Replaces QueryExpansionService entirely.
-
-Instead of hardcoded keyword triggers that fire on surface word matches,
-this service uses the LLM to holistically understand the case facts and
-decompose them into TYPED legal sub-queries. Each sub-query has a type
-that controls how the agent retrieves and validates results for it.
+Decomposes raw case-fact queries into TYPED legal sub-queries.
 
 Sub-query types:
-  OFFENCE              → Pinecone vector search; results must pass ingredient validation.
-  EVIDENCE_PRESUMPTION → Neo4j direct traversal for evidentiary/presumption nodes (BSA/IEA).
-                         Results skip ingredient validation.
-  CONSTITUTIONAL       → Neo4j direct traversal for constitutional articles.
-                         Results skip ingredient validation.
-  PROCEDURAL           → Auto-resolved to BNSS 482 / CrPC 438; never touches Pinecone.
-                         Results skip ingredient validation.
-  AGGRAVATION          → A fact stated in the case that INCREASES bail risk or offence
-                         gravity (e.g. threats to witnesses, flight risk, violent conduct).
-                         Results skip ingredient validation.
-  MITIGATION           → A fact stated in the case that SUPPORTS bail grant (e.g. accused
-                         cooperated with investigation, no prior record, family ties).
-                         Results skip ingredient validation.
-
-The agent reads sub_query["type"] and routes accordingly.
+  OFFENCE              → Pinecone vector search (IPC-only index); results go through
+                         Neo4j verification + BNS crosswalk.
+  EVIDENCE_PRESUMPTION → Neo4j direct text-search for BSA/IEA presumption nodes.
+                         Never sent to Pinecone. Skips ingredient validation.
+  CONSTITUTIONAL       → Neo4j direct text-search for constitutional articles.
+                         Never sent to Pinecone. Skips ingredient validation.
+  PROCEDURAL           → Auto-resolved to BNSS 482; never touches Pinecone.
+                         Skips ingredient validation.
+  AGGRAVATION          → A fact from the case that INCREASES bail risk.
+                         Sent to Pinecone (IPC index) for supporting-section retrieval.
+  MITIGATION           → A fact from the case that SUPPORTS bail grant.
+                         Sent to Pinecone (IPC index) for supporting-section retrieval.
 """
 
 import json
@@ -35,48 +27,138 @@ try:
 except ModuleNotFoundError:
     from agents.config.llm_config import get_llm
 
-# Valid sub-query types the LLM is allowed to produce.
 VALID_TYPES = {"OFFENCE", "EVIDENCE_PRESUMPTION", "CONSTITUTIONAL", "PROCEDURAL", "AGGRAVATION", "MITIGATION"}
-
-# Types whose Pinecone results skip ingredient validation in the agent.
 NON_OFFENCE_TYPES = {"EVIDENCE_PRESUMPTION", "CONSTITUTIONAL", "PROCEDURAL", "AGGRAVATION", "MITIGATION"}
+
+# Legal stopwords — stripped before word-overlap calculation so expansions like
+# "cruelty by husband towards woman" aren't penalised for containing "towards"/"woman".
+_LEGAL_STOPWORDS = {
+    "the", "a", "an", "and", "or", "of", "with", "in", "to", "for", "that",
+    "by", "on", "at", "if", "not", "as", "any", "all", "from", "into", "after",
+    "before", "upon", "who", "which", "towards", "against", "between", "under",
+    "over", "about", "its", "their", "this", "these", "those", "is", "are",
+    "was", "were", "be", "been", "being", "have", "has", "had", "do", "does",
+    "did", "will", "would", "could", "should", "may", "might", "shall",
+    "he", "she", "it", "they", "him", "her", "them", "his", "her", "its",
+    "our", "your", "my", "we", "you", "i",
+    # Generic legal qualifiers — stripped only when they truly cannot distinguish
+    # a grounded query from a hallucinated one.  "criminal", "offence", and
+    # "property" are intentionally NOT stripped — they are load-bearing in
+    # canonical legal phrases like "criminal breach of trust" and "delivery of
+    # property", and removing them collapses legitimate offence queries below
+    # the 0.25 overlap threshold.
+    "person", "injury", "accused", "complainant", "applicant", "act", "law",
+    # Generic financial words — appear across cheating, breach of trust, cheque, AND
+    # investment fraud cases; cannot ground any specific offence type on their own.
+    "funds", "money", "amount", "payment",
+}
+
+# Canonical OFFENCE query forms — phrased using the vocabulary of the statutory
+# definition (not the section label), so embeddings land close to the actual IPC
+# section text in the Pinecone index.
+# CRITICAL: these are PHRASINGS only — not permission to add an offence unless
+# the corresponding trigger concept is EXPLICITLY present in the raw case facts.
+_LEGAL_EXPANSION_NOTE = """
+CANONICAL QUERY FORMS — use these phrasings when the raw facts describe the concept.
+These are phrased in the vocabulary of the statutory definition, not the section name.
+
+  [facts say: cruelty / domestic violence / mental harassment of wife]
+      → OFFENCE: "husband or relatives subjecting woman to wilful conduct causing grave injury or danger to life or health"
+      → OFFENCE: "coercing woman or her relatives to meet unlawful demand for property or valuable security"  (only if demand also stated)
+
+  [facts say: dowry demand / dowry harassment]
+      → OFFENCE: "death of woman caused by burns or bodily injury within seven years of marriage preceded by demand for dowry"
+      → OFFENCE: "husband or relatives subjecting married woman to cruelty or harassment in connection with demand for dowry"
+
+  [facts say: cheating / false promises / fraudulent inducement / misrepresentation to obtain money]
+      → OFFENCE: "dishonestly inducing a person to deliver property by deceiving with false representations"
+      → OFFENCE: "person induced to hand over money or property through fraudulent misrepresentation of material facts"
+
+  [facts say: investment fraud / false promise of returns / funds diverted]
+      → OFFENCE: "person induced to invest money through false promises of guaranteed returns funds diverted for personal use"
+
+  [facts say: misappropriation / embezzlement / diversion of entrusted funds in employment or fiduciary capacity]
+      → OFFENCE: "property entrusted to a person in a fiduciary or employment capacity dishonestly misappropriated or converted"
+
+  [facts say: forged / manipulated / falsified financial records or accounts]
+      → OFFENCE: "employee making false entries in accounts or books of employer with intent to defraud"
+
+  [facts say: threats / intimidation / threatening with harm — ONLY if EXPLICITLY stated]
+      → OFFENCE: "threatening a person with injury to body reputation or property to cause alarm or compel an act"
+
+  [facts say: kidnapping / abduction / unlawful detention of person]
+      → OFFENCE: "taking or enticing a minor or person out of keeping of lawful guardian without consent"
+
+  [facts say: rape / sexual assault / non-consensual intercourse]
+      → OFFENCE: "sexual intercourse with a woman against her will or without her consent"
+
+  [facts say: assault / physical violence / causing bodily hurt]
+      → OFFENCE: "voluntarily causing bodily hurt or grievous hurt by use of instrument or dangerous means"
+
+  [facts say: extortion / threatening for money / coercion for payment]
+      → OFFENCE: "putting a person in fear of injury and thereby dishonestly inducing delivery of property or valuable thing"
+
+  [facts say: murder / killing / culpable homicide]
+      → OFFENCE: "act done with intention of causing death or with knowledge that death is the likely result"
+
+  [facts say: cheque bounce / dishonour of cheque / NI Act offence]
+      → OFFENCE: "cheque returned unpaid by bank due to insufficiency of funds in drawer account to discharge a legally enforceable debt"
+
+DO NOT use any mapping above if the corresponding concept is NOT present in the raw facts.
+Each OFFENCE must map to exactly ONE concept actually present in the facts.
+"""
+
+# Alias map: maps every meaningful content token in a canonical OFFENCE query back to
+# the raw-fact concept tokens it represents.  Used in _post_process to avoid
+# dropping legitimate legal-form expansions as hallucinations.
+# Format: alias_token → set of raw-fact tokens that justify its presence.
+_EXPANSION_ALIASES: dict = {
+    # cheating by inducing delivery of property
+    "inducing":   {"induced", "induce", "misrepresentation", "false", "promise", "promised",
+                   "guaranteed", "guarantees", "deceit", "deceived", "defraud", "fraud",
+                   "invest", "invested", "investment"},
+    # 'delivery' = handing over money/property following inducement.
+    # Must resolve on payment-action words only — NOT generic monetary amounts
+    # like 'lakh'/'crore' which also appear in cheque-bounce / breach-of-trust facts.
+    "delivery":   {"induced", "paid", "invest", "invested", "payment", "deliver",
+                   "transferred", "remitted", "deposited", "handed"},
+    # criminal breach of trust — resolve only with fiduciary/employment words
+    "entrusted":  {"trust", "entrusted", "employer", "employee", "servant",
+                   "fiduciary", "custod", "deputed", "manager", "director"},
+    "servant":    {"employee", "servant", "manager", "director", "officer", "trustee"},
+    # falsification of accounts — resolve on record-manipulation words
+    "falsification": {"falsif", "manipulated", "forged", "fabricated", "tampered",
+                      "altered", "falsified"},
+    "accounts":   {"account", "accounts", "records", "books", "ledger", "entries",
+                   "financial", "transaction", "transactions"},
+    # criminal intimidation — only resolve when threats are explicitly stated
+    "intimidation": {"threaten", "threatened", "threats", "dire", "consequences",
+                     "coerce", "coerced", "warned", "intimidat"},
+    "threat":     {"threaten", "threatened", "threats", "dire", "consequences",
+                   "intimidat", "warned"},
+    # cruelty
+    "towards":    {"wife", "woman", "complainant", "victim", "her"},
+    # breach of trust / diversion
+    "divert":     {"diverted", "diversion", "siphon", "siphoned", "personal", "misuse"},
+    "misappropriate": {"misappropriated", "diverted", "siphoned", "embezzled"},
+    # generic expansion words that appear in canonical forms but not in raw facts
+    "lawful":     {"guardian", "parent", "custody", "child", "minor", "abduct", "kidnap"},
+    "guardianship": {"guardian", "parent", "child", "minor"},
+    "penetration": {"rape", "sexual", "assault", "intercourse"},
+    "grievous":   {"hurt", "injury", "assault", "beat", "attack", "harm"},
+    "imputation": {"defam", "slander", "false", "allegation"},
+    "unlawful":   {"riot", "mob", "assembly", "gathering"},
+    "insufficiency": {"bounce", "dishonour", "cheque", "neft", "rtgs", "ni act", "negotiable"},
+    "amounting":  {"murder", "kill", "homicide", "death"},
+    "extort":     {"extortion", "threaten", "fear", "coercion"},
+}
 
 
 class QueryDecompositionService:
-    """
-    LLM-driven legal query decomposition.
-
-    Takes the structured output of QueryUnderstandingService plus the raw
-    query and produces a list of typed sub-queries that the agent uses for
-    targeted, type-aware retrieval. Zero hardcoded keyword rules.
-    """
-
     def __init__(self):
         self.llm = get_llm(temperature=0.0)
 
     def decompose(self, qu_result: Dict[str, Any], raw_query: str, role: str = "neutral") -> Dict[str, Any]:
-        """
-        Main entry point.
-
-        Args:
-            qu_result:  Output of QueryUnderstandingService.analyze_query()
-            raw_query:  The original user query string.
-            role:       "prosecutor" | "defense" | "neutral" — shapes retrieval
-                        priority only. Never changes what the facts say.
-
-        Returns:
-            {
-                "sub_queries": [
-                    {
-                        "type": "OFFENCE" | "EVIDENCE_PRESUMPTION" | "CONSTITUTIONAL"
-                                | "PROCEDURAL" | "AGGRAVATION" | "MITIGATION",
-                        "query": "<search string for this sub-query>",
-                        "priority": 1 | 2 | 3   (1 = highest)
-                    },
-                    ...
-                ]
-            }
-        """
         role_instruction = self._role_instruction(role)
         prompt = self._build_prompt(qu_result, raw_query, role_instruction)
 
@@ -84,22 +166,45 @@ class QueryDecompositionService:
             response = self.llm.invoke(prompt)
             content = response.content.strip()
 
-            # Strip markdown fences if present
+            print(f"[QueryDecompositionService] Raw LLM response (first 500 chars):\n{content[:500]}...")
+
+            # Strip markdown fences
             cleaned = re.sub(r"^```(?:json)?|```$", "", content, flags=re.MULTILINE).strip()
 
-            json_match = re.search(r'\{.*\}', cleaned, re.DOTALL)
+            # Find the first JSON object
+            json_match = re.search(r'\{', cleaned)
             if not json_match:
-                print("[QueryDecompositionService] No JSON found in LLM response; using fallback.")
+                print("[QueryDecompositionService] No JSON found in response; using fallback.")
                 return self._fallback(raw_query)
 
-            parsed = json.loads(json_match.group(0))
-            sub_queries = self._validate_and_clean(parsed.get("sub_queries") or [])
+            try:
+                decoder = json.JSONDecoder()
+                parsed, _ = decoder.raw_decode(cleaned, json_match.start())
+            except json.JSONDecodeError as e:
+                print(f"[QueryDecompositionService] JSON parse error: {e}; using fallback.")
+                return self._fallback(raw_query)
+
+            raw_sub_queries = parsed.get("sub_queries") or []
+            sub_queries = self._validate_and_clean(raw_sub_queries)
 
             if not sub_queries:
-                print("[QueryDecompositionService] LLM returned empty sub_queries; using fallback.")
+                print("[QueryDecompositionService] Empty sub_queries after validation; using fallback.")
                 return self._fallback(raw_query)
 
-            # Always ensure PROCEDURAL is present (anticipatory bail context is constant)
+            # Drop hallucinated OFFENCE queries — MUST run before the fallback-injection checks
+            # so that only genuinely low-overlap queries are replaced by the fallback.
+            sub_queries = self._post_process(sub_queries, raw_query)
+
+            # Now inject fallbacks only if the LLM (post-filtering) produced none
+            if not any(sq["type"] == "OFFENCE" for sq in sub_queries):
+                fallback_offence = self._derive_offence_from_query(raw_query)
+                print(f"[QueryDecompositionService] No OFFENCE survived; injecting fallback: '{fallback_offence}'")
+                sub_queries.append({
+                    "type": "OFFENCE",
+                    "query": fallback_offence,
+                    "priority": 1
+                })
+
             if not any(sq["type"] == "PROCEDURAL" for sq in sub_queries):
                 sub_queries.append({
                     "type": "PROCEDURAL",
@@ -107,312 +212,168 @@ class QueryDecompositionService:
                     "priority": 1
                 })
 
-            print(f"[QueryDecompositionService] Decomposed into {len(sub_queries)} sub-queries:")
+            print(f"[QueryDecompositionService] Final {len(sub_queries)} sub-queries:")
             for sq in sub_queries:
                 print(f"  [{sq['type']}] (p{sq['priority']}) {sq['query']}")
 
             return {"sub_queries": sub_queries}
 
-        except json.JSONDecodeError as e:
-            print(f"[QueryDecompositionService] JSON parse error: {e}")
-            return self._fallback(raw_query)
         except Exception as e:
-            print(f"[QueryDecompositionService] LLM error: {e}")
+            print(f"[QueryDecompositionService] Unexpected error: {e}")
             return self._fallback(raw_query)
 
     # ------------------------------------------------------------------
-    # Internal helpers
+    # Role instruction
     # ------------------------------------------------------------------
-
     def _role_instruction(self, role: str) -> str:
-        """
-        Role only affects PRIORITY of sub-queries — it never changes what
-        the facts say or inverts them. Factual sub-queries must always
-        reflect the facts as stated.
-        """
         if role == "prosecutor":
             return (
                 "ROLE: PROSECUTION (opposing anticipatory bail).\n"
-                "Priority guidance: Give priority 1 to OFFENCE sub-queries and any "
-                "AGGRAVATION sub-queries. Give priority 2 to EVIDENCE_PRESUMPTION. "
-                "Give priority 3 to MITIGATION and CONSTITUTIONAL sub-queries.\n"
-                "CRITICAL: Do NOT invent aggravating facts that are not stated. "
-                "If the facts say the accused cooperated, that is a MITIGATION — "
-                "do not convert it to an AGGRAVATION."
+                "Priority 1 for OFFENCE and AGGRAVATION; priority 2 for EVIDENCE_PRESUMPTION; "
+                "priority 3 for MITIGATION and CONSTITUTIONAL.\n"
+                "Do NOT invent aggravating facts not present in the case."
             )
-        if role == "defense":
+        elif role == "defense":
             return (
                 "ROLE: DEFENSE (seeking anticipatory bail).\n"
-                "Priority guidance: Give priority 1 to MITIGATION and CONSTITUTIONAL "
-                "sub-queries. Give priority 2 to PROCEDURAL. Give priority 3 to OFFENCE.\n"
-                "CRITICAL: Do NOT invent mitigating facts that are not stated. "
-                "Report every fact exactly as stated — aggravating facts remain AGGRAVATION."
+                "Priority 1 for MITIGATION and CONSTITUTIONAL; priority 2 for PROCEDURAL; "
+                "priority 3 for OFFENCE.\n"
+                "Do NOT invent mitigating facts not present in the case."
             )
-        return (
-            "ROLE: NEUTRAL.\n"
-            "Assign priority based on legal significance regardless of prosecution or defense angle."
-        )
+        else:
+            return "ROLE: NEUTRAL. Assign priority by legal significance."
 
+    # ------------------------------------------------------------------
+    # Prompt builder
+    # ------------------------------------------------------------------
     def _build_prompt(self, qu_result: Dict[str, Any], raw_query: str, role_instruction: str) -> str:
-        return f"""
-You are QueryDecompositionService, a legal retrieval component of Kayda AI.
+        return f"""You are QueryDecompositionService, a legal retrieval component for Indian criminal law.
 
-Your ONLY job is to read a set of case facts and decompose them into TYPED legal
-sub-queries for targeted retrieval. Every sub-query must be grounded in what the
-facts actually state — never inferred, never inverted, never role-biased.
+Your ONLY task: read the case facts and decompose them into TYPED legal sub-queries.
+Each sub-query must be grounded ONLY in what the facts explicitly state.
+Do NOT invent any offence, fact, or allegation absent from the raw query.
 
 {role_instruction}
 
----
-SUB-QUERY TYPES — use exactly these strings:
+{_LEGAL_EXPANSION_NOTE}
 
-  OFFENCE
-    A specific substantive criminal act the facts prima facie disclose.
+SUB-QUERY TYPES:
+- OFFENCE              : substantive criminal act to retrieve from the IPC vector index
+- EVIDENCE_PRESUMPTION : statutory presumption (BSA/IEA) relevant to the case
+- CONSTITUTIONAL       : constitutional provision (e.g., personal liberty, article 21)
+- PROCEDURAL           : bail provision — always exactly ONE: "anticipatory bail application"
+- AGGRAVATION          : a fact explicitly stated in the case that increases bail risk
+- MITIGATION           : a fact explicitly stated in the case that supports bail grant
 
-    RULE — GROUP BY LEGAL CONCEPT, NOT BY SENTENCE CLAUSE:
-    Count DISTINCT OFFENCE CONCEPTS, not adjectives or clauses. "Physical cruelty"
-    and "mental cruelty" are TWO FACETS OF ONE OFFENCE CONCEPT (cruelty by
-    husband/relatives) — that is ONE sub-query, not two. Do not split a single
-    offence into one sub-query per adjective, per verb, or per sentence fragment.
-    A new sub-query is warranted only when the facts disclose a LEGALLY DISTINCT
-    concept (e.g. cruelty vs. dowry demand vs. criminal intimidation are three
-    distinct concepts → three sub-queries).
+STRICT RULES:
+1. OFFENCE queries: ≤12 words, use the canonical forms listed above, include actors
+   (e.g., "husband and relatives") ONLY if explicitly named in the raw facts.
+2. Generate ONLY offences whose triggering concept is EXPLICITLY present in the raw facts.
+   - "criminal intimidation" → ONLY if threats/intimidation are explicitly stated
+   - "dishonour of cheque" → ONLY if a bounced cheque or NI Act offence is explicitly stated
+   - "criminal breach of trust" → ONLY if the accused was entrusted with funds in a
+     fiduciary/employment capacity AND misappropriated them; NOT for a joint-venture dispute
+3. Distinguish "cheating by inducing delivery of property" (false promises to obtain money
+   from a victim) from "criminal breach of trust" (diversion of funds entrusted by an
+   employer/client in a fiduciary relationship).  Apply whichever FITS — not both unless
+   the facts clearly support both.
+4. AGGRAVATION items must include specific facts: amounts (₹ figures, lakh, crore),
+   the mechanism of fraud, and flight/evidence-tampering risk if stated.
+5. MITIGATION items must quote or closely paraphrase actual stated facts only.
+6. No section numbers in any query string.
+7. Return ONLY valid JSON with a "sub_queries" array — no other text.
 
-    RULE — NO HALLUCINATED OFFENCES:
-    Only generate an OFFENCE sub-query for conduct that is EXPLICITLY stated in
-    the raw query. Never infer or add an offence concept (e.g. "assault",
-    "stalking", "outraging modesty") merely because it commonly co-occurs with
-    the stated facts in similar cases. If it is not in the text, it does not
-    exist for this case.
+--- EXAMPLE 1 (matrimonial — family named + explicit threats) ---
+Raw: "The applicant seeks anticipatory bail after an FIR alleges that he, along with his
+family members, subjected his wife to physical and mental cruelty, repeatedly demanded
+additional dowry, and threatened her with dire consequences if the demand was not
+fulfilled; the applicant denies the allegations, claims the complaint was filed due to
+matrimonial discord, and states that he has cooperated with the investigation."
 
-    RULE — STATUTORY CONCEPT LANGUAGE + LEGAL SYNONYM EXPANSION:
-    Query text must be phrased the way the offence is legally defined and
-    indexed in the retrieval database — NOT as a reworded restatement of the
-    sentence in the raw query. A paraphrase of the facts ("threatened his wife
-    with dire consequences") is semantically distant from how the offence is
-    indexed ("criminal intimidation — threat of injury to person, property, or
-    reputation to cause alarm or compel an act") and will retrieve poorly even
-    though it looks accurate to a human reader.
+Analysis: Facts contain → cruelty ✓, dowry demand ✓, threats/dire consequences ✓
+          Family named ✓, no cheque, no financial fraud, no murder.
 
-    CRITICAL — SYNONYM EXPANSION:
-    Each query MUST expand key fact-pattern words into their full legal synonym
-    chain so that the embedding retrieval reaches the correct statutory section.
-    The fact pattern uses everyday language; the index is built from statutory
-    text and legal definitions. You must bridge that gap by including synonyms,
-    related legal terms, and statutory elements in the query string.
-
-    HOW TO EXPAND — think in three layers for every key concept:
-      Layer 1 — What the fact says:          "financial manager"
-      Layer 2 — Legal synonyms:              "employee, agent, clerk, servant"
-      Layer 3 — Statutory elements:          "entrustment, dominion over property,
-                                              fiduciary capacity, in the way of business"
-    Fold all three layers into the query string.
-
-    Another example:
-      Layer 1 — What the fact says:          "manipulated financial records"
-      Layer 2 — Legal synonyms:              "falsification, fabrication, alteration"
-      Layer 3 — Statutory elements:          "books of accounts, ledger, financial
-                                              statement, concealment, false entry"
-    Query: "falsification of accounts books of account ledger false entry
-            fabrication concealment financial statement"
-
-    GOOD vs BAD query text examples:
-      BAD:  "Subjected his wife to physical cruelty"
-      BAD:  "Subjected his wife to mental cruelty"
-      GOOD: "cruelty by husband or relatives of husband towards a woman,
-             physical and mental" (ONE query covering both facets)
-
-      BAD:  "Threatened his wife with dire consequences"
-      GOOD: "criminal intimidation, threat of injury to person or reputation
-             to cause alarm or compel an act"
-
-      BAD:  "Repeatedly demanded additional dowry"
-      GOOD: "dowry demand and harassment for dowry by husband or relatives"
-
-      BAD:  "misappropriation of funds by financial manager"
-      GOOD: "criminal breach of trust by employee agent clerk manager servant
-             entrustment dominion over property fiduciary capacity dishonest
-             misappropriation in the way of business"
-
-      BAD:  "manipulation of financial records to conceal transactions"
-      GOOD: "falsification of accounts books of account ledger false entry
-             fabrication alteration concealment financial statement"
-
-    Be precise about conduct, victim, and mental element, but express it in
-    the vocabulary a statute/index entry would use — not the vocabulary of
-    the fact pattern. Always include legal synonyms and statutory elements.
-
-    NOTE ON SECTIONS: Do not name a section here. Which exact IPC/BNS section(s)
-    ultimately apply is decided downstream by validating retrieval results
-    against the FULL case context — your job is only to produce concept-accurate,
-    synonym-rich queries that maximize correct recall.
-
-  EVIDENCE_PRESUMPTION
-    A statutory evidentiary presumption or burden-of-proof rule the facts trigger.
-    Example: presumption under dowry death provisions, presumption of mens rea.
-
-  CONSTITUTIONAL
-    A constitutional provision the bail question engages.
-    Example: personal liberty, right against self-incrimination.
-
-  PROCEDURAL
-    The procedural provision under which anticipatory bail is sought.
-    Exactly ONE per decomposition (BNSS 482 / CrPC 438 equivalent).
-
-  AGGRAVATION
-    A fact STATED IN THE QUERY that increases bail risk or offence gravity.
-    Examples: accused threatened witnesses, accused absconded, accused has prior record.
-    CRITICAL: Only use this type if the fact is explicitly stated as an aggravating
-    circumstance. Never convert a neutral or mitigating fact into AGGRAVATION.
-
-  MITIGATION
-    A fact STATED IN THE QUERY that supports bail grant.
-    Examples: accused cooperated with investigation, no prior criminal record,
-    accused is sole breadwinner, accused has strong community ties.
-    CRITICAL: Only use this type if the fact is explicitly stated. Never invent
-    mitigating facts. If the facts say "cooperated with investigation" → MITIGATION.
-
----
-CARDINAL RULES:
-
-1. ONE OFFENCE sub-query per distinct OFFENCE CONCEPT, not per clause/adjective.
-   Do not split one concept (e.g. cruelty) into multiple queries just because
-   it is described with multiple adjectives (physical, mental). Do not combine
-   two legally distinct concepts (e.g. cruelty and dowry demand) into one query
-   either. If the facts disclose 5 legally distinct concepts, write 5 — no more,
-   no fewer, and never invent a 6th that isn't stated.
-
-   IMPORTANT — falsification is DISTINCT from criminal breach of trust:
-   When facts state both (a) misappropriation AND (b) manipulation/alteration
-   of records/accounts/documents to conceal it, these are TWO legally distinct
-   offence concepts requiring TWO separate sub-queries:
-     Sub-query 1: Criminal Breach of Trust (the misappropriation)
-     Sub-query 2: Falsification of accounts / false entry in books of account
-                  (the concealment act — maps to BNS 344 / IPC 477A)
-   If the concealment involved creation of a false document with intent to
-   cheat a specific person, also add:
-     Sub-query 3: Forgery for purpose of cheating / making false document
-                  (maps to BNS 338 / IPC 468)
-   Do NOT collapse all three into one query. Do NOT omit the falsification
-   query just because it is secondary to the misappropriation.
-
-2. Facts are SACRED. Report every fact exactly as stated. Never invert meaning,
-   and never add conduct that is not stated (no hallucinated offences).
-   "Has cooperated" → MITIGATION. "Has not cooperated" → AGGRAVATION.
-   "Threatened victim" → OFFENCE (criminal intimidation) AND possibly AGGRAVATION.
-   "Denies allegations" → neutral, skip it.
-
-3. No section numbers, act names, or article numbers in query text. Use legal
-   CONCEPT language as the retrieval index would phrase it — not a paraphrase
-   of the raw query's sentence structure. See GOOD vs BAD examples above.
-
-4. priority: 1 = must retrieve, 2 = important, 3 = supplementary.
-
-5. Return ONLY valid JSON. No markdown, no explanation.
-
----
-WORKED EXAMPLES (study both before decomposing):
-
-EXAMPLE 1 — Matrimonial / domestic violence:
-
-Raw query: "The applicant seeks anticipatory bail after an FIR alleges that he,
-along with his family members, subjected his wife to physical and mental
-cruelty, repeatedly demanded additional dowry, and threatened her with dire
-consequences if the demand was not fulfilled; the applicant denies the
-allegations, claims the complaint was filed due to matrimonial discord, and
-states that he has cooperated with the investigation."
-
-CORRECT decomposition — note how "dire consequences" becomes statutory
-intimidation language, "physical and mental" is ONE concept not two queries,
-and NO assault/stalking are invented:
-
+Output:
 {{
   "sub_queries": [
-    {{"type": "OFFENCE", "query": "cruelty by husband or relatives of husband towards a woman, physical and mental", "priority": 1}},
-    {{"type": "OFFENCE", "query": "dowry demand and harassment for dowry by husband or relatives", "priority": 1}},
-    {{"type": "OFFENCE", "query": "criminal intimidation, threat of injury to cause alarm or compel an act", "priority": 1}},
-    {{"type": "EVIDENCE_PRESUMPTION", "query": "presumption as to dowry harassment or cruelty", "priority": 2}},
-    {{"type": "MITIGATION", "query": "accused cooperated with investigation", "priority": 1}},
-    {{"type": "PROCEDURAL", "query": "anticipatory bail application", "priority": 1}}
+    {{"type": "OFFENCE",              "query": "husband or relatives subjecting woman to wilful conduct causing grave injury or danger to life or health", "priority": 1}},
+    {{"type": "OFFENCE",              "query": "husband or relatives subjecting married woman to cruelty or harassment in connection with demand for dowry", "priority": 1}},
+    {{"type": "OFFENCE",              "query": "threatening a person with injury to body reputation or property to cause alarm or compel an act",           "priority": 1}},
+    {{"type": "EVIDENCE_PRESUMPTION", "query": "presumption as to dowry harassment where woman subjected to cruelty before death",                         "priority": 2}},
+    {{"type": "AGGRAVATION",          "query": "accused threatened wife with dire consequences for dowry non-payment", "priority": 1}},
+    {{"type": "MITIGATION",           "query": "accused cooperated with investigation",                      "priority": 2}},
+    {{"type": "MITIGATION",           "query": "complaint alleged to be filed due to matrimonial discord",   "priority": 3}},
+    {{"type": "PROCEDURAL",           "query": "anticipatory bail application",                              "priority": 1}}
   ]
 }}
 
-EXAMPLE 2 — Financial crime / corporate fraud (study the synonym expansion carefully):
+--- EXAMPLE 2 (investment fraud — false promises, no threats, no fiduciary relationship) ---
+Raw: "The applicant seeks anticipatory bail after an FIR alleges that he induced the
+complainant to invest ₹40 lakh in a joint business venture by making false promises of
+guaranteed returns, diverted the funds for personal use, and failed to repay the
+investment; the applicant contends that the dispute arises out of a failed commercial
+agreement, has cooperated with the investigation, and has no previous criminal antecedents."
 
-Raw query: "The applicant seeks anticipatory bail after an FIR alleges that,
-while acting as a financial manager of a private company, he misappropriated
-company funds amounting to Rs 18 lakh for personal use and manipulated
-financial records to conceal the transactions; the applicant argues that the
-discrepancies are accounting errors, has no criminal record, and has joined
-the investigation."
+Analysis: Facts contain → false promises to invest ✓ (cheating), diversion for personal use ✓
+          No threats stated (no criminal intimidation), no cheque mentioned,
+          joint venture = NOT a fiduciary/employment trust relationship,
+          no family members, no dowry, no physical violence.
+          OFFENCE queries must use statutory element vocabulary, not section labels.
 
-CORRECT decomposition — note three things:
-  (a) "financial manager" expands to the full statutory synonym chain:
-      employee, agent, clerk, servant, entrustment, dominion over property,
-      fiduciary capacity — because the index uses those terms, not "manager".
-  (b) "manipulated financial records" expands to falsification language:
-      books of account, ledger, false entry, fabrication, concealment —
-      because IPC 477A / BNS 336 is indexed under those terms, not "records".
-  (c) "accounting errors" is the accused's DEFENCE, not a fact to encode.
-
+Output:
 {{
   "sub_queries": [
-    {{"type": "OFFENCE", "query": "criminal breach of trust by employee agent clerk manager servant entrustment dominion over property fiduciary capacity dishonest misappropriation in the way of business", "priority": 1}},
-    {{"type": "OFFENCE", "query": "falsification of accounts books of account ledger false entry fabrication alteration concealment financial statement", "priority": 1}},
-    {{"type": "OFFENCE", "query": "making false document or false entry in books of account with intent to defraud or conceal misappropriation forgery for purpose of cheating", "priority": 1}},
-    {{"type": "MITIGATION", "query": "accused has no prior criminal record", "priority": 2}},
-    {{"type": "MITIGATION", "query": "accused cooperated with investigation joined investigation", "priority": 2}},
-    {{"type": "PROCEDURAL", "query": "anticipatory bail application", "priority": 1}}
+    {{"type": "OFFENCE",    "query": "person induced to invest money through false promises of guaranteed returns funds diverted for personal use", "priority": 1}},
+    {{"type": "OFFENCE",    "query": "dishonestly inducing a person to deliver property by deceiving with false representations", "priority": 1}},
+    {{"type": "AGGRAVATION","query": "accused induced complainant to invest ₹40 lakh through false promises of guaranteed returns", "priority": 1}},
+    {{"type": "AGGRAVATION","query": "accused diverted invested funds for personal use and failed to repay", "priority": 1}},
+    {{"type": "MITIGATION", "query": "accused cooperated with investigation",             "priority": 2}},
+    {{"type": "MITIGATION", "query": "accused has no previous criminal antecedents",      "priority": 2}},
+    {{"type": "MITIGATION", "query": "dispute alleged to arise from failed commercial agreement", "priority": 3}},
+    {{"type": "PROCEDURAL", "query": "anticipatory bail application",                    "priority": 1}}
   ]
 }}
 
-Note what IS and IS NOT in the correct output:
-  - "falsification of accounts" IS present because "manipulated financial
-    records to conceal the transactions" is explicitly stated — this maps
-    directly to the offence of falsification of accounts / false entry in
-    books of account. Always include this when record manipulation is stated.
-  - "forgery for cheating" (BNS 338 equivalent) MAY be present if the facts
-    describe creation of a false document with intent to deceive — but in this
-    example it is not separately stated, so it is not added.
-  - "cheating" as a standalone offence is NOT present because no victim was
-    induced to deliver property — misappropriation from an employer is CBT,
-    not cheating. Do not conflate the two.
-  - "manipulation of financial records" as a raw paraphrase is NOT present —
-    it is replaced with the statutory synonym chain (falsification, books of
-    account, ledger, false entry, fabrication, concealment).
-  - "accounting errors" is the accused's defence claim — neutral, not a sub-query.
+--- EXAMPLE 3 (financial misappropriation inside employment — trust relationship) ---
+Raw: "The applicant seeks anticipatory bail after an FIR alleges that, while acting as a
+financial manager of a private company, he misappropriated company funds amounting to
+Rs 18 lakh for personal use and manipulated financial records to conceal the
+transactions; the applicant argues that the discrepancies are accounting errors, has no
+criminal record, and has joined the investigation."
 
----
-INPUT:
+Analysis: Facts contain → employee entrusted with company funds ✓ (criminal breach of trust),
+          falsified records ✓, no threats, no investment fraud, no dowry.
+
+Output:
+{{
+  "sub_queries": [
+    {{"type": "OFFENCE",    "query": "property entrusted to a person in a fiduciary or employment capacity dishonestly misappropriated or converted", "priority": 1}},
+    {{"type": "OFFENCE",    "query": "employee making false entries in accounts or books of employer with intent to defraud",                         "priority": 1}},
+    {{"type": "AGGRAVATION","query": "accused misappropriated company funds of Rs 18 lakh for personal use", "priority": 1}},
+    {{"type": "AGGRAVATION","query": "accused manipulated financial records to conceal transactions", "priority": 1}},
+    {{"type": "MITIGATION", "query": "accused has no prior criminal record",                  "priority": 2}},
+    {{"type": "MITIGATION", "query": "accused cooperated with investigation",                 "priority": 2}},
+    {{"type": "PROCEDURAL", "query": "anticipatory bail application",                        "priority": 1}}
+  ]
+}}
+
+--- NOW DECOMPOSE THE FOLLOWING ---
 
 Raw query:
 "{raw_query}"
 
-QueryUnderstandingService output:
+QueryUnderstanding output:
 {json.dumps(qu_result, indent=2)}
 
----
-OUTPUT FORMAT (strict):
-
-{{
-  "sub_queries": [
-    {{
-      "type": "OFFENCE",
-      "query": "...",
-      "priority": 1
-    }},
-    ...
-  ]
-}}
+Output JSON:
 """
 
+    # ------------------------------------------------------------------
+    # Validation and cleaning
+    # ------------------------------------------------------------------
     def _validate_and_clean(self, raw: List[Any]) -> List[Dict[str, Any]]:
-        """
-        Validates each sub-query dict from the LLM. Drops malformed entries,
-        normalises the type field, caps priority at 1-3.
-        """
         cleaned = []
-        seen_queries = set()
+        seen = set()
         for item in raw:
             if not isinstance(item, dict):
                 continue
@@ -421,52 +382,181 @@ OUTPUT FORMAT (strict):
             q_priority = item.get("priority", 2)
 
             if q_type not in VALID_TYPES:
-                print(f"[QueryDecompositionService] Dropping sub-query with unknown type '{q_type}'")
+                print(f"[QueryDecompositionService] Dropping unknown type '{q_type}': {q_text}")
                 continue
             if not q_text:
                 continue
 
-            # Normalise priority
             try:
                 q_priority = max(1, min(3, int(q_priority)))
-            except (ValueError, TypeError):
+            except (TypeError, ValueError):
                 q_priority = 2
 
-            # Strip any section numbers that slipped in despite instructions
+            # Strip section references from query text
             q_text = re.sub(
                 r'\b(?:BNS|IPC|BNSS|CRPC|BSA|IEA|POCSO|DPA|Section|Sec|Art|Article)\s*\d+[A-Za-z]?\b',
                 '', q_text, flags=re.IGNORECASE
             )
             q_text = re.sub(r'\s+', ' ', q_text).strip()
 
-            if not q_text or q_text.lower() in seen_queries:
+            if not q_text:
                 continue
-            seen_queries.add(q_text.lower())
 
-            cleaned.append({
-                "type": q_type,
-                "query": q_text,
-                "priority": q_priority
-            })
+            key = (q_type, q_text.lower())
+            if key in seen:
+                continue
+            seen.add(key)
 
+            cleaned.append({"type": q_type, "query": q_text, "priority": q_priority})
         return cleaned
 
+    # ------------------------------------------------------------------
+    # Post-processing: drop hallucinated OFFENCE queries
+    # ------------------------------------------------------------------
+    def _post_process(self, sub_queries: List[Dict[str, Any]], raw_query: str) -> List[Dict[str, Any]]:
+        """
+        Drop OFFENCE sub-queries whose core legal concept has no grounding in the raw
+        query.
+
+        Algorithm
+        ---------
+        1. Tokenise both the raw query and the OFFENCE query (strip stopwords).
+        2. For each token in the OFFENCE query that is NOT directly in the raw tokens,
+           check whether any of its known aliases (from _EXPANSION_ALIASES) ARE in the
+           raw tokens.  If so, treat the expansion token as resolved.
+        3. Compute "resolved overlap" = (directly matched + alias-resolved) / total query tokens.
+        4. Threshold = 0.25 — at least one meaningful core concept must be present
+           either literally or via alias.
+
+        This means:
+          - "cheating by inducing delivery of property" is kept when raw facts contain
+            "induced / invest / false / promises" (inducing → alias, delivery → alias).
+          - "criminal intimidation by threat of injury" is DROPPED when raw facts
+            contain no threat/intimidation concept at all.
+          - "dishonour of cheque" is DROPPED when no cheque is mentioned.
+        """
+        raw_tokens = {
+            w for w in re.findall(r'\b\w+\b', raw_query.lower())
+            if w not in _LEGAL_STOPWORDS and len(w) > 2
+        }
+
+        filtered = []
+        for sq in sub_queries:
+            if sq["type"] != "OFFENCE":
+                # Non-OFFENCE types always pass through — grounded in facts or structural.
+                filtered.append(sq)
+                continue
+
+            q_tokens = [
+                w for w in re.findall(r'\b\w+\b', sq["query"].lower())
+                if w not in _LEGAL_STOPWORDS and len(w) > 2
+            ]
+
+            if not q_tokens:
+                print(f"[QueryDecompositionService] Dropping empty OFFENCE tokens: '{sq['query']}'")
+                continue
+
+            # Word-count sanity
+            if len(q_tokens) < 2:
+                print(f"[QueryDecompositionService] Dropping too-short OFFENCE query: '{sq['query']}'")
+                continue
+            if len(q_tokens) > 15:
+                print(f"[QueryDecompositionService] Dropping too-long OFFENCE query: '{sq['query']}'")
+                continue
+
+            resolved = 0
+            for tok in q_tokens:
+                if tok in raw_tokens:
+                    resolved += 1
+                else:
+                    # Check alias resolution: if any alias for this token exists in
+                    # the raw fact tokens, the expansion is considered grounded.
+                    aliases = _EXPANSION_ALIASES.get(tok, set())
+                    if aliases & raw_tokens:
+                        resolved += 1
+
+            overlap = resolved / len(q_tokens)
+
+            if overlap < 0.25:
+                print(
+                    f"[QueryDecompositionService] Dropping hallucinated OFFENCE "
+                    f"(resolved_overlap={overlap:.2f}): '{sq['query']}'"
+                )
+                continue
+
+            print(
+                f"[QueryDecompositionService] Keeping OFFENCE "
+                f"(resolved_overlap={overlap:.2f}): '{sq['query']}'"
+            )
+            filtered.append(sq)
+
+        return filtered
+
+    # ------------------------------------------------------------------
+    # Fallback helpers
+    # ------------------------------------------------------------------
+    def _derive_offence_from_query(self, raw_query: str) -> str:
+        """
+        Rule-based fallback: derive the single most likely OFFENCE query from raw facts.
+        Order matters — more specific patterns should come before generic ones.
+        """
+        q = raw_query.lower()
+
+        # --- Violent / person offences ---
+        if "murder" in q or "culpable homicide" in q or "killed" in q:
+            return "culpable homicide amounting to murder"
+        if "rape" in q or "sexual assault" in q or "non-consensual" in q:
+            return "sexual assault by penetration without consent"
+        if "kidnap" in q or "abduct" in q:
+            return "kidnapping or abduction from lawful guardianship"
+        if "extort" in q:
+            return "extortion by putting person in fear of injury"
+        if ("hurt" in q or "assault" in q or "beat" in q or "stab" in q
+                or "shot" in q or "shoot" in q):
+            return "voluntarily causing hurt or grievous hurt"
+
+        # --- Matrimonial / domestic offences ---
+        if "cruelty" in q or "domestic violence" in q or "mental harassment" in q:
+            if "family" in q or "relatives" in q or "in-law" in q:
+                return "cruelty by husband and relatives towards woman"
+            return "cruelty by husband towards woman"
+        if "dowry" in q:
+            if "family" in q or "relatives" in q or "in-law" in q:
+                return "dowry demand and harassment by husband and relatives"
+            return "dowry demand and harassment"
+
+        # --- Financial offences: distinguish trust vs cheating ---
+        # Criminal breach of trust: accused was ENTRUSTED (employer/employee/fiduciary)
+        if ("breach of trust" in q or "misappropriat" in q or "embezzl" in q
+                or ("entrust" in q and ("funds" in q or "money" in q or "amount" in q))):
+            return "criminal breach of trust by employee servant"
+        if "falsif" in q or "manipulated financial records" in q or "forged account" in q:
+            return "falsification of accounts by employee"
+        # Cheating: false promises / inducement to hand over money (investment fraud,
+        # joint venture fraud, guaranteed-return fraud, etc.)
+        if ("cheating" in q or "fraud" in q or "deceiv" in q
+                or "false promises" in q or "guaranteed returns" in q
+                or "induced" in q or "misrepresent" in q
+                or ("invest" in q and ("false" in q or "promise" in q or "lakh" in q
+                                       or "crore" in q or "returns" in q))):
+            return "cheating by inducing delivery of property"
+
+        # --- Threats (only if explicitly stated) ---
+        if "threaten" in q or "intimidat" in q or "dire consequences" in q:
+            return "criminal intimidation by threat of injury"
+
+        # --- Cheque / NI Act ---
+        if "cheque" in q or "dishonour" in q or "bounce" in q:
+            return "dishonour of cheque for insufficiency of funds"
+
+        return "criminal offence against person or property"
+
     def _fallback(self, raw_query: str) -> Dict[str, Any]:
-        """
-        Minimal safe fallback when LLM fails — uses the raw query as a single
-        OFFENCE sub-query plus the mandatory PROCEDURAL entry.
-        """
+        offence = self._derive_offence_from_query(raw_query)
+        print(f"[QueryDecompositionService] Full fallback triggered; offence='{offence}'")
         return {
             "sub_queries": [
-                {
-                    "type": "OFFENCE",
-                    "query": raw_query,
-                    "priority": 1
-                },
-                {
-                    "type": "PROCEDURAL",
-                    "query": "anticipatory bail application",
-                    "priority": 1
-                }
+                {"type": "OFFENCE",    "query": offence,                       "priority": 1},
+                {"type": "PROCEDURAL", "query": "anticipatory bail application","priority": 1},
             ]
         }

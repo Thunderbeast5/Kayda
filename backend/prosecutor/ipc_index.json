@@ -1,0 +1,3446 @@
+[
+  {
+    "section": "IPC_1",
+    "title": "Title and extent of operation of the Code",
+    "chapter_number": "I",
+    "chapter_name": "INTRODUCTION"
+  },
+  {
+    "section": "IPC_2",
+    "title": "Punishment of offences committed within India",
+    "chapter_number": "I",
+    "chapter_name": "INTRODUCTION"
+  },
+  {
+    "section": "IPC_3",
+    "title": "Punishment of offences committed beyond, but which by law may be tried within, India",
+    "chapter_number": "I",
+    "chapter_name": "INTRODUCTION"
+  },
+  {
+    "section": "IPC_4",
+    "title": "Extension of Code to extra-territorial offences",
+    "chapter_number": "I",
+    "chapter_name": "INTRODUCTION"
+  },
+  {
+    "section": "IPC_5",
+    "title": "Certain laws not to be affected by this Act",
+    "chapter_number": "I",
+    "chapter_name": "INTRODUCTION"
+  },
+  {
+    "section": "IPC_6",
+    "title": "Definitions in the Code to be understood subject to exceptions",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_7",
+    "title": "Sense of expression once explained",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_8",
+    "title": "Gender",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_9",
+    "title": "Number",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_10",
+    "title": "“Man”. “Woman”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_11",
+    "title": "“Person”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_12",
+    "title": "“Public”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_13",
+    "title": "[Omitted]",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_14",
+    "title": "“Servant of Government”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_15",
+    "title": "[Repealed]",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_16",
+    "title": "[Repealed]",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_17",
+    "title": "“Government”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_18",
+    "title": "“India”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_19",
+    "title": "“Judge”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_20",
+    "title": "“Court of Justice”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_21",
+    "title": "“Public servant”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_22",
+    "title": "“Moveable property”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_23",
+    "title": "“Wrongful gain”. “Wrongful loss”. Gaining wrongfully/ Losing wrongfully",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_24",
+    "title": "“Dishonestly”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_25",
+    "title": "“Fraudulently”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_26",
+    "title": "“Reason to believe”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_27",
+    "title": "Property in possession of wife, clerk or servant",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_28",
+    "title": "“Counterfeit”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_29",
+    "title": "“Document”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_29A",
+    "title": "“Electronic record”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_30",
+    "title": "“Valuable security”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_31",
+    "title": "“A will”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_32",
+    "title": "Words referring to acts include illegal omissions",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_33",
+    "title": "“Act”. “Omission”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_34",
+    "title": "Acts done by several persons in furtherance of common intention",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_35",
+    "title": "When such an act is criminal by reason of its being done with a criminal knowledge or intention",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_36",
+    "title": "Effect caused partly by act and partly by omission",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_37",
+    "title": "Co-operation by doing one of several acts constituting an offence",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_38",
+    "title": "Persons concerned in criminal act may be guilty of different offences",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_39",
+    "title": "“Voluntarily”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_40",
+    "title": "“Offence”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_41",
+    "title": "“Special law”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_42",
+    "title": "“Local law”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_43",
+    "title": "“Illegal”. “Legally bound to do”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_44",
+    "title": "“Injury”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_45",
+    "title": "“Life”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_46",
+    "title": "“Death”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_47",
+    "title": "“Animal”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_48",
+    "title": "“Vessel”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_49",
+    "title": "“Year”. “Month”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_50",
+    "title": "“Section”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_51",
+    "title": "“Oath”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_52",
+    "title": "“Good faith”",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_52A",
+    "title": "“Harbour-“",
+    "chapter_number": "II",
+    "chapter_name": "GENERAL EXPLANATIONS"
+  },
+  {
+    "section": "IPC_53",
+    "title": "Punishments",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_53A",
+    "title": "Construction of reference to transportation",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_54",
+    "title": "Commutation of sentence of death",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_55",
+    "title": "Commutation of sentence of imprisonment for life",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_55A",
+    "title": "Definition of \"appropriate Government\"",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_56",
+    "title": "[Repealed]",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_57",
+    "title": "Fractions of terms of punishment",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_58",
+    "title": "[Repealed]",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_59",
+    "title": "[Repealed]",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_60",
+    "title": "Sentence may be (in certain cases of imprisonment) wholly or partly rigorous of simple",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_61",
+    "title": "[Repealed]",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_62",
+    "title": "[Repealed]",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_63",
+    "title": "Amount of fine",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_64",
+    "title": "Sentence of imprisonment for non-payment of fine",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_65",
+    "title": "Limit to imprisonment for non-payment of fine, when imprisonment and fine awardable",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_66",
+    "title": "Description of imprisonment for non-payment of fine",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_67",
+    "title": "Imprisonment for non-payment of fine, when offence punishable with fine only",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_68",
+    "title": "Imprisonment to terminate on payment of fine",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_69",
+    "title": "Termination of imprisonment on payment of proportional part of fine",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_70",
+    "title": "Fine leviable within six years, or during imprisonment. Death not to discharge property from liability",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_71",
+    "title": "Limit of punishment of offence made up of several offences",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_72",
+    "title": "Punishment of person guilty of one of several offences, the judgment stating that it is doubtful of which",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_73",
+    "title": "Solitary confinement",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_74",
+    "title": "Limit of solitary confinement",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_75",
+    "title": "Enhanced punishment for certain offences under Chapter XII or Chapter XVII after previous conviction",
+    "chapter_number": "III",
+    "chapter_name": "OF PUNISHMENTS"
+  },
+  {
+    "section": "IPC_76",
+    "title": "Act done by a person bound, or by mistake of fact believing himself bound, by law",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_77",
+    "title": "Act of Judge when acting judicially",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_78",
+    "title": "Act done pursuant to the judgment or order of Court",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_79",
+    "title": "Act done by a person justified, or by mistake of fact believing himself justified, by law",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_80",
+    "title": "Accident in doing a lawful act",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_81",
+    "title": "Act likely to cause harm, but done without criminal intent, and to prevent other harm",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_82",
+    "title": "Act of a child under seven years of age",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_83",
+    "title": "Act of a child above seven and under twelve of immature understanding",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_84",
+    "title": "Act of a person of unsound mind",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_85",
+    "title": "Act of a person incapable of judgment by reason of intoxication caused against his will",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_86",
+    "title": "Offence requiring a particular intent or knowledge committed by one who is intoxicated",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_87",
+    "title": "Act not intended and not known to be likely to cause death or grievous hurt, done by consent",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_88",
+    "title": "Act not intended to cause death, done by consent in good faith for person's benefit",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_89",
+    "title": "Act done in good faith for benefit of child or insane person, by or by consent of guardian. Provisos",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_90",
+    "title": "Consent known to be given under fear or misconception. Consent of insane person. Consent of child",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_91",
+    "title": "Exclusion of acts which are offences independently of harm caused",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_92",
+    "title": "Act done in good faith for benefit of a person without consent. Provisos",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_93",
+    "title": "Communication made in good faith",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_94",
+    "title": "Act to which a person is compelled by threats",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_95",
+    "title": "Act causing slight harm",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_96",
+    "title": "Things done in private defence",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_97",
+    "title": "Right of private defence of the body and of property",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_98",
+    "title": "Right of private defence against the act of a person of unsound mind , etc",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_99",
+    "title": "Acts against which there is no right of private defence. Extent to which the right may be exercised",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_100",
+    "title": "When the right of private defence of the body extends to causing death",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_101",
+    "title": "When such right extends to causing any harm other than death",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_102",
+    "title": "Commencement and continuance of the right of private defence of the body",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_103",
+    "title": "When the right of private defence of property extends to causing death",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_104",
+    "title": "When such right extends to causing any harm other than death",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_105",
+    "title": "Commencement and continuance of the right of private defence of property",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_106",
+    "title": "Right of private defence against deadly assault when there is risk of harm to inno cent person",
+    "chapter_number": "IV",
+    "chapter_name": "GENERAL EXCEPTIONS"
+  },
+  {
+    "section": "IPC_107",
+    "title": "Abetment of a thing",
+    "chapter_number": "V",
+    "chapter_name": "OF ABETMENT"
+  },
+  {
+    "section": "IPC_108",
+    "title": "Abettor",
+    "chapter_number": "V",
+    "chapter_name": "OF ABETMENT"
+  },
+  {
+    "section": "IPC_108A",
+    "title": "Abetment in Indian of offences outside India",
+    "chapter_number": "V",
+    "chapter_name": "OF ABETMENT"
+  },
+  {
+    "section": "IPC_109",
+    "title": "Punishment of a abetment if the act abetted is committed in consequence and whe re no express provision is made for its punishment",
+    "chapter_number": "V",
+    "chapter_name": "OF ABETMENT"
+  },
+  {
+    "section": "IPC_110",
+    "title": "Punishment of abetment if person abetted does act with different intention from that of abettor",
+    "chapter_number": "V",
+    "chapter_name": "OF ABETMENT"
+  },
+  {
+    "section": "IPC_111",
+    "title": "Liability of abettor when one act abetted and different act done",
+    "chapter_number": "V",
+    "chapter_name": "OF ABETMENT"
+  },
+  {
+    "section": "IPC_112",
+    "title": "Abettor when liable to cumulative punishment for act abetted and for act done",
+    "chapter_number": "V",
+    "chapter_name": "OF ABETMENT"
+  },
+  {
+    "section": "IPC_113",
+    "title": "Liability of abettor for an effect caused by the act abetted different from that intended by the abettor",
+    "chapter_number": "V",
+    "chapter_name": "OF ABETMENT"
+  },
+  {
+    "section": "IPC_114",
+    "title": "Abettor present when offence is committed",
+    "chapter_number": "V",
+    "chapter_name": "OF ABETMENT"
+  },
+  {
+    "section": "IPC_115",
+    "title": "Abetment of offence punishable with death or imprisonment for life. —if offence not committed. if act causing harm be done in consequence",
+    "chapter_number": "V",
+    "chapter_name": "OF ABETMENT"
+  },
+  {
+    "section": "IPC_116",
+    "title": "Abetment of offence punishable with imprisonment.—if offence be not committed. if abettor or person abetted be a public servant whose duty it is to prevent offence",
+    "chapter_number": "V",
+    "chapter_name": "OF ABETMENT"
+  },
+  {
+    "section": "IPC_117",
+    "title": "Abetting commission of offence by the public or by more than ten persons",
+    "chapter_number": "V",
+    "chapter_name": "OF ABETMENT"
+  },
+  {
+    "section": "IPC_118",
+    "title": "Concealing design to commit offence punishable with death or imprisonment for life. If offence be committed; if offence be not committed",
+    "chapter_number": "V",
+    "chapter_name": "OF ABETMENT"
+  },
+  {
+    "section": "IPC_119",
+    "title": "Public servant concealing design to commit offence which it is his duty to prevent. if offence be committed; if offence be punishable with death, etc. if offence be not committed",
+    "chapter_number": "V",
+    "chapter_name": "OF ABETMENT"
+  },
+  {
+    "section": "IPC_120",
+    "title": "Concealing design to commit offence punishable with imprisonment. if offence be committed; if offence be not committed",
+    "chapter_number": "V",
+    "chapter_name": "OF ABETMENT"
+  },
+  {
+    "section": "IPC_120A",
+    "title": "Definition of criminal conspiracy",
+    "chapter_number": "VA",
+    "chapter_name": "CRIMINAL CONSPIRACY"
+  },
+  {
+    "section": "IPC_120B",
+    "title": "Punishment of criminal conspiracy",
+    "chapter_number": "VA",
+    "chapter_name": "CRIMINAL CONSPIRACY"
+  },
+  {
+    "section": "IPC_121",
+    "title": "Waging or attempting to wage war or abetting waging of war against the Government of India",
+    "chapter_number": "VI",
+    "chapter_name": "OF OFFENCES AGAINST THE STATE"
+  },
+  {
+    "section": "IPC_121A",
+    "title": "Conspiracy to commit offences punishable by section 121",
+    "chapter_number": "VI",
+    "chapter_name": "OF OFFENCES AGAINST THE STATE"
+  },
+  {
+    "section": "IPC_122",
+    "title": "Collecting arms, etc., with intention of waging war against the Government of India",
+    "chapter_number": "VI",
+    "chapter_name": "OF OFFENCES AGAINST THE STATE"
+  },
+  {
+    "section": "IPC_123",
+    "title": "Concealing with intent to facilitate design to wage war",
+    "chapter_number": "VI",
+    "chapter_name": "OF OFFENCES AGAINST THE STATE"
+  },
+  {
+    "section": "IPC_124",
+    "title": "Assaulting President, Governor, etc., with intent to compel or restrain the exercise of any lawful power",
+    "chapter_number": "VI",
+    "chapter_name": "OF OFFENCES AGAINST THE STATE"
+  },
+  {
+    "section": "IPC_124A",
+    "title": "Sedition",
+    "chapter_number": "VI",
+    "chapter_name": "OF OFFENCES AGAINST THE STATE"
+  },
+  {
+    "section": "IPC_125",
+    "title": "Waging war against any Asiatic power in alliance with the Government of India",
+    "chapter_number": "VI",
+    "chapter_name": "OF OFFENCES AGAINST THE STATE"
+  },
+  {
+    "section": "IPC_126",
+    "title": "Committing depredation on territories of power at peace with the Government of India",
+    "chapter_number": "VI",
+    "chapter_name": "OF OFFENCES AGAINST THE STATE"
+  },
+  {
+    "section": "IPC_127",
+    "title": "Receiving property taken by war or depredation mentioned in sections 125 and 126",
+    "chapter_number": "VI",
+    "chapter_name": "OF OFFENCES AGAINST THE STATE"
+  },
+  {
+    "section": "IPC_128",
+    "title": "Public servant voluntarily allowing prisoner of State or war to escape",
+    "chapter_number": "VI",
+    "chapter_name": "OF OFFENCES AGAINST THE STATE"
+  },
+  {
+    "section": "IPC_129",
+    "title": "Public servant negligently suffering such prisoner to escape",
+    "chapter_number": "VI",
+    "chapter_name": "OF OFFENCES AGAINST THE STATE"
+  },
+  {
+    "section": "IPC_130",
+    "title": "Aiding escape of, rescuing or harbouring such prisoner",
+    "chapter_number": "VI",
+    "chapter_name": "OF OFFENCES AGAINST THE STATE"
+  },
+  {
+    "section": "IPC_131",
+    "title": "Abetting mutiny, or attempting to seduce a soldier, sailor or airman from his duty",
+    "chapter_number": "VII",
+    "chapter_name": "OF OFFENCES RELATING TO THE ARMY, NAVY AND AIR FORCE"
+  },
+  {
+    "section": "IPC_132",
+    "title": "Abetment of mutiny, if mutiny is committed in consequence thereof",
+    "chapter_number": "VII",
+    "chapter_name": "OF OFFENCES RELATING TO THE ARMY, NAVY AND AIR FORCE"
+  },
+  {
+    "section": "IPC_133",
+    "title": "Abetment of assault by soldier, sailor or airman on his superior officer, when in execution of his office",
+    "chapter_number": "VII",
+    "chapter_name": "OF OFFENCES RELATING TO THE ARMY, NAVY AND AIR FORCE"
+  },
+  {
+    "section": "IPC_134",
+    "title": "Abetment of such assault, if the assault is committed",
+    "chapter_number": "VII",
+    "chapter_name": "OF OFFENCES RELATING TO THE ARMY, NAVY AND AIR FORCE"
+  },
+  {
+    "section": "IPC_135",
+    "title": "Abetment of desertion of soldier, sailor or airman",
+    "chapter_number": "VII",
+    "chapter_name": "OF OFFENCES RELATING TO THE ARMY, NAVY AND AIR FORCE"
+  },
+  {
+    "section": "IPC_136",
+    "title": "Harbouring deserter",
+    "chapter_number": "VII",
+    "chapter_name": "OF OFFENCES RELATING TO THE ARMY, NAVY AND AIR FORCE"
+  },
+  {
+    "section": "IPC_137",
+    "title": "Deserter concealed on board merchant vessel through negligence of master",
+    "chapter_number": "VII",
+    "chapter_name": "OF OFFENCES RELATING TO THE ARMY, NAVY AND AIR FORCE"
+  },
+  {
+    "section": "IPC_138",
+    "title": "Abetment of act of insubordination by soldier, sailor or airman",
+    "chapter_number": "VII",
+    "chapter_name": "OF OFFENCES RELATING TO THE ARMY, NAVY AND AIR FORCE"
+  },
+  {
+    "section": "IPC_138A",
+    "title": "[Repealed]",
+    "chapter_number": "VII",
+    "chapter_name": "OF OFFENCES RELATING TO THE ARMY, NAVY AND AIR FORCE"
+  },
+  {
+    "section": "IPC_139",
+    "title": "Persons subject to certain Acts",
+    "chapter_number": "VII",
+    "chapter_name": "OF OFFENCES RELATING TO THE ARMY, NAVY AND AIR FORCE"
+  },
+  {
+    "section": "IPC_140",
+    "title": "Wearing garb or carrying token used by soldier, sailor or airman",
+    "chapter_number": "VII",
+    "chapter_name": "OF OFFENCES RELATING TO THE ARMY, NAVY AND AIR FORCE"
+  },
+  {
+    "section": "IPC_141",
+    "title": "Unlawful assembly",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_142",
+    "title": "Being member of unlawful assembly",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_143",
+    "title": "Punishment",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_144",
+    "title": "Joining unlawful assembly armed with deadly weapon",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_145",
+    "title": "Joining or continuing in unlawful assembly, knowing it has been commanded to disperse",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_146",
+    "title": "Rioting",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_147",
+    "title": "Punishment for rioting",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_148",
+    "title": "Rioting, armed with deadly weapon",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_149",
+    "title": "Every member of unlawful assembly guilty of offence committed in prosecution of common object",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_150",
+    "title": "Hiring, or conniving at hiring, of persons to join unlawful assembly",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_151",
+    "title": "Knowingly joining or continuing in assembly of five or more persons after it has been commanded to disperse",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_152",
+    "title": "Assaulting or obstructing public servant when suppressing riot, etc",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_153",
+    "title": "Want only giving provocation, with intent to cause riot— if rioting be committed—if not committed",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_153A",
+    "title": "Promoting enmity between different groups on grounds of religion, race, place of birth, residence. language, etc., and doing acts prejudicial to maintenance of harmony. Offence committed in place of worship, etc",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_153AA",
+    "title": "Punishment for knowingly carrying arms in any procession or organizing, or holding or taking part in any mass drill or mass training with arms",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_153B",
+    "title": "Imputation assertions prejudicial to national integration",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_154",
+    "title": "Owner or occupier of land on which an unlawful assembly is held",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_155",
+    "title": "Liability of person for whose benefit riot is committed",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_156",
+    "title": "Liablility of agent of owner or occupier for whose benefit riot is committed",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_157",
+    "title": "Harbouring persons hired for an unlawful assembly",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_158",
+    "title": "Being hired to take part in an unlawful assembly or riot. or to go armed",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_159",
+    "title": "Affray",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_160",
+    "title": "Punishment for committing affray",
+    "chapter_number": "VIII",
+    "chapter_name": "OF OFFENCES AGAINST THE PUBLIC TRANQUILITY"
+  },
+  {
+    "section": "IPC_161",
+    "title": "[Repealed]",
+    "chapter_number": "IX",
+    "chapter_name": "OF OFFENCES BY OR RELATING TO PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_162",
+    "title": "[Repealed]",
+    "chapter_number": "IX",
+    "chapter_name": "OF OFFENCES BY OR RELATING TO PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_163",
+    "title": "[Repealed]",
+    "chapter_number": "IX",
+    "chapter_name": "OF OFFENCES BY OR RELATING TO PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_164",
+    "title": "[Repealed]",
+    "chapter_number": "IX",
+    "chapter_name": "OF OFFENCES BY OR RELATING TO PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_165",
+    "title": "[Repealed]",
+    "chapter_number": "IX",
+    "chapter_name": "OF OFFENCES BY OR RELATING TO PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_165A",
+    "title": "[Repealed]",
+    "chapter_number": "IX",
+    "chapter_name": "OF OFFENCES BY OR RELATING TO PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_166",
+    "title": "Public servant disobeying law, with intent to cause injury to any person",
+    "chapter_number": "IX",
+    "chapter_name": "OF OFFENCES BY OR RELATING TO PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_166A",
+    "title": "Public servant disobeying direction under law",
+    "chapter_number": "IX",
+    "chapter_name": "OF OFFENCES BY OR RELATING TO PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_166B",
+    "title": "Punishment for non-treatment of victim",
+    "chapter_number": "IX",
+    "chapter_name": "OF OFFENCES BY OR RELATING TO PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_167",
+    "title": "Public servant framing an incorrect document with intent to cau se injury",
+    "chapter_number": "IX",
+    "chapter_name": "OF OFFENCES BY OR RELATING TO PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_168",
+    "title": "Public servant unlawfully engaging in trade",
+    "chapter_number": "IX",
+    "chapter_name": "OF OFFENCES BY OR RELATING TO PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_169",
+    "title": "Public servant unlawfully buying or bidding for property",
+    "chapter_number": "IX",
+    "chapter_name": "OF OFFENCES BY OR RELATING TO PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_170",
+    "title": "Personating a public servant",
+    "chapter_number": "IX",
+    "chapter_name": "OF OFFENCES BY OR RELATING TO PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_171",
+    "title": "Wearing garb or carrying token used by public servant with fraudulent intent",
+    "chapter_number": "IX",
+    "chapter_name": "OF OFFENCES BY OR RELATING TO PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_171A",
+    "title": "“Candidate”, “Electoral right” defined",
+    "chapter_number": "IXA",
+    "chapter_name": "OF ELECTIONS"
+  },
+  {
+    "section": "IPC_171B",
+    "title": "Bribery",
+    "chapter_number": "IXA",
+    "chapter_name": "OF ELECTIONS"
+  },
+  {
+    "section": "IPC_171C",
+    "title": "Undue influence at elections",
+    "chapter_number": "IXA",
+    "chapter_name": "OF ELECTIONS"
+  },
+  {
+    "section": "IPC_171D",
+    "title": "Personation at elections",
+    "chapter_number": "IXA",
+    "chapter_name": "OF ELECTIONS"
+  },
+  {
+    "section": "IPC_171E",
+    "title": "Punishment for bribery",
+    "chapter_number": "IXA",
+    "chapter_name": "OF ELECTIONS"
+  },
+  {
+    "section": "IPC_171F",
+    "title": "Punishment for undue influence or personation at an election",
+    "chapter_number": "IXA",
+    "chapter_name": "OF ELECTIONS"
+  },
+  {
+    "section": "IPC_171G",
+    "title": "False statement in connection with an election",
+    "chapter_number": "IXA",
+    "chapter_name": "OF ELECTIONS"
+  },
+  {
+    "section": "IPC_171H",
+    "title": "Illegal payments in connection with an election",
+    "chapter_number": "IXA",
+    "chapter_name": "OF ELECTIONS"
+  },
+  {
+    "section": "IPC_172",
+    "title": "Absconding to avoid service or summons of other proceeding",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_173",
+    "title": "Preventing service of summons or other proceeding, or preventing publication thereof",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_174",
+    "title": "Non-attendance in obedience to an order from public servant",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_174A",
+    "title": "Non-appearance in response to a proclamation under section 82 of Act 2 of 1974",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_175",
+    "title": "Omission to produce document to public servant by person legally bound to produce it",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_176",
+    "title": "Omission to give notice or information to public servant by person legally bound to give it",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_177",
+    "title": "Furnishing false information",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_178",
+    "title": "Refusing oath or affirmation when duly r equired by public servant to make it",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_179",
+    "title": "Refusing to answer public servant authori sed to question",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_180",
+    "title": "Refusing to sign statement",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_181",
+    "title": "False statement on oath or affirmation to public servant or person authorised to administer an oath or affirmation",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_182",
+    "title": "False information, with intent to cause public servant to use his lawful power to the injury of another person",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_183",
+    "title": "Resistance to the taking of property by the lawful authority of a public servant",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_184",
+    "title": "Obstructing sale of property offered for sale by authority of public servant",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_185",
+    "title": "Illegal purchase or bid for property offered for sale by authority of public servant",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_186",
+    "title": "Obstructing public servant in discharge of public functions",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_187",
+    "title": "Omission to assist public servant when bound by law to give assistance",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_188",
+    "title": "Disobedience to order duly promulgated by public servant",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_189",
+    "title": "Threat of injury to public servant",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_190",
+    "title": "Threat of injury to induce person to refrain from applying for protection to public servant",
+    "chapter_number": "X",
+    "chapter_name": "OF CONTEMPTS OF THE LAWFUL AUTHORITY OF PUBLIC SERVANTS"
+  },
+  {
+    "section": "IPC_191",
+    "title": "Giving false evidence",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_192",
+    "title": "Fabricating false evidence",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_193",
+    "title": "Punishment for false evidence",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_194",
+    "title": "Giving or fabricating false evidence with intent to procure conviction of capital offence. if innocent person be thereby convicted and executed",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_195",
+    "title": "Giving or fabricating false evidence with intent to procure conviction of offence punishable with imprisonment for life or imprisonment",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_195A",
+    "title": "Threatening any person to give false evidence",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_196",
+    "title": "Using evidence known to be false",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_197",
+    "title": "Issuing or signing false certificate",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_198",
+    "title": "Using as true a certificate known to be false",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_199",
+    "title": "False statement made in declaration which is by law receivable as evidence",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_200",
+    "title": "Using as true such declaration knowing it to be false",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_201",
+    "title": "Causing disappearance of evidence of offence, or giving false information, to screen offender— if a capital offence; if punishable with imprisonment for life; if punishable with less than ten years' imprisonment",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_202",
+    "title": "Intentional omission to give information of offence by person bound to inform",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_203",
+    "title": "Giving false information respecting an offence committed",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_204",
+    "title": "Destruction of document to prevent its production as evidence",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_205",
+    "title": "False personation for purpose of act or proceeding in suit or prosecution",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_206",
+    "title": "Fraudulent removal or concealment of property to prevent its seizure as forfeited or in execution",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_207",
+    "title": "Fraudulent claim to property to prevent its seizure as forfeited or in execution",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_208",
+    "title": "Fraudulently suffering decree for sum not due",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_209",
+    "title": "Dishonestly making false claim in Court",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_210",
+    "title": "Fraudulently obtaining decree for sum not due",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_211",
+    "title": "False charge of offence made with intent to injure",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_212",
+    "title": "Harbouring offender.— if a capital offence; if punishable with imprisonment for life, or with imprisonment",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_213",
+    "title": "Taking gift, etc., to screen an offender from punishment.— if a capital offence; if punishable with imprisonment for life, or with imprisonment",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_214",
+    "title": "Offering gift or restoration of property in consideration of screening offender- if a capital offence; if punishable with imprisonment for life, or with imprisonment",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_215",
+    "title": "Taking gift to help to recover stolen property, etc",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_216",
+    "title": "Harbouring offender who has escaped from custody o r whose apprehension has been ordered- if a capital offence; if punishable with imprisonment for life, or with imprisonment",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_216A",
+    "title": "Penalty for harbouring robbers or dacoits",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_216B",
+    "title": "[Repealed]",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_217",
+    "title": "Public servant disobeying direction of law with intent to save person from punishment or property from forfeiture",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_218",
+    "title": "Public servant framing incorrect record or writing with intent to save person from punishment or property from forfeiture",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_219",
+    "title": "Public servant in judicial proceeding corruptly making report, etc., contrary to law",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_220",
+    "title": "Commitment for trial or confinement by person having authority who knows that he is acting contrary to law",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_221",
+    "title": "Intentional omission to apprehend on the part of public servant bound to apprehend",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_222",
+    "title": "Intentional omission to apprehend on the part of public servant bound to apprehend person under sentence or lawfully committed",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_223",
+    "title": "Escape from confinement or custody negligently suffered by public servant",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_224",
+    "title": "Resistance or obstruction by a person to his lawful apprehension",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_225",
+    "title": "Resistance or obstruction to lawful apprehension of another person",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_225A",
+    "title": "Omission to apprehend, or sufferance of escape, on part of public servant, in cases not otherwise, provided for",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_225B",
+    "title": "Resistance or obstruction to lawful apprehension, or escape or rescue in cases not otherwise provided for",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_226",
+    "title": "[Repealed]",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_227",
+    "title": "Violation of condition of remission of punishment",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_228",
+    "title": "Intentional insult or interruption to public servant sitting in judicial proceeding",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_228A",
+    "title": "Disclosure of identity of the victim of certain offences, etc",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_229",
+    "title": "Personation of a juror or assessor",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_229A",
+    "title": "Failure by person released on bail or bond to appear in Court",
+    "chapter_number": "XI",
+    "chapter_name": "OF FALSE EVIDENCE AND OFFENCES AGAINST PUBLIC JUSTICE"
+  },
+  {
+    "section": "IPC_230",
+    "title": "“Coin” defined. Indian coin",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_231",
+    "title": "Counterfeiting coin",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_232",
+    "title": "Counterfeiting Indian coin",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_233",
+    "title": "Making or selling instrument for counterfeiting coin",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_234",
+    "title": "Making or selling instrument for counterfeiting Indian coin",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_235",
+    "title": "Possession of instrument or material for the purpose of using the same for counterfeiting coin: if Indian coin",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_236",
+    "title": "Abetting in India the counterfeiting out of India of coin",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_237",
+    "title": "Import or export of counterfeit coin",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_238",
+    "title": "Import or export of counterfeits of the Indian coin",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_239",
+    "title": "Delivery of coin, possessed with knowledge that it is counterfeit",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_240",
+    "title": "Delivery of Indian coin, possessed with knowledge that it is counterfeit",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_241",
+    "title": "Delivery of coin as genuine, which, when first possessed, the deliverer did not know to be counterfeit",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_242",
+    "title": "Possession of counterfeit coin by person who knew it to be counterfeit when he became possessed thereof",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_243",
+    "title": "Possession of Indian coin by person who knew it to be counterfeit when he became possessed thereof",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_244",
+    "title": "Person employed in mint causing coin to be of different weight or composition from that fixed by law",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_245",
+    "title": "Unlawfully taking coining instrument from mint",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_246",
+    "title": "Fraudulently or dishonestly diminishing weight or altering composition of coin",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_247",
+    "title": "Fraudulently or dishonestly diminishing weight or altering composition of Indian coin",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_248",
+    "title": "Altering appearance of coin with intent that it shall pass as coin of different description",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_249",
+    "title": "Altering appearance of Indian coin with intent that it shall pass as coin of different description",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_250",
+    "title": "Delivery of coin, possessed with knowledge that it is altered",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_251",
+    "title": "Delivery of Indian coin, possessed with knowledge that it is altered",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_252",
+    "title": "Possession of coin by person who knew it to be altered when he became possessed thereof",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_253",
+    "title": "Possession of Indian coin by person who knew it to be altered when he became possessed thereof",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_254",
+    "title": "Delivery of coin as genuine, which, when first possessed, the deliverer did not know to be altered",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_255",
+    "title": "Counterfeiting Government stamp",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_256",
+    "title": "Having possession of instrument or material for counterfeiting Government stamp",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_257",
+    "title": "Making or selling instrument for counterfeiting Government stamp",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_258",
+    "title": "Sale of counterfeit Government stamp",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_259",
+    "title": "Having possession of counterfeit Government stamp",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_260",
+    "title": "Using as genuine a Government stamp known to be counterfeit",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_261",
+    "title": "Effacing writing from substance bearing Government stamp, or removing from document a stamp used for it, with intent to cause loss to Government",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_262",
+    "title": "Using Government stamp known to have been before used",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_263",
+    "title": "Erasure of mark denoting that stamp has been used",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_263A",
+    "title": "Prohibition of fictitious stamps",
+    "chapter_number": "XII",
+    "chapter_name": "OF OFFENCES RELATING TO COIN AND GOVERNMENT STAMPS"
+  },
+  {
+    "section": "IPC_264",
+    "title": "Fraudulent use of false instrument for weighing",
+    "chapter_number": "XIII",
+    "chapter_name": "OF OFFENCES RELATING TO WEIGHTS AND MEASURES"
+  },
+  {
+    "section": "IPC_265",
+    "title": "Fraudulent use of false weight or measure",
+    "chapter_number": "XIII",
+    "chapter_name": "OF OFFENCES RELATING TO WEIGHTS AND MEASURES"
+  },
+  {
+    "section": "IPC_266",
+    "title": "Being in possession of false weight or measure",
+    "chapter_number": "XIII",
+    "chapter_name": "OF OFFENCES RELATING TO WEIGHTS AND MEASURES"
+  },
+  {
+    "section": "IPC_267",
+    "title": "Making or selling false weight or measure",
+    "chapter_number": "XIII",
+    "chapter_name": "OF OFFENCES RELATING TO WEIGHTS AND MEASURES"
+  },
+  {
+    "section": "IPC_268",
+    "title": "Public nuisance",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_269",
+    "title": "Negligent act likely to spread infection of disease dangerous to life",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_270",
+    "title": "Malignant act likely to spread infection of disease dangerous to life",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_271",
+    "title": "Disobedience to quarantine rule",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_272",
+    "title": "Adulteration of food or drink intended for sale",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_273",
+    "title": "Sale of noxious food or drink",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_274",
+    "title": "Adulteration of drugs",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_275",
+    "title": "Sale of adulterated drugs",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_276",
+    "title": "Sale of drug as a different drug or preparation",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_277",
+    "title": "Fouling water of public spring or reservoir",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_278",
+    "title": "Making atmosphere noxious to health",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_279",
+    "title": "Rash driving or riding on a public way",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_280",
+    "title": "Rash navigation of vessel",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_281",
+    "title": "Exhibition of false light, mark or buoy",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_282",
+    "title": "Conveying person by water for hire in unsafe or overloaded vessel",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_283",
+    "title": "Danger or obstruction in public way or line of navigation",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_284",
+    "title": "Negligent conduct with respect to poisonous substance",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_285",
+    "title": "Negligent conduct with respect to fire or combustible matter",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_286",
+    "title": "Negligent conduct with respect to explosive substance",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_287",
+    "title": "Negligent conduct with respect to machinery",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_288",
+    "title": "Negligent conduct with respect to pulling down or repairing buildings",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_289",
+    "title": "Negligent conduct with respect to animal",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_290",
+    "title": "Punishment for public nuisance in cases not otherwise provided for",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_291",
+    "title": "Continuance of nuisance after injunction to discontinu e",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_292",
+    "title": "Sale, etc., of obscene books, etc",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_293",
+    "title": "Sale, etc., of obscene objects to young person",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_294",
+    "title": "Obscene acts and songs",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_294A",
+    "title": "Keeping lottery office",
+    "chapter_number": "XIV",
+    "chapter_name": "OF OFFENCES AFFECTING THE PUBLIC HEALTH, SAFETY, CONVENIENCE, DECENCY AND MORALS"
+  },
+  {
+    "section": "IPC_295",
+    "title": "Injuring or defiling place of worship, with intent to insult the religion of any class",
+    "chapter_number": "XV",
+    "chapter_name": "OF OFFENCES RELATING TO RELIGION"
+  },
+  {
+    "section": "IPC_295A",
+    "title": "Deliberate and malicious acts, intended to outrage religious feelings of any class by insulting its religion or religious beliefs",
+    "chapter_number": "XV",
+    "chapter_name": "OF OFFENCES RELATING TO RELIGION"
+  },
+  {
+    "section": "IPC_296",
+    "title": "Disturbing religious assembly",
+    "chapter_number": "XV",
+    "chapter_name": "OF OFFENCES RELATING TO RELIGION"
+  },
+  {
+    "section": "IPC_297",
+    "title": "Trespassing on burial places, etc",
+    "chapter_number": "XV",
+    "chapter_name": "OF OFFENCES RELATING TO RELIGION"
+  },
+  {
+    "section": "IPC_298",
+    "title": "Uttering words, etc., with deliberate intent to wound the religious feelings",
+    "chapter_number": "XV",
+    "chapter_name": "OF OFFENCES RELATING TO RELIGION"
+  },
+  {
+    "section": "IPC_299",
+    "title": "Culpable homicide",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_300",
+    "title": "Murder. When culpable homicide is not murder",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_301",
+    "title": "Culpable homicide by causing death of person other than person whose death was intended",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_302",
+    "title": "Punishment for murder",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_303",
+    "title": "Punishment for murder by life-convict",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_304",
+    "title": "Punishment for culpable homicide not amounting to murder",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_304A",
+    "title": "Causing death by negligence",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_304B",
+    "title": "Dowry death",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_305",
+    "title": "Abetment of suicide of child or insane person",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_306",
+    "title": "Abetment of suicide",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_307",
+    "title": "Attempt to murder. Attempts by life-convicts",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_308",
+    "title": "Attempt to commit culpable homicide",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_309",
+    "title": "Attempt to commit suicide",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_310",
+    "title": "Thug",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_311",
+    "title": "Punishment. Of the causing of Miscarriage, of Injuries to unborn Children, of the Exposure of Infants, and of the concealment of Births",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_312",
+    "title": "Causing miscarriage",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_313",
+    "title": "Causing miscarriage without woman's consent",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_314",
+    "title": "Death caused by act done with intent to cause miscarriage. if act done without woman's consent",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_315",
+    "title": "Act done with intent to prevent child being born alive or to cause it to die after birth",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_316",
+    "title": "Causing death of quick unborn child by act amounting to culpable homicide",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_317",
+    "title": "Exposure and abandonment of child under twelve years, by parent or person having care of it",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_318",
+    "title": "Concealment of birth by secret disposal of dead body",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_319",
+    "title": "Hurt",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_320",
+    "title": "Grievous hurt",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_321",
+    "title": "Voluntarily causing hurt",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_322",
+    "title": "Voluntarily causing grievous hurt",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_323",
+    "title": "Punishment for voluntarily causing hurt",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_324",
+    "title": "Voluntarily causing hurt by dangerous weapons or means",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_325",
+    "title": "Punishment for voluntarily causing grievous hurt",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_326",
+    "title": "Voluntarily causing grievous hurt by dangerous weapons or means",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_326A",
+    "title": "Voluntarily causing grievous hurt by use of acid, etc",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_326B",
+    "title": "Voluntarily throwing or attempting to throw acid",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_327",
+    "title": "Voluntarily causing hurt to extort property, or to constrain to an illegal to an act",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_328",
+    "title": "Causing hurt by means of poison, etc., with intent to commit an offence",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_329",
+    "title": "Voluntarily causing grievous hurt to extort property, or to constrain to an illegal act",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_330",
+    "title": "Voluntarily causing hurt to extort confession, or to compel restoration of property",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_331",
+    "title": "Voluntarily causing grievous hurt to extort confession, or to compel restoration of property",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_332",
+    "title": "Voluntarily causing hurt to deter public servant from his duty",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_333",
+    "title": "Voluntarily causing grievous hurt to deter public servant from his duty",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_334",
+    "title": "Voluntarily causing hurt on provocation",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_335",
+    "title": "Voluntarily causing grievous hurt on provocation",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_336",
+    "title": "Act endangering life or personal safety of others",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_337",
+    "title": "Causing hurt by act endangering life or personal safety of others",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_338",
+    "title": "Causing grievous hurt by act endangering life or personal safety of others",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_339",
+    "title": "Wrongful restraint",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_340",
+    "title": "Wrongful confinement",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_341",
+    "title": "Punishment for wrongful restraint",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_342",
+    "title": "Punishment for wrongful confinement",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_343",
+    "title": "Wrongful confinement for three or more days",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_344",
+    "title": "Wrongful confinement for ten or more days",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_345",
+    "title": "Wrongful confinement of person for whose liberation writ has been issued",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_346",
+    "title": "Wrongful confinement in secret",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_347",
+    "title": "Wrongful confinement to extort property, or constrain to illegal act",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_348",
+    "title": "Wrongful confinement to extort confession, or compel restoration of property",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_349",
+    "title": "Force",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_350",
+    "title": "Criminal force",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_351",
+    "title": "Assault",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_352",
+    "title": "Punishment for assault or criminal force otherwise than on grave provocation",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_353",
+    "title": "Assault or criminal force to deter public servant from discharge of his duty",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_354",
+    "title": "Assault of criminal force to woman with intent to outrage her modesty",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_354A",
+    "title": "Sexual harassment and punishment for sexual harassment",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_354B",
+    "title": "Assault or use of criminal force to woman with intent to disrobe",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_354C",
+    "title": "Voyeurism",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_354D",
+    "title": "Stalking",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_355",
+    "title": "Assault or criminal force with intent to dishonour person, otherwise than on grave provocation",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_356",
+    "title": "Assault or criminal force in attempt to commit theft of property carried by a person",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_357",
+    "title": "Assault or criminal force in attempt wrongfully to confine a person",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_358",
+    "title": "Assault or criminal force on grave provocation",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_359",
+    "title": "Kidnapping",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_360",
+    "title": "Kidnapping from India",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_361",
+    "title": "Kidnapping from lawful guardianship",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_362",
+    "title": "Abduction",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_363",
+    "title": "Punishment for kidnapping",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_363A",
+    "title": "Kidnapping or maiming a minor for purposes of begging",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_364",
+    "title": "Kidnapping or abducting in order to murder",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_364A",
+    "title": "Kidnapping for ransom, etc",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_365",
+    "title": "Kidnapping or abducting with intent secretly and wrongfully to confine person",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_366",
+    "title": "Kidnapping, abducting or inducing woman to compel her marriage, etc",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_366A",
+    "title": "Procuration of minor girl",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_366B",
+    "title": "Importation of girl from foreign country",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_367",
+    "title": "Kidnapping or abducting in order to subject person to grievous hurt, slavery, etc",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_368",
+    "title": "Wrongfully concealing or keeping in confinement, kidnapped or abducted person",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_369",
+    "title": "Kidnapping or abducting child under ten years with intent to steal from its person",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_370",
+    "title": "Trafficking of person",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_370A",
+    "title": "Exploitation of a trafficked person",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_371",
+    "title": "Habitual dealing in slaves",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_372",
+    "title": "Selling minor for purposes of prostitution, etc",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_373",
+    "title": "Buying minor for purposes of prostitution, etc",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_374",
+    "title": "Unlawful compulsory labour. Sexual offences",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_375",
+    "title": "Rape",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_376",
+    "title": "Punishment for rape",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_376A",
+    "title": "Punishment for causing death or resulting in persistent vegetative state of victim",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_376AB",
+    "title": "Punishment for rape on woman under twelve years of age",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_376B",
+    "title": "Sexual intercourse by husband upon his wife during separation",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_376C",
+    "title": "Sexual intercourse by a person in authority",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_376D",
+    "title": "Gang rape",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_376DA",
+    "title": "Punishment for gang rape on woman under sixteen years of age",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_376DB",
+    "title": "Punishment for gang rape on woman under twelve years of age",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_376E",
+    "title": "Punishment for repeat offenders",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_377",
+    "title": "Unnatural offences",
+    "chapter_number": "XVI",
+    "chapter_name": "OF OFFENCES AFFECTING THE HUMAN BODY"
+  },
+  {
+    "section": "IPC_378",
+    "title": "Theft",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_379",
+    "title": "Punishment for theft",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_380",
+    "title": "Theft in dwelling house, etc",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_381",
+    "title": "Theft by clerk or servant of property in possession of master",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_382",
+    "title": "Theft after preparation made for causing death, hurt or restraint in order to the committing of the theft",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_383",
+    "title": "Extortion",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_384",
+    "title": "Punishment for extortion",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_385",
+    "title": "Putting person in fear of injury in order to commit extortion",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_386",
+    "title": "Extortion by putting a person in fear of death on grievous hurt",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_387",
+    "title": "Putting person in fear of death or of grievous hurt, in order to commit extortion",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_388",
+    "title": "Extortion by threat of accusation of an offence punishable with death or imprisonment for life, etc",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_389",
+    "title": "Putting person in fear of accusation of offence, in order to commit extortion",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_390",
+    "title": "Robbery. When theft is robbery. When extortion is robbery",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_391",
+    "title": "Dacoity",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_392",
+    "title": "Punishment for robbery",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_393",
+    "title": "Attempt to commit robbery",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_394",
+    "title": "Voluntarily causing hurt in committing robbery",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_395",
+    "title": "Punishment for dacoity",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_396",
+    "title": "Dacoity with murder",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_397",
+    "title": "Robbery, or dacoity, with attempt to cause death or grievous hurt",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_398",
+    "title": "Attempt to commit robbery or dacoity when armed with deadly weapon",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_399",
+    "title": "Making preparation to commit dacoity",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_400",
+    "title": "Punishment for belonging to gang of dacoits",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_401",
+    "title": "Punishment for belonging to gang of thieves",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_402",
+    "title": "Assembling for purpose of committing dacoity",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_403",
+    "title": "Dishonest misappropriation of property",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_404",
+    "title": "Dishonest misappropriation of property possessed by deceased person at the time of his death",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_405",
+    "title": "Criminal breach of trust",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_406",
+    "title": "Punishment for criminal breach of trust",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_407",
+    "title": "Criminal breach of trust by carrier, etc",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_408",
+    "title": "Criminal breach of trust by clerk or servant",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_409",
+    "title": "Criminal breach of trust by public, servant. or by banker, merchant or agent",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_410",
+    "title": "Stolen property",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_411",
+    "title": "Dishonestly receiving stolen property",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_412",
+    "title": "Dishonestly receiving property stolen in the commission of a dacoity",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_413",
+    "title": "Habitually dealing in stolen property",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_414",
+    "title": "Assisting in concealment of stolen property",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_415",
+    "title": "Cheating",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_416",
+    "title": "Cheating by personation",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_417",
+    "title": "Punishment for cheating",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_418",
+    "title": "Cheating with knowledge that wrongful loss may ensue to person whose interest offender is bound to protect",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_419",
+    "title": "Punishment for cheating by personation",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_420",
+    "title": "Cheating and dishonestly inducing delivery of property",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_421",
+    "title": "Dishonest or fraudulent removal or concealment of property to prevent distribution among creditor",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_422",
+    "title": "Dishonestly or fraudulently preventing debt being available for creditors",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_423",
+    "title": "Dishonest or fraudulent execution of deed of transfer containing false statement of consideration",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_424",
+    "title": "Dishonest or fraudulent removal or concealment of property",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_425",
+    "title": "Mischief",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_426",
+    "title": "Punishment for mischief",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_427",
+    "title": "Mischief causing damage to the amount of fifty rupees",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_428",
+    "title": "Mischief by killing or maiming animal of the value of ten rupees",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_429",
+    "title": "Mischief by killing or maiming cattle, etc., of any value or any animal of the value of fifty rupees",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_430",
+    "title": "Mischief by injury to works of irrigation or by wrongfully diverting water",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_431",
+    "title": "Mischief by injury to public road, bridge, river or channel",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_432",
+    "title": "Mischief by causing inundation or obstruction to public drainage attended with damage",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_433",
+    "title": "Mischief by destroying, moving or rendering less useful a light-house or sea-mark",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_434",
+    "title": "Mischief by destroying or moving, etc., a land-mark fixed by public authority",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_435",
+    "title": "Mischief by fire or explosive substance with intent to cause damage to amount of one hundred or (in case of agricultural produce) ten rupees",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_436",
+    "title": "Mischief by fire or explosive substance with intent to destroy house, etc",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_437",
+    "title": "Mischief with intent to destroy or make unsafe a decked vessel or one of twenty tons burden",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_438",
+    "title": "Punishment for the mischief described in section 437 committed by fire or explosive substance",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_439",
+    "title": "Punishment for intentionally running vessel agroun, or ashore with intent to commit theft, etc",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_440",
+    "title": "Mischief committed after preparation made for causing death or hurt",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_441",
+    "title": "Criminal trespass",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_442",
+    "title": "House-trespass",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_443",
+    "title": "Lurking house-trespass",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_444",
+    "title": "Lurking house-trespass by night",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_445",
+    "title": "House-breaking",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_446",
+    "title": "House-breaking by night",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_447",
+    "title": "Punishment for criminal trespass",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_448",
+    "title": "Punishment for house-trespass",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_449",
+    "title": "House-trespass in order to commit offence punishable with death",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_450",
+    "title": "House-trespass in order to commit offence punishable with imprisonment for life",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_451",
+    "title": "House-trespass in order to commit offence punishable with imprisonment",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_452",
+    "title": "House-trespass after preparation for hurt, assault or wrongful restraint",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_453",
+    "title": "Punishment for lurking house-trespass or house-breaking",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_454",
+    "title": "Lurking house-trespass or house-breaking in order to commit offence punishable with imprisonment",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_455",
+    "title": "Lurking house-trespass or house-breaking after preparation for hurt, assault or wrongful restraint",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_456",
+    "title": "Punishment for lurking house-trespass or house-breaking by night",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_457",
+    "title": "Lurking house-trespass or house-breaking by night in order to commit offence punishable with imprisonment",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_458",
+    "title": "Lurking house-trespass or house-breaking by night after preparation for hurt, assault, or wrongful restraint",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_459",
+    "title": "Grievous hurt caused whilst committing lurking house-trespass or house-breaking",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_460",
+    "title": "All persons jointly concerned in lurking house-trespass or house-breaking by night punishable where death or grievous hurt caused by one of them",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_461",
+    "title": "Dishonestly breaking open receptacle containing property",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_462",
+    "title": "Punishment for same offence when committed by person entrusted with custody",
+    "chapter_number": "XVII",
+    "chapter_name": "OF OFFENCES AGAINST PROPERTY"
+  },
+  {
+    "section": "IPC_463",
+    "title": "Forgery",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_464",
+    "title": "Making a false document",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_465",
+    "title": "Punishment for forgery",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_466",
+    "title": "Forgery of record of Court or of public register, etc",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_467",
+    "title": "Forgery of valuable security, will, etc",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_468",
+    "title": "Forgery for purpose of cheating",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_469",
+    "title": "Forgery for purpose of harming reputation",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_470",
+    "title": "Forged document",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_471",
+    "title": "Using as genuine a forged document or electronic record",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_472",
+    "title": "Making or possessing counterfeit seal, etc., with intent to commit forgery punishable under section 467",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_473",
+    "title": "Making or possessing counterfeit seal, etc., with intent to commit forgery punishable otherwise",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_474",
+    "title": "Having possession of document described in sections 466 or 467, knowing it to be forged and intending to use it genuine",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_475",
+    "title": "Counterfeiting device or mark used for authenticating documents described in section 467, or possessing counterfeit marked material",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_476",
+    "title": "Counterfeiting device or mark used for authenticating documents other than those described in section 467, or possessing counterfeit marked material",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_477",
+    "title": "Fraudulent cancellation, destruction, etc., of will, authority to adopt, or valuable security",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_477A",
+    "title": "Falsification of accounts",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_478",
+    "title": "[Repealed]",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_479",
+    "title": "Property mark",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_480",
+    "title": "[Repealed]",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_481",
+    "title": "Using a false property mark",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_482",
+    "title": "Punishment for using a false property mark",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_483",
+    "title": "Counterfeiting a property mark used by another",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_484",
+    "title": "Counterfeiting a mark used by a public servant",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_485",
+    "title": "Making or possession of any instrument for counterfeiting a property mark",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_486",
+    "title": "Selling goods marked with a counterfeit property mark",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_487",
+    "title": "Making a false mark upon any receptacle containing goods",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_488",
+    "title": "Punishment for making use of any such false mark",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_489",
+    "title": "Tampering with property mark with intent to cause injury",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_489A",
+    "title": "Counterfeiting currency-notes or bank-notes",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_489B",
+    "title": "Using as genuine, forged or counterfeit currency-notes or bank-notes",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_489C",
+    "title": "Possession of forged or counterfeit currency notes or bank-notes",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_489D",
+    "title": "Making or possessing instruments or materials for forging or counterfeiting currency-notes or bank-notes",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_489E",
+    "title": "Making or using documents resembling currency-notes or bank-notes",
+    "chapter_number": "XVIII",
+    "chapter_name": "OF OFFENCES RELATING TO DOCUMENTS AND TO PROPERTY MARKS"
+  },
+  {
+    "section": "IPC_490",
+    "title": "[Repealed]",
+    "chapter_number": "XIX",
+    "chapter_name": "OF THE CRIMINAL BREACH OF CONTRACTS OF SERVICE"
+  },
+  {
+    "section": "IPC_491",
+    "title": "Breach of contract to attend on and supply wants of helpless person",
+    "chapter_number": "XIX",
+    "chapter_name": "OF THE CRIMINAL BREACH OF CONTRACTS OF SERVICE"
+  },
+  {
+    "section": "IPC_492",
+    "title": "[Repealed]",
+    "chapter_number": "XIX",
+    "chapter_name": "OF THE CRIMINAL BREACH OF CONTRACTS OF SERVICE"
+  },
+  {
+    "section": "IPC_493",
+    "title": "Cohabitation caused by a man deceitfully inducing a belief of lawful marriage",
+    "chapter_number": "XX",
+    "chapter_name": "OF OFFENCES RELATING TO MARRIAGE"
+  },
+  {
+    "section": "IPC_494",
+    "title": "Marrying again during life-time of husband or wife",
+    "chapter_number": "XX",
+    "chapter_name": "OF OFFENCES RELATING TO MARRIAGE"
+  },
+  {
+    "section": "IPC_495",
+    "title": "Same offence with concealment of former marriage from person with whom subsequent marriage is contracted",
+    "chapter_number": "XX",
+    "chapter_name": "OF OFFENCES RELATING TO MARRIAGE"
+  },
+  {
+    "section": "IPC_496",
+    "title": "Marriage ceremony fraudulently gone through without lawful marriage",
+    "chapter_number": "XX",
+    "chapter_name": "OF OFFENCES RELATING TO MARRIAGE"
+  },
+  {
+    "section": "IPC_497",
+    "title": "Adultery",
+    "chapter_number": "XX",
+    "chapter_name": "OF OFFENCES RELATING TO MARRIAGE"
+  },
+  {
+    "section": "IPC_498",
+    "title": "Enticing or taking away or detaining with criminal intent a married woman",
+    "chapter_number": "XX",
+    "chapter_name": "OF OFFENCES RELATING TO MARRIAGE"
+  },
+  {
+    "section": "IPC_498A",
+    "title": "Husband or relative of husband of a woman subjecting her to cruelty",
+    "chapter_number": "XXA",
+    "chapter_name": "OF CRUELTY BY HUSBAND OR RELATIVES OF HUSBAND"
+  },
+  {
+    "section": "IPC_499",
+    "title": "Defamation. Imputation of truth which public good requires to be made or published. Public conduct of public servants. Conduct of any person touching any public question. Publication of reports of proceedings of Courts. Merits of case decided in Court or conduct of witnesses and others concerned. Merits of public performance. Censure passed in good faith by person having lawful authority over another. Accusation preferred in good faith to authorised person. Imputation made in good faith by person for protection of his or other's interests. Caution intended for good of person to whom conveyed or for public good",
+    "chapter_number": "XXI",
+    "chapter_name": "OF DEFAMATION"
+  },
+  {
+    "section": "IPC_500",
+    "title": "Punishment for defamation",
+    "chapter_number": "XXI",
+    "chapter_name": "OF DEFAMATION"
+  },
+  {
+    "section": "IPC_501",
+    "title": "Printing or engraving matter known to be defamatory",
+    "chapter_number": "XXI",
+    "chapter_name": "OF DEFAMATION"
+  },
+  {
+    "section": "IPC_502",
+    "title": "Sale of printed or engraved substance containing defamatory matter",
+    "chapter_number": "XXI",
+    "chapter_name": "OF DEFAMATION"
+  },
+  {
+    "section": "IPC_503",
+    "title": "Criminal intimidation",
+    "chapter_number": "XXII",
+    "chapter_name": "OR CRIMINAL INTIMIDATION, INSULT AND ANNOYANCE"
+  },
+  {
+    "section": "IPC_504",
+    "title": "Intentional insult with intent to provoke breach of the peace",
+    "chapter_number": "XXII",
+    "chapter_name": "OR CRIMINAL INTIMIDATION, INSULT AND ANNOYANCE"
+  },
+  {
+    "section": "IPC_505",
+    "title": "Statements conducing to public mischief. Statements creating or promoting enmity, hatred or ill-will between classes. Offence under sub-section (2) committed in place of worship, etc",
+    "chapter_number": "XXII",
+    "chapter_name": "OR CRIMINAL INTIMIDATION, INSULT AND ANNOYANCE"
+  },
+  {
+    "section": "IPC_506",
+    "title": "Punishment for criminal intimidation. If threat be to cause death or grievous hurt, etc",
+    "chapter_number": "XXII",
+    "chapter_name": "OR CRIMINAL INTIMIDATION, INSULT AND ANNOYANCE"
+  },
+  {
+    "section": "IPC_507",
+    "title": "Criminal intimidation by an anonymous communication",
+    "chapter_number": "XXII",
+    "chapter_name": "OR CRIMINAL INTIMIDATION, INSULT AND ANNOYANCE"
+  },
+  {
+    "section": "IPC_508",
+    "title": "Act caused by inducing person to believe that he will be rendered an object of the Divine displeasure",
+    "chapter_number": "XXII",
+    "chapter_name": "OR CRIMINAL INTIMIDATION, INSULT AND ANNOYANCE"
+  },
+  {
+    "section": "IPC_509",
+    "title": "Word, gesture or act intended to insult the modesty of a woman",
+    "chapter_number": "XXII",
+    "chapter_name": "OR CRIMINAL INTIMIDATION, INSULT AND ANNOYANCE"
+  },
+  {
+    "section": "IPC_510",
+    "title": "Misconduct in public by a drunken person",
+    "chapter_number": "XXII",
+    "chapter_name": "OR CRIMINAL INTIMIDATION, INSULT AND ANNOYANCE"
+  },
+  {
+    "section": "IPC_511",
+    "title": "Punishment for attempting to commit offences punishable with imprisonment for life or other imprisonment",
+    "chapter_number": "XXIII",
+    "chapter_name": "OF ATTEMPTS TO COMMIT OFFENCES"
+  }
+]
