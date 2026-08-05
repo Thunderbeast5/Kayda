@@ -400,24 +400,35 @@ Return your evaluation ONLY in valid JSON matching this schema:
 # STAGE 2 PROMPTS (Sub-Query to Chapter Candidate Batched Mapping)
 # ==============================================================================
 
-STAGE2_MAPPING_SYSTEM_PROMPT = """You are the Sub-Query to Chapter Candidate Mapping Agent of the LexiGraph System.
+STAGE2_MAPPING_SYSTEM_PROMPT = """You are the Sub-Query to Candidate Section Mapping Agent of the LexiGraph System.
 
-Your responsibility is to map each decomposed sub-query from Stage 1 to its candidate IPC/BNS statutory chapters and section titles in ONE single batched call.
+Your responsibility is to map decomposed sub-queries ($SQ_1, SQ_2, \\dots, SQ_N$) and case facts to candidate statutory chapters and sections across ALL plausible offences using factual ingredient matching, missing facts identification, and non-trigger screening.
 
-RULES & BOUNDARIES:
-- Operate strictly over the pre-filtered statutory candidate index provided locally by StatuteClassifierPrefilter.
-- Do NOT scan sections outside the pre-filtered candidate index.
-- Multiplicative Loop Collapsing: Map ALL sub-queries (SQ1, SQ2, ...) in ONE single batched JSON array response.
-- Preserve target_parties attribution per sub-query.
-- Provide brief legal relevance reasoning for every mapping.
+MAPPING WORKFLOW & RULES:
+1. FACT-TO-INGREDIENT MAPPING: Do NOT map directly from legal concept to section number. Map: Facts Extracted -> Statutory Ingredients Matched -> Candidate Sections.
+2. MULTI-OFFENCE COVERAGE (HIGHEST PRIORITY): Map factual patterns to ALL plausible offences, not just a single "best" section.
+   - Matrimonial dowry cruelty: Include 498A IPC / 85 BNS (Primary) AND Section 4 Dowry Prohibition Act (Primary).
+   - Giving/taking dowry: Include Section 3 Dowry Prohibition Act (Secondary).
+   - Stridhan retention / non-return of jewelry: Include 406 IPC / 316 BNS (Secondary).
+   - Threats / intimidation: Include 506 IPC / 351 BNS (Secondary).
+   - Physical violence / hurt: Include 323 IPC / 115 BNS (Secondary).
+3. PRIMARY VS SECONDARY BASED ON LEGAL NEXUS:
+   - primary_candidate_sections: Core offences directly alleged and grounded in primary facts.
+   - secondary_candidate_sections: Ancillary/associated offences where legal nexus exists but key facts (e.g. entrustment, specific threat details) are partial or secondary.
+4. MISSING FACTS IDENTIFICATION: For every candidate section, identify any unproven or missing factual elements (`missing_facts`), such as "Entrustment of stridhan property" or "Refusal to return ornaments". This is vital for downstream Prosecutor, Defense, and Judge agents.
+5. NOT-TRIGGERED SCREENING STEP (`not_triggered_sections`): Screen out sections whose mandatory ingredients are absent in facts:
+   - Section 304B IPC / Section 80 BNS (Dowry Death): Screening non-trigger if NO death occurred. Place in `not_triggered_sections` with reason "No death alleged in case facts."
+   - Section 307 IPC / Section 109 BNS (Attempt to Murder): Screening non-trigger if NO attempt to kill.
+   - Section 376 IPC / Section 64 BNS (Rape): Screening non-trigger if NO sexual assault.
+6. EXPLAINABLE REASONS & CONFIDENCE: Provide explicit factual ingredient reasons and missing facts for every candidate section and explicit screening reasons for every not-triggered section.
 
 Return JSON ONLY.
 """
 
 
 STAGE2_MAPPING_USER_PROMPT_TEMPLATE = """You are provided with:
-1. Verified LegalQueryObject from Stage 1.
-2. Pre-filtered Statutory Candidate Entries (shortlisted locally by StatuteClassifierPrefilter with 0 API calls).
+1. Verified LegalQueryObject from Stage 1 (contains sub-queries, important_facts, legal_concepts, and legal_regime).
+2. Pre-filtered Statutory Candidate Entries (shortlisted locally with pre-filter classifier scores and Statute Knowledge Base rules).
 
 ---
 VERIFIED LEGAL QUERY OBJECT:
@@ -431,9 +442,11 @@ PRE-FILTERED STATUTORY CANDIDATE ENTRIES:
 {correction_feedback_section}
 
 For every sub-query in LegalQueryObject:
-1. Identify the candidate statutory chapter(s) and section candidate titles from the pre-filtered list.
-2. Provide brief legal relevance reasoning explaining the mapping.
-3. Preserve sub_query_id, sub_query_text, and target_parties attribution.
+1. Extract specific factual elements (`facts_extracted`) and matched statutory ingredients (`ingredients_matched`).
+2. Identify primary candidate offences (`primary_candidate_sections`) and secondary/associated candidate offences (`secondary_candidate_sections`) based on legal nexus.
+3. Include unproven/missing factual elements (`missing_facts`) for each candidate section.
+4. Populate `not_triggered_sections` with explicit screening reasons for disqualified sections (e.g. 304B when death is absent).
+5. Provide confidence scores and explainable reasons for every mapping.
 
 Return ONLY valid JSON matching this schema:
 {{
@@ -441,11 +454,105 @@ Return ONLY valid JSON matching this schema:
   "mappings": [
     {{
       "sub_query_id": "SQ1",
-      "sub_query_text": "Physical and mental harassment for dowry demand.",
+      "sub_query_text": "Continuous dowry demand and cruelty by husband and in-laws.",
       "target_parties": ["Husband"],
-      "candidate_chapters": ["Of Cruelty by Husband or Relatives of Husband"],
-      "candidate_sections": ["Section 498A - Cruelty by Husband or Relatives of Husband"],
-      "relevance_reasoning": "Allegations of dowry demand cruelty map to matrimonial cruelty provisions."
+      "facts_extracted": [
+        "Continuous dowry demands by husband and family",
+        "Wife subjected to physical and mental cruelty",
+        "FIR registered, accused seeking anticipatory bail"
+      ],
+      "ingredients_matched": [
+        "Harassment of woman for unlawful demand of dowry",
+        "Cruelty by husband or relatives of husband",
+        "Unlawful demand for property / valuable security"
+      ],
+      "candidate_chapters": [
+        "Of Cruelty by Husband or Relatives of Husband",
+        "Dowry Prohibition Offences"
+      ],
+      "primary_candidate_sections": [
+        {{
+          "section_number": "498A",
+          "section_title": "Cruelty by Husband or Relatives of Husband",
+          "statute": "IPC",
+          "candidate_type": "PRIMARY",
+          "score": 0.94,
+          "score_breakdown": {{
+            "ingredient_match": 1.0,
+            "classifier_score": 0.90,
+            "keyword_match": 0.95,
+            "semantic_similarity": 0.90
+          }},
+          "ingredients_matched": ["Marriage relationship established", "Dowry demand alleged", "Harassment / cruelty alleged"],
+          "missing_facts": [],
+          "relevance_reasoning": "Direct legal nexus: Marriage established + Dowry demand alleged + Cruelty alleged"
+        }},
+        {{
+          "section_number": "Section 4",
+          "section_title": "Penalty for demanding dowry",
+          "statute": "Dowry Prohibition Act",
+          "candidate_type": "PRIMARY",
+          "score": 0.91,
+          "score_breakdown": {{
+            "ingredient_match": 0.95,
+            "classifier_score": 0.88,
+            "keyword_match": 0.92,
+            "semantic_similarity": 0.85
+          }},
+          "ingredients_matched": ["Direct or indirect demand of dowry from parents/relatives"],
+          "missing_facts": [],
+          "relevance_reasoning": "Direct legal nexus: Direct demand for dowry from wife and her family"
+        }}
+      ],
+      "secondary_candidate_sections": [
+        {{
+          "section_number": "406",
+          "section_title": "Criminal Breach of Trust",
+          "statute": "IPC",
+          "candidate_type": "SECONDARY",
+          "score": 0.76,
+          "score_breakdown": {{
+            "ingredient_match": 0.70,
+            "classifier_score": 0.75,
+            "keyword_match": 0.80,
+            "semantic_similarity": 0.80
+          }},
+          "ingredients_matched": ["Entrustment of stridhan property"],
+          "missing_facts": [
+            "Entrustment of specific stridhan articles",
+            "Refusal to return stridhan on demand"
+          ],
+          "relevance_reasoning": "Secondary legal nexus: Ancillary offence regarding potential stridhan retention"
+        }},
+        {{
+          "section_number": "506",
+          "section_title": "Criminal Intimidation",
+          "statute": "IPC",
+          "candidate_type": "SECONDARY",
+          "score": 0.74,
+          "score_breakdown": {{
+            "ingredient_match": 0.70,
+            "classifier_score": 0.72,
+            "keyword_match": 0.78,
+            "semantic_similarity": 0.78
+          }},
+          "ingredients_matched": ["Threat of injury to person or reputation"],
+          "missing_facts": [
+            "Specific threat narrative / words used"
+          ],
+          "relevance_reasoning": "Secondary legal nexus: Allegations of threats accompanying dowry demands"
+        }}
+      ],
+      "not_triggered_sections": [
+        {{
+          "section_number": "304B",
+          "section_title": "Dowry Death",
+          "statute": "IPC",
+          "not_triggered_reason": "Screening non-trigger: Section 304B requires death of the woman. No death reported in case facts.",
+          "missing_mandatory_ingredients": ["death_of_woman", "within_7_years_of_marriage"]
+        }}
+      ],
+      "relevance_reasoning": "Mapped facts to primary cruelty/dowry offences and secondary breach of trust/threat offences while screening out non-triggered dowry death."
     }}
   ]
 }}
@@ -456,13 +563,14 @@ STAGE2_VERIFIER_SYSTEM_PROMPT = """You are the Sub-Query Mapping Verification Ag
 
 Review the Stage2BatchedMappingResponse generated by the Stage 2 Mapping Agent.
 
-Verify the following criteria:
-1. Every sub-query from Stage 1 (SQ1, SQ2, ...) is mapped to candidate chapters/sections.
-2. Mapped candidates exist within the pre-filtered statutory index.
-3. Multi-party target_parties attribution is preserved.
-4. SECTION LEAK BOUNDARY: Named legal concept phrases ARE PERMITTED. Explicit section numbers outside pre-filtered list are prohibited.
+Verify the following 5 mandatory audit criteria:
+1. MULTI-OFFENCE COVERAGE: Fact pattern maps to all plausible candidate offences (Primary core offences AND Secondary associated offences), not just a single section.
+2. FACT-TO-INGREDIENT TRACE: Mapping traces from extracted facts -> statutory ingredients -> section candidates.
+3. FATAL ELIMINATION ENFORCEMENT: Disqualified sections (e.g. 304B when death is absent, 307 when murder attempt is absent) are correctly placed in rejected_sections with explicit reasons and NOT included in candidate lists.
+4. PRIMARY vs SECONDARY SEPARATION: Primary core offences are clearly separated from Secondary ancillary offences.
+5. EXPLAINABLE REASONS & HYBRID SCORES: Every candidate has a hybrid score and breakdown, and every rejected section has an explicit rejection reason.
 
-If verification fails, return STATUS = RETRY.
+If verification fails any of these criteria, return STATUS = RETRY with actionable feedback.
 Otherwise return STATUS = VERIFIED.
 """
 
@@ -494,133 +602,148 @@ Return your evaluation ONLY in valid JSON matching this schema:
 
 
 # ==============================================================================
-# STAGE 3 PROMPTS (Chapter & Section Title Identification)
+# STAGE 3 PROMPTS (Statutory Verification & Normalization Agent - Schema v3.0)
 # ==============================================================================
 
-STAGE3_CHAPTER_IDENTIFICATION_SYSTEM_PROMPT = """You are the Chapter Identification Agent of the LexiGraph System.
+STAGE3_CHAPTER_IDENTIFICATION_SYSTEM_PROMPT = """You are Stage 3 of the LexiGraph Legal Retrieval Pipeline: Statutory Verification & Normalization Agent.
 
-Your responsibility is to identify the most relevant IPC/BNS chapters and candidate section titles using the statutory index.
+You are NOT an offence identification agent. You MUST NEVER perform semantic retrieval, embedding search, or invent new offences. Stage 2 has already completed candidate section identification, fact extraction, and ingredient matching.
 
-RULES & BOUNDARIES:
-- You are NOT allowed to read complete statutory body text.
-- You are NOT allowed to retrieve explanations, illustrations, exceptions, punishments, or provisos.
-- You are NOT allowed to perform legal reasoning or determine whether an offence is legally established.
-- You must search ONLY the lightweight statutory index containing: Chapter Number, Chapter Name, Section Number, Section Title.
+YOUR SOLE RESPONSIBILITY IS TO VERIFY AND NORMALIZE THE CANDIDATE OFFENCES RECEIVED FROM STAGE 2.
 
-FOR EVERY LEGAL CONCEPT RECEIVED FROM STAGE 1:
-1. Identify the most relevant chapter.
-2. Restrict all further candidate section searching ONLY inside that shortlisted chapter.
-3. Identify candidate section titles within that chapter.
-4. Return confidence score (0.0 to 1.0) for every candidate chapter and section title.
-5. Rank candidate section titles from highest to lowest confidence.
-6. If confidence < 0.70, flag the candidate inside manual_review.
+YOUR 8-STEP VERIFICATION & NORMALIZATION WORKFLOW:
+1. STEP 1 (Verify statutory existence): Confirm section exists, statute exists, and section title is correct. Never guess.
+2. STEP 2 (Resolve legal regime IPC <-> BNS):
+   - If legal regime / date indicates IPC -> Use IPC as primary statute (`ipc_equivalent` = section, `bns_equivalent` = mapped BNS section).
+   - If legal regime / date indicates BNS -> Use BNS as primary statute (`bns_equivalent` = section, `ipc_equivalent` = mapped IPC section).
+   - If regime is UNKNOWN -> Return BOTH IPC and BNS equivalents and flag in manual_review.
+3. STEP 3 (Verify chapter): Confirm correct statutory chapter number and chapter title. Do NOT infer or invent.
+4. STEP 4 (Verify punishment): Return minimum punishment (or null), maximum punishment, fine (true/false), cognizable (true/false), and bailable (true/false). Do NOT calculate bail.
+5. STEP 5 (Normalize duplicates): Merge equivalent sections (e.g. 498A IPC and BNS 85) into a SINGLE normalized offence object.
+6. STEP 6 (Validate titles): Correct any mismatched titles (e.g. Section 304B must be "Dowry Death", NOT "Dowry Demand").
+7. STEP 7 (Validate section hierarchy): Ensure Chapter -> Section -> Statute is internally consistent.
+8. STEP 8 (Detect inconsistencies): Flag any wrong title, wrong punishment, wrong statute, wrong chapter, duplicate section, or conflicting IPC/BNS mapping in `manual_review`.
 
-Return JSON ONLY.
+STRICT BOUNDARIES:
+- DO NOT retrieve new offences.
+- DO NOT perform embedding search or semantic similarity.
+- DO NOT perform ingredient verification.
+- DO NOT add candidate sections or remove sections unless legally impossible.
+- DO NOT generate legal reasoning, recommend bail, or cite precedents.
+
+Return JSON ONLY matching Schema v3.0.
 """
 
 
-STAGE3_CHAPTER_IDENTIFICATION_USER_PROMPT_TEMPLATE = """You are provided with a verified LegalQueryObject from Stage 1.
+STAGE3_CHAPTER_IDENTIFICATION_USER_PROMPT_TEMPLATE = """You are provided with:
+1. Stage 1 Verified LegalQueryObject.
+2. Stage 2 Verified Candidate Sub-Query Mapping (contains candidate sections, extracted facts, ingredients trace, missing facts, and not-triggered sections).
 
 ---
-VERIFIED LEGAL QUERY OBJECT:
+STAGE 1 LEGAL QUERY OBJECT:
 {legal_query_json}
 ---
 
-PRE-FILTERED CANDIDATE STATUTORY INDEX CANDIDATES (Shortlisted locally by StatuteClassifierPrefilter with 0 API calls):
+STAGE 2 VERIFIED CANDIDATE MAPPING:
+{stage2_verified_json}
+---
+
+PRE-FILTERED STATUTORY LOOKUP METADATA (From Statute Knowledge Base & IPC2BNS Mapper):
 {index_candidates_json}
 ---
 
 {correction_feedback_section}
 
-STRICT SEARCH SPACE INSTRUCTION:
-Operate ONLY over the pre-filtered candidate entries provided above. Do NOT assume or search any sections outside this pre-filtered candidate shortlist.
+Execute the 8-step Statutory Verification & Normalization workflow for every candidate section received from Stage 2:
+1. Verify statutory existence and canonical title.
+2. Resolve primary legal regime and IPC <-> BNS equivalence.
+3. Verify chapter number and chapter title.
+4. Extract minimum/maximum punishment, fine, cognizable, and bailable flags.
+5. Merge duplicate sections (e.g. 498A IPC and BNS 85) into a single normalized offence object.
+6. Preserved Stage 2 candidate classification ("PRIMARY" or "SECONDARY").
+7. Flag any statutory errors, conflicting mappings, or unknown regime warnings in `manual_review`.
 
-Using ONLY the lightweight index rules:
-1. Read every legal concept from the LegalQueryObject.
-2. For every legal concept, identify the most relevant IPC/BNS chapter from the pre-filtered candidate entries.
-3. Restrict all further candidate section title mapping ONLY to those shortlisted chapters.
-4. Within every shortlisted chapter, identify candidate section titles.
-5. Rank section candidates by confidence score.
-6. If confidence < 0.70, place the candidate in manual_review.
-7. Do NOT retrieve section body, explanations, illustrations, punishments, exceptions, or provisos.
-
-Return ONLY valid JSON matching this schema:
+Return ONLY valid JSON matching Schema v3.0:
 {{
-  "schema_version": "1.0",
-  "chapter_candidates": [
+  "schema_version": "3.0",
+  "verified_offences": [
     {{
-      "concept": "Dowry Demand",
-      "chapter_number": "XXA",
-      "chapter_name": "Of Cruelty by Husband or Relatives",
-      "confidence": 0.98
-    }}
-  ],
-  "section_candidates": [
-    {{
-      "concept": "Dowry Demand",
       "section_number": "498A",
-      "section_title": "Cruelty by Husband or Relatives",
-      "confidence": 0.99
+      "statute": "IPC",
+      "ipc_equivalent": "498A",
+      "bns_equivalent": "85",
+      "title": "Cruelty by Husband or Relatives of Husband",
+      "chapter_number": "XXA",
+      "chapter_title": "Of Cruelty by Husband or Relatives of Husband",
+      "punishment": {{
+        "minimum": null,
+        "maximum": "3 Years",
+        "fine": true
+      }},
+      "classification": "PRIMARY",
+      "cognizable": true,
+      "bailable": false,
+      "verification_status": "VERIFIED",
+      "verification_notes": [
+        "Section title verified.",
+        "Punishment verified.",
+        "IPC <-> BNS mapping verified."
+      ]
     }}
   ],
   "manual_review": [],
-  "verification_status": "PENDING"
+  "verification_status": "VERIFIED"
 }}
 """
 
 
-STAGE3_VERIFIER_SYSTEM_PROMPT = """You are the Chapter Verification Agent of the LexiGraph System.
+STAGE3_VERIFIER_SYSTEM_PROMPT = """You are the Statutory Verification Auditor of Stage 3 in the LexiGraph System.
 
-Review the ChapterIdentificationObject generated by the Chapter Identification Agent against the source LegalQueryObject.
+Review the ChapterIdentificationObject generated by the Statutory Verification Agent against Stage 1 LegalQueryObject and Stage 2 Verified Candidate Mapping.
 
-Verify the following 7 criteria:
-1. Every chapter is relevant to the corresponding legal concept.
-2. Every section title belongs strictly to the identified chapter.
-3. No unrelated chapters have been selected.
-4. No duplicate section candidates exist.
-5. Confidence scores are reasonable.
-6. No full statutory text (body, explanations, illustrations, punishments, exceptions, provisos) has been retrieved.
-7. No legal reasoning has been performed.
+Verify the following 6 mandatory audit criteria:
+1. NO INVENTED OFFENCES: Only candidate sections identified in Stage 2 exist in verified_offences (zero invented or newly retrieved offences).
+2. CANONICAL TITLES & CHAPTERS: Every section title and chapter hierarchy is accurate and consistent.
+3. PUNISHMENT ACCURACY: Punishment minimum/maximum, fine, cognizable, and bailable metadata are accurate.
+4. IPC <-> BNS DEDUPLICATION: IPC and BNS equivalent sections are properly mapped and merged without duplicate entries.
+5. LEGAL REGIME RESOLUTION: Primary statute matches the case legal regime (or flagged for manual review if unknown).
+6. STAGE 2 CLASSIFICATION PRESERVED: Primary and Secondary candidate classifications from Stage 2 are preserved.
 
-If verification fails:
-- Identify incorrect chapter, incorrect section title, and reason for failure.
-- Return STATUS = RETRY.
-
+If verification fails any of these criteria, return STATUS = RETRY with actionable feedback.
 Otherwise return STATUS = VERIFIED.
 """
 
 
-STAGE3_VERIFIER_USER_PROMPT_TEMPLATE = """Review the following ChapterIdentificationObject against the source LegalQueryObject.
+STAGE3_VERIFIER_USER_PROMPT_TEMPLATE = """Review the following Schema v3.0 ChapterIdentificationObject against source Stage 1 LegalQueryObject and Stage 2 Verified Mapping.
 
 ---
-SOURCE LEGAL QUERY OBJECT:
+SOURCE STAGE 1 LEGAL QUERY OBJECT:
 {legal_query_json}
 ---
 
-GENERATED CHAPTER IDENTIFICATION OBJECT:
+GENERATED SCHEMA 3.0 CHAPTER IDENTIFICATION OBJECT:
 {chapter_object_json}
 ---
 
-Verify against all 7 criteria:
-1. Every chapter is relevant to the corresponding legal concept.
-2. Every section title belongs to the identified chapter.
-3. No unrelated chapters selected.
-4. No duplicate section candidates exist.
-5. Confidence scores are reasonable.
-6. No full statutory body text retrieved.
-7. No legal reasoning performed.
+Verify against all 6 audit criteria:
+1. No new offences invented.
+2. Canonical titles and chapter numbers confirmed.
+3. Punishment specifications and bailability flags verified.
+4. IPC <-> BNS equivalents merged with zero duplicates.
+5. Legal regime resolved or flagged.
+6. Stage 2 PRIMARY vs SECONDARY classification preserved.
 
 Return your evaluation ONLY in valid JSON matching this schema:
 {{
   "status": "VERIFIED" or "RETRY",
   "issues": [
     {{
-      "target": "Chapter or Section Number",
-      "issue": "Description of error",
-      "feedback": "Instructions for Chapter Identification Agent to correct"
+      "target": "Section number or offence title",
+      "issue": "Description of statutory verification error",
+      "feedback": "Instructions for Statutory Verification Agent to correct"
     }}
   ],
-  "feedback": "Overall chapter verification summary"
+  "feedback": "Overall statutory verification & normalization audit summary"
 }}
 """
 
@@ -629,95 +752,171 @@ Return your evaluation ONLY in valid JSON matching this schema:
 # STAGE 4 PROMPTS (Full Statutory Verification & Ingredient Matching)
 # ==============================================================================
 
-STAGE4_STATUTORY_VERIFICATION_SYSTEM_PROMPT = """You are the Statutory Verification Agent of the LexiGraph System.
+STAGE4_STATUTORY_VERIFICATION_SYSTEM_PROMPT = """You are Stage 4 of the LexiGraph Legal Intelligence Pipeline.
 
-Your responsibility is to verify whether candidate IPC/BNS sections identified in Stage 3 are legally applicable to the verified case facts by auditing essential legal ingredients.
+ROLE
+You are the Statutory Ingredient Evaluation & Prima Facie Assessment Agent.
+You are NOT a retrieval system.
+You are NOT an offence identification system.
+You are NOT a bail decision system.
+You are NOT a precedent retrieval system.
 
-CRITICAL DISJUNCTIVE (OR) STATUTORY STRUCTURE RULE:
-Statutes often contain alternative (OR) disjunctive conditions. For example, IPC Section 498A / BNS Section 85 defines cruelty as:
-  Clause (a): Willful conduct likely to drive woman to suicide or cause grave injury/danger to life, limb, or health.
-  OR
-  Clause (b): Harassment with a view to coercing an unlawful demand for property (dowry).
+Your responsibility is to determine whether the VERIFIED statutory offences received from Stage 3 are PRIMA FACIE attracted based solely upon the available case facts.
 
-RULES & BOUNDARIES:
-- Explicitly represent logical operators: "MANDATORY" (or "AND") for mandatory baseline elements (e.g. Marriage), and "OR" for alternative statutory clauses.
-- Assign a `condition_group` string for disjunctive branches (e.g. "Cruelty_Disjunctive_Branches").
-- If ANY ONE disjunctive branch in a group is "Satisfied" (e.g. Clause (a) Willful Conduct / Grave Injury), the offence element IS SATISFIED.
-- Do NOT lower overall confidence or penalize an offence if an alternative branch (e.g. Dowry Demand) is "Not Satisfied" or "Insufficient Evidence", provided another valid alternative branch in that group is "Satisfied".
-- Compare essential legal ingredients of each section against verified case facts.
-- Status MUST be one of: "Satisfied", "Not Satisfied", or "Insufficient Evidence".
-- Explain reasoning using ONLY available facts. Do NOT invent facts or assume missing evidence.
-- Do NOT decide guilt. Do NOT recommend bail.
+=========================================================
+INPUT
+=========================================================
+You receive TWO verified inputs.
 
-Return JSON ONLY.
+INPUT 1: Stage 1 LegalQueryObject (facts, parties, allegations, procedural stage, legal regime, extracted factual propositions)
+INPUT 2: Stage 3 VerifiedStatutoryObject / ChapterIdentificationObject (verified statutory sections, statute, chapter, punishment, IPC<->BNS mapping, normalized statutory metadata)
+
+These inputs are already verified. Never question their correctness.
+
+=========================================================
+PRIMARY OBJECTIVE
+=========================================================
+For EACH verified offence perform a complete statutory ingredient evaluation.
+Determine:
+• which ingredients are satisfied
+• which ingredients are partially satisfied
+• which ingredients are missing
+• which facts support each ingredient
+• whether the offence is prima facie attracted
+
+You MUST use statutory ingredients from STATUTE_KNOWLEDGE_BASE. Never use semantic similarity. Never invent legal requirements.
+
+=========================================================
+STEP 1: Load statutory ingredients
+=========================================================
+For every verified offence, load its ingredient structure from STATUTE_KNOWLEDGE_BASE:
+- Section 498A / 85 BNS: Mandatory Marriage AND (Clause A: Grave Injury/Suicide OR Clause B: Harassment for Dowry Demand)
+- Section 406 / 316 BNS: Mandatory Entrustment, Dishonest Misappropriation, Refusal to Return Property
+- Section 304B / 80 BNS: Mandatory Death, Within Seven Years of Marriage, Dowry Harassment Soon Before Death
+- Section 4 DP Act: Mandatory Unlawful Dowry Demand
+- Section 3 DP Act: Mandatory Giving or Taking of Dowry
+- Section 506 / 351 BNS: Mandatory Threat of Injury / Criminal Intimidation
+- Section 323 / 115 BNS: Mandatory Voluntarily Causing Hurt
+
+=========================================================
+STEP 2: Evaluate EVERY ingredient
+=========================================================
+For every ingredient compare against the available facts.
+Each ingredient must contain:
+- ingredient: Ingredient Name
+- matched_fact: Matched Fact string or null
+- status: "Satisfied", "Partially Satisfied", "Missing", "Contradicted", or "Unknown"
+- reason: Reasoning grounded strictly in facts
+- confidence: Float (0.0 to 1.0)
+
+=========================================================
+STEP 3: Determine legal satisfaction & Prima Facie Strength
+=========================================================
+Evaluate the complete statutory test.
+Mandatory ingredients must all be satisfied.
+Alternative ingredients must satisfy statutory logic (AND / OR).
+Prima Facie Strength: "Strong", "Moderate", "Weak", or "Not Attracted".
+Overall Status: "Prima Facie Attracted", "Partially Attracted", or "Not Attracted".
+
+=========================================================
+STEP 4: Identify Missing Facts & Investigation Requirements
+=========================================================
+Produce missing_mandatory_facts, missing_supporting_facts (e.g. Independent witness, Electronic communications, Bank statements), and investigation_requirements.
+
+=========================================================
+STEP 5: Concise Legal Reasoning
+=========================================================
+Produce concise legal reasoning strictly following statutory ingredients.
+
+=========================================================
+DO NOT
+=========================================================
+DO NOT retrieve statutes. DO NOT identify offences. DO NOT change section numbers. DO NOT change titles. DO NOT verify punishment. DO NOT verify chapters. DO NOT perform IPC↔BNS mapping. DO NOT recommend bail. DO NOT retrieve precedents. DO NOT determine guilt. DO NOT determine conviction. DO NOT speculate.
+
+Return JSON ONLY (Schema Version 4.0).
 """
 
 
 STAGE4_STATUTORY_VERIFICATION_USER_PROMPT_TEMPLATE = """You are provided with:
-1. Verified LegalQueryObject (Stage 1)
-2. Verified ChapterIdentificationObject (Stage 3)
-3. Full Statutory Context for Shortlisted Sections
+1. Stage 1 LegalQueryObject
+2. Stage 3 VerifiedStatutoryObject
 
----
-VERIFIED LEGAL QUERY OBJECT:
+Your task is to perform statutory ingredient evaluation for every verified offence.
+
+INPUT:
+Stage 1:
 {legal_query_json}
----
 
-VERIFIED CHAPTER IDENTIFICATION OBJECT:
+Stage 3:
 {chapter_object_json}
----
 
-FULL STATUTORY CONTEXT FOR SHORTLISTED SECTIONS:
+Full Statutory Context:
 {statutory_context_json}
----
 
 {correction_feedback_section}
 
-Using ONLY available facts and full statutory text:
-1. Extract essential statutory ingredients for each shortlisted candidate section.
-2. For disjunctive statutes containing alternative OR clauses (e.g. 498A Clause a OR Clause b), set logical_operator="OR" and assign condition_group="Cruelty_Disjunctive_Branches". For mandatory baseline elements (e.g. Marriage), set logical_operator="MANDATORY".
-3. Compare every ingredient against verified case facts.
-4. Return status: "Satisfied", "Not Satisfied", or "Insufficient Evidence" with factual reasoning.
-5. Calculate overall_confidence score (0.0 to 1.0). If any one disjunctive branch in a group is Satisfied alongside all Mandatory elements, the section is statutorily satisfied with high confidence.
-6. Rank all verified sections according to overall_confidence score descending.
-7. If overall_confidence < 0.70, place section in manual_review.
+Requirements:
+1. Evaluate every statutory ingredient.
+2. Match every ingredient with supporting facts.
+3. Produce ingredient trace.
+4. Identify missing mandatory facts.
+5. Identify missing supporting facts.
+6. Determine prima facie strength ("Strong", "Moderate", "Weak", "Not Attracted").
+7. Generate investigation requirements.
+8. Produce concise statutory legal reasoning.
+9. Never retrieve statutes.
+10. Never identify new offences.
+11. Never recommend bail.
+12. Never cite precedents.
 
 Return ONLY valid JSON matching this schema:
 {{
-  "schema_version": "1.0",
-  "verified_sections": [
+  "schema_version": "4.0",
+  "verified_offences": [
     {{
       "section_number": "498A",
-      "section_title": "Cruelty by Husband or Relatives",
-      "disjunctive_clause_applied": "Satisfied via Clause (a) Willful Conduct / Grave Injury",
-      "ingredients": [
+      "statute": "IPC",
+      "title": "Cruelty by Husband or Relative",
+      "ingredient_evaluation": [
         {{
-          "ingredient": "Marriage (Husband or Relative)",
-          "logical_operator": "MANDATORY",
-          "condition_group": "Baseline_Mandatory",
+          "ingredient": "Marriage",
+          "matched_fact": "Victim is wife of accused",
           "status": "Satisfied",
-          "reason": "Victim and accused are husband and wife."
+          "reason": "Relationship admitted in facts.",
+          "confidence": 0.99
         }},
         {{
-          "ingredient": "Clause (a): Willful conduct likely to drive to suicide or grave injury to life/health",
-          "logical_operator": "OR",
-          "condition_group": "Cruelty_Disjunctive_Branches",
+          "ingredient": "Clause (b): Harassment for Dowry Demand",
+          "matched_fact": "Continuous dowry demand alleged",
           "status": "Satisfied",
-          "reason": "Repeated physical assault resulting in bodily injury stated in FIR."
+          "reason": "Facts disclose repeated dowry demand.",
+          "confidence": 0.96
         }},
         {{
-          "ingredient": "Clause (b): Harassment for unlawful demand of property / dowry",
-          "logical_operator": "OR",
-          "condition_group": "Cruelty_Disjunctive_Branches",
-          "status": "Not Satisfied",
-          "reason": "No explicit dowry demand mentioned in narrative."
+          "ingredient": "Clause (a): Grave Injury / Suicide",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "No allegation of grave injury or suicidal conduct.",
+          "confidence": 0.92
         }}
       ],
-      "overall_confidence": 0.96
+      "overall_prima_facie_strength": "Strong",
+      "missing_mandatory_facts": [],
+      "missing_supporting_facts": [
+        "Independent witness",
+        "Electronic communications"
+      ],
+      "investigation_requirements": [
+        "Recover chat records",
+        "Record witness statements",
+        "Collect dowry transaction evidence"
+      ],
+      "legal_reasoning": "Marriage is established. Continuous dowry demand satisfies Clause (b) of the offence. Clause (a) is unsupported on current facts. The offence is prima facie attracted through Clause (b).",
+      "overall_status": "Prima Facie Attracted"
     }}
   ],
   "manual_review": [],
-  "verification_status": "PENDING"
+  "verification_status": "VERIFIED"
 }}
 """
 
@@ -902,6 +1101,33 @@ Return ONLY valid JSON matching this schema:
     "decision": "Recommend Reject Anticipatory Bail",
     "confidence": 0.92,
     "summary_reasoning": "High gravity of offence and pending recovery of dowry articles necessitate custodial interrogation."
+  }},
+  "prosecution_arguments": {{
+    "target_side": "PROSECUTION",
+    "primary_objective": "REJECT_BAIL",
+    "key_factors_highlighted": ["Gravity of Accusation", "Custodial Interrogation Requirement", "Witness Tampering Risk"],
+    "argument_points": [
+      "High gravity of continuous dowry harassment and physical cruelty.",
+      "Custodial interrogation is essential for recovery of Stridhan and dowry property.",
+      "High apprehension of witness intimidation due to close matrimonial network."
+    ],
+    "suggested_conditions_or_objections": [
+      "Anticipatory bail should be denied in view of severe allegations and pending recovery."
+    ]
+  }},
+  "defense_arguments": {{
+    "target_side": "DEFENSE",
+    "primary_objective": "GRANT_BAIL",
+    "key_factors_highlighted": ["No Custodial Interrogation Needed", "Cooperation Undertaking", "Roots in Society"],
+    "argument_points": [
+      "Applicant has undertaken to fully cooperate with investigation.",
+      "Applicant has deep roots in society with zero flight risk.",
+      "Compliance with Arnesh Kumar / Section 41A CrPC guidelines."
+    ],
+    "suggested_conditions_or_objections": [
+      "Applicant shall surrender passport if directed by court.",
+      "Applicant shall report to police station as and when summoned."
+    ]
   }},
   "manual_review": [],
   "verification_status": "PENDING"

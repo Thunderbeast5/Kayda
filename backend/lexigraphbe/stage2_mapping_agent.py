@@ -60,11 +60,19 @@ class Stage2SubQueryMappingAgent:
             query_obj = LegalQueryObject.model_validate(json.loads(str(legal_query)))
             query_json_str = str(legal_query)
 
-        # Step 1: Run local StatuteClassifierPrefilter (0 API calls)
-        prefiltered_matches = []
+        # Step 1: Extract combined facts text from LegalQueryObject
+        facts_text_parts = []
+        if query_obj.important_facts:
+            facts_text_parts.append(str(query_obj.important_facts.model_dump()))
+        for sq in query_obj.sub_queries:
+            facts_text_parts.append(sq.query)
+        facts_text = " ".join(facts_text_parts)
+
         regime = query_obj.legal_regime or "IPC + CrPC"
         statute_type = "BNS" if "BNS" in regime.upper() else "IPC"
 
+        # Step 2: Run local StatuteClassifierPrefilter (0 API calls)
+        prefiltered_matches = []
         for concept_item in query_obj.legal_concepts:
             matches = self.prefilter.prefilter_candidates(
                 query_text=concept_item.concept,
@@ -73,17 +81,46 @@ class Stage2SubQueryMappingAgent:
             )
             prefiltered_matches.extend(matches)
 
-        # Deduplicate pre-filter matches
+        # Step 3: Detect factual triggers (e.g. dowry -> 498A & Sec 4 DP Act, stridhan -> 406, threat -> 506)
+        trigger_suggestions = self.prefilter.detect_factual_triggers(facts_text=facts_text, statute_type=statute_type)
+
+        # Deduplicate pre-filter matches and include trigger suggestions
         dedup_dict = {}
         for m in prefiltered_matches:
-            k = f"{m.statute_type}_{m.section_number}"
-            if k not in dedup_dict or m.score > dedup_dict[k]["score"]:
+            statute_str = getattr(m, "statute", getattr(m, "statute_type", "IPC"))
+            sec_num = getattr(m, "section_number", "")
+            title_str = getattr(m, "title", getattr(m, "section_title", ""))
+            chap_str = getattr(m, "chapter", getattr(m, "chapter_name", ""))
+            score_val = getattr(m, "score", 0.0)
+
+            is_not_triggered, elim_reason, missing_mands = self.prefilter.evaluate_fatal_disqualification(sec_num, statute_str, facts_text)
+
+            k = f"{statute_str}_{sec_num}"
+            if k not in dedup_dict or score_val > dedup_dict[k]["score"]:
                 dedup_dict[k] = {
-                    "statute": m.statute_type,
-                    "section_number": m.section_number,
-                    "section_title": m.section_title,
-                    "chapter_name": m.chapter_name,
-                    "score": round(m.score, 4),
+                    "statute": statute_str,
+                    "section_number": sec_num,
+                    "section_title": title_str,
+                    "chapter_name": chap_str,
+                    "score": round(score_val, 4),
+                    "not_triggered": is_not_triggered,
+                    "not_triggered_reason": elim_reason,
+                    "missing_mandatory_ingredients": missing_mands,
+                }
+
+        for ts in trigger_suggestions:
+            k = f"{ts['statute']}_{ts['section_number']}"
+            if k not in dedup_dict:
+                dedup_dict[k] = {
+                    "statute": ts["statute"],
+                    "section_number": ts["section_number"],
+                    "section_title": ts["section_title"],
+                    "chapter_name": "Suggested Statutory Chapter",
+                    "score": 0.85,
+                    "suggested_tier": ts["candidate_type"],
+                    "trigger_note": ts["trigger"],
+                    "disqualified": False,
+                    "disqualification_reason": None,
                 }
 
         prefilter_json_str = json.dumps(list(dedup_dict.values()), indent=2)

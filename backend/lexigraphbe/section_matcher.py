@@ -25,41 +25,24 @@ FALLBACK_IPC_BNS_SECTIONS = {
 }
 
 
+from .statute_repository import StatuteRepository
+
+
 def load_closed_section_identifiers() -> Set[str]:
     """
-    Loads closed set of valid section numbers/identifiers from CSV datasets in data/new/
+    Loads closed set of valid section numbers/identifiers from StatuteRepository
     or defaults to the robust built-in fallback set.
     """
     section_set = set(FALLBACK_IPC_BNS_SECTIONS)
-
-    # Search candidate dataset paths
-    candidate_paths = [
-        Path("data/new/ipc_sections.csv"),
-        Path("data/new/bns_sections_clean.csv"),
-        Path("../data/new/ipc_sections.csv"),
-        Path("../data/new/bns_sections_clean.csv"),
-        Path("c:/MootCourt/data/new/ipc_sections.csv"),
-        Path("c:/MootCourt/data/new/bns_sections_clean.csv"),
-    ]
-
-    for p in candidate_paths:
-        if p.exists():
-            try:
-                with open(p, mode="r", encoding="utf-8", errors="ignore") as f:
-                    reader = csv.DictReader(f)
-                    for row in reader:
-                        sec_val = row.get("Section") or row.get("section")
-                        if sec_val:
-                            clean_sec = str(sec_val).strip()
-                            clean_sec = clean_sec.replace("IPC_", "").replace("BNS_", "")
-                            if clean_sec:
-                                section_set.add(clean_sec.upper())
-                                # Add hyphenated variant if lettered (e.g. 498A -> 498-A)
-                                m = re.match(r"^(\d+)([A-Z]+)$", clean_sec.upper())
-                                if m:
-                                    section_set.add(f"{m.group(1)}-{m.group(2)}")
-            except Exception:
-                pass
+    try:
+        repo = StatuteRepository.get_instance()
+        for item in repo.get_sections_db():
+            sec_num = item.get("section_number")
+            if sec_num:
+                section_set.add(sec_num.upper().strip())
+                section_set.add(sec_num.upper().replace("-", "").strip())
+    except Exception:
+        pass
 
     # Also add standard 1 to 511 numbers
     for i in range(1, 512):

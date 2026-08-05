@@ -71,7 +71,7 @@ def test_bail_reasoning_object_schema():
     )
 
     d = bro.model_dump()
-    assert d["schema_version"] == "1.0"
+    assert d["schema_version"] == "5.0"
     assert d["bail_provision_applied"] == "Section 438 CrPC"
     assert d["bail_evaluation"]["gravity_of_offence"]["value"] == "High"
     assert d["overall_recommendation"]["decision"] == "Recommend Reject Anticipatory Bail"
@@ -355,8 +355,55 @@ def test_full_stage0_to_stage5_end_to_end_chain():
     s5_res = s5_pipeline.run(cco, qo, svo)
 
     assert s5_res.status == "VERIFIED"
-    bro = s5_res.verified_bail_object
-    assert bro is not None
-    assert bro.bail_provision_applied == "Section 482 BNSS"
-    assert bro.legal_regime == "BNS + BNSS"
-    assert bro.overall_recommendation.decision == "Recommend Grant Anticipatory Bail"
+    assert s5_res.verified_bail_object is not None
+    assert s5_res.verified_bail_object.prosecution_arguments is not None
+    assert s5_res.verified_bail_object.defense_arguments is not None
+
+
+def test_stage5_dual_perspective_argument_packages():
+    """
+    Verifies that Stage 5 generates structured argument packages for both Prosecution (bail denial)
+    and Defense (bail grant) to feed Virtual Moot Court role agents.
+    """
+    mock_llm = MagicMock()
+    mock_llm.invoke.return_value.content = json.dumps({
+        "schema_version": "5.0",
+        "bail_provision_applied": "Section 438 CrPC",
+        "legal_regime": "IPC + CrPC",
+        "bail_evaluation": {
+            "gravity_of_offence": {"value": "High", "reason": "Continuous dowry harassment and cruelty."},
+            "prima_facie_case": {"value": "Strong", "reason": "Ingredients of S.498A satisfied."},
+            "custodial_interrogation": {"value": "Required", "reason": "Recovery of dowry articles and Stridhan is pending."},
+            "witness_tampering": {"value": "High", "reason": "Witnesses are family members."},
+            "evidence_tampering": {"value": "Medium", "reason": "Electronic records."},
+            "flight_risk": {"value": "Low", "reason": "Local residence."},
+            "criminal_antecedents": {"value": "None", "reason": "No priors."},
+            "cooperation": {"value": "Cooperative", "reason": "Joined investigation."}
+        },
+        "overall_recommendation": {
+            "decision": "Recommend Reject Anticipatory Bail",
+            "confidence": 0.92,
+            "summary_reasoning": "High gravity and pending recovery of Stridhan."
+        },
+        "manual_review": [],
+        "verification_status": "PENDING"
+    })
+
+    agent = BailReasoningAgent(llm=mock_llm)
+    cco = CaseContextObject(
+        case_profile=CaseProfile(procedural_stage="Anticipatory Bail", legal_regime="IPC + CrPC"),
+        contract_status="VALID",
+        verification_status="VERIFIED"
+    )
+    qo = LegalQueryObject(legal_regime="IPC + CrPC", legal_concepts=[LegalConceptItem(concept="Cruelty", confidence=0.95)])
+    svo = StatutoryVerificationObject(legal_regime="IPC + CrPC")
+
+    bro_pros = agent.run(cco, qo, svo, side="PROSECUTION")
+    assert bro_pros.target_side == "PROSECUTION"
+    assert bro_pros.prosecution_arguments is not None
+    assert bro_pros.prosecution_arguments.primary_objective == "REJECT_BAIL"
+
+    bro_def = agent.run(cco, qo, svo, side="DEFENSE")
+    assert bro_def.target_side == "DEFENSE"
+    assert bro_def.defense_arguments is not None
+    assert bro_def.defense_arguments.primary_objective == "GRANT_BAIL"

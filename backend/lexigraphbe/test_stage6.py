@@ -425,3 +425,68 @@ def test_grounded_precedents_structured_json_dataset_loading():
     assert "Gurbaksh Singh Sibbia" in prompt_text
     assert "Satender Kumar Antil" in prompt_text
 
+
+def test_stage6_precedent_similarity_calibration():
+    """
+    Verifies that PrecedentRetrievalAgent calibrates similarity scores based on factual and offence overlap:
+    - Arnesh Kumar / direct offence matches score high (>= 0.90).
+    - Satender Kumar Antil (generic Category A guidelines) scores <= 0.55 and triggers manual_review warning.
+    """
+    mock_llm = MagicMock()
+    mock_llm.invoke.return_value.content = json.dumps({
+        "schema_version": "1.0",
+        "precedents": [
+            {
+                "case_name": "Arnesh Kumar v. State of Bihar",
+                "court": "Supreme Court of India",
+                "citation": "(2014) 8 SCC 273",
+                "facts": "Allegations under 498A IPC and Section 4 DP Act.",
+                "verified_offences": ["498A IPC", "4 Dowry Prohibition Act"],
+                "bail_outcome": "Guidelines Formulated",
+                "ratio_decidendi": "Mandatory 41A notice required.",
+                "similarity_score": 0.85
+            },
+            {
+                "case_name": "Satender Kumar Antil v. CBI",
+                "court": "Supreme Court of India",
+                "citation": "(2022) 10 SCC 51",
+                "facts": "General arrest guidelines across Category A, B, C, D offences.",
+                "verified_offences": ["Category A Offences"],
+                "bail_outcome": "Bail Policy Formulated",
+                "ratio_decidendi": "Category A offences up to 7 years get bail without custody.",
+                "similarity_score": 0.85
+            }
+        ],
+        "manual_review": [],
+        "verification_status": "PENDING"
+    })
+
+    agent = PrecedentRetrievalAgent(llm=mock_llm)
+
+    cco = CaseContextObject(case_profile=CaseProfile(legal_regime="IPC + CrPC"), contract_status="VALID", verification_status="VERIFIED")
+    qo = LegalQueryObject(legal_concepts=[LegalConceptItem(concept="Dowry Demand", confidence=0.95)])
+    svo = StatutoryVerificationObject(verified_sections=[VerifiedSectionItem(section_number="498A", section_title="Cruelty", ingredients=[], overall_confidence=0.95)])
+    bro = BailReasoningObject(bail_evaluation=BailEvaluationMap(
+        gravity_of_offence=BailFactorEvaluationItem(value="High"),
+        prima_facie_case=BailFactorEvaluationItem(value="Strong"),
+        custodial_interrogation=BailFactorEvaluationItem(value="Required"),
+        witness_tampering=BailFactorEvaluationItem(value="High"),
+        evidence_tampering=BailFactorEvaluationItem(value="Medium"),
+        flight_risk=BailFactorEvaluationItem(value="Low"),
+        criminal_antecedents=BailFactorEvaluationItem(value="None"),
+        cooperation=BailFactorEvaluationItem(value="Cooperative")
+    ), overall_recommendation=OverallBailRecommendation(decision="Recommend Reject Anticipatory Bail", confidence=0.92))
+
+    res = agent.run(cco, qo, svo, bro)
+
+    # Arnesh Kumar should be calibrated >= 0.90
+    arnesh = next((p for p in res.precedents if "Arnesh" in p.case_name), None)
+    assert arnesh is not None
+    assert arnesh.similarity_score >= 0.90
+
+    # Satender Kumar Antil should be calibrated <= 0.55 & trigger manual_review
+    satender = next((p for p in res.precedents if "Satender" in p.case_name), None)
+    assert satender is not None
+    assert satender.similarity_score <= 0.55
+    assert any("Satender" in note and "cutoff 0.70" in note for note in res.manual_review)
+

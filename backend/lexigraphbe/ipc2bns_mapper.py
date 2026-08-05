@@ -8,16 +8,24 @@ from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
 
+from .statute_repository import StatuteRepository
+
+
 class IPC2BNSMapper:
     """
     Bidirectional IPC ↔ BNS statutory mapper.
-    Loads mapping table from ipc2bns_clean.csv.
+    Uses StatuteRepository singleton for instant in-memory mapping lookups.
     """
 
     def __init__(self, csv_path: Optional[str] = None):
-        self.ipc_to_bns: Dict[str, Dict[str, str]] = {}
-        self.bns_to_ipc: Dict[str, Dict[str, str]] = {}
-        self._load_mapping_table(csv_path)
+        if not csv_path:
+            repo = StatuteRepository.get_instance()
+            self.ipc_to_bns = repo.get_ipc_to_bns_map()
+            self.bns_to_ipc = repo.get_bns_to_ipc_map()
+        else:
+            self.ipc_to_bns = {}
+            self.bns_to_ipc = {}
+            self._load_mapping_table(csv_path)
 
     def _load_mapping_table(self, custom_path: Optional[str] = None):
         candidate_paths = [

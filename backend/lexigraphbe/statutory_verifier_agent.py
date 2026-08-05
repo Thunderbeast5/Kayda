@@ -77,7 +77,32 @@ class StatutoryVerificationAuditor:
         programmatic_issues = []
 
         # 1. Section Number Matching Check against Stage 3 Candidates
-        candidate_sec_numbers = {s.section_number.strip().lower() for s in target_chap.section_candidates}
+        candidate_sec_numbers = set()
+        from .ipc2bns_mapper import IPC2BNSMapper
+        mapper = IPC2BNSMapper()
+
+        for s in target_chap.section_candidates:
+            num = s.section_number.strip().lower()
+            candidate_sec_numbers.add(num)
+            b_eq = mapper.get_bns_equivalent(num)
+            if b_eq and b_eq.get("bns_section_clean"):
+                candidate_sec_numbers.add(b_eq["bns_section_clean"].strip().lower())
+            i_eq = mapper.get_ipc_equivalent(num)
+            if i_eq and i_eq.get("ipc_section"):
+                candidate_sec_numbers.add(i_eq["ipc_section"].strip().lower())
+
+        for vo in getattr(target_chap, "verified_offences", []):
+            for sec_key in (vo.section_number, vo.ipc_equivalent, vo.bns_equivalent):
+                if sec_key:
+                    num = sec_key.strip().lower()
+                    candidate_sec_numbers.add(num)
+                    b_eq = mapper.get_bns_equivalent(num)
+                    if b_eq and b_eq.get("bns_section_clean"):
+                        candidate_sec_numbers.add(b_eq["bns_section_clean"].strip().lower())
+                    i_eq = mapper.get_ipc_equivalent(num)
+                    if i_eq and i_eq.get("ipc_section"):
+                        candidate_sec_numbers.add(i_eq["ipc_section"].strip().lower())
+
         for v_sec in target_stat.verified_sections:
             clean_v_num = v_sec.section_number.strip().lower()
             if candidate_sec_numbers and clean_v_num not in candidate_sec_numbers:

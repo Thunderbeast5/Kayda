@@ -73,12 +73,12 @@ def run_stage2(legal_query_input: dict) -> dict:
     return {"status": res.status, "feedback": res.feedback}
 
 
-def run_stage3(legal_query_input: dict) -> dict:
+def run_stage3(legal_query_input: dict, stage2_input: Optional[dict] = None) -> dict:
     """
-    Executes Stage 3 pipeline on LegalQueryObject dict and returns ChapterIdentificationObject dict.
+    Executes Stage 3 pipeline on LegalQueryObject and Stage 2 verified mapping dicts.
     """
     pipeline = Stage3Pipeline()
-    res = pipeline.run(legal_query_input)
+    res = pipeline.run(legal_query_input, stage2_mapping=stage2_input)
     if res.verified_chapter_object:
         return res.verified_chapter_object.model_dump()
     return {"status": res.status, "feedback": res.feedback}
@@ -137,7 +137,7 @@ def run_full_pipeline(
 
     stage1_out = run_stage1(stage0_out)
     stage2_out = run_stage2(stage1_out)
-    stage3_out = run_stage3(stage1_out)
+    stage3_out = run_stage3(stage1_out, stage2_out)
     stage4_out = run_stage4(stage1_out, stage3_out)
     stage5_out = run_stage5(stage0_out, stage1_out, stage4_out)
     stage6_out = run_stage6(stage0_out, stage1_out, stage4_out, stage5_out)
@@ -154,13 +154,13 @@ def run_full_pipeline(
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Run Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 5 & Stage 6 LexiGraph Backend Pipelines")
+    parser = argparse.ArgumentParser(description="Run Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 5, Stage 6 & Full LexiGraph Backend Pipelines")
     parser.add_argument("--file", "-f", type=str, help="Path to input raw document text file")
     parser.add_argument("--text", "-t", type=str, help="Raw document text input string")
     parser.add_argument("--query", "-q", type=str, help="User instructions / query")
     parser.add_argument("--court", type=str, help="Court type (Sessions Court / High Court)")
     parser.add_argument("--regime", type=str, help="Legal regime override (IPC + CrPC / BNS + BNSS)")
-    parser.add_argument("--stage", type=int, choices=[0, 1, 2, 3, 4, 5, 6], default=6, help="Target stage to run (0=Intake, 1=Query Understanding, 2=SubQuery Mapping, 3=Chapter Identification, 4=Statutory Verification, 5=Bail Reasoning, 6=Full Chain)")
+    parser.add_argument("--stage", type=int, choices=[0, 1, 2, 3, 4, 5, 6, 7], default=7, help="Target stage to run (0=Intake, 1=Query Understanding, 2=SubQuery Mapping, 3=Chapter Identification, 4=Statutory Verification, 5=Bail Reasoning, 6=Precedent Retrieval, 7=Full Chain)")
 
     args = parser.parse_args()
 
@@ -200,6 +200,15 @@ def main():
             stage4_res = run_stage4(stage1_res, stage3_res)
             res = run_stage5(stage0_res, stage1_res, stage4_res)
             print("\n=== STAGE 5 BAIL REASONING RESULT ===")
+            print(json.dumps(res, indent=2, ensure_ascii=False))
+        elif args.stage == 6:
+            stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
+            stage1_res = run_stage1(stage0_res)
+            stage3_res = run_stage3(stage1_res)
+            stage4_res = run_stage4(stage1_res, stage3_res)
+            stage5_res = run_stage5(stage0_res, stage1_res, stage4_res)
+            res = run_stage6(stage0_res, stage1_res, stage4_res, stage5_res)
+            print("\n=== STAGE 6 PRECEDENT RETRIEVAL RESULT ===")
             print(json.dumps(res, indent=2, ensure_ascii=False))
         else:
             res = run_full_pipeline(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
