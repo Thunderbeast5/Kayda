@@ -1,12 +1,14 @@
 """
-CLI and Python runner for Stage 0 (Intake), Stage 1 (Query Understanding), Stage 2 (Batched Sub-Query Mapping), Stage 3 (Chapter Identification), Stage 4 (Statutory Verification), Stage 5 (Bail Reasoning), and Stage 6 (Precedent Retrieval).
+CLI and Python runner for Stage 0 (Intake), Stage 1 (Query Understanding), Stage 2 (Batched Sub-Query Mapping), Stage 3 (Chapter Identification), Stage 4 (Statutory Verification), Stage 5 (Bail Reasoning), Stage 6 (Precedent Retrieval), and Stage 7 (Role-Specific Argument Generation).
 """
 
 import argparse
 import json
+import os
 import sys
 from pathlib import Path
 from typing import Optional
+
 
 from .pipeline import Stage0Pipeline
 from .stage1_pipeline import Stage1Pipeline
@@ -15,6 +17,7 @@ from .stage3_pipeline import Stage3Pipeline
 from .stage4_pipeline import Stage4Pipeline
 from .stage5_pipeline import Stage5Pipeline
 from .stage6_pipeline import Stage6Pipeline
+from .stage7_pipeline import Stage7Pipeline
 from .schemas import IntakeInput
 
 
@@ -117,6 +120,17 @@ def run_stage6(case_context_input: dict, legal_query_input: dict, statutory_inpu
     return {"status": res.status, "feedback": res.feedback}
 
 
+def run_stage7(case_context_input: dict, statutory_input: dict, bail_input: dict, precedent_input: dict) -> dict:
+    """
+    Executes Stage 7 pipeline on CaseContextObject, StatutoryVerificationObject, BailReasoningObject, and PrecedentRetrievalObject dicts.
+    """
+    pipeline = Stage7Pipeline()
+    res = pipeline.run(case_context_input, statutory_input, bail_input, precedent_input)
+    if res.verified_role_argument_object:
+        return res.verified_role_argument_object.model_dump()
+    return {"status": res.status, "feedback": res.audit_result.feedback}
+
+
 def run_full_pipeline(
     text: Optional[str] = None,
     file_path: Optional[str] = None,
@@ -125,8 +139,14 @@ def run_full_pipeline(
     legal_regime_override: Optional[str] = None,
 ) -> dict:
     """
-    Chains Stage 0 -> Stage 1 -> Stage 2 -> Stage 3 -> Stage 4 -> Stage 5 -> Stage 6 and returns combined outputs.
+    Chains Stage 0 -> Stage 1 -> Stage 2 -> Stage 3 -> Stage 4 -> Stage 5 -> Stage 6 -> Stage 7 and returns combined outputs.
+    Inter-stage delays prevent Groq free-tier TPM rate limits from being hit consecutively.
     """
+    import time
+    # Configurable inter-stage cooldown (default 5s). Set STAGE_DELAY_SECS=0 to disable.
+    delay = float(os.getenv("STAGE_DELAY_SECS", "5"))
+
+    print("[Pipeline] Stage 0: Case Intake...")
     stage0_out = run_stage0(
         text=text,
         file_path=file_path,
@@ -135,12 +155,33 @@ def run_full_pipeline(
         legal_regime_override=legal_regime_override,
     )
 
+    time.sleep(delay)
+    print("[Pipeline] Stage 1: Query Understanding...")
     stage1_out = run_stage1(stage0_out)
+
+    time.sleep(delay)
+    print("[Pipeline] Stage 2: Sub-Query Mapping...")
     stage2_out = run_stage2(stage1_out)
+
+    time.sleep(delay)
+    print("[Pipeline] Stage 3: Chapter Identification...")
     stage3_out = run_stage3(stage1_out)
+
+    time.sleep(delay)
+    print("[Pipeline] Stage 4: Statutory Verification...")
     stage4_out = run_stage4(stage1_out, stage3_out)
+
+    time.sleep(delay)
+    print("[Pipeline] Stage 5: Bail Reasoning...")
     stage5_out = run_stage5(stage0_out, stage1_out, stage4_out)
+
+    time.sleep(delay)
+    print("[Pipeline] Stage 6: Precedent Retrieval...")
     stage6_out = run_stage6(stage0_out, stage1_out, stage4_out, stage5_out)
+
+    time.sleep(delay)
+    print("[Pipeline] Stage 7: Role Argument Generation...")
+    stage7_out = run_stage7(stage0_out, stage4_out, stage5_out, stage6_out)
 
     return {
         "stage0_case_context": stage0_out,
@@ -150,17 +191,18 @@ def run_full_pipeline(
         "stage4_statutory_verification": stage4_out,
         "stage5_bail_reasoning": stage5_out,
         "stage6_precedent_retrieval": stage6_out,
+        "stage7_role_arguments": stage7_out,
     }
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Run Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 5 & Stage 6 LexiGraph Backend Pipelines")
+    parser = argparse.ArgumentParser(description="Run Stage 0, 1, 2, 3, 4, 5, 6 & 7 LexiGraph Backend Pipelines")
     parser.add_argument("--file", "-f", type=str, help="Path to input raw document text file")
     parser.add_argument("--text", "-t", type=str, help="Raw document text input string")
     parser.add_argument("--query", "-q", type=str, help="User instructions / query")
     parser.add_argument("--court", type=str, help="Court type (Sessions Court / High Court)")
     parser.add_argument("--regime", type=str, help="Legal regime override (IPC + CrPC / BNS + BNSS)")
-    parser.add_argument("--stage", type=int, choices=[0, 1, 2, 3, 4, 5, 6], default=6, help="Target stage to run (0=Intake, 1=Query Understanding, 2=SubQuery Mapping, 3=Chapter Identification, 4=Statutory Verification, 5=Bail Reasoning, 6=Full Chain)")
+    parser.add_argument("--stage", type=int, choices=[0, 1, 2, 3, 4, 5, 6, 7], default=7, help="Target stage to run (0-7, default=7 for full end-to-end chain)")
 
     args = parser.parse_args()
 
@@ -201,9 +243,18 @@ def main():
             res = run_stage5(stage0_res, stage1_res, stage4_res)
             print("\n=== STAGE 5 BAIL REASONING RESULT ===")
             print(json.dumps(res, indent=2, ensure_ascii=False))
+        elif args.stage == 6:
+            stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
+            stage1_res = run_stage1(stage0_res)
+            stage3_res = run_stage3(stage1_res)
+            stage4_res = run_stage4(stage1_res, stage3_res)
+            stage5_res = run_stage5(stage0_res, stage1_res, stage4_res)
+            res = run_stage6(stage0_res, stage1_res, stage4_res, stage5_res)
+            print("\n=== STAGE 6 PRECEDENT RETRIEVAL RESULT ===")
+            print(json.dumps(res, indent=2, ensure_ascii=False))
         else:
             res = run_full_pipeline(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
-            print("\n=== FULL END-TO-END STAGE 0+1+2+3+4+5+6 PIPELINE CHAIN RESULT ===")
+            print("\n=== FULL END-TO-END STAGE 0 TO 7 PIPELINE CHAIN RESULT ===")
             print(json.dumps(res, indent=2, ensure_ascii=False))
     except Exception as e:
         print(f"Error running pipeline: {e}", file=sys.stderr)

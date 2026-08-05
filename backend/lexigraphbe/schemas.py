@@ -6,7 +6,7 @@ Stage 1: Query Understanding & Legal Decomposition -> LegalQueryObject
 
 import datetime
 from typing import Dict, List, Optional, Tuple, Union, Any
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 # Explicit Mandatory Fields required for Stage 1 downstream legal agents
 STAGE1_MANDATORY_FIELDS = [
@@ -22,6 +22,22 @@ UNIVERSAL_PROCEDURAL_DOCUMENTS = [
     "FIR / Complaint Copy",
     "Bail Application Copy",
 ]
+
+
+class LexiGraphBase(BaseModel):
+    """
+    Shared base class for all LexiGraph schema objects.
+    Provides a universal validator that coerces any non-string entries in
+    manual_review fields to strings, handling LLMs that return dicts or other
+    non-string types in that field.
+    """
+    @field_validator("manual_review", mode="before", check_fields=False)
+    @classmethod
+    def coerce_manual_review_to_strings(cls, v):
+        """Coerce any non-string items (e.g. dicts returned by LLM) to strings."""
+        if isinstance(v, list):
+            return [item if isinstance(item, str) else str(item) for item in v]
+        return v
 
 
 class CaseMetadata(BaseModel):
@@ -328,7 +344,7 @@ class ImportantFacts(BaseModel):
     witnesses: List[str] = Field(default_factory=list, description="Witnesses identified in factual narrative")
 
 
-class LegalQueryObject(BaseModel):
+class LegalQueryObject(LexiGraphBase):
     """
     Standardized Stage 1 LegalQueryObject produced by Query Understanding Agent.
     Independent of any IPC/BNS section numbers or chapter titles.
@@ -419,7 +435,7 @@ class SectionCandidateItem(BaseModel):
     confidence: float = Field(description="Confidence score for section candidate (0.0 to 1.0)")
 
 
-class ChapterIdentificationObject(BaseModel):
+class ChapterIdentificationObject(LexiGraphBase):
     """
     Standardized Stage 3 ChapterIdentificationObject contract.
     Contains candidate chapters and candidate section titles identified from lightweight index.
@@ -442,6 +458,7 @@ class ChapterIdentificationObject(BaseModel):
         default_factory=list,
         description="Candidates or concepts with confidence < 0.70 flagged for manual review"
     )
+
     verification_status: str = Field(
         default="PENDING",
         description="Verification status: PENDING, VERIFIED, or RETRY"
@@ -537,7 +554,7 @@ class VerifiedSectionItem(BaseModel):
         return True
 
 
-class StatutoryVerificationObject(BaseModel):
+class StatutoryVerificationObject(LexiGraphBase):
     """
     Standardized Stage 4 StatutoryVerificationObject contract.
     Contains verified statutory sections with evaluated legal ingredients and applicability confidence scores.
@@ -605,7 +622,7 @@ class OverallBailRecommendation(BaseModel):
     summary_reasoning: Optional[str] = Field(default=None, description="Judicial reasoning summary supporting the bail decision")
 
 
-class BailReasoningObject(BaseModel):
+class BailReasoningObject(LexiGraphBase):
     """
     Standardized Stage 5 BailReasoningObject contract.
     Contains judicial anticipatory bail evaluations under Sec 438 CrPC / Sec 482 BNSS without guilt determination.
@@ -651,7 +668,7 @@ class PrecedentItem(BaseModel):
     similarity_score: float = Field(description="Relevance similarity score (0.0 to 1.0) compared to current case")
 
 
-class PrecedentRetrievalObject(BaseModel):
+class PrecedentRetrievalObject(LexiGraphBase):
     """
     Standardized Stage 6 PrecedentRetrievalObject contract.
     Contains ranked judicial precedents with ratio decidendi, citations, and similarity scores.
@@ -675,8 +692,67 @@ class PrecedentVerificationIssue(BaseModel):
 class PrecedentVerificationResult(BaseModel):
     status: str = Field(description="Status: 'VERIFIED' or 'RETRY'")
     issues: List[PrecedentVerificationIssue] = Field(default_factory=list, description="List of audit issues identified")
-    feedback: str = Field(default="Precedent verification audit complete.", description="Overall summary feedback")
+    feedback: str = Field(default="Precedent retrieval verification audit complete.", description="Overall summary feedback")
     verified_precedent_object: Optional[PrecedentRetrievalObject] = Field(default=None, description="Verified PrecedentRetrievalObject")
+
+
+# ==============================================================================
+# STAGE 7 SCHEMAS (Role-Specific Argument Generation Engine)
+# ==============================================================================
+
+class ProsecutorArguments(BaseModel):
+    verified_sections: List[str] = Field(default_factory=list, description="Verified statutory IPC/BNS section numbers")
+    arguments: List[str] = Field(default_factory=list, description="Substantive prosecution arguments for rejection of anticipatory bail")
+    precedents: List[str] = Field(default_factory=list, description="Citations of retrieved precedents supporting prosecution")
+    prayer: str = Field(default="Reject anticipatory bail.", description="Formal prosecution prayer")
+
+
+class DefenceArguments(BaseModel):
+    arguments: List[str] = Field(default_factory=list, description="Substantive defence arguments for grant of anticipatory bail")
+    precedents: List[str] = Field(default_factory=list, description="Citations of retrieved precedents supporting defence")
+    prayer: str = Field(default="Grant anticipatory bail.", description="Formal defence prayer")
+
+
+class JudgeOrder(BaseModel):
+    issues: List[str] = Field(default_factory=list, description="Issues for determination before the court")
+    facts_considered: List[str] = Field(default_factory=list, description="Verified facts considered")
+    applicable_law: List[str] = Field(default_factory=list, description="Applicable statutory provisions and bail sections")
+    statutory_analysis: str = Field(description="Judicial analysis of statutory ingredients satisfied/unsatisfied")
+    bail_factor_analysis: str = Field(description="Judicial evaluation of 8 judicially developed bail factors")
+    precedents: List[str] = Field(default_factory=list, description="Judicial precedents applied in order")
+    reasoning: str = Field(description="Detailed impartial judicial reasoning leading to decision")
+    decision: str = Field(description="Judicial decision: 'Grant' or 'Reject'")
+    conditions: List[str] = Field(default_factory=list, description="Recommended bail conditions if granted, or N/A if rejected")
+
+
+class RoleArgumentObject(LexiGraphBase):
+    """
+    Standardized Stage 7 RoleArgumentObject contract.
+    Contains role-specific submissions for Prosecutor, Defence, and Judge.
+    """
+    schema_version: str = Field(default="1.0", description="Schema version of RoleArgumentObject contract")
+    prosecutor_arguments: ProsecutorArguments = Field(description="Prosecution arguments supporting rejection of anticipatory bail")
+    defence_arguments: DefenceArguments = Field(description="Defence arguments supporting grant of anticipatory bail")
+    judge_order: JudgeOrder = Field(description="Judicial order containing issues, analysis, reasoning, decision, and conditions")
+    manual_review: List[str] = Field(default_factory=list, description="Flagged argument items or conditions for manual review")
+    verification_status: str = Field(default="PENDING", description="Verification status: PENDING, VERIFIED, or RETRY")
+
+    def to_downstream_json(self) -> str:
+        """Serializes RoleArgumentObject to JSON string."""
+        return self.model_dump_json(indent=2)
+
+
+class RoleArgumentVerificationIssue(BaseModel):
+    target: str = Field(description="Target argument, precedent, or order section with audit error")
+    issue: str = Field(description="Detailed description of argument verification audit issue")
+    feedback: str = Field(description="Actionable instructions for Argument Generation Agent correction")
+
+
+class RoleArgumentVerificationResult(BaseModel):
+    status: str = Field(description="Status: 'VERIFIED' or 'RETRY'")
+    issues: List[RoleArgumentVerificationIssue] = Field(default_factory=list, description="List of audit issues identified")
+    feedback: str = Field(default="Argument verification audit complete.", description="Overall summary feedback")
+    verified_role_argument_object: Optional[RoleArgumentObject] = Field(default=None, description="Verified RoleArgumentObject")
 
 
 class QueryVerificationIssue(BaseModel):

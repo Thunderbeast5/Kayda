@@ -8,6 +8,7 @@ Supports Task-Based Model Tiering and Local Call Budget Guardrails:
 import json
 import os
 import re
+import time
 from pathlib import Path
 from typing import Any, Dict, Optional
 
@@ -44,28 +45,75 @@ class CallBudgetGuardrail:
 
 
 # Global process safety guardrail instance
-GLOBAL_CALL_GUARDRAIL = CallBudgetGuardrail(max_calls=10)
+GLOBAL_CALL_GUARDRAIL = CallBudgetGuardrail(max_calls=50)
+
+
+class RateLimitRetryWrapper:
+    """
+    Wraps any LLM client and auto-retries on Groq/OpenAI 429 rate limit errors
+    with exponential backoff. Reads wait time from error message when available.
+    """
+    def __init__(self, llm, max_retries: int = 5, base_wait: float = 20.0):
+        self._llm = llm
+        self.max_retries = max_retries
+        self.base_wait = base_wait
+
+    def invoke(self, messages, **kwargs):
+        for attempt in range(self.max_retries):
+            try:
+                return self._llm.invoke(messages, **kwargs)
+            except Exception as e:
+                err_str = str(e)
+                if "429" in err_str or "rate_limit_exceeded" in err_str:
+                    # Try to read suggested wait time from error message
+                    wait_match = re.search(r"try again in ([\d.]+)s", err_str)
+                    wait_secs = float(wait_match.group(1)) + 2.0 if wait_match else self.base_wait * (2 ** attempt)
+                    print(f"[RateLimit] 429 on attempt {attempt+1}/{self.max_retries}. Waiting {wait_secs:.1f}s...")
+                    time.sleep(wait_secs)
+                else:
+                    raise
+        return self._llm.invoke(messages, **kwargs)  # Final attempt, let it raise
+
+    # Proxy all other attributes to the underlying LLM
+    def __getattr__(self, name):
+        return getattr(self._llm, name)
 
 
 def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
     """
     Get configured LLM client. Prioritizes GROQ_API_KEY, then OPENAI_API_KEY.
     Does not hardcode keys. Enforces process call ceiling check.
+    Priority: DEEPSEEK_API_KEY > GROQ_API_KEY > OPENAI_API_KEY
     """
     GLOBAL_CALL_GUARDRAIL.check_and_increment()
 
+    deepseek_api_key = os.getenv("DEEPSEEK_API_KEY")
     groq_api_key = os.getenv("GROQ_API_KEY")
     openai_api_key = os.getenv("OPENAI_API_KEY")
+
+    if deepseek_api_key:
+        try:
+            from langchain_openai import ChatOpenAI
+            target_model = model_name or os.getenv("STAGE0_MODEL", "deepseek-chat")
+            return ChatOpenAI(
+                model=target_model,
+                api_key=deepseek_api_key,
+                base_url="https://api.deepseek.com/v1",
+                temperature=temperature,
+            )
+        except Exception as e:
+            print(f"[LexiGraph Config] Warning loading DeepSeek: {e}")
 
     if groq_api_key:
         try:
             from langchain_groq import ChatGroq
             target_model = model_name or os.getenv("STAGE0_MODEL", "llama-3.3-70b-versatile")
-            return ChatGroq(
+            llm = ChatGroq(
                 model=target_model,
                 api_key=groq_api_key,
                 temperature=temperature,
             )
+            return RateLimitRetryWrapper(llm)
         except Exception as e:
             print(f"[LexiGraph Config] Warning loading ChatGroq: {e}")
 
@@ -101,7 +149,7 @@ def get_llm_for_tier(tier: str = MODEL_TIER_CHEAP, temperature: float = 0.1, mod
     openai_api_key = os.getenv("OPENAI_API_KEY")
 
     if groq_api_key:
-        cheap_model = os.getenv("MODEL_CHEAP", "llama-3.3-70b-versatile")
+        cheap_model = os.getenv("MODEL_CHEAP", "llama-3.1-8b-instant")
         reasoning_model = os.getenv("MODEL_REASONING", "llama-3.3-70b-versatile")
         target_model = cheap_model if tier == MODEL_TIER_CHEAP else reasoning_model
         return get_llm(temperature=temperature, model_name=target_model)
@@ -129,10 +177,23 @@ def get_structured_llm(pydantic_schema: Any, temperature: float = 0.1, model_nam
     return base_llm
 
 
+def _strip_json_comments(text: str) -> str:
+    """
+    Strips JavaScript-style // line comments and /* block comments */ from JSON text.
+    LLMs sometimes emit these; they are invalid JSON and must be removed before parsing.
+    """
+    # Strip /* ... */ block comments
+    text = re.sub(r'/\*.*?\*/', '', text, flags=re.DOTALL)
+    # Strip // line comments (but not URLs like https://)
+    text = re.sub(r'(?<!:)//[^\n]*', '', text)
+    return text
+
+
 def extract_json_from_text(text: str) -> Dict[str, Any]:
     """
     Extracts and parses JSON from raw LLM output text.
     Handles codeblocks ```json ... ``` and attempts repair using json_repair if available.
+    Also strips JavaScript-style comments that LLMs sometimes emit.
     """
     if not text or not isinstance(text, str):
         raise ValueError("Input text is empty or not a string.")
@@ -149,6 +210,9 @@ def extract_json_from_text(text: str) -> Dict[str, Any]:
         end = cleaned.rfind("}")
         if start != -1 and end != -1 and end > start:
             cleaned = cleaned[start : end + 1]
+
+    # Strip JS-style comments before any parse attempt
+    cleaned = _strip_json_comments(cleaned)
 
     # Attempt 1: Standard json.loads
     try:
@@ -171,3 +235,4 @@ def extract_json_from_text(text: str) -> Dict[str, Any]:
         return json.loads(cleaned_escaped)
     except Exception as err:
         raise ValueError(f"Failed to parse JSON from response. Response snippet: {cleaned[:200]}... Error: {err}")
+

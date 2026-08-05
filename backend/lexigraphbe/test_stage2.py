@@ -212,3 +212,45 @@ def test_full_stage0_to_stage2_integration():
     resp = s2_res.batched_mapping_response
     assert resp is not None
     assert resp.mappings[0].candidate_sections == ["498A"]
+
+
+def test_stage2_single_regime_sanitization():
+    """
+    CONFIRMATION TEST FOR FIX #4:
+    Verifies that Stage 2 Agent post-processing cleans up accidental dual-regime slash citations
+    (e.g., 'Section 498A IPC / Section 85 BNS') and returns ONLY the section belonging to the governing regime.
+    """
+    mock_llm = MagicMock()
+    mock_llm.invoke.return_value.content = json.dumps({
+        "schema_version": "1.0",
+        "mappings": [
+            {
+                "sub_query_id": "SQ1",
+                "sub_query_text": "Dowry harassment",
+                "target_parties": ["Husband"],
+                "candidate_chapters": ["Of Cruelty"],
+                "candidate_sections": ["Section 498A IPC / Section 85 BNS"],
+                "relevance_reasoning": "Matrimonial cruelty mapped."
+            }
+        ]
+    })
+
+    mock_prefilter = MagicMock()
+    mock_prefilter.prefilter_candidates.return_value = []
+
+    # 1. Test IPC regime -> Returns 'Section 498A IPC'
+    agent_ipc = Stage2SubQueryMappingAgent(llm=mock_llm, prefilter=mock_prefilter)
+    qo_ipc = LegalQueryObject(legal_regime="IPC + CrPC", legal_concepts=[LegalConceptItem(concept="Dowry Demand", confidence=0.95)])
+    res_ipc = agent_ipc.run(qo_ipc)
+
+    assert len(res_ipc.mappings) == 1
+    assert res_ipc.mappings[0].candidate_sections == ["Section 498A IPC"]
+
+    # 2. Test BNS regime -> Returns 'Section 85 BNS'
+    agent_bns = Stage2SubQueryMappingAgent(llm=mock_llm, prefilter=mock_prefilter)
+    qo_bns = LegalQueryObject(legal_regime="BNS + BNSS", legal_concepts=[LegalConceptItem(concept="Dowry Demand", confidence=0.95)])
+    res_bns = agent_bns.run(qo_bns)
+
+    assert len(res_bns.mappings) == 1
+    assert res_bns.mappings[0].candidate_sections == ["Section 85 BNS"]
+

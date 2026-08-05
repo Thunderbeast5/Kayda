@@ -1,8 +1,8 @@
 """
 Precedent Retrieval Agent for Stage 6: Judicial Precedent Retrieval Engine.
-Retrieves relevant Supreme Court and High Court anticipatory bail precedents by comparing current case facts,
-verified offences, bail reasoning, and procedural stage against grounded legal precedents loaded from dataset disk file.
-Uses MODEL_TIER_REASONING flagship model for deep precedent reasoning and similarity ranking over grounded corpus entries.
+Retrieves relevant Supreme Court and High Court anticipatory bail precedents by computing real mathematical
+TF-IDF vector cosine similarity and Jaccard offence set overlap in Python code (PrecedentSimilarityMatcher).
+Uses MODEL_TIER_REASONING flagship model for deep ratio decidendi extraction over mathematically matched precedents.
 """
 
 import json
@@ -13,6 +13,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from .config import extract_json_from_text, get_llm_for_tier, MODEL_TIER_REASONING
 from .prompts import STAGE6_PRECEDENT_RETRIEVAL_SYSTEM_PROMPT, STAGE6_PRECEDENT_RETRIEVAL_USER_PROMPT_TEMPLATE
 from .schemas import BailReasoningObject, CaseContextObject, LegalQueryObject, PrecedentRetrievalObject, StatutoryVerificationObject
+from .precedent_matcher import PrecedentSimilarityMatcher
 
 
 def load_precedents_corpus() -> List[Dict[str, Any]]:
@@ -52,20 +53,22 @@ def load_precedents_corpus() -> List[Dict[str, Any]]:
 
 class PrecedentRetrievalAgent:
     """
-    Stage 6 Precedent Retrieval Agent retrieving landmark judicial precedents matching current case facts.
-    Loads grounded precedents dataset from data/new/precedents_structured.json.
-    Uses MODEL_TIER_REASONING flagship model for deep legal reasoning and similarity ranking.
+    Stage 6 Precedent Retrieval Agent retrieving landmark judicial precedents.
+    Integrates local PrecedentSimilarityMatcher (TF-IDF vector cosine + Jaccard similarity) for real mathematical scoring.
+    Uses MODEL_TIER_REASONING flagship model for deep ratio decidendi extraction over mathematically matched precedents.
     """
 
     def __init__(
         self,
         llm: Optional[Any] = None,
         corpus_path: Optional[str] = None,
+        matcher: Optional[PrecedentSimilarityMatcher] = None,
         min_similarity_threshold: float = 0.70,
     ):
         self._llm = llm
         self.min_similarity_threshold = min_similarity_threshold
         self.corpus: List[Dict[str, Any]] = self._load_corpus(corpus_path)
+        self.matcher = matcher or PrecedentSimilarityMatcher()
 
     def _load_corpus(self, custom_path: Optional[str] = None) -> List[Dict[str, Any]]:
         if custom_path:
@@ -96,36 +99,27 @@ class PrecedentRetrievalAgent:
             PrecedentRetrievalObject instance.
         """
         # Standardize inputs
-        if isinstance(case_context, CaseContextObject):
-            cco_json_str = case_context.to_downstream_json()
-        elif isinstance(case_context, dict):
-            cco_json_str = json.dumps(case_context, indent=2)
-        else:
-            cco_json_str = str(case_context)
+        cco_obj = case_context if isinstance(case_context, CaseContextObject) else CaseContextObject.model_validate(case_context if isinstance(case_context, dict) else json.loads(str(case_context)))
+        qo_obj = legal_query if isinstance(legal_query, LegalQueryObject) else LegalQueryObject.model_validate(legal_query if isinstance(legal_query, dict) else json.loads(str(legal_query)))
+        svo_obj = statutory_object if isinstance(statutory_object, StatutoryVerificationObject) else StatutoryVerificationObject.model_validate(statutory_object if isinstance(statutory_object, dict) else json.loads(str(statutory_object)))
+        bro_obj = bail_object if isinstance(bail_object, BailReasoningObject) else BailReasoningObject.model_validate(bail_object if isinstance(bail_object, dict) else json.loads(str(bail_object)))
 
-        if isinstance(legal_query, LegalQueryObject):
-            qo_json_str = legal_query.to_downstream_json()
-        elif isinstance(legal_query, dict):
-            qo_json_str = json.dumps(legal_query, indent=2)
-        else:
-            qo_json_str = str(legal_query)
+        cco_json_str = cco_obj.to_downstream_json()
+        qo_json_str = qo_obj.to_downstream_json()
+        svo_json_str = svo_obj.to_downstream_json()
+        bro_json_str = bro_obj.to_downstream_json()
 
-        if isinstance(statutory_object, StatutoryVerificationObject):
-            svo_json_str = statutory_object.to_downstream_json()
-        elif isinstance(statutory_object, dict):
-            svo_json_str = json.dumps(statutory_object, indent=2)
-        else:
-            svo_json_str = str(statutory_object)
+        # Step 1: Run local mathematical similarity matcher (TF-IDF vector cosine + Jaccard scoring)
+        math_matches = self.matcher.rank_precedents(
+            case_context=cco_obj,
+            legal_query=qo_obj,
+            statutory_object=svo_obj,
+            bail_object=bro_obj,
+            precedents_corpus=self.corpus,
+            top_k=5,
+        )
 
-        if isinstance(bail_object, BailReasoningObject):
-            bro_json_str = bail_object.to_downstream_json()
-        elif isinstance(bail_object, dict):
-            bro_json_str = json.dumps(bail_object, indent=2)
-        else:
-            bro_json_str = str(bail_object)
-
-        # Grounded precedent dataset passed to prompt
-        corpus_json_str = json.dumps(self.corpus, indent=2)
+        matched_corpus_json_str = json.dumps([m.model_dump() for m in math_matches], indent=2)
 
         feedback_section = ""
         if correction_feedback:
@@ -136,7 +130,7 @@ class PrecedentRetrievalAgent:
             legal_query_json=qo_json_str,
             statutory_object_json=svo_json_str,
             bail_object_json=bro_json_str,
-            judgment_corpus_json=corpus_json_str,
+            judgment_corpus_json=matched_corpus_json_str,
             correction_feedback_section=feedback_section,
         )
 
@@ -153,14 +147,19 @@ class PrecedentRetrievalAgent:
         # Validate with PrecedentRetrievalObject Pydantic schema
         prec_obj = PrecedentRetrievalObject.model_validate(extracted_dict)
 
-        # Check similarity cutoff (< 0.70 threshold)
+        # Enforce exact mathematical similarity scores calculated by PrecedentSimilarityMatcher
+        score_map = {m.case_name.lower(): m.computed_similarity_score for m in math_matches}
         for precedent in prec_obj.precedents:
+            c_name = precedent.case_name.lower()
+            if c_name in score_map:
+                precedent.similarity_score = score_map[c_name]
+
             if precedent.similarity_score < self.min_similarity_threshold:
-                note = f"Precedent '{precedent.case_name}' similarity score {precedent.similarity_score:.2f} < cutoff {self.min_similarity_threshold}."
+                note = f"Precedent '{precedent.case_name}' mathematical similarity score {precedent.similarity_score:.2f} < cutoff {self.min_similarity_threshold}."
                 if note not in prec_obj.manual_review:
                     prec_obj.manual_review.append(note)
 
-        # Sort precedents by similarity_score descending
+        # Sort precedents by mathematical similarity_score descending
         prec_obj.precedents.sort(key=lambda x: x.similarity_score, reverse=True)
 
         return prec_obj

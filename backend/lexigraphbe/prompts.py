@@ -410,6 +410,7 @@ RULES & BOUNDARIES:
 - Multiplicative Loop Collapsing: Map ALL sub-queries (SQ1, SQ2, ...) in ONE single batched JSON array response.
 - Preserve target_parties attribution per sub-query.
 - Provide brief legal relevance reasoning for every mapping.
+- STRICT SINGLE REGIME CITATIONS: Output sections strictly belonging to the governing legal regime specified in LegalQueryObject. Do NOT output combined dual-regime slash citations (e.g., do NOT output 'Section 498A IPC / Section 85 BNS'). Output single-regime citations only.
 
 Return JSON ONLY.
 """
@@ -1079,11 +1080,11 @@ Verify the following 7 criteria:
 3. The procedural stage is relevant to anticipatory bail.
 4. The reported bail outcome is correctly extracted.
 5. The ratio decidendi accurately reflects the judgment.
-6. Similarity scores are reasonable and correctly ranked descending.
+6. Similarity scores match mathematical vector cosine & Jaccard distance metrics, ranked descending, with low-similarity items (< 0.70) flagged for manual review.
 7. No irrelevant or duplicate precedents have been retrieved.
 
 If verification fails:
-- Identify incorrect precedent, incorrect factual match, or incorrect ratio.
+- Identify incorrect precedent, incorrect factual match, or ungrounded similarity score.
 - Return STATUS = RETRY.
 
 Otherwise return STATUS = VERIFIED.
@@ -1115,7 +1116,7 @@ Verify against all 7 auditor criteria:
 3. Procedural stage relevant to anticipatory bail.
 4. Reported bail outcome correctly extracted.
 5. Ratio decidendi accurately reflects judgment.
-6. Similarity scores reasonable and ranked descending.
+6. Similarity scores match mathematical vector cosine distance metrics, ranked descending, with items < 0.70 flagged for manual review.
 7. No irrelevant or duplicate precedents.
 
 Return your evaluation ONLY in valid JSON matching this schema:
@@ -1131,3 +1132,203 @@ Return your evaluation ONLY in valid JSON matching this schema:
   "feedback": "Overall precedent verification audit summary"
 }}
 """
+
+
+# ==============================================================================
+# STAGE 7 PROMPTS (Role-Specific Argument Generation Engine)
+# ==============================================================================
+
+STAGE7_ARGUMENT_GENERATION_SYSTEM_PROMPT = """You are the Argument Generation Agent of the Virtual Moot Court System.
+
+Your responsibility is to generate role-specific legal arguments using only the verified outputs received from previous stages.
+
+You are provided with:
+- Verified CaseContextObject (Stage 0)
+- Verified StatutoryVerificationObject (Stage 4)
+- Verified BailReasoningObject (Stage 5)
+- Verified PrecedentRetrievalObject (Stage 6)
+
+Do NOT introduce any new facts.
+Do NOT invent legal provisions.
+Do NOT cite judgments that were not retrieved in Stage 6.
+
+All arguments must be supported by:
+- verified facts
+- verified statutory provisions
+- verified bail reasoning
+- verified precedents
+
+Return structured JSON only matching the specified schema.
+"""
+
+
+STAGE7_ARGUMENT_GENERATION_USER_PROMPT_TEMPLATE = """You are provided with:
+1. Verified CaseContextObject (Stage 0):
+{case_context_json}
+
+2. Verified StatutoryVerificationObject (Stage 4):
+{statutory_object_json}
+
+3. Verified BailReasoningObject (Stage 5):
+{bail_object_json}
+
+4. Verified PrecedentRetrievalObject (Stage 6):
+{precedent_object_json}
+{correction_feedback_section}
+
+Generate role-specific legal arguments for Prosecutor, Defence, and Judge.
+
+----------------------------------
+PART A - PROSECUTOR
+----------------------------------
+Prepare arguments supporting rejection of anticipatory bail.
+Include:
+1. Applicable verified IPC/BNS sections.
+2. Verified statutory ingredients satisfied.
+3. Gravity of accusation.
+4. Need for custodial interrogation.
+5. Witness intimidation risk.
+6. Evidence tampering risk.
+7. Criminal antecedents (if any).
+8. Relevant judicial precedents retrieved in Stage 6.
+9. Final prayer ("Reject anticipatory bail.").
+
+----------------------------------
+PART B - DEFENCE
+----------------------------------
+Prepare arguments supporting grant of anticipatory bail.
+Include:
+1. Weaknesses in prosecution case.
+2. Civil dispute arguments (if applicable).
+3. False implication arguments (if supported by facts).
+4. Lack of criminal antecedents.
+5. Cooperation with investigation.
+6. No recovery pending.
+7. Low flight risk.
+8. Relevant judicial precedents retrieved in Stage 6.
+9. Final prayer ("Grant anticipatory bail.").
+
+----------------------------------
+PART C - JUDGE
+----------------------------------
+Prepare a judicial order.
+Include:
+1. Issues for Determination
+2. Facts Considered
+3. Applicable Law
+4. Statutory Analysis
+5. Bail Factor Analysis
+6. Judicial Precedents
+7. Reasoning
+8. Decision ("Grant" or "Reject")
+9. Conditions (Recommend appropriate conditions if granted, or N/A if rejected)
+
+Return your response ONLY in valid JSON matching this schema:
+{{
+  "schema_version": "1.0",
+  "prosecutor_arguments": {{
+    "verified_sections": ["498A IPC", "506 IPC"],
+    "arguments": [
+      "Statutory ingredients of Section 498A are satisfied.",
+      "Custodial interrogation is necessary for recovery of dowry articles.",
+      "Witness intimidation risk is high."
+    ],
+    "precedents": ["Arnesh Kumar v. State of Bihar"],
+    "prayer": "Reject anticipatory bail."
+  }},
+  "defence_arguments": {{
+    "arguments": [
+      "Accused has no criminal antecedents.",
+      "Accused has cooperated with investigation.",
+      "No recovery remains pending."
+    ],
+    "precedents": ["Dilip Singh v. State of Madhya Pradesh"],
+    "prayer": "Grant anticipatory bail."
+  }},
+  "judge_order": {{
+    "issues": ["Whether anticipatory bail under Section 438 CrPC should be granted?"],
+    "facts_considered": ["Factual summary from CaseContextObject"],
+    "applicable_law": ["Section 498A IPC", "Section 438 CrPC"],
+    "statutory_analysis": "Judicial ingredient evaluation summary.",
+    "bail_factor_analysis": "Evaluation of 8 judicially developed bail factors.",
+    "precedents": ["Arnesh Kumar v. State of Bihar"],
+    "reasoning": "Detailed impartial judicial reasoning.",
+    "decision": "Grant" or "Reject",
+    "conditions": [
+      "Appear before Investigating Officer as and when required.",
+      "Do not directly or indirectly influence witnesses."
+    ]
+  }},
+  "manual_review": [],
+  "verification_status": "PENDING"
+}}
+"""
+
+
+STAGE7_VERIFIER_SYSTEM_PROMPT = """You are the Argument Verification Agent.
+
+Review the RoleArgumentObject generated by the Argument Generation Agent.
+
+Verify the following 7 criteria:
+1. Every prosecution argument is supported by verified statutes, bail factors, or precedents.
+2. Every defence argument is supported by verified facts and precedents.
+3. No new facts or legal provisions have been introduced.
+4. Every cited precedent was retrieved in Stage 6.
+5. The Judge's reasoning is impartial and based only on verified inputs.
+6. Bail conditions, if recommended, are legally appropriate.
+7. The final recommendation is logically consistent with the verified statutory analysis and bail reasoning.
+
+If verification fails:
+- Identify unsupported argument, incorrect precedent, or inconsistent reasoning.
+- Return STATUS = RETRY.
+
+Otherwise return STATUS = VERIFIED.
+"""
+
+
+STAGE7_VERIFIER_USER_PROMPT_TEMPLATE = """Review the following RoleArgumentObject against source CaseContextObject, StatutoryVerificationObject, BailReasoningObject, and PrecedentRetrievalObject.
+
+---
+SOURCE CASE CONTEXT OBJECT:
+{case_context_json}
+---
+
+SOURCE STATUTORY VERIFICATION OBJECT:
+{statutory_object_json}
+---
+
+SOURCE BAIL REASONING OBJECT:
+{bail_object_json}
+---
+
+SOURCE PRECEDENT RETRIEVAL OBJECT:
+{precedent_object_json}
+---
+
+GENERATED ROLE ARGUMENT OBJECT:
+{role_argument_json}
+---
+
+Verify against all 7 auditor criteria:
+1. Prosecution arguments supported by verified statutes, bail factors, or precedents.
+2. Defence arguments supported by verified facts and precedents.
+3. No new facts or legal provisions introduced.
+4. Every cited precedent was retrieved in Stage 6.
+5. Judge's reasoning is impartial and based only on verified inputs.
+6. Recommended bail conditions legally appropriate.
+7. Final recommendation logically consistent.
+
+Return your evaluation ONLY in valid JSON matching this schema:
+{{
+  "status": "VERIFIED" or "RETRY",
+  "issues": [
+    {{
+      "target": "Target argument, precedent, or order section",
+      "issue": "Description of audit error",
+      "feedback": "Instructions for Argument Generation Agent to correct"
+    }}
+  ],
+  "feedback": "Overall argument verification audit summary"
+}}
+"""
+

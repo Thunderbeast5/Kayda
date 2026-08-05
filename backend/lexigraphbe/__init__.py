@@ -1,5 +1,5 @@
 """
-LexiGraph Backend - Stage 0 (Intake), Stage 1 (Query Understanding), Stage 2 (Sub-Query Mapping), Stage 3 (Chapter Identification), Stage 4 (Statutory Verification), Stage 5 (Bail Reasoning), Stage 6 (Precedent Retrieval), IPC ↔ BNS Mapper, Local Classifier Pre-filter, and Batched Pipeline Utilities.
+LexiGraph Backend - Stage 0 (Intake), Stage 1 (Query Understanding), Stage 2 (Sub-Query Mapping), Stage 3 (Chapter Identification), Stage 4 (Statutory Verification), Stage 5 (Bail Reasoning), Stage 6 (Precedent Retrieval), Stage 7 (Role-Specific Argument Generation), IPC ↔ BNS Mapper, Precedent Similarity Matcher, Local Classifier Pre-filter, and Batched Pipeline Utilities.
 """
 
 from .schemas import (
@@ -41,6 +41,12 @@ from .schemas import (
     PrecedentRetrievalObject,
     PrecedentVerificationIssue,
     PrecedentVerificationResult,
+    ProsecutorArguments,
+    DefenceArguments,
+    JudgeOrder,
+    RoleArgumentObject,
+    RoleArgumentVerificationIssue,
+    RoleArgumentVerificationResult,
 )
 from .batch_utils import (
     SubQueryChapterMapping,
@@ -50,6 +56,7 @@ from .batch_utils import (
 )
 from .classifier_prefilter import CandidateSectionMatch, StatuteClassifierPrefilter
 from .ipc2bns_mapper import IPC2BNSMapper
+from .precedent_matcher import PrecedentMatchResult, PrecedentSimilarityMatcher
 from .eval_prefilter import run_prefilter_recall_evaluation, BENCHMARK_CORPUS
 from .eval_models import evaluate_model_performance, ModelBenchmarkReport
 from .eval_auditor import run_auditor_benchmark_evaluation
@@ -74,6 +81,15 @@ from .stage5_pipeline import Stage5Pipeline
 from .precedent_retrieval_agent import PrecedentRetrievalAgent
 from .precedent_verifier_agent import PrecedentVerificationAuditor
 from .stage6_pipeline import Stage6Pipeline
+from .role_argument_agent import RoleArgumentAgent
+from .role_argument_verifier_agent import RoleArgumentVerifierAgent
+from .stage7_pipeline import Stage7Pipeline, Stage7PipelineResponse
+from .bail_condition_validator import (
+    BailConditionValidator,
+    BailConditionValidationResult,
+    PERMISSIBLE_BAIL_CONDITION_CATEGORIES,
+    IMPERMISSIBLE_CONDITION_PATTERNS,
+)
 
 __all__ = [
     # Stage 0
@@ -144,6 +160,20 @@ __all__ = [
     "PrecedentRetrievalAgent",
     "PrecedentVerificationAuditor",
     "Stage6Pipeline",
+    # Stage 7
+    "ProsecutorArguments",
+    "DefenceArguments",
+    "JudgeOrder",
+    "RoleArgumentObject",
+    "RoleArgumentVerificationIssue",
+    "RoleArgumentVerificationResult",
+    "RoleArgumentAgent",
+    "RoleArgumentVerifierAgent",
+    "Stage7Pipeline",
+    "Stage7PipelineResponse",
+    # Mathematical Precedent Similarity Matcher
+    "PrecedentMatchResult",
+    "PrecedentSimilarityMatcher",
     # Local Classifier Pre-filter & Evaluation
     "CandidateSectionMatch",
     "StatuteClassifierPrefilter",

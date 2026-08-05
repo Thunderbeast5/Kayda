@@ -103,6 +103,25 @@ class PrecedentVerificationAuditor:
                         feedback=f"Provide official legal citation for '{p.case_name}'."
                     )
                 )
+            # Criterion 6 Audit: Check mathematical distance metric grounding & bounds [0.0, 1.0]
+            if p.similarity_score < 0.0 or p.similarity_score > 1.0:
+                programmatic_issues.append(
+                    PrecedentVerificationIssue(
+                        target=p.case_name,
+                        issue=f"Precedent '{p.case_name}' similarity score {p.similarity_score} is out of bounds [0.0, 1.0].",
+                        feedback=f"Recalculate mathematical similarity score for '{p.case_name}'."
+                    )
+                )
+            if p.similarity_score < 0.70:
+                note = f"cutoff {0.7}"
+                if not any("cutoff" in n.lower() or "similarity score" in n.lower() for n in target_obj.manual_review):
+                    programmatic_issues.append(
+                        PrecedentVerificationIssue(
+                            target=p.case_name,
+                            issue=f"Precedent '{p.case_name}' similarity score {p.similarity_score:.2f} < 0.70 cutoff but missing from manual_review.",
+                            feedback=f"Flag precedent '{p.case_name}' (< 0.70 similarity) in manual_review list."
+                        )
+                    )
 
         if programmatic_issues:
             return PrecedentVerificationResult(

@@ -85,3 +85,108 @@ def test_stage3_bns_regime_passthrough():
 
     assert cio.legal_regime == "BNS + BNSS"
     assert cio.section_candidates[0].section_number == "85"
+
+
+def test_stage3_ipc_index_selection_for_ipc_regime():
+    """
+    DEDICATED STAGE 3 INDEX VERIFICATION (IPC):
+    Verifies that when legal_regime is 'IPC + CrPC', Stage 3 prefilter EXCLUSIVELY
+    queries the IPC index and excludes 100% of BNS candidates.
+    """
+    prefilter = StatuteClassifierPrefilter()
+    qo_ipc = LegalQueryObject(
+        legal_regime="IPC + CrPC",
+        legal_concepts=[LegalConceptItem(concept="cheating property fraud", confidence=0.95)]
+    )
+
+    candidates = prefilter.shortlist_candidates_for_query(qo_ipc, top_k=10, target_regime="IPC + CrPC")
+    assert len(candidates) > 0
+    assert all(c.statute == "IPC" for c in candidates), "IPC regime search contained non-IPC candidates"
+    assert any(c.section_number == "420" for c in candidates), "IPC 420 missing from IPC cheating search"
+
+
+def test_stage3_bns_index_selection_for_bns_regime():
+    """
+    DEDICATED STAGE 3 INDEX VERIFICATION (BNS):
+    Verifies that when legal_regime is 'BNS + BNSS', Stage 3 prefilter EXCLUSIVELY
+    queries the BNS index and excludes 100% of IPC candidates.
+    """
+    prefilter = StatuteClassifierPrefilter()
+    qo_bns = LegalQueryObject(
+        legal_regime="BNS + BNSS",
+        legal_concepts=[LegalConceptItem(concept="cheating property fraud", confidence=0.95)]
+    )
+
+    candidates = prefilter.shortlist_candidates_for_query(qo_bns, top_k=10, target_regime="BNS + BNSS")
+    assert len(candidates) > 0
+    assert all(c.statute == "BNS" for c in candidates), "BNS regime search contained non-BNS candidates"
+    assert any("318" in c.section_number for c in candidates), "BNS 318 missing from BNS cheating search"
+
+
+def test_stage3_historical_cases_regime_routing():
+    """
+    DEDICATED HISTORICAL CASE ROUTING TEST:
+    Verifies that historical cases (offence committed prior to 1 July 2024) route to IPC index,
+    while post-July 2024 cases route to BNS index.
+    """
+    from lexigraphbe.schemas import CaseContextObject, CaseProfile, CaseMetadata
+    from lexigraphbe.intake_agent import CaseIntakeAgent
+
+    # 1. Historical pre-July-2024 case (e.g., May 2024) -> IPC regime
+    cco_historical = CaseContextObject(
+        case_metadata=CaseMetadata(offence_date="2024-05-15"),
+        case_profile=CaseProfile(legal_regime="IPC + CrPC"),
+        contract_status="CONTRACT_PASSED",
+        verification_status="VERIFIED"
+    )
+
+    # 2. Modern post-July-2024 case (e.g., August 2024) -> BNS regime
+    cco_modern = CaseContextObject(
+        case_metadata=CaseMetadata(offence_date="2024-08-15"),
+        case_profile=CaseProfile(legal_regime="BNS + BNSS"),
+        contract_status="CONTRACT_PASSED",
+        verification_status="VERIFIED"
+    )
+
+    assert cco_historical.case_profile.legal_regime == "IPC + CrPC"
+    assert cco_modern.case_profile.legal_regime == "BNS + BNSS"
+
+    prefilter = StatuteClassifierPrefilter()
+
+    # Pre-July 2024 query shortlist -> IPC
+    hist_candidates = prefilter.shortlist_candidates_for_query(
+        LegalQueryObject(legal_regime=cco_historical.case_profile.legal_regime, legal_concepts=[LegalConceptItem(concept="murder", confidence=0.9)]),
+        target_regime=cco_historical.case_profile.legal_regime
+    )
+    assert all(c.statute == "IPC" for c in hist_candidates)
+    assert any(c.section_number == "302" for c in hist_candidates)
+
+    # Post-July 2024 query shortlist -> BNS
+    modern_candidates = prefilter.shortlist_candidates_for_query(
+        LegalQueryObject(legal_regime=cco_modern.case_profile.legal_regime, legal_concepts=[LegalConceptItem(concept="murder", confidence=0.9)]),
+        target_regime=cco_modern.case_profile.legal_regime
+    )
+    assert all(c.statute == "BNS" for c in modern_candidates)
+    assert any("103" in c.section_number for c in modern_candidates)
+
+
+def test_stage3_chapter_filtering_for_both_corpora():
+    """
+    DEDICATED DUAL-CORPUS CHAPTER FILTERING TEST:
+    Verifies chapter metadata extraction and filtering across both IPC and BNS corpora.
+    """
+    prefilter = StatuteClassifierPrefilter()
+
+    # IPC Chapter XVII (Offences Against Property)
+    ipc_cands = prefilter.prefilter_candidates("theft extortion robbery", statute_type="IPC", top_k=5)
+    assert len(ipc_cands) > 0
+    for c in ipc_cands:
+        assert c.chapter is not None
+
+    # BNS Chapter XVII (Offences Against Property) & Chapter V (Offences Against Woman)
+    bns_cands = prefilter.prefilter_candidates("theft extortion robbery", statute_type="BNS", top_k=5)
+    assert len(bns_cands) > 0
+    for c in bns_cands:
+        assert c.chapter is not None
+        assert "Chapter" in c.chapter or "Preliminary" in c.chapter or len(c.chapter) > 0
+

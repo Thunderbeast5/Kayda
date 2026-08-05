@@ -76,13 +76,13 @@ class Stage2SubQueryMappingAgent:
         # Deduplicate pre-filter matches
         dedup_dict = {}
         for m in prefiltered_matches:
-            k = f"{m.statute_type}_{m.section_number}"
+            k = f"{m.statute}_{m.section_number}"
             if k not in dedup_dict or m.score > dedup_dict[k]["score"]:
                 dedup_dict[k] = {
-                    "statute": m.statute_type,
+                    "statute": m.statute,
                     "section_number": m.section_number,
-                    "section_title": m.section_title,
-                    "chapter_name": m.chapter_name,
+                    "section_title": m.title,
+                    "chapter_name": m.chapter,
                     "score": round(m.score, 4),
                 }
 
@@ -110,4 +110,18 @@ class Stage2SubQueryMappingAgent:
 
         # Validate with Stage2BatchedMappingResponse Pydantic schema
         mapping_response = Stage2BatchedMappingResponse.model_validate(extracted_dict)
+
+        # Post-Processing Guard: Enforce strict single-regime section citations matching Stage 0 legal_regime
+        for mapping in mapping_response.mappings:
+            clean_sections = []
+            for sec in mapping.candidate_sections:
+                if "/" in sec:
+                    # Strip dual-regime slash citation (e.g. "498A IPC / 85 BNS" -> "498A IPC")
+                    parts = [p.strip() for p in sec.split("/")]
+                    governing_part = next((p for p in parts if statute_type in p.upper()), parts[0])
+                    clean_sections.append(governing_part)
+                else:
+                    clean_sections.append(sec)
+            mapping.candidate_sections = clean_sections
+
         return mapping_response

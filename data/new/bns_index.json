@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "statute_name": "Bharatiya Nyaya Sanhita 2023 (BNS)",
+  "total_sections": 358,
+  "sections_index": {
+    "85": {
+      "title": "Cruelty by husband or relative",
+      "ipc_ref": "498A",
+      "chapter": "Chapter V: Of Offences Against Woman and Child"
+    },
+    "80": {
+      "title": "Dowry Death",
+      "ipc_ref": "304B",
+      "chapter": "Chapter V: Of Offences Against Woman and Child"
+    },
+    "103": {
+      "title": "Punishment for murder",
+      "ipc_ref": "302",
+      "chapter": "Chapter VI: Of Offences Affecting the Human Body"
+    },
+    "109": {
+      "title": "Attempt to murder",
+      "ipc_ref": "307",
+      "chapter": "Chapter VI: Of Offences Affecting the Human Body"
+    },
+    "318": {
+      "title": "Cheating and dishonestly inducing delivery of property",
+      "ipc_ref": "420",
+      "chapter": "Chapter XVII: Of Offences Against Property"
+    },
+    "316": {
+      "title": "Criminal breach of trust",
+      "ipc_ref": "406",
+      "chapter": "Chapter XVII: Of Offences Against Property"
+    },
+    "351": {
+      "title": "Criminal intimidation",
+      "ipc_ref": "506",
+      "chapter": "Chapter XIX: Of Criminal Intimidation"
+    }
+  }
+}

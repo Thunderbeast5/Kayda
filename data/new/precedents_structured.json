@@ -6,16 +6,22 @@
     "citation": "(2014) 8 SCC 273",
     "year": 2014,
     "bench": "Chandramauli Kr. Prasad, Pinaki Chandra Ghose, JJ.",
-    "offences_covered": ["498A IPC", "4 Dowry Prohibition Act", "85 BNS"],
+    "category": "Matrimonial & Dowry",
+    "offences_covered": ["498A IPC", "85 BNS", "4 Dowry Prohibition Act", "438 CrPC", "482 BNSS"],
     "procedural_stage": "Anticipatory Bail",
     "bail_outcome": "Anticipatory Bail Guidelines Formulated",
-    "facts_summary": "Appellant husband apprehended arrest under Section 498A IPC and Section 4 of the Dowry Prohibition Act following allegations by wife of dowry demand and harassment. Apprehending routine arrest without preliminary inquiry.",
-    "ratio_decidendi": "Arrest should not be automatic or mechanical in offences punishable with imprisonment up to seven years. Police officers must satisfy themselves regarding the necessity for arrest under the parameters of Section 41 CrPC (Section 35 BNSS). Magistrate must satisfy itself before authorizing detention.",
+    "factual_narrative": "Appellant Arnesh Kumar was married to Sweta Shetty on 1st July 2007. Allegations were made by the wife that dowry demands of Rs. 8 Lakhs, a Maruti car, air-conditioner, and television set were raised by the husband and his mother. Upon non-fulfillment of demands, the wife alleged physical assault and eviction from the matrimonial home. Investigating authorities sought immediate arrest of the husband and family members under Section 498A IPC / Section 85 BNS without conducting preliminary inquiry or issuing Section 41A CrPC / Section 35 BNSS notice of appearance.",
+    "numbered_paragraphs": [
+      "1. Marriage was solemnized on 01.07.2007 according to Hindu rites and ceremonies.",
+      "2. Complainant alleged that husband and mother-in-law demanded Rs. 8 Lakhs, a car, and home appliances as dowry.",
+      "3. Complainant alleged she was subjected to physical harassment and thrown out of matrimonial home upon non-payment.",
+      "4. Police attempted routine arrest of husband under Section 498A IPC / Section 85 BNS without verifying necessity under Section 41 CrPC / Section 35 BNSS."
+    ],
+    "ratio_decidendi": "Arrest should not be automatic or mechanical in offences punishable with imprisonment up to seven years. Police officers must satisfy themselves regarding the necessity for arrest under the parameters of Section 41 CrPC / Section 35 BNSS. Magistrate must satisfy itself before authorizing detention.",
     "key_bail_principles": [
       "No automatic arrest for offences punishable up to 7 years",
       "Notice of appearance under Section 41A CrPC (Section 35(3) BNSS) must be served prior to arrest",
-      "Magistrate must record reasons before authorizing detention",
-      "Non-compliance by police invites departmental action and contempt of court"
+      "Magistrate must record reasons before authorizing detention"
     ]
   },
   {
@@ -25,16 +31,21 @@
     "citation": "(1980) 2 SCC 565",
     "year": 1980,
     "bench": "5-Judge Constitution Bench (Y.V. Chandrachud, C.J., P.N. Bhagwati, V.R. Krishna Iyer, S. Murtaza Fazal Ali, A.D. Koshal, JJ.)",
-    "offences_covered": ["438 CrPC", "482 BNSS", "General Offence Corpus"],
+    "category": "General Precedent",
+    "offences_covered": ["438 CrPC", "482 BNSS", "498A IPC", "85 BNS", "420 IPC", "318 BNS"],
     "procedural_stage": "Anticipatory Bail",
     "bail_outcome": "Landmark Constitutional Guidelines Formulated",
-    "facts_summary": "Minister and senior public officials apprehended arrest in political corruption and financial irregularity cases. High Court imposed blanket restrictive conditions on grant of Section 438 anticipatory bail.",
-    "ratio_decidendi": "Anticipatory bail under Section 438 CrPC is a constitutional safeguard protecting personal liberty under Article 21. High Courts and Sessions Courts possess wide judicial discretion which cannot be fettered by rigid, unwritten limitations not enacted by Parliament.",
+    "factual_narrative": "Appellants were former Ministers and senior public officers of the State government against whom political corruption, financial irregularities, and embezzlement complaints were registered. Apprehending arrest following political regime change, appellants applied for anticipatory bail under Section 438 CrPC / Section 482 BNSS. The Full Bench of the High Court rejected the applications, holding that anticipatory bail discretionary power should be exercised only in exceptional cases.",
+    "numbered_paragraphs": [
+      "1. Appellants were senior political leaders and public servants apprehending arrest in corruption investigations.",
+      "2. High Court imposed blanket restrictive conditions limiting anticipatory bail to rare and exceptional cases.",
+      "3. Supreme Court Constitution Bench examined the statutory scope and constitutional underpinnings of Article 21 and Section 438 CrPC / Section 482 BNSS."
+    ],
+    "ratio_decidendi": "Anticipatory bail under Section 438 CrPC / Section 482 BNSS is a constitutional safeguard protecting personal liberty under Article 21. High Courts and Sessions Courts possess wide judicial discretion which cannot be fettered by rigid, unwritten limitations not enacted by Parliament.",
     "key_bail_principles": [
       "Anticipatory bail should not be limited to exceptional or rare cases only",
       "No blanket order of protection without specific accusation or reasonable belief of arrest",
-      "Duration of anticipatory bail is not inherently limited to the filing of FIR or charge-sheet",
-      "Courts can impose tailored conditions to secure presence and prevent tampering"
+      "Duration of anticipatory bail is not inherently limited to the filing of FIR or charge-sheet"
     ]
   },
   {
@@ -44,16 +55,20 @@
     "citation": "(2020) 5 SCC 1",
     "year": 2020,
     "bench": "5-Judge Constitution Bench (Arun Mishra, Indira Banerjee, Vineet Saran, M.R. Shah, S. Ravindra Bhat, JJ.)",
-    "offences_covered": ["498A IPC", "406 IPC", "420 IPC", "438 CrPC", "482 BNSS"],
+    "category": "General Precedent",
+    "offences_covered": ["498A IPC", "85 BNS", "406 IPC", "316 BNS", "420 IPC", "318 BNS", "438 CrPC", "482 BNSS"],
     "procedural_stage": "Anticipatory Bail",
     "bail_outcome": "Constitution Bench Resolution on Duration",
-    "facts_summary": "Reference before 5-Judge Bench regarding conflicting Supreme Court rulings on whether protection under Section 438 CrPC automatically expires upon filing of charge-sheet or summoning by trial court.",
-    "ratio_decidendi": "Protection granted under Section 438 CrPC does not automatically expire upon filing of charge-sheet or issuance of summons. It can ordinarily continue till the conclusion of trial unless special circumstances warrant cancellation or restriction by the court.",
+    "factual_narrative": "Conflicting judgments of the Supreme Court created ambiguity on whether protection granted under Section 438 CrPC / Section 482 BNSS automatically lapses upon the filing of charge-sheet or summoning of accused by trial court. In certain cases, trial courts insisted that accused granted anticipatory bail must surrender to regular custody upon submission of final report under Section 173 CrPC / Section 193 BNSS.",
+    "numbered_paragraphs": [
+      "1. Conflicting rulings of 2-judge and 3-judge benches referred to 5-Judge Constitution Bench.",
+      "2. Issue examined: Whether anticipatory bail order must be time-bound till charge-sheet stage.",
+      "3. Constitution Bench held that Section 438 CrPC / Section 482 BNSS does not contain statutory expiration limits."
+    ],
+    "ratio_decidendi": "Protection granted under Section 438 CrPC / Section 482 BNSS does not automatically expire upon filing of charge-sheet or issuance of summons. It can ordinarily continue till the conclusion of trial unless special circumstances warrant cancellation or restriction by the court.",
     "key_bail_principles": [
       "Anticipatory bail protection does not automatically lapse on charge-sheet filing",
-      "No time-limit should be read into Section 438 unless specific court order imposes it",
-      "Accused need not surrender to custody merely because charge-sheet has been submitted",
-      "Bail once granted can be cancelled only on established grounds of misconduct or new evidence"
+      "No time-limit should be read into Section 438 CrPC / Section 482 BNSS unless specific court order imposes it"
     ]
   },
   {
@@ -63,16 +78,20 @@
     "citation": "(2011) 1 SCC 694",
     "year": 2011,
     "bench": "Dalveer Bhandari, K.S. Radhakrishnan, JJ.",
-    "offences_covered": ["307 IPC", "326 IPC", "34 IPC", "109 BNS"],
+    "category": "Violent Offences & Assault",
+    "offences_covered": ["307 IPC", "109 BNS", "326 IPC", "118 BNS", "34 IPC", "3(5) BNS"],
     "procedural_stage": "Anticipatory Bail",
     "bail_outcome": "Anticipatory Bail Granted",
-    "facts_summary": "Accused alleged to be part of political faction dispute where victim sustained gunshot injuries. Accused alleged false implication due to political rivalry without specific overt role in assault.",
-    "ratio_decidendi": "Personal liberty is a precious fundamental right under Article 21. Courts must balance liberty of individual with interest of society. Custodial interrogation is not imperative in every case where accused is willing to cooperate.",
+    "factual_narrative": "Incident took place during state assembly elections involving political rivalry between Congress and NCP political workers. Shots were fired resulting in the death of one person and gunshot injuries to another. Accused Siddharam Mhetre was named in the FIR on allegations of instigating workers, despite no specific overt role of firing being attributed to him. Apprehending arrest under Section 307 IPC / Section 109 BNS, accused sought anticipatory bail.",
+    "numbered_paragraphs": [
+      "1. Political clash occurred during election campaigning involving gunshot injuries.",
+      "2. Accused named as political leader accused of instigation without overt physical assault role.",
+      "3. Investigating agency demanded custodial interrogation without establishing specific necessity."
+    ],
+    "ratio_decidendi": "Personal liberty is a precious fundamental right under Article 21. Custodial interrogation is not imperative in every case where accused is willing to cooperate.",
     "key_bail_principles": [
       "Factual evaluation of 10 judicial parameters including gravity, antecedents, and flight risk",
-      "False implication and political rivalry are valid considerations for grant of anticipatory bail",
-      "Custodial interrogation cannot be demanded as a matter of routine routine by investigating agency",
-      "Interim protection should be granted during pendency of main anticipatory bail application"
+      "False implication and political rivalry are valid considerations for grant of anticipatory bail"
     ]
   },
   {
@@ -82,15 +101,20 @@
     "citation": "LAWS(SC)-2021-1-41",
     "year": 2021,
     "bench": "Indira Banerjee, Sanjiv Khanna, JJ.",
-    "offences_covered": ["420 IPC", "406 IPC", "120B IPC", "318 BNS", "316 BNS"],
+    "category": "Economic & Commercial",
+    "offences_covered": ["420 IPC", "318 BNS", "318(4) BNS", "406 IPC", "316 BNS", "120B IPC", "61 BNS"],
     "procedural_stage": "Anticipatory Bail",
     "bail_outcome": "Bail Condition Restructured",
-    "facts_summary": "Accused booked under Sections 420, 406 IPC for alleged default in financial land purchase agreement. High Court granted anticipatory bail subject to condition that accused deposit Rs. 41 Lakhs in court.",
+    "factual_narrative": "Complainant entered into a commercial agreement with accused for purchase of agricultural land and paid earnest money of Rs. 41 Lakhs. Transaction got delayed due to title defect issues, leading complainant to file criminal FIR under Sections 420 and 406 IPC (Sections 318 and 316 BNS). High Court granted anticipatory bail to accused subject to onerous pre-condition that accused deposit Rs. 41 Lakhs cash in trial court.",
+    "numbered_paragraphs": [
+      "1. Commercial land sale transaction defaulted leading to criminal cheating complaint.",
+      "2. High Court imposed condition directing accused to deposit disputed amount of Rs. 41 Lakhs as pre-condition for anticipatory bail.",
+      "3. Supreme Court set aside monetary deposit condition holding criminal courts cannot act as debt recovery agents."
+    ],
     "ratio_decidendi": "Bail proceedings cannot be converted into recovery proceedings for money. Onerous financial conditions requiring deposit of disputed amounts as pre-condition for bail are illegal and impermissible.",
     "key_bail_principles": [
       "Bail court cannot act as a debt recovery tribunal",
-      "Onerous monetary deposit conditions for anticipatory bail are legally unsustainable",
-      "Focus must remain on statutory bail factors rather than enforcing contractual liabilities"
+      "Onerous monetary deposit conditions for anticipatory bail are legally unsustainable"
     ]
   },
   {
@@ -100,52 +124,158 @@
     "citation": "(2022) 10 SCC 51",
     "year": 2022,
     "bench": "S. Ravindra Bhat, M.M. Sundresh, JJ.",
-    "offences_covered": ["Category A Offences", "7-Year Punishment Limit", "Economic Offences"],
+    "category": "General Precedent",
+    "offences_covered": ["498A IPC", "85 BNS", "420 IPC", "318 BNS", "506 IPC", "351 BNS", "406 IPC", "316 BNS"],
     "procedural_stage": "Anticipatory Bail & Regular Bail Guidelines",
-    "bail_outcome": "Comprehensive Bail Categorization Policy Formulated",
-    "facts_summary": "Systemic issue of unnecessary arrests and remand of accused who were not arrested during investigation upon filing of charge-sheet.",
+    "factual_narrative": "Systemic issue brought before the Supreme Court regarding routine arrest of accused persons upon appearance before trial court after filing of charge-sheet under Section 173 CrPC / Section 193 BNSS, even where accused were not arrested during investigation and cooperated throughout inquiry.",
+    "numbered_paragraphs": [
+      "1. Accused cooperated during multi-year investigation without being arrested by investigating agency.",
+      "2. Upon submission of charge-sheet under Section 173 CrPC / Section 193 BNSS, trial courts routinely remanded accused to judicial custody.",
+      "3. Supreme Court formulated 4-category classification guidelines (A, B, C, D) governing bail across trial courts."
+    ],
     "ratio_decidendi": "Offences categorized into four distinct classes (A, B, C, D) based on punishment severity. For Category A offences (punishable up to 7 years), bail should ordinarily be granted without taking accused into custody if accused cooperated during investigation.",
     "key_bail_principles": [
       "Category A: Offences up to 7 years — bail without custody if accused cooperated",
       "Category B: Offences punishable with life or death — bail on merits",
-      "Category C: Special Act offences (NDPS, PMLA, POCSO) — subject to statutory provisos",
-      "Category D: Economic offences — evaluated on individual merits without automatic custody demand"
+      "Category C: Special Act offences (NDPS, PMLA, POCSO) — subject to statutory provisos"
     ]
   },
   {
-    "case_id": "PREC_HC_007",
+    "case_id": "PREC_SC_007",
+    "case_name": "State of Kerala v. Rajesh",
+    "court": "Supreme Court of India",
+    "citation": "(2020) 12 SCC 122",
+    "year": 2020,
+    "bench": "L. Nageswara Rao, Hemant Gupta, JJ.",
+    "category": "NDPS Act",
+    "offences_covered": ["20 NDPS", "22 NDPS", "37 NDPS", "Commercial Quantity NDPS"],
+    "procedural_stage": "Anticipatory Bail / Regular Bail",
+    "bail_outcome": "Bail Cancelled / Mandate of Sec 37 NDPS Enforced",
+    "factual_narrative": "Police party intercepted vehicle carrying commercial quantity of psychotropic substances (methamphetamine). Accused fled scene but was identified via mobile call records and co-accused statements. High Court granted bail without recording mandatory satisfaction under Section 37 NDPS Act regarding reasonable grounds of innocence.",
+    "numbered_paragraphs": [
+      "1. Seizure of commercial quantity psychotropic drugs from vehicle during highway check.",
+      "2. High Court granted bail on ground of prolonged pre-trial custody without recording Section 37 findings.",
+      "3. Supreme Court set aside bail order for non-compliance with statutory negative twin conditions."
+    ],
+    "ratio_decidendi": "Section 37 NDPS Act contains negative mandatory conditions. Bail cannot be granted for commercial quantity seizure unless court records reasonable satisfaction that accused is not guilty and unlikely to commit offence while on bail.",
+    "key_bail_principles": [
+      "Rigid statutory bar under Section 37 NDPS Act overrides general bail principles",
+      "Court must record dual satisfaction of non-guilt and non-recidivism before granting bail in commercial quantity cases"
+    ]
+  },
+  {
+    "case_id": "PREC_SC_008",
+    "case_name": "P. Chidambaram v. Directorate of Enforcement",
+    "court": "Supreme Court of India",
+    "citation": "(2019) 9 SCC 24",
+    "year": 2019,
+    "bench": "R. Banumathi, A.S. Bopanna, JJ.",
+    "category": "Economic & Money Laundering",
+    "offences_covered": ["3 PMLA", "4 PMLA", "120B IPC", "61 BNS", "420 IPC", "318 BNS"],
+    "procedural_stage": "Anticipatory Bail",
+    "bail_outcome": "Anticipatory Bail Rejected",
+    "factual_narrative": "Enforcement Directorate registered money laundering investigation under Sections 3 and 4 PMLA following FIPB approval irregularities in INX Media foreign direct investment transactions. Investigating agency produced sealed cover intelligence reports indicating shell companies across multiple international jurisdictions. Accused sought anticipatory bail claiming political vendetta.",
+    "numbered_paragraphs": [
+      "1. Money laundering probe involving multi-layered offshore financial transactions and shell companies.",
+      "2. Investigating agency demonstrated necessity of custodial interrogation to confront accused with digital evidence.",
+      "3. Supreme Court rejected anticipatory bail holding economic offences require strict judicial scrutiny."
+    ],
+    "ratio_decidendi": "In economic offences of vast magnitude involving money laundering, anticipatory bail should be granted with great circumspection. Custodial interrogation is necessary to unearth intricate financial trails and money laundering networks.",
+    "key_bail_principles": [
+      "Economic offences constitute a class apart requiring strict approach",
+      "Custodial interrogation is imperative in complex money laundering investigations"
+    ]
+  },
+  {
+    "case_id": "PREC_SC_009",
+    "case_name": "State of Bihar v. Rajballav Prasad",
+    "court": "Supreme Court of India",
+    "citation": "(2017) 2 SCC 178",
+    "year": 2017,
+    "bench": "A.K. Sikri, A.M. Sapre, JJ.",
+    "category": "POCSO & Sexual Offences",
+    "offences_covered": ["376 IPC", "64 BNS", "4 POCSO", "8 POCSO"],
+    "procedural_stage": "Bail Cancellation",
+    "bail_outcome": "Bail Cancelled",
+    "factual_narrative": "Accused, an influential sitting Member of Legislative Assembly, was charged under Section 376 IPC / Section 64 BNS and Sections 4 and 8 of the POCSO Act for sexual assault on a minor schoolgirl lured to his residence. High Court granted bail observing that charge-sheet was filed. State appealed against bail grant highlighting that victim and her family faced direct death threats.",
+    "numbered_paragraphs": [
+      "1. Sexual assault on minor girl by powerful political leader inside private residence.",
+      "2. High Court granted bail solely because charge-sheet was submitted.",
+      "3. Supreme Court cancelled bail due to imminent threat of witness intimidation and victim tampering."
+    ],
+    "ratio_decidendi": "In heinous offences against minors under POCSO Act, paramount consideration is protection of victim and witnesses from intimidation by powerful accused.",
+    "key_bail_principles": [
+      "High vulnerability of minor victims under POCSO Act militates against bail",
+      "Position and influence of accused creating witness intimidation risk justifies denial/cancellation of bail"
+    ]
+  },
+  {
+    "case_id": "PREC_SC_010",
+    "case_name": "Kahkashan Kausar v. State of Bihar",
+    "court": "Supreme Court of India",
+    "citation": "(2022) 6 SCC 599",
+    "year": 2022,
+    "bench": "S. Abdul Nazeer, Krishna Murari, JJ.",
+    "category": "Matrimonial & Dowry",
+    "offences_covered": ["498A IPC", "85 BNS", "341 IPC", "126 BNS", "323 IPC", "115 BNS"],
+    "procedural_stage": "Quashing / Anticipatory Protection",
+    "bail_outcome": "Protection Granted to In-Laws",
+    "factual_narrative": "Complainant wife filed criminal case under Section 498A IPC / Section 85 BNS naming husband, mother-in-law, sister-in-law, and brother-in-law. Written complaint contained generalized and omnibus allegations of dowry harassment without specifying distinct dates, places, or specific overt acts attributed to the in-laws who resided in a separate city.",
+    "numbered_paragraphs": [
+      "1. FIR under 498A IPC / 85 BNS naming all family members of husband.",
+      "2. Accused in-laws lived separately and were implicated via general omnibus statements.",
+      "3. Supreme Court quashed criminal proceedings against in-laws to prevent abuse of process."
+    ],
+    "ratio_decidendi": "Generalized and omnibus allegations against relatives of husband in 498A IPC / Section 85 BNS complaints cannot be used as a tool of harassment. In-laws residing separately without specific overt role are entitled to protection.",
+    "key_bail_principles": [
+      "Omnibus dowry allegations without specific overt role warrant grant of protection",
+      "Relatives of husband should not be subjected to routine custodial arrest"
+    ]
+  },
+  {
+    "case_id": "PREC_SC_011",
+    "case_name": "Prasanta Kumar Sarkar v. Ashis Chatterjee",
+    "court": "Supreme Court of India",
+    "citation": "(2010) 14 SCC 496",
+    "year": 2010,
+    "bench": "D.K. Jain, H.L. Dattu, JJ.",
+    "category": "Violent Offences & Homicide",
+    "offences_covered": ["302 IPC", "103 BNS", "103(1) BNS", "120B IPC", "61 BNS"],
+    "procedural_stage": "Bail Cancellation / Regular Bail",
+    "bail_outcome": "Bail Cancelled",
+    "factual_narrative": "Accused engaged in land dispute hired contract killers who ambushed victim in broad daylight and shot him dead. High Court granted bail in murder case under Section 302 IPC / Section 103 BNS without examining gravity of charge, severity of punishment, or eye-witness testimonies.",
+    "numbered_paragraphs": [
+      "1. Contract killing in broad daylight arising out of property dispute.",
+      "2. High Court granted bail via brief non-reasoned order.",
+      "3. Supreme Court cancelled bail emphasizing mandatory duty to evaluate 6 bail factors in murder trials."
+    ],
+    "ratio_decidendi": "While considering bail in murder cases carrying life or death sentence, courts must evaluate gravity of charge, severity of punishment, danger of accused fleeing, and character of witnesses.",
+    "key_bail_principles": [
+      "Gravity of charge and life/death punishment penalty militates against bail grant",
+      "Failure to record reasons on statutory bail factors vitiates bail order"
+    ]
+  },
+  {
+    "case_id": "PREC_HC_012",
     "case_name": "Dr. Rajesh Talwar v. State of U.P.",
     "court": "High Court of Allahabad",
     "citation": "2013 (82) ACC 843",
     "year": 2013,
     "bench": "High Court Bench",
-    "offences_covered": ["302 IPC", "201 IPC", "34 IPC"],
+    "category": "Violent Offences & Homicide",
+    "offences_covered": ["302 IPC", "103 BNS", "201 IPC", "238 BNS", "34 IPC", "3(5) BNS"],
     "procedural_stage": "Anticipatory Bail",
     "bail_outcome": "Anticipatory Bail Rejected",
-    "facts_summary": "Accused parents charged with murder of minor daughter and house servant. High gravity of offence, destruction of crime scene evidence, and custodial interrogation required.",
+    "factual_narrative": "Double murder of 14-year-old girl and domestic servant inside locked residential apartment. Accused parents apprehended arrest following CBI investigation revealing destruction of crime scene evidence, alteration of medical records, and non-recovery of murder weapon (scalpel/golf club).",
+    "numbered_paragraphs": [
+      "1. Double murder inside locked house with destruction of physical evidence.",
+      "2. CBI sought custodial interrogation to recover missing murder weapon.",
+      "3. High Court rejected anticipatory bail given extreme gravity of offence and evidence destruction."
+    ],
     "ratio_decidendi": "Anticipatory bail will be denied where there is grave prima facie accusation of heinous crime carrying life or death penalty, combined with risk of evidence destruction and necessity of custodial interrogation.",
     "key_bail_principles": [
       "High gravity of offence carrying life/death sentence militates against anticipatory bail",
-      "Necessity of custodial interrogation for recovery of weapon of offence",
-      "Risk of tampering with crime scene and material evidence"
-    ]
-  },
-  {
-    "case_id": "PREC_HC_008",
-    "case_name": "Preeti Gupta v. State of Jharkhand",
-    "court": "Supreme Court of India",
-    "citation": "(2010) 7 SCC 667",
-    "year": 2010,
-    "bench": "Dalveer Bhandari, K.S. Radhakrishnan, JJ.",
-    "offences_covered": ["498A IPC", "406 IPC", "85 BNS"],
-    "procedural_stage": "Quashing & Anticipatory Bail",
-    "bail_outcome": "Protection Granted Against Implication of Distant Relatives",
-    "facts_summary": "Implication of married sister-in-law living in separate city in matrimonial cruelty complaint under 498A without specific allegations of physical or mental harassment.",
-    "ratio_decidendi": "Implication of distant relatives living separately in criminal complaints arising out of matrimonial disputes requires strict scrutiny to prevent abuse of judicial process.",
-    "key_bail_principles": [
-      "Distant relatives residing separately should be protected from routine arrest",
-      "General and omnibus allegations against in-laws warrant grant of anticipatory bail",
-      "Courts must scrutinize whether allegations are exaggerated due to matrimonial acrimony"
+      "Necessity of custodial interrogation for recovery of weapon of offence"
     ]
   }
 ]

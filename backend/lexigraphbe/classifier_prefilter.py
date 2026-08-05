@@ -42,6 +42,9 @@ class StatuteClassifierPrefilter:
             Path("c:/MootCourt/data/new/ipc_sections.csv"),
         ]
         candidate_bns = [
+            Path("data/update_combine_Dataset/bns.csv"),
+            Path("../data/update_combine_Dataset/bns.csv"),
+            Path("c:/MootCourt/data/update_combine_Dataset/bns.csv"),
             Path("data/new/bns_sections_clean.csv"),
             Path("../data/new/bns_sections_clean.csv"),
             Path("c:/MootCourt/data/new/bns_sections_clean.csv"),
@@ -176,7 +179,7 @@ class StatuteClassifierPrefilter:
                     if title_matches:
                         phrase_boost += (len(title_matches) * 0.5)
 
-            final_score = min(1.0, round((term_score * phrase_boost) / 4.0, 2))
+            final_score = min(1.0, round((term_score * phrase_boost) / 2.0, 2))
             matches.append((record, final_score, matched))
 
         # Sort matches by score descending

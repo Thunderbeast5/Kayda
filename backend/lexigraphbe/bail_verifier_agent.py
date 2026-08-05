@@ -2,6 +2,7 @@
 Bail Reasoning Verification Agent for Stage 5: Anticipatory Bail Reasoning Engine.
 Audits BailReasoningObject against source facts and statutory verification outputs to verify 7 criteria.
 Uses MODEL_TIER_REASONING flagship model (equal to or stronger than reasoning agent) for audit checks.
+Includes programmatic closed-set bail condition validation against Section 438(2) CrPC / Section 482(2) BNSS.
 """
 
 import json
@@ -11,6 +12,7 @@ from langchain_core.messages import HumanMessage, SystemMessage
 from .config import extract_json_from_text, get_llm_for_tier, MODEL_TIER_REASONING
 from .prompts import STAGE5_VERIFIER_SYSTEM_PROMPT, STAGE5_VERIFIER_USER_PROMPT_TEMPLATE
 from .schemas import BailReasoningObject, BailVerificationIssue, BailVerificationResult, CaseContextObject, StatutoryVerificationObject
+from .bail_condition_validator import BailConditionValidator
 
 
 class BailReasoningVerifierAgent:
@@ -66,6 +68,32 @@ class BailReasoningVerifierAgent:
         else:
             target_obj = BailReasoningObject.model_validate(bail_object)
             bail_json_str = json.dumps(bail_object, indent=2)
+
+        # ----------------------------------------------------------------------
+        # PROGRAMMATIC CLOSED-SET BAIL CONDITION AUDIT (Deterministic & 0-Cost)
+        # Validates every recommended bail condition against Section 438(2) CrPC / Section 482(2) BNSS
+        # ----------------------------------------------------------------------
+        condition_issues = []
+        validator = BailConditionValidator()
+        conditions_to_check = getattr(target_obj.overall_recommendation, "conditions", None) or []
+        if conditions_to_check:
+            _, flagged = validator.validate_all(conditions_to_check)
+            for flag in flagged:
+                condition_issues.append(
+                    BailVerificationIssue(
+                        target="recommended_conditions",
+                        issue=flag,
+                        feedback="Remove or replace the impermissible bail condition with an authorized category under Section 438(2) CrPC / Section 482(2) BNSS."
+                    )
+                )
+
+        if condition_issues:
+            return BailVerificationResult(
+                status="RETRY",
+                issues=condition_issues,
+                feedback=f"Bail reasoning failed closed-set condition validation: {len(condition_issues)} impermissible bail conditions detected.",
+                verified_bail_object=None,
+            )
 
         user_prompt = STAGE5_VERIFIER_USER_PROMPT_TEMPLATE.format(
             case_context_json=cco_json_str,

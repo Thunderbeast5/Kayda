@@ -1,0 +1,109 @@
+[
+  {
+    "section_number": "85",
+    "bns_section": "BNS 85",
+    "title": "Husband or relative of husband of a woman subjecting her to cruelty",
+    "chapter": "Chapter V: Of Offences Against Woman and Child",
+    "ipc_equivalent": "498A",
+    "punishment": "Imprisonment up to 3 years and fine",
+    "max_imprisonment_years": 3.0,
+    "arnesh_kumar_threshold_exceeded": false,
+    "ingredients": [
+      "Woman subjected to cruelty by husband or relative of husband",
+      "Cruelty includes willful conduct driving woman to suicide or grave injury",
+      "Harassment with a view to coercing woman or relative to meet unlawful dowry demand"
+    ],
+    "keywords": ["cruelty", "husband", "relative", "woman", "harassment", "dowry"]
+  },
+  {
+    "section_number": "80",
+    "bns_section": "BNS 80",
+    "title": "Dowry Death",
+    "chapter": "Chapter V: Of Offences Against Woman and Child",
+    "ipc_equivalent": "304B",
+    "punishment": "Imprisonment not less than 7 years but which may extend to life",
+    "max_imprisonment_years": 99.0,
+    "arnesh_kumar_threshold_exceeded": true,
+    "ingredients": [
+      "Death of a woman caused by burns, bodily injury, or under unnatural circumstances",
+      "Death occurs within 7 years of marriage",
+      "Shown that soon before death she was subjected to cruelty or harassment by husband or relative for dowry"
+    ],
+    "keywords": ["dowry", "death", "unnatural", "burns", "harassment", "husband"]
+  },
+  {
+    "section_number": "103",
+    "bns_section": "BNS 103",
+    "title": "Punishment for murder",
+    "chapter": "Chapter VI: Of Offences Affecting the Human Body",
+    "ipc_equivalent": "302",
+    "punishment": "Death or imprisonment for life, and fine",
+    "max_imprisonment_years": 99.0,
+    "arnesh_kumar_threshold_exceeded": true,
+    "ingredients": [
+      "Causing death of a person",
+      "Act done with intention of causing death or bodily injury sufficient in ordinary course of nature to cause death"
+    ],
+    "keywords": ["murder", "death", "intention", "bodily injury", "homicide"]
+  },
+  {
+    "section_number": "109",
+    "bns_section": "BNS 109",
+    "title": "Attempt to murder",
+    "chapter": "Chapter VI: Of Offences Affecting the Human Body",
+    "ipc_equivalent": "307",
+    "punishment": "Imprisonment up to 10 years and fine; if hurt caused, imprisonment up to life",
+    "max_imprisonment_years": 99.0,
+    "arnesh_kumar_threshold_exceeded": true,
+    "ingredients": [
+      "Doing act with such intention or knowledge and under such circumstances that if death caused, would be murder",
+      "Overt act towards commission of murder"
+    ],
+    "keywords": ["attempt", "murder", "assault", "gunshot", "weapon"]
+  },
+  {
+    "section_number": "318",
+    "bns_section": "BNS 318",
+    "title": "Cheating and dishonestly inducing delivery of property",
+    "chapter": "Chapter XVII: Of Offences Against Property",
+    "ipc_equivalent": "420",
+    "punishment": "Imprisonment up to 7 years and fine",
+    "max_imprisonment_years": 7.0,
+    "arnesh_kumar_threshold_exceeded": false,
+    "ingredients": [
+      "Deceiving any person",
+      "Fraudulently or dishonestly inducing person to deliver property or alter valuable security"
+    ],
+    "keywords": ["cheating", "fraud", "inducement", "property", "deceit"]
+  },
+  {
+    "section_number": "316",
+    "bns_section": "BNS 316",
+    "title": "Criminal breach of trust",
+    "chapter": "Chapter XVII: Of Offences Against Property",
+    "ipc_equivalent": "406",
+    "punishment": "Imprisonment up to 5 years or fine",
+    "max_imprisonment_years": 5.0,
+    "arnesh_kumar_threshold_exceeded": false,
+    "ingredients": [
+      "Entrustment of property or dominion over property",
+      "Dishonest misappropriation or conversion to own use"
+    ],
+    "keywords": ["breach of trust", "entrustment", "stridhan", "misappropriation"]
+  },
+  {
+    "section_number": "351",
+    "bns_section": "BNS 351",
+    "title": "Criminal intimidation",
+    "chapter": "Chapter XIX: Of Criminal Intimidation, Insult, Annoyance, Defamation",
+    "ipc_equivalent": "506",
+    "punishment": "Imprisonment up to 7 years or fine",
+    "max_imprisonment_years": 7.0,
+    "arnesh_kumar_threshold_exceeded": false,
+    "ingredients": [
+      "Threatening another with injury to person, reputation, or property",
+      "Intent to cause alarm or compel person to do act legally not bound to do"
+    ],
+    "keywords": ["threat", "intimidation", "alarm", "injury", "coercion"]
+  }
+]
