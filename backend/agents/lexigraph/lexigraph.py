@@ -669,6 +669,7 @@ Key facts about the database (verified before writing):
 import os
 import json
 import re
+import sys
 from pathlib import Path
 from typing import Optional
 
@@ -677,6 +678,13 @@ from dotenv import load_dotenv
 # ── Environment ───────────────────────────────────────────────────────────────
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
+
+# Allow this module to be executed from either the backend root or the agents package.
+AGENTS_DIR = Path(__file__).resolve().parent.parent
+PROJECT_ROOT = AGENTS_DIR.parent
+for candidate in (str(AGENTS_DIR), str(PROJECT_ROOT)):
+    if candidate not in sys.path:
+        sys.path.insert(0, candidate)
 
 NEO4J_URI      = os.getenv("NEO4J_URI", "")
 NEO4J_USER     = os.getenv("NEO4J_USER", "")
@@ -1116,20 +1124,28 @@ def _rewrite_query(original_query: str) -> str:
     Step E — If retrieval returns 0 results, ask the LLM to rephrase
     the query using Indian Penal Code terminology.
     """
-    from config.llm_config import get_llm
-    llm    = get_llm(temperature=0.3)
-    prompt = (
-        f"You are an Indian legal expert. The following query returned no results "
-        f"from an IPC (Indian Penal Code) database:\n\n"
-        f"\"{original_query}\"\n\n"
-        f"Rewrite this query using precise Indian Penal Code legal terminology "
-        f"(e.g. 'theft', 'culpable homicide', 'criminal intimidation', 'cheating'). "
-        f"Return ONLY the rewritten query — no explanation, no punctuation."
-    )
-    response  = llm.invoke(prompt)
-    rewritten = response.content.strip().strip('"').strip("'")
-    print(f"[LexiGraph] Query rewritten: '{original_query}' → '{rewritten}'")
-    return rewritten
+    try:
+        try:
+            from backend.agents.config.llm_config import get_llm
+        except Exception:
+            from config.llm_config import get_llm
+
+        llm = get_llm(temperature=0.3)
+        prompt = (
+            f"You are an Indian legal expert. The following query returned no results "
+            f"from an IPC (Indian Penal Code) database:\n\n"
+            f"\"{original_query}\"\n\n"
+            f"Rewrite this query using precise Indian Penal Code legal terminology "
+            f"(e.g. 'theft', 'culpable homicide', 'criminal intimidation', 'cheating'). "
+            f"Return ONLY the rewritten query — no explanation, no punctuation."
+        )
+        response = llm.invoke(prompt)
+        rewritten = response.content.strip().strip('"').strip("'")
+        print(f"[LexiGraph] Query rewritten: '{original_query}' → '{rewritten}'")
+        return rewritten
+    except Exception as exc:
+        print(f"[LexiGraph] Query rewrite unavailable ({exc}); using original query")
+        return original_query
 
 
 # ── Public API ────────────────────────────────────────────────────────────────
