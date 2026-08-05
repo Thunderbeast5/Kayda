@@ -1,0 +1,93 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-7.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2012-10-83",
+  "court": "SUPREME COURT OF INDIA (FROM: CALCUTTA)",
+  "coram": "H.L.DATTU, CHANDRAMAULI KUMAR PRASAD JJ.",
+  "decided_on": "October 17, 2012",
+  "decided_on_year": 2012,
+  "appeal_type": "Criminal Appeal No. 1688 Of 2012",
+  "final_verdict": "Appeal disposed",
+  "appellant": "Khandakar Kamaruzzaman Alias Kamal",
+  "respondent": "STATE OF WEST BENGAL",
+  "advocates": null,
+  "equivalent_citations": [
+    "SUPREME-2012-8-444",
+    "LAWS(SC)-2012-10-83",
+    "GLHEL-2012-0-52519"
+  ],
+  "cited_judgments": [],
+  "referred_acts": [
+    "S.438"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "1688 Of 2012 Final Verdict : Appeal disposed Appellant(s) : Khandakar Kamaruzzaman Alias Kamal Respondent(s) : STATE OF WEST BENGAL Equivalent Citation : SUPREME-2012-8-444, LAWS(SC)-2012-10-83, GLHEL-2012-0-52519 Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [],
+  "crpc_sections_mentioned": [
+    "438"
+  ],
+  "procedural_history": {
+    "high_court_order_date": "25.08.2011",
+    "high_court_bench": "High Court of Calcutta"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest - This appeal is filed against the impugned judgment and order - On\n27th July, 2012, while issuing notice, we had granted anticipatory - aforesaid order dated 27th\nJuly, 2012 be made absolute and is made\nB. On 27th July, 2012, while issuing notice, we had granted anticipatory - aforesaid order dated\n27th July, 2012 be made absolute and is made",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest - This appeal is filed against the impugned judgment and order - On\n27th July, 2012, while issuing notice, we had granted anticipatory - aforesaid order dated 27th\nJuly, 2012 be made absolute and is made"
+    },
+    {
+      "label": "B",
+      "text": "On 27th July, 2012, while issuing notice, we had granted anticipatory - aforesaid order dated\n27th July, 2012 be made absolute and is made"
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "Delay condoned."
+    },
+    {
+      "number": "3",
+      "text": "This appeal is filed against the impugned judgment and order dated 25.08.2011 passed by the\nHigh Court of Calcutta in C.R.M.No.4559 of 2011, whereby the High Court has rejected the\napplication for anticipatory bail filed by the appellant under Section 438 of the Code of Criminal\nProcedure."
+    },
+    {
+      "number": "4",
+      "text": "On 27th July, 2012, while issuing notice, we had granted anticipatory bail to the appellant."
+    },
+    {
+      "number": "5",
+      "text": "Having gone through the records and heard learned counsel for the parties to the lis, we are of the\nconsidered opinion that our aforesaid order dated 27th July, 2012 be made absolute and is made\nabsolute.\nCriminal Appeal is disposed of accordingly."
+    }
+  ],
+  "bail_amount_original": null,
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": null,
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "modified",
+  "bail_conditions": [],
+  "ratio_decidendi": "Having gone through the records and heard learned counsel for the parties to the lis, we are of the\nconsidered opinion that our aforesaid order dated 27th July, 2012 be made absolute and is made\nabsolute.\nCriminal Appeal is disposed of accordingly.",
+  "ratio_para_number": "5",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": []
+}

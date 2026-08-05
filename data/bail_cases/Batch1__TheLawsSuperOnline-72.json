@@ -1,0 +1,246 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-72.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2009-3-75",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "S.B.SINHA, MUKUNDAKAM SHARMA JJ.",
+  "decided_on": "March 03, 2009",
+  "decided_on_year": 2009,
+  "appeal_type": "Criminal Appeal No. 418 of 2009",
+  "final_verdict": "Appeal disposed",
+  "appellant": "RAMATHAL",
+  "respondent": "INSPECTOR OF POLICE",
+  "advocates": "K.K.MANI, C.K.R.LENIN SEKAR, MAYUR R.SHAH, V.KANAGARAJ, PROMILA,\nS.THANANJAYAN, GURUKRISHNA KUMAR, Srikala Gurukrishna Kumar",
+  "equivalent_citations": [
+    "ACR-2009-1-997",
+    "AD(CR)-2009-3-80",
+    "AIR(SCW)-2009-0-2218",
+    "ALLCRIC-2009-65-633",
+    "AIC-2009-77-215",
+    "ALLMR(CRI)-2009-0-1803",
+    "CGLJ-2010-2-53",
+    "CRIMES(SC)-2009-1-475",
+    "CRLJ-2009-0-2271",
+    "CRLR(SC)-2009-0-562",
+    "JT-2009-3-304",
+    "LAWS(SC)-2009-3-75",
+    "SCALE-2009-3-550",
+    "SCC-2009-12-721",
+    "SCC(CR)-2010-1-708",
+    "SUPREME-2009-2-319",
+    "TLPRE-2009-0-1453",
+    "KERLT-2009-SUPP3-1529",
+    "AICLR-2009-2-562",
+    "RAJ-2009-2-264",
+    "RCR(CRI)-2009-2-273",
+    "MPWN-2009-2-64",
+    "KHC-2009-0-349",
+    "KLD-2009-1-593",
+    "SCR-2009-3-981",
+    "JCC-2009-2-1532",
+    "TNLR-2009-1-267",
+    "GLHEL-2009-0-42900",
+    "CRICC-2009-3-365",
+    "KCCR-2009-4-202",
+    "WLC-2009-2-148",
+    "EASTCRIC-2009-2-7",
+    "LRC-2009-2-424 Referred Judgement(s) : - Sandeep Jain Vs. National Capital Territory Of Delhi Rep",
+    "[2000 1 JT 166] [Referred To] - Amarjit Singh Vs. State Of National Capital Territory Of Delhi",
+    "[2002 1 JT 291] [Referred To]"
+  ],
+  "cited_judgments": [
+    "Meena Anand Vs. Directorate Of Enforcement Government Of India, [LAWS(ALL)-2024-4-77] [Referred To]",
+    "Thiruvasagam Vs. State, Rep By Inspector Of Police, B1, North Beach Police Station, Chennai-1, [LAWS(MAD)-2017-10-57] [Referred To]",
+    "M. Siva Subramanian Vs. The State Rep. By The Inspector Of Police, C.C.B., Avs, [LAWS(MAD)- 2017-10-156] [Referred To]",
+    "Amit Kumar Kataria Vs. State Of U. P., [LAWS(ALL)-2021-2-99] [Referred To]",
+    "Rajo Devi Vs. State Of Bihar, [LAWS(PAT)-2017-6-10] [Referred To]",
+    "Rajesh Biyani Vs. The State Of Bihar And Ors., [LAWS(PAT)-2015-7-68] [Referred To]",
+    "Rakesh Kumar S/O Ram Bihari Prasad Singh Vs. State Of Bihar And Ors, [LAWS(PAT)-2015-12- 139] [Referred]",
+    "Rupak Rathi Vs. State Of Haryana, [LAWS(P&H)-2012-5-475] [Referred]",
+    "Navaneetha Krishnan And Ors. Vs. State, [LAWS(MAD)-2015-4-16] [Referred To]",
+    "Sagayam @ Devasagayam Vs. State Rep. By The Inspector Of Police, G, [LAWS(MAD)-2017-4-11] [Referred To]",
+    "Sumit Mehta Vs. State Of N.C.T. Of Delhi, [LAWS(SC)-2013-9-37] [Referred To]",
+    "Krishna Menan Vs. State Of Bihar, [LAWS(PAT)-2016-4-156] [Referred To]",
+    "K Bhuvaneswari Vs. Inspector Of Police, [LAWS(MAD)-2017-10-248] [Referred To]",
+    "Manubhai Bhupatbhai Khachar Vs. State Of Gujarat, [LAWS(GJH)-2022-3-957] [Referred To]",
+    "Narendra Prasad @ Nagendra Prasad S/O Late Sukhi Sah Vs. State Of Bihar And Ors, [LAWS(PAT)-2015-12-141] [Referred]",
+    "Md. Amarul Haque Vs. State Of Bihar, [LAWS(PAT)-2015-8-156] [Referred To]",
+    "Kapil Sethi Vs. State, [LAWS(DLH)-2011-11-92] [Referred To]",
+    "Jayesh Kantilal Mehta Vs. State Of Gujarat, [LAWS(GJH)-2018-2-149] [Referred To]",
+    "Lekha Vs. State Of Kerala, [LAWS(KER)-2019-7-169] [Referred To]",
+    "Runa Pasricha Rajpoot Vs. State Of Haryana, [LAWS(P&H)-2019-3-108] [Referred To]",
+    "M M Cooperative Bank Ltd Vs. J P Bhimani, [LAWS(SC)-2009-7-166] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438",
+    "S.120",
+    "S.420"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "J P Bhimani, [LAWS(SC)-2009-7-166] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.120B, S.420 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "120B",
+      "subsection": null,
+      "section_title": "Punishment of criminal conspiracy",
+      "how_used": "Charged",
+      "context": "J P Bhimani, [LAWS(SC)-2009-7-166] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.120B, S.420 Headnote: A.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "420",
+      "subsection": null,
+      "section_title": "Cheating and dishonestly inducing delivery of property",
+      "how_used": "Charged",
+      "context": "J P Bhimani, [LAWS(SC)-2009-7-166] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.120B, S.420 Headnote: A.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "120B",
+    "420"
+  ],
+  "crpc_sections_mentioned": [
+    "438"
+  ],
+  "procedural_history": {
+    "fir_number": "56 of 2008",
+    "high_court_order_date": "21.07.2008"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.120B - Punishment of criminal\nconspiracy, S.420 - Cheating and dishonestly inducing delivery of property - V.Krishnan\nSaibaba Colony, Coimbatore is open and ready for sale, the Complainant on behalf of the\nson-in-law who is working as Engineer and residing with his family in Malaysia negotiated\nwith Mrs. Ramathal, wife of late Raju and his family members pursuant to which an\nagreement was entered into on behalf of him/son-in-law and daughter for consideration of Rs.\n- 25.5 Lakhs was advanced on 14.3.2007 as a part of sale consideration and the deal was\nclosed upon the accused stating that the original documents were given by their father at\nThirupur for safety purposes and that after receiving the said documents the same would be\nhanded over to the complainant and that they would receive the balance amount within one\nmonths time.\nB. It is alleged that the appellants while entering into the said agreement with the complainant\nnever brought to his notice about the mortgage of the property: The aforesaid allegations are\nserious but the same are required to be considered by the court in accordance with and in the light of correct position of law.\nC. We accordingly, set aside the impugned order and remit back the matter to the High Court to\nconsider the prayer for anticipatory bail of the appellants afresh in accordance with law\ntaking into consideration the facts and circumstances of the case including the gravity of the\noffence alleged and analysing the prayer of the appellants whether to grant or not to grant the\nprayer for anticipatory bail. - 19.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.120B - Punishment of criminal\nconspiracy, S.420 - Cheating and dishonestly inducing delivery of property - V.Krishnan\nSaibaba Colony, Coimbatore is open and ready for sale, the Complainant on behalf of the\nson-in-law who is working as Engineer and residing with his family in Malaysia negotiated\nwith Mrs. Ramathal, wife of late Raju and his family members pursuant to which an\nagreement was entered into on behalf of him/son-in-law and daughter for consideration of Rs.\n- 25.5 Lakhs was advanced on 14.3.2007 as a part of sale consideration and the deal was\nclosed upon the accused stating that the original documents were given by their father at\nThirupur for safety purposes and that after receiving the said documents the same would be\nhanded over to the complainant and that they would receive the balance amount within one\nmonths time."
+    },
+    {
+      "label": "B",
+      "text": "It is alleged that the appellants while entering into the said agreement with the complainant\nnever brought to his notice about the mortgage of the property: The aforesaid allegations are\nserious but the same are required to be considered by the court in accordance with and in the light of correct position of law."
+    },
+    {
+      "label": "C",
+      "text": "We accordingly, set aside the impugned order and remit back the matter to the High Court to\nconsider the prayer for anticipatory bail of the appellants afresh in accordance with law\ntaking into consideration the facts and circumstances of the case including the gravity of the\noffence alleged and analysing the prayer of the appellants whether to grant or not to grant the\nprayer for anticipatory bail."
+    }
+  ],
+  "judgment_author": "Dr. MUKUNDAKAM SHARMA, J.",
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "The present appeal is filed by the appellants being aggrieved by a part of the direction contained\nin the Order dated 21.07.2008 passed by the learned single Judge of the Punjab and Haryana High\nCourt in Criminal Original Petition No. 16601 of 2008 whereby the High Court allowed the\napplication filed by the appellants under Section 438 of the Code of Criminal Procedure, 1973 (for\nshort the \"Code\") and granted the relief of anticipatory bail as prayed. The appellants are aggrieved\ndue to imposition of alleged onerous condition for grant of anticipatory bail."
+    },
+    {
+      "number": "3",
+      "text": "A complaint was filed by one A. Nizam Bash, s/o Late M. Abdul Salam, Respondent No. 2\ncontending inter alia that the appellants and another person namely Karuppasami are legal heirs of one\nRaju and that they owned a house which is located at Coimbatore. In the said complaint, the\nComplainant alleged that on coming to know that the said house bearing Nos. 34 to 39, Ward No. 62,\nP. V.Krishnan Saibaba Colony, Coimbatore is open and ready for sale, the Complainant on behalf of\nthe son-in-law who is working as Engineer and residing with his family in Malaysia negotiated with\nMrs. Ramathal, wife of late Raju and his family members pursuant to which an agreement was entered\ninto on behalf of him/son-in-law and daughter for consideration of Rs. 35.5 Lakhs as desired by the\naccused persons. A sum of Rs. 25.5 Lakhs was advanced on 14.3.2007 as a part of sale consideration\nand the deal was closed upon the accused stating that the original documents were given by their father\nat Thirupur for safety purposes and that after receiving the said documents the same would be handed\nover to the complainant and that they would receive the balance amount within one months time. An\nagreement to that effect was also made. However, the accused persons failed to do so and instead\nreceived a sum of Rs. 7 lakhs as advance on 7.8.2007 and handed over only the possession of the\nhouse. The papers and the documents relating to the house were not handed over to the Complainant\nand on enquiry made, it came to the knowledge of the complainant that the original documents and\ntitle deeds had been placed with Sowdambiha Chit Fund at Coimbatore, where they are required to pay\na sum of Rs. 8 lakhs including interest amount."
+    },
+    {
+      "number": "4",
+      "text": "It further transpires that the said accused Ramathal and her husband late Raju executed the sale\ndeed in respect of said property in favour of Chitra wife of Sivaji and Kumudha wife of Chinnasamy\nin 1998. The aforesaid fact of alleged fraudulent transfer of property was concealed. They also allegedly concealed the fact that they received a sum of Rs. 11,50,000/- from Punjab National Bank by\nmeans of pledging the documents and that a decree was passed against Kumudha and Chitra regarding\nthe pledged properties. It is thus alleged that the accused concealed the real fact and fraudulently\nreceived a sum of Rs. 32.5 lakhs as sale consideration and thereby cheated the complainant and his\nson-in-law and his wife."
+    },
+    {
+      "number": "5",
+      "text": "On receipt of the aforesaid complaint, a case was registered treating the said complaint as the\nFirst Information Report."
+    },
+    {
+      "number": "6",
+      "text": "The appellants herein apprehending arrest in the aforesaid case registered under Section 120B and\n420, IPC filed a petition under Section 438 of the Code seeking anticipatory bail."
+    },
+    {
+      "number": "7",
+      "text": "On perusal of the submissions made and material on record, the High Court passed an order\ngranting anticipatory bail as prayed for on condition that in the event of arrest, the appellants shall be\nenlarged on bail on their depositing Rs. 32,00,000/- to the credit of Crime No. 56 of 2008 before the\nJudicial Magistrate No. 1, Coimbatore and also on their executing a personal bond of Rs. 1,00,000/-\nwith two sureties each for the like sum to his satisfaction."
+    },
+    {
+      "number": "8",
+      "text": "Aggrieved by the aforesaid order, the appellants approached this Court on the ground that the\nconditions imposed by the High Court while granting anticipatory bail are not only unreasonable and\nonerous but the same also amounts to putting a fetter on the right of appellants being admitted to bail,\nin terms of the order passed."
+    },
+    {
+      "number": "9",
+      "text": "The said petition filed by the appellants was placed before this Court whereupon the following\norder was passed on 13.8.2008. \"Issue notice. However, it is made clear that, in the event, it is found\nthat the petitioners are not otherwise entitled to grant of an order of anticipatory bail, this Court may\npass an appropriate order. In the meantime, only that portion of the order whereby conditions have\nbeen imposed for grant of anticipatory bail other than those contained in Sub-section (2) of Section\n438 of the Code of Criminal Procedure shall remain stayed.\""
+    },
+    {
+      "number": "10",
+      "text": "Notice issued was served on the respondent and therefore, the matter was listed for hearing\nbefore us on which we heard the learned counsel appearing for the parties at length."
+    },
+    {
+      "number": "11",
+      "text": "Learned counsel appearing for the appellants submitted before us that the conditions imposed by\nthe High Court while granting anticipatory bail to the appellants were not only onerous but also\nunreasonable. It was also submitted that conditions imposed by the High Court for granting\nanticipatory bail on their deposit of Rs. 32,00,000/- amounts to putting a fetter on the order granting\nanticipatory bail as the appellants are unable to satisfy the conditions which are beyond their means\nand powers."
+    },
+    {
+      "number": "12",
+      "text": "Learned counsel appearing for the respondent, however, submitted that the aforesaid pre-\nconditions put by the Court for grant of anticipatory bail to the appellants were called for and justified\nin the facts and circumstances of the present case. It was pointed out that the appellants intentionally\nand knowing fully well the entire position and status of the property misrepresented the fact and cheated the complainant and therefore, such conditions were required to be put up for grant of\nanticipatory bail to the said persons."
+    },
+    {
+      "number": "13",
+      "text": "In the light of the aforesaid submissions by the counsel appearing for the parties, we have also\nconsidered the records placed before us. The facts and circumstances of the case when analysed have\nindicated that receipt of Rs. 32.5 lakhs as advance towards sale consideration of the property was\nalleged to be on misrepresentation of the fact by the appellants herein."
+    },
+    {
+      "number": "14",
+      "text": "It is also disclosed from the records that the said property is already mortgaged during the year\n2004 with the Punjab National Bank and that in fact parties have already obtained an order of\nattachment. Even the documents with regard to the ownership of the property are lying with another\nfinancial institution from whom the appellants have received consideration. There appears to be\nhypothecation in respect of the said property which was entered into with the private financier. It is\nalleged that the appellants while entering into the said agreement with the complainant never brought\nto his notice about the mortgage of the property: The aforesaid allegations are serious but the same are\nrequired to be considered by the court in accordance with and in the light of correct position of law."
+    },
+    {
+      "number": "15",
+      "text": "It appears that in the aforesaid facts and circumstances, the High Court passed the impugned\norder with the intention of protecting the interest of the complainant in the matter. In our considered\nopinion, the approach of the High Court was incorrect as under the impugned order a very\nunreasonable and onerous condition has been laid down by the Court as a condition precedent for\ngrant of anticipatory bail."
+    },
+    {
+      "number": "16",
+      "text": "This Court in Amarjit Singh vs. State of NCT of Delhi, reported in JT 2002 (1) SC 291, held as\nunder :- \"4. Having regard to the facts and circumstances of the present case, we have no hesitation in\ncoming to the conclusion that the imposition of condition to deposit the sum of Rs. 15 lacks in the\nform of FDR in the Trial Court is an unreasonable condition and, therefore, we set aside the said\ncondition as a condition precedent for granting anticipatory bail to the accused/appellant.......\" In\nSandeep Jain vs. National Capital Territory of Delhi, reported in (2000) 2 SCC 66, this Court held that\n:\n\"We are unable to appreciate even the first order passed by the Metropolitan Magistrate\nimposing the onerous condition that an accused at the FIR stage should pay a huge sum of Rs. 2 lakhs\nto be set at liberty. If he had paid it is a different matter. But the fact that he was not able to pay that\namount and in default thereof he is to languish in jail for more than 10 months now, is sufficient\nindication that he was unable to make up the amount. Can he be detained in custody endlessly for his\ninability to pay the amount in the range of Rs. 2 lakhs. If the cheques issued by his surety were\ndishonoured, the Court could perhaps have taken it as a ground to suggest to the payee of the cheques\nto resort to his legal remedies provided by law. Similarly if the court was dissatisfied with the conduct\nof the surety as for his failure to raise funds for honouring the cheques issued by him, the court could\nhave directed the appellant to substitute him with another surety. But to keep him in prison for such a\nlong period, that too in a case where bail would normally be granted for the offences alleged, is not\nonly hard but improper. It must be remembered that the Court has not even come to the conclusion that the allegations made in the FIR are true. That can be decided only when the trial concludes, if the case\nis charge-sheeted by the police\"."
+    },
+    {
+      "number": "17",
+      "text": "It is not disclosed from the record that the High Court considered the entire facts of the case in\nproper perspective and proceeded to dispose of the prayer for anticipatory bail oblivious of the facts of\nthe case and contrary to correct legal position with regard to law relating to grant of anticipatory bail.\nThe High Court should have considered the entire facts of the case including the gravity of the offence\nalleged and in the light thereof should have considered the prayer for grant of anticipatory bail. In that\nview of the matter, we feel that the entire order passed by the High Court is required to be set aside\nand the matter to be reconsidered in accordance with law and in terms of observations made herein."
+    },
+    {
+      "number": "18",
+      "text": "We accordingly, set aside the impugned order and remit back the matter to the High Court to\nconsider the prayer for anticipatory bail of the appellants afresh in accordance with law taking into\nconsideration the facts and circumstances of the case including the gravity of the offence alleged and\nanalysing the prayer of the appellants whether to grant or not to grant the prayer for anticipatory bail.\nThe High Court shall dispose of the matter in accordance with law, giving reasons for its decision, as\nexpeditiously as possible, preferably within a period of six weeks from the date of the communication\nof this order."
+    },
+    {
+      "number": "19",
+      "text": "Accordingly, the appeal is disposed of."
+    }
+  ],
+  "bail_amount_original": "Rs. 35",
+  "bail_amount_modified": "Rs. 11,50,000",
+  "bail_amount_original_normalized": "Rs. 35",
+  "bail_amount_modified_normalized": "Rs. 11,50,000",
+  "bail_outcome": "modified",
+  "bail_conditions": [
+    "1, Coimbatore and also on their executing a personal bond of Rs. 1,00,000/- with two sureties each for the like sum to his satisfaction.",
+    "If the cheques issued by his surety were dishonoured, the Court could perhaps have taken it as a ground to suggest to the payee of the cheques to resort to his legal remedies provided by law",
+    "Similarly if the court was dissatisfied with the conduct of the surety as for his failure to raise funds for honouring the cheques issued by him, the court could have directed the appellant to substitute him with another surety"
+  ],
+  "ratio_decidendi": "We accordingly, set aside the impugned order and remit back the matter to the High Court to\nconsider the prayer for anticipatory bail of the appellants afresh in accordance with law taking into\nconsideration the facts and circumstances of the case including the gravity of the offence alleged and\nanalysing the prayer of the appellants whether to grant or not to grant the prayer for anticipatory bail.\nThe High Court shall dispose of the matter in accordance with law, giving reasons for its decision, as\nexpeditiously as possible, preferably within a period of six weeks from the date of the communication\nof this order.",
+  "ratio_para_number": "18",
+  "dispute_nature": "property/land dispute",
+  "missing_anchors": [],
+  "warnings": []
+}

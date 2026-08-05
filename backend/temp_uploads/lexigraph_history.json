@@ -1,0 +1,2822 @@
+[
+  {
+    "query_id": "lexi_c25824bec5ad",
+    "query": "A man stabbed his neighbour during an argument, and the victim died in the hospital.",
+    "created_at": "2026-08-04T15:18:46.197456+00:00",
+    "pipeline_confidence": 0.6967,
+    "primary_intent": null,
+    "recommended_count": 2,
+    "precedents_count": 2,
+    "result": {
+      "pipeline_confidence": 0.6967,
+      "recommended_sections": [
+        {
+          "act": "BNS",
+          "section": "101",
+          "title": "Murder",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "300",
+            "mapping_verified": true
+          },
+          "confidence": 0.6967,
+          "applicability": "Relevant provision for query facts.",
+          "reason": "Candidate BNS 101 validated provisionally [WARNING: no ingredients ingested in graph]."
+        },
+        {
+          "act": "BNS",
+          "section": "102",
+          "title": "Culpable homicide by causing death of person other than person whose death was intended",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "301",
+            "mapping_verified": true
+          },
+          "confidence": 0.6901,
+          "applicability": "Relevant provision for query facts.",
+          "reason": "Candidate BNS 102 validated provisionally [WARNING: no ingredients ingested in graph]."
+        }
+      ],
+      "supporting_cases": [],
+      "similar_cases": [
+        {
+          "case_id": "2007_INSC_182",
+          "case_name": "A MOHANLAL AND ORS. ...",
+          "title": "A MOHANLAL AND ORS. ...",
+          "court": "Supreme Court of India",
+          "year": 2007,
+          "similarity": 0.5646,
+          "vector_similarity": 0.564635336,
+          "facts": "+ c Dowry death-In-laws allegedly harassing daughter in law - Causing death by setting her on fire-Dying declaration-Trial Court found in-laws guilty (lf committing crime under s. 302 rlw s. 34 !PC, convicted and sentence.",
+          "reasoning": "Situation in which a person is on death bed, being exceedingly solemn,",
+          "judgment_summary": "Situation in which a person is on death bed, being exceedingly solemn,",
+          "sections": [
+            "302",
+            "34"
+          ],
+          "metadata": {
+            "bns_sections": [],
+            "case_id": "2007_INSC_182",
+            "case_name": "A MOHANLAL AND ORS. ...",
+            "community": "domestic_offences",
+            "court": "Supreme Court of India",
+            "crime_type": "domestic_offences, murder_related",
+            "facts": "+ c Dowry death-In-laws allegedly harassing daughter in law - Causing death by setting her on fire-Dying declaration-Trial Court found in-laws guilty (lf committing crime under s. 302 rlw s. 34 !PC, convicted and sentence.",
+            "ipc_sections": [
+              "302",
+              "34"
+            ],
+            "judgment_summary": "Situation in which a person is on death bed, being exceedingly solemn,",
+            "keywords": [
+              "death",
+              "dowry death"
+            ],
+            "reasoning": "Situation in which a person is on death bed, being exceedingly solemn,",
+            "year": 2007
+          }
+        },
+        {
+          "case_id": "2013_INSC_87",
+          "case_name": "O RAYSINGH RATHOD v. STATE OF MAHARASHTRA (C",
+          "title": "O RAYSINGH RATHOD v. STATE OF MAHARASHTRA (C",
+          "court": "Supreme Court of India",
+          "year": 2013,
+          "similarity": 0.5525,
+          "vector_similarity": 0.552455962,
+          "facts": "A - Presumption as to abetment of suicide - 'Cruelty' - Suicide by second wife of appellant -. Conviction of appellant ulss 306 and 498-A - Held : It is not the case of \nprosecution that appellant had subjected the deceased to \ncruelty of the nature described in clause (b) of Explanation 0 \nto s.",
+          "reasoning": "It is not the case of",
+          "judgment_summary": "It is not the case of",
+          "sections": [
+            "306",
+            "34",
+            "498A"
+          ],
+          "metadata": {
+            "bns_sections": [],
+            "case_id": "2013_INSC_87",
+            "case_name": "O RAYSINGH RATHOD v. STATE OF MAHARASHTRA (C",
+            "community": "domestic_offences",
+            "court": "Supreme Court of India",
+            "crime_type": "domestic_offences, murder_related",
+            "facts": "A - Presumption as to abetment of suicide - 'Cruelty' - Suicide by second wife of appellant -. Conviction of appellant ulss 306 and 498-A - Held : It is not the case of \nprosecution that appellant had subjected the deceased to \ncruelty of the nature described in clause (b) of Explanation 0 \nto s.",
+            "ipc_sections": [
+              "306",
+              "34",
+              "498A"
+            ],
+            "judgment_summary": "It is not the case of",
+            "keywords": [
+              "child",
+              "cruelty",
+              "death"
+            ],
+            "reasoning": "It is not the case of",
+            "year": 2013
+          }
+        }
+      ],
+      "supporting_articles": [],
+      "supporting_evidence": [],
+      "supporting_principles": [],
+      "supporting_graph": {
+        "articles": [],
+        "cases": [],
+        "evidence": [],
+        "principles": []
+      },
+      "community": {
+        "community_id": "general_offences",
+        "community_name": "Community general_offences",
+        "community_summary": "Graph community clustered by GDS Leiden (general_offences).",
+        "community_score": 0.25
+      },
+      "rejected_sections": [],
+      "debug": {
+        "decision": {
+          "invoke_reasoning": true,
+          "reason": "Confidence below threshold or verification incomplete."
+        },
+        "ranked_candidates": [
+          {
+            "section": "BNS 101",
+            "act": "BNS",
+            "section_num": "101",
+            "title": "Murder",
+            "description": "Culpable homicide is murder when: act causing death done with intention of causing death; intention of causing bodily injury known likely to cause death; intention of causing bodily injury sufficient in ordinary course to cause death; knowing act so imminently dangerous it must cause death or bodily injury likely to cause death. Exceptions: grave sudden provocation, exceeding private defense, public servant exceeding powers, sudden fight without premeditation, adult consent.",
+            "punishment": "Punished as per Section 103: Death or imprisonment for life and fine",
+            "similarity": 0.7379,
+            "keyword_match": 0.0,
+            "case_similarity": 0.5646,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "A man committed assault on his neighbour during an argument, resulting in the neighbour's death at the hospital.",
+              "culpable homicide amounting to murder causing death of victim",
+              "intentional bodily injury causing death",
+              "murder by shooting stabbing or deadly weapon"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "IPC_BNS_MAPPING",
+                  "section": "IPC 300",
+                  "title": "Except in the cases hereinafter excepted, culpable homicide is murder, if the act by which the death",
+                  "kind": "act_mapping"
+                },
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Murder",
+                  "title": "Murder",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "general_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate BNS 101 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6967,
+            "ingredient_score": 0.71,
+            "community_match": 0.5,
+            "score_breakdown": {
+              "vector_similarity_35": 0.7379,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.6,
+              "community_match_10": 0.5,
+              "case_precedents_10": 0.5646,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6967
+            }
+          },
+          {
+            "section": "BNS 102",
+            "act": "BNS",
+            "section_num": "102",
+            "title": "Culpable homicide by causing death of person other than person whose death was intended",
+            "description": "When intending or knowing likely to cause death, causes death of different person (transferred malice).",
+            "punishment": "Same as if intended person died",
+            "similarity": 0.6975,
+            "keyword_match": 0.1667,
+            "case_similarity": 0.5646,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "A man committed assault on his neighbour during an argument, resulting in the neighbour's death at the hospital.",
+              "culpable homicide amounting to murder causing death of victim",
+              "intentional bodily injury causing death",
+              "murder by shooting stabbing or deadly weapon"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "MORE_SPECIFIC_THAN",
+                  "section": "BNS 103",
+                  "title": "Punishment for murder",
+                  "kind": "rule_expansion"
+                },
+                {
+                  "relation": "IPC_BNS_MAPPING",
+                  "section": "IPC 301",
+                  "title": "If a person, by doing anything which he intends or knows to be likely to cause death, commits culpab",
+                  "kind": "act_mapping"
+                },
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Culpable homicide by causing death of person other than person whose death was intended",
+                  "title": "Culpable homicide by causing death of person other than person whose death was intended",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "general_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate BNS 102 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6901,
+            "ingredient_score": 0.71,
+            "community_match": 0.5,
+            "score_breakdown": {
+              "vector_similarity_35": 0.6975,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.65,
+              "community_match_10": 0.5,
+              "case_precedents_10": 0.5646,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6901
+            }
+          },
+          {
+            "section": "BNS 100",
+            "act": "BNS",
+            "section_num": "100",
+            "title": "Culpable homicide",
+            "description": "Whoever causes death by doing act with: intention of causing death; intention of causing bodily injury likely to cause death; knowledge that act likely to cause death.",
+            "punishment": "Punished as per Section 103 (culpable homicide not amounting to murder: imprisonment up to 10 years or life, and fine) or Section 104/105",
+            "similarity": 0.7023,
+            "keyword_match": 0.0,
+            "case_similarity": 0.5646,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "A man committed assault on his neighbour during an argument, resulting in the neighbour's death at the hospital.",
+              "culpable homicide amounting to murder causing death of victim",
+              "intentional bodily injury causing death",
+              "murder by shooting stabbing or deadly weapon"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "IPC_BNS_MAPPING",
+                  "section": "IPC 299",
+                  "title": "Whoever causes death by doing an act with the intention of causing death, or with the intention of c",
+                  "kind": "act_mapping"
+                },
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Culpable homicide",
+                  "title": "Culpable homicide",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "general_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate BNS 100 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6843,
+            "ingredient_score": 0.71,
+            "community_match": 0.5,
+            "score_breakdown": {
+              "vector_similarity_35": 0.7023,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.6,
+              "community_match_10": 0.5,
+              "case_precedents_10": 0.5646,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6843
+            }
+          },
+          {
+            "section": "BNS 105",
+            "act": "BNS",
+            "section_num": "105",
+            "title": "Punishment for culpable homicide not amounting to murder",
+            "description": "Commits culpable homicide not amounting to murder (under exceptions to section 101: provocation, exceeding defense, sudden fight, consent).",
+            "punishment": "Life or 5-10 years and fine (if intention); up to 10 years and fine (if knowledge without intention)",
+            "similarity": 0.674,
+            "keyword_match": 0.0,
+            "case_similarity": 0.5646,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "A man committed assault on his neighbour during an argument, resulting in the neighbour's death at the hospital.",
+              "culpable homicide amounting to murder causing death of victim",
+              "intentional bodily injury causing death",
+              "murder by shooting stabbing or deadly weapon"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "IPC_BNS_MAPPING",
+                  "section": "IPC 304",
+                  "title": "Culpable homicide not amounting to murder, If act by which the death is caused is done with intention of causing death, etc.",
+                  "kind": "act_mapping"
+                },
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Punishment for culpable homicide not amounting to murder",
+                  "title": "Punishment for culpable homicide not amounting to murder",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "general_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate BNS 105 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6744,
+            "ingredient_score": 0.71,
+            "community_match": 0.5,
+            "score_breakdown": {
+              "vector_similarity_35": 0.674,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.6,
+              "community_match_10": 0.5,
+              "case_precedents_10": 0.5646,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6744
+            }
+          },
+          {
+            "section": "BNS 110",
+            "act": "BNS",
+            "section_num": "110",
+            "title": "Attempt to commit culpable homicide",
+            "description": "Does act intending/knowing if caused death would be culpable homicide not murder (provocation/sudden fight).",
+            "punishment": "Imprisonment up to 3 years or fine or both. If hurt: up to 7 years or fine or both",
+            "similarity": 0.6404,
+            "keyword_match": 0.0,
+            "case_similarity": 0.5646,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "A man committed assault on his neighbour during an argument, resulting in the neighbour's death at the hospital.",
+              "culpable homicide amounting to murder causing death of victim",
+              "intentional bodily injury causing death",
+              "murder by shooting stabbing or deadly weapon"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "IPC_BNS_MAPPING",
+                  "section": "IPC 308",
+                  "title": "Attempt to commit culpable homicide",
+                  "kind": "act_mapping"
+                },
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Attempt to commit culpable homicide",
+                  "title": "Attempt to commit culpable homicide",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "general_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate BNS 110 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6626,
+            "ingredient_score": 0.71,
+            "community_match": 0.5,
+            "score_breakdown": {
+              "vector_similarity_35": 0.6404,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.6,
+              "community_match_10": 0.5,
+              "case_precedents_10": 0.5646,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6626
+            }
+          }
+        ],
+        "case_analysis": {
+          "pipeline_confidence": 0.7,
+          "recommended_sections": [
+            {
+              "act": "BNS",
+              "section": "101",
+              "title": "Murder",
+              "confidence": 0.6967,
+              "applicability": "Relevant provision for query facts.",
+              "reason": "Candidate BNS 101 validated provisionally [WARNING: no ingredients ingested in graph]."
+            },
+            {
+              "act": "BNS",
+              "section": "102",
+              "title": "Culpable homicide by causing death of person other than person whose death was intended",
+              "confidence": 0.6901,
+              "applicability": "Relevant provision for query facts.",
+              "reason": "Candidate BNS 102 validated provisionally [WARNING: no ingredients ingested in graph]."
+            }
+          ],
+          "similar_cases": [
+            {
+              "case_id": "2007_INSC_182",
+              "case_name": "A MOHANLAL AND ORS. ...",
+              "title": "A MOHANLAL AND ORS. ...",
+              "court": "Supreme Court of India",
+              "year": 2007,
+              "similarity": 0.5646,
+              "vector_similarity": 0.564635336,
+              "facts": "+ c Dowry death-In-laws allegedly harassing daughter in law - Causing death by setting her on fire-Dying declaration-Trial Court found in-laws guilty (lf committing crime under s. 302 rlw s. 34 !PC, convicted and sentence.",
+              "reasoning": "Situation in which a person is on death bed, being exceedingly solemn,",
+              "judgment_summary": "Situation in which a person is on death bed, being exceedingly solemn,",
+              "sections": [
+                "302",
+                "34"
+              ],
+              "metadata": {
+                "bns_sections": [],
+                "case_id": "2007_INSC_182",
+                "case_name": "A MOHANLAL AND ORS. ...",
+                "community": "domestic_offences",
+                "court": "Supreme Court of India",
+                "crime_type": "domestic_offences, murder_related",
+                "facts": "+ c Dowry death-In-laws allegedly harassing daughter in law - Causing death by setting her on fire-Dying declaration-Trial Court found in-laws guilty (lf committing crime under s. 302 rlw s. 34 !PC, convicted and sentence.",
+                "ipc_sections": [
+                  "302",
+                  "34"
+                ],
+                "judgment_summary": "Situation in which a person is on death bed, being exceedingly solemn,",
+                "keywords": [
+                  "death",
+                  "dowry death"
+                ],
+                "reasoning": "Situation in which a person is on death bed, being exceedingly solemn,",
+                "year": 2007
+              }
+            },
+            {
+              "case_id": "2013_INSC_87",
+              "case_name": "O RAYSINGH RATHOD v. STATE OF MAHARASHTRA (C",
+              "title": "O RAYSINGH RATHOD v. STATE OF MAHARASHTRA (C",
+              "court": "Supreme Court of India",
+              "year": 2013,
+              "similarity": 0.5525,
+              "vector_similarity": 0.552455962,
+              "facts": "A - Presumption as to abetment of suicide - 'Cruelty' - Suicide by second wife of appellant -. Conviction of appellant ulss 306 and 498-A - Held : It is not the case of \nprosecution that appellant had subjected the deceased to \ncruelty of the nature described in clause (b) of Explanation 0 \nto s.",
+              "reasoning": "It is not the case of",
+              "judgment_summary": "It is not the case of",
+              "sections": [
+                "306",
+                "34",
+                "498A"
+              ],
+              "metadata": {
+                "bns_sections": [],
+                "case_id": "2013_INSC_87",
+                "case_name": "O RAYSINGH RATHOD v. STATE OF MAHARASHTRA (C",
+                "community": "domestic_offences",
+                "court": "Supreme Court of India",
+                "crime_type": "domestic_offences, murder_related",
+                "facts": "A - Presumption as to abetment of suicide - 'Cruelty' - Suicide by second wife of appellant -. Conviction of appellant ulss 306 and 498-A - Held : It is not the case of \nprosecution that appellant had subjected the deceased to \ncruelty of the nature described in clause (b) of Explanation 0 \nto s.",
+                "ipc_sections": [
+                  "306",
+                  "34",
+                  "498A"
+                ],
+                "judgment_summary": "It is not the case of",
+                "keywords": [
+                  "child",
+                  "cruelty",
+                  "death"
+                ],
+                "reasoning": "It is not the case of",
+                "year": 2013
+              }
+            }
+          ],
+          "supporting_articles": [],
+          "supporting_evidence": [],
+          "supporting_principles": [],
+          "rejected_sections": []
+        }
+      },
+      "prediction_id": "1f9f6a8e-ecb2-422b-bd1e-462a564e56e5"
+    }
+  },
+  {
+    "query_id": "lexi_3e56ecb7c6f6",
+    "query": "a man kidnapped a child for ransom",
+    "created_at": "2026-08-03T08:57:04.175591+00:00",
+    "pipeline_confidence": 0.6925,
+    "primary_intent": null,
+    "recommended_count": 2,
+    "precedents_count": 2,
+    "result": {
+      "pipeline_confidence": 0.6925,
+      "recommended_sections": [
+        {
+          "act": "POCSO",
+          "section": "POCSO 42",
+          "title": "Alternative punishment clause",
+          "equivalent_section": null,
+          "confidence": 0.6925,
+          "applicability": "Relevant provision for query facts.",
+          "reason": "Candidate POCSO POCSO 42 validated provisionally [WARNING: no ingredients ingested in graph]."
+        },
+        {
+          "act": "POCSO",
+          "section": "POCSO 9",
+          "title": "Aggravated sexual assault",
+          "equivalent_section": null,
+          "confidence": 0.6876,
+          "applicability": "Relevant provision for query facts.",
+          "reason": "Candidate POCSO POCSO 9 validated provisionally [WARNING: no ingredients ingested in graph]."
+        }
+      ],
+      "supporting_cases": [],
+      "similar_cases": [
+        {
+          "case_id": "2019_INSC_549",
+          "case_name": "KUMAR GHIMIREY v. THE STATE OF SIKKIM (C",
+          "title": "KUMAR GHIMIREY v. THE STATE OF SIKKIM (C",
+          "court": "Supreme Court of India",
+          "year": 2019,
+          "similarity": 0.6177,
+          "vector_similarity": 0.617733061,
+          "facts": "Sexual assault on seven year old girl \u2013 Appellant convicted under ss.9/10 of POSCO Act and under s.341 IPC and awarded simple imprisonment for a period of 7 years and imposed fine of Rs.50,000/- and imprisonment of one month for offence under s.341 IPC \u2013 Appeal against conviction under s.",
+          "reasoning": "There can be no doubt with regard to the power of",
+          "judgment_summary": "There can be no doubt with regard to the power of",
+          "sections": [
+            "10",
+            "302",
+            "341",
+            "376"
+          ],
+          "metadata": {
+            "bns_sections": [],
+            "case_id": "2019_INSC_549",
+            "case_name": "KUMAR GHIMIREY v. THE STATE OF SIKKIM (C",
+            "community": "sexual_offences",
+            "court": "Supreme Court of India",
+            "crime_type": "sexual_offences, child_offences, murder_related",
+            "facts": "Sexual assault on seven year old girl \u2013 Appellant convicted under ss.9/10 of POSCO Act and under s.341 IPC and awarded simple imprisonment for a period of 7 years and imposed fine of Rs.50,000/- and imprisonment of one month for offence under s.341 IPC \u2013 Appeal against conviction under s.",
+            "ipc_sections": [
+              "10",
+              "302",
+              "341",
+              "376"
+            ],
+            "judgment_summary": "There can be no doubt with regard to the power of",
+            "keywords": [
+              "child",
+              "minor",
+              "sexual assault"
+            ],
+            "reasoning": "There can be no doubt with regard to the power of",
+            "year": 2019
+          }
+        },
+        {
+          "case_id": "2023_INSC_676",
+          "case_name": "S.C.R.\n\nP. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE",
+          "title": "S.C.R.\n\nP. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE",
+          "court": "Supreme Court of India",
+          "year": 2023,
+          "similarity": 0.6088,
+          "vector_similarity": 0.608834326,
+          "facts": "whether a person is a child or not, such question shall be determined by the Special Court after satisfying itself about the age of such person and it shall record in writing its reasons for such determination.",
+          "reasoning": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+          "judgment_summary": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+          "sections": [
+            "10",
+            "351",
+            "366",
+            "366A",
+            "506"
+          ],
+          "metadata": {
+            "bns_sections": [],
+            "case_id": "2023_INSC_676",
+            "case_name": "S.C.R.\n\nP. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE",
+            "community": "sexual_offences",
+            "court": "Supreme Court of India",
+            "crime_type": "sexual_offences, child_offences, kidnapping_abduction",
+            "facts": "whether a person is a child or not, such question shall be determined by the Special Court after satisfying itself about the age of such person and it shall record in writing its reasons for such determination.",
+            "ipc_sections": [
+              "10",
+              "351",
+              "366",
+              "366A",
+              "506"
+            ],
+            "judgment_summary": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+            "keywords": [
+              "child",
+              "juvenile",
+              "minor",
+              "sexual assault"
+            ],
+            "reasoning": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+            "year": 2023
+          }
+        }
+      ],
+      "supporting_articles": [],
+      "supporting_evidence": [],
+      "supporting_principles": [],
+      "supporting_graph": {
+        "articles": [],
+        "cases": [],
+        "evidence": [],
+        "principles": []
+      },
+      "community": {
+        "community_id": "general_offences",
+        "community_name": "Community general_offences",
+        "community_summary": "Graph community clustered by GDS Leiden (general_offences).",
+        "community_score": 0.25
+      },
+      "rejected_sections": [],
+      "debug": {
+        "decision": {
+          "invoke_reasoning": true,
+          "reason": "Confidence below threshold or verification incomplete."
+        },
+        "ranked_candidates": [
+          {
+            "section": "POCSO POCSO 42",
+            "act": "POCSO",
+            "section_num": "POCSO 42",
+            "title": "Alternative punishment clause",
+            "description": "",
+            "punishment": "Governs sentencing priority: greater punishment prevails.",
+            "similarity": 0.6106,
+            "keyword_match": 0.0,
+            "case_similarity": 0.6177,
+            "metadata_verified": true,
+            "graph_verified": false,
+            "sources": [
+              "offence against minor child child protection statutory provisions"
+            ],
+            "relationships": {
+              "related_offences": [],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "children_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate POCSO POCSO 42 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6925,
+            "ingredient_score": 0.71,
+            "community_match": 1.0,
+            "score_breakdown": {
+              "vector_similarity_35": 0.6106,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.5,
+              "community_match_10": 1.0,
+              "case_precedents_10": 0.6177,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6925
+            }
+          },
+          {
+            "section": "POCSO POCSO 9",
+            "act": "POCSO",
+            "section_num": "POCSO 9",
+            "title": "Aggravated sexual assault",
+            "description": "",
+            "punishment": "Imprisonment of either description for a term which shall not be less than five years but which may extend to seven years, and fine.",
+            "similarity": 0.5967,
+            "keyword_match": 0.0,
+            "case_similarity": 0.6177,
+            "metadata_verified": true,
+            "graph_verified": false,
+            "sources": [
+              "A male individual committed the offence of kidnapping by taking a child for ransom.",
+              "kidnapping and abduction of minor child from lawful guardianship",
+              "offence against minor child child protection statutory provisions"
+            ],
+            "relationships": {
+              "related_offences": [],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "children_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate POCSO POCSO 9 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6876,
+            "ingredient_score": 0.71,
+            "community_match": 1.0,
+            "score_breakdown": {
+              "vector_similarity_35": 0.5967,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.5,
+              "community_match_10": 1.0,
+              "case_precedents_10": 0.6177,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6876
+            }
+          },
+          {
+            "section": "POCSO POCSO 5",
+            "act": "POCSO",
+            "section_num": "POCSO 5",
+            "title": "Aggravated penetrative sexual assault",
+            "description": "",
+            "punishment": "Imprisonment for a term not less than twenty years, but which may extend to imprisonment for life (remainder of natural life) or death, and fine.",
+            "similarity": 0.5935,
+            "keyword_match": 0.0,
+            "case_similarity": 0.6177,
+            "metadata_verified": true,
+            "graph_verified": false,
+            "sources": [
+              "kidnapping and abduction of minor child from lawful guardianship",
+              "offence against minor child child protection statutory provisions"
+            ],
+            "relationships": {
+              "related_offences": [],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "children_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate POCSO POCSO 5 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6865,
+            "ingredient_score": 0.71,
+            "community_match": 1.0,
+            "score_breakdown": {
+              "vector_similarity_35": 0.5935,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.5,
+              "community_match_10": 1.0,
+              "case_precedents_10": 0.6177,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6865
+            }
+          },
+          {
+            "section": "POCSO POCSO 8",
+            "act": "POCSO",
+            "section_num": "POCSO 8",
+            "title": "Punishment for sexual assault",
+            "description": "",
+            "punishment": "Imprisonment for 3 to 5 years and fine.",
+            "similarity": 0.5914,
+            "keyword_match": 0.0,
+            "case_similarity": 0.6177,
+            "metadata_verified": true,
+            "graph_verified": false,
+            "sources": [
+              "offence against minor child child protection statutory provisions"
+            ],
+            "relationships": {
+              "related_offences": [],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "children_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate POCSO POCSO 8 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6858,
+            "ingredient_score": 0.71,
+            "community_match": 1.0,
+            "score_breakdown": {
+              "vector_similarity_35": 0.5914,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.5,
+              "community_match_10": 1.0,
+              "case_precedents_10": 0.6177,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6858
+            }
+          },
+          {
+            "section": "BNS 20",
+            "act": "BNS",
+            "section_num": "20",
+            "title": "Act of child under seven years",
+            "description": "Nothing offence done by child under 7 years of age.",
+            "punishment": "N/A - Exception",
+            "similarity": 0.6621,
+            "keyword_match": 0.25,
+            "case_similarity": 0.6177,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "kidnapping and abduction of minor child from lawful guardianship",
+              "offence against minor child child protection statutory provisions"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "IPC_BNS_MAPPING",
+                  "section": "IPC 82",
+                  "title": "Act of a child under seven years of age.",
+                  "kind": "act_mapping"
+                },
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Act of child under seven years",
+                  "title": "Act of child under seven years",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "general_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate BNS 20 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.6755,
+            "ingredient_score": 0.71,
+            "community_match": 0.5,
+            "score_breakdown": {
+              "vector_similarity_35": 0.6621,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.6,
+              "community_match_10": 0.5,
+              "case_precedents_10": 0.6177,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.6755
+            }
+          }
+        ],
+        "case_analysis": {
+          "pipeline_confidence": 0.7,
+          "recommended_sections": [
+            {
+              "act": "POCSO",
+              "section": "POCSO 42",
+              "title": "Alternative punishment clause",
+              "confidence": 0.6925,
+              "applicability": "Relevant provision for query facts.",
+              "reason": "Candidate POCSO POCSO 42 validated provisionally [WARNING: no ingredients ingested in graph]."
+            },
+            {
+              "act": "POCSO",
+              "section": "POCSO 9",
+              "title": "Aggravated sexual assault",
+              "confidence": 0.6876,
+              "applicability": "Relevant provision for query facts.",
+              "reason": "Candidate POCSO POCSO 9 validated provisionally [WARNING: no ingredients ingested in graph]."
+            }
+          ],
+          "similar_cases": [
+            {
+              "case_id": "2019_INSC_549",
+              "case_name": "KUMAR GHIMIREY v. THE STATE OF SIKKIM (C",
+              "title": "KUMAR GHIMIREY v. THE STATE OF SIKKIM (C",
+              "court": "Supreme Court of India",
+              "year": 2019,
+              "similarity": 0.6177,
+              "vector_similarity": 0.617733061,
+              "facts": "Sexual assault on seven year old girl \u2013 Appellant convicted under ss.9/10 of POSCO Act and under s.341 IPC and awarded simple imprisonment for a period of 7 years and imposed fine of Rs.50,000/- and imprisonment of one month for offence under s.341 IPC \u2013 Appeal against conviction under s.",
+              "reasoning": "There can be no doubt with regard to the power of",
+              "judgment_summary": "There can be no doubt with regard to the power of",
+              "sections": [
+                "10",
+                "302",
+                "341",
+                "376"
+              ],
+              "metadata": {
+                "bns_sections": [],
+                "case_id": "2019_INSC_549",
+                "case_name": "KUMAR GHIMIREY v. THE STATE OF SIKKIM (C",
+                "community": "sexual_offences",
+                "court": "Supreme Court of India",
+                "crime_type": "sexual_offences, child_offences, murder_related",
+                "facts": "Sexual assault on seven year old girl \u2013 Appellant convicted under ss.9/10 of POSCO Act and under s.341 IPC and awarded simple imprisonment for a period of 7 years and imposed fine of Rs.50,000/- and imprisonment of one month for offence under s.341 IPC \u2013 Appeal against conviction under s.",
+                "ipc_sections": [
+                  "10",
+                  "302",
+                  "341",
+                  "376"
+                ],
+                "judgment_summary": "There can be no doubt with regard to the power of",
+                "keywords": [
+                  "child",
+                  "minor",
+                  "sexual assault"
+                ],
+                "reasoning": "There can be no doubt with regard to the power of",
+                "year": 2019
+              }
+            },
+            {
+              "case_id": "2023_INSC_676",
+              "case_name": "S.C.R.\n\nP. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE",
+              "title": "S.C.R.\n\nP. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE",
+              "court": "Supreme Court of India",
+              "year": 2023,
+              "similarity": 0.6088,
+              "vector_similarity": 0.608834326,
+              "facts": "whether a person is a child or not, such question shall be determined by the Special Court after satisfying itself about the age of such person and it shall record in writing its reasons for such determination.",
+              "reasoning": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+              "judgment_summary": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+              "sections": [
+                "10",
+                "351",
+                "366",
+                "366A",
+                "506"
+              ],
+              "metadata": {
+                "bns_sections": [],
+                "case_id": "2023_INSC_676",
+                "case_name": "S.C.R.\n\nP. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE",
+                "community": "sexual_offences",
+                "court": "Supreme Court of India",
+                "crime_type": "sexual_offences, child_offences, kidnapping_abduction",
+                "facts": "whether a person is a child or not, such question shall be determined by the Special Court after satisfying itself about the age of such person and it shall record in writing its reasons for such determination.",
+                "ipc_sections": [
+                  "10",
+                  "351",
+                  "366",
+                  "366A",
+                  "506"
+                ],
+                "judgment_summary": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+                "keywords": [
+                  "child",
+                  "juvenile",
+                  "minor",
+                  "sexual assault"
+                ],
+                "reasoning": "The documents produced, i.e., a transfer certificate and extracts of the admission register, are not as per mandate of s. 94(2)(i) JJ Act and nor they are in accord with s.94(2)(ii)JJ Act \u2013 Thus, the only piece of evidence, accorded with s. 94 of the JJ Act was the medical ossification test and the PW-9 (examining doctor) opined that victim was between 18-20 years and in cross-examination PW-9 said that the age might be 19 years \u2013 The result of the ossification or bone test was the most authentic evidence, corroborated by PW-9 \u2013 Considering the statement of victim u/s. 164 CrPC, the prosecution was not able to establish that there was any penetrative sexual assault as a result of coercion or compulsion on the part of the appellant \u2013 Charges against accused u/s.6 of the POCSO Act as well as s.10 of the Prohibition of Child Marriage Act cannot be sustained \u2013 Judgment of High Court set aside and appellant acquitted. 478 479 P. YUVAPRAKASH v. STATE REP. BY INSPECTOR OF POLICE Allowing the ",
+                "year": 2023
+              }
+            }
+          ],
+          "supporting_articles": [],
+          "supporting_evidence": [],
+          "supporting_principles": [],
+          "rejected_sections": []
+        }
+      },
+      "prediction_id": "ac48194c-c4fd-4065-96c5-d1a94a96aa12"
+    }
+  },
+  {
+    "query_id": "lexi_827ede854032",
+    "query": "My sister was burned alive by her in-laws after they demanded 10 lakhs more dowry. She died in the hospital after 3 days.",
+    "created_at": "2026-07-29T17:48:36.240888+00:00",
+    "pipeline_confidence": 0.8239,
+    "primary_intent": null,
+    "recommended_count": 3,
+    "precedents_count": 8,
+    "result": {
+      "pipeline_confidence": 0.8239,
+      "recommended_sections": [
+        {
+          "act": "BNS",
+          "section": "85",
+          "title": "Husband or relative of husband of a woman subjecting her to cruelty",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "498A",
+            "mapping_verified": true
+          },
+          "confidence": 0.8239,
+          "applicability": "Secondary offence: Cruelty by husband or relative of husband, as the in-laws subjected the woman to cruelty and harassment for dowry demand.",
+          "reason": "The facts of the case also match the description of Section 85, which deals with cruelty by the husband or his relatives towards the woman. The in-laws' demand for dowry and their subsequent actions of burning the woman alive constitute cruelty."
+        },
+        {
+          "act": "BNS",
+          "section": "80",
+          "title": "Dowry death",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "304B",
+            "mapping_verified": true
+          },
+          "confidence": 0.8044,
+          "applicability": "Primary offence: Dowry death, as the woman died due to burns caused by her in-laws after they demanded dowry.",
+          "reason": "The facts of the case match the description of Section 80, which deals with dowry death. The woman's death occurred within 7 years of marriage, and she was subjected to cruelty and harassment for dowry demand by her husband or relatives."
+        },
+        {
+          "act": "BNS",
+          "section": "103",
+          "title": "Punishment for murder",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "302",
+            "mapping_verified": true
+          },
+          "confidence": 0.7369,
+          "applicability": "Primary offence: Murder, as the in-laws intentionally killed the woman by burning her alive.",
+          "reason": "The facts of the case also match the description of Section 103, which deals with murder. The in-laws' actions of burning the woman alive were intentional and resulted in her death, making it a case of murder."
+        }
+      ],
+      "supporting_cases": [
+        {
+          "case_name": "State of West Bengal v. Orilal Jaiswal",
+          "citation": "(1994) 1 SCC 73",
+          "interprets": [
+            "IPC 304B",
+            "IPC 498A",
+            "BNS 80",
+            "BNS 85"
+          ],
+          "binding_under": "Article 141",
+          "legal_principles": [
+            "Mens Rea",
+            "Presumption of Dowry Death",
+            "Standard of Proof in Cruelty"
+          ],
+          "required_evidence": [
+            "Witness Statement",
+            "Dying Declaration",
+            "Postmortem Report",
+            "Inquest Report"
+          ],
+          "reason": "Landmark precedent defining the standard of proof required to establish abetment of suicide and cruelty by husband and in-laws."
+        },
+        {
+          "case_name": "Satbir Singh v. State of Haryana",
+          "citation": "2021 SCC OnLine SC 404",
+          "interprets": [
+            "IPC 304B",
+            "IPC 498A",
+            "BNS 80",
+            "BNS 85"
+          ],
+          "binding_under": "Article 141",
+          "legal_principles": [
+            "Burden of Proof",
+            "Presumption of Dowry Death",
+            "Proximity Nexus"
+          ],
+          "required_evidence": [
+            "Medical Report",
+            "Witness Statement",
+            "Postmortem Report",
+            "Marriage Certificate",
+            "WhatsApp Chats"
+          ],
+          "reason": "Landmark ruling clarifying the interpretation of 'soon before her death' in dowry death cases and mandatory trial court guidelines under Section 304B IPC (now BNS 80)."
+        },
+        {
+          "case_name": "Arnesh Kumar v. State of Bihar",
+          "citation": "(2014) 8 SCC 273",
+          "interprets": [
+            "IPC 498A",
+            "BNS 80",
+            "BNS 85"
+          ],
+          "binding_under": "Article 141",
+          "legal_principles": [
+            "Magisterial Scrutiny",
+            "Protection against Arbitrary Arrest",
+            "Personal Liberty"
+          ],
+          "required_evidence": [
+            "Arrest Memo",
+            "Police Logbook",
+            "Notice under Section 35 BNSS"
+          ],
+          "reason": "Landmark precedent regulating arbitrary police arrests in matrimonial cruelty and offences punishable up to 7 years imprisonment."
+        },
+        {
+          "case_name": "Lalita Kumari v. Government of UP",
+          "citation": "(2014) 2 SCC 1",
+          "interprets": [
+            "BNS 63",
+            "BNS 80",
+            "BNS 101"
+          ],
+          "binding_under": "Article 141",
+          "legal_principles": [
+            "Rule of Law",
+            "Access to Justice",
+            "Mandatory Duty of State"
+          ],
+          "required_evidence": [
+            "Call Detail Records (CDR)",
+            "FIR Copy",
+            "Police Logbook",
+            "Written Complaint"
+          ],
+          "reason": "Landmark Constitution Bench ruling on mandatory registration of FIR upon receipt of cognizable offence information."
+        },
+        {
+          "case_name": "Bachchan Singh v. State of Punjab",
+          "citation": "(1980) 2 SCC 684",
+          "interprets": [
+            "IPC 300",
+            "IPC 302",
+            "BNS 101",
+            "BNS 103"
+          ],
+          "binding_under": "Article 141",
+          "legal_principles": [
+            "Presumption of Innocence",
+            "Rarest of Rare Cases",
+            "Human Dignity",
+            "Rarest of Rare Doctrine",
+            "Proportionality in Sentencing"
+          ],
+          "required_evidence": [
+            "FSL Report",
+            "DNA Report",
+            "Postmortem Report",
+            "Weapon Recovery Memo",
+            "CCTV Footage"
+          ],
+          "reason": "Constitutional Bench judgment laying down the 'rarest of rare cases' doctrine for capital punishment in murder trials."
+        }
+      ],
+      "similar_cases": [
+        {
+          "case_name": "I A STATE OF U.P. I. v. SANTOSH KUMAR (C",
+          "court": "Supreme Court of India",
+          "similarity": 0.6964,
+          "reasoning": "The case is similar as it involves a married woman being harassed for dowry and burnt alive. The conviction of the accused under sections 304B, 498A, and the Dowry Prohibition Act is relevant to the present case."
+        },
+        {
+          "case_name": "SUKHWINDER SINGH v. STATE OF PUNJAB (C",
+          "court": "Supreme Court of India",
+          "similarity": 0.6935,
+          "reasoning": "The case is similar as it involves a dowry death, and the evidence on record discloses that the accused had a hostile attitude towards the deceased and made demands for dowry."
+        },
+        {
+          "case_name": "V. K. MISHRA&ANR. v. STATE OF UTIARAKHAND &ANR.",
+          "court": "Supreme Court of India",
+          "similarity": 0.6751,
+          "reasoning": "The case is similar as it involves a dowry death, and the prosecution established that the deceased was subjected to cruelty and harassment by her husband and in-laws in connection with the demand for dowry."
+        }
+      ],
+      "supporting_articles": [
+        "Article 14 - Equality before law - Equality before law",
+        "Article 15 - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth",
+        "Article 20 - Protection in respect of conviction for offences - Protection in respect of conviction for offences",
+        "Article 21 - Protection of life and personal liberty - Protection of life and personal liberty",
+        "Article 51A - Fundamental duties (Clause e - Dignity of Women) - Fundamental duties (Clause e - Dignity of Women)"
+      ],
+      "supporting_evidence": [
+        "Dying Declaration",
+        "Postmortem Report",
+        "Medical Report",
+        "Inquest Report",
+        "Witness Statement",
+        "Marriage Certificate"
+      ],
+      "supporting_principles": [
+        "Burden of Proof",
+        "Human Dignity",
+        "Magisterial Scrutiny",
+        "Mens Rea",
+        "Personal Liberty",
+        "Presumption of Dowry Death",
+        "Presumption of Innocence",
+        "Proportionality in Sentencing",
+        "Protection against Arbitrary Arrest",
+        "Proximity Nexus",
+        "Rarest of Rare Cases",
+        "Rarest of Rare Doctrine",
+        "Standard of Proof in Cruelty"
+      ],
+      "supporting_graph": {
+        "articles": [
+          "Article 14 - Equality before law - Equality before law",
+          "Article 15 - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth",
+          "Article 20 - Protection in respect of conviction for offences - Protection in respect of conviction for offences",
+          "Article 21 - Protection of life and personal liberty - Protection of life and personal liberty",
+          "Article 51A - Fundamental duties (Clause e - Dignity of Women) - Fundamental duties (Clause e - Dignity of Women)"
+        ],
+        "cases": [
+          "Arnesh Kumar v. State of Bihar",
+          "Bachchan Singh v. State of Punjab",
+          "Lalita Kumari v. Government of UP",
+          "Satbir Singh v. State of Haryana",
+          "State of West Bengal v. Orilal Jaiswal"
+        ],
+        "evidence": [
+          "Audio Recording",
+          "Bank Transaction",
+          "Birth Certificate",
+          "Dying Declaration",
+          "Inquest Report",
+          "Marriage Certificate",
+          "Medical Report",
+          "Postmortem Report",
+          "WhatsApp Chats",
+          "Witness Statement"
+        ],
+        "principles": [
+          "Burden of Proof",
+          "Human Dignity",
+          "Magisterial Scrutiny",
+          "Mens Rea",
+          "Personal Liberty",
+          "Presumption of Dowry Death",
+          "Presumption of Innocence",
+          "Proportionality in Sentencing",
+          "Protection against Arbitrary Arrest",
+          "Proximity Nexus",
+          "Rarest of Rare Cases",
+          "Rarest of Rare Doctrine",
+          "Standard of Proof in Cruelty"
+        ]
+      },
+      "community": {
+        "community_id": "women_offences",
+        "community_name": "Women Offences",
+        "community_summary": "This community contains offences relating to sexual assault, dowry, domestic violence, rape, and cruelty to married women.\n\nImportant Sections: BNS 73, BNS 80, BNS 74, BNS 74A, BNS 87, BNS 63, BNS 64, BNS 64A, BNS 64AB, BNS 64B, BNS 64C, BNS 64D, BNS 64DA, BNS 64DB, BNS 64E\nRelevant Constitution: Article 21\nRelevant Evidence: Witness Statement, Dying Declaration\nRelevant Legal Principles: Burden of Proof\nRelevant Supreme Court Cases: None",
+        "community_score": 0.4393
+      },
+      "rejected_sections": [
+        {
+          "section": "BNS 101",
+          "reason": "Statutory ingredient match score (0.33) below minimum applicability threshold (0.45). (Provisional: 'Human Victim' unverified in query prompt; Provisional: 'Act Causing Death' unverified in query prompt)"
+        }
+      ],
+      "prediction_id": "df397424-bb3d-440d-b65a-3069e5727346"
+    }
+  },
+  {
+    "query_id": "lexi_faeee9b73da7",
+    "query": "My neighbor broke into my house and stole gold ornaments worth 5 lakhs",
+    "created_at": "2026-07-29T17:34:54.258403+00:00",
+    "pipeline_confidence": 0.7345,
+    "primary_intent": null,
+    "recommended_count": 3,
+    "precedents_count": 2,
+    "result": {
+      "pipeline_confidence": 0.7345,
+      "recommended_sections": [
+        {
+          "act": "BNS",
+          "section": "329",
+          "title": "Criminal trespass",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "441",
+            "mapping_verified": true
+          },
+          "confidence": 0.7345,
+          "applicability": "Primary offence: Trespass into the complainant's house with intent to commit an offence",
+          "reason": "The section deals with criminal trespass, which is relevant to the facts of the case where the neighbor broke into the complainant's house with intent to commit theft."
+        },
+        {
+          "act": "BNS",
+          "section": "330",
+          "title": "Lurking house-trespass and house-breaking",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "443",
+            "mapping_verified": true
+          },
+          "confidence": 0.7221,
+          "applicability": "Primary offence: Lurking house-trespass and house-breaking with intent to commit an offence",
+          "reason": "The section deals with lurking house-trespass and house-breaking, which is relevant to the facts of the case where the neighbor broke into the complainant's house with intent to commit theft."
+        },
+        {
+          "act": "BNS",
+          "section": "305",
+          "title": "Theft in dwelling house or transport",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "380",
+            "mapping_verified": true
+          },
+          "confidence": 0.6996,
+          "applicability": "Primary offence: Theft of gold ornaments worth 5 lakhs from the complainant's house",
+          "reason": "The section deals with theft in a dwelling house, which is relevant to the facts of the case where the neighbor broke into the complainant's house and stole gold ornaments."
+        }
+      ],
+      "supporting_cases": [],
+      "similar_cases": [
+        {
+          "case_name": "A PATEL MAHESHBHAI RANCHODBHAI AND OTHERS v. STATE OF GUJARAT (C",
+          "court": "Supreme Court of India",
+          "similarity": 0.4397,
+          "reasoning": "The case deals with the issue of harassment and severe beatings, which is not directly relevant to the facts of the case, but the court's reasoning on the issue of intention and mens rea may be applicable."
+        },
+        {
+          "case_name": "ONKARNATHMISHRA v. STATE",
+          "court": "Supreme Court of India",
+          "similarity": 0.4336,
+          "reasoning": "The case deals with the issue of framing of charges under section 498A and 406, which is not directly relevant to the facts of the case, but the court's reasoning on the issue of entrustment of property may be applicable."
+        }
+      ],
+      "supporting_articles": [
+        "Article 14 - Equality before law - Equality before law",
+        "Article 21 - Protection of life and personal liberty - Protection of life and personal liberty"
+      ],
+      "supporting_evidence": [
+        "Medical Report",
+        "FSL Report",
+        "Witness Statement",
+        "CCTV",
+        "Electronic Evidence",
+        "Forensic Report"
+      ],
+      "supporting_principles": [
+        "Actus Reus",
+        "Mens Rea",
+        "Presumption of Innocence",
+        "Reasonable Doubt"
+      ],
+      "supporting_graph": {
+        "articles": [
+          "Article 14 - Equality before law - Equality before law",
+          "Article 21 - Protection of life and personal liberty - Protection of life and personal liberty"
+        ],
+        "cases": [
+          "Ramesh v. State of Maharashtra",
+          "State of Delhi v. Sanjay Kumar"
+        ],
+        "evidence": [
+          "CCTV",
+          "Electronic Evidence",
+          "FSL Report",
+          "Forensic Report",
+          "Medical Report",
+          "Witness Statement"
+        ],
+        "principles": [
+          "Actus Reus",
+          "Mens Rea",
+          "Presumption of Innocence",
+          "Reasonable Doubt"
+        ]
+      },
+      "community": {
+        "community_id": "property_offences",
+        "community_name": "Property Offences",
+        "community_summary": "This community contains offences relating to theft, robbery, burglary, mischief, extortion, and trespass.\n\nImportant Sections: IPC 145, IPC 150, IPC 151, IPC 157, IPC 158, IPC 297, IPC 356, IPC 378, IPC 379, IPC 380, IPC 381, IPC 382, IPC 383, IPC 384, IPC 385\nRelevant Constitution: Article 14, Article 21\nRelevant Evidence: Witness Statement, Forensic Report, Electronic Evidence, CCTV, Medical Report, FSL Report\nRelevant Legal Principles: Natural Justice, Presumption of Innocence, Mens Rea, Actus Reus, Reasonable Doubt\nRelevant Supreme Court Cases: Lalita Kumari v. Govt of UP",
+        "community_score": 0.6815
+      },
+      "rejected_sections": [
+        {
+          "section": "BNS 74",
+          "reason": "Hard Rejection: Mandatory statutory ingredient 'Assault or Criminal Force' contradicted by facts."
+        },
+        {
+          "section": "BNS 355",
+          "reason": "Hard Rejection: Mandatory statutory ingredient 'Assault or Criminal Force' contradicted by facts."
+        }
+      ],
+      "prediction_id": "6bc25cfb-f48e-43f9-913c-ebbc7794fd72"
+    }
+  },
+  {
+    "query_id": "lexi_23aa9a4a2333",
+    "query": "My neighbor broke into my house and stole gold ornaments worth 5 lakhs",
+    "created_at": "2026-07-29T17:34:20.050384+00:00",
+    "pipeline_confidence": 0.7221,
+    "primary_intent": null,
+    "recommended_count": 2,
+    "precedents_count": 2,
+    "result": {
+      "pipeline_confidence": 0.7221,
+      "recommended_sections": [
+        {
+          "act": "BNS",
+          "section": "330",
+          "title": "Lurking house-trespass and house-breaking",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "443",
+            "mapping_verified": true
+          },
+          "confidence": 0.7221,
+          "applicability": "Relevant provision for query facts.",
+          "reason": "Candidate BNS 330 validated provisionally [WARNING: no ingredients ingested in graph]."
+        },
+        {
+          "act": "BNS",
+          "section": "329",
+          "title": "Criminal trespass",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "441",
+            "mapping_verified": true
+          },
+          "confidence": 0.7155,
+          "applicability": "Relevant provision for query facts.",
+          "reason": "Candidate BNS 329 validated provisionally [WARNING: no ingredients ingested in graph]."
+        }
+      ],
+      "supporting_cases": [],
+      "similar_cases": [
+        {
+          "case_id": "2014_INSC_687",
+          "case_name": "A PATEL MAHESHBHAI RANCHODBHAI AND OTHERS v. STATE OF GUJARAT (C",
+          "title": "A PATEL MAHESHBHAI RANCHODBHAI AND OTHERS v. STATE OF GUJARAT (C",
+          "court": "Supreme Court of India",
+          "year": 2014,
+          "similarity": 0.4397,
+          "vector_similarity": 0.439709753,
+          "facts": "A - Suicide by married woman in her matrimonial home within three years of her marriage - Dying declaration alleging harassment and severe beatings - Conviction of husband and sentence of 3 days i.",
+          "reasoning": "High Court has",
+          "judgment_summary": "High Court has",
+          "sections": [
+            "114",
+            "306",
+            "498A"
+          ],
+          "metadata": {
+            "bns_sections": [],
+            "case_id": "2014_INSC_687",
+            "case_name": "A PATEL MAHESHBHAI RANCHODBHAI AND OTHERS v. STATE OF GUJARAT (C",
+            "community": "domestic_offences",
+            "court": "Supreme Court of India",
+            "crime_type": "domestic_offences",
+            "facts": "A - Suicide by married woman in her matrimonial home within three years of her marriage - Dying declaration alleging harassment and severe beatings - Conviction of husband and sentence of 3 days i.",
+            "ipc_sections": [
+              "114",
+              "306",
+              "498A"
+            ],
+            "judgment_summary": "High Court has",
+            "keywords": [
+              "child",
+              "cruelty",
+              "death"
+            ],
+            "reasoning": "High Court has",
+            "year": 2014
+          }
+        },
+        {
+          "case_id": "2007_INSC_1301",
+          "case_name": "ONKARNATHMISHRA v. STATE",
+          "title": "ONKARNATHMISHRA v. STATE",
+          "court": "Supreme Court of India",
+          "year": 2007,
+          "similarity": 0.4336,
+          "vector_similarity": 0.433562368,
+          "facts": "Framing of charges under-FIR by wife alleging commission of offence u/s 498A and 406134 by in-laws and husband, on basis of complaint before Women Cell-Charges framed ,. against in-laws and husband u/s 498A and 406134-Challenge to- - Held.",
+          "reasoning": "There was no allegation of entrustment of property by",
+          "judgment_summary": "There was no allegation of entrustment of property by",
+          "sections": [
+            "406",
+            "498A"
+          ],
+          "metadata": {
+            "bns_sections": [],
+            "case_id": "2007_INSC_1301",
+            "case_name": "ONKARNATHMISHRA v. STATE",
+            "community": "domestic_offences",
+            "court": "Supreme Court of India",
+            "crime_type": "domestic_offences, murder_related",
+            "facts": "Framing of charges under-FIR by wife alleging commission of offence u/s 498A and 406134 by in-laws and husband, on basis of complaint before Women Cell-Charges framed ,. against in-laws and husband u/s 498A and 406134-Challenge to- - Held.",
+            "ipc_sections": [
+              "406",
+              "498A"
+            ],
+            "judgment_summary": "There was no allegation of entrustment of property by",
+            "keywords": [
+              "cruelty"
+            ],
+            "reasoning": "There was no allegation of entrustment of property by",
+            "year": 2007
+          }
+        }
+      ],
+      "supporting_articles": [
+        "Article 14 - Equality before law - Equality before law",
+        "Article 21 - Protection of life and personal liberty - Protection of life and personal liberty"
+      ],
+      "supporting_evidence": [
+        "Medical Report",
+        "FSL Report",
+        "Witness Statement",
+        "CCTV",
+        "Electronic Evidence",
+        "Forensic Report"
+      ],
+      "supporting_principles": [
+        "Actus Reus",
+        "Mens Rea",
+        "Presumption of Innocence",
+        "Reasonable Doubt"
+      ],
+      "supporting_graph": {
+        "articles": [
+          "Article 14 - Equality before law - Equality before law",
+          "Article 21 - Protection of life and personal liberty - Protection of life and personal liberty"
+        ],
+        "cases": [
+          "Ramesh v. State of Maharashtra",
+          "State of Delhi v. Sanjay Kumar"
+        ],
+        "evidence": [
+          "CCTV",
+          "Electronic Evidence",
+          "FSL Report",
+          "Forensic Report",
+          "Medical Report",
+          "Witness Statement"
+        ],
+        "principles": [
+          "Actus Reus",
+          "Mens Rea",
+          "Presumption of Innocence",
+          "Reasonable Doubt"
+        ]
+      },
+      "community": {
+        "community_id": "property_offences",
+        "community_name": "Property Offences",
+        "community_summary": "This community contains offences relating to theft, robbery, burglary, mischief, extortion, and trespass.\n\nImportant Sections: IPC 145, IPC 150, IPC 151, IPC 157, IPC 158, IPC 297, IPC 356, IPC 378, IPC 379, IPC 380, IPC 381, IPC 382, IPC 383, IPC 384, IPC 385\nRelevant Constitution: Article 14, Article 21\nRelevant Evidence: Witness Statement, Forensic Report, Electronic Evidence, CCTV, Medical Report, FSL Report\nRelevant Legal Principles: Natural Justice, Presumption of Innocence, Mens Rea, Actus Reus, Reasonable Doubt\nRelevant Supreme Court Cases: Lalita Kumari v. Govt of UP",
+        "community_score": 0.7119
+      },
+      "rejected_sections": [
+        {
+          "section": "BNS 74",
+          "reason": "Hard Rejection: Mandatory statutory ingredient 'Assault or Criminal Force' contradicted by facts."
+        },
+        {
+          "section": "BNS 355",
+          "reason": "Hard Rejection: Mandatory statutory ingredient 'Assault or Criminal Force' contradicted by facts."
+        }
+      ],
+      "prediction_id": "e903e0ca-c6de-49ea-ac57-0f8fed7bf989"
+    }
+  },
+  {
+    "query_id": "lexi_178ddc754bb9",
+    "query": "A complainant alleged that the accused hid the fact that he was already married and falsely assured her of marriage to obtain her consent for a sexual relationship.",
+    "created_at": "2026-07-28T04:45:22.562409+00:00",
+    "pipeline_confidence": 0.8014,
+    "primary_intent": null,
+    "recommended_count": 1,
+    "precedents_count": 4,
+    "result": {
+      "pipeline_confidence": 0.8014,
+      "recommended_sections": [
+        {
+          "act": "BNS",
+          "section": "63",
+          "title": "Rape",
+          "equivalent_section": {
+            "act": "IPC",
+            "section": "375",
+            "mapping_verified": true
+          },
+          "confidence": 0.8014,
+          "applicability": "Primary offence: The complainant alleged that the accused hid the fact that he was already married and falsely assured her of marriage to obtain her consent for a sexual relationship, which falls under the definition of rape in section 63.",
+          "reason": "The section defines rape and prescribes punishment for the offence, which is relevant to the facts of the case."
+        }
+      ],
+      "supporting_cases": [
+        {
+          "case_name": "State of Punjab v. Gurmit Singh",
+          "citation": "(1996) 2 SCC 384",
+          "interprets": [
+            "IPC 375",
+            "IPC 376",
+            "BNS 63",
+            "BNS 64"
+          ],
+          "binding_under": "Article 141",
+          "legal_principles": [
+            "Presumption of Innocence",
+            "Human Dignity",
+            "Sole Testimony of Victim"
+          ],
+          "required_evidence": [
+            "Medical Report",
+            "Witness Statement",
+            "FSL Report",
+            "DNA Report",
+            "Statement under Section 164"
+          ],
+          "reason": "Landmark judgment establishing evidentiary guidelines for victim testimony in sexual assault trials."
+        },
+        {
+          "case_name": "Independent Thought v. Union of India",
+          "citation": "(2017) 10 SCC 800",
+          "interprets": [
+            "IPC 375",
+            "BNS 63",
+            "BNS 64"
+          ],
+          "binding_under": "Article 141",
+          "legal_principles": [
+            "Non-Arbitrariness",
+            "Best Interest of the Child",
+            "Bodily Autonomy"
+          ],
+          "required_evidence": [
+            "Medical Report",
+            "Witness Statement",
+            "Birth Certificate",
+            "School Certificate"
+          ],
+          "reason": "Landmark ruling striking down Exception 2 to Section 375 IPC, criminalizing sexual intercourse with a minor wife between 15 and 18 years of age."
+        },
+        {
+          "case_name": "Lalita Kumari v. Government of UP",
+          "citation": "(2014) 2 SCC 1",
+          "interprets": [
+            "BNS 63",
+            "BNS 80",
+            "BNS 101"
+          ],
+          "binding_under": "Article 141",
+          "legal_principles": [
+            "Rule of Law",
+            "Access to Justice",
+            "Mandatory Duty of State"
+          ],
+          "required_evidence": [
+            "Call Detail Records (CDR)",
+            "FIR Copy",
+            "Police Logbook",
+            "Written Complaint"
+          ],
+          "reason": "Landmark Constitution Bench ruling on mandatory registration of FIR upon receipt of cognizable offence information."
+        }
+      ],
+      "similar_cases": [
+        {
+          "case_name": "SONU @ SUBHASH KUMAR v. STATE OF UTTAR PRADESH & ANR.",
+          "court": "Supreme Court of India",
+          "similarity": 0.6782,
+          "reasoning": "The case establishes that to constitute an offence of rape, the consent must be vitiated by a misconception of fact arising out of a promise to marry, which is similar to the facts of the present case."
+        }
+      ],
+      "supporting_articles": [
+        "Article 14 - Equality before law - Equality before law",
+        "Article 15 - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth",
+        "Article 21 - Protection of life and personal liberty - Protection of life and personal liberty",
+        "Article 51A - Fundamental duties (Clause e - Dignity of Women) - Fundamental duties (Clause e - Dignity of Women)"
+      ],
+      "supporting_evidence": [
+        "DNA Report",
+        "Medical Report",
+        "FSL Report",
+        "Statement under Section 164",
+        "Dying Declaration",
+        "Witness Statement"
+      ],
+      "supporting_principles": [
+        "Access to Justice",
+        "Best Interest of the Child",
+        "Bodily Autonomy",
+        "Human Dignity",
+        "Mandatory Duty of State",
+        "Non-Arbitrariness",
+        "Presumption of Innocence",
+        "Rule of Law",
+        "Sole Testimony of Victim"
+      ],
+      "supporting_graph": {
+        "articles": [
+          "Article 14 - Equality before law - Equality before law",
+          "Article 15 - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth",
+          "Article 21 - Protection of life and personal liberty - Protection of life and personal liberty",
+          "Article 51A - Fundamental duties (Clause e - Dignity of Women) - Fundamental duties (Clause e - Dignity of Women)"
+        ],
+        "cases": [
+          "Independent Thought v. Union of India",
+          "Lalita Kumari v. Government of UP",
+          "State of Punjab v. Gurmit Singh"
+        ],
+        "evidence": [
+          "DNA Report",
+          "Dying Declaration",
+          "FSL Report",
+          "Medical Report",
+          "Statement under Section 164",
+          "Witness Statement"
+        ],
+        "principles": [
+          "Access to Justice",
+          "Best Interest of the Child",
+          "Bodily Autonomy",
+          "Human Dignity",
+          "Mandatory Duty of State",
+          "Non-Arbitrariness",
+          "Presumption of Innocence",
+          "Rule of Law",
+          "Sole Testimony of Victim"
+        ]
+      },
+      "community": {
+        "community_id": "women_offences",
+        "community_name": "Women Offences",
+        "community_summary": "This community contains offences relating to sexual assault, dowry, domestic violence, rape, and cruelty to married women.\n\nImportant Sections: BNS 73, BNS 80, BNS 74, BNS 74A, BNS 87, BNS 63, BNS 64, BNS 64A, BNS 64AB, BNS 64B, BNS 64C, BNS 64D, BNS 64DA, BNS 64DB, BNS 64E\nRelevant Constitution: Article 21\nRelevant Evidence: Witness Statement, Dying Declaration\nRelevant Legal Principles: Burden of Proof\nRelevant Supreme Court Cases: None",
+        "community_score": 0.709
+      },
+      "rejected_sections": [
+        {
+          "section": "BNS 74",
+          "reason": "Hard Rejection: Mandatory statutory ingredient 'Assault or Criminal Force' contradicted by facts."
+        },
+        {
+          "section": "BNS 355",
+          "reason": "Hard Rejection: Mandatory statutory ingredient 'Assault or Criminal Force' contradicted by facts."
+        },
+        {
+          "section": "BNS 76",
+          "reason": "Hard Rejection: Mandatory statutory ingredient 'Assault or Criminal Force' contradicted by facts."
+        }
+      ],
+      "debug": {
+        "decision": {
+          "invoke_reasoning": true,
+          "reason": "Confidence below threshold or verification incomplete."
+        },
+        "ranked_candidates": [
+          {
+            "section": "BNS 63",
+            "act": "BNS",
+            "section_num": "63",
+            "title": "Rape",
+            "description": "Man commits rape if: penetrates vagina/mouth/urethra/anus with penis or object; manipulates body causing penetration; applies mouth to those parts; in circumstances: against will, without consent, consent by fear, fraudulent husband belief, intoxication/unsoundness preventing understanding, under 18 years, unable to communicate consent.",
+            "punishment": "Punished under section 64, 65, 66, 70, 71",
+            "similarity": 0.6131,
+            "keyword_match": 0.0,
+            "case_similarity": 0.6835,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "consent obtained through false promises of marriage and sexual harassment",
+              "deception in marriage leading to sexual relationship",
+              "marital fraud and sexual exploitation",
+              "offence of rape and forced sexual assault on female victim",
+              "rape causing death or persistent vegetative state",
+              "sexual intercourse without consent and sexual violence against woman",
+              "sexual relationship by deception and intimidation"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Rape",
+                  "title": "Rape",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [
+                {
+                  "article": "Article 14 - Equality before law",
+                  "title": "Equality before law",
+                  "description": "Guarantees equality before the law and equal protection of the laws to all persons. In criminal law, it prohibits arbitrary state classification, discriminatory prosecution, unguided executive discretion, and procedural unfairness.",
+                  "source": "Constitution of India",
+                  "relation": "PROTECTED_BY"
+                },
+                {
+                  "article": "Article 15 - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth",
+                  "title": "Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth",
+                  "description": "Prohibits state discrimination on grounds of sex, caste, or religion, while explicitly permitting special protective criminal and welfare provisions for women and children under Clause (3).",
+                  "source": "Constitution of India",
+                  "relation": "PROTECTED_BY"
+                },
+                {
+                  "article": "Article 21 - Protection of life and personal liberty",
+                  "title": "Protection of life and personal liberty",
+                  "description": "The paramount fundamental right guaranteeing life and personal liberty, interpreted judicially to encompass procedural due process, fair trial, speedy trial, dignity, protection against custodial violence, right to legal aid, and victim rights.",
+                  "source": "Constitution of India",
+                  "relation": "PROTECTED_BY"
+                },
+                {
+                  "article": "Article 51A - Fundamental duties (Clause e - Dignity of Women)",
+                  "title": "Fundamental duties (Clause e - Dignity of Women)",
+                  "description": "Enshrines the fundamental duty of every citizen to renounce practices derogatory to the dignity of women, reinforcing penal legislation against sexual harassment and domestic cruelty.",
+                  "source": "Constitution of India",
+                  "relation": "PROTECTED_BY"
+                },
+                {
+                  "article": "Article 14 - Equality before law",
+                  "title": "Equality before law",
+                  "description": "Guarantees equality before the law and equal protection of the laws to all persons. In criminal law, it prohibits arbitrary state classification, discriminatory prosecution, unguided executive discretion, and procedural unfairness.",
+                  "source": "Constitution of India",
+                  "relation": "GOVERNED_BY"
+                },
+                {
+                  "article": "Article 15 - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth",
+                  "title": "Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth",
+                  "description": "Prohibits state discrimination on grounds of sex, caste, or religion, while explicitly permitting special protective criminal and welfare provisions for women and children under Clause (3).",
+                  "source": "Constitution of India",
+                  "relation": "DERIVES_FROM"
+                },
+                {
+                  "article": "Article 51A - Fundamental duties (Clause e - Dignity of Women)",
+                  "title": "Fundamental duties (Clause e - Dignity of Women)",
+                  "description": "Enshrines the fundamental duty of every citizen to renounce practices derogatory to the dignity of women, reinforcing penal legislation against sexual harassment and domestic cruelty.",
+                  "source": "Constitution of India",
+                  "relation": "UPHOLDS"
+                }
+              ],
+              "supreme_court_cases": [
+                {
+                  "case_name": "State of Punjab v. Gurmit Singh",
+                  "citation": "(1996) 2 SCC 384",
+                  "year": 1996,
+                  "summary": "Landmark judgment establishing evidentiary guidelines for victim testimony in sexual assault trials.",
+                  "ratio_decidendi": "The sole testimony of a rape victim is reliable and does not require corroboration unless there are compelling reasons to doubt her credibility. Corroboration is not a legal mandate.",
+                  "holding": "Reversed acquittal of accused; laid down guidelines to conduct sexual offence trials in camera and protect victim dignity under Article 21.",
+                  "court": "Supreme Court of India",
+                  "relation": "INTERPRETS",
+                  "interprets": [
+                    "IPC 375",
+                    "IPC 376",
+                    "BNS 63",
+                    "BNS 64"
+                  ],
+                  "binding_under": "Article 141",
+                  "legal_principles": [
+                    "Presumption of Innocence",
+                    "Human Dignity",
+                    "Sole Testimony of Victim"
+                  ],
+                  "required_evidence": [
+                    "Medical Report",
+                    "Witness Statement",
+                    "FSL Report",
+                    "DNA Report",
+                    "Statement under Section 164"
+                  ]
+                },
+                {
+                  "case_name": "Independent Thought v. Union of India",
+                  "citation": "(2017) 10 SCC 800",
+                  "year": 2017,
+                  "summary": "Landmark ruling striking down Exception 2 to Section 375 IPC, criminalizing sexual intercourse with a minor wife between 15 and 18 years of age.",
+                  "ratio_decidendi": "Bodily integrity, autonomy, and child rights under Articles 14, 15, and 21 paramountly protect minor girls from non-consensual sexual acts, regardless of marital status.",
+                  "holding": "Declared marital rape of minor wives aged 15-18 as an offence under sexual violence penal sections.",
+                  "court": "Supreme Court of India",
+                  "relation": "INTERPRETS",
+                  "interprets": [
+                    "IPC 375",
+                    "BNS 63",
+                    "BNS 64"
+                  ],
+                  "binding_under": "Article 141",
+                  "legal_principles": [
+                    "Non-Arbitrariness",
+                    "Best Interest of the Child",
+                    "Bodily Autonomy"
+                  ],
+                  "required_evidence": [
+                    "Medical Report",
+                    "Witness Statement",
+                    "Birth Certificate",
+                    "School Certificate"
+                  ]
+                },
+                {
+                  "case_name": "Lalita Kumari v. Government of UP",
+                  "citation": "(2014) 2 SCC 1",
+                  "year": 2014,
+                  "summary": "Landmark Constitution Bench ruling on mandatory registration of FIR upon receipt of cognizable offence information.",
+                  "ratio_decidendi": "Registration of FIR under Section 154 CrPC (now BNSS 173) is mandatory if the information discloses commission of a cognizable offence. Police have no discretion to conduct preliminary inquiry prior to FIR in clear cognizable offences.",
+                  "holding": "Mandated immediate FIR registration for cognizable offences including rape, dowry death, murder, and kidnapping.",
+                  "court": "Supreme Court of India",
+                  "relation": "INTERPRETS",
+                  "interprets": [
+                    "BNS 63",
+                    "BNS 80",
+                    "BNS 101"
+                  ],
+                  "binding_under": "Article 141",
+                  "legal_principles": [
+                    "Rule of Law",
+                    "Access to Justice",
+                    "Mandatory Duty of State"
+                  ],
+                  "required_evidence": [
+                    "Call Detail Records (CDR)",
+                    "FIR Copy",
+                    "Police Logbook",
+                    "Written Complaint"
+                  ]
+                },
+                {
+                  "case_name": "State of Punjab v. Gurmit Singh",
+                  "citation": "(1996) 2 SCC 384",
+                  "year": 1996,
+                  "summary": "Landmark judgment establishing evidentiary guidelines for victim testimony in sexual assault trials.",
+                  "ratio_decidendi": "The sole testimony of a rape victim is reliable and does not require corroboration unless there are compelling reasons to doubt her credibility. Corroboration is not a legal mandate.",
+                  "holding": "Reversed acquittal of accused; laid down guidelines to conduct sexual offence trials in camera and protect victim dignity under Article 21.",
+                  "court": "Supreme Court of India",
+                  "relation": "INTERPRETED_IN",
+                  "interprets": [
+                    "IPC 375",
+                    "IPC 376",
+                    "BNS 63",
+                    "BNS 64"
+                  ],
+                  "binding_under": "Article 141",
+                  "legal_principles": [
+                    "Presumption of Innocence",
+                    "Human Dignity",
+                    "Sole Testimony of Victim"
+                  ],
+                  "required_evidence": [
+                    "Medical Report",
+                    "Witness Statement",
+                    "FSL Report",
+                    "DNA Report",
+                    "Statement under Section 164"
+                  ]
+                },
+                {
+                  "case_name": "Independent Thought v. Union of India",
+                  "citation": "(2017) 10 SCC 800",
+                  "year": 2017,
+                  "summary": "Landmark ruling striking down Exception 2 to Section 375 IPC, criminalizing sexual intercourse with a minor wife between 15 and 18 years of age.",
+                  "ratio_decidendi": "Bodily integrity, autonomy, and child rights under Articles 14, 15, and 21 paramountly protect minor girls from non-consensual sexual acts, regardless of marital status.",
+                  "holding": "Declared marital rape of minor wives aged 15-18 as an offence under sexual violence penal sections.",
+                  "court": "Supreme Court of India",
+                  "relation": "INTERPRETED_IN",
+                  "interprets": [
+                    "IPC 375",
+                    "BNS 63",
+                    "BNS 64"
+                  ],
+                  "binding_under": "Article 141",
+                  "legal_principles": [
+                    "Non-Arbitrariness",
+                    "Best Interest of the Child",
+                    "Bodily Autonomy"
+                  ],
+                  "required_evidence": [
+                    "Medical Report",
+                    "Witness Statement",
+                    "Birth Certificate",
+                    "School Certificate"
+                  ]
+                },
+                {
+                  "case_name": "Lalita Kumari v. Government of UP",
+                  "citation": "(2014) 2 SCC 1",
+                  "year": 2014,
+                  "summary": "Landmark Constitution Bench ruling on mandatory registration of FIR upon receipt of cognizable offence information.",
+                  "ratio_decidendi": "Registration of FIR under Section 154 CrPC (now BNSS 173) is mandatory if the information discloses commission of a cognizable offence. Police have no discretion to conduct preliminary inquiry prior to FIR in clear cognizable offences.",
+                  "holding": "Mandated immediate FIR registration for cognizable offences including rape, dowry death, murder, and kidnapping.",
+                  "court": "Supreme Court of India",
+                  "relation": "INTERPRETED_IN",
+                  "interprets": [
+                    "BNS 63",
+                    "BNS 80",
+                    "BNS 101"
+                  ],
+                  "binding_under": "Article 141",
+                  "legal_principles": [
+                    "Rule of Law",
+                    "Access to Justice",
+                    "Mandatory Duty of State"
+                  ],
+                  "required_evidence": [
+                    "Call Detail Records (CDR)",
+                    "FIR Copy",
+                    "Police Logbook",
+                    "Written Complaint"
+                  ]
+                }
+              ],
+              "high_court_cases": [],
+              "legal_principles": [
+                {
+                  "name": "Presumption of Innocence",
+                  "description": "The legal principle that one is considered innocent until proven guilty.",
+                  "source": "Common Law",
+                  "relation": "ESTABLISHED_IN_PRECEDENT"
+                },
+                {
+                  "name": "Human Dignity",
+                  "description": "",
+                  "source": "",
+                  "relation": "ESTABLISHED_IN_PRECEDENT"
+                },
+                {
+                  "name": "Sole Testimony of Victim",
+                  "description": "",
+                  "source": "",
+                  "relation": "ESTABLISHED_IN_PRECEDENT"
+                },
+                {
+                  "name": "Non-Arbitrariness",
+                  "description": "",
+                  "source": "",
+                  "relation": "ESTABLISHED_IN_PRECEDENT"
+                },
+                {
+                  "name": "Best Interest of the Child",
+                  "description": "",
+                  "source": "",
+                  "relation": "ESTABLISHED_IN_PRECEDENT"
+                },
+                {
+                  "name": "Bodily Autonomy",
+                  "description": "",
+                  "source": "",
+                  "relation": "ESTABLISHED_IN_PRECEDENT"
+                },
+                {
+                  "name": "Rule of Law",
+                  "description": "",
+                  "source": "",
+                  "relation": "ESTABLISHED_IN_PRECEDENT"
+                },
+                {
+                  "name": "Access to Justice",
+                  "description": "",
+                  "source": "",
+                  "relation": "ESTABLISHED_IN_PRECEDENT"
+                },
+                {
+                  "name": "Mandatory Duty of State",
+                  "description": "",
+                  "source": "",
+                  "relation": "ESTABLISHED_IN_PRECEDENT"
+                }
+              ],
+              "evidence_types": [
+                {
+                  "name": "Medical Report",
+                  "relation": "SUPPORTED_BY"
+                },
+                {
+                  "name": "Witness Statement",
+                  "relation": "SUPPORTED_BY"
+                },
+                {
+                  "name": "Dying Declaration",
+                  "relation": "SUPPORTED_BY"
+                },
+                {
+                  "name": "FSL Report",
+                  "relation": "SUPPORTED_BY"
+                },
+                {
+                  "name": "DNA Report",
+                  "relation": "SUPPORTED_BY"
+                },
+                {
+                  "name": "Statement under Section 164",
+                  "relation": "SUPPORTED_BY"
+                }
+              ],
+              "ingredients": [
+                {
+                  "name": "Female Victim",
+                  "description": "Victim must be a female person.",
+                  "required_evidence": [
+                    "Witness Statement"
+                  ]
+                },
+                {
+                  "name": "Penetration or Sexual Act",
+                  "description": "Accused engaged in non-consensual sexual penetration.",
+                  "required_evidence": [
+                    "Medical Report",
+                    "FSL Report",
+                    "DNA Report"
+                  ]
+                },
+                {
+                  "name": "Absence of Free Consent",
+                  "description": "Sexual act committed against victim's will or without free consent.",
+                  "required_evidence": [
+                    "Dying Declaration",
+                    "Statement under Section 164"
+                  ]
+                }
+              ],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [
+                {
+                  "description": "Medical procedure or examination conducted in good faith by qualified medical practitioner.",
+                  "relation": "HAS_EXCEPTION"
+                }
+              ],
+              "illustrations": [],
+              "landmark_cases": [
+                {
+                  "name": "State of Punjab v. Gurmit Singh",
+                  "citation": "(1996) 2 SCC 384",
+                  "relation": "INTERPRETS"
+                },
+                {
+                  "name": "Independent Thought v. Union of India",
+                  "citation": "(2017) 10 SCC 800",
+                  "relation": "INTERPRETS"
+                },
+                {
+                  "name": "Lalita Kumari v. Government of UP",
+                  "citation": "(2014) 2 SCC 1",
+                  "relation": "INTERPRETS"
+                },
+                {
+                  "name": "State of Punjab v. Gurmit Singh",
+                  "citation": "(1996) 2 SCC 384",
+                  "relation": "INTERPRETED_IN"
+                },
+                {
+                  "name": "Independent Thought v. Union of India",
+                  "citation": "(2017) 10 SCC 800",
+                  "relation": "INTERPRETED_IN"
+                },
+                {
+                  "name": "Lalita Kumari v. Government of UP",
+                  "citation": "(2014) 2 SCC 1",
+                  "relation": "INTERPRETED_IN"
+                }
+              ]
+            },
+            "community_id": "women_offences",
+            "ingredient_confidence": 0.955,
+            "is_valid": true,
+            "validation_reason": "Verified statutory ingredients matched (2/2 Actus Reus, 1/1 Mens Rea).",
+            "confidence": 0.8014,
+            "ingredient_score": 0.955,
+            "community_match": 1.0,
+            "score_breakdown": {
+              "vector_similarity_35": 0.6131,
+              "ingredient_validation_20": 0.955,
+              "graph_enrichment_15": 0.85,
+              "community_match_10": 1.0,
+              "case_precedents_10": 0.6835,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.8014
+            }
+          },
+          {
+            "section": "BNS 64",
+            "act": "BNS",
+            "section_num": "64",
+            "title": "Punishment for rape",
+            "description": "Whoever commits rape as defined in section 63. Enhanced punishment for: police officer, public servant, armed forces, jail/hospital staff, guardian/teacher, violence, pregnant woman, disabled woman, causing grievous hurt, repeated rape.",
+            "punishment": "Rigorous imprisonment minimum 10 years to life and fine. Enhanced cases: 10 years to life (natural life) and fine",
+            "similarity": 0.6446,
+            "keyword_match": 0.0,
+            "case_similarity": 0.6835,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "offence of rape and forced sexual assault on female victim",
+              "rape causing death or persistent vegetative state",
+              "sexual intercourse without consent and sexual violence against woman"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Punishment for rape",
+                  "title": "Punishment for rape",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [
+                {
+                  "case_name": "State of Punjab v. Gurmit Singh",
+                  "citation": "(1996) 2 SCC 384",
+                  "year": 1996,
+                  "summary": "Landmark judgment establishing evidentiary guidelines for victim testimony in sexual assault trials.",
+                  "ratio_decidendi": "The sole testimony of a rape victim is reliable and does not require corroboration unless there are compelling reasons to doubt her credibility. Corroboration is not a legal mandate.",
+                  "holding": "Reversed acquittal of accused; laid down guidelines to conduct sexual offence trials in camera and protect victim dignity under Article 21.",
+                  "court": "Supreme Court of India",
+                  "relation": "INTERPRETS",
+                  "interprets": [
+                    "IPC 375",
+                    "IPC 376",
+                    "BNS 63",
+                    "BNS 64"
+                  ],
+                  "binding_under": "Article 141",
+                  "legal_principles": [
+                    "Presumption of Innocence",
+                    "Human Dignity",
+                    "Sole Testimony of Victim"
+                  ],
+                  "required_evidence": [
+                    "Medical Report",
+                    "Witness Statement",
+                    "FSL Report",
+                    "DNA Report",
+                    "Statement under Section 164"
+                  ]
+                },
+                {
+                  "case_name": "Independent Thought v. Union of India",
+                  "citation": "(2017) 10 SCC 800",
+                  "year": 2017,
+                  "summary": "Landmark ruling striking down Exception 2 to Section 375 IPC, criminalizing sexual intercourse with a minor wife between 15 and 18 years of age.",
+                  "ratio_decidendi": "Bodily integrity, autonomy, and child rights under Articles 14, 15, and 21 paramountly protect minor girls from non-consensual sexual acts, regardless of marital status.",
+                  "holding": "Declared marital rape of minor wives aged 15-18 as an offence under sexual violence penal sections.",
+                  "court": "Supreme Court of India",
+                  "relation": "INTERPRETS",
+                  "interprets": [
+                    "IPC 375",
+                    "BNS 63",
+                    "BNS 64"
+                  ],
+                  "binding_under": "Article 141",
+                  "legal_principles": [
+                    "Non-Arbitrariness",
+                    "Best Interest of the Child",
+                    "Bodily Autonomy"
+                  ],
+                  "required_evidence": [
+                    "Medical Report",
+                    "Witness Statement",
+                    "Birth Certificate",
+                    "School Certificate"
+                  ]
+                },
+                {
+                  "case_name": "State of Punjab v. Gurmit Singh",
+                  "citation": "(1996) 2 SCC 384",
+                  "year": 1996,
+                  "summary": "Landmark judgment establishing evidentiary guidelines for victim testimony in sexual assault trials.",
+                  "ratio_decidendi": "The sole testimony of a rape victim is reliable and does not require corroboration unless there are compelling reasons to doubt her credibility. Corroboration is not a legal mandate.",
+                  "holding": "Reversed acquittal of accused; laid down guidelines to conduct sexual offence trials in camera and protect victim dignity under Article 21.",
+                  "court": "Supreme Court of India",
+                  "relation": "INTERPRETED_IN",
+                  "interprets": [
+                    "IPC 375",
+                    "IPC 376",
+                    "BNS 63",
+                    "BNS 64"
+                  ],
+                  "binding_under": "Article 141",
+                  "legal_principles": [
+                    "Presumption of Innocence",
+                    "Human Dignity",
+                    "Sole Testimony of Victim"
+                  ],
+                  "required_evidence": [
+                    "Medical Report",
+                    "Witness Statement",
+                    "FSL Report",
+                    "DNA Report",
+                    "Statement under Section 164"
+                  ]
+                },
+                {
+                  "case_name": "Independent Thought v. Union of India",
+                  "citation": "(2017) 10 SCC 800",
+                  "year": 2017,
+                  "summary": "Landmark ruling striking down Exception 2 to Section 375 IPC, criminalizing sexual intercourse with a minor wife between 15 and 18 years of age.",
+                  "ratio_decidendi": "Bodily integrity, autonomy, and child rights under Articles 14, 15, and 21 paramountly protect minor girls from non-consensual sexual acts, regardless of marital status.",
+                  "holding": "Declared marital rape of minor wives aged 15-18 as an offence under sexual violence penal sections.",
+                  "court": "Supreme Court of India",
+                  "relation": "INTERPRETED_IN",
+                  "interprets": [
+                    "IPC 375",
+                    "BNS 63",
+                    "BNS 64"
+                  ],
+                  "binding_under": "Article 141",
+                  "legal_principles": [
+                    "Non-Arbitrariness",
+                    "Best Interest of the Child",
+                    "Bodily Autonomy"
+                  ],
+                  "required_evidence": [
+                    "Medical Report",
+                    "Witness Statement",
+                    "Birth Certificate",
+                    "School Certificate"
+                  ]
+                }
+              ],
+              "high_court_cases": [],
+              "legal_principles": [
+                {
+                  "name": "Presumption of Innocence",
+                  "description": "The legal principle that one is considered innocent until proven guilty.",
+                  "source": "Common Law",
+                  "relation": "ESTABLISHED_IN_PRECEDENT"
+                },
+                {
+                  "name": "Human Dignity",
+                  "description": "",
+                  "source": "",
+                  "relation": "ESTABLISHED_IN_PRECEDENT"
+                },
+                {
+                  "name": "Sole Testimony of Victim",
+                  "description": "",
+                  "source": "",
+                  "relation": "ESTABLISHED_IN_PRECEDENT"
+                },
+                {
+                  "name": "Non-Arbitrariness",
+                  "description": "",
+                  "source": "",
+                  "relation": "ESTABLISHED_IN_PRECEDENT"
+                },
+                {
+                  "name": "Best Interest of the Child",
+                  "description": "",
+                  "source": "",
+                  "relation": "ESTABLISHED_IN_PRECEDENT"
+                },
+                {
+                  "name": "Bodily Autonomy",
+                  "description": "",
+                  "source": "",
+                  "relation": "ESTABLISHED_IN_PRECEDENT"
+                }
+              ],
+              "evidence_types": [],
+              "ingredients": [
+                {
+                  "name": "Female Victim",
+                  "description": "Victim must be a female person.",
+                  "required_evidence": [
+                    "Witness Statement"
+                  ]
+                },
+                {
+                  "name": "Penetration or Sexual Act",
+                  "description": "Accused engaged in non-consensual sexual penetration.",
+                  "required_evidence": [
+                    "Medical Report",
+                    "FSL Report",
+                    "DNA Report"
+                  ]
+                },
+                {
+                  "name": "Absence of Free Consent",
+                  "description": "Sexual act committed against victim's will or without free consent.",
+                  "required_evidence": [
+                    "Dying Declaration",
+                    "Statement under Section 164"
+                  ]
+                }
+              ],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": [
+                {
+                  "name": "State of Punjab v. Gurmit Singh",
+                  "citation": "(1996) 2 SCC 384",
+                  "relation": "INTERPRETS"
+                },
+                {
+                  "name": "Independent Thought v. Union of India",
+                  "citation": "(2017) 10 SCC 800",
+                  "relation": "INTERPRETS"
+                },
+                {
+                  "name": "State of Punjab v. Gurmit Singh",
+                  "citation": "(1996) 2 SCC 384",
+                  "relation": "INTERPRETED_IN"
+                },
+                {
+                  "name": "Independent Thought v. Union of India",
+                  "citation": "(2017) 10 SCC 800",
+                  "relation": "INTERPRETED_IN"
+                }
+              ]
+            },
+            "community_id": "women_offences",
+            "ingredient_confidence": 0.955,
+            "is_valid": true,
+            "validation_reason": "Verified statutory ingredients matched (2/2 Actus Reus, 1/1 Mens Rea).",
+            "confidence": 0.7975,
+            "ingredient_score": 0.955,
+            "community_match": 1.0,
+            "score_breakdown": {
+              "vector_similarity_35": 0.6446,
+              "ingredient_validation_20": 0.955,
+              "graph_enrichment_15": 0.75,
+              "community_match_10": 1.0,
+              "case_precedents_10": 0.6835,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.7975
+            }
+          },
+          {
+            "section": "BNS 66",
+            "act": "BNS",
+            "section_num": "66",
+            "title": "Punishment for causing death or persistent vegetative state of victim",
+            "description": "Rape causing death of woman or persistent vegetative state.",
+            "punishment": "Rigorous imprisonment 20 years to life or death",
+            "similarity": 0.7154,
+            "keyword_match": 0.0,
+            "case_similarity": 0.6835,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "offence of rape and forced sexual assault on female victim",
+              "rape causing death or persistent vegetative state",
+              "sexual intercourse without consent and sexual violence against woman"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Punishment for causing death or persistent vegetative state of victim",
+                  "title": "Punishment for causing death or persistent vegetative state of victim",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "women_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate BNS 66 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.7432,
+            "ingredient_score": 0.71,
+            "community_match": 1.0,
+            "score_breakdown": {
+              "vector_similarity_35": 0.7154,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.55,
+              "community_match_10": 1.0,
+              "case_precedents_10": 0.6835,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.7432
+            }
+          },
+          {
+            "section": "BNS 72",
+            "act": "BNS",
+            "section_num": "72",
+            "title": "Punishment for rape on woman under sixteen years or causing death",
+            "description": "Consolidated punishment provision for aggravated rape cases.",
+            "punishment": "See sections 65 and 66",
+            "similarity": 0.6568,
+            "keyword_match": 0.0,
+            "case_similarity": 0.6835,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "consent obtained through false promises of marriage and sexual harassment",
+              "offence of rape and forced sexual assault on female victim",
+              "rape causing death or persistent vegetative state",
+              "sexual intercourse without consent and sexual violence against woman"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Punishment for rape on woman under sixteen years or causing death",
+                  "title": "Punishment for rape on woman under sixteen years or causing death",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "women_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate BNS 72 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.7227,
+            "ingredient_score": 0.71,
+            "community_match": 1.0,
+            "score_breakdown": {
+              "vector_similarity_35": 0.6568,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.55,
+              "community_match_10": 1.0,
+              "case_precedents_10": 0.6835,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.7227
+            }
+          },
+          {
+            "section": "BNS 68",
+            "act": "BNS",
+            "section_num": "68",
+            "title": "Sexual intercourse by person in authority",
+            "description": "Person in authority/fiduciary relationship/public servant/jail or hospital staff abuses position to induce woman to have sexual intercourse not amounting to rape.",
+            "punishment": "Rigorous imprisonment 5-10 years and fine",
+            "similarity": 0.6222,
+            "keyword_match": 0.0,
+            "case_similarity": 0.6835,
+            "metadata_verified": true,
+            "graph_verified": true,
+            "sources": [
+              "consent obtained through false promises of marriage and sexual harassment",
+              "deception in marriage leading to sexual relationship",
+              "fraudulent concealment of marital status and sexual assault",
+              "marital fraud and sexual exploitation",
+              "offence of rape and forced sexual assault on female victim",
+              "rape causing death or persistent vegetative state",
+              "sexual intercourse without consent and sexual violence against woman",
+              "sexual relationship by deception and intimidation"
+            ],
+            "relationships": {
+              "related_offences": [
+                {
+                  "relation": "DEFINED_BY",
+                  "section": "Sexual intercourse by person in authority",
+                  "title": "Sexual intercourse by person in authority",
+                  "kind": "crime"
+                }
+              ],
+              "constitutional_articles": [],
+              "supreme_court_cases": [],
+              "high_court_cases": [],
+              "legal_principles": [],
+              "evidence_types": [],
+              "ingredients": [],
+              "victim_rights": [],
+              "punishments": [
+                {
+                  "minimum": "None",
+                  "maximum": "None",
+                  "fine": "Yes",
+                  "life_imprisonment": false,
+                  "death_penalty": false,
+                  "relation": "HAS_PUNISHMENT"
+                }
+              ],
+              "exceptions": [],
+              "illustrations": [],
+              "landmark_cases": []
+            },
+            "community_id": "women_offences",
+            "ingredient_confidence": 0.71,
+            "is_valid": true,
+            "validation_reason": "Candidate BNS 68 validated provisionally [WARNING: no ingredients ingested in graph].",
+            "confidence": 0.7106,
+            "ingredient_score": 0.71,
+            "community_match": 1.0,
+            "score_breakdown": {
+              "vector_similarity_35": 0.6222,
+              "ingredient_validation_20": 0.71,
+              "graph_enrichment_15": 0.55,
+              "community_match_10": 1.0,
+              "case_precedents_10": 0.6835,
+              "metadata_completeness_10": 1.0,
+              "confidence": 0.7106
+            }
+          }
+        ],
+        "case_analysis": {
+          "pipeline_confidence": 0.8014,
+          "recommended_sections": [
+            {
+              "act": "BNS",
+              "section": "63",
+              "title": "Rape",
+              "confidence": 0.8014,
+              "applicability": "Primary offence: The complainant alleged that the accused hid the fact that he was already married and falsely assured her of marriage to obtain her consent for a sexual relationship, which falls under the definition of rape in section 63.",
+              "reason": "The section defines rape and prescribes punishment for the offence, which is relevant to the facts of the case."
+            }
+          ],
+          "similar_cases": [
+            {
+              "case_name": "SONU @ SUBHASH KUMAR v. STATE OF UTTAR PRADESH & ANR.",
+              "court": "Supreme Court of India",
+              "similarity": 0.6782,
+              "reasoning": "The case establishes that to constitute an offence of rape, the consent must be vitiated by a misconception of fact arising out of a promise to marry, which is similar to the facts of the present case."
+            }
+          ],
+          "supporting_articles": [
+            "Article 14 - Equality before law - Equality before law",
+            "Article 15 - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth - Prohibition of discrimination on grounds of religion, race, caste, sex or place of birth",
+            "Article 21 - Protection of life and personal liberty - Protection of life and personal liberty",
+            "Article 51A - Fundamental duties (Clause e - Dignity of Women) - Fundamental duties (Clause e - Dignity of Women)"
+          ],
+          "supporting_evidence": [
+            "DNA Report",
+            "Dying Declaration",
+            "FSL Report",
+            "Medical Report",
+            "Statement under Section 164",
+            "Witness Statement"
+          ],
+          "supporting_principles": [
+            "Access to Justice",
+            "Best Interest of the Child",
+            "Bodily Autonomy",
+            "Human Dignity",
+            "Mandatory Duty of State",
+            "Non-Arbitrariness",
+            "Presumption of Innocence",
+            "Rule of Law",
+            "Sole Testimony of Victim"
+          ],
+          "rejected_sections": []
+        }
+      }
+    }
+  }
+]

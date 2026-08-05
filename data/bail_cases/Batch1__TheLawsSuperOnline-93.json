@@ -1,0 +1,213 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-93.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2004-9-5",
+  "court": "SUPREME COURT OF INDIA (FROM: PUNJAB & HARYANA)",
+  "coram": "N.S.HEGDE, S.B.SINHA JJ.",
+  "decided_on": "September 17, 2004",
+  "decided_on_year": 2004,
+  "appeal_type": "Criminal Appeal Nos. 1030-1031 of 2004",
+  "final_verdict": "Appeal allowed",
+  "appellant": "JAGTAR SINGH",
+  "respondent": "STATE OF PUNJAB",
+  "advocates": null,
+  "equivalent_citations": [
+    "ACR-2004-3-2712",
+    "LAWS(SC)-2004-9-5",
+    "TLPRE-2004-0-1014",
+    "ALT(CRI)(SC)-2004-2-452",
+    "CALCRILR-2005-1-8",
+    "CRIMES(SC)-2004-4-62",
+    "DT(SC)-2004-1-786",
+    "JT-2004-8-26",
+    "SCALE-2004-7-738",
+    "SUPREME-2004-6-642",
+    "AD(CR)-2004-3-544",
+    "AICLR-2004-4-362",
+    "CRICC-2005-1-294",
+    "RCR(CRI)-2004-4-356",
+    "SCC-2004-13-289",
+    "KHC-2004-0-1948",
+    "SCC(CR)-2005-0-208",
+    "RAJCRIC-2005-1-84",
+    "EASTCRIC-2005-3-155",
+    "AIC-2004-23-684"
+  ],
+  "cited_judgments": [],
+  "referred_acts": [
+    "S.438",
+    "S.437",
+    "S.420",
+    "S.120"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "1030-1031 of 20 Final Verdict : Appeal allowed Appellant(s) : JAGTAR SINGH Respondent(s) : STATE OF PUNJAB Equivalent Citation : ACR-2004-3-2712, LAWS(SC)-2004-9-5, TLPRE-2004-0-1014, ALT(CRI)(SC)-2004-2- 452, CALCRILR-2005-1-8, CRIMES(SC)-2004-4-62, DT(SC)-2004-1-786, JT-2004-8-26, SCALE- 2004-7-73",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "437",
+      "subsection": null,
+      "section_title": "When bail may be taken in case of non-bailable offence",
+      "how_used": "Referenced",
+      "context": "1030-1031 of 20 Final Verdict : Appeal allowed Appellant(s) : JAGTAR SINGH Respondent(s) : STATE OF PUNJAB Equivalent Citation : ACR-2004-3-2712, LAWS(SC)-2004-9-5, TLPRE-2004-0-1014, ALT(CRI)(SC)-2004-2- 452, CALCRILR-2005-1-8, CRIMES(SC)-2004-4-62, DT(SC)-2004-1-786, JT-2004-8-26, SCALE- 2004-7-73",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "420",
+      "subsection": null,
+      "section_title": "Cheating and dishonestly inducing delivery of property",
+      "how_used": "Charged",
+      "context": "1030-1031 of 20 Final Verdict : Appeal allowed Appellant(s) : JAGTAR SINGH Respondent(s) : STATE OF PUNJAB Equivalent Citation : ACR-2004-3-2712, LAWS(SC)-2004-9-5, TLPRE-2004-0-1014, ALT(CRI)(SC)-2004-2- 452, CALCRILR-2005-1-8, CRIMES(SC)-2004-4-62, DT(SC)-2004-1-786, JT-2004-8-26, SCALE- 2004-7-73",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "120B",
+      "subsection": null,
+      "section_title": "Punishment of criminal conspiracy",
+      "how_used": "Charged",
+      "context": "1030-1031 of 20 Final Verdict : Appeal allowed Appellant(s) : JAGTAR SINGH Respondent(s) : STATE OF PUNJAB Equivalent Citation : ACR-2004-3-2712, LAWS(SC)-2004-9-5, TLPRE-2004-0-1014, ALT(CRI)(SC)-2004-2- 452, CALCRILR-2005-1-8, CRIMES(SC)-2004-4-62, DT(SC)-2004-1-786, JT-2004-8-26, SCALE- 2004-7-73",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "120B",
+    "420"
+  ],
+  "crpc_sections_mentioned": [
+    "437",
+    "438"
+  ],
+  "procedural_history": {
+    "high_court_bench": "High Court of Punjab and Haryana at Chandigarh"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, S.437 - When bail may be taken in case of non-bailable offence, INDIAN\nPENAL CODE, 1860 - S.420 - Cheating and dishonestly inducing delivery of property,\nS.120B - Punishment of criminal conspiracy - Brief facts necessary for the disposal of these\nappeals are as follows: a criminal complaint of cheating and conspiracy under Section 420\nread with section 120b IPC was filed by Dharamvir singh, Amrik Singh and Satish Kumar\nagainst the appellants herein and one nanak Chand, the father of the first appellant herein,\nalleging that they received a sum of Rs. - This application of the complainants was resisted by\nthe appellants on the ground that the amount in question was deposited primarily for the\npurpose of showing the bona fides of said Nanak Chand and there was a conditional\nagreement for the disbursement of the said amount to the complainants in the event of there\nbeing a settlement between the parties and since no such settlement had been arrived, the\nHigh court in the criminal proceedings cannot direct the payment of amount to the\ncomplainants. - Tulsi, learned senior counsel appearing for the complainants-respondents herein pointed out that there was a panchayat wherein the accused including Nanak Chand\nhad agreed to pay the above said amount, the proceeding of which was filed in the courts\nbelow, hence, the High Court was justified in directing the payment to be made to the\ncomplainants- respondents. - He also contended that the accused Nanak Chand and even the\nappellants herein having obtained the bail after depositing the said amount on a condition\nthat the same could be paid over to the complainants, are now trying to overreach the courts\nby frivolous objection therefore, if the amount in question is not to be disbursed to the\ncomplainants, the bail granted to these appellants and Nanak chand should be liable to be\ncancelled.\nB. Since there is a dispute between the parties until the same is settled, the money cannot be paid\nto the complainants, therefore, the High Court could not have directed the payment of the\namount that was deposited by Nanak chand to the complainants. - He also contended that the\naccused Nanak Chand and even the appellants herein having obtained the bail after\ndepositing the said amount on a condition that the same could be paid over to the\ncomplainants, are now trying to overreach the courts by frivolous objection therefore, if the\namount in question is not to be disbursed to the complainants, the bail granted to these\nappellants and Nanak chand should be liable to be cancelled.\nC. With the above observations, we allow these appeals and set aside the impugned orders of the\nHigh Court. - 17.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, S.437 - When bail may be taken in case of non-bailable offence, INDIAN\nPENAL CODE, 1860 - S.420 - Cheating and dishonestly inducing delivery of property,\nS.120B - Punishment of criminal conspiracy - Brief facts necessary for the disposal of these\nappeals are as follows: a criminal complaint of cheating and conspiracy under Section 420\nread with section 120b IPC was filed by Dharamvir singh, Amrik Singh and Satish Kumar\nagainst the appellants herein and one nanak Chand, the father of the first appellant herein,\nalleging that they received a sum of Rs. - This application of the complainants was resisted by\nthe appellants on the ground that the amount in question was deposited primarily for the\npurpose of showing the bona fides of said Nanak Chand and there was a conditional\nagreement for the disbursement of the said amount to the complainants in the event of there\nbeing a settlement between the parties and since no such settlement had been arrived, the\nHigh court in the criminal proceedings cannot direct the payment of amount to the\ncomplainants. - Tulsi, learned senior counsel appearing for the complainants-respondents herein pointed out that there was a panchayat wherein the accused including Nanak Chand\nhad agreed to pay the above said amount, the proceeding of which was filed in the courts\nbelow, hence, the High Court was justified in directing the payment to be made to the\ncomplainants- respondents. - He also contended that the accused Nanak Chand and even the\nappellants herein having obtained the bail after depositing the said amount on a condition\nthat the same could be paid over to the complainants, are now trying to overreach the courts\nby frivolous objection therefore, if the amount in question is not to be disbursed to the\ncomplainants, the bail granted to these appellants and Nanak chand should be liable to be\ncancelled."
+    },
+    {
+      "label": "B",
+      "text": "Since there is a dispute between the parties until the same is settled, the money cannot be paid\nto the complainants, therefore, the High Court could not have directed the payment of the\namount that was deposited by Nanak chand to the complainants. - He also contended that the\naccused Nanak Chand and even the appellants herein having obtained the bail after\ndepositing the said amount on a condition that the same could be paid over to the\ncomplainants, are now trying to overreach the courts by frivolous objection therefore, if the\namount in question is not to be disbursed to the complainants, the bail granted to these\nappellants and Nanak chand should be liable to be cancelled."
+    },
+    {
+      "label": "C",
+      "text": "With the above observations, we allow these appeals and set aside the impugned orders of the\nHigh Court."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Heard learned counsel for the parties."
+    },
+    {
+      "number": "2",
+      "text": "Leave granted."
+    },
+    {
+      "number": "3",
+      "text": "These appeals are filed against the two orders made by the-High Court of Punjab and Haryana at\nChandigarh, one in Crl. Misc. No. 52419-M of 2001 dated 29th of april, 2003 and the other in Crl.\nMisc. No. 19431 of 2003 in Crl. Misc. No. 52419-M of 2001 dated 8th of May, 2003 by which orders\nthe High Court directed the amount deposited with the Chief Judicial Magistrate, hoshiarpur by one\nNanak Chand be paid over to the respondents-complainants herein."
+    },
+    {
+      "number": "4",
+      "text": "Brief facts necessary for the disposal of these appeals are as follows: a criminal complaint of\ncheating and conspiracy under Section 420 read with section 120b IPC was filed by Dharamvir singh,\nAmrik Singh and Satish Kumar against the appellants herein and one nanak Chand, the father of the\nfirst appellant herein, alleging that they received a sum of Rs. 6,22,000/- as a consideration for sending\nthe complainants abroad and by such collection of amount the above-named accused have committed\nthe above said offence."
+    },
+    {
+      "number": "5",
+      "text": "On coming to know of the filing of complaint, Nanak Chand apprehending his arrest filed an\napplication for grant of anticipatory bail in the said petition, to show his bona fides, the said Nanak\nChand offered to deposit in the court the amount of rs. 5.82 lacs which was the amount claimed in the complaint. While doing so, he also agreed that in the event of there being a settlement between the\nparties, the said amount will be paid over to the complainants. Nanak Chand was granted bail in the\nsaid case. Subsequently, even the appellants herein obtained bail."
+    },
+    {
+      "number": "6",
+      "text": "A dispute arose in regard to the payment of amount deposited by Nanak Chand in the court. Since\nthe said dispute could not be settled between the parties, the matter was referred to Lok Adalat even\nthen the dispute could not be settled."
+    },
+    {
+      "number": "7",
+      "text": "At this stage, the complainants made an application in the petition for bail filed by the present\nappellants that is Crl. Misc. No. 52418-M/2001 seeking the disbursement of the amount deposited to\nthem alleging that since Nanak Chand had admitted the receipt of complaint amount and was ready\nand willing to return the same, the said amount should be paid to them. They also contended that there\nwas a panchayat in which Nanak Chand had agreed to pay the said amount to them."
+    },
+    {
+      "number": "8",
+      "text": "This application of the complainants was resisted by the appellants on the ground that the amount\nin question was deposited primarily for the purpose of showing the bona fides of said Nanak Chand\nand there was a conditional agreement for the disbursement of the said amount to the complainants in\nthe event of there being a settlement between the parties and since no such settlement had been\narrived, the High court in the criminal proceedings cannot direct the payment of amount to the\ncomplainants."
+    },
+    {
+      "number": "9",
+      "text": "The High Court by the impugned order allowed the application filed by the complainant and\ndirected the amount deposited with the Chief Judicial Magistrate, hoshiarpur be paid over to the\ncomplainants after obtaining proper receipt."
+    },
+    {
+      "number": "10",
+      "text": "In this case, Shri Sanjay Jain, learned counsel appearing for the appellants submitted that the\namount in question was deposited to show the bona fides of Nanak chand only for the purpose of bail\nand not as an admission of guilt. Since there is a dispute between the parties until the same is settled,\nthe money cannot be paid to the complainants, therefore, the High Court could not have directed the\npayment of the amount that was deposited by Nanak chand to the complainants."
+    },
+    {
+      "number": "11",
+      "text": "Shri K. T. S. Tulsi, learned senior counsel appearing for the complainants-respondents herein\npointed out that there was a panchayat wherein the accused including Nanak Chand had agreed to pay\nthe above said amount, the proceeding of which was filed in the courts below, hence, the High Court\nwas justified in directing the payment to be made to the complainants- respondents. He also contended\nthat the accused Nanak Chand and even the appellants herein having obtained the bail after depositing\nthe said amount on a condition that the same could be paid over to the complainants, are now trying to\noverreach the courts by frivolous objection therefore, if the amount in question is not to be disbursed\nto the complainants, the bail granted to these appellants and Nanak chand should be liable to be\ncancelled."
+    },
+    {
+      "number": "12",
+      "text": "We notice that the Chief Judicial magistrate, Hoshiarpur accepted the amount from Nanak\nChand on his voluntarily agreeing to deposit the same and further directed the amount to be paid to the\ncomplainants probably the bail was also granted to Nanak chand on his showing the said bona fides.\n\nBut while accepting the deposit, the magistrate had made it clear that the amount in question would be\npaid to the complainants only if a settlement is arrived at. He had also directed that in the event of no\nsettlement being arrived within the time stipulated in his order the amount in question should be kept\nin interest bearing deposit."
+    },
+    {
+      "number": "13",
+      "text": "The fact that there was no settlement between the parties is not in dispute. It is seen from records\nthat even an attempt to settle the dispute through Lok Adalat has failed, therefore, the claim of the\ncomplainants for the amount in deposit being in the nature of the civil dispute. In our opinion, the\nHigh Court ought not to have directed the payment. We are also of the opinion that the High Court in a\nbail application could not have adjudicated upon the rights between the parties in regard to the amount\nin deposit and the impugned directions might also prejudice the defence of the accused. Therefore, we\nthink it proper to set aside the impugned orders of the High Court."
+    },
+    {
+      "number": "14",
+      "text": "Since the amount in question was kept in deposit with the Magistrate voluntarily by nanak\nChand to show his bona fides and consequent to which he had obtained a bail the said amount will not\nbe returned to nanak Chand till the order of bail continues to be in existence."
+    },
+    {
+      "number": "15",
+      "text": "We notice by an earlier order the Chief judicial Magistrate, Hoshiarpur had directed the amount\nto be deposited in the interest bearing account in the event of there being no settlement between the\nparties. Therefore, in the interest of justice, we think the said direction should be given effect to and\nthe amount in question be kept in the interest bearing deposit in a nationalised bank till such time as an\nappropriate orders are passed by the competent court in this regard."
+    },
+    {
+      "number": "16",
+      "text": "With the above observations, we allow these appeals and set aside the impugned orders of the\nHigh Court."
+    },
+    {
+      "number": "17",
+      "text": "These appeals are allowed."
+    }
+  ],
+  "bail_amount_original": "Rs. 6,22,000",
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": "Rs. 6,22,000",
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "modified",
+  "bail_conditions": [],
+  "ratio_decidendi": "With the above observations, we allow these appeals and set aside the impugned orders of the\nHigh Court.",
+  "ratio_para_number": "16",
+  "dispute_nature": "civil dispute",
+  "missing_anchors": [],
+  "warnings": []
+}

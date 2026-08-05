@@ -1,0 +1,144 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-68.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2001-4-81",
+  "court": "SUPREME COURT OF INDIA (FROM: PUNJAB & HARYANA)",
+  "coram": "G.B.PATTANAIK, B.N.AGRAWAL JJ.",
+  "decided_on": "April 30, 2001",
+  "decided_on_year": 2001,
+  "appeal_type": "Criminal Appeal 576 of 2001 and Special Leave Petition (Crl.) 123 of 2001",
+  "final_verdict": "Appeal disposed",
+  "appellant": "JARNAIL SINGH",
+  "respondent": "PITAMBER SINGH",
+  "advocates": null,
+  "equivalent_citations": [
+    "LAWS(SC)-2001-4-81",
+    "SUPREME-2001-5-47002",
+    "CRIMES(SC)-2001-3-420",
+    "GLHEL-2001-0-12686"
+  ],
+  "cited_judgments": [],
+  "referred_acts": [
+    "S.438",
+    "S.326",
+    "S.307"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "Decided On : April 30, 2001 Appeal Type : Criminal Appeal 576 of 2001 and Special Leave Petition (Crl.) 123 of 2001 Final Verdict : Appeal disposed Appellant(s) : JARNAIL SINGH Respondent(s) : PITAMBER SINGH Equivalent Citation : LAWS(SC)-2001-4-81, SUPREME-2001-5-47002, CRIMES(SC)-2001-3-420, GLHEL",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "326",
+      "subsection": null,
+      "section_title": "Voluntarily causing grievous hurt",
+      "how_used": "Referenced",
+      "context": "Decided On : April 30, 2001 Appeal Type : Criminal Appeal 576 of 2001 and Special Leave Petition (Crl.) 123 of 2001 Final Verdict : Appeal disposed Appellant(s) : JARNAIL SINGH Respondent(s) : PITAMBER SINGH Equivalent Citation : LAWS(SC)-2001-4-81, SUPREME-2001-5-47002, CRIMES(SC)-2001-3-420, GLHEL",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "307",
+      "subsection": null,
+      "section_title": "Attempt to murder",
+      "how_used": "Referenced",
+      "context": "Decided On : April 30, 2001 Appeal Type : Criminal Appeal 576 of 2001 and Special Leave Petition (Crl.) 123 of 2001 Final Verdict : Appeal disposed Appellant(s) : JARNAIL SINGH Respondent(s) : PITAMBER SINGH Equivalent Citation : LAWS(SC)-2001-4-81, SUPREME-2001-5-47002, CRIMES(SC)-2001-3-420, GLHEL",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "437",
+      "subsection": null,
+      "section_title": "When bail may be taken in case of non-bailable offence",
+      "how_used": "Charged",
+      "context": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person apprehending arrest, INDIAN PENAL CODE, 1860 - S.326 - Voluntarily causing ievous hurt by dangerous weapons or means, S.307 - Attempt to murder - On examining the application for regular bail, we find that the accused h",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": true,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "307",
+    "326"
+  ],
+  "crpc_sections_mentioned": [
+    "437",
+    "438"
+  ],
+  "procedural_history": null,
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.326 - Voluntarily causing ievous hurt\nby dangerous weapons or means, S.307 - Attempt to murder - On examining the application\nfor regular bail, we find that the accused had stated that the High Court having granted\nanticipatory bail, he may be released on bail by invoking the power under Section 437\nCriminal Procedure Code On the facts and circumstances of the present case and in view of\nthe allegations made, we have no manner of doubt that the High Court committed serious\nerror by invoking the power under section 438 Criminal Procedure Code and granting\nanticipatory bail to the accused.\nB. and, therefore, this Court need not examine the legality of the order granting anticipatory\nbail.\nC. The counsel appearing for the State, states that the accused will not be arrested till his\napplication for bail under Section 437 is decided by the Magistrate. - The appeal stands\ndisposed of accordingly.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.326 - Voluntarily causing ievous hurt\nby dangerous weapons or means, S.307 - Attempt to murder - On examining the application\nfor regular bail, we find that the accused had stated that the High Court having granted\nanticipatory bail, he may be released on bail by invoking the power under Section 437\nCriminal Procedure Code On the facts and circumstances of the present case and in view of\nthe allegations made, we have no manner of doubt that the High Court committed serious\nerror by invoking the power under section 438 Criminal Procedure Code and granting\nanticipatory bail to the accused."
+    },
+    {
+      "label": "B",
+      "text": "and, therefore, this Court need not examine the legality of the order granting anticipatory\nbail."
+    },
+    {
+      "label": "C",
+      "text": "The counsel appearing for the State, states that the accused will not be arrested till his\napplication for bail under Section 437 is decided by the Magistrate. - The appeal stands\ndisposed of accordingly."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "The informant assails the order of the punjab and Haryana High Court dated 22-11- 2000 granting\nanticipatory bail to the accused in a case where the allegation was that the accused gave a gandasa\nblow on the head for which a criminal proceeding under Sections 326 and 307 1pc is pending. The\nrespondent accused after entering appearance filed an affidavit stating therein that in the meantime an\napplication for regular bail was filed and the learned Magistrate has already released him on bail\nexercising power under Section 437 Cr. P. C. and, therefore, this Court need not examine the legality\nof the order granting anticipatory bail. On examining the application for regular bail, we find that the\naccused had stated that the High Court having granted anticipatory bail, he may be released on bail by\ninvoking the power under Section 437 Criminal Procedure Code On the facts and circumstances of the\npresent case and in view of the allegations made, we have no manner of doubt that the High Court\ncommitted serious error by invoking the power under section 438 Criminal Procedure Code and\ngranting anticipatory bail to the accused. The said order granting anticipatory bail is accordingly set\naside. It is true that in the meantime technically the magistrate in exercise of power under Section 437\nCriminal Procedure Code has granted bail to the accused, but the same was because of the grant of\nanticipatory bail by the High Court. The aforesaid order granting anticipatory bail having been set\naside, we also think it appropriate to set aside the order of the Magistrate granting bail under Section\n437 Criminal Procedure Code and direct that the application for bail may be considered on its own\nmerits taking into consideration all germane factors including the gravity of offence."
+    },
+    {
+      "number": "3",
+      "text": "The accused may move the Magistrate within a week from today. The counsel appearing for the\nState, states that the accused will not be arrested till his application for bail under Section 437 is\ndecided by the Magistrate."
+    },
+    {
+      "number": "4",
+      "text": "The appeal stands disposed of accordingly. Appeal disposed of accordingly."
+    }
+  ],
+  "bail_amount_original": null,
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": null,
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": null,
+  "bail_conditions": [],
+  "ratio_decidendi": "The appeal stands disposed of accordingly. Appeal disposed of accordingly.",
+  "ratio_para_number": "4",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": [
+    "Could not determine bail_outcome — add a signal phrase to _determine_bail_outcome for this case"
+  ]
+}

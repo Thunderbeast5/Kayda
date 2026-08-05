@@ -1,0 +1,109 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-37.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2009-8-158",
+  "court": "SUPREME COURT OF INDIA (FROM: MADRAS)",
+  "coram": "B.N.AGRAWAL, G.S.SINGHVI JJ.",
+  "decided_on": "August 03, 2009",
+  "decided_on_year": 2009,
+  "appeal_type": "Crl. A. No. 1400 of 2009",
+  "final_verdict": "Appeal allowed",
+  "appellant": "Sundarajan P.",
+  "respondent": "STATE REP. BY INSPECTOR OF POLICE",
+  "advocates": "PARAMJIT SINGH PATWALIA, K.V.Viswanathan, JAYANTH MUTHRAJ, Malavika\nG., P.V.DINESH, ANIL KAUSHIK, DEEPAK JAIN, Mary Mitzy, G.S.CHAUHAN, M.N.RAO,\nG.SIVABALAMURUGAN, L.K.PANDEY, S.THANANJAYAN",
+  "equivalent_citations": [
+    "TLPRE-2009-0-1710",
+    "LAWS(SC)-2009-8-158",
+    "KHC-2009-0-1185",
+    "SCC-2009-17-641",
+    "SCC(CR)-2011-1-1107",
+    "SCALE-2009-13-12",
+    "GLHEL-2009-0-49633"
+  ],
+  "cited_judgments": [
+    "Dhara & Others Vs. State Of M P, [LAWS(MPH)-2012-5-205] [Referred]"
+  ],
+  "referred_acts": [
+    "S.436",
+    "S.438"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "436",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Referenced",
+      "context": "State Of M P, [LAWS(MPH)-2012-5-205] [Referred] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.436, S.438 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "State Of M P, [LAWS(MPH)-2012-5-205] [Referred] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.436, S.438 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [],
+  "crpc_sections_mentioned": [
+    "436",
+    "438"
+  ],
+  "procedural_history": null,
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.436 - In what cases bail to be taken, S.438 -\nDirection for grant of bail to person apprehending arrest - its earlier order passed on 5th\nAugust, 2008 in Criminal - in accordance with law after giving opportunity of hearing - to the\nparties.Heard learned counsel for the parties.In our view, the petitioner should appear before\nthe court\nB. its earlier order passed on 5th August, 2008 in Criminal - in accordance with law after giving\nopportunity of hearing - to the parties.Heard learned counsel for the parties.In our view, the\npetitioner should appear before the court",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.436 - In what cases bail to be taken, S.438 -\nDirection for grant of bail to person apprehending arrest - its earlier order passed on 5th\nAugust, 2008 in Criminal - in accordance with law after giving opportunity of hearing - to the\nparties.Heard learned counsel for the parties.In our view, the petitioner should appear before\nthe court"
+    },
+    {
+      "label": "B",
+      "text": "its earlier order passed on 5th August, 2008 in Criminal - in accordance with law after giving\nopportunity of hearing - to the parties.Heard learned counsel for the parties.In our view, the\npetitioner should appear before the court"
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "Heard learned counsel for the parties."
+    },
+    {
+      "number": "3",
+      "text": "By the impugned order, the Madras High Court has recalled its earlier order passed on 5th\nAugust, 2008 in Criminal O.P. No.18985 of 2008 whereby anticipatory bail was granted to the\nappellants. Undisputedly, before the passing of the impugned order, no opportunity of hearing was\nafforded to the appellants; as such, the impugned order is per se fit to be set aside on this ground alone."
+    },
+    {
+      "number": "4",
+      "text": "In the result, the appeal is allowed, impugned order rendered by the High Court is set aside and\nthe matter is remitted to it to consider the petition for recall on its own merits in accordance with law\nafter giving opportunity of hearing to the parties.\nHeard learned counsel for the parties.\nIn our view, the petitioner should appear before the court concerned and apply for regular\nbail. In case such an application is filed, the same shall be considered on its own merits without being\ninfluenced by any observation made in the impugned order.\nThe special leave petitions are, accordingly, disposed of."
+    }
+  ],
+  "bail_amount_original": null,
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": null,
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "granted",
+  "bail_conditions": [],
+  "ratio_decidendi": "In the result, the appeal is allowed, impugned order rendered by the High Court is set aside and\nthe matter is remitted to it to consider the petition for recall on its own merits in accordance with law\nafter giving opportunity of hearing to the parties.\nHeard learned counsel for the parties.\nIn our view, the petitioner should appear before the court concerned and apply for regular\nbail. In case such an application is filed, the same shall be considered on its own merits without being\ninfluenced by any observation made in the impugned order.\nThe special leave petitions are, accordingly, disposed of.",
+  "ratio_para_number": "4",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": []
+}

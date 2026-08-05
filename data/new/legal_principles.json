@@ -1,0 +1,60 @@
+[
+  {
+    "name": "Natural Justice",
+    "description": "Principles of fair play including the right to a fair hearing and the rule against bias.",
+    "source": "Common Law",
+    "linked_sections": [
+      {"act": "BNS", "section": "101"},
+      {"act": "BNS", "section": "303"}
+    ]
+  },
+  {
+    "name": "Presumption of Innocence",
+    "description": "The legal principle that one is considered innocent until proven guilty.",
+    "source": "Common Law",
+    "linked_sections": [
+      {"act": "BNS", "section": "101"},
+      {"act": "BNS", "section": "303"},
+      {"act": "BNS", "section": "309"}
+    ]
+  },
+  {
+    "name": "Burden of Proof",
+    "description": "The obligation to prove one's assertion. In criminal cases, this rests on the prosecution.",
+    "source": "Evidence Act",
+    "linked_sections": [
+      {"act": "BNS", "section": "80"},
+      {"act": "BNS", "section": "101"}
+    ]
+  },
+  {
+    "name": "Mens Rea",
+    "description": "The mental element of a person's intention to commit a crime; guilty mind.",
+    "source": "Common Law",
+    "linked_sections": [
+      {"act": "BNS", "section": "303"},
+      {"act": "BNS", "section": "101"},
+      {"act": "BNS", "section": "309"}
+    ]
+  },
+  {
+    "name": "Actus Reus",
+    "description": "The physical act or conduct that constitutes the crime.",
+    "source": "Common Law",
+    "linked_sections": [
+      {"act": "BNS", "section": "303"},
+      {"act": "BNS", "section": "101"},
+      {"act": "BNS", "section": "309"}
+    ]
+  },
+  {
+    "name": "Reasonable Doubt",
+    "description": "The standard of proof required in criminal cases for conviction.",
+    "source": "Common Law",
+    "linked_sections": [
+      {"act": "BNS", "section": "101"},
+      {"act": "BNS", "section": "303"},
+      {"act": "BNS", "section": "309"}
+    ]
+  }
+]

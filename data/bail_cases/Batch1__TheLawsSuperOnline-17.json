@@ -1,0 +1,97 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-17.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2007-1-99",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "B.P.SINGH, TARUN CHATTERJEE JJ.",
+  "decided_on": "January 12, 2007",
+  "decided_on_year": 2007,
+  "appeal_type": "Criminal Appeal 55 of 2007",
+  "final_verdict": "Appeal allowed",
+  "appellant": "PRATAPSINHA ALIAS SANJAY SHANKARRAO CHAVAN",
+  "respondent": "STATE OF MAHARASHTRA",
+  "advocates": "H.N.SALVE, S.R.CHITNIS, SUSHIL KARANJKAR, K.N.RAI, SHEKHAR NAPHADE,\nVINAY NAVARE, NARESH KUMAR, RAVINDRA KESHAVRAO, GAUTAM GODARA",
+  "equivalent_citations": [
+    "ALLSCR-2007-0-777",
+    "LAWS(SC)-2007-1-99"
+  ],
+  "cited_judgments": [],
+  "referred_acts": [
+    "S.438"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "Decided On : January 12, 2007 Appeal Type : Criminal Appeal 55 of 2007 Final Verdict : Appeal allowed Appellant(s) : PRATAPSINHA ALIAS SANJAY SHANKARRAO CHAVAN Respondent(s) : STATE OF MAHARASHTRA Advocate(s) : H.N.SALVE, S.R.CHITNIS, SUSHIL KARANJKAR, K.N.RAI, SHEKHAR NAPHADE, VINAY NAVARE, NARESH ",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438(2)",
+      "subsection": "2",
+      "section_title": "Conditions for anticipatory bail",
+      "how_used": "Mentioned",
+      "context": "- THE appellant shall comply with the conditions laid down in Section 438(2) of the Criminal Procedure Code and should make himself available for investigation whenever required by the Investigating Officer.This appeal is accordingly, allowed.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [],
+  "crpc_sections_mentioned": [
+    "438",
+    "438(2)"
+  ],
+  "procedural_history": null,
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest - However, we are satisfied that this was not a case where anticipatory\nbail granted to the appellant twice should have been set aside by the High Court virtually\nrecording a finding of guilt against him.However, in the facts and circumstances of the case,\nthe appeal is allowed.\nB. However, we are satisfied that this was not a case where anticipatory bail granted to the\nappellant twice should have been set aside by the High Court virtually recording a finding of\nguilt against him.However, in the facts and circumstances of the case, the appeal is allowed. -\nTHE appellant shall comply with the conditions laid down in Section 438(2) of the Criminal\nProcedure Code and should make himself available for investigation whenever required by\nthe Investigating Officer.This appeal is accordingly, allowed.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest - However, we are satisfied that this was not a case where anticipatory\nbail granted to the appellant twice should have been set aside by the High Court virtually\nrecording a finding of guilt against him.However, in the facts and circumstances of the case,\nthe appeal is allowed."
+    },
+    {
+      "label": "B",
+      "text": "However, we are satisfied that this was not a case where anticipatory bail granted to the\nappellant twice should have been set aside by the High Court virtually recording a finding of\nguilt against him.However, in the facts and circumstances of the case, the appeal is allowed. -\nTHE appellant shall comply with the conditions laid down in Section 438(2) of the Criminal\nProcedure Code and should make himself available for investigation whenever required by\nthe Investigating Officer.This appeal is accordingly, allowed."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "WE have heard for the parties."
+    },
+    {
+      "number": "2",
+      "text": "SPECIAL Leave granted.\nWe have carefully gone through the order of the High Court cancelling anticipatory bail\ngranted to the appellant. Having regard to the fact that the observations made by higher Courts may\ninfluence the mind of the trial Judge, we do not wish to give any comments at this stage. However, we\nare satisfied that this was not a case where anticipatory bail granted to the appellant twice should have\nbeen set aside by the High Court virtually recording a finding of guilt against him.\nHowever, in the facts and circumstances of the case, the appeal is allowed. The impugned\njudgment and order of the High Court is set aside. We further direct that any observation made in the\norder of the High Court or in our order passed today shall not be construed as expression of opinion on\nthe merit it of the case."
+    },
+    {
+      "number": "3",
+      "text": "THE appellant shall comply with the conditions laid down in Section 438(2) of the Criminal\nProcedure Code and should make himself available for investigation whenever required by the\nInvestigating Officer.\nThis appeal is accordingly, allowed. Appeal allowed."
+    }
+  ],
+  "bail_amount_original": null,
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": null,
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "refused",
+  "bail_conditions": [],
+  "ratio_decidendi": "THE appellant shall comply with the conditions laid down in Section 438(2) of the Criminal\nProcedure Code and should make himself available for investigation whenever required by the\nInvestigating Officer.\nThis appeal is accordingly, allowed. Appeal allowed.",
+  "ratio_para_number": "3",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": []
+}

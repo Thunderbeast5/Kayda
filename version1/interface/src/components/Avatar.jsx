@@ -8,7 +8,7 @@ const avatarMap = {
 };
 
 export default function Avatar({ role, name, active, message }) {
-  // Drive States directly from MootCourt LLM logic
+  // Drive States directly from Kayda LLM logic
   const isThinking = active && !message;
   const isSpeaking = active && !!message;
 
@@ -32,7 +32,7 @@ export default function Avatar({ role, name, active, message }) {
       <img
         src={avatarMap[role]}
         alt={name}
-        className={`h-16 md:h-24 w-auto object-contain transition-all duration-300 ${
+        className={`h-14 md:h-20 w-auto object-contain transition-all duration-300 ${
             active 
             ? "drop-shadow-[0_0_10px_rgba(197,160,89,0.8)] scale-105" 
             : "opacity-80 scale-100"

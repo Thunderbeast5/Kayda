@@ -1,0 +1,129 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-73.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2019-2-341",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "A.M.KHANWILKAR, AJAY RASTOGI JJ.",
+  "decided_on": "February 18, 2019",
+  "decided_on_year": 2019,
+  "appeal_type": "Criminal Appeal 292 of 2019, 293 of 2019",
+  "final_verdict": "Appeal disposed",
+  "appellant": "Surya Pratap Avadesh Singh And Anr",
+  "respondent": "STATE OF MAHARASHTRA",
+  "advocates": "Atul Babasaheb Dakh, Vedchetan Patil, Ishaan George, VIPIN GUPTA",
+  "equivalent_citations": [
+    "LAWS(SC)-2019-2-341"
+  ],
+  "cited_judgments": [],
+  "referred_acts": [
+    "S.438(2)",
+    "S.34",
+    "S.420"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438(2)",
+      "subsection": "2",
+      "section_title": "Conditions for anticipatory bail",
+      "how_used": "Referenced",
+      "context": "Decided On : February 18, 2019 Appeal Type : Criminal Appeal 292 of 2019, 293 of 2019 Final Verdict : Appeal disposed Appellant(s) : Surya Pratap Avadesh Singh And Anr Respondent(s) : STATE OF MAHARASHTRA Advocate(s) : Atul Babasaheb Dakh, Vedchetan Patil, Ishaan George, VIPIN GUPTA Equivalent Citat",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "34",
+      "subsection": null,
+      "section_title": "Acts done by several persons in furtherance of common intention",
+      "how_used": "Charged",
+      "context": "Decided On : February 18, 2019 Appeal Type : Criminal Appeal 292 of 2019, 293 of 2019 Final Verdict : Appeal disposed Appellant(s) : Surya Pratap Avadesh Singh And Anr Respondent(s) : STATE OF MAHARASHTRA Advocate(s) : Atul Babasaheb Dakh, Vedchetan Patil, Ishaan George, VIPIN GUPTA Equivalent Citat",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "420",
+      "subsection": null,
+      "section_title": "Cheating and dishonestly inducing delivery of property",
+      "how_used": "Charged",
+      "context": "Decided On : February 18, 2019 Appeal Type : Criminal Appeal 292 of 2019, 293 of 2019 Final Verdict : Appeal disposed Appellant(s) : Surya Pratap Avadesh Singh And Anr Respondent(s) : STATE OF MAHARASHTRA Advocate(s) : Atul Babasaheb Dakh, Vedchetan Patil, Ishaan George, VIPIN GUPTA Equivalent Citat",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "34",
+    "420"
+  ],
+  "crpc_sections_mentioned": [
+    "438(2)"
+  ],
+  "procedural_history": {
+    "district": "Palghar"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438(2) - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.34 - Acts done by several persons in\nfurtherance of common intention, S.420 - Cheating and dishonestly inducing delivery of\nproperty - Prima facie, we find force in the submission of the appellants that the appellants\nare not party to the transaction which is the subject matter of offence under Sec.\nB. Hence, the appellants are entitled for grant of anticipatory bail in connection with C.R.\nC. Suffice it to observe that the appellants are not concerned with transaction in question\nconstituting the alleged offence. - The appeals are disposed of in the above terms.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438(2) - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.34 - Acts done by several persons in\nfurtherance of common intention, S.420 - Cheating and dishonestly inducing delivery of\nproperty - Prima facie, we find force in the submission of the appellants that the appellants\nare not party to the transaction which is the subject matter of offence under Sec."
+    },
+    {
+      "label": "B",
+      "text": "Hence, the appellants are entitled for grant of anticipatory bail in connection with C.R."
+    },
+    {
+      "label": "C",
+      "text": "Suffice it to observe that the appellants are not concerned with transaction in question\nconstituting the alleged offence. - The appeals are disposed of in the above terms."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "Heard learned counsel for the parties."
+    },
+    {
+      "number": "3",
+      "text": "Prima facie, we find force in the submission of the appellants that the appellants are not party to\nthe transaction which is the subject matter of offence under Sec. 420 read with 34 of IPC."
+    },
+    {
+      "number": "4",
+      "text": "The appellants are only sub-contractors and have been engaged by the main accused. Suffice it to\nobserve that the appellants are not concerned with transaction in question constituting the alleged\noffence. Hence, the appellants are entitled for grant of anticipatory bail in connection with C.R. No.\n1329 of 2018 registered at Virar Police Station, District Palghar, (Maharashtra), subject to fulfilling\nconditions under Sec. 438(2) of Crimial P.C. Ordered accordingly."
+    },
+    {
+      "number": "5",
+      "text": "The appeals are disposed of in the above terms."
+    }
+  ],
+  "bail_amount_original": null,
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": null,
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "modified",
+  "bail_conditions": [],
+  "ratio_decidendi": "The appellants are only sub-contractors and have been engaged by the main accused. Suffice it to\nobserve that the appellants are not concerned with transaction in question constituting the alleged\noffence. Hence, the appellants are entitled for grant of anticipatory bail in connection with C.R. No.\n1329 of 2018 registered at Virar Police Station, District Palghar, (Maharashtra), subject to fulfilling\nconditions under Sec. 438(2) of Crimial P.C. Ordered accordingly.",
+  "ratio_para_number": "4",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": []
+}

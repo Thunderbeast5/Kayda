@@ -1,6 +1,11 @@
-# MootCourt.ai
+# Kayda
 
 An advanced platform for practicing legal arguments with AI agents playing the roles of prosecutor and accused. Features a sophisticated agent-based backend that analyzes user queries and routes them to appropriate legal agents.
+
+## Repository Structure
+1.Main branch does not contain any data it only has code.
+2.If you want code and data then refer "codewithdata" branch.
+3.For data extraction use "json" branch.
 
 ## Project Structure
 

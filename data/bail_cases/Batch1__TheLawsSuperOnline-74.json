@@ -1,0 +1,132 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-74.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2005-4-11",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "N.S.HEGDE, S.B.SINGH JJ.",
+  "decided_on": "April 04, 2005",
+  "decided_on_year": 2005,
+  "appeal_type": ".",
+  "final_verdict": "Appeal allowed",
+  "appellant": "HARPREET SINGH",
+  "respondent": "GOVT OF NCT OF DELHI",
+  "advocates": null,
+  "equivalent_citations": [
+    "ALLMR(CRI)-2006-0-1854",
+    "LAWS(SC)-2005-4-11",
+    "SCC(CR)-2006-2-128",
+    "SCC-2005-11-551"
+  ],
+  "cited_judgments": [],
+  "referred_acts": [
+    "S.438",
+    "S.308",
+    "S.323"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "Appellant(s) : HARPREET SINGH Respondent(s) : GOVT OF NCT OF DELHI Equivalent Citation : ALLMR(CRI)-2006-0-1854, LAWS(SC)-2005-4-11, SCC(CR)-2006-2-128, SCC-2005-11- 551 Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.308, S.323 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "308",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Referenced",
+      "context": "Appellant(s) : HARPREET SINGH Respondent(s) : GOVT OF NCT OF DELHI Equivalent Citation : ALLMR(CRI)-2006-0-1854, LAWS(SC)-2005-4-11, SCC(CR)-2006-2-128, SCC-2005-11- 551 Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.308, S.323 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "323",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Referenced",
+      "context": "Appellant(s) : HARPREET SINGH Respondent(s) : GOVT OF NCT OF DELHI Equivalent Citation : ALLMR(CRI)-2006-0-1854, LAWS(SC)-2005-4-11, SCC(CR)-2006-2-128, SCC-2005-11- 551 Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 - Indian Penal Code, 1860, S.308, S.323 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "308",
+    "323"
+  ],
+  "crpc_sections_mentioned": [
+    "438"
+  ],
+  "procedural_history": null,
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.308 - Attempt to commit culpable\nhomicide, S.323 - Punishment for voluntarily causing hurt - 308 and 323 of the Indian Penal\nCode and the appellant is a student, hence, on the facts and circumstances of the case, we\nthink it appropriate that the appellant should be enlarged on anticipatory bail.\nB. 308 and 323 of the Indian Penal Code and the appellant is a student, hence, on the facts and\ncircumstances of the case, we think it appropriate that the appellant should be enlarged on\nanticipatory bail.\nC. The appellant shall abide by the conditions enumerated in Sec. - 5.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.308 - Attempt to commit culpable\nhomicide, S.323 - Punishment for voluntarily causing hurt - 308 and 323 of the Indian Penal\nCode and the appellant is a student, hence, on the facts and circumstances of the case, we\nthink it appropriate that the appellant should be enlarged on anticipatory bail."
+    },
+    {
+      "label": "B",
+      "text": "308 and 323 of the Indian Penal Code and the appellant is a student, hence, on the facts and\ncircumstances of the case, we think it appropriate that the appellant should be enlarged on\nanticipatory bail."
+    },
+    {
+      "label": "C",
+      "text": "The appellant shall abide by the conditions enumerated in Sec."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Heard learned counsel for the parties."
+    },
+    {
+      "number": "2",
+      "text": "Leave granted."
+    },
+    {
+      "number": "3",
+      "text": "Keeping in mind that the offence is one under Ss. 308 and 323 of the Indian Penal Code and the\nappellant is a student, hence, on the facts and circumstances of the case, we think it appropriate that\nthe appellant should be enlarged on anticipatory bail. We direct that in the event of he being arrested the appellant shall be released on bail on his furnishing a self bond in the sum of Rs. 5000.00 with one\nsurety for the like amount to the satisfaction of the arresting authority or the trial court as the case may\nbe."
+    },
+    {
+      "number": "4",
+      "text": "The appellant shall abide by the conditions enumerated in Sec. 438(2) of the Criminal Procedure\nCode."
+    },
+    {
+      "number": "5",
+      "text": "The appeal is allowed."
+    }
+  ],
+  "bail_amount_original": "Rs. 5000",
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": "Rs. 5000",
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "granted",
+  "bail_conditions": [
+    "We direct that in the event of he being arrested the appellant shall be released on bail on his furnishing a self bond in the sum of Rs. 5000.00 with one surety for the like amount to the satisfaction of the arresting authority or the trial court as the case may be."
+  ],
+  "ratio_decidendi": "Keeping in mind that the offence is one under Ss. 308 and 323 of the Indian Penal Code and the\nappellant is a student, hence, on the facts and circumstances of the case, we think it appropriate that\nthe appellant should be enlarged on anticipatory bail. We direct that in the event of he being arrested the appellant shall be released on bail on his furnishing a self bond in the sum of Rs. 5000.00 with one\nsurety for the like amount to the satisfaction of the arresting authority or the trial court as the case may\nbe.",
+  "ratio_para_number": "3",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": []
+}

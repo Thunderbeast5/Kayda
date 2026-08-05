@@ -1,0 +1,114 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-25.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2012-4-45",
+  "court": "SUPREME COURT OF INDIA (FROM: PUNJAB & HARYANA)",
+  "coram": "H.L.DATTU, CHANDRAMAULI KUMAR PRASAD JJ.",
+  "decided_on": "April 27, 2012",
+  "decided_on_year": 2012,
+  "appeal_type": "CRIMINAL APPEAL NO. 711 OF 2012",
+  "final_verdict": "Appeal disposed",
+  "appellant": "EMMANUEL ERIC",
+  "respondent": "STATE OF HARYANA",
+  "advocates": null,
+  "equivalent_citations": [
+    "LAWS(SC)-2012-4-45",
+    "TLPRE-2012-0-243",
+    "SCC(CR)-2013-3-495",
+    "SCC-2012-12-376",
+    "GLHEL-2012-0-51152",
+    "KHC-2012-0-4270"
+  ],
+  "cited_judgments": [],
+  "referred_acts": [
+    "S.438(2)"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438(2)",
+      "subsection": "2",
+      "section_title": "Conditions for anticipatory bail",
+      "how_used": "Referenced",
+      "context": "711 OF 2012 Final Verdict : Appeal disposed Appellant(s) : EMMANUEL ERIC Respondent(s) : STATE OF HARYANA Equivalent Citation : LAWS(SC)-2012-4-45, TLPRE-2012-0-243, SCC(CR)-2013-3-495, SCC-2012-12-376, GLHEL-2012-0-51152, KHC-2012-0-4270 Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438(2",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "10",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Mentioned",
+      "context": "(3.) Vide order dated 15th December, 2011, this Court while issuing notice and releasing the appellant on bail, had passed the following order : \"In the event of arrest of the petitioner, he shall be released on bail on furnishing personal bond of Rs.10,000/- with one surety in the like amount to th",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [],
+  "crpc_sections_mentioned": [
+    "10",
+    "438(2)"
+  ],
+  "procedural_history": {
+    "high_court_order_date": "15",
+    "high_court_bench": "High Court of Punjab and Haryana High Court"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438(2) - Direction for grant of bail to person\napprehending arrest - This appeal is preferred by the appellant against the rejection - Vide\norder dated 15th December, 2011, this Court while issuing - notice and releasing the appellant\non bail, had passed the following - order :\"In the event of arrest of the petitioner, he shall be\nB. Heard learned counsel for the parties to the lis. - are of the opinion that the order dated\n15.12.2011 be confirmed and",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438(2) - Direction for grant of bail to person\napprehending arrest - This appeal is preferred by the appellant against the rejection - Vide\norder dated 15th December, 2011, this Court while issuing - notice and releasing the appellant\non bail, had passed the following - order :\"In the event of arrest of the petitioner, he shall be"
+    },
+    {
+      "label": "B",
+      "text": "Heard learned counsel for the parties to the lis. - are of the opinion that the order dated\n15.12.2011 be confirmed and"
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "This appeal is preferred by the appellant against the rejection of his application for anticipatory\nbail before the High Court of Punjab and Haryana High Court in Criminal Miscellaneous No.M-34997\nof 2011 dated 08.12.2011."
+    },
+    {
+      "number": "3",
+      "text": "Vide order dated 15th December, 2011, this Court while issuing notice and releasing the appellant\non bail, had passed the following order :\n\"In the event of arrest of the petitioner, he shall be released on bail on furnishing personal bond of Rs.10,000/- with one surety in the like amount to the satisfaction of the Investigating Agency,\nsubject to the condition that he will join investigation as and when required and shall abide by the\nprovisions of Section 438(2) of the Code of Criminal Procedure.\""
+    },
+    {
+      "number": "4",
+      "text": "Heard learned counsel for the parties to the lis."
+    },
+    {
+      "number": "5",
+      "text": "Having regard to the facts and circumstances of the case, we are of the opinion that the order\ndated 15.12.2011 be confirmed and is confirmed. Appeal disposed of accordingly. Ordered\naccordingly."
+    }
+  ],
+  "bail_amount_original": "Rs. 10,000",
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": "Rs. 10,000",
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "modified",
+  "bail_conditions": [
+    "Vide order dated 15th December, 2011, this Court while issuing notice and releasing the appellant on bail, had passed the following order : \"In the event of arrest of the petitioner, he shall be released on bail on furnishing personal bond of Rs.10,000/- with one surety in the like amount to the satisfaction of the Investigating Agency, subject to the condition that he will join investigation as and when required and shall abide by the provisions of Section 438(2) of the Code of Criminal Procedure.\""
+  ],
+  "ratio_decidendi": "Having regard to the facts and circumstances of the case, we are of the opinion that the order\ndated 15.12.2011 be confirmed and is confirmed. Appeal disposed of accordingly. Ordered\naccordingly.",
+  "ratio_para_number": "5",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": []
+}

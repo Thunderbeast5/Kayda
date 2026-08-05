@@ -1,0 +1,112 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-56.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2019-2-403",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "D.Y.CHANDRACHUD, HEMANT GUPTA JJ.",
+  "decided_on": "February 01, 2019",
+  "decided_on_year": 2019,
+  "appeal_type": "Criminal Appeal; Special Leave Petition (Criminal) 205 of 2019; 10861 of 2018",
+  "final_verdict": "Appeal disposed",
+  "appellant": "Mohd Israphil",
+  "respondent": "State Of Jharkhand And Anr",
+  "advocates": "JAYANT BHATT, Prachi Aggarwal, HAMID KHAN, MRIGANK PRABHAKAR,\nTAPESH KUMAR SINGH, Aditya Pratap Singh, M.P.VINOD",
+  "equivalent_citations": [
+    "LAWS(SC)-2019-2-403"
+  ],
+  "cited_judgments": [],
+  "referred_acts": [
+    "S.438(2)",
+    "S.498"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438(2)",
+      "subsection": "2",
+      "section_title": "Conditions for anticipatory bail",
+      "how_used": "Referenced",
+      "context": "Decided On : February 01, 2019 Appeal Type : Criminal Appeal; Special Leave Petition (Criminal) 205 of 2019; 10861 of 2018 Final Verdict : Appeal disposed Appellant(s) : Mohd Israphil Respondent(s) : State Of Jharkhand And Anr Advocate(s) : JAYANT BHATT, Prachi Aggarwal, HAMID KHAN, MRIGANK PRABHAKA",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "498A",
+      "subsection": null,
+      "section_title": "Husband or relative of husband of a woman subjecting her to cruelty",
+      "how_used": "Referenced",
+      "context": "Decided On : February 01, 2019 Appeal Type : Criminal Appeal; Special Leave Petition (Criminal) 205 of 2019; 10861 of 2018 Final Verdict : Appeal disposed Appellant(s) : Mohd Israphil Respondent(s) : State Of Jharkhand And Anr Advocate(s) : JAYANT BHATT, Prachi Aggarwal, HAMID KHAN, MRIGANK PRABHAKA",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "498A"
+  ],
+  "crpc_sections_mentioned": [
+    "438(2)"
+  ],
+  "procedural_history": {
+    "high_court_order_date": "29"
+  },
+  "headnote_raw": "A. CODE OF CRIMINAL PROCEDURE, 1973 - S.438(2) - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.498A - Husband or relative of\nhusband of a woman subjecting her to cruelty - Since the appellant is gainfully employed in\nSaudi Arabia since 2014 for his livelihood, and in view of the aforesaid statement and the\nundertaking, which we accept, we modify the impugned order of the High Court by setting\naside the condition requiring the appellant to surrender his passport.\nB. Since the appellant is gainfully employed in Saudi Arabia since 2014 for his livelihood, and in\nview of the aforesaid statement and the undertaking, which we accept, we modify the\nimpugned order of the High Court by setting aside the condition requiring the appellant to\nsurrender his passport. - The appeal is accordingly disposed of.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "CODE OF CRIMINAL PROCEDURE, 1973 - S.438(2) - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.498A - Husband or relative of\nhusband of a woman subjecting her to cruelty - Since the appellant is gainfully employed in\nSaudi Arabia since 2014 for his livelihood, and in view of the aforesaid statement and the\nundertaking, which we accept, we modify the impugned order of the High Court by setting\naside the condition requiring the appellant to surrender his passport."
+    },
+    {
+      "label": "B",
+      "text": "Since the appellant is gainfully employed in Saudi Arabia since 2014 for his livelihood, and in\nview of the aforesaid statement and the undertaking, which we accept, we modify the\nimpugned order of the High Court by setting aside the condition requiring the appellant to\nsurrender his passport. - The appeal is accordingly disposed of."
+    }
+  ],
+  "judgment_author": null,
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "The F.I.R. has been lodged against the appellant under Sec. 498A of the Indian Penal Code, 1860.\nThe High Court by its order dated 29 Nov. 2018 granted anticipatory bail to the appellant under Sec.\n438(2) of the Code of Criminal Procedure, subject to conditions."
+    },
+    {
+      "number": "3",
+      "text": "The challenge to the order of the High Court is in regard to the condition that the appellant would\nsubmit his passport in the Trial Court on the date of his surrender."
+    },
+    {
+      "number": "4",
+      "text": "Learned counsel appearing on behalf of the appellant states that the appellant is gainfully\nemployed in Saudi Arabia since 2014. However, it is stated that the appellant would, subject to his\nright to file an application for exemption from appearing before the Trial Court, appear on such dates\nas he is required to remain present."
+    },
+    {
+      "number": "5",
+      "text": "Since the appellant is gainfully employed in Saudi Arabia since 2014 for his livelihood, and in\nview of the aforesaid statement and the undertaking, which we accept, we modify the impugned order\nof the High Court by setting aside the condition requiring the appellant to surrender his passport."
+    },
+    {
+      "number": "6",
+      "text": "The appeal is accordingly disposed of."
+    }
+  ],
+  "bail_amount_original": null,
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": null,
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "modified",
+  "bail_conditions": [],
+  "ratio_decidendi": "Since the appellant is gainfully employed in Saudi Arabia since 2014 for his livelihood, and in\nview of the aforesaid statement and the undertaking, which we accept, we modify the impugned order\nof the High Court by setting aside the condition requiring the appellant to surrender his passport.",
+  "ratio_para_number": "5",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": []
+}

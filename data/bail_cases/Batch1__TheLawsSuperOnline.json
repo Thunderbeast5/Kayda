@@ -1,0 +1,129 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2005-3-110",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "N.S.HEGDE, S.B.SINHA, A.K.MATHUR JJ.",
+  "decided_on": "March 14, 2005",
+  "decided_on_year": 2005,
+  "appeal_type": "Criminal Appeal 417 of 2005",
+  "final_verdict": "Appeal disposed",
+  "appellant": "U.PALANIAPPAN",
+  "respondent": "SUB-INSPECTOR OF POLICE",
+  "advocates": null,
+  "equivalent_citations": [
+    "ACR-2006-1-903",
+    "LAWS(SC)-2005-3-110",
+    "SCC-2005-10-464",
+    "SUPREME-2005-8-761",
+    "TLPRE-2005-0-786",
+    "CRICC-2006-1-604",
+    "CRIMES(SC)-2006-1-168",
+    "TNLR-2006-1-309",
+    "GLHEL-2005-0-35687",
+    "SCC(CR)-2005-0-1586"
+  ],
+  "cited_judgments": [
+    "Anilbhai Baijnath Bajpayee Vs. State Of Gujarat, [LAWS(GJH)-2011-1-162] [Referred To]",
+    "Pankajbhai Pranlal Dave Vs. State Of Gujarat, [LAWS(GJH)-2012-7-31] [Referred To]",
+    "Thakor Chhatrabhujbhai Shingala Vs. State Of Gujarat, [LAWS(GJH)-2009-5-31] [Referred To]",
+    "S Shanmugam Vs. State Of Tamil Nadu, [LAWS(MAD)-2006-4-329] [Referred To]",
+    "M Govindaraj Vs. Inspector Of Police Economic Offences Wing Ii Coimbatore, [LAWS(MAD)- 2006-9-361] [Referred To]",
+    "Rajesh Biyani Vs. The State Of Bihar And Ors., [LAWS(PAT)-2015-7-68] [Referred To]",
+    "Md. Amarul Haque Vs. State Of Bihar, [LAWS(PAT)-2015-8-156] [Referred To]",
+    "Rakesh Kumar S/O Ram Bihari Prasad Singh Vs. State Of Bihar And Ors, [LAWS(PAT)-2015-12- 139] [Referred]",
+    "Narendra Prasad @ Nagendra Prasad S/O Late Sukhi Sah Vs. State Of Bihar And Ors, [LAWS(PAT)-2015-12-141] [Referred]",
+    "Jaysukhbhai Vs. State Of Gujarat, [LAWS(GJH)-2019-7-69] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.438"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Referenced",
+      "context": "State Of Gujarat, [LAWS(GJH)-2019-7-69] [Referred To] Referred Act(s) : - Code Of Criminal Procedure, 1973, S.438 Headnote: A.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438(2)",
+      "subsection": "2",
+      "section_title": "Conditions for anticipatory bail",
+      "how_used": "Mentioned",
+      "context": "The Appellants shall abide by the conditions enumerated in Section 438(2) of the Criminal Procedure Code.",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [],
+  "crpc_sections_mentioned": [
+    "438",
+    "438(2)"
+  ],
+  "procedural_history": null,
+  "headnote_raw": "A. On the facts and circumstances of this case, the condition imposed by the High Court while granting anticipatory bail that the first Appellant should deposit Rs. 10 lakhs and the second Appellant should deposit Rs. 5 lakhs before getting the benefit of anticipatory bail, in our opinion, is onerous. Hence, in modification of the said order while affirming the grant of anticipatory bail, we direct the Appellants to furnish a self-bond of Rs. 50,000 each and one surety for the like sum each to the satisfaction of the Court or the arresting authority as the case may be. C. The Appellants shall abide by the conditions enumerated in Section 438(2) of the Criminal Procedure Code.",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "On the facts and circumstances of this case, the condition imposed by the High Court while\ngranting anticipatory bail that the first Appellant should deposit Rs. 10 lakhs and the second Appellant\nshould deposit Rs. 5 lakhs before getting the benefit of anticipatory bail, in our opinion, is onerous.\nHence, in modification of the said order while affirming the grant of anticipatory bail, we direct the\nAppellants to furnish a self-bond of Rs. 50,000 each and one surety for the like sum each to the\nsatisfaction of the Court or the arresting authority as the case may be."
+    },
+    {
+      "label": "C",
+      "text": "The Appellants shall abide by the conditions enumerated in Section 438(2) of the Criminal\nProcedure Code."
+    }
+  ],
+  "judgment_author": "N. Santosh Hegde, S.B. Sinha and A.K. Mathur, JJ.",
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Heard learned Counsel for the parties."
+    },
+    {
+      "number": "2",
+      "text": "Leave granted."
+    },
+    {
+      "number": "3",
+      "text": "On the facts and circumstances of this case, the condition imposed by the High Court while\ngranting anticipatory bail that the first Appellant should deposit Rs. 10 lakhs and the second Appellant\nshould deposit Rs. 5 lakhs before getting the benefit of anticipatory bail, in our opinion, is onerous.\nHence, in modification of the said order while affirming the grant of anticipatory bail, we direct the\nAppellants to furnish a self-bond of Rs. 50,000 each and one surety for the like sum each to the\nsatisfaction of the Court or the arresting authority as the case may be."
+    },
+    {
+      "number": "4",
+      "text": "The Appellants shall abide by the conditions enumerated in Section 438(2) of the Criminal\nProcedure Code."
+    },
+    {
+      "number": "5",
+      "text": "The appeal is allowed."
+    }
+  ],
+  "bail_amount_original": "Rs. 10 lakhs",
+  "bail_amount_modified": "Rs. 50,000",
+  "bail_amount_original_normalized": "Rs. 10 lakhs",
+  "bail_amount_modified_normalized": "Rs. 50,000",
+  "bail_outcome": "modified",
+  "bail_conditions": [
+    "Hence, in modification of the said order while affirming the grant of anticipatory bail, we direct the Appellants to furnish a self-bond of Rs. 50,000 each and one surety for the like sum each to the satisfaction of the Court or the arresting authority as the case may be.",
+    "The Appellants shall abide by the conditions enumerated in Section 438(2) of the Criminal Procedure Code."
+  ],
+  "ratio_decidendi": "On the facts and circumstances of this case, the condition imposed by the High Court while\ngranting anticipatory bail that the first Appellant should deposit Rs. 10 lakhs and the second Appellant\nshould deposit Rs. 5 lakhs before getting the benefit of anticipatory bail, in our opinion, is onerous.\nHence, in modification of the said order while affirming the grant of anticipatory bail, we direct the\nAppellants to furnish a self-bond of Rs. 50,000 each and one surety for the like sum each to the\nsatisfaction of the Court or the arresting authority as the case may be.",
+  "ratio_para_number": "3",
+  "dispute_nature": null,
+  "missing_anchors": [],
+  "warnings": [
+    "headnote_points backfilled from judgment paragraphs (source PDF had truncated headnote at page boundary)"
+  ]
+}

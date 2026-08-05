@@ -1,0 +1,47 @@
+[
+  {
+    "section": "303",
+    "act": "BNS",
+    "minimum": "None",
+    "maximum": "3 years imprisonment",
+    "fine": "Yes",
+    "life_imprisonment": false,
+    "death_penalty": false
+  },
+  {
+    "section": "305",
+    "act": "BNS",
+    "minimum": "None",
+    "maximum": "7 years imprisonment",
+    "fine": "Yes",
+    "life_imprisonment": false,
+    "death_penalty": false
+  },
+  {
+    "section": "309",
+    "act": "BNS",
+    "minimum": "None",
+    "maximum": "10 years imprisonment",
+    "fine": "Yes",
+    "life_imprisonment": false,
+    "death_penalty": false
+  },
+  {
+    "section": "101",
+    "act": "BNS",
+    "minimum": "Life imprisonment",
+    "maximum": "Death",
+    "fine": "Yes",
+    "life_imprisonment": true,
+    "death_penalty": true
+  },
+  {
+    "section": "80",
+    "act": "BNS",
+    "minimum": "7 years imprisonment",
+    "maximum": "Life imprisonment",
+    "fine": "Yes",
+    "life_imprisonment": true,
+    "death_penalty": false
+  }
+]

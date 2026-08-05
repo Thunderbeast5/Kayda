@@ -28,15 +28,36 @@
   --color-textPrimary: #212121;
   --color-textMuted: #757575;
 
-  --font-heading: "Lora", serif;
-  --font-body: "Inter", sans-serif;
+  --font-heading: "Playfair Display", serif;
+  --font-body: "Poppins", sans-serif;
   --font-mono: "Roboto Mono", monospace;
 }
 
 @layer base {
+  html, body, #root {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
   body {
     background-color: var(--color-surface-court);
     color: var(--color-textPrimary);
     font-family: var(--font-body);
+  }
+
+  /* Hide scrollbars while preserving scrolling */
+  html,
+  body,
+  #root,
+  * {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar,
+  #root::-webkit-scrollbar,
+  *::-webkit-scrollbar {
+    display: none;
   }
 }

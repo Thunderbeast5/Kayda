@@ -1,10 +1,15 @@
 import os
+import sys
 import json
 import re
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
+
+# Add agents directory to path for imports
+agents_dir = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(agents_dir))
 
 import pytesseract
 from PIL import Image
@@ -30,7 +35,7 @@ try:
 except Exception:
     _VISION_AVAILABLE = False
 
-BASE_DIR = Path(__file__).resolve().parent.parent  # backend/
+BASE_DIR = Path(__file__).resolve().parent.parent.parent  # backend/
 load_dotenv(BASE_DIR / ".env")
 
 FIREBASE_CREDENTIALS_PATH = os.getenv("FIREBASE_CREDENTIALS_PATH")

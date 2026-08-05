@@ -1,0 +1,281 @@
+{
+  "source_file": "Batch 1\\TheLawsSuperOnline-46.pdf",
+  "extraction_path": "TEXT_LAYER",
+  "case_citation": "LAWS(SC)-2017-12-24",
+  "court": "SUPREME COURT OF INDIA",
+  "coram": "R.K.AGRAWAL, A.M.SAPRE JJ.",
+  "decided_on": "December 11, 2017",
+  "decided_on_year": 2017,
+  "appeal_type": "CRIMINAL APPEAL NOS. 2152-2153 OF 2017 (Arising out of Special Leave Petition (Crl.) Nos. 9783-9784 OF 2017) Diary No. 38240 of 2017",
+  "final_verdict": "Appeal dismissed",
+  "appellant": "Barun Chandra Thakur",
+  "respondent": "Central Bureau Of Investigation And Others",
+  "advocates": null,
+  "equivalent_citations": [
+    "LAWS(SC)-2017-12-24",
+    "AIR(SCW)-2017-0-5735",
+    "SCALE-2017-14-166",
+    "ALLCRIC-2018-102-662",
+    "CCR-2018-1-64",
+    "SCJ-2018-1-424",
+    "CRIMES(SC)-2018-1-51",
+    "JCC-2018-1-16",
+    "EASTCRIC-2018-1-255",
+    "JBCJ-2018-1-213",
+    "ALLSCR(CRI)-2018-0-30",
+    "CRLJ-2017-0-1267",
+    "AIR(SC)-2017-0-5735",
+    "JT-2017-12-209",
+    "AIC-2018-182-53",
+    "NCC-2018-1-510",
+    "ALD(CRI)-2018-1-23",
+    "RAJCRIC-2018-1-336",
+    "SCCRIR-2018-1-6",
+    "HLT(CRI)-2018-1-51",
+    "CRLR(SC)-2017-0-1267",
+    "MADWN(CRI)-2018-2-21",
+    "OCR-2018-69-786",
+    "PCCR-2018-1-3",
+    "RCR(CRI)-2018-5-49",
+    "SCC(CR)-2018-3-414",
+    "SCC-2018-12-119"
+  ],
+  "cited_judgments": [
+    "Mayuri Himmatlal Panchal Vs. State Of Gujarat, [LAWS(GJH)-2023-1-556] [Referred To]",
+    "Naveen Kumar Vs. State Of Haryana, [LAWS(P&H)-2019-1-88] [Referred To]",
+    "Harbans Lal Vs. Amit Kumar, [LAWS(P&H)-2021-9-27] [Referred To]",
+    "Mahendrabhai Ghemarbhai Patel Vs. State Of Gujarat, [LAWS(GJH)-2024-1-101] [Referred To]",
+    "Anil Tuteja Vs. Director, Directorate Of Enforcement, [LAWS(CHH)-2020-8-30] [Referred To]"
+  ],
+  "referred_acts": [
+    "S.25",
+    "S.438(2)",
+    "S.438",
+    "S.34",
+    "S.302",
+    "Juvenile Justice (Care And Protection Of Children) Act, 2000",
+    "S.12"
+  ],
+  "act_sections": [
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "25",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Charged",
+      "context": "Director, Directorate Of Enforcement, [LAWS(CHH)-2020-8-30] [Referred To] Referred Act(s) : - Arms Act, 1959, S.25 - Code Of Criminal Procedure, 1973, S.438(2)(I), S.438(2)(Ii), S.438(2)(Iii), S.438(2)(Iv), S.438 - Indian Penal Code, 1860, S.34, S.302 - Juvenile Justice (Care And Protection Of Child",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438(2)",
+      "subsection": "2",
+      "section_title": "Conditions for anticipatory bail",
+      "how_used": "Charged",
+      "context": "Director, Directorate Of Enforcement, [LAWS(CHH)-2020-8-30] [Referred To] Referred Act(s) : - Arms Act, 1959, S.25 - Code Of Criminal Procedure, 1973, S.438(2)(I), S.438(2)(Ii), S.438(2)(Iii), S.438(2)(Iv), S.438 - Indian Penal Code, 1860, S.34, S.302 - Juvenile Justice (Care And Protection Of Child",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Code of Criminal Procedure, 1973",
+      "act_short_name": "CrPC",
+      "act_year": 1973,
+      "section": "438",
+      "subsection": null,
+      "section_title": "Direction for grant of bail to person apprehending arrest",
+      "how_used": "Charged",
+      "context": "Director, Directorate Of Enforcement, [LAWS(CHH)-2020-8-30] [Referred To] Referred Act(s) : - Arms Act, 1959, S.25 - Code Of Criminal Procedure, 1973, S.438(2)(I), S.438(2)(Ii), S.438(2)(Iii), S.438(2)(Iv), S.438 - Indian Penal Code, 1860, S.34, S.302 - Juvenile Justice (Care And Protection Of Child",
+      "is_charged": false,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "34",
+      "subsection": null,
+      "section_title": "Acts done by several persons in furtherance of common intention",
+      "how_used": "Charged",
+      "context": "Director, Directorate Of Enforcement, [LAWS(CHH)-2020-8-30] [Referred To] Referred Act(s) : - Arms Act, 1959, S.25 - Code Of Criminal Procedure, 1973, S.438(2)(I), S.438(2)(Ii), S.438(2)(Iii), S.438(2)(Iv), S.438 - Indian Penal Code, 1860, S.34, S.302 - Juvenile Justice (Care And Protection Of Child",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "302",
+      "subsection": null,
+      "section_title": "Punishment for murder",
+      "how_used": "Charged",
+      "context": "Director, Directorate Of Enforcement, [LAWS(CHH)-2020-8-30] [Referred To] Referred Act(s) : - Arms Act, 1959, S.25 - Code Of Criminal Procedure, 1973, S.438(2)(I), S.438(2)(Ii), S.438(2)(Iii), S.438(2)(Iv), S.438 - Indian Penal Code, 1860, S.34, S.302 - Juvenile Justice (Care And Protection Of Child",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "12",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Charged",
+      "context": "Director, Directorate Of Enforcement, [LAWS(CHH)-2020-8-30] [Referred To] Referred Act(s) : - Arms Act, 1959, S.25 - Code Of Criminal Procedure, 1973, S.438(2)(I), S.438(2)(Ii), S.438(2)(Iii), S.438(2)(Iv), S.438 - Indian Penal Code, 1860, S.34, S.302 - Juvenile Justice (Care And Protection Of Child",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": false,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "25",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Charged",
+      "context": "RC 8(S)/2017/SC-III/New Delhi dated 22.09.2017 for the offences punishable under Sections 302 read with Section 34 IPC, Section 25 of the Arms Act, Section 75 of the JJ Act and Section 12 of POCSO, Act, 2012 (earlier FIR No.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    },
+    {
+      "act_name": "Indian Penal Code, 1860",
+      "act_short_name": "IPC",
+      "act_year": 1860,
+      "section": "75",
+      "subsection": null,
+      "section_title": null,
+      "how_used": "Charged",
+      "context": "RC 8(S)/2017/SC-III/New Delhi dated 22.09.2017 for the offences punishable under Sections 302 read with Section 34 IPC, Section 25 of the Arms Act, Section 75 of the JJ Act and Section 12 of POCSO, Act, 2012 (earlier FIR No.",
+      "is_charged": true,
+      "is_convicted": false,
+      "is_applied": true,
+      "is_interpreted": false,
+      "interpretation": null
+    }
+  ],
+  "ipc_sections_mentioned": [
+    "12",
+    "25",
+    "302",
+    "34",
+    "75"
+  ],
+  "crpc_sections_mentioned": [
+    "25",
+    "438",
+    "438(2)"
+  ],
+  "procedural_history": {
+    "fir_number": "250",
+    "police_station": "Bhondsi",
+    "district": "Bar Association",
+    "high_court_order_date": "21.11.2017",
+    "high_court_bench": "High Court of Punjab & Haryana at Chandigarh"
+  },
+  "headnote_raw": "A. ARMS ACT, 1959 - S.25 - Punishment for certain offences, CODE OF CRIMINAL\nPROCEDURE, 1973 - S.438(2)(I) - Direction for grant of bail to person apprehending arrest,\nS.438(2)(II) - Direction for grant of bail to person apprehending arrest, S.438(2)(III) -\n\nDirection for grant of bail to person apprehending arrest, S.438(2)(IV) - Direction for grant\nof bail to person apprehending arrest, S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.34 - Acts done by several persons in\nfurtherance of common intention, S.302 - Punishment for murder, JUVENILE JUSTICE\n(CARE AND PROTECTION OF CHILDREN) ACT, 2000 - , Protection Of Children From\nSexual Offences Act, 2012 - S.12 - Brief facts:(a) On 08.09.2017, the appellant herein dropped\nhis son Pradyumn Thakur, aged 7 years, and his daughter, Vidhi Thakur to their School, viz.,\nRyan International School, Bhondsi at 8:00 a.m. At 08:10 a.m., the appellant received a phone\ncall of his wife who asked him to immediately call Ms. - or they have any other role in this\ncase.Keeping in view the facts discussed above, I find it appropriate to give time to the\ninvestigation agency to analyse the evidence before it, look into the role of petitioners in this\ncase and apprise this Court with further progress in the investigation and evidence against\npetitioners collected during investigation.On behalf of Ryan Augustine Pinto, it has been\nargued that he has no concern with the Trust running Ryan Schools but a magazine of the\nRyan International School, Bhondsi, Gurugram shows that it has a message with his\nphotograph, when he is mentioned as CEO of Ryan International Group.\nB. Larger conspiracy behind the murder of a seven year old boy is yet to be unearthed.iii) That\nthe possibility of him being members of the conspiracy behind the murder of Master\nPradhuman in the washroom of Ryan International School, Sohna Road, Bhondsi, Gurugram\non 08.09.2017 and its abetment, destruction of the evidence by him cannot be ruled out as he\nis within the ambit of investigation and he is to be dealt by the law at par with other\naccused.iv) That CBI has taken up the investigation of this case on 22.09.2017, the records of\nthe school management and those of the head office of Ryan International Group of\nInstitutions have not been collected by CBI and the investigation is at a preliminary\nstage.\"Learned counsel, thus, contended that even the CBI, on the materials\nC. In our considered opinion, without expressing anything on the merits of the case as the\ninvestigation is still under progress - In view of the foregoing discussion, we therefore, do not\nfind any good ground to interfere with the order dated 21.11.2017",
+  "headnote_points": [
+    {
+      "label": "A",
+      "text": "ARMS ACT, 1959 - S.25 - Punishment for certain offences, CODE OF CRIMINAL\nPROCEDURE, 1973 - S.438(2)(I) - Direction for grant of bail to person apprehending arrest,\nS.438(2)(II) - Direction for grant of bail to person apprehending arrest, S.438(2)(III) -\n\nDirection for grant of bail to person apprehending arrest, S.438(2)(IV) - Direction for grant\nof bail to person apprehending arrest, S.438 - Direction for grant of bail to person\napprehending arrest, INDIAN PENAL CODE, 1860 - S.34 - Acts done by several persons in\nfurtherance of common intention, S.302 - Punishment for murder, JUVENILE JUSTICE\n(CARE AND PROTECTION OF CHILDREN) ACT, 2000 - , Protection Of Children From\nSexual Offences Act, 2012 - S.12 - Brief facts:(a) On 08.09.2017, the appellant herein dropped\nhis son Pradyumn Thakur, aged 7 years, and his daughter, Vidhi Thakur to their School, viz.,\nRyan International School, Bhondsi at 8:00 a.m. At 08:10 a.m., the appellant received a phone\ncall of his wife who asked him to immediately call Ms. - or they have any other role in this\ncase.Keeping in view the facts discussed above, I find it appropriate to give time to the\ninvestigation agency to analyse the evidence before it, look into the role of petitioners in this\ncase and apprise this Court with further progress in the investigation and evidence against\npetitioners collected during investigation.On behalf of Ryan Augustine Pinto, it has been\nargued that he has no concern with the Trust running Ryan Schools but a magazine of the\nRyan International School, Bhondsi, Gurugram shows that it has a message with his\nphotograph, when he is mentioned as CEO of Ryan International Group."
+    },
+    {
+      "label": "B",
+      "text": "Larger conspiracy behind the murder of a seven year old boy is yet to be unearthed.iii) That\nthe possibility of him being members of the conspiracy behind the murder of Master\nPradhuman in the washroom of Ryan International School, Sohna Road, Bhondsi, Gurugram\non 08.09.2017 and its abetment, destruction of the evidence by him cannot be ruled out as he\nis within the ambit of investigation and he is to be dealt by the law at par with other\naccused.iv) That CBI has taken up the investigation of this case on 22.09.2017, the records of\nthe school management and those of the head office of Ryan International Group of\nInstitutions have not been collected by CBI and the investigation is at a preliminary\nstage.\"Learned counsel, thus, contended that even the CBI, on the materials"
+    },
+    {
+      "label": "C",
+      "text": "In our considered opinion, without expressing anything on the merits of the case as the\ninvestigation is still under progress - In view of the foregoing discussion, we therefore, do not\nfind any good ground to interfere with the order dated 21.11.2017"
+    }
+  ],
+  "judgment_author": "R.K.AGRAWAL,J.",
+  "numbered_paragraphs": [
+    {
+      "number": "1",
+      "text": "Leave granted."
+    },
+    {
+      "number": "2",
+      "text": "The present appeal is directed against the judgment and order dated 21.11.2017 passed by the\nHigh Court of Punjab & Haryana at Chandigarh in Criminal Miscellaneous Nos. M-35002 and 35003\nof 2017 whereby learned single Judge of the High Court had granted interim bail to Mr. Ryan Pinto,\nDr. Augustine Francis Pinto and Mrs. Grace Pinto-the top management executive of the Ryan\nInternational School till the presentation of challan subject to certain conditions."
+    },
+    {
+      "number": "3",
+      "text": "Brief facts:\n(a) On 08.09.2017, the appellant herein dropped his son Pradyumn Thakur, aged 7 years,\nand his daughter, Vidhi Thakur to their School, viz., Ryan International School, Bhondsi at 8:00 a.m.\nAt 08:10 a.m., the appellant received a phone call of his wife who asked him to immediately call Ms.\nAnju Dudeja of the said School. When the appellant contacted Ms. Anju Dudeja, she told him that his\nson had a cut on his neck and is profusely bleeding. She asked him to reach Badshahpur Hospital\nwhere he was being taken. The appellant, along with his wife, left for Badshahpur Hospital but on the\nway he received a call from Ms. Anju Dudeja that they were taking the child to Artemis Hospital. On\nreaching there, the appellant found that there was a cut on the right side of his son's neck up to the ear\nand his son was in Emergency Ward. The Doctor informed the appellant that his son Pradyumn had\ndied.\n(b) On receipt of the information, the police recorded a First Information Report (FIR)\nbeing No. 250 of 2017 dated 08.09.2017 at Police Station Bhondsi, Gurugram and arrested one Ashok\nKumar, son of Amichand, on the same day. The State Government (Haryana), issued a Notification\ndated 17.09.2017, requesting the Central Bureau of Investigation (CBI) to take up the investigation.\nThe Ministry of Personnel, Public Grievances and Pension (Department of Personnel and Training)\nGovernment of India, New Delhi, vide Notification dated 22.09.2017, transferred the investigation of\nthe case to the CBI which re-registered the FIR already registered by the police authorities as case\nbearing No. RC8(S)/2017/SC-III/New Delhi on 22.09.2017 itself which is a reproduction of the FIR\nrecorded by the police authorities at Police Station Bhondsi, Gurugram.\n(c) The private respondents, viz., Mr. Ryan Pinto, Dr. Augustine Francis Pinto and Mrs.\nGrace Pinto approached the Bombay High Court by filing Anticipatory Bail Application being Nos.\n1599 and 1608 of 2017 for grant of transit/ anticipatory bail. Learned single Judge of the High Court\nof Judicature at Bombay, vide order dated 12.09.2017 in Anticipatory Bail Application No. 1599 of\n2017 granted interim stay from arrest of these persons and the matter was posted for 13.09.2017. On\ncoming to know about the filing of the above anticipatory bail applications, the appellant herein\napproached the High Court of Bombay by filing the intervention application opposing the transit bail.\nLearned single Judge of the High Court, vide order dated 14.09.2017, rejected the anticipatory bail\napplications being Nos. 1599 and 1608 of 2017. However, the interim relief granted by the High Court\nvide order dated 12.09.2017 was extended till 5:00 p.m. of 15.09.2017 subject to certain conditions.\n(d) It may be relevant to mention here that immediately on the next date of the incident, that\nis, on 09.09.2017, a Resolution was passed by the District Bar Association, Gurugram condemning the\nbrutal and dastardly act of the accused unanimously resolving that no Member of the Bar would\nappear/represent the accused before the Court or any other Forum. A similar Resolution was passed by\nthe District Bar Association, Sohna.\n(e) The private respondents approached the Punjab and Haryana High Court on 15.09.2017\nby filing CRM-M Nos. 35002 and 35003 of 2017 for grant of interim bail. However, the said petition\nwas accepted by the Registry of the High Court on 17.09.2017 and the copy of the said petition was supplied to the office of learned Advocate General for the State of Haryana on 18.09.2017. It appears\nthat in the meantime, Dr. Augustine Francis Pinto approached this Court by filing a writ petition\n(criminal) being No. 139 of 2017 seeking transfer of case from the Punjab and Haryana High Court to\nDelhi which was taken up on 18.09.2017 and this Court disposed of the writ petition while deprecating\nthe practice of the Bar Associations to pass a Resolution of this nature and also recorded the fact that\nthe Bar Associations have withdrawn the Resolution.\n(f) CRM-M Nos. 35002 and 35003 of 2017 for grant of interim bail were taken up by the\nPunjab and Haryana High Court but the effective order was passed only on 28.09.2017 staying the\narrest of the private respondents till 07.10.2017 when the matter was directed to be listed. The\nappellant approached this Court by filing a petition for Special Leave to Appeal being Diary No.\n30996 of 2017 which was taken up on 13.10.2017 by this Court when learned counsel for the appellant\ninformed this Court that the appeal had become infructuous.\n(g) Learned single Judge of the High Court, vide judgment and order dated 07.10.2017 in\nCRM-M Nos. 35002 and 35003 of 2017, considered the submissions made by the respective parties\nincluding that of the appellant and while fixing the cases for 05.12.2017 granted interim bail to the\nprivate respondents with certain directions. The operative portion of the order dated 07.10.2017 is\nreproduced below:-\n\"It is a case where a student of a school has been murdered. After registration of the case,\ninvestigation with CBI is still at initial stage. It is working on the theory of possibilities and trying to\nanalyse certain facts and evidence collected so far in the matter. The petitioner are admittedly resident\nof Mumbai. The question before the investigation agency is as to whether the provisions of Section 75\nof the JJ Act or 12 of POCSO Act are attracted against the petitioner; whether the child was in direct\nand actual control of petitioners; or they have any other role in this case.\nKeeping in view the facts discussed above, I find it appropriate to give time to the\ninvestigation agency to analyse the evidence before it, look into the role of petitioners in this case and\napprise this Court with further progress in the investigation and evidence against petitioners collected\nduring investigation.\nOn behalf of Ryan Augustine Pinto, it has been argued that he has no concern with the\nTrust running Ryan Schools but a magazine of the Ryan International School, Bhondsi, Gurugram\nshows that it has a message with his photograph, when he is mentioned as CEO of Ryan International\nGroup. By joining the investigation, petitioner Ryan Augustine Pinto will be in a position to place\nrequired material before the CBI regarding allegations against him that he is in management of the\nschool.\nConsequently, petitioners in both the petitions are directed to join the investigation by the\nCBI on receipt of notice in this regard. In the event of their arrest being required, they will be allowed\ninterim bail in case bearing FIR No. RC 8(S)/2017/SC-III/New Delhi dated 22.09.2017 for the\noffences punishable under Sections 302 read with Section 34 IPC, Section 25 of the Arms Act, Section\n\n75 of the JJ Act and Section 12 of POCSO, Act, 2012 (earlier FIR No. 250 dated 08.09.2017 registered\nat Police Station Bhondsi, Gurugram) till next date on their furnishing bonds to the satisfaction of\nInvestigation Agency. However, they shall abide by the terms and conditions as envisaged under\nSection 438(2)(i) to (iv) Cr.P.C. failing which they shall loose the benefit of interim bail allowed to\nthem.\nFurther report relating to investigation be submitted on the next date.\nList on 05.12.2017.\"\n(h) The appellant, once again approached this Court by filing petition for Special Leave to\nAppeal (Criminal) being Nos. 8044-8045 of 2017 challenging the order dated 07.10.2017 passed by\nlearned single Judge of the Punjab and Haryana High Court. This Court, vide order dated 06.11.2017,\ndisposed of the special leave petitions by requesting the High Court to dispose of the bail applications\nwithin a period of 10 (ten) days hence. This Court was inclined to made such request as the High\nCourt had granted interim protection to the private respondents under Section 438 of the Code of\nCriminal Procedure, 1973 (in short 'the Code') for a long period. Pursuant to the order dated\n06.11.2017 passed by this Court, learned single Judge of the High Court, considered the matter afresh\nand vide judgment and order dated 21.11.2017, made absolute the interim bail granted on 07.10.2017\nto the private respondents till the presentation of the challan subject to certain conditions."
+    },
+    {
+      "number": "4",
+      "text": "We have heard learned counsel for the parties and perused the records."
+    },
+    {
+      "number": "5",
+      "text": "Learned counsel for the appellant contended that the private respondents while approaching the\nHigh Court for grant of interim bail/anticipatory bail have concealed and suppressed the material facts.\nHe further contended that the respondents have also committed/indulged in fraud. According to him,\nthey ought to have approached the Sessions Court, Gurugram, instead of directly approaching the High\nCourt when on 15.09.2017, the Resolution passed by the District Bar Associations Gurugram and\nSohna dated 09.09.2017 to the effect that no lawyer will represent the accused in the instant matter,\nstood withdrawn. He further submitted that the private respondents have committed heinous offence as\nwould be clear from the averments made by the CBI in the reply affidavit filed by it before the High\nCourt. A special reference was made to the following averments:-\n\"......The interrogation of the petitioner is very much essential in the interest of investigation\nof the case and also to unearth the larger conspiracy behind the murder of a seven years old boy in his\nschool. Any relief at this stage in the form of anticipatory bail may hamper the course of investigation\nof the case as there is every possibility that he will misuse the liberty granted by this Hon'ble Court.\n4(1) That the petitioners is not entitled to relief (s) as prayed for. The petition is misconceived apart\nfrom being meritless and hence deserves to be dismissed......\"\n\"4(J)-(P) ....Prima facie it seems that the careless attitude of the Management has aided to\nthe murder of Master Pradhyuman in the washroom of the school and accordingly local police arrested\ntwo school officials namely Francis Thomas and Jayesh Thomas in the instant case.\n\n10. That the contention of petitioner at paragraph 10 of the petition are opposed by the prosecution on\nthe following grounds:\ni) That CBI has taken up the investigation of the case and the investigation of this case is\nstill pending at crucial stage. Larger conspiracy behind the murder of a seven year old boy is yet to be\nunearthed.\niii) That the possibility of him being members of the conspiracy behind the murder of\nMaster Pradhuman in the washroom of Ryan International School, Sohna Road, Bhondsi, Gurugram\non 08.09.2017 and its abetment, destruction of the evidence by him cannot be ruled out as he is within\nthe ambit of investigation and he is to be dealt by the law at par with other accused.\niv) That CBI has taken up the investigation of this case on 22.09.2017, the records of the\nschool management and those of the head office of Ryan International Group of Institutions have not\nbeen collected by CBI and the investigation is at a preliminary stage.\"\nLearned counsel, thus, contended that even the CBI, on the materials and possibilities of the\ninvolvement of the private respondents, had opposed the plea of grant of interim bail/anticipatory bail,\nand therefore, the High Court ought not to have granted interim bail to them."
+    },
+    {
+      "number": "6",
+      "text": "Learned senior counsel for the private respondents, however, submitted that from a reading of the\nFIR registered by the Police Station, Bhondsi, Gurugram, which was re-registered by the CBI, there is\nno allegation against the private respondents. Learned senior counsel further submitted that even the\nCBI in the reply affidavit filed before the High Court as also the documents produced before learned\nsingle Judge at the time of hearing of the matter does not show any involvement of the private\nrespondents in the alleged offence. He, thus, submitted that the order dated 21.11.2017 passed by\nlearned single Judge does not call for any interference."
+    },
+    {
+      "number": "7",
+      "text": "We have given our thoughtful consideration to the various pleas raised by learned counsel for the\nparties."
+    },
+    {
+      "number": "8",
+      "text": "In our considered opinion, the private respondents cannot be held guilty of any suppression,\nconcealment or fraud in this matter for the simple reason that the petitions were prepared on\n15.09.2017 and accepted by the Registry of the Punjab & Haryana High Court on 17.09.2017. The fact\nrelating to the withdrawal of the Resolution passed by the District Bar Associations, Gurugram and\nSohna cannot be said to be in the knowledge of the private respondents. Moreover, this plea had been\ndealt with by learned single Judge in the order dated 07.10.2017 and had been negated."
+    },
+    {
+      "number": "9",
+      "text": "Further, we cannot lose sight of the fact that this incident had received wide coverage in the\nmedia, both electronic and print. In fact, it can be said that there was a trial by media, therefore, when\nthe private respondents have directly approached the High Court for grant of anticipatory/interim bail\nunder Section 438 of the Code, that too when the High Court has concurrent jurisdiction, we cannot\nfind any fault with the action of the private respondents."
+    },
+    {
+      "number": "10",
+      "text": "Coming to the merits of the case, on going through the FIR registered by the Police Station,\n\nBhondsi dated 08.09.2017 which admittedly has been re-registered by the CBI, we find that no\nallegation has been made against the private respondents herein. Learned single Judge of the High\nCourt, after considering the material and evidence on record as also the material produced by the CBI\nbefore it has held as under:-\n\"14. From the submissions of learned retainer counsel for CBI, it appears that against\npetitioners investigation of the case and the evidence collected by investigating agency stand at the\nsame stage as it was on 07.10.2017. While allowing interim relief to the petitioners on 28.09.2017, it\nwas ordered that if required, petitioners will be called and joined in investigation of the case, however,\ntill 07.10.2017, they were never called to join the investigation. Vide order dated 07.10.2017,\npetitioners in both the petitions were directed to join the investigation on receipt of notice in this\nregard and it has been fairly conceded that no notice calling upon the petitioners to join investigation\nhave been issued till date.\"\n16. In para 9 of preliminary submissions, it has again been submitted that here is possibility\nof petitioners being member of conspiracy behind the crime in this case. In para 12 of the para-wise\nreply, it has been stated that CBI has yet to examine and analyze the role of petitioners in this case.\nSimilar pleas have also been raised in the reply filed in petition CRM-M-35002-2017.\n17. The question, which arise for consideration at this stage is as to whether CBI intends to\narrest petitioner without any evidence of their complicity in the crime only on the basis of possibilities\nand probabilities. The answer to this question will be in negative. It is not disputed that in the\ninvestigation conducted so far, there is not even a pointer of involvement of petitioners in the crime in\nthis case. Some lapse or negligence on the part of school management or even of the trustees or other\noffice bearer of the school if found at any point of time, may not be a pointer towards their complicity\nin commission of murder of a school student, until and unless there is some substantial evidence of\ntheir involvement in this crime. While passing order dated 07.10.2017, it was observed that CBI \"is\nworking on the theory of possibilities and trying to analyze certain facts and evidence collected so far\nin the mater, as such, it will be appropriate to give time to investigating agency to analyze the evidence\nbefore it, look into the role of petitioners in this case and apprise this Court with further progress in the\ninvestigation and evidence against petitioners collected during investigation. Till date, status of\ninvestigation against the petitioners is at the same stage as it was on the date of passing of order dated\n07.10.2017. It is a case where a seven years old student of the school was brutally murdered in the\nschool. It is not only an unfortunate incident but also a gruesome and heinous crime and the State\nGovernment thought it appropriate to hand over the investigation of the case to CBI, a premier\ninvestigating agency of the country. As admitted by learned counsel representing CBI, petitioners have\nnot ever been called for joining the investigation and CBI has arrested a student of the school as main\naccused for murder of Pradyumn and is concentrating on his role in committing the crime. It has not\ncome on record that this crime with committed by the conductor (Ashok), who was arrested by the\npolice on the day of occurrence or the student arrested by the CBI in this case, in conspiracy with the\npetitioners or he had ever any contact with them. Petitioners Dr. Augustine Francis Pinto and Mrs.\n\nGrace Pinto (in CRM-M-35003-2017) are trustees of Saint Xavier's Education Trust, which is running\nseveral school in the country. The status of petitioner Ryan Augustine Pinto (in CM-M-35002-2017)\nwith regard to the management of the school in which crime was committed is yet to be ascertained. It\nwill also be a point of investigation for the Investigating Agency as to whether the petitioners, while\nliving in Mumbai, are directly responsible for any lapse of the Administration in the School.\""
+    },
+    {
+      "number": "11",
+      "text": "Thus, as on date, the CBI is yet to examine and analyse the role of the private respondents in this\ncase and there is no evidence of their complicity in the crime and there is not even a pointer of\ninvolvement of respondents herein in the alleged crime. Their involvement cannot be established until\nand unless, there is some substantial evidence against them. Learned single Judge, while granting\ninterim bail to the private respondents till the presentation of Challan had laid down certain conditions\nwhich are as follows:-\n\"As a result of my above discussion, I find merits in both the petitions and the same are\nallowed. Order dated 07.10.2017 granting interim bail to the petitioners is made absolute, till the\npresentation of Challan, subject to the following terms:-\n(i) that the petitioners shall make themselves available for interrogation by the investigating\nagency as and when required;\n(ii) that the petitioners shall not, directly or indirectly, make any inducement, threat or\npromise to any person acquainted with the facts of the accusation against them so as to dissuade him\nfrom disclosing such facts to the Court or to investigating agency;\n(iii) that the petitioners shall not leave India without the prior permission of the Court.\n(iv) that the petitioners will seek regular bail on the presentation of Challan in Court.\""
+    },
+    {
+      "number": "12",
+      "text": "In our considered opinion, without expressing anything on the merits of the case as the\ninvestigation is still under progress and the CBI is yet to come to a conclusion regarding the\ninvolvement of the private respondents in the crime, the private respondents herein have made out a\ncase for grant of protection by way of interim bail till the presentation of Challan by the CBI as has\nbeen passed by learned single Judge. Therefore, the order passed by learned single Judge granting\ninterim bail to the answering respondents till the presentation of Challan cannot be faulted with."
+    },
+    {
+      "number": "13",
+      "text": "In view of the foregoing discussion, we therefore, do not find any good ground to interfere with\nthe order dated 21.11.2017 passed by learned single Judge of the High Court.\nThe appeal is dismissed. However, the parties shall bear their own costs."
+    }
+  ],
+  "bail_amount_original": "Rs. ,",
+  "bail_amount_modified": null,
+  "bail_amount_original_normalized": "Rs. ,",
+  "bail_amount_modified_normalized": null,
+  "bail_outcome": "interim",
+  "bail_conditions": [],
+  "ratio_decidendi": "In view of the foregoing discussion, we therefore, do not find any good ground to interfere with\nthe order dated 21.11.2017 passed by learned single Judge of the High Court.\nThe appeal is dismissed. However, the parties shall bear their own costs.",
+  "ratio_para_number": "13",
+  "dispute_nature": "cheating/fraud",
+  "missing_anchors": [],
+  "warnings": []
+}
