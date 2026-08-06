@@ -1032,5 +1032,7 @@ if __name__ == "__main__":
     else:
         session_id = build_session_id(test_file)
         print(f"Creating new session: {session_id}")
-        result = analyze_evidence(session_id, test_file)
+        # Use the context-aware pipeline here so CLI runs also produce
+        # timeline + graph output and persist them to Firestore.
+        result = analyze_evidence_with_context(session_id, test_file)
         print(json.dumps(result, indent=2, ensure_ascii=False))
