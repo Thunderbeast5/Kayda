@@ -1,14 +1,14 @@
 """
 Case Intake Verifier Agent for Stage 0: Case Intake & Context Initialization.
 Verifies CaseProfile against source text to ensure zero hallucinations and fact grounding.
-Uses lightweight CHEAP tier model for narrow verification checks.
+Model: gpt-4o-mini (MODEL_STAGE0) — lightweight verification checks.
 """
 
 import json
 from typing import Any, Dict, Optional, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm_for_tier, MODEL_TIER_CHEAP
+from .config import extract_json_from_text, get_llm, MODEL_STAGE0
 from .prompts import STAGE0_VERIFIER_SYSTEM_PROMPT, STAGE0_VERIFIER_USER_PROMPT_TEMPLATE
 from .schemas import CaseProfile, VerificationIssue, VerificationResult
 
@@ -16,7 +16,7 @@ from .schemas import CaseProfile, VerificationIssue, VerificationResult
 class CaseIntakeVerifierAgent:
     """
     Verifier Agent auditing CaseProfile against raw case document text.
-    Uses CHEAP tier model for verification checks.
+    Model: gpt-4o-mini (MODEL_STAGE0) — lightweight verification checks.
     """
 
     def __init__(self, llm: Optional[Any] = None):
@@ -25,7 +25,7 @@ class CaseIntakeVerifierAgent:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm_for_tier(tier=MODEL_TIER_CHEAP, temperature=0.0)
+            self._llm = get_llm(temperature=0.0, model_name=MODEL_STAGE0)
         return self._llm
 
     def verify(

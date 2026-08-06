@@ -252,3 +252,328 @@ class StatuteRepository:
 
     def get_statute_db(self) -> Dict[str, Dict[str, Any]]:
         return self.statute_db
+
+    def get_first_schedule_metadata(self, section_number: str, statute: str = "IPC") -> Optional[Dict[str, Any]]:
+        """
+        Retrieves ground-truth statutory metadata validated against the First Schedule of CrPC / BNSS
+        and Special Acts. Avoids hardcoded fallback constants by falling back to CSV text parsing.
+        """
+        clean_sec = section_number.upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "").strip()
+
+        # 1. Ground Truth First Schedule Registry
+        registry = {
+            "498A": {
+                "chapter_number": "XXA",
+                "chapter_title": "Of Cruelty by Husband or Relatives of Husband",
+                "punishment_minimum": None,
+                "punishment_maximum": "3 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "85": {  # BNS equivalent of 498A
+                "chapter_number": "V",
+                "chapter_title": "Of Offences Against Woman and Child",
+                "punishment_minimum": None,
+                "punishment_maximum": "3 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "304B": {
+                "chapter_number": "XVI",
+                "chapter_title": "Offences Affecting Life / Offences Against Woman",
+                "punishment_minimum": "7 Years",
+                "punishment_maximum": "Life Imprisonment",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "80": {  # BNS equivalent of 304B
+                "chapter_number": "V",
+                "chapter_title": "Of Offences Against Woman and Child",
+                "punishment_minimum": "7 Years",
+                "punishment_maximum": "Life Imprisonment",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "302": {
+                "chapter_number": "XVI",
+                "chapter_title": "Offences Affecting Life",
+                "punishment_minimum": "Life Imprisonment",
+                "punishment_maximum": "Death",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "103": {  # BNS equivalent of 302
+                "chapter_number": "V",
+                "chapter_title": "Of Offences Against Human Body",
+                "punishment_minimum": "Life Imprisonment",
+                "punishment_maximum": "Death",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "307": {
+                "chapter_number": "XVI",
+                "chapter_title": "Offences Affecting Life",
+                "punishment_minimum": None,
+                "punishment_maximum": "10 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "109": {  # BNS equivalent of 307
+                "chapter_number": "V",
+                "chapter_title": "Of Offences Against Human Body",
+                "punishment_minimum": None,
+                "punishment_maximum": "10 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "376": {
+                "chapter_number": "XVI",
+                "chapter_title": "Sexual Offences",
+                "punishment_minimum": "10 Years",
+                "punishment_maximum": "Life Imprisonment",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "64": {  # BNS equivalent of 376
+                "chapter_number": "V",
+                "chapter_title": "Sexual Offences",
+                "punishment_minimum": "10 Years",
+                "punishment_maximum": "Life Imprisonment",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "406": {
+                "chapter_number": "XVII",
+                "chapter_title": "Offences Against Property / Criminal Breach of Trust",
+                "punishment_minimum": None,
+                "punishment_maximum": "3 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "316": {  # BNS equivalent of 406
+                "chapter_number": "X",
+                "chapter_title": "Offences Against Property",
+                "punishment_minimum": None,
+                "punishment_maximum": "3 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "420": {
+                "chapter_number": "XVII",
+                "chapter_title": "Cheating and Dishonesty",
+                "punishment_minimum": None,
+                "punishment_maximum": "7 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "318": {  # BNS equivalent of 420
+                "chapter_number": "X",
+                "chapter_title": "Offences Against Property",
+                "punishment_minimum": None,
+                "punishment_maximum": "7 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "506": {
+                "chapter_number": "XXII",
+                "chapter_title": "Criminal Intimidation, Insult and Annoyance",
+                "punishment_minimum": None,
+                "punishment_maximum": "2 Years",
+                "fine": True,
+                "cognizable": False,
+                "bailable": True,
+            },
+            "351": {  # BNS equivalent of 506
+                "chapter_number": "X",
+                "chapter_title": "Criminal Intimidation",
+                "punishment_minimum": None,
+                "punishment_maximum": "2 Years",
+                "fine": True,
+                "cognizable": False,
+                "bailable": True,
+            },
+            "323": {
+                "chapter_number": "XVI",
+                "chapter_title": "Voluntarily Causing Hurt",
+                "punishment_minimum": None,
+                "punishment_maximum": "1 Year",
+                "fine": True,
+                "cognizable": False,
+                "bailable": True,
+            },
+            "115": {  # BNS equivalent of 323
+                "chapter_number": "V",
+                "chapter_title": "Offences Affecting Human Body",
+                "punishment_minimum": None,
+                "punishment_maximum": "1 Year",
+                "fine": True,
+                "cognizable": False,
+                "bailable": True,
+            },
+            "SECTION 4": {  # Dowry Prohibition Act
+                "chapter_number": "DP Act",
+                "chapter_title": "Dowry Prohibition Offences",
+                "punishment_minimum": "6 Months",
+                "punishment_maximum": "2 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": True,
+            },
+            "4": {  # Dowry Prohibition Act Section 4
+                "chapter_number": "DP Act",
+                "chapter_title": "Dowry Prohibition Offences",
+                "punishment_minimum": "6 Months",
+                "punishment_maximum": "2 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": True,
+            },
+            "SECTION 3": {  # Dowry Prohibition Act
+                "chapter_number": "DP Act",
+                "chapter_title": "Dowry Prohibition Offences",
+                "punishment_minimum": "5 Years",
+                "punishment_maximum": "5 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "3": {  # Dowry Prohibition Act Section 3
+                "chapter_number": "DP Act",
+                "chapter_title": "Dowry Prohibition Offences",
+                "punishment_minimum": "5 Years",
+                "punishment_maximum": "5 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "468": {
+                "chapter_number": "XVIII",
+                "chapter_title": "Offences Relating to Documents / Forgery for Cheating",
+                "punishment_minimum": None,
+                "punishment_maximum": "7 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "338": {  # BNS equivalent of IPC 468
+                "chapter_number": "XI",
+                "chapter_title": "Offences Relating to Documents",
+                "punishment_minimum": None,
+                "punishment_maximum": "7 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            # --- Non-cognizable, Bailable sections (First Schedule IPC) ---
+            "465": {  # IPC 465: Forgery — Non-cognizable, Bailable, 2 Years
+                "chapter_number": "XVIII",
+                "chapter_title": "Offences Relating to Documents",
+                "punishment_minimum": None,
+                "punishment_maximum": "2 Years",
+                "fine": True,
+                "cognizable": False,
+                "bailable": True,
+            },
+            "336": {  # BNS equivalent of IPC 465 — Non-cognizable, Bailable
+                "chapter_number": "XI",
+                "chapter_title": "Offences Relating to Documents",
+                "punishment_minimum": None,
+                "punishment_maximum": "2 Years",
+                "fine": True,
+                "cognizable": False,
+                "bailable": True,
+            },
+            "423": {  # IPC 423: Fraudulent Deed Execution — Non-cognizable, Bailable, 2 Years
+                "chapter_number": "XVII",
+                "chapter_title": "Offences Relating to Property",
+                "punishment_minimum": None,
+                "punishment_maximum": "2 Years",
+                "fine": True,
+                "cognizable": False,
+                "bailable": True,
+            },
+            "305": {  # BNS equivalent of IPC 423 — Non-cognizable, Bailable
+                "chapter_number": "XI",
+                "chapter_title": "Offences Relating to Property",
+                "punishment_minimum": None,
+                "punishment_maximum": "2 Years",
+                "fine": True,
+                "cognizable": False,
+                "bailable": True,
+            },
+            "403": {  # IPC 403: Dishonest Misappropriation of Property — Non-cognizable, Bailable, 2 Years
+                "chapter_number": "XVII",
+                "chapter_title": "Offences Against Property",
+                "punishment_minimum": None,
+                "punishment_maximum": "2 Years",
+                "fine": True,
+                "cognizable": False,
+                "bailable": True,
+            },
+            "314": {  # BNS equivalent of IPC 403 — Non-cognizable, Bailable
+                "chapter_number": "XI",
+                "chapter_title": "Offences Against Property",
+                "punishment_minimum": None,
+                "punishment_maximum": "2 Years",
+                "fine": True,
+                "cognizable": False,
+                "bailable": True,
+            },
+        }
+
+        if clean_sec in registry:
+            return registry[clean_sec]
+
+        # 2. Dynamic CSV Row Text Fallback Parsing (No Hardcoded Single Fallback Constant)
+        for rec in self.sections_db:
+            rec_sec = rec["section_number"].upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "").strip()
+            if rec_sec == clean_sec:
+                raw_txt = (rec.get("full_text") or "").lower()
+                row = rec.get("raw_row", {})
+                p_text = (row.get("Punishment") or row.get("Description") or "").lower()
+
+                # Robustly parse cognizability: look for explicit markers only
+                # "non-cognizable" overrides "cognizable"; absence of both -> False
+                has_cog = "cognizable" in p_text or "cognizable" in raw_txt
+                has_non_cog = "non-cognizable" in p_text or "non-cognizable" in raw_txt
+                cognizable = has_cog and not has_non_cog
+
+                # Robustly parse bailability: look for explicit markers only
+                # "non-bailable" overrides "bailable"; absence of both -> True (conservative default:
+                # sections whose CSV text omits the keyword are more likely bailable than not)
+                has_bail = "bailable" in p_text or "bailable" in raw_txt
+                has_non_bail = "non-bailable" in p_text or "non-bailable" in raw_txt
+                if has_non_bail:
+                    bailable = False
+                elif has_bail:
+                    bailable = True
+                else:
+                    # No keyword at all — default to True (bailable) rather than False,
+                    # since absent-from-CSV is almost always a bailable/minor offence.
+                    bailable = True
+
+                return {
+                    "chapter_number": rec.get("chapter") or f"{statute} Section {clean_sec}",
+                    "chapter_title": rec.get("title") or f"Offence under Section {clean_sec}",
+                    "punishment_minimum": None,
+                    "punishment_maximum": p_text[:50] if p_text else "As specified under statute",
+                    "fine": "fine" in p_text or "fine" in raw_txt,
+                    "cognizable": cognizable,
+                    "bailable": bailable,
+                }
+
+        return None

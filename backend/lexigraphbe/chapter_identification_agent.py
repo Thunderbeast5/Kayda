@@ -3,6 +3,7 @@ from typing import Any, Dict, Optional, Union, List
 from pydantic import BaseModel
 
 from .classifier_prefilter import StatuteClassifierPrefilter, STATUTE_KNOWLEDGE_BASE
+from .statute_repository import StatuteRepository
 from .ipc2bns_mapper import IPC2BNSMapper
 from .batch_utils import Stage2BatchedMappingResponse, SectionMappingCandidate
 from .schemas import ChapterIdentificationObject, LegalQueryObject, VerifiedOffenceItem, PunishmentSpec
@@ -146,22 +147,9 @@ class ChapterIdentificationAgent:
                 mapped = self.mapper.get_bns_equivalent(sec_num)
                 bns_eq = mapped.get("bns_section_clean") if mapped else sec_num
 
-            # 2. Canonical Metadata Determination (Title, Chapter, Punishment)
+            # 2. Canonical Metadata Determination (Title, Chapter, Punishment, Cognizability)
             canon_title = cand.get("title", f"Section {sec_num}")
-            
-            # Lookup section record from StatuteRepository sections_db
-            repo_record = None
-            for rec in self.prefilter.sections_db:
-                rec_num = rec["section_number"].upper().replace("SECTION ", "").strip()
-                if rec_num == sec_num or rec["identifier"].upper() in [f"IPC {sec_num}", f"BNS {sec_num}"]:
-                    repo_record = rec
-                    break
-
-            chap_num = repo_record.get("chapter", "IPC/BNS Chapter") if repo_record else ("XXA" if "BNS" not in regime_upper else "V")
-            chap_title = repo_record.get("title", canon_title) if repo_record else canon_title
-            punishment = PunishmentSpec(minimum=None, maximum="3 Years", fine=True)
-            cognizable = True
-            bailable = False
+            statute_out = "IPC / BNS" if "UNKNOWN" in regime_upper else ("BNS" if "BNS" in statute_in.upper() or "BNS" in regime_upper else "IPC")
 
             # Knowledge Base Rule Lookup
             found_rule = None
@@ -171,7 +159,7 @@ class ChapterIdentificationAgent:
                     found_rule = r
                     break
 
-            statute_out = "IPC / BNS" if "UNKNOWN" in regime_upper else ("BNS" if "BNS" in statute_in.upper() or "BNS" in regime_upper else "IPC")
+            first_sched_meta = StatuteRepository.get_instance().get_first_schedule_metadata(sec_num, statute_in)
 
             if found_rule:
                 canon_title = found_rule.title
@@ -188,24 +176,47 @@ class ChapterIdentificationAgent:
                 )
                 cognizable = found_rule.cognizable
                 bailable = found_rule.bailable
+            elif first_sched_meta:
+                chap_num = first_sched_meta["chapter_number"]
+                chap_title = first_sched_meta["chapter_title"]
+                punishment = PunishmentSpec(
+                    minimum=first_sched_meta["punishment_minimum"],
+                    maximum=first_sched_meta["punishment_maximum"],
+                    fine=first_sched_meta["fine"],
+                )
+                cognizable = first_sched_meta["cognizable"]
+                bailable = first_sched_meta["bailable"]
+            else:
+                chap_num = "IPC/BNS Chapter"
+                chap_title = canon_title
+                punishment = PunishmentSpec(minimum=None, maximum="As specified under statute", fine=True)
+                cognizable = True
+                bailable = False
+
+            # Hard-exclude disqualified sections — do NOT demote to SECONDARY.
+            # A disqualified section (wrong subject-matter or missing mandatory trigger)
+            # must not enter verified_offences at all, since Stage 4 will see every
+            # verified_offence as a valid candidate and can rate it "Prima Facie Attracted".
+            if disqualified:
+                disq_msg = (
+                    f"Section {sec_num} excluded (NOT_TRIGGERED): {disq_reason or 'Mandatory statutory ingredients not satisfied by case facts.'}"
+                )
+                if disq_msg not in manual_review_flags:
+                    manual_review_flags.append(disq_msg)
+                continue  # Skip — do not add to verified_offences
 
             # Unique key for deduplication (merges 498A IPC & 85 BNS into single item, keeps Special Acts distinct)
             canon_key = f"{statute_out}_{ipc_eq or bns_eq or sec_num}".upper()
             if canon_key not in dedup_offences:
-                item_status = "NOT_TRIGGERED" if disqualified else "VERIFIED"
-                item_tier = "SECONDARY" if disqualified else tier
-
                 notes = [
                     "Statutory existence verified against Knowledge Base registry.",
                     f"IPC <-> BNS equivalent mapped (IPC {ipc_eq} <-> BNS {bns_eq})." if "Dowry" not in statute_out else f"Special Act provision ({statute_out} {sec_num}).",
                     f"Canonical chapter ({chap_num}) and punishment metadata verified."
                 ]
-                if not found_rule:
-                    notes.append(f"WARNING: Section {sec_num} metadata unverified against knowledge base rules.")
+                if not found_rule and not first_sched_meta:
+                    notes.append(f"WARNING: Section {sec_num} metadata unverified against First Schedule CrPC/BNSS ground truth.")
                 if "UNKNOWN" in regime_upper:
                     notes.append("Legal regime is UNKNOWN: surfaced dual IPC & BNS equivalents.")
-                if disqualified and disq_reason:
-                    notes.append(disq_reason)
 
                 verified_item = VerifiedOffenceItem(
                     section_number=sec_num,
@@ -216,10 +227,10 @@ class ChapterIdentificationAgent:
                     chapter_number=chap_num,
                     chapter_title=chap_title,
                     punishment=punishment,
-                    classification=item_tier,
+                    classification=tier,
                     cognizable=cognizable,
                     bailable=bailable,
-                    verification_status=item_status,
+                    verification_status="VERIFIED",
                     verification_notes=notes,
                 )
                 dedup_offences[canon_key] = verified_item

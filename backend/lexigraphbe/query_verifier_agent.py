@@ -3,14 +3,14 @@ Query Verification Agent for Stage 1: Query Understanding & Legal Decomposition.
 Verifies LegalQueryObject against source CaseContextObject to ensure fact grounding,
 single-issue sub-queries, and zero statutory IPC/BNS section leaks using ClosedSetSectionAuditor.
 Eliminates unnecessary LLM calls by short-circuiting on programmatic section leak detection.
-Uses CHEAP tier model for verification checks.
+Model: gpt-4o-mini (MODEL_STAGE1) — inherits primary stage model.
 """
 
 import json
 from typing import Any, Dict, Optional, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm_for_tier, MODEL_TIER_CHEAP
+from .config import extract_json_from_text, get_llm, MODEL_STAGE1
 from .prompts import STAGE1_QUERY_VERIFICATION_SYSTEM_PROMPT, STAGE1_QUERY_VERIFICATION_USER_PROMPT_TEMPLATE
 from .schemas import CaseContextObject, CaseProfile, LegalQueryObject, QueryVerificationIssue, QueryVerificationResult
 from .section_matcher import ClosedSetSectionAuditor
@@ -21,7 +21,7 @@ class QueryVerificationAgent:
     Verifier Agent auditing LegalQueryObject against source facts before passing to Stage 2.
     Uses closed-set section matching to accurately detect section leaks while preventing false-positives.
     Short-circuits on programmatic violations to eliminate unnecessary LLM calls.
-    Uses CHEAP tier model for verification checks.
+    Model: gpt-4o-mini (MODEL_STAGE1) — inherits primary stage model.
     """
 
     def __init__(self, llm: Optional[Any] = None):
@@ -31,7 +31,7 @@ class QueryVerificationAgent:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm_for_tier(tier=MODEL_TIER_CHEAP, temperature=0.0)
+            self._llm = get_llm(temperature=0.0, model_name=MODEL_STAGE1)
         return self._llm
 
     def verify(

@@ -130,7 +130,8 @@ def test_precedent_retrieval_agent_mock():
 
     assert len(pro.precedents) == 1
     assert pro.precedents[0].case_name == "Arnesh Kumar v. State of Bihar"
-    assert pro.precedents[0].similarity_score == 0.95
+    # Formula score for Arnesh Kumar: F1=0.40 (498A section match) + F3=0.20 (domestic subject) + F4=0.05 = ~0.65
+    assert pro.precedents[0].similarity_score >= 0.55, f"Arnesh Kumar formula score should be >= 0.55, got {pro.precedents[0].similarity_score}"
 
 
 def test_precedent_verifier_agent_mock():
@@ -366,7 +367,8 @@ def test_full_stage0_to_stage6_end_to_end_chain():
     assert pro is not None
     assert len(pro.precedents) == 1
     assert pro.precedents[0].case_name == "Arnesh Kumar v. State of Bihar"
-    assert pro.precedents[0].similarity_score == 0.96
+    # Formula score for Arnesh Kumar: F1=0.40 (498A match) + F3=0.20 (domestic) + F4=0.05 = ~0.65
+    assert pro.precedents[0].similarity_score >= 0.55, f"Arnesh Kumar formula score should be >= 0.55, got {pro.precedents[0].similarity_score}"
 
 
 def test_grounded_precedents_structured_json_dataset_loading():
@@ -428,9 +430,11 @@ def test_grounded_precedents_structured_json_dataset_loading():
 
 def test_stage6_precedent_similarity_calibration():
     """
-    Verifies that PrecedentRetrievalAgent calibrates similarity scores based on factual and offence overlap:
-    - Arnesh Kumar / direct offence matches score high (>= 0.90).
-    - Satender Kumar Antil (generic Category A guidelines) scores <= 0.55 and triggers manual_review warning.
+    Verifies that PrecedentRetrievalAgent calibrates similarity scores via the transparent
+    multi-factor formula (F1 section + F2 ingredient + F3 subject-matter + F4 procedural stage):
+    - Arnesh Kumar (498A IPC, matrimonial facts) scores above Satender Kumar Antil (generic offences).
+    - Satender Kumar Antil (no section/subject overlap) scores < 0.45 and triggers manual_review warning.
+    - No case gets an artificially inflated score (e.g. 0.92) when facts don't support it.
     """
     mock_llm = MagicMock()
     mock_llm.invoke.return_value.content = json.dumps({
@@ -440,17 +444,17 @@ def test_stage6_precedent_similarity_calibration():
                 "case_name": "Arnesh Kumar v. State of Bihar",
                 "court": "Supreme Court of India",
                 "citation": "(2014) 8 SCC 273",
-                "facts": "Allegations under 498A IPC and Section 4 DP Act.",
+                "facts": "Allegations under 498A IPC and Section 4 DP Act. Matrimonial cruelty and dowry demand by husband and in-laws.",
                 "verified_offences": ["498A IPC", "4 Dowry Prohibition Act"],
                 "bail_outcome": "Guidelines Formulated",
-                "ratio_decidendi": "Mandatory 41A notice required.",
+                "ratio_decidendi": "Mandatory 41A notice required before arrest for offences up to 7 years.",
                 "similarity_score": 0.85
             },
             {
                 "case_name": "Satender Kumar Antil v. CBI",
                 "court": "Supreme Court of India",
                 "citation": "(2022) 10 SCC 51",
-                "facts": "General arrest guidelines across Category A, B, C, D offences.",
+                "facts": "General arrest guidelines across Category A, B, C, D offences. No specific dowry or matrimonial element.",
                 "verified_offences": ["Category A Offences"],
                 "bail_outcome": "Bail Policy Formulated",
                 "ratio_decidendi": "Category A offences up to 7 years get bail without custody.",
@@ -479,14 +483,28 @@ def test_stage6_precedent_similarity_calibration():
 
     res = agent.run(cco, qo, svo, bro)
 
-    # Arnesh Kumar should be calibrated >= 0.90
+    # Arnesh Kumar should score higher than Satender (section overlap + subject-matter match)
     arnesh = next((p for p in res.precedents if "Arnesh" in p.case_name), None)
-    assert arnesh is not None
-    assert arnesh.similarity_score >= 0.90
-
-    # Satender Kumar Antil should be calibrated <= 0.55 & trigger manual_review
     satender = next((p for p in res.precedents if "Satender" in p.case_name), None)
+    assert arnesh is not None
     assert satender is not None
-    assert satender.similarity_score <= 0.55
-    assert any("Satender" in note and "cutoff 0.70" in note for note in res.manual_review)
+
+    # Arnesh: has 498A section overlap (F1=0.40) + domestic subject match (F3=0.20) => ~0.60+
+    assert arnesh.similarity_score >= 0.55, f"Arnesh Kumar should score >= 0.55 on formula, got {arnesh.similarity_score}"
+
+    # Satender: no section overlap, no subject-matter overlap => purely F4 partial credit (~0.05)
+    assert satender.similarity_score <= 0.45, f"Satender Antil should score <= 0.45 on formula, got {satender.similarity_score}"
+
+    # Arnesh should outrank Satender
+    assert arnesh.similarity_score > satender.similarity_score, "Arnesh Kumar must rank above Satender Antil"
+
+    # Satender should trigger a manual_review warning (below cutoff or zero overlap)
+    satender_flagged = any("Satender" in note for note in res.manual_review)
+    assert satender_flagged, "Satender Antil should appear in manual_review (low/zero factual overlap)"
+
+    # No case should receive an artificially inflated score (>= 0.92) purely from a name-match heuristic
+    for p in res.precedents:
+        assert p.similarity_score < 0.92, f"No precedent should score >= 0.92 from formula alone; '{p.case_name}' scored {p.similarity_score}"
+
+
 

@@ -30,10 +30,12 @@ class SectionRule:
     chapter_number: str = "General Offence Chapter"
     chapter_title: str = "General Offences"
     punishment_minimum: Optional[str] = None
-    punishment_maximum: str = "3 Years"
+    punishment_maximum: Optional[str] = None  # Resolved via First Schedule ground truth
     fine: bool = True
     cognizable: bool = True
     bailable: bool = False
+    subject_matter_scope: Optional[str] = None  # e.g., "MOVABLE_PROPERTY_ONLY"
+    disqualifying_subject_matters: List[str] = field(default_factory=list)  # e.g. ["land", "plot", "real estate"]
 
 
 STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
@@ -128,6 +130,23 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
         bailable=False,
     ),
     SectionRule(
+        section="403",
+        statute="IPC",
+        bns_equivalent="314",
+        title="Dishonest Misappropriation of Property",
+        mandatory_ingredients=["movable_property", "dishonest_misappropriation_or_conversion"],
+        factual_triggers=["misappropriated", "converted", "found property", "movable property", "money retained", "funds taken"],
+        chapter_number="XVII",
+        chapter_title="Offences Against Property",
+        punishment_minimum=None,
+        punishment_maximum="2 Years",
+        fine=True,
+        cognizable=False,
+        bailable=True,
+        subject_matter_scope="MOVABLE_PROPERTY_ONLY",
+        disqualifying_subject_matters=["land", "plot", "real estate", "immovable property", "building", "flat", "field", "site"],
+    ),
+    SectionRule(
         section="406",
         statute="IPC",
         bns_equivalent="316",
@@ -141,6 +160,66 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
         fine=True,
         cognizable=True,
         bailable=False,
+    ),
+    SectionRule(
+        section="420",
+        statute="IPC",
+        bns_equivalent="318",
+        title="Cheating and Dishonestly Inducing Delivery of Property",
+        mandatory_ingredients=["deception_or_cheating", "dishonest_inducement_to_deliver_property"],
+        factual_triggers=["cheated", "defrauded", "deceived", "fake promise", "money induced", "false representation", "scam"],
+        chapter_number="XVII",
+        chapter_title="Offences Against Property / Cheating",
+        punishment_minimum=None,
+        punishment_maximum="7 Years",
+        fine=True,
+        cognizable=True,
+        bailable=False,
+    ),
+    SectionRule(
+        section="468",
+        statute="IPC",
+        bns_equivalent="338",
+        title="Forgery for Purpose of Cheating",
+        mandatory_ingredients=["forgery_of_document", "intent_to_cheat"],
+        factual_triggers=["forged document", "fake signature", "fabricated paper", "forgery", "falsified record"],
+        chapter_number="XVIII",
+        chapter_title="Offences Relating to Documents",
+        punishment_minimum=None,
+        punishment_maximum="7 Years",
+        fine=True,
+        cognizable=True,
+        bailable=False,
+    ),
+    SectionRule(
+        section="465",
+        statute="IPC",
+        bns_equivalent="336",
+        title="Forgery",
+        mandatory_ingredients=["making_false_document", "intent_to_cause_damage_or_injury"],
+        factual_triggers=["forgery", "forged", "false document", "fabricated", "counterfeit", "fake paper", "spurious"],
+        chapter_number="XVIII",
+        chapter_title="Offences Relating to Documents",
+        punishment_minimum=None,
+        punishment_maximum="2 Years",  # First Schedule IPC: 2 years or fine or both
+        fine=True,
+        cognizable=False,   # First Schedule: Non-cognizable
+        bailable=True,      # First Schedule: Bailable
+    ),
+    SectionRule(
+        section="423",
+        statute="IPC",
+        bns_equivalent="305",
+        title="Dishonest or Fraudulent Execution of Deed Containing a False Statement",
+        mandatory_ingredients=["execution_of_deed_or_transfer", "false_statement_of_consideration"],
+        factual_triggers=["false deed", "fraudulent deed", "fabricated transfer", "false consideration", "bogus document", "fictitious transfer"],
+        chapter_number="XVII",
+        chapter_title="Offences Relating to Property / Fraudulent Documents",
+        punishment_minimum=None,
+        punishment_maximum="2 Years",  # First Schedule IPC: 2 years or fine or both
+        fine=True,
+        cognizable=False,   # First Schedule: Non-cognizable
+        bailable=True,      # First Schedule: Bailable
     ),
     SectionRule(
         section="506",
@@ -413,6 +492,16 @@ class StatuteClassifierPrefilter:
         for rule in STATUTE_KNOWLEDGE_BASE:
             target_sec = rule.bns_equivalent if "BNS" in (statute or "").upper() else rule.section
             if sec_num_clean == target_sec.upper() or sec_num_clean == rule.section.upper():
+                # 1. Subject-Matter Scope Disqualification Check (e.g. MOVABLE_PROPERTY_ONLY vs land)
+                if rule.subject_matter_scope == "MOVABLE_PROPERTY_ONLY" and rule.disqualifying_subject_matters:
+                    has_disqualifying = any(disq in lower_facts for disq in rule.disqualifying_subject_matters)
+                    has_movable_mention = any(m in lower_facts for m in ["cash", "money", "gold", "jewelry", "jewellery", "ornaments", "vehicle", "car", "goods", "stridhan", "movable"])
+                    if has_disqualifying and not has_movable_mention:
+                        missing = rule.mandatory_ingredients + ["movable_property"]
+                        reason = f"Screening non-trigger: Section {rule.section} requires movable property; facts involve immovable property/land."
+                        return True, reason, missing
+
+                # 2. Mandatory Factual Trigger Check
                 if rule.factual_triggers:
                     has_trigger = any(trig in lower_facts for trig in rule.factual_triggers)
                     if not has_trigger:

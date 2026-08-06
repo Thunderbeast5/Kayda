@@ -3,14 +3,14 @@ Bail Reasoning Agent for Stage 5: Anticipatory Bail Reasoning Engine.
 Evaluates whether anticipatory bail should be granted or denied under Section 438 CrPC / Section 482 BNSS
 by applying judicial bail reasoning principles to verified outputs from previous stages.
 Statically injects exact statutory text and factors of Section 438 CrPC / Section 482 BNSS based on regime.
-Uses MODEL_TIER_REASONING flagship model for deep judicial reasoning.
+Model: gpt-4.1-mini (MODEL_STAGE5) — deep judicial reasoning.
 """
 
 import json
 from typing import Any, Dict, Optional, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm_for_tier, MODEL_TIER_REASONING
+from .config import extract_json_from_text, get_llm, MODEL_STAGE5
 from .prompts import STAGE5_BAIL_REASONING_SYSTEM_PROMPT, STAGE5_BAIL_REASONING_USER_PROMPT_TEMPLATE
 from .schemas import BailReasoningObject, CaseContextObject, LegalQueryObject, SideArgumentPackage, StatutoryVerificationObject
 
@@ -47,7 +47,7 @@ class BailReasoningAgent:
     """
     Stage 5 Bail Reasoning Agent evaluating anticipatory bail under Sec 438 CrPC / Sec 482 BNSS.
     Injects full statutory text and statutory factors of procedural bail provisions.
-    Uses MODEL_TIER_REASONING flagship model for judicial bail reasoning.
+    Model: gpt-4.1-mini (MODEL_STAGE5) — deep judicial reasoning.
     """
 
     def __init__(
@@ -61,7 +61,7 @@ class BailReasoningAgent:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm_for_tier(tier=MODEL_TIER_REASONING, temperature=0.1)
+            self._llm = get_llm(temperature=0.1, model_name=MODEL_STAGE5)
         return self._llm
 
     def run(

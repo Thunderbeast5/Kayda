@@ -7,7 +7,7 @@ import json
 from typing import Any, Dict, Optional, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm_for_tier, MODEL_TIER_CHEAP
+from .config import extract_json_from_text, get_llm, MODEL_STAGE2
 from .prompts import STAGE2_VERIFIER_SYSTEM_PROMPT, STAGE2_VERIFIER_USER_PROMPT_TEMPLATE
 from .batch_utils import Stage2BatchedMappingResponse
 from .schemas import LegalQueryObject, Stage2VerificationIssue, Stage2VerificationResult
@@ -16,7 +16,7 @@ from .schemas import LegalQueryObject, Stage2VerificationIssue, Stage2Verificati
 class Stage2MappingVerifierAgent:
     """
     Stage 2 Verifier Agent inspecting Stage2BatchedMappingResponse.
-    Uses MODEL_TIER_CHEAP lightweight model for mapping verification.
+    Model: gpt-4o-mini (MODEL_STAGE2) — inherits primary stage model.
     """
 
     def __init__(self, llm: Optional[Any] = None):
@@ -25,7 +25,7 @@ class Stage2MappingVerifierAgent:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm_for_tier(tier=MODEL_TIER_CHEAP, temperature=0.0)
+            self._llm = get_llm(temperature=0.0, model_name=MODEL_STAGE2)
         return self._llm
 
     def verify(

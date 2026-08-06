@@ -1,7 +1,7 @@
 """
 Precedent Verification Auditor for Stage 6: Judicial Precedent Retrieval Engine.
 Audits PrecedentRetrievalObject against source case facts, statutory outputs, and bail evaluations to verify 7 criteria.
-Uses MODEL_TIER_REASONING flagship model (equal to or stronger than reasoning agent) for audit checks.
+Model: gpt-4.1-mini (MODEL_STAGE6) — inherits primary stage model.
 Includes programmatic pre-checks for instant deterministic verification.
 """
 
@@ -9,7 +9,7 @@ import json
 from typing import Any, Dict, Optional, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm_for_tier, MODEL_TIER_REASONING
+from .config import extract_json_from_text, get_llm, MODEL_STAGE6
 from .prompts import STAGE6_VERIFIER_SYSTEM_PROMPT, STAGE6_VERIFIER_USER_PROMPT_TEMPLATE
 from .schemas import BailReasoningObject, CaseContextObject, PrecedentRetrievalObject, PrecedentVerificationIssue, PrecedentVerificationResult, StatutoryVerificationObject
 
@@ -17,7 +17,7 @@ from .schemas import BailReasoningObject, CaseContextObject, PrecedentRetrievalO
 class PrecedentVerificationAuditor:
     """
     Stage 6 Precedent Verification Auditor inspecting PrecedentRetrievalObject.
-    Uses MODEL_TIER_REASONING flagship model (equal to or stronger than reasoning agent) for audit checks.
+    Model: gpt-4.1-mini (MODEL_STAGE6) — inherits primary stage model.
     Includes programmatic pre-checks for instant deterministic verification.
     """
 
@@ -27,7 +27,7 @@ class PrecedentVerificationAuditor:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm_for_tier(tier=MODEL_TIER_REASONING, temperature=0.0)
+            self._llm = get_llm(temperature=0.0, model_name=MODEL_STAGE6)
         return self._llm
 
     def verify(
