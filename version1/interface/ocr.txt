@@ -1,0 +1,446 @@
+Enter path to the FIR/evidence file (PDF or image): /Users/vedant/Desktop/Projects/MootCourt/data/fir/0086 Publish FIR.pdf
+Creating new session: 0086 Publish FIR_20260806222110_303d53
+[evidence_analyzer] 9191 chars — short-doc unified extraction (1 call).
+[evidence_analyzer] timeline: 9191 chars — single-pass extraction.
+{
+  "facts": {
+    "who": {
+      "complainant": "Santosh Shankar Pālde",
+      "accused": [
+        "Unknown"
+      ],
+      "victims": []
+    },
+    "incident": {
+      "summary": "Theft of a Hero Honda Splendor Plus motorcycle (MH15DA6864) from Devalali Gaon, Nashik Road, Nashik.",
+      "date": "20/02/2023",
+      "time": "19:30 - 20:00",
+      "place": "Devalali Gaon, Nashik Road, Nashik"
+    },
+    "property": {
+      "cash": null,
+      "gold": null,
+      "documents": null,
+      "vehicles": [
+        {
+          "type": "Motorcycle",
+          "registration_no": "MH15DA6864",
+          "make_model": "Hero Honda Splendor Plus",
+          "engine_chassis_no": "MBLHA10EYBHD33727, HA10EFBHD55941",
+          "estimated_value": "12,000/- Rs"
+        }
+      ],
+      "other_property": [],
+      "estimated_loss": "12,000/- Rs"
+    },
+    "sections": [
+      "IPC 379"
+    ]
+  },
+  "timeline": [
+    {
+      "event_id": "E1",
+      "date": "20/02/2023",
+      "time": null,
+      "event_type": "complaint_filed",
+      "description": "Complainant Santosh Shrikant Palsade filed a complaint at Nashik Road Police Station.",
+      "actors": [
+        "Santosh Shrikant Palsade"
+      ],
+      "location": "Nashik Road Police Station, Nashik",
+      "amount": null
+    },
+    {
+      "event_id": "E2",
+      "date": "20/02/2023",
+      "time": "07:30",
+      "event_type": "incident",
+      "description": "Complainant Santosh Shrikant Palsade parked his Hero Honda Splendor Plus motorcycle (MH15DA6864) at Devlaali Gaon, Nashik Road, Nashik.",
+      "actors": [
+        "Santosh Shrikant Palsade"
+      ],
+      "location": "Devlaali Gaon, Nashik Road, Nashik",
+      "amount": null
+    },
+    {
+      "event_id": "E3",
+      "date": "20/02/2023",
+      "time": "08:00",
+      "event_type": "incident",
+      "description": "Complainant Santosh Shrikant Palsade's Hero Honda Splendor Plus motorcycle (MH15DA6864) was stolen.",
+      "actors": [
+        "Santosh Shrikant Palsade"
+      ],
+      "location": "Devlaali Gaon, Nashik Road, Nashik",
+      "amount": null
+    },
+    {
+      "event_id": "E4",
+      "date": "20/02/2023",
+      "time": "19:30",
+      "event_type": "incident",
+      "description": "Complainant Santosh Shrikant Palsade's Hero Honda Splendor Plus motorcycle (MH15DA6864) was stolen.",
+      "actors": [
+        "Santosh Shrikant Palsade"
+      ],
+      "location": "Devlaali Gaon, Nashik Road, Nashik",
+      "amount": null
+    },
+    {
+      "event_id": "E5",
+      "date": "23/02/2023",
+      "time": "16:11",
+      "event_type": "investigation_action",
+      "description": "Investigation officer Subhash Rajaram Gegadmal was directed to take up the investigation.",
+      "actors": [
+        "Subhash Rajaram Gegadmal"
+      ],
+      "location": "Nashik Road Police Station, Nashik",
+      "amount": null
+    },
+    {
+      "event_id": "E6",
+      "date": "23/02/2023",
+      "time": "16:22",
+      "event_type": "fir_registered",
+      "description": "FIR (0086/2023) was registered at Nashik Road Police Station.",
+      "actors": [
+        "Santosh Shrikant Palsade",
+        "Subhash Rajaram Gegadmal"
+      ],
+      "location": "Nashik Road Police Station, Nashik",
+      "amount": null
+    }
+  ],
+  "graph": {
+    "nodes": [
+      {
+        "id": "case:0086 Publish FIR_20260806222110_303d53",
+        "label": "Case",
+        "properties": {
+          "session_id": "0086 Publish FIR_20260806222110_303d53",
+          "summary": "Theft of a Hero Honda Splendor Plus motorcycle (MH15DA6864) from Devalali Gaon, Nashik Road, Nashik.",
+          "date": "20/02/2023",
+          "time": "19:30 - 20:00",
+          "place": "Devalali Gaon, Nashik Road, Nashik"
+        }
+      },
+      {
+        "id": "location:devalali_gaon_nashik_road_nashik",
+        "label": "Location",
+        "properties": {
+          "name": "Devalali Gaon, Nashik Road, Nashik"
+        }
+      },
+      {
+        "id": "person:santosh_shankar_p_lde",
+        "label": "Person",
+        "properties": {
+          "name": "Santosh Shankar Pālde"
+        }
+      },
+      {
+        "id": "person:unknown",
+        "label": "Person",
+        "properties": {
+          "name": "Unknown"
+        }
+      },
+      {
+        "id": "section:ipc_379",
+        "label": "Section",
+        "properties": {
+          "name": "IPC 379"
+        }
+      },
+      {
+        "id": "property:vehicle:1",
+        "label": "Property",
+        "properties": {
+          "kind": "vehicle",
+          "type": "Motorcycle",
+          "registration_no": "MH15DA6864",
+          "make_model": "Hero Honda Splendor Plus",
+          "engine_chassis_no": "MBLHA10EYBHD33727, HA10EFBHD55941",
+          "estimated_value": "12,000/- Rs"
+        }
+      },
+      {
+        "id": "event:E1",
+        "label": "Event",
+        "properties": {
+          "event_id": "E1",
+          "date": "20/02/2023",
+          "time": null,
+          "event_type": "complaint_filed",
+          "description": "Complainant Santosh Shrikant Palsade filed a complaint at Nashik Road Police Station.",
+          "amount": null
+        }
+      },
+      {
+        "id": "location:nashik_road_police_station_nashik",
+        "label": "Location",
+        "properties": {
+          "name": "Nashik Road Police Station, Nashik"
+        }
+      },
+      {
+        "id": "person:santosh_shrikant_palsade",
+        "label": "Person",
+        "properties": {
+          "name": "Santosh Shrikant Palsade"
+        }
+      },
+      {
+        "id": "event:E2",
+        "label": "Event",
+        "properties": {
+          "event_id": "E2",
+          "date": "20/02/2023",
+          "time": "07:30",
+          "event_type": "incident",
+          "description": "Complainant Santosh Shrikant Palsade parked his Hero Honda Splendor Plus motorcycle (MH15DA6864) at Devlaali Gaon, Nashik Road, Nashik.",
+          "amount": null
+        }
+      },
+      {
+        "id": "location:devlaali_gaon_nashik_road_nashik",
+        "label": "Location",
+        "properties": {
+          "name": "Devlaali Gaon, Nashik Road, Nashik"
+        }
+      },
+      {
+        "id": "event:E3",
+        "label": "Event",
+        "properties": {
+          "event_id": "E3",
+          "date": "20/02/2023",
+          "time": "08:00",
+          "event_type": "incident",
+          "description": "Complainant Santosh Shrikant Palsade's Hero Honda Splendor Plus motorcycle (MH15DA6864) was stolen.",
+          "amount": null
+        }
+      },
+      {
+        "id": "event:E4",
+        "label": "Event",
+        "properties": {
+          "event_id": "E4",
+          "date": "20/02/2023",
+          "time": "19:30",
+          "event_type": "incident",
+          "description": "Complainant Santosh Shrikant Palsade's Hero Honda Splendor Plus motorcycle (MH15DA6864) was stolen.",
+          "amount": null
+        }
+      },
+      {
+        "id": "event:E5",
+        "label": "Event",
+        "properties": {
+          "event_id": "E5",
+          "date": "23/02/2023",
+          "time": "16:11",
+          "event_type": "investigation_action",
+          "description": "Investigation officer Subhash Rajaram Gegadmal was directed to take up the investigation.",
+          "amount": null
+        }
+      },
+      {
+        "id": "person:subhash_rajaram_gegadmal",
+        "label": "Person",
+        "properties": {
+          "name": "Subhash Rajaram Gegadmal"
+        }
+      },
+      {
+        "id": "event:E6",
+        "label": "Event",
+        "properties": {
+          "event_id": "E6",
+          "date": "23/02/2023",
+          "time": "16:22",
+          "event_type": "fir_registered",
+          "description": "FIR (0086/2023) was registered at Nashik Road Police Station.",
+          "amount": null
+        }
+      }
+    ],
+    "edges": [
+      {
+        "source": "case:0086 Publish FIR_20260806222110_303d53",
+        "target": "location:devalali_gaon_nashik_road_nashik",
+        "type": "OCCURRED_AT",
+        "properties": {}
+      },
+      {
+        "source": "person:santosh_shankar_p_lde",
+        "target": "case:0086 Publish FIR_20260806222110_303d53",
+        "type": "FILED",
+        "properties": {}
+      },
+      {
+        "source": "person:unknown",
+        "target": "case:0086 Publish FIR_20260806222110_303d53",
+        "type": "ACCUSED_IN",
+        "properties": {}
+      },
+      {
+        "source": "case:0086 Publish FIR_20260806222110_303d53",
+        "target": "section:ipc_379",
+        "type": "CHARGED_UNDER",
+        "properties": {}
+      },
+      {
+        "source": "case:0086 Publish FIR_20260806222110_303d53",
+        "target": "property:vehicle:1",
+        "type": "INVOLVES_PROPERTY",
+        "properties": {}
+      },
+      {
+        "source": "case:0086 Publish FIR_20260806222110_303d53",
+        "target": "event:E1",
+        "type": "HAS_EVENT",
+        "properties": {}
+      },
+      {
+        "source": "event:E1",
+        "target": "location:nashik_road_police_station_nashik",
+        "type": "OCCURRED_AT",
+        "properties": {}
+      },
+      {
+        "source": "person:santosh_shrikant_palsade",
+        "target": "event:E1",
+        "type": "PARTICIPATED_IN",
+        "properties": {}
+      },
+      {
+        "source": "case:0086 Publish FIR_20260806222110_303d53",
+        "target": "event:E2",
+        "type": "HAS_EVENT",
+        "properties": {}
+      },
+      {
+        "source": "event:E2",
+        "target": "location:devlaali_gaon_nashik_road_nashik",
+        "type": "OCCURRED_AT",
+        "properties": {}
+      },
+      {
+        "source": "person:santosh_shrikant_palsade",
+        "target": "event:E2",
+        "type": "PARTICIPATED_IN",
+        "properties": {}
+      },
+      {
+        "source": "event:E1",
+        "target": "event:E2",
+        "type": "NEXT",
+        "properties": {}
+      },
+      {
+        "source": "case:0086 Publish FIR_20260806222110_303d53",
+        "target": "event:E3",
+        "type": "HAS_EVENT",
+        "properties": {}
+      },
+      {
+        "source": "event:E3",
+        "target": "location:devlaali_gaon_nashik_road_nashik",
+        "type": "OCCURRED_AT",
+        "properties": {}
+      },
+      {
+        "source": "person:santosh_shrikant_palsade",
+        "target": "event:E3",
+        "type": "PARTICIPATED_IN",
+        "properties": {}
+      },
+      {
+        "source": "event:E2",
+        "target": "event:E3",
+        "type": "NEXT",
+        "properties": {}
+      },
+      {
+        "source": "case:0086 Publish FIR_20260806222110_303d53",
+        "target": "event:E4",
+        "type": "HAS_EVENT",
+        "properties": {}
+      },
+      {
+        "source": "event:E4",
+        "target": "location:devlaali_gaon_nashik_road_nashik",
+        "type": "OCCURRED_AT",
+        "properties": {}
+      },
+      {
+        "source": "person:santosh_shrikant_palsade",
+        "target": "event:E4",
+        "type": "PARTICIPATED_IN",
+        "properties": {}
+      },
+      {
+        "source": "event:E3",
+        "target": "event:E4",
+        "type": "NEXT",
+        "properties": {}
+      },
+      {
+        "source": "case:0086 Publish FIR_20260806222110_303d53",
+        "target": "event:E5",
+        "type": "HAS_EVENT",
+        "properties": {}
+      },
+      {
+        "source": "event:E5",
+        "target": "location:nashik_road_police_station_nashik",
+        "type": "OCCURRED_AT",
+        "properties": {}
+      },
+      {
+        "source": "person:subhash_rajaram_gegadmal",
+        "target": "event:E5",
+        "type": "PARTICIPATED_IN",
+        "properties": {}
+      },
+      {
+        "source": "event:E4",
+        "target": "event:E5",
+        "type": "NEXT",
+        "properties": {}
+      },
+      {
+        "source": "case:0086 Publish FIR_20260806222110_303d53",
+        "target": "event:E6",
+        "type": "HAS_EVENT",
+        "properties": {}
+      },
+      {
+        "source": "event:E6",
+        "target": "location:nashik_road_police_station_nashik",
+        "type": "OCCURRED_AT",
+        "properties": {}
+      },
+      {
+        "source": "person:santosh_shrikant_palsade",
+        "target": "event:E6",
+        "type": "PARTICIPATED_IN",
+        "properties": {}
+      },
+      {
+        "source": "person:subhash_rajaram_gegadmal",
+        "target": "event:E6",
+        "type": "PARTICIPATED_IN",
+        "properties": {}
+      },
+      {
+        "source": "event:E5",
+        "target": "event:E6",
+        "type": "NEXT",
+        "properties": {}
+      }
+    ]
+  }
+}

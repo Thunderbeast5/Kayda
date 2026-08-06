@@ -1019,7 +1019,12 @@ def analyze_evidence_with_context(session_id: str, file_path: str) -> Dict[str, 
     graph = build_case_graph(session_id, facts, timeline)
     store_timeline_and_graph(session_id, timeline, graph)
 
-    return {"facts": facts, "timeline": timeline, "graph": graph}
+    return {
+        "rawText": raw_text,
+        "facts": facts,
+        "timeline": timeline,
+        "graph": graph,
+    }
 
 
 if __name__ == "__main__":

@@ -36,7 +36,7 @@ export default function EvidenceAnalyzerPage({ onBack }) {
   const [analysisProgress, setAnalysisProgress] = useState(0);
   const [displayedText, setDisplayedText] = useState("");
   const [showFacts, setShowFacts] = useState(false);
-  const [expandedSection, setExpandedSection] = useState("who");
+  const [expandedSection, setExpandedSection] = useState("timeline");
   const textRef = useRef(null);
   const [error, setError] = useState(null);
   const fileInputRef = useRef(null);
@@ -53,6 +53,8 @@ export default function EvidenceAnalyzerPage({ onBack }) {
       description: "Processing case document via backend intelligence pipeline...",
       rawText: "",
       facts: null,
+      timeline: [],
+      graph: { nodes: [], edges: [] },
     });
     setCurrentStep(1);
     setOcrProgress(0);
@@ -81,7 +83,7 @@ export default function EvidenceAnalyzerPage({ onBack }) {
           const res = JSON.parse(xhr.responseText);
           if (res.success) {
             setOcrProgress(100);
-            const { rawText, facts } = res.data;
+            const { rawText, facts, timeline = [], graph = { nodes: [], edges: [] } } = res.data;
             
             // Set raw OCR output text
             setDisplayedText(rawText);
@@ -102,7 +104,10 @@ export default function EvidenceAnalyzerPage({ onBack }) {
                     ...prev,
                     rawText,
                     facts,
+                    timeline,
+                    graph,
                   }));
+                  setExpandedSection("timeline");
                   setCurrentStep(3);
                   setShowFacts(true);
                 }, 600);
@@ -149,6 +154,7 @@ export default function EvidenceAnalyzerPage({ onBack }) {
     setAnalysisProgress(0);
     setDisplayedText("");
     setShowFacts(false);
+    setExpandedSection("timeline");
 
     // Step 1: OCR extraction (typewriter)
     let charIdx = 0;
@@ -196,6 +202,8 @@ export default function EvidenceAnalyzerPage({ onBack }) {
   }, [displayedText]);
 
   const facts = selectedCase?.facts;
+  const timeline = selectedCase?.timeline || [];
+  const graph = selectedCase?.graph || { nodes: [], edges: [] };
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] font-body text-[#2C1810]">
@@ -369,7 +377,7 @@ export default function EvidenceAnalyzerPage({ onBack }) {
                     {selectedCase.filename}
                   </span>
                   <span className="font-mono text-[9px] text-[#5D4037]">
-                    {selectedCase.rawText.length.toLocaleString()} chars
+                    {(selectedCase.rawText || "").length.toLocaleString()} chars
                   </span>
                 </div>
               </div>
@@ -386,7 +394,7 @@ export default function EvidenceAnalyzerPage({ onBack }) {
                   </h3>
                   <p className="text-xs text-[#5D4037] mb-6 text-center max-w-sm">
                     Multi-pass LLM extraction in progress. Identifying parties, incident details,
-                    property records, and applicable legal sections...
+                    timeline events, relationship graph links, property records, and applicable legal sections...
                   </p>
                   <div className="w-full max-w-xs">
                     <div className="h-2 bg-[#2C1810]/10 rounded-full overflow-hidden">
@@ -485,6 +493,58 @@ export default function EvidenceAnalyzerPage({ onBack }) {
                         <MiniCard icon={<Clock size={13} />} label="Time" value={facts.incident.time} />
                         <MiniCard icon={<MapPin size={13} />} label="Place" value={facts.incident.place} />
                       </div>
+                    </FactCard>
+
+                    {/* TIMELINE */}
+                    <FactCard
+                      title="Timeline"
+                      icon={<Calendar size={16} />}
+                      isOpen={expandedSection === "timeline"}
+                      onToggle={() => setExpandedSection(expandedSection === "timeline" ? null : "timeline")}
+                    >
+                      {timeline.length > 0 ? (
+                        <div className="space-y-3">
+                          {timeline.map((event, idx) => (
+                            <div key={event.event_id || idx} className="bg-[#FAF8F5] border border-[#2C1810]/10 rounded-lg p-4">
+                              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                                <div className="flex items-center gap-2">
+                                  <span className="px-2 py-1 rounded-md bg-[#2C1810] text-[#FAF8F5] font-mono text-[10px] font-bold">
+                                    {event.event_id || `E${idx + 1}`}
+                                  </span>
+                                  <span className="px-2 py-1 rounded-md bg-[#FFF8E1] text-[#8C5A3C] font-mono text-[10px] font-bold uppercase tracking-wider">
+                                    {event.event_type || "other"}
+                                  </span>
+                                </div>
+                                <span className="font-mono text-[10px] text-[#8C5A3C]">
+                                  {(event.date || "No date")} {event.time ? `• ${event.time}` : ""}
+                                </span>
+                              </div>
+                              <p className="text-[12px] leading-relaxed text-[#2C1810]">
+                                {event.description || "No description available."}
+                              </p>
+                              <div className="mt-3 grid grid-cols-1 md:grid-cols-3 gap-2">
+                                <MiniCard icon={<Users size={13} />} label="Actors" value={event.actors?.length ? event.actors.join(", ") : "—"} />
+                                <MiniCard icon={<MapPin size={13} />} label="Location" value={event.location || "—"} />
+                                <MiniCard icon={<Briefcase size={13} />} label="Amount" value={event.amount || "—"} />
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <p className="text-[12px] text-[#5D4037]">
+                          No timeline data returned for this case.
+                        </p>
+                      )}
+                    </FactCard>
+
+                    {/* GRAPH */}
+                    <FactCard
+                      title="Relationship Graph"
+                      icon={<Layers size={16} />}
+                      isOpen={expandedSection === "graph"}
+                      onToggle={() => setExpandedSection(expandedSection === "graph" ? null : "graph")}
+                    >
+                      <GraphView graph={graph} />
                     </FactCard>
 
                     {/* PROPERTY */}
@@ -639,6 +699,96 @@ function MiniCard({ icon, label, value }) {
         <span className="font-mono text-[8px] uppercase tracking-wider text-[#8C5A3C] font-bold">{label}</span>
       </div>
       <p className="text-[11px] text-[#2C1810] leading-snug">{value}</p>
+    </div>
+  );
+}
+
+function GraphView({ graph }) {
+  const nodes = graph?.nodes || [];
+  const edges = graph?.edges || [];
+
+  if (!nodes.length && !edges.length) {
+    return (
+      <p className="text-[12px] text-[#5D4037]">
+        No graph data returned for this case.
+      </p>
+    );
+  }
+
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center justify-between rounded-lg bg-[#FAF8F5] border border-[#2C1810]/10 px-4 py-3">
+        <div>
+          <p className="font-mono text-[9px] uppercase tracking-wider text-[#8C5A3C] font-bold">Graph Summary</p>
+          <p className="text-[12px] text-[#2C1810] mt-1">
+            {nodes.length} nodes, {edges.length} edges
+          </p>
+        </div>
+      </div>
+
+      {nodes.length > 0 && (
+        <div>
+          <p className="font-mono text-[9px] uppercase tracking-wider text-[#8C5A3C] font-bold mb-2">
+            Nodes
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            {nodes.map((node) => {
+              const props = node.properties || {};
+              const labelValue =
+                props.name ||
+                props.summary ||
+                props.description ||
+                props.session_id ||
+                node.id;
+
+              return (
+                <div key={node.id} className="rounded-lg border border-[#2C1810]/10 bg-[#FAF8F5] p-3">
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="px-2 py-1 rounded-md bg-[#2C1810] text-[#FAF8F5] font-mono text-[10px] font-bold">
+                      {node.label}
+                    </span>
+                    <span className="font-mono text-[9px] text-[#8C5A3C] break-all">
+                      {node.id}
+                    </span>
+                  </div>
+                  <p className="text-[12px] text-[#2C1810] leading-relaxed">
+                    {labelValue}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {edges.length > 0 && (
+        <div>
+          <p className="font-mono text-[9px] uppercase tracking-wider text-[#8C5A3C] font-bold mb-2">
+            Edges
+          </p>
+          <div className="space-y-2">
+            {edges.map((edge, idx) => (
+              <div key={`${edge.source}-${edge.target}-${idx}`} className="rounded-lg border border-[#2C1810]/10 bg-white px-4 py-3">
+                <div className="flex flex-wrap items-center gap-2 text-[11px] text-[#2C1810]">
+                  <span className="font-mono text-[10px] text-[#8C5A3C] break-all">{edge.source}</span>
+                  <span className="text-[#D4AF37] font-bold">→</span>
+                  <span className="font-mono text-[10px] text-[#8C5A3C] break-all">{edge.target}</span>
+                </div>
+                <div className="mt-1 flex flex-wrap items-center gap-2">
+                  <span className="px-2 py-1 rounded-md bg-[#FFF8E1] text-[#8C5A3C] font-mono text-[10px] font-bold uppercase tracking-wider">
+                    {edge.type}
+                  </span>
+                  {edge.properties && Object.keys(edge.properties).length > 0 && (
+                    <span className="text-[10px] text-[#5D4037]">
+                      {JSON.stringify(edge.properties)}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

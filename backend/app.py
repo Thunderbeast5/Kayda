@@ -610,12 +610,9 @@ if str(backend_dir) not in sys.path:
 if str(mootcourt_root) not in sys.path:
     sys.path.insert(0, str(mootcourt_root))
 
-from evidence.evidence_analyzer import (
+from evidence.evidence import (
     build_session_id,
-    extract_text,
-    extract_facts,
-    store_to_firestore,
-    store_to_pinecone,
+    analyze_evidence_with_context,
     _get_firestore_client,
     IMAGE_EXTENSIONS,
 )
@@ -1090,26 +1087,26 @@ async def analyze_evidence_endpoint(file: UploadFile = File(...)):
     try:
         with open(temp_file_path, "wb") as buffer:
             shutil.copyfileobj(file.file, buffer)
-            
+
         # Generate session_id
         session_id = build_session_id(str(temp_file_path))
-        
-        # Run extraction pipeline
-        raw_text = extract_text(str(temp_file_path))
-        facts = extract_facts(raw_text)
-        
-        # Save to Firestore & Pinecone
-        store_to_firestore(session_id, raw_text, facts)
-        store_to_pinecone(session_id, facts)
-        
+
+        # Run the context-aware evidence pipeline so the UI gets
+        # raw text, structured facts, timeline, and graph together.
+        result = await asyncio.to_thread(
+            analyze_evidence_with_context,
+            session_id,
+            str(temp_file_path),
+        )
+
         return {
             "success": True,
             "data": {
-                "rawText": raw_text,
-                "facts": facts
-            }
+                "sessionId": session_id,
+                **result,
+            },
         }
-        
+
     except Exception as e:
         # Log the error details internally
         print(f"Error during evidence analysis: {str(e)}", file=sys.stderr)
