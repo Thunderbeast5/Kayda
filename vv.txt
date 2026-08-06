@@ -1,0 +1,35 @@
+cd /Users/vedant/Desktop/Projects/MootCourt
+
+python - /Users/vedant/Desktop/Projects/MootCourt/logot.png <<'PY'
+import io, os, sys
+from pathlib import Path
+from dotenv import load_dotenv
+from PIL import Image
+from google.cloud import vision
+
+env = Path("backend/.env")
+load_dotenv(env)
+
+p = Path(os.environ["GOOGLE_VISION_CREDENTIALS_PATH"])
+if not p.is_absolute():
+    p = (env.parent / p).resolve()
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = str(p)
+
+print("Credential exists:", p.is_file())
+
+client = vision.ImageAnnotatorClient(transport="rest")
+img = Image.open(sys.argv[1]).convert("RGB")
+buf = io.BytesIO()
+img.save(buf, format="PNG")
+
+result = client.document_text_detection(
+    image=vision.Image(content=buf.getvalue())
+)
+
+if result.error.message:
+    print("Vision error:", result.error.message)
+else:
+    text = result.full_text_annotation.text or ""
+    print("Vision API request: OK")
+    print("OCR text:", text[:500])
+PY

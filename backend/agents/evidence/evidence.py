@@ -99,7 +99,8 @@ def _configure_google_credentials_if_needed():
 
 def _extract_text_with_vision_image(image: Image.Image) -> str:
     _configure_google_credentials_if_needed()
-    client = vision.ImageAnnotatorClient()
+    # client = vision.ImageAnnotatorClient()
+    client = vision.ImageAnnotatorClient(transport="rest")
 
     import io
     buf = io.BytesIO()
