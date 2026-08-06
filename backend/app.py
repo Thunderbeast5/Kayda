@@ -907,6 +907,51 @@ def get_lexigraph_session_by_id(query_id: str) -> dict:
     return None
 
 
+def list_evidence_history(limit: int = 25) -> list:
+    sessions = []
+    try:
+        db = _get_firestore_client()
+        docs = (
+            db.collection("document_store")
+            .order_by("created_at", direction="DESCENDING")
+            .limit(limit)
+            .stream()
+        )
+        for doc in docs:
+            data = doc.to_dict() or {}
+            facts = data.get("facts") or {}
+            incident = facts.get("incident") or {}
+            timeline = data.get("timeline") or []
+            graph = data.get("graph") or {}
+            sessions.append({
+                "session_id": data.get("session_id") or doc.id,
+                "created_at": data.get("created_at", ""),
+                "schema_version": data.get("schema_version", ""),
+                "context_schema_version": data.get("context_schema_version", ""),
+                "filename": data.get("filename") or data.get("source_filename") or "",
+                "incident_summary": incident.get("summary") or "",
+                "incident_date": incident.get("date") or "",
+                "incident_place": incident.get("place") or "",
+                "timeline_count": len(timeline) if isinstance(timeline, list) else 0,
+                "node_count": len(graph.get("nodes") or []) if isinstance(graph, dict) else 0,
+                "edge_count": len(graph.get("edges") or []) if isinstance(graph, dict) else 0,
+            })
+    except Exception as e:
+        print(f"[Firebase] Could not fetch evidence history: {e}", file=sys.stderr)
+    return sessions
+
+
+def get_evidence_session_by_id(session_id: str) -> dict:
+    try:
+        db = _get_firestore_client()
+        doc = db.collection("document_store").document(session_id).get()
+        if doc.exists:
+            return doc.to_dict()
+    except Exception as e:
+        print(f"[Firebase] Could not fetch evidence doc '{session_id}': {e}", file=sys.stderr)
+    return None
+
+
 @app.post("/api/lexigraph-agent/query")
 @app.post("/api/lexigraph/agent/query")
 @app.post("/api/lexigraph/query")
@@ -1125,6 +1170,42 @@ async def analyze_evidence_endpoint(file: UploadFile = File(...)):
                 os.remove(temp_file_path)
             except Exception as cleanup_err:
                 print(f"Error cleaning up temp file {temp_file_path}: {cleanup_err}", file=sys.stderr)
+
+
+@app.get("/api/evidence/history")
+async def evidence_history_endpoint(limit: int = 25):
+    try:
+        history = await asyncio.to_thread(list_evidence_history, limit)
+        return {
+            "success": True,
+            "count": len(history),
+            "data": history,
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "message": f"Failed to fetch evidence history: {str(e)}"}
+        )
+
+
+@app.get("/api/evidence/history/{session_id}")
+async def evidence_session_endpoint(session_id: str):
+    try:
+        session = await asyncio.to_thread(get_evidence_session_by_id, session_id)
+        if not session:
+            return JSONResponse(
+                status_code=404,
+                content={"success": False, "message": f"Evidence session '{session_id}' not found."}
+            )
+        return {
+            "success": True,
+            "data": session,
+        }
+    except Exception as e:
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "message": f"Failed to fetch evidence session: {str(e)}"}
+        )
 
 
 @app.post("/api/lexigraph/analyze")
