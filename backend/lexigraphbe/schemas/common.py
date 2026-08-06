@@ -3,8 +3,23 @@ Common models, helper functions, and shared verification types for LexiGraph Sch
 """
 
 import json
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 from pydantic import BaseModel, Field, field_validator
+
+
+def normalize_unresolved_legal_regime(regime_input: Optional[str]) -> Tuple[str, bool]:
+    """
+    Standardizes unresolved legal regime handling across all LexiGraph pipeline stages.
+    Returns (normalized_regime_str, is_unresolved_boolean).
+    """
+    if not regime_input:
+        return ("UNKNOWN", True)
+
+    r_str = str(regime_input).strip().upper()
+    if "UNKNOWN" in r_str or "UNRESOLVED" in r_str or r_str in ("NONE", "NULL", ""):
+        return ("UNKNOWN", True)
+
+    return (regime_input, False)
 
 
 def _sanitize_manual_review(v: Any) -> List[str]:

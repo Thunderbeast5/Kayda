@@ -3,7 +3,7 @@ Statutory Verification Agent for Stage 4: Full Statutory Verification & Ingredie
 Retrieves complete statutory context for candidate sections shortlisted in Stage 3 and evaluates
 essential statutory ingredients against verified case facts in ONE single batched LLM call.
 Extracts punishment text and Arnesh Kumar (<=7 years) threshold metrics into output contract.
-Uses MODEL_TIER_REASONING flagship model for deep legal ingredient matching.
+Model: gpt-4o-mini (MODEL_STAGE2) — structured verification, near-deterministic ingredient matching.
 """
 
 import csv
@@ -13,19 +13,36 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm_for_tier, MODEL_TIER_REASONING
+from .config import extract_json_from_text, get_llm, MODEL_STAGE2
 from .prompts import STAGE4_STATUTORY_VERIFICATION_SYSTEM_PROMPT, STAGE4_STATUTORY_VERIFICATION_USER_PROMPT_TEMPLATE
 from .schemas import ChapterIdentificationObject, LegalQueryObject, StatutoryVerificationObject
 from .statute_repository import StatuteRepository
 
 
-def parse_punishment_and_severity(text: str) -> Tuple[str, float, bool]:
+def parse_punishment_and_severity(text: str, section_number: str = "", statute: str = "") -> Tuple[str, float, bool]:
     """
     Extracts punishment text, max imprisonment in years, and Arnesh Kumar threshold (>7 years).
+    Validates against StatuteRepository First Schedule CrPC/BNSS ground truth.
 
     Returns:
         (punishment_text, max_imprisonment_years, arnesh_kumar_threshold_exceeded)
     """
+    clean_sec = (section_number or "").strip().upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "")
+    first_sched = StatuteRepository.get_instance().get_first_schedule_metadata(clean_sec, statute)
+
+    if first_sched:
+        p_max = first_sched["punishment_maximum"]
+        p_min = first_sched["punishment_minimum"]
+        p_text = f"Punishment: {p_min + ' to ' if p_min else ''}{p_max}"
+        
+        if p_max in ("Death", "Life Imprisonment"):
+            return (p_text, 20.0, True)
+        
+        matches = re.findall(r"(\d+)\s*(?:years?|yrs?)", p_max.lower())
+        if matches:
+            max_yrs = max(float(m) for m in matches)
+            return (p_text, max_yrs, max_yrs > 7.0)
+
     if not text:
         return ("Punishment as prescribed by law.", 3.0, False)
 
@@ -72,7 +89,7 @@ class StatutoryVerificationAgent:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm_for_tier(tier=MODEL_TIER_REASONING, temperature=0.1)
+            self._llm = get_llm(temperature=0.1, model_name=MODEL_STAGE2)
         return self._llm
 
     def _load_statutory_text_db(self):
@@ -163,22 +180,23 @@ class StatutoryVerificationAgent:
                 )
 
             if record:
-                p_text, max_yrs, exceeded = parse_punishment_and_severity(record["punishment"] or record["full_text"])
+                p_text, max_yrs, exceeded = parse_punishment_and_severity(record["punishment"] or record["full_text"], section_number=clean_sec, statute=statute_prefix)
                 rec_copy = dict(record)
                 rec_copy["parsed_punishment_text"] = p_text
                 rec_copy["parsed_max_imprisonment_years"] = max_yrs
                 rec_copy["parsed_arnesh_kumar_threshold_exceeded"] = exceeded
                 context_list.append(rec_copy)
             else:
+                p_text, max_yrs, exceeded = parse_punishment_and_severity("", section_number=clean_sec, statute=statute_prefix)
                 context_list.append({
                     "statute": statute_prefix,
                     "section_number": clean_sec,
                     "section_title": sec_cand.section_title,
                     "full_text": f"Section {clean_sec} - {sec_cand.section_title}",
-                    "punishment": "As prescribed by law.",
-                    "parsed_punishment_text": "As prescribed by law.",
-                    "parsed_max_imprisonment_years": 3.0,
-                    "parsed_arnesh_kumar_threshold_exceeded": False,
+                    "punishment": p_text,
+                    "parsed_punishment_text": p_text,
+                    "parsed_max_imprisonment_years": max_yrs,
+                    "parsed_arnesh_kumar_threshold_exceeded": exceeded,
                     "explanations": "N/A",
                     "illustrations": "N/A",
                     "exceptions": "N/A",

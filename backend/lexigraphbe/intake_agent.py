@@ -2,13 +2,13 @@
 Case Intake Agent for Stage 0: Case Intake & Context Initialization.
 Normalizes raw legal case documents into structured CaseProfile JSON without legal reasoning.
 Enforces strict Legal Regime Precedence, Universal Procedural Document Checklists, and explicit Confidence Score Cutoff thresholds.
-Uses lightweight CHEAP tier model (e.g. gpt-4o-mini / llama-3.1-8b-instant) for extraction tasks.
+Model: gpt-4o-mini (MODEL_STAGE0) — lightweight extraction only.
 """
 
 from typing import Any, Dict, Optional, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm_for_tier, MODEL_TIER_CHEAP
+from .config import extract_json_from_text, get_llm, MODEL_STAGE0
 from .prompts import STAGE0_INTAKE_SYSTEM_PROMPT, STAGE0_INTAKE_USER_PROMPT_TEMPLATE
 from .schemas import CaseProfile, IntakeInput, LowConfidenceField
 
@@ -17,7 +17,7 @@ class CaseIntakeAgent:
     """
     Case Intake Agent responsible ONLY for normalizing and structuring incoming case documents.
     Does NOT perform legal reasoning, section prediction, guilt determination, or bail decisions.
-    Uses CHEAP tier model for structured extraction.
+    Model: gpt-4o-mini (MODEL_STAGE0).
     """
 
     def __init__(self, llm: Optional[Any] = None):
@@ -26,7 +26,7 @@ class CaseIntakeAgent:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm_for_tier(tier=MODEL_TIER_CHEAP, temperature=0.1)
+            self._llm = get_llm(temperature=0.1, model_name=MODEL_STAGE0)
         return self._llm
 
     def run(
@@ -104,9 +104,12 @@ class CaseIntakeAgent:
         meta = case_profile.case_metadata
         if not inp.legal_regime_override:
             if not meta.offence_date and not meta.fir_date:
+                case_profile.legal_regime = "UNKNOWN"
                 case_profile.flag_for_confirmation = True
                 if "Legal regime confirmation (Offence/FIR date missing)" not in case_profile.missing_information:
                     case_profile.missing_information.append("Legal regime confirmation (Offence/FIR date missing)")
+                if not case_profile.regime_notes:
+                    case_profile.regime_notes = "UNKNOWN legal regime: defaulted to dual IPC/BNS + CrPC/BNSS representation."
             elif not meta.offence_date and meta.fir_date:
                 case_profile.flag_for_confirmation = True
                 if not case_profile.regime_notes:

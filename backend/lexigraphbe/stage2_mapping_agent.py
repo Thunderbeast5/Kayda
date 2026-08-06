@@ -2,13 +2,14 @@
 Stage 2 Sub-Query to Chapter Candidate Mapping Agent.
 Maps decomposed sub-queries ($SQ_1, SQ_2, \\dots, SQ_N$) from Stage 1 to candidate statutory chapters and sections
 using local StatuteClassifierPrefilter candidates in ONE single batched LLM request.
+Model: gpt-4o-mini (MODEL_STAGE2).
 """
 
 import json
 from typing import Any, Dict, Optional, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm_for_tier, MODEL_TIER_CHEAP
+from .config import extract_json_from_text, get_llm, MODEL_STAGE2
 from .classifier_prefilter import StatuteClassifierPrefilter
 from .prompts import STAGE2_MAPPING_SYSTEM_PROMPT, STAGE2_MAPPING_USER_PROMPT_TEMPLATE
 from .batch_utils import Stage2BatchedMappingResponse
@@ -32,7 +33,7 @@ class Stage2SubQueryMappingAgent:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm_for_tier(tier=MODEL_TIER_CHEAP, temperature=0.1)
+            self._llm = get_llm(temperature=0.1, model_name=MODEL_STAGE2)
         return self._llm
 
     def run(

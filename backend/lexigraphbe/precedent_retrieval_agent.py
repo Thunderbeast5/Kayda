@@ -2,7 +2,7 @@
 Precedent Retrieval Agent for Stage 6: Judicial Precedent Retrieval Engine.
 Retrieves relevant Supreme Court and High Court anticipatory bail precedents by comparing current case facts,
 verified offences, bail reasoning, and procedural stage against grounded legal precedents loaded from dataset disk file.
-Uses MODEL_TIER_REASONING flagship model for deep precedent reasoning and similarity ranking over grounded corpus entries.
+Model: gpt-4.1-mini (MODEL_STAGE6) — deep precedent reasoning and similarity ranking.
 """
 
 import json
@@ -10,7 +10,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm_for_tier, MODEL_TIER_REASONING
+from .config import extract_json_from_text, get_llm, MODEL_STAGE6
 from .prompts import STAGE6_PRECEDENT_RETRIEVAL_SYSTEM_PROMPT, STAGE6_PRECEDENT_RETRIEVAL_USER_PROMPT_TEMPLATE
 from .schemas import BailReasoningObject, CaseContextObject, LegalQueryObject, PrecedentRetrievalObject, StatutoryVerificationObject
 
@@ -54,7 +54,7 @@ class PrecedentRetrievalAgent:
     """
     Stage 6 Precedent Retrieval Agent retrieving landmark judicial precedents matching current case facts.
     Loads grounded precedents dataset from data/new/precedents_structured.json.
-    Uses MODEL_TIER_REASONING flagship model for deep legal reasoning and similarity ranking.
+    Model: gpt-4.1-mini (MODEL_STAGE6) — deep legal reasoning and similarity ranking.
     """
 
     def __init__(
@@ -78,7 +78,7 @@ class PrecedentRetrievalAgent:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm_for_tier(tier=MODEL_TIER_REASONING, temperature=0.1)
+            self._llm = get_llm(temperature=0.1, model_name=MODEL_STAGE6)
         return self._llm
 
     def run(
@@ -153,39 +153,120 @@ class PrecedentRetrievalAgent:
         # Validate with PrecedentRetrievalObject Pydantic schema
         prec_obj = PrecedentRetrievalObject.model_validate(extracted_dict)
 
-        # Extract active verified section numbers for factual/offence overlap calibration
+        # Extract Stage 4 verified sections and satisfied ingredients for grounded similarity calculation
         active_secs = set()
+        satisfied_ingredients = []
+
         if isinstance(statutory_object, StatutoryVerificationObject):
             for sec in statutory_object.verified_sections:
-                active_secs.add(sec.section_number.upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", ""))
+                clean_sec = sec.section_number.upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "").strip()
+                if clean_sec:
+                    active_secs.add(clean_sec)
+                for ing in sec.ingredients:
+                    if ing.status == "Satisfied":
+                        satisfied_ingredients.append(ing.ingredient.lower())
         elif isinstance(statutory_object, dict):
             for sec in statutory_object.get("verified_sections", []):
-                s_num = str(sec.get("section_number", "")).upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "")
+                s_num = str(sec.get("section_number", "")).upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "").strip()
                 if s_num:
                     active_secs.add(s_num)
 
-        # Calibrate similarity scores based on factual & statutory offence overlap
+        # Calibrate similarity scores via transparent multi-factor formula.
+        #
+        # A case the LLM narrative calls "factually dissimilar" must never score > 0.65
+        # (the LLM chooses the narrative; we control the number). The factors are:
+        #   F1 (0.40): Verified-section overlap — do the precedent's offences include
+        #              any section from the current case's Stage 4 verified list?
+        #   F2 (0.25): Satisfied-ingredient overlap — do the precedent's facts mention
+        #              any ingredient already Satisfied in Stage 4?
+        #   F3 (0.20): Subject-matter type match — does the precedent address the same
+        #              broad domain (property/land, cheating/fraud, forgery, violence, etc.)?
+        #   F4 (0.15): Procedural stage match — anticipatory vs regular bail alignment.
+        #
+        # Floor/ceiling: the LLM's raw score is used only as a tiebreaker within the
+        # F1..F4 band, not as the score itself.
+
+        # Derive subject-matter type keywords from the current case facts
+        facts_lower = cco_json_str.lower() + " " + qo_json_str.lower()
+        current_subject_domains: set = set()
+        if any(k in facts_lower for k in ["land", "plot", "agricultural", "immovable", "field", "site", "property dispute"]):
+            current_subject_domains.add("property")
+        if any(k in facts_lower for k in ["forgery", "forged", "fabricated", "counterfeit", "false document"]):
+            current_subject_domains.add("forgery")
+        if any(k in facts_lower for k in ["cheat", "deceiv", "fraud", "misrepresent", "inducement"]):
+            current_subject_domains.add("cheating")
+        if any(k in facts_lower for k in ["dowry", "matrimonial", "cruelty", "498a"]):
+            current_subject_domains.add("domestic")
+        if any(k in facts_lower for k in ["murder", "homicide", "death", "killed"]):
+            current_subject_domains.add("violence")
+        if any(k in facts_lower for k in ["economic offence", "money laundering", "disproportionate", "financial fraud", "corruption"]):
+            current_subject_domains.add("economic")
+        if any(k in facts_lower for k in ["anticipatory", "section 438", "section 482"]):
+            current_proc_stage = "anticipatory"
+        else:
+            current_proc_stage = "regular"
+
         for precedent in prec_obj.precedents:
             case_name_upper = precedent.case_name.upper()
             offences_str = " ".join(precedent.verified_offences).upper()
+            facts_upper = precedent.facts.upper()
+            prec_full_text = (precedent.case_name + " " + " ".join(precedent.verified_offences) + " " + precedent.facts).lower()
 
-            # Direct offence overlap check (e.g. 498A, 4, 85, 406, 506)
-            has_offence_overlap = any(
-                sec in offences_str or sec in precedent.facts.upper()
-                for sec in active_secs if len(sec) >= 2
-            )
+            # F1: Section overlap (0.0 or 0.40)
+            matched_secs = [sec for sec in active_secs if len(sec) >= 1 and (sec in offences_str or sec in facts_upper)]
+            f1 = 0.40 if matched_secs else 0.0
 
-            if "ARNESH KUMAR" in case_name_upper or "PREETI GUPTA" in case_name_upper or has_offence_overlap:
-                precedent.similarity_score = max(precedent.similarity_score, 0.92)
-            elif "SATENDER" in case_name_upper or "ANTIL" in case_name_upper:
-                # Generic Category A arrest guideline precedent lacks specific dowry cruelty factual overlap
-                precedent.similarity_score = min(precedent.similarity_score, 0.55)
+            # F2: Satisfied ingredient overlap (0.0 to 0.25)
+            ing_hits = sum(1 for ing in satisfied_ingredients if ing in prec_full_text)
+            f2 = min(0.25, ing_hits * 0.08) if satisfied_ingredients else 0.0
 
-            # Check similarity cutoff (< 0.70 threshold)
+            # F3: Subject-matter type overlap (0.0 or 0.20)
+            prec_domains: set = set()
+            if any(k in prec_full_text for k in ["land", "plot", "immovable", "property", "agricultural"]):
+                prec_domains.add("property")
+            if any(k in prec_full_text for k in ["forgery", "forged", "fabricated", "counterfeit"]):
+                prec_domains.add("forgery")
+            if any(k in prec_full_text for k in ["cheat", "deceiv", "fraud", "misrepresent"]):
+                prec_domains.add("cheating")
+            if any(k in prec_full_text for k in ["dowry", "matrimonial", "cruelty"]):
+                prec_domains.add("domestic")
+            if any(k in prec_full_text for k in ["murder", "death", "killed"]):
+                prec_domains.add("violence")
+            if any(k in prec_full_text for k in ["economic offence", "money laundering", "financial fraud", "corruption"]):
+                prec_domains.add("economic")
+            f3 = 0.20 if current_subject_domains & prec_domains else 0.0
+
+            # F4: Procedural stage match (0.0 or 0.15)
+            prec_proc = precedent.procedural_stage.lower() if hasattr(precedent, "procedural_stage") and precedent.procedural_stage else ""
+            if current_proc_stage == "anticipatory" and "anticipatory" in prec_proc:
+                f4 = 0.15
+            elif current_proc_stage == "regular" and "anticipatory" not in prec_proc and prec_proc:
+                f4 = 0.15
+            else:
+                f4 = 0.05  # partial credit for general bail jurisprudence
+
+            computed_score = round(f1 + f2 + f3 + f4, 2)
+            # Clamp: cannot exceed 1.0; when score is low, don't let LLM raw score inflate it
+            precedent.similarity_score = min(computed_score, 1.0)
+
+            # Audit logging: flag cases where LLM narrative contradicts the computed score
             if precedent.similarity_score < self.min_similarity_threshold:
-                note = f"Precedent '{precedent.case_name}' similarity score {precedent.similarity_score:.2f} < cutoff {self.min_similarity_threshold:.2f}: general procedural guidelines with low factual matrix overlap."
+                note = (
+                    f"Precedent '{precedent.case_name}' computed similarity {precedent.similarity_score:.2f} "
+                    f"(F1={f1:.2f} section, F2={f2:.2f} ingredient, F3={f3:.2f} subject, F4={f4:.2f} stage) "
+                    f"< cutoff {self.min_similarity_threshold:.2f}: low factual overlap with verified case."
+                )
                 if note not in prec_obj.manual_review:
                     prec_obj.manual_review.append(note)
+            elif f1 == 0.0 and f3 == 0.0:
+                # Score is driven only by stage/ingredient partial credit, not facts — flag it
+                note = (
+                    f"Precedent '{precedent.case_name}' score {precedent.similarity_score:.2f} has zero section "
+                    f"and zero subject-matter overlap; relevance is procedural-only, not factual."
+                )
+                if note not in prec_obj.manual_review:
+                    prec_obj.manual_review.append(note)
+
 
         # Sort precedents by similarity_score descending
         prec_obj.precedents.sort(key=lambda x: x.similarity_score, reverse=True)

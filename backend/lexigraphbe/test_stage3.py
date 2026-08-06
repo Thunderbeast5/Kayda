@@ -220,11 +220,10 @@ def test_stage3_score_inversion_fix_non_fatal_dowry_query():
     assert offence_dp4 is not None
     assert offence_dp4.statute == "Dowry Prohibition Act"
 
-    # 304B (Dowry death) should NOT be PRIMARY (disqualified due to missing death trigger)
+    # 304B (Dowry death) must be ABSENT from verified_offences entirely (hard-excluded, not demoted).
+    # If 304B was shortlisted as a candidate and then rejected, its exclusion reason appears in manual_review.
+    # If it was never shortlisted (no death trigger in query), it simply never appears at all — also correct.
     offence_304b = next((vo for vo in cio.verified_offences if vo.section_number == "304B"), None)
-    if offence_304b:
-        assert offence_304b.verification_status == "NOT_TRIGGERED"
-        cand_304b = next((c for c in cio.section_candidates if c.section_number == "304B"), None)
-        if cand_304b:
-            assert cand_304b.confidence == 0.0
+    assert offence_304b is None, "304B must be hard-excluded from verified_offences when death trigger is absent"
+
 

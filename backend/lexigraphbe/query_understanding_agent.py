@@ -2,14 +2,14 @@
 Query Understanding Agent for Stage 1: Query Understanding & Legal Decomposition.
 Converts structured CaseContextObject into verified legal sub-queries (LegalQueryObject).
 Strictly independent of statutory IPC/BNS section numbers or legal outcome predictions.
-Uses REASONING tier flagship model (e.g. gpt-4o / llama-3.3-70b-versatile) for complex legal decomposition.
+Model: gpt-4o-mini (MODEL_STAGE1).
 """
 
 import json
 from typing import Any, Dict, Optional, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm_for_tier, MODEL_TIER_REASONING
+from .config import extract_json_from_text, get_llm, MODEL_STAGE1
 from .prompts import STAGE1_QUERY_UNDERSTANDING_SYSTEM_PROMPT, STAGE1_QUERY_UNDERSTANDING_USER_PROMPT_TEMPLATE
 from .schemas import CaseContextObject, CaseProfile, LegalQueryObject
 
@@ -19,7 +19,7 @@ class QueryUnderstandingAgent:
     Query Understanding Agent responsible for legal decomposition of CaseContextObject into
     independent legal concepts and single-issue sub-queries without statute section numbers.
     Passes through Stage 0 legal regime flags unchanged without re-deriving.
-    Uses REASONING tier flagship model for nuanced legal decomposition.
+    Model: gpt-4o-mini (MODEL_STAGE1).
     """
 
     def __init__(self, llm: Optional[Any] = None, min_confidence_threshold: float = 0.70):
@@ -29,7 +29,7 @@ class QueryUnderstandingAgent:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm_for_tier(tier=MODEL_TIER_REASONING, temperature=0.1)
+            self._llm = get_llm(temperature=0.1, model_name=MODEL_STAGE1)
         return self._llm
 
     def run(

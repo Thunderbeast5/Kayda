@@ -1,14 +1,14 @@
 """
 Chapter Verification Agent for Stage 3: IPC/BNS Chapter & Section Title Identification.
 Audits ChapterIdentificationObject against source LegalQueryObject to verify 7 criteria.
-Uses MODEL_TIER_CHEAP lightweight model for verification checks.
+Model: gpt-4o-mini (MODEL_STAGE2) — lightweight verification checks.
 """
 
 import json
 from typing import Any, Dict, Optional, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm_for_tier, MODEL_TIER_CHEAP
+from .config import extract_json_from_text, get_llm, MODEL_STAGE2
 from .prompts import STAGE3_VERIFIER_SYSTEM_PROMPT, STAGE3_VERIFIER_USER_PROMPT_TEMPLATE
 from .schemas import ChapterIdentificationObject, ChapterVerificationIssue, ChapterVerificationResult, LegalQueryObject
 
@@ -16,7 +16,7 @@ from .schemas import ChapterIdentificationObject, ChapterVerificationIssue, Chap
 class ChapterVerificationAgent:
     """
     Stage 3 Chapter Verification Agent auditing ChapterIdentificationObject.
-    Uses MODEL_TIER_CHEAP lightweight model for verification checks.
+    Model: gpt-4o-mini (MODEL_STAGE2) — lightweight verification checks.
     """
 
     def __init__(self, llm: Optional[Any] = None):
@@ -25,7 +25,7 @@ class ChapterVerificationAgent:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm_for_tier(tier=MODEL_TIER_CHEAP, temperature=0.0)
+            self._llm = get_llm(temperature=0.0, model_name=MODEL_STAGE2)
         return self._llm
 
     def verify(

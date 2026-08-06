@@ -1,8 +1,15 @@
 """
 LLM Configuration and JSON parsing utilities for LexiGraph Backend.
-Supports Task-Based Model Tiering and Local Call Budget Guardrails:
-- CHEAP TIER (e.g. gpt-4o-mini / llama-3.1-8b-instant): Metadata extraction, closed-set shortlisting, schema verifications.
-- REASONING TIER (e.g. gpt-4o / llama-3.3-70b-versatile): Deep legal decomposition, ingredient verification, argument generation.
+Per-Stage Model Pinning (OpenAI GPT only):
+  Stage 0  – Case Intake            : gpt-4o-mini
+  Stage 1  – Legal Query             : gpt-4o-mini
+  Stage 2  – Subquery Mapping        : gpt-4o-mini
+  Stage 3  – Chapter Identification  : Deterministic (No LLM)
+  Stage 4  – Statutory Verification  : Deterministic (No LLM)
+  Stage 5  – Bail Reasoning          : gpt-4.1-mini
+  Stage 6  – Precedent Analysis      : gpt-4.1-mini
+  Stage 7  – Arguments & Judgment    : gpt-4.1-mini
+Verifier agents inherit the same model as their primary stage.
 """
 
 import json
@@ -16,9 +23,27 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
-# Task-based Model Tier Constants
-MODEL_TIER_CHEAP = "cheap"         # Lightweight & fast for extraction/filtering (gpt-4o-mini / llama-3.1-8b-instant)
-MODEL_TIER_REASONING = "reasoning" # Flagship for complex legal reasoning (gpt-4o / llama-3.3-70b-versatile)
+# ---------------------------------------------------------------------------
+# Per-Stage Model Constants (OpenAI GPT)
+# Override any of these via environment variables of the same name.
+# ---------------------------------------------------------------------------
+# Stages 0, 1, 2 – lightweight extraction & mapping
+MODEL_STAGE0 = os.getenv("MODEL_STAGE0", "gpt-4o-mini")   # Case Intake
+MODEL_STAGE1 = os.getenv("MODEL_STAGE1", "gpt-4o-mini")   # Legal Query
+MODEL_STAGE2 = os.getenv("MODEL_STAGE2", "gpt-4o-mini")   # Subquery Mapping
+# Stages 3, 4 – Deterministic; no LLM model constants needed
+# Stages 5, 6, 7 – deep legal reasoning
+MODEL_STAGE5 = os.getenv("MODEL_STAGE5", "gpt-5.4-mini")  # Bail Reasoning
+MODEL_STAGE6 = os.getenv("MODEL_STAGE6", "gpt-5.4-mini")  # Precedent Analysis
+MODEL_STAGE7 = os.getenv("MODEL_STAGE7", "gpt-5.4-mini")  # Arguments & Judgment
+
+# ---------------------------------------------------------------------------
+# Legacy two-tier aliases (kept for backward compatibility)
+# ---------------------------------------------------------------------------
+# Cheap tier  → same model used by Stages 0-2
+# Reasoning tier → same model used by Stages 5-7
+MODEL_TIER_CHEAP = "cheap"         # maps to MODEL_STAGE0 / gpt-4o-mini
+MODEL_TIER_REASONING = "reasoning" # maps to MODEL_STAGE5 / gpt-4.1-mini
 
 
 class CallBudgetGuardrail:
@@ -114,22 +139,22 @@ def get_llm_for_tier(tier: str = MODEL_TIER_CHEAP, temperature: float = 0.1, mod
     openai_api_key = os.getenv("OPENAI_API_KEY")
     groq_api_key = os.getenv("GROQ_API_KEY")
 
+    # Map legacy tiers to per-stage pinned models
+    cheap_model = MODEL_STAGE0       # gpt-4o-mini
+    reasoning_model = MODEL_STAGE5   # gpt-4.1-mini
+    target_model = cheap_model if tier == MODEL_TIER_CHEAP else reasoning_model
+
     if (provider == "openai" or not groq_api_key) and openai_api_key:
-        cheap_model = os.getenv("MODEL_CHEAP", "gpt-4o-mini")
-        reasoning_model = os.getenv("MODEL_REASONING", "gpt-4o")
-        target_model = cheap_model if tier == MODEL_TIER_CHEAP else reasoning_model
         return get_llm(temperature=temperature, model_name=target_model)
 
     if groq_api_key:
-        cheap_model = os.getenv("MODEL_CHEAP", "llama-3.3-70b-versatile")
-        reasoning_model = os.getenv("MODEL_REASONING", "llama-3.3-70b-versatile")
-        target_model = cheap_model if tier == MODEL_TIER_CHEAP else reasoning_model
-        return get_llm(temperature=temperature, model_name=target_model)
+        # Groq does not serve GPT models; fall back to Groq equivalents
+        groq_cheap = os.getenv("MODEL_CHEAP", "llama-3.1-8b-instant")
+        groq_reasoning = os.getenv("MODEL_REASONING", "llama-3.3-70b-versatile")
+        groq_target = groq_cheap if tier == MODEL_TIER_CHEAP else groq_reasoning
+        return get_llm(temperature=temperature, model_name=groq_target)
 
     if openai_api_key:
-        cheap_model = os.getenv("MODEL_CHEAP", "gpt-4o-mini")
-        reasoning_model = os.getenv("MODEL_REASONING", "gpt-4o")
-        target_model = cheap_model if tier == MODEL_TIER_CHEAP else reasoning_model
         return get_llm(temperature=temperature, model_name=target_model)
 
     return get_llm(temperature=temperature, model_name=model_name)

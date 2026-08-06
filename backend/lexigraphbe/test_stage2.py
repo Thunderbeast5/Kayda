@@ -17,6 +17,7 @@ from lexigraphbe.schemas import (
     SubQueryItem,
 )
 from lexigraphbe.batch_utils import Stage2BatchedMappingResponse, SubQueryChapterMapping
+from lexigraphbe.classifier_prefilter import StatuteClassifierPrefilter
 from lexigraphbe.stage2_mapping_agent import Stage2SubQueryMappingAgent
 from lexigraphbe.stage2_verifier_agent import Stage2MappingVerifierAgent
 from lexigraphbe.stage2_pipeline import Stage2Pipeline
@@ -307,4 +308,25 @@ def test_stage2_missing_facts_and_not_triggered_sections():
     assert mapping.rejected_sections[0].section_number == "304B"
     assert mapping.rejected_sections[0].rejection_reason == "Screening non-trigger: Section 304B requires death of woman. No death reported in case facts."
     assert mapping.candidate_sections == ["498A", "406"]
+
+
+def test_stage2_subject_matter_scope_disqualification_land():
+    """
+    Verifies that Section 403 (Dishonest Misappropriation of Property) is auto-disqualified
+    when facts solely pertain to land/real estate (immovable property).
+    """
+    prefilter = StatuteClassifierPrefilter()
+
+    # Case facts solely about land dispute without movable property
+    land_facts = "Dispute over agricultural land plot real estate building in village."
+
+    is_disqualified, reason, missing = prefilter.evaluate_fatal_disqualification(
+        section_number="403",
+        statute="IPC",
+        facts_text=land_facts,
+    )
+
+    assert is_disqualified is True
+    assert "Section 403 requires movable property" in reason
+    assert "movable_property" in missing
 
