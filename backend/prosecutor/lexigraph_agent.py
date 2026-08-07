@@ -10,15 +10,14 @@ if str(backend_dir) not in sys.path:
 
 try:
     from .services.query_understanding_service import QueryUnderstandingService
-    # NOTE: QueryDecompositionService was reverted (see Step 1 below for details) —
-    # it hallucinated OFFENCE/AGGRAVATION/MITIGATION items not grounded in the case
-    # facts. QueryExpansionService now produces the same typed sub_queries contract.
-    from .services.query_expansion_service import QueryExpansionService, NON_OFFENCE_TYPES
+    # COMMENTED OUT: Query expansion creates misleading sub-queries
+    # Now using ENTIRE query throughout the pipeline
+    # from .services.query_expansion_service import QueryExpansionService, NON_OFFENCE_TYPES
     from .services.embedding_service import EmbeddingService
     # REPLACED: Pinecone vector search with LLM-based IPC retrieval
     # from .services.pinecone_service import PineconeService
+    # v3: LLMIPCRetrievalService is now itself a ReAct agent — AgenticIPCRetrievalService removed
     from .services.llm_ipc_retrieval_service import LLMIPCRetrievalService
-    from .services.agentic_ipc_retrieval_service import AgenticIPCRetrievalService
     from .services.neo4j_retrieval_service import Neo4jRetrievalService
     from .services.candidate_fusion_service import CandidateFusionService
     from .services.case_retrieval_service import CaseRetrievalService
@@ -34,12 +33,13 @@ try:
     from .services.precedent_ranking_service import PrecedentRankingService
 except ImportError:
     from services.query_understanding_service import QueryUnderstandingService
-    from services.query_expansion_service import QueryExpansionService, NON_OFFENCE_TYPES
+    # COMMENTED OUT: Query expansion creates misleading sub-queries
+    # from services.query_expansion_service import QueryExpansionService, NON_OFFENCE_TYPES
     from services.embedding_service import EmbeddingService
     # REPLACED: Pinecone vector search with LLM-based IPC retrieval
     # from services.pinecone_service import PineconeService
+    # v3: LLMIPCRetrievalService is now itself a ReAct agent — AgenticIPCRetrievalService removed
     from services.llm_ipc_retrieval_service import LLMIPCRetrievalService
-    from services.agentic_ipc_retrieval_service import AgenticIPCRetrievalService
     from services.neo4j_retrieval_service import Neo4jRetrievalService
     from services.candidate_fusion_service import CandidateFusionService
     from services.case_retrieval_service import CaseRetrievalService
@@ -242,12 +242,12 @@ def _deduplicate_equivalent_candidates(
 class LexiGraphAgent:
     def __init__(self):
         self.query_understanding_service  = QueryUnderstandingService()
-        self.query_expansion_service      = QueryExpansionService()
+        # COMMENTED OUT: Query expansion creates misleading sub-queries
+        # self.query_expansion_service      = QueryExpansionService()
         self.embedding_service            = EmbeddingService()
-        # Dual retrieval: LLM + Neo4j
-        self.llm_ipc_retrieval_service    = LLMIPCRetrievalService()
-        self.agentic_ipc_retrieval_service = AgenticIPCRetrievalService()
-        self.neo4j_retrieval_service      = Neo4jRetrievalService()
+        # v3: LLMIPCRetrievalService is a full ReAct agent — no separate agentic service needed
+        self.llm_ipc_retrieval_service = LLMIPCRetrievalService()
+        self.neo4j_retrieval_service   = Neo4jRetrievalService()
         self.candidate_fusion_service     = CandidateFusionService()
         self.case_retrieval_service       = CaseRetrievalService()
         self.merge_service                = MergeService()
@@ -263,9 +263,8 @@ class LexiGraphAgent:
         self.pipeline_debug_service       = PipelineDebugService()
         self.precedent_ranking_service    = PrecedentRankingService()
         
-        # Feature flag: set to True to use new agentic retrieval with self-correction loops
-        # This replaces the LLM+Neo4j fusion pipeline with iterative refinement
-        self.use_agentic_retrieval = True  # ENABLED: Uses new agentic pipeline
+        # v3: always uses the ReAct agent inside LLMIPCRetrievalService
+        # Neo4j still runs for graph verification (Phase A/B) but not for candidate retrieval
 
     # ------------------------------------------------------------------
     # Dynamic Fact-Relevance Filter
@@ -494,8 +493,18 @@ class LexiGraphAgent:
         print(f"\n[LexiGraphAgent] Step 1: Fact Extraction & Query Understanding...")
         extracted_facts = self.fact_extractor_service.extract_facts(query)
         qu_result       = self.query_understanding_service.analyze_query(query)
-        expansion_result = self.query_expansion_service.expand_query(qu_result, query, role)
-        sub_queries     = expansion_result.get("sub_queries") or []
+        
+        # MODIFIED: No query expansion - use entire query as single sub-query
+        # expansion_result = self.query_expansion_service.expand_query(qu_result, query, role)
+        # sub_queries     = expansion_result.get("sub_queries") or []
+        
+        # Create single sub-query from entire query
+        sub_queries = [{
+            "query": query,
+            "type": "OFFENCE",
+            "original_query": query
+        }]
+        print(f"[LexiGraphAgent] Using ENTIRE query (no expansion): {query[:100]}...")
 
         # Route sub-queries by type:
         #   - OFFENCE only → LLM-based IPC retrieval (replaces Pinecone vector search)
@@ -532,169 +541,92 @@ class LexiGraphAgent:
         }
 
         # ========================================================================
-        # AGENTIC RETRIEVAL: New iterative refinement pipeline
+        # STEP 2a: ReAct Agent IPC Retrieval
+        # LLMIPCRetrievalService (v3) is a self-contained ReAct agent.
+        # It runs a Thought→Action→Observation loop per sub-query, calling
+        # search_chapters / get_section_titles / get_section_detail / submit_answer
+        # autonomously, with reward/penalise self-correction on rejection.
+        # Returns Pinecone-compatible {"retrieval_results": [...]} schema.
         # ========================================================================
-        if self.use_agentic_retrieval and llm_ipc_sub_queries:
-            print("\n" + "="*80)
-            print("🤖 USING AGENTIC IPC RETRIEVAL (Iterative Refinement)")
-            print("="*80 + "\n")
-            
-            # Extract just the query strings for agentic processing
-            agentic_query_strings = [sq["query"] for sq in llm_ipc_sub_queries]
-            
-            # Call agentic service with self-correction loops
-            agentic_results = self.agentic_ipc_retrieval_service.retrieve_sections(
-                sub_queries=agentic_query_strings,
-                full_query=query,
-                max_retries_per_query=2
+        print("[LexiGraphAgent] Step 2a: ReAct Agent IPC Retrieval...")
+        retrieval_res: Dict[str, Any] = {"retrieval_results": []}
+        if llm_ipc_sub_queries:
+            retrieval_res = self.llm_ipc_retrieval_service.retrieve_sections(
+                sub_queries=llm_ipc_sub_queries,
+                case_facts=query,
+                top_k=20,
             )
-            
-            # Convert agentic results to retrieval_res format for downstream compatibility
-            retrieval_res: Dict[str, Any] = {"retrieval_results": []}
-            
-            # Group results by sub-query
-            for sq in llm_ipc_sub_queries:
-                query_text = sq["query"]
-                matches = []
-                
-                for agentic_section in agentic_results:
-                    # Check if this section is relevant to this sub-query
-                    # (agentic service tracks which sub-query found each section)
-                    section_id = agentic_section["section"]
-                    
-                    matches.append({
-                        "id": section_id,
-                        "score": agentic_section.get("verification", {}).get("confidence", 0.85),
-                        "metadata": {
-                            "section_num": agentic_section.get("section_num", section_id.split("_")[-1]),
-                            "act": agentic_section.get("act", "IPC"),
-                            "title": agentic_section.get("title", ""),
-                            "description": agentic_section.get("description", ""),
-                            "punishment": agentic_section.get("punishment", ""),
-                            "ingredients": agentic_section.get("ingredients", []),
-                            "verification": agentic_section.get("verification", {}),
-                        }
-                    })
-                
-                if matches:  # Only add if we have matches
-                    retrieval_res["retrieval_results"].append({
-                        "query": query_text,
-                        "sub_query_type": "OFFENCE",
-                        "matches": matches,
-                    })
-            
-            print(f"\n✅ Agentic retrieval completed: {len(agentic_results)} validated sections")
-            print(f"Sections: {[r['section'] for r in agentic_results]}\n")
-            
-            # Skip Neo4j and fusion - agentic already did comprehensive retrieval
-            fused_candidates = agentic_results
-            fusion_stats = {
-                "llm_input": len(agentic_results),
-                "neo4j_input": 0,
-                "total_unique": len(agentic_results),
-                "final_count": len(agentic_results)
-            }
-        
-        # ========================================================================
-        # LEGACY RETRIEVAL PATH (original dual LLM + Neo4j + Fusion)
-        # ========================================================================
-        else:
-            # Path 1: LLM-based IPC retrieval
-            llm_retrieval_res: Dict[str, Any] = {"retrieval_results": []}
-            if llm_ipc_sub_queries:
-                print("[LexiGraphAgent] Step 2a: LLM IPC Retrieval...")
-                llm_retrieval_res = self.llm_ipc_retrieval_service.retrieve_sections(
-                    sub_queries=llm_ipc_sub_queries,
-                    case_facts=query,
-                    top_k=20,
-                )
-            
-            # Path 2: Neo4j graph retrieval (independent, runs in parallel conceptually)
-            neo4j_candidates: List[Dict[str, Any]] = []
-            if llm_ipc_sub_queries:
-                print("[LexiGraphAgent] Step 2b: Neo4j Graph Retrieval...")
-                neo4j_candidates = self.neo4j_retrieval_service.retrieve_sections(
-                    sub_queries=llm_ipc_sub_queries,
-                    case_facts=query,
-                    top_k=20,
-                )
-            
-            # Extract LLM candidates from retrieval results
-            llm_candidates: List[Dict[str, Any]] = []
-            for res in llm_retrieval_res.get("retrieval_results", []):
-                for match in res.get("matches", []):
-                    llm_candidates.append({
-                        "section": match["id"],  # "IPC_302"
-                        "act": match["metadata"].get("act", "IPC"),
-                        "section_num": match["metadata"].get("section_num", ""),
-                        "relevance_score": match["score"],
-                        "metadata": match["metadata"],
-                    })
-            
-            # Step 2c: Fuse candidates with graph-dominant weighting
-            print("[LexiGraphAgent] Step 2c: Candidate Fusion (Graph-dominant)...")
-            fusion_result = self.candidate_fusion_service.fuse_candidates(
-                llm_candidates=llm_candidates,
-                neo4j_candidates=neo4j_candidates,
+
+        # Flatten the agent's retrieval results into a deduplicated candidate list.
+        # The merged result (last entry, keyed "[ALL SUB-QUERIES MERGED]") already
+        # deduplicates across sub-queries — use it when available so every confirmed
+        # section appears exactly once regardless of how many sub-queries surfaced it.
+        agent_matches: List[Dict[str, Any]] = []
+        all_results = retrieval_res.get("retrieval_results", [])
+        merged_result = next(
+            (r for r in all_results if "[ALL SUB-QUERIES MERGED]" in r.get("query", "")),
+            None,
+        )
+        if merged_result:
+            agent_matches = merged_result.get("matches", [])
+        elif all_results:
+            # Fallback: flatten + deduplicate manually
+            seen_ids: set = set()
+            for res in all_results:
+                for m in res.get("matches", []):
+                    if m["id"] not in seen_ids:
+                        agent_matches.append(m)
+                        seen_ids.add(m["id"])
+
+        # Build fused_candidates in the format downstream steps expect.
+        # Each entry needs: section, act, section_num, relevance_score, metadata, sources.
+        # We derive act and section_num from the match ID (e.g. "IPC_503" → IPC, 503).
+        fused_candidates: List[Dict[str, Any]] = []
+        for match in agent_matches:
+            match_id   = match["id"]                        # e.g. "IPC_503"
+            meta       = match.get("metadata", {})
+            score      = match.get("score", 0.75)
+
+            # Parse act + section_num from the ID
+            id_parts   = match_id.split("_", 1)
+            act        = id_parts[0].upper() if len(id_parts) == 2 else "IPC"
+            section_num = (
+                meta.get("section_num")
+                or meta.get("section")
+                or (id_parts[1] if len(id_parts) == 2 else match_id)
             )
-            
-            fused_candidates = fusion_result["fused_candidates"]
-            fusion_stats = fusion_result["fusion_stats"]
-            
-            print(
-                f"[LexiGraphAgent] Fusion stats: "
-                f"LLM={fusion_stats['llm_input']}, "
-                f"Neo4j={fusion_stats['neo4j_input']}, "
-                f"Unique={fusion_stats['total_unique']}, "
-                f"Final={fusion_stats['final_count']}"
-            )
-            
-            # Convert fused candidates back to retrieval format for downstream compatibility
-            retrieval_res: Dict[str, Any] = {"retrieval_results": []}
-            if fused_candidates:
-                # Group by source query (all fused candidates apply to all queries)
-                for query_dict in llm_ipc_sub_queries:
-                    query_text = query_dict["query"]
-                    matches = []
-                    
-                    for fused in fused_candidates:
-                        # Reconstruct match format
-                        llm_data = fused.get("llm_data", {})
-                        neo4j_data = fused.get("neo4j_data", {})
-                        
-                        # Prefer LLM metadata if available, fallback to Neo4j
-                        if llm_data:
-                            metadata = llm_data.get("original", {}).get("metadata", {})
-                        else:
-                            metadata = {
-                                "section_num": fused["section"],
-                                "title": neo4j_data.get("original", {}).get("title", ""),
-                                "description": neo4j_data.get("original", {}).get("description", ""),
-                            }
-                        
-                        section_id = f"{fused['act']}_{fused['section']}"
-                        
-                        matches.append({
-                            "id": section_id,
-                            "score": fused["final_score"],
-                            "metadata": {
-                                **metadata,
-                                "fusion_scores": fused["score_breakdown"],
-                                "sources": fused["sources"],
-                                "graph_evidence": neo4j_data.get("evidence", {}) if neo4j_data else {},
-                            }
-                        })
-                    
-                    retrieval_res["retrieval_results"].append({
-                        "query": query_text,
-                        "sub_query_type": "OFFENCE",
-                        "matches": matches,
-                    })
-            
-            print(
-                f"[LexiGraphAgent] Step 2: Retrieved {len(fused_candidates)} fused candidates "
-                f"for downstream processing"
-            )
+
+            fused_candidates.append({
+                "section":         f"{act} {section_num}",
+                "act":             act,
+                "section_num":     section_num,
+                "relevance_score": score,
+                "title":           meta.get("title", ""),
+                "description":     meta.get("full_text") or meta.get("description", ""),
+                "punishment":      meta.get("punishment", ""),
+                "metadata":        meta,
+                # sources: list the sub-query strings that produced this section
+                # (carried through from the per-sub-query results)
+                "sources": [
+                    r["query"]
+                    for r in all_results
+                    if any(m["id"] == match_id for m in r.get("matches", []))
+                    and "[ALL SUB-QUERIES MERGED]" not in r.get("query", "")
+                ],
+            })
+
+        fusion_stats = {
+            "llm_input":   len(agent_matches),
+            "neo4j_input": 0,
+            "total_unique": len(fused_candidates),
+            "final_count":  len(fused_candidates),
+        }
+
+        print(
+            f"[LexiGraphAgent] Step 2a: Agent confirmed "
+            f"{len(fused_candidates)} sections: "
+            f"{[c['section'] for c in fused_candidates]}"
+        )
 
         # ========================================================================
         # COMMON PATH: Both agentic and legacy converge here
@@ -735,14 +667,14 @@ class LexiGraphAgent:
             debug=debug,
         )
 
-        # Use the merged retrieval results from fusion
-        merge_res         = self.merge_service.merge_results(retrieval_res)
-        merged_candidates = merge_res.get("merged_candidates") or []
-
+        # Build raw_candidates directly from agent-confirmed fused_candidates.
+        # The agent has already verified every section — no merge_service needed.
+        # We still resolve sub_query_type from sq_type_by_query so the downstream
+        # type-aware validation (Step 4) works correctly.
         self.pipeline_debug_service.log_stage(
-            "Step 2: Dual Retrieval & Fusion",
+            "Step 2: ReAct Agent IPC Retrieval",
             input_count=len(llm_ipc_query_strings),
-            output_count=len(merged_candidates),
+            output_count=len(fused_candidates),
             metadata={
                 "similar_cases_retrieved": len(top_similar_cases),
                 "fusion_stats": fusion_stats,
@@ -750,23 +682,19 @@ class LexiGraphAgent:
         )
 
         _cand_summary = [
-            f"{mc.get('act','IPC')} {mc['section_num']} ({mc['best_similarity']:.2f})"
-            for mc in merged_candidates
+            f"{c['act']} {c['section_num']} ({c['relevance_score']:.2f})"
+            for c in fused_candidates
         ]
-        print(f"[LexiGraphAgent] Step 2 raw candidates from LLM IPC Retrieval: {_cand_summary}")
+        print(f"[LexiGraphAgent] Step 2 agent-confirmed candidates: {_cand_summary}")
 
-        # Build raw_candidates from merge output.
-        # The merge service's "sources" field contains the sub-query strings that
-        # contributed to this merged candidate.  We strip them before lookup.
         raw_candidates: List[Dict[str, Any]] = []
-        for mc in merged_candidates:
-            _, norm_sec_num = _normalize_section_params("IPC", mc["section_num"])
+        for fc in fused_candidates:
+            _, norm_sec_num = _normalize_section_params(fc["act"], fc["section_num"])
 
+            # Resolve dominant sub-query type from sources
             source_types: set = set()
-            for src in (mc.get("sources") or []):
-                # CRITICAL: strip the source string before lookup — same normalisation
-                # as EmbeddingService uses, so the key is guaranteed to match.
-                t = sq_type_by_query.get(str(src).strip(), None)
+            for src in (fc.get("sources") or []):
+                t = sq_type_by_query.get(str(src).strip())
                 if t:
                     source_types.add(t)
 
@@ -774,38 +702,32 @@ class LexiGraphAgent:
                 dominant_type = "OFFENCE"
             else:
                 non_offence_hits = source_types - {"OFFENCE"}
-                if non_offence_hits:
-                    dominant_type = (
-                        "AGGRAVATION" if "AGGRAVATION" in non_offence_hits
-                        else next(iter(non_offence_hits))
-                    )
-                else:
-                    dominant_type = "OFFENCE"
-
-            # Sanity-check: if we still got no type hit, log it so we can debug
-            if not source_types:
-                print(
-                    f"[LexiGraphAgent] WARNING: no type resolved for merged candidate "
-                    f"IPC {norm_sec_num}. sources={mc.get('sources')}. "
-                    f"sq_type_by_query keys={list(sq_type_by_query.keys())}"
-                )
+                dominant_type = (
+                    "AGGRAVATION" if "AGGRAVATION" in non_offence_hits
+                    else next(iter(non_offence_hits))
+                ) if non_offence_hits else "OFFENCE"
 
             raw_candidates.append({
-                "section":          f"IPC {norm_sec_num}",
-                "act":              "IPC",
-                "section_num":      norm_sec_num,
-                "title":            mc["metadata"].get("title") or "",
-                "punishment":       mc["metadata"].get("punishment") or "",
-                "vector_similarity": mc["best_similarity"],
-                "sub_query_type":   dominant_type,
-                "metadata":         mc["metadata"],
-                "sources":          mc.get("sources") or [],
+                "section":           f"{fc['act']} {norm_sec_num}",
+                "act":               fc["act"],
+                "section_num":       norm_sec_num,
+                "title":             fc.get("title") or fc["metadata"].get("title") or "",
+                "punishment":        fc.get("punishment") or fc["metadata"].get("punishment") or "",
+                # agent score used as vector_similarity for threshold gates downstream
+                "vector_similarity": fc["relevance_score"],
+                "sub_query_type":    dominant_type,
+                "metadata":          fc["metadata"],
+                "sources":           fc.get("sources") or [],
+                # agent-verified flag: tells Phase A it can skip Neo4j re-verification
+                # if the node isn't in the graph (agent already read ipc_structured.json)
+                "agent_verified":    True,
             })
 
         # ----------------------------------------------------------------
-        # STEP 3: Graph Verification (IPC) + BNS Crosswalk +
+        # STEP 3: Graph Enrichment (IPC) + BNS Crosswalk +
         #         Direct Neo4j candidates for EVIDENCE_PRESUMPTION/CONSTITUTIONAL
-        #         (Note: OFFENCE candidates already come from fused LLM+Neo4j retrieval)
+        #         OFFENCE candidates come from the ReAct agent (ipc_structured.json);
+        #         Neo4j enriches them with BNS crosswalk + relationship data.
         # ----------------------------------------------------------------
         print("[LexiGraphAgent] Step 3: Graph Verification (IPC) + BNS Crosswalk...")
         consolidated_candidates: Dict[str, Dict[str, Any]] = {}
@@ -839,7 +761,8 @@ class LexiGraphAgent:
                 if dnc["vector_similarity"] > consolidated_candidates[key].get("vector_similarity", 0):
                     consolidated_candidates[key] = dnc
 
-        # Threshold gate on Pinecone candidates
+        # Threshold gate on agent candidates (agent scores are 0–1; anything below
+        # CANDIDATE_SIMILARITY_THRESHOLD is unlikely to survive Step 4 validation anyway)
         FALLBACK_MIN_CANDIDATES = 5
         candidates_above_threshold = [
             c for c in raw_candidates
@@ -859,19 +782,35 @@ class LexiGraphAgent:
                     f"{len(filtered_candidates)}."
                 )
 
-        # Phase A: Verify IPC sections in Neo4j
+        # Phase A: Enrich IPC sections from Neo4j.
+        # Agent-verified sections (agent_verified=True) are kept even when Neo4j
+        # has no matching node — the agent already read ipc_structured.json directly.
+        # Non-agent candidates that are absent from Neo4j are still rejected.
         ipc_verified: List[Dict[str, Any]] = []
         for c in filtered_candidates:
             ipc_node = self.verification_service.get_node_info("IPC", c["section_num"])
-            if not ipc_node:
-                print(f"[LexiGraphAgent] Phase A REJECT (not in Neo4j): IPC {c['section_num']}")
-                continue
-            c["title"]       = ipc_node.get("title")       or c["title"]
-            c["description"] = ipc_node.get("description") or ""
-            c["punishment"]  = ipc_node.get("punishment")  or ""
-            c["metadata"]    = ipc_node
-            c["graph_verified"] = True
-            ipc_verified.append(c)
+            if ipc_node:
+                # Prefer Neo4j enrichment when available
+                c["title"]        = ipc_node.get("title")       or c.get("title", "")
+                c["description"]  = ipc_node.get("description") or c.get("description", "")
+                c["punishment"]   = ipc_node.get("punishment")  or c.get("punishment", "")
+                c["metadata"]     = ipc_node
+                c["graph_verified"] = True
+                ipc_verified.append(c)
+            elif c.get("agent_verified"):
+                # Agent confirmed this section from ipc_structured.json — keep as-is
+                c["graph_verified"] = False   # honest: not in Neo4j graph
+                meta = c.get("metadata", {})
+                c["title"]       = c.get("title")       or meta.get("title", "")
+                c["description"] = c.get("description") or meta.get("full_text") or meta.get("description", "")
+                c["punishment"]  = c.get("punishment")  or meta.get("punishment", "")
+                print(
+                    f"[LexiGraphAgent] Phase A: IPC {c['section_num']} not in Neo4j "
+                    f"but agent-verified — keeping with ipc_structured.json data"
+                )
+                ipc_verified.append(c)
+            else:
+                print(f"[LexiGraphAgent] Phase A REJECT (not in Neo4j, not agent-verified): IPC {c['section_num']}")
 
         print(f"[LexiGraphAgent] Phase A verified IPC sections: {[c['section'] for c in ipc_verified]}")
 
