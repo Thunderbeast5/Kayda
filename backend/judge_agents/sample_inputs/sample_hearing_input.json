@@ -1,0 +1,100 @@
+{
+  "session_id": "FIR_2026_PUNE_0123",
+  "structured_case_context": {
+    "session_id": "FIR_2026_PUNE_0123",
+    "who": {
+      "complainant": "Ramesh Patil",
+      "accused": ["Suresh Kumar"],
+      "victims": ["Ramesh Patil"]
+    },
+    "incident": {
+      "summary": "Accused allegedly assaulted complainant with an iron rod causing grievous hurt (fracture of left arm) at complainant's residence.",
+      "date": "01/08/2026",
+      "time": "21:00",
+      "place": "Pune, Maharashtra"
+    },
+    "sections": ["BNS 117", "BNS 118"],
+    "legal_regime": "BNS",
+    "procedural_law": "BNSS"
+  },
+  "evidence_context": {
+    "weapon": "Iron rod (not yet seized)",
+    "injuries": "Fracture of left arm",
+    "medical_findings": "X-ray confirms fracture — Exhibit A",
+    "cctv": "Not available at incident location",
+    "evidence_strength": "Medium",
+    "contradictions": ["Eyewitness timing differs from FIR by approximately 30 minutes"],
+    "missing_evidence": ["Iron rod not seized", "Eyewitness statement not yet recorded"]
+  },
+  "legal_context_package": {
+    "pipeline_confidence": 0.88,
+    "recommended_sections": [
+      {
+        "act": "BNS",
+        "section": "BNS 117",
+        "title": "Voluntarily causing grievous hurt",
+        "confidence": 0.91,
+        "applicability": "Fracture of a bone constitutes grievous hurt under BNS 117. Prosecution must prove voluntary act and intention.",
+        "equivalent_section": {"act": "IPC", "section": "320", "mapping_verified": true}
+      },
+      {
+        "act": "BNS",
+        "section": "BNS 118",
+        "title": "Voluntarily causing grievous hurt by dangerous weapon",
+        "confidence": 0.85,
+        "applicability": "Iron rod qualifies as a dangerous weapon under BNS 118.",
+        "equivalent_section": {"act": "IPC", "section": "326", "mapping_verified": true}
+      }
+    ],
+    "supporting_articles": ["Article 21 - Protection of life and personal liberty"],
+    "supporting_evidence": ["Medical certificate", "FIR copy", "Eyewitness account"],
+    "supporting_principles": ["Presumption of innocence", "Right to bail is not a right to fly away"]
+  },
+  "precedent_context": {
+    "similar_cases": [
+      {
+        "case_name": "Gurbaksh Singh Sibbia v. State of Punjab",
+        "citation": "1980 AIR 1632",
+        "court": "Supreme Court of India",
+        "reasoning": "Anticipatory bail may be granted with conditions. The discretion must be exercised judiciously.",
+        "judgment_summary": "The Supreme Court held that anticipatory bail is not a blanket order and should be issued with appropriate conditions to protect the interests of investigation."
+      },
+      {
+        "case_name": "Sushila Aggarwal v. State (NCT of Delhi)",
+        "citation": "(2020) 5 SCC 1",
+        "court": "Supreme Court of India",
+        "reasoning": "Anticipatory bail should not be limited in time ordinarily. Courts can impose conditions.",
+        "judgment_summary": "Anticipatory bail granted under Section 438 CrPC (now BNSS 484) should not be time-limited unless facts demand it."
+      }
+    ]
+  },
+  "bail_assessment_report": {
+    "gravity_of_offence": "Medium",
+    "flight_risk": "Low",
+    "custodial_need": "No",
+    "witness_tampering_risk": "Medium",
+    "antecedents": "None",
+    "recovery_pending": "Yes",
+    "cooperation": "Good",
+    "mitigating_factors": [
+      "No prior criminal record",
+      "Permanent resident of Pune",
+      "Employed — small business owner",
+      "Family ties in Pune"
+    ],
+    "aggravating_factors": [
+      "Use of dangerous weapon (iron rod)",
+      "Serious injury caused",
+      "Weapon not yet seized"
+    ]
+  },
+  "defence_arguments": "1. The applicant has no prior criminal record and poses no flight risk.\n2. He is a permanent resident of Pune with strong family ties.\n3. The alleged assault arose from a civil property boundary dispute — not criminal in nature.\n4. BNS Section 117 requires proof of voluntary intention — the applicant acted in self-defence.\n5. The applicant is willing to cooperate fully with the investigation and surrender any required documents.\n6. Article 21 of the Constitution guarantees the right to personal liberty.\n7. In Gurbaksh Singh Sibbia v. State of Punjab (1980 AIR 1632), the Supreme Court held that anticipatory bail may be granted with conditions.",
+  "prosecution_arguments": "1. The accused used an iron rod — a dangerous weapon — causing a fracture.\n2. Medical evidence (Exhibit A) conclusively establishes grievous hurt under BNS 118.\n3. The weapon (iron rod) has not yet been seized.\n4. Eyewitness has not yet given formal statement — risk of witness tampering.\n5. The accused threatened the complainant after the incident.\n6. Custodial interrogation is necessary to recover the weapon and record the eyewitness statement without influence.\n7. The gravity of BNS 118 warrants denial of anticipatory bail.",
+  "investigation_report": "IO confirms: FIR No. 456/2026 registered at Pune City Police Station on 01/08/2026 under BNS 117 and 118. Accused not yet arrested. Iron rod (alleged weapon) not yet seized. Complainant's medical report filed as Exhibit A. One eyewitness identified but formal statement not yet recorded. Accused has not absconded. Investigation is ongoing.",
+  "courtroom_state_memory": [
+    {"turn": 1, "speaker": "Defence", "text": "Defence opening statement delivered."},
+    {"turn": 2, "speaker": "Prosecution", "text": "Prosecution opening statement delivered."}
+  ],
+  "defence_final_submission": "We humbly submit that anticipatory bail be granted to the applicant with appropriate conditions including surrender of passport and periodic reporting to the IO.",
+  "prosecution_final_submission": "The State respectfully opposes bail. The gravity of the offence and pending recovery of the weapon require custodial presence of the accused."
+}
