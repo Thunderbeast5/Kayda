@@ -605,10 +605,8 @@ def analyze_evidence(session_id: str, file_path: str) -> Dict[str, Any]:
 
 TIMELINE_PROMPT = BASE_RULES + """\
 
-Task: Build a chronological timeline of every discrete, dateable (or orderable)
-event mentioned in this FIR/evidence text. This timeline will be handed to other
-agents (Prosecutor, Defense, Judge, Accused) as case context, so it must capture
-every distinct occurrence, not just the final incident.
+Task: Extract a concise, chronological timeline of KEY events from this FIR/evidence
+text. This is used as case context for legal agents.
 
 KNOWN CANONICAL ENTITIES — use EXACTLY these spellings in the "actors" field:
 {known_entities}
@@ -617,27 +615,35 @@ INCIDENT ANCHOR (verified by fact extraction — treat as ground truth):
 {incident_anchor}
 
 Rules:
-- Extract EVERY discrete event: the offence itself, individual money transfers,
-  meetings, promises/threats, FIR filing, investigation actions, etc.
-- Do NOT merge distinct events (e.g. 5 separate transfers = 5 separate events).
+- Extract 4 to 8 KEY events only. Do NOT extract micro-steps.
+  CONSOLIDATE related sub-actions into one event:
+    e.g. "parked vehicle, went to market, returned, found vehicle missing" = ONE event
+         ("Complainant parked vehicle and discovered it stolen upon return").
+- Typical event sequence for a theft FIR:
+    1. Offence occurrence (vehicle parked / theft took place)
+    2. Complainant searched area
+    3. Complainant filed complaint at police station
+    4. FIR registered
+    5. IO assigned
 - date: "DD/MM/YYYY" if stated, else null.
 - time: "HH:MM" strictly in 24-hour format. CRITICAL 12h→24h rule:
-    * Marathi/Hindi evening markers near a time value: सायंकाळी, संध्याकाळी,
-      सायं, रात्री → if the raw time digit is < 12, ADD 12 (e.g. 7:30 PM = 19:30).
-    * English markers: "evening", "night", "PM", "p.m." → same rule.
-    * Morning markers: सकाळी, सकाळ, पहाटे, "morning", "AM", "a.m." → keep < 12.
-    * When the incident anchor time is given above (e.g. 19:30 - 20:00), any
-      event describing that same primary offence must have a time within that range.
+    * Marathi/Hindi evening markers: सायंकाळी, संध्याकाळी, सायं, रात्री near a digit
+      < 12 → ADD 12  (e.g. सायं 7:30 = 19:30, सायं 8:00 = 20:00).
+    * English: "evening", "night", "PM", "p.m." → same rule.
+    * Morning: सकाळी, सकाळ, "morning", "AM" → keep < 12.
+    * Incident anchor time is ground truth — use it to validate.
+- CRITICAL ordering rule:
+    * complaint_filed and fir_registered events MUST use the actual police station
+      filing date (shown in the FIR header), NOT the incident date.
+    * complaint_filed / fir_registered always come AFTER all incident events.
 - event_type: one of
   ["incident","transaction","communication","threat","promise",
    "complaint_filed","fir_registered","investigation_action","other"]
-- actors: canonical English names of people directly involved in THIS event only.
-  ALWAYS prefer the KNOWN CANONICAL ENTITIES spellings listed above.
-- amount: numeric string (no currency symbol) if this event is a monetary
-  transaction, else null.
+- actors: use KNOWN CANONICAL ENTITIES spellings. Include only people directly
+  and meaningfully involved in this event.
+- amount: numeric string without currency symbol, or null.
 - location: string or null.
-- Every event needs a short factual one-sentence "description" in English.
-- Output order does not matter; it will be sorted afterward.
+- description: one clear, factual sentence in English.
 - Return ONLY a valid JSON array (no markdown fences, no commentary).
 
 Return JSON schema:
@@ -658,8 +664,8 @@ TEXT:
 """
 
 TIMELINE_RECON_PROMPT = BASE_RULES + """\
-Task: Reconcile a complete chronological timeline from multiple partial event
-lists (extracted chunk-by-chunk) + the full OCR text as ground truth.
+Task: Reconcile and CONSOLIDATE a clean chronological timeline from multiple partial
+event lists + full OCR text as ground truth.
 
 KNOWN CANONICAL ENTITIES — use EXACTLY these spellings in the "actors" field:
 {known_entities}
@@ -668,14 +674,16 @@ INCIDENT ANCHOR (verified by fact extraction — treat as ground truth):
 {incident_anchor}
 
 Rules:
-- Merge duplicate/overlapping events describing the same occurrence.
-- Do NOT lose distinct events (e.g. separate transfers stay separate).
-- Sort ascending by date, then time, then narrative order if date is null.
+- Merge all duplicate / near-duplicate events. Final output: 4–8 KEY events only.
+- CONSOLIDATE micro-steps: parking + going to market + returning + discovering theft
+  should be 1–2 events, NOT 4 separate events.
+- Sort ascending by date then time. Events with null date sort to the end.
 - Assign sequential ids "E1", "E2", ... in final chronological order.
-- Canonicalize actor names using the KNOWN CANONICAL ENTITIES spellings above.
-- CRITICAL 12h/24h cross-check: if any partial event has a time inconsistent
-  with the INCIDENT ANCHOR (e.g., anchor says 19:30 but partial shows 07:30 for
-  the same incident event), correct it to the 24h equivalent.
+- Canonicalize actor names using KNOWN CANONICAL ENTITIES spellings.
+- CRITICAL: complaint_filed / fir_registered MUST have the police station filing date
+  (NOT the incident date). They come AFTER all incident events.
+- CRITICAL 12h/24h: if anchor says 19:30 but a partial shows 07:30 for same incident,
+  correct to 19:30.
 - Return ONLY a valid JSON array (no markdown fences, no commentary).
 
 Return JSON schema:
@@ -858,6 +866,50 @@ def _normalize_timeline_times(
     return events
 
 
+def _validate_and_deduplicate_timeline(
+    events: List[Dict[str, Any]],
+    facts: Dict[str, Any],
+) -> List[Dict[str, Any]]:
+    """
+    Python-level validation pass after LLM extraction.
+
+    1. Deduplicate: identical (date, time, event_type) pairs → keep first.
+    2. Ordering guard: complaint_filed / fir_registered events that have the
+       same date as the incident are likely wrong (LLM confused incident date
+       with filing date). Push them to end by nulling their date+time so
+       the sort places them after all dated incident events.
+    3. Cap: if somehow > 10 events were returned, trim to 10 (edge cases
+       where LLM ignored the 4-8 rule).
+    """
+    incident_date = (facts.get("incident") or {}).get("date")
+
+    # --- step 1: deduplicate on (date, time, event_type) ---
+    seen: set = set()
+    deduped: List[Dict[str, Any]] = []
+    for e in events:
+        key = (e.get("date"), e.get("time"), e.get("event_type"))
+        if key not in seen:
+            seen.add(key)
+            deduped.append(e)
+
+    # --- step 2: ordering guard for complaint/FIR events ---
+    _FILING_TYPES = {"complaint_filed", "fir_registered"}
+    validated: List[Dict[str, Any]] = []
+    for e in deduped:
+        if e.get("event_type") in _FILING_TYPES and incident_date:
+            if e.get("date") == incident_date:
+                # Wrong date: complaint cannot precede or share the incident date
+                # unless there's a clear same-day filing (rare for theft FIRs).
+                # Null out date+time so sort pushes it to the end.
+                e = dict(e)
+                e["date"] = None
+                e["time"] = None
+        validated.append(e)
+
+    # --- step 3: cap at 10 events ---
+    return validated[:10]
+
+
 def _extract_timeline_single_pass(
     raw_text: str,
     facts: Optional[Dict[str, Any]] = None,
@@ -878,6 +930,7 @@ def _extract_timeline_single_pass(
         if isinstance(e, dict)
     ]
     events = _normalize_timeline_times(events, facts)
+    events = _validate_and_deduplicate_timeline(events, facts)
     events.sort(key=_sort_key_for_event)
     for i, e in enumerate(events):
         e["event_id"] = f"E{i+1}"
@@ -930,6 +983,7 @@ def _extract_timeline_chunked_with_reconciliation(
         flat = [e for plist in partials for e in plist if isinstance(e, dict)]
         events = [_normalise_timeline_event(e, f"E{i+1}") for i, e in enumerate(flat)]
         events = _normalize_timeline_times(events, facts)
+        events = _validate_and_deduplicate_timeline(events, facts)
         events.sort(key=_sort_key_for_event)
         for i, e in enumerate(events):
             e["event_id"] = f"E{i+1}"
@@ -941,6 +995,7 @@ def _extract_timeline_chunked_with_reconciliation(
         if isinstance(e, dict)
     ]
     events = _normalize_timeline_times(events, facts)
+    events = _validate_and_deduplicate_timeline(events, facts)
     events.sort(key=_sort_key_for_event)
     for i, e in enumerate(events):
         e["event_id"] = f"E{i+1}"
@@ -975,8 +1030,8 @@ def extract_timeline(
 # ====================================================================
 # ADDITIVE: Relationship graph builder
 # (Deterministic — no LLM calls. Builds a Neo4j-shaped {nodes, edges}
-#  structure from `facts` + `timeline` that can be imported later via
-#  MERGE statements. Nothing is written to Neo4j yet.)
+#  structure from `facts` that can be imported later via MERGE statements.
+#  Nothing is written to Neo4j yet.)
 # ====================================================================
 
 def _slug(text: str) -> str:
@@ -985,17 +1040,10 @@ def _slug(text: str) -> str:
     return text.strip("_") or "unknown"
 
 
-# Event types that don't warrant PARTICIPATED_IN edges because the
-# involved actors are already linked to the case via FILED/ACCUSED_IN etc.
-_PROCEDURAL_EVENT_TYPES = frozenset({
-    "complaint_filed", "fir_registered", "investigation_action",
-})
-
-
 def build_case_graph(
     session_id: str,
     facts: Dict[str, Any],
-    timeline: Optional[List[Dict[str, Any]]] = None,
+    timeline: Optional[List[Dict[str, Any]]] = None,  # kept for API compat, not used
 ) -> Dict[str, List[Dict[str, Any]]]:
     """
     Returns {"nodes": [...], "edges": [...]}.
@@ -1003,19 +1051,16 @@ def build_case_graph(
     Node shape:   {"id", "label", "properties": {...}}
     Edge shape:   {"source", "target", "type", "properties": {...}}
 
-    Node ids are deterministic slugs (not random uuids) so re-running this
-    on the same case is idempotent and safe to MERGE into Neo4j later:
-      person:<name_slug>, case:<session_id>, section:<section_slug>,
-      property:<kind>:<index>, event:<event_id>, location:<slug>
+    Minimal, clean graph — only the essential case facts:
+      Person(complainant) → FILED       → Case
+      Person(accused)    → ACCUSED_IN  → Case
+      Person(victim)     → VICTIM_IN   → Case
+      Case → OCCURRED_AT     → Location
+      Case → CHARGED_UNDER   → Section
+      Case → INVOLVES_PROPERTY → Property
 
-    Simplified edge set (vs earlier version):
-    - Case-level: OCCURRED_AT, FILED, ACCUSED_IN, VICTIM_IN,
-                  CHARGED_UNDER, INVOLVES_PROPERTY, HAS_EVENT
-    - PARTICIPATED_IN only for non-procedural (incident/transaction/etc.) events
-    - No NEXT chain   (ordering captured by sorted timeline array)
-    - No per-event OCCURRED_AT   (avoids location-name dedup issues;
-      event location stored as a property on the Event node instead)
-    - Edges deduplicated: same (source, target, type) triple added only once
+    No event nodes, no NEXT chains, no per-event edges.
+    Node ids are deterministic slugs for idempotent Neo4j MERGE.
     """
     nodes: Dict[str, Dict[str, Any]] = {}
     edges: List[Dict[str, Any]] = []
@@ -1061,7 +1106,7 @@ def build_case_graph(
         },
     )
 
-    # ── Primary incident location (from facts, canonical spelling) ────
+    # ── Primary incident location ──────────────────────────────────────
     if incident.get("place"):
         loc_id = add_node(
             f"location:{_slug(incident['place'])}",
@@ -1070,7 +1115,7 @@ def build_case_graph(
         )
         add_edge(case_id, loc_id, "OCCURRED_AT")
 
-    # ── People ────────────────────────────────────────────────────────
+    # ── People (from facts only — canonical spelling guaranteed) ────────
     def get_person_node(name: str) -> str:
         pid = f"person:{_slug(name)}"
         add_node(pid, "Person", {"name": name})
@@ -1121,48 +1166,6 @@ def build_case_graph(
     if prop.get("gold"):
         pid = add_node("property:gold:1", "Property", {"kind": "gold", "value": prop["gold"]})
         add_edge(case_id, pid, "INVOLVES_PROPERTY")
-
-    # ── Timeline events ───────────────────────────────────────────────
-    # Simplified rules:
-    #   • HAS_EVENT: Case → Event  (always)
-    #   • PARTICIPATED_IN: Person → Event  (only for non-procedural events)
-    #   • TRANSFERRED_TO: Person → Person  (monetary transaction heuristic)
-    #   • No NEXT chain (redundant — ordering captured in sorted array)
-    #   • No per-event OCCURRED_AT edges (event.location stored as a node property
-    #     to avoid location-slug mismatches from the timeline LLM)
-    for e in (timeline or []):
-        eid = add_node(
-            f"event:{e.get('event_id')}",
-            "Event",
-            {
-                "event_id": e.get("event_id"),
-                "date": e.get("date"),
-                "time": e.get("time"),
-                "event_type": e.get("event_type"),
-                "description": e.get("description"),
-                "amount": e.get("amount"),
-                "location": e.get("location"),  # stored as property, not a graph edge
-            },
-        )
-        add_edge(case_id, eid, "HAS_EVENT")
-
-        # Only emit PARTICIPATED_IN for meaningful (non-procedural) events
-        event_type = e.get("event_type") or ""
-        actors = e.get("actors") or []
-        if event_type not in _PROCEDURAL_EVENT_TYPES:
-            for name in actors:
-                if name:
-                    add_edge(get_person_node(name), eid, "PARTICIPATED_IN")
-
-            # Directed money-flow heuristic for 2-actor financial events
-            if event_type in ("transaction", "promise") and e.get("amount") and len(actors) >= 2:
-                add_edge(
-                    get_person_node(actors[0]),
-                    get_person_node(actors[1]),
-                    "TRANSFERRED_TO",
-                    {"amount": e.get("amount"), "date": e.get("date"),
-                     "event_id": e.get("event_id")},
-                )
 
     return {"nodes": list(nodes.values()), "edges": edges}
 
