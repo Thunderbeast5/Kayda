@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { registerWithEmail, loginWithEmail, loginWithGoogle } from "../firebase";
+import { useAuth } from "../context/AuthContext";
 
 // ─── Inline SVG Icons ────────────────────────────────────────────────────────
 const GoogleIcon = () => (
@@ -90,6 +91,7 @@ function Field({ label, id, type = "text", value, onChange, placeholder, error, 
 
 // ─── Main AuthPage ────────────────────────────────────────────────────────────
 export default function AuthPage() {
+  const { currentUser, loading: authLoading } = useAuth();
   const [tab, setTab] = useState("signin"); // "signin" | "register"
   const [loading, setLoading] = useState(false);
   const [globalError, setGlobalError] = useState("");
@@ -110,8 +112,18 @@ export default function AuthPage() {
   const [regErrors, setRegErrors] = useState({});
 
   useEffect(() => {
+    // If already logged in, skip the auth page entirely
+    if (!authLoading && currentUser) {
+      window.location.hash = "#/";
+    }
+  }, [currentUser, authLoading]);
+
+  useEffect(() => {
     setTimeout(() => setMounted(true), 50);
   }, []);
+
+  // Show nothing while checking auth state
+  if (authLoading) return null;
 
   const setRegField = (key) => (e) => {
     setReg((r) => ({ ...r, [key]: e.target.value }));
@@ -182,13 +194,12 @@ export default function AuthPage() {
     setLoading(true);
     setGlobalError("");
     try {
+      // loginWithGoogle triggers a redirect — page navigates away to Google.
+      // Result is handled by AuthContext on return via handleGoogleRedirectResult.
       await loginWithGoogle();
-      window.location.hash = "#/";
+      // If we reach here (shouldn't normally), redirect is in progress
     } catch (err) {
-      if (err.code !== "auth/popup-closed-by-user") {
-        setGlobalError(friendlyError(err.code));
-      }
-    } finally {
+      setGlobalError("Could not start Google Sign-In. Please try again.");
       setLoading(false);
     }
   };

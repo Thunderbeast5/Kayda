@@ -3,6 +3,7 @@ import {
   subscribeToAuth,
   getUserProfile,
   logoutUser,
+  handleGoogleRedirectResult,
 } from "../firebase";
 
 const AuthContext = createContext(null);
@@ -13,6 +14,16 @@ export function AuthProvider({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Pick up the Google redirect result if the user just came back from Google
+    handleGoogleRedirectResult()
+      .then((user) => {
+        if (user) {
+          // Redirect to home after successful Google sign-in
+          window.location.hash = "#/";
+        }
+      })
+      .catch(() => {});
+
     const unsubscribe = subscribeToAuth(async (user) => {
       setCurrentUser(user);
       if (user) {
