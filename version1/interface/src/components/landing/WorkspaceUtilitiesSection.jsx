@@ -1,14 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import LexiGraphChoiceModal from "./LexiGraphChoiceModal";
 
 export default function WorkspaceUtilitiesSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   const tools = [
     { 
       title: "Evidence Analyzer", 
       desc: "Instantly scan and index discovery folders, identifying procedural inconsistencies across multiple witness testimonies.", 
-      link: "#/evidence-analyzer" 
+      link: "/evidence-analyzer" 
     },
     { 
       title: "LexiGraph Intelligence", 
@@ -48,7 +50,7 @@ export default function WorkspaceUtilitiesSection() {
                   className={`bg-white p-6 border border-surface-border relative group hover:border-gold hover:shadow-sm transition-all duration-300 ${isClickable ? 'cursor-pointer' : ''}`}
                   onClick={() => {
                     if (tool.openModal) setIsModalOpen(true);
-                    else if (tool.link) window.location.hash = tool.link;
+                    else if (tool.link) navigate(tool.link);
                   }}
                 >
                   <h3 className="font-heading text-base font-bold text-wood-dark mb-2">
