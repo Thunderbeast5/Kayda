@@ -2,7 +2,11 @@ import json
 from typing import Any, Dict, Optional, Union, List
 from pydantic import BaseModel
 
-from .classifier_prefilter import StatuteClassifierPrefilter, STATUTE_KNOWLEDGE_BASE
+from .classifier_prefilter import (
+    StatuteClassifierPrefilter,
+    STATUTE_KNOWLEDGE_BASE,
+    get_effective_knowledge_base,
+)
 from .statute_repository import StatuteRepository
 from .ipc2bns_mapper import IPC2BNSMapper
 from .batch_utils import Stage2BatchedMappingResponse, SectionMappingCandidate
@@ -151,9 +155,9 @@ class ChapterIdentificationAgent:
             canon_title = cand.get("title", f"Section {sec_num}")
             statute_out = "IPC / BNS" if "UNKNOWN" in regime_upper else ("BNS" if "BNS" in statute_in.upper() or "BNS" in regime_upper else "IPC")
 
-            # Knowledge Base Rule Lookup
+            # Knowledge Base Rule Lookup (static hardcoded + dynamic auto-promoted rules)
             found_rule = None
-            for r in STATUTE_KNOWLEDGE_BASE:
+            for r in get_effective_knowledge_base():
                 rule_sec_clean = r.section.upper().replace("SECTION ", "").strip()
                 if sec_num == rule_sec_clean or sec_num == r.section.upper() or sec_num == r.bns_equivalent.upper():
                     found_rule = r

@@ -224,8 +224,9 @@ MULTI-PARTY ACCUSED MAPPING MANDATE:
 - NEVER flatten multi-accused allegations into a single generic bucket.
 
 STATUTE ISOLATION & LEAK BOUNDARY RULES:
-- PERMITTED & ENCOURAGED: Named legal concept categories and HyDE-style statutory-flavored phrasing (e.g. "Criminal Breach of Trust", "Dishonest Inducement to Deliver Property", "Matrimonial Cruelty", "Dowry Demand", "Criminal Intimidation", "Cheating", "Physical Assault", "Forgery", "Abduction").
+- PERMITTED & ENCOURAGED: Named legal concept categories and HyDE-style statutory-flavored phrasing derived STRICTLY from the actual case facts (e.g. "Criminal Breach of Trust", "Dishonest Inducement to Deliver Property", "Criminal Intimidation", "Cheating", "Physical Assault", "Forgery", "Abduction", "House Trespass", "Mischief", "Wrongful Restraint").
 - STRICTLY PROHIBITED LEAKS: Explicit numerical section numbers, statutory section codes, or specific clause numbers (e.g. "Section 498A", "IPC 420", "u/s 304B", "BNS Sec 85", "Sec 307").
+- CRITICAL: Legal concepts MUST be derived from the actual case facts in the CaseContextObject. Do NOT reproduce concepts from the JSON schema example below.
 
 DO NOT retrieve IPC/BNS section numbers.
 DO NOT retrieve case laws.
@@ -270,66 +271,45 @@ Perform the following tasks:
 
 {correction_feedback_section}
 
+IMPORTANT: The schema below shows the OUTPUT FORMAT only. The values shown (entities, concepts, sub_queries, etc.)
+are ILLUSTRATIVE PLACEHOLDERS for a generic property-dispute case and must NOT be reproduced in your output.
+Derive ALL concepts, entities, and sub-queries exclusively from the CaseContextObject provided above.
+
 Return your response strictly in valid JSON format matching this schema:
 {{
   "schema_version": "1.0",
-  "case_type": "Anticipatory Bail",
+  "case_type": "<Anticipatory Bail / Regular Bail / Trial / Civil Suit — as applicable>",
   "entities": {{
-    "victim": ["Wife"],
-    "accused": ["Husband", "Father-in-law", "Mother-in-law"]
+    "victim": ["<Victim name(s) from facts>"],
+    "accused": ["<Accused name(s) from facts>"]
   }},
   "relationship": [
-    "Husband-Wife",
-    "In-laws"
+    "<Relationship between parties as stated in facts, e.g. Neighbours, Employer-Employee, Business Partners>"
   ],
   "legal_concepts": [
     {{
-      "concept": "Dowry Demand",
-      "confidence": 0.98
-    }},
-    {{
-      "concept": "Criminal Intimidation",
-      "confidence": 0.94
-    }},
-    {{
-      "concept": "Mental Cruelty",
-      "confidence": 0.93
+      "concept": "<Legal concept derived from facts, e.g. House Trespass, Voluntarily Causing Hurt, Criminal Intimidation, Mischief, Cheating — whatever the facts actually support>",
+      "confidence": 0.95
     }}
   ],
   "sub_queries": [
     {{
       "id": "SQ1",
-      "query": "Continuous direct demand for cash dowry and physical assault by husband.",
-      "concept": "Dowry Demand",
-      "target_parties": ["Husband"],
-      "role_alleged": "Main Accused / Direct Physical Assault"
-    }},
-    {{
-      "id": "SQ2",
-      "query": "Incitement and indirect harassment for additional car dowry by father-in-law.",
-      "concept": "Abetment of Cruelty",
-      "target_parties": ["Father-in-law"],
-      "role_alleged": "Co-Accused / Financial Demand & Abetment"
-    }},
-    {{
-      "id": "SQ3",
-      "query": "Continuous verbal abuse and mental harassment after marriage by mother-in-law.",
-      "concept": "Mental Cruelty",
-      "target_parties": ["Mother-in-law"],
-      "role_alleged": "Co-Accused / Verbal Harassment"
+      "query": "<Single-issue factual query describing one legally relevant act from the case facts>",
+      "concept": "<Matching legal concept from legal_concepts above>",
+      "target_parties": ["<Accused person(s) this sub-query pertains to>"],
+      "role_alleged": "<Role of the accused in this specific act>"
     }}
   ],
   "procedural_events": [
-    "Marriage",
-    "FIR Registered",
-    "Anticipatory Bail Application"
+    "<Procedural events actually mentioned in facts, e.g. Complaint Filed, Medical Examination, FIR Registered>"
   ],
   "important_facts": {{
-    "money": "₹5,00,000",
-    "location": "Nashik",
-    "dates": ["10/06/2024", "15/01/2025"],
-    "documents": ["FIR", "Bail Application"],
-    "witnesses": []
+    "money": "<Amount if any, else null>",
+    "location": "<Location from facts>",
+    "dates": ["<Dates from facts>"],
+    "documents": ["<Documents mentioned in facts>"],
+    "witnesses": ["<Witnesses mentioned in facts>"]
   }},
   "manual_review": [],
   "verification_status": "PENDING"
@@ -440,6 +420,11 @@ PRE-FILTERED STATUTORY CANDIDATE ENTRIES:
 ---
 
 {correction_feedback_section}
+
+IMPORTANT WARNING: The JSON schema below shows OUTPUT FORMAT ONLY. 
+The example values (dowry, 498A, Marriage, etc.) are ILLUSTRATIVE PLACEHOLDERS for a hypothetical dowry case.
+DO NOT copy these example values. You MUST analyze the ACTUAL case facts provided above and generate
+completely new analysis based on those facts only.
 
 For every sub-query in LegalQueryObject:
 1. Extract specific factual elements (`facts_extracted`) and matched statutory ingredients (`ingredients_matched`).
@@ -868,6 +853,11 @@ Requirements:
 10. Never identify new offences.
 11. Never recommend bail.
 12. Never cite precedents.
+
+CRITICAL WARNING: The JSON schema example below is ILLUSTRATIVE ONLY for a hypothetical dowry case.
+DO NOT copy the example values (498A, Marriage, Dowry Demand, etc.).
+You MUST analyze the ACTUAL case facts from Stage 1 and verified offences from Stage 3.
+Generate completely new analysis based on the actual inputs provided above.
 
 Return ONLY valid JSON matching this schema:
 {{
