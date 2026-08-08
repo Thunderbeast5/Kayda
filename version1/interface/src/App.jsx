@@ -61,12 +61,8 @@ function AppRouter({ page }) {
     );
   }
 
-  // ── Default: home (protected) ─────────────────────────────────────────────
-  return (
-    <ProtectedRoute>
-      <HomePage />
-    </ProtectedRoute>
-  );
+  // ── Default: home (public landing page) ───────────────────────────────────
+  return <HomePage />;
 }
 
 function getPageFromHash() {
