@@ -887,7 +887,7 @@ export default function AuthPage() {
               ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
             {/* Brand */}
-            <div className="flex flex-col items-center mb-4 gap-1">
+            {/* <div className="flex flex-col items-center mb-4 gap-1">
               <ShieldIcon />
               <span className="font-['Playfair_Display'] text-2xl font-bold text-[#2C1810] tracking-[-0.02em]">
                 Kayda
@@ -895,7 +895,7 @@ export default function AuthPage() {
               <span className="text-[10px] font-semibold tracking-[0.15em] uppercase text-[#8C5A3C]">
                 Legal Intelligence Platform
               </span>
-            </div>
+            </div> */}
 
             {/* Tabs */}
             <div className="flex bg-[#2C1810]/5 rounded-[10px] p-[3px] mb-4" role="tablist">
@@ -922,136 +922,42 @@ export default function AuthPage() {
             </div>
 
             {/* Global Error */}
+            {/* Global Error */}
             {globalError && (
               <div className="bg-[#D32F2F]/[0.07] border border-[#D32F2F]/25 rounded-lg py-2 px-3 text-xs text-[#C62828] font-['Poppins'] mb-2.5">
                 {globalError}
               </div>
             )}
 
-            {/* ─── SIGN IN ─── */}
-            {tab === "signin" && (
-              <form id="signin-form" onSubmit={handleSignIn} className="flex flex-col gap-2.5" noValidate>
-                <Field
-                  label="Email Address"
-                  id="si-email"
-                  type="email"
-                  value={siEmail}
-                  onChange={e => { setSiEmail(e.target.value); setSiErrors(p => ({...p, email: ""})); setGlobalError(""); }}
-                  placeholder="you@example.com"
-                  error={siErrors.email}
-                />
-                <Field
-                  label="Password"
-                  id="si-password"
-                  type={showPw ? "text" : "password"}
-                  value={siPassword}
-                  onChange={e => { setSiPassword(e.target.value); setSiErrors(p => ({...p, password: ""})); setGlobalError(""); }}
-                  placeholder="••••••••"
-                  error={siErrors.password}
-                  rightEl={
-                    <button type="button" className="bg-none border-none cursor-pointer p-0 text-[#8C5A3C] flex items-center outline-none" onClick={() => setShowPw(v => !v)}>
-                      <EyeIcon open={showPw} />
-                    </button>
-                  }
-                />
-
-                <button
-                  id="signin-submit-btn"
-                  type="submit"
-                  disabled={loading}
-                  className="w-full py-3 bg-gradient-to-br from-[#2C1810] to-[#4A2818] border border-[#D4AF37]/50 rounded-[10px] font-['Poppins'] text-[13px] font-bold tracking-[0.06em] uppercase text-[#FAF9F7] cursor-pointer transition-all duration-200 flex items-center justify-center gap-1.5 mt-0.5 hover:from-[#4A2818] hover:to-[#6B3A20] hover:-translate-y-[1px] disabled:opacity-70 disabled:cursor-not-allowed"
-                >
-                  {loading ? "Signing in..." : "Sign In"}
-                </button>
-
-                <div className="flex items-center gap-2 my-1">
-                  <div className="flex-1 h-[1px] bg-[#D4AF37]/30" />
-                  <span className="text-[10px] text-[#A0856C] font-semibold tracking-[0.08em] uppercase">or</span>
-                  <div className="flex-1 h-[1px] bg-[#D4AF37]/30" />
-                </div>
-
-                <button
-                  id="google-signin-btn"
-                  type="button"
-                  onClick={handleGoogle}
-                  disabled={loading}
-                  className="w-full py-2.5 bg-white border border-[#D4AF37]/40 rounded-[10px] font-['Poppins'] text-[13px] font-semibold text-[#2C1810] cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 hover:bg-gray-50 hover:-translate-y-[1px]"
-                >
-                  <GoogleIcon />
-                  Continue with Google
-                </button>
-
-                <p className="text-center text-xs text-[#6B4C3B] m-0 mt-1">
-                  Don't have an account?{" "}
-                  <button type="button" className="text-[#8C5A3C] font-bold cursor-pointer underline bg-none border-none font-['Poppins'] text-xs p-0" onClick={() => { setTab("register"); setGlobalError(""); }}>
-                    Register now
-                  </button>
-                </p>
-              </form>
-            )}
-
-            {/* ─── REGISTER ─── */}
-            {tab === "register" && (
-              <form id="register-form" onSubmit={handleRegister} className="flex flex-col gap-2.5" noValidate>
-                <div className="grid grid-cols-2 gap-2">
+            {/* ─── FORMS SLIDER CONTAINER ─── */}
+            <div className="relative grid w-full">
+              
+              {/* ─── SIGN IN ─── */}
+              <div 
+                className={`col-start-1 row-start-1 flex flex-col justify-center transition-all duration-500 ease-out ${
+                  tab === "signin" 
+                    ? "opacity-100 translate-y-0 z-10" 
+                    : "opacity-0 translate-y-8 -z-10 pointer-events-none"
+                }`}
+              >
+                <form id="signin-form" onSubmit={handleSignIn} className="flex flex-col gap-2.5" noValidate>
                   <Field
-                    label="First Name"
-                    id="reg-firstname"
-                    value={reg.firstName}
-                    onChange={setRegField("firstName")}
-                    placeholder="Arjun"
-                    error={regErrors.firstName}
+                    label="Email Address"
+                    id="si-email"
+                    type="email"
+                    value={siEmail}
+                    onChange={e => { setSiEmail(e.target.value); setSiErrors(p => ({...p, email: ""})); setGlobalError(""); }}
+                    placeholder="you@example.com"
+                    error={siErrors.email}
                   />
-                  <Field
-                    label="Last Name"
-                    id="reg-lastname"
-                    value={reg.lastName}
-                    onChange={setRegField("lastName")}
-                    placeholder="Sharma"
-                    error={regErrors.lastName}
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-2">
-                  <Field
-                    label="Age"
-                    id="reg-age"
-                    type="number"
-                    value={reg.age}
-                    onChange={setRegField("age")}
-                    placeholder="24"
-                    error={regErrors.age}
-                  />
-                  <Field
-                    label="Mobile Number"
-                    id="reg-mobile"
-                    type="tel"
-                    value={reg.mobile}
-                    onChange={setRegField("mobile")}
-                    placeholder="+91 9876543210"
-                    error={regErrors.mobile}
-                  />
-                </div>
-
-                <Field
-                  label="Email Address"
-                  id="reg-email"
-                  type="email"
-                  value={reg.email}
-                  onChange={setRegField("email")}
-                  placeholder="you@example.com"
-                  error={regErrors.email}
-                />
-
-                <div className="grid grid-cols-2 gap-2">
                   <Field
                     label="Password"
-                    id="reg-password"
+                    id="si-password"
                     type={showPw ? "text" : "password"}
-                    value={reg.password}
-                    onChange={setRegField("password")}
-                    placeholder="Min 8 chars"
-                    error={regErrors.password}
+                    value={siPassword}
+                    onChange={e => { setSiPassword(e.target.value); setSiErrors(p => ({...p, password: ""})); setGlobalError(""); }}
+                    placeholder="••••••••"
+                    error={siErrors.password}
                     rightEl={
                       <button type="button" className="bg-none border-none cursor-pointer p-0 text-[#8C5A3C] flex items-center outline-none" onClick={() => setShowPw(v => !v)}>
                         <EyeIcon open={showPw} />
@@ -1059,56 +965,168 @@ export default function AuthPage() {
                     }
                   />
 
-                  <Field
-                    label="Confirm"
-                    id="reg-confirm"
-                    type={showConfirm ? "text" : "password"}
-                    value={reg.confirm}
-                    onChange={setRegField("confirm")}
-                    placeholder="Re-enter"
-                    error={regErrors.confirm}
-                    rightEl={
-                      <button type="button" className="bg-none border-none cursor-pointer p-0 text-[#8C5A3C] flex items-center outline-none" onClick={() => setShowConfirm(v => !v)}>
-                        <EyeIcon open={showConfirm} />
-                      </button>
-                    }
-                  />
-                </div>
-
-                <button
-                  id="register-submit-btn"
-                  type="submit"
-                  disabled={loading}
-                  className="w-full py-3 bg-gradient-to-br from-[#2C1810] to-[#4A2818] border border-[#D4AF37]/50 rounded-[10px] font-['Poppins'] text-[13px] font-bold tracking-[0.06em] uppercase text-[#FAF9F7] cursor-pointer transition-all duration-200 flex items-center justify-center gap-1.5 mt-0.5 hover:from-[#4A2818] hover:to-[#6B3A20] hover:-translate-y-[1px] disabled:opacity-70 disabled:cursor-not-allowed"
-                >
-                  {loading ? "Creating account..." : "Create Account"}
-                </button>
-
-                <div className="flex items-center gap-2 my-1">
-                  <div className="flex-1 h-[1px] bg-[#D4AF37]/30" />
-                  <span className="text-[10px] text-[#A0856C] font-semibold tracking-[0.08em] uppercase">or</span>
-                  <div className="flex-1 h-[1px] bg-[#D4AF37]/30" />
-                </div>
-
-                <button
-                  id="google-register-btn"
-                  type="button"
-                  onClick={handleGoogle}
-                  disabled={loading}
-                  className="w-full py-2.5 bg-white border border-[#D4AF37]/40 rounded-[10px] font-['Poppins'] text-[13px] font-semibold text-[#2C1810] cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 hover:bg-gray-50 hover:-translate-y-[1px]"
-                >
-                  <GoogleIcon />
-                  Sign up with Google
-                </button>
-
-                <p className="text-center text-xs text-[#6B4C3B] m-0 mt-1">
-                  Already have an account?{" "}
-                  <button type="button" className="text-[#8C5A3C] font-bold cursor-pointer underline bg-none border-none font-['Poppins'] text-xs p-0" onClick={() => { setTab("signin"); setGlobalError(""); }}>
-                    Sign in
+                  <button
+                    id="signin-submit-btn"
+                    type="submit"
+                    disabled={loading}
+                    className="w-full py-3 bg-gradient-to-br from-[#2C1810] to-[#4A2818] border border-[#D4AF37]/50 rounded-[10px] font-['Poppins'] text-[13px] font-bold tracking-[0.06em] uppercase text-[#FAF9F7] cursor-pointer transition-all duration-200 flex items-center justify-center gap-1.5 mt-0.5 hover:from-[#4A2818] hover:to-[#6B3A20] hover:-translate-y-[1px] disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                    {loading ? "Signing in..." : "Sign In"}
                   </button>
-                </p>
-              </form>
-            )}
+
+                  <div className="flex items-center gap-2 my-1">
+                    <div className="flex-1 h-[1px] bg-[#D4AF37]/30" />
+                    <span className="text-[10px] text-[#A0856C] font-semibold tracking-[0.08em] uppercase">or</span>
+                    <div className="flex-1 h-[1px] bg-[#D4AF37]/30" />
+                  </div>
+
+                  <button
+                    id="google-signin-btn"
+                    type="button"
+                    onClick={handleGoogle}
+                    disabled={loading}
+                    className="w-full py-2.5 bg-white border border-[#D4AF37]/40 rounded-[10px] font-['Poppins'] text-[13px] font-semibold text-[#2C1810] cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 hover:bg-gray-50 hover:-translate-y-[1px]"
+                  >
+                    <GoogleIcon />
+                    Continue with Google
+                  </button>
+
+                  <p className="text-center text-xs text-[#6B4C3B] m-0 mt-1">
+                    Don't have an account?{" "}
+                    <button type="button" className="text-[#8C5A3C] font-bold cursor-pointer underline bg-none border-none font-['Poppins'] text-xs p-0" onClick={() => { setTab("register"); setGlobalError(""); }}>
+                      Register now
+                    </button>
+                  </p>
+                </form>
+              </div>
+
+              {/* ─── REGISTER ─── */}
+              <div 
+                className={`col-start-1 row-start-1 flex flex-col justify-center transition-all duration-500 ease-out ${
+                  tab === "register" 
+                    ? "opacity-100 translate-y-0 z-10" 
+                    : "opacity-0 -translate-y-8 -z-10 pointer-events-none"
+                }`}
+              >
+                <form id="register-form" onSubmit={handleRegister} className="flex flex-col gap-2.5" noValidate>
+                  <div className="grid grid-cols-2 gap-2">
+                    <Field
+                      label="First Name"
+                      id="reg-firstname"
+                      value={reg.firstName}
+                      onChange={setRegField("firstName")}
+                      placeholder="Arjun"
+                      error={regErrors.firstName}
+                    />
+                    <Field
+                      label="Last Name"
+                      id="reg-lastname"
+                      value={reg.lastName}
+                      onChange={setRegField("lastName")}
+                      placeholder="Sharma"
+                      error={regErrors.lastName}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <Field
+                      label="Age"
+                      id="reg-age"
+                      type="number"
+                      value={reg.age}
+                      onChange={setRegField("age")}
+                      placeholder="24"
+                      error={regErrors.age}
+                    />
+                    <Field
+                      label="Mobile Number"
+                      id="reg-mobile"
+                      type="tel"
+                      value={reg.mobile}
+                      onChange={setRegField("mobile")}
+                      placeholder="+91 9876543210"
+                      error={regErrors.mobile}
+                    />
+                  </div>
+
+                  <Field
+                    label="Email Address"
+                    id="reg-email"
+                    type="email"
+                    value={reg.email}
+                    onChange={setRegField("email")}
+                    placeholder="you@example.com"
+                    error={regErrors.email}
+                  />
+
+                  <div className="grid grid-cols-2 gap-2">
+                    <Field
+                      label="Password"
+                      id="reg-password"
+                      type={showPw ? "text" : "password"}
+                      value={reg.password}
+                      onChange={setRegField("password")}
+                      placeholder="Min 8 chars"
+                      error={regErrors.password}
+                      rightEl={
+                        <button type="button" className="bg-none border-none cursor-pointer p-0 text-[#8C5A3C] flex items-center outline-none" onClick={() => setShowPw(v => !v)}>
+                          <EyeIcon open={showPw} />
+                        </button>
+                      }
+                    />
+
+                    <Field
+                      label="Confirm"
+                      id="reg-confirm"
+                      type={showConfirm ? "text" : "password"}
+                      value={reg.confirm}
+                      onChange={setRegField("confirm")}
+                      placeholder="Re-enter"
+                      error={regErrors.confirm}
+                      rightEl={
+                        <button type="button" className="bg-none border-none cursor-pointer p-0 text-[#8C5A3C] flex items-center outline-none" onClick={() => setShowConfirm(v => !v)}>
+                          <EyeIcon open={showConfirm} />
+                        </button>
+                      }
+                    />
+                  </div>
+
+                  <button
+                    id="register-submit-btn"
+                    type="submit"
+                    disabled={loading}
+                    className="w-full py-3 bg-gradient-to-br from-[#2C1810] to-[#4A2818] border border-[#D4AF37]/50 rounded-[10px] font-['Poppins'] text-[13px] font-bold tracking-[0.06em] uppercase text-[#FAF9F7] cursor-pointer transition-all duration-200 flex items-center justify-center gap-1.5 mt-0.5 hover:from-[#4A2818] hover:to-[#6B3A20] hover:-translate-y-[1px] disabled:opacity-70 disabled:cursor-not-allowed"
+                  >
+                    {loading ? "Creating account..." : "Create Account"}
+                  </button>
+
+                  <div className="flex items-center gap-2 my-1">
+                    <div className="flex-1 h-[1px] bg-[#D4AF37]/30" />
+                    <span className="text-[10px] text-[#A0856C] font-semibold tracking-[0.08em] uppercase">or</span>
+                    <div className="flex-1 h-[1px] bg-[#D4AF37]/30" />
+                  </div>
+
+                  <button
+                    id="google-register-btn"
+                    type="button"
+                    onClick={handleGoogle}
+                    disabled={loading}
+                    className="w-full py-2.5 bg-white border border-[#D4AF37]/40 rounded-[10px] font-['Poppins'] text-[13px] font-semibold text-[#2C1810] cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 hover:bg-gray-50 hover:-translate-y-[1px]"
+                  >
+                    <GoogleIcon />
+                    Sign up with Google
+                  </button>
+
+                  <p className="text-center text-xs text-[#6B4C3B] m-0 mt-1">
+                    Already have an account?{" "}
+                    <button type="button" className="text-[#8C5A3C] font-bold cursor-pointer underline bg-none border-none font-['Poppins'] text-xs p-0" onClick={() => { setTab("signin"); setGlobalError(""); }}>
+                      Sign in
+                    </button>
+                  </p>
+                </form>
+              </div>
+            </div>
+            
           </div>
         </div>
       </div>
