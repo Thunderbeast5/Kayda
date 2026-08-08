@@ -1899,6 +1899,32 @@ class StatuteClassifierPrefilter:
         filtered_terms = [t for t in query_terms if t not in stop_words and len(t) > 2]
         unique_query_terms = set(filtered_terms)
 
+        # Concept-to-keyword vocabulary bridge:
+        # Legal concept phrases from Stage 1 use formal language that doesn't match
+        # section titles directly. Expand known concept phrases into trigger keywords.
+        _CONCEPT_KEYWORD_BRIDGE = {
+            "dishonest inducement to deliver property": ["extortion", "extorted", "blackmail", "threatened", "induced delivery"],
+            "dishonestly inducing delivery": ["extortion", "blackmail", "threatened", "induced delivery"],
+            "criminal intimidation": ["threat", "threatened", "intimidat", "warning"],
+            "physical assault": ["assault", "beaten", "hurt", "pushed", "slapped"],
+            "voluntarily causing hurt": ["assault", "hurt", "beaten", "physical violence"],
+            "theft": ["theft", "stolen", "stole", "took away"],
+            "criminal breach of trust": ["stridhan", "ornaments", "property not returned", "entrustment"],
+            "extortion": ["extortion", "extorted", "blackmail", "threatened", "demanded money"],
+            "cheating": ["cheated", "defrauded", "deceived", "fraud"],
+            "robbery": ["robbery", "robbed", "looted", "snatched by force"],
+            "wrongful restraint": ["restrained", "blocked", "stopped forcibly"],
+            "wrongful confinement": ["confined", "locked", "detained"],
+            "house trespass": ["trespass", "entered illegally", "barged in"],
+            "criminal trespass": ["trespass", "entered illegally", "encroached"],
+            "mischief": ["damaged", "destroyed property", "mischief"],
+            "abetment of suicide": ["abetment of suicide", "instigated suicide", "harassment led to suicide"],
+        }
+        full_concepts_lower = " ".join(concept_phrases).lower()
+        for concept_key, extra_keywords in _CONCEPT_KEYWORD_BRIDGE.items():
+            if concept_key in full_concepts_lower:
+                unique_query_terms.update(extra_keywords)
+
         if not unique_query_terms or not self.sections_db:
             return []
 
@@ -2207,64 +2233,95 @@ class StatuteClassifierPrefilter:
                     "trigger": "Kidnapping for ransom alleged",
                 })
 
-        # Trigger 11: Theft -> 379 IPC (Primary)
-        if any(term in lower_facts for term in ["theft", "stolen", "stole", "snatched", "pickpocket",
-                                                 "property stolen", "cash stolen", "vehicle stolen"]):
+        # Trigger 11: Theft -> 379 IPC / 304 BNS (Primary)
+        # Also catches: "took", "took away", "took the laptop", "took property" (physical taking without consent)
+        if any(term in lower_facts for term in [
+            "theft", "stolen", "stole", "snatched", "pickpocket",
+            "property stolen", "cash stolen", "vehicle stolen",
+            "took away", "took the", "took her", "took his",
+            "took laptop", "took mobile", "took phone", "took bag",
+            "took from", "removed from", "carried away",
+        ]):
             suggestions.append({
-                "section_number": "379",
-                "section_title": "Theft",
-                "statute": "IPC",
+                "section_number": "304" if is_bns else "379",
+                "section_title": "Punishment for Theft",
+                "statute": "BNS" if is_bns else "IPC",
                 "candidate_type": "PRIMARY",
-                "trigger": "Theft of property alleged",
+                "trigger": "Theft / taking of movable property alleged",
+            })
+            suggestions.append({
+                "section_number": "303" if is_bns else "378",
+                "section_title": "Theft",
+                "statute": "BNS" if is_bns else "IPC",
+                "candidate_type": "PRIMARY",
+                "trigger": "Theft — dishonest taking of movable property without consent",
             })
             if any(t in lower_facts for t in ["house theft", "broke into house", "burglary", "entered house and stole"]):
                 suggestions.append({
-                    "section_number": "380",
+                    "section_number": "305" if is_bns else "380",
                     "section_title": "Theft in Dwelling House",
-                    "statute": "IPC",
+                    "statute": "BNS" if is_bns else "IPC",
                     "candidate_type": "PRIMARY",
                     "trigger": "Theft from dwelling house alleged",
                 })
 
-        # Trigger 12: Robbery / dacoity -> 392 IPC (Primary)
+        # Trigger 12: Robbery / dacoity -> 392 IPC / 309 BNS (Primary)
         if any(term in lower_facts for term in ["robbery", "robbed", "looted", "snatched by force",
                                                  "mugged", "chain snatching", "armed robbery"]):
             suggestions.append({
-                "section_number": "392",
-                "section_title": "Robbery",
-                "statute": "IPC",
+                "section_number": "309" if is_bns else "392",
+                "section_title": "Punishment for Robbery",
+                "statute": "BNS" if is_bns else "IPC",
                 "candidate_type": "PRIMARY",
                 "trigger": "Robbery alleged",
             })
             if any(t in lower_facts for t in ["dacoity", "dacoits", "group robbery", "five persons robbed"]):
                 suggestions.append({
-                    "section_number": "395",
+                    "section_number": "310" if is_bns else "395",
                     "section_title": "Dacoity",
-                    "statute": "IPC",
+                    "statute": "BNS" if is_bns else "IPC",
                     "candidate_type": "PRIMARY",
                     "trigger": "Dacoity by group of five or more alleged",
                 })
 
-        # Trigger 13: Cheating / fraud -> 420 IPC (Primary)
+        # Trigger 13: Cheating / fraud -> 420 IPC / 318 BNS (Primary)
         if any(term in lower_facts for term in ["cheated", "defrauded", "deceived", "fraud", "fake promise",
                                                  "scam", "misrepresentation", "duped", "swindled"]):
             suggestions.append({
-                "section_number": "420",
+                "section_number": "318" if is_bns else "420",
                 "section_title": "Cheating and Dishonestly Inducing Delivery of Property",
-                "statute": "IPC",
+                "statute": "BNS" if is_bns else "IPC",
                 "candidate_type": "PRIMARY",
                 "trigger": "Cheating / fraud alleged",
             })
 
-        # Trigger 14: Extortion / blackmail -> 384 IPC (Primary)
-        if any(term in lower_facts for term in ["extortion", "extorted", "blackmail", "blackmailed",
-                                                 "demanded money under threat", "coerced to pay"]):
+        # Trigger 14: Extortion / blackmail -> 384 IPC / 309 BNS (Primary)
+        # Also covers: threat to accuse of crime to extract money (classic extortion pattern)
+        if any(term in lower_facts for term in [
+            "extortion", "extorted", "blackmail", "blackmailed",
+            "demanded money under threat", "coerced to pay",
+            "threatened to accuse", "threatened to file", "threatened to expose",
+            "accuse of fraud", "accuse her of fraud", "accuse him of fraud",
+            "threatened to publicly", "threatened publicly",
+            "transfer money", "transfer the money",
+            "dishonest inducement", "dishonestly induced",
+            "inducement to deliver", "inducing delivery",
+            "pay or else", "pay otherwise", "money or else",
+            "demanded transfer", "demanded payment under",
+        ]):
             suggestions.append({
-                "section_number": "384",
-                "section_title": "Extortion",
-                "statute": "IPC",
+                "section_number": "309" if is_bns else "384",
+                "section_title": "Punishment for Extortion",
+                "statute": "BNS" if is_bns else "IPC",
                 "candidate_type": "PRIMARY",
-                "trigger": "Extortion / blackmail alleged",
+                "trigger": "Extortion / blackmail / threat to accuse alleged",
+            })
+            suggestions.append({
+                "section_number": "308" if is_bns else "383",
+                "section_title": "Extortion",
+                "statute": "BNS" if is_bns else "IPC",
+                "candidate_type": "PRIMARY",
+                "trigger": "Extortion — putting in fear to dishonestly induce delivery of property",
             })
 
         # Trigger 15: Rioting / mob violence -> 147, 148 IPC (Primary)

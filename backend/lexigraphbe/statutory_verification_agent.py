@@ -274,6 +274,8 @@ class StatutoryVerificationAgent:
         # Passthrough legal_regime from Stage 3 ChapterIdentificationObject
         statutory_obj.legal_regime = chap_obj.legal_regime or "IPC + CrPC"
 
+        print(f"[StatutoryVerificationAgent] Before fallback: verified_offences={len(statutory_obj.verified_offences)}, verified_sections={len(statutory_obj.verified_sections)}")
+
         # If verified_offences is empty but verified_sections exist, populate verified_offences
         if not statutory_obj.verified_offences and statutory_obj.verified_sections:
             from .schemas import VerifiedOffenceItemStage4, IngredientEvaluationItem
@@ -303,6 +305,8 @@ class StatutoryVerificationAgent:
                         overall_status="Prima Facie Attracted" if v_sec.overall_confidence >= 0.70 else "Partially Attracted"
                     )
                 )
+        
+        print(f"[StatutoryVerificationAgent] After fallback: verified_offences={len(statutory_obj.verified_offences)}, verified_sections={len(statutory_obj.verified_sections)}")
 
         for v_sec in statutory_obj.verified_sections:
             if v_sec.overall_confidence < self.min_confidence_threshold:

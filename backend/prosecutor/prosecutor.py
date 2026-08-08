@@ -99,7 +99,7 @@ class ProsecutorAgent:
         self,
         case_file: str,
         proceeding_type: str = "anticipatory_bail_opposition",
-        legal_regime: str = "BNS_2023",
+        legal_regime: str = "IPC + CrPC",  # Default to IPC until BNS database is fully populated
     ) -> ProsecutorAnalysis:
         """
         Main entry point: Analyze case file and prepare prosecutorial strategy.
@@ -208,7 +208,47 @@ class ProsecutorAgent:
         prosecutor_analysis = self._analyze_prosecution_strategy(case_file, self.legal_query)
         self.prosecutor_analysis = prosecutor_analysis
         
+        # CRITICAL FIX: Update legal_query with prosecutor-identified crimes
+        # Stage 1 might have identified "Criminal Intimidation" + "Theft" as separate concepts,
+        # but the prosecutor correctly recognizes this as "Extortion" (threat + demand for property)
+        # We need to add any missing crime concepts to legal_query before querying lexigraphbe
+        self._enrich_legal_query_with_identified_crimes()
+        
         return prosecutor_analysis
+    
+    def _enrich_legal_query_with_identified_crimes(self):
+        """
+        Enrich the legal_query with crimes identified by the prosecutor strategy LLM.
+        Stage 1 identifies raw concepts, but the prosecutor refines them into specific crimes.
+        This ensures lexigraphbe retrieves sections for ALL identified crimes, especially the primary one.
+        """
+        from lexigraphbe.schemas import LegalConceptItem, SubQueryItem
+        
+        existing_concepts = {c.concept.lower().strip() for c in self.legal_query.legal_concepts}
+        
+        for crime in self.prosecutor_analysis.identified_crimes:
+            crime_key = crime.crime_name.lower().strip()
+            
+            # Check if this crime is already in legal_query concepts
+            if not any(crime_key in ec or ec in crime_key for ec in existing_concepts):
+                # Add missing crime as a new legal concept
+                new_concept = LegalConceptItem(
+                    concept=crime.crime_name,
+                    confidence=0.95 if crime.severity == "primary" else 0.85
+                )
+                self.legal_query.legal_concepts.append(new_concept)
+                
+                # Also add a sub-query for this crime
+                new_sub_query = SubQueryItem(
+                    id=f"SQ{len(self.legal_query.sub_queries) + 1}",
+                    query=f"{crime.crime_name}: {', '.join(crime.legal_elements)}",
+                    concept=crime.crime_name,
+                    target_parties=self.case_context.active_parties or [],
+                    role_alleged="Accused"
+                )
+                self.legal_query.sub_queries.append(new_sub_query)
+                
+                print(f"[ProsecutorAgent] Added missing concept to legal_query: {crime.crime_name}")
     
     def _analyze_prosecution_strategy(self, case_facts: str, legal_query: LegalQueryObject) -> ProsecutorAnalysis:
         """
@@ -285,7 +325,7 @@ CASE FACTS (authoritative — do not embellish or add facts):
 {case_facts}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-VERIFIED LEGAL CONCEPTS — CLOSED SET (treat this as an exhaustive list):
+PRELIMINARY LEGAL CONCEPTS IDENTIFIED (use as a starting point, not a ceiling):
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 {concepts_str}
 
@@ -293,32 +333,42 @@ SUB-QUERIES FOR THIS CASE:
 {sub_queries_str}
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-HARD CONSTRAINTS — MANDATORY:
+LEGAL ANALYSIS RULES:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-1. Every crime_name in identified_crimes MUST map to one of the VERIFIED LEGAL CONCEPTS above.
-   Do NOT introduce any offence that does not appear in the closed set.
-2. Do NOT include any IPC/BNS section numbers in your output — name crimes by concept only.
-3. If a concept from the closed set is not relevant to the proceeding goal, exclude it — do not
-   force all concepts into identified_crimes.
-4. The primary_crime must be the concept best suited to the PROCEEDING GOAL above, not merely
+1. You MAY add offences clearly supported by the case facts even if not in the preliminary list.
+   The preliminary list is a starting point — exercise your legal judgment from the facts.
+2. EXTORTION RULE: If the facts show a person was threatened to hand over money or property
+   under threat of accusation/harm, that IS Extortion (BNS 308/309) — identify it as such
+   even if the preliminary concepts call it "Dishonest Inducement" or "Criminal Intimidation".
+   Extortion is ALWAYS more serious than bare Criminal Intimidation when a demand for property
+   accompanies the threat — treat it as primary in anticipatory bail proceedings.
+3. Do NOT include any IPC/BNS section numbers in your output — name crimes by concept only.
+4. The primary_crime must be the concept best suited to the PROCEEDING GOAL, not merely
    the most morally serious offence in the abstract.
+5. Every identified crime must be directly supported by specific facts stated above.
+
+OFFENCE SEVERITY GUIDE FOR ANTICIPATORY BAIL:
+- Extortion (threat + demand for property): HIGH — primary
+- Theft (taking property without consent, with evidence): HIGH — primary or secondary
+- Criminal Intimidation (threat alone, no property demand): MEDIUM — secondary
+- Voluntarily Causing Hurt / Physical Assault: MEDIUM — secondary or ancillary
 
 Output ONLY valid JSON matching this structure exactly:
 {{
-    "case_summary": "Brief summary from the prosecution's perspective for THIS proceeding",
-    "primary_crime": "Name of the main offence (must be from closed set)",
-    "prosecution_theory": "Theory tailored to the proceeding goal",
+    "case_summary": "Detailed summary from the prosecution's perspective — cover all facts, evidence, and accused's defence claim",
+    "primary_crime": "Name of the main offence",
+    "prosecution_theory": "Comprehensive theory tailored to the proceeding goal — explain WHY bail must be refused",
     "identified_crimes": [
         {{
-            "crime_name": "Name of offence (from closed set)",
+            "crime_name": "Name of offence",
             "severity": "primary|secondary|ancillary",
-            "legal_elements": ["element1", "element2"],
-            "prosecution_strategy": "How this element is proved on these facts",
+            "legal_elements": ["element1", "element2", "element3"],
+            "prosecution_strategy": "Detailed strategy citing specific evidence from the facts",
             "required_sections": ["Describe the type of BNS/BNSS section needed, NO section numbers"]
         }}
     ],
-    "evidence_requirements": ["Evidence item grounded in the facts"],
-    "legal_principles": ["Applicable legal principle"]
+    "evidence_requirements": ["Specific evidence item grounded in the facts"],
+    "legal_principles": ["Applicable legal principle relevant to bail refusal"]
 }}
 
 Return ONLY the JSON, no markdown, no explanation."""
@@ -359,10 +409,151 @@ Return ONLY the JSON, no markdown, no explanation."""
         
         return prosecutor_analysis
     
+    def query_lexigraphbe_all_crimes(self) -> Dict[str, List[Dict[str, Any]]]:
+        """
+        Query lexigraphbe pipeline ONCE for ALL crimes using the full legal_query from Stage 1.
+        This is the correct architecture — the pipeline was designed to handle multiple crimes together.
+        The prefilter sees ALL concepts at once and can properly distinguish between them.
+        
+        Returns:
+            Dict mapping crime names to their retrieved sections
+        """
+        # Check if we've already run the full pipeline
+        if hasattr(self, '_all_crimes_sections_retrieved') and self._all_crimes_sections_retrieved:
+            print(f"\n[ProsecutorAgent] Using previously retrieved sections for all crimes")
+            return self.retrieved_sections_cache
+        
+        print(f"\n[ProsecutorAgent] Querying lexigraphbe for ALL crimes together...")
+        
+        try:
+            from lexigraphbe.stage2_pipeline import Stage2Pipeline
+            from lexigraphbe.stage3_pipeline import Stage3Pipeline
+            from lexigraphbe.stage4_pipeline import Stage4Pipeline
+            
+            # Use the FULL legal_query from Stage 1 (contains all concepts together)
+            # This prevents the prefilter from misclassifying crimes due to case facts bleed
+            print(f"[ProsecutorAgent] Running Stage 2: Section Mapping for {len(self.legal_query.legal_concepts)} concepts...")
+            stage2_pipeline = Stage2Pipeline()
+            stage2_result = stage2_pipeline.run(self.legal_query)
+            
+            if stage2_result.status != "VERIFIED":
+                print(f"[ProsecutorAgent] Warning: Stage 2 returned {stage2_result.status}")
+            
+            stage2_output = stage2_result.batched_mapping_response.model_dump() if stage2_result.batched_mapping_response else {}
+            
+            # Debug: Check what Stage 2 returned
+            if stage2_output:
+                mappings = stage2_output.get("mappings", [])
+                print(f"[ProsecutorAgent] Stage 2 output: {len(mappings)} concept mappings")
+                for mapping in mappings[:5]:  # Show first 5
+                    sub_query_text = mapping.get("sub_query_text", "Unknown")
+                    primary_secs = mapping.get("primary_candidate_sections", [])
+                    if primary_secs:
+                        sec = primary_secs[0]
+                        print(f"  - {sub_query_text[:50]} → {sec.get('section_number', 'N/A')} {sec.get('statute', '')}")
+            
+            print(f"[ProsecutorAgent] Running Stage 3: Chapter Identification...")
+            stage3_pipeline = Stage3Pipeline()
+            stage3_result = stage3_pipeline.run(self.legal_query, stage2_mapping=stage2_output)
+            
+            if stage3_result.status != "VERIFIED":
+                print(f"[ProsecutorAgent] Warning: Stage 3 returned {stage3_result.status}")
+            
+            stage3_output = stage3_result.verified_chapter_object.model_dump() if stage3_result.verified_chapter_object else {}
+            
+            # Debug: Check what Stage 3 returned
+            if stage3_output:
+                verified_offences_s3 = stage3_output.get("verified_offences", [])
+                section_candidates_s3 = stage3_output.get("section_candidates", [])
+                print(f"[ProsecutorAgent] Stage 3 output: {len(verified_offences_s3)} verified_offences, {len(section_candidates_s3)} section_candidates")
+            
+            print(f"[ProsecutorAgent] Running Stage 4: Statutory Verification...")
+            stage4_pipeline = Stage4Pipeline()
+            stage4_result = stage4_pipeline.run(self.legal_query, stage3_output)
+            
+            if stage4_result.status != "VERIFIED":
+                print(f"[ProsecutorAgent] Warning: Stage 4 returned {stage4_result.status}")
+            
+            stage4_output = stage4_result.verified_statutory_object.model_dump() if stage4_result.verified_statutory_object else {}
+            
+            # Extract verified offences from Stage 4
+            all_verified_offences = stage4_output.get("verified_offences", [])
+            
+            # Fallback to verified_sections if needed
+            if not all_verified_offences:
+                verified_sections = stage4_output.get("verified_sections", [])
+                print(f"[ProsecutorAgent] verified_offences empty, using verified_sections fallback: {len(verified_sections)} sections")
+                for v_sec in verified_sections:
+                    all_verified_offences.append({
+                        "section_number": v_sec.get("section_number", ""),
+                        "statute": v_sec.get("statute", "IPC"),
+                        "title": v_sec.get("section_title", ""),
+                        "section_title": v_sec.get("section_title", ""),
+                        "ingredients_matched": [ing.get("ingredient", "") for ing in v_sec.get("ingredients", [])],
+                        "legal_elements": [ing.get("ingredient", "") for ing in v_sec.get("ingredients", [])],
+                        "overall_confidence": v_sec.get("overall_confidence", 0.90),
+                        "punishment_text": v_sec.get("punishment_text", ""),
+                        "max_imprisonment_years": v_sec.get("max_imprisonment_years", 3.0),
+                        "arnesh_kumar_threshold_exceeded": v_sec.get("arnesh_kumar_threshold_exceeded", False)
+                    })
+            
+            print(f"\n[ProsecutorAgent] Total sections retrieved: {len(all_verified_offences)}")
+            
+            # Distribute sections to crimes by matching titles and concepts
+            for crime in self.prosecutor_analysis.identified_crimes:
+                crime_key = crime.crime_name.lower().strip()
+                matched_sections = []
+                
+                for section in all_verified_offences:
+                    section_title = section.get("title", section.get("section_title", "")).lower()
+                    crime_name_lower = crime.crime_name.lower()
+                    
+                    # Concept-based keyword matching
+                    crime_keywords = {
+                        "criminal intimidation": ["criminal intimidation", "threat", "alarm"],
+                        "physical assault": ["assault", "hurt", "causing hurt", "voluntarily causing hurt", "injury", "violence"],
+                        "dishonest inducement": ["cheat", "fraud", "dishonest", "deceive", "inducement", "delivery of property"],
+                        "theft": ["theft", "dishonestly", "movable property"],
+                        "extortion": ["extortion", "putting person in fear", "putting any person in fear"],
+                        "robbery": ["robbery", "dacoity"],
+                    }
+                    
+                    keywords = crime_keywords.get(crime_name_lower, crime_name_lower.split())
+                    if any(kw in section_title for kw in keywords):
+                        matched_sections.append(section)
+                
+                # Cache and assign
+                results = {
+                    "recommended_sections": matched_sections,
+                    "similar_cases": [],
+                    "supporting_articles": [],
+                    "supporting_evidence": [],
+                    "stage2_output": stage2_output,
+                    "stage3_output": stage3_output,
+                    "stage4_output": stage4_output
+                }
+                
+                self.retrieved_sections_cache[crime_key] = results
+                crime.retrieved_sections = matched_sections
+                crime.supporting_precedents = []
+                
+                print(f"  → {crime.crime_name}: {len(matched_sections)} sections")
+            
+            # Mark complete
+            self._all_crimes_sections_retrieved = True
+            return self.retrieved_sections_cache
+            
+        except Exception as e:
+            print(f"[ProsecutorAgent] Error running lexigraphbe pipeline: {e}")
+            import traceback
+            traceback.print_exc()
+            return {}
+    
     def query_lexigraphbe_for_crime(self, crime: CrimeAnalysis) -> Dict[str, Any]:
         """
-        Query lexigraphbe pipeline starting from Stage 2 (Section Mapping).
-        The prosecutor already has Stage 1 output (legal concepts), so we skip stages 0-1.
+        Query lexigraphbe for a specific crime.
+        Now uses the batch query approach (queries all crimes together) to avoid
+        prefilter misclassification due to case facts bleeding across focused queries.
         
         Args:
             crime: CrimeAnalysis object for the specific offense
@@ -375,115 +566,26 @@ Return ONLY the JSON, no markdown, no explanation."""
         # Check cache first
         cache_key = crime.crime_name.lower().strip()
         if cache_key in self.retrieved_sections_cache:
-            print(f"[ProsecutorAgent] Using cached results")
+            print(f"[ProsecutorAgent] Using cached results: {len(self.retrieved_sections_cache[cache_key].get('recommended_sections', []))} sections")
             return self.retrieved_sections_cache[cache_key]
         
-        # Build a minimal LegalQueryObject with just this crime's concept
-        # We already have Stage 1 output from analyze_case, so we create a focused query
-        try:
-            from lexigraphbe.schemas import LegalQueryObject, LegalConceptItem, SubQueryItem
-            from lexigraphbe.stage2_pipeline import Stage2Pipeline
-            from lexigraphbe.stage3_pipeline import Stage3Pipeline
-            from lexigraphbe.stage4_pipeline import Stage4Pipeline
-            
-            # Create a focused legal query for this specific crime
-            # Find the matching concept from our original legal_query
-            matching_concept = None
-            for concept in self.legal_query.legal_concepts:
-                if concept.concept.lower() in crime.crime_name.lower() or \
-                   crime.crime_name.lower() in concept.concept.lower():
-                    matching_concept = concept
-                    break
-            
-            if not matching_concept:
-                # Create a new concept for this crime
-                matching_concept = LegalConceptItem(
-                    concept=crime.crime_name,
-                    confidence=0.90
-                )
-            
-            # Build a focused query with just this concept
-            focused_query = LegalQueryObject(
-                case_type=self.case_context.case_profile.procedural_stage,
-                legal_concepts=[matching_concept],
-                sub_queries=[SubQueryItem(
-                    id="SQ1",
-                    query=f"{crime.crime_name}: {', '.join(crime.legal_elements)}",
-                    concept=matching_concept.concept,
-                    target_parties=self.case_context.active_parties or [],
-                    role_alleged="Primary accused"
-                )],
-                legal_regime=self.case_context.case_profile.legal_regime,
-                important_facts=self.legal_query.important_facts
-            )
-            
-            print(f"[ProsecutorAgent] Running Stage 2: Section Mapping...")
-            stage2_pipeline = Stage2Pipeline()
-            stage2_result = stage2_pipeline.run(focused_query)
-            
-            if stage2_result.status != "VERIFIED":
-                print(f"[ProsecutorAgent] Warning: Stage 2 returned {stage2_result.status}")
-            
-            stage2_output = stage2_result.batched_mapping_response.model_dump() if stage2_result.batched_mapping_response else {}
-            
-            print(f"[ProsecutorAgent] Running Stage 3: Chapter Identification...")
-            stage3_pipeline = Stage3Pipeline()
-            stage3_result = stage3_pipeline.run(focused_query, stage2_mapping=stage2_output)
-            
-            if stage3_result.status != "VERIFIED":
-                print(f"[ProsecutorAgent] Warning: Stage 3 returned {stage3_result.status}")
-            
-            stage3_output = stage3_result.verified_chapter_object.model_dump() if stage3_result.verified_chapter_object else {}
-            
-            print(f"[ProsecutorAgent] Running Stage 4: Statutory Verification...")
-            stage4_pipeline = Stage4Pipeline()
-            stage4_result = stage4_pipeline.run(focused_query, stage3_output)
-            
-            if stage4_result.status != "VERIFIED":
-                print(f"[ProsecutorAgent] Warning: Stage 4 returned {stage4_result.status}")
-            
-            stage4_output = stage4_result.verified_statutory_object.model_dump() if stage4_result.verified_statutory_object else {}
-            
-            # Extract verified offences from Stage 4
-            verified_offences = stage4_output.get("verified_offences", [])
-            
-            # Format results for prosecutor use
-            results = {
-                "recommended_sections": verified_offences,
-                "similar_cases": [],  # Not retrieved (would need Stage 6)
-                "supporting_articles": [],
-                "supporting_evidence": [],
-                "stage2_output": stage2_output,
-                "stage3_output": stage3_output,
-                "stage4_output": stage4_output
-            }
-            
-            # Cache the results
-            self.retrieved_sections_cache[cache_key] = results
-            
-            # Update crime with retrieved sections
-            crime.retrieved_sections = results.get("recommended_sections", [])
-            crime.supporting_precedents = results.get("similar_cases", [])
-            
-            print(f"[ProsecutorAgent] Retrieved {len(crime.retrieved_sections)} statutory sections")
-            
-            return results
-            
-        except Exception as e:
-            print(f"[ProsecutorAgent] Error running lexigraphbe pipeline: {e}")
-            import traceback
-            traceback.print_exc()
-            print(f"[ProsecutorAgent] Returning placeholder results")
-            return {
-                "recommended_sections": [],
-                "similar_cases": [],
-                "error": str(e),
-                "note": "lexigraphbe pipeline failed - check if all stages are properly configured"
-            }
+        # Query all crimes together if not done yet (correct architecture)
+        self.query_lexigraphbe_all_crimes()
+        
+        # Return the cached result for this specific crime
+        result = self.retrieved_sections_cache.get(cache_key, {
+            "recommended_sections": [],
+            "similar_cases": [],
+            "error": "Crime not found in batch query results"
+        })
+        
+        print(f"[ProsecutorAgent] Retrieved {len(result.get('recommended_sections', []))} statutory sections")
+        return result
     
     def _build_crime_specific_query(self, crime: CrimeAnalysis) -> str:
         """
         Build a focused query for lexigraphbe based on specific crime.
+        (Kept for backward compatibility, but no longer used in the batch query approach)
         """
         # Include case facts context
         case_facts = self.case_context.case_profile.case_facts if self.case_context else ""
@@ -501,28 +603,84 @@ Return ONLY the JSON, no markdown, no explanation."""
     def build_opening_argument(self) -> Dict[str, Any]:
         """
         Build opening argument for the prosecution.
-        Queries lexigraphbe for primary crime first.
+        Queries lexigraphbe for ALL identified crimes, then generates full prose argument.
         """
         if not self.prosecutor_analysis:
             raise ValueError("Must run analyze_case() first")
         
         print("\n[ProsecutorAgent] Building Opening Argument...")
         
-        # Query lexigraphbe for primary crime
-        primary_crimes = [c for c in self.prosecutor_analysis.identified_crimes if c.severity == "primary"]
-        
-        if not primary_crimes:
-            print("[ProsecutorAgent] Warning: No primary crime identified, using first crime")
-            primary_crimes = [self.prosecutor_analysis.identified_crimes[0]]
-        
-        # Retrieve sections for primary crime
-        for crime in primary_crimes:
+        # Query lexigraphbe for ALL identified crimes (not just primary)
+        for crime in self.prosecutor_analysis.identified_crimes:
             self.query_lexigraphbe_for_crime(crime)
-        
-        # Build structured argument
+
+        # Separate primary vs other charges
+        primary_crimes = [c for c in self.prosecutor_analysis.identified_crimes if c.severity == "primary"]
+        if not primary_crimes:
+            primary_crimes = [self.prosecutor_analysis.identified_crimes[0]]
+
+        # Build sections brief for argument generation
+        all_sections_brief = []
+        for crime in self.prosecutor_analysis.identified_crimes:
+            if crime.retrieved_sections:
+                sec_lines = []
+                for sec in crime.retrieved_sections:
+                    sec_num = sec.get("section_number", "")
+                    statute = sec.get("statute", "BNS")
+                    title = sec.get("title", sec.get("section_title", ""))
+                    sec_lines.append(f"    • {sec_num} {statute} — {title}")
+                all_sections_brief.append(f"  [{crime.crime_name} | {crime.severity}]\n" + "\n".join(sec_lines))
+            else:
+                all_sections_brief.append(f"  [{crime.crime_name} | {crime.severity}]\n    • (Section retrieval pending)")
+
+        sections_text = "\n\n".join(all_sections_brief)
+        case_facts = self.case_context.case_profile.case_facts if self.case_context else ""
+
+        # Generate full prose opening argument via LLM
+        opening_prompt = f"""You are a Senior Public Prosecutor appearing before a Sessions Court opposing an anticipatory bail application.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+CASE FACTS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+{case_facts}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+PROSECUTION THEORY:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+{self.prosecutor_analysis.prosecution_theory}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+IDENTIFIED CHARGES AND RETRIEVED STATUTORY SECTIONS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+{sections_text}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+AVAILABLE EVIDENCE:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+{chr(10).join(f"- {e}" for e in self.prosecutor_analysis.evidence_requirements)}
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+INSTRUCTIONS:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Draft a complete, forceful prosecution opening argument opposing anticipatory bail. The argument must:
+
+1. OPEN with a strong statement of the nature and gravity of the offences.
+2. ADDRESS EACH CHARGE in order of severity — cite the specific statutory section, its ingredients, and map each ingredient to concrete evidence from the facts (CCTV, call records, witness, laptop recovery).
+3. DEMOLISH the accused's civil dispute defence — explain why a civil dispute defence does not negate criminal culpability when physical force, threats, and taking of property are involved.
+4. ARGUE against custodial interrogation claim — explain what custodial interrogation would reveal (e.g. nature of threats, other potential victims, extent of extortion attempts).
+5. CLOSE with a prayer for refusal of anticipatory bail.
+
+Write in formal court language. Be specific and detailed. Minimum 400 words.
+Do NOT use bullet points — write flowing legal prose with numbered paragraphs."""
+
+        response = self.llm.invoke(opening_prompt)
+        opening_prose = response.content if hasattr(response, "content") else str(response)
+
+        # Build structured argument object
         argument = {
             "phase": "opening",
             "prosecution_theory": self.prosecutor_analysis.prosecution_theory,
+            "opening_statement": opening_prose,
             "primary_charges": [
                 {
                     "crime": crime.crime_name,
@@ -530,7 +688,7 @@ Return ONLY the JSON, no markdown, no explanation."""
                     "sections": crime.retrieved_sections,
                     "strategy": crime.prosecution_strategy
                 }
-                for crime in primary_crimes
+                for crime in self.prosecutor_analysis.identified_crimes
             ],
             "evidence_framework": self.prosecutor_analysis.evidence_requirements,
             "legal_principles": self.prosecutor_analysis.legal_principles
@@ -737,8 +895,9 @@ Each string should be 3-5 sentences. No markdown, no numbering inside strings.""
             result = extract_json_from_text(response_text)
             if isinstance(result, list) and all(isinstance(a, str) for a in result):
                 return result
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"[ProsecutorAgent] JSON extraction failed: {e}")
+            print(f"[ProsecutorAgent] LLM response (first 500 chars): {response_text[:500]}")
 
         # Fallback: try raw json.loads
         try:
@@ -746,10 +905,11 @@ Each string should be 3-5 sentences. No markdown, no numbering inside strings.""
             result = _json.loads(response_text.strip())
             if isinstance(result, list):
                 return result
-        except Exception:
-            pass
+        except Exception as e:
+            print(f"[ProsecutorAgent] Raw JSON parse also failed: {e}")
 
         # Last resort: return the raw text as a single argument
+        print(f"[ProsecutorAgent] Using raw text as single counter-argument")
         return [response_text.strip()]
 
     def build_closing_argument(self) -> Dict[str, Any]:
@@ -867,16 +1027,25 @@ def main():
     
     print(f"\nOpening Argument Summary:")
     print(f"Prosecution Theory: {opening['prosecution_theory']}")
-    print(f"\nPrimary Charges:")
+
+    # Print all charges with sections
+    print(f"\nAll Charges and Retrieved Sections:")
     for charge in opening['primary_charges']:
         print(f"\n  Crime: {charge['crime']}")
         print(f"  Elements to Prove: {', '.join(charge['elements'])}")
         sections_count = len(charge.get('sections', []))
         print(f"  Retrieved Sections: {sections_count}")
         if sections_count > 0:
-            for sec in charge['sections'][:3]:  # Show first 3 sections
-                print(f"    - {sec.get('section_number', 'N/A')} {sec.get('statute', '')}: {sec.get('title', '')}")
-        print(f"  Strategy: {charge['strategy'][:150]}...")
+            for sec in charge['sections'][:5]:
+                print(f"    - {sec.get('section_number', 'N/A')} {sec.get('statute', '')}: {sec.get('title', sec.get('section_title', ''))}")
+        print(f"  Strategy: {charge['strategy'][:200]}...")
+
+    # Print full opening argument prose
+    if opening.get("opening_statement"):
+        print("\n" + "=" * 80)
+        print("FULL OPENING ARGUMENT:")
+        print("=" * 80)
+        print(opening["opening_statement"])
     
     # STEP 3: Wait for defense argument
     print("\n" + "=" * 80)

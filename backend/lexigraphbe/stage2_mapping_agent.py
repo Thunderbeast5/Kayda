@@ -70,7 +70,13 @@ class Stage2SubQueryMappingAgent:
         facts_text = " ".join(facts_text_parts)
 
         regime = query_obj.legal_regime or "IPC + CrPC"
-        statute_type = "BNS" if "BNS" in regime.upper() else "IPC"
+        # Fix: BNS+BNSS regime must resolve to "BNS"; IPC+CrPC resolves to "IPC".
+        # Also handle edge cases like "BNS + BNSS", "BNS+BNSS", "bns bnss", etc.
+        regime_upper = regime.upper()
+        if "BNS" in regime_upper or "BNSS" in regime_upper:
+            statute_type = "BNS"
+        else:
+            statute_type = "IPC"
 
         # Step 2: Run local StatuteClassifierPrefilter (0 API calls)
         prefiltered_matches = []
@@ -81,6 +87,18 @@ class Stage2SubQueryMappingAgent:
                 top_k=10,
             )
             prefiltered_matches.extend(matches)
+
+        # Fallback: if prefilter returns nothing for chosen statute_type, try the other statute
+        # (guards against mismatched regime label from Stage 0 while still providing candidates to LLM)
+        if not prefiltered_matches:
+            fallback_statute = "IPC" if statute_type == "BNS" else "BNS"
+            for concept_item in query_obj.legal_concepts:
+                matches = self.prefilter.prefilter_candidates(
+                    query_text=concept_item.concept,
+                    statute_type=fallback_statute,
+                    top_k=10,
+                )
+                prefiltered_matches.extend(matches)
 
         # Step 3: Detect factual triggers (e.g. dowry -> 498A & Sec 4 DP Act, stridhan -> 406, threat -> 506)
         trigger_suggestions = self.prefilter.detect_factual_triggers(facts_text=facts_text, statute_type=statute_type)
