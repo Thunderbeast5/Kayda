@@ -194,15 +194,17 @@ export default function AuthPage() {
     setLoading(true);
     setGlobalError("");
     try {
-      // loginWithGoogle triggers a redirect — page navigates away to Google.
-      // Result is handled by AuthContext on return via handleGoogleRedirectResult.
       await loginWithGoogle();
-      // If we reach here (shouldn't normally), redirect is in progress
+      window.location.hash = "#/";
     } catch (err) {
-      setGlobalError("Could not start Google Sign-In. Please try again.");
+      if (err.code !== "auth/popup-closed-by-user" && err.code !== "auth/cancelled-popup-request") {
+        setGlobalError(friendlyError(err.code));
+      }
+    } finally {
       setLoading(false);
     }
   };
+
 
   function friendlyError(code) {
     const map = {

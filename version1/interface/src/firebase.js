@@ -5,8 +5,7 @@ import {
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  signInWithRedirect,
-  getRedirectResult,
+  signInWithPopup,
   signOut,
   onAuthStateChanged,
   updateProfile,
@@ -39,7 +38,7 @@ if (isConfigured) {
     db = getFirestore(app);
     googleProvider = new GoogleAuthProvider();
     googleProvider.setCustomParameters({ prompt: "select_account" });
-    console.log("Firebase initialized successfully (Storage, Auth, Firestore).");
+    // console.log("Firebase initialized successfully (Storage, Auth, Firestore).");
   } catch (error) {
     console.error("Failed to initialize Firebase:", error);
   }
@@ -85,50 +84,32 @@ export async function loginWithEmail(email, password) {
 }
 
 /**
- * Initiate Google Sign-In via redirect (avoids COOP/popup issues).
- * The result is handled by handleGoogleRedirectResult() on the next page load.
+ * Sign in / register via Google popup.
+ * Requires COOP header: same-origin-allow-popups (set in vite.config.js).
+ * Creates a Firestore profile doc on first sign-in.
  */
 export async function loginWithGoogle() {
-  if (!auth || !googleProvider) throw new Error("Firebase is not configured.");
-  await signInWithRedirect(auth, googleProvider);
-}
-
-/**
- * Call this on app mount to pick up the Google redirect result.
- * Returns the user if a redirect just completed, or null otherwise.
- */
-export async function handleGoogleRedirectResult() {
-  if (!auth || !db) return null;
-  try {
-    const result = await getRedirectResult(auth);
-    if (!result?.user) return null;
-    const user = result.user;
-    // Create Firestore profile if first-time Google sign-in
-    const profileRef = doc(db, "users", user.uid);
-    const snap = await getDoc(profileRef);
-    if (!snap.exists()) {
-      const nameParts = (user.displayName || "").split(" ");
-      await setDoc(profileRef, {
-        uid: user.uid,
-        email: user.email,
-        firstName: nameParts[0] || "",
-        lastName: nameParts.slice(1).join(" ") || "",
-        age: null,
-        mobile: user.phoneNumber || null,
-        displayName: user.displayName || "",
-        photoURL: user.photoURL || null,
-        createdAt: serverTimestamp(),
-        provider: "google",
-      });
-    }
-    return user;
-  } catch (err) {
-    // Ignore "no redirect" state — only log real errors
-    if (err.code !== "auth/no-redirect-operation-pending") {
-      console.error("Google redirect result error:", err);
-    }
-    return null;
+  if (!auth || !googleProvider || !db) throw new Error("Firebase is not configured.");
+  const cred = await signInWithPopup(auth, googleProvider);
+  // Create Firestore profile if this is a first-time Google sign-in
+  const profileRef = doc(db, "users", cred.user.uid);
+  const snap = await getDoc(profileRef);
+  if (!snap.exists()) {
+    const nameParts = (cred.user.displayName || "").split(" ");
+    await setDoc(profileRef, {
+      uid: cred.user.uid,
+      email: cred.user.email,
+      firstName: nameParts[0] || "",
+      lastName: nameParts.slice(1).join(" ") || "",
+      age: null,
+      mobile: cred.user.phoneNumber || null,
+      displayName: cred.user.displayName || "",
+      photoURL: cred.user.photoURL || null,
+      createdAt: serverTimestamp(),
+      provider: "google",
+    });
   }
+  return cred.user;
 }
 
 /**
