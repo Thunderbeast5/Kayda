@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { registerWithEmail, loginWithEmail, loginWithGoogle } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 
@@ -92,6 +93,7 @@ function Field({ label, id, type = "text", value, onChange, placeholder, error, 
 // ─── Main AuthPage ────────────────────────────────────────────────────────────
 export default function AuthPage() {
   const { currentUser, loading: authLoading } = useAuth();
+  const navigate = useNavigate();
   const [tab, setTab] = useState("signin"); // "signin" | "register"
   const [loading, setLoading] = useState(false);
   const [globalError, setGlobalError] = useState("");
@@ -112,11 +114,10 @@ export default function AuthPage() {
   const [regErrors, setRegErrors] = useState({});
 
   useEffect(() => {
-    // If already logged in, skip the auth page entirely
     if (!authLoading && currentUser) {
-      window.location.hash = "#/";
+      navigate("/", { replace: true });
     }
-  }, [currentUser, authLoading]);
+  }, [currentUser, authLoading, navigate]);
 
   useEffect(() => {
     setTimeout(() => setMounted(true), 50);
@@ -167,7 +168,7 @@ export default function AuthPage() {
     setGlobalError("");
     try {
       await loginWithEmail(siEmail, siPassword);
-      window.location.hash = "#/";
+      navigate("/", { replace: true });
     } catch (err) {
       setGlobalError(friendlyError(err.code));
     } finally {
@@ -182,7 +183,7 @@ export default function AuthPage() {
     setGlobalError("");
     try {
       await registerWithEmail(reg);
-      window.location.hash = "#/";
+      navigate("/", { replace: true });
     } catch (err) {
       setGlobalError(friendlyError(err.code));
     } finally {
@@ -195,7 +196,7 @@ export default function AuthPage() {
     setGlobalError("");
     try {
       await loginWithGoogle();
-      window.location.hash = "#/";
+      navigate("/", { replace: true });
     } catch (err) {
       if (err.code !== "auth/popup-closed-by-user" && err.code !== "auth/cancelled-popup-request") {
         setGlobalError(friendlyError(err.code));

@@ -34,6 +34,8 @@ export function AuthProvider({ children }) {
     await logoutUser();
     setCurrentUser(null);
     setUserProfile(null);
+    // Navigate to auth page after sign out
+    window.location.href = "/auth";
   };
 
   return (

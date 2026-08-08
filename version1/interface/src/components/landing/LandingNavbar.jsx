@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/12.svg";
 import { useAuth } from "../../context/AuthContext";
 
@@ -8,6 +9,7 @@ export default function LandingNavbar({ scrollToSection }) {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   const { currentUser, userProfile, signOut } = useAuth();
 
@@ -24,7 +26,6 @@ export default function LandingNavbar({ scrollToSection }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  // Close dropdown on outside click
   useEffect(() => {
     const handler = (e) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
@@ -38,10 +39,8 @@ export default function LandingNavbar({ scrollToSection }) {
   const handleSignOut = async () => {
     setDropdownOpen(false);
     await signOut();
-    window.location.hash = "#/auth";
   };
 
-  // Avatar initials
   const getInitials = () => {
     if (userProfile?.firstName) return `${userProfile.firstName[0]}${userProfile.lastName?.[0] || ""}`.toUpperCase();
     if (currentUser?.displayName) {
@@ -84,7 +83,7 @@ export default function LandingNavbar({ scrollToSection }) {
           <button onClick={() => scrollToSection("choose-role")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1.5 cursor-pointer">
             Moot Court <span className="text-[10px] text-[#D4AF37]">✦</span>
           </button>
-          <button onClick={() => { window.location.hash = "#/evidence-analyzer"; }} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1 cursor-pointer">
+          <button onClick={() => navigate("/evidence-analyzer")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1 cursor-pointer">
             Document Suite <span className="text-[10px] text-[#2C1810]/40">▾</span>
           </button>
           <button onClick={() => scrollToSection("drafting")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1 cursor-pointer">
@@ -98,37 +97,22 @@ export default function LandingNavbar({ scrollToSection }) {
         {/* Action Buttons */}
         <div className="flex items-center gap-4">
           {currentUser ? (
-            /* ── Authenticated: avatar + dropdown ── */
             <div ref={dropdownRef} style={{ position: "relative" }}>
               <button
                 id="user-avatar-btn"
                 onClick={() => setDropdownOpen((o) => !o)}
                 style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  background: "none",
-                  border: "1.5px solid rgba(212,175,55,0.4)",
-                  borderRadius: "100px",
-                  padding: "4px 14px 4px 4px",
-                  cursor: "pointer",
-                  transition: "all 0.2s",
+                  display: "flex", alignItems: "center", gap: "8px",
+                  background: "none", border: "1.5px solid rgba(212,175,55,0.4)",
+                  borderRadius: "100px", padding: "4px 14px 4px 4px",
+                  cursor: "pointer", transition: "all 0.2s",
                 }}
                 className="hover:border-[#D4AF37] hover:shadow-[0_4px_16px_rgba(212,175,55,0.2)]"
               >
                 {currentUser.photoURL ? (
-                  <img
-                    src={currentUser.photoURL}
-                    alt="avatar"
-                    style={{ width: "30px", height: "30px", borderRadius: "50%", objectFit: "cover" }}
-                  />
+                  <img src={currentUser.photoURL} alt="avatar" style={{ width: "30px", height: "30px", borderRadius: "50%", objectFit: "cover" }} />
                 ) : (
-                  <div style={{
-                    width: "30px", height: "30px", borderRadius: "50%",
-                    background: "linear-gradient(135deg, #2C1810, #8C5A3C)",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                    color: "#D4AF37", fontSize: "11px", fontWeight: 700, letterSpacing: "0.05em",
-                  }}>
+                  <div style={{ width: "30px", height: "30px", borderRadius: "50%", background: "linear-gradient(135deg, #2C1810, #8C5A3C)", display: "flex", alignItems: "center", justifyContent: "center", color: "#D4AF37", fontSize: "11px", fontWeight: 700 }}>
                     {getInitials()}
                   </div>
                 )}
@@ -140,21 +124,8 @@ export default function LandingNavbar({ scrollToSection }) {
                 </svg>
               </button>
 
-              {/* Dropdown */}
               {dropdownOpen && (
-                <div style={{
-                  position: "absolute", right: 0, top: "calc(100% + 10px)",
-                  background: "rgba(255,255,255,0.95)",
-                  backdropFilter: "blur(20px)",
-                  border: "1px solid rgba(212,175,55,0.25)",
-                  borderRadius: "14px",
-                  boxShadow: "0 20px 60px rgba(44,24,16,0.12)",
-                  minWidth: "200px",
-                  padding: "8px",
-                  zIndex: 100,
-                  animation: "fadeDown 0.2s ease",
-                }}>
-                  {/* Profile info */}
+                <div style={{ position: "absolute", right: 0, top: "calc(100% + 10px)", background: "rgba(255,255,255,0.95)", backdropFilter: "blur(20px)", border: "1px solid rgba(212,175,55,0.25)", borderRadius: "14px", boxShadow: "0 20px 60px rgba(44,24,16,0.12)", minWidth: "200px", padding: "8px", zIndex: 100, animation: "fadeDown 0.2s ease" }}>
                   <div style={{ padding: "10px 12px 12px", borderBottom: "1px solid rgba(212,175,55,0.15)", marginBottom: "6px" }}>
                     <p style={{ margin: 0, fontSize: "13px", fontWeight: 700, color: "#2C1810", fontFamily: "'Poppins', sans-serif" }}>{displayName}</p>
                     <p style={{ margin: "2px 0 0", fontSize: "11px", color: "#8C5A3C", fontFamily: "'Poppins', sans-serif" }}>{currentUser.email}</p>
@@ -162,16 +133,7 @@ export default function LandingNavbar({ scrollToSection }) {
                   <button
                     id="signout-btn"
                     onClick={handleSignOut}
-                    style={{
-                      width: "100%", textAlign: "left",
-                      padding: "9px 12px", borderRadius: "8px",
-                      background: "none", border: "none",
-                      fontFamily: "'Poppins', sans-serif",
-                      fontSize: "13px", fontWeight: 600,
-                      color: "#C62828", cursor: "pointer",
-                      display: "flex", alignItems: "center", gap: "8px",
-                      transition: "background 0.15s",
-                    }}
+                    style={{ width: "100%", textAlign: "left", padding: "9px 12px", borderRadius: "8px", background: "none", border: "none", fontFamily: "'Poppins', sans-serif", fontSize: "13px", fontWeight: 600, color: "#C62828", cursor: "pointer", display: "flex", alignItems: "center", gap: "8px", transition: "background 0.15s" }}
                     onMouseEnter={e => e.currentTarget.style.background = "rgba(211,47,47,0.07)"}
                     onMouseLeave={e => e.currentTarget.style.background = "none"}
                   >
@@ -184,18 +146,17 @@ export default function LandingNavbar({ scrollToSection }) {
               )}
             </div>
           ) : (
-            /* ── Unauthenticated: sign in + CTA ── */
             <>
               <button
                 id="navbar-signin-btn"
-                onClick={() => { window.location.hash = "#/auth"; }}
+                onClick={() => navigate("/auth")}
                 className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#2C1810] hover:underline cursor-pointer"
               >
                 Sign In
               </button>
               <button
                 id="navbar-launch-btn"
-                onClick={() => { window.location.hash = "#/auth"; }}
+                onClick={() => navigate("/auth")}
                 className="px-6 py-1.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-[#FAF9F7] bg-[#2C1810] border border-[#D4AF37] rounded-full hover:bg-[#8C5A3C] hover:-translate-y-[1px] hover:shadow-[0_4px_20px_rgba(212,175,55,0.35)] transition-all duration-300 cursor-pointer"
               >
                 Get Started

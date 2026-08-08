@@ -1,3 +1,4 @@
+import { Navigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
 export default function ProtectedRoute({ children }) {
@@ -16,7 +17,6 @@ export default function ProtectedRoute({ children }) {
           gap: "20px",
         }}
       >
-        {/* Spinning gavel / ring */}
         <div
           style={{
             width: "52px",
@@ -45,8 +45,7 @@ export default function ProtectedRoute({ children }) {
   }
 
   if (!currentUser) {
-    window.location.hash = "#/auth";
-    return null;
+    return <Navigate to="/auth" replace />;
   }
 
   return children;
