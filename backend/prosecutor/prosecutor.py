@@ -498,46 +498,240 @@ Return ONLY the JSON, no markdown, no explanation."""
                     })
             
             print(f"\n[ProsecutorAgent] Total sections retrieved: {len(all_verified_offences)}")
-            
-            # Distribute sections to crimes by matching titles and concepts
+
+            # --- Section-to-crime assignment ---
+            # Strategy: use Stage 2's sub_query→concept linkage first (it already knows which
+            # sub-query produced which sections). Then use one LLM call to assign any remaining
+            # unassigned sections. No hardcoded keywords or section number maps.
+
+            # Step A: Build sub_query_id → crime_name map from legal_query sub_queries.
+            # Each sub-query was created with a concept field matching a crime name.
+            sq_to_crime: Dict[str, str] = {}
+            for sq in self.legal_query.sub_queries:
+                sq_id = sq.id  # e.g. "SQ1", "SQ2"
+                sq_concept = sq.concept  # matches crime.crime_name
+                # Find the matching crime by concept similarity
+                best_crime = None
+                for crime in self.prosecutor_analysis.identified_crimes:
+                    if (sq_concept.lower() in crime.crime_name.lower() or
+                            crime.crime_name.lower() in sq_concept.lower()):
+                        best_crime = crime.crime_name
+                        break
+                if not best_crime:
+                    best_crime = sq_concept  # use concept as fallback label
+                sq_to_crime[sq_id] = best_crime
+
+            # Step B: Pull candidate sections per crime directly from Stage 2 mappings.
+            # Stage 2 mappings[i] has sub_query_id and primary/secondary_candidate_sections.
+            crime_sections_from_s2: Dict[str, List[Dict]] = {
+                c.crime_name: [] for c in self.prosecutor_analysis.identified_crimes
+            }
+            stage2_mappings = stage2_output.get("mappings", [])
+            for mapping in stage2_mappings:
+                sq_id = mapping.get("sub_query_id", "")
+                crime_name = sq_to_crime.get(sq_id)
+                if not crime_name:
+                    continue
+                # Find the CrimeAnalysis object this maps to
+                matched_crime_name = None
+                for crime in self.prosecutor_analysis.identified_crimes:
+                    if (crime_name.lower() in crime.crime_name.lower() or
+                            crime.crime_name.lower() in crime_name.lower()):
+                        matched_crime_name = crime.crime_name
+                        break
+                if not matched_crime_name:
+                    continue
+                all_secs = (
+                    mapping.get("primary_candidate_sections", []) +
+                    mapping.get("secondary_candidate_sections", [])
+                )
+                crime_sections_from_s2[matched_crime_name].extend(all_secs)
+
+            # Step C: Cross-reference with Stage 4 verified sections for quality filtering.
+            # A section from Stage 2 is "verified" if its section_number appears in Stage 4 output.
+            verified_sec_nums = {
+                str(s.get("section_number", "")).strip()
+                for s in all_verified_offences
+            }
+
+            # Build a lookup of full section details from Stage 4 for enrichment
+            s4_by_num: Dict[str, Dict] = {}
+            for s in all_verified_offences:
+                num = str(s.get("section_number", "")).strip()
+                if num:
+                    s4_by_num[num] = s
+
+            # --- Dynamic KB Promotion ---
+            # For every Stage 4 verified section, attempt to promote it into the
+            # dynamic KB so future queries match it locally without an LLM call.
+            # Also records which crime concept led to this section as a trigger.
+            try:
+                from lexigraphbe.classifier_prefilter import promote_from_llm_result
+                for crime in self.prosecutor_analysis.identified_crimes:
+                    for sq in self.legal_query.sub_queries:
+                        if sq.concept and sq.concept.lower() in crime.crime_name.lower():
+                            # Find any Stage 4 sections that will be assigned to this crime
+                            sq_mapping = next(
+                                (m for m in stage2_mappings if m.get("sub_query_id") == sq.id),
+                                {}
+                            )
+                            candidate_secs = (
+                                sq_mapping.get("primary_candidate_sections", []) +
+                                sq_mapping.get("secondary_candidate_sections", [])
+                            )
+                            for csec in candidate_secs:
+                                sec_num = str(csec.get("section_number", "")).strip()
+                                if sec_num in verified_sec_nums:
+                                    s4 = s4_by_num.get(sec_num, csec)
+                                    promote_from_llm_result(
+                                        section_number=sec_num,
+                                        statute=s4.get("statute", csec.get("statute", "IPC")),
+                                        title=s4.get("title", csec.get("section_title", "")),
+                                        chapter=s4.get("chapter_title", ""),
+                                        ingredients=s4.get("ingredients_matched", crime.legal_elements),
+                                        matched_concept=crime.crime_name,
+                                        bns_equivalent=s4.get("bns_equivalent", ""),
+                                        cognizable=s4.get("cognizable", True),
+                                        bailable=s4.get("bailable", False),
+                                        punishment_maximum=s4.get("punishment_maximum"),
+                                    )
+            except Exception as promo_err:
+                print(f"[ProsecutorAgent] Dynamic KB promotion error (non-fatal): {promo_err}")
+
+            # Step D: For each crime, finalise its section list.
+            # Use Stage 2 candidates that are also Stage 4 verified (best quality).
+            # If none pass that filter, fall back to all Stage 2 candidates for that crime.
+            all_assigned_nums: set = set()
+            crime_final_sections: Dict[str, List[Dict]] = {}
+
+            for crime in self.prosecutor_analysis.identified_crimes:
+                s2_secs = crime_sections_from_s2.get(crime.crime_name, [])
+                verified_for_crime = []
+                unverified_for_crime = []
+                for s in s2_secs:
+                    num = str(s.get("section_number", "")).strip()
+                    if num in verified_sec_nums:
+                        enriched = {**s, **s4_by_num.get(num, {})}
+                        verified_for_crime.append(enriched)
+                    else:
+                        unverified_for_crime.append(s)
+
+                # Prefer verified; fall back to unverified if verified is empty
+                final = verified_for_crime if verified_for_crime else unverified_for_crime
+
+                # Deduplicate by section_number within this crime
+                seen = set()
+                deduped = []
+                for s in final:
+                    num = str(s.get("section_number", "")).strip()
+                    if num not in seen:
+                        seen.add(num)
+                        deduped.append(s)
+                        all_assigned_nums.add(num)
+
+                crime_final_sections[crime.crime_name] = deduped
+
+            # Step E: Two cases need LLM help:
+            # (1) Stage 4 verified sections not yet assigned to any crime
+            # (2) Crimes that ended up with 0 sections after Steps B-D
+            crimes_with_zero = [
+                c for c in self.prosecutor_analysis.identified_crimes
+                if not crime_final_sections.get(c.crime_name)
+            ]
+            unassigned = [s for s in all_verified_offences
+                          if str(s.get("section_number", "")).strip() not in all_assigned_nums]
+
+            if unassigned or crimes_with_zero:
+                crime_names_list = [c.crime_name for c in self.prosecutor_analysis.identified_crimes]
+
+                unassigned_brief = "\n".join(
+                    f"- {s.get('section_number','')} {s.get('statute','')}: "
+                    f"{s.get('title', s.get('section_title',''))}"
+                    for s in unassigned
+                ) or "(none)"
+
+                zero_crimes_brief = "\n".join(
+                    f"- {c.crime_name}: {', '.join(c.legal_elements)}"
+                    for c in crimes_with_zero
+                ) or "(none)"
+
+                case_facts_snippet = ""
+                if self.case_context and self.case_context.case_profile.case_facts:
+                    case_facts_snippet = self.case_context.case_profile.case_facts[:600]
+
+                assignment_prompt = (
+                    f"You are a legal expert. Two tasks:\n\n"
+                    f"TASK 1: Assign each unassigned section to the most appropriate crime. "
+                    f"If none, return empty dict for task1.\n"
+                    f"TASK 2: For each crime with zero sections, identify the single best "
+                    f"statutory section based on the crime name, elements, and case facts. "
+                    f"Only return sections you are confident apply.\n\n"
+                    f"CRIMES LIST: {crime_names_list}\n\n"
+                    f"CASE FACTS: {case_facts_snippet}\n\n"
+                    f"UNASSIGNED SECTIONS (TASK 1):\n{unassigned_brief}\n\n"
+                    f"CRIMES WITH ZERO SECTIONS (TASK 2):\n{zero_crimes_brief}\n\n"
+                    f'Return ONLY valid JSON: {{"task1": {{"<section_number>": "<crime_name>"}}, '
+                    f'"task2": {{"<crime_name>": {{"section_number": "<num>", "statute": "<IPC or BNS>", "title": "<title>"}}}}}}\n'
+                    f"No markdown."
+                )
+                try:
+                    from lexigraphbe.config import extract_json_from_text
+                    assign_response = self.llm.invoke(assignment_prompt)
+                    assign_text = assign_response.content if hasattr(assign_response, "content") else str(assign_response)
+                    assignment_map = extract_json_from_text(assign_text)
+                    if isinstance(assignment_map, dict):
+                        # Task 1: assign unassigned Stage 4 sections
+                        task1 = assignment_map.get("task1", {})
+                        if isinstance(task1, dict):
+                            for sec in unassigned:
+                                num = str(sec.get("section_number", "")).strip()
+                                assigned_crime = task1.get(num)
+                                if assigned_crime:
+                                    for crime in self.prosecutor_analysis.identified_crimes:
+                                        if crime.crime_name.lower() == assigned_crime.lower():
+                                            crime_final_sections.setdefault(crime.crime_name, []).append(sec)
+                                            all_assigned_nums.add(num)
+                                            break
+                        # Task 2: inject sections for zero-section crimes
+                        task2 = assignment_map.get("task2", {})
+                        if isinstance(task2, dict):
+                            for crime_name_key, sec_info in task2.items():
+                                if not isinstance(sec_info, dict):
+                                    continue
+                                for crime in self.prosecutor_analysis.identified_crimes:
+                                    if crime.crime_name.lower() == crime_name_key.lower():
+                                        if not crime_final_sections.get(crime.crime_name):
+                                            crime_final_sections[crime.crime_name] = [{
+                                                "section_number": sec_info.get("section_number", ""),
+                                                "statute": sec_info.get("statute", "IPC"),
+                                                "title": sec_info.get("title", ""),
+                                                "section_title": sec_info.get("title", ""),
+                                                "ingredients_matched": [],
+                                                "legal_elements": crime.legal_elements,
+                                                "overall_confidence": 0.80,
+                                            }]
+                                        break
+                except Exception as assign_err:
+                    print(f"[ProsecutorAgent] LLM section assignment failed: {assign_err}")
+
+            # Step F: Commit final sections to each crime and cache
             for crime in self.prosecutor_analysis.identified_crimes:
                 crime_key = crime.crime_name.lower().strip()
-                matched_sections = []
-                
-                for section in all_verified_offences:
-                    section_title = section.get("title", section.get("section_title", "")).lower()
-                    crime_name_lower = crime.crime_name.lower()
-                    
-                    # Concept-based keyword matching
-                    crime_keywords = {
-                        "criminal intimidation": ["criminal intimidation", "threat", "alarm"],
-                        "physical assault": ["assault", "hurt", "causing hurt", "voluntarily causing hurt", "injury", "violence"],
-                        "dishonest inducement": ["cheat", "fraud", "dishonest", "deceive", "inducement", "delivery of property"],
-                        "theft": ["theft", "dishonestly", "movable property"],
-                        "extortion": ["extortion", "putting person in fear", "putting any person in fear"],
-                        "robbery": ["robbery", "dacoity"],
-                    }
-                    
-                    keywords = crime_keywords.get(crime_name_lower, crime_name_lower.split())
-                    if any(kw in section_title for kw in keywords):
-                        matched_sections.append(section)
-                
-                # Cache and assign
+                final_secs = crime_final_sections.get(crime.crime_name, [])
                 results = {
-                    "recommended_sections": matched_sections,
+                    "recommended_sections": final_secs,
                     "similar_cases": [],
                     "supporting_articles": [],
                     "supporting_evidence": [],
                     "stage2_output": stage2_output,
                     "stage3_output": stage3_output,
-                    "stage4_output": stage4_output
+                    "stage4_output": stage4_output,
                 }
-                
                 self.retrieved_sections_cache[crime_key] = results
-                crime.retrieved_sections = matched_sections
+                crime.retrieved_sections = final_secs
                 crime.supporting_precedents = []
-                
-                print(f"  → {crime.crime_name}: {len(matched_sections)} sections")
+                print(f"  → {crime.crime_name}: {len(final_secs)} sections"
+                      + (f" ({[s.get('section_number') for s in final_secs]})" if final_secs else ""))
             
             # Mark complete
             self._all_crimes_sections_retrieved = True
@@ -600,100 +794,256 @@ Return ONLY the JSON, no markdown, no explanation."""
         
         return " | ".join(query_parts)
     
+    def _build_ingredient_matrix(self, case_facts: str) -> List[Dict[str, Any]]:
+        """
+        Builds a structured Evidence-to-Ingredient Matrix.
+        Calls LLM ONCE PER CRIME (not all crimes in one call) to prevent
+        token overflow, JSON truncation, and 'Extra data' parse errors.
+        """
+        from lexigraphbe.config import extract_json_from_text
+
+        defence_position = self.prosecutor_analysis.case_summary
+        matrix = []
+
+        for crime in self.prosecutor_analysis.identified_crimes:
+            secs = crime.retrieved_sections
+            sec_line = ", ".join(
+                f"{s.get('section_number','')} {s.get('statute','')} ({s.get('title', s.get('section_title',''))})"
+                for s in secs
+            ) if secs else "(section pending)"
+
+            matrix_prompt = f"""You are a legal analyst. Produce a structured ingredient matrix for ONE crime.
+
+CASE FACTS:
+{case_facts}
+
+ACCUSED'S DEFENCE:
+{defence_position}
+
+CRIME: {crime.crime_name} [{crime.severity}]
+Sections: {sec_line}
+Ingredients to prove: {'; '.join(crime.legal_elements)}
+
+For EACH ingredient, classify using ONE of: PRIMA_FACIE / ALLEGED / DISPUTED / NOT_ESTABLISHED
+Rules:
+- PRIMA_FACIE: at least one independent corroborating evidence item exists
+- ALLEGED: complainant says so but no independent corroboration
+- DISPUTED: accused directly contests with a specific counter-claim
+- NOT_ESTABLISHED: no factual or evidentiary basis at all
+- facts_supporting: copy verbatim sentences from CASE FACTS only
+- intent can only be ALLEGED or PRIMA_FACIE inferred from conduct — never "established"
+- defence_response: accused's specific counter-claim or "None raised"
+
+Return ONLY this JSON object (not a list, not wrapped):
+{{
+  "crime_name": "{crime.crime_name}",
+  "section": "{sec_line}",
+  "cognizable": true,
+  "bailable": false,
+  "punishment_range": "state the actual range for this section",
+  "ingredients": [
+    {{
+      "ingredient": "...",
+      "status": "PRIMA_FACIE|ALLEGED|DISPUTED|NOT_ESTABLISHED",
+      "facts_supporting": ["verbatim sentence from case facts"],
+      "evidence": ["specific evidence item mentioned in facts"],
+      "defence_response": "accused's counter-claim or None raised",
+      "unproven": ["what is genuinely missing"]
+    }}
+  ],
+  "specific_witnesses_at_risk": "name witnesses still reachable by accused, or None identified",
+  "evidence_still_unrecovered": "specific evidence not in police custody, or None identified",
+  "custodial_interrogation_necessity": "concrete reason — what ONLY the accused can tell investigators. If none, write: Not established from available facts",
+  "arnesh_kumar_applicability": "why 41A notice is insufficient — name specific risk. Or: Notice may suffice on current facts"
+}}
+No markdown. No list wrapper. Single JSON object only."""
+
+            try:
+                response = self.llm.invoke(matrix_prompt)
+                response_text = response.content if hasattr(response, "content") else str(response)
+                # Strip any accidental list wrapper [ ... ]
+                stripped = response_text.strip()
+                if stripped.startswith("["):
+                    # Try to extract the first object from the list
+                    import re as _re
+                    inner = _re.search(r'\{.*\}', stripped, _re.DOTALL)
+                    if inner:
+                        stripped = inner.group(0)
+                entry = extract_json_from_text(stripped)
+                if isinstance(entry, dict) and "crime_name" in entry:
+                    matrix.append(entry)
+                    print(f"[ProsecutorAgent] Matrix built for: {crime.crime_name}")
+                elif isinstance(entry, list) and entry and isinstance(entry[0], dict):
+                    matrix.append(entry[0])
+                    print(f"[ProsecutorAgent] Matrix built for: {crime.crime_name} (from list)")
+                else:
+                    print(f"[ProsecutorAgent] Matrix parse failed for {crime.crime_name} — using fallback")
+                    matrix.append(self._fallback_matrix_entry(crime, sec_line))
+            except Exception as e:
+                print(f"[ProsecutorAgent] Matrix error for {crime.crime_name}: {e}")
+                matrix.append(self._fallback_matrix_entry(crime, sec_line))
+
+        return matrix
+
+    def _fallback_matrix_entry(self, crime, sec_line: str) -> Dict[str, Any]:
+        """
+        Produces a minimal matrix entry from structured crime data when the LLM
+        matrix call fails. Prevents hallucination by grounding in crime.legal_elements
+        and crime.prosecution_strategy only — no free-text generation.
+        """
+        return {
+            "crime_name": crime.crime_name,
+            "section": sec_line,
+            "cognizable": True,
+            "bailable": False,
+            "punishment_range": "As per statute",
+            "ingredients": [
+                {
+                    "ingredient": elem,
+                    "status": "ALLEGED",
+                    "facts_supporting": [],
+                    "evidence": [],
+                    "defence_response": "None raised",
+                    "unproven": ["Full factual matrix not available — treat as alleged only"],
+                }
+                for elem in crime.legal_elements
+            ],
+            "specific_witnesses_at_risk": "None identified",
+            "evidence_still_unrecovered": "None identified",
+            "custodial_interrogation_necessity": "Not established from available facts",
+            "arnesh_kumar_applicability": "Notice may suffice on current facts",
+            "_fallback": True,
+        }
+
     def build_opening_argument(self) -> Dict[str, Any]:
         """
-        Build opening argument for the prosecution.
-        Queries lexigraphbe for ALL identified crimes, then generates full prose argument.
+        Build opening argument using a 3-layer pipeline:
+        1. Retrieve sections (already done via query_lexigraphbe_all_crimes)
+        2. Build Evidence-to-Ingredient Matrix (structured, calibrated)
+        3. Generate argument from matrix (constrained input → constrained output)
         """
         if not self.prosecutor_analysis:
             raise ValueError("Must run analyze_case() first")
-        
+
         print("\n[ProsecutorAgent] Building Opening Argument...")
-        
-        # Query lexigraphbe for ALL identified crimes (not just primary)
+
         for crime in self.prosecutor_analysis.identified_crimes:
             self.query_lexigraphbe_for_crime(crime)
 
-        # Separate primary vs other charges
-        primary_crimes = [c for c in self.prosecutor_analysis.identified_crimes if c.severity == "primary"]
-        if not primary_crimes:
-            primary_crimes = [self.prosecutor_analysis.identified_crimes[0]]
-
-        # Build sections brief for argument generation
-        all_sections_brief = []
-        for crime in self.prosecutor_analysis.identified_crimes:
-            if crime.retrieved_sections:
-                sec_lines = []
-                for sec in crime.retrieved_sections:
-                    sec_num = sec.get("section_number", "")
-                    statute = sec.get("statute", "BNS")
-                    title = sec.get("title", sec.get("section_title", ""))
-                    sec_lines.append(f"    • {sec_num} {statute} — {title}")
-                all_sections_brief.append(f"  [{crime.crime_name} | {crime.severity}]\n" + "\n".join(sec_lines))
-            else:
-                all_sections_brief.append(f"  [{crime.crime_name} | {crime.severity}]\n    • (Section retrieval pending)")
-
-        sections_text = "\n\n".join(all_sections_brief)
         case_facts = self.case_context.case_profile.case_facts if self.case_context else ""
 
-        # Generate full prose opening argument via LLM
-        opening_prompt = f"""You are a Senior Public Prosecutor appearing before a Sessions Court opposing an anticipatory bail application.
+        # Layer 2: Build ingredient matrix
+        print("[ProsecutorAgent] Building Evidence-to-Ingredient Matrix...")
+        matrix = self._build_ingredient_matrix(case_facts)
+        self._cached_ingredient_matrix = matrix  # cache for rebuttal phase
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-CASE FACTS:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-{case_facts}
+        # Serialise matrix into a structured block for the argument generator
+        matrix_block_parts = []
+        for crime_entry in matrix:
+            crime_name = crime_entry.get("crime_name", "")
+            section = crime_entry.get("section", "")
+            punishment = crime_entry.get("punishment_range", "As per statute")
+            cognizable = "Cognizable" if crime_entry.get("cognizable", True) else "Non-cognizable"
+            bailable = "Bailable" if crime_entry.get("bailable", False) else "Non-bailable"
+            custodial = crime_entry.get("custodial_interrogation_necessity", "Not established from available facts")
+            arnesh = crime_entry.get("arnesh_kumar_applicability", "Not assessed")
+            witnesses = crime_entry.get("specific_witnesses_at_risk", "None identified")
+            unrecovered = crime_entry.get("evidence_still_unrecovered", "None identified")
+            ing_lines = []
+            for ing in crime_entry.get("ingredients", []):
+                status = ing.get("status", "ALLEGED")
+                facts = "; ".join(ing.get("facts_supporting", []))
+                evidence = "; ".join(ing.get("evidence", []))
+                defence = ing.get("defence_response", "None raised")
+                unproven = "; ".join(ing.get("unproven", []))
+                ing_lines.append(
+                    f"    Ingredient: {ing.get('ingredient','')}\n"
+                    f"    Status: {status}\n"
+                    f"    Facts: {facts or 'None'}\n"
+                    f"    Evidence: {evidence or 'None'}\n"
+                    f"    Defence counter: {defence}\n"
+                    f"    Unproven: {unproven or 'None'}"
+                )
+            matrix_block_parts.append(
+                f"OFFENCE: {crime_name} | {section} | {cognizable} | {bailable} | Punishment: {punishment}\n"
+                + "\n".join(ing_lines)
+                + f"\n  Custodial necessity: {custodial}"
+                + f"\n  Arnesh Kumar / 41A: {arnesh}"
+                + f"\n  Witnesses at risk: {witnesses}"
+                + f"\n  Evidence still unrecovered: {unrecovered}"
+            )
+        matrix_block = "\n\n".join(matrix_block_parts)
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PROSECUTION THEORY:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-{self.prosecutor_analysis.prosecution_theory}
+        # Layer 3: Generate argument from constrained input
+        # If matrix is all fallback entries, add an explicit guard
+        all_fallback = all(e.get("_fallback") for e in matrix) if matrix else True
+        fallback_warning = (
+            "\nCRITICAL: The ingredient matrix above contains only ALLEGED-status entries "
+            "because detailed analysis was unavailable. You MUST use 'it is alleged that' "
+            "for every factual claim. Do NOT assert any fact as established or prima facie. "
+            "Do NOT cite any section number, case name, or amount not present in the matrix above.\n"
+        ) if all_fallback else ""
+        opening_prompt = f"""You are a Senior Public Prosecutor making oral submissions before a Sessions Court opposing an anticipatory bail application under Section 482 BNSS / Section 438 CrPC.
+{fallback_warning}
+Your argument must be generated STRICTLY from the matrix below. Do not add facts, inferences, or conclusions not present in the matrix. Do not cite any section number, amount, name, or case not in the matrix.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-IDENTIFIED CHARGES AND RETRIEVED STATUTORY SECTIONS:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-{sections_text}
+EVIDENCE-TO-INGREDIENT MATRIX:
+{matrix_block}
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-AVAILABLE EVIDENCE:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-{chr(10).join(f"- {e}" for e in self.prosecutor_analysis.evidence_requirements)}
+LANGUAGE RULES — NON-NEGOTIABLE:
+  PRIMA_FACIE status  → "the material on record prima facie establishes..."
+  ALLEGED status      → "it is alleged that..." / "the complainant states..."
+  DISPUTED status     → "the accused's claim that [X] does not displace the prima facie case because..."
+  NOT_ESTABLISHED     → do not argue this ingredient at all
+  NEVER say: "proves", "it is clear", "strongly indicates", "establishes beyond doubt"
+  NEVER convert ALLEGED or DISPUTED into established fact.
+  NEVER assert intent is established — intent may only be prima facie inferred from conduct.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-INSTRUCTIONS:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Draft a complete, forceful prosecution opening argument opposing anticipatory bail. The argument must:
+ARGUMENT STRUCTURE — follow this order, write as single continuous prose:
 
-1. OPEN with a strong statement of the nature and gravity of the offences.
-2. ADDRESS EACH CHARGE in order of severity — cite the specific statutory section, its ingredients, and map each ingredient to concrete evidence from the facts (CCTV, call records, witness, laptop recovery).
-3. DEMOLISH the accused's civil dispute defence — explain why a civil dispute defence does not negate criminal culpability when physical force, threats, and taking of property are involved.
-4. ARGUE against custodial interrogation claim — explain what custodial interrogation would reveal (e.g. nature of threats, other potential victims, extent of extortion attempts).
-5. CLOSE with a prayer for refusal of anticipatory bail.
+[438(1)(a) — Nature of offence]
+State the offence, cite the section, state it is cognizable and non-bailable, give the punishment range from the matrix.
 
-Write in formal court language. Be specific and detailed. Minimum 400 words.
-Do NOT use bullet points — write flowing legal prose with numbered paragraphs."""
+[438(1)(b) — Gravity]
+State the gravity in one sentence grounded in the specific harm alleged (financial amount, nature of document fraud, use of force — whatever the matrix supports). Do not use generic gravity language.
+
+[Prima facie case]
+For each offence in order of severity: name the section, state which ingredients are PRIMA_FACIE supported, cite the specific evidence. One sentence per offence.
+
+[438(1)(d) — Compliance risk / defence response]
+Address each DISPUTED ingredient. Explain specifically why the accused's counter-claim does not displace the prima facie case — name the counter-claim, then the evidence that contradicts it.
+
+[Custodial interrogation]
+Use ONLY the custodial_interrogation_necessity and arnesh_kumar_applicability fields. If either says "Not established" or "Notice may suffice", say so plainly — do not manufacture a reason.
+
+[438(1)(c) — Habitual behaviour]
+Only include if the matrix contains prior conduct. If not, omit this entirely.
+
+[Prayer]
+End with exactly: "We therefore pray that anticipatory bail be refused."
+
+FORMAT: Single continuous prose. No headings. No bullet points. No numbered paragraphs. 200–240 words. Every sentence must carry a legal point tied to a specific fact or section from the matrix."""
 
         response = self.llm.invoke(opening_prompt)
         opening_prose = response.content if hasattr(response, "content") else str(response)
 
-        # Build structured argument object
         argument = {
             "phase": "opening",
             "prosecution_theory": self.prosecutor_analysis.prosecution_theory,
             "opening_statement": opening_prose,
+            "ingredient_matrix": matrix,
             "primary_charges": [
                 {
                     "crime": crime.crime_name,
                     "elements": crime.legal_elements,
                     "sections": crime.retrieved_sections,
-                    "strategy": crime.prosecution_strategy
+                    "strategy": crime.prosecution_strategy,
                 }
                 for crime in self.prosecutor_analysis.identified_crimes
             ],
             "evidence_framework": self.prosecutor_analysis.evidence_requirements,
-            "legal_principles": self.prosecutor_analysis.legal_principles
+            "legal_principles": self.prosecutor_analysis.legal_principles,
         }
-        
         return argument
     
     def handle_rebuttal(self, defense_argument: str, specific_crime: Optional[str] = None) -> Dict[str, Any]:
@@ -803,114 +1153,94 @@ Return only the JSON array, nothing else."""
         retrieved_sections: Dict[str, List[Dict[str, Any]]],
     ) -> List[str]:
         """
-        Generate section-grounded counter-arguments against each specific defense claim.
-
-        For each crime the defense attacks, the LLM receives:
-          - The exact defense claim
-          - The statutory elements of the offence (from retrieved sections)
-          - The case evidence grounding each element
-
-        This produces targeted rebuttals tied to actual statute text, not generic assertions.
+        Generates a calibrated rebuttal using the ingredient matrix built during
+        the opening argument phase. Each defense claim is addressed by referencing
+        the specific ingredient status (PRIMA_FACIE / ALLEGED / DISPUTED) rather
+        than making generic assertions.
         """
-        # Build a structured brief of retrieved sections for the LLM
+        # Pull the cached ingredient matrix if available
+        cached_matrix = getattr(self, "_cached_ingredient_matrix", [])
+
+        # Build matrix block for attacked crimes only
+        matrix_parts = []
+        for entry in cached_matrix:
+            if entry.get("crime_name", "") in crimes_attacked:
+                ing_lines = []
+                for ing in entry.get("ingredients", []):
+                    status = ing.get("status", "ALLEGED")
+                    facts = "; ".join(ing.get("facts_supporting", []))
+                    evidence = "; ".join(ing.get("evidence", []))
+                    defence_counter = ing.get("defence_response", "None raised")
+                    unproven = "; ".join(ing.get("unproven", []))
+                    ing_lines.append(
+                        f"  Ingredient: {ing.get('ingredient','')} [{status}]\n"
+                        f"    Facts: {facts or 'None'}\n"
+                        f"    Evidence: {evidence or 'None'}\n"
+                        f"    Defence counter: {defence_counter}\n"
+                        f"    Unproven: {unproven or 'None'}"
+                    )
+                matrix_parts.append(
+                    f"OFFENCE: {entry.get('crime_name','')} | {entry.get('section','')}\n"
+                    + "\n".join(ing_lines)
+                )
+
+        matrix_block = "\n\n".join(matrix_parts) if matrix_parts else "(Matrix not available — use sections below)"
+
+        # Fallback sections brief if matrix is empty
         sections_brief_parts = []
         for crime_name, sections in retrieved_sections.items():
             if not sections:
-                sections_brief_parts.append(f"[{crime_name}] — No sections retrieved yet")
                 continue
-            sec_lines = []
-            for sec in sections:
-                sec_num = sec.get("section_number", sec.get("section", ""))
-                statute = sec.get("statute", "BNS")
-                title = sec.get("title", sec.get("section_title", ""))
-                ingredients = sec.get("ingredients_matched", sec.get("legal_elements", []))
-                ingredients_str = "; ".join(ingredients) if ingredients else "as per statute"
-                sec_lines.append(f"    • {sec_num} {statute} ({title}): {ingredients_str}")
+            sec_lines = [
+                f"  • {s.get('section_number','')} {s.get('statute','')} "
+                f"({s.get('title', s.get('section_title',''))})"
+                for s in sections
+            ]
             sections_brief_parts.append(f"[{crime_name}]\n" + "\n".join(sec_lines))
+        sections_brief = "\n\n".join(sections_brief_parts) or "No sections retrieved."
 
-        sections_brief = "\n\n".join(sections_brief_parts) if sections_brief_parts else "No sections retrieved."
+        case_facts = self.case_context.case_profile.case_facts if self.case_context else ""
 
-        # Build the evidence map from case context
-        case_facts = ""
-        if self.case_context:
-            case_facts = self.case_context.case_profile.case_facts
+        prompt = f"""You are a Senior Public Prosecutor making sharp rebuttal submissions before a Sessions Court opposing anticipatory bail under Section 438 CrPC / Section 482 BNSS.
 
-        evidence_items = "\n".join(
-            f"- {e}" for e in self.prosecutor_analysis.evidence_requirements
-        ) or "- See case facts above"
+INGREDIENT MATRIX:
+{matrix_block}
 
-        prompt = f"""You are a Senior Public Prosecutor arguing AGAINST anticipatory bail.
-The defense has raised specific challenges. Your job is to counter each one with
-arguments grounded in the retrieved statutory provisions and case evidence below.
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-CASE FACTS:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-{case_facts}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-PROSECUTION THEORY:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-{self.prosecutor_analysis.prosecution_theory}
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-RETRIEVED STATUTORY PROVISIONS (cite these in your arguments):
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+STATUTORY SECTIONS:
 {sections_brief}
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-AVAILABLE EVIDENCE:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-{evidence_items}
+CASE FACTS:
+{case_facts}
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-DEFENSE ARGUMENT TO REBUT:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+DEFENCE ARGUMENT TO REBUT:
 {defense_argument}
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-INSTRUCTIONS:
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-Generate ONE counter-argument per distinct defense claim. Each counter-argument MUST:
-1. Identify the specific defense claim it rebuts (quote or paraphrase it briefly).
-2. Reference the specific statutory provision (section number + statute + title) that the
-   defense claim conflicts with or that the prosecution relies on.
-3. Map the statutory element to concrete evidence from the case facts
-   (e.g. CCTV footage, medical examination, witness testimony, recovered phone).
-4. Explain why the defense claim fails to defeat the statutory requirement.
-5. End with why this strengthens the case for REFUSING anticipatory bail.
+LANGUAGE RULES — NON-NEGOTIABLE:
+  PRIMA_FACIE ingredient → "the material on record prima facie establishes..."
+  ALLEGED ingredient     → "the allegation, though not yet conclusively proved, is corroborated by..."
+  DISPUTED ingredient    → "the accused's claim that [X] does not displace the prima facie case because [specific evidence]..."
+  NOT_ESTABLISHED        → do not use this ingredient at all
+  NEVER say: "proves", "clearly shows", "establishes beyond doubt"
 
-Do NOT make generic assertions like "the argument lacks merit."
-Do NOT introduce facts not present in the case.
-Be specific, legally precise, and forceful.
+REBUTTAL STRATEGY — be aggressive but precise:
+1. Each defence claim gets one sentence: name the claim in a few words, then immediately pivot to the specific statutory ingredient or evidence that defeats it. Do not acknowledge the claim more than necessary.
+2. For evidential gap arguments (e.g. "report is only preliminary", "CCTV only shows presence"):
+   — Acknowledge the limitation in three words maximum ("While preliminary,") then state why it still satisfies the prima facie threshold for bail purposes under Section 438.
+3. For the "civil/contractual dispute" defence:
+   — State the specific statutory element (e.g. dishonest intent, entrustment) that converts the civil act into a criminal one — do not just say "criminal liability is separate."
+4. For the "evidence already in custody / cooperation undertaking" defence:
+   — Cite the specific unrecovered evidence or unreached witness from the matrix's evidence_still_unrecovered / specific_witnesses_at_risk fields. If both say "None identified", concede this ground honestly.
+5. For the "41A notice is sufficient" argument:
+   — Use the arnesh_kumar_applicability field from the matrix. If it says "Notice may suffice", do not press this point.
+6. End with exactly: "Anticipatory bail ought therefore to be refused."
 
-Return ONLY a JSON array of strings, one element per counter-argument.
-Each string should be 3-5 sentences. No markdown, no numbering inside strings."""
+FORMAT: Single continuous prose. No bullet points. No headings. 120–160 words. Sharp and forensic.
+
+Write only the rebuttal text."""
 
         response = self.llm.invoke(prompt)
-        response_text = response.content if hasattr(response, "content") else str(response)
-
-        try:
-            from lexigraphbe.config import extract_json_from_text
-            result = extract_json_from_text(response_text)
-            if isinstance(result, list) and all(isinstance(a, str) for a in result):
-                return result
-        except Exception as e:
-            print(f"[ProsecutorAgent] JSON extraction failed: {e}")
-            print(f"[ProsecutorAgent] LLM response (first 500 chars): {response_text[:500]}")
-
-        # Fallback: try raw json.loads
-        try:
-            import json as _json
-            result = _json.loads(response_text.strip())
-            if isinstance(result, list):
-                return result
-        except Exception as e:
-            print(f"[ProsecutorAgent] Raw JSON parse also failed: {e}")
-
-        # Last resort: return the raw text as a single argument
-        print(f"[ProsecutorAgent] Using raw text as single counter-argument")
-        return [response_text.strip()]
+        response_text = (response.content if hasattr(response, "content") else str(response)).strip()
+        return [response_text]
 
     def build_closing_argument(self) -> Dict[str, Any]:
         """
@@ -1088,21 +1418,9 @@ def main():
     resp = rebuttal["prosecution_response"]
 
     print(f"\nCrimes Addressed: {', '.join(resp.get('crimes_addressed', []))}")
-    print(f"\nCounter-Arguments:")
-    for i, arg in enumerate(resp.get("counter_arguments", []), 1):
-        print(f"\n  [{i}] {arg}")
-
-    # Show retrieved sections per crime
-    sections_per_crime = resp.get("retrieved_sections_per_crime", {})
-    if sections_per_crime:
-        print(f"\nStatutory Sections Retrieved During Rebuttal:")
-        for crime_name, sections in sections_per_crime.items():
-            print(f"  {crime_name}: {len(sections)} section(s)")
-            for sec in sections[:3]:
-                sec_num = sec.get("section_number", sec.get("section", "N/A"))
-                statute = sec.get("statute", "")
-                title = sec.get("title", sec.get("section_title", ""))
-                print(f"    - {sec_num} {statute}: {title}")
+    print(f"\nRebuttal:\n")
+    for arg in resp.get("counter_arguments", []):
+        print(arg)
     
     print("\n" + "=" * 80)
     print("Prosecution Workflow Complete")

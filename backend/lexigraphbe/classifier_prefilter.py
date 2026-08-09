@@ -1589,6 +1589,13 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
 # Candidate paths for the persistent dynamic KB JSON file.
 # The first writable path that exists (or can be created) is used.
 _DYNAMIC_KB_CANDIDATE_PATHS: List[Path] = [
+    # Resolve relative to this file's location — works regardless of working directory
+    Path(__file__).parent.parent / "data" / "dynamic_kb.json",
+    Path(__file__).parent.parent.parent / "data" / "dynamic_kb.json",
+    # Explicit project paths
+    Path("C:/Users/Ajinkya/Desktop/MootCourt/data/dynamic_kb.json"),
+    Path("C:/Users/Ajinkya/Desktop/MootCourt/backend/data/dynamic_kb.json"),
+    # Generic fallbacks
     Path("data/dynamic_kb.json"),
     Path("../data/dynamic_kb.json"),
     Path("c:/proj/MootCourt/data/dynamic_kb.json"),
@@ -1599,10 +1606,17 @@ _dynamic_kb_lock = threading.Lock()  # Guards in-process concurrent writes
 
 
 def _resolve_dynamic_kb_path() -> Optional[Path]:
-    """Returns the first candidate path whose parent directory exists."""
+    """
+    Returns the first candidate path whose parent directory exists or can be created.
+    Tries to create the directory if it doesn't exist.
+    """
     for p in _DYNAMIC_KB_CANDIDATE_PATHS:
-        if p.parent.exists():
+        try:
+            p.parent.mkdir(parents=True, exist_ok=True)
             return p
+        except Exception:
+            if p.parent.exists():
+                return p
     return None
 
 
@@ -1666,6 +1680,141 @@ def _kb_section_keys() -> Set[str]:
         if rule.bns_equivalent and rule.bns_equivalent.upper() not in ("NONE", ""):
             keys.add(f"BNS_{rule.bns_equivalent.upper()}")
     return keys
+
+
+def promote_from_llm_result(
+    section_number: str,
+    statute: str,
+    title: str,
+    chapter: str,
+    ingredients: List[str],
+    matched_concept: str,
+    bns_equivalent: str = "",
+    cognizable: bool = True,
+    bailable: bool = False,
+    punishment_maximum: Optional[str] = None,
+) -> Optional[SectionRule]:
+    """
+    Promotes a section that the LLM verified (Stage 4) but that has NO existing
+    SectionRule in the KB. Unlike promote_csv_record_to_kb (which requires a CSV
+    record), this builds the SectionRule directly from LLM-verified metadata.
+
+    Also learns the concept → section mapping by storing the concept as a
+    factual trigger, so future queries using the same legal concept phrase
+    will match this section locally without an LLM call.
+
+    Args:
+        section_number:   e.g. "468"
+        statute:          "IPC" or "BNS"
+        title:            e.g. "Forgery for Purpose of Cheating"
+        chapter:          Chapter name/number string
+        ingredients:      List of statutory ingredient strings from Stage 4
+        matched_concept:  The Stage 1 legal concept that led to this section
+                          e.g. "Forgery", "Criminal Breach of Trust"
+        bns_equivalent:   Corresponding BNS section if statute is IPC, else ""
+        cognizable:       Whether the offence is cognizable
+        bailable:         Whether the offence is bailable
+        punishment_maximum: Max sentence string e.g. "7 Years"
+
+    Returns:
+        The newly created SectionRule, or None if already in KB.
+    """
+    if not section_number or not statute:
+        return None
+
+    existing_keys = _kb_section_keys()
+    candidate_key = f"{statute.upper()}_{section_number.upper()}"
+    if candidate_key in existing_keys:
+        # Already in KB — but enrich triggers if the concept is new
+        _enrich_kb_triggers(section_number, statute, matched_concept)
+        return None
+
+    # Derive factual triggers from:
+    # 1. The matched concept phrase (most important — this is what Stage 1 produced)
+    # 2. Meaningful words from the section title
+    stop = {"the", "a", "an", "and", "or", "of", "to", "in", "for", "on", "by",
+            "with", "is", "was", "are", "were", "any", "such", "not", "be", "as"}
+
+    triggers = set()
+    # Concept phrase words (4+ chars) as triggers
+    for word in re.findall(r"[a-zA-Z]{4,}", matched_concept.lower()):
+        if word not in stop:
+            triggers.add(word)
+    # Full concept phrase as a trigger
+    concept_lower = matched_concept.lower().strip()
+    if len(concept_lower) > 4:
+        triggers.add(concept_lower)
+    # Title words
+    for word in re.findall(r"[a-zA-Z]{4,}", title.lower()):
+        if word not in stop:
+            triggers.add(word)
+    # Ingredient words
+    for ing in ingredients:
+        for word in re.findall(r"[a-zA-Z]{4,}", ing.lower()):
+            if word not in stop:
+                triggers.add(word)
+
+    # Build mandatory ingredient slugs from ingredient strings
+    mandatory = []
+    for ing in ingredients:
+        slug = re.sub(r"[^a-zA-Z0-9]+", "_", ing.lower()).strip("_")
+        if slug:
+            mandatory.append(slug)
+    if not mandatory:
+        mandatory = [re.sub(r"[^a-zA-Z0-9]+", "_", title.lower()).strip("_")]
+
+    new_rule = SectionRule(
+        section=section_number,
+        statute=statute,
+        bns_equivalent=bns_equivalent or section_number,
+        title=title,
+        mandatory_ingredients=mandatory,
+        factual_triggers=sorted(triggers),
+        chapter_number=chapter,
+        chapter_title=chapter,
+        punishment_minimum=None,
+        punishment_maximum=punishment_maximum or "As specified under statute",
+        fine=True,
+        cognizable=cognizable,
+        bailable=bailable,
+    )
+
+    with _dynamic_kb_lock:
+        if candidate_key in _kb_section_keys():
+            return None
+        DYNAMIC_KNOWLEDGE_BASE.append(new_rule)
+        _save_dynamic_kb(DYNAMIC_KNOWLEDGE_BASE)
+
+    logger.info(
+        "DynamicKB: LLM-promoted %s %s ('%s') from concept '%s' — triggers: %s",
+        statute, section_number, title, matched_concept, list(triggers)[:5],
+    )
+    return new_rule
+
+
+def _enrich_kb_triggers(section_number: str, statute: str, new_concept: str) -> None:
+    """
+    If a section is already in the KB but the matched_concept introduces a new
+    trigger phrase, add it to the existing rule's factual_triggers so future
+    queries using this concept match locally.
+    """
+    if not new_concept:
+        return
+    sec_upper = section_number.upper()
+    stat_upper = statute.upper()
+    concept_lower = new_concept.lower().strip()
+
+    with _dynamic_kb_lock:
+        for rule in DYNAMIC_KNOWLEDGE_BASE:
+            if rule.section.upper() == sec_upper and rule.statute.upper() == stat_upper:
+                if concept_lower not in rule.factual_triggers:
+                    rule.factual_triggers.append(concept_lower)
+                    _save_dynamic_kb(DYNAMIC_KNOWLEDGE_BASE)
+                    logger.info(
+                        "DynamicKB: enriched triggers for %s %s with concept '%s'",
+                        statute, section_number, new_concept,
+                    )
+                return
 
 
 def promote_csv_record_to_kb(
@@ -2089,149 +2238,186 @@ class StatuteClassifierPrefilter:
     @staticmethod
     def detect_factual_triggers(facts_text: str, statute_type: str = "IPC") -> List[Dict[str, Any]]:
         """
-        Detects factual triggers in facts_text and automatically suggests candidate sections
-        (Primary and Secondary) across all plausible offences.
+        Detects factual triggers in facts_text and automatically suggests candidate sections.
+        Combines hardcoded triggers with live KB rules (static + dynamic) so auto-promoted
+        sections are matched on future queries without any code changes.
         """
         lower_facts = (facts_text or "").lower()
         is_bns = "BNS" in (statute_type or "").upper()
         suggestions = []
+        seen_keys: set = set()
+
+        def _add(sec_num, title, statute, ctype, trigger_note):
+            k = f"{statute}_{sec_num}"
+            if k not in seen_keys:
+                seen_keys.add(k)
+                suggestions.append({
+                    "section_number": sec_num,
+                    "section_title": title,
+                    "statute": statute,
+                    "candidate_type": ctype,
+                    "trigger": trigger_note,
+                })
+
+        # --- KB-driven triggers (static + dynamic) ---
+        # This runs first so promoted rules are matched before the hardcoded list.
+        for rule in get_effective_knowledge_base():
+            if not rule.factual_triggers:
+                continue
+            target_statute = "BNS" if is_bns else "IPC"
+            rule_statute = "BNS" if (rule.bns_equivalent and rule.bns_equivalent not in ("", "NONE")) else rule.statute
+            if rule_statute.upper() != target_statute:
+                continue
+            sec = rule.bns_equivalent if (is_bns and rule.bns_equivalent not in ("", "NONE")) else rule.section
+            matched_triggers = [t for t in rule.factual_triggers if t in lower_facts]
+            if matched_triggers:
+                _add(
+                    sec_num=sec,
+                    title=rule.title,
+                    statute=target_statute,
+                    ctype="PRIMARY" if not rule.bailable else "SECONDARY",
+                    trigger_note=f"KB trigger matched: {matched_triggers[0]}",
+                )
+
+        # --- Hardcoded triggers (supplement KB-driven triggers above) ---
+        # Use _add() so these don't duplicate what the KB already matched.
 
         # Trigger 1: Dowry harassment / cruelty -> 498A IPC / 85 BNS (Primary) + Sec 4 DP Act (Primary)
         if any(term in lower_facts for term in ["dowry", "cruelty", "harass", "demand", "torture", "in-laws"]):
-            suggestions.append({
-                "section_number": "85" if is_bns else "498A",
-                "section_title": "Cruelty by Husband or Relatives",
-                "statute": "BNS" if is_bns else "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Dowry harassment / cruelty alleged",
-            })
-            suggestions.append({
-                "section_number": "Section 4",
-                "section_title": "Penalty for demanding dowry",
-                "statute": "Dowry Prohibition Act",
-                "candidate_type": "PRIMARY",
-                "trigger": "Unlawful dowry demand alleged",
-            })
+            _add(
+                sec_num="85",
+                title="Cruelty by Husband or Relatives",
+                statute="BNS",
+                ctype="PRIMARY",
+                trigger_note="Dowry harassment / cruelty alleged",
+            )
+            _add(
+                sec_num="Section 4",
+                title="Penalty for demanding dowry",
+                statute="Dowry Prohibition Act",
+                ctype="PRIMARY",
+                trigger_note="Unlawful dowry demand alleged",
+            )
 
         # Trigger 2: Giving or taking dowry -> Sec 3 DP Act
         if any(term in lower_facts for term in ["give dowry", "given dowry", "take dowry", "took dowry", "received dowry", "paid cash", "cash demanded"]):
-            suggestions.append({
-                "section_number": "Section 3",
-                "section_title": "Penalty for giving or taking dowry",
-                "statute": "Dowry Prohibition Act",
-                "candidate_type": "SECONDARY",
-                "trigger": "Giving or taking of dowry indicated",
-            })
+            _add(
+                sec_num="Section 3",
+                title="Penalty for giving or taking dowry",
+                statute="Dowry Prohibition Act",
+                ctype="SECONDARY",
+                trigger_note="Giving or taking of dowry indicated",
+            )
 
         # Trigger 3: Stridhan / ornaments / property retained -> 406 IPC / 316 BNS (Secondary)
         if any(term in lower_facts for term in ["stridhan", "ornaments", "jewelry", "jewellery", "gold", "articles retained", "property not returned"]):
-            suggestions.append({
-                "section_number": "316" if is_bns else "406",
-                "section_title": "Criminal Breach of Trust",
-                "statute": "BNS" if is_bns else "IPC",
-                "candidate_type": "SECONDARY",
-                "trigger": "Entrustment and non-return of stridhan / property alleged",
-            })
+            _add(
+                sec_num="316",
+                title="Criminal Breach of Trust",
+                statute="BNS",
+                ctype="SECONDARY",
+                trigger_note="Entrustment and non-return of stridhan / property alleged",
+            )
 
         # Trigger 4: Threats / intimidation -> 506 IPC / 351 BNS (Secondary)
         if any(term in lower_facts for term in ["threat", "threatened", "intimidat", "warning", "abuse", "scared"]):
-            suggestions.append({
-                "section_number": "351" if is_bns else "506",
-                "section_title": "Criminal Intimidation",
-                "statute": "BNS" if is_bns else "IPC",
-                "candidate_type": "SECONDARY",
-                "trigger": "Threats / criminal intimidation alleged",
-            })
+            _add(
+                sec_num="351",
+                title="Criminal Intimidation",
+                statute="BNS",
+                ctype="SECONDARY",
+                trigger_note="Threats / criminal intimidation alleged",
+            )
 
         # Trigger 5: Physical assault / hurt -> 323 IPC / 115 BNS (Secondary)
         if any(term in lower_facts for term in ["assault", "beaten", "slapped", "physical violence", "hurt", "injured", "hit"]):
-            suggestions.append({
-                "section_number": "115" if is_bns else "323",
-                "section_title": "Voluntarily Causing Hurt",
-                "statute": "BNS" if is_bns else "IPC",
-                "candidate_type": "SECONDARY",
-                "trigger": "Physical assault / bodily hurt alleged",
-            })
+            _add(
+                sec_num="115",
+                title="Voluntarily Causing Hurt",
+                statute="BNS",
+                ctype="SECONDARY",
+                trigger_note="Physical assault / bodily hurt alleged",
+            )
 
         # Trigger 6: Murder / killing -> 302 IPC (Primary)
         if any(term in lower_facts for term in ["murdered", "killed", "homicide", "shot dead", "stabbed to death",
                                                  "beaten to death", "strangulated", "poisoned", "burnt alive", "lynched"]):
-            suggestions.append({
-                "section_number": "302",
-                "section_title": "Murder",
-                "statute": "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Murder / killing of a person alleged",
-            })
+            _add(
+                sec_num="302",
+                title="Murder",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Murder / killing of a person alleged",
+            )
 
         # Trigger 7: Attempt to murder -> 307 IPC (Primary)
         if any(term in lower_facts for term in ["attempt to murder", "attempted to kill", "tried to kill",
                                                  "stabbed in chest", "shot at", "life-threatening attack"]):
-            suggestions.append({
-                "section_number": "307",
-                "section_title": "Attempt to Murder",
-                "statute": "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Attempt to murder indicated",
-            })
+            _add(
+                sec_num="307",
+                title="Attempt to Murder",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Attempt to murder indicated",
+            )
             # Also suggest 120B (conspiracy) if multiple accused
             if any(t in lower_facts for t in ["conspiracy", "conspired", "hatched plan", "planned"]):
-                suggestions.append({
-                    "section_number": "120B",
-                    "section_title": "Criminal Conspiracy",
-                    "statute": "IPC",
-                    "candidate_type": "SECONDARY",
-                    "trigger": "Criminal conspiracy to commit murder alleged",
-                })
+                _add(
+                sec_num="120B",
+                title="Criminal Conspiracy",
+                statute="IPC",
+                ctype="SECONDARY",
+                trigger_note="Criminal conspiracy to commit murder alleged",
+            )
 
         # Trigger 8: Abetment of suicide -> 306 IPC (Primary)
         if any(term in lower_facts for term in ["abetment of suicide", "instigated suicide", "drove to suicide",
                                                  "suicide note", "harassment led to suicide", "forced to commit suicide"]):
-            suggestions.append({
-                "section_number": "306",
-                "section_title": "Abetment of Suicide",
-                "statute": "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Abetment of suicide alleged",
-            })
+            _add(
+                sec_num="306",
+                title="Abetment of Suicide",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Abetment of suicide alleged",
+            )
 
         # Trigger 9: Rape / sexual assault -> 376 IPC (Primary)
         if any(term in lower_facts for term in ["rape", "sexual assault", "sexually assaulted", "intercourse",
                                                  "penetration", "gang rape", "ravished", "violated"]):
-            suggestions.append({
-                "section_number": "376",
-                "section_title": "Rape / Sexual Assault",
-                "statute": "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Rape / sexual assault alleged",
-            })
+            _add(
+                sec_num="376",
+                title="Rape / Sexual Assault",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Rape / sexual assault alleged",
+            )
             if any(t in lower_facts for t in ["gang rape", "multiple accused rape", "raped by several"]):
-                suggestions.append({
-                    "section_number": "376D",
-                    "section_title": "Gang Rape",
-                    "statute": "IPC",
-                    "candidate_type": "PRIMARY",
-                    "trigger": "Gang rape alleged",
-                })
+                _add(
+                sec_num="376D",
+                title="Gang Rape",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Gang rape alleged",
+            )
 
         # Trigger 10: Kidnapping / abduction -> 363 IPC (Primary)
         if any(term in lower_facts for term in ["kidnapped", "kidnapping", "abducted", "abduction", "missing child",
                                                  "taken away", "minor taken", "enticed away"]):
-            suggestions.append({
-                "section_number": "363",
-                "section_title": "Kidnapping",
-                "statute": "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Kidnapping / abduction alleged",
-            })
+            _add(
+                sec_num="363",
+                title="Kidnapping",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Kidnapping / abduction alleged",
+            )
             if any(t in lower_facts for t in ["ransom", "paid ransom", "demand ransom", "hostage"]):
-                suggestions.append({
-                    "section_number": "364A",
-                    "section_title": "Kidnapping for Ransom",
-                    "statute": "IPC",
-                    "candidate_type": "PRIMARY",
-                    "trigger": "Kidnapping for ransom alleged",
-                })
+                _add(
+                sec_num="364A",
+                title="Kidnapping for Ransom",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Kidnapping for ransom alleged",
+            )
 
         # Trigger 11: Theft -> 379 IPC / 304 BNS (Primary)
         # Also catches: "took", "took away", "took the laptop", "took property" (physical taking without consent)
@@ -2242,58 +2428,58 @@ class StatuteClassifierPrefilter:
             "took laptop", "took mobile", "took phone", "took bag",
             "took from", "removed from", "carried away",
         ]):
-            suggestions.append({
-                "section_number": "304" if is_bns else "379",
-                "section_title": "Punishment for Theft",
-                "statute": "BNS" if is_bns else "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Theft / taking of movable property alleged",
-            })
-            suggestions.append({
-                "section_number": "303" if is_bns else "378",
-                "section_title": "Theft",
-                "statute": "BNS" if is_bns else "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Theft — dishonest taking of movable property without consent",
-            })
+            _add(
+                sec_num="304",
+                title="Punishment for Theft",
+                statute="BNS",
+                ctype="PRIMARY",
+                trigger_note="Theft / taking of movable property alleged",
+            )
+            _add(
+                sec_num="303",
+                title="Theft",
+                statute="BNS",
+                ctype="PRIMARY",
+                trigger_note="Theft — dishonest taking of movable property without consent",
+            )
             if any(t in lower_facts for t in ["house theft", "broke into house", "burglary", "entered house and stole"]):
-                suggestions.append({
-                    "section_number": "305" if is_bns else "380",
-                    "section_title": "Theft in Dwelling House",
-                    "statute": "BNS" if is_bns else "IPC",
-                    "candidate_type": "PRIMARY",
-                    "trigger": "Theft from dwelling house alleged",
-                })
+                _add(
+                sec_num="305",
+                title="Theft in Dwelling House",
+                statute="BNS",
+                ctype="PRIMARY",
+                trigger_note="Theft from dwelling house alleged",
+            )
 
         # Trigger 12: Robbery / dacoity -> 392 IPC / 309 BNS (Primary)
         if any(term in lower_facts for term in ["robbery", "robbed", "looted", "snatched by force",
                                                  "mugged", "chain snatching", "armed robbery"]):
-            suggestions.append({
-                "section_number": "309" if is_bns else "392",
-                "section_title": "Punishment for Robbery",
-                "statute": "BNS" if is_bns else "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Robbery alleged",
-            })
+            _add(
+                sec_num="309",
+                title="Punishment for Robbery",
+                statute="BNS",
+                ctype="PRIMARY",
+                trigger_note="Robbery alleged",
+            )
             if any(t in lower_facts for t in ["dacoity", "dacoits", "group robbery", "five persons robbed"]):
-                suggestions.append({
-                    "section_number": "310" if is_bns else "395",
-                    "section_title": "Dacoity",
-                    "statute": "BNS" if is_bns else "IPC",
-                    "candidate_type": "PRIMARY",
-                    "trigger": "Dacoity by group of five or more alleged",
-                })
+                _add(
+                sec_num="310",
+                title="Dacoity",
+                statute="BNS",
+                ctype="PRIMARY",
+                trigger_note="Dacoity by group of five or more alleged",
+            )
 
         # Trigger 13: Cheating / fraud -> 420 IPC / 318 BNS (Primary)
         if any(term in lower_facts for term in ["cheated", "defrauded", "deceived", "fraud", "fake promise",
                                                  "scam", "misrepresentation", "duped", "swindled"]):
-            suggestions.append({
-                "section_number": "318" if is_bns else "420",
-                "section_title": "Cheating and Dishonestly Inducing Delivery of Property",
-                "statute": "BNS" if is_bns else "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Cheating / fraud alleged",
-            })
+            _add(
+                sec_num="318",
+                title="Cheating and Dishonestly Inducing Delivery of Property",
+                statute="BNS",
+                ctype="PRIMARY",
+                trigger_note="Cheating / fraud alleged",
+            )
 
         # Trigger 14: Extortion / blackmail -> 384 IPC / 309 BNS (Primary)
         # Also covers: threat to accuse of crime to extract money (classic extortion pattern)
@@ -2309,244 +2495,244 @@ class StatuteClassifierPrefilter:
             "pay or else", "pay otherwise", "money or else",
             "demanded transfer", "demanded payment under",
         ]):
-            suggestions.append({
-                "section_number": "309" if is_bns else "384",
-                "section_title": "Punishment for Extortion",
-                "statute": "BNS" if is_bns else "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Extortion / blackmail / threat to accuse alleged",
-            })
-            suggestions.append({
-                "section_number": "308" if is_bns else "383",
-                "section_title": "Extortion",
-                "statute": "BNS" if is_bns else "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Extortion — putting in fear to dishonestly induce delivery of property",
-            })
+            _add(
+                sec_num="309",
+                title="Punishment for Extortion",
+                statute="BNS",
+                ctype="PRIMARY",
+                trigger_note="Extortion / blackmail / threat to accuse alleged",
+            )
+            _add(
+                sec_num="308",
+                title="Extortion",
+                statute="BNS",
+                ctype="PRIMARY",
+                trigger_note="Extortion — putting in fear to dishonestly induce delivery of property",
+            )
 
         # Trigger 15: Rioting / mob violence -> 147, 148 IPC (Primary)
         if any(term in lower_facts for term in ["rioting", "riot", "mob violence", "communal riot",
                                                  "rioters", "violent mob", "public disturbance"]):
-            suggestions.append({
-                "section_number": "147",
-                "section_title": "Rioting",
-                "statute": "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Rioting / mob violence alleged",
-            })
-            suggestions.append({
-                "section_number": "149",
-                "section_title": "Common Object Liability (Unlawful Assembly)",
-                "statute": "IPC",
-                "candidate_type": "SECONDARY",
-                "trigger": "Common object of unlawful assembly alleged",
-            })
+            _add(
+                sec_num="147",
+                title="Rioting",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Rioting / mob violence alleged",
+            )
+            _add(
+                sec_num="149",
+                title="Common Object Liability (Unlawful Assembly)",
+                statute="IPC",
+                ctype="SECONDARY",
+                trigger_note="Common object of unlawful assembly alleged",
+            )
             if any(t in lower_facts for t in ["weapon", "armed", "guns", "firing", "arson"]):
-                suggestions.append({
-                    "section_number": "148",
-                    "section_title": "Rioting Armed with Deadly Weapon",
-                    "statute": "IPC",
-                    "candidate_type": "PRIMARY",
-                    "trigger": "Armed rioting alleged",
-                })
+                _add(
+                sec_num="148",
+                title="Rioting Armed with Deadly Weapon",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Armed rioting alleged",
+            )
 
         # Trigger 16: Criminal conspiracy -> 120B IPC (Secondary)
         if any(term in lower_facts for term in ["criminal conspiracy", "conspired", "hatched conspiracy",
                                                  "planned together", "co-conspirators", "joint plan"]):
-            suggestions.append({
-                "section_number": "120B",
-                "section_title": "Criminal Conspiracy",
-                "statute": "IPC",
-                "candidate_type": "SECONDARY",
-                "trigger": "Criminal conspiracy alleged",
-            })
+            _add(
+                sec_num="120B",
+                title="Criminal Conspiracy",
+                statute="IPC",
+                ctype="SECONDARY",
+                trigger_note="Criminal conspiracy alleged",
+            )
 
         # Trigger 17: Abetment -> 109 IPC (Secondary)
         if any(term in lower_facts for term in ["abetment", "instigated", "aided", "abetted", "facilitated crime",
                                                  "helped commit", "gave shelter to accused"]):
-            suggestions.append({
-                "section_number": "109",
-                "section_title": "Abetment",
-                "statute": "IPC",
-                "candidate_type": "SECONDARY",
-                "trigger": "Abetment of offence alleged",
-            })
+            _add(
+                sec_num="109",
+                title="Abetment",
+                statute="IPC",
+                ctype="SECONDARY",
+                trigger_note="Abetment of offence alleged",
+            )
 
         # Trigger 18: Grievous hurt -> 325 IPC (Secondary)
         if any(term in lower_facts for term in ["grievous hurt", "grievous injury", "fracture", "bone broken",
                                                  "permanent disability", "disfigured", "loss of limb"]):
-            suggestions.append({
-                "section_number": "325",
-                "section_title": "Voluntarily Causing Grievous Hurt",
-                "statute": "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Grievous bodily hurt alleged",
-            })
+            _add(
+                sec_num="325",
+                title="Voluntarily Causing Grievous Hurt",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Grievous bodily hurt alleged",
+            )
 
         # Trigger 19: Acid attack -> 326A IPC (Primary)
         if any(term in lower_facts for term in ["acid attack", "acid thrown", "acid poured", "burnt with acid",
                                                  "face disfigured by acid", "chemical attack"]):
-            suggestions.append({
-                "section_number": "326A",
-                "section_title": "Voluntarily Causing Grievous Hurt by Use of Acid",
-                "statute": "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Acid attack alleged",
-            })
+            _add(
+                sec_num="326A",
+                title="Voluntarily Causing Grievous Hurt by Use of Acid",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Acid attack alleged",
+            )
 
         # Trigger 20: Forgery / forged documents -> 468 IPC (Primary)
         if any(term in lower_facts for term in ["forged document", "fake signature", "fabricated paper",
                                                  "forgery", "falsified record", "counterfeit", "forged will",
                                                  "fake will", "forged cheque"]):
-            suggestions.append({
-                "section_number": "468",
-                "section_title": "Forgery for Purpose of Cheating",
-                "statute": "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Forgery for cheating alleged",
-            })
-            suggestions.append({
-                "section_number": "471",
-                "section_title": "Using Forged Document as Genuine",
-                "statute": "IPC",
-                "candidate_type": "SECONDARY",
-                "trigger": "Use of forged document alleged",
-            })
+            _add(
+                sec_num="468",
+                title="Forgery for Purpose of Cheating",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Forgery for cheating alleged",
+            )
+            _add(
+                sec_num="471",
+                title="Using Forged Document as Genuine",
+                statute="IPC",
+                ctype="SECONDARY",
+                trigger_note="Use of forged document alleged",
+            )
 
         # Trigger 21: Cyber crime / IT Act -> Section 66 IT Act (Primary)
         if any(term in lower_facts for term in ["hacking", "cyber fraud", "phishing", "online fraud",
                                                  "account hacked", "OTP fraud", "UPI fraud", "cyber crime"]):
-            suggestions.append({
-                "section_number": "66",
-                "section_title": "Computer Related Offences (IT Act)",
-                "statute": "IT Act 2000",
-                "candidate_type": "PRIMARY",
-                "trigger": "Cyber / computer offence alleged",
-            })
+            _add(
+                sec_num="66",
+                title="Computer Related Offences (IT Act)",
+                statute="IT Act 2000",
+                ctype="PRIMARY",
+                trigger_note="Cyber / computer offence alleged",
+            )
             if any(t in lower_facts for t in ["identity theft", "stole identity", "used someone's password",
                                                "fake identity", "stolen credentials"]):
-                suggestions.append({
-                    "section_number": "66C",
-                    "section_title": "Identity Theft (IT Act)",
-                    "statute": "IT Act 2000",
-                    "candidate_type": "SECONDARY",
-                    "trigger": "Identity theft alleged",
-                })
+                _add(
+                sec_num="66C",
+                title="Identity Theft (IT Act)",
+                statute="IT Act 2000",
+                ctype="SECONDARY",
+                trigger_note="Identity theft alleged",
+            )
 
         # Trigger 22: Drugs / NDPS -> Section 20 / 21 NDPS Act
         if any(term in lower_facts for term in ["drugs", "narcotics", "ganja", "cannabis", "heroin", "cocaine",
                                                  "opium", "brown sugar", "drug peddling", "smack", "mephedrone"]):
             if any(t in lower_facts for t in ["ganja", "cannabis", "marijuana", "charas", "weed"]):
-                suggestions.append({
-                    "section_number": "20",
-                    "section_title": "Contravention re Cannabis (NDPS Act)",
-                    "statute": "NDPS Act 1985",
-                    "candidate_type": "PRIMARY",
-                    "trigger": "Cannabis drug offence alleged",
-                })
+                _add(
+                sec_num="20",
+                title="Contravention re Cannabis (NDPS Act)",
+                statute="NDPS Act 1985",
+                ctype="PRIMARY",
+                trigger_note="Cannabis drug offence alleged",
+            )
             else:
-                suggestions.append({
-                    "section_number": "21",
-                    "section_title": "Contravention re Manufactured Drugs (NDPS Act)",
-                    "statute": "NDPS Act 1985",
-                    "candidate_type": "PRIMARY",
-                    "trigger": "Manufactured narcotic drug offence alleged",
-                })
+                _add(
+                sec_num="21",
+                title="Contravention re Manufactured Drugs (NDPS Act)",
+                statute="NDPS Act 1985",
+                ctype="PRIMARY",
+                trigger_note="Manufactured narcotic drug offence alleged",
+            )
 
         # Trigger 23: Illegal arms / weapons -> Section 25 Arms Act
         if any(term in lower_facts for term in ["illegal weapon", "unlicensed gun", "country made pistol",
                                                  "katta", "desi katta", "illegal firearm", "arms without licence"]):
-            suggestions.append({
-                "section_number": "25",
-                "section_title": "Illegal Possession of Arms (Arms Act)",
-                "statute": "Arms Act 1959",
-                "candidate_type": "SECONDARY",
-                "trigger": "Illegal arms / weapon possession alleged",
-            })
+            _add(
+                sec_num="25",
+                title="Illegal Possession of Arms (Arms Act)",
+                statute="Arms Act 1959",
+                ctype="SECONDARY",
+                trigger_note="Illegal arms / weapon possession alleged",
+            )
 
         # Trigger 24: SC/ST atrocity -> Section 3(1)(r) SC/ST POA Act
         if any(term in lower_facts for term in ["sc st atrocity", "caste abuse", "caste slur", "dalit",
                                                  "scheduled caste", "scheduled tribe", "casteist"]):
-            suggestions.append({
-                "section_number": "3(1)(r)",
-                "section_title": "Intentional Insult to SC/ST Member (SC/ST POA Act)",
-                "statute": "SC/ST (POA) Act",
-                "candidate_type": "PRIMARY",
-                "trigger": "SC/ST atrocity / caste abuse alleged",
-            })
+            _add(
+                sec_num="3(1)(r)",
+                title="Intentional Insult to SC/ST Member (SC/ST POA Act)",
+                statute="SC/ST (POA) Act",
+                ctype="PRIMARY",
+                trigger_note="SC/ST atrocity / caste abuse alleged",
+            )
 
         # Trigger 25: Negligent death (road accident) -> 304A IPC (Primary)
         if any(term in lower_facts for term in ["rash driving", "road accident", "vehicle hit", "knocked down",
                                                  "ran over", "medical negligence", "negligent act caused death"]):
-            suggestions.append({
-                "section_number": "304A",
-                "section_title": "Causing Death by Negligence",
-                "statute": "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Death caused by rash / negligent act alleged",
-            })
+            _add(
+                sec_num="304A",
+                title="Causing Death by Negligence",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Death caused by rash / negligent act alleged",
+            )
 
         # Trigger 26: Bigamy -> 494 IPC (Primary)
         if any(term in lower_facts for term in ["bigamy", "second marriage", "married again", "married while first spouse alive",
                                                  "second wife", "second husband", "double marriage"]):
-            suggestions.append({
-                "section_number": "494",
-                "section_title": "Bigamy",
-                "statute": "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Bigamy / second marriage alleged",
-            })
+            _add(
+                sec_num="494",
+                title="Bigamy",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Bigamy / second marriage alleged",
+            )
 
         # Trigger 27: Molestation / outraging modesty -> 354 IPC (Primary)
         if any(term in lower_facts for term in ["molestation", "groped", "touched inappropriately", "outrage modesty",
                                                  "indecent assault", "sexual harassment"]):
-            suggestions.append({
-                "section_number": "354",
-                "section_title": "Assault or Criminal Force to Outrage Modesty of Woman",
-                "statute": "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Molestation / outraging modesty of woman alleged",
-            })
+            _add(
+                sec_num="354",
+                title="Assault or Criminal Force to Outrage Modesty of Woman",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Molestation / outraging modesty of woman alleged",
+            )
 
         # Trigger 28: Stalking -> 354D IPC (Primary)
         if any(term in lower_facts for term in ["stalking", "following", "monitoring", "watching repeatedly",
                                                  "cyberstalking", "online stalking", "tracking location"]):
-            suggestions.append({
-                "section_number": "354D",
-                "section_title": "Stalking",
-                "statute": "IPC",
-                "candidate_type": "PRIMARY",
-                "trigger": "Stalking of woman alleged",
-            })
+            _add(
+                sec_num="354D",
+                title="Stalking",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Stalking of woman alleged",
+            )
 
         # Trigger 29: Destroying / tampering evidence -> 201 IPC (Secondary)
         if any(term in lower_facts for term in ["destroyed evidence", "tampered evidence", "concealed evidence",
                                                  "hidden body", "disposed of body", "burnt body", "washed crime scene"]):
-            suggestions.append({
-                "section_number": "201",
-                "section_title": "Causing Disappearance of Evidence",
-                "statute": "IPC",
-                "candidate_type": "SECONDARY",
-                "trigger": "Destruction / concealment of evidence alleged",
-            })
+            _add(
+                sec_num="201",
+                title="Causing Disappearance of Evidence",
+                statute="IPC",
+                ctype="SECONDARY",
+                trigger_note="Destruction / concealment of evidence alleged",
+            )
 
         # Trigger 30: False complaint / perjury -> 182 / 211 IPC (Secondary)
         if any(term in lower_facts for term in ["false complaint", "false FIR", "fake FIR", "malicious prosecution",
                                                  "false case filed", "fabricated complaint"]):
-            suggestions.append({
-                "section_number": "211",
-                "section_title": "False Charge of Offence Made with Intent to Injure",
-                "statute": "IPC",
-                "candidate_type": "SECONDARY",
-                "trigger": "False / malicious criminal complaint alleged",
-            })
-            suggestions.append({
-                "section_number": "182",
-                "section_title": "False Information to Public Servant",
-                "statute": "IPC",
-                "candidate_type": "SECONDARY",
-                "trigger": "False information to police / public servant alleged",
-            })
+            _add(
+                sec_num="211",
+                title="False Charge of Offence Made with Intent to Injure",
+                statute="IPC",
+                ctype="SECONDARY",
+                trigger_note="False / malicious criminal complaint alleged",
+            )
+            _add(
+                sec_num="182",
+                title="False Information to Public Servant",
+                statute="IPC",
+                ctype="SECONDARY",
+                trigger_note="False information to police / public servant alleged",
+            )
 
         return suggestions
 

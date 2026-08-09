@@ -215,16 +215,55 @@ def extract_json_from_text(text: str) -> Dict[str, Any]:
 
     cleaned = text.strip()
 
-    # Match ```json ... ``` or ``` ... ```
-    match = re.search(r"```(?:json)?\s*({[\s\S]*?})\s*```", cleaned, re.IGNORECASE)
+    # Match ```json ... ``` or ``` ... ```  (object OR array)
+    match = re.search(r"```(?:json)?\s*([{|\[][\s\S]*?[}\]])\s*```", cleaned, re.IGNORECASE)
     if match:
         cleaned = match.group(1).strip()
     else:
-        # Fallback to finding first '{' and last '}'
-        start = cleaned.find("{")
-        end = cleaned.rfind("}")
-        if start != -1 and end != -1 and end > start:
-            cleaned = cleaned[start : end + 1]
+        # Find the first opening delimiter ('{' or '[') and walk to its matching closer.
+        # Using rfind('}') is wrong when the LLM returns two objects back-to-back
+        # ("Extra data" error) — it would span both.
+        open_chars  = {"{": "}", "[": "]"}
+        close_chars = {"}", "]"}
+        first_brace = cleaned.find("{")
+        first_bracket = cleaned.find("[")
+
+        # Pick whichever delimiter comes first
+        if first_brace == -1:
+            start = first_bracket
+        elif first_bracket == -1:
+            start = first_brace
+        else:
+            start = min(first_brace, first_bracket)
+
+        if start != -1:
+            open_char  = cleaned[start]
+            close_char = open_chars[open_char]
+            depth = 0
+            in_string = False
+            escape_next = False
+            end = -1
+            for i, ch in enumerate(cleaned[start:], start):
+                if escape_next:
+                    escape_next = False
+                    continue
+                if ch == "\\" and in_string:
+                    escape_next = True
+                    continue
+                if ch == '"':
+                    in_string = not in_string
+                    continue
+                if in_string:
+                    continue
+                if ch == open_char:
+                    depth += 1
+                elif ch == close_char:
+                    depth -= 1
+                    if depth == 0:
+                        end = i
+                        break
+            if end != -1:
+                cleaned = cleaned[start : end + 1]
 
     # Attempt 1: Standard json.loads
     try:
