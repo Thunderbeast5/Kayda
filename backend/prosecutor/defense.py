@@ -1202,6 +1202,21 @@ ARGUMENT RULES — STRICT:
 13. If any ingredient has prosecution_status UNKNOWN, omit that ingredient
     entirely — do not argue it in either direction.
 
+14. EVIDENCE ACKNOWLEDGMENT RULE:
+    If CASE FACTS or the Defense Ingredient Matrix identifies evidence supporting
+    an ingredient, the argument MUST acknowledge that evidence by name.
+    The argument may challenge its reliability, interpretation, sufficiency,
+    or connection to the ingredient, but MUST NOT claim that no evidence exists
+    when the matrix or case facts show that evidence does exist.
+
+15. LEGAL INGREDIENT RULE:
+    Use the exact verified statutory ingredients supplied by the matrix.
+    Do not create, expand, narrow, or paraphrase them into a new legal test.
+    Example of what is FORBIDDEN: the matrix supplies "repeatedly follows or
+    contacts despite clear indication of disinterest" and the argument writes
+    "intent to follow or monitor with a threatening purpose" — that is a new,
+    invented test and is not permitted.
+
 STRUCTURE — five paragraphs, single continuous prose (no headings, no bullets):
 
 Paragraph 1:
@@ -1227,10 +1242,10 @@ Paragraph 5:
 State only verified bail considerations drawn from the bail law block.
 If no_flight_risk field contains verified facts, state them here and only here.
 
-Final sentence (exact):
-"It is therefore humbly prayed that this Hon'ble Court be pleased to grant anticipatory bail to the applicant."
+Final sentence:
+Close with a prayer for anticipatory bail that flows naturally from the specific arguments made — phrase it in your own words, grounded in the most compelling point just argued, not a canned formula.
 
-LENGTH: 300–450 words. Do not add material merely to reach the word count."""
+LENGTH: Let the strength of the grounds dictate the length. Address every live issue fully; do not pad with repetition and do not cut arguments short to fit a word count."""
 
         response = self.llm.invoke(opening_prompt)
         opening_prose = response.content if hasattr(response, "content") else str(response)
@@ -1326,24 +1341,34 @@ REBUTTAL RULES — STRICT:
 
 3. Do not deny an act the accused has admitted.
 
-4. Do not repeat the opening argument unless directly needed to answer
+4. EVIDENCE ACKNOWLEDGMENT RULE:
+   If the matrix or case facts identify evidence for an ingredient, acknowledge
+   it by name. You may challenge its reliability, interpretation, sufficiency,
+   or inferential connection to the ingredient, but MUST NOT claim no evidence
+   exists when the matrix shows that it does.
+
+5. LEGAL INGREDIENT RULE:
+   Use the exact verified statutory ingredients from the matrix.
+   Do not create, expand, narrow, or paraphrase them into a new legal test.
+
+6. Do not repeat the opening argument unless directly needed to answer
    a specific prosecution contention.
 
-5. Do not create a new defense ground during rebuttal.
+7. Do not create a new defense ground during rebuttal.
 
-6. Do not use consequence-based reasoning ("no harm → no offence").
+8. Do not use consequence-based reasoning ("no harm → no offence").
 
-7. Do not introduce any fact, section, case, or evidence not in the matrix
+9. Do not introduce any fact, section, case, or evidence not in the matrix
    or the verified bail law block.
 
-8. If any ingredient has prosecution_status UNKNOWN, do not argue it.
+10. If any ingredient has prosecution_status UNKNOWN, do not argue it.
 
-9. Use bail law only for the arrest/custody question — not to argue that
-   an offence is not made out.
+11. Use bail law only for the arrest/custody question — not to argue that
+    an offence is not made out.
 
-10. End with exactly: "It is therefore prayed that anticipatory bail be granted."
+12. End with a prayer for bail that follows naturally from what was actually argued in this specific rebuttal — do not use a fixed canned phrase; let it emerge from the strongest point just made.
 
-FORMAT: Single continuous prose. No headings. No bullet points. 200–350 words.
+FORMAT: Single continuous prose. No headings. No bullet points. Length is determined by the number of prosecution points that need answering — address every live contention fully, add nothing superfluous.
 
 Write only the rebuttal text."""
 

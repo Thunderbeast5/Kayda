@@ -1020,9 +1020,9 @@ Use ONLY the custodial_interrogation_necessity and arnesh_kumar_applicability fi
 Only include if the matrix contains prior conduct. If not, omit this entirely.
 
 [Prayer]
-End with exactly: "We therefore pray that anticipatory bail be refused."
+End with a prayer to refuse bail that flows naturally from what has just been argued. Make it specific to the facts — not a generic formula.
 
-FORMAT: Single continuous prose. No headings. No bullet points. No numbered paragraphs. 200–240 words. Every sentence must carry a legal point tied to a specific fact or section from the matrix."""
+FORMAT: Single continuous prose. No headings. No bullet points. No numbered paragraphs. Let the complexity of the arguments dictate the length — say what needs to be said, nothing more. Every sentence must carry a legal point tied to a specific fact or section from the matrix."""
 
         response = self.llm.invoke(opening_prompt)
         opening_prose = response.content if hasattr(response, "content") else str(response)
@@ -1232,9 +1232,9 @@ REBUTTAL STRATEGY — be aggressive but precise:
    — Cite the specific unrecovered evidence or unreached witness from the matrix's evidence_still_unrecovered / specific_witnesses_at_risk fields. If both say "None identified", concede this ground honestly.
 5. For the "41A notice is sufficient" argument:
    — Use the arnesh_kumar_applicability field from the matrix. If it says "Notice may suffice", do not press this point.
-6. End with exactly: "Anticipatory bail ought therefore to be refused."
+6. End with a crisp final prayer that flows naturally from the argument — do not use a rigid canned phrase; phrase it in whatever way is most persuasive given what has just been argued.
 
-FORMAT: Single continuous prose. No bullet points. No headings. 120–160 words. Sharp and forensic.
+FORMAT: Single continuous prose. No bullet points. No headings. Length is dictated by what the defense actually argued — address every live point, skip nothing, add nothing superfluous. Sharp and forensic.
 
 Write only the rebuttal text."""
 

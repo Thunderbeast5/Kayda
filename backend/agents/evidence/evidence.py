@@ -362,7 +362,14 @@ PARTIALS:
 # ====================================================================
 
 def _strip_json_fences(text: str) -> str:
-    return re.sub(r"^```(?:json)?|```$", "", text.strip(), flags=re.MULTILINE).strip()
+    """Remove markdown code fences and any surrounding commentary."""
+    text = text.strip()
+    text = re.sub(r"^```(?:json)?\s*", "", text)
+    text = re.sub(r"\s*```$", "", text)
+    last_brace = max(text.rfind("}"), text.rfind("]"))
+    if last_brace != -1:
+        text = text[:last_brace + 1]
+    return text.strip()
 
 
 def _parse_llm_json(raw_response: str) -> Optional[Dict[str, Any]]:
@@ -611,15 +618,18 @@ agents (Prosecutor, Defense, Judge, Accused) as case context, so it must capture
 every distinct occurrence, not just the final incident.
 
 Rules:
-- Extract EVERY discrete event: the offence itself, individual money transfers,
-  meetings, promises/threats, FIR filing, investigation actions, etc.
-- Do NOT merge distinct events (e.g. 5 separate transfers = 5 separate events).
+- Extract EVERY discrete event: the offence itself, individual communications,
+  meetings, threats, acts of following/stalking/blocking, FIR filing, investigation
+  actions, evidence recovery, witness observations, etc.
+- Do NOT merge distinct events (e.g. 5 separate messages = 5 separate events if dates differ).
 - date: "DD/MM/YYYY" if stated, else null.
 - time: "HH:MM" (24h) if stated, else null.
 - event_type: one of
-  ["incident","transaction","communication","threat","promise",
+  ["incident","transaction","communication","threat","promise","following",
+   "blocking","harassment","contact_attempt","evidence_recovery","witness_observation",
    "complaint_filed","fir_registered","investigation_action","other"]
 - actors: canonical English names of people directly involved in THIS event only.
+- witnesses: names of any persons who observed this specific event, if stated.
 - amount: numeric string (no currency symbol) if this event is a monetary
   transaction, else null.
 - location: string or null.
@@ -635,6 +645,7 @@ Return JSON schema:
     "event_type": "string",
     "description": "string",
     "actors": ["string"],
+    "witnesses": ["string"],
     "location": "string or null",
     "amount": "string or null"
   }}
@@ -689,6 +700,9 @@ def _normalise_timeline_event(e: Dict[str, Any], fallback_id: str) -> Dict[str, 
     actors_raw = e.get("actors") or []
     if not isinstance(actors_raw, list):
         actors_raw = []
+    witnesses_raw = e.get("witnesses") or []
+    if not isinstance(witnesses_raw, list):
+        witnesses_raw = []
     return {
         "event_id": e.get("event_id") or fallback_id,
         "date": e.get("date") or None,
@@ -696,6 +710,7 @@ def _normalise_timeline_event(e: Dict[str, Any], fallback_id: str) -> Dict[str, 
         "event_type": e.get("event_type") or "other",
         "description": e.get("description") or None,
         "actors": [str(a) for a in actors_raw if a is not None],
+        "witnesses": [str(w) for w in witnesses_raw if w is not None],
         "location": e.get("location") or None,
         "amount": e.get("amount") or None,
     }
