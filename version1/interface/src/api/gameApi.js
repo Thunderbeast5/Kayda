@@ -122,6 +122,51 @@ export async function createGame({ mode, caseId, role, userId, displayName }) {
   return ref.id;
 }
 
+/**
+ * Creates a multiplayer game directly from a finalized lobby.
+ * 
+ * @param {Object} lobby The finalized lobby object
+ * @returns {string} The created game document ID
+ */
+export async function createGameFromLobby(lobby) {
+  if (!db) throw new Error("Firebase is not configured.");
+
+  const players = [
+    {
+      user_id: lobby.host.user_id,
+      role: lobby.host.role,
+      type: PLAYER_TYPES.HUMAN,
+      display_name: lobby.host.display_name || "Host",
+    },
+    {
+      user_id: lobby.guest.user_id,
+      role: lobby.guest.role,
+      type: PLAYER_TYPES.HUMAN,
+      display_name: lobby.guest.display_name || "Guest",
+    },
+    {
+      role: PLAYER_ROLES.JUDGE,
+      type: PLAYER_TYPES.AI,
+      display_name: "AI Judge",
+    }
+  ];
+
+  const gameDoc = {
+    mode: GAME_MODES.MULTIPLAYER,
+    case_id: lobby.settings.case_id,
+    players,
+    status: GAME_STATUS.IN_PROGRESS,
+    current_turn: null,
+    round: 0,
+    created_by: lobby.host.user_id,
+    created_at: serverTimestamp(),
+    updated_at: serverTimestamp(),
+  };
+
+  const ref = await addDoc(collection(db, "games"), gameDoc);
+  return ref.id;
+}
+
 // ─── Read APIs ────────────────────────────────────────────────────────────────
 
 /**
