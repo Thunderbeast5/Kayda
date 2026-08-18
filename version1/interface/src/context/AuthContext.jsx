@@ -1,9 +1,9 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useCallback } from "react";
 import {
   subscribeToAuth,
-  getUserProfile,
   logoutUser,
 } from "../firebase";
+import { getPlayerProfile } from "../api/playerApi";
 
 const AuthContext = createContext(null);
 
@@ -12,23 +12,34 @@ export function AuthProvider({ children }) {
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const fetchProfile = useCallback(async (uid) => {
+    try {
+      const profile = await getPlayerProfile(uid);
+      setUserProfile(profile);
+    } catch {
+      setUserProfile(null);
+    }
+  }, []);
+
   useEffect(() => {
     const unsubscribe = subscribeToAuth(async (user) => {
       setCurrentUser(user);
       if (user) {
-        try {
-          const profile = await getUserProfile(user.uid);
-          setUserProfile(profile);
-        } catch {
-          setUserProfile(null);
-        }
+        await fetchProfile(user.uid);
       } else {
         setUserProfile(null);
       }
       setLoading(false);
     });
     return unsubscribe;
-  }, []);
+  }, [fetchProfile]);
+
+  /** Re-fetch the profile after edits (call from ProfilePage, etc.) */
+  const refreshProfile = useCallback(async () => {
+    if (currentUser) {
+      await fetchProfile(currentUser.uid);
+    }
+  }, [currentUser, fetchProfile]);
 
   const signOut = async () => {
     await logoutUser();
@@ -39,7 +50,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <AuthContext.Provider value={{ currentUser, userProfile, loading, signOut }}>
+    <AuthContext.Provider value={{ currentUser, userProfile, loading, signOut, refreshProfile }}>
       {children}
     </AuthContext.Provider>
   );

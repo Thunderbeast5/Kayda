@@ -10,7 +10,7 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc, serverTimestamp } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 
 // Web app's Firebase configuration targeting the existing backend project: mootcourt-d8d89
 const firebaseConfig = {
@@ -67,7 +67,15 @@ export async function registerWithEmail({ email, password, firstName, lastName, 
     age: Number(age),
     mobile,
     displayName: `${firstName} ${lastName}`,
+    display_name: `${firstName} ${lastName}`,
     photoURL: cred.user.photoURL || null,
+    avatar: cred.user.photoURL || null,
+    rating: 1200,
+    games_played: 0,
+    wins: 0,
+    losses: 0,
+    draws: 0,
+    preferred_role: "defense",
     createdAt: serverTimestamp(),
     provider: "email",
   });
@@ -104,7 +112,15 @@ export async function loginWithGoogle() {
       age: null,
       mobile: cred.user.phoneNumber || null,
       displayName: cred.user.displayName || "",
+      display_name: cred.user.displayName || "",
       photoURL: cred.user.photoURL || null,
+      avatar: cred.user.photoURL || null,
+      rating: 1200,
+      games_played: 0,
+      wins: 0,
+      losses: 0,
+      draws: 0,
+      preferred_role: "defense",
       createdAt: serverTimestamp(),
       provider: "google",
     });

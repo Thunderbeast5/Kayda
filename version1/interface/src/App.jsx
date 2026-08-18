@@ -6,6 +6,7 @@ import HomePage from "./pages/HomePage";
 import EvidenceAnalyzerPage from "./pages/EvidenceAnalyzerPage";
 import LexiGraphCypherPage from "./pages/LexiGraphCypherPage";
 import LexiGraphAgentPage from "./pages/LexiGraphAgentPage";
+import ProfilePage from "./pages/ProfilePage";
 
 export default function App() {
   return (
@@ -41,6 +42,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <LexiGraphCypherPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
               </ProtectedRoute>
             }
           />
