@@ -131,6 +131,18 @@ export default function LandingNavbar({ scrollToSection }) {
                     <p style={{ margin: "2px 0 0", fontSize: "11px", color: "#8C5A3C", fontFamily: "'Poppins', sans-serif" }}>{currentUser.email}</p>
                   </div>
                   <button
+                    id="landing-profile-btn"
+                    onClick={() => { setDropdownOpen(false); navigate("/profile"); }}
+                    style={{ width: "100%", textAlign: "left", padding: "9px 12px", borderRadius: "8px", background: "none", border: "none", fontFamily: "'Poppins', sans-serif", fontSize: "13px", fontWeight: 600, color: "#2C1810", cursor: "pointer", display: "flex", alignItems: "center", gap: "8px", transition: "background 0.15s" }}
+                    onMouseEnter={e => e.currentTarget.style.background = "rgba(212,175,55,0.08)"}
+                    onMouseLeave={e => e.currentTarget.style.background = "none"}
+                  >
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    My Profile
+                  </button>
+                  <button
                     id="signout-btn"
                     onClick={handleSignOut}
                     style={{ width: "100%", textAlign: "left", padding: "9px 12px", borderRadius: "8px", background: "none", border: "none", fontFamily: "'Poppins', sans-serif", fontSize: "13px", fontWeight: 600, color: "#C62828", cursor: "pointer", display: "flex", alignItems: "center", gap: "8px", transition: "background 0.15s" }}
