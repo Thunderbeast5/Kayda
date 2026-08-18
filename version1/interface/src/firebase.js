@@ -10,7 +10,21 @@ import {
   onAuthStateChanged,
   updateProfile,
 } from "firebase/auth";
-import { getFirestore, doc, setDoc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc,
+  updateDoc,
+  collection,
+  query,
+  where,
+  orderBy,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 
 // Web app's Firebase configuration targeting the existing backend project: mootcourt-d8d89
 const firebaseConfig = {

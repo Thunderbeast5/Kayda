@@ -4,6 +4,7 @@ import {
   logoutUser,
 } from "../firebase";
 import { getPlayerProfile } from "../api/playerApi";
+import { listCases } from "../api/caseApi";
 
 const AuthContext = createContext(null);
 
@@ -26,6 +27,8 @@ export function AuthProvider({ children }) {
       setCurrentUser(user);
       if (user) {
         await fetchProfile(user.uid);
+        // Auto-seed/verify cases collection in Firestore
+        listCases().catch((err) => console.error("Initial listCases check error:", err));
       } else {
         setUserProfile(null);
       }
