@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-import { updatePlayerProfile, uploadAvatar } from "../api/playerApi";
+import { updatePlayerProfile, uploadAvatar, getPlayerProfile } from "../api/playerApi";
 import StandardNavbar from "../components/StandardNavbar";
 
 // ─── Role Config ──────────────────────────────────────────────────────────────
@@ -105,8 +105,16 @@ function StatCard({ icon, value, label, iconBg, iconColor, accentColor }) {
 // ─── Main Profile Page ────────────────────────────────────────────────────────
 export default function ProfilePage() {
   const navigate = useNavigate();
+  const { userId } = useParams();
   const { currentUser, userProfile, refreshProfile } = useAuth();
   const fileInputRef = useRef(null);
+
+  // Determine if viewing own profile
+  const isOwnProfile = !userId || userId === currentUser?.uid;
+
+  // State for viewing another user's profile
+  const [otherProfile, setOtherProfile] = useState(null);
+  const [loadingOther, setLoadingOther] = useState(false);
 
   // Edit form state
   const [editName, setEditName] = useState("");
@@ -116,17 +124,57 @@ export default function ProfilePage() {
   const [toast, setToast] = useState(null);
   const [dirty, setDirty] = useState(false);
 
-  // Sync form state when profile loads
+  // Fetch other user's profile when viewing someone else
   useEffect(() => {
-    if (userProfile) {
+    if (!isOwnProfile && userId) {
+      setLoadingOther(true);
+      getPlayerProfile(userId)
+        .then((p) => setOtherProfile(p))
+        .catch(() => setOtherProfile(null))
+        .finally(() => setLoadingOther(false));
+    }
+  }, [userId, isOwnProfile]);
+
+  // Sync form state when own profile loads
+  useEffect(() => {
+    if (isOwnProfile && userProfile) {
       setEditName(userProfile.display_name || userProfile.displayName || "");
       setEditRole(userProfile.preferred_role || "defense");
     }
-  }, [userProfile]);
+  }, [userProfile, isOwnProfile]);
 
-  if (!currentUser || !userProfile) return null;
+  // Loading state for other user
+  if (!isOwnProfile && loadingOther) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-[#FAF9F7] to-[#F5F0EB] font-body">
+        <StandardNavbar />
+        <div className="flex items-center justify-center pt-40">
+          <div className="w-12 h-12 border-[3px] border-[#D4AF37] border-t-[#2C1810] rounded-full animate-spin" />
+        </div>
+      </div>
+    );
+  }
 
-  const profile = userProfile;
+  // Not found
+  if (!isOwnProfile && !otherProfile) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-[#FAF9F7] to-[#F5F0EB] font-body">
+        <StandardNavbar />
+        <div className="flex flex-col items-center justify-center pt-40 gap-4">
+          <span className="text-5xl">🔍</span>
+          <h2 className="font-heading text-2xl font-bold text-[#2C1810]">Player Not Found</h2>
+          <p className="text-sm text-[#8C5A3C]">This profile doesn't exist or has been removed.</p>
+          <button onClick={() => navigate("/")} className="mt-4 px-6 py-2 rounded-full text-xs font-bold uppercase tracking-[0.06em] bg-gradient-to-br from-[#2C1810] to-[#3E2723] text-[#FAF9F7] border border-[#D4AF37] cursor-pointer hover:-translate-y-0.5 transition-all duration-200 font-body">
+            Go Home
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (isOwnProfile && (!currentUser || !userProfile)) return null;
+
+  const profile = isOwnProfile ? userProfile : otherProfile;
   const memberSince = profile.createdAt?.toDate
     ? profile.createdAt.toDate().toLocaleDateString("en-US", { month: "long", year: "numeric" })
     : "—";
@@ -210,23 +258,27 @@ export default function ProfilePage() {
                   {getInitials()}
                 </div>
               )}
-              {/* Upload button */}
-              <button
-                id="profile-avatar-upload"
-                onClick={() => fileInputRef.current?.click()}
-                disabled={uploading}
-                className="absolute bottom-1 right-1 w-[34px] h-[34px] rounded-full bg-gradient-to-br from-[#2C1810] to-[#3E2723] border-2 border-[#D4AF37] flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-110 hover:from-[#3E2723] hover:to-[#5D4037] shadow-[0_4px_12px_rgba(0,0,0,0.2)] disabled:opacity-50"
-              >
-                {uploading ? (
-                  <div className="w-3.5 h-3.5 border-2 border-[#D4AF37] border-t-transparent rounded-full animate-spin" />
-                ) : (
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-                    <circle cx="12" cy="13" r="4" />
-                  </svg>
-                )}
-              </button>
-              <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} />
+              {/* Upload button — own profile only */}
+              {isOwnProfile && (
+                <>
+                  <button
+                    id="profile-avatar-upload"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploading}
+                    className="absolute bottom-1 right-1 w-[34px] h-[34px] rounded-full bg-gradient-to-br from-[#2C1810] to-[#3E2723] border-2 border-[#D4AF37] flex items-center justify-center cursor-pointer transition-all duration-200 hover:scale-110 hover:from-[#3E2723] hover:to-[#5D4037] shadow-[0_4px_12px_rgba(0,0,0,0.2)] disabled:opacity-50"
+                  >
+                    {uploading ? (
+                      <div className="w-3.5 h-3.5 border-2 border-[#D4AF37] border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                        <circle cx="12" cy="13" r="4" />
+                      </svg>
+                    )}
+                  </button>
+                  <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleAvatarUpload} />
+                </>
+              )}
             </div>
 
             {/* Info */}
@@ -234,7 +286,8 @@ export default function ProfilePage() {
               <h1 className="font-heading text-[32px] sm:text-[36px] font-bold text-[#2C1810] leading-tight mb-1">
                 {profile.display_name || profile.displayName || "Player"}
               </h1>
-              <p className="text-[13px] text-[#8C5A3C] tracking-[0.02em] mb-3">{profile.email}</p>
+              {isOwnProfile && <p className="text-[13px] text-[#8C5A3C] tracking-[0.02em] mb-3">{profile.email}</p>}
+              {!isOwnProfile && <p className="text-[13px] text-[#8C5A3C] tracking-[0.02em] mb-3">Player Profile</p>}
 
               <div className="flex items-center gap-2.5 flex-wrap justify-center sm:justify-start">
                 {/* Rating badge */}
@@ -275,79 +328,83 @@ export default function ProfilePage() {
         {/* Win Rate Ring */}
         <WinRateRing wins={profile.wins || 0} losses={profile.losses || 0} draws={profile.draws || 0} />
 
-        {/* ── Edit Profile ── */}
-        <h2 className="font-heading text-[22px] font-bold text-[#2C1810] mt-10 mb-5 flex items-center gap-3 after:content-[''] after:flex-1 after:h-px after:bg-gradient-to-r after:from-[#D4AF37]/40 after:to-transparent">
-          Edit Profile
-        </h2>
+        {/* ── Edit Profile — own profile only ── */}
+        {isOwnProfile && (
+          <>
+            <h2 className="font-heading text-[22px] font-bold text-[#2C1810] mt-10 mb-5 flex items-center gap-3 after:content-[''] after:flex-1 after:h-px after:bg-gradient-to-r after:from-[#D4AF37]/40 after:to-transparent">
+              Edit Profile
+            </h2>
 
-        <div className="bg-white/75 backdrop-blur-[20px] border border-[#D4AF37]/15 rounded-[20px] p-8">
-          <div className="flex flex-col gap-6">
-            {/* Display Name */}
-            <div className="flex flex-col gap-2">
-              <label htmlFor="profile-display-name" className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#6B4C3B]">
-                Display Name
-              </label>
-              <input
-                id="profile-display-name"
-                type="text"
-                value={editName}
-                onChange={(e) => { setEditName(e.target.value); setDirty(true); }}
-                placeholder="Enter your display name"
-                className="w-full py-3 px-4 text-sm font-body text-[#2C1810] bg-[#2C1810]/[0.02] border-[1.5px] border-[#D4AF37]/30 rounded-xl outline-none transition-all duration-200 focus:border-[#D4AF37] focus:ring-[3px] focus:ring-[#D4AF37]/12 placeholder:text-[#6B4C3B]/40"
-              />
-            </div>
+            <div className="bg-white/75 backdrop-blur-[20px] border border-[#D4AF37]/15 rounded-[20px] p-8">
+              <div className="flex flex-col gap-6">
+                {/* Display Name */}
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="profile-display-name" className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#6B4C3B]">
+                    Display Name
+                  </label>
+                  <input
+                    id="profile-display-name"
+                    type="text"
+                    value={editName}
+                    onChange={(e) => { setEditName(e.target.value); setDirty(true); }}
+                    placeholder="Enter your display name"
+                    className="w-full py-3 px-4 text-sm font-body text-[#2C1810] bg-[#2C1810]/[0.02] border-[1.5px] border-[#D4AF37]/30 rounded-xl outline-none transition-all duration-200 focus:border-[#D4AF37] focus:ring-[3px] focus:ring-[#D4AF37]/12 placeholder:text-[#6B4C3B]/40"
+                  />
+                </div>
 
-            {/* Preferred Role */}
-            <div className="flex flex-col gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#6B4C3B]">
-                Preferred Role
-              </span>
-              <div className="flex gap-3 flex-wrap">
-                {ROLES.map(({ key, label, icon }) => (
+                {/* Preferred Role */}
+                <div className="flex flex-col gap-2">
+                  <span className="text-[10px] font-bold uppercase tracking-[0.08em] text-[#6B4C3B]">
+                    Preferred Role
+                  </span>
+                  <div className="flex gap-3 flex-wrap">
+                    {ROLES.map(({ key, label, icon }) => (
+                      <button
+                        key={key}
+                        id={`profile-role-${key}`}
+                        onClick={() => { setEditRole(key); setDirty(true); }}
+                        className={`flex-1 min-w-[120px] py-3.5 px-4 border-[1.5px] rounded-[14px] cursor-pointer transition-all duration-250 text-center
+                          ${editRole === key
+                            ? "border-[#D4AF37] bg-gradient-to-br from-[#D4AF37]/10 to-[#D4AF37]/[0.04] shadow-[0_4px_20px_rgba(212,175,55,0.15)]"
+                            : "border-[#D4AF37]/25 bg-white/60 hover:border-[#D4AF37]/50 hover:bg-[#D4AF37]/[0.04] hover:-translate-y-0.5"
+                          }`}
+                      >
+                        <div className="text-2xl mb-1">{icon}</div>
+                        <div className="text-xs font-bold uppercase tracking-[0.06em] text-[#2C1810]">{label}</div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex gap-3 justify-end mt-2">
+                  {dirty && (
+                    <button
+                      id="profile-cancel-btn"
+                      onClick={handleCancel}
+                      className="px-7 py-2.5 rounded-full text-xs font-bold uppercase tracking-[0.06em] cursor-pointer transition-all duration-250 bg-transparent text-[#5D4037] border-[1.5px] border-[#5D4037]/25 hover:bg-[#5D4037]/5 hover:border-[#5D4037]/40 font-body"
+                    >
+                      Cancel
+                    </button>
+                  )}
                   <button
-                    key={key}
-                    id={`profile-role-${key}`}
-                    onClick={() => { setEditRole(key); setDirty(true); }}
-                    className={`flex-1 min-w-[120px] py-3.5 px-4 border-[1.5px] rounded-[14px] cursor-pointer transition-all duration-250 text-center
-                      ${editRole === key
-                        ? "border-[#D4AF37] bg-gradient-to-br from-[#D4AF37]/10 to-[#D4AF37]/[0.04] shadow-[0_4px_20px_rgba(212,175,55,0.15)]"
-                        : "border-[#D4AF37]/25 bg-white/60 hover:border-[#D4AF37]/50 hover:bg-[#D4AF37]/[0.04] hover:-translate-y-0.5"
-                      }`}
+                    id="profile-save-btn"
+                    onClick={handleSave}
+                    disabled={saving || !dirty}
+                    className="px-7 py-2.5 rounded-full text-xs font-bold uppercase tracking-[0.06em] cursor-pointer transition-all duration-250 bg-gradient-to-br from-[#2C1810] to-[#3E2723] text-[#FAF9F7] border border-[#D4AF37] shadow-[0_4px_16px_rgba(44,24,16,0.2)] hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(212,175,55,0.3)] hover:from-[#3E2723] hover:to-[#5D4037] disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0 font-body"
                   >
-                    <div className="text-2xl mb-1">{icon}</div>
-                    <div className="text-xs font-bold uppercase tracking-[0.06em] text-[#2C1810]">{label}</div>
+                    {saving ? (
+                      <span className="flex items-center gap-2">
+                        <div className="w-3.5 h-3.5 border-2 border-[#D4AF37] border-t-transparent rounded-full animate-spin" />
+                        Saving…
+                      </span>
+                    ) : "Save Changes"}
                   </button>
-                ))}
+                </div>
               </div>
             </div>
-
-            {/* Actions */}
-            <div className="flex gap-3 justify-end mt-2">
-              {dirty && (
-                <button
-                  id="profile-cancel-btn"
-                  onClick={handleCancel}
-                  className="px-7 py-2.5 rounded-full text-xs font-bold uppercase tracking-[0.06em] cursor-pointer transition-all duration-250 bg-transparent text-[#5D4037] border-[1.5px] border-[#5D4037]/25 hover:bg-[#5D4037]/5 hover:border-[#5D4037]/40 font-body"
-                >
-                  Cancel
-                </button>
-              )}
-              <button
-                id="profile-save-btn"
-                onClick={handleSave}
-                disabled={saving || !dirty}
-                className="px-7 py-2.5 rounded-full text-xs font-bold uppercase tracking-[0.06em] cursor-pointer transition-all duration-250 bg-gradient-to-br from-[#2C1810] to-[#3E2723] text-[#FAF9F7] border border-[#D4AF37] shadow-[0_4px_16px_rgba(44,24,16,0.2)] hover:-translate-y-0.5 hover:shadow-[0_8px_28px_rgba(212,175,55,0.3)] hover:from-[#3E2723] hover:to-[#5D4037] disabled:opacity-50 disabled:cursor-not-allowed disabled:translate-y-0 font-body"
-              >
-                {saving ? (
-                  <span className="flex items-center gap-2">
-                    <div className="w-3.5 h-3.5 border-2 border-[#D4AF37] border-t-transparent rounded-full animate-spin" />
-                    Saving…
-                  </span>
-                ) : "Save Changes"}
-              </button>
-            </div>
-          </div>
-        </div>
+          </>
+        )}
       </div>
 
       {/* ── Toast ── */}

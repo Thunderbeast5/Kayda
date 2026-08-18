@@ -53,6 +53,14 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/profile/:userId"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
