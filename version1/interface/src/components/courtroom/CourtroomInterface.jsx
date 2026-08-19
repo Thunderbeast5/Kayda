@@ -528,7 +528,7 @@ import CaseSelectionModal from "./CaseSelectionModal";
 import { getMockResponse } from "../../data/mockTrialResponses";
 import { uploadCaseFile } from "../../firebase";
 
-export default function CourtroomInterface({ userRole, onExit }) {
+export default function CourtroomInterface({ userRole, gameId, onExit }) {
   const [messages, setMessages] = useState([]);
   const [activeSpeaker, setActiveSpeaker] = useState(null);
   const [status, setStatus] = useState("running"); 

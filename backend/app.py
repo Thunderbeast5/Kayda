@@ -633,7 +633,15 @@ def get_lexigraph_agent():
 from fastapi.responses import StreamingResponse
 from backend.observer.case_service import list_cases, get_case, normalize_case_data, build_events, _turn_delay
 
+from matchmaking.api import router as matchmaking_router
+from matchmaking.worker import start_matchmaking_worker
+
 app = FastAPI(title="MootCourt Legal Intelligence & Evidence API")
+
+@app.on_event("startup")
+async def startup_event():
+    start_matchmaking_worker()
+
 
 # Enable CORS for localhost and 127.0.0.1 on various ports
 app.add_middleware(
@@ -651,6 +659,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(matchmaking_router)
 
 
 # ── Observer Mode Case Bank Endpoints ─────────────────────────────────────
