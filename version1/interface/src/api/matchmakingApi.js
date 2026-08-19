@@ -1,6 +1,6 @@
 const API_URL = "http://localhost:5001/api/matchmaking";
 
-export async function joinMatchmakingQueue(userId, username, preferredRole) {
+export async function joinMatchmakingQueue(userId, username, preferredRole, rating = 1200) {
   try {
     const response = await fetch(`${API_URL}/join`, {
       method: "POST",
@@ -10,7 +10,7 @@ export async function joinMatchmakingQueue(userId, username, preferredRole) {
       body: JSON.stringify({
         user_id: userId,
         username: username,
-        rating: 1200, // Default for now
+        rating: rating,
         preferred_role: preferredRole.toUpperCase(),
       }),
     });

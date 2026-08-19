@@ -1,15 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Search, X, CheckCircle2 } from "lucide-react";
 import { joinMatchmakingQueue, leaveMatchmakingQueue, pollMatchmakingStatus } from "../../api/matchmakingApi";
+import { useAuth } from "../../context/AuthContext";
 
 export default function MatchmakingQueue({ preferredRole, onMatchFound, onCancel }) {
+  const { currentUser, userProfile } = useAuth();
+  
   const [elapsed, setElapsed] = useState(0);
   const [status, setStatus] = useState("SEARCHING"); // "SEARCHING", "FOUND"
   const [opponent, setOpponent] = useState(null);
   const [assignedRole, setAssignedRole] = useState(null);
   
-  const userIdRef = useRef(`user_${Math.random().toString(36).substring(2, 9)}`);
-  const usernameRef = useRef(`Advocate_${Math.floor(Math.random() * 1000)}`);
+  // Directly use the auth context values (or fallback if somehow missing)
+  const actualUserId = currentUser?.uid || `user_${Math.random().toString(36).substring(2, 9)}`;
+  const actualUsername = userProfile?.display_name || userProfile?.displayName || currentUser?.displayName || `Advocate_${Math.floor(Math.random() * 1000)}`;
+  const actualRating = userProfile?.rating || 1200;
+
   const pollIntervalRef = useRef(null);
   const timerIntervalRef = useRef(null);
 
@@ -17,11 +23,11 @@ export default function MatchmakingQueue({ preferredRole, onMatchFound, onCancel
     // 1. Join queue
     const joinQueue = async () => {
       try {
-        await joinMatchmakingQueue(userIdRef.current, usernameRef.current, preferredRole);
+        await joinMatchmakingQueue(actualUserId, actualUsername, preferredRole, actualRating);
         
         // 2. Start polling
         pollIntervalRef.current = setInterval(async () => {
-          const res = await pollMatchmakingStatus(userIdRef.current);
+          const res = await pollMatchmakingStatus(actualUserId);
           if (res.status === "MATCH_FOUND") {
             handleMatchFound(res);
           }
@@ -62,7 +68,7 @@ export default function MatchmakingQueue({ preferredRole, onMatchFound, onCancel
 
   const handleCancel = async () => {
     cleanup();
-    await leaveMatchmakingQueue(userIdRef.current);
+    await leaveMatchmakingQueue(actualUserId);
     onCancel();
   };
 
@@ -121,7 +127,7 @@ export default function MatchmakingQueue({ preferredRole, onMatchFound, onCancel
               <div className="flex justify-between items-center mb-4">
                 <div className="text-center">
                   <p className="text-[10px] font-mono text-[#8C5A3C] uppercase tracking-wider mb-1">You</p>
-                  <p className="font-bold text-[#2C1810]">{usernameRef.current}</p>
+                  <p className="font-bold text-[#2C1810]">{actualUsername}</p>
                   <p className="text-xs font-semibold text-[#D4AF37]">{assignedRole}</p>
                 </div>
                 <div className="text-xl font-bold text-[#5D4037]/30">VS</div>

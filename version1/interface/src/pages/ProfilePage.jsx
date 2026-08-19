@@ -172,7 +172,16 @@ export default function ProfilePage() {
     );
   }
 
-  if (isOwnProfile && (!currentUser || !userProfile)) return null;
+  if (isOwnProfile && (!currentUser || !userProfile)) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-[#FAF9F7] to-[#F5F0EB] font-body">
+        <StandardNavbar />
+        <div className="flex items-center justify-center pt-40">
+          <div className="w-12 h-12 border-[3px] border-[#D4AF37] border-t-[#2C1810] rounded-full animate-spin" />
+        </div>
+      </div>
+    );
+  }
 
   const profile = isOwnProfile ? userProfile : otherProfile;
   const memberSince = profile.createdAt?.toDate
