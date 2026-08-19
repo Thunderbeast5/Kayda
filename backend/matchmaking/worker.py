@@ -105,7 +105,8 @@ async def match_players():
             game_doc = {
                 "mode": "MULTIPLAYER",
                 "case_id": case_id,
-                "status": "IN_PROGRESS",
+                "status": "WAITING_FOR_PLAYERS",
+                "phase": "CASE_INTRO",
                 "current_turn": None,
                 "round": 0,
                 "created_by": "matchmaker",
@@ -116,18 +117,21 @@ async def match_players():
                         "user_id": p1["user_id"],
                         "role": p1_role,
                         "type": "HUMAN",
-                        "display_name": p1.get("username", "Player 1")
+                        "display_name": p1.get("username", "Player 1"),
+                        "status": "WAITING"
                     },
                     {
                         "user_id": p2["user_id"],
                         "role": p2_role,
                         "type": "HUMAN",
-                        "display_name": p2.get("username", "Player 2")
+                        "display_name": p2.get("username", "Player 2"),
+                        "status": "WAITING"
                     },
                     {
                         "role": "JUDGE",
                         "type": "AI",
-                        "display_name": "AI Judge"
+                        "display_name": "AI Judge",
+                        "status": "READY"
                     }
                 ]
             }

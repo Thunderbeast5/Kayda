@@ -1294,6 +1294,11 @@ async def lexigraph_analyze_endpoint(req: LexiGraphAgentQueryRequest):
             }
         )
 
+# Import and include new Game API & WebSocket routers
+from backend.game.api import game_router, ws_router
+app.include_router(game_router)
+app.include_router(ws_router)
+
 
 if __name__ == "__main__":
     import uvicorn
