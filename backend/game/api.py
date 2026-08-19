@@ -3,6 +3,8 @@ from fastapi import APIRouter, WebSocket, WebSocketDisconnect, HTTPException, Qu
 from typing import Dict, Any
 from agents.evidence.evidence_analyzer import _get_firestore_client
 from backend.game.manager import manager
+from backend.game.engine.state import init_game_state
+from backend.game.engine.engine import engine
 from datetime import datetime, timezone
 
 game_router = APIRouter(prefix="/api/games", tags=["games"])
@@ -44,9 +46,9 @@ async def ready_player(game_id: str, user_id: str = Query(...)):
                     p["status"] = "READY"
                     updated = True
                 
-                if p.get("status") != "READY":
-                    all_ready = False
-                    
+            all_ready = all(p.get("status") == "READY" for p in players)
+            print(f"[API] _update_ready: all_ready={all_ready}, players={[p.get('status') for p in players]}")
+            
             if not updated:
                 raise HTTPException(status_code=400, detail="User not in this game")
             
@@ -68,9 +70,17 @@ async def ready_player(game_id: str, user_id: str = Query(...)):
         })
         
         if all_ready:
+            # Initialize live game state in Redis
+            db = _get_firestore_client()
+            doc = await asyncio.to_thread(db.collection("games").document(game_id).get)
+            live_state = await init_game_state(game_id, doc.to_dict())
+            
             await manager.broadcast(game_id, {
                 "type": "GAME_STARTED",
-                "phase": "CASE_INTRO"
+                "game_id": game_id,
+                "phase": live_state["phase"],
+                "current_turn": live_state["current_turn"],
+                "scores": live_state["scores"]
             })
             
         return {"success": True, "ready": True, "game_started": all_ready}
@@ -115,8 +125,14 @@ async def websocket_game_endpoint(websocket: WebSocket, game_id: str, user_id: s
         
         try:
             while True:
-                data = await websocket.receive_json()
-                # Handle incoming ws messages here in the future
+                action_data = await websocket.receive_json()
+                success, error_msg, new_state, event_to_broadcast = await engine.process_action(game_id, user_id, action_data)
+                
+                if not success:
+                    await websocket.send_json({"type": "ERROR", "message": error_msg})
+                elif event_to_broadcast:
+                    await manager.broadcast(game_id, event_to_broadcast)
+                    
         except WebSocketDisconnect:
             manager.disconnect(game_id, user_id)
             await manager.broadcast(game_id, {

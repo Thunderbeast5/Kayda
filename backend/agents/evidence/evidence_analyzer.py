@@ -75,9 +75,12 @@ def _get_firestore_client():
     if _firebase_app is None:
         if not FIREBASE_CREDENTIALS_PATH:
             raise ValueError("FIREBASE_CREDENTIALS_PATH not set in .env")
-        cred_path = BASE_DIR / FIREBASE_CREDENTIALS_PATH
-        cred = credentials.Certificate(str(cred_path))
-        _firebase_app = firebase_admin.initialize_app(cred)
+        try:
+            _firebase_app = firebase_admin.get_app()
+        except ValueError:
+            cred_path = BASE_DIR / FIREBASE_CREDENTIALS_PATH
+            cred = credentials.Certificate(str(cred_path))
+            _firebase_app = firebase_admin.initialize_app(cred)
     return firestore.client()
 
 
