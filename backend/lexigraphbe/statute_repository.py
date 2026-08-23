@@ -89,8 +89,8 @@ class StatuteRepository:
                     text = section.get("text", "")
                     
                     # Handle subsections (e.g., 304B has subsections instead of top-level text)
+                    subsection_texts = []
                     if not text and "subsections" in section:
-                        subsection_texts = []
                         for subsection in section["subsections"]:
                             sub_heading = subsection.get("heading", "")
                             sub_text = subsection.get("text", "")
@@ -98,53 +98,49 @@ class StatuteRepository:
                                 subsection_texts.append(f"{sub_heading}: {sub_text}")
                             elif sub_text:
                                 subsection_texts.append(sub_text)
-                            # Also extract key_elements from subsections
+                            # Extract key_elements from subsections for searchability
                             if "key_elements" in subsection:
                                 subsection_texts.extend(subsection["key_elements"])
                         text = "\n\n".join(subsection_texts)
                     
-                    # Build rich searchable text for prefilter from multiple fields
+                    # Build rich searchable text for prefilter from multiple ipc.json fields
                     searchable_parts = [heading, text, sec_num]
                     
-                    # Add key_principle if available (summary of the section)
+                    # Add key_principle (summary)
                     if "key_principle" in section:
                         searchable_parts.append(section["key_principle"])
                     
-                    # Add plain_language if available (plain English explanation)
+                    # Add plain_language (plain English)
                     if "plain_language" in section:
                         searchable_parts.append(section["plain_language"])
                     
-                    # Add key_elements if available (list of ingredients)
+                    # Add key_elements (list of ingredients)
                     if "key_elements" in section:
                         searchable_parts.extend(section["key_elements"])
                     
-                    # Add exception headings for sections like 300 (Murder)
-                    # This ensures "sudden quarrel" from Exception 4 is searchable
+                    # Add exception headings and text (e.g., Section 300 Exception 4 "Sudden Fight")
                     if "exceptions" in section:
                         for exc in section["exceptions"]:
-                            exc_heading = exc.get("heading", "")
-                            exc_text = exc.get("text", "")
-                            if exc_heading:
-                                searchable_parts.append(exc_heading)
-                            if exc_text:
-                                searchable_parts.append(exc_text)
-                            # Add key_elements from exceptions
+                            if "heading" in exc:
+                                searchable_parts.append(exc["heading"])
+                            if "text" in exc:
+                                searchable_parts.append(exc["text"])
                             if "key_elements" in exc:
                                 searchable_parts.extend(exc["key_elements"])
                     
-                    # Add clauses (e.g., for Section 300 murder clauses)
+                    # Add clauses (e.g., Section 300 murder clauses)
                     if "clauses_elevating_to_murder" in section:
                         for clause in section["clauses_elevating_to_murder"]:
                             if "text" in clause:
                                 searchable_parts.append(clause["text"])
                     
-                    # Combine explanation if present
+                    # Combine explanation
                     explanation = section.get("explanation", "")
                     if explanation:
                         text += f"\n\nExplanation: {explanation}"
                         searchable_parts.append(explanation)
                     
-                    # Add illustrations if present
+                    # Add illustrations
                     illustrations = section.get("illustrations", [])
                     if illustrations:
                         text += "\n\nIllustrations:"
@@ -156,7 +152,7 @@ class StatuteRepository:
                     # Build full_text for prefilter (lowercase for keyword matching)
                     full_text_lower = " ".join(searchable_parts).lower()
                     
-                    # Add to sections_db
+                    # Add to sections_db (used by prefilter for keyword matching)
                     self.sections_db.append({
                         "identifier": f"IPC {sec_num}",
                         "statute": "IPC",
@@ -167,12 +163,12 @@ class StatuteRepository:
                         "raw_row": section,
                     })
                     
-                    # Add to statute_db with full statutory text (for LLM)
+                    # Add to statute_db (used for LLM enrichment)
                     self.statute_db[f"IPC_{sec_num}"] = {
                         "statute": "IPC",
                         "section_number": sec_num,
                         "section_title": heading,
-                        "full_text": text,  # ← Full statutory text with explanation & illustrations
+                        "full_text": text,  # Full statutory text with explanation & illustrations
                         "chapter_number": chapter_number,
                         "chapter_title": chapter_title,
                         "explanation": explanation,
@@ -187,9 +183,9 @@ class StatuteRepository:
         if self._is_loaded:
             return
 
-        self._load_ipc_json()  # Load from ipc.json (ONLY source for IPC sections)
-        # Note: CSV fallback is DISABLED - only ipc.json is used for IPC sections
-        # self._load_ipc_and_bns_sections()  # CSV fallback disabled
+        self._load_ipc_json()  # Use ipc.json for both prefilter and enrichment
+        # CSV loading disabled - ipc.json is the only source
+        # self._load_ipc_and_bns_sections()
         self._load_ipc2bns_mapping()
         self._is_loaded = True
 

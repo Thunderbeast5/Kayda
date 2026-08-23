@@ -39,6 +39,10 @@ def _try_import_lexigraphbe_runner():
     Returns the callable or None if package not installed.
     """
     try:
+        # Force reset of StatuteRepository singleton to ensure fresh load
+        from lexigraphbe.statute_repository import StatuteRepository
+        StatuteRepository.reset_instance()
+        
         from lexigraphbe.runner import run_full_pipeline
         return run_full_pipeline
     except ImportError:

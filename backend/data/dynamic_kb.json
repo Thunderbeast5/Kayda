@@ -1674,5 +1674,38 @@
     "subject_matter_scope": null,
     "disqualifying_subject_matters": [],
     "requires_trigger_gate": false
+  },
+  {
+    "section": "318",
+    "statute": "IPC",
+    "bns_equivalent": "318",
+    "title": "Cheating and Dishonestly Inducing Delivery of Property",
+    "mandatory_ingredients": [
+      "deceiving_someone_to_deliver_property",
+      "dishonest_intention"
+    ],
+    "factual_triggers": [
+      "cheating",
+      "deceiving",
+      "deliver",
+      "delivery",
+      "dishonest",
+      "dishonestly",
+      "forgery",
+      "inducing",
+      "intention",
+      "property",
+      "someone"
+    ],
+    "chapter_number": "General Offences",
+    "chapter_title": "General Offences",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": true,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
   }
 ]
