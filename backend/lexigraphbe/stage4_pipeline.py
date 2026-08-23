@@ -67,6 +67,10 @@ class Stage4Pipeline:
 
             if verification_result.status == "VERIFIED":
                 verification_result.verified_statutory_object = last_statutory_obj
+                
+                # Dynamic KB Learning: Promote verified sections to KB for future queries
+                self._learn_from_verification(legal_query, last_statutory_obj)
+                
                 return verification_result
 
             # Step 3: Prepare feedback for single reflection retry
@@ -97,3 +101,74 @@ class Stage4Pipeline:
             feedback="Pipeline execution completed without verification (Flagged for human review).",
             verified_statutory_object=last_statutory_obj,
         )
+    
+    def _learn_from_verification(
+        self,
+        legal_query: Union[LegalQueryObject, Dict[str, Any], str],
+        statutory_obj: StatutoryVerificationObject,
+    ) -> None:
+        """
+        Learns from verified sections by promoting them to Dynamic KB.
+        Each verified section becomes a KB rule with concept → section mapping.
+        
+        Args:
+            legal_query: The original legal query with concepts
+            statutory_obj: Verified statutory object with matched sections
+        """
+        try:
+            from .classifier_prefilter import promote_from_llm_result
+            
+            # Extract query object
+            if isinstance(legal_query, LegalQueryObject):
+                query_obj = legal_query
+            elif isinstance(legal_query, dict):
+                query_obj = LegalQueryObject.model_validate(legal_query)
+            else:
+                return  # Can't learn without proper query object
+            
+            # Build concept → section mapping
+            concept_map = {}
+            for concept_item in query_obj.legal_concepts:
+                concept_map[concept_item.concept.lower()] = concept_item
+            
+            # For each verified offence, promote to Dynamic KB
+            for offence in statutory_obj.verified_offences:
+                section_num = offence.section_number
+                statute = offence.statute or "IPC"
+                title = offence.title or f"{statute} Section {section_num}"
+                chapter = "General Offences"  # Chapter not in Stage4 schema
+                ingredients = offence.ingredient_evaluation or []
+                
+                # Find which concept led to this section
+                matched_concept = None
+                title_lower = title.lower()
+                
+                # Try to match title to a concept
+                for concept_text, concept_item in concept_map.items():
+                    if concept_text in title_lower or title_lower in concept_text:
+                        matched_concept = concept_item.concept
+                        break
+                
+                # Fallback: use first concept if no direct match
+                if not matched_concept and query_obj.legal_concepts:
+                    matched_concept = query_obj.legal_concepts[0].concept
+                
+                if matched_concept and section_num:
+                    # Promote to Dynamic KB
+                    promote_from_llm_result(
+                        section_number=section_num,
+                        statute=statute,
+                        title=title,
+                        chapter=chapter,
+                        ingredients=[ing.ingredient for ing in ingredients],
+                        matched_concept=matched_concept,
+                        bns_equivalent=section_num,  # Can be refined later
+                        cognizable=True,
+                        bailable=False,
+                        punishment_maximum=None,  # Can be refined from First Schedule
+                    )
+                    print(f"[Stage4 Learning] Promoted {statute} {section_num} with concept '{matched_concept}'")
+        
+        except Exception as e:
+            # Don't fail the pipeline if learning fails
+            print(f"[Stage4 Learning] Warning: Could not promote to KB - {e}")

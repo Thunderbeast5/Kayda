@@ -1,0 +1,1032 @@
+{
+  "document": {
+    "title": "The Indian Penal Code",
+    "act_number": "Act No. 45 of 1860",
+    "enacted_date": "6th October, 1860",
+    "source_pages": "69–71"
+  },
+  "chapters": [
+    {
+      "chapter_number": "XVI",
+      "chapter_title": "Of Offences Affecting the Human Body",
+      "sub_heading": "Of Offences Affecting Life",
+      "page_start": 69,
+      "page_end": 71,
+      "sections": [
+        {
+          "section_number": "299",
+          "section_type": "definitional",
+          "is_definition": true,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Culpable homicide",
+          "text": "Whoever causes death by doing an act with the intention of causing death, or with the intention of causing such bodily injury as is likely to cause death, or with the knowledge that he is likely by such act to cause death, commits the offence of culpable homicide.",
+          "page": 69,
+          "ingredients": [
+            "Causing death of a person",
+            "By doing an act",
+            "With intention of causing death; OR",
+            "With intention of causing bodily injury likely to cause death; OR",
+            "With knowledge that the act is likely to cause death"
+          ],
+          "mens_rea_modes": [
+            {
+              "mode": 1,
+              "description": "Intention to cause death"
+            },
+            {
+              "mode": 2,
+              "description": "Intention to cause bodily injury likely to cause death"
+            },
+            {
+              "mode": 3,
+              "description": "Knowledge that the act is likely to cause death"
+            }
+          ],
+          "illustrations": [
+            {
+              "label": "Illustration (a)",
+              "text": "A lays sticks and turf over a pit, with the intention of thereby causing death, or with the knowledge that death is likely to be thereby caused. Z, believing the ground to be firm, treads on it, falls in and is killed. A has committed the offence of culpable homicide.",
+              "verdict": "Culpable homicide established",
+              "key_principle": "Laying a death trap with intention or knowledge of likely death constitutes culpable homicide even without direct physical contact."
+            },
+            {
+              "label": "Illustration (b)",
+              "text": "A knows Z to be behind a bush. B does not know it. A, intending to cause, or knowing it to be likely to cause Z's death, induces B to fire at the bush. B fires and kills Z. Here B may be guilty of no offence; but A has committed the offence of culpable homicide.",
+              "verdict": "A = culpable homicide; B = possibly no offence",
+              "key_principle": "The person with the guilty mind (A) is liable even when the physical act is performed by an innocent agent (B) who lacks mens rea."
+            },
+            {
+              "label": "Illustration (c)",
+              "text": "A, by shooting at a fowl with intent to kill and steal it, kills B, who is behind a bush; A not knowing that he was there. Here, although A was doing an unlawful act, he was not guilty of culpable homicide, as he did not intend to kill B, or to cause death by doing an act that he knew was likely to cause death.",
+              "verdict": "NOT culpable homicide",
+              "key_principle": "Mere commission of an unlawful act is insufficient — the specific mens rea (intention or knowledge of likely death) must be present."
+            }
+          ],
+          "explanations": [
+            {
+              "label": "Explanation 1",
+              "text": "A person who causes bodily injury to another who is labouring under a disorder, disease or bodily infirmity, and thereby accelerates the death of that other, shall be deemed to have caused his death.",
+              "plain_language": "If the victim had a pre-existing condition and the injury accelerated death, the accused is still deemed to have caused the death."
+            },
+            {
+              "label": "Explanation 2",
+              "text": "Where death is caused by bodily injury, the person who causes such bodily injury shall be deemed to have caused the death, although by resorting to proper remedies and skilful treatment the death might have been prevented.",
+              "plain_language": "The fact that proper medical treatment could have saved the victim is no defence — causation is still attributed to the accused."
+            },
+            {
+              "label": "Explanation 3",
+              "text": "The causing of the death of a child in the mother's womb is not homicide. But it may amount to culpable homicide to cause the death of a living child, if any part of that child has been brought forth, though the child may not have breathed or been completely born.",
+              "plain_language": "Killing a foetus in utero is not homicide; but killing a partially delivered child (even before breathing or complete birth) can be culpable homicide."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "300",
+          "section_type": "definitional",
+          "is_definition": true,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Murder",
+          "text": "Except in the cases hereinafter excepted, culpable homicide is murder, if the act by which the death is caused is done with the intention of causing death, or—",
+          "page": 69,
+          "general_rule": "Culpable homicide is murder unless it falls within one of the five exceptions listed below.",
+          "clauses_elevating_to_murder": [
+            {
+              "clause": "1st",
+              "text": "If the act by which death is caused is done with the intention of causing death."
+            },
+            {
+              "clause": "2ndly",
+              "text": "If it is done with the intention of causing such bodily injury as the offender knows to be likely to cause the death of the person to whom the harm is caused."
+            },
+            {
+              "clause": "3rdly",
+              "text": "If it is done with the intention of causing bodily injury to any person and the bodily injury intended to be inflicted is sufficient in the ordinary course of nature to cause death."
+            },
+            {
+              "clause": "4thly",
+              "text": "If the person committing the act knows that it is so imminently dangerous that it must, in all probability, cause death, or such bodily injury as is likely to cause death, and commits such act without any excuse for incurring the risk of causing death or such injury as aforesaid."
+            }
+          ],
+          "illustrations": [
+            {
+              "label": "Illustration (a)",
+              "text": "A shoots Z with the intention of killing him. Z dies in consequence. A commits murder.",
+              "maps_to_clause": "1st",
+              "verdict": "Murder",
+              "key_principle": "Direct intention to kill + death = murder."
+            },
+            {
+              "label": "Illustration (b)",
+              "text": "A, knowing that Z is labouring under such a disease that a blow is likely to cause his death, strikes him with the intention of causing bodily injury. Z dies in consequence of the blow. A is guilty of murder, although the blow might not have been sufficient in the ordinary course of nature to cause the death of a person in a sound state of health. But if A, not knowing that Z is labouring under any disease, gives him such a blow as would not in the ordinary course of nature kill a person in a sound state of health, here A, although he may intend to cause bodily injury, is not guilty of murder, if he did not intend to cause death, or such bodily injury as in the ordinary course of nature would cause death.",
+              "maps_to_clause": "2ndly",
+              "verdict": "Murder (if A knew of disease) / Not murder (if A did not know)",
+              "key_principle": "Subjective knowledge of the victim's vulnerability is decisive — the accused is judged on what they actually knew."
+            },
+            {
+              "label": "Illustration (c)",
+              "text": "A intentionally gives Z a sword-cut or club-wound sufficient to cause the death of a man in the ordinary course of nature. Z dies in consequence. Here A is guilty of murder, although he may not have intended to cause Z's death.",
+              "maps_to_clause": "3rdly",
+              "verdict": "Murder",
+              "key_principle": "Intention to inflict a wound that is objectively sufficient to cause death in the ordinary course of nature is sufficient — no need to prove intent to kill."
+            },
+            {
+              "label": "Illustration (d)",
+              "text": "A without any excuse fires a loaded cannon into a crowd of persons and kills one of them. A is guilty of murder, although he may not have had a premeditated design to kill any particular individual.",
+              "maps_to_clause": "4thly",
+              "verdict": "Murder",
+              "key_principle": "Knowledge of imminently dangerous act + commission without excuse = murder even without targeting a specific victim."
+            }
+          ],
+          "exceptions": [
+            {
+              "exception_number": 1,
+              "heading": "Grave and Sudden Provocation",
+              "text": "Culpable homicide is not murder if the offender, whilst deprived of the power of self-control by grave and sudden provocation, causes the death of the person who gave the provocation or causes the death of any other person by mistake or accident.",
+              "provisos": [
+                {
+                  "proviso": "First",
+                  "text": "The provocation is not sought or voluntarily provoked by the offender as an excuse for killing or doing harm to any person."
+                },
+                {
+                  "proviso": "Secondly",
+                  "text": "The provocation is not given by anything done in obedience to the law, or by a public servant in the lawful exercise of the powers of such public servant."
+                },
+                {
+                  "proviso": "Thirdly",
+                  "text": "The provocation is not given by anything done in the lawful exercise of the right of private defence."
+                }
+              ],
+              "explanation": "Whether the provocation was grave and sudden enough to prevent the offence from amounting to murder is a question of fact.",
+              "illustrations": [
+                {
+                  "label": "Illustration (a)",
+                  "text": "A, under the influence of passion excited by a provocation given by Z, intentionally kills Y, Z's child. This is murder, inasmuch as the provocation was not given by the child, and the death of the child was not caused by accident or misfortune in doing an act caused by the provocation.",
+                  "verdict": "Murder — exception does NOT apply",
+                  "key_principle": "Provocation by Z cannot justify intentionally killing a third party (Y/Z's child) who did not give the provocation, except by actual accident or misfortune."
+                },
+                {
+                  "label": "Illustration (b)",
+                  "text": "Y gives grave and sudden provocation to A. A, on this provocation, fires a pistol at Y, neither intending nor knowing himself to be likely to kill Z, who is near him, but out of sight. A kills Z. Here A has not committed murder, but merely culpable homicide.",
+                  "verdict": "Culpable homicide (not murder) — exception APPLIES",
+                  "key_principle": "Accidental death of a bystander while acting under grave and sudden provocation reduces the offence to culpable homicide."
+                },
+                {
+                  "label": "Illustration (c)",
+                  "text": "A is lawfully arrested by Z, a bailiff. A is excited to sudden and violent passion by the arrest, and kills Z. This is murder, inasmuch as the provocation was given by a thing done by a public servant in the exercise of his powers.",
+                  "verdict": "Murder — exception does NOT apply",
+                  "key_principle": "Proviso Secondly bars the exception — provocation arising from lawful exercise of public servant's power cannot reduce murder to culpable homicide."
+                },
+                {
+                  "label": "Illustration (d)",
+                  "text": "A appears as a witness before Z, a Magistrate. Z says that he does not believe a word of A's deposition, and that A has perjured himself. A is moved to sudden passion by these words, and kills Z. This is murder.",
+                  "verdict": "Murder — exception does NOT apply",
+                  "key_principle": "Words alone (insults, accusations) by a public servant in lawful exercise of powers cannot constitute qualifying provocation."
+                },
+                {
+                  "label": "Illustration (e)",
+                  "text": "A attempts to pull Z's nose. Z, in the exercise of the right of private defence, lays hold of A to prevent him from doing so. A is moved to sudden and violent passion in consequence, and kills Z. This is murder, inasmuch as the provocation was giving by a thing done in the exercise of the right of private defence.",
+                  "verdict": "Murder — exception does NOT apply",
+                  "key_principle": "Proviso Thirdly bars the exception — provocation arising from another person's lawful exercise of private defence cannot reduce murder to culpable homicide."
+                },
+                {
+                  "label": "Illustration (f)",
+                  "text": "Z strikes B. B is by this provocation excited to violent rage. A, a bystander, intending to take advantage of B's rage, and to cause him to kill Z, puts a knife into B's hand for that purpose. B kills Z with the knife. Here B may have committed only culpable homicide, but A is guilty of murder.",
+                  "verdict": "B = culpable homicide; A = murder",
+                  "key_principle": "A person who deliberately exploits another's provoked rage to engineer a killing cannot claim the provocation exception — they are guilty of murder."
+                }
+              ]
+            },
+            {
+              "exception_number": 2,
+              "heading": "Exceeding Right of Private Defence — Without Premeditation",
+              "text": "Culpable homicide is not murder if the offender in the exercise in good faith of the right of private defence of person or property, exceeds the power given to him by law and causes the death of the person against whom he is exercising such right of defence without premeditation, and without any intention of doing more harm than is necessary for the purpose of such defence.",
+              "key_elements": [
+                "Good faith exercise of right of private defence",
+                "Power is exceeded (i.e., more force than law permits)",
+                "Death results",
+                "No premeditation",
+                "No intention to do more harm than necessary"
+              ],
+              "illustrations": [
+                {
+                  "label": "Illustration",
+                  "text": "Z attempts to horsewhip A, not in such a manner as to cause grievous hurt to A. A draws out a pistol. Z persists in the assault. A believing in good faith that he can by no other means prevent himself from being horsewhipped, shoots Z dead. A has not committed murder, but only culpable homicide.",
+                  "verdict": "Culpable homicide (not murder) — exception APPLIES",
+                  "key_principle": "Good faith excess of private defence without premeditation reduces murder to culpable homicide, even when the force used is disproportionate to the threat."
+                }
+              ]
+            },
+            {
+              "exception_number": 3,
+              "heading": "Public Servant Acting in Good Faith Beyond Powers",
+              "text": "Culpable homicide is not murder if the offender, being a public servant or aiding a public servant acting for the advancement of public justice, exceeds the powers given to him by law, and causes death by doing an act which he, in good faith, believes to be lawful and necessary for the due discharge of his duty as such public servant and without ill-will towards the person whose death is caused.",
+              "key_elements": [
+                "Offender is a public servant OR aiding a public servant",
+                "Acting for advancement of public justice",
+                "Exceeds powers given by law",
+                "Genuinely believes the act to be lawful and necessary",
+                "Good faith — no ill-will towards the deceased"
+              ],
+              "illustrations": []
+            },
+            {
+              "exception_number": 4,
+              "heading": "Sudden Fight in Heat of Passion",
+              "text": "Culpable homicide is not murder if it is committed without premeditation in a sudden fight in the heat of passion upon a sudden quarrel and without the offender's having taken undue advantage or acted in a cruel or unusual manner.",
+              "key_elements": [
+                "Sudden fight",
+                "Heat of passion",
+                "Sudden quarrel",
+                "No premeditation",
+                "No undue advantage taken",
+                "No cruel or unusual manner"
+              ],
+              "explanation": "It is immaterial in such cases which party offers the provocation or commits the first assault.",
+              "illustrations": []
+            },
+            {
+              "exception_number": 5,
+              "heading": "Death by Consent of Person Above 18",
+              "text": "Culpable homicide is not murder when the person whose death is caused, being above the age of eighteen years, suffers death or takes the risk of death with his own consent.",
+              "key_elements": [
+                "Victim is above 18 years of age",
+                "Victim consented to death or the risk of death"
+              ],
+              "illustrations": [
+                {
+                  "label": "Illustration",
+                  "text": "A, by instigation, voluntarily causes Z, a person under eighteen years of age to commit suicide. Here, on account of Z's youth, he was incapable of giving consent to his own death; A has therefore abetted murder.",
+                  "verdict": "Abetted murder — exception does NOT apply",
+                  "key_principle": "A person under 18 cannot give valid consent to death — the exception therefore does not apply and the instigator is liable for abetting murder.",
+                  "page": 71
+                }
+              ]
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "301",
+          "section_type": "definitional",
+          "is_definition": true,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Culpable homicide by causing death of person other than person whose death was intended",
+          "text": "If a person, by doing anything which he intends or knows to be likely to cause death, commits culpable homicide by causing the death of any person, whose death he neither intends nor knows himself to be likely to cause, the culpable homicide committed by the offender is of the description of which it would have been if he had caused the death of the person whose death he intended or knew himself to be likely to cause.",
+          "page": 71,
+          "key_principle": "Doctrine of transfer of malice — the mens rea intended against the target person transfers to the unintended victim. The offence is classified as if the intended victim had died.",
+          "plain_language": "If A intends to kill B but accidentally kills C instead, A's liability is assessed as if C were B — the guilty intent 'transfers' to the actual victim.",
+          "illustrations": [],
+          "footnotes": []
+        },
+        {
+          "section_number": "302",
+          "section_type": "punishment",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Punishment for murder",
+          "text": "Whoever commits murder shall be punished with death or imprisonment for life, and shall also be liable to fine.",
+          "page": 71,
+          "punishment_options": [
+            {
+              "type": "Death",
+              "condition": "At court's discretion"
+            },
+            {
+              "type": "Imprisonment for life",
+              "condition": "At court's discretion"
+            },
+            {
+              "type": "Fine",
+              "condition": "Also liable (in addition to above)"
+            }
+          ],
+          "amendment_note": "The words 'imprisonment for life' were substituted for 'transportation for life' by Act 26 of 1955, s. 117 and the Sch. (w.e.f. 1-1-1956).",
+          "illustrations": [],
+          "footnotes": [
+            {
+              "note_number": 1,
+              "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
+            }
+          ]
+        },
+        {
+          "section_number": "303",
+          "section_type": "punishment",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Punishment for murder by life-convict",
+          "text": "Whoever, being under sentence of imprisonment for life, commits murder, shall be punished with death.",
+          "page": 71,
+          "key_points": [
+            "Applies only where the accused is already serving a sentence of imprisonment for life at the time of committing murder.",
+            "Punishment is mandatory death — no alternative.",
+            "Note: The Supreme Court of India in Mithu v. State of Punjab (1983) struck down Section 303 as unconstitutional (violative of Articles 14 and 21) — it is therefore no longer operative in practice."
+          ],
+          "amendment_note": "The words 'imprisonment for life' were substituted for 'transportation for life' by Act 26 of 1955, s. 117 and the Sch. (w.e.f. 1-1-1956).",
+          "illustrations": [],
+          "footnotes": [
+            {
+              "note_number": 1,
+              "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
+            }
+          ]
+        },
+        {
+          "section_number": "304",
+          "section_type": "punishment",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Punishment for culpable homicide not amounting to murder",
+          "text": "Whoever commits culpable homicide not amounting to murder shall be punished—",
+          "page": 71,
+          "parts": [
+            {
+              "part": "Part I",
+              "condition": "If the act by which death is caused is done with the intention of causing death, or of causing such bodily injury as is likely to cause death",
+              "punishment": [
+                "Imprisonment for life; OR",
+                "Imprisonment of either description for a term which may extend to 10 years",
+                "And shall also be liable to fine"
+              ]
+            },
+            {
+              "part": "Part II",
+              "condition": "If the act is done with the knowledge that it is likely to cause death, but without any intention to cause death, or to cause such bodily injury as is likely to cause death",
+              "punishment": [
+                "Imprisonment of either description for a term which may extend to 10 years; OR",
+                "Fine; OR",
+                "Both"
+              ]
+            }
+          ],
+          "key_distinction": "Part I (intention) attracts the possibility of life imprisonment; Part II (knowledge only, no intention) does not — reflecting the lesser culpability of knowledge-based offences.",
+          "amendment_note": "The words 'imprisonment for life' were substituted for 'transportation for life' by Act 26 of 1955, s. 117 and the Sch. (w.e.f. 1-1-1956).",
+          "illustrations": [],
+          "footnotes": [
+            {
+              "note_number": 1,
+              "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
+            }
+          ]
+        },
+        {
+          "section_number": "304A",
+          "section_type": "punishment",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Causing death by negligence",
+          "text": "Whoever causes the death of any person by doing any rash or negligent act not amounting to culpable homicide, shall be punished with imprisonment of either description for a term which may extend to two years, or with fine, or with both.",
+          "page": 71,
+          "key_elements": [
+            "Rash OR negligent act",
+            "Act does not amount to culpable homicide",
+            "Death results from the act"
+          ],
+          "key_distinction": "Unlike Section 299/300, Section 304A requires no intention or knowledge of likelihood of death — it covers purely accidental deaths caused by rashness or negligence (e.g., rash driving).",
+          "punishment": {
+            "imprisonment": "Either description, up to 2 years",
+            "fine": "Applicable",
+            "both": "Applicable"
+          },
+          "inserted_by": "Act 27 of 1870, s. 12",
+          "illustrations": [],
+          "footnotes": [
+            {
+              "note_number": 2,
+              "note_text": "Inserted by Act 27 of 1870, s. 12."
+            }
+          ]
+        },
+        {
+          "section_number": "304B",
+          "section_type": "definitional and punishment",
+          "is_definition": true,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Dowry death",
+          "page": 71,
+          "inserted_by": "Act 43 of 1986, s. 10 (w.e.f. 19-11-1986)",
+          "subsections": [
+            {
+              "sub_number": "(1)",
+              "heading": "Definition of dowry death",
+              "text": "Where the death of a woman is caused by any burns or bodily injury or occurs otherwise than under normal circumstances within seven years of her marriage and it is shown that soon before her death she was subjected to cruelty or harassment by her husband or any relative of her husband for, or in connection with, any demand for dowry, such death shall be called 'dowry death', and such husband or relative shall be deemed to have caused her death.",
+              "key_elements": [
+                "Death of a woman",
+                "Caused by burns, bodily injury, or otherwise than under normal circumstances",
+                "Within seven years of marriage",
+                "Soon before death, subjected to cruelty or harassment",
+                "Cruelty/harassment by husband or his relative",
+                "In connection with demand for dowry"
+              ],
+              "explanation": {
+                "label": "Explanation",
+                "text": "For the purposes of this sub-section, 'dowry' shall have the same meaning as in section 2 of the Dowry Prohibition Act, 1961 (28 of 1961)."
+              },
+              "presumption": "The husband or relative shall be deemed to have caused the death — this creates a statutory presumption against them."
+            },
+            {
+              "sub_number": "(2)",
+              "heading": "Punishment",
+              "text": "Whoever commits dowry death shall be punished with imprisonment for a term which shall not be less than seven years but which may extend to imprisonment for life.",
+              "punishment": {
+                "minimum": "7 years imprisonment",
+                "maximum": "Imprisonment for life",
+                "nature": "Mandatory minimum — court cannot award less than 7 years"
+              }
+            }
+          ],
+          "illustrations": [],
+          "footnotes": [
+            {
+              "note_number": 3,
+              "note_text": "Inserted by Act 43 of 1986, s. 10 (w.e.f. 19-11-1986)."
+            }
+          ]
+        },
+        {
+          "section_number": "305",
+          "section_type": "punishment",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Abetment of suicide of child or insane person",
+          "text": "If any person under eighteen years of age, any insane person, any delirious person, any idiot, or any person in a state of intoxication, commits suicide, whoever abets the commission of such suicide, shall be punished with death or imprisonment for life, or imprisonment for a term not exceeding ten years, and shall also be liable to fine.",
+          "page": 71,
+          "protected_categories": [
+            "Person under 18 years of age",
+            "Insane person",
+            "Delirious person",
+            "Idiot",
+            "Person in a state of intoxication"
+          ],
+          "rationale": "These categories are considered incapable of giving valid consent — abetting their suicide is treated with the same severity as murder.",
+          "punishment": {
+            "options": [
+              "Death",
+              "Imprisonment for life",
+              "Imprisonment up to 10 years"
+            ],
+            "fine": "Also liable"
+          },
+          "amendment_note": "The words 'imprisonment for life' were substituted for 'transportation for life' by Act 26 of 1955, s. 117 and the Sch. (w.e.f. 1-1-1956).",
+          "illustrations": [],
+          "footnotes": [
+            {
+              "note_number": 1,
+              "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
+            }
+          ]
+        },
+        {
+          "section_number": "306",
+          "section_type": "punishment",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Abetment of suicide",
+          "text": "If any person commits suicide, whoever abets the commission of such suicide, shall be punished with imprisonment of either description for a term which may extend to ten years, and shall also be liable to fine.",
+          "page": 71,
+          "key_distinction_from_305": "Section 306 covers abetment of suicide of a competent adult; Section 305 covers abetment involving the protected categories (minors, insane, etc.) and attracts a far harsher penalty including death.",
+          "punishment": {
+            "imprisonment": "Either description, up to 10 years",
+            "fine": "Also liable"
+          },
+          "illustrations": [],
+          "footnotes": []
+        },
+        {
+          "section_number": "307",
+          "section_type": "punishment",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Attempt to murder",
+          "text": "Whoever does any act with such intention or knowledge, and under such circumstances that, if he by that act caused death, he would be guilty of murder, shall be punished with imprisonment of either description for a term which may extend to ten years, and shall also be liable to fine; and if hurt is caused to any person by such act, the offender shall be liable either to imprisonment for life, or to such punishment as is hereinbefore mentioned.",
+          "page": 71,
+          "key_elements": [
+            "Act done with intention or knowledge such that if death resulted the accused would be guilty of murder",
+            "Death need not actually result — the attempt itself is the offence"
+          ],
+          "punishment": {
+            "where_no_hurt": {
+              "imprisonment": "Either description, up to 10 years",
+              "fine": "Also liable"
+            },
+            "where_hurt_caused": {
+              "imprisonment": "Imprisonment for life OR up to 10 years of either description",
+              "fine": "Also liable"
+            }
+          },
+          "key_distinction": "The aggravated punishment (life imprisonment) kicks in only if hurt is actually caused — making Section 307 a two-tier offence.",
+          "amendment_note": "The words 'imprisonment for life' were substituted for 'transportation for life' by Act 26 of 1955, s. 117 and the Sch. (w.e.f. 1-1-1956).",
+          "illustrations": [],
+          "footnotes": [
+            {
+              "note_number": 1,
+              "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "extraction_source_pages": [69, 70, 71],
+    "chapters_covered": ["XVI — Of Offences Affecting the Human Body (sub-heading: Of Offences Affecting Life)"],
+    "total_sections_captured": 10,
+    "sections_active": 10,
+    "sections_repealed": 0,
+    "sections_omitted": 0,
+    "total_illustrations": 20,
+    "total_exceptions_under_s300": 5,
+    "key_themes": [
+      "Definition and degrees of culpable homicide (Section 299)",
+      "When culpable homicide escalates to murder — four clauses (Section 300)",
+      "Five exceptions reducing murder to culpable homicide (Section 300, Exceptions 1–5)",
+      "Transfer of malice doctrine (Section 301)",
+      "Punishment ladder: Murder (302) > Life-convict murder (303) > Culpable homicide (304) > Negligent death (304A)",
+      "Dowry death — special statutory offence with mandatory minimum 7 years (Section 304B)",
+      "Abetment of suicide — two tiers based on victim's capacity (Sections 305 and 306)",
+      "Attempt to murder — two-tier punishment based on whether hurt was caused (Section 307)"
+    ],
+    "notable_amendments": [
+      "Act 26 of 1955, s. 117 — 'transportation for life' replaced by 'imprisonment for life' throughout ss. 302–307 (w.e.f. 1-1-1956).",
+      "Section 304A inserted by Act 27 of 1870, s. 12 — adding rash/negligent death as a distinct offence.",
+      "Section 304B inserted by Act 43 of 1986, s. 10 (w.e.f. 19-11-1986) — adding dowry death as a specific offence with a mandatory minimum sentence.",
+      "Section 303 declared unconstitutional by the Supreme Court in Mithu v. State of Punjab (1983) — mandatory death for life-convicts struck down under Articles 14 and 21."
+    ],
+    "case_query": "A man during a sudden heated quarrel struck his neighbour repeatedly with a stick, causing his death; he claims he lost self-control after the neighbour abused him first and did not premeditate the act, while the prosecution argues the repeated blows indicate an intention to cause bodily injury sufficient in the ordinary course of nature to cause death."
+  },
+  "chapter": [
+    {
+      "chapter_number": "XVII",
+      "chapter_title": "Of Offences Against Property",
+      "sub_heading": "Of Criminal Misappropriation of Property",
+      "page_start": 92,
+      "page_end": 93,
+      "sections": [
+        {
+          "section_number": "403",
+          "section_type": "combined",
+          "is_definition": true,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Dishonest misappropriation of property",
+          "text": "Whoever dishonestly misappropriates or converts to his own use any movable property, shall be punished with imprisonment of either description for a term which may extend to two years, or with fine, or with both.",
+          "page": 92,
+          "ingredients": [
+            "Dishonest misappropriation or conversion",
+            "Of movable property",
+            "To accused's own use"
+          ],
+          "mens_rea_modes": [
+            {
+              "mode": 1,
+              "description": "Dishonest intention to misappropriate or convert movable property to own use"
+            }
+          ],
+          "punishment_options": [
+            {
+              "type": "Imprisonment of either description",
+              "condition": "Up to two years"
+            },
+            {
+              "type": "Fine",
+              "condition": "At court's discretion"
+            },
+            {
+              "type": "Both",
+              "condition": "Imprisonment and fine combined"
+            }
+          ],
+          "key_principle": "Applies to movable property only; dishonest misappropriation even for a temporary period is sufficient. A finder who discovers the owner but still appropriates the property commits this offence.",
+          "illustrations": [
+            {
+              "label": "Illustration (a)",
+              "text": "A takes property belonging to Z out of Z's possession, in good faith believing at the time when he takes it, that the property belongs to himself. A is not guilty of theft; but if A, after discovering his mistake, dishonestly appropriates the property to his own use, he is guilty of an offence under this section.",
+              "verdict": "Guilty of dishonest misappropriation after discovering mistake",
+              "key_principle": "Good faith at the time of taking does not prevent liability for subsequent dishonest appropriation once the mistake is discovered."
+            },
+            {
+              "label": "Illustration (b)",
+              "text": "A, being on friendly terms with Z, goes into Z's library in Z's absence, and takes away a book without Z's express consent. Here, if A was under the impression that he had Z's implied consent to take the book for the purpose of reading it, A has not committed theft. But, if A afterwards sells the book for his own benefit, he is guilty of an offence under this section.",
+              "verdict": "Guilty of dishonest misappropriation upon sale",
+              "key_principle": "Implied consent for temporary use does not extend to permanent appropriation by sale."
+            },
+            {
+              "label": "Illustration (c)",
+              "text": "A and B, being joint owners of a horse, A takes the horse out of B's possession, intending to use it. Here, as A has a right to use the horse, he does not dishonestly misappropriate it. But, if A sells the horse and appropriates the whole proceeds to his own use, he is guilty of an offence under this section.",
+              "verdict": "Not guilty for use; guilty upon sale of jointly owned property",
+              "key_principle": "A co-owner who appropriates more than his lawful share dishonestly commits this offence."
+            }
+          ],
+          "explanations": [
+            {
+              "label": "Explanation 1",
+              "text": "A dishonest misappropriation for a time only is a misappropriation within the meaning of this section.",
+              "plain_language": "Even temporary dishonest appropriation is sufficient to constitute the offence; it need not be permanent."
+            },
+            {
+              "label": "Explanation 2",
+              "text": "A person who finds property not in the possession of any other person, and takes such property for the purpose of protecting it for, or of restoring it to, the owner, does not take or misappropriate it dishonestly, and is not guilty of an offence; but he is guilty of the offence above defined, if he appropriates it to his own use, when he knows or has the means of discovering the owner, or before he has used reasonable means to discover and give notice to the owner and has kept the property a reasonable time to enable the owner to claim it.",
+              "plain_language": "A finder of lost property is not guilty if he intends to restore it, but becomes guilty if he appropriates it knowing or being able to discover the owner, or without giving the owner a reasonable time to claim it."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "404",
+          "section_type": "combined",
+          "is_definition": true,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Dishonest misappropriation of property possessed by deceased person at the time of his death",
+          "text": "Whoever dishonestly misappropriates or converts to his own use property, knowing that such property was in the possession of a deceased person at the time of that person's decease, and has not since been in the possession of any person legally entitled to such possession, shall be punished with imprisonment of either description for a term which may extend to three years, and shall also be liable to fine, and if the offender at the time of such person's decease was employed by him as a clerk or servant, the imprisonment may extend to seven years.",
+          "page": 93,
+          "ingredients": [
+            "Dishonest misappropriation or conversion to own use",
+            "Of property that was in the possession of a deceased person at the time of death",
+            "Property has not since come into possession of any person legally entitled to it",
+            "Knowledge that the property belonged to the deceased"
+          ],
+          "mens_rea_modes": [
+            {
+              "mode": 1,
+              "description": "Knowledge that the property was in the deceased's possession at death and dishonest intent to misappropriate it"
+            }
+          ],
+          "punishment_options": [
+            {
+              "type": "Imprisonment of either description",
+              "condition": "Up to three years (general); up to seven years if offender was employed as clerk or servant of the deceased"
+            },
+            {
+              "type": "Fine",
+              "condition": "Also liable in addition to imprisonment"
+            }
+          ],
+          "key_principle": "Aggravated form of Section 403 addressing misappropriation from a deceased person's estate before it passes to legal heirs. Punishment is enhanced if the offender was a trusted employee (clerk or servant) of the deceased.",
+          "illustrations": [
+            {
+              "label": "Illustration",
+              "text": "Z dies in possession of furniture and money. His servant A, before the money comes into the possession of any person entitled to such possession, dishonestly misappropriates it. A has committed the offence defined in this section.",
+              "verdict": "Guilty under Section 404 with enhanced punishment as servant",
+              "key_principle": "A servant who misappropriates the deceased employer's property before legal heirs take possession is liable under the aggravated limb of this section."
+            }
+          ],
+          "explanations": [],
+          "footnotes": []
+        }
+      ]
+    },
+    {
+      "chapter_number": "XVII",
+      "chapter_title": "Of Offences Against Property",
+      "sub_heading": "Of Fraudulent Deeds and Dispositions of Property",
+      "page_start": 96,
+      "page_end": 96,
+      "sections": [
+        {
+          "section_number": "421",
+          "section_type": "combined",
+          "is_definition": true,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Dishonest or fraudulent removal or concealment of property to prevent distribution among creditors",
+          "text": "Whoever dishonestly or fraudulently removes, conceals or delivers to any person, or transfers or causes to be transferred to any person, without adequate consideration, any property, intending thereby to prevent, or knowing it to be likely that he will thereby prevent, the distribution of that property according to law among his creditors or the creditors of any other person, shall be punished with imprisonment of either description for a term which may extend to two years, or with fine, or with both.",
+          "page": 96,
+          "ingredients": [
+            "Dishonest or fraudulent removal, concealment, delivery, or transfer of property",
+            "Without adequate consideration",
+            "Intent to prevent, or knowledge of likelihood of preventing, lawful distribution among creditors"
+          ],
+          "mens_rea_modes": [
+            {
+              "mode": 1,
+              "description": "Intent to prevent distribution of property among creditors"
+            },
+            {
+              "mode": 2,
+              "description": "Knowledge that the removal or transfer is likely to prevent such distribution"
+            }
+          ],
+          "punishment_options": [
+            {
+              "type": "Imprisonment of either description",
+              "condition": "Up to two years"
+            },
+            {
+              "type": "Fine",
+              "condition": "At court's discretion"
+            },
+            {
+              "type": "Both",
+              "condition": "Imprisonment and fine combined"
+            }
+          ],
+          "key_principle": "Targets fraudulent insolvency — the deliberate dissipation or concealment of assets to defeat creditors' claims. Transfer must be without adequate consideration to attract this section.",
+          "illustrations": [],
+          "explanations": [],
+          "footnotes": []
+        },
+        {
+          "section_number": "423",
+          "section_type": "combined",
+          "is_definition": true,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Dishonest or fraudulent execution of deed of transfer containing false statement of consideration",
+          "text": "Whoever dishonestly or fraudulently signs, executes or becomes a party to any deed or instrument which purports to transfer or subject to any charge any property, or any interest therein, and which contains any false statement relating to the consideration for such transfer or charge, or relating to the person or persons for whose use or benefit it is really intended to operate, shall be punished with imprisonment of either description for a term which may extend to two years, or with fine, or with both.",
+          "page": 96,
+          "ingredients": [
+            "Signing, executing, or becoming a party to a deed or instrument",
+            "Deed purports to transfer property or subject it to a charge",
+            "Deed contains a false statement as to the consideration OR as to the person(s) for whose benefit it is intended",
+            "Done dishonestly or fraudulently"
+          ],
+          "mens_rea_modes": [
+            {
+              "mode": 1,
+              "description": "Dishonest or fraudulent intent in executing a deed that contains a false statement of consideration or beneficial interest"
+            }
+          ],
+          "punishment_options": [
+            {
+              "type": "Imprisonment of either description",
+              "condition": "Up to two years"
+            },
+            {
+              "type": "Fine",
+              "condition": "At court's discretion"
+            },
+            {
+              "type": "Both",
+              "condition": "Imprisonment and fine combined"
+            }
+          ],
+          "key_principle": "Squarely targets fraudulent sale-deed execution in property transactions — where the deed is executed but contains a false recital of consideration (e.g., nominal price stated when actual payment differs) or conceals the true beneficiary. Critical in land-fraud cases alongside Sections 420 and 467.",
+          "illustrations": [],
+          "explanations": [],
+          "footnotes": []
+        },
+        {
+          "section_number": "424",
+          "section_type": "combined",
+          "is_definition": true,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Dishonest or fraudulent removal or concealment of property",
+          "text": "Whoever dishonestly or fraudulently conceals or removes any property of himself or any other person, or dishonestly or fraudulently assists in the concealment or removal thereof, or dishonestly releases any demand or claim to which he is entitled, shall be punished with imprisonment of either description for a term which may extend to two years, or with fine, or with both.",
+          "page": 96,
+          "ingredients": [
+            "Dishonest or fraudulent concealment or removal of property (own or another person's); OR",
+            "Dishonest or fraudulent assistance in such concealment or removal; OR",
+            "Dishonest release of a demand or claim to which the person is entitled"
+          ],
+          "mens_rea_modes": [
+            {
+              "mode": 1,
+              "description": "Dishonest or fraudulent intent to conceal, remove, or assist in concealing/removing property, or to release a claim"
+            }
+          ],
+          "punishment_options": [
+            {
+              "type": "Imprisonment of either description",
+              "condition": "Up to two years"
+            },
+            {
+              "type": "Fine",
+              "condition": "At court's discretion"
+            },
+            {
+              "type": "Both",
+              "condition": "Imprisonment and fine combined"
+            }
+          ],
+          "key_principle": "Broader than Section 421 — applies to concealment or removal of any property (not limited to creditor-fraud context) and also covers the dishonest release of a legally enforceable claim or demand. Often charged alongside Section 420 in property fraud cases.",
+          "illustrations": [],
+          "explanations": [],
+          "footnotes": []
+        }
+      ]
+    },
+    {
+      "chapter_number": "XVIII",
+      "chapter_title": "Of Offences Relating to Documents and to Property Marks",
+      "sub_heading": "Forgery",
+      "page_start": 101,
+      "page_end": 103,
+      "sections": [
+        {
+          "section_number": "465",
+          "section_type": "punishment",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Punishment for forgery",
+          "text": "Whoever commits forgery shall be punished with imprisonment of either description for a term which may extend to two years, or with fine, or with both.",
+          "page": 103,
+          "key_principle": "Punishment provision for the base offence of forgery as defined in Section 463. Non-cognizable and bailable (First Schedule, IPC). Sections 466, 467, 468, and 469 prescribe heavier punishment for aggravated forgery depending on the nature of the document forged or the purpose for which it is forged.",
+          "punishment_options": [
+            {
+              "type": "Imprisonment of either description",
+              "condition": "Up to two years"
+            },
+            {
+              "type": "Fine",
+              "condition": "At court's discretion"
+            },
+            {
+              "type": "Both",
+              "condition": "Imprisonment and fine combined"
+            }
+          ],
+          "illustrations": [],
+          "explanations": [],
+          "footnotes": []
+        },
+        {
+          "section_number": "467",
+          "section_type": "punishment",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Forgery of valuable security, will, etc.",
+          "text": "Whoever forges a document which purports to be a valuable security or a will, or an authority to adopt a son, or which purports to give authority to any person to make or transfer any valuable security, or to receive the principal, interest or dividends thereon, or to receive or deliver any money, movable property, or valuable security, or any document purporting to be an acquittance or receipt acknowledging the payment of money, or an acquittance or receipt for the delivery of any movable property or valuable security, shall be punished with imprisonment for life, or with imprisonment of either description for a term which may extend to ten years, and shall also be liable to fine.",
+          "page": 103,
+          "key_principle": "Aggravated forgery — applies when the forged instrument is a 'valuable security' (a document creating, transferring, or extinguishing a right in property) including sale deeds, title deeds, gift deeds, powers of attorney, wills, cheques, promissory notes, and acquittances. Carries up to life imprisonment, making it far more serious than base forgery under Section 465.",
+          "punishment_options": [
+            {
+              "type": "Imprisonment for life",
+              "condition": "At court's discretion"
+            },
+            {
+              "type": "Imprisonment of either description",
+              "condition": "Up to ten years"
+            },
+            {
+              "type": "Fine",
+              "condition": "Also liable in addition to imprisonment"
+            }
+          ],
+          "amendment_note": "The words 'imprisonment for life' were substituted for 'transportation for life' by Act 26 of 1955, s. 117 and the Sch. (w.e.f. 1-1-1956).",
+          "illustrations": [],
+          "explanations": [],
+          "footnotes": [
+            {
+              "note_number": 1,
+              "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
+            }
+          ]
+        },
+        {
+          "section_number": "468",
+          "section_type": "punishment",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Forgery for purpose of cheating",
+          "text": "Whoever commits forgery, intending that the document or electronic record forged shall be used for the purpose of cheating, shall be punished with imprisonment of either description for a term which may extend to seven years, and shall also be liable to fine.",
+          "page": 103,
+          "key_principle": "Aggravated forgery where the specific purpose of the forged document or electronic record is to cheat. The cheating need not have actually occurred — the intent to use the document for cheating at the time of forgery is sufficient. Frequently charged alongside Section 420 (cheating) and Section 471 (using forged document as genuine) in property fraud cases.",
+          "punishment_options": [
+            {
+              "type": "Imprisonment of either description",
+              "condition": "Up to seven years"
+            },
+            {
+              "type": "Fine",
+              "condition": "Also liable in addition to imprisonment"
+            }
+          ],
+          "amendment_note": "The words 'document or electronic record forged' were substituted for earlier text by Act 21 of 2000, s. 91 and the First Sch. (w.e.f. 17-10-2000) to include electronic records.",
+          "illustrations": [],
+          "explanations": [],
+          "footnotes": [
+            {
+              "note_number": 1,
+              "note_text": "Substituted by Act 21 of 2000, s. 91 and the First Sch., for certain words (w.e.f. 17-10-2000)."
+            }
+          ]
+        },
+        {
+          "section_number": "471",
+          "section_type": "combined",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Using as genuine a forged document or electronic record",
+          "text": "Whoever fraudulently or dishonestly uses as genuine any document or electronic record which he knows or has reason to believe to be a forged document or electronic record, shall be punished in the same manner as if he had forged such document or electronic record.",
+          "page": 103,
+          "ingredients": [
+            "Using a document or electronic record as genuine",
+            "Knowing or having reason to believe that it is a forged document or electronic record",
+            "Done fraudulently or dishonestly"
+          ],
+          "mens_rea_modes": [
+            {
+              "mode": 1,
+              "description": "Knowledge or reasonable belief that the document is forged, combined with fraudulent or dishonest intent in presenting it as genuine"
+            }
+          ],
+          "key_principle": "The user of a forged document is punished identically to the forger. Bridges the gap between forger and user — even if the accused did not make the forgery, presenting a known forged document as genuine attracts the same punishment as forgery itself. Punishment mirrors whichever forgery section (463/465/467/468) applies to the underlying document.",
+          "punishment_options": [
+            {
+              "type": "Same as for forging the document",
+              "condition": "Punishment mirrors the applicable forgery provision (s. 465, 467, or 468 depending on document type and purpose)"
+            }
+          ],
+          "amendment_note": "The words 'document or electronic record' were substituted for 'document' by Act 21 of 2000, s. 91 and the First Sch. (w.e.f. 17-10-2000) to include electronic records.",
+          "illustrations": [],
+          "explanations": [],
+          "footnotes": [
+            {
+              "note_number": 1,
+              "note_text": "Substituted by Act 21 of 2000, s. 91 and the First Sch., for 'document' (w.e.f. 17-10-2000)."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "extraction_source_pages": [
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103
+    ],
+    "chapters_covered": [
+      "XVII — Of Offences Against Property (sub-headings: Of Criminal Misappropriation of Property; Of Fraudulent Deeds and Dispositions of Property)",
+      "XVIII — Of Offences Relating to Documents and to Property Marks (Forgery)"
+    ],
+    "total_sections_captured": 9,
+    "sections_active": 9,
+    "sections_repealed": 0,
+    "sections_omitted": 0,
+    "sections_list": [
+      "403",
+      "404",
+      "421",
+      "423",
+      "424",
+      "465",
+      "467",
+      "468",
+      "471"
+    ],
+    "key_themes": [
+      "Criminal misappropriation of movable property (Section 403) — including finder's liability",
+      "Aggravated misappropriation from deceased person's estate (Section 404) — enhanced punishment for servant/clerk",
+      "Fraudulent removal/concealment of property to defeat creditors (Section 421)",
+      "Fraudulent execution of deed with false consideration (Section 423) — core land-fraud provision",
+      "Dishonest concealment or removal of property / release of claims (Section 424)",
+      "Base punishment for forgery (Section 465) — 2 years, non-cognizable, bailable",
+      "Aggravated forgery of valuable security / will (Section 467) — up to life imprisonment",
+      "Forgery for purpose of cheating (Section 468) — up to 7 years, intent-based aggravation",
+      "Using forged document as genuine (Section 471) — same punishment as forger"
+    ],
+    "notable_amendments": [
+      "Act 26 of 1955, s. 117 — 'transportation for life' replaced by 'imprisonment for life' in Section 467 (w.e.f. 1-1-1956).",
+      "Act 21 of 2000, s. 91 (Information Technology Act) — Sections 463, 464, 468, 470, 471 amended to include 'electronic record' alongside 'document' (w.e.f. 17-10-2000).",
+      "Act 10 of 2009, s. 51 — 'digital signature' replaced by 'electronic signature' in Section 464 (w.e.f. 27-10-2009)."
+    ]
+  }
+}

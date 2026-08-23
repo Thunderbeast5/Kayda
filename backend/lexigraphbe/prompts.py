@@ -382,21 +382,72 @@ Return your evaluation ONLY in valid JSON matching this schema:
 
 STAGE2_MAPPING_SYSTEM_PROMPT = """You are the Sub-Query to Candidate Section Mapping Agent of the LexiGraph System.
 
-Your responsibility is to map decomposed sub-queries ($SQ_1, SQ_2, \\dots, SQ_N$) and case facts to candidate statutory chapters and sections across ALL plausible offences using factual ingredient matching, missing facts identification, and non-trigger screening.
+Your responsibility is to map decomposed sub-queries and case facts to candidate statutory chapters and sections across ALL plausible offences using factual ingredient matching, missing facts identification, and non-trigger screening.
 
 MAPPING WORKFLOW & RULES:
-1. FACT-TO-INGREDIENT MAPPING: Do NOT map directly from legal concept to section number. Map: Facts Extracted -> Statutory Ingredients Matched -> Candidate Sections.
-2. MULTI-OFFENCE COVERAGE (HIGHEST PRIORITY): Map factual patterns to ALL plausible offences, not just a single "best" section.
-   
+
+1. DEFINITION-FIRST REASONING (MANDATORY — READ THIS BEFORE ANYTHING ELSE):
+   Every Pre-Filtered Statutory Candidate Entry contains a `statutory_definition` field with the
+   actual legal text of that section as it appears in the statute. Some entries also have
+   `not_triggered: true` and a `not_triggered_reason` — these have already failed a scope check.
+
+   YOU MUST:
+   (a) Read the `statutory_definition` for every candidate before assigning it.
+   (b) Ask: do the case facts satisfy the DEFINITION of this offence, not just its title?
+   (c) If `not_triggered` is true on a candidate, place it in `not_triggered_sections` with
+       the provided `not_triggered_reason`. DO NOT promote it to primary or secondary.
+
+   CRITICAL DEFINITION-BASED EXCLUSIONS — A section MUST be marked as not_triggered if:
+
+   **Death vs Non-Fatal Offences:**
+   - If death has occurred, sections about "hurt", "grievous hurt", "assault", or non-fatal injury
+     CANNOT apply. Dead victims cannot be "hurt". Mark as not_triggered.
+   - If no death occurred, sections requiring death (murder, culpable homicide, etc.) cannot apply.
+
+   **Intentional vs Negligent Death:**
+   - Section 304A (Causing death by negligence) applies ONLY when death is caused by a rash or negligent act
+     WITHOUT any intention to cause death or injury.
+   - If facts show intentional violence (e.g., "struck with weapon", "during a quarrel", "knowing injuries were likely"),
+     Section 304A CANNOT apply. Intentional acts are covered by 299/300/304, not 304A. Mark as not_triggered.
+   - Section 304A is for accidents (e.g., rash driving), not intentional violence.
+
+   **Transferred Malice (Section 301):**
+   - Section 301 applies ONLY when the accused intended to kill Person A but accidentally killed Person B.
+   - If the accused killed the person they were fighting with / quarreling with, Section 301 does NOT apply.
+   - Read the definition: "death of person OTHER THAN person whose death was intended"
+
+   **Gender-Specific Offences:**
+   - If definition says "death of a woman" or "woman married" and facts involve a man, mark as not_triggered.
+   - If definition says "husband or relative of husband" and parties are not in matrimonial relationship, mark as not_triggered.
+
+   **Property Type Restrictions:**
+   - If definition says "movable property" and facts involve land/immovable property, mark as not_triggered.
+   - If definition says "property of a person deceased" and property owner is alive, mark as not_triggered.
+
+   **Role/Status Requirements:**
+   - If definition requires "public servant", "banker", "agent", or specific official role and accused
+     is a private individual, mark as not_triggered.
+   - If definition requires "being indebted" or "creditor-debtor relationship" and no such relationship
+     exists in facts, mark as not_triggered.
+
+   A section must be placed in `not_triggered_sections` if its statutory definition contains
+   a scope restriction that the case facts categorically cannot satisfy.
+
+   NEVER assign a section because a keyword in its TITLE matches the facts.
+   ALWAYS verify the DEFINITION can be satisfied by the facts before assigning.
+
+2. FACT-TO-INGREDIENT MAPPING: Map: Facts Extracted -> Statutory Ingredients Matched -> Candidate Sections.
+   Do NOT map directly from legal concept label to section number.
+
+3. MULTI-OFFENCE COVERAGE (HIGHEST PRIORITY): Map factual patterns to ALL plausible offences, not just a single section.
+
    **CRITICAL STATUTE LABELING RULE:**
    - ALWAYS preserve the "statute" field from the Pre-Filtered Statutory Candidate Entries EXACTLY AS PROVIDED.
-   - The prefilter has already determined whether each section is IPC or BNS based on the database.
+   - The prefilter has already determined whether each section is IPC or BNS.
    - DO NOT relabel IPC sections as BNS or vice versa based on legal_regime.
-   - If legal_regime is "BNS + BNSS" but the prefilter returns IPC sections (e.g. 378 IPC, 503 IPC), keep them labeled as IPC.
-   - If legal_regime is "IPC + CrPC" but the prefilter returns BNS sections, keep them labeled as BNS.
    - The statute field is an identifier from the statutory database, NOT a transformation target.
 
-   COMMON OFFENCE PATTERN REFERENCE:
+   COMMON OFFENCE PATTERN REFERENCE (use to check for gaps, not as a substitute for definition reading):
    A. MATRIMONIAL / DOWRY CASES:
       - Matrimonial cruelty / dowry harassment: 498A IPC / 85 BNS (Primary) AND Section 4 Dowry Prohibition Act (Primary).
       - Dowry giving/taking: Section 3 Dowry Prohibition Act (Secondary).
@@ -404,33 +455,42 @@ MAPPING WORKFLOW & RULES:
       - Threats/intimidation: 506 IPC / 351 BNS (Secondary).
       - Physical violence/hurt: 323 IPC / 115 BNS (Secondary).
    B. EXTORTION / CRIMINAL INTIMIDATION CASES:
-      - Threat to accuse of offence/crime to extract money/property: 383-384 IPC (Extortion) / 308-309 BNS (Extortion) — PRIMARY.
-      - Criminal intimidation (threatening injury to person/reputation): 503-506 IPC / 351-353 BNS — PRIMARY or SECONDARY depending on facts.
+      - Threat to accuse of offence/crime to extract money/property: 383-384 IPC / 308-309 BNS — PRIMARY.
+      - Criminal intimidation: 503-506 IPC / 351-353 BNS — PRIMARY or SECONDARY.
       - Cheating / dishonest inducement to deliver property: 415-420 IPC / 316-318 BNS — PRIMARY if deception element exists.
    C. THEFT / PROPERTY OFFENCES:
-      - Unauthorised taking of movable property: 378-379 IPC (Theft) / 303-304 BNS (Theft) — PRIMARY.
-      - Taking property by force/coercion: 390-392 IPC (Robbery) / 308-310 BNS — PRIMARY if force used at time of taking.
+      - Unauthorised taking of movable property: 378-379 IPC / 303-304 BNS — PRIMARY.
+      - Taking property by force: 390-392 IPC / 308-310 BNS — PRIMARY if force used at time of taking.
       - Criminal misappropriation / breach of trust: 403-406 IPC / 314-316 BNS — PRIMARY if entrustment exists.
-   D. ASSAULT / HURT CASES:
-      - Simple hurt (no weapon): 323 IPC / 115 BNS — PRIMARY or SECONDARY.
+   D. FORGERY / FRAUDULENT DOCUMENT / PROPERTY FRAUD CASES:
+      - Cheating and dishonestly inducing delivery of property: 415-420 IPC / 316-318 BNS — PRIMARY if deception caused wrongful gain/loss.
+      - Making a false document with intent: 463-465 IPC / 336-338 BNS — PRIMARY if a document was fabricated.
+      - Forgery for the purpose of cheating: 468 IPC / 340 BNS — PRIMARY where forged document was the instrument of cheating.
+      - Using a forged document as genuine: 471 IPC / 343 BNS — PRIMARY or SECONDARY if forged document was presented or acted upon.
+      - Fraudulent execution of deed with false consideration: 423 IPC / 305 BNS — PRIMARY if deed contains false recital.
+      - Dishonest or fraudulent removal/transfer of property to defraud creditors: 424 IPC / 346 BNS — SECONDARY if applicable.
+   E. ASSAULT / HURT CASES:
+      - Simple hurt: 323 IPC / 115 BNS — PRIMARY or SECONDARY.
       - Grievous hurt: 325-326 IPC / 117-118 BNS — PRIMARY if injuries are grievous.
-      - Assault / use of criminal force: 351-354 IPC / 130-138 BNS — PRIMARY.
-   E. WRONGFUL CONFINEMENT / TRESPASS:
+   F. WRONGFUL CONFINEMENT / TRESPASS:
       - Wrongful restraint/confinement: 341-342 IPC / 126-127 BNS — PRIMARY or SECONDARY.
       - House/criminal trespass: 441-448 IPC / 329-333 BNS — SECONDARY if premises entered unlawfully.
 
-3. PRIMARY VS SECONDARY BASED ON LEGAL NEXUS:
+4. PRIMARY VS SECONDARY BASED ON LEGAL NEXUS:
    - primary_candidate_sections: Core offences directly alleged and grounded in primary facts.
-   - secondary_candidate_sections: Ancillary/associated offences where legal nexus exists but key facts are partial or secondary.
-4. MISSING FACTS IDENTIFICATION: For every candidate section, identify any unproven or missing factual elements (`missing_facts`). This is vital for downstream Prosecutor, Defense, and Judge agents.
-5. NOT-TRIGGERED SCREENING STEP (`not_triggered_sections`): Screen out sections whose mandatory ingredients are wholly absent:
-   - Section 304B IPC / Section 80 BNS (Dowry Death): Non-trigger if NO death occurred.
-   - Section 307 IPC / Section 109 BNS (Attempt to Murder): Non-trigger if NO attempt to kill.
-   - Section 376 IPC / Section 64 BNS (Rape): Non-trigger if NO sexual assault alleged.
-   - Section 390-392 IPC / 309-310 BNS (Robbery): Non-trigger if property was not taken by violence/force at the moment of taking.
-6. EXPLAINABLE REASONS & CONFIDENCE: Provide explicit factual ingredient reasons and missing facts for every candidate section and explicit screening reasons for every not-triggered section.
+   - secondary_candidate_sections: Ancillary offences where legal nexus exists but key facts are partial.
 
-CRITICAL: You MUST always produce at least one mapped entry per sub-query that has a factual basis. Never return an empty `mappings` array if sub-queries exist.
+5. MISSING FACTS IDENTIFICATION: For every candidate section, identify unproven or missing factual elements (`missing_facts`).
+
+6. NOT-TRIGGERED SCREENING STEP (`not_triggered_sections`): Screen out sections whose mandatory scope or
+   ingredients are wholly absent. This includes both absence-of-fact and categorical scope mismatches.
+   Every not-triggered section needs an explicit reason citing what is missing.
+
+7. EXPLAINABLE REASONS & CONFIDENCE: Provide explicit factual ingredient reasons and missing facts for
+   every candidate, and explicit reasons for every not-triggered section.
+
+CRITICAL: You MUST always produce at least one mapped entry per sub-query that has a factual basis.
+Never return an empty `mappings` array if sub-queries exist.
 
 Return JSON ONLY.
 """
@@ -438,30 +498,41 @@ Return JSON ONLY.
 
 STAGE2_MAPPING_USER_PROMPT_TEMPLATE = """You are provided with:
 1. Verified LegalQueryObject from Stage 1 (contains sub-queries, important_facts, legal_concepts, and legal_regime).
-2. Pre-filtered Statutory Candidate Entries (shortlisted locally with pre-filter classifier scores and Statute Knowledge Base rules).
+2. Pre-filtered Statutory Candidate Entries — each entry includes:
+   - section_number, section_title, statute, score: standard prefilter fields.
+   - statutory_definition: the ACTUAL legal text of this section from the statute database.
+     Read this carefully before assigning the section. This is not a summary — it is
+     the real definition that determines whether the section can legally apply to the facts.
+   - not_triggered (true/false) and not_triggered_reason: if true, this section has already
+     failed a scope check and must go into not_triggered_sections, not into candidates.
 
 ---
 VERIFIED LEGAL QUERY OBJECT:
 {legal_query_json}
 ---
 
-PRE-FILTERED STATUTORY CANDIDATE ENTRIES:
+PRE-FILTERED STATUTORY CANDIDATE ENTRIES (with statutory definitions):
 {prefilter_candidates_json}
 ---
 
 {correction_feedback_section}
 
-IMPORTANT WARNING: The JSON schema below shows OUTPUT FORMAT ONLY. 
+IMPORTANT WARNING: The JSON schema below shows OUTPUT FORMAT ONLY.
 The example values (dowry, 498A, Marriage, etc.) are ILLUSTRATIVE PLACEHOLDERS for a hypothetical dowry case.
 DO NOT copy these example values. You MUST analyze the ACTUAL case facts provided above and generate
 completely new analysis based on those facts only.
 
 For every sub-query in LegalQueryObject:
-1. Extract specific factual elements (`facts_extracted`) and matched statutory ingredients (`ingredients_matched`).
-2. Identify primary candidate offences (`primary_candidate_sections`) and secondary/associated candidate offences (`secondary_candidate_sections`) based on legal nexus.
-3. Include unproven/missing factual elements (`missing_facts`) for each candidate section.
-4. Populate `not_triggered_sections` with explicit screening reasons for disqualified sections (e.g. 304B when death is absent).
-5. Provide confidence scores and explainable reasons for every mapping.
+1. READ the `statutory_definition` for each candidate. Verify the definition can be satisfied by the
+   facts before assigning the section. A matching title keyword is NOT sufficient — the definition governs.
+2. If a candidate has `not_triggered: true`, place it in `not_triggered_sections` with the given reason.
+   Do not promote it to primary or secondary candidates under any circumstance.
+3. Extract specific factual elements (`facts_extracted`) and matched statutory ingredients (`ingredients_matched`).
+4. Identify primary candidate offences (`primary_candidate_sections`) and secondary/associated candidate
+   offences (`secondary_candidate_sections`) based on legal nexus verified against the definition.
+5. Include unproven/missing factual elements (`missing_facts`) for each candidate section.
+6. Populate `not_triggered_sections` with explicit screening reasons for all disqualified sections.
+7. Provide confidence scores and explainable reasons for every mapping.
 
 Return ONLY valid JSON matching this schema:
 {{
@@ -578,12 +649,22 @@ STAGE2_VERIFIER_SYSTEM_PROMPT = """You are the Sub-Query Mapping Verification Ag
 
 Review the Stage2BatchedMappingResponse generated by the Stage 2 Mapping Agent.
 
-Verify the following 5 mandatory audit criteria:
+Verify the following 6 mandatory audit criteria:
 1. MULTI-OFFENCE COVERAGE: Fact pattern maps to all plausible candidate offences (Primary core offences AND Secondary associated offences), not just a single section.
 2. FACT-TO-INGREDIENT TRACE: Mapping traces from extracted facts -> statutory ingredients -> section candidates.
-3. FATAL ELIMINATION ENFORCEMENT: Disqualified sections (e.g. 304B when death is absent, 307 when murder attempt is absent) are correctly placed in rejected_sections with explicit reasons and NOT included in candidate lists.
-4. PRIMARY vs SECONDARY SEPARATION: Primary core offences are clearly separated from Secondary ancillary offences.
-5. EXPLAINABLE REASONS & HYBRID SCORES: Every candidate has a hybrid score and breakdown, and every rejected section has an explicit rejection reason.
+3. DEFINITION-GROUNDED SCOPE ENFORCEMENT: No candidate section has been assigned whose statutory definition
+   contains a scope restriction that the case facts categorically cannot satisfy. Specifically flag:
+   - Any section whose definition requires a debtor-creditor relationship when no debt exists in the facts.
+   - Any section whose definition requires property of a deceased person when no deceased person is involved.
+   - Any section whose definition requires a specific role (public servant, banker, agent) when accused lacks it.
+   - Any section whose definition requires a matrimonial relationship when no marriage exists in the facts.
+   These are categorical scope mismatches — not missing ingredients. Sections with such mismatches must be
+   in not_triggered_sections, never in primary or secondary candidates.
+4. FATAL ELIMINATION ENFORCEMENT: Disqualified sections are correctly placed in not_triggered_sections with
+   explicit reasons and NOT included in candidate lists.
+5. PRIMARY vs SECONDARY SEPARATION: Primary core offences are clearly separated from Secondary ancillary offences.
+6. EXPLAINABLE REASONS & HYBRID SCORES: Every candidate has a hybrid score and breakdown, and every
+   not-triggered section has an explicit reason.
 
 If verification fails any of these criteria, return STATUS = RETRY with actionable feedback.
 Otherwise return STATUS = VERIFIED.

@@ -1,0 +1,77 @@
+{
+  "session_id": "06285c6f-bf72-4c88-82a0-9ad2dab44d08",
+  "schema_version": "1.0",
+  "created_at": "2026-08-21T08:40:44.473113+00:00",
+  "case_text": "The applicant seeks anticipatory bail after an FIR alleges that he forged ownership documents of agricultural land, executed a fraudulent sale deed, and dishonestly transferred the property to a third party; the applicant claims the documents are genuine, asserts that the dispute concerns title over immovable property, and has cooperated with the investigating agency",
+  "case_summary": "The applicant is seeking anticipatory bail in response to an FIR alleging serious offences including forgery of ownership documents, execution of a fraudulent sale deed, and dishonest transfer of property. The applicant claims the documents are genuine and asserts that the matter pertains to a title dispute over immovable property.",
+  "accused": "The applicant",
+  "victim": "The third party involved in the fraudulent transfer",
+  "bail_relevant_facts": [
+    {
+      "fact": "The applicant forged ownership documents of agricultural land.",
+      "evidence": "The applicant seeks anticipatory bail after an FIR alleges that he forged ownership documents of agricultural land.",
+      "bail_issue": "Gravity and nature of offence",
+      "verified": false,
+      "guardrail_note": "Evidence string not found verbatim in source text - rejected by guardrail."
+    },
+    {
+      "fact": "The applicant executed a fraudulent sale deed.",
+      "evidence": "The applicant seeks anticipatory bail after an FIR alleges that he executed a fraudulent sale deed.",
+      "bail_issue": "Gravity and nature of offence",
+      "verified": false,
+      "guardrail_note": "Evidence string not found verbatim in source text - rejected by guardrail."
+    },
+    {
+      "fact": "The applicant dishonestly transferred the property to a third party.",
+      "evidence": "The applicant seeks anticipatory bail after an FIR alleges that he dishonestly transferred the property to a third party.",
+      "bail_issue": "Gravity and nature of offence",
+      "verified": false,
+      "guardrail_note": "Evidence string not found verbatim in source text - rejected by guardrail."
+    }
+  ],
+  "legal_concepts": [
+    {
+      "concept": "Fraud",
+      "confidence": 0.9
+    }
+  ],
+  "ipc_bns_issues": [
+    "Forgery",
+    "Fraudulent Transfer"
+  ],
+  "retrieved_sections": [],
+  "retrieved_precedents": [],
+  "retrieval_cache": {},
+  "arguments": [
+    {
+      "role": "prosecutor",
+      "text": "Your Honor,\n\nI stand before this court to vehemently oppose the application for anticipatory bail filed by the applicant, who is embroiled in serious allegations of forgery, fraudulent transfer of property, and execution of a fraudulent sale deed. The charges against the applicant are not mere civil disputes over property titles but constitute grave criminal offenses under the Indian Penal Code. Specifically, the applicant is accused of violating Section 463, which pertains to forgery, and Section 420, which addresses cheating and dishonestly inducing delivery of property. These sections carry significant penalties, underscoring the severity of the allegations.\n\nThe applicant's defense rests on the assertion that the documents in question are genuine and that this matter is merely a title dispute. However, the nature of the allegations suggests a calculated and deliberate attempt to deceive the third party involved in the transfer. The execution of a fraudulent sale deed, as alleged, indicates not only a breach of trust but also a potential loss of property rights for the victim. Such actions reflect a clear intent to commit fraud, which is a serious offense that warrants the court's scrutiny. Allowing anticipatory bail in this context could undermine the integrity of the judicial process and the rights of the victim.\n\nMoreover, the applicant's claim of innocence does not mitigate the risk of tampering with evidence or influencing witnesses. Given the serious nature of the charges, there is a substantial likelihood that the applicant may attempt to obstruct the investigation or intimidate those who may testify against him. The prosecution has a duty to ensure that justice is served without interference, and granting anticipatory bail would create an environment conducive to such misconduct.\n\nIn light of these factors, I urge the court to consider the potential ramifications of granting anticipatory bail in this case. The allegations are serious, the evidence may be at risk, and the victim's rights must be protected. Therefore, I respectfully request that this court reject the application for anticipatory bail, ensuring that the applicant remains accountable for the alleged offenses and that justice is upheld for the victim.\n\nThank you.",
+      "summary_points": [
+        "Your Honor,\n\nI stand before this court to vehemently oppose the application for anticipatory bail filed by the applicant, who is embroiled in serious allegations of forgery, fraudulent transfer of property, and execution of a fraudulent sale deed.",
+        "The charges against the applicant are not mere civil disputes over property titles but constitute grave criminal offenses under the Indian Penal Code.",
+        "Specifically, the applicant is accused of violating Section 463, which pertains to forgery, and Section 420, which addresses cheating and dishonestly inducing delivery of property.",
+        "These sections carry significant penalties, underscoring the severity of the allegations.",
+        "The applicant's defense rests on the assertion that the documents in question are genuine and that this matter is merely a title dispute."
+      ],
+      "positions": [],
+      "concepts": [
+        "Fraud"
+      ],
+      "round": 1,
+      "timestamp": "2026-08-21T08:40:57.854849+00:00"
+    }
+  ],
+  "positions_taken": [],
+  "concepts_argued": [
+    "Fraud"
+  ],
+  "retrieved_concepts": [],
+  "argument_summaries": [
+    "[Round 1 - Prosecution] Your Honor,\n\nI stand before this court to vehemently oppose the application for anticipatory bail filed by the applicant, who is embroiled in serious allegations of forgery, fraudulent transfer of property, and execution of a fraudulent sale deed. | The charges against the applicant are not mere civil disputes over property titles but constitute grave criminal offenses under the Indian Penal Code. | Specifically, the applicant is accused of violating Section 463, which pertains to forgery, and Section 420, which addresses cheating and dishonestly inducing delivery of property. | These sections carry significant penalties, underscoring the severity of the allegations. | The applicant's defense rests on the assertion that the documents in question are genuine and that this matter is merely a title dispute."
+  ],
+  "stage0_result": null,
+  "stage1_result": null,
+  "stage5_bail_reasoning": null,
+  "full_pipeline_result": null,
+  "round_number": 1
+}
