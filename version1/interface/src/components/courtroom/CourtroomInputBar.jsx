@@ -3,6 +3,8 @@ import { Mic, Volume2, VolumeX, Send } from "lucide-react";
 export default function CourtroomInputBar({
   status,
   activeSpeaker,
+  isMyTurn,
+  trialPhase,
   inputText,
   setInputText,
   submitUserInput,
@@ -13,18 +15,52 @@ export default function CourtroomInputBar({
 }) {
   if (status !== "running") return null;
 
+  // In CASE_INTRO, the active player just clicks Send with any text to advance
+  const isCaseIntro = trialPhase === "CASE_INTRO";
+
+  const placeholderText = !isMyTurn
+    ? "Opposing counsel is presenting..."
+    : isListening
+      ? "Listening... speak clearly into your mic..."
+      : isCaseIntro
+        ? "Press send to begin proceedings..."
+        : trialPhase === "OPENING"
+          ? "Deliver your opening statement..."
+          : trialPhase === "REBUTTAL"
+            ? "State your rebuttal..."
+            : "Present your legal argument...";
+
+  const statusLabel = !isMyTurn
+    ? "⚖ Awaiting opposing counsel..."
+    : isCaseIntro
+      ? "🏛 Court is in session — begin when ready"
+      : "🎤 You have the floor — present your argument";
+
+  // In CASE_INTRO we allow any non-empty text (even a single space) to advance phase
+  const canSubmit = isMyTurn && (isCaseIntro ? true : inputText.length >= 20);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isCaseIntro) {
+      // synthesise a dummy submit to trigger END_TURN
+      submitUserInput({ preventDefault: () => {}, _caseIntro: true });
+    } else {
+      submitUserInput(e);
+    }
+  };
+
   return (
     <div className="bg-transparent px-4 py-4 z-30 flex flex-col items-center justify-center w-full">
       {/* Active speaker status */}
       <div className="mb-2 text-center">
-        <span className={`text-[10px] font-bold uppercase tracking-widest ${activeSpeaker ? 'text-primaryBrown/50' : 'text-gold drop-shadow-md'} flex items-center justify-center gap-1.5 transition-colors`}>
-          <span className={`w-1.5 h-1.5 rounded-full ${activeSpeaker ? 'bg-primaryBrown/30' : 'bg-gold animate-pulse'}`}></span>
-          {activeSpeaker ? 'Awaiting opposing counsel...' : 'You have the floor — present your argument'}
+        <span className={`text-[10px] font-bold uppercase tracking-widest ${!isMyTurn ? 'text-primaryBrown/50' : 'text-gold drop-shadow-md'} flex items-center justify-center gap-1.5 transition-colors`}>
+          <span className={`w-1.5 h-1.5 rounded-full ${!isMyTurn ? 'bg-primaryBrown/30' : 'bg-gold animate-pulse'}`}></span>
+          {statusLabel}
         </span>
       </div>
 
-      <form onSubmit={submitUserInput} className="w-full max-w-3xl">
-        <div className={`flex items-center gap-3 bg-white border border-[#2C1810]/15 rounded-full py-1.5 pl-4 pr-1.5 shadow-[0_4px_25px_rgba(0,0,0,0.06)] transition-all ${activeSpeaker ? 'opacity-70 bg-gray-50' : 'focus-within:border-gold focus-within:ring-2 focus-within:ring-gold/10'}`}>
+      <form onSubmit={handleSubmit} className="w-full max-w-3xl">
+        <div className={`flex items-center gap-3 bg-white border border-[#2C1810]/15 rounded-full py-1.5 pl-4 pr-1.5 shadow-[0_4px_25px_rgba(0,0,0,0.06)] transition-all ${!isMyTurn ? 'opacity-70 bg-gray-50' : 'focus-within:border-gold focus-within:ring-2 focus-within:ring-gold/10'}`}>
           
           {/* Plus Action Button */}
           <button 
@@ -41,14 +77,8 @@ export default function CourtroomInputBar({
             type="text"
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
-            disabled={activeSpeaker !== null}
-            placeholder={
-              activeSpeaker 
-                ? "Opposing counsel is presenting..." 
-                : isListening 
-                  ? "Listening... speak clearly into your mic..." 
-                  : "Ask anything / state your case..."
-            }
+            disabled={!isMyTurn}
+            placeholder={placeholderText}
             className="w-full bg-transparent border-none outline-none py-2 text-[14px] text-[#2C1810] placeholder-[#2C1810]/40"
           />
 
@@ -56,11 +86,12 @@ export default function CourtroomInputBar({
           <button
             type="button"
             onClick={toggleListening}
+            disabled={!isMyTurn}
             className={`p-1.5 rounded-full transition-all flex items-center justify-center shrink-0 cursor-pointer ${
               isListening 
                 ? 'bg-red-500 text-white animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.5)]' 
                 : 'text-gray-400 hover:bg-gray-100 hover:text-gray-600'
-            }`}
+            } disabled:opacity-40 disabled:cursor-not-allowed`}
             title={isListening ? "Stop listening" : "Speech-to-Text (Dictate)"}
           >
             <Mic size={16} />
@@ -83,9 +114,9 @@ export default function CourtroomInputBar({
           {/* Send Button */}
           <button
             type="submit"
-            disabled={inputText.length < 20 || activeSpeaker !== null}
+            disabled={!canSubmit}
             className={`p-2 rounded-full transition-all flex items-center justify-center shrink-0 border ${
-              inputText.length >= 20 && !activeSpeaker 
+              canSubmit
                 ? 'bg-[#2C1810] text-[#C5A059] border-[#C5A059] hover:bg-[#3D2318] hover:scale-105 shadow-sm cursor-pointer' 
                 : 'bg-gray-100 text-gray-400 border-transparent cursor-not-allowed'
             }`}

@@ -954,34 +954,40 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
 
   const submitUserInput = (e) => {
     e.preventDefault();
+    
+    // CASE_INTRO: just send END_TURN to advance phase — no text needed
+    if (e._caseIntro && gameId && wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+      wsRef.current.send(JSON.stringify({ action: "END_TURN", text: "" }));
+      return;
+    }
+
     if (inputText.length < 20) {
       alert("COURT PROTOCOL VIOLATION:\n\nPlease provide a structured legal argument (minimum 20 characters).\nInformal or short phrases are not acceptable on the court record.");
       return;
     }
     
-    const userRoleName = roleNameMap[userRole];
-    
-    setMessages(prev => [...prev, {
-      speaker: userRoleName,
-      text: inputText,
-      citations: [],
-      agentId: userRole
-    }]);
-    
     const query = inputText;
     setInputText("");
     
-    if (gameId && wsRef.current) {
-       // Send to multiplayer backend
-       let actionType = "SUBMIT_ARGUMENT";
-       if (trialPhase === "OPENING") actionType = "SUBMIT_OPENING";
-       if (trialPhase === "REBUTTAL") actionType = "SUBMIT_REBUTTAL";
-       
-       wsRef.current.send(JSON.stringify({
-         action: actionType,
-         text: query
-       }));
-       return;
+    if (gameId && wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+      // Map server-controlled phase → action type
+      // trialPhase comes from GAME_STARTED/TURN_CHANGED events (server truth)
+      const phaseActionMap = {
+        "CASE_INTRO": "END_TURN",   // CASE_INTRO: just end turn to move to OPENING
+        "OPENING": "SUBMIT_OPENING",
+        "ARGUMENT": "SUBMIT_ARGUMENT",
+        "REBUTTAL": "SUBMIT_REBUTTAL",
+        "CLOSING": "SUBMIT_ARGUMENT", // fallback
+      };
+      const actionType = phaseActionMap[trialPhase] || "SUBMIT_ARGUMENT";
+
+      wsRef.current.send(JSON.stringify({
+        action: actionType,
+        text: query
+      }));
+      // ⚠️ Do NOT add to messages here — the ACTION_SUBMITTED broadcast
+      // from the server will add it for BOTH players uniformly.
+      return;
     }
     
     // Call single-player backend API
@@ -1141,6 +1147,8 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
           <CourtroomInputBar
             status={status}
             activeSpeaker={activeSpeaker}
+            isMyTurn={gameId ? activeSpeaker === userRole : activeSpeaker === null}
+            trialPhase={trialPhase}
             inputText={inputText}
             setInputText={setInputText}
             submitUserInput={submitUserInput}
