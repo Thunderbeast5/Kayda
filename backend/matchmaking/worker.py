@@ -7,8 +7,8 @@ from typing import Optional
 from datetime import datetime, timezone
 
 from .redis_client import redis_client
-from observer.case_service import list_cases
-from agents.evidence.evidence_analyzer import _get_firestore_client
+from backend.observer.case_service import list_cases
+from backend.agents.evidence.evidence_analyzer import _get_firestore_client
 
 async def matchmaking_loop():
     """
@@ -41,6 +41,8 @@ async def match_players():
             
     # Try to find a valid pair
     matched_pair = None
+    now = time.time()
+    
     for i in range(len(users_data)):
         for j in range(i + 1, len(users_data)):
             p1 = users_data[i]
@@ -50,12 +52,6 @@ async def match_players():
             if p1["user_id"] == p2["user_id"]:
                 continue
                 
-            # Condition 2: Rating difference <= 200 (can be relaxed based on time waiting later)
-            if abs(p1["rating"] - p2["rating"]) > 200:
-                continue
-                
-            # Condition 3: Role compatibility
-            # One must be DEFENSE, one PROSECUTION. Or they can be ANY.
             r1 = p1.get("preferred_role", "ANY").upper()
             r2 = p2.get("preferred_role", "ANY").upper()
             
@@ -66,16 +62,29 @@ async def match_players():
                 p1_final_role, p2_final_role = "DEFENSE", "PROSECUTION"
             elif r1 == "PROSECUTION" and r2 == "DEFENSE":
                 p1_final_role, p2_final_role = "PROSECUTION", "DEFENSE"
-            elif r1 == r2 and r1 != "ANY":
-                # Both want the same role, assign randomly
+            elif r1 == "ANY" and r2 != "ANY":
+                p2_final_role = r2
+                p1_final_role = "PROSECUTION" if r2 == "DEFENSE" else "DEFENSE"
+            elif r2 == "ANY" and r1 != "ANY":
+                p1_final_role = r1
+                p2_final_role = "PROSECUTION" if r1 == "DEFENSE" else "DEFENSE"
+            elif r1 == "ANY" and r2 == "ANY":
                 roles = ["DEFENSE", "PROSECUTION"]
                 random.shuffle(roles)
                 p1_final_role, p2_final_role = roles[0], roles[1]
             else:
-                # At least one is ANY. Assign randomly
-                roles = ["DEFENSE", "PROSECUTION"]
-                random.shuffle(roles)
-                p1_final_role, p2_final_role = roles[0], roles[1]
+                # Both requested the SAME strict role (e.g. both DEFENSE).
+                # If either player has been waiting > 30 seconds, relax and assign roles randomly.
+                p1_wait = now - p1.get("joined_at", now)
+                p2_wait = now - p2.get("joined_at", now)
+                if p1_wait >= 30 or p2_wait >= 30:
+                    roles = ["DEFENSE", "PROSECUTION"]
+                    random.shuffle(roles)
+                    p1_final_role, p2_final_role = roles[0], roles[1]
+                    print(f"[Matchmaking] Role relaxation applied after {max(p1_wait, p2_wait):.0f}s wait")
+                else:
+                    # Keep waiting for a proper complement
+                    continue
                 
             matched_pair = (p1, p2, p1_final_role, p2_final_role)
             break
@@ -168,3 +177,8 @@ def start_matchmaking_worker():
     Helper to create the background task.
     """
     asyncio.create_task(matchmaking_loop())
+
+if __name__ == "__main__":
+    import asyncio
+    print("Starting Matchmaking Worker...")
+    asyncio.run(matchmaking_loop())

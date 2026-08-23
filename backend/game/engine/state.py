@@ -71,3 +71,27 @@ def sync_to_firestore_sync(game_id: str, state: Dict[str, Any]) -> None:
         game_ref.update(updates)
     except Exception as e:
         print(f"[State] Failed to sync to firestore: {e}")
+
+def record_action_event_sync(game_id: str, user_id: str, action_type: str, payload: Dict[str, Any], round_num: int, phase: str) -> None:
+    """
+    Synchronous helper to record a discrete game action event in Firestore.
+    """
+    try:
+        from datetime import datetime, timezone
+        import uuid
+        db = _get_firestore_client()
+        events_ref = db.collection("games").document(game_id).collection("events")
+        
+        event_doc = {
+            "event_id": f"EVT_{uuid.uuid4().hex[:8]}",
+            "user_id": user_id,
+            "type": action_type,
+            "payload": payload,
+            "round": round_num,
+            "phase": phase,
+            "timestamp": datetime.now(timezone.utc)
+        }
+        
+        events_ref.add(event_doc)
+    except Exception as e:
+        print(f"[State] Failed to record event in firestore: {e}")

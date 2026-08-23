@@ -1,6 +1,16 @@
 const API_URL = "http://localhost:5001/api/matchmaking";
 
 export async function joinMatchmakingQueue(userId, username, preferredRole, rating = 1200) {
+  // Normalize role: UI uses "prosecutor"/"defense", backend expects "PROSECUTION"/"DEFENSE"
+  const roleMap = {
+    prosecutor: "PROSECUTION",
+    prosecution: "PROSECUTION",
+    defense: "DEFENSE",
+    judge: "ANY",
+    observer: "ANY",
+  };
+  const normalizedRole = roleMap[preferredRole?.toLowerCase()] || "ANY";
+  
   try {
     const response = await fetch(`${API_URL}/join`, {
       method: "POST",
@@ -11,7 +21,7 @@ export async function joinMatchmakingQueue(userId, username, preferredRole, rati
         user_id: userId,
         username: username,
         rating: rating,
-        preferred_role: preferredRole.toUpperCase(),
+        preferred_role: normalizedRole,
       }),
     });
     const data = await response.json();

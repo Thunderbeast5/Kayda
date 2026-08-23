@@ -527,8 +527,12 @@ import ObserverControlBar from "./ObserverControlBar";
 import CaseSelectionModal from "./CaseSelectionModal";
 import { getMockResponse } from "../../data/mockTrialResponses";
 import { uploadCaseFile } from "../../firebase";
+import { useAuth } from "../../context/AuthContext";
 
 export default function CourtroomInterface({ userRole, gameId, onExit }) {
+  const { currentUser } = useAuth();
+  const userId = currentUser?.uid;
+
   const [messages, setMessages] = useState([]);
   const [activeSpeaker, setActiveSpeaker] = useState(null);
   const [status, setStatus] = useState("running"); 
@@ -538,6 +542,9 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [ttsEnabled, setTtsEnabled] = useState(false);
   const ttsEnabledRef = useRef(false);
+  
+  // WebSocket Reference
+  const wsRef = useRef(null);
 
   // Case Selection & Observer Mode state
   const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
@@ -757,16 +764,103 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
     // Disable body scroll when courtroom is active to prevent scrolling the landing page
     document.body.style.overflow = 'hidden';
     
-    // Automatically trigger courtroom proceedings on mount
-    startCasePractice();
+    // If we have a gameId, connect to WebSocket for multiplayer mode
+    if (gameId && userId) {
+      // Guard against React StrictMode double-mount: defer WS creation by one tick.
+      // StrictMode cleans up synchronously before the next tick, so the clearTimeout
+      // in the cleanup cancels the first phantom mount — no stale connection is created.
+      let ws = null;
+      let readyFired = false;
 
-    return () => {
-      document.body.style.overflow = '';
-      if (window.speechSynthesis) {
-        window.speechSynthesis.cancel();
-      }
-    };
-  }, []);
+      const timer = setTimeout(() => {
+        const wsUrl = `ws://localhost:5001/ws/games/${gameId}?user_id=${userId}`;
+        ws = new WebSocket(wsUrl);
+        wsRef.current = ws;
+
+        ws.onopen = () => {
+          if (readyFired) return;  // idempotency guard
+          readyFired = true;
+          // Signal backend we are ready to play
+          const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5001";
+          fetch(`${apiUrl}/api/games/${gameId}/ready?user_id=${userId}`, { method: "POST" })
+            .then(r => r.json())
+            .then(d => console.log("[WS] Ready response:", d))
+            .catch(e => console.error("[WS] Ready error:", e));
+        };
+
+        ws.onmessage = (event) => {
+          const data = JSON.parse(event.data);
+          console.log("WS Event:", data);
+
+          if (data.type === "GAME_STARTED") {
+            setStatus("running");
+            setSidebarOpen(false);
+            setTrialPhase(data.phase || "CASE_INTRO");
+            if (data.current_turn === userId) {
+              setActiveSpeaker(userRole);
+            } else {
+              setActiveSpeaker(userRole === "prosecutor" ? "defense" : "prosecutor");
+            }
+          } else if (data.type === "TURN_CHANGED") {
+            setTrialPhase(data.phase);
+            if (data.current_turn === userId) {
+              setActiveSpeaker(userRole);
+            } else {
+              setActiveSpeaker(userRole === "prosecutor" ? "defense" : "prosecutor");
+            }
+          } else if (data.type === "ACTION_SUBMITTED") {
+            const isMe = data.player_id === userId;
+            handleEvent({
+              agent_id: isMe ? userRole : (userRole === "prosecutor" ? "defense" : "prosecutor"),
+              display_name: isMe
+                ? roleNameMap[userRole]
+                : roleNameMap[userRole === "prosecutor" ? "defense" : "prosecutor"],
+              full_text: data.payload?.content || "",
+              verified_citations: [],
+            });
+            setTrialPhase(data.phase);
+            if (data.next_turn === userId) {
+              setActiveSpeaker(userRole);
+            } else {
+              setActiveSpeaker(userRole === "prosecutor" ? "defense" : "prosecutor");
+            }
+          } else if (data.type === "PLAYER_CONNECTED") {
+            console.log("[WS] Player connected:", data.player?.user_id);
+          } else if (data.type === "PLAYER_READY") {
+            console.log("[WS] Player ready:", data.player?.user_id);
+          }
+        };
+
+        ws.onerror = (error) => {
+          console.error("[WS] WebSocket error:", error);
+        };
+
+        ws.onclose = (e) => {
+          console.log("[WS] WebSocket closed:", e.code, e.reason);
+        };
+      }, 0);
+
+      return () => {
+        clearTimeout(timer);
+        if (ws && ws.readyState !== WebSocket.CLOSED) {
+          ws.close();
+        }
+        wsRef.current = null;
+        document.body.style.overflow = '';
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
+      };
+    } else {
+      // Automatically trigger single-player courtroom proceedings on mount
+      startCasePractice();
+
+      return () => {
+        document.body.style.overflow = '';
+        if (window.speechSynthesis) {
+          window.speechSynthesis.cancel();
+        }
+      };
+    }
+  }, [gameId, userId, userRole]);
 
   const speakText = (text, voiceRole) => {
     if (!window.speechSynthesis) return;
@@ -877,7 +971,20 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
     const query = inputText;
     setInputText("");
     
-    // Call backend API
+    if (gameId && wsRef.current) {
+       // Send to multiplayer backend
+       let actionType = "SUBMIT_ARGUMENT";
+       if (trialPhase === "OPENING") actionType = "SUBMIT_OPENING";
+       if (trialPhase === "REBUTTAL") actionType = "SUBMIT_REBUTTAL";
+       
+       wsRef.current.send(JSON.stringify({
+         action: actionType,
+         text: query
+       }));
+       return;
+    }
+    
+    // Call single-player backend API
     fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/query`, {
       method: "POST",
       headers: {

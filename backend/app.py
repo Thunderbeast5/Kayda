@@ -635,6 +635,7 @@ from backend.observer.case_service import list_cases, get_case, normalize_case_d
 
 from matchmaking.api import router as matchmaking_router
 from matchmaking.worker import start_matchmaking_worker
+from backend.game.api import game_router, ws_router
 
 app = FastAPI(title="MootCourt Legal Intelligence & Evidence API")
 
@@ -661,6 +662,8 @@ app.add_middleware(
 )
 
 app.include_router(matchmaking_router)
+app.include_router(game_router)
+app.include_router(ws_router)
 
 
 # ── Observer Mode Case Bank Endpoints ─────────────────────────────────────

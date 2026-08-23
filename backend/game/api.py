@@ -28,15 +28,17 @@ async def ready_player(game_id: str, user_id: str = Query(...)):
         db = _get_firestore_client()
         game_ref = db.collection("games").document(game_id)
         
-        def _update_ready():
-            doc = game_ref.get()
+        from google.cloud import firestore
+        
+        @firestore.transactional
+        def _update_ready_transaction(transaction, doc_ref):
+            doc = doc_ref.get(transaction=transaction)
             if not doc.exists:
                 raise HTTPException(status_code=404, detail="Game not found")
             
             data = doc.to_dict()
             players = data.get("players", [])
             updated = False
-            all_ready = True
             
             for p in players:
                 # the AI Judge is auto-READY
@@ -47,7 +49,7 @@ async def ready_player(game_id: str, user_id: str = Query(...)):
                     updated = True
                 
             all_ready = all(p.get("status") == "READY" for p in players)
-            print(f"[API] _update_ready: all_ready={all_ready}, players={[p.get('status') for p in players]}")
+            print(f"[API] _update_ready_transaction: all_ready={all_ready}, players={[p.get('status') for p in players]}")
             
             if not updated:
                 raise HTTPException(status_code=400, detail="User not in this game")
@@ -58,10 +60,10 @@ async def ready_player(game_id: str, user_id: str = Query(...)):
                 updates["phase"] = "CASE_INTRO"
                 updates["updated_at"] = datetime.now(timezone.utc)
                 
-            game_ref.update(updates)
+            transaction.update(doc_ref, updates)
             return all_ready
 
-        all_ready = await asyncio.to_thread(_update_ready)
+        all_ready = await asyncio.to_thread(_update_ready_transaction, db.transaction(), game_ref)
         
         # Broadcast readiness
         await manager.broadcast(game_id, {

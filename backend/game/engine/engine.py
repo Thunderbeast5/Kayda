@@ -1,5 +1,5 @@
 from typing import Dict, Any, Tuple, Optional
-from .state import get_game_state, update_game_state, sync_to_firestore_sync
+from .state import get_game_state, update_game_state, sync_to_firestore_sync, record_action_event_sync
 from .turn_manager import advance_turn
 import asyncio
 
@@ -24,20 +24,18 @@ class GameEngine:
         # 1. Validate user's turn
         is_turn = (state.get("current_turn") == user_id)
         
-        # Some actions might not require it to be your turn (e.g. OBJECTION), but END_TURN and SUBMIT_ARGUMENT do.
-        turn_required_actions = ["END_TURN", "SUBMIT_ARGUMENT", "PRESENT_EVIDENCE"]
+        turn_required_actions = ["END_TURN", "SUBMIT_OPENING", "SUBMIT_ARGUMENT", "SUBMIT_REBUTTAL"]
         
         if action_type in turn_required_actions and not is_turn:
             return False, "Not your turn", None, None
             
+        current_phase = state.get("phase")
+        
         # 2. Process Action
         event_to_broadcast = None
         
         if action_type == "END_TURN":
-            # Advance the turn
             state = advance_turn(state)
-            
-            # If the phase changed as a result of advancing turn
             if state["status"] == "COMPLETED":
                 event_to_broadcast = {
                     "type": "GAME_COMPLETED",
@@ -50,18 +48,30 @@ class GameEngine:
                     "phase": state["phase"]
                 }
                 
-        elif action_type == "SUBMIT_ARGUMENT":
-            # For now, just record it and advance turn
-            # In the future, this is where we'd score the argument
-            argument_text = action_payload.get("text", "")
-            # Advance the turn automatically after submitting an argument
+        elif action_type in ["SUBMIT_OPENING", "SUBMIT_ARGUMENT", "SUBMIT_REBUTTAL"]:
+            # Validate Phase
+            if action_type == "SUBMIT_OPENING" and current_phase != "OPENING":
+                return False, f"Action {action_type} not allowed in phase {current_phase}", None, None
+            if action_type == "SUBMIT_ARGUMENT" and current_phase != "ARGUMENT":
+                return False, f"Action {action_type} not allowed in phase {current_phase}", None, None
+            if action_type == "SUBMIT_REBUTTAL" and current_phase != "REBUTTAL":
+                return False, f"Action {action_type} not allowed in phase {current_phase}", None, None
+                
+            text = action_payload.get("text", "")
+            
+            # Save Event to Firestore
+            asyncio.create_task(asyncio.to_thread(
+                record_action_event_sync, game_id, user_id, action_type, {"content": text}, state["round"], current_phase
+            ))
+            
+            # Advance Turn automatically
             state = advance_turn(state)
             
             event_to_broadcast = {
                 "type": "ACTION_SUBMITTED",
-                "action": "SUBMIT_ARGUMENT",
+                "action": action_type,
                 "player_id": user_id,
-                "text": argument_text,
+                "payload": {"content": text},
                 "next_turn": state["current_turn"],
                 "phase": state["phase"]
             }
