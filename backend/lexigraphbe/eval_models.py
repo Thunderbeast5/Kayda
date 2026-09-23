@@ -1,6 +1,6 @@
 """
 Model Tier Accuracy & Schema Compliance Evaluator for LexiGraph Backend.
-Benchmarks gpt-4o-mini vs. llama-3.1-8b-instant vs. llama-3.3-70b-versatile on
+Benchmarks gpt-5.4-mini vs. llama-3.1-8b-instant vs. llama-3.3-70b-versatile on
 categorization accuracy, schema compliance, and structured JSON output validity.
 """
 
@@ -118,7 +118,7 @@ def evaluate_model_performance(model_name: str, tier: str = MODEL_TIER_CHEAP) ->
     accuracy_score = round(correct_categorizations / total_runs, 4)
     avg_latency = round(total_latency / total_runs, 4)
 
-    recommendation = "RECOMMENDED FOR PRODUCTION" if accuracy_score >= 0.80 and compliance_rate == 1.0 else "SUB-OPTIMAL FOR CHEAP TIER (RECOMMEND GPT-4O-MINI OR LLAMA-3.3-70B)"
+    recommendation = "RECOMMENDED FOR PRODUCTION" if accuracy_score >= 0.80 and compliance_rate == 1.0 else "SUB-OPTIMAL FOR CHEAP TIER (RECOMMEND GPT-5.4-MINI OR LLAMA-3.3-70B)"
 
     return ModelBenchmarkReport(
         model_name=model_name,
@@ -134,7 +134,7 @@ def evaluate_model_performance(model_name: str, tier: str = MODEL_TIER_CHEAP) ->
 
 if __name__ == "__main__":
     print("=== MODEL TIER ACCURACY & COMPLIANCE BENCHMARK ===")
-    test_models = ["gpt-4o-mini", "llama-3.3-70b-versatile", "llama-3.1-8b-instant"]
+    test_models = ["gpt-5.4-mini", "llama-3.3-70b-versatile", "llama-3.1-8b-instant"]
     for m in test_models:
         rep = evaluate_model_performance(m)
         print(f"\nModel: {m}")

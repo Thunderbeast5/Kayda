@@ -111,7 +111,7 @@ class ChapterIdentificationAgent:
 
         # Automatically detect factual triggers when Stage 2 mapping is omitted or empty
         if not stage2_resp:
-            triggered_suggestions = self.prefilter.detect_factual_triggers(facts_text, statute_type="BNS" if "BNS" in regime_upper else "IPC")
+            triggered_suggestions = self.prefilter.detect_factual_triggers(facts_text, statute_type="IPC")
             seen_cand_keys = {f"{c.get('statute', '')}_{c.get('section_number', '')}".upper() for c in candidates_to_verify}
             for sug in triggered_suggestions:
                 sug_key = f"{sug.get('statute', '')}_{sug.get('section_number', '')}".upper()
@@ -138,7 +138,7 @@ class ChapterIdentificationAgent:
             # 1. IPC <-> BNS Mapping Resolution
             ipc_eq = None
             bns_eq = None
-            if "BNS" in statute_in.upper() or "BNS" in regime_upper:
+            if "BNS" in statute_in.upper():
                 bns_eq = sec_num
                 mapped = self.mapper.get_ipc_equivalent(sec_num)
                 ipc_eq = mapped.get("ipc_section") if mapped else sec_num

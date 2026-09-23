@@ -1,14 +1,14 @@
 """
 LLM Configuration and JSON parsing utilities for LexiGraph Backend.
 Per-Stage Model Pinning (OpenAI GPT only):
-  Stage 0  – Case Intake            : gpt-4o-mini
-  Stage 1  – Legal Query             : gpt-4o-mini
-  Stage 2  – Subquery Mapping        : gpt-4o-mini
+  Stage 0  – Case Intake            : gpt-5.4-mini
+  Stage 1  – Legal Query             : gpt-5.4-mini
+  Stage 2  – Subquery Mapping        : gpt-5.4-mini
   Stage 3  – Chapter Identification  : Deterministic (No LLM)
   Stage 4  – Statutory Verification  : Deterministic (No LLM)
-  Stage 5  – Bail Reasoning          : gpt-4.1-mini
-  Stage 6  – Precedent Analysis      : gpt-4.1-mini
-  Stage 7  – Arguments & Judgment    : gpt-4.1-mini
+  Stage 5  – Bail Reasoning          : gpt-5.4-mini
+  Stage 6  – Precedent Analysis      : gpt-5.4-mini
+  Stage 7  – Arguments & Judgment    : gpt-5.4-mini
 Verifier agents inherit the same model as their primary stage.
 """
 
@@ -28,9 +28,9 @@ load_dotenv(BASE_DIR / ".env")
 # Override any of these via environment variables of the same name.
 # ---------------------------------------------------------------------------
 # Stages 0, 1, 2 – lightweight extraction & mapping
-MODEL_STAGE0 = os.getenv("MODEL_STAGE0", "gpt-4o-mini")   # Case Intake
-MODEL_STAGE1 = os.getenv("MODEL_STAGE1", "gpt-4o-mini")   # Legal Query
-MODEL_STAGE2 = os.getenv("MODEL_STAGE2", "gpt-4o-mini")   # Subquery Mapping
+MODEL_STAGE0 = os.getenv("MODEL_STAGE0", "gpt-5.4-mini")   # Case Intake
+MODEL_STAGE1 = os.getenv("MODEL_STAGE1", "gpt-5.4-mini")   # Legal Query
+MODEL_STAGE2 = os.getenv("MODEL_STAGE2", "gpt-5.4-mini")   # Subquery Mapping
 # Stages 3, 4 – Deterministic; no LLM model constants needed
 # Stages 5, 6, 7 – deep legal reasoning
 MODEL_STAGE5 = os.getenv("MODEL_STAGE5", "gpt-5.4-mini")  # Bail Reasoning
@@ -42,8 +42,8 @@ MODEL_STAGE7 = os.getenv("MODEL_STAGE7", "gpt-5.4-mini")  # Arguments & Judgment
 # ---------------------------------------------------------------------------
 # Cheap tier  → same model used by Stages 0-2
 # Reasoning tier → same model used by Stages 5-7
-MODEL_TIER_CHEAP = "cheap"         # maps to MODEL_STAGE0 / gpt-4o-mini
-MODEL_TIER_REASONING = "reasoning" # maps to MODEL_STAGE5 / gpt-4.1-mini
+MODEL_TIER_CHEAP = "cheap"         # maps to MODEL_STAGE0 / gpt-5.4-mini
+MODEL_TIER_REASONING = "reasoning" # maps to MODEL_STAGE5 / gpt-5.4-mini
 
 
 class CallBudgetGuardrail:
@@ -86,7 +86,7 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
     if (provider == "openai" or not groq_api_key) and openai_api_key:
         try:
             from langchain_openai import ChatOpenAI
-            target_model = model_name or os.getenv("STAGE0_MODEL", "gpt-4o")
+            target_model = model_name or os.getenv("STAGE0_MODEL", "gpt-5.4-mini")
             return ChatOpenAI(
                 model=target_model,
                 api_key=openai_api_key,
@@ -110,7 +110,7 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
     if openai_api_key:
         try:
             from langchain_openai import ChatOpenAI
-            target_model = model_name or os.getenv("STAGE0_MODEL", "gpt-4o")
+            target_model = model_name or os.getenv("STAGE0_MODEL", "gpt-5.4-mini")
             return ChatOpenAI(
                 model=target_model,
                 api_key=openai_api_key,
@@ -129,8 +129,8 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
 def get_llm_for_tier(tier: str = MODEL_TIER_CHEAP, temperature: float = 0.1, model_name: Optional[str] = None):
     """
     Get configured LLM client routed by task tier.
-    - 'cheap' tier: lightweight/cheap model for narrow structured extraction & shortlisting (gpt-4o-mini / llama-3.1-8b-instant).
-    - 'reasoning' tier: flagship model for deep legal decomposition & argument synthesis (gpt-4o / llama-3.3-70b-versatile).
+    - 'cheap' tier: lightweight/cheap model for narrow structured extraction & shortlisting (gpt-5.4-mini / llama-3.1-8b-instant).
+    - 'reasoning' tier: flagship model for deep legal decomposition & argument synthesis (gpt-5.4-mini / llama-3.3-70b-versatile).
     """
     if model_name:
         return get_llm(temperature=temperature, model_name=model_name)
@@ -140,8 +140,8 @@ def get_llm_for_tier(tier: str = MODEL_TIER_CHEAP, temperature: float = 0.1, mod
     groq_api_key = os.getenv("GROQ_API_KEY")
 
     # Map legacy tiers to per-stage pinned models
-    cheap_model = MODEL_STAGE0       # gpt-4o-mini
-    reasoning_model = MODEL_STAGE5   # gpt-4.1-mini
+    cheap_model = MODEL_STAGE0       # gpt-5.4-mini
+    reasoning_model = MODEL_STAGE5   # gpt-5.4-mini
     target_model = cheap_model if tier == MODEL_TIER_CHEAP else reasoning_model
 
     if (provider == "openai" or not groq_api_key) and openai_api_key:

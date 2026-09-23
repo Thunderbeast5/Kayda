@@ -70,7 +70,7 @@ class Stage2SubQueryMappingAgent:
         facts_text = " ".join(facts_text_parts)
 
         regime = query_obj.legal_regime or "IPC + CrPC"
-        statute_type = "BNS" if "BNS" in regime.upper() else "IPC"
+        statute_type = "IPC"
 
         # Step 2: Run local StatuteClassifierPrefilter (0 API calls)
         prefiltered_matches = []

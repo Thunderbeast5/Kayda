@@ -407,19 +407,19 @@ Your responsibility is to map decomposed sub-queries ($SQ_1, SQ_2, \\dots, SQ_N$
 MAPPING WORKFLOW & RULES:
 1. FACT-TO-INGREDIENT MAPPING: Do NOT map directly from legal concept to section number. Map: Facts Extracted -> Statutory Ingredients Matched -> Candidate Sections.
 2. MULTI-OFFENCE COVERAGE (HIGHEST PRIORITY): Map factual patterns to ALL plausible offences, not just a single "best" section.
-   - Matrimonial dowry cruelty: Include 498A IPC / 85 BNS (Primary) AND Section 4 Dowry Prohibition Act (Primary).
+   - Matrimonial dowry cruelty: Include 498A IPC (Primary) AND Section 4 Dowry Prohibition Act (Primary).
    - Giving/taking dowry: Include Section 3 Dowry Prohibition Act (Secondary).
-   - Stridhan retention / non-return of jewelry: Include 406 IPC / 316 BNS (Secondary).
-   - Threats / intimidation: Include 506 IPC / 351 BNS (Secondary).
-   - Physical violence / hurt: Include 323 IPC / 115 BNS (Secondary).
+   - Stridhan retention / non-return of jewelry: Include 406 IPC (Secondary).
+   - Threats / intimidation: Include 506 IPC (Secondary).
+   - Physical violence / hurt: Include 323 IPC (Secondary).
 3. PRIMARY VS SECONDARY BASED ON LEGAL NEXUS:
    - primary_candidate_sections: Core offences directly alleged and grounded in primary facts.
    - secondary_candidate_sections: Ancillary/associated offences where legal nexus exists but key facts (e.g. entrustment, specific threat details) are partial or secondary.
 4. MISSING FACTS IDENTIFICATION: For every candidate section, identify any unproven or missing factual elements (`missing_facts`), such as "Entrustment of stridhan property" or "Refusal to return ornaments". This is vital for downstream Prosecutor, Defense, and Judge agents.
 5. NOT-TRIGGERED SCREENING STEP (`not_triggered_sections`): Screen out sections whose mandatory ingredients are absent in facts:
-   - Section 304B IPC / Section 80 BNS (Dowry Death): Screening non-trigger if NO death occurred. Place in `not_triggered_sections` with reason "No death alleged in case facts."
-   - Section 307 IPC / Section 109 BNS (Attempt to Murder): Screening non-trigger if NO attempt to kill.
-   - Section 376 IPC / Section 64 BNS (Rape): Screening non-trigger if NO sexual assault.
+   - Section 304B IPC (Dowry Death): Screening non-trigger if NO death occurred. Place in `not_triggered_sections` with reason "No death alleged in case facts."
+   - Section 307 IPC (Attempt to Murder): Screening non-trigger if NO attempt to kill.
+   - Section 376 IPC (Rape): Screening non-trigger if NO sexual assault.
 6. EXPLAINABLE REASONS & CONFIDENCE: Provide explicit factual ingredient reasons and missing facts for every candidate section and explicit screening reasons for every not-triggered section.
 
 Return JSON ONLY.

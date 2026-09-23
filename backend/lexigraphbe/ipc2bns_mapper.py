@@ -1,12 +1,9 @@
-"""
-IPC ↔ BNS Statute Mapping Utility for LexiGraph Backend.
-Provides bidirectional legal mapping between Indian Penal Code (IPC) and Bharatiya Nyaya Sanhita (BNS) provisions.
-"""
-
 import csv
+import os
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
 
+from neo4j import GraphDatabase
 
 from .statute_repository import StatuteRepository
 
@@ -14,10 +11,21 @@ from .statute_repository import StatuteRepository
 class IPC2BNSMapper:
     """
     Bidirectional IPC ↔ BNS statutory mapper.
-    Uses StatuteRepository singleton for instant in-memory mapping lookups.
+    Uses Neo4j for mapping lookups, falling back to StatuteRepository singleton for instant in-memory lookups.
     """
 
     def __init__(self, csv_path: Optional[str] = None):
+        self.neo4j_uri = os.getenv("NEO4J_URI")
+        self.neo4j_user = os.getenv("NEO4J_USER")
+        self.neo4j_password = os.getenv("NEO4J_PASSWORD")
+        self.driver = None
+
+        if self.neo4j_uri and self.neo4j_user and self.neo4j_password:
+            try:
+                self.driver = GraphDatabase.driver(self.neo4j_uri, auth=(self.neo4j_user, self.neo4j_password))
+            except Exception as e:
+                print(f"Failed to connect to Neo4j in IPC2BNSMapper: {e}")
+
         if not csv_path:
             repo = StatuteRepository.get_instance()
             self.ipc_to_bns = repo.get_ipc_to_bns_map()
@@ -77,11 +85,49 @@ class IPC2BNSMapper:
             pass
 
     def get_bns_equivalent(self, ipc_section: str) -> Optional[Dict[str, str]]:
-        """Given IPC section e.g. '498A', returns BNS equivalent dict."""
+        """Given IPC section e.g. '498A', returns BNS equivalent dict using Neo4j (fallback to CSV)."""
         clean_key = ipc_section.replace("IPC", "").replace("_", "").strip().upper()
+
+        if self.driver:
+            try:
+                with self.driver.session() as session:
+                    query = \"\"\"
+                    MATCH (i:LawSection {act: 'IPC', section: $ipc_sec})-[r:REPLACED_BY]->(b:LawSection {act: 'BNS'})
+                    RETURN b.section AS bns_section_clean, b.title AS bns_title
+                    LIMIT 1
+                    \"\"\"
+                    result = session.run(query, ipc_sec=clean_key).data()
+                    if result:
+                        record = result[0]
+                        return {
+                            "bns_section_clean": record.get("bns_section_clean"),
+                            "bns_title": record.get("bns_title")
+                        }
+            except Exception as e:
+                print(f"Neo4j query failed in get_bns_equivalent: {e}")
+
         return self.ipc_to_bns.get(clean_key)
 
     def get_ipc_equivalent(self, bns_section: str) -> Optional[Dict[str, str]]:
-        """Given BNS section e.g. '85' or '318(4)', returns IPC equivalent dict."""
+        """Given BNS section e.g. '85' or '318(4)', returns IPC equivalent dict using Neo4j (fallback to CSV)."""
         clean_key = bns_section.replace("BNS", "").replace("_", "").strip().upper()
+
+        if self.driver:
+            try:
+                with self.driver.session() as session:
+                    query = \"\"\"
+                    MATCH (i:LawSection {act: 'IPC'})-[r:REPLACED_BY]->(b:LawSection {act: 'BNS', section: $bns_sec})
+                    RETURN i.section AS ipc_section, i.title AS ipc_title
+                    LIMIT 1
+                    \"\"\"
+                    result = session.run(query, bns_sec=clean_key).data()
+                    if result:
+                        record = result[0]
+                        return {
+                            "ipc_section": record.get("ipc_section"),
+                            "ipc_title": record.get("ipc_title")
+                        }
+            except Exception as e:
+                print(f"Neo4j query failed in get_ipc_equivalent: {e}")
+
         return self.bns_to_ipc.get(clean_key)
