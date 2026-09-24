@@ -91,11 +91,11 @@ class IPC2BNSMapper:
         if self.driver:
             try:
                 with self.driver.session() as session:
-                    query = \"\"\"
+                    query = """
                     MATCH (i:LawSection {act: 'IPC', section: $ipc_sec})-[r:REPLACED_BY]->(b:LawSection {act: 'BNS'})
                     RETURN b.section AS bns_section_clean, b.title AS bns_title
                     LIMIT 1
-                    \"\"\"
+                    """
                     result = session.run(query, ipc_sec=clean_key).data()
                     if result:
                         record = result[0]
@@ -115,11 +115,11 @@ class IPC2BNSMapper:
         if self.driver:
             try:
                 with self.driver.session() as session:
-                    query = \"\"\"
+                    query = """
                     MATCH (i:LawSection {act: 'IPC'})-[r:REPLACED_BY]->(b:LawSection {act: 'BNS', section: $bns_sec})
                     RETURN i.section AS ipc_section, i.title AS ipc_title
                     LIMIT 1
-                    \"\"\"
+                    """
                     result = session.run(query, bns_sec=clean_key).data()
                     if result:
                         record = result[0]
