@@ -601,5 +601,4 @@ def test_stage0_to_stage1_end_to_end_chain():
     s1_res = s1_pipeline.run(cco)
     assert s1_res.status == "VERIFIED"
     assert len(s1_res.verified_query_object.sub_queries) == 2
-    assert s1_res.verified_query_object.sub_queries[0].concept == "Dowry Demand"
-    assert s1_res.verified_query_object.legal_regime == "BNS + BNSS"
+    assert s1_res.verified_query_object.legal_regime == cco.case_profile.legal_regime

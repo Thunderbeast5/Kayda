@@ -38,6 +38,7 @@ class StatuteRepository:
                     instance.statute_db = {}
                     instance.ipc_to_bns = {}
                     instance.bns_to_ipc = {}
+                    instance.ipc_json_section_numbers = set()
                     instance._is_loaded = False
                     instance._load_all_datasets()
                     cls._instance = instance
@@ -49,9 +50,18 @@ class StatuteRepository:
         with cls._lock:
             cls._instance = None
 
+    def is_in_ipc_json(self, section_number: str) -> bool:
+        """Checks if a section is present in the authoritative ipc.json database."""
+        clean = section_number.strip().upper().replace("IPC_", "").replace("BNS_", "").replace("SECTION ", "")
+        return clean in self.ipc_json_section_numbers
+
+    def get_all_ipc_json_sections(self) -> set:
+        """Returns the set of all section numbers loaded from ipc.json."""
+        return self.ipc_json_section_numbers
+
     def _load_ipc_json(self) -> None:
         """
-        Loads IPC sections from ipc.json (priority source with full statutory text).
+        Loads IPC sections strictly and exclusively from ipc.json.
         This provides complete section text, explanations, and illustrations.
         """
         candidate_paths = [
@@ -72,7 +82,7 @@ class StatuteRepository:
 
         try:
             import json
-            with open(target_path, mode="r", encoding="utf-8") as f:
+            with open(target_path, mode="r", encoding="utf-8-sig") as f:
                 data = json.load(f)
 
             chapters = data.get("chapters", [])
@@ -84,6 +94,8 @@ class StatuteRepository:
                     sec_num = str(section.get("section_number", "")).strip()
                     if not sec_num or sec_num.lower() in ["preamble"]:
                         continue
+
+                    self.ipc_json_section_numbers.add(sec_num)
 
                     heading = section.get("heading", "")
                     text = section.get("text", "")
@@ -103,54 +115,68 @@ class StatuteRepository:
                                 subsection_texts.extend(subsection["key_elements"])
                         text = "\n\n".join(subsection_texts)
                     
+                    # Helper to extract all nested string contents safely
+                    def _extract_strings(val):
+                        if isinstance(val, str):
+                            return [val]
+                        elif isinstance(val, dict):
+                            res = []
+                            for v in val.values():
+                                res.extend(_extract_strings(v))
+                            return res
+                        elif isinstance(val, (list, tuple)):
+                            res = []
+                            for item in val:
+                                res.extend(_extract_strings(item))
+                            return res
+                        return []
+
                     # Build rich searchable text for prefilter from multiple ipc.json fields
                     searchable_parts = [heading, text, sec_num]
                     
                     # Add key_principle (summary)
                     if "key_principle" in section:
-                        searchable_parts.append(section["key_principle"])
+                        searchable_parts.extend(_extract_strings(section["key_principle"]))
                     
                     # Add plain_language (plain English)
                     if "plain_language" in section:
-                        searchable_parts.append(section["plain_language"])
+                        searchable_parts.extend(_extract_strings(section["plain_language"]))
                     
                     # Add key_elements (list of ingredients)
                     if "key_elements" in section:
-                        searchable_parts.extend(section["key_elements"])
+                        searchable_parts.extend(_extract_strings(section["key_elements"]))
+
+                    # Add ingredients
+                    if "ingredients" in section:
+                        searchable_parts.extend(_extract_strings(section["ingredients"]))
                     
                     # Add exception headings and text (e.g., Section 300 Exception 4 "Sudden Fight")
                     if "exceptions" in section:
-                        for exc in section["exceptions"]:
-                            if "heading" in exc:
-                                searchable_parts.append(exc["heading"])
-                            if "text" in exc:
-                                searchable_parts.append(exc["text"])
-                            if "key_elements" in exc:
-                                searchable_parts.extend(exc["key_elements"])
+                        searchable_parts.extend(_extract_strings(section["exceptions"]))
                     
                     # Add clauses (e.g., Section 300 murder clauses)
                     if "clauses_elevating_to_murder" in section:
-                        for clause in section["clauses_elevating_to_murder"]:
-                            if "text" in clause:
-                                searchable_parts.append(clause["text"])
+                        searchable_parts.extend(_extract_strings(section["clauses_elevating_to_murder"]))
                     
-                    # Combine explanation
-                    explanation = section.get("explanation", "")
+                    # Combine explanation / explanations
+                    explanation = section.get("explanation") or section.get("explanations") or ""
                     if explanation:
-                        text += f"\n\nExplanation: {explanation}"
-                        searchable_parts.append(explanation)
+                        exp_strs = _extract_strings(explanation)
+                        if exp_strs:
+                            text += "\n\nExplanation: " + " ".join(exp_strs)
+                            searchable_parts.extend(exp_strs)
                     
                     # Add illustrations
                     illustrations = section.get("illustrations", [])
                     if illustrations:
-                        text += "\n\nIllustrations:"
-                        for ill in illustrations:
-                            ill_text = ill.get("text", "") if isinstance(ill, dict) else str(ill)
-                            if ill_text:
-                                text += f"\n{ill_text}"
+                        ill_strs = _extract_strings(illustrations)
+                        if ill_strs:
+                            text += "\n\nIllustrations:\n" + "\n".join(ill_strs)
+                            searchable_parts.extend(ill_strs)
                     
                     # Build full_text for prefilter (lowercase for keyword matching)
-                    full_text_lower = " ".join(searchable_parts).lower()
+                    clean_parts = [p for p in searchable_parts if isinstance(p, str) and p.strip()]
+                    full_text_lower = " ".join(clean_parts).lower()
                     
                     # Add to sections_db (used by prefilter for keyword matching)
                     self.sections_db.append({
@@ -163,30 +189,50 @@ class StatuteRepository:
                         "raw_row": section,
                     })
                     
+                    # Normalize punishment
+                    punishment_field = section.get("punishment")
+                    if isinstance(punishment_field, dict):
+                        punishment_str = punishment_field.get("imprisonment", "")
+                        if punishment_field.get("fine"):
+                            punishment_str += f", fine: {punishment_field.get('fine')}"
+                    elif isinstance(punishment_field, str):
+                        punishment_str = punishment_field
+                    else:
+                        punishment_str = text[:200] if text else ""
+
                     # Add to statute_db (used for LLM enrichment)
+                    # NOTE: We do NOT use chapter.get("sub_heading") here because ipc.json chapter
+                    # groupings are structurally incorrect for many sections (e.g. 378-382 Theft sections
+                    # are nested under a Kidnapping sub_heading). The section's own `heading` is always
+                    # authoritative and is stored as section_title.
                     self.statute_db[f"IPC_{sec_num}"] = {
                         "statute": "IPC",
                         "section_number": sec_num,
-                        "section_title": heading,
-                        "full_text": text,  # Full statutory text with explanation & illustrations
+                        "section_title": heading,           # section's own heading — always correct
+                        "full_text": text,
                         "chapter_number": chapter_number,
                         "chapter_title": chapter_title,
                         "explanation": explanation,
                         "illustrations": illustrations,
+                        "ingredients": section.get("ingredients", []),
+                        "key_elements": section.get("key_elements", []),
+                        "key_principle": section.get("key_principle", ""),
+                        "plain_language": section.get("plain_language", ""),
+                        "punishment": punishment_str,
+                        "is_definition": section.get("is_definition", False),
+                        "is_punishment": section.get("is_punishment", False),
+                        "section_type": section.get("section_type", ""),
                     }
         except Exception as e:
             # Fail silently - CSV will be used as fallback
             pass
 
     def _load_all_datasets(self) -> None:
-        """Loads IPC, BNS, and IPC2BNS mapping datasets into shared memory index."""
+        """Loads IPC datasets strictly and exclusively from ipc.json."""
         if self._is_loaded:
             return
 
-        self._load_ipc_json()  # Use ipc.json for both prefilter and enrichment
-        # CSV loading disabled - ipc.json is the only source
-        # self._load_ipc_and_bns_sections()
-        self._load_ipc2bns_mapping()
+        self._load_ipc_json()  # Strictly use ipc.json as sole source
         self._is_loaded = True
 
     def _load_ipc_and_bns_sections(self) -> None:
@@ -448,6 +494,27 @@ class StatuteRepository:
                 if text and text not in ("N/A", "See statutory description.", "Special Act statutory provision."):
                     return text[:1500] if len(text) > 1500 else text
 
+        return None
+
+    def get_section_details(self, section_number: str, statute: str = "IPC") -> Optional[Dict[str, Any]]:
+        """Returns full dictionary record for a section including key_elements and plain_language."""
+        clean = section_number.strip().upper().replace("IPC_", "").replace("BNS_", "").replace("SECTION ", "")
+        for key in (
+            f"{statute}_{clean}",
+            f"{statute}_Section {clean}",
+            f"IPC_{clean}",
+            f"BNS_{clean}",
+            f"Dowry Prohibition Act_Section {clean}",
+        ):
+            record = self.statute_db.get(key)
+            if record:
+                return record
+
+        for key, record in self.statute_db.items():
+            rec_sec = record.get("section_number", "").strip().upper().replace("IPC_", "").replace("BNS_", "").replace("SECTION ", "")
+            rec_stat = record.get("statute", "")
+            if rec_sec == clean and (rec_stat == statute or statute == "EITHER"):
+                return record
         return None
 
     def get_first_schedule_metadata(self, section_number: str, statute: str = "IPC") -> Optional[Dict[str, Any]]:
