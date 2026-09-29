@@ -622,12 +622,6 @@ INCIDENT ANCHOR (verified by fact extraction — treat as ground truth):
 {incident_anchor}
 
 Rules:
-<<<<<<< HEAD
-- Extract EVERY discrete event: the offence itself, individual communications,
-  meetings, threats, acts of following/stalking/blocking, FIR filing, investigation
-  actions, evidence recovery, witness observations, etc.
-- Do NOT merge distinct events (e.g. 5 separate messages = 5 separate events if dates differ).
-=======
 - Extract 4 to 8 KEY events only. Do NOT extract micro-steps.
   CONSOLIDATE related sub-actions into one event:
     e.g. "parked vehicle, went to market, returned, found vehicle missing" = ONE event
@@ -638,7 +632,6 @@ Rules:
     3. Complainant filed complaint at police station
     4. FIR registered
     5. IO assigned
->>>>>>> a4bcb3e988418be637da82b2b726f418c166d46e
 - date: "DD/MM/YYYY" if stated, else null.
 - time: "HH:MM" strictly in 24-hour format. CRITICAL 12h→24h rule:
     * Marathi/Hindi evening markers: सायंकाळी, संध्याकाळी, सायं, रात्री near a digit
@@ -654,16 +647,9 @@ Rules:
   ["incident","transaction","communication","threat","promise","following",
    "blocking","harassment","contact_attempt","evidence_recovery","witness_observation",
    "complaint_filed","fir_registered","investigation_action","other"]
-<<<<<<< HEAD
-- actors: canonical English names of people directly involved in THIS event only.
-- witnesses: names of any persons who observed this specific event, if stated.
-- amount: numeric string (no currency symbol) if this event is a monetary
-  transaction, else null.
-=======
 - actors: use KNOWN CANONICAL ENTITIES spellings. Include only people directly
   and meaningfully involved in this event.
 - amount: numeric string without currency symbol, or null.
->>>>>>> a4bcb3e988418be637da82b2b726f418c166d46e
 - location: string or null.
 - description: one clear, factual sentence in English.
 - Return ONLY a valid JSON array (no markdown fences, no commentary).

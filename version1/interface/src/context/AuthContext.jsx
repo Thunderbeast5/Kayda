@@ -5,6 +5,8 @@ import {
 } from "../firebase";
 import { getPlayerProfile } from "../api/playerApi";
 import { listCases } from "../api/caseApi";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebase";
 
 const AuthContext = createContext(null);
 
@@ -13,11 +15,39 @@ export function AuthProvider({ children }) {
   const [userProfile, setUserProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const fetchProfile = useCallback(async (uid) => {
+  const fetchProfile = useCallback(async (uid, user = null) => {
     try {
-      const profile = await getPlayerProfile(uid);
+      let profile = await getPlayerProfile(uid);
+
+      // If no Firestore profile doc exists (e.g. old email account, or Google user
+      // who registered before the doc-creation logic was added), auto-create a minimal one
+      if (!profile && user && db) {
+        const nameParts = (user.displayName || "").split(" ");
+        await setDoc(doc(db, "users", uid), {
+          uid,
+          email: user.email || "",
+          firstName: nameParts[0] || "",
+          lastName: nameParts.slice(1).join(" ") || "",
+          displayName: user.displayName || user.email || "",
+          display_name: user.displayName || user.email || "",
+          photoURL: user.photoURL || null,
+          avatar: user.photoURL || null,
+          rating: 1200,
+          games_played: 0,
+          wins: 0,
+          losses: 0,
+          draws: 0,
+          preferred_role: "defense",
+          createdAt: serverTimestamp(),
+          provider: user.providerData?.[0]?.providerId || "unknown",
+        });
+        // Re-fetch after creation
+        profile = await getPlayerProfile(uid);
+      }
+
       setUserProfile(profile);
-    } catch {
+    } catch (err) {
+      console.error("[AuthContext] fetchProfile error:", err);
       setUserProfile(null);
     }
   }, []);
@@ -26,7 +56,7 @@ export function AuthProvider({ children }) {
     const unsubscribe = subscribeToAuth(async (user) => {
       setCurrentUser(user);
       if (user) {
-        await fetchProfile(user.uid);
+        await fetchProfile(user.uid, user);
         // Auto-seed/verify cases collection in Firestore
         listCases().catch((err) => console.error("Initial listCases check error:", err));
       } else {

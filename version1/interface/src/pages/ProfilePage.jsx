@@ -106,7 +106,7 @@ function StatCard({ icon, value, label, iconBg, iconColor, accentColor }) {
 export default function ProfilePage() {
   const navigate = useNavigate();
   const { userId } = useParams();
-  const { currentUser, userProfile, refreshProfile } = useAuth();
+  const { currentUser, userProfile, refreshProfile, loading: authLoading } = useAuth();
   const fileInputRef = useRef(null);
 
   // Determine if viewing own profile
@@ -172,7 +172,36 @@ export default function ProfilePage() {
     );
   }
 
-  if (isOwnProfile && (!currentUser || !userProfile)) return null;
+  // Show spinner while auth is still resolving
+  if (authLoading || (isOwnProfile && !currentUser)) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-[#FAF9F7] to-[#F5F0EB] font-body">
+        <StandardNavbar />
+        <div className="flex items-center justify-center pt-40">
+          <div className="w-12 h-12 border-[3px] border-[#D4AF37] border-t-[#2C1810] rounded-full animate-spin" />
+        </div>
+      </div>
+    );
+  }
+
+  // Auth resolved but still loading profile
+  if (isOwnProfile && currentUser && !userProfile) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-[#FAF9F7] to-[#F5F0EB] font-body">
+        <StandardNavbar />
+        <div className="flex flex-col items-center justify-center pt-40 gap-6">
+          <div className="w-12 h-12 border-[3px] border-[#D4AF37] border-t-[#2C1810] rounded-full animate-spin" />
+          <p className="text-sm text-[#8C5A3C] font-body">Loading your profile...</p>
+          <button
+            onClick={() => refreshProfile()}
+            className="text-xs text-[#8C5A3C] underline cursor-pointer font-body hover:text-[#2C1810]"
+          >
+            Taking too long? Click to retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const profile = isOwnProfile ? userProfile : otherProfile;
   const memberSince = profile.createdAt?.toDate
