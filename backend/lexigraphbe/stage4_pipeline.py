@@ -7,6 +7,7 @@ Caps retries at 1 max for genuine judgment failures, falling back to manual_revi
 from typing import Any, Dict, Optional, Union
 from .statutory_verification_agent import StatutoryVerificationAgent
 from .statutory_verifier_agent import StatutoryVerificationAuditor
+from .statute_repository import StatuteRepository
 from .schemas import ChapterIdentificationObject, LegalQueryObject, StatutoryVerificationObject, StatutoryVerificationResult
 
 
@@ -67,6 +68,10 @@ class Stage4Pipeline:
 
             if verification_result.status == "VERIFIED":
                 verification_result.verified_statutory_object = last_statutory_obj
+                
+                # Dynamic KB Learning: Promote verified sections to KB for future queries
+                self._learn_from_verification(legal_query, last_statutory_obj)
+                
                 return verification_result
 
             # Step 3: Prepare feedback for single reflection retry
@@ -97,3 +102,80 @@ class Stage4Pipeline:
             feedback="Pipeline execution completed without verification (Flagged for human review).",
             verified_statutory_object=last_statutory_obj,
         )
+    
+    def _learn_from_verification(
+        self,
+        legal_query: Union[LegalQueryObject, Dict[str, Any], str],
+        statutory_obj: StatutoryVerificationObject,
+    ) -> None:
+        """
+        Learns from verified sections by promoting them to Dynamic KB.
+        Each verified section becomes a KB rule with concept → section mapping.
+        
+        Args:
+            legal_query: The original legal query with concepts
+            statutory_obj: Verified statutory object with matched sections
+        """
+        try:
+            from .classifier_prefilter import promote_from_llm_result
+            
+            # Extract query object
+            if isinstance(legal_query, LegalQueryObject):
+                query_obj = legal_query
+            elif isinstance(legal_query, dict):
+                query_obj = LegalQueryObject.model_validate(legal_query)
+            else:
+                return  # Can't learn without proper query object
+            
+            # Build concept → section mapping
+            concept_map = {}
+            for concept_item in query_obj.legal_concepts:
+                concept_map[concept_item.concept.lower()] = concept_item
+            
+            # For each verified offence, promote to Dynamic KB using its authoritative ipc.json definition
+            statute_db = StatuteRepository.get_instance().get_statute_db()
+            for offence in statutory_obj.verified_offences:
+                section_num = offence.section_number
+                statute = offence.statute or "IPC"
+
+                # Fetch authoritative metadata from ipc.json
+                rec = statute_db.get(f"IPC_{section_num}") or {}
+                # section_title is the section's own heading — always correct and authoritative.
+                # We do NOT use chapter_title or sub_heading: ipc.json chapter nesting is structurally
+                # incorrect for many sections (e.g. 378-382 Theft sections are nested under
+                # the Kidnapping sub_heading in the JSON tree).
+                title = rec.get("section_title") or offence.title or f"{statute} Section {section_num}"
+                chapter = rec.get("chapter_title") or "General Offences"
+                
+                # Canonical concept = section's own heading (e.g. "Theft in dwelling house, etc.")
+                # This is always derived from ipc.json data, never from a hardcoded mapping.
+                matched_concept = title
+
+                # If the query has a concept whose text appears in the section title, prefer that wording
+                title_lower = title.lower()
+                for concept_text, concept_item in concept_map.items():
+                    if concept_text in title_lower or title_lower in concept_text:
+                        matched_concept = concept_item.concept
+                        break
+
+                ingredients = offence.ingredient_evaluation or []
+
+                if section_num and matched_concept:
+                    promote_from_llm_result(
+                        section_number=section_num,
+                        statute=statute,
+                        title=title,
+                        chapter=chapter,
+                        ingredients=[ing.ingredient for ing in ingredients],
+                        matched_concept=matched_concept,
+                        bns_equivalent=section_num,
+                        cognizable=True,
+                        bailable=False,
+                        punishment_maximum=rec.get("punishment"),
+                    )
+                    print(f"[Stage4 Learning] Promoted {statute} {section_num} '{title}' with concept '{matched_concept}'")
+
+        
+        except Exception as e:
+            # Don't fail the pipeline if learning fails
+            print(f"[Stage4 Learning] Warning: Could not promote to KB - {e}")

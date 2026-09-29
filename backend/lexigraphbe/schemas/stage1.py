@@ -41,6 +41,14 @@ class ImportantFacts(BaseModel):
     electronic_evidence: Optional[Union[str, List[str]]] = Field(default=None, description="Electronic evidence details if mentioned")
     documents: List[str] = Field(default_factory=list, description="Documents mentioned or available")
     witnesses: List[str] = Field(default_factory=list, description="Witnesses identified in factual narrative")
+    
+    @field_validator('documents', 'witnesses', mode='before')
+    @classmethod
+    def convert_none_to_list(cls, v):
+        """Convert None to empty list for list fields"""
+        if v is None:
+            return []
+        return v
 
 
 class LegalQueryObject(ManualReviewMixin):

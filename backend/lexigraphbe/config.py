@@ -24,18 +24,42 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / ".env")
 
 # ---------------------------------------------------------------------------
-# Per-Stage Model Constants (OpenAI GPT)
+# Per-Stage Model Constants
 # Override any of these via environment variables of the same name.
+# Defaults to Ollama models (local), falls back to Groq/OpenAI if not available
 # ---------------------------------------------------------------------------
-# Stages 0, 1, 2 – lightweight extraction & mapping
-MODEL_STAGE0 = os.getenv("MODEL_STAGE0", "gpt-4o-mini")   # Case Intake
-MODEL_STAGE1 = os.getenv("MODEL_STAGE1", "gpt-4o-mini")   # Legal Query
-MODEL_STAGE2 = os.getenv("MODEL_STAGE2", "gpt-4o-mini")   # Subquery Mapping
-# Stages 3, 4 – Deterministic; no LLM model constants needed
-# Stages 5, 6, 7 – deep legal reasoning
-MODEL_STAGE5 = os.getenv("MODEL_STAGE5", "gpt-5.4-mini")  # Bail Reasoning
-MODEL_STAGE6 = os.getenv("MODEL_STAGE6", "gpt-5.4-mini")  # Precedent Analysis
-MODEL_STAGE7 = os.getenv("MODEL_STAGE7", "gpt-5.4-mini")  # Arguments & Judgment
+# Determine provider
+_DEFAULT_PROVIDER = os.getenv("LLM_PROVIDER", "ollama").lower()
+_OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+_HAS_GROQ = bool(os.getenv("GROQ_API_KEY"))
+_HAS_OPENAI = bool(os.getenv("OPENAI_API_KEY"))
+
+# Use Ollama models by default (local, no API key needed)
+if _DEFAULT_PROVIDER == "ollama":
+    # Ollama - use local models (default to llama3.2:3b for all stages)
+    _OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
+    MODEL_STAGE0 = os.getenv("MODEL_STAGE0", _OLLAMA_MODEL)   # Case Intake
+    MODEL_STAGE1 = os.getenv("MODEL_STAGE1", _OLLAMA_MODEL)   # Legal Query
+    MODEL_STAGE2 = os.getenv("MODEL_STAGE2", _OLLAMA_MODEL)   # Subquery Mapping
+    MODEL_STAGE5 = os.getenv("MODEL_STAGE5", _OLLAMA_MODEL)   # Bail Reasoning
+    MODEL_STAGE6 = os.getenv("MODEL_STAGE6", _OLLAMA_MODEL)   # Precedent Analysis
+    MODEL_STAGE7 = os.getenv("MODEL_STAGE7", _OLLAMA_MODEL)   # Arguments & Judgment
+elif (_DEFAULT_PROVIDER == "groq" or _DEFAULT_PROVIDER == "") and _HAS_GROQ:
+    # Groq models
+    MODEL_STAGE0 = os.getenv("MODEL_STAGE0", "llama-3.1-8b-instant")   # Case Intake
+    MODEL_STAGE1 = os.getenv("MODEL_STAGE1", "llama-3.1-8b-instant")   # Legal Query
+    MODEL_STAGE2 = os.getenv("MODEL_STAGE2", "llama-3.1-8b-instant")   # Subquery Mapping
+    MODEL_STAGE5 = os.getenv("MODEL_STAGE5", "llama-3.3-70b-versatile")  # Bail Reasoning
+    MODEL_STAGE6 = os.getenv("MODEL_STAGE6", "llama-3.3-70b-versatile")  # Precedent Analysis
+    MODEL_STAGE7 = os.getenv("MODEL_STAGE7", "llama-3.3-70b-versatile")  # Arguments & Judgment
+else:
+    # OpenAI models (fallback)
+    MODEL_STAGE0 = os.getenv("MODEL_STAGE0", "gpt-4o-mini")   # Case Intake
+    MODEL_STAGE1 = os.getenv("MODEL_STAGE1", "gpt-4o-mini")   # Legal Query
+    MODEL_STAGE2 = os.getenv("MODEL_STAGE2", "gpt-4o-mini")   # Subquery Mapping
+    MODEL_STAGE5 = os.getenv("MODEL_STAGE5", "gpt-4o")  # Bail Reasoning
+    MODEL_STAGE6 = os.getenv("MODEL_STAGE6", "gpt-4o")  # Precedent Analysis
+    MODEL_STAGE7 = os.getenv("MODEL_STAGE7", "gpt-4o")  # Arguments & Judgment
 
 # ---------------------------------------------------------------------------
 # Legacy two-tier aliases (kept for backward compatibility)
@@ -74,15 +98,45 @@ GLOBAL_CALL_GUARDRAIL = CallBudgetGuardrail(max_calls=25)
 
 def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
     """
-    Get configured LLM client. Prioritizes OPENAI_API_KEY when LLM_PROVIDER is set to 'openai' or when only OPENAI_API_KEY is available.
+    Get configured LLM client. Uses Ollama by default, falls back to Groq, then OpenAI.
     Does not hardcode keys. Enforces process call ceiling check.
     """
     GLOBAL_CALL_GUARDRAIL.check_and_increment()
 
-    provider = os.getenv("LLM_PROVIDER", "").lower()
+    provider = os.getenv("LLM_PROVIDER", "ollama").lower()  # Default to Ollama
+    ollama_base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+    ollama_model = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
     openai_api_key = os.getenv("OPENAI_API_KEY")
     groq_api_key = os.getenv("GROQ_API_KEY")
 
+    # Try Ollama first (default, local, no API key needed)
+    if provider == "ollama":
+        try:
+            from langchain_ollama import ChatOllama
+            target_model = model_name or ollama_model
+            return ChatOllama(
+                model=target_model,
+                base_url=ollama_base_url,
+                temperature=temperature,
+            )
+        except Exception as e:
+            print(f"[LexiGraph Config] Warning loading ChatOllama: {e}")
+            print(f"[LexiGraph Config] Falling back to Groq/OpenAI...")
+
+    # Try Groq (fast, cloud)
+    if (provider == "groq" or provider == "") and groq_api_key:
+        try:
+            from langchain_groq import ChatGroq
+            target_model = model_name or os.getenv("STAGE0_MODEL", "llama-3.3-70b-versatile")
+            return ChatGroq(
+                model=target_model,
+                groq_api_key=groq_api_key,
+                temperature=temperature,
+            )
+        except Exception as e:
+            print(f"[LexiGraph Config] Warning loading ChatGroq: {e}")
+
+    # Fall back to OpenAI if explicitly requested or others unavailable
     if (provider == "openai" or not groq_api_key) and openai_api_key:
         try:
             from langchain_openai import ChatOpenAI
@@ -95,66 +149,42 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
         except Exception as e:
             print(f"[LexiGraph Config] Warning loading ChatOpenAI: {e}")
 
-    if groq_api_key:
-        try:
-            from langchain_groq import ChatGroq
-            target_model = model_name or os.getenv("STAGE0_MODEL", "llama-3.3-70b-versatile")
-            return ChatGroq(
-                model=target_model,
-                api_key=groq_api_key,
-                temperature=temperature,
-            )
-        except Exception as e:
-            print(f"[LexiGraph Config] Warning loading ChatGroq: {e}")
-
-    if openai_api_key:
-        try:
-            from langchain_openai import ChatOpenAI
-            target_model = model_name or os.getenv("STAGE0_MODEL", "gpt-4o")
-            return ChatOpenAI(
-                model=target_model,
-                api_key=openai_api_key,
-                temperature=temperature,
-            )
-        except Exception as e:
-            print(f"[LexiGraph Config] Warning loading ChatOpenAI: {e}")
-
-    # Fallback to error if no API key is set
+    # Fallback to error if no LLM available
     raise RuntimeError(
-        "No valid LLM API key found (OPENAI_API_KEY or GROQ_API_KEY). "
-        "Please provide an API key in backend/.env or pass a custom llm object."
+        "No valid LLM available. Options:\n"
+        "1. Ollama (local): Install Ollama and set OLLAMA_BASE_URL=http://localhost:11434\n"
+        "2. Groq (cloud): Set GROQ_API_KEY in .env\n"
+        "3. OpenAI (cloud): Set OPENAI_API_KEY in .env"
     )
 
 
 def get_llm_for_tier(tier: str = MODEL_TIER_CHEAP, temperature: float = 0.1, model_name: Optional[str] = None):
     """
     Get configured LLM client routed by task tier.
-    - 'cheap' tier: lightweight/cheap model for narrow structured extraction & shortlisting (gpt-4o-mini / llama-3.1-8b-instant).
-    - 'reasoning' tier: flagship model for deep legal decomposition & argument synthesis (gpt-4o / llama-3.3-70b-versatile).
+    - 'cheap' tier: lightweight model (llama-3.1-8b-instant for Groq, gpt-4o-mini for OpenAI).
+    - 'reasoning' tier: flagship model (llama-3.3-70b-versatile for Groq, gpt-4o for OpenAI).
+    Default provider: Groq
     """
     if model_name:
         return get_llm(temperature=temperature, model_name=model_name)
 
-    provider = os.getenv("LLM_PROVIDER", "").lower()
+    provider = os.getenv("LLM_PROVIDER", "groq").lower()  # Default to Groq
     openai_api_key = os.getenv("OPENAI_API_KEY")
     groq_api_key = os.getenv("GROQ_API_KEY")
 
-    # Map legacy tiers to per-stage pinned models
-    cheap_model = MODEL_STAGE0       # gpt-4o-mini
-    reasoning_model = MODEL_STAGE5   # gpt-4.1-mini
-    target_model = cheap_model if tier == MODEL_TIER_CHEAP else reasoning_model
-
-    if (provider == "openai" or not groq_api_key) and openai_api_key:
-        return get_llm(temperature=temperature, model_name=target_model)
-
-    if groq_api_key:
-        # Groq does not serve GPT models; fall back to Groq equivalents
+    # Groq models (default)
+    if (provider == "groq" or provider == "") and groq_api_key:
         groq_cheap = os.getenv("MODEL_CHEAP", "llama-3.1-8b-instant")
         groq_reasoning = os.getenv("MODEL_REASONING", "llama-3.3-70b-versatile")
         groq_target = groq_cheap if tier == MODEL_TIER_CHEAP else groq_reasoning
         return get_llm(temperature=temperature, model_name=groq_target)
 
-    if openai_api_key:
+    # OpenAI models (fallback)
+    if (provider == "openai" or not groq_api_key) and openai_api_key:
+        # Map legacy tiers to per-stage pinned models
+        cheap_model = MODEL_STAGE0       # gpt-4o-mini
+        reasoning_model = MODEL_STAGE5   # gpt-4.1-mini
+        target_model = cheap_model if tier == MODEL_TIER_CHEAP else reasoning_model
         return get_llm(temperature=temperature, model_name=target_model)
 
     return get_llm(temperature=temperature, model_name=model_name)
@@ -178,41 +208,137 @@ def extract_json_from_text(text: str) -> Dict[str, Any]:
     """
     Extracts and parses JSON from raw LLM output text.
     Handles codeblocks ```json ... ``` and attempts repair using json_repair if available.
+    Enhanced with better error recovery for malformed JSON.
     """
     if not text or not isinstance(text, str):
         raise ValueError("Input text is empty or not a string.")
 
     cleaned = text.strip()
 
-    # Match ```json ... ``` or ``` ... ```
-    match = re.search(r"```(?:json)?\s*({[\s\S]*?})\s*```", cleaned, re.IGNORECASE)
+    # Match ```json ... ``` or ``` ... ```  (object OR array)
+    match = re.search(r"```(?:json)?\s*([{|\[][\s\S]*?[}\]])\s*```", cleaned, re.IGNORECASE)
     if match:
         cleaned = match.group(1).strip()
     else:
-        # Fallback to finding first '{' and last '}'
-        start = cleaned.find("{")
-        end = cleaned.rfind("}")
-        if start != -1 and end != -1 and end > start:
-            cleaned = cleaned[start : end + 1]
+        # Find the first opening delimiter ('{' or '[') and walk to its matching closer.
+        # Using rfind('}') is wrong when the LLM returns two objects back-to-back
+        # ("Extra data" error) — it would span both.
+        open_chars  = {"{": "}", "[": "]"}
+        close_chars = {"}", "]"}
+        first_brace = cleaned.find("{")
+        first_bracket = cleaned.find("[")
+
+        # Pick whichever delimiter comes first
+        if first_brace == -1:
+            start = first_bracket
+        elif first_bracket == -1:
+            start = first_brace
+        else:
+            start = min(first_brace, first_bracket)
+
+        if start != -1:
+            open_char  = cleaned[start]
+            close_char = open_chars[open_char]
+            depth = 0
+            in_string = False
+            escape_next = False
+            end = -1
+            for i, ch in enumerate(cleaned[start:], start):
+                if escape_next:
+                    escape_next = False
+                    continue
+                if ch == "\\" and in_string:
+                    escape_next = True
+                    continue
+                if ch == '"':
+                    in_string = not in_string
+                    continue
+                if in_string:
+                    continue
+                if ch == open_char:
+                    depth += 1
+                elif ch == close_char:
+                    depth -= 1
+                    if depth == 0:
+                        end = i
+                        break
+            if end != -1:
+                cleaned = cleaned[start : end + 1]
 
     # Attempt 1: Standard json.loads
     try:
         return json.loads(cleaned)
-    except json.JSONDecodeError:
-        pass
+    except json.JSONDecodeError as e:
+        print(f"[JSON Parse] Initial parse failed at position {e.pos}: {e.msg}")
 
     # Attempt 2: json_repair package if available
     try:
         import json_repair
+        print("[JSON Parse] Attempting json_repair...")
         repaired = json_repair.repair_json(cleaned, return_objects=True)
         if isinstance(repaired, dict):
+            # Fix Ollama issue: missing_information should be List[str], not List[dict]
+            if "missing_information" in repaired:
+                missing = repaired["missing_information"]
+                if isinstance(missing, list) and missing and any(isinstance(item, dict) for item in missing):
+                    # Convert dicts to strings
+                    repaired["missing_information"] = [
+                        (item.get("document_type") or item.get("message") or str(item))
+                        if isinstance(item, dict) else str(item)
+                        for item in missing
+                    ]
+                    print(f"[JSON Parse] Fixed missing_information from dicts to strings")
+            print("[JSON Parse] ✓ Successfully repaired with json_repair")
             return repaired
     except ImportError:
-        pass
+        print("[JSON Parse] json_repair not available, trying manual fixes...")
+    except Exception as repair_err:
+        print(f"[JSON Parse] json_repair failed: {repair_err}")
 
-    # Attempt 3: Evaluated JSON clean
-    cleaned_escaped = cleaned.replace("\n", " ").replace("\r", "")
+    # Attempt 3: Manual fixes for common LLM JSON errors
     try:
-        return json.loads(cleaned_escaped)
-    except Exception as err:
-        raise ValueError(f"Failed to parse JSON from response. Response snippet: {cleaned[:200]}... Error: {err}")
+        # Fix common issues
+        fixed = cleaned
+        
+        # Fix trailing commas before closing braces/brackets
+        fixed = re.sub(r',\s*}', '}', fixed)
+        fixed = re.sub(r',\s*]', ']', fixed)
+        
+        # Fix missing commas between array elements (heuristic)
+        fixed = re.sub(r'"\s*\n\s*"', '",\n"', fixed)
+        
+        # Fix unescaped quotes in strings (basic attempt)
+        # This is risky, so we do it conservatively
+        
+        # Remove newlines and excessive whitespace
+        fixed = re.sub(r'\s+', ' ', fixed)
+        
+        print("[JSON Parse] Attempting with manual fixes...")
+        return json.loads(fixed)
+    except json.JSONDecodeError as e2:
+        print(f"[JSON Parse] Manual fixes failed at position {e2.pos}: {e2.msg}")
+
+    # Attempt 4: Try to salvage partial JSON
+    try:
+        print("[JSON Parse] Attempting to salvage partial JSON...")
+        # Find the last valid closing brace before the error
+        test_positions = [len(cleaned) - i for i in range(1, min(200, len(cleaned)))]
+        for end_pos in test_positions:
+            if cleaned[end_pos-1] == '}':
+                try:
+                    partial = cleaned[:end_pos]
+                    result = json.loads(partial)
+                    print(f"[JSON Parse] ✓ Salvaged partial JSON (truncated at position {end_pos})")
+                    return result
+                except:
+                    continue
+    except Exception as salvage_err:
+        print(f"[JSON Parse] Salvage attempt failed: {salvage_err}")
+
+    # Final fallback: Return error-safe minimal structure
+    print("[JSON Parse] All parse attempts failed, returning minimal safe structure")
+    raise ValueError(
+        f"Failed to parse JSON from response after all recovery attempts.\n"
+        f"Response snippet: {cleaned[:500]}...\n"
+        f"Consider reducing prompt complexity or response size requirements."
+    )
