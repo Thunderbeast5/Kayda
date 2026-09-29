@@ -37,7 +37,7 @@ class VerifiedOffenceItem(BaseModel):
     chapter_number: str = Field(default="XXA", description="Statutory chapter number")
     chapter_title: str = Field(default="Of Cruelty by Husband or Relatives of Husband", description="Statutory chapter name")
     punishment: PunishmentSpec = Field(default_factory=PunishmentSpec, description="Verified punishment specifications")
-    classification: str = Field(default="PRIMARY", description="Candidate tier preserved from Stage 2: 'PRIMARY' or 'SECONDARY'")
+    classification: str = Field(default="PRIMARY", description="Candidate tier preserved from Stage 2: 'PRIMARY', 'SECONDARY', or 'CONDITIONAL'")
     cognizable: bool = Field(default=True, description="Whether offence is cognizable")
     bailable: bool = Field(default=False, description="Whether offence is bailable")
     verification_status: str = Field(default="VERIFIED", description="Verification status e.g. 'VERIFIED' or 'FLAGGED'")
@@ -66,6 +66,10 @@ class ChapterIdentificationObject(ManualReviewMixin):
     verification_status: str = Field(
         default="VERIFIED",
         description="Verification status: PENDING, VERIFIED, or RETRY"
+    )
+    pipeline_transition: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description="Stage-to-stage transition audit: lists sections received from Stage 2, accepted, rejected (with reasons), and passing to Stage 4."
     )
 
     def model_post_init(self, __context: Any) -> None:

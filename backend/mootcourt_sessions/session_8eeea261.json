@@ -1,0 +1,247 @@
+{
+  "session_id": "8eeea261",
+  "case_id": "20260824090816",
+  "case_text": "The applicant seeks anticipatory bail after an FIR alleges that he forged ownership documents of agricultural land, executed a fraudulent sale deed, and dishonestly transferred the property to a third party; the applicant claims the documents are genuine, asserts that the dispute concerns title over immovable property, and has cooperated with the investigating agency.",
+  "student_role": "defense",
+  "prosecutor_output": {
+    "schema_version": "1.0",
+    "case_summary": "",
+    "victim": [],
+    "accused": [],
+    "relationship": "",
+    "legal_concepts": [],
+    "sub_queries": [],
+    "bail_rejection_summary": "",
+    "hallucination_flags": [],
+    "verification_status": "VERIFIED"
+  },
+  "section_usage_plan": {
+    "sections": []
+  },
+  "retrieved_sections": {
+    "465": {
+      "section_number": "465",
+      "statute": "IPC",
+      "title": "Forgery",
+      "classification": "PRIMARY",
+      "overall_status": "Not Attracted",
+      "overall_prima_facie_strength": "Weak",
+      "punishment_text": "2 Years",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Forged Document",
+          "matched_fact": "The applicant is alleged to have forged ownership documents of agricultural land.",
+          "status": "Satisfied",
+          "reason": "The allegation directly states that the applicant forged documents.",
+          "confidence": 0.95
+        },
+        {
+          "ingredient": "Intent to Cause Damage or Fraud",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "No explicit fact indicates the intent to cause damage or commit fraud.",
+          "confidence": 0.85
+        }
+      ],
+      "legal_reasoning": "The allegation of forgery is supported by the claim of forged documents. However, the intent to cause damage or commit fraud is not established in the facts provided, leading to a weak prima facie case.",
+      "missing_supporting_facts": [
+        "Evidence of intent to defraud",
+        "Witness statements regarding the transaction"
+      ],
+      "investigation_requirements": [
+        "Collect evidence of ownership documents",
+        "Interview witnesses involved in the transaction",
+        "Obtain any electronic communications related to the deed"
+      ],
+      "retrieved_at_turn": 0
+    },
+    "467": {
+      "section_number": "467",
+      "statute": "IPC",
+      "title": "Forgery of Valuable Security / Will",
+      "classification": "PRIMARY",
+      "overall_status": "Not Attracted",
+      "overall_prima_facie_strength": "Not Attracted",
+      "punishment_text": "Life Imprisonment",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Forged Valuable Security",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "No facts indicate that the forged document is a valuable security or will.",
+          "confidence": 0.0
+        }
+      ],
+      "legal_reasoning": "There are no facts supporting the allegation of forgery of a valuable security or will, thus the offence is not prima facie attracted.",
+      "missing_supporting_facts": [],
+      "investigation_requirements": [],
+      "retrieved_at_turn": 0
+    },
+    "468": {
+      "section_number": "468",
+      "statute": "IPC",
+      "title": "Forgery for Purpose of Cheating",
+      "classification": "PRIMARY",
+      "overall_status": "Not Attracted",
+      "overall_prima_facie_strength": "Weak",
+      "punishment_text": "7 Years",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Forged Document",
+          "matched_fact": "The applicant is alleged to have forged ownership documents of agricultural land.",
+          "status": "Satisfied",
+          "reason": "The allegation directly states that the applicant forged documents.",
+          "confidence": 0.95
+        },
+        {
+          "ingredient": "Intent to Cheat",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "No explicit fact indicates the intent to cheat or defraud.",
+          "confidence": 0.85
+        }
+      ],
+      "legal_reasoning": "The allegation of forgery is supported by the claim of forged documents. However, the intent to cheat is not established in the facts provided, leading to a weak prima facie case.",
+      "missing_supporting_facts": [
+        "Evidence of intent to cheat",
+        "Witness statements regarding the transaction"
+      ],
+      "investigation_requirements": [
+        "Collect evidence of ownership documents",
+        "Interview witnesses involved in the transaction",
+        "Obtain any electronic communications related to the deed"
+      ],
+      "retrieved_at_turn": 0
+    },
+    "471": {
+      "section_number": "471",
+      "statute": "IPC",
+      "title": "Using as Genuine a Forged Document",
+      "classification": "PRIMARY",
+      "overall_status": "Not Attracted",
+      "overall_prima_facie_strength": "Not Attracted",
+      "punishment_text": "Life Imprisonment",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Use of Forged Document",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "No facts indicate that the applicant used the forged document as genuine.",
+          "confidence": 0.0
+        }
+      ],
+      "legal_reasoning": "There are no facts supporting the allegation of using a forged document as genuine, thus the offence is not prima facie attracted.",
+      "missing_supporting_facts": [],
+      "investigation_requirements": [],
+      "retrieved_at_turn": 0
+    },
+    "420": {
+      "section_number": "420",
+      "statute": "IPC",
+      "title": "Cheating and Dishonestly Inducing Delivery of Property",
+      "classification": "PRIMARY",
+      "overall_status": "Not Attracted",
+      "overall_prima_facie_strength": "Not Attracted",
+      "punishment_text": "7 Years",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Deception",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "No facts indicate that the applicant deceived anyone.",
+          "confidence": 0.0
+        },
+        {
+          "ingredient": "Inducing Delivery of Property",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "No facts indicate that property was delivered based on deception.",
+          "confidence": 0.0
+        }
+      ],
+      "legal_reasoning": "There are no facts supporting the allegations of cheating or inducing delivery of property, thus the offence is not prima facie attracted.",
+      "missing_supporting_facts": [],
+      "investigation_requirements": [],
+      "retrieved_at_turn": 0
+    },
+    "318": {
+      "section_number": "318",
+      "statute": "IPC",
+      "title": "Cheating and Dishonestly Inducing Delivery of Property",
+      "classification": "PRIMARY",
+      "overall_status": "Not Attracted",
+      "overall_prima_facie_strength": "Not Attracted",
+      "punishment_text": "7 Years",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Deception",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "No facts indicate that the applicant deceived anyone.",
+          "confidence": 0.0
+        },
+        {
+          "ingredient": "Inducing Delivery of Property",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "No facts indicate that property was delivered based on deception.",
+          "confidence": 0.0
+        }
+      ],
+      "legal_reasoning": "There are no facts supporting the allegations of cheating or inducing delivery of property, thus the offence is not prima facie attracted.",
+      "missing_supporting_facts": [],
+      "investigation_requirements": [],
+      "retrieved_at_turn": 0
+    }
+  },
+  "argued_concepts": [],
+  "prosecutor_positions": [
+    "The allegations do not meet the threshold for anticipatory bail.",
+    "There is a significant risk of flight and witness tampering."
+  ],
+  "defense_positions": [],
+  "pillars_argued": [
+    "P1:Gravity",
+    "P2:PrimaFacie",
+    "P3:CustodialInterrogation",
+    "P4:FlightRisk"
+  ],
+  "sections_cited_so_far": [
+    "465 IPC",
+    "468 IPC"
+  ],
+  "turns": [
+    {
+      "turn_number": 1,
+      "speaker": "prosecutor",
+      "full_argument": "Your Honor, I stand before you to argue against the grant of anticipatory bail in this matter. Firstly, regarding the gravity of the offences, while the allegations involve forgery under Section 465 IPC and forgery for the purpose of cheating under Section 468 IPC, it is crucial to note that the prima facie strength of these allegations is weak. The prosecution has not established the requisite intent to cause damage or commit fraud, which is essential for a strong case under these sections. Therefore, the gravity of the offences does not warrant anticipatory bail. \n\nSecondly, the prima facie case against the accused is not sufficiently robust. Under Section 465 IPC, the allegations of forgery are not substantiated by clear evidence of intent, and similarly, under Section 468 IPC, the intent to cheat is not established. This leads to a conclusion that the case lacks the necessary strength to justify anticipatory bail. \n\nFurthermore, custodial interrogation is essential in this case. The investigation requires a thorough examination of the circumstances surrounding the alleged forgery, and the accused's presence in custody would facilitate this process. The nature of the allegations necessitates a deeper inquiry into the facts, which cannot be adequately conducted without the accused being present for questioning. \n\nLastly, there is a significant flight risk associated with granting anticipatory bail. Given the nature of the allegations, there is a possibility that the accused may attempt to evade the legal process or tamper with potential witnesses. The risk of witness tampering is particularly concerning, as it could severely compromise the integrity of the investigation. \n\nIn conclusion, Your Honor, the combination of the weak prima facie case, the necessity for custodial interrogation, and the potential flight risk strongly argue against the grant of anticipatory bail. I respectfully request that the court reject the application for anticipatory bail.",
+      "summary_bullets": [
+        "The gravity of the offences does not warrant anticipatory bail.",
+        "The prima facie case is weak, lacking established intent.",
+        "Custodial interrogation is essential for a thorough investigation."
+      ],
+      "concepts_used": [
+        "P1:Gravity",
+        "P2:PrimaFacie",
+        "P3:CustodialInterrogation",
+        "P4:FlightRisk"
+      ],
+      "positions_asserted": [
+        "The allegations do not meet the threshold for anticipatory bail.",
+        "There is a significant risk of flight and witness tampering."
+      ],
+      "pillars_covered": [
+        "P1:Gravity",
+        "P2:PrimaFacie",
+        "P3:CustodialInterrogation",
+        "P4:FlightRisk"
+      ],
+      "sections_cited": [
+        "465 IPC",
+        "468 IPC"
+      ]
+    }
+  ],
+  "current_turn": 1,
+  "status": "active"
+}

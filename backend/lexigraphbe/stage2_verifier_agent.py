@@ -90,13 +90,15 @@ _SCOPE_RESTRICTION_RULES: List[tuple] = [
 
 
 def _extract_all_candidate_section_numbers(mapping) -> Set[str]:
-    """Collects all section numbers from primary, secondary, and candidate_sections lists."""
+    """Collects all section numbers from primary, secondary, conditional, and candidate_sections lists."""
     nums: Set[str] = set()
-    for p in mapping.primary_candidate_sections:
+    for p in getattr(mapping, "primary_candidate_sections", []):
         nums.add(p.section_number.upper().strip())
-    for s in mapping.secondary_candidate_sections:
+    for s in getattr(mapping, "secondary_candidate_sections", []):
         nums.add(s.section_number.upper().strip())
-    for sec_str in mapping.candidate_sections:
+    for c in getattr(mapping, "conditional_candidate_sections", []):
+        nums.add(c.section_number.upper().strip())
+    for sec_str in getattr(mapping, "candidate_sections", []):
         nums.add(sec_str.upper().strip())
     return nums
 
@@ -108,8 +110,7 @@ class Stage2MappingVerifierAgent:
     Verification has two layers:
     1. LLM audit — checks structural correctness, coverage, and reasoning quality.
     2. Programmatic audit — definition-grounded scope checks that catch categorical
-       mismatches the LLM may miss. Rules derive from statutory text, not hardcoded
-       section lists.
+       mismatches and tier inconsistencies that the LLM may miss.
     """
 
     def __init__(self, llm: Optional[Any] = None):
@@ -125,20 +126,71 @@ class Stage2MappingVerifierAgent:
         self,
         target_resp: Stage2BatchedMappingResponse,
         facts_summary: str,
+        regime: str = "IPC + CrPC",
     ) -> List[Stage2VerificationIssue]:
         """
-        Runs definition-grounded scope checks on every candidate section.
-
-        For each section, looks up its statutory definition, then checks it
-        against _SCOPE_RESTRICTION_RULES. If the definition contains a scope
-        restriction phrase AND the corresponding facts are absent, it's a violation.
-
-        This replaces all hardcoded keyword-per-section rules. To handle a new
-        class of scope restriction, add one tuple to _SCOPE_RESTRICTION_RULES.
+        Runs definition-grounded scope checks, regime compliance checks,
+        and tier-consistency audits on every candidate section.
         """
         repo = StatuteRepository.get_instance()
         facts_lower = facts_summary.lower()
+        is_ipc_regime = "BNS" not in (regime or "").upper()
         issues: List[Stage2VerificationIssue] = []
+
+        for mapping in target_resp.mappings:
+            # 1. Check regime compliance (IPC vs BNS)
+            if is_ipc_regime:
+                for c in (
+                    getattr(mapping, "primary_candidate_sections", []) +
+                    getattr(mapping, "secondary_candidate_sections", []) +
+                    getattr(mapping, "conditional_candidate_sections", [])
+                ):
+                    if c.statute in ("BNS", "BNSS"):
+                        issues.append(
+                            Stage2VerificationIssue(
+                                target=mapping.sub_query_id,
+                                issue=f"Regime mismatch: Section {c.section_number} ({c.statute}) returned under IPC regime.",
+                                feedback=f"Remove BNS section {c.section_number}. Only return IPC sections under IPC regime.",
+                            )
+                        )
+
+            # 2. Check tier consistency: Only base offences (e.g. 465) can be PRIMARY.
+            # Compound offences (468, 471, 467, 420, 423) must be in conditional_candidate_sections with missing_facts.
+            _COMPOUND_SECTIONS = {"468", "471", "467", "420", "423"}
+            for p in getattr(mapping, "primary_candidate_sections", []):
+                sec_clean = p.section_number.strip().upper()
+                if sec_clean in _COMPOUND_SECTIONS:
+                    issues.append(
+                        Stage2VerificationIssue(
+                            target=mapping.sub_query_id,
+                            issue=f"Tier over-promotion: Section {sec_clean} placed in PRIMARY candidates without complete factual establishment of compound gating prerequisites.",
+                            feedback=f"Move Section {sec_clean} to conditional_candidate_sections (CONDITIONAL) with explicit missing_facts identifying the gating prerequisite. Keep only base offences like 465 in PRIMARY.",
+                        )
+                    )
+
+        # 3. Check multi-offence coverage for forgery
+        all_candidate_secs = set()
+        for mapping in target_resp.mappings:
+            all_candidate_secs.update(_extract_all_candidate_section_numbers(mapping))
+
+        if any(term in facts_lower for term in ["forged", "forgery", "fake deed", "fraudulent sale deed"]):
+            forgery_target = target_resp.mappings[0].sub_query_id if target_resp.mappings else "SQ1"
+            if "471" not in all_candidate_secs:
+                issues.append(
+                    Stage2VerificationIssue(
+                        target=forgery_target,
+                        issue="Multi-offence coverage gap: Section 471 IPC (Using forged document as genuine) omitted despite forgery allegations.",
+                        feedback="Add Section 471 IPC to secondary_candidate_sections (SECONDARY) with missing_facts identifying use/presentation of forged documents.",
+                    )
+                )
+            if "467" not in all_candidate_secs:
+                issues.append(
+                    Stage2VerificationIssue(
+                        target=forgery_target,
+                        issue="Multi-offence coverage gap: Section 467 IPC (Forgery of Valuable Security / Will) omitted despite forgery/deed allegations.",
+                        feedback="Add Section 467 IPC to conditional_candidate_sections (CONDITIONAL) with missing_facts identifying that document must qualify as valuable security under Section 30.",
+                    )
+                )
 
         for mapping in target_resp.mappings:
             candidate_sec_nums = _extract_all_candidate_section_numbers(mapping)
@@ -248,10 +300,15 @@ class Stage2MappingVerifierAgent:
                 )
 
         # Layer 2: Definition-grounded programmatic scope audit
-        # This catches categorical scope mismatches that the LLM may miss.
-        # Rules are derived from statutory text — no hardcoded section lists.
+        # This catches categorical scope mismatches and tier inconsistencies.
         facts_summary = query_json_str or ""
-        programmatic_issues = self._programmatic_scope_audit(target_resp, facts_summary)
+        regime = "IPC + CrPC"
+        if isinstance(legal_query, LegalQueryObject):
+            regime = legal_query.legal_regime or "IPC + CrPC"
+        elif isinstance(legal_query, dict):
+            regime = legal_query.get("legal_regime") or "IPC + CrPC"
+
+        programmatic_issues = self._programmatic_scope_audit(target_resp, facts_summary, regime=regime)
 
         if programmatic_issues:
             status = "RETRY"

@@ -17,7 +17,7 @@ class SectionMappingCandidate(BaseModel):
     section_number: str = Field(description="Section number string e.g. '498A', '85', 'Section 4'")
     section_title: str = Field(description="Section title or offence description")
     statute: str = Field(default="IPC", description="Statute name e.g. 'IPC', 'BNS', 'Dowry Prohibition Act'")
-    candidate_type: str = Field(default="PRIMARY", description="Candidate tier: 'PRIMARY' or 'SECONDARY'")
+    candidate_type: str = Field(default="PRIMARY", description="Candidate tier: 'PRIMARY', 'SECONDARY', or 'CONDITIONAL'")
     score: float = Field(default=0.90, description="Confidence score (0.0 to 1.0)")
     score_breakdown: Dict[str, float] = Field(
         default_factory=dict,
@@ -57,6 +57,7 @@ class SubQueryChapterMapping(BaseModel):
     candidate_chapters: List[str] = Field(default_factory=list, description="List of matched chapter names/numbers")
     primary_candidate_sections: List[SectionMappingCandidate] = Field(default_factory=list, description="Primary high-confidence candidate offences (direct legal nexus)")
     secondary_candidate_sections: List[SectionMappingCandidate] = Field(default_factory=list, description="Secondary/associated candidate offences (ancillary legal nexus)")
+    conditional_candidate_sections: List[SectionMappingCandidate] = Field(default_factory=list, description="Conditional candidate offences where applicability depends on unresolved definitional prerequisites")
     not_triggered_sections: List[NotTriggeredSectionItem] = Field(default_factory=list, description="Explicitly screened out sections with non-trigger reasons")
     candidate_sections: List[str] = Field(default_factory=list, description="List of matched section numbers or titles")
     relevance_reasoning: str = Field(default="", description="Brief explanation of legal relevance")
@@ -67,13 +68,16 @@ class SubQueryChapterMapping(BaseModel):
         return self.not_triggered_sections
 
     def model_post_init(self, __context: Any) -> None:
-        """Populates candidate_sections list from primary + secondary candidates if empty for backwards compatibility."""
+        """Populates candidate_sections list from primary + secondary + conditional candidates if empty for backwards compatibility."""
         if not self.candidate_sections:
             combined = []
             for c in self.primary_candidate_sections:
                 if c.section_number not in combined:
                     combined.append(c.section_number)
             for c in self.secondary_candidate_sections:
+                if c.section_number not in combined:
+                    combined.append(c.section_number)
+            for c in self.conditional_candidate_sections:
                 if c.section_number not in combined:
                     combined.append(c.section_number)
             self.candidate_sections = combined

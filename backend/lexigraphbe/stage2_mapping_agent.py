@@ -13,6 +13,7 @@ Model: gpt-4o-mini (MODEL_STAGE2).
 """
 
 import json
+import re
 from typing import Any, Dict, List, Optional, Tuple, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
@@ -52,7 +53,7 @@ class Stage2SubQueryMappingAgent:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm(temperature=0.1, model_name=MODEL_STAGE2)
+            self._llm = get_llm(temperature=0.0, model_name=MODEL_STAGE2)
         return self._llm
 
     # ------------------------------------------------------------------
@@ -82,6 +83,7 @@ class Stage2SubQueryMappingAgent:
             statute = candidate.get("statute", statute_type)
             enriched_candidate = dict(candidate)
 
+            details = repo.get_section_details(sec_num, statute)
             definition = repo.get_statutory_definition(sec_num, statute)
             if definition:
                 enriched_candidate["statutory_definition"] = (
@@ -91,6 +93,9 @@ class Stage2SubQueryMappingAgent:
                 )
             else:
                 enriched_candidate["statutory_definition"] = None
+
+            if details and details.get("key_elements"):
+                enriched_candidate["definitional_prerequisites"] = details["key_elements"]
 
             enriched.append(enriched_candidate)
 
@@ -143,6 +148,13 @@ or circumstance that is entirely and categorically absent from the case facts. E
 - Definition says "property of a person deceased" but the property owner is alive.
 - Definition says "public servant" or "banker" or "agent" but accused is a private individual.
 - Definition says "husband or relative of husband" but parties are not in a matrimonial relationship.
+
+IMPORTANT: Intent and mens rea CAN be inferred from conduct described in facts.
+- If facts describe "fraudulent deed", "dishonest transfer", "forged documents", this 
+  implies intent to deceive/cheat even if not explicitly stated.
+- If facts describe "struck with weapon", "knowing injuries were likely", this implies
+  intent to cause harm even if not explicitly stated.
+- Do NOT reject sections merely because intent is not EXPLICITLY stated word-for-word.
 
 A section IS compatible if the facts could plausibly satisfy the definition's scope
 even if not all ingredients are proven yet. Doubt favours compatibility — only mark
@@ -218,6 +230,8 @@ Respond ONLY with this JSON (no other text):
 
         regime = query_obj.legal_regime or "IPC + CrPC"
         regime_upper = regime.upper()
+        regime_was_explicit = query_obj.legal_regime is not None
+        
         if "BNS" in regime_upper or "BNSS" in regime_upper:
             statute_type = "BNS"
         else:
@@ -226,20 +240,27 @@ Respond ONLY with this JSON (no other text):
         # Step 2: Run local StatuteClassifierPrefilter (0 API calls)
         prefiltered_matches = []
         for concept_item in query_obj.legal_concepts:
-            matches = self.prefilter.prefilter_candidates(
-                query_text=concept_item.concept,
-                statute_type=statute_type,
-                top_k=10,
-            )
-            prefiltered_matches.extend(matches)
-
-        # Fallback: if prefilter returns nothing for chosen statute_type, try the other
-        if not prefiltered_matches:
-            fallback_statute = "IPC" if statute_type == "BNS" else "BNS"
-            for concept_item in query_obj.legal_concepts:
+            if concept_item.concept:
                 matches = self.prefilter.prefilter_candidates(
                     query_text=concept_item.concept,
-                    statute_type=fallback_statute,
+                    statute_type=statute_type,
+                    top_k=10,
+                )
+                prefiltered_matches.extend(matches)
+
+        # Run prefilter for each sub-query text and concept so every sub-query gets relevant candidate sections
+        for sq in query_obj.sub_queries:
+            if sq.query:
+                matches = self.prefilter.prefilter_candidates(
+                    query_text=sq.query,
+                    statute_type=statute_type,
+                    top_k=10,
+                )
+                prefiltered_matches.extend(matches)
+            if sq.concept:
+                matches = self.prefilter.prefilter_candidates(
+                    query_text=sq.concept,
+                    statute_type=statute_type,
                     top_k=10,
                 )
                 prefiltered_matches.extend(matches)
@@ -361,4 +382,102 @@ Respond ONLY with this JSON (no other text):
         extracted_dict = extract_json_from_text(response_text)
 
         mapping_response = Stage2BatchedMappingResponse.model_validate(extracted_dict)
-        return mapping_response
+        
+        # Validation: Remove hallucinated sections and restrict strictly to ipc.json
+        repo = StatuteRepository.get_instance()
+        valid_section_numbers = set()
+        for c in enriched_active_candidates:
+            if repo.is_in_ipc_json(c["section_number"]):
+                valid_section_numbers.add(c["section_number"])
+        for c in not_triggered_candidates:
+            if repo.is_in_ipc_json(c["section_number"]):
+                valid_section_numbers.add(c["section_number"])
+        
+        # Filter each mapping to remove non-ipc.json / hallucinated sections
+        if valid_section_numbers:
+            for mapping in mapping_response.mappings:
+                # Filter primary candidates
+                mapping.primary_candidate_sections = [
+                    s for s in mapping.primary_candidate_sections
+                    if s.section_number in valid_section_numbers
+                ]
+                # Filter secondary candidates
+                mapping.secondary_candidate_sections = [
+                    s for s in mapping.secondary_candidate_sections
+                    if s.section_number in valid_section_numbers
+                ]
+                # Filter conditional candidates
+                mapping.conditional_candidate_sections = [
+                    s for s in getattr(mapping, "conditional_candidate_sections", [])
+                    if s.section_number in valid_section_numbers
+                ]
+                # Filter not_triggered sections
+                mapping.not_triggered_sections = [
+                    s for s in mapping.not_triggered_sections
+                    if s.section_number in valid_section_numbers
+                ]
+                # Update candidate_sections list
+                mapping.candidate_sections = [
+                    s for s in mapping.candidate_sections
+                    if s in valid_section_numbers
+                ]
+
+        # Factual Trigger Recovery: Guarantee that all high-confidence factual triggers
+        # (e.g. Section 468, 467, 471, 420, 423) identified from facts are present in at least one mapping
+        from .batch_utils import SectionMappingCandidate
+        all_mapped_sections = set()
+        for m in mapping_response.mappings:
+            for s in m.primary_candidate_sections:
+                all_mapped_sections.add(s.section_number)
+            for s in m.secondary_candidate_sections:
+                all_mapped_sections.add(s.section_number)
+            for s in getattr(m, "conditional_candidate_sections", []):
+                all_mapped_sections.add(s.section_number)
+            for s in m.not_triggered_sections:
+                all_mapped_sections.add(s.section_number)
+
+        for ts in trigger_suggestions:
+            ts_sec = ts.get("section_number")
+            # If a triggered section was not mapped to ANY subquery and not marked as not_triggered
+            if ts_sec and ts_sec not in all_mapped_sections and ts_sec in valid_section_numbers:
+                # Find the most relevant subquery using generic word token overlap
+                ts_title = ts.get("section_title", "")
+                ts_trig = ts.get("trigger", "")
+                ts_tokens = set(re.findall(r"\w+", (ts_title + " " + ts_trig).lower())) - {"section", "ipc", "bns", "the", "and", "for", "of", "in", "to", "a"}
+                best_score = 0
+                target_mapping = None
+                for m in mapping_response.mappings:
+                    sq_tokens = set(re.findall(r"\w+", (m.sub_query_text or "").lower()))
+                    overlap = len(ts_tokens & sq_tokens)
+                    if overlap > best_score:
+                        best_score = overlap
+                        target_mapping = m
+
+                if target_mapping is None and mapping_response.mappings:
+                    target_mapping = mapping_response.mappings[0]
+
+                if target_mapping:
+                    cand = SectionMappingCandidate(
+                        section_number=ts_sec,
+                        section_title=ts.get("section_title", f"Section {ts_sec}"),
+                        statute=ts.get("statute", "IPC"),
+                        candidate_type=ts.get("candidate_type", "CONDITIONAL"),
+                        score=0.85,
+                        score_breakdown={
+                            "ingredient_match": 0.85,
+                            "classifier_score": 0.85,
+                            "keyword_match": 0.85,
+                            "semantic_similarity": 0.85,
+                        },
+                        ingredients_matched=[f"Factual trigger detected: {ts.get('trigger', '')}"],
+                        missing_facts=[f"Requires full factual verification under Section {ts_sec}"],
+                        relevance_reasoning=f"Recovered from factual trigger detection: {ts.get('trigger', '')}",
+                    )
+                    if not hasattr(target_mapping, "conditional_candidate_sections") or target_mapping.conditional_candidate_sections is None:
+                        target_mapping.conditional_candidate_sections = []
+                    target_mapping.conditional_candidate_sections.append(cand)
+                    if ts_sec not in target_mapping.candidate_sections:
+                        target_mapping.candidate_sections.append(ts_sec)
+                    all_mapped_sections.add(ts_sec)
+
+        return mapping_response

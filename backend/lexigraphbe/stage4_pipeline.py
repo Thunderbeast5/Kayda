@@ -7,6 +7,7 @@ Caps retries at 1 max for genuine judgment failures, falling back to manual_revi
 from typing import Any, Dict, Optional, Union
 from .statutory_verification_agent import StatutoryVerificationAgent
 from .statutory_verifier_agent import StatutoryVerificationAuditor
+from .statute_repository import StatuteRepository
 from .schemas import ChapterIdentificationObject, LegalQueryObject, StatutoryVerificationObject, StatutoryVerificationResult
 
 
@@ -131,30 +132,35 @@ class Stage4Pipeline:
             for concept_item in query_obj.legal_concepts:
                 concept_map[concept_item.concept.lower()] = concept_item
             
-            # For each verified offence, promote to Dynamic KB
+            # For each verified offence, promote to Dynamic KB using its authoritative ipc.json definition
+            statute_db = StatuteRepository.get_instance().get_statute_db()
             for offence in statutory_obj.verified_offences:
                 section_num = offence.section_number
                 statute = offence.statute or "IPC"
-                title = offence.title or f"{statute} Section {section_num}"
-                chapter = "General Offences"  # Chapter not in Stage4 schema
-                ingredients = offence.ingredient_evaluation or []
+
+                # Fetch authoritative metadata from ipc.json
+                rec = statute_db.get(f"IPC_{section_num}") or {}
+                # section_title is the section's own heading — always correct and authoritative.
+                # We do NOT use chapter_title or sub_heading: ipc.json chapter nesting is structurally
+                # incorrect for many sections (e.g. 378-382 Theft sections are nested under
+                # the Kidnapping sub_heading in the JSON tree).
+                title = rec.get("section_title") or offence.title or f"{statute} Section {section_num}"
+                chapter = rec.get("chapter_title") or "General Offences"
                 
-                # Find which concept led to this section
-                matched_concept = None
+                # Canonical concept = section's own heading (e.g. "Theft in dwelling house, etc.")
+                # This is always derived from ipc.json data, never from a hardcoded mapping.
+                matched_concept = title
+
+                # If the query has a concept whose text appears in the section title, prefer that wording
                 title_lower = title.lower()
-                
-                # Try to match title to a concept
                 for concept_text, concept_item in concept_map.items():
                     if concept_text in title_lower or title_lower in concept_text:
                         matched_concept = concept_item.concept
                         break
-                
-                # Fallback: use first concept if no direct match
-                if not matched_concept and query_obj.legal_concepts:
-                    matched_concept = query_obj.legal_concepts[0].concept
-                
-                if matched_concept and section_num:
-                    # Promote to Dynamic KB
+
+                ingredients = offence.ingredient_evaluation or []
+
+                if section_num and matched_concept:
                     promote_from_llm_result(
                         section_number=section_num,
                         statute=statute,
@@ -162,12 +168,13 @@ class Stage4Pipeline:
                         chapter=chapter,
                         ingredients=[ing.ingredient for ing in ingredients],
                         matched_concept=matched_concept,
-                        bns_equivalent=section_num,  # Can be refined later
+                        bns_equivalent=section_num,
                         cognizable=True,
                         bailable=False,
-                        punishment_maximum=None,  # Can be refined from First Schedule
+                        punishment_maximum=rec.get("punishment"),
                     )
-                    print(f"[Stage4 Learning] Promoted {statute} {section_num} with concept '{matched_concept}'")
+                    print(f"[Stage4 Learning] Promoted {statute} {section_num} '{title}' with concept '{matched_concept}'")
+
         
         except Exception as e:
             # Don't fail the pipeline if learning fails
