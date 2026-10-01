@@ -1,0 +1,1576 @@
+{
+  "cases": [
+    {
+      "case_id": "BALCHAND_JAIN",
+      "case_name": "Balchand Jain v. State of Madhya Pradesh",
+      "petitioner": "Balchand Jain",
+      "respondent": "State of Madhya Pradesh",
+      "court": "Supreme Court of India",
+      "decided_on": "1976-11-05",
+      "bench_strength": 3,
+      "procedural_stage": "pre_arrest",
+      "offence_types": [
+        "economic offence"
+      ],
+      "dispute_nature": "serious_criminal",
+      "abstract_facts": "A merchant dealing in kiryana goods and kerosene oil was investigated by a Food Inspector who seized his account books. Fearing arrest for contravention of the Defence and Internal Security of India Act, the merchant sought anticipatory bail under Section 438 of CrPC. His application was rejected by the Sessions Judge and the High Court, with the latter holding that Rule 184 supersedes Section 438.",
+      "disposition": "Appeal allowed; case remanded to the High Court for considering bail on merits",
+      "normalized_statutes": [
+        "Defence and Internal Security of India Rules 1971:184",
+        "BNSS-2023:482",
+        "CrPC-1973:438"
+      ],
+      "lower_court_outcome": "Application for anticipatory bail rejected"
+    },
+    {
+      "case_id": "gurubaksh_sibbia",
+      "case_name": "Gurbaksh Singh Sibbia etc. v. State of Punjab",
+      "petitioner": "Gurbaksh Singh Sibbia",
+      "respondent": "State of Punjab",
+      "court": "Supreme Court of India",
+      "decided_on": "1980-04-09",
+      "bench_strength": 5,
+      "procedural_stage": "pre_arrest",
+      "offence_types": [
+        "corruption"
+      ],
+      "dispute_nature": "serious_criminal",
+      "abstract_facts": "The case involves Gurbaksh Singh Sibbia, a former Minister of Irrigation and Power in the Punjab government, facing grave allegations of political corruption. The allegations prompted applications for anticipatory bail under Section 438 of the Criminal Procedure Code, filed in the High Court of Punjab and Haryana. The applications were dismissed by a Full Bench of the High Court, citing that anticipatory bail is of an extraordinary character, implying strict conditions for its grant.",
+      "disposition": "Appeals allowed in part by the Supreme Court, establishing broader principles for the grant of anticipatory bail under Section 438 CrPC.",
+      "normalized_statutes": [
+        "CrPC-1973:437",
+        "BNSS-2023:482",
+        "BNSS-2023:479",
+        "CrPC-1973:438"
+      ],
+      "lower_court_outcome": "Applications for anticipatory bail were dismissed by a Full Bench of the Punjab and Haryana High Court."
+    },
+    {
+      "case_id": "POKAR_RAM",
+      "case_name": "POKAR RAM v. STATE OF RAJASTHAN AND ANR",
+      "petitioner": "Pokar Ram",
+      "respondent": "State of Rajasthan and Anr",
+      "court": "Supreme Court of India",
+      "decided_on": "1985-04-17",
+      "bench_strength": 3,
+      "procedural_stage": "pre_arrest",
+      "offence_types": [
+        "homicide"
+      ],
+      "dispute_nature": "serious_criminal",
+      "abstract_facts": "The case involves a serious criminal matter where the appellant's son was shot and injured by the respondent. The incident resulted in the son succumbing to the injuries, adding a murder charge under IPC 302 to the initial charges which included attempt to murder under IPC 307. The respondent applied and was granted anticipatory bail, which was contested by the appellant and ultimately led to the Supreme Court's intervention to assess the grant of anticipatory bail and its cancellation.",
+      "disposition": "The Supreme Court cancelled the anticipatory bail granted to the respondent.",
+      "normalized_statutes": [
+        "BNS-2023:109",
+        "IPC-1860:307",
+        "CrPC-1973:438",
+        "BNS-2023:103",
+        "BNSS-2023:482",
+        "IPC-1860:302"
+      ],
+      "lower_court_outcome": "The Sessions Court granted anticipatory bail to the respondent, which the High Court upheld."
+    },
+    {
+      "case_id": "SALAUDDIN_ABDULSAMAD_SHAIKH",
+      "case_name": "Salauddin Abdulsamad Shaikh v. The State of Maharashtra",
+      "petitioner": "Salauddin Abdulsamad Shaikh",
+      "respondent": "The State of Maharashtra",
+      "court": "Supreme Court of India",
+      "decided_on": "1995-12-11",
+      "bench_strength": null,
+      "procedural_stage": "pre_arrest",
+      "offence_types": [
+        "other"
+      ],
+      "dispute_nature": "serious_criminal",
+      "abstract_facts": "The petitioner filed an application in the High Court under Section 438 CrPC seeking anticipatory bail, which was granted with conditions. The bail order was set to expire on 26.9.1995. Before final disposal, the High Court directed the petitioner to apply for regular bail and stated the application should be decided uninfluenced by previous observations. The petitioner filed a Special Leave Petition against this order.",
+      "disposition": "Special Leave Petition dismissed; the High Court's procedure upheld.",
+      "normalized_statutes": [
+        "BNSS-2023:482",
+        "CrPC-1973:438"
+      ],
+      "lower_court_outcome": "Anticipatory bail with conditions and limited duration granted by High Court, to transition to regular bail process."
+    },
+    {
+      "case_id": "SIDDHARAM_SATLINGAPPA_MHETRE",
+      "case_name": "Siddharam Satlingappa Mhetre v. State of Maharashtra and Others",
+      "petitioner": "Siddharam Satlingappa Mhetre",
+      "respondent": "State of Maharashtra and Others",
+      "court": "Supreme Court of India",
+      "decided_on": "2010-12-02",
+      "bench_strength": 2,
+      "procedural_stage": "pre_arrest",
+      "offence_types": [
+        "serious_criminal"
+      ],
+      "dispute_nature": "political",
+      "abstract_facts": "The petitioner, a member of a political party, was accused in a case where an FIR alleged that he and his brother instigated party workers to fire gunshots at members of an opponent party, resulting in a murder. The incident of murder occurred eight days after the alleged instigation. The petitioner sought anticipatory bail, but it was rejected by the High Court.",
+      "disposition": "The appeal was allowed, and the High Court's decision rejecting anticipatory bail was set aside.",
+      "normalized_statutes": [
+        "CrPC-1973:439",
+        "Constitution of India 1950:21",
+        "BNSS-2023:483",
+        "BNSS-2023:479",
+        "CrPC-1973:438",
+        "CrPC-1973:437",
+        "BNSS-2023:482"
+      ],
+      "lower_court_outcome": "Anticipatory bail rejected"
+    },
+    {
+      "case_id": "_2012_5_SCR_1",
+      "case_name": "Jai Prakash Singh v. State of Bihar & Anr.",
+      "petitioner": "Jai Prakash Singh",
+      "respondent": "State of Bihar & Anr.",
+      "court": "Supreme Court of India",
+      "decided_on": "2012-03-14",
+      "bench_strength": 2,
+      "procedural_stage": "post_arrest_bail",
+      "offence_types": [
+        "serious_criminal"
+      ],
+      "dispute_nature": "serious_criminal",
+      "abstract_facts": "The appellant challenged the grant of anticipatory bail to the respondents by the Patna High Court. The FIR alleged that the appellant's brother was shot dead by the respondents following an old dispute. Respondents were granted anticipatory bail by the High Court, which was challenged as the Sessions Judge had previously rejected their bail application citing strong motive and evidence against them. The Supreme Court reviewed the principles governing the grant of anticipatory bail.",
+      "disposition": "Appeals allowed; anticipatory bail cancelled.",
+      "normalized_statutes": [
+        "BNSS-2023:482",
+        "IPC-1860:302",
+        "CrPC-1973:438",
+        "BNS-2023:103"
+      ],
+      "lower_court_outcome": "The High Court granted anticipatory bail to the respondents, reversing the Sessions Judge's denial."
+    },
+    {
+      "case_id": "_2012_7_SCR_469",
+      "case_name": "LAVE SH V. STATE (NCT OF DELHI)",
+      "petitioner": "LAVE SH",
+      "respondent": "STATE (NCT OF DELHI)",
+      "court": "Supreme Court of India",
+      "decided_on": "2012-08-31",
+      "bench_strength": null,
+      "procedural_stage": "post_arrest_bail",
+      "offence_types": [
+        "dowry death"
+      ],
+      "dispute_nature": "serious_criminal",
+      "abstract_facts": "An FIR was registered alleging dowry death of the petitioner's sister-in-law, who committed suicide after being subjected to cruelty for dowry. The petitioner is accused of being involved in this cruelty along with other family members. He applied for anticipatory bail after being declared a proclaimed offender due to non-cooperation with the investigation.",
+      "disposition": "Appeal dismissed.",
+      "normalized_statutes": [
+        "CrPC-1973:82",
+        "BNSS-2023:482",
+        "CrPC-1973:438"
+      ],
+      "lower_court_outcome": "Anticipatory bail application rejected by the Court of Session and the High Court."
+    },
+    {
+      "case_id": "_2013_10_SCR_125",
+      "case_name": "Sumit Mehta v. State of N.C.T. of Delhi",
+      "petitioner": "Sumit Mehta",
+      "respondent": "State of N.C.T. of Delhi",
+      "court": "Supreme Court of India",
+      "decided_on": "2013-09-13",
+      "bench_strength": 3,
+      "procedural_stage": "pre_arrest",
+      "offence_types": [
+        "economic_offence"
+      ],
+      "dispute_nature": "economic_offence",
+      "abstract_facts": "The appellant was granted anticipatory bail by the Delhi High Court on the condition that he deposits Rs. 1 crore in a fixed deposit in the name of the complainant, related to offences under IPC sections 420, 467, 468, and 471. The appellant challenged this condition as untenable under law and outside the purview of Section 438 CrPC. The Supreme Court assessed whether such a financial condition was appropriate for anticipatory bail.",
+      "disposition": "Appeal disposed of; condition of deposit set aside.",
+      "normalized_statutes": [
+        "BNS-2023:336",
+        "IPC-1860:471",
+        "BNS-2023:318",
+        "Constitution of India, 1950:21",
+        "IPC-1860:420",
+        "CrPC-1973:438",
+        "IPC-1860:467",
+        "IPC-1860:468",
+        "BNSS-2023:482",
+        "BNS-2023:340"
+      ],
+      "lower_court_outcome": "Anticipatory bail granted with condition of deposit."
+    },
+    {
+      "case_id": "_2019_12_SCR_172",
+      "case_name": "P. Chidambaram v. Directorate of Enforcement",
+      "petitioner": "P. Chidambaram",
+      "respondent": "Directorate of Enforcement",
+      "court": "Indian Supreme Court",
+      "decided_on": "2019-09-05",
+      "bench_strength": 2,
+      "procedural_stage": "pre_arrest",
+      "offence_types": [
+        "money laundering",
+        "corruption",
+        "economic offence"
+      ],
+      "dispute_nature": "economic_offence",
+      "abstract_facts": "The case involves alleged irregularities in the clearance given by the Foreign Investment Promotion Board (FIPB) to INX Media for receiving foreign investment exceeding the approved amount. The appellant, formerly the finance minister, is alleged to have been involved in a conspiracy to facilitate the clearances in exchange for money through a company purportedly linked to his son. The Enforcement Directorate opposes anticipatory bail, arguing for the need to interrogate the former minister in custody to uncover the money trail.",
+      "disposition": "The appeal was dismissed by the Supreme Court.",
+      "normalized_statutes": [
+        "Prevention of Corruption Act, 1988:13(2)",
+        "Code of Criminal Procedure, 1973:438",
+        "Prevention of Corruption Act, 1988:8",
+        "Prevention of Money Laundering Act, 2002:4",
+        "Prevention of Money Laundering Act, 2002:3",
+        "BNS-2023:61",
+        "BNS-2023:318",
+        "IPC-1860:420",
+        "IPC-1860:120B",
+        "Prevention of Corruption Act, 1988:13(1)(D)"
+      ],
+      "lower_court_outcome": "The Delhi High Court refused anticipatory bail to the appellant."
+    },
+    {
+      "case_id": "_2020_2_SCR_1",
+      "case_name": "Sushila Aggarwal and Others v. State (NCT of Delhi) and Another",
+      "petitioner": "Sushila Aggarwal and Others",
+      "respondent": "State (NCT of Delhi) and Another",
+      "court": "Supreme Court of India",
+      "decided_on": "2020-01-29",
+      "bench_strength": 5,
+      "procedural_stage": "other",
+      "offence_types": [],
+      "dispute_nature": "serious_criminal",
+      "abstract_facts": "The case examines the scope and duration of anticipatory bail under Section 438 of the Code of Criminal Procedure. Conflicting views from various benches led to this larger bench reference, focusing on whether anticipatory bail should be limited in time or continue till the end of trial. Courts challenged precedents that imposed restrictive conditions on the grant of anticipatory bail.",
+      "disposition": "The Supreme Court held that anticipatory bail should not generally be time-limited, but exceptions can be made based on the circumstances of the case.",
+      "normalized_statutes": [
+        "CrPC-1973:439",
+        "BNSS-2023:483",
+        "BNSS-2023:479",
+        "CrPC-1973:438",
+        "CrPC-1973:167(2)",
+        "CrPC-1973:437",
+        "BNSS-2023:482",
+        "Constitution of India:21"
+      ],
+      "lower_court_outcome": "Conflicting views from lower courts necessitated a larger bench reference."
+    }
+  ],
+  "propositions": [
+    {
+      "case_id": "BALCHAND_JAIN",
+      "proposition_id": "p1",
+      "text": "Section 438 CrPC allows anticipatory bail, making an order for release on bail in the event of arrest.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular",
+        "right_to_liberty",
+        "bail_not_jail"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p55.17"
+      ],
+      "quote": "When the Court grants 'anticipatory bail', what it does is to make an order that in the event of arrest, a person shall be released on bail.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "BALCHAND_JAIN",
+      "proposition_id": "p2",
+      "text": "Rule 184 imposes conditions for bail after arrest under the Defence and Internal Security of India Rules.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "prosecution",
+      "conditions": [],
+      "normalized_statutes": [
+        "Defence and Internal Security of India Rules:1971"
+      ],
+      "tags": [
+        "special_statute_bar",
+        "anticipatory_vs_regular",
+        "economic_offence_gravity"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p56.4"
+      ],
+      "quote": "unless two conditions are satisfied, the ban operates and the person concerned cannot be released on bail.",
+      "quote_verified": true,
+      "favors_verified": false,
+      "verification_note": "'favors' is not correct for a bail contest; it refers to conditions imposed, not for the prosecution's favor."
+    },
+    {
+      "case_id": "BALCHAND_JAIN",
+      "proposition_id": "p3",
+      "text": "Rule 184 and Section 438 CrPC operate at different stages and are not in conflict, as Rule 184 applies after arrest and Section 438 before arrest.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [],
+      "normalized_statutes": [],
+      "tags": [
+        "anticipatory_vs_regular",
+        "right_to_liberty"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p57.9"
+      ],
+      "quote": "Section 438 and Rule 184 thus operate at different stages, one prior to arrest and the other, after arrest and there is no overlapping.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "BALCHAND_JAIN",
+      "proposition_id": "p4",
+      "text": "Courts should consider the policy behind Rule 184 when granting anticipatory bail under Section 438 CrPC, applying similar conditions though not strictly required.",
+      "speaker": "supreme_court",
+      "kind": "obiter",
+      "is_holding": false,
+      "favors": "neutral",
+      "conditions": [
+        "Consider policy of Rule 184"
+      ],
+      "normalized_statutes": [],
+      "tags": [
+        "anticipatory_vs_regular",
+        "right_to_liberty",
+        "bail_not_jail"
+      ],
+      "binding_level": "persuasive",
+      "authorities": [],
+      "anchors": [
+        "p58.1"
+      ],
+      "quote": "policy behind this Rule would have to be borne in mind by the Court while exercising its power.",
+      "quote_verified": true,
+      "favors_verified": false,
+      "verification_note": "'favors' is neutral; the court does not strictly impose conditions."
+    },
+    {
+      "case_id": "BALCHAND_JAIN",
+      "proposition_id": "p5",
+      "text": "Section 438 CrPC is not overridden by Rule 184; both must be interpreted harmoniously, with conditions of Rule 184 guiding anticipatory bail decisions.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [
+        "Apply Rule 184 conditions as guidance"
+      ],
+      "normalized_statutes": [],
+      "tags": [
+        "anticipatory_vs_regular",
+        "bail_not_jail",
+        "presumption_of_innocence"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p66.5"
+      ],
+      "quote": "that the conditions required by r. 184 must be impliedly imported in s. 438.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "BALCHAND_JAIN",
+      "proposition_id": "p6",
+      "text": "Anticipatory bail is an extraordinary remedy intended to protect the individual's liberty against false implication or frivolous cases.",
+      "speaker": "supreme_court",
+      "kind": "obiter",
+      "is_holding": false,
+      "favors": "accused",
+      "conditions": [
+        "Exceptional cases only"
+      ],
+      "normalized_statutes": [],
+      "tags": [
+        "anticipatory_vs_regular",
+        "right_to_liberty",
+        "bail_not_jail"
+      ],
+      "binding_level": "persuasive",
+      "authorities": [],
+      "anchors": [
+        "p64.8"
+      ],
+      "quote": "this would be a useful addition, though we must add that it is in very exceptional cases that such a power should be exercised.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "gurubaksh_sibbia",
+      "proposition_id": "p1",
+      "text": "Section 438 CrPC confers wide judicial discretion to grant anticipatory bail, not subject to the strict limitations of Section 437 CrPC.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [],
+      "normalized_statutes": [],
+      "tags": [
+        "anticipatory_vs_regular",
+        "corruption",
+        "right_to_liberty"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p404.3",
+        "p409.1"
+      ],
+      "quote": "The legislature conferred a wide discretion on the High Court and the Court of Session to grant anticipatory bail.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "gurubaksh_sibbia",
+      "proposition_id": "p2",
+      "text": "Imposing unnecessary restrictions on anticipatory bail violates personal liberty under Article 21 of the Constitution.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [],
+      "normalized_statutes": [],
+      "tags": [
+        "right_to_liberty",
+        "bail_not_jail",
+        "presumption_of_innocence"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p413.3",
+        "p413.4"
+      ],
+      "quote": "Section 438 is a procedural provision which is concerned with the personal liberty of the individual.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "gurubaksh_sibbia",
+      "proposition_id": "p3",
+      "text": "A 'blanket order' of anticipatory bail should not generally be passed; specific events and facts must justify anticipatory bail.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "neutral",
+      "conditions": [],
+      "normalized_statutes": [],
+      "tags": [
+        "anticipatory_vs_regular",
+        "corruption",
+        "right_to_liberty"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p404.8",
+        "p419.4"
+      ],
+      "quote": "a \"blanket order\" of anticipatory bail should not generally be passed.",
+      "quote_verified": false,
+      "favors_verified": true,
+      "verification_note": "The anchor text does not support the proposition about blanket orders but notes discretion."
+    },
+    {
+      "case_id": "gurubaksh_sibbia",
+      "proposition_id": "p4",
+      "text": "Anticipatory bail ensures the balancing of individual liberty with the right to police investigation without overlap of their functions.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "prosecution",
+      "conditions": [],
+      "normalized_statutes": [],
+      "tags": [
+        "right_to_liberty",
+        "bail_not_jail",
+        "anticipatory_vs_regular"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p409.4",
+        "p410.1"
+      ],
+      "quote": "An order of anticipatory bail does not in any way, directly or indirectly, take away from the police their right to investigate.",
+      "quote_verified": false,
+      "favors_verified": false,
+      "verification_note": "Favors prosecution, so it is inaccurately categorized."
+    },
+    {
+      "case_id": "gurubaksh_sibbia",
+      "proposition_id": "p5",
+      "text": "Conditions similar to those in Section 437 may be imposed in anticipatory bail but should not inherently be read into Section 438.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [],
+      "normalized_statutes": [],
+      "tags": [
+        "anticipatory_vs_regular",
+        "corruption",
+        "right_to_liberty"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p409.8",
+        "p410.5"
+      ],
+      "quote": "there is no justification for reading into Section 438 the limitations mentioned in Section 437.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "gurubaksh_sibbia",
+      "proposition_id": "p6",
+      "text": "The exercise of discretion in granting anticipatory bail should be based on individual case facts without rigid rules.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "neutral",
+      "conditions": [],
+      "normalized_statutes": [],
+      "tags": [
+        "bail_not_jail",
+        "presumption_of_innocence",
+        "right_to_liberty"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p406.2",
+        "p406.3"
+      ],
+      "quote": "when the Act is so express to provide a wide discretion, ..... .it is not advisable to lay down any rigid rules for guiding that discretion.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "gurubaksh_sibbia",
+      "proposition_id": "p7",
+      "text": "The grant of anticipatory bail should not be contingent solely upon establishing mala fides or fear of absconding but consider various factors.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [],
+      "normalized_statutes": [],
+      "tags": [
+        "anticipatory_vs_regular",
+        "presumption_of_innocence",
+        "bail_not_jail"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p407.5",
+        "p415.3"
+      ],
+      "quote": "the question whether to grant bail or not depends for its answer upon a variety of circumstances.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "gurubaksh_sibbia",
+      "proposition_id": "p8",
+      "text": "Anticipatory bail is not available after arrest; post-arrest, regular bail under Section 437 or 439 is the remedy.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "neutral",
+      "conditions": [],
+      "normalized_statutes": [],
+      "tags": [
+        "anticipatory_vs_regular"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p418.5",
+        "p418.9"
+      ],
+      "quote": "The grant of \"anticipatory bail\" to an accused who is under arrest involves a contradiction in terms.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "POKAR_RAM",
+      "proposition_id": "p1",
+      "text": "The considerations governing anticipatory bail under Section 438, CrPC are distinct from those applicable to regular bail post-arrest or post-conviction.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "neutral",
+      "conditions": [],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p785.3"
+      ],
+      "quote": "Relevant consderations governing the court's decision in grant-ing anticipatory bail under Sec. 438 are materially different.",
+      "quote_verified": true,
+      "favors_verified": false,
+      "verification_note": "The anchor text supports the distinct considerations for anticipatory bail versus post-arrest bail, not whether it favors a neutral stance."
+    },
+    {
+      "case_id": "POKAR_RAM",
+      "proposition_id": "p2",
+      "text": "Anticipatory bail is granted to confer conditional immunity from arrest at the moment of arrest, not from custody post-arrest.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular",
+        "right_to_liberty",
+        "bail_not_jail"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p785.3"
+      ],
+      "quote": "A direction under Sec. 438 is intended to confer conditional immunity from the touch.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": "The anchor text clearly states that anticipatory bail is about pre-arrest immunity, which aligns with the proposition."
+    },
+    {
+      "case_id": "POKAR_RAM",
+      "proposition_id": "p3",
+      "text": "Anticipatory bail should not be granted merely because an applicant may not abscond, nor should it be denied solely on presumptions about the applicant's socio-economic status.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular",
+        "presumption_of_innocence",
+        "right_to_liberty"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p786.1"
+      ],
+      "quote": "anticipatory bail cannot be granted unless the proposed accusation appears to be actuated by mala fides.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": "The anchor text discusses the factors governing anticipatory bail, specifically that it shouldn't be granted or denied based on socio-economic status."
+    },
+    {
+      "case_id": "POKAR_RAM",
+      "proposition_id": "p4",
+      "text": "Status in life, affluence, or otherwise, are not relevant considerations in granting anticipatory bail.",
+      "speaker": "supreme_court",
+      "kind": "obiter",
+      "is_holding": false,
+      "favors": "neutral",
+      "conditions": [],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "right_to_liberty",
+        "bail_not_jail",
+        "presumption_of_innocence"
+      ],
+      "binding_level": "persuasive",
+      "authorities": [],
+      "anchors": [
+        "p788.4"
+      ],
+      "quote": "status in life, affluence or otherwise, are hardly relevant considerations.",
+      "quote_verified": true,
+      "favors_verified": false,
+      "verification_note": "The anchor text suggests that status is not a relevant factor for granting anticipatory bail, but it does not favor a neutral position."
+    },
+    {
+      "case_id": "POKAR_RAM",
+      "proposition_id": "p5",
+      "text": "Grant of anticipatory bail can be reconsidered and cancelled if it intrudes into the crime investigation process and is without proper reasoning.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "prosecution",
+      "conditions": [],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular",
+        "cooperation_with_investigation",
+        "evidence_strong"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p788.5"
+      ],
+      "quote": "Anticipatory bail to some extent intrudes in the sphere of investigation.",
+      "quote_verified": false,
+      "favors_verified": false,
+      "verification_note": "The anchor text does not support the specific proposition regarding reconsideration and cancellation of anticipatory bail."
+    },
+    {
+      "case_id": "SALAUDDIN_ABDULSAMAD_SHAIKH",
+      "proposition_id": "p1",
+      "text": "Anticipatory bail is intended for a limited duration and should not bypass the regular court responsible for the trial.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "neutral",
+      "conditions": [
+        "Granted at a stage when investigation is incomplete"
+      ],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular",
+        "stage_of_investigation"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p556.5",
+        "p557.6"
+      ],
+      "quote": "Anticipatory bail is granted in anticipation of arrest in non-bailable cases, but that does not mean that the regular court, which is to try the offender, is sought to be by-passed.",
+      "quote_verified": true,
+      "favors_verified": false,
+      "verification_note": "The text states that anticipatory bail should not bypass the regular court but does not explicitly assert it should only be for a limited duration."
+    },
+    {
+      "case_id": "SALAUDDIN_ABDULSAMAD_SHAIKH",
+      "proposition_id": "p2",
+      "text": "The High Court's practice of setting an outer date for anticipatory bail and directing the petitioner to move for regular bail is correct.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "neutral",
+      "conditions": [],
+      "normalized_statutes": [],
+      "tags": [
+        "anticipatory_vs_regular",
+        "right_to_liberty",
+        "bail_not_jail"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p556.5",
+        "p557.6"
+      ],
+      "quote": "the High Court very rightly fixed the outer date for the continuance of the bail and on the date of its expiry directed the petitioner to move the regular Court for bail.",
+      "quote_verified": true,
+      "favors_verified": false,
+      "verification_note": "The anchor text supports the proposition that the High Court's practice is correct regarding anticipatory bail."
+    },
+    {
+      "case_id": "SALAUDDIN_ABDULSAMAD_SHAIKH",
+      "proposition_id": "p3",
+      "text": "Anticipatory bail orders should leave it to the regular court to decide on regular bail after investigation progress or charge-sheet submission.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "neutral",
+      "conditions": [
+        "Investigation progress or charge-sheet submission"
+      ],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular",
+        "stage_of_investigation"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p557.6"
+      ],
+      "quote": "after the investigation has made progress or the chargesheet is submitted.",
+      "quote_verified": true,
+      "favors_verified": false,
+      "verification_note": "The anchor text supports the proposition that anticipatory bail orders should leave decisions to the regular court after evidence appreciation."
+    },
+    {
+      "case_id": "SIDDHARAM_SATLINGAPPA_MHETRE",
+      "proposition_id": "p1",
+      "text": "Anticipatory bail under Section 438 CrPC should not generally be limited to a specific duration unless there is fresh material or circumstances necessitating reconsideration.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [
+        "Unless fresh material or circumstances necessitate reconsideration"
+      ],
+      "normalized_statutes": [
+        "Constitution of India:1950",
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular",
+        "right_to_liberty",
+        "bail_not_jail"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "pNone.1",
+        "p228.2"
+      ],
+      "quote": "When the court observes that anticipatory bail is for limited duration and thereafter, the accused should apply to the regular court for bail, that means the life of Section 438 Cr.P.C. would come to an end after that limited duration.",
+      "quote_verified": false,
+      "favors_verified": false,
+      "verification_note": "The anchor text does not discuss limitations on the duration of anticipatory bail."
+    },
+    {
+      "case_id": "SIDDHARAM_SATLINGAPPA_MHETRE",
+      "proposition_id": "p2",
+      "text": "The limitations mentioned in Section 437 CrPC should not be read into Section 438, and the full play of Section 438 must be maintained to ensure personal liberty consistent with Article 21 of the Constitution.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [],
+      "normalized_statutes": [
+        "Constitution of India:1950",
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "right_to_liberty",
+        "bail_not_jail",
+        "presumption_of_innocence"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p228.2",
+        "p233.1"
+      ],
+      "quote": "This Court in the *Sibbia's case clearly observed that there is no justification for reading into Section 438 CrPC the limitations mentioned in Section 437 CrPC.",
+      "quote_verified": false,
+      "favors_verified": false,
+      "verification_note": "The anchor text discusses conflicts with prior cases but does not express that limitations in Section 437 should be disregarded."
+    },
+    {
+      "case_id": "SIDDHARAM_SATLINGAPPA_MHETRE",
+      "proposition_id": "p3",
+      "text": "The social interest and personal liberty must be balanced when considering the grant or refusal of anticipatory bail, taking into account the presumption of innocence.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [],
+      "normalized_statutes": [
+        "Constitution of India:1950"
+      ],
+      "tags": [
+        "right_to_liberty",
+        "presumption_of_innocence",
+        "bail_not_jail"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "pNone.2",
+        "p232.3"
+      ],
+      "quote": "The order granting or refusing bail must reflect perfect balance between the conflicting interests, namely, sanctity of individual liberty and the interest of the society.",
+      "quote_verified": false,
+      "favors_verified": false,
+      "verification_note": "The anchor text does not directly support the need to balance social interest with personal liberty regarding anticipatory bail."
+    },
+    {
+      "case_id": "SIDDHARAM_SATLINGAPPA_MHETRE",
+      "proposition_id": "p4",
+      "text": "The High Court's denial of anticipatory bail to the appellant, in this case, was contrary to the precedent set by the Constitution Bench in Sibbia's case, making it unsustainable.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular",
+        "bail_not_jail",
+        "presumption_of_innocence"
+      ],
+      "binding_level": "binding",
+      "authorities": [
+        {
+          "case_name": "Siddharam Satlingappa Mhetre v. State of Maharashtra and Others",
+          "citation": "Citation not provided",
+          "relationship": "referred"
+        },
+        {
+          "case_name": "Sibbia's case",
+          "citation": "Citation not provided",
+          "relationship": "followed"
+        }
+      ],
+      "anchors": [
+        "p231.2",
+        "p228.1"
+      ],
+      "quote": "The impugned judgment and order of the High Court declining anticipatory bail to the appellant cannot be sustained and is consequently set aside.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": "The anchor text emphasizes the importance of discretion in granting bail, which supports the proposition."
+    },
+    {
+      "case_id": "SIDDHARAM_SATLINGAPPA_MHETRE",
+      "proposition_id": "p5",
+      "text": "Court imposed conditions for granting anticipatory bail must aim to prevent abuse of the bail process while ensuring cooperation with the investigation.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "neutral",
+      "conditions": [
+        "Must ensure cooperation with the investigation"
+      ],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "cooperation_with_investigation",
+        "bail_not_jail",
+        "presumption_of_innocence"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p225.6",
+        "p233.1"
+      ],
+      "quote": "The court would certainly be entitled to impose conditions for the grant of bail.",
+      "quote_verified": false,
+      "favors_verified": false,
+      "verification_note": "The anchor text provides historical context and criticisms of past practices, but does not directly address conditions for bail."
+    },
+    {
+      "case_id": "_2012_5_SCR_1",
+      "proposition_id": "p1",
+      "text": "Anticipatory bail can be granted only in exceptional circumstances where there is a prima facie view that the accused is falsely implicated and would not misuse liberty.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [
+        "Exceptional circumstances"
+      ],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular",
+        "prima_facie_weak",
+        "right_to_liberty"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p14.1"
+      ],
+      "quote": "Anticipatory bail can be granted only in exceptional circumstances where the court is prima facie of the view that the applicant has falsely been enroped in the crime and would not misuse his liberty.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "_2012_5_SCR_1",
+      "proposition_id": "p2",
+      "text": "The court must record reasons while granting anticipatory bail, and it must evaluate the nature and gravity of the accusations.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "prosecution",
+      "conditions": [
+        "Evaluate nature and gravity of accusations"
+      ],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular",
+        "violence_involved",
+        "right_to_liberty"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p14.1"
+      ],
+      "quote": "Parameters for grant of anticipatory bail in a serious offence are required to be satisfied and further while granting such relief, the court must record the reasons.",
+      "quote_verified": false,
+      "favors_verified": false,
+      "verification_note": "The anchor text does not support the requirement to evaluate the nature and gravity of accusations."
+    },
+    {
+      "case_id": "_2012_5_SCR_1",
+      "proposition_id": "p3",
+      "text": "A promptly lodged FIR is a vital and valuable piece of evidence assuring the veracity of the informant’s version.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "prosecution",
+      "conditions": [],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "presumption_of_innocence",
+        "bail_not_jail"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p10.1",
+        "p10.2"
+      ],
+      "quote": "Promptness in filing the FIR gives certain assurance of veracity of the version given by the informant/complainant.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "_2012_5_SCR_1",
+      "proposition_id": "p4",
+      "text": "Anticipatory bail is an extraordinary privilege and should only be granted in exceptional cases.",
+      "speaker": "quoted_authority",
+      "kind": "ratio",
+      "is_holding": false,
+      "favors": "prosecution",
+      "conditions": [],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular",
+        "bail_not_jail",
+        "presumption_of_innocence"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p11.1",
+        "p11.3"
+      ],
+      "quote": "The anticipatory bail being an extraordinary privilege should be granted only in exceptional cases.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "_2012_5_SCR_1",
+      "proposition_id": "p5",
+      "text": "Section 438 CrPC is not an integral part of Article 21 and anticipatory bail is a statutory right, not a constitutional right.",
+      "speaker": "quoted_authority",
+      "kind": "ratio",
+      "is_holding": false,
+      "favors": "prosecution",
+      "conditions": [],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular",
+        "right_to_liberty"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p11.1"
+      ],
+      "quote": "it · cannot be considered as an essential ingredient of Article 21 of the Constitution.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "_2012_5_SCR_1",
+      "proposition_id": "p6",
+      "text": "A High Court's failure to record reasons or adhere to guidelines in granting anticipatory bail can lead to cancellation of such bail by a higher court.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "prosecution",
+      "conditions": [],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular",
+        "bail_not_jail",
+        "presumption_of_innocence"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p15.1",
+        "p15.2"
+      ],
+      "quote": "The High Court has very lightly brushed aside the fact that FIR had been lodged spontaneously and further did not record any reason.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "_2012_7_SCR_469",
+      "proposition_id": "p1",
+      "text": "Section 438 of the CrPC allows a person to apply for anticipatory bail when they apprehend arrest for a non-bailable offence.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular",
+        "right_to_liberty",
+        "bail_not_jail"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p473.5"
+      ],
+      "quote": "in a non-bailable offence if a person has reason to believe that he may be arrested, he is free to apply to the High Court",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "_2012_7_SCR_469",
+      "proposition_id": "p2",
+      "text": "The magnitude and seriousness of the accusation should guide the discretion in granting anticipatory bail.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "prosecution",
+      "conditions": [
+        "Should consider magnitude and seriousness"
+      ],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "violence_involved",
+        "presumption_of_innocence",
+        "bail_not_jail"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p473.5"
+      ],
+      "quote": "normally, the Court should not exercise its discretion to grant anticipatory bail in disregard of the magnitude and seriousness of the matter",
+      "quote_verified": true,
+      "favors_verified": false,
+      "verification_note": "Favors prosecution, but the language in the anchor text suggests that the proposition's context is broader than just favoring prosecution."
+    },
+    {
+      "case_id": "_2012_7_SCR_469",
+      "proposition_id": "p3",
+      "text": "A person declared as a proclaimed offender under Section 82 of the CrPC is not entitled to anticipatory bail.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "prosecution",
+      "conditions": [],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "proclaimed_offender",
+        "anticipatory_vs_regular"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p475.1"
+      ],
+      "quote": "when a person against whom a warrant had been issued and is absconding or concealing himself...is not entitled the relief of anticipatory bail",
+      "quote_verified": true,
+      "favors_verified": false,
+      "verification_note": "Favors prosecution, but the text supports this in the context of being a proclaimed offender, not a general rule."
+    },
+    {
+      "case_id": "_2012_7_SCR_469",
+      "proposition_id": "p4",
+      "text": "An accused's conduct during the investigation is relevant in the consideration for anticipatory bail.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "prosecution",
+      "conditions": [],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "cooperation_with_investigation",
+        "flight_risk",
+        "presumption_of_innocence"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p476.1"
+      ],
+      "quote": "Considering his conduct, not amenable for investigation and, moreover, declaring him as an absconder, there is no question of granting anticipatory bail.",
+      "quote_verified": true,
+      "favors_verified": false,
+      "verification_note": "Favors prosecution; however, the proposition may imply a broader relevance than the specific conduct referenced."
+    },
+    {
+      "case_id": "_2012_7_SCR_469",
+      "proposition_id": "p5",
+      "text": "The rejection of anticipatory bail does not preclude the accused from applying for regular bail after surrender.",
+      "speaker": "supreme_court",
+      "kind": "obiter",
+      "is_holding": false,
+      "favors": "neutral",
+      "conditions": [],
+      "normalized_statutes": [],
+      "tags": [
+        "anticipatory_vs_regular"
+      ],
+      "binding_level": "persuasive",
+      "authorities": [],
+      "anchors": [
+        "p476.3"
+      ],
+      "quote": "we have not expressed any opinion on the merits of the case...after surrender, the appellant is free to move bail application.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "_2013_10_SCR_125",
+      "proposition_id": "p1",
+      "text": "Under Section 438 CrPC, the imposition of bail conditions should ensure the fairness or propriety of the investigation or trial.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [
+        "conditions must ensure fairness of the investigation/trial"
+      ],
+      "normalized_statutes": [
+        "Constitution of India,:1950",
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "bail_not_jail",
+        "presumption_of_innocence",
+        "right_to_liberty"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p132.4",
+        "p134.1"
+      ],
+      "quote": "condition, which has no reference to the fairness or propriety of the investigation or trial, cannot be countenanced as permissible under the law.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "_2013_10_SCR_125",
+      "proposition_id": "p3",
+      "text": "Courts should not impose financial conditions for anticipatory bail that are unreasonable and unconnected with ensuring investigation fairness.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [
+        "financial conditions must relate to investigation fairness"
+      ],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "bail_not_jail",
+        "presumption_of_innocence"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p134.3",
+        "p135.1"
+      ],
+      "quote": "fixed deposit of Rs. 1,00,00,000/- for a period of six months...is evidently onerous and unreasonable.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "_2013_10_SCR_125",
+      "proposition_id": "p4",
+      "text": "In exercising power under Section 438, courts must balance the individual's right to personal freedom and the right of police investigation.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "neutral",
+      "conditions": [],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "right_to_liberty",
+        "bail_not_jail",
+        "presumption_of_innocence"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "p134.1",
+        "p132.4"
+      ],
+      "quote": "duty bound to strike a balance between the individual's right to personal freedom and the right of investigation.",
+      "quote_verified": true,
+      "favors_verified": false,
+      "verification_note": "Should be 'accused' based on the nature of the balancing act outlined."
+    },
+    {
+      "case_id": "_2019_12_SCR_172",
+      "proposition_id": "p1",
+      "text": "The court can receive materials collected during an investigation to confirm that the investigation is proceeding correctly and consider bail applications.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "neutral",
+      "conditions": [
+        "The court refrains from making observations that could cause prejudice."
+      ],
+      "normalized_statutes": [],
+      "tags": [
+        "bail_not_jail",
+        "presumption_of_innocence",
+        "stage_of_investigation"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "53",
+        "54"
+      ],
+      "quote": "the court can receive the materials/documents collected during the investigation and peruse the same.",
+      "quote_verified": false,
+      "favors_verified": false,
+      "verification_note": "The proposition states that the court can receive materials for bail applications, which may not clearly align with the anchor text."
+    },
+    {
+      "case_id": "_2019_12_SCR_172",
+      "proposition_id": "p2",
+      "text": "Interrogation and any evidence derived from it are exclusively within the domain of the investigating agency, not the judiciary.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "neutral",
+      "conditions": [
+        "As long as the investigation follows legal provisions."
+      ],
+      "normalized_statutes": [],
+      "tags": [
+        "cooperation_with_investigation",
+        "right_to_liberty",
+        "presumption_of_innocence"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "59",
+        "60"
+      ],
+      "quote": "interrogation of the accused and the answers elicited from the accused... exclusively reserved for the investigating agency.",
+      "quote_verified": false,
+      "favors_verified": false,
+      "verification_note": "The proposition claims interrogation evidence is for the investigating agency only, which may not directly relate to the anchor text."
+    },
+    {
+      "case_id": "_2019_12_SCR_172",
+      "proposition_id": "p3",
+      "text": "The power under Section 438 Cr.P.C. is extraordinary and should be used sparingly, especially in economic offences.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "prosecution",
+      "conditions": [],
+      "normalized_statutes": [],
+      "tags": [
+        "economic_offence_gravity",
+        "corruption",
+        "bail_not_jail"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "10",
+        "21"
+      ],
+      "quote": "Power under Section 438 Cr.P.C. is an extraordinary power and the same has to be exercised sparingly",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "_2019_12_SCR_172",
+      "proposition_id": "p4",
+      "text": "It is inappropriate for the court to conduct a mini-trial or scrutinize evidence during bail hearings.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "neutral",
+      "conditions": [
+        "Focus should be on evaluating the necessity and merit of bail."
+      ],
+      "normalized_statutes": [],
+      "tags": [
+        "bail_not_jail",
+        "presumption_of_innocence",
+        "right_to_liberty"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "57",
+        "58"
+      ],
+      "quote": "this could have never been the intention of the legislature either under PMLA or any other statute.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": ""
+    },
+    {
+      "case_id": "_2020_2_SCR_1",
+      "proposition_id": "p1",
+      "text": "The protection granted under Section 438 Cr.P.C. should not always be limited to a fixed period; it should generally be in favor of the accused without a time restriction.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [
+        "Usual conditions under Section 437(3) read with Section 438(2) should be imposed; special factors may justify time limitations."
+      ],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "bail_not_jail",
+        "presumption_of_innocence",
+        "right_to_liberty"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "P1"
+      ],
+      "quote": "Protection granted u/s.438 should not invariably be limited to a fixed period.",
+      "quote_verified": false,
+      "favors_verified": true,
+      "verification_note": "The anchor text refers to a conflict in views regarding the duration of anticipatory bail but does not explicitly support the idea that it should be without a time restriction."
+    },
+    {
+      "case_id": "_2020_2_SCR_1",
+      "proposition_id": "p2",
+      "text": "The life of an anticipatory bail generally does not end when the accused is summoned or charges are framed; it can continue till the end of the trial.",
+      "speaker": "supreme_court",
+      "kind": "ratio",
+      "is_holding": true,
+      "favors": "accused",
+      "conditions": [
+        "Court discretion applies if special conditions necessitate limiting the tenure."
+      ],
+      "normalized_statutes": [
+        "CrPC-1973:1973"
+      ],
+      "tags": [
+        "anticipatory_vs_regular",
+        "right_to_liberty",
+        "bail_not_jail"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "P1"
+      ],
+      "quote": "The life or duration of an anticipatory bail order does not end normally at the time and stage when the accused is summoned by the court, or when charges are framed.",
+      "quote_verified": false,
+      "favors_verified": true,
+      "verification_note": "Similar to p1, the anchor text discusses differing views and does not clearly support the proposition that anticipatory bail continues until the end of the trial."
+    },
+    {
+      "case_id": "_2020_2_SCR_1",
+      "proposition_id": "p3",
+      "text": "Anticipatory bail can be applied at different stages, including before an FIR is lodged, and should remain until a charge arises or is concluded, unless the Court decides otherwise.",
+      "speaker": "appellant_counsel",
+      "kind": "argument",
+      "is_holding": false,
+      "favors": "accused",
+      "conditions": [],
+      "normalized_statutes": [],
+      "tags": [
+        "anticipatory_vs_regular",
+        "right_to_liberty",
+        "bail_not_jail"
+      ],
+      "binding_level": "binding",
+      "authorities": [],
+      "anchors": [
+        "P2"
+      ],
+      "quote": "no reason to limit the period of bail in anticipation granted.",
+      "quote_verified": true,
+      "favors_verified": true,
+      "verification_note": "The argument presents a coherent interpretation of anticipatory bail as applicable at various stages and supporting its continuality until charges arise or the trial concludes."
+    }
+  ],
+  "metadata": {
+    "total_cases": 10,
+    "total_propositions": 48,
+    "version": "1.0"
+  }
+}

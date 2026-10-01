@@ -1,0 +1,434 @@
+{
+  "case_id": "_2013_10_SCR_125",
+  "doc_meta": {
+    "source_file": "Sumit Mehta.pdf",
+    "pdf_pages": 12,
+    "year": 2013,
+    "scr_volume": 10,
+    "scr_first_page": 125,
+    "citation_scr": "[2013] 10 SCR 125",
+    "decided_on": "2013-09-13",
+    "coram_raw": "P. SATHASIVAM, CJI AND RANJANA PRAKASH  DESAI, J.",
+    "bench_strength_regex": 3,
+    "constitution_bench": false,
+    "layout": "unnumbered_page_anchored",
+    "ocr_noise_score": 0.0018
+  },
+  "flags": [],
+  "case": {
+    "case_name": "Sumit Mehta v. State of N.C.T. of Delhi",
+    "petitioner": "Sumit Mehta",
+    "respondent": "State of N.C.T. of Delhi",
+    "court": "Supreme Court of India",
+    "coram": [
+      "P. SATHASIVAM",
+      "RANJANA PRAKASH DESAI"
+    ],
+    "judgment_author": "P. SATHASIVAM",
+    "procedural_stage": "pre_arrest",
+    "offence_types": [
+      "economic_offence"
+    ],
+    "dispute_nature": "economic_offence",
+    "abstract_facts": "The appellant was granted anticipatory bail by the Delhi High Court on the condition that he deposits Rs. 1 crore in a fixed deposit in the name of the complainant, related to offences under IPC sections 420, 467, 468, and 471. The appellant challenged this condition as untenable under law and outside the purview of Section 438 CrPC. The Supreme Court assessed whether such a financial condition was appropriate for anticipatory bail.",
+    "lower_court_outcome": "Anticipatory bail granted with condition of deposit.",
+    "disposition": "Appeal disposed of; condition of deposit set aside.",
+    "statutes": [
+      {
+        "act": "CrPC 1973",
+        "section": "438",
+        "how_used": "interpreted",
+        "note": "Bail conditions must relate to the fairness or propriety of the investigation or trial."
+      },
+      {
+        "act": "IPC",
+        "section": "420",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "467",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "468",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "471",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "Constitution of India, 1950",
+        "section": "21",
+        "how_used": "interpreted",
+        "note": "Right to liberty of the accused under Article 21 must be preserved unless guilt is proven."
+      }
+    ],
+    "issues": [
+      {
+        "question": "Is the condition of depositing Rs. 1 crore for anticipatory bail sustainable in law and under Section 438 CrPC?",
+        "short_answer": "No, such a condition is untenable and beyond the purview of Section 438 CrPC.",
+        "anchors": [
+          "p130.1",
+          "p134.1"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "Under Section 438 CrPC, the imposition of bail conditions should ensure the fairness or propriety of the investigation or trial.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [
+          "conditions must ensure fairness of the investigation/trial"
+        ],
+        "statutes": [
+          "CrPC 1973",
+          "Constitution of India, 1950"
+        ],
+        "anchors": [
+          "p132.4",
+          "p134.1"
+        ],
+        "quote": "condition, which has no reference to the fairness or propriety of the investigation or trial, cannot be countenanced as permissible under the law."
+      },
+      {
+        "id": "p3",
+        "text": "Courts should not impose financial conditions for anticipatory bail that are unreasonable and unconnected with ensuring investigation fairness.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [
+          "financial conditions must relate to investigation fairness"
+        ],
+        "statutes": [
+          "CrPC 1973"
+        ],
+        "anchors": [
+          "p134.3",
+          "p135.1"
+        ],
+        "quote": "fixed deposit of Rs. 1,00,00,000/- for a period of six months...is evidently onerous and unreasonable."
+      },
+      {
+        "id": "p4",
+        "text": "In exercising power under Section 438, courts must balance the individual's right to personal freedom and the right of police investigation.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [
+          "CrPC 1973"
+        ],
+        "anchors": [
+          "p134.1",
+          "p132.4"
+        ],
+        "quote": "duty bound to strike a balance between the individual's right to personal freedom and the right of investigation."
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The condition for depositing the amount in fixed deposit is untenable in law and outside the purview of Section 438 CrPC, contrary to Article 21.",
+        "outcome": "accepted",
+        "anchors": [
+          "p129.1"
+        ]
+      },
+      {
+        "side": "respondent",
+        "text": "The condition imposed for anticipatory bail cannot be construed as onerous given the dispute details.",
+        "outcome": "rejected",
+        "anchors": [
+          "p129.2"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "Shri Gurbaksh Singh Sibbia & Ors. vs. State of Punjab",
+        "citation": "(1980) 2 SCC 565",
+        "treatment": "relied_on",
+        "used_for": "Ensuring bail conditions relate to fairness of investigation.",
+        "where": "p132.5"
+      },
+      {
+        "name": "Amarjit Singh vs. State of NCT of Delhi",
+        "citation": "(2009) 13 SCC 769",
+        "treatment": "relied_on",
+        "used_for": "Conditions on anticipatory bail should not be unreasonable.",
+        "where": "p133.2"
+      },
+      {
+        "name": "Sheikh Ayub vs. State of M.P.",
+        "citation": "(2004) 13 SCC 457",
+        "treatment": "relied_on",
+        "used_for": "Financial conditions as bail terms are unwarranted.",
+        "where": "p133.4"
+      },
+      {
+        "name": "I. Glaskasden Grace and Ors. vs. Inspector of Police and Anr.",
+        "citation": "(2009) 12 SCC 769",
+        "treatment": "relied_on",
+        "used_for": "Opposing unreasonable bail conditions.",
+        "where": "p133.4"
+      },
+      {
+        "name": "Ramathal and Ors. vs. Inspector of Police and Anr.",
+        "citation": "(2009) 12 SCC 721",
+        "treatment": "relied_on",
+        "used_for": "Support in opposing unreasonable bail conditions.",
+        "where": "p133.4"
+      },
+      {
+        "name": "Sandeep Jain vs. National Capital Territory of Delhi Rep. by Secretary, Home Deptt.",
+        "citation": "(2000) 2 SCC 66",
+        "treatment": "relied_on",
+        "used_for": "General stance against onerous bail conditions.",
+        "where": "p133.4"
+      }
+    ]
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p4": {
+      "id": "p4",
+      "verdict": "supported",
+      "favors_correct": false,
+      "note": "Should be 'accused' based on the nature of the balancing act outlined."
+    }
+  },
+  "needs_review": [
+    "p3: quote not found in its anchors",
+    "p4: verifier says supported, favors_correct=False - Should be 'accused' based on the nature of the balancing act outlined.",
+    "coram count differs between regex and LLM"
+  ],
+  "paragraphs": {
+    "pNone.1": {
+      "text": "P. SATHASIVAM, CJI. 1. Leave granted.",
+      "page_start": null,
+      "page_end": null
+    },
+    "pNone.2": {
+      "text": "2. This appeal is directed against the order dated 18.12.2012 passed by the High Court of Delhi at New Delhi in Bail Application No. 1479 of 2012 whereby learned single Judge of the High Court while granting anticipatory bail to the H appellant herein in a case registered against him vide FIR No. [P. SATHASIVAM, CJI.] 104 dated 22.08.2012 for the offences punishable under Sections 420, 467, 468 and 471 of the Indian Penal Code, 1860 (hereinafter referred to as \"IPC\") directed him to deposit an amount of Rs.1,00,00,000/- (one crore) in fixed deposit in the name of the complainant in any nationalized bank and to keep the FDR with the Investigating Officer.",
+      "page_start": null,
+      "page_end": 129
+    },
+    "p129.1": {
+      "text": "3. According to learned senior counsel for the appellant, the condition for depositing the amount in fixed deposit in the impugned order is untenable in le1w and is outside the purview of Section 438 of the Code of Criminal Procedure, 1973 (in short \"the Code\"). He further pointed out that learned single Judge, while imposing the condition for depositing the amount in fixed deposit, has failed· to appreciate that the liberty for grant . of anticipatory bail under Section 438 of the Code cannot be used for recovery of the alleged cheated amount to the complainant. He further pointed out that while passing the impugned order, learned single Judge failed to consider that imposing a condition of depositing ah amount of Rs. 1 crore in fixed deposit would make the grant of anticipatory bail impossible for the appellant. He also pointed out that the said direction is contrary to Article 21 of the Constitution of India and results in denial of liberty to the appellant. 4. During the course of hearing, one Harnam Jaspal-the compl~inant, filed Criminal Misc. Petition 18718 of 2013 for intervention. Intervention application is allowed. Learned counsel appearing for the intervener, after highlighting the transaction between the intervener and the appellant-accused and various factual aspects, contended that the High Court is fully justified in imposing such condition and there is no need to interfere with the same.",
+      "page_start": 129,
+      "page_end": 129
+    },
+    "p129.2": {
+      "text": "5. On behalf of the respondent-State, learned Additional Solicitor General submitted that taking note of the dispute between the complainant and the appellant-accused, the condition imposed for grant pf anticipatory bail cannot be construed as onerous.",
+      "page_start": 129,
+      "page_end": 129
+    },
+    "p130.1": {
+      "text": "6. We have carefully considered the rival contentions and perused all the relevant materials.",
+      "page_start": 130,
+      "page_end": 130
+    },
+    "p130.2": {
+      "text": "7. The only point for consideration in this appeal is whether the condition of depositing an amount of Rs. 1,00,00,000/- in 8 fixed deposit for anticipatory bail is sustainable in law and whether such condition is outside the purview of Section 438 of the Codf;?",
+      "page_start": 130,
+      "page_end": 130
+    },
+    "p130.3": {
+      "text": "c 8. In order to answer the above question, it is useful to refer Section 438 of the Code which reads as under:",
+      "page_start": 130,
+      "page_end": 130
+    },
+    "p130.4": {
+      "text": "\"438. Direction for grant of bail to person apprehending arrest:- (1) Where any person has reason to believe that he may be arrested on accusation of having committed a non-bailable offence, he may apply to the High Court or the Court of Session for a direction under this section that in the event of such am3st he shall be released on bail; and that Court may, after taking into consideration, inter alia, the following factors, namely:- (i)",
+      "page_start": 130,
+      "page_end": 130
+    },
+    "p130.5": {
+      "text": "the nature and gravity of the accusation;",
+      "page_start": 130,
+      "page_end": 130
+    },
+    "p130.6": {
+      "text": "(ii)",
+      "page_start": 130,
+      "page_end": 130
+    },
+    "p130.7": {
+      "text": "the antecedents of the applicant including the fact as to whether he has previously undergone imprisonment on conviction by a Court in respect of any cognizable offence;",
+      "page_start": 130,
+      "page_end": 130
+    },
+    "p130.8": {
+      "text": "(iii)",
+      "page_start": 130,
+      "page_end": 130
+    },
+    "p130.9": {
+      "text": "the possibility of the applicant to flee from justice; and (iv)",
+      "page_start": 130,
+      "page_end": 130
+    },
+    "p130.10": {
+      "text": "where the accusation has been made with the object of injuring or humiliating the applicant by having him so arrested, either reject the application forthwith or issue an interim order for the grant of anticipatory bail: [P. SATHASIVAM, CJI.] Provided that, where the High Court or, as the case may be, the Court of Session, has not passed any interim order under this sub-section or has rejected the application for grant of anticipatory bail, it shall be open to an officer in-charge of a police station to arrest, without warrant the applicant on the basis of the accusation apprehended in such application.",
+      "page_start": 130,
+      "page_end": 131
+    },
+    "p131.1": {
+      "text": "(1A) Where the Court grants an interim order under sub-section (1 ), it shall forthwith cause a notice being not less than seven days notice, together with a copy of such order to be served on the Public Prosecutor and the Superintendent of Police, with a view to give the Public Prosecutor a reasonable opportunity of being heard when the application shall be finally heard by the Court. (1 B) The presence of the applicant seeking anticipatory bail shall be obligatory at the time of final hearing of the application and passing of final order by the Court, if on an application made to it by the Public Prosecutor, the Court considers such presence necessary in the interest of justice.",
+      "page_start": 131,
+      "page_end": 131
+    },
+    "p131.2": {
+      "text": "(2) When the High Court or the Court of Session makes a direction under sub-section (1 ), it may include such conditions in such directions in the light of the facts of the particular case, as it may thinks fit, including- (i) a condition that the persori shall make himself available · for interrogation by a police officer as and when required; (ii) a condition that the person shall not, directly or. indirectly, make any inducement, threat or promise to any person acquainted with the facts of the case so as to dissuade him from disclosing such facts to the Court or to any police officer;",
+      "page_start": 131,
+      "page_end": 131
+    },
+    "p131.3": {
+      "text": "(iii) a condition that the person shall not leave India without the previous permission of the Court;",
+      "page_start": 131,
+      "page_end": 131
+    },
+    "p132.1": {
+      "text": "c [2013) 10 S.C.R.",
+      "page_start": 132,
+      "page_end": 132
+    },
+    "p132.2": {
+      "text": "(iv) such other condition as may be imposed under sub-section (3) of section 437, as if the bail were granted under that section.",
+      "page_start": 132,
+      "page_end": 132
+    },
+    "p132.3": {
+      "text": "(3) If such person is thereafter arrested without warrant by an officer in charge of a police station on such accusation, and is prepared either at the time of arrest or at any time while in the custody of such officer to give bail, he shall be released on .bail; and if a Magistrate taking cognizance of such offence decides that a warrant should issue in the first instance against that person, he shall issue a bailable warrant in conformity with the direction of the Court under sub-section (1).\"",
+      "page_start": 132,
+      "page_end": 132
+    },
+    "p132.4": {
+      "text": "A reading of the above provision makes it clear that a person should not be harassed or humiliated in order to satisfy the o grudge or personal vendetta of the complainant. The grant of bail under Section 438(1) of the Code is dependent on the merits and circumstances of a case.",
+      "page_start": 132,
+      "page_end": 132
+    },
+    "p132.5": {
+      "text": "9. A Bench of five-Judges of this Court in Shri Gurbaksh E Singh Sibbia & Ors. vs. State of Punjab (1980) 2 SCC 565, while dealing mainly with the question of considerations that can validly weigh with the courts while granting bail under Section 438, examined various facets of the issue and held as under: \"26. We find a great deal of substance in Mr.",
+      "page_start": 132,
+      "page_end": 132
+    },
+    "p132.6": {
+      "text": "Tarkunde's submission that since denial of bail amounts to deprivation of personal liberty, the Court should lean against the imposition of unnecessary restrictions on the scope of Section 438, especially when no such restrictions have been imposed by the legislature in the terms of that section. Section 438 is a procedural provision which is concerned with the personal liberty of the individual, who is entitled to the benefit of the presumption of innocence since he is not, on the date of his application for anticipatory bail, convicted of the offence in respect of which he seeks bail. An over-generous infusion of [P. SATHASIVAM, CJI.] constraints and conditions which are not to be found in Section 438 can make its provisions constitutionally vulnerable since the right to personal freedom cannot be made to depend on, compliance with unreasonable restrictions. The beneficent provision contained in Section 438 must be saved, not jettisoned. No doubt can linger after the decision in Maneka Gandhi [1978]2SCR621 that in order to meet the challenge of Article 21 of the . Constitution, the procedure established by law for depriving a person of his liberty must be fair, just and reasonable. Section 438, in the form in which it; is c conceived by the legislature, is open to no exception on the ground that it prescribes a procedure which is unjust or unfair. We ought, at all costs, to avoid throwing it open to a Constitutional challenge by reading words in it which are not be found therein.\"",
+      "page_start": 132,
+      "page_end": 133
+    },
+    "p133.1": {
+      "text": "The aforesaid decision gives an abundant clarity as to the intention and the scope of Section 438 of the Code. Certainly, the power conferred must be exercised very sparingly and judiciously. However, this Court has always frowned on onerous condition being imposed as a condition precedent for granting anticipatory bail.",
+      "page_start": 133,
+      "page_end": 133
+    },
+    "p133.2": {
+      "text": "10. In Amarjit Singh vs. State of NCT of Delhi (2009) 13 SCC 769, this Court ruled as under:",
+      "page_start": 133,
+      "page_end": 133
+    },
+    "p133.3": {
+      "text": "\"7. Having regard to the facts and circumstances of the present case, we have no hesitation in coming to the conclusion that the imposition of condition to deposit the sum of Rs. 15 lacks in the form of FDR in the TTial Court is an unreasonable condition and, therefore, we set aside the said condition as a condition precedent for granting antic;ipatory bail to the accused/appellant.\"",
+      "page_start": 133,
+      "page_end": 133
+    },
+    "p133.4": {
+      "text": "11. In Sheikh Ayub vs. State of M.P. (2004) 13 SCC 457, it was held that a direction to pay a portion of the amount misappropriated by the accused to the complainant as a A condition for bail is unwarranted. Similar view was adopted by this Court in I. Glaskasden Grace and Ors. vs. Inspector of Police and Anr. (2009) 12 SCC 769, Ramathal and Ors. vs. Inspector of Police and Anr. (2009) 12 SCC 721 and Sandeep Jain vs. National Capital Territory of Delhi Rep. by Secretary, B Home Deptt. (2000) 2 SCC 66.",
+      "page_start": 133,
+      "page_end": 134
+    },
+    "p134.1": {
+      "text": "12. While exercising power under Section 438 of the Code, the Court is duty bound to strike a balance between the individual's right to personal freedom and the right of C investigation of the police. For the same, while granting relief under Section 438(1), appropriate conditions can be imposed under Section 438(2) so as to ensure an uninterrupted investigation. The object of putting such conditions should be to avoid the possibility of the person hampering the investigation. Thus, any condition, which has no reference to D the fairness or propriety of the investigation or trial, cannot be countenanced as permissible under the law. So, the discretion . of the Court while imposing conditions must be exercised with utmost restraint.",
+      "page_start": 134,
+      "page_end": 134
+    },
+    "p134.2": {
+      "text": "13. The law presumes an accused to be innocent till his guilt is proved. As a presumably innocent person, he is entitled . to all the fundamental rights including the right to liberty guaranteed under Article 21 of the Constitution. 14. We also clarify that while granting anticipatory bail, the Courts are expected to consider and keep in mind the nature and gravity of accusation, antecedents of the applicant, namely, about his previous involvement in such offence and the possibility of the applicant to flee from justice. It is also the duty of the Court to ascertain whether accusation has been made G with the object of injuring or humiliating him by having him so arrested. It is needless to mention that the Courts are duty bound to irr.pose appropriate conditions as provided under sub-section (2) of Section 438 of the Code.",
+      "page_start": 134,
+      "page_end": 134
+    },
+    "p134.3": {
+      "text": "15. Thus, in the case on hand, fixed deposit of Rs. [P. SATHASIVAM, CJI.] 1,00,00,000/- for a period of six months in the name of thE! . complainant and to keep the FDR with the investigating officer as a condition precedent for grant of anticipatory bail is · evidently onerous and unreasonable. It must be remembered that the Court has not even come to the conclusion whether the allegations made are true or not which can only be ascertained · B after completion of trial. Certainly, in no words ·are we suggesting that the power to impose a condition of this nature is totally excluded, even in cases of cheating, electricity pilferage, white-collar crimes or chit fund scams etc. 16. The words \"any condition\" used in the provision should not be regarded as conferring absolute power on a Court of c law to impose any condition that it chooses to impose. Any conditicm has to be interpreted as a reasonable condition acceptable in the facts permissible in the circumstance and effective in the pragmatic sense and should not defeat the order of grant of bail. We are of the view that the present facts and circumstances of the case do nc;>t warrant such extreme condition to be imposed.",
+      "page_start": 134,
+      "page_end": 135
+    },
+    "p135.1": {
+      "text": "17. In the light of the above discussion, while retaining the order granting anticipatory bail in favour of the appellant-accused, namely, Sumit Mehta, we set aside the direction relating to deposit of FDR in the name of the complainant. However, the appellant-accused has to fulfill the following conditions:",
+      "page_start": 135,
+      "page_end": 135
+    },
+    "p135.2": {
+      "text": "(i)",
+      "page_start": 135,
+      "page_end": 135
+    },
+    "p135.3": {
+      "text": "The appellant shall make himself available for interrogation by a police officer as. and when · required;",
+      "page_start": 135,
+      "page_end": 135
+    },
+    "p135.4": {
+      "text": "(ii)",
+      "page_start": 135,
+      "page_end": 135
+    },
+    "p135.5": {
+      "text": "The appellant shall not directly or indirectly make any inducement, threat or promise to any person acquainted with the facts of th.e case so as to dissuade him from· disclosing such facts to the Court or to any police officer;",
+      "page_start": 135,
+      "page_end": 135
+    },
+    "p136.1": {
+      "text": "(iii)",
+      "page_start": 136,
+      "page_end": 136
+    },
+    "p136.2": {
+      "text": "The appellant shall furnish his address to t~e Investigating Officer who shall verify it and submit it to the trial Court under his signature. In case of change of address,_ it must be communicated to the Investigating Officer who shall verify it and intimate s the same to the court concerned under his signature; and (iv)",
+      "page_start": 136,
+      "page_end": 136
+    },
+    "p136.3": {
+      "text": "The appellant shall not leave India without the previous permission of the trial Court.",
+      "page_start": 136,
+      "page_end": 136
+    },
+    "p136.4": {
+      "text": "18. The appeal is disposed of with the above directions. K.K.T.",
+      "page_start": 136,
+      "page_end": 136
+    },
+    "p136.5": {
+      "text": "Appeal disposed of.",
+      "page_start": 136,
+      "page_end": 136
+    }
+  },
+  "headnote_raw": " \nSUMIT MEHTA\nv.\nSTATE OF N.C.T. OF DELHI\n(Criminal Appeal No. 1436 of 2013)\nSEPTEMBER 13, 2013\n[P. SATHASIVAM, CJI AND RANJANA PRAKASH\nDESAI, J.]\nCode of Criminal Procedure, 1973:\nc\ns.438 - Power under - Purpose and scope of - FIR u/s.\n420, 467, 468 and 471 /PC - Anticipatory bail granted on the\ncondition that the accused would deposit Rs. one crore in fixed\ndeposit in the name of the complainant - Propriety of the\ncondition - Held: Object of putting conditions while granting\n0\nbail, is to avoid possibility of the person hampering the\ninvestigation - Thus any condition which has no reference to\nthe fairness or propriety of the investigation or trial, cannot be\ncountenanced as permissible under law -\nTherefore,\ncondition of deposit for grant of anticipatory bail is untenable\n- Accused, presumably an innocent person, entitled to right\nto liberty under Article 21 of the Constitution - Direction to\ndeposit FDR set aside - Condition imposed on the accused\nto make himself available to police not to hamper with\ninvestigation and not to leave India without previous\npermission of Court- Constitution of India, 1950 -Article 21.\ns.438 - Anticipatory bail - Grant of - Parameters for -\nDiscussed.\nThe question for consideration in the present appeal\nwas whether the condition of depositing an amount of\nRs. 1,00,00,0001- in fixed deposit for anticipatory bail was\nsustainable in law and Whether such condition is outside\nthe purview of Section 438 Cr.P.C.\n•\n \nDisposing of the appeal, the Court\nHELD: 1. The purpose of the provision in s.438\nCr.P.C. is that a person should not be harassed or\nhumiliated in order to satisfy the grudge or personal\n8 vendetta of the complainant. The grant of bail under\nSection 438(1) is dependent on the merits and\ncircumstances of a case. While granting anticipatory bail,\nthe Courts are expected to consider and keep in mind the\nnature and gravity of accusation, anteeedents of the\napplicant, namely, about his previot.1$ involvement in\nC such offence and the possibility of the applicant to flee\nfrom justice. It is also the duty of the Court to ascertain\n. whether accusation has been made with the object of\ninjuring or humiliating him by having him so arrested. The\nCourts are duty bound to impose appropriate conditions\nD as provided under sub-section (2) of Section 438 Cr.P.C.\n[Paras 8 and 14] [132-D; 134-F·G]\nShri Gurbaksh Singh Sibbia and Ors. vs. State of Punjab\n(1980) 2 sec 565: 1980 (3) SCR 383 - relied on.\n2.1. While exercising power under Section 438\nCr.P.C., the Court is duty bound to strike a balance\nbetween the individual's right to personal freedom and\nthe right of investigation of the police. For the same, while\ngranting relief under Section 438(1 ), appropriate\nF conditions can be imposed under Section 438(2), so as\nto ensure an uninterrupted investigation. The object of\nputting such conditions should be to avoid the possibility\nof the person hampering the investigation. Thus, any\ncondition, which has no reference to the fairness or\nG propriety of the investigation or trial, cannot be\ncountenanced as permissible under the law. So, the\ndiscretion of the Court while imposing conditions must\nbe exercised with utmost restraint. The law presumes an\naccused to be innocent till his guilt is proved. As a\nH presumably innocent person, he is entitled to all the\n \nfundamental ri9hts including the right to liberty A\nguaranteed under Article 21 of the Constitution. [Paras 12\nand 13) [134-B-F]\n2.2. The words \"any condition\" used in the provision\nshould not be regarded as conferring absolute power on\na Court of law to impose any condition that it chooses\nto impose. Any condition has to be interpreted as a\nreasonable condition acceptable in the facts permissible\n8\nin the circumstance and effective in the pragmatic sense\nand should not defeat the order of grant of bail. [Para 16)\n[135-C-D]\n2.3. Therefore, fixed deposit of Rs. 1,00,00,000/- for a\nperiod of six months in the name of the complainant and\nto keep the FDR with the investigating officer as a\ncondition precedent for grant of anticipatory bail is D\nevidently onerous and unreasonable. [Paras 15] [134-H;\n135-A-B]\nAmarjit Singh vs. State of NCT of Delhi (2009) 13 SCC\n769; Sheikh Ayub vs. State of M.P. (2004) 13 SCC 457; I.\nGlaskasden Grace and Ors. vs. Inspector of Police and Anr.\n(2009) 12 SCC 769; 2009 (3) SCR 990; Ramathal and Ors.\nvs. Inspector of Police and Anr. (2009) 12 SCC 721: 2009\n(3) SCR 981 Sandeep Jain vs. National Capital Territory of\nDelhi Rep. by Secretary,· Home Deptt. (2000) 2 SCC 66 -\nrelied on.\n3. Setting aside the direction relating to deposit of\nFDR in the name of the complainant, the appellant-\naccused is directed to fulfill the following conditions i.e.\nthe appellant shall make himself available for G\ninterrogation by a police officer as and when required;\nthe appellant shall not directly or indirectly make any\ninducement, threat or promise to any person acquainted\nwith the facts of the case so as to dissuade him, from\ndisclosing such facts to the Court or to any police officer;\n \nA the appellant shall furnish his address to t11~ Investigating\nOfficer who shall verify it and submit it to the trial Court\nunder his signature. In case of change of address, it must\nbe communicated to the Investigating Officer who shall\nverify it and intimate the same to the court concerned\nB under his signature; and the appellant shall not leave\nIndia without the previous permission of the trial Court.\n[Para 17] [135-E-H; 136-A-C]\nc\nCase Law Reference:\n1980 (3) SCR 383\nrelied on\nPara 9\n(2009) 13 sec 769\nrelied on\nPara 10.\n(2004) 13 sec 457\nrelied on\nPara 11\n2009 (3) SCR 990\nrelied on\nPara 11\n2009 (3) SCR 981\nrelied on\nPara 11\n(2000) 2 sec 66\nrelied on\nPara 11\n"
+}

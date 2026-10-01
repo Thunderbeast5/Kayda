@@ -1,0 +1,58 @@
+================================================================================
+BAIL PRECEDENT RETRIEVAL RESULTS
+================================================================================
+
+CASE ANALYSIS:
+Summary: The accused, a businessman with no prior record, seeks bail in a property transaction dispute after being charged with cheating and breach of trust, arguing it is a civil matter given criminal color.
+Stage: post_arrest
+Statutes: CrPC-1973:437, BNS-2023:318, BNS-2023:316, IPC-1860:420, BNSS-2023:479, IPC-1860:406
+Tags: commercial_vs_personal, civil_dispute_criminalised, first_time_offender, roots_in_community, right_to_liberty, bail_not_jail, economic_offence_gravity
+
+================================================================================
+TOP 2 RELEVANT PRECEDENTS
+================================================================================
+
+[1] LAVE SH V. STATE (NCT OF DELHI)
+Citation: _2012_7_SCR_469 | Supreme Court of India | 2012-08-31
+Relevance: 8.5/10 | Binding: binding
+Usage: apply directly | Applicability: yes
+
+Principle:
+  Section 438 of the CrPC allows a person to apply for anticipatory bail when they apprehend arrest for a non-bailable offence.
+
+Quote:
+  "in a non-bailable offence if a person has reason to believe that he may be arrested, he is free to apply to the High Court"
+
+Reasoning:
+  Direct precedent on same issue
+
+
+[2] Jai Prakash Singh v. State of Bihar & Anr.
+Citation: _2012_5_SCR_1 | Supreme Court of India | 2012-03-14
+Relevance: 7.0/10 | Binding: binding
+Usage: analogize | Applicability: partial
+
+Principle:
+  Anticipatory bail can be granted only in exceptional circumstances where there is a prima facie view that the accused is falsely implicated and would not misuse liberty.
+
+Quote:
+  "Anticipatory bail can be granted only in exceptional circumstances where the court is prima facie of the view that the applicant has falsely been enroped in the crime and would not misuse his liberty."
+
+Reasoning:
+  While it discusses anticipatory bail, it highlights the importance of individual circumstances which can be related to the current case.
+
+
+================================================================================
+STRONGEST ADVERSE PRECEDENT (Other Side Will Cite)
+================================================================================
+
+Jai Prakash Singh v. State of Bihar & Anr.
+Citation: _2012_5_SCR_1 | Supreme Court of India | 2012-03-14
+
+Principle:
+  A promptly lodged FIR is a vital and valuable piece of evidence assuring the veracity of the informant’s version.
+
+How to Distinguish:
+  Direct precedent on same issue
+
+================================================================================

@@ -1805,5 +1805,245 @@
     "subject_matter_scope": null,
     "disqualifying_subject_matters": [],
     "requires_trigger_gate": false
+  },
+  {
+    "section": "463",
+    "statute": "IPC",
+    "bns_equivalent": "463",
+    "title": "Forgery",
+    "mandatory_ingredients": [
+      "forgery"
+    ],
+    "factual_triggers": [
+      "false document",
+      "forgery"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Forgery",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "469",
+    "statute": "IPC",
+    "bns_equivalent": "469",
+    "title": "Forgery for purpose of harming reputation",
+    "mandatory_ingredients": [
+      "forgery_for_purpose_of_harming_reputation"
+    ],
+    "factual_triggers": [
+      "forged document",
+      "forgery",
+      "purpose",
+      "harming",
+      "reputation"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Forgery for purpose of harming reputation",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "470",
+    "statute": "IPC",
+    "bns_equivalent": "470",
+    "title": "Forged document",
+    "mandatory_ingredients": [
+      "forged_document"
+    ],
+    "factual_triggers": [
+      "false document",
+      "forged document",
+      "forgery",
+      "forged",
+      "document"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Forged document",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "472",
+    "statute": "IPC",
+    "bns_equivalent": "472",
+    "title": "Making or possessing counterfeit seal, etc., with intent to commit forgery punishable under section 467",
+    "mandatory_ingredients": [
+      "making_or_possessing_counterfeit_seal_etc_with_intent_to_commit_forgery_punishable_under_section_467"
+    ],
+    "factual_triggers": [
+      "forgery",
+      "making",
+      "possessing",
+      "counterfeit",
+      "seal",
+      "intent",
+      "commit",
+      "punishable",
+      "under",
+      "section"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Making or possessing counterfeit seal, etc., with intent to commit forgery punishable under section 467",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "475",
+    "statute": "IPC",
+    "bns_equivalent": "475",
+    "title": "Counterfeiting device or mark used for authenticating documents described in section 467, or possessing counterfeit marked material",
+    "mandatory_ingredients": [
+      "counterfeiting_device_or_mark_used_for_authenticating_documents_described_in_section_467_or_possessing_counterfeit_marked_material"
+    ],
+    "factual_triggers": [
+      "documents",
+      "forged",
+      "forged document",
+      "forgery",
+      "counterfeiting",
+      "device",
+      "mark",
+      "used",
+      "authenticating",
+      "described",
+      "section",
+      "possessing",
+      "counterfeit",
+      "marked",
+      "material"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Counterfeiting device or mark used for authenticating documents described in section 467, or possessing counterfeit marked material",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "476",
+    "statute": "IPC",
+    "bns_equivalent": "476",
+    "title": "Counterfeiting device or mark used for authenticating documents other than those described in section 467, or possessing counterfeit marked material",
+    "mandatory_ingredients": [
+      "counterfeiting_device_or_mark_used_for_authenticating_documents_other_than_those_described_in_section_467_or_possessing_counterfeit_marked_material"
+    ],
+    "factual_triggers": [
+      "documents",
+      "forged",
+      "forged document",
+      "counterfeiting",
+      "device",
+      "mark",
+      "used",
+      "authenticating",
+      "other",
+      "than",
+      "those",
+      "described",
+      "section",
+      "possessing",
+      "counterfeit",
+      "marked",
+      "material"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Counterfeiting device or mark used for authenticating documents other than those described in section 467, or possessing counterfeit marked material",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "412",
+    "statute": "IPC",
+    "bns_equivalent": "412",
+    "title": "Dishonestly receiving property stolen in the commission of a dacoity",
+    "mandatory_ingredients": [
+      "dishonestly_receiving_property_stolen_in_the_commission_of_a_dacoity"
+    ],
+    "factual_triggers": [
+      "dishonestly",
+      "property",
+      "transferred",
+      "receiving",
+      "stolen",
+      "commission",
+      "dacoity"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Dishonestly receiving property stolen in the commission of a dacoity",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "421",
+    "statute": "IPC",
+    "bns_equivalent": "421",
+    "title": "Dishonest or fraudulent removal or concealment of property to prevent distribution among creditors",
+    "mandatory_ingredients": [
+      "dishonest_or_fraudulent_removal_or_concealment_of_property_to_prevent_distribution_among_creditors"
+    ],
+    "factual_triggers": [
+      "dishonestly",
+      "property",
+      "transferred",
+      "dishonest",
+      "fraudulent",
+      "removal",
+      "concealment",
+      "prevent",
+      "distribution",
+      "among",
+      "creditors"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Dishonest or fraudulent removal or concealment of property to prevent distribution among creditors",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
   }
 ]

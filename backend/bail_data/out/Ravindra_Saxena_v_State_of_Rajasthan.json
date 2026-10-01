@@ -1,0 +1,389 @@
+{
+  "case_id": "Ravindra_Saxena_v_State_of_Rajasthan",
+  "doc_meta": {
+    "source_file": "Ravindra Saxena v. State of Rajasthan.pdf",
+    "pdf_pages": 8,
+    "decided_on": "2009-12-15",
+    "coram_raw": "TARUN CHATIERJEE AND SURINDER SINGH  NIJJAR, JJ.",
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "layout": "unnumbered_page_anchored",
+    "ocr_noise_score": 0.0004
+  },
+  "flags": [
+    "zone_split_failed_using_whole_text"
+  ],
+  "case": {
+    "case_name": "Ravindra Saxena v. State of Rajasthan",
+    "petitioner": "Ravindra Saxena",
+    "respondent": "State of Rajasthan",
+    "court": "Supreme Court of India",
+    "coram": [
+      "Tarun Chatterjee",
+      "Surinder Singh Nijjar"
+    ],
+    "judgment_author": null,
+    "procedural_stage": "post_arrest_bail",
+    "offence_types": [
+      "fraud"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "The case involves a dispute between a property dealer and a buyer over the sale of flats, leading to a criminal complaint against the property dealer for offences under the IPC. The buyer also filed a suit for specific performance. The property dealer sought anticipatory bail, which had been denied multiple times by lower courts. The Supreme Court addressed issues regarding the applicability of anticipatory bail after the presentation of the charge sheet.",
+    "lower_court_outcome": "Third application for anticipatory bail was rejected by High Court.",
+    "disposition": "Appeal allowed; anticipatory bail granted.",
+    "statutes": [
+      {
+        "act": "CrPC 1973",
+        "section": "438",
+        "how_used": "interpreted",
+        "note": "Anticipatory bail can be granted at any time before arrest; court must apply its mind."
+      },
+      {
+        "act": "IPC",
+        "section": "420",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "467",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "468",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "120-B",
+        "how_used": "charged",
+        "note": null
+      }
+    ],
+    "issues": [
+      {
+        "question": "Whether anticipatory bail can be denied solely on the grounds that the charge sheet has been filed.",
+        "short_answer": "No, anticipatory bail should not be denied for this reason alone.",
+        "anchors": [
+          "p437.2",
+          "p437.3",
+          "p437.4",
+          "p438.1"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "Anticipatory bail can be granted at any time before arrest, as long as the court applies its own mind to the application.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [],
+        "statutes": [
+          "CrPC 1973 438"
+        ],
+        "anchors": [
+          "p437.4",
+          "p438.1"
+        ],
+        "quote": "It is clearly held that the anticipatory bail can be granted at any time so long as the applicant has not been arrested."
+      },
+      {
+        "id": "p2",
+        "text": "Denial of anticipatory bail solely because the charge sheet has been filed does not meet the requirements of Sections 437 and 438 CrPC.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [],
+        "statutes": [
+          "CrPC 1973 438"
+        ],
+        "anchors": [
+          "p437.2",
+          "p438.1"
+        ],
+        "quote": "denial of anticipatory bail only on the ground that the challan has been presented would not satisfy the requirements of Sections 437 and 438 Cr.P.C."
+      },
+      {
+        "id": "p3",
+        "text": "Courts must exercise discretion in granting anticipatory bail upon examining the facts and circumstances of each case.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [
+          "Court must think it fits."
+        ],
+        "statutes": [],
+        "anchors": [
+          "p438.1",
+          "p438.2"
+        ],
+        "quote": "The High Court is required to exercise its discretion upon examination of the facts and circumstances and to grant anticipatory bail \"if it thinks fit\"."
+      },
+      {
+        "id": "p4",
+        "text": "Expression 'if it thinks fit' in Section 438 CrPC gives the High Court or Sessions Court discretion similar to Section 437(1) CrPC.",
+        "speaker": "quoted_authority",
+        "kind": "obiter",
+        "is_holding": false,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p438.2"
+        ],
+        "quote": "The expression \"if it thinks fit\", which occurs in Section 438(1) in relation to the power of the High Court or the Court of Session, is conspicuously absent in Section 437(1)."
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The High Court erred in not applying its mind to the facts and circumstances of the case and denying anticipatory bail solely because the challan had been presented.",
+        "outcome": "accepted",
+        "anchors": [
+          "p437.2",
+          "p437.3"
+        ]
+      },
+      {
+        "side": "respondent",
+        "text": "Denial of anticipatory bail was correct considering the charge sheet and prima facie case established against the accused.",
+        "outcome": "rejected",
+        "anchors": [
+          "p437.2",
+          "p437.3"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "Gurbaksh Singh Sibbia and Ors. Vs. State of Punjab",
+        "citation": "(1980) 2 SCC 565",
+        "treatment": "relied_on",
+        "used_for": "Principles of anticipatory bail under Section 438 CrPC",
+        "where": "p438.1"
+      }
+    ]
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p4": {
+      "id": "p4",
+      "verdict": "overstated",
+      "favors_correct": false,
+      "note": "The expression 'if it thinks fit' does not provide discretion similar to Section 437(1) as it is distinctly different."
+    }
+  },
+  "needs_review": [
+    "p2: quote not found in its anchors",
+    "p4: verifier says overstated, favors_correct=False - The expression 'if it thinks fit' does not provide discretion similar to Section 437(1) as it is distinctly different."
+  ],
+  "paragraphs": {
+    "p433.1": {
+      "text": "[2009] 16 (ADDL.) S.C.R. 433 RAVINDRA SAXENA v.",
+      "page_start": 433,
+      "page_end": 433
+    },
+    "p433.2": {
+      "text": "STATE OF RAJASTHAN (Criminal Appeal No. 2406 of 2009)",
+      "page_start": 433,
+      "page_end": 433
+    },
+    "p433.3": {
+      "text": "DECEMBER 15, 2009 [TARUN CHATIERJEE AND SURINDER SINGH NIJJAR, JJ.] )",
+      "page_start": 433,
+      "page_end": 433
+    },
+    "p433.4": {
+      "text": "Code of Criminal Procedure, 1973:",
+      "page_start": 433,
+      "page_end": 433
+    },
+    "p433.5": {
+      "text": "c s. 438 - Anticipatory bail - Dispute between property dealer and buyer regarding sale of flats - Criminal complaint against property dealer and his family members for offences punishable ulss. 420 and 120-B /PC - Suit for specific performance also filed by complainant - Third application for D > anticipatory bail rejected by High Court observing that \"cha/Ian has now been presented\" - HELD: It has been clearly held by Supreme Court* that anticipatory bail can be granted at any time so long as the applicant has not been arrested - When the application is made to High Court or Court of E Session, it must apply its own mind on the question and decide when the case is made out for granting such relief - High Court ought not to have left the matter to Magistrate only on the ground that \"cha/Ian has now been presented\" - There ,>.",
+      "page_start": 433,
+      "page_end": 433
+    },
+    "p433.6": {
+      "text": "• is also no reason to deny anticipatory bail merely because the a/legation in the case pertains to cheating or forgery of a valuable security - The merits of the issues shall have to be assessed at the time of trial and denial of anticipatory bail only on the ground that cha/Ian has been presented would not satisfy the requirements of ss.437 and 438 - High Court committed a serious error of law in not applying its mind to the facts and circumstances of the case - High Court is \"\"",
+      "page_start": 433,
+      "page_end": 433
+    },
+    "p433.7": {
+      "text": "I required to exercise its discretion upon examination of the facts and circumstances and to grant anticipatory bail \"if it A thinks fit\" - Salutary provision contained in s.438 was introduced to enable the court to prevent deprivation of personal liberty - It cannot be permitted to be jettisoned on technicalities such as \"the cha/Ian having been presented, anticipatory bail cannot be granted\" - High Court erred in not B considering the application for anticipatory bail in accordance with law - Defence put forward by the appellant cannot be obliterated at this stage itself - The plea of the appellant that dispute is purely of a civil nature cannot be brushed aside at this stage - Therefore, anticipatory bail is granted to the c appellant in the case pending on the basis of FIR No. 1071 2007 - It is directed that in the event of arrest, the appellant shall be released on bail to the satisfaction of the Investigating Officer -·Appellant shall join investigation as and when required.",
+      "page_start": 433,
+      "page_end": 434
+    },
+    "p434.1": {
+      "text": "Words and Phrases:",
+      "page_start": 434,
+      "page_end": 434
+    },
+    "p434.2": {
+      "text": "Expression \"if it thinks fit\" as occurring in s. 138(1 )CrPC • - Connotation of.",
+      "page_start": 434,
+      "page_end": 434
+    },
+    "p434.3": {
+      "text": "*Gurbaksh Singh Sibbia and Ors. Vs. State of Punjab (1980) 2 sec 565, relied on.",
+      "page_start": 434,
+      "page_end": 434
+    },
+    "p434.4": {
+      "text": "Case Law Reference:",
+      "page_start": 434,
+      "page_end": 434
+    },
+    "p434.5": {
+      "text": "(1980) 2 sec 565 relied on para 8 CRIMINAL AP PELLA TE JURISDICTION : Criminal Appeal • No. 2406 of 2009.",
+      "page_start": 434,
+      "page_end": 434
+    },
+    "p434.6": {
+      "text": "From the Judgment & Order dated 30.1.2009 of the High Court of Judicature at Rajasthan, Jaipur Bench, Jaipur in S.B. G Criminal Misc. 3rd Bail Application No. 794 of 2009. Sushil Kumar Jain (for Pratibha Jain) for the Appellant. • Sonia Mathur, Pankaj Prasad, R. Gopalakrishnan for the ~ Respondent.",
+      "page_start": 434,
+      "page_end": 434
+    },
+    "p435.1": {
+      "text": "+ The following Order of the Court was delivered ORDER SURINDER SINGH NIJJAR, J. 1. Leave granted.",
+      "page_start": 435,
+      "page_end": 435
+    },
+    "p435.2": {
+      "text": "2. The application filed by the appellant seeking anticipatory bail has been rejected for the third time by the High Court of Rajasthan, Jaipur Bench. On the basis of the complaint made by one Karan/Karani Singh an FIR has been registered against the appellant i.e. FIR No.107/2007 dated 3.5.2007 c Jaipur City, Police Station Vidhyadhar Nagar under Section 420, 467, 468, 120-B IPC. It is alleged that the complainant agreed to purchase the flats being Flat Nos.101 and 101A from the appellant and his father the necessary consideration was received by the accused Nos. 1 and 2. The same flats were subsequently sold to somebody else. It is, therefore, alleged \"' l that the appellant has committed offences under Section 420, 467, 468, 120-B IPC. Amar Nath Saxena (father of the Appellant); the Appellant i.e., Ravindra Saxena; Shrimati Sharada Devi and Pradeep Maheshwari and accused numbers 1 to 4 in the FIR. According to the appellant the investigation in the FIR was taken over by Samunder Singh, ASI, who happened to be a close relative of the complainant. Therefore, the criminal process is being abused at the instance _,. .",
+      "page_start": 435,
+      "page_end": 435
+    },
+    "p435.3": {
+      "text": "of the investigating officer.",
+      "page_start": 435,
+      "page_end": 435
+    },
+    "p435.4": {
+      "text": "3. At the time of the hearing of the matter the learned counsel for the appellant pointed out that the father of the complainant is a retired police officer. The complainant is a property dealer. The parties are well known to each other. They .",
+      "page_start": 435,
+      "page_end": 435
+    },
+    "p435.5": {
+      "text": ".",
+      "page_start": 435,
+      "page_end": 435
+    },
+    "p435.6": {
+      "text": "have commercial transactions with each other. In fact, the • criminal complaint has been filed in order to pressurise the ' appellant for not to pursue the civil litigation pending between the parties. The complainant has already filed a suit for specific A performance on 07.5.2007 on the same cause of action. Since, the appellant was being pressurized to compromise in the civil litigation he filed an application for anticipatory bail. He also filed the complaint in the Bar Council of Rajasthan against some Advocates who had been compelling the appellant. Even then B Session Judge rejected his application for anticipatory bail on 13.07.2007.",
+      "page_start": 435,
+      "page_end": 436
+    },
+    "p436.1": {
+      "text": "4. Thereafter, on the basis of a complaint made by Amarnath Saxena, FIR being No.207/2007 dated 2.08.2007 c has been registered against the Kami Singh and others at Police Station Sadar, Jaipur, under Section 448, 456, 457, 420, 467, 468, 471, 380, 120-B IPC.",
+      "page_start": 436,
+      "page_end": 436
+    },
+    "p436.2": {
+      "text": "5. Being unsuccessful before the Sessions Judge, the D appellant moved an application for anticipatory bail before the High Court in the earlier case, which was dismissed by the High Court, as well on 13.08.2007. The appellant also sought quashing of the FIR in a petition filed under Section 482 Cr.P.C. before the High Court of Rajasthan. This was also rejected by E the High Court. The appellant again moved application for anticipatory bail which was rejected by the High Court on 24.03.2008. Therefore, the appellant approached this Court by way of petition for special leave to appeal, which was disposed of on 12.2.2009 with the following order:",
+      "page_start": 436,
+      "page_end": 436
+    },
+    "p436.3": {
+      "text": "•• \"This special leave petition is filed against an order of the High Court dismissing the second bail application of the petitioner under Section 438. Cr.P.C.",
+      "page_start": 436,
+      "page_end": 436
+    },
+    "p436.4": {
+      "text": "On the prayer of Mr. S.K. Jain, learned counsel appearing for the petitioner, the special leave petition is dismissed as withdrawn with liberty to the petitioner to apply for third bail application before the High Court. If such ' an application for bail is moved the concerned Court s_hall decide it on the same day.\"",
+      "page_start": 436,
+      "page_end": 436
+    },
+    "p437.1": {
+      "text": "> 1 .>.",
+      "page_start": 437,
+      "page_end": 437
+    },
+    "p437.2": {
+      "text": "• 6. In view of the above, the appellant moved the third application for anticipatory bail. This has again been dismissed by the High Court with the following observations: \"In the facts and circumstances, therefore, the case of the petitioner cannot said to have improved with the filing of the challan against him when prima facie case has been found against the accused petitioner.\"",
+      "page_start": 437,
+      "page_end": 437
+    },
+    "p437.3": {
+      "text": "7. We are of the considered opinion that the approach adopted by the High Court is wholly erroneous. The application for anticipatory bail has been rejected without considering the c case of the appellant solely on the ground that the challan has now been presented.",
+      "page_start": 437,
+      "page_end": 437
+    },
+    "p437.4": {
+      "text": "8. We may notice here that the provision with regard to the grant of anticipatory bail was introduced on the recommendations of the Law Commission of India in his 41 st Report dated 24.09.1969. The recommendations were considered by this Court in a Constitution Bench decision in the case of Gurbaksh Singh Sibbia and others vs. State of Punjab, (1980) 2 sec 565. Upon consideration of the entire issue this Court laid down certain salutary principles to be followed in exercise of the power under Section 438 Cr.P.C. by the Sessions Court and the High Court. It is clearly held that the anticipatory bail can be granted at any time so long as the applicant has not been arrested. When the application is made to the High Court or Court of Sessions it must apply its own mind on the question and decide when the case is made out for granting such relief. In our opinion, the High Court ought not to have left the matter to the Magistrate only on the ground that the challan has now been presented. There is also no reason to deny anticipatory bail merely because the allegation in this case pertains to cheating or forgery of a valuable security. The merits of these issues shall have to be assessed at the time of the trial of the accused persons and denial of anticipatory bail only on the ground that the challan has been presented A would not satisfy the requirements of Sections 437 and 438 Cr.P.C.",
+      "page_start": 437,
+      "page_end": 438
+    },
+    "p438.1": {
+      "text": "9. In our opinion, the High Court committed a serious error of law in not applying its mind to the facts and circumstances B of this case. The High Court is required to exercise its discretion upon examination of the facts and circumstances and to grant anticipatory bail \"if it thinks fit\". The aforesaid expression has been explained by this Court in Gurbaksh Singh's case (supra) as follows:",
+      "page_start": 438,
+      "page_end": 438
+    },
+    "p438.2": {
+      "text": "c \"The expression \"if it thinks fit\", which occurs in Section 438(1) in relation to the power of the High Court or the Court of Session, is conspicuously absent in Section 437(1). We see no valid reason for rewriting Section 438 with a view, not to expanding the scope and ambit of the discretion conferred on the High Court and the Court of Session but, for the purpose of limiting it. Accordingly, we • • are unable to endorse the view of the High Court that anticipatory bail cannot be granted in respect of offences like criminal breach of trust for the mere reason that the punishment provided therefor is imprisonment for life. Circumstances may broadly justify the grant of bail in such cases too, though of course, the court is free to refuse anticipatory bail in any case if there is material before it justifying such refusal.\"",
+      "page_start": 438,
+      "page_end": 438
+    },
+    "p438.3": {
+      "text": "• • 10. The salutary provision contained in Section 438 Cr.P.C. was introduced to enable the Court to prevent the deprivation of personal liberty. It cannot be permitted to be jettisoned on technicalities such as \"the challan h?·:ing been presented anticipatory bail cannot be granted\". We may notice here some more observations made by this Court in the case of Gurbaksh Singh (supra) :",
+      "page_start": 438,
+      "page_end": 438
+    },
+    "p438.4": {
+      "text": "• ' \"We find a great deal of substance in Mr Tarkunde's submission that since denial of bail amounts to deprivation i of personal liberty, the court should lean against the A imposition of unnecessary restrictions on the scop'e of Section 438, especially when no such restrictions have been imposed by the legislature in the terms of that section. Section 438 is a procedural provision which is concerned with the personal liberty of the individual, who B is entitled to the benefit of the presumption of innocence since he is not, on the date of his application for anticipatory bail, convicted of the offence in respect of which he seeks bail. An over-generous infusion of constraints and conditions which are not to be found in c Section 438 can make its provisions constitutionally vulnerable since the right to personal freedom cannot be made to depend on complianci:i with unreasonable restrictions. The beneficent provision contained in Section 438 must be saved, not jettisoned. No doubt can linger D > l after the decision in Maneka Gandhi, that in order to meet the challenge of Article 21 of the Constitution, the procedure established by law for depriving a person of his liberty must be fair, just and reasonable. Section 438, in the form in which it is conceived by the legislature, is open E to no exception on the ground that it prescribes a procedure which is unjust or unfair. We ought, at all costs, to avoid throwing it open to a Constitutional challenge by reading words in it which are not to be found therein.\" .. .",
+      "page_start": 438,
+      "page_end": 439
+    },
+    "p439.1": {
+      "text": "11. In our opinion, the High Court erred in not considering the application for anticipatory bail in accordance with law. The defence put forward by the appellant cannot be obliterated at this stage itself. We are also of the opinion, that the submission of the learned counsel for the appellant that the dispute herein is purely of a civil nature cannot be brushed aside at this stage. G We, therefore, qrant anticipatory bail to the appellant in the case ~ ~ pending on the basis of FIR No.107/2007 registered at Police Station Vidhyadhar Nagar, Jaipur City under Section 420, 467, 468, 120-B IPC now pending only under Section 420 and 120-B IPC. It is directed that in the event of arrest the appellant shall • be released on bail to the satisfaction of the Investigating Officer. It is also directed that the appellant shall join investigation as and when required.",
+      "page_start": 439,
+      "page_end": 440
+    },
+    "p440.1": {
+      "text": "8 12. The impugned order is set aside and the appeal is allowed.",
+      "page_start": 440,
+      "page_end": 440
+    },
+    "p440.2": {
+      "text": "RP.",
+      "page_start": 440,
+      "page_end": 440
+    },
+    "p440.3": {
+      "text": "Appeal allowed.",
+      "page_start": 440,
+      "page_end": 440
+    },
+    "p440.4": {
+      "text": "• •",
+      "page_start": 440,
+      "page_end": 440
+    }
+  },
+  "headnote_raw": ""
+}

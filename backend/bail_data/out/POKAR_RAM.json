@@ -1,0 +1,424 @@
+{
+  "case_id": "POKAR_RAM",
+  "doc_meta": {
+    "source_file": "POKAR RAM.pdf",
+    "pdf_pages": 11,
+    "decided_on": "1985-04-17",
+    "coram_raw": "V. D. TULZAPURKAR, D.A. DESAI AND A.P. StN, JJ.",
+    "bench_strength_regex": 3,
+    "constitution_bench": false,
+    "judgment_author_regex": "DESAI",
+    "layout": "unnumbered_page_anchored",
+    "ocr_noise_score": 0.0121
+  },
+  "flags": [],
+  "case": {
+    "case_name": "POKAR RAM v. STATE OF RAJASTHAN AND ANR",
+    "petitioner": "Pokar Ram",
+    "respondent": "State of Rajasthan and Anr",
+    "court": "Supreme Court of India",
+    "coram": [
+      "V. D. TULZAPURKAR",
+      "D. A. DESAI",
+      "A. P. Sen"
+    ],
+    "judgment_author": "D. A. Desai",
+    "procedural_stage": "pre_arrest",
+    "offence_types": [
+      "homicide"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "The case involves a serious criminal matter where the appellant's son was shot and injured by the respondent. The incident resulted in the son succumbing to the injuries, adding a murder charge under IPC 302 to the initial charges which included attempt to murder under IPC 307. The respondent applied and was granted anticipatory bail, which was contested by the appellant and ultimately led to the Supreme Court's intervention to assess the grant of anticipatory bail and its cancellation.",
+    "lower_court_outcome": "The Sessions Court granted anticipatory bail to the respondent, which the High Court upheld.",
+    "disposition": "The Supreme Court cancelled the anticipatory bail granted to the respondent.",
+    "statutes": [
+      {
+        "act": "CrPC 1973",
+        "section": "438",
+        "how_used": "interpreted",
+        "note": "Distinction between anticipatory bail and regular bail, and relevant considerations interpreted."
+      },
+      {
+        "act": "IPC",
+        "section": "302",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "307",
+        "how_used": "charged",
+        "note": null
+      }
+    ],
+    "issues": [
+      {
+        "question": "What are the relevant considerations for granting anticipatory bail under Section 438, CrPC?",
+        "short_answer": "Considerations include the nature and seriousness of the charges, possibility of applicant absconding, tampering with evidence, and whether accusations are motivated.",
+        "anchors": [
+          "p785.3",
+          "p786.1"
+        ]
+      },
+      {
+        "question": "Can anticipatory bail be cancelled based on influential status of the accused?",
+        "short_answer": "The influential status is not a relevant consideration for cancelling anticipatory bail if granted under misconception of law.",
+        "anchors": [
+          "p787.2"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "The considerations governing anticipatory bail under Section 438, CrPC are distinct from those applicable to regular bail post-arrest or post-conviction.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [
+          "CrPC 1973"
+        ],
+        "anchors": [
+          "p785.3"
+        ],
+        "quote": "Relevant consderations governing the court's decision in grant-ing anticipatory bail under Sec. 438 are materially different."
+      },
+      {
+        "id": "p2",
+        "text": "Anticipatory bail is granted to confer conditional immunity from arrest at the moment of arrest, not from custody post-arrest.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [],
+        "statutes": [
+          "CrPC 1973"
+        ],
+        "anchors": [
+          "p785.3"
+        ],
+        "quote": "A direction under Sec. 438 is intended to confer conditional immunity from the touch."
+      },
+      {
+        "id": "p3",
+        "text": "Anticipatory bail should not be granted merely because an applicant may not abscond, nor should it be denied solely on presumptions about the applicant's socio-economic status.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [],
+        "statutes": [
+          "CrPC 1973"
+        ],
+        "anchors": [
+          "p786.1"
+        ],
+        "quote": "anticipatory bail cannot be granted unless the proposed accusation appears to be actuated by mala fides."
+      },
+      {
+        "id": "p4",
+        "text": "Status in life, affluence, or otherwise, are not relevant considerations in granting anticipatory bail.",
+        "speaker": "supreme_court",
+        "kind": "obiter",
+        "is_holding": false,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [
+          "CrPC 1973"
+        ],
+        "anchors": [
+          "p788.4"
+        ],
+        "quote": "status in life, affluence or otherwise, are hardly relevant considerations."
+      },
+      {
+        "id": "p5",
+        "text": "Grant of anticipatory bail can be reconsidered and cancelled if it intrudes into the crime investigation process and is without proper reasoning.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [
+          "CrPC 1973"
+        ],
+        "anchors": [
+          "p788.5"
+        ],
+        "quote": "Anticipatory bail to some extent intrudes in the sphere of investigation."
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The anticipatory bail granted by the Sessions Judge was not based on relevant considerations and should be cancelled.",
+        "outcome": "accepted",
+        "anchors": [
+          "p787.2"
+        ]
+      },
+      {
+        "side": "respondent",
+        "text": "The anticipatory bail granted was justified and there was no grounds for its cancellation.",
+        "outcome": "rejected",
+        "anchors": [
+          "p787.5"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "Shri Gurbaksh Singh Sibbia and Ors. v. State of Punjab",
+        "citation": "[1980] 2 S.C.C. 565",
+        "treatment": "relied_on",
+        "used_for": "Considerations for anticipatory bail.",
+        "where": "p785.3"
+      },
+      {
+        "name": "Gurcharan Singh and Ors. v. State (Delhi Administration)",
+        "citation": "[1978] 2 S.C.R. 358",
+        "treatment": "distinguished",
+        "used_for": "Power to cancel bail under Section 439(2) CrPC.",
+        "where": "p788.6"
+      },
+      {
+        "name": "Delhi Admn. v. Sanjay Gandhi",
+        "citation": "AIR 1978 S.C. 961",
+        "treatment": "referred_to",
+        "used_for": "Cancellation of bail post events.",
+        "where": "p789.1"
+      },
+      {
+        "name": "Bhagirath Singh Judeja v. State of Gujarat",
+        "citation": "[1984] I S.C.C. 284",
+        "treatment": "referred_to",
+        "used_for": "Grant of bail for offences under IPC 307.",
+        "where": "p789.1"
+      }
+    ]
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": false,
+      "note": "The anchor text supports the distinct considerations for anticipatory bail versus post-arrest bail, not whether it favors a neutral stance."
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": "The anchor text clearly states that anticipatory bail is about pre-arrest immunity, which aligns with the proposition."
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": "The anchor text discusses the factors governing anticipatory bail, specifically that it shouldn't be granted or denied based on socio-economic status."
+    },
+    "p4": {
+      "id": "p4",
+      "verdict": "supported",
+      "favors_correct": false,
+      "note": "The anchor text suggests that status is not a relevant factor for granting anticipatory bail, but it does not favor a neutral position."
+    },
+    "p5": {
+      "id": "p5",
+      "verdict": "unsupported",
+      "favors_correct": false,
+      "note": "The anchor text does not support the specific proposition regarding reconsideration and cancellation of anticipatory bail."
+    }
+  },
+  "needs_review": [
+    "p5: quote not found in its anchors",
+    "p1: verifier says supported, favors_correct=False - The anchor text supports the distinct considerations for anticipatory bail versus post-arrest bail, not whether it favors a neutral stance.",
+    "p4: verifier says supported, favors_correct=False - The anchor text suggests that status is not a relevant factor for granting anticipatory bail, but it does not favor a neutral position.",
+    "p5: verifier says unsupported, favors_correct=False - The anchor text does not support the specific proposition regarding reconsideration and cancellation of anticipatory bail."
+  ],
+  "paragraphs": {
+    "pNone.1": {
+      "text": "DESAI, J. Special leave granted.",
+      "page_start": null,
+      "page_end": null
+    },
+    "pNone.2": {
+      "text": "..",
+      "page_start": null,
+      "page_end": null
+    },
+    "pNone.3": {
+      "text": "Unusal though it may appear to be, under a compelling '' . necessity in the interest of justice, we would depart from the ordinary response of this Court , to matters 'involving bail. Ordinarily, this Court is loathe to interfere with the orders granting or refusing / ~.bail_ b~t it cannot be an insurmountable . obstacle i.n the way of , rectifymg an order which tends to disclose miscarriage of · justice.",
+      "page_start": null,
+      "page_end": null
+    },
+    "pNone.4": {
+      "text": ", · · · An inicdent occurred on August 23, 1983 in which 'one Bhanwaria, son of the present appellant received fatal injuries · resulting in his death.",
+      "page_start": null,
+      "page_end": null
+    },
+    "pNone.5": {
+      "text": "An information was lodged with the· Police:",
+      "page_start": null,
+      "page_end": null
+    },
+    "pNone.6": {
+      "text": "Station, Khedapa, District Jodhpur, Rajasthan State about the occurrence on August 24, 1983 around 11.30 A.M. At that' time· Bhanwaria was alive and the offence was registerered under Sec'.· 307, 447 read with Sec. 149 ander Sec. 148, 379 and 327'ofthe Indian Penal Code.",
+      "page_start": null,
+      "page_end": null
+    },
+    "pNone.7": {
+      "text": "When the hospital authority sent the message c c )J R SUPREME COURT ilEPORTs ti 98Sj 3 S.C.R.",
+      "page_start": null,
+      "page_end": 784
+    },
+    "p784.1": {
+      "text": "that Bhawaria, the victim of assault, who was admitted in· the hospital for treatment has succumbed to his injuries. the Investiga-ting Officer also added an offence under Sec. 302 IPC. Soon thereafter.on September 29, 1983, the second respondent Chandan Singh s/o Shri Ranjit Singh ('respondent' for short) appeared before. the learned. Sessions Judge, Jodhpur and moved an application under Sec. 438, Cr. P. C. for granting him anticipatory bail. The public prosecutor appearing for the State opposed the application for grant of anticipatory bail. The learned Judge by his order dated September 30, 1983 accepted the application and granted anticipatory bail to the respondent observing that the dispute is with regard to the right to cutlivate a certain field from which when ~- deceased Bhanwaria was comming. out, the respondent fired at him . ......, -_ and caused the injuries which proved fatal. The learned Judge further observed that keeping in view some decisions referred to by him, he was of the opinion that the application for anticipatory bail should be granted. The learned Judge then ordered that if the accused is taken into custody by the police, he must be released on bail on his furnishing security in the amount of Rs. 5,000 'on condi-tion that he will assist in investigation and will not interfere in the investigation and will not go out of India.' The present appellant moved the High Court of Rajasthan questioning the correctness of this order and for cancellation of the anticipatory bail.",
+      "page_start": 784,
+      "page_end": 784
+    },
+    "p784.2": {
+      "text": "A learned Single Judge of the High Court negatived \"the contention that the petitioner had no locu.< standi to move the High Court for cancellation of anticipatory bail. On merits, the· learned Judge after referring to several decisions obser-ved that while dealing with an application for cancellation of bail < warranting interference with the discretionary order passed by the ~ learned Sessions Judge granting bail, the considerations which should weigh with the court were whether : (1) the accused would · be readily available during the trial ; (2) he is not likely to abuse the discretion ,granted his favour by tamporing with the prosecution witnesses, concluded that the respondent and his father are infiuen-tail persons and. hold important posts in the Panchayat or Zita RParishad furnished no ground for cancelling bail and that it is not necessary to examine whether anticipatory b1il ought to havo been granted, but what must be considered is whether a c1se for cancel· lation of the same is made out. The learned Judgo then held that ' ' ' MK:i1.11. 11.i\\.M v. Ril.iil.STHil.N (Deasi, i. )",
+      "page_start": 784,
+      "page_end": 785
+    },
+    "p785.1": {
+      "text": "such grounds are not shown to exist and accordingly rejected the application.",
+      "page_start": 785,
+      "page_end": 785
+    },
+    "p785.2": {
+      "text": "Hence this appeal by special leave.",
+      "page_start": 785,
+      "page_end": 785
+    },
+    "p785.3": {
+      "text": "Relevant consderations governing the court's decision in· grant-ing anticipatory bail under Sec. 438 are materially different from those when an application for bail by a person who is arrested in the course of inve>tigation as also by a P'~rson. who is convicted_and his · appeal is pending before the higher court and bail is ·sought during the pendency of the appeal. Three situations in which the question of granting or refusing to grant bail would arise, materially and substantially dilfer from each other and the relevant considerations· on which the courts would exercise its discretion, one way or the other, are substantially different from each other. This is necessary . to be stated because the. learned Judge in the High Court unfor-tunately fell into an error in mixing up all the considerations, as if all the three. become relevant in tlie present situation. The decision of the Constitution Bench in Shri Gurbaksfz Singh Sibbill & Ors. v. State of Punjab(!) clearly lays down that 'the distinc-t'on between an ordianary order of bail and an order of antici patory bail is that whereas the former is granted after arrest .and there fore means release from the costody of the police, the latter is gran-ted in anticipation of ~rrest and is therefore effective at the very mo-ment of arrest.\" Unlike a post-arrest order of bail, it is a pre-arrest legal process which directs that if th' person in whose favour it is issued is thereafter arrested on the accusation in respect of which the direction is issued, he shall be released on bail. A direction under Sec .. 438 is intended to confer conditional immunity from the touch as_ envisaged by Sec. 46 _(l) or confinement. In para 31, Chandrachud, CJ clearly demarcated the distinction between ..... - the relevant considerations while examining an application for ' anticipatory bail and an application for bail after arrest in the course of investigation. Says the learned Chief J 1stice that 'in regard, to anticipatory bail, if the proposed accusation appears to stem not, from motives of furthering the ends of justice ,but from some ulterior motive, the object being to injure and humiliate the applicant by having him arrested, a direction for the release of the appllicant on bail in the event of his arrest' would generally be made. It was obser-ved that 'it cannot be laid down. as an inexorable rule that anticipa-- (I) [1980] 2 s.c.c. 565.",
+      "page_start": 785,
+      "page_end": 785
+    },
+    "p785.4": {
+      "text": "c u' c D· ll 1s6 [! 98S] 3 s.c.R..",
+      "page_start": 785,
+      "page_end": 786
+    },
+    "p786.1": {
+      "text": "tory bail cannot be granted unless the proposed accusation appears · to be actuated by mala fides; and equally, that anticipatory bail must be granted if there is no fear that the applicant will abscond.' Some of the relevant considerations which govern the discretion, noticed therein are the nature and seriousness of the proposed charges, the context of the events likely to lead to the making of the charges, a reasonable possibility of the applicant's presence not being secured at the trial, a reasonable apprehension that witnesses will be tampered with and \"the larger interests of the public or the State\", are some of the considerations which the court ha·s to keep in mind while deciding an application for anticipatory bail.' A caution was voiced that 'in the evaluation of the consideration whether the applicant is likely to abscond, there can be no presu.mp· · tion that the wealthy and the mighty will submit themselves to trial and that the humble and the poor will run away from the course of justice, any more than there can be a presumption that the former are not likely to commit a crime and the latter are more likely to commit it.' Having noticed the relevant considerations which should weigh with the court in the matter of granting or refusing to grant · anticipatory bail, let us first look at the order made by the learned · Sessions Judge.",
+      "page_start": 786,
+      "page_end": 786
+    },
+    "p786.2": {
+      "text": "The incident in which Bhanwaria was injured with fire arm occurred on August 23, I 983 in respect of which the first info'rma· lion report was lodged on August 24, 1983, in which it was in clear and uaambiguous terms alleged that the respondent was at the rele· , van! time armed with a ~un anJ fired towards Bhanwaria who sufferred injuries by gun shot. The incident occurred as siated ·~ earlier .around 4.00 P. M. o_n August 23, 1983 andth is information . is lodged with the Police Station at a distance of 30 k.m. from the scene of occarrence on August 24, 1983. at 11.30 a.m. Amongst others, the offence registered was under Sec. 307 IPC i. e. attempt to commit murder. The first information report thus discloses use. of fire arm with which the respondent attempted to commit murder of Bhanwaria. Surprisingly, the Investigating Officer had not arres· tcd him tiil September 29, 1983 when he moved an application for anticipatory bail under Sec.438 of the Code of Criminal Procedure presumably after coming to know that injured Bhanwaria has, succumbed to his injuries and the offence would one of murder punishable under Sec. 302 !PC.",
+      "page_start": 786,
+      "page_end": 787
+    },
+    "p787.1": {
+      "text": "This conduct of the Investigating Officer left us guessing. Some light is shed by some averments from the affidavit filed .in the High Court and extracted by the learned Judge in his judgment: It is stated that the respondent is the. Sarpan·ch of Vil. Danwara and is an influential person and that his father Ranjit Singh is ex-M.L.A. and is at present Pradhan of the Panchayat Samiti.",
+      "page_start": 787,
+      "page_end": 787
+    },
+    "p787.2": {
+      "text": "Are these relevant considerations for not cancelling anticipatory bail when it appears to have been granted by a clear misconception of the relevant considerations governing · of anticipatory bail ? The answer is emphatically in the negative in view of the extracted observations from the decision of the Constitution Bench in Gurbaksh Singh Sibbia's case The accusation against the respondent is that he has committed an offence of murder-punishable under Sec. 302 !PC. Surprisingly, when anticipatory bail was granted on September 30, 1983, there is not a whisper of it in the order of the learned Sessions Judge, Jodhpur. When e person is accused of a offence of murder by the use of a fire arm, the Court has to be careful and circumspect in entertain;ng an application for anticipatory bail.",
+      "page_start": 787,
+      "page_end": 787
+    },
+    "p787.3": {
+      "text": "Relevant considerations are conspicuous by silence in the order of the learned Sessions Judge.",
+      "page_start": 787,
+      "page_end": 787
+    },
+    "p787.4": {
+      "text": "Could it be said in this case that the accusation appears to stem not from motives of furthering ihe ends of justice but from some ulterior motive? Could it be said that the object being to injure. and humiliate the respondent by having him arrested ? What prompted the learned Sessions· Judge to grant antcipatory bail left us guessing and we are none the ·wiser by the discussion in the order of the learned Single Judge declining to ,').t-interfere.",
+      "page_start": 787,
+      "page_end": 787
+    },
+    "p787.5": {
+      "text": "l . Mr. Mulla, learned counsel who appeared for the respondent · urged that the order of the kar~ed Sessions Judge is not of antici-patory bail under Sec. 438 but it is an order made after looking into the papers of investigation and therefore, it is an order of bail under Section 439 of the Code of Criminal Procedure. We remain unconvinced because the order of the learned Sessions Judge clearly directs that if the respondent is taken into custody by the police, he must be released on bail on his furnishing security in the amount mentioned by him. The learned Judge himself styled the order as one under Sec. 438 of the Code of Criminal Procedure. If there c • was any doubt about this aspect, the penultimate para of the judg-If (1985] 3 S.C.R.",
+      "page_start": 787,
+      "page_end": 788
+    },
+    "p788.1": {
+      "text": "··A ment of the learned Single Judge of the High Court dispels the same when it recites that no order for cancelling bail can. be made when the learned Additional Sessions Judge No. 1, Jodhpur has granted anticipatory bail to the respondent by his order dated September 30, 1983.",
+      "page_start": 788,
+      "page_end": 788
+    },
+    "p788.2": {
+      "text": "c n E.",
+      "page_start": 788,
+      "page_end": 788
+    },
+    "p788.3": {
+      "text": "• Mr. Mulla then attempted to urge that on merits a good case for granting bail is made out.",
+      "page_start": 788,
+      "page_end": 788
+    },
+    "p788.4": {
+      "text": "We are not inclined to examine this contention becase neither the learned Sessions Judge nor the learned Single Judge of the High Court has examined the case from that angle. The only question which we were called upon to decide is whether : the learn'd Sessions Judge was justified in granting anticipatory bail in the facts and circumstances of this case? Unquestionably, no case was made out for granting anticipatory bail in this case. Let it be made distinctly clear that status in life, affluence or otherwise, are hardly relevant considerations while examining the request for granting anticipatory bail. Anticip.1tory bail to some extent intrudes in the sphere of investigation of crime and the court must be cautious and circumspect in exercising such power of a discretionary nature. This case amply illustrates that the power was exercised sub si/entio as to reasons or on irrelevant or considerations not germane to the determination.",
+      "page_start": 788,
+      "page_end": 788
+    },
+    "p788.5": {
+      "text": "This Court, to avoid miscarriage of justice, must interfere.",
+      "page_start": 788,
+      "page_end": 788
+    },
+    "p788.6": {
+      "text": "The High Court referred to two decision< of the Rajasthan High Court on the question of low< sta11di of lhe present appellant but once that was conceded and not questioned before us, we need not refer to them. The learned Judge th·on referred to the decision in { Gurbax Singh Sibba 's case, but failed to take note of the relevant -\"', observations which we have extracted herein before. Referencf to the decision in Gurcham Singh & Ors. v. State (Delhi Administration)<') by the High Court is hardly apposite because the controversy centered round the power of the High Court to deal with the application for cancellation of bail under Section 439(2) of the Code of Criminal Procedure and on merits this Court held that the High Court was not justified in cancelling the bail. The Court was not concerned with examining •he relevant considerations for granting or refusing to grant anticipatory bail in that case. The deision in ll (!) [1973] 2 SCR 358.",
+      "page_start": 788,
+      "page_end": 788
+    },
+    "p789.1": {
+      "text": "J State v. Capt. Jagji1singh<1) would be of n assistance as the provision o( anticipatory bail come ·to be introduced in ·the Code· of 1973. Similarly the decision in Delhi Admn. v. Sanjay Gandhi(') is of no asistance because the court was concerned with the question of cancellation of bail already granted long back in the faets and circumstances of the case on account of events subsequent to the order granting bail. The High Court lastly referred to Bhagirath Singh Judeja v. State of Gujarat (3) because that was the case in which accusation was for an offence under Sec. 307 !PC and the learned Sessions .Judge had granted bail which order was qu~shed by the High Court. As stated earlier, by reference to these decisions not of topical interest bearing on the question of grant or refusal of anticipatory bail the High Court unfortunately missed crux of the matter.",
+      "page_start": 789,
+      "page_end": 789
+    },
+    "p789.2": {
+      "text": "Before we conclude this judgment, it must be made distinctly clear that some very compelling circumstances must be made out for granting bail to a person accused of committing murder and that to when the investigation is in progress. In fact, the Inves-tigating Officer did not even attempt to arrest the appellant though the initial accusation was under Sec. 307 !PC punishable with imprisonment for life.",
+      "page_start": 789,
+      "page_end": 789
+    },
+    "p789.3": {
+      "text": "And as soon as the victim of the assault succumbed to his injuries and an offence under Sec.",
+      "page_start": 789,
+      "page_end": 789
+    },
+    "p789.4": {
+      "text": "302 was registered, promptly an application for anticipatory bail was made and granted. If such an order is allowed to stand, faith of public in administration of justice is likely to be considerably .shaken. Therefore, we have no option but to cancel the order granting anticipatory .bail.",
+      "page_start": 789,
+      "page_end": 789
+    },
+    "p789.5": {
+      "text": "By our setting aside the order granting anticpatory bail, respondent should in no way be prejudiced. If consequent upon the setting aside of the order granting anticipatory bail, the the respondent is arrested which must ordinarily follow, it is open to him, if he is so advised, to move an application for being enlarged on bail and the Court would consider the same on merits wholly nnintluenced by the earlier orders, the judgment of the learned Single Judge of the High Court and this judgment.",
+      "page_start": 789,
+      "page_end": 789
+    },
+    "p789.6": {
+      "text": "(I) AIR 1962 S.C. 253.",
+      "page_start": 789,
+      "page_end": 789
+    },
+    "p789.7": {
+      "text": "(2) AIR 1978 S.C. 961.",
+      "page_start": 789,
+      "page_end": 789
+    },
+    "p789.8": {
+      "text": "(3) [1984] I S.C.C, 284.",
+      "page_start": 789,
+      "page_end": 789
+    },
+    "p789.9": {
+      "text": ".A .B c sUPRllME COURTS RBPORLS [1~85J 3 s.c.k.",
+      "page_start": 789,
+      "page_end": 790
+    },
+    "p790.1": {
+      "text": "Acc.ordingly this appeal is allowed and the order dated September 30, 1983 granting anticipatory bail to the respo'ndent Chandan Singh s/o Ranjit Singh is quashed and set aside and the bond furnished by him is cancelled. We order accordingly. Ap}iedlallowed ' 1-",
+      "page_start": 790,
+      "page_end": 790
+    }
+  },
+  "headnote_raw": " \n..\nc\nn\nPOKAR RAM\nv.\nSTATE OF RAJASTHAN AND ANR\nApril 17, 1985.\n[V. D. TULZAPURKAR, D.A. DESAI AND A.P. StN, JJ.]\nCri1nina/ Procedure Code 197 3, s.438-Anticipatory bail-Grant of-When\narises.\nThe son of the appellant, was injured by a fire arm 011. August 23, 1983\nat 4 p. m. The F.I.R. wa5 lodged on the next day at 11.30 a.m. In clear and\nunambiguous terms it alleged that the respondent was at the relevant time armed\nwith a gun and fired at the appellant's son, who suffered injuries by gun shot.\nSince he was alive at that time, a ca5e under ss. 307,447 read with s. 149 and\nunder ss. 148, 379 and 827 of the 1.V.C. was registered. When he succumbed to\ninjuries, an offcn<.c ur.dcr s.302 J.P.C. \\\\.<:~ al~o ndded.\n·The respondent was not arrested till September 29, 1983, when he appea-\nred before the Sessions Judge, and moved an application under s.438 ·Cr. P.C.\nfor anticipatory b1il, and by order dated Septernber 30, 1983 it was granted\nwi1h a direction that if the re:ipondent was taken into custody by the police he\nniust be released on bail on his furnhhing 'sc~urity in the a1nount of R,s, 5,000\non condition that he will assist in the investigation and will not go out of\nIndia.\nThe appellant moved the High Court questioning the correctnc$S of th;~·\norder ,granting anticipatory b~il and for cancel~ation of the same. A Si?~le Judge\n(\nheld that he had locus stand1 to move the High Court for cancellatJofJ. of the\nanticipatory bail but on merits ]held that ;no ground~ were made out for\nils cancellation, and accordingly rejCcted the application.\nThe Appellant appeallcd to this Court.\nAllowing the Appe:il,\nHELD : 1. Relevant consideration~ governing the Court's decision in\n·granting anticipatory hail under s.438 are materially different from those when\nan application for bail by a person who is arrested in the course of an investi-\nsation as also by a person who is convict~1 and his appeal is pendine: b~fo11r th11\n'\nf\n.•\n \nPOKAR RAM RAJASIHAN .\nhigher court and bail is sought during the pendency of the appeal. In the in-\nstant ca'ie. the High Court uofortu:i.ately fell into error in mh:ing up all the\nconsidera~ions, as if all the three become relevant in the present situation.\n[78SB-C]\n2. The distinction between an ordinary order of bail arid an order of\nanticipatory bail is_ th~t wher.eas the former is granted after arrest and, therefore\nmeanS release from the custody of the police, the latter fa granted in anticipa-\ntion. of arrest and is, therefore, effective at the very moment of arrest. Unlike a\npost-arrest order of bail, it is a Pre-arrest legal process which directs that if the\nperson in whose favour it is' issued is thereafter arrested on the accusati~n in .\nreS:pect of ~hich t~e direction is issued, he shall be released on bail. A direc-\n·~\ntion under s.438 is intended to confer conditional immunity from the touch\n-\nas envisaged by s.46(1) or confinement. [78D-til\n-\n·,,\n~\n! '\n3. In regare\"d to anticipatory bail, if the proposed accusation appears to\nstem not from motives of furthering the ends of justice but from some ulterior\nmotive, the object being tO injure and humiliate the 3pplicant by having him\narrested, a direction for the release of the applicant on bail in the event of his\narrest would generally be m~de. It cannot be laid down as an inexorable rule\nthat anticipatory bail cannot be granted unless the proposed accusation appears\nto be actuated by mala fides; and, equal:y, that anticipatory bail mast be granted\nif there is no fear that the applicant will abscond. Some of the relevant consi-\nderalions which govern the discretion of the Court while deciding an application\nfor anticipatory bail are the nature and seriousness of the proposed cl_larges,\nthe context of the events likely to lead to the making of the charges, a rcas~na­\nble possibility of the applicant's presence nOt beirig secured at the trial. a rea-\nsonable appreherision that witne.;se~ will be tampered With and ' 1the larger\n·iDterests of the public or the St-1te'.'-\nIn the evaluation of the consideration\nwhether the applicant is likely to abscond, there can be no presumption that the\nwealthy and the mighty will submit them~elves to trial and that the humble and\npoor will run away from the counv.:\nof ju Hice, any more than there can be a\npresumption that the former are not likely to ·commit a crime and the latter\n\\\nare more likely to commit it. [785G-H ; 786A-D]\n~\n4. The incident in which ~Bhaowaria was injured with fire arm occurred\non August 23, 1983 in respect of which the First Information Report was lodged\non August ·24, 1\"983 and it was in clear and unambiguous terms alleged that.the\nrespond.ent was at the relevant tima armed with a gun aod fired towards Bhan-\nwaria who suffered injuries by the gunshot. Amongst others the offence registe-\nc\n\"\nred was under s.307 J.P,C, that is attempt to commit murder. The first informa·\n(;\ntion report thus discloses use of fire-arm with which the respondent attempted to\ncommit iµurder of Bhanwaria. Surprisingly, the Investigating Officer had not\narrested him till September 29, 1983 when he moved an application for antici·\npatory_ bail under s.438 Cr.P.C. presumably after coming to know that injured\nhas succumbed to his inguries :and the offence would be one of murder punish-\nable under s.302 I.P.C. This conduet of the Investigating Officer leaves the\n<;ourt .!}:uessing.\nThe affjdavit filC<t ii) the Hight Court st'atcs th~t the ~·~span-\n(J\n \n7:82\nSUPREME COURT ·REPORTS\n[1985] 3 s.c.R.\n.t\\.\nden't ·is· the Scirpanch·o·f the viliag'e and is an infltlential person and that his\nfather is Eit-M.L.'A, and is at present Pradhan of the Panchayat Samiti. They\nare not-relevant considerations for cancelling anticipatory bail, when it appears\nto have been granted by a clear miscOnception of the relevanl ~ consider~tions\ngoverning the grant of aoticipatory bail. [786F-H ; 787A-BJ\nC:\nc.\nE·\nc\n..\n,,\n5. The accusation against the respondent is that he has commited an\noffence of n:iurder punish~ble under s.302 I.P.C. Surprisingly, when anticipatory\nbail was granted on Seotember 39, 1983 there is not a whisper of it in the order\nof the learned Sessions Judge. W.hen a person is accused of an offence of mur-\nder by the use of a fire arm t~e Cou'('t ha<; to be careful aad circumspect ia enter-\ntaining· an\napplication for\nanticipa\"tory\nbail.\nRel~vant\ncoosii;:Icrations\nare conspicuous by silence in the order of the Session Judge, In the instant 1\ncase, it cannot be said that the accusation does not appear to stem from\nmotives of furthering the ·ends of Justice but from some ulterior motive ar,id the\nobject was to injure and humiliate the respondent by having him arrested. What\nprompted the Sessions Judge to grant anticipatory bail leaves the Court guess-\ning- and the Court is none the wiser by the order of the.High Court declinjng to\ninterfere. f787D-F]\n6.\nThe order of the Sessions Judge clearly directs lhat if the- res-\npondent iS taken into custody by the police, he must be released on bail On his\nfurnishing security in the amount mentioned by him. The order is styled as one\nunder s.4i8 Cr.P.C. [787H]\n7.\nUnquestionably, no case was made out for granting anticipatory bail\nin this case. Status in life, affluence or otherwise, are hardly relevant considera·\ntions while examining the request for granting anticipatory bail.\nAnticiPatory\nbai! to some· extent intrudes in the sphere of inves.tigation of the crime and the\nCourt must be cautious and circumspect in exercising such power of a discre..\ntionary nature. In the instant case, the power was exercised· sub silentio· as to\nreasons or on irrelevant or considerations not germane to the determination.\nThis Couft, to avoid miscarriage of justice, must interfere. [787D-E]\n8; ·same very Compelling circumstances-must be made out for gra)lting\nbail to a person accused or committing murder and that too when the investi-\ngation is ill progress. In the instant case the Investigating Officer did not even\nattempt tO arrest the appellant though the initial accusation was under s.307\nI.P.C. pun·ishable with imprisonment for life and as soon as the victim of the\nassault succllmbed to his injuries and offence under s.302 was registered, promp-\ntly a\"n 3pp1iCation for anticipatory bail was made and granted. If such an order\nis allowed to StanJ, faith of public in administration of justice is likely to-be\nconsideriibly Shaken. Therefore, thC order granting anticipatory hail is cancelled.\n(789D-F]\n9, Setting aside. the order granting anticipatory bail should in no way\nprejudice the respondent, It is open to him ato move an application for beins\n \nPOKAR RAM v. RAiASTHEN (beast. i. )\nenlarged on bJ.il and the Court would consider the same on merits wholly un\ninfluenced.by the earlier orders, the judgment of the lea1ned Single Judg~ of the\nHigh Court and this Judgment: [789G-H]\nShri Gurbaksh Singh Sibbia and Ors. v. State of Punjab, [1980] 2 S.C.C.\n565, relied upon.\n•\nGurcharan Singh and Ors. v. State (D_elhi Adn1inistration). [t978J 2 S.C.R~\n358, State v. Capt. Jagji1singh, AIR 1962 S.C. 253, Delhi Ad1nn. v. Sa11jay\nj\nGandhi, AIR 1978 S.C. 96t' and Bhagirath Singh Judeja v. State o/Gufar.at,\n(1984] I S.C.C. 284, referred to.\n~\\ii..._\n"
+}
