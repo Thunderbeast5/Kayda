@@ -44,20 +44,23 @@ class Neo4jService:
     def run_query(self, cypher: str, params: Dict[str, Any] = None) -> List[Dict[str, Any]]:
         """
         Executes a Cypher query using explicit READ access mode.
+        Returns an empty list if Neo4j is unreachable instead of raising.
         """
         params = params or {}
-        driver = self._get_driver()
-        
-        # Explicitly open session in READ_ACCESS mode
-        session = driver.session(
-            database=NEO4J_DATABASE, 
-            default_access_mode=neo4j.READ_ACCESS
-        )
         try:
-            result = session.run(cypher, params)
-            return [dict(record) for record in result]
-        finally:
+            driver = self._get_driver()
+            session = driver.session(
+                database=NEO4J_DATABASE,
+                default_access_mode=neo4j.READ_ACCESS
+            )
             try:
-                session.close()
-            except Exception:
-                pass
+                result = session.run(cypher, params)
+                return [dict(record) for record in result]
+            finally:
+                try:
+                    session.close()
+                except Exception:
+                    pass
+        except Exception as e:
+            print(f"[Neo4jService] Query failed (Neo4j may be offline): {e}")
+            return []

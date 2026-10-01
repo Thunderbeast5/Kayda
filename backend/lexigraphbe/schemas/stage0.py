@@ -68,8 +68,8 @@ class CaseProfile(BaseModel):
         description="Requested legal relief (e.g. Anticipatory Bail, Regular Bail, Quashing, Appeal, Revision)"
     )
     legal_regime: Optional[str] = Field(
-        default="UNKNOWN",
-        description="Applicable legal regime: 'IPC + CrPC', 'BNS + BNSS', or 'UNKNOWN'"
+        default="IPC + CrPC",
+        description="Applicable legal regime: 'IPC + CrPC' (default) or 'UNKNOWN'"
     )
     flag_for_confirmation: bool = Field(
         default=False,

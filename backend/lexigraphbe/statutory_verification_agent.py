@@ -99,11 +99,6 @@ class StatutoryVerificationAgent:
             Path("../data/new/ipc_sections.csv"),
             Path("c:/MootCourt/data/new/ipc_sections.csv"),
         ]
-        bns_paths = [
-            Path("data/new/bns_sections_clean.csv"),
-            Path("../data/new/bns_sections_clean.csv"),
-            Path("c:/MootCourt/data/new/bns_sections_clean.csv"),
-        ]
 
         # Load IPC DB
         for p in ipc_paths:
@@ -132,40 +127,12 @@ class StatutoryVerificationAgent:
                 except Exception:
                     pass
 
-        # Load BNS DB
-        for p in bns_paths:
-            if p.exists():
-                try:
-                    with open(p, mode="r", encoding="utf-8", errors="ignore") as f:
-                        reader = csv.DictReader(f)
-                        for row in reader:
-                            sec_num = (row.get("Section") or "").strip()
-                            title = (row.get("Title") or "").strip()
-                            desc = (row.get("Description") or "").strip()
-                            chap = (row.get("Chapter") or "").strip()
-                            if sec_num:
-                                self.statute_db[f"BNS_{sec_num}"] = {
-                                    "statute": "BNS",
-                                    "section_number": sec_num,
-                                    "section_title": title,
-                                    "full_text": desc,
-                                    "punishment": desc,
-                                    "explanations": chap,
-                                    "illustrations": "N/A",
-                                    "exceptions": "N/A",
-                                    "provisos": "N/A",
-                                }
-                    break
-                except Exception:
-                    pass
-
     def retrieve_statutory_context_for_candidates(
         self,
         chapter_obj: ChapterIdentificationObject,
     ) -> List[Dict[str, Any]]:
         """Retrieves full statutory context records for all section candidates shortlisted in Stage 3."""
-        regime_str = chapter_obj.legal_regime or ""
-        statute_prefix = "BNS" if "BNS" in regime_str.upper() else "IPC"
+        statute_prefix = "IPC"
 
         context_list = []
         for sec_cand in chapter_obj.section_candidates:

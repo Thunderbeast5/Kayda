@@ -14,9 +14,10 @@ Routing logic (used by orchestrator_graph.py):
   total_prosecution_score < SUFFICIENCY_THRESHOLD  →  "needs_accused"
   otherwise                                         →  "verdict"
 
-Max debate rounds: 2  (prevents infinite loops)
+Max debate rounds: configurable via ORCHESTRATOR_MAX_ROUNDS (default 2)
 """
 
+import os
 import json
 import re
 
@@ -27,6 +28,25 @@ SUFFICIENCY_THRESHOLD = 15   # out of 30
 
 
 # ── helpers ───────────────────────────────────────────────────────────────────
+
+def _format_laws_block(relevant_laws: list) -> str:
+    """Format verified LexiGraph laws into a prompt-ready bulleted list."""
+    if not relevant_laws:
+        return "No specific statutory provisions retrieved."
+    lines = []
+    for item in relevant_laws:
+        if isinstance(item, dict):
+            sec = item.get("section", "")
+            desc = item.get("description", "") or ""
+            pun = item.get("punishment", "") or ""
+            line = f"• IPC Section {sec}: {desc.strip()}"
+            if pun and str(pun).strip().lower() not in ("nan", "(not specified)", ""):
+                line += f" [Punishment: {pun.strip()}]"
+            lines.append(line)
+        elif isinstance(item, str):
+            lines.append(f"• {item}")
+    return "\n".join(lines) if lines else "No specific statutory provisions retrieved."
+
 
 def _parse_scores(text: str) -> dict:
     """
@@ -52,10 +72,11 @@ def _parse_scores(text: str) -> dict:
     return scores
 
 
-def _parse_verdict(text: str) -> dict:
+def _parse_verdict(text: str, verified_laws: list = None) -> dict:
     """
     Extract structured verdict from the LLM's final verdict response.
     Returns a dict with: decision, laws_applied, confidence, explanation.
+    Validates laws_applied against verified legal provisions to prevent hallucination.
     """
     lower = text.lower()
 
@@ -71,8 +92,26 @@ def _parse_verdict(text: str) -> dict:
     conf_match = re.search(r"confidence[:\s]+(\d+)\s*%?", lower)
     confidence = int(conf_match.group(1)) if conf_match else 50
 
-    # IPC sections cited — look for "IPC 379", "Section 302" etc.
-    laws = list(set(re.findall(r"(?:ipc\s*|section\s*)(\d+[a-z]?)", lower)))
+    # IPC sections cited in the verdict text — look for "IPC 379", "Section 302" etc.
+    cited_raw = list(set(re.findall(r"(?:ipc\s*|section\s*)(\d+[a-z]?)", lower)))
+
+    # Anti-hallucination verification: collect known/verified section numbers
+    verified_sections = set()
+    if verified_laws:
+        for law in verified_laws:
+            if isinstance(law, dict) and law.get("section"):
+                verified_sections.add(str(law["section"]).strip().lower())
+            elif isinstance(law, str):
+                s = re.search(r"\b(\d+[a-z]?)\b", law)
+                if s:
+                    verified_sections.add(s.group(1).lower())
+
+    if verified_sections:
+        # Prioritize cited sections that are verified in LexiGraph
+        verified_cited = [s for s in cited_raw if s.lower() in verified_sections]
+        laws = verified_cited if verified_cited else cited_raw
+    else:
+        laws = cited_raw
 
     return {
         "decision":     decision,
@@ -110,6 +149,7 @@ class JudgeAgent:
         structured_facts: dict,
         prosecution_args: str,
         defense_args: str,
+        relevant_laws: list = None,
     ) -> tuple[dict, str]:
         """
         Score both arguments and decide if a clarification question is needed.
@@ -119,6 +159,8 @@ class JudgeAgent:
         scores   : dict  — {prosecution: {...}, defense: {...}}
         question : str   — non-empty only when prosecution total < SUFFICIENCY_THRESHOLD
         """
+        laws_block = _format_laws_block(relevant_laws) if relevant_laws else "No specific statutory provisions retrieved."
+
         prompt = f"""
 You are the Honourable Judge presiding over an Indian criminal court.
 
@@ -126,7 +168,7 @@ Your task is to SCORE the prosecution and defense arguments independently.
 Do NOT decide the verdict yet.
 
 Score each argument on three axes, each out of 10:
-  • Legal Validity   (are the cited IPC sections correctly applied?)
+  • Legal Validity   (are the cited IPC sections correctly applied against verified law?)
   • Evidence Linkage (do the facts map to the legal claim?)
   • Logic Coherence  (is the argument internally consistent?)
 
@@ -134,6 +176,11 @@ Score each argument on three axes, each out of 10:
 CASE FACTS
 ------------------------
 {json.dumps(structured_facts, indent=2)}
+
+------------------------
+VERIFIED APPLICABLE LAWS (LEXIGRAPH)
+------------------------
+{laws_block}
 
 ------------------------
 PROSECUTION ARGUMENTS
@@ -204,6 +251,7 @@ QUESTION FOR ACCUSED (only if SUFFICIENCY is NO): <one precise factual question>
         defense_args: str,
         accused_history: list[str],
         judge_scores: dict,
+        relevant_laws: list = None,
     ) -> dict:
         """
         Deliver the final verdict after all arguments (and any Accused testimony)
@@ -235,6 +283,8 @@ QUESTION FOR ACCUSED (only if SUFFICIENCY is NO): <one precise factual question>
                 f"Total: {d.get('total',0)}/30\n"
             )
 
+        laws_block = _format_laws_block(relevant_laws) if relevant_laws else "No specific statutory provisions retrieved."
+
         prompt = f"""
 You are the Honourable Judge presiding over an Indian criminal court.
 
@@ -244,6 +294,11 @@ You have heard all arguments and testimony. Now deliver the FINAL VERDICT.
 CASE FACTS
 ------------------------
 {json.dumps(structured_facts, indent=2)}
+
+------------------------
+VERIFIED APPLICABLE LAWS (LEXIGRAPH)
+------------------------
+{laws_block}
 
 ------------------------
 PROSECUTION ARGUMENTS
@@ -257,6 +312,10 @@ DEFENSE ARGUMENTS
 {testimony_block}
 {score_summary}
 
+CRITICAL LEGAL INTEGRITY RULE:
+You must base your legal conclusions ONLY on the verified statutory provisions and evidence presented above.
+Never invent section numbers or legal provisions.
+
 Deliver your verdict in this EXACT format:
 
 VERDICT: <Guilty / Not Guilty>
@@ -264,16 +323,16 @@ VERDICT: <Guilty / Not Guilty>
 CONFIDENCE: <percentage, e.g. 78%>
 
 LAWS APPLIED:
-<List each IPC section you are relying on, one per line, e.g. IPC 379>
+<List each verified IPC section you are relying on, one per line, e.g. IPC 302>
 
 EXPLANATION:
 <3–5 paragraphs. Explain your reasoning, how you weighed the evidence,
 which argument was stronger, and why you arrived at this verdict.
-Cite specific facts and IPC sections. Be precise and impartial.>
+Cite specific facts and verified IPC sections. Be precise and impartial.>
 """
 
         response = self.llm.invoke(prompt)
-        return _parse_verdict(response.content)
+        return _parse_verdict(response.content, verified_laws=relevant_laws)
 
 
 # ── LangGraph node wrappers ───────────────────────────────────────────────────
@@ -291,7 +350,7 @@ def _get_judge() -> JudgeAgent:
 def judge_score_node(state: dict) -> dict:
     """
     LangGraph node — scoring pass.
-    Reads prosecution_args + defense_args, writes judge_scores + judge_question.
+    Reads prosecution_args + defense_args + relevant_laws, writes judge_scores + judge_question.
     Routing: orchestrator checks state['judge_question'] to decide next node.
     """
     judge = _get_judge()
@@ -300,21 +359,24 @@ def judge_score_node(state: dict) -> dict:
         structured_facts  = state.get("structured_facts", {}),
         prosecution_args  = state.get("prosecution_args", ""),
         defense_args      = state.get("defense_args", ""),
+        relevant_laws     = state.get("relevant_laws", []),
     )
 
-    state["judge_scores"]   = scores
-    state["judge_question"] = question
-
-    p = scores["prosecution"]
-    d = scores["defense"]
+    p = scores.get("prosecution", {})
+    d = scores.get("defense", {})
     print(
-        f"[Judge] Scoring done. "
-        f"Prosecution: {p['total']}/30  |  Defense: {d['total']}/30"
+        f"[Judge] Scoring complete — "
+        f"Prosecution: {p.get('total', 0)}/30  |  Defense: {d.get('total', 0)}/30"
     )
     if question:
-        print(f"[Judge] Evidence insufficient — asking Accused: '{question}'")
+        print(f"[Judge] Clarification needed — questioning Accused: '{question}'")
+    else:
+        print("[Judge] Arguments sufficient — proceeding to Verdict.")
 
-    return state
+    return {
+        "judge_scores": scores,
+        "judge_question": question,
+    }
 
 
 def judge_verdict_node(state: dict) -> dict:
@@ -330,26 +392,27 @@ def judge_verdict_node(state: dict) -> dict:
         defense_args     = state.get("defense_args", ""),
         accused_history  = state.get("accused_history", []),
         judge_scores     = state.get("judge_scores", {}),
+        relevant_laws    = state.get("relevant_laws", []),
     )
 
-    state["judge_verdict"] = verdict
     print(
-        f"[Judge] Verdict: {verdict['decision']}  "
-        f"(confidence {verdict['confidence']}%)"
+        f"[Judge] Final Verdict: {verdict.get('decision', 'Inconclusive')} "
+        f"(Confidence: {verdict.get('confidence', 0)}% | Laws Applied: {verdict.get('laws_applied', [])})"
     )
-    return state
+    return {"judge_verdict": verdict}
 
 
 def should_ask_accused(state: dict) -> str:
     """
     LangGraph conditional edge function.
     Returns "needs_accused" or "verdict" based on judge_question and debate_round.
+    Configurable via ORCHESTRATOR_MAX_ROUNDS (default 2).
     """
-    MAX_ROUNDS = 2
+    max_rounds = int(os.getenv("ORCHESTRATOR_MAX_ROUNDS", "2"))
     question   = state.get("judge_question", "")
     rounds     = state.get("debate_round", 0)
 
-    if question and rounds < MAX_ROUNDS:
+    if question and rounds < max_rounds:
         return "needs_accused"
     return "verdict"
 

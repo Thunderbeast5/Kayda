@@ -29,10 +29,10 @@ class PunishmentSpec(BaseModel):
 
 
 class VerifiedOffenceItem(BaseModel):
-    section_number: str = Field(description="Normalized section number string e.g. '498A', '85', 'Section 4'")
-    statute: str = Field(default="IPC", description="Primary statute e.g. 'IPC', 'BNS', 'Dowry Prohibition Act'")
+    section_number: str = Field(description="Normalized section number string e.g. '498A', 'Section 4'")
+    statute: str = Field(default="IPC", description="Primary statute e.g. 'IPC', 'Dowry Prohibition Act'")
     ipc_equivalent: Optional[str] = Field(default=None, description="IPC equivalent section number e.g. '498A'")
-    bns_equivalent: Optional[str] = Field(default=None, description="BNS equivalent section number e.g. '85'")
+    bns_equivalent: Optional[str] = Field(default=None, description="Deprecated / always null in IPC-only pipeline")
     title: str = Field(description="Canonical statutory section title")
     chapter_number: str = Field(default="XXA", description="Statutory chapter number")
     chapter_title: str = Field(default="Of Cruelty by Husband or Relatives of Husband", description="Statutory chapter name")
@@ -60,7 +60,7 @@ class ChapterIdentificationObject(ManualReviewMixin):
     )
     legal_regime: Optional[str] = Field(
         default="IPC + CrPC",
-        description="Legal regime passed through from Stage 1 ('IPC + CrPC' or 'BNS + BNSS')"
+        description="Legal regime passed through from Stage 1 ('IPC + CrPC')"
     )
 
     verification_status: str = Field(

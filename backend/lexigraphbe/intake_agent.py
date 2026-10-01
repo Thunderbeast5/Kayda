@@ -100,16 +100,17 @@ class CaseIntakeAgent:
         case_profile = CaseProfile.model_validate(extracted_dict)
         case_profile.min_confidence_threshold = inp.min_confidence_threshold
 
+        # Enforce IPC-only pipeline: normalize any BNS regime
+        if "BNS" in (case_profile.legal_regime or "").upper():
+            case_profile.legal_regime = "IPC + CrPC"
+
         # Post-validation sanity check on regime precedence flags
         meta = case_profile.case_metadata
         if not inp.legal_regime_override:
             if not meta.offence_date and not meta.fir_date:
-                case_profile.legal_regime = "UNKNOWN"
-                case_profile.flag_for_confirmation = True
-                if "Legal regime confirmation (Offence/FIR date missing)" not in case_profile.missing_information:
-                    case_profile.missing_information.append("Legal regime confirmation (Offence/FIR date missing)")
+                case_profile.legal_regime = "IPC + CrPC"
                 if not case_profile.regime_notes:
-                    case_profile.regime_notes = "UNKNOWN legal regime: defaulted to dual IPC/BNS + CrPC/BNSS representation."
+                    case_profile.regime_notes = "Defaulted to IPC + CrPC representation."
             elif not meta.offence_date and meta.fir_date:
                 case_profile.flag_for_confirmation = True
                 if not case_profile.regime_notes:

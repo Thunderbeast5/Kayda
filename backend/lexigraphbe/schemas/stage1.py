@@ -69,8 +69,8 @@ class LegalQueryObject(ManualReviewMixin):
     important_facts: ImportantFacts = Field(default_factory=ImportantFacts)
 
     legal_regime: Optional[str] = Field(
-        default="UNKNOWN",
-        description="Legal regime passed through unchanged from Stage 0 CaseContextObject ('IPC + CrPC' or 'BNS + BNSS')"
+        default="IPC + CrPC",
+        description="Legal regime passed through unchanged from Stage 0 CaseContextObject ('IPC + CrPC')"
     )
     flag_for_confirmation: bool = Field(
         default=False,

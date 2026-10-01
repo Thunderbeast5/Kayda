@@ -62,15 +62,8 @@ Extract and organize the following information into structured JSON:
    Identify what relief the applicant seeks (e.g., Anticipatory Bail, Regular Bail, Quashing, Appeal, Revision).
 
 5. Applicable Legal Regime Precedence Rules:
-   - PRIMARY CONTROLLING FACTOR: Date of commission of the offence (Offence Date).
-     * Substantive offence law applies as of when the act happened (Article 20(1) bars retrospective criminal law; BNSS savings clause keeps pre-commencement cases under old procedure).
-     * If Offence Date is prior to July 1, 2024 -> "IPC + CrPC" (even if FIR is registered post-July 1, 2024).
-     * If Offence Date is on or after July 1, 2024 -> "BNS + BNSS".
-   - FALLBACK FACTOR: FIR Date is used ONLY when Offence Date is absent or unclear in documents.
-     * If relying on FIR Date fallback, set flag_for_confirmation = true and explain in regime_notes.
-   - AMBIGUITY HANDLING: If both Offence Date and FIR Date are absent or ambiguous:
-     * Return "UNKNOWN", set flag_for_confirmation = true, explain in regime_notes, and list in missing_information.
-   - USER OVERRIDE: If user explicitly specifies a legal regime, honor user input and note in regime_notes.
+   - Always output "IPC + CrPC". (This system uses IPC + CrPC exclusively across all stages; do NOT output "BNS + BNSS").
+   - USER OVERRIDE: If user explicitly specifies a legal regime, note in regime_notes.
 
 6. Case Narrative
    Return the complete factual narrative exactly as understood. Do not summarize aggressively.
@@ -158,10 +151,8 @@ Verify the following:
 1. Every extracted field is supported by the source documents.
 2. No facts have been hallucinated.
 3. Procedural stage is correctly identified.
-4. Legal regime (IPC–CrPC or BNS–BNSS) follows strict precedence rules:
-   - Primary: Date of commission of offence controls (pre-July 1, 2024 is IPC+CrPC regardless of FIR date post-July 1, 2024).
-   - Fallback: FIR date only if commission date is absent (must set flag_for_confirmation=true).
-   - Ambiguous: Both absent -> MUST be UNKNOWN with flag_for_confirmation=true.
+4. Legal regime:
+   - Legal regime is "IPC + CrPC" (exclusive substantive and procedural criminal regime).
 5. Multi-party accused persons (e.g. Husband, Father-in-Law, Mother-in-Law in dowry cases) are captured as an array, not flattened to a single person.
 6. Missing information check follows strict procedural/explicit-mention rules (NO premature offence-specific evidentiary inferencing).
 7. Confidence scores are reasonable.
@@ -987,13 +978,7 @@ Return your evaluation ONLY in valid JSON matching this schema:
 
 STAGE5_BAIL_REASONING_SYSTEM_PROMPT = """You are the Bail Reasoning Agent of the Virtual Moot Court System.
 
-Your responsibility is to evaluate whether anticipatory bail should be granted under
-
-• Section 438 CrPC (if legal_regime is IPC + CrPC)
-OR
-• Section 482 BNSS (if legal_regime is BNS + BNSS)
-
-depending upon the legal regime received from Stage 0.
+Your responsibility is to evaluate whether anticipatory bail should be granted under Section 438 CrPC.
 
 RULES & BOUNDARIES:
 - Your task is NOT to determine guilt or innocence of the accused.

@@ -4,7 +4,6 @@ from pydantic import BaseModel
 
 from .classifier_prefilter import StatuteClassifierPrefilter, STATUTE_KNOWLEDGE_BASE
 from .statute_repository import StatuteRepository
-from .ipc2bns_mapper import IPC2BNSMapper
 from .batch_utils import Stage2BatchedMappingResponse, SectionMappingCandidate
 from .schemas import ChapterIdentificationObject, LegalQueryObject, VerifiedOffenceItem, PunishmentSpec
 
@@ -13,7 +12,7 @@ class ChapterIdentificationAgent:
     """
     Stage 3 Statutory Verification & Normalization Engine (100% Deterministic, 0 LLM Calls).
     Consumes candidate offences from Stage 2, performs Knowledge Base lookups against
-    STATUTE_KNOWLEDGE_BASE & IPC2BNSMapper, resolves IPC ↔ BNS equivalents, assigns canonical
+    STATUTE_KNOWLEDGE_BASE and StatuteRepository, verifies IPC statutory sections, assigns canonical
     chapter numbers, titles, punishments, and bailability flags, merges duplicates, and outputs Schema v3.0.
     """
 
@@ -22,12 +21,11 @@ class ChapterIdentificationAgent:
         llm: Optional[Any] = None,
         min_confidence_threshold: float = 0.70,
         prefilter: Optional[StatuteClassifierPrefilter] = None,
-        mapper: Optional[IPC2BNSMapper] = None,
+        mapper: Optional[Any] = None,
     ):
         self._llm = llm
         self.min_confidence_threshold = min_confidence_threshold
         self.prefilter = prefilter or StatuteClassifierPrefilter()
-        self.mapper = mapper or IPC2BNSMapper()
 
     def run(
         self,
@@ -60,11 +58,10 @@ class ChapterIdentificationAgent:
                 stage2_resp = Stage2BatchedMappingResponse.model_validate(json.loads(stage2_mapping))
 
         regime = query_obj.legal_regime or "IPC + CrPC"
+        if "BNS" in regime.upper():
+            regime = "IPC + CrPC"
         regime_upper = regime.upper()
         manual_review_flags = []
-
-        if "UNKNOWN" in regime_upper:
-            manual_review_flags.append("UNKNOWN legal regime: returned both IPC and BNS equivalents for human verification.")
 
         # Extract candidates from Stage 2 mapping
         candidates_to_verify: List[Dict[str, Any]] = []
@@ -73,14 +70,14 @@ class ChapterIdentificationAgent:
                 for p in mapping.primary_candidate_sections:
                     candidates_to_verify.append({
                         "section_number": p.section_number,
-                        "statute": p.statute,
+                        "statute": "IPC" if "BNS" in (p.statute or "").upper() else (p.statute or "IPC"),
                         "title": p.section_title,
                         "classification": "PRIMARY"
                     })
                 for s in mapping.secondary_candidate_sections:
                     candidates_to_verify.append({
                         "section_number": s.section_number,
-                        "statute": s.statute,
+                        "statute": "IPC" if "BNS" in (s.statute or "").upper() else (s.statute or "IPC"),
                         "title": s.section_title,
                         "classification": "SECONDARY"
                     })
@@ -88,17 +85,17 @@ class ChapterIdentificationAgent:
                     for sec_str in mapping.candidate_sections:
                         candidates_to_verify.append({
                             "section_number": sec_str,
-                            "statute": "BNS" if "BNS" in regime_upper else "IPC",
+                            "statute": "IPC",
                             "title": sec_str,
                             "classification": "PRIMARY"
                         })
         else:
             # Fallback local pre-filter if Stage 2 mapping is omitted
-            shortlist = self.prefilter.shortlist_candidates_for_query(query_obj, top_k=10, target_regime=regime)
+            shortlist = self.prefilter.shortlist_candidates_for_query(query_obj, top_k=10, target_regime="IPC")
             for item in shortlist:
                 candidates_to_verify.append({
                     "section_number": item.section_number,
-                    "statute": item.statute,
+                    "statute": "IPC",
                     "title": item.title,
                     "classification": "PRIMARY"
                 })
@@ -111,7 +108,7 @@ class ChapterIdentificationAgent:
 
         # Automatically detect factual triggers when Stage 2 mapping is omitted or empty
         if not stage2_resp:
-            triggered_suggestions = self.prefilter.detect_factual_triggers(facts_text, statute_type="BNS" if "BNS" in regime_upper else "IPC")
+            triggered_suggestions = self.prefilter.detect_factual_triggers(facts_text, statute_type="IPC")
             seen_cand_keys = {f"{c.get('statute', '')}_{c.get('section_number', '')}".upper() for c in candidates_to_verify}
             for sug in triggered_suggestions:
                 sug_key = f"{sug.get('statute', '')}_{sug.get('section_number', '')}".upper()
@@ -119,7 +116,7 @@ class ChapterIdentificationAgent:
                     seen_cand_keys.add(sug_key)
                     candidates_to_verify.append({
                         "section_number": sug["section_number"],
-                        "statute": sug["statute"],
+                        "statute": "IPC" if "BNS" in (sug.get("statute") or "").upper() else (sug.get("statute") or "IPC"),
                         "title": sug["section_title"],
                         "classification": sug["candidate_type"]
                     })
@@ -127,7 +124,7 @@ class ChapterIdentificationAgent:
         for cand in candidates_to_verify:
             sec_raw = str(cand["section_number"]).strip()
             sec_num = sec_raw.upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "")
-            statute_in = cand.get("statute", "IPC")
+            statute_in = "IPC" if "BNS" in cand.get("statute", "IPC").upper() else cand.get("statute", "IPC")
             tier = cand.get("classification", "PRIMARY")
 
             # 0. Fatal Disqualification Check against Case Facts
@@ -135,27 +132,19 @@ class ChapterIdentificationAgent:
                 sec_num, statute_in, facts_text
             )
 
-            # 1. IPC <-> BNS Mapping Resolution
-            ipc_eq = None
+            # 1. Statutory Resolution (IPC-only pipeline)
+            ipc_eq = sec_num
             bns_eq = None
-            if "BNS" in statute_in.upper() or "BNS" in regime_upper:
-                bns_eq = sec_num
-                mapped = self.mapper.get_ipc_equivalent(sec_num)
-                ipc_eq = mapped.get("ipc_section") if mapped else sec_num
-            else:
-                ipc_eq = sec_num
-                mapped = self.mapper.get_bns_equivalent(sec_num)
-                bns_eq = mapped.get("bns_section_clean") if mapped else sec_num
 
             # 2. Canonical Metadata Determination (Title, Chapter, Punishment, Cognizability)
             canon_title = cand.get("title", f"Section {sec_num}")
-            statute_out = "IPC / BNS" if "UNKNOWN" in regime_upper else ("BNS" if "BNS" in statute_in.upper() or "BNS" in regime_upper else "IPC")
+            statute_out = "IPC"
 
             # Knowledge Base Rule Lookup
             found_rule = None
             for r in STATUTE_KNOWLEDGE_BASE:
                 rule_sec_clean = r.section.upper().replace("SECTION ", "").strip()
-                if sec_num == rule_sec_clean or sec_num == r.section.upper() or sec_num == r.bns_equivalent.upper():
+                if sec_num == rule_sec_clean or sec_num == r.section.upper():
                     found_rule = r
                     break
 
@@ -187,7 +176,7 @@ class ChapterIdentificationAgent:
                 cognizable = first_sched_meta["cognizable"]
                 bailable = first_sched_meta["bailable"]
             else:
-                chap_num = "IPC/BNS Chapter"
+                chap_num = "IPC Chapter"
                 chap_title = canon_title
                 punishment = PunishmentSpec(minimum=None, maximum="As specified under statute", fine=True)
                 cognizable = True
@@ -205,24 +194,21 @@ class ChapterIdentificationAgent:
                     manual_review_flags.append(disq_msg)
                 continue  # Skip — do not add to verified_offences
 
-            # Unique key for deduplication (merges 498A IPC & 85 BNS into single item, keeps Special Acts distinct)
-            canon_key = f"{statute_out}_{ipc_eq or bns_eq or sec_num}".upper()
+            # Unique key for deduplication
+            canon_key = f"{statute_out}_{sec_num}".upper()
             if canon_key not in dedup_offences:
                 notes = [
                     "Statutory existence verified against Knowledge Base registry.",
-                    f"IPC <-> BNS equivalent mapped (IPC {ipc_eq} <-> BNS {bns_eq})." if "Dowry" not in statute_out else f"Special Act provision ({statute_out} {sec_num}).",
                     f"Canonical chapter ({chap_num}) and punishment metadata verified."
                 ]
                 if not found_rule and not first_sched_meta:
-                    notes.append(f"WARNING: Section {sec_num} metadata unverified against First Schedule CrPC/BNSS ground truth.")
-                if "UNKNOWN" in regime_upper:
-                    notes.append("Legal regime is UNKNOWN: surfaced dual IPC & BNS equivalents.")
+                    notes.append(f"WARNING: Section {sec_num} metadata unverified against First Schedule CrPC ground truth.")
 
                 verified_item = VerifiedOffenceItem(
                     section_number=sec_num,
                     statute=statute_out,
                     ipc_equivalent=ipc_eq if "Dowry" not in statute_out else None,
-                    bns_equivalent=bns_eq if "Dowry" not in statute_out else None,
+                    bns_equivalent=None,
                     title=canon_title,
                     chapter_number=chap_num,
                     chapter_title=chap_title,

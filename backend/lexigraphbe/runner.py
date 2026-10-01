@@ -159,7 +159,7 @@ def main():
     parser.add_argument("--text", "-t", type=str, help="Raw document text input string")
     parser.add_argument("--query", "-q", type=str, help="User instructions / query")
     parser.add_argument("--court", type=str, help="Court type (Sessions Court / High Court)")
-    parser.add_argument("--regime", type=str, help="Legal regime override (IPC + CrPC / BNS + BNSS)")
+    parser.add_argument("--regime", type=str, help="Legal regime override (IPC + CrPC)")
     parser.add_argument("--stage", type=int, choices=[0, 1, 2, 3, 4, 5, 6, 7], default=7, help="Target stage to run (0=Intake, 1=Query Understanding, 2=SubQuery Mapping, 3=Chapter Identification, 4=Statutory Verification, 5=Bail Reasoning, 6=Precedent Retrieval, 7=Full Chain)")
 
     args = parser.parse_args()

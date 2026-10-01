@@ -39,7 +39,11 @@ class VerificationService:
                    n.keywords AS keywords, n.act AS act
             LIMIT 1
         """
-        rows = self.neo4j_service.run_query(query, {"act": act, "section": section})
+        try:
+            rows = self.neo4j_service.run_query(query, {"act": act, "section": section})
+        except Exception as e:
+            print(f"[VerificationService] Neo4j unavailable for get_node_info({act} {section}): {e}")
+            return {}
         if rows:
             return rows[0]
         return {}
