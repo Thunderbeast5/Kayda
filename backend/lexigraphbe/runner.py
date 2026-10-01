@@ -7,6 +7,9 @@ import json
 import sys
 from pathlib import Path
 from typing import Optional
+from dotenv import load_dotenv
+
+load_dotenv()
 
 if hasattr(sys.stdout, "reconfigure"):
     try:
