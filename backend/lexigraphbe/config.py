@@ -46,9 +46,9 @@ if _DEFAULT_PROVIDER == "ollama":
     MODEL_STAGE7 = os.getenv("MODEL_STAGE7", _OLLAMA_MODEL)   # Arguments & Judgment
 elif (_DEFAULT_PROVIDER == "groq" or _DEFAULT_PROVIDER == "") and _HAS_GROQ:
     # Groq models
-    MODEL_STAGE0 = os.getenv("MODEL_STAGE0", "llama-3.1-8b-instant")   # Case Intake
-    MODEL_STAGE1 = os.getenv("MODEL_STAGE1", "llama-3.1-8b-instant")   # Legal Query
-    MODEL_STAGE2 = os.getenv("MODEL_STAGE2", "llama-3.1-8b-instant")   # Subquery Mapping
+    MODEL_STAGE0 = os.getenv("MODEL_STAGE0", "llama-3.3-70b-versatile")   # Case Intake
+    MODEL_STAGE1 = os.getenv("MODEL_STAGE1", "llama-3.3-70b-versatile")   # Legal Query
+    MODEL_STAGE2 = os.getenv("MODEL_STAGE2", "llama-3.3-70b-versatile")   # Subquery Mapping
     MODEL_STAGE5 = os.getenv("MODEL_STAGE5", "llama-3.3-70b-versatile")  # Bail Reasoning
     MODEL_STAGE6 = os.getenv("MODEL_STAGE6", "llama-3.3-70b-versatile")  # Precedent Analysis
     MODEL_STAGE7 = os.getenv("MODEL_STAGE7", "llama-3.3-70b-versatile")  # Arguments & Judgment
@@ -161,7 +161,7 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
 def get_llm_for_tier(tier: str = MODEL_TIER_CHEAP, temperature: float = 0.1, model_name: Optional[str] = None):
     """
     Get configured LLM client routed by task tier.
-    - 'cheap' tier: lightweight model (llama-3.1-8b-instant for Groq, gpt-4o-mini for OpenAI).
+    - 'cheap' tier: lightweight model (llama-3.3-70b-versatile for Groq, gpt-4o-mini for OpenAI).
     - 'reasoning' tier: flagship model (llama-3.3-70b-versatile for Groq, gpt-4o for OpenAI).
     Default provider: Groq
     """
@@ -174,7 +174,7 @@ def get_llm_for_tier(tier: str = MODEL_TIER_CHEAP, temperature: float = 0.1, mod
 
     # Groq models (default)
     if (provider == "groq" or provider == "") and groq_api_key:
-        groq_cheap = os.getenv("MODEL_CHEAP", "llama-3.1-8b-instant")
+        groq_cheap = os.getenv("MODEL_CHEAP", "llama-3.3-70b-versatile")
         groq_reasoning = os.getenv("MODEL_REASONING", "llama-3.3-70b-versatile")
         groq_target = groq_cheap if tier == MODEL_TIER_CHEAP else groq_reasoning
         return get_llm(temperature=temperature, model_name=groq_target)
