@@ -387,6 +387,11 @@ Given case facts, identify the correct IPC sections and return ONLY valid JSON:
                     retrieved_at_turn=0,
                 )
             
+            # Display sections being used
+            console.print(f"[green]→ Using {len(retrieved_sections)} sections from lexigraphbe:[/green]")
+            for sec_num, sec in retrieved_sections.items():
+                console.print(f"  [cyan]§ {sec_num} {sec.statute}:[/cyan] {sec.title}")
+            
             # Initialize prosecutor extraction and planning
             console.print("[dim]→ Prosecutor analyzing case and sections...[/dim]")
             p_output = agent._extract_case(self.case_text, retrieved_sections)
@@ -404,17 +409,28 @@ Given case facts, identify the correct IPC sections and return ONLY valid JSON:
                 turn_history=[],
             )
             
-            return {"agent": agent, "session": session}
+            return {"agent": agent, "session": session, "sections": retrieved_sections}
         else:
             from defense import DefenseAgent
             
             agent = DefenseAgent()
             
-            # Initialize defense analysis
-            console.print("[dim]→ Defense analyzing case and sections...[/dim]")
+            # Display sections being used
+            console.print(f"[green]→ Using {len(self.sections.verified_sections)} sections from lexigraphbe:[/green]")
+            for vs in self.sections.verified_sections:
+                console.print(f"  [cyan]§ {vs.section_number} {vs.statute}:[/cyan] {vs.title}")
+            
+            # Initialize defense analysis with case
+            console.print("[dim]→ Defense analyzing case...[/dim]")
             agent.analyze_case(self.case_text)
             
-            return {"agent": agent, "session": None}
+            # Pass the lexigraphbe sections to the defense agent
+            # Store them in the agent for use in arguments
+            agent._orchestrator_sections = self.sections.verified_sections
+            
+            console.print("[dim]→ Defense will use lexigraphbe sections in arguments[/dim]")
+            
+            return {"agent": agent, "session": None, "sections": self.sections.verified_sections}
 
     def run_moot_court_session(self):
         """

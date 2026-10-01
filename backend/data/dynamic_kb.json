@@ -2045,5 +2045,90 @@
     "subject_matter_scope": null,
     "disqualifying_subject_matters": [],
     "requires_trigger_gate": false
+  },
+  {
+    "section": "314",
+    "statute": "IPC",
+    "bns_equivalent": "314",
+    "title": "Death caused by act done with intent to cause miscarriage",
+    "mandatory_ingredients": [
+      "death_caused_by_act_done_with_intent_to_cause_miscarriage"
+    ],
+    "factual_triggers": [
+      "caused",
+      "death",
+      "done",
+      "intent",
+      "cause",
+      "miscarriage"
+    ],
+    "chapter_number": "XI",
+    "chapter_title": "Offences Against Property",
+    "punishment_minimum": null,
+    "punishment_maximum": "2 Years",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "474",
+    "statute": "IPC",
+    "bns_equivalent": "474",
+    "title": "Having possession of document described in section 466 or 467, knowing it to be forged and intending to use it as genuine",
+    "mandatory_ingredients": [
+      "having_possession_of_document_described_in_section_466_or_467_knowing_it_to_be_forged_and_intending_to_use_it_as_genuine"
+    ],
+    "factual_triggers": [
+      "document",
+      "forged",
+      "genuine",
+      "having",
+      "possession",
+      "described",
+      "section",
+      "knowing",
+      "intending"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Having possession of document described in section 466 or 467, knowing it to be forged and intending to use it as genuine",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "489B",
+    "statute": "IPC",
+    "bns_equivalent": "489B",
+    "title": "Using as genuine, forged or counterfeit currency-notes or bank-notes",
+    "mandatory_ingredients": [
+      "using_as_genuine_forged_or_counterfeit_currency_notes_or_bank_notes"
+    ],
+    "factual_triggers": [
+      "forged",
+      "genuine",
+      "using",
+      "counterfeit",
+      "currency",
+      "notes",
+      "bank"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Using as genuine, forged or counterfeit currency-notes or bank-notes",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
   }
 ]

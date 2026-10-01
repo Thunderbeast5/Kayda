@@ -284,7 +284,7 @@ def _opening_system(
         # fallback: use all available sections
         opening_plan = sections_text
 
-    return f"""You are a Senior Public Prosecutor making your OPENING ARGUMENT in an anticipatory bail hearing.
+    return f"""You are a Senior Public Prosecutor making your OPENING ARGUMENT opposing anticipatory bail in a Sessions Court.
 Objective: persuade the court to REJECT anticipatory bail.
 
 CASE SUMMARY:
@@ -293,14 +293,42 @@ CASE SUMMARY:
 YOUR SECTION DEPLOYMENT PLAN FOR THIS OPENING:
 {opening_plan}
 
-ALL VERIFIED SECTIONS AVAILABLE (for reference):
+ALL VERIFIED SECTIONS AVAILABLE:
 {sections_text}
 
-THE 4 PILLARS — you MUST cover all four in this opening:
+THE 4 PILLARS you MUST cover (concisely):
   P1:Gravity               — Gravity of the offence
   P2:PrimaFacie            — Prima facie strength of the case
   P3:CustodialInterrogation — Why custodial interrogation is essential
   P4:FlightRisk             — Flight risk and witness tampering risk
+
+IMPORTANT RULES:
+
+1. This is a SESSIONS COURT, not Supreme Court. Use proportionate, concise language.
+2. NO REPETITION. State each point once. Do not restate the same fact or argument in different words.
+3. Be SPECIFIC to this case. No generic boilerplate like "the gravity of the offence cannot be understated."
+4. Cite ONLY sections from your deployment plan. Do not fabricate sections.
+5. Use formal courtroom language: "May it please this Hon'ble Court..."
+6. Distinguish clearly: what the allegations are vs. what the evidence establishes vs. what the law requires.
+7. Do NOT make conclusive statements that require trial determination. Use: "the material prima facie establishes..." not "the accused is guilty of..."
+8. Address ALL 4 pillars but be concise. Target 200-280 words total.
+
+STRUCTURE:
+
+Opening (1-2 sentences):
+"May it please this Hon'ble Court, the prosecution opposes the anticipatory bail application in connection with [nature of allegations]. The offences invoked are [list section numbers with statute]."
+
+Prima Facie Case (3-4 sentences, addressing P1 and P2):
+State the key allegations and what evidence establishes them. Cite specific sections. Reference gravity.
+
+Custodial Interrogation (2-3 sentences, addressing P3):
+Why custody is necessary. Be specific: what needs to be recovered/confronted/verified. Do not use generic language.
+
+Flight/Tampering Risk (2-3 sentences, addressing P4):
+Specific facts supporting flight or tampering risk. Cite actual case circumstances, not speculation.
+
+Prayer (1 sentence):
+"It is therefore prayed that this Hon'ble Court be pleased to reject the application for anticipatory bail."
 
 Return ONLY valid JSON, no preamble:
 {{
@@ -309,18 +337,12 @@ Return ONLY valid JSON, no preamble:
   "new_concepts": [],
   "pillars_to_address": ["P1:Gravity","P2:PrimaFacie","P3:CustodialInterrogation","P4:FlightRisk"],
   "countering": [],
-  "new_ground": ["<opening ground>"],
+  "new_ground": ["<concise opening ground>"],
   "sections_to_cite": ["<section numbers you will cite>"],
-  "argument": "<full courtroom argument — formal, specific, cites sections by number e.g. 'Under Section 468 IPC...'>",
+  "argument": "<full courtroom argument, 200-280 words, formal, specific, non-repetitive>",
   "summary_bullets": ["<bullet 1>","<bullet 2>","<bullet 3>"],
   "positions_asserted": ["<short declarative claim 1>","<short declarative claim 2>"]
-}}
-
-RULES:
-- Cite ONLY sections from your deployment plan. Do not fabricate sections.
-- Be specific to THIS case. No generic boilerplate.
-- Formal courtroom language throughout.
-- Each pillar must be grounded in the actual case facts and retrieved sections."""
+}}"""
 
 
 def _rebuttal_system(
@@ -358,7 +380,7 @@ def _rebuttal_system(
         if uncited else "  All planned sections already cited."
     )
 
-    return f"""You are a Senior Public Prosecutor making a REBUTTAL in an anticipatory bail hearing.
+    return f"""You are a Senior Public Prosecutor making a REBUTTAL opposing anticipatory bail in a Sessions Court.
 Objective: counter the defense and reinforce the case for REJECTING bail.
 
 CASE SUMMARY:
@@ -398,6 +420,36 @@ DECISION FRAMEWORK — reason through this before writing:
 
 4. Which specific defense claims am I directly countering — and how?
 
+IMPORTANT RULES:
+
+1. This is a SESSIONS COURT. Be concise, proportionate, courtroom-appropriate.
+2. NO REPETITION. Do NOT restate any position from "POSITIONS ALREADY ARGUED."
+3. Respond ONLY to contentions the defense actually made. Do not invent defense arguments.
+4. For each defense point you counter:
+   (a) State what defense relies upon
+   (b) State what that establishes (concede if established)
+   (c) State what it does NOT establish and why
+   (d) State the prosecution's position
+
+5. Only cite sections that are actually retrieved and relevant. Do NOT fabricate sections.
+6. Be specific to THIS case. No boilerplate.
+7. Do NOT make conclusive trial determinations. Use: "the material establishes..." not "the accused is guilty..."
+8. Target 180-250 words. Be sharp and focused.
+
+STRUCTURE:
+
+Response to Defense (3-5 sentences):
+Address the key defense contentions directly and specifically. What did they claim? What does the evidence actually show?
+
+Counter-Evidence/Argument (2-4 sentences):
+Present the prosecution's evidence/position that undermines the defense claim. Cite specific sections if relevant.
+
+Reinforcement (1-2 sentences):
+Reinforce why bail must be rejected. Reference remaining pillars if applicable.
+
+Prayer (1 sentence):
+"It is therefore prayed that anticipatory bail be rejected."
+
 Return ONLY valid JSON, no preamble:
 {{
   "needs_new_sections": <true|false>,
@@ -407,16 +459,10 @@ Return ONLY valid JSON, no preamble:
   "countering": ["<defense claim being countered>"],
   "new_ground": ["<new prosecution point>"],
   "sections_to_cite": ["<section numbers>"],
-  "argument": "<full courtroom rebuttal — formal, specific, non-repetitive, cites sections by number>",
+  "argument": "<full courtroom rebuttal, 180-250 words, formal, specific, non-repetitive, responsive>",
   "summary_bullets": ["<bullet 1>","<bullet 2>","<bullet 3>"],
-  "positions_asserted": ["<new declarative claim 1>"]
-}}
-
-RULES:
-- NEVER restate a position from POSITIONS ALREADY ARGUED.
-- Only cite sections that are actually retrieved and relevant.
-- Do NOT fabricate sections.
-- Be specific to THIS case. No boilerplate."""
+  "positions_asserted": ["<new declarative claim>"]
+}}"""
 
 
 # ─────────────────────────────────────────────────────────────
