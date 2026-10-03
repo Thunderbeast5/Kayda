@@ -41,6 +41,10 @@ class SectionRule:
     bailable: bool = False
     subject_matter_scope: Optional[str] = None  # e.g., "MOVABLE_PROPERTY_ONLY"
     disqualifying_subject_matters: List[str] = field(default_factory=list)  # e.g. ["land", "plot", "real estate"]
+    requires_trigger_gate: bool = False  # If True, section is eliminated when NO factual_trigger matches facts_text.
+                                         # Use ONLY for sections requiring a specific life/body event that can NEVER
+                                         # be described differently (death, rape, suicide).  Leave False for all
+                                         # property/fraud/document offences whose vocabulary varies across cases.
 
 
 STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
@@ -58,6 +62,7 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
         fine=True,
         cognizable=True,
         bailable=False,
+        requires_trigger_gate=True,  # Death of woman is non-negotiable — if absent, section cannot apply
     ),
     SectionRule(
         section="307",
@@ -73,6 +78,7 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
         fine=True,
         cognizable=True,
         bailable=False,
+        requires_trigger_gate=True,  # Specific act of attempted killing must be present
     ),
     SectionRule(
         section="376",
@@ -88,6 +94,7 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
         fine=True,
         cognizable=True,
         bailable=False,
+        requires_trigger_gate=True,  # Sexual assault must be explicitly present — no vocabulary ambiguity
     ),
     SectionRule(
         section="498A",
@@ -172,7 +179,19 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
         bns_equivalent="318",
         title="Cheating and Dishonestly Inducing Delivery of Property",
         mandatory_ingredients=["deception_or_cheating", "dishonest_inducement_to_deliver_property"],
-        factual_triggers=["cheated", "defrauded", "deceived", "fake promise", "money induced", "false representation", "scam"],
+        # Stage 1 concept labels for land-fraud cases rarely contain "cheated" or "defrauded".
+        # They use phrases like "Dishonest Transfer", "Fraudulent Sale", "Property Fraud".
+        # These must be in the trigger list so the KB-driven loop in detect_factual_triggers
+        # fires 420 when the concept bridge adds those terms to the facts text.
+        factual_triggers=[
+            "cheated", "defrauded", "deceived", "fake promise", "money induced",
+            "false representation", "scam", "misrepresentation", "duped", "swindled",
+            "dishonest transfer", "dishonestly transferred", "fraudulent transfer",
+            "fraudulent sale", "fraudulent sale deed", "induced to sell",
+            "induced to transfer", "dishonestly induced", "false title claim",
+            "false ownership claim", "pretended to be owner", "fraudulently induced",
+            "property fraud", "fraudulently obtained property",
+        ],
         chapter_number="XVII",
         chapter_title="Offences Against Property / Cheating",
         punishment_minimum=None,
@@ -217,14 +236,25 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
         bns_equivalent="305",
         title="Dishonest or Fraudulent Execution of Deed Containing a False Statement",
         mandatory_ingredients=["execution_of_deed_or_transfer", "false_statement_of_consideration"],
-        factual_triggers=["false deed", "fraudulent deed", "fabricated transfer", "false consideration", "bogus document", "fictitious transfer"],
+        # IPC 423 targets the specific act of executing a deed that contains a false
+        # statement — the characteristic act in land-fraud / sale-deed fraud cases.
+        factual_triggers=[
+            "false deed", "fraudulent deed", "fabricated transfer", "false consideration",
+            "bogus document", "fictitious transfer",
+            # Sale-deed fraud vocabulary
+            "sale deed", "fraudulent sale deed", "fake sale deed", "forged sale deed",
+            "executed deed", "executed sale deed", "fraudulent execution",
+            "false statement in deed", "executed a false deed", "sham deed",
+            "dishonest deed", "dishonest transfer", "dishonestly transferred",
+            "fraudulently transferred", "fraudulent transfer", "fraudulent conveyance",
+        ],
         chapter_number="XVII",
         chapter_title="Offences Relating to Property / Fraudulent Documents",
         punishment_minimum=None,
-        punishment_maximum="2 Years",  # First Schedule IPC: 2 years or fine or both
+        punishment_maximum="2 Years",
         fine=True,
-        cognizable=False,   # First Schedule: Non-cognizable
-        bailable=True,      # First Schedule: Bailable
+        cognizable=False,
+        bailable=True,
     ),
     SectionRule(
         section="506",
@@ -275,6 +305,7 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
         fine=False,
         cognizable=True,
         bailable=False,
+        requires_trigger_gate=True,  # Death of person must be present — cannot apply to a living victim
     ),
     SectionRule(
         section="304",
@@ -323,6 +354,7 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
         fine=True,
         cognizable=True,
         bailable=False,
+        requires_trigger_gate=True,  # Suicide must have actually occurred — cannot apply without it
     ),
     SectionRule(
         section="308",
@@ -970,9 +1002,25 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
         bns_equivalent="337",
         title="Forgery of Valuable Security / Will",
         mandatory_ingredients=["forgery_of_valuable_security_or_will_or_authority_to_adopt"],
-        factual_triggers=["forged will", "fake will", "forged cheque", "forged valuable security",
-                          "forged promissory note", "false authority to adopt", "counterfeit bond",
-                          "forged stamp paper", "forged power of attorney"],
+        # "Valuable security" under IPC s.30 includes any document that creates, transfers,
+        # or extinguishes any right in property — sale deeds, title deeds, gift deeds,
+        # conveyances, registered documents, powers of attorney, wills, bonds, cheques,
+        # promissory notes.  Triggers must cover the full vocabulary that appears in FIRs.
+        factual_triggers=[
+            # Classic instrument vocabulary
+            "forged will", "fake will", "forged cheque", "forged valuable security",
+            "forged promissory note", "false authority to adopt", "counterfeit bond",
+            "forged stamp paper", "forged power of attorney",
+            # Property-document vocabulary (land/real-estate fraud cases)
+            "sale deed", "sale-deed", "ownership document", "title deed", "title document",
+            "ownership papers", "property document", "land document", "land title",
+            "registered document", "conveyance deed", "gift deed", "transfer deed",
+            "lease deed", "registered deed", "forged deed", "fake deed",
+            "fraudulent deed", "false deed", "bogus deed",
+            # General forgery vocabulary that reliably appears in FIRs
+            "forged ownership", "forged documents", "forged document",
+            "fabricated deed", "fabricated document", "fabricated ownership",
+        ],
         chapter_number="XVIII",
         chapter_title="Offences Relating to Documents",
         punishment_minimum=None,
@@ -1931,8 +1979,6 @@ class CandidateSectionMatch(BaseModel):
 
 
 from .statute_repository import StatuteRepository
-
-
 class StatuteClassifierPrefilter:
     """
     Fast pre-filter for Statute Identification Stage.
@@ -1944,74 +1990,9 @@ class StatuteClassifierPrefilter:
         self.sections_db: List[Dict[str, Any]] = repo.get_sections_db()
 
     def _load_datasets(self):
-        """Loads IPC and BNS dataset records into local in-memory index."""
-        candidate_ipc = [
-            Path("data/new/ipc_sections.csv"),
-            Path("../data/new/ipc_sections.csv"),
-            Path("c:/proj/MootCourt/data/new/ipc_sections.csv"),
-            Path("c:/MootCourt/data/new/ipc_sections.csv"),
-        ]
-        candidate_bns = [
-            Path("data/new/bns_sections1.csv"),
-            Path("c:/proj/MootCourt/data/new/bns_sections1.csv"),
-            Path("data/new/bns_sections_clean.csv"),
-            Path("../data/new/bns_sections_clean.csv"),
-            Path("c:/proj/MootCourt/data/new/bns_sections_clean.csv"),
-            Path("c:/MootCourt/data/new/bns_sections_clean.csv"),
-        ]
-
-        # 1. Load IPC dataset
-        for p in candidate_ipc:
-            if p.exists():
-                try:
-                    with open(p, mode="r", encoding="utf-8", errors="ignore") as f:
-                        reader = csv.DictReader(f)
-                        for row in reader:
-                            sec_id = (row.get("Section") or "").strip()
-                            offense = (row.get("Offense") or "").strip()
-                            desc = (row.get("Description") or "").strip()
-                            if sec_id:
-                                clean_num = sec_id.replace("IPC_", "").strip()
-                                full_text = f"{offense} {desc} {clean_num}".lower()
-                                self.sections_db.append({
-                                    "identifier": f"IPC {clean_num}",
-                                    "statute": "IPC",
-                                    "section_number": clean_num,
-                                    "title": offense or f"IPC Section {clean_num}",
-                                    "chapter": "IPC Offence Chapter",
-                                    "full_text": full_text,
-                                    "tokens": set(re.findall(r"\w+", full_text)),
-                                })
-                    break
-                except Exception:
-                    pass
-
-        # 2. Load BNS dataset
-        for p in candidate_bns:
-            if p.exists():
-                try:
-                    with open(p, mode="r", encoding="utf-8", errors="ignore") as f:
-                        reader = csv.DictReader(f)
-                        for row in reader:
-                            sec_num = (row.get("Section") or "").strip()
-                            title = (row.get("Title") or "").strip()
-                            desc = (row.get("Description") or "").strip()
-                            chap = (row.get("Chapter") or "").strip()
-                            keywords = (row.get("Keywords") or "").strip()
-                            if sec_num:
-                                full_text = f"{title} {desc} {chap} {keywords} {sec_num}".lower()
-                                self.sections_db.append({
-                                    "identifier": f"BNS {sec_num}",
-                                    "statute": "BNS",
-                                    "section_number": sec_num,
-                                    "title": title or f"BNS Section {sec_num}",
-                                    "chapter": chap,
-                                    "full_text": full_text,
-                                    "tokens": set(re.findall(r"\w+", full_text)),
-                                })
-                    break
-                except Exception:
-                    pass
+        """Loads dataset records exclusively from ipc.json via StatuteRepository."""
+        repo = StatuteRepository.get_instance()
+        self.sections_db = repo.get_sections_db()
 
     def shortlist_candidates_for_query(
         self,
@@ -2052,22 +2033,101 @@ class StatuteClassifierPrefilter:
         # Legal concept phrases from Stage 1 use formal language that doesn't match
         # section titles directly. Expand known concept phrases into trigger keywords.
         _CONCEPT_KEYWORD_BRIDGE = {
+            # ── Existing entries (violence / property offences) ─────────────────────────
             "dishonest inducement to deliver property": ["extortion", "extorted", "blackmail", "threatened", "induced delivery"],
             "dishonestly inducing delivery": ["extortion", "blackmail", "threatened", "induced delivery"],
             "criminal intimidation": ["threat", "threatened", "intimidat", "warning"],
-            "physical assault": ["assault", "beaten", "hurt", "pushed", "slapped"],
-            "voluntarily causing hurt": ["assault", "hurt", "beaten", "physical violence"],
+            "physical assault": ["assault", "beaten", "hurt", "pushed", "shoved", "slapped",
+                               "physical violence", "physical abuse", "physical incident",
+                               "kicked", "punched", "struck", "bodily harm", "manhandled"],
+            "voluntarily causing hurt": ["assault", "hurt", "beaten", "physical violence",
+                                        "pushed", "shoved", "slapped", "manhandled"],
             "theft": ["theft", "stolen", "stole", "took away"],
             "criminal breach of trust": ["stridhan", "ornaments", "property not returned", "entrustment"],
             "extortion": ["extortion", "extorted", "blackmail", "threatened", "demanded money"],
             "cheating": ["cheated", "defrauded", "deceived", "fraud"],
             "robbery": ["robbery", "robbed", "looted", "snatched by force"],
-            "wrongful restraint": ["restrained", "blocked", "stopped forcibly"],
-            "wrongful confinement": ["confined", "locked", "detained"],
-            "house trespass": ["trespass", "entered illegally", "barged in"],
-            "criminal trespass": ["trespass", "entered illegally", "encroached"],
+            "house trespass": ["trespass", "entered illegally", "barged in", "godown", "building", "dwelling", "theft", "receptacle"],
+            "criminal trespass": ["trespass", "entered illegally", "encroached", "godown", "storage", "building", "theft", "stole", "removed", "receptacle"],
+            "breaking open": ["theft", "property", "receptacle", "godown", "padlock", "lock", "trespass", "stole", "removed"],
+            "removing property": ["theft", "stolen", "property", "movable", "misappropriation", "dishonest misappropriation"],
+            "taking raw materials": ["theft", "stolen", "property", "movable", "raw materials", "inventory"],
             "mischief": ["damaged", "destroyed property", "mischief"],
             "abetment of suicide": ["abetment of suicide", "instigated suicide", "harassment led to suicide"],
+
+            # ── Homicide / death offences ───────────────────────────────────────────────
+            # Map death-related concept phrases to ensure proper section matching.
+            # Critical: "sudden quarrel" + "death" should trigger Section 300 (Murder with Exception 4)
+            # and Section 304 (Culpable homicide not amounting to murder), NOT Section 301 (transferred malice).
+            "causing death": ["death", "killed", "murder", "culpable homicide", "homicide"],
+            "causing death during quarrel": ["death", "killed", "murder", "culpable homicide", "sudden quarrel", "sudden fight", "heat of passion"],
+            "causing death during sudden quarrel": ["death", "killed", "murder", "culpable homicide", "sudden quarrel", "sudden fight", "heat of passion", "provocation"],
+            "death in sudden fight": ["death", "killed", "murder", "culpable homicide", "sudden quarrel", "sudden fight", "heat of passion"],
+            "culpable homicide": ["death", "killed", "murder", "culpable homicide"],
+
+            # ── Forgery / document fraud ────────────────────────────────────────────────
+            # Maps Stage 1 concept labels for document-fraud cases to trigger keywords that
+            # match 463/465/467/468/471/423 entries in the KB and CSV.
+            "forgery": ["forgery", "forged document", "fake signature", "fabricated", "false document"],
+            "forgery of document": ["forgery", "forged document", "fabricated document", "false document"],
+            "forgery of valuable security": [
+                "forged document", "forgery", "sale deed", "title deed", "ownership document",
+                "forged deed", "fake deed", "valuable security",
+            ],
+            "fraudulent document": ["forged document", "forgery", "false document", "fabricated", "fake deed"],
+            "forged ownership documents": [
+                "forged document", "forgery", "ownership document", "title deed", "sale deed",
+                "fake ownership", "fabricated deed", "forged deed",
+            ],
+            "fraudulent deed": [
+                "fraudulent deed", "false deed", "forged deed", "sale deed",
+                "false consideration", "fake sale deed", "fraudulent sale deed",
+            ],
+            "fraudulent sale deed": [
+                "fraudulent deed", "false deed", "forged deed", "sale deed",
+                "false consideration", "fraudulent transfer",
+            ],
+            "making false document": ["forgery", "forged document", "false document", "fabricated"],
+            "using forged document": ["forged document", "used forged document", "submitted fake document"],
+
+            # ── Dishonest property transfer (Stage 1 concept labels for land-fraud) ─────
+            # Stage 1 uses "Dishonest Transfer", "Fraudulent Sale", "Property Fraud" as
+            # concept labels.  Map these to vocabulary that triggers 420 and 423.
+            "dishonest transfer": [
+                "dishonest transfer", "fraudulent transfer", "cheated", "defrauded",
+                "fraudulent sale", "dishonestly transferred", "fraudulently transferred",
+            ],
+            "dishonest transfer of property": [
+                "dishonest transfer", "fraudulent transfer", "cheated", "defrauded",
+                "fraudulent sale", "property fraud", "false representation",
+            ],
+            "dishonest transfer of immovable property": [
+                "dishonest transfer", "fraudulent transfer", "cheated", "defrauded",
+                "fraudulent sale", "false representation", "dishonestly transferred",
+            ],
+            "fraudulent transfer": [
+                "fraudulent transfer", "fraudulent sale", "cheated", "defrauded",
+                "dishonest transfer", "fraudulently transferred",
+            ],
+            "fraudulent property transfer": [
+                "fraudulent transfer", "cheated", "defrauded", "fraudulent sale",
+                "false representation", "property fraud",
+            ],
+            "property fraud": [
+                "cheated", "defrauded", "deceived", "fraud", "fraudulent transfer",
+                "dishonest transfer", "property fraud",
+            ],
+            "fraudulent sale": [
+                "fraudulent sale", "cheated", "defrauded", "fraudulent transfer",
+                "sale deed", "fraudulent deed",
+            ],
+
+            # ── Anticipatory bail / bail procedural context ─────────────────────────────
+            # Ensure the procedural enabling section is matched when Stage 1 identifies
+            # the legal proceeding context as "Anticipatory Bail Application".
+            "anticipatory bail": ["anticipatory bail", "pre-arrest bail", "apprehension of arrest"],
+            "anticipatory bail application": ["anticipatory bail", "pre-arrest bail", "seeking anticipatory"],
+            "bail application": ["anticipatory bail", "bail", "pre-arrest bail"],
         }
         full_concepts_lower = " ".join(concept_phrases).lower()
         for concept_key, extra_keywords in _CONCEPT_KEYWORD_BRIDGE.items():
@@ -2183,6 +2243,28 @@ class StatuteClassifierPrefilter:
                     )
                 )
 
+        # 3. Detect factual triggers and append any missing suggestions
+        raw_facts = getattr(legal_query_obj, "case_facts", "") or ""
+        trigger_text = raw_facts + " " + query_full_text
+        detected = self.detect_factual_triggers(trigger_text, statute_type=regime_filter or "IPC")
+        for trig in detected:
+            trig_sec = trig["section_number"]
+            trig_stat = trig["statute"]
+            candidate_key = f"{trig_stat}_{trig_sec}"
+            if candidate_key not in seen_identifiers:
+                seen_identifiers.add(candidate_key)
+                results.append(
+                    CandidateSectionMatch(
+                        section_identifier=f"{trig_stat} {trig_sec}",
+                        statute=trig_stat,
+                        section_number=trig_sec,
+                        title=trig["section_title"],
+                        chapter="Statutory Chapter",
+                        score=0.92,
+                        matched_terms=["factual_trigger"],
+                    )
+                )
+
         return results
 
     @staticmethod
@@ -2207,11 +2289,20 @@ class StatuteClassifierPrefilter:
                         return True, reason, missing
 
                 # 2. Mandatory Factual Trigger Check
-                if rule.factual_triggers:
+                # Only applied when requires_trigger_gate=True — sections where a specific
+                # life/body event (death, rape, suicide) MUST appear in the facts verbatim.
+                # General property/fraud/document sections are NOT gated here because
+                # their facts may be described with different vocabulary than the trigger list;
+                # the concept-keyword bridge in shortlist_candidates_for_query handles those.
+                if rule.requires_trigger_gate and rule.factual_triggers:
                     has_trigger = any(trig in lower_facts for trig in rule.factual_triggers)
                     if not has_trigger:
                         missing = rule.mandatory_ingredients
-                        reason = f"Screening non-trigger: Mandatory statutory ingredients ({', '.join(rule.mandatory_ingredients)}) not indicated in case facts."
+                        reason = (
+                            f"Screening non-trigger: Section {rule.section} requires a specific "
+                            f"factual event ({rule.mandatory_ingredients[0] if rule.mandatory_ingredients else 'mandatory element'}) "
+                            f"which is not indicated in the case facts."
+                        )
                         return True, reason, missing
 
         return False, None, []
@@ -2246,8 +2337,17 @@ class StatuteClassifierPrefilter:
         is_bns = "BNS" in (statute_type or "").upper()
         suggestions = []
         seen_keys: set = set()
+        repo = StatuteRepository.get_instance()
 
-        def _add(sec_num, title, statute, ctype, trigger_note):
+        def _add(sec_num: str, title: str, statute: str, ctype: str, trigger_note: str) -> None:
+            # Strictly filter against ipc.json if statute is IPC
+            if statute.upper() == "IPC" and not repo.is_in_ipc_json(sec_num):
+                return
+            _PENAL_STATUTES = {"BNS", "BNSS"}
+            if not is_bns and statute in _PENAL_STATUTES:
+                return
+            if is_bns and statute in {"IPC", "CrPC"}:
+                return
             k = f"{statute}_{sec_num}"
             if k not in seen_keys:
                 seen_keys.add(k)
@@ -2258,6 +2358,35 @@ class StatuteClassifierPrefilter:
                     "candidate_type": ctype,
                     "trigger": trigger_note,
                 })
+
+        # --- Trigger 0: Procedural context triggers (run before KB and factual triggers) ---
+        # These fire on the legal proceeding type, not on offence facts.  They must always
+        # appear in the output when the corresponding procedural stage is present.
+
+        # Trigger 0A: Anticipatory bail -> CrPC 438 / BNSS 482
+        # The enabling provision for anticipatory bail must always be in the candidate list.
+        # Fires on procedural vocabulary — not on any specific offence or party name.
+        if any(term in lower_facts for term in [
+            "anticipatory bail", "pre-arrest bail", "section 438", "crpc 438",
+            "bnss 482", "apprehension of arrest", "seeking anticipatory",
+            "application for anticipatory", "anticipatory bail application",
+        ]):
+            if is_bns:
+                _add(
+                    sec_num="482",
+                    title="Direction for Grant of Bail to Person Apprehending Arrest",
+                    statute="BNSS",
+                    ctype="PRIMARY",
+                    trigger_note="Anticipatory bail application — BNSS 482 is the enabling provision",
+                )
+            else:
+                _add(
+                    sec_num="438",
+                    title="Direction for Grant of Bail to Person Apprehending Arrest",
+                    statute="CrPC",
+                    ctype="PRIMARY",
+                    trigger_note="Anticipatory bail application — CrPC 438 is the enabling provision",
+                )
 
         # --- KB-driven triggers (static + dynamic) ---
         # This runs first so promoted rules are matched before the hardcoded list.
@@ -2282,12 +2411,12 @@ class StatuteClassifierPrefilter:
         # --- Hardcoded triggers (supplement KB-driven triggers above) ---
         # Use _add() so these don't duplicate what the KB already matched.
 
-        # Trigger 1: Dowry harassment / cruelty -> 498A IPC / 85 BNS (Primary) + Sec 4 DP Act (Primary)
+        # Trigger 1: Dowry harassment / cruelty -> 498A IPC (Primary) + Sec 4 DP Act (Primary)
         if any(term in lower_facts for term in ["dowry", "cruelty", "harass", "demand", "torture", "in-laws"]):
             _add(
-                sec_num="85",
+                sec_num="498A",
                 title="Cruelty by Husband or Relatives",
-                statute="BNS",
+                statute="IPC",
                 ctype="PRIMARY",
                 trigger_note="Dowry harassment / cruelty alleged",
             )
@@ -2309,32 +2438,37 @@ class StatuteClassifierPrefilter:
                 trigger_note="Giving or taking of dowry indicated",
             )
 
-        # Trigger 3: Stridhan / ornaments / property retained -> 406 IPC / 316 BNS (Secondary)
+        # Trigger 3: Stridhan / ornaments / property retained -> 406 IPC (Secondary)
         if any(term in lower_facts for term in ["stridhan", "ornaments", "jewelry", "jewellery", "gold", "articles retained", "property not returned"]):
             _add(
-                sec_num="316",
+                sec_num="406",
                 title="Criminal Breach of Trust",
-                statute="BNS",
+                statute="IPC",
                 ctype="SECONDARY",
                 trigger_note="Entrustment and non-return of stridhan / property alleged",
             )
 
-        # Trigger 4: Threats / intimidation -> 506 IPC / 351 BNS (Secondary)
+        # Trigger 4: Threats / intimidation -> 506 IPC (Secondary)
         if any(term in lower_facts for term in ["threat", "threatened", "intimidat", "warning", "abuse", "scared"]):
             _add(
-                sec_num="351",
+                sec_num="506",
                 title="Criminal Intimidation",
-                statute="BNS",
+                statute="IPC",
                 ctype="SECONDARY",
                 trigger_note="Threats / criminal intimidation alleged",
             )
 
-        # Trigger 5: Physical assault / hurt -> 323 IPC / 115 BNS (Secondary)
-        if any(term in lower_facts for term in ["assault", "beaten", "slapped", "physical violence", "hurt", "injured", "hit"]):
+        # Trigger 5: Physical assault / hurt -> 323 IPC (Secondary)
+        if any(term in lower_facts for term in [
+            "assault", "beaten", "slapped", "physical violence", "hurt", "injured", "hit",
+            "pushed", "shoved", "kicked", "punched", "struck", "physical abuse",
+            "physical harm", "bodily harm", "physically abused", "physical incident",
+            "physical force", "forced her", "forced him", "manhandled",
+        ]):
             _add(
-                sec_num="115",
+                sec_num="323",
                 title="Voluntarily Causing Hurt",
-                statute="BNS",
+                statute="IPC",
                 ctype="SECONDARY",
                 trigger_note="Physical assault / bodily hurt alleged",
             )
@@ -2363,12 +2497,12 @@ class StatuteClassifierPrefilter:
             # Also suggest 120B (conspiracy) if multiple accused
             if any(t in lower_facts for t in ["conspiracy", "conspired", "hatched plan", "planned"]):
                 _add(
-                sec_num="120B",
-                title="Criminal Conspiracy",
-                statute="IPC",
-                ctype="SECONDARY",
-                trigger_note="Criminal conspiracy to commit murder alleged",
-            )
+                    sec_num="120B",
+                    title="Criminal Conspiracy",
+                    statute="IPC",
+                    ctype="SECONDARY",
+                    trigger_note="Criminal conspiracy to commit murder alleged",
+                )
 
         # Trigger 8: Abetment of suicide -> 306 IPC (Primary)
         if any(term in lower_facts for term in ["abetment of suicide", "instigated suicide", "drove to suicide",
@@ -2393,12 +2527,12 @@ class StatuteClassifierPrefilter:
             )
             if any(t in lower_facts for t in ["gang rape", "multiple accused rape", "raped by several"]):
                 _add(
-                sec_num="376D",
-                title="Gang Rape",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Gang rape alleged",
-            )
+                    sec_num="376D",
+                    title="Gang Rape",
+                    statute="IPC",
+                    ctype="PRIMARY",
+                    trigger_note="Gang rape alleged",
+                )
 
         # Trigger 10: Kidnapping / abduction -> 363 IPC (Primary)
         if any(term in lower_facts for term in ["kidnapped", "kidnapping", "abducted", "abduction", "missing child",
@@ -2412,77 +2546,91 @@ class StatuteClassifierPrefilter:
             )
             if any(t in lower_facts for t in ["ransom", "paid ransom", "demand ransom", "hostage"]):
                 _add(
-                sec_num="364A",
-                title="Kidnapping for Ransom",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Kidnapping for ransom alleged",
-            )
+                    sec_num="364A",
+                    title="Kidnapping for Ransom",
+                    statute="IPC",
+                    ctype="PRIMARY",
+                    trigger_note="Kidnapping for ransom alleged",
+                )
 
-        # Trigger 11: Theft -> 379 IPC / 304 BNS (Primary)
-        # Also catches: "took", "took away", "took the laptop", "took property" (physical taking without consent)
+        # Trigger 11: Theft -> 379 IPC (Primary)
         if any(term in lower_facts for term in [
             "theft", "stolen", "stole", "snatched", "pickpocket",
             "property stolen", "cash stolen", "vehicle stolen",
             "took away", "took the", "took her", "took his",
             "took laptop", "took mobile", "took phone", "took bag",
-            "took from", "removed from", "carried away",
+            "took from", "removed from", "carried away", "loaded", "raw materials",
+            "broke open", "padlock", "godown", "inventory", "bags of",
         ]):
             _add(
-                sec_num="304",
+                sec_num="379",
                 title="Punishment for Theft",
-                statute="BNS",
+                statute="IPC",
                 ctype="PRIMARY",
                 trigger_note="Theft / taking of movable property alleged",
             )
             _add(
-                sec_num="303",
+                sec_num="378",
                 title="Theft",
-                statute="BNS",
+                statute="IPC",
                 ctype="PRIMARY",
                 trigger_note="Theft — dishonest taking of movable property without consent",
             )
+            _add(
+                sec_num="380",
+                title="Theft in Dwelling House, Godown, or Building",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Theft from building / storage godown alleged",
+            )
             if any(t in lower_facts for t in ["house theft", "broke into house", "burglary", "entered house and stole"]):
                 _add(
-                sec_num="305",
-                title="Theft in Dwelling House",
-                statute="BNS",
-                ctype="PRIMARY",
-                trigger_note="Theft from dwelling house alleged",
-            )
+                    sec_num="380",
+                    title="Theft in Dwelling House",
+                    statute="IPC",
+                    ctype="PRIMARY",
+                    trigger_note="Theft from dwelling house alleged",
+                )
 
-        # Trigger 12: Robbery / dacoity -> 392 IPC / 309 BNS (Primary)
+        # Trigger 12: Robbery / dacoity -> 392 IPC (Primary)
         if any(term in lower_facts for term in ["robbery", "robbed", "looted", "snatched by force",
                                                  "mugged", "chain snatching", "armed robbery"]):
             _add(
-                sec_num="309",
+                sec_num="392",
                 title="Punishment for Robbery",
-                statute="BNS",
+                statute="IPC",
                 ctype="PRIMARY",
                 trigger_note="Robbery alleged",
             )
             if any(t in lower_facts for t in ["dacoity", "dacoits", "group robbery", "five persons robbed"]):
                 _add(
-                sec_num="310",
-                title="Dacoity",
-                statute="BNS",
-                ctype="PRIMARY",
-                trigger_note="Dacoity by group of five or more alleged",
-            )
+                    sec_num="395",
+                    title="Dacoity",
+                    statute="IPC",
+                    ctype="PRIMARY",
+                    trigger_note="Dacoity by group of five or more alleged",
+                )
 
-        # Trigger 13: Cheating / fraud -> 420 IPC / 318 BNS (Primary)
-        if any(term in lower_facts for term in ["cheated", "defrauded", "deceived", "fraud", "fake promise",
-                                                 "scam", "misrepresentation", "duped", "swindled"]):
+        # Trigger 13: Cheating / fraud / dishonest inducement to deliver property -> 420 IPC (Conditional)
+        if any(term in lower_facts for term in [
+            "cheated", "defrauded", "deceived", "fraud", "fake promise",
+            "scam", "misrepresentation", "duped", "swindled",
+            # Property-fraud vocabulary from Stage 1 concept labels and case narratives
+            "dishonest transfer", "dishonestly transferred", "fraudulent transfer",
+            "fraudulent sale", "fraudulent sale deed", "false representation of title",
+            "induced to sell", "induced to transfer", "dishonestly induced",
+            "pretended to be owner", "false title claim", "fraudulently obtained property",
+            "property fraud", "fraudulently induced",
+        ]):
             _add(
-                sec_num="318",
+                sec_num="420",
                 title="Cheating and Dishonestly Inducing Delivery of Property",
-                statute="BNS",
-                ctype="PRIMARY",
-                trigger_note="Cheating / fraud alleged",
+                statute="IPC",
+                ctype="CONDITIONAL",
+                trigger_note="Cheating / dishonest inducement to deliver property alleged — conditional upon proof of deceptive inducement causing delivery",
             )
 
-        # Trigger 14: Extortion / blackmail -> 384 IPC / 309 BNS (Primary)
-        # Also covers: threat to accuse of crime to extract money (classic extortion pattern)
+        # Trigger 14: Extortion / blackmail -> 384 IPC (Primary)
         if any(term in lower_facts for term in [
             "extortion", "extorted", "blackmail", "blackmailed",
             "demanded money under threat", "coerced to pay",
@@ -2496,16 +2644,16 @@ class StatuteClassifierPrefilter:
             "demanded transfer", "demanded payment under",
         ]):
             _add(
-                sec_num="309",
+                sec_num="384",
                 title="Punishment for Extortion",
-                statute="BNS",
+                statute="IPC",
                 ctype="PRIMARY",
                 trigger_note="Extortion / blackmail / threat to accuse alleged",
             )
             _add(
-                sec_num="308",
+                sec_num="383",
                 title="Extortion",
-                statute="BNS",
+                statute="IPC",
                 ctype="PRIMARY",
                 trigger_note="Extortion — putting in fear to dishonestly induce delivery of property",
             )
@@ -2529,12 +2677,12 @@ class StatuteClassifierPrefilter:
             )
             if any(t in lower_facts for t in ["weapon", "armed", "guns", "firing", "arson"]):
                 _add(
-                sec_num="148",
-                title="Rioting Armed with Deadly Weapon",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Armed rioting alleged",
-            )
+                    sec_num="148",
+                    title="Rioting Armed with Deadly Weapon",
+                    statute="IPC",
+                    ctype="PRIMARY",
+                    trigger_note="Armed rioting alleged",
+                )
 
         # Trigger 16: Criminal conspiracy -> 120B IPC (Secondary)
         if any(term in lower_facts for term in ["criminal conspiracy", "conspired", "hatched conspiracy",
@@ -2580,24 +2728,97 @@ class StatuteClassifierPrefilter:
                 trigger_note="Acid attack alleged",
             )
 
-        # Trigger 20: Forgery / forged documents -> 468 IPC (Primary)
-        if any(term in lower_facts for term in ["forged document", "fake signature", "fabricated paper",
-                                                 "forgery", "falsified record", "counterfeit", "forged will",
-                                                 "fake will", "forged cheque"]):
+        # Trigger 20: Forgery / forged documents -> 463/465/467/468/471 IPC
+        # Base offence 465 is PRIMARY (creation of false document).
+        # Compound/aggravated offences 468, 471, 467, 423 are CONDITIONAL because they require
+        # unproven gating prerequisites (purpose of cheating, use as genuine, valuable security status, false statement).
+        _forgery_base_terms = [
+            "forged document", "fake signature", "fabricated paper",
+            "forgery", "falsified record", "counterfeit", "forged will",
+            "fake will", "forged cheque", "fabricated document",
+            # Vocabulary that appears in land-fraud FIRs
+            "forged ownership", "forged deed", "fake deed", "fraudulent deed",
+            "ownership document", "title deed", "sale deed", "ownership papers",
+            "forged documents", "fabricated ownership",
+        ]
+        if any(term in lower_facts for term in _forgery_base_terms):
+            # 465: Base forgery — PRIMARY when false document creation is alleged
+            _add(
+                sec_num="465",
+                title="Forgery",
+                statute="IPC",
+                ctype="PRIMARY",
+                trigger_note="Forgery alleged — making a false document",
+            )
+            # 468: Forgery with cheating intent — CONDITIONAL (requires specific cheating purpose)
             _add(
                 sec_num="468",
                 title="Forgery for Purpose of Cheating",
                 statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Forgery for cheating alleged",
+                ctype="CONDITIONAL",
+                trigger_note="Forgery for cheating alleged — conditional upon purpose of forgery being cheating under Section 415",
             )
+            # 471: Using forged document as genuine — CONDITIONAL (requires proof of use/presentation)
             _add(
                 sec_num="471",
                 title="Using Forged Document as Genuine",
                 statute="IPC",
-                ctype="SECONDARY",
-                trigger_note="Use of forged document alleged",
+                ctype="CONDITIONAL",
+                trigger_note="Use of forged document as genuine alleged — conditional upon proof of presentation or use in transaction",
             )
+
+            # Sub-check for 467: The forged instrument is a "valuable security" or "will"
+            _valuable_security_terms = [
+                "sale deed", "title deed", "ownership document", "registered document",
+                "conveyance deed", "gift deed", "transfer deed", "lease deed",
+                "power of attorney", "ownership papers", "land document", "property document",
+                "land title", "forged deed", "fake deed", "fraudulent deed",
+                "forged will", "fake will", "forged cheque", "promissory note",
+                "bond", "stamp paper", "registered deed", "forged ownership",
+                "ownership papers", "title document",
+            ]
+            if any(term in lower_facts for term in _valuable_security_terms):
+                _add(
+                    sec_num="467",
+                    title="Forgery of Valuable Security / Will",
+                    statute="IPC",
+                    ctype="CONDITIONAL",
+                    trigger_note="Forgery of valuable security / title deed alleged — conditional upon document qualifying under Section 467",
+                )
+
+            # Sub-check for 423: Executing a deed containing a false statement of consideration/beneficiary
+            _deed_execution_terms = [
+                "executed deed", "executed sale deed", "sale deed", "executed a deed",
+                "registered deed", "fraudulent deed", "dishonest deed", "false deed",
+                "fraudulent execution", "fraudulent sale deed", "dishonest transfer",
+                "dishonestly transferred", "fraudulently transferred",
+            ]
+            if any(term in lower_facts for term in _deed_execution_terms):
+                _add(
+                    sec_num="423",
+                    title="Dishonest or Fraudulent Execution of Deed Containing a False Statement",
+                    statute="IPC",
+                    ctype="CONDITIONAL",
+                    trigger_note="Fraudulent deed execution alleged — conditional upon deed containing false statement of consideration or beneficiary",
+                )
+
+            # Sub-check for 423: Executing a deed that contains a false statement
+            # (the characteristic act in sale-deed fraud — registering a deed with false
+            # consideration, false seller identity, or false title representation).
+            _deed_execution_terms = [
+                "executed deed", "executed sale deed", "sale deed", "executed a deed",
+                "registered deed", "fraudulent deed", "dishonest deed", "false deed",
+                "fraudulent execution", "fraudulent sale deed", "dishonest transfer",
+                "dishonestly transferred", "fraudulently transferred",
+            ]
+            if any(term in lower_facts for term in _deed_execution_terms):
+                _add(
+                    sec_num="423",
+                    title="Dishonest or Fraudulent Execution of Deed Containing a False Statement",
+                    statute="IPC",
+                    ctype="PRIMARY",
+                    trigger_note="Fraudulent execution of deed with false statement alleged",
+                )
 
         # Trigger 21: Cyber crime / IT Act -> Section 66 IT Act (Primary)
         if any(term in lower_facts for term in ["hacking", "cyber fraud", "phishing", "online fraud",

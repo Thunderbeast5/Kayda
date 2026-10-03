@@ -1,0 +1,1809 @@
+[
+  {
+    "section": "425",
+    "statute": "IPC",
+    "bns_equivalent": "425",
+    "title": "Mischief",
+    "mandatory_ingredients": [
+      "mischief"
+    ],
+    "factual_triggers": [
+      "damaged",
+      "mischief"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Mischief",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "426",
+    "statute": "IPC",
+    "bns_equivalent": "426",
+    "title": "Punishment for mischief",
+    "mandatory_ingredients": [
+      "punishment_for_mischief"
+    ],
+    "factual_triggers": [
+      "mischief",
+      "punishment"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Punishment for mischief",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "427",
+    "statute": "IPC",
+    "bns_equivalent": "427",
+    "title": "Mischief causing damage to the amount of fifty rupees",
+    "mandatory_ingredients": [
+      "mischief_causing_damage_to_the_amount_of_fifty_rupees"
+    ],
+    "factual_triggers": [
+      "mischief",
+      "causing",
+      "damage",
+      "amount",
+      "fifty",
+      "rupees"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Mischief causing damage to the amount of fifty rupees",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "428",
+    "statute": "IPC",
+    "bns_equivalent": "428",
+    "title": "Mischief by killing or maiming animal of the value of ten rupees",
+    "mandatory_ingredients": [
+      "mischief_by_killing_or_maiming_animal_of_the_value_of_ten_rupees"
+    ],
+    "factual_triggers": [
+      "mischief",
+      "killing",
+      "maiming",
+      "animal",
+      "value",
+      "rupees"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Mischief by killing or maiming animal of the value of ten rupees",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "429",
+    "statute": "IPC",
+    "bns_equivalent": "429",
+    "title": "Mischief by killing or maiming cattle, etc., of any value or any animal of the value of fifty rupees",
+    "mandatory_ingredients": [
+      "mischief_by_killing_or_maiming_cattle_etc_of_any_value_or_any_animal_of_the_value_of_fifty_rupees"
+    ],
+    "factual_triggers": [
+      "mischief",
+      "killing",
+      "maiming",
+      "cattle",
+      "value",
+      "animal",
+      "fifty",
+      "rupees"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Mischief by killing or maiming cattle, etc., of any value or any animal of the value of fifty rupees",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "430",
+    "statute": "IPC",
+    "bns_equivalent": "430",
+    "title": "Mischief by injury to works of irrigation or by wrongfully diverting water",
+    "mandatory_ingredients": [
+      "mischief_by_injury_to_works_of_irrigation_or_by_wrongfully_diverting_water"
+    ],
+    "factual_triggers": [
+      "mischief",
+      "injury",
+      "works",
+      "irrigation",
+      "wrongfully",
+      "diverting",
+      "water"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Mischief by injury to works of irrigation or by wrongfully diverting water",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "431",
+    "statute": "IPC",
+    "bns_equivalent": "431",
+    "title": "Mischief by injury to public road, bridge, river or channel",
+    "mandatory_ingredients": [
+      "mischief_by_injury_to_public_road_bridge_river_or_channel"
+    ],
+    "factual_triggers": [
+      "mischief",
+      "injury",
+      "public",
+      "road",
+      "bridge",
+      "river",
+      "channel"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Mischief by injury to public road, bridge, river or channel",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "432",
+    "statute": "IPC",
+    "bns_equivalent": "432",
+    "title": "Mischief by causing inundation or obstruction to public drainage attended with damage",
+    "mandatory_ingredients": [
+      "mischief_by_causing_inundation_or_obstruction_to_public_drainage_attended_with_damage"
+    ],
+    "factual_triggers": [
+      "mischief",
+      "causing",
+      "inundation",
+      "obstruction",
+      "public",
+      "drainage",
+      "attended",
+      "damage"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Mischief by causing inundation or obstruction to public drainage attended with damage",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "433",
+    "statute": "IPC",
+    "bns_equivalent": "433",
+    "title": "Mischief by destroying, moving or rendering less useful a light-house or sea-mark",
+    "mandatory_ingredients": [
+      "mischief_by_destroying_moving_or_rendering_less_useful_a_light_house_or_sea_mark"
+    ],
+    "factual_triggers": [
+      "mischief",
+      "destroying",
+      "moving",
+      "rendering",
+      "less",
+      "useful",
+      "light",
+      "house",
+      "mark"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Mischief by destroying, moving or rendering less useful a light-house or sea-mark",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "434",
+    "statute": "IPC",
+    "bns_equivalent": "434",
+    "title": "Mischief by destroying or moving, etc., a land-mark fixed by public authority",
+    "mandatory_ingredients": [
+      "mischief_by_destroying_or_moving_etc_a_land_mark_fixed_by_public_authority"
+    ],
+    "factual_triggers": [
+      "mischief",
+      "destroying",
+      "moving",
+      "land",
+      "mark",
+      "fixed",
+      "public",
+      "authority"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Mischief by destroying or moving, etc., a land-mark fixed by public authority",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "321",
+    "statute": "IPC",
+    "bns_equivalent": "321",
+    "title": "Voluntarily causing hurt",
+    "mandatory_ingredients": [
+      "voluntarily_causing_hurt"
+    ],
+    "factual_triggers": [
+      "causing",
+      "hurt",
+      "voluntarily"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Voluntarily causing hurt",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "327",
+    "statute": "IPC",
+    "bns_equivalent": "327",
+    "title": "Voluntarily causing hurt to extort property, or to constrain to an illegal act",
+    "mandatory_ingredients": [
+      "voluntarily_causing_hurt_to_extort_property_or_to_constrain_to_an_illegal_act"
+    ],
+    "factual_triggers": [
+      "causing",
+      "hurt",
+      "voluntarily",
+      "extort",
+      "property",
+      "constrain",
+      "illegal",
+      "voluntarily causing hurt"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Voluntarily causing hurt to extort property, or to constrain to an illegal act",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "330",
+    "statute": "IPC",
+    "bns_equivalent": "330",
+    "title": "Voluntarily causing hurt to extort confession, or to compel restoration of property",
+    "mandatory_ingredients": [
+      "voluntarily_causing_hurt_to_extort_confession_or_to_compel_restoration_of_property"
+    ],
+    "factual_triggers": [
+      "causing",
+      "hurt",
+      "voluntarily",
+      "extort",
+      "confession",
+      "compel",
+      "restoration",
+      "property"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Voluntarily causing hurt to extort confession, or to compel restoration of property",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "332",
+    "statute": "IPC",
+    "bns_equivalent": "332",
+    "title": "Voluntarily causing hurt to deter public servant from his duty",
+    "mandatory_ingredients": [
+      "voluntarily_causing_hurt_to_deter_public_servant_from_his_duty"
+    ],
+    "factual_triggers": [
+      "causing",
+      "hurt",
+      "voluntarily",
+      "deter",
+      "public",
+      "servant",
+      "from",
+      "duty"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Voluntarily causing hurt to deter public servant from his duty",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "334",
+    "statute": "IPC",
+    "bns_equivalent": "334",
+    "title": "Voluntarily causing hurt on provocation",
+    "mandatory_ingredients": [
+      "voluntarily_causing_hurt_on_provocation"
+    ],
+    "factual_triggers": [
+      "causing",
+      "hurt",
+      "voluntarily",
+      "provocation"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Voluntarily causing hurt on provocation",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "322",
+    "statute": "IPC",
+    "bns_equivalent": "322",
+    "title": "Voluntarily causing grievous hurt",
+    "mandatory_ingredients": [
+      "voluntarily_causing_grievous_hurt"
+    ],
+    "factual_triggers": [
+      "causing",
+      "hurt",
+      "voluntarily",
+      "grievous"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Voluntarily causing grievous hurt",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "446",
+    "statute": "IPC",
+    "bns_equivalent": "446",
+    "title": "House-breaking by night",
+    "mandatory_ingredients": [
+      "house_breaking_by_night"
+    ],
+    "factual_triggers": [
+      "breaking",
+      "house",
+      "night"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "House-breaking by night",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "456",
+    "statute": "IPC",
+    "bns_equivalent": "456",
+    "title": "Punishment for lurking house-trespass or house-breaking by night",
+    "mandatory_ingredients": [
+      "punishment_for_lurking_house_trespass_or_house_breaking_by_night"
+    ],
+    "factual_triggers": [
+      "breaking",
+      "house",
+      "night",
+      "punishment",
+      "lurking",
+      "trespass"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Punishment for lurking house-trespass or house-breaking by night",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "458",
+    "statute": "IPC",
+    "bns_equivalent": "458",
+    "title": "Lurking house-trespass or house-breaking by night after preparation for hurt, assault, or wrongful restraint",
+    "mandatory_ingredients": [
+      "lurking_house_trespass_or_house_breaking_by_night_after_preparation_for_hurt_assault_or_wrongful_restraint"
+    ],
+    "factual_triggers": [
+      "breaking",
+      "house",
+      "night",
+      "lurking",
+      "trespass",
+      "after",
+      "preparation",
+      "hurt",
+      "assault",
+      "wrongful",
+      "restraint"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Lurking house-trespass or house-breaking by night after preparation for hurt, assault, or wrongful restraint",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "460",
+    "statute": "IPC",
+    "bns_equivalent": "460",
+    "title": "All persons jointly concerned in lurking house-trespass or house-breaking by night punishable where death or grievous hurt caused by one of them",
+    "mandatory_ingredients": [
+      "all_persons_jointly_concerned_in_lurking_house_trespass_or_house_breaking_by_night_punishable_where_death_or_grievous_hurt_caused_by_one_of_them"
+    ],
+    "factual_triggers": [
+      "breaking",
+      "house",
+      "night",
+      "persons",
+      "jointly",
+      "concerned",
+      "lurking",
+      "trespass",
+      "punishable",
+      "where",
+      "death",
+      "grievous",
+      "hurt",
+      "caused",
+      "them"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "All persons jointly concerned in lurking house-trespass or house-breaking by night punishable where death or grievous hurt caused by one of them",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "444",
+    "statute": "IPC",
+    "bns_equivalent": "444",
+    "title": "Lurking house-trespass by night",
+    "mandatory_ingredients": [
+      "lurking_house_trespass_by_night"
+    ],
+    "factual_triggers": [
+      "breaking",
+      "house",
+      "night",
+      "lurking",
+      "trespass"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Lurking house-trespass by night",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "445",
+    "statute": "IPC",
+    "bns_equivalent": "445",
+    "title": "House-breaking",
+    "mandatory_ingredients": [
+      "house_breaking"
+    ],
+    "factual_triggers": [
+      "breaking",
+      "house"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "House-breaking",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "453",
+    "statute": "IPC",
+    "bns_equivalent": "453",
+    "title": "Punishment for lurking house-trespass or house-breaking",
+    "mandatory_ingredients": [
+      "punishment_for_lurking_house_trespass_or_house_breaking"
+    ],
+    "factual_triggers": [
+      "breaking",
+      "house",
+      "punishment",
+      "lurking",
+      "trespass",
+      "punishment for lurking house-trespass or house-breaking"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Punishment for lurking house-trespass or house-breaking",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "393",
+    "statute": "IPC",
+    "bns_equivalent": "393",
+    "title": "Attempt to commit robbery",
+    "mandatory_ingredients": [
+      "attempt_to_commit_robbery"
+    ],
+    "factual_triggers": [
+      "robbery",
+      "attempt",
+      "commit"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Attempt to commit robbery",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "398",
+    "statute": "IPC",
+    "bns_equivalent": "398",
+    "title": "Attempt to commit robbery or dacoity when armed with deadly weapon",
+    "mandatory_ingredients": [
+      "attempt_to_commit_robbery_or_dacoity_when_armed_with_deadly_weapon"
+    ],
+    "factual_triggers": [
+      "robbery",
+      "attempt",
+      "commit",
+      "dacoity",
+      "when",
+      "armed",
+      "deadly",
+      "weapon"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Attempt to commit robbery or dacoity when armed with deadly weapon",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "310",
+    "statute": "IPC",
+    "bns_equivalent": "310",
+    "title": "Thug",
+    "mandatory_ingredients": [
+      "thug"
+    ],
+    "factual_triggers": [
+      "robbery",
+      "thug"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Thug",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "328",
+    "statute": "IPC",
+    "bns_equivalent": "328",
+    "title": "Causing hurt by means of poison, etc., with intent to commit an offence",
+    "mandatory_ingredients": [
+      "causing_hurt_by_means_of_poison_etc_with_intent_to_commit_an_offence"
+    ],
+    "factual_triggers": [
+      "robbery",
+      "causing",
+      "hurt",
+      "means",
+      "poison",
+      "intent",
+      "commit",
+      "offence"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Causing hurt by means of poison, etc., with intent to commit an offence",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "376B",
+    "statute": "IPC",
+    "bns_equivalent": "376B",
+    "title": "Sexual intercourse by husband upon his wife during separation",
+    "mandatory_ingredients": [
+      "sexual_intercourse_by_husband_upon_his_wife_during_separation"
+    ],
+    "factual_triggers": [
+      "during",
+      "over",
+      "sexual",
+      "intercourse",
+      "husband",
+      "upon",
+      "wife",
+      "separation"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Sexual intercourse by husband upon his wife during separation",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "461",
+    "statute": "IPC",
+    "bns_equivalent": "461",
+    "title": "Dishonestly breaking open receptacle containing property",
+    "mandatory_ingredients": [
+      "dishonestly_breaking_open_receptacle_containing_property"
+    ],
+    "factual_triggers": [
+      "open",
+      "over",
+      "dishonestly",
+      "breaking",
+      "receptacle",
+      "containing",
+      "property"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Dishonestly breaking open receptacle containing property",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "487",
+    "statute": "IPC",
+    "bns_equivalent": "487",
+    "title": "Making a false mark upon any receptacle containing goods",
+    "mandatory_ingredients": [
+      "making_a_false_mark_upon_any_receptacle_containing_goods"
+    ],
+    "factual_triggers": [
+      "late",
+      "over",
+      "rent",
+      "making",
+      "false",
+      "mark",
+      "upon",
+      "receptacle",
+      "containing",
+      "goods"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Making a false mark upon any receptacle containing goods",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "499",
+    "statute": "IPC",
+    "bns_equivalent": "499",
+    "title": "Defamation",
+    "mandatory_ingredients": [
+      "defamation"
+    ],
+    "factual_triggers": [
+      "late",
+      "open",
+      "over",
+      "defamation"
+    ],
+    "chapter_number": "Of Defamation",
+    "chapter_title": "Defamation",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "318",
+    "statute": "IPC",
+    "bns_equivalent": "318",
+    "title": "Concealment of birth by secret disposal of dead body",
+    "mandatory_ingredients": [
+      "concealment_of_birth_by_secret_disposal_of_dead_body"
+    ],
+    "factual_triggers": [
+      "during",
+      "over",
+      "concealment",
+      "birth",
+      "secret",
+      "disposal",
+      "dead",
+      "body"
+    ],
+    "chapter_number": "XI",
+    "chapter_title": "Offences Against Property",
+    "punishment_minimum": null,
+    "punishment_maximum": "7 Years",
+    "fine": true,
+    "cognizable": true,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "333",
+    "statute": "IPC",
+    "bns_equivalent": "333",
+    "title": "Voluntarily causing grievous hurt to deter public servant from his duty",
+    "mandatory_ingredients": [
+      "voluntarily_causing_grievous_hurt_to_deter_public_servant_from_his_duty"
+    ],
+    "factual_triggers": [
+      "causing",
+      "voluntarily",
+      "grievous",
+      "hurt",
+      "deter",
+      "public",
+      "servant",
+      "from",
+      "duty"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Voluntarily causing grievous hurt to deter public servant from his duty",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": true,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "300",
+    "statute": "IPC",
+    "bns_equivalent": "300",
+    "title": "Murder",
+    "mandatory_ingredients": [
+      "murder"
+    ],
+    "factual_triggers": [
+      "before",
+      "loaded",
+      "murder"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Murder",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "464",
+    "statute": "IPC",
+    "bns_equivalent": "464",
+    "title": "Making a false document",
+    "mandatory_ingredients": [
+      "making_a_false_document"
+    ],
+    "factual_triggers": [
+      "making",
+      "false",
+      "document"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Making a false document",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "466",
+    "statute": "IPC",
+    "bns_equivalent": "466",
+    "title": "Forgery of record of Court or of public register, etc.",
+    "mandatory_ingredients": [
+      "forgery_of_record_of_court_or_of_public_register_etc"
+    ],
+    "factual_triggers": [
+      "forgery",
+      "record",
+      "court",
+      "public",
+      "register"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Forgery of record of Court or of public register, etc.",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "489D",
+    "statute": "IPC",
+    "bns_equivalent": "489D",
+    "title": "Making or possessing instruments or materials for forging or counterfeiting currency-notes or bank-notes",
+    "mandatory_ingredients": [
+      "making_or_possessing_instruments_or_materials_for_forging_or_counterfeiting_currency_notes_or_bank_notes"
+    ],
+    "factual_triggers": [
+      "materials",
+      "making",
+      "possessing",
+      "instruments",
+      "forging",
+      "counterfeiting",
+      "currency",
+      "notes",
+      "bank"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Making or possessing instruments or materials for forging or counterfeiting currency-notes or bank-notes",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "357",
+    "statute": "IPC",
+    "bns_equivalent": "357",
+    "title": "Assault or criminal force in attempt wrongfully to confine a person",
+    "mandatory_ingredients": [
+      "assault_or_criminal_force_in_attempt_wrongfully_to_confine_a_person"
+    ],
+    "factual_triggers": [
+      "away",
+      "assault",
+      "criminal",
+      "force",
+      "attempt",
+      "wrongfully",
+      "confine",
+      "person"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Assault or criminal force in attempt wrongfully to confine a person",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "358",
+    "statute": "IPC",
+    "bns_equivalent": "358",
+    "title": "Assault or criminal force on grave provocation",
+    "mandatory_ingredients": [
+      "assault_or_criminal_force_on_grave_provocation"
+    ],
+    "factual_triggers": [
+      "assault",
+      "criminal",
+      "force",
+      "grave",
+      "provocation"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Assault or criminal force on grave provocation",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "382",
+    "statute": "IPC",
+    "bns_equivalent": "382",
+    "title": "Theft after preparation made for causing death, hurt or restraint in order to the committing of the theft",
+    "mandatory_ingredients": [
+      "theft_after_preparation_made_for_causing_death_hurt_or_restraint_in_order_to_the_committing_of_the_theft"
+    ],
+    "factual_triggers": [
+      "causing",
+      "hurt",
+      "stole",
+      "stolen",
+      "theft",
+      "after",
+      "preparation",
+      "made",
+      "death",
+      "restraint",
+      "order",
+      "committing"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Theft after preparation made for causing death, hurt or restraint in order to the committing of the theft",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "462",
+    "statute": "IPC",
+    "bns_equivalent": "462",
+    "title": "Punishment for same offence when committed by person entrusted with custody",
+    "mandatory_ingredients": [
+      "punishment_for_same_offence_when_committed_by_person_entrusted_with_custody"
+    ],
+    "factual_triggers": [
+      "breaking",
+      "open",
+      "property",
+      "receptacle",
+      "same",
+      "punishment",
+      "offence",
+      "when",
+      "committed",
+      "person",
+      "entrusted",
+      "custody"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Punishment for same offence when committed by person entrusted with custody",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "455",
+    "statute": "IPC",
+    "bns_equivalent": "455",
+    "title": "Lurking house-trespass or house-breaking after preparation for hurt, assault or wrongful restraint",
+    "mandatory_ingredients": [
+      "lurking_house_trespass_or_house_breaking_after_preparation_for_hurt_assault_or_wrongful_restraint"
+    ],
+    "factual_triggers": [
+      "after",
+      "breaking",
+      "lurking",
+      "house",
+      "trespass",
+      "preparation",
+      "hurt",
+      "assault",
+      "wrongful",
+      "restraint"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Lurking house-trespass or house-breaking after preparation for hurt, assault or wrongful restraint",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "405",
+    "statute": "IPC",
+    "bns_equivalent": "405",
+    "title": "Criminal breach of trust",
+    "mandatory_ingredients": [
+      "criminal_breach_of_trust"
+    ],
+    "factual_triggers": [
+      "criminal",
+      "misappropriation",
+      "property",
+      "breach",
+      "trust"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Criminal breach of trust",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "410",
+    "statute": "IPC",
+    "bns_equivalent": "410",
+    "title": "Stolen property",
+    "mandatory_ingredients": [
+      "stolen_property"
+    ],
+    "factual_triggers": [
+      "criminal",
+      "misappropriation",
+      "property",
+      "stolen"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Stolen property",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "356",
+    "statute": "IPC",
+    "bns_equivalent": "356",
+    "title": "Assault or criminal force in attempt to commit theft of property carried by a person",
+    "mandatory_ingredients": [
+      "assault_or_criminal_force_in_attempt_to_commit_theft_of_property_carried_by_a_person"
+    ],
+    "factual_triggers": [
+      "criminal",
+      "property",
+      "assault",
+      "force",
+      "attempt",
+      "commit",
+      "theft",
+      "carried",
+      "person"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Assault or criminal force in attempt to commit theft of property carried by a person",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "404",
+    "statute": "IPC",
+    "bns_equivalent": "404",
+    "title": "Dishonest misappropriation of property possessed by deceased person at the time of his death",
+    "mandatory_ingredients": [
+      "dishonest_misappropriation_of_property_possessed_by_deceased_person_at_the_time_of_his_death"
+    ],
+    "factual_triggers": [
+      "misappropriation",
+      "property",
+      "dishonest",
+      "possessed",
+      "deceased",
+      "person",
+      "time",
+      "death"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Dishonest misappropriation of property possessed by deceased person at the time of his death",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "508",
+    "statute": "IPC",
+    "bns_equivalent": "508",
+    "title": "Act caused by inducing person to believe that he will be rendered an object of the Divine displeasure",
+    "mandatory_ingredients": [
+      "act_caused_by_inducing_person_to_believe_that_he_will_be_rendered_an_object_of_the_divine_displeasure"
+    ],
+    "factual_triggers": [
+      "that",
+      "under",
+      "caused",
+      "inducing",
+      "person",
+      "believe",
+      "will",
+      "rendered",
+      "object",
+      "divine",
+      "displeasure"
+    ],
+    "chapter_number": "Of Criminal Intimidation, Insult and Annoyance",
+    "chapter_title": "Act caused by inducing person to believe that he will be rendered an object of the Divine displeasure",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "352",
+    "statute": "IPC",
+    "bns_equivalent": "352",
+    "title": "Punishment for assault or criminal force otherwise than on grave provocation",
+    "mandatory_ingredients": [
+      "punishment_for_assault_or_criminal_force_otherwise_than_on_grave_provocation"
+    ],
+    "factual_triggers": [
+      "lawful",
+      "that",
+      "under",
+      "punishment",
+      "assault",
+      "criminal",
+      "force",
+      "otherwise",
+      "than",
+      "grave",
+      "provocation"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Punishment for assault or criminal force otherwise than on grave provocation",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "374",
+    "statute": "IPC",
+    "bns_equivalent": "374",
+    "title": "Unlawful compulsory labour",
+    "mandatory_ingredients": [
+      "unlawful_compulsory_labour"
+    ],
+    "factual_triggers": [
+      "lawful",
+      "that",
+      "under",
+      "unlawful",
+      "compulsory",
+      "labour"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Unlawful compulsory labour",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "491",
+    "statute": "IPC",
+    "bns_equivalent": "491",
+    "title": "Breach of contract to attend on and supply wants of helpless person",
+    "mandatory_ingredients": [
+      "breach_of_contract_to_attend_on_and_supply_wants_of_helpless_person"
+    ],
+    "factual_triggers": [
+      "lawful",
+      "that",
+      "breach",
+      "contract",
+      "attend",
+      "supply",
+      "wants",
+      "helpless",
+      "person"
+    ],
+    "chapter_number": "Of the Criminal Breach of Contracts of Service",
+    "chapter_title": "Breach of contract to attend on and supply wants of helpless person",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "350",
+    "statute": "IPC",
+    "bns_equivalent": "350",
+    "title": "Criminal force",
+    "mandatory_ingredients": [
+      "criminal_force"
+    ],
+    "factual_triggers": [
+      "against",
+      "force",
+      "using",
+      "criminal"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Criminal force",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "407",
+    "statute": "IPC",
+    "bns_equivalent": "407",
+    "title": "Criminal breach of trust by carrier, etc.",
+    "mandatory_ingredients": [
+      "criminal_breach_of_trust_by_carrier_etc"
+    ],
+    "factual_triggers": [
+      "breach",
+      "criminal",
+      "trust",
+      "carrier"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Criminal breach of trust by carrier, etc.",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "408",
+    "statute": "IPC",
+    "bns_equivalent": "408",
+    "title": "Criminal breach of trust by clerk or servant",
+    "mandatory_ingredients": [
+      "criminal_breach_of_trust_by_clerk_or_servant"
+    ],
+    "factual_triggers": [
+      "breach",
+      "criminal",
+      "trust",
+      "clerk",
+      "servant"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Criminal breach of trust by clerk or servant",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "381",
+    "statute": "IPC",
+    "bns_equivalent": "381",
+    "title": "Theft by clerk or servant of property in possession of master",
+    "mandatory_ingredients": [
+      "theft_by_clerk_or_servant_of_property_in_possession_of_master"
+    ],
+    "factual_triggers": [
+      "breach",
+      "criminal",
+      "entrustment",
+      "trust",
+      "theft",
+      "clerk",
+      "servant",
+      "property",
+      "possession",
+      "master"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Theft by clerk or servant of property in possession of master",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "376DA",
+    "statute": "IPC",
+    "bns_equivalent": "376DA",
+    "title": "Punishment for gang rape on woman under sixteen years of age",
+    "mandatory_ingredients": [
+      "punishment_for_gang_rape_on_woman_under_sixteen_years_of_age"
+    ],
+    "factual_triggers": [
+      "common",
+      "intention",
+      "punishment",
+      "gang",
+      "rape",
+      "woman",
+      "under",
+      "sixteen",
+      "years"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Punishment for gang rape on woman under sixteen years of age",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "376DB",
+    "statute": "IPC",
+    "bns_equivalent": "376DB",
+    "title": "Punishment for gang rape on woman under twelve years of age",
+    "mandatory_ingredients": [
+      "punishment_for_gang_rape_on_woman_under_twelve_years_of_age"
+    ],
+    "factual_triggers": [
+      "common",
+      "intention",
+      "punishment",
+      "gang",
+      "rape",
+      "woman",
+      "under",
+      "twelve",
+      "years"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Punishment for gang rape on woman under twelve years of age",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "439",
+    "statute": "IPC",
+    "bns_equivalent": "439",
+    "title": "Punishment for intentionally running vessel aground or ashore with intent to commit theft, etc.",
+    "mandatory_ingredients": [
+      "punishment_for_intentionally_running_vessel_aground_or_ashore_with_intent_to_commit_theft_etc"
+    ],
+    "factual_triggers": [
+      "intention",
+      "punishment",
+      "intentionally",
+      "running",
+      "vessel",
+      "aground",
+      "ashore",
+      "intent",
+      "commit",
+      "theft"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Punishment for intentionally running vessel aground or ashore with intent to commit theft, etc.",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "504",
+    "statute": "IPC",
+    "bns_equivalent": "504",
+    "title": "Intentional insult with intent to provoke breach of the peace",
+    "mandatory_ingredients": [
+      "intentional_insult_with_intent_to_provoke_breach_of_the_peace"
+    ],
+    "factual_triggers": [
+      "intention",
+      "intentional",
+      "insult",
+      "intent",
+      "provoke",
+      "breach",
+      "peace"
+    ],
+    "chapter_number": "Of Criminal Intimidation, Insult and Annoyance",
+    "chapter_title": "Intentional insult with intent to provoke breach of the peace",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "299",
+    "statute": "IPC",
+    "bns_equivalent": "299",
+    "title": "Culpable homicide",
+    "mandatory_ingredients": [
+      "culpable_homicide"
+    ],
+    "factual_triggers": [
+      "intention",
+      "culpable",
+      "homicide"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Culpable homicide",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "418",
+    "statute": "IPC",
+    "bns_equivalent": "418",
+    "title": "Cheating with knowledge that wrongful loss may ensue to person whose interest offender is bound to protect",
+    "mandatory_ingredients": [
+      "cheating_with_knowledge_that_wrongful_loss_may_ensue_to_person_whose_interest_offender_is_bound_to_protect"
+    ],
+    "factual_triggers": [
+      "cheated",
+      "cheating",
+      "knowledge",
+      "that",
+      "wrongful",
+      "loss",
+      "ensue",
+      "person",
+      "whose",
+      "interest",
+      "offender",
+      "bound",
+      "protect"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Cheating with knowledge that wrongful loss may ensue to person whose interest offender is bound to protect",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "416",
+    "statute": "IPC",
+    "bns_equivalent": "416",
+    "title": "Cheating by personation",
+    "mandatory_ingredients": [
+      "cheating_by_personation"
+    ],
+    "factual_triggers": [
+      "cheating",
+      "personation"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Cheating by personation",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "419",
+    "statute": "IPC",
+    "bns_equivalent": "419",
+    "title": "Punishment for cheating by personation",
+    "mandatory_ingredients": [
+      "punishment_for_cheating_by_personation"
+    ],
+    "factual_triggers": [
+      "cheating",
+      "punishment",
+      "personation"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Punishment for cheating by personation",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "370",
+    "statute": "IPC",
+    "bns_equivalent": "370",
+    "title": "Trafficking of person",
+    "mandatory_ingredients": [
+      "trafficking_of_person"
+    ],
+    "factual_triggers": [
+      "fraud",
+      "trafficking",
+      "person"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Trafficking of person",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "353",
+    "statute": "IPC",
+    "bns_equivalent": "353",
+    "title": "Assault or criminal force to deter public servant from discharge of his duty",
+    "mandatory_ingredients": [
+      "assault_or_criminal_force_to_deter_public_servant_from_discharge_of_his_duty"
+    ],
+    "factual_triggers": [
+      "official",
+      "public",
+      "which",
+      "assault",
+      "criminal",
+      "force",
+      "deter",
+      "servant",
+      "from",
+      "discharge",
+      "duty"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Assault or criminal force to deter public servant from discharge of his duty",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "488",
+    "statute": "IPC",
+    "bns_equivalent": "488",
+    "title": "Punishment for making use of any such false mark",
+    "mandatory_ingredients": [
+      "punishment_for_making_use_of_any_such_false_mark"
+    ],
+    "factual_triggers": [
+      "accused",
+      "false",
+      "gain",
+      "making",
+      "punishment",
+      "mark"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Punishment for making use of any such false mark",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  }
+]

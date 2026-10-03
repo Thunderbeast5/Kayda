@@ -30,7 +30,7 @@ class QueryUnderstandingAgent:
     def llm(self):
         if self._llm is None:
             # Use config's get_llm which now defaults to Groq
-            self._llm = get_llm(temperature=0.1, model_name=MODEL_STAGE1)
+            self._llm = get_llm(temperature=0.0, model_name=MODEL_STAGE1)
         return self._llm
 
     def run(

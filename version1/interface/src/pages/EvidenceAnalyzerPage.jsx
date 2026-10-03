@@ -1927,8 +1927,16 @@ export default function EvidenceAnalyzerPage({ onBack }) {
                           {item.incident_summary || "No incident summary available"}
                         </p>
                         <p className="mt-1 text-[11px] text-[#5D4037]">
-                          {item.incident_date || "No date"}{item.incident_place ? ` • ${item.incident_place}` : ""}
+                          {item.incident_date || "No date"}
+                          {item.incident_time ? ` • ${item.incident_time}` : ""}
+                          {item.incident_place ? ` • ${item.incident_place}` : ""}
                         </p>
+                        {(item.vehicle_count || item.vehicle_summary) && (
+                          <p className="mt-1 text-[10px] text-[#8C5A3C]">
+                            {item.vehicle_count ? `${item.vehicle_count} vehicle${item.vehicle_count === 1 ? "" : "s"}` : "Vehicle details"}
+                            {item.vehicle_summary ? ` • ${item.vehicle_summary}` : ""}
+                          </p>
+                        )}
                       </div>
                       <span className="text-[10px] text-[#8C5A3C] font-mono whitespace-nowrap">
                         {item.created_at ? new Date(item.created_at).toLocaleString() : "Unknown time"}
@@ -2029,45 +2037,65 @@ export default function EvidenceAnalyzerPage({ onBack }) {
 
                   {/* Scrollable Body */}
                   <div className="flex-1 overflow-y-auto p-6 space-y-8 bg-[#FAF8F5]/30">
-                    
-                    {/* Visual Timeline Section */}
-                    <div>
-                      <h3 className="font-heading font-bold text-lg text-[#2C1810] border-b border-[#2C1810]/10 pb-2 mb-6 flex items-center gap-2">
-                        <Calendar className="text-[#D4AF37]" size={18} /> Case Timeline
-                      </h3>
-                      <VisualTimeline timeline={timeline} />
-                    </div>
-
-                    {/* Interactive Graph Section */}
-                    <div>
-                      <h3 className="font-heading font-bold text-lg text-[#2C1810] border-b border-[#2C1810]/10 pb-2 mb-6 flex items-center gap-2">
-                        <Layers className="text-[#D4AF37]" size={18} /> Entity Graph
-                      </h3>
-                      <div className="border border-[#2C1810]/10 rounded-xl bg-white h-[450px] overflow-hidden shadow-inner">
-                        <NetworkGraph graph={graph} />
-                      </div>
-                    </div>
-
-                    {/* Extracted Entities Cards */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <FactCard icon={<Users size={16} />} title="Parties Identified" isOpen={true}>
-                          <FactRow label="Complainant" value={facts.who.complainant} />
-                          <FactRow highlight label="Accused" value={facts.who.accused?.join(", ") || "—"} />
-                          <FactRow label="Victims" value={facts.who.victims?.join(", ") || "—"} />
+                    <div className="space-y-6">
+                      {/* Extracted Entities Cards */}
+                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 items-start">
+                        <FactCard compact icon={<Users size={16} />} title="Parties Identified" isOpen={true} className="lg:col-span-1">
+                          <FactRow compact label="Complainant" value={facts.who?.complainant} />
+                          <FactRow compact highlight label="Accused" value={facts.who?.accused?.join(", ")} />
+                          <FactRow compact label="Victims" value={facts.who?.victims?.join(", ")} />
                         </FactCard>
                         
-                        <FactCard icon={<Briefcase size={16} />} title="Property & Loss" isOpen={true}>
-                          {facts.property.vehicles?.map((v, i) => (
-                              <FactRow key={i} label="Vehicle" value={`${v.make_model} (${v.registration_no})`} />
-                          ))}
-                          <FactRow highlight label="Est. Loss" value={facts.property.estimated_loss} />
+                        <FactCard icon={<Briefcase size={16} />} title="Property & Loss" isOpen={true} className="lg:col-span-1">
+                          {facts.property?.vehicles?.length > 0 ? (
+                            facts.property.vehicles.map((v, i) => (
+                              <div key={i} className="mb-4 last:mb-0 rounded-lg border border-[#2C1810]/10 bg-[#FAF8F5]/60 p-3">
+                                <p className="text-[10px] font-bold uppercase tracking-wider text-[#8C5A3C] mb-2">
+                                  Vehicle {i + 1}
+                                </p>
+                                <FactRow label="Type" value={v?.type} />
+                                <FactRow label="Make / Model" value={v?.make_model} />
+                                <FactRow highlight label="Registration No." value={v?.registration_no} />
+                                <FactRow label="Engine / Chassis No." value={v?.engine_chassis_no} />
+                                <FactRow label="Estimated Value" value={v?.estimated_value} />
+                              </div>
+                            ))
+                          ) : (
+                            <p className="text-xs text-[#5D4037] mb-3">No vehicle details extracted.</p>
+                          )}
+                          <FactRow label="Cash" value={facts.property?.cash} />
+                          <FactRow label="Gold" value={facts.property?.gold} />
+                          <FactRow label="Documents" value={facts.property?.documents} />
+                          <FactRow label="Other Property" value={facts.property?.other_property?.join(", ")} />
+                          <FactRow highlight label="Est. Loss" value={facts.property?.estimated_loss} />
                         </FactCard>
 
-                        <FactCard icon={<AlertTriangle size={16} />} title="Incident Summary" isOpen={true}>
-                          <FactRow label="Details" value={facts.incident.summary} />
-                          <FactRow label="Location" value={facts.incident.place} />
+                        <FactCard icon={<AlertTriangle size={16} />} title="Incident Summary" isOpen={true} className="lg:col-span-1">
+                          <FactRow label="Details" value={facts.incident?.summary} />
+                          <FactRow label="Date" value={facts.incident?.date} />
+                          <FactRow label="Time" value={facts.incident?.time} />
+                          <FactRow label="Location" value={facts.incident?.place} />
                           <FactRow highlight label="Applicable IPC" value={facts.sections?.join(", ")} />
                         </FactCard>
+                      </div>
+
+                      {/* Visual Timeline Section */}
+                      <div>
+                        <h3 className="font-heading font-bold text-lg text-[#2C1810] border-b border-[#2C1810]/10 pb-2 mb-6 flex items-center gap-2">
+                          <Calendar className="text-[#D4AF37]" size={18} /> Case Timeline
+                        </h3>
+                        <VisualTimeline timeline={timeline} />
+                      </div>
+
+                      {/* Interactive Graph Section */}
+                      <div>
+                        <h3 className="font-heading font-bold text-lg text-[#2C1810] border-b border-[#2C1810]/10 pb-2 mb-6 flex items-center gap-2">
+                          <Layers className="text-[#D4AF37]" size={18} /> Entity Graph
+                        </h3>
+                        <div className="border border-[#2C1810]/10 rounded-xl bg-white h-[450px] overflow-hidden shadow-inner">
+                          <NetworkGraph graph={graph} />
+                        </div>
+                      </div>
                     </div>
                   </div>
                   
@@ -2279,27 +2307,27 @@ function NetworkGraph({ graph }) {
 }
 
 // ─── Fact Cards ──────────────────────────────────────────────────
-function FactCard({ title, icon, isOpen, children }) {
+function FactCard({ title, icon, isOpen, children, compact = false, className = "" }) {
   if (!isOpen) return null;
   return (
-    <div className="border border-[#2C1810]/10 rounded-lg overflow-hidden bg-white shadow-sm">
-      <div className="flex items-center gap-2.5 px-4 py-3 bg-[#FAF8F5] border-b border-[#2C1810]/5">
+    <div className={`border border-[#2C1810]/10 rounded-lg overflow-hidden bg-white shadow-sm ${className}`}>
+      <div className={`flex items-center gap-2.5 bg-[#FAF8F5] border-b border-[#2C1810]/5 ${compact ? "px-3 py-2" : "px-4 py-3"}`}>
         <span className="text-[#D4AF37]">{icon}</span>
-        <span className="font-heading font-bold text-sm text-[#2C1810]">{title}</span>
+        <span className={`font-heading font-bold text-[#2C1810] ${compact ? "text-[12px]" : "text-sm"}`}>{title}</span>
       </div>
-      <div className="p-4 space-y-3">{children}</div>
+      <div className={`${compact ? "p-3 space-y-2" : "p-4 space-y-3"}`}>{children}</div>
     </div>
   );
 }
 
-function FactRow({ label, value, highlight }) {
+function FactRow({ label, value, highlight, compact = false }) {
   if (!value) return null;
   return (
-    <div className="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-4">
-      <span className="font-mono text-[9px] uppercase tracking-wider text-[#8C5A3C] font-bold shrink-0 sm:w-28 pt-0.5">
+    <div className={`flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-4 ${compact ? "sm:gap-3" : ""}`}>
+      <span className={`font-mono text-[9px] uppercase tracking-wider text-[#8C5A3C] font-bold shrink-0 pt-0.5 ${compact ? "sm:w-24" : "sm:w-28"}`}>
         {label}
       </span>
-      <span className={`text-[12px] leading-relaxed ${highlight ? "text-[#991B1B] font-semibold" : "text-[#2C1810]"}`}>
+      <span className={`leading-relaxed ${compact ? "text-[11px]" : "text-[12px]"} ${highlight ? "text-[#991B1B] font-semibold" : "text-[#2C1810]"}`}>
         {value}
       </span>
     </div>

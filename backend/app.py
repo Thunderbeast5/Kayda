@@ -633,7 +633,16 @@ def get_lexigraph_agent():
 from fastapi.responses import StreamingResponse
 from backend.observer.case_service import list_cases, get_case, normalize_case_data, build_events, _turn_delay
 
+from matchmaking.api import router as matchmaking_router
+from matchmaking.worker import start_matchmaking_worker
+from backend.game.api import game_router, ws_router
+
 app = FastAPI(title="MootCourt Legal Intelligence & Evidence API")
+
+@app.on_event("startup")
+async def startup_event():
+    start_matchmaking_worker()
+
 
 # Enable CORS for localhost and 127.0.0.1 on various ports
 app.add_middleware(
@@ -651,6 +660,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(matchmaking_router)
+app.include_router(game_router)
+app.include_router(ws_router)
 
 
 # ── Observer Mode Case Bank Endpoints ─────────────────────────────────────
@@ -909,6 +922,17 @@ def get_lexigraph_session_by_id(query_id: str) -> dict:
 
 def list_evidence_history(limit: int = 25) -> list:
     sessions = []
+
+    def _format_vehicle(vehicle: dict) -> str:
+        if not isinstance(vehicle, dict):
+            return ""
+        parts = [
+            vehicle.get("type") or "",
+            vehicle.get("make_model") or "",
+            f"Reg. {vehicle['registration_no']}" if vehicle.get("registration_no") else "",
+        ]
+        return " - ".join(part for part in parts if part)
+
     try:
         db = _get_firestore_client()
         docs = (
@@ -921,8 +945,18 @@ def list_evidence_history(limit: int = 25) -> list:
             data = doc.to_dict() or {}
             facts = data.get("facts") or {}
             incident = facts.get("incident") or {}
+            prop = facts.get("property") or {}
             timeline = data.get("timeline") or []
             graph = data.get("graph") or {}
+            vehicles = prop.get("vehicles") if isinstance(prop, dict) else []
+            if not isinstance(vehicles, list):
+                vehicles = []
+            vehicle_summaries = [
+                _format_vehicle(vehicle)
+                for vehicle in vehicles
+                if isinstance(vehicle, dict)
+            ]
+            vehicle_summaries = [summary for summary in vehicle_summaries if summary]
             sessions.append({
                 "session_id": data.get("session_id") or doc.id,
                 "created_at": data.get("created_at", ""),
@@ -931,7 +965,10 @@ def list_evidence_history(limit: int = 25) -> list:
                 "filename": data.get("filename") or data.get("source_filename") or "",
                 "incident_summary": incident.get("summary") or "",
                 "incident_date": incident.get("date") or "",
+                "incident_time": incident.get("time") or "",
                 "incident_place": incident.get("place") or "",
+                "vehicle_count": len(vehicles),
+                "vehicle_summary": ", ".join(vehicle_summaries[:3]),
                 "timeline_count": len(timeline) if isinstance(timeline, list) else 0,
                 "node_count": len(graph.get("nodes") or []) if isinstance(graph, dict) else 0,
                 "edge_count": len(graph.get("edges") or []) if isinstance(graph, dict) else 0,
@@ -1259,6 +1296,11 @@ async def lexigraph_analyze_endpoint(req: LexiGraphAgentQueryRequest):
                 "message": f"LexiGraph pipeline error: {str(e)}"
             }
         )
+
+# Import and include new Game API & WebSocket routers
+from backend.game.api import game_router, ws_router
+app.include_router(game_router)
+app.include_router(ws_router)
 
 
 if __name__ == "__main__":

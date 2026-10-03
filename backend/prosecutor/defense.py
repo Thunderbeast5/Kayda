@@ -1159,6 +1159,13 @@ LEGAL PRINCIPLES:
 
 ARGUMENT RULES — STRICT:
 
+0. SECTION CITATION RULE (mandatory, overrides all other formatting preferences):
+   Every time you name a charge — in any paragraph — you MUST immediately cite its
+   section number and statute exactly as written in the DEFENSE INGREDIENT MATRIX
+   (e.g. "Section 498A IPC / Section 84 BNS" or "Section 304B IPC").
+   Naming a charge without citing its section is a violation of this rule.
+   This applies to every mention of every charge throughout the argument.
+
 1. Use ONLY: CASE FACTS, DEFENSE INGREDIENT MATRIX, VERIFIED BAIL LAW.
 
 2. Do not introduce any fact, evidence, admission, witness, document, legal section,
@@ -1242,10 +1249,10 @@ Paragraph 5:
 State only verified bail considerations drawn from the bail law block.
 If no_flight_risk field contains verified facts, state them here and only here.
 
-Final sentence:
-Close with a prayer for anticipatory bail that flows naturally from the specific arguments made — phrase it in your own words, grounded in the most compelling point just argued, not a canned formula.
+Final sentence (exact):
+"It is therefore humbly prayed that this Hon'ble Court be pleased to grant anticipatory bail to the applicant."
 
-LENGTH: Let the strength of the grounds dictate the length. Address every live issue fully; do not pad with repetition and do not cut arguments short to fit a word count."""
+LENGTH: 300–450 words. Do not add material merely to reach the word count."""
 
         response = self.llm.invoke(opening_prompt)
         opening_prose = response.content if hasattr(response, "content") else str(response)
@@ -1330,8 +1337,16 @@ PROSECUTION ARGUMENT TO REBUT:
 
 REBUTTAL RULES — STRICT:
 
+0. SECTION CITATION RULE (mandatory, overrides all other formatting preferences):
+   Every time you name a charge — anywhere in the rebuttal — you MUST immediately
+   cite its section number and statute exactly as written in the DEFENSE INGREDIENT
+   MATRIX (e.g. "Section 498A IPC / Section 84 BNS").
+   Naming a charge without its section number is a violation of this rule.
+
 1. Respond only to contentions the prosecution actually made in the argument above.
    Do not invent prosecution points that were not raised.
+
+
 
 2. For each prosecution contention, in this order:
    (a) State what the prosecution relies upon;
@@ -1366,9 +1381,9 @@ REBUTTAL RULES — STRICT:
 11. Use bail law only for the arrest/custody question — not to argue that
     an offence is not made out.
 
-12. End with a prayer for bail that follows naturally from what was actually argued in this specific rebuttal — do not use a fixed canned phrase; let it emerge from the strongest point just made.
+12. End with exactly: "It is therefore prayed that anticipatory bail be granted."
 
-FORMAT: Single continuous prose. No headings. No bullet points. Length is determined by the number of prosecution points that need answering — address every live contention fully, add nothing superfluous.
+FORMAT: Single continuous prose. No headings. No bullet points. 200–350 words.
 
 Write only the rebuttal text."""
 

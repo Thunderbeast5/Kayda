@@ -1,7 +1,9 @@
 import { X, Terminal, Network, ArrowRight, ShieldCheck, Database, Layers } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/12.svg";
 
 export default function LexiGraphChoiceModal({ isOpen, onClose, onSelectCypher, onSelectAgent }) {
+  const navigate = useNavigate();
   if (!isOpen) return null;
 
   return (
@@ -43,7 +45,7 @@ export default function LexiGraphChoiceModal({ isOpen, onClose, onSelectCypher, 
             onClick={() => {
               onClose();
               if (onSelectCypher) onSelectCypher();
-              else window.location.hash = "#/text2cypher";
+              else navigate("/text2cypher");
             }}
             className="group cursor-pointer flex flex-col justify-between bg-white border border-[#2C1810]/15 rounded-xl p-6 hover:border-[#D4AF37] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
           >
@@ -76,7 +78,7 @@ export default function LexiGraphChoiceModal({ isOpen, onClose, onSelectCypher, 
             onClick={() => {
               onClose();
               if (onSelectAgent) onSelectAgent();
-              else window.location.hash = "#/lexigraph-agent";
+              else navigate("/lexigraph-agent");
             }}
             className="group cursor-pointer flex flex-col justify-between bg-white border border-[#2C1810]/15 rounded-xl p-6 hover:border-[#D4AF37] hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative overflow-hidden"
           >

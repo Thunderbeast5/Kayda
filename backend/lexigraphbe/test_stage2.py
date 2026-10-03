@@ -95,7 +95,11 @@ def test_stage2_verifier_agent_mock():
     })
 
     verifier = Stage2MappingVerifierAgent(llm=mock_llm)
-    qo = LegalQueryObject(legal_concepts=[LegalConceptItem(concept="Dowry Demand", confidence=0.95)])
+    qo = LegalQueryObject(
+        entities={"victim": ["Wife"], "accused": ["Husband"]},
+        relationship=["Husband-Wife"],
+        legal_concepts=[LegalConceptItem(concept="Dowry Demand", confidence=0.95)]
+    )
     resp = Stage2BatchedMappingResponse(mappings=[
         SubQueryChapterMapping(
             sub_query_id="SQ1",
@@ -139,7 +143,11 @@ def test_stage2_pipeline_flow():
     verifier = Stage2MappingVerifierAgent(llm=mock_verifier_llm)
 
     pipeline = Stage2Pipeline(mapping_agent=agent, verifier_agent=verifier)
-    qo = LegalQueryObject(legal_concepts=[LegalConceptItem(concept="Dowry Demand", confidence=0.95)])
+    qo = LegalQueryObject(
+        entities={"victim": ["Wife"], "accused": ["Husband"]},
+        relationship=["Husband-Wife"],
+        legal_concepts=[LegalConceptItem(concept="Dowry Demand", confidence=0.95)]
+    )
 
     res = pipeline.run(qo)
 

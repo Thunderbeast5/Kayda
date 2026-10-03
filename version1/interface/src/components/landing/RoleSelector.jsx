@@ -1,9 +1,12 @@
 import { useState } from "react";
 import { Scale, Shield, Gavel, Eye, Network } from "lucide-react";
 import LexiGraphChoiceModal from "./LexiGraphChoiceModal";
+import MatchmakingQueue from "./MatchmakingQueue";
 
 export default function RoleSelector({ setUserRole, onEnterCourt }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isQueuing, setIsQueuing] = useState(false);
+  const [queuedRole, setQueuedRole] = useState(null);
 
   const roles = [
     {
@@ -75,9 +78,12 @@ export default function RoleSelector({ setUserRole, onEnterCourt }) {
                 onClick={() => {
                   if (role.action) {
                     role.action();
+                  } else if (role.id === "prosecutor" || role.id === "defense") {
+                    setQueuedRole(role.id);
+                    setIsQueuing(true);
                   } else {
                     setUserRole(role.id);
-                    onEnterCourt();
+                    onEnterCourt(null, role.id);
                   }
                 }}
                 className="group cursor-pointer flex flex-col items-center text-center bg-white/60 backdrop-blur-sm border border-[#E8E2D9] rounded-2xl p-8 md:p-10 transition-all duration-500 ease-out hover:-translate-y-2 hover:bg-white hover:border-[#D4AF37]/60 hover:shadow-[0_20px_40px_-15px_rgba(212,175,55,0.15)] relative overflow-hidden w-full sm:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)] max-w-[340px]"
@@ -118,6 +124,21 @@ export default function RoleSelector({ setUserRole, onEnterCourt }) {
         isOpen={isModalOpen} 
         onClose={() => setIsModalOpen(false)} 
       />
+
+      {isQueuing && (
+        <MatchmakingQueue
+          preferredRole={queuedRole}
+          onMatchFound={(gameId, assignedRole) => {
+            setIsQueuing(false);
+            setUserRole(assignedRole.toLowerCase());
+            onEnterCourt(gameId, assignedRole.toLowerCase());
+          }}
+          onCancel={() => {
+            setIsQueuing(false);
+            setQueuedRole(null);
+          }}
+        />
+      )}
     </>
   );
 }

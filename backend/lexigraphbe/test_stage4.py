@@ -283,9 +283,9 @@ def test_stage0_to_stage1_to_stage3_to_stage4_full_chain():
     mock_s1_agent.invoke.return_value.content = json.dumps({
         "schema_version": "1.0",
         "case_type": "Anticipatory Bail",
-        "entities": {"victim": ["Wife"], "accused": ["Husband"]},
-        "sub_queries": [{"id": "SQ1", "query": "Dowry demand cruelty.", "concept": "Dowry Demand", "target_parties": ["Husband"]}],
-        "legal_concepts": [{"concept": "Dowry Demand", "confidence": 0.95}, {"concept": "Cruelty by Husband", "confidence": 0.95}],
+        "entities": {"victim": ["Victim"], "accused": ["Applicant"]},
+        "sub_queries": [{"id": "SQ1", "query": "Applicant physically assaulted victim causing injury.", "concept": "Voluntarily Causing Hurt", "target_parties": ["Applicant"]}],
+        "legal_concepts": [{"concept": "Voluntarily Causing Hurt", "confidence": 0.95}],
         "procedural_events": ["FIR Registered"],
         "important_facts": {},
         "manual_review": [],
@@ -302,8 +302,8 @@ def test_stage0_to_stage1_to_stage3_to_stage4_full_chain():
     mock_s3_agent = MagicMock()
     mock_s3_agent.invoke.return_value.content = json.dumps({
         "schema_version": "1.0",
-        "chapter_candidates": [{"concept": "Dowry Demand", "chapter_number": "XXA", "chapter_name": "Of Cruelty", "confidence": 0.98}],
-        "section_candidates": [{"concept": "Dowry Demand", "section_number": "498A", "section_title": "Cruelty by Husband", "confidence": 0.99}],
+        "chapter_candidates": [{"concept": "Voluntarily Causing Hurt", "chapter_number": "XVI", "chapter_name": "Of Offences Affecting the Human Body", "confidence": 0.98}],
+        "section_candidates": [{"concept": "Voluntarily Causing Hurt", "section_number": "323", "section_title": "Voluntarily Causing Hurt", "confidence": 0.99}],
         "manual_review": [],
         "verification_status": "PENDING"
     })
@@ -320,11 +320,11 @@ def test_stage0_to_stage1_to_stage3_to_stage4_full_chain():
         "schema_version": "1.0",
         "verified_sections": [
             {
-                "section_number": "498A",
-                "section_title": "Cruelty by Husband",
+                "section_number": "323",
+                "section_title": "Voluntarily Causing Hurt",
                 "ingredients": [
-                    {"ingredient": "Marriage", "status": "Satisfied", "reason": "Husband and wife relation established."},
-                    {"ingredient": "Cruelty", "status": "Satisfied", "reason": "Physical assault stated in FIR."}
+                    {"ingredient": "Bodily Pain / Hurt", "status": "Satisfied", "reason": "Physical injury stated in FIR."},
+                    {"ingredient": "Voluntary Act", "status": "Satisfied", "reason": "Applicant deliberately struck victim."}
                 ],
                 "overall_confidence": 0.97
             }
@@ -344,6 +344,6 @@ def test_stage0_to_stage1_to_stage3_to_stage4_full_chain():
     svo = s4_res.verified_statutory_object
     assert svo is not None
     assert svo.legal_regime == "IPC + CrPC"
-    assert svo.verified_sections[0].section_number == "498A"
+    assert svo.verified_sections[0].section_number == "323"
     assert len(svo.verified_sections[0].ingredients) == 2
     assert svo.verified_sections[0].ingredients[0].status == "Satisfied"

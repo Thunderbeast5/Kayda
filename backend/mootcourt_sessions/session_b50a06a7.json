@@ -1,0 +1,214 @@
+{
+  "session_id": "b50a06a7",
+  "case_id": "20260822150416",
+  "case_text": "The applicant seeks anticipatory bail after an FIR alleges that he forged ownership documents of agricultural land, executed a fraudulent sale deed, and dishonestly transferred the property to a third party; the applicant claims the documents are genuine, asserts that the dispute concerns title over immovable property, and has cooperated with the investigating agency.",
+  "student_role": "defense",
+  "prosecutor_output": {
+    "schema_version": "1.0",
+    "case_summary": "The applicant is seeking anticipatory bail in a case involving serious allegations of forgery and fraudulent property transfer, which undermines the integrity of property ownership and poses a risk of further criminal activity.",
+    "victim": [
+      "third party"
+    ],
+    "accused": [
+      "applicant"
+    ],
+    "relationship": "dispute over property ownership",
+    "legal_concepts": [
+      "forgery",
+      "fraudulent transfer"
+    ],
+    "sub_queries": [
+      {
+        "id": "PSQ1",
+        "query": "The applicant forged ownership documents and executed a fraudulent sale deed.",
+        "legal_concept": "forgery",
+        "bail_relevance": "The nature of the allegations indicates a serious offense that could lead to further criminal behavior if bail is granted.",
+        "supporting_facts": [
+          {
+            "fact_label": "Allegation of Forgery",
+            "inferred_meaning": "The act of creating false documents with the intent to deceive.",
+            "verbatim_quote": "he forged ownership documents of agricultural land",
+            "char_start": 64,
+            "char_end": 114
+          },
+          {
+            "fact_label": "Fraudulent Sale Deed",
+            "inferred_meaning": "The execution of a sale deed based on false pretenses, which is a criminal act.",
+            "verbatim_quote": "executed a fraudulent sale deed",
+            "char_start": 116,
+            "char_end": 147
+          }
+        ],
+        "priority": 1
+      },
+      {
+        "id": "PSQ2",
+        "query": "The applicant dishonestly transferred property to a third party.",
+        "legal_concept": "fraudulent transfer",
+        "bail_relevance": "This act demonstrates a clear intent to defraud and mislead, justifying the denial of bail.",
+        "supporting_facts": [
+          {
+            "fact_label": "Dishonest Transfer",
+            "inferred_meaning": "The transfer of property without lawful authority or consent, indicating criminal intent.",
+            "verbatim_quote": "dishonestly transferred the property to a third party",
+            "char_start": 153,
+            "char_end": 206
+          }
+        ],
+        "priority": 2
+      }
+    ],
+    "bail_rejection_summary": "Bail must be rejected due to the serious nature of the allegations involving forgery and fraudulent property transfer, which pose a significant risk of further criminal activity and undermine public trust in property transactions.",
+    "hallucination_flags": [],
+    "verification_status": "VERIFIED"
+  },
+  "retrieved_sections": {
+    "465": {
+      "section_number": "465",
+      "statute": "IPC",
+      "title": "Forgery",
+      "classification": "PRIMARY",
+      "overall_status": "Not Attracted",
+      "overall_prima_facie_strength": "Weak",
+      "punishment_text": "2 Years",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Using a forged document as genuine",
+          "matched_fact": "The applicant forged ownership documents.",
+          "status": "Satisfied",
+          "reason": "The act of forging ownership documents indicates the use of a forged document.",
+          "confidence": 0.95
+        },
+        {
+          "ingredient": "Knowledge that it is forged",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "No facts indicate whether the applicant knew the documents were forged.",
+          "confidence": 0.85
+        }
+      ],
+      "legal_reasoning": "The applicant's act of forging ownership documents satisfies the ingredient of using a forged document. However, the lack of evidence regarding the applicant's knowledge of the forgery leads to a weak prima facie case.",
+      "missing_supporting_facts": [
+        "Evidence of intent or knowledge regarding the forgery"
+      ],
+      "investigation_requirements": [
+        "Obtain the forged documents",
+        "Collect statements from witnesses regarding the applicant's knowledge of the forgery"
+      ],
+      "retrieved_at_turn": 0
+    },
+    "468": {
+      "section_number": "468",
+      "statute": "IPC",
+      "title": "Forgery for Purpose of Cheating",
+      "classification": "PRIMARY",
+      "overall_status": "Partially Attracted",
+      "overall_prima_facie_strength": "Moderate",
+      "punishment_text": "2 Years",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Forging a document",
+          "matched_fact": "The applicant forged ownership documents.",
+          "status": "Satisfied",
+          "reason": "The act of forging ownership documents is established.",
+          "confidence": 0.95
+        },
+        {
+          "ingredient": "Intending that the document forged shall be used for the purpose of cheating",
+          "matched_fact": "The applicant dishonestly transferred property to a third party.",
+          "status": "Partially Satisfied",
+          "reason": "The act of transferring property suggests intent to cheat, but further evidence is needed to confirm this intent.",
+          "confidence": 0.8
+        }
+      ],
+      "legal_reasoning": "The applicant's act of forging ownership documents satisfies the first ingredient. The second ingredient is partially satisfied as the transfer of property indicates potential intent to cheat, but lacks definitive evidence. The case is moderately strong.",
+      "missing_supporting_facts": [
+        "Clear evidence of intent to cheat"
+      ],
+      "investigation_requirements": [
+        "Gather evidence of the transaction and the applicant's intent",
+        "Interview the third party involved in the transfer"
+      ],
+      "retrieved_at_turn": 0
+    },
+    "421": {
+      "section_number": "421",
+      "statute": "IPC",
+      "title": "Fraudulent removal or concealment of property etc., to prevent distribution among creditors",
+      "classification": "PRIMARY",
+      "overall_status": "Not Attracted",
+      "overall_prima_facie_strength": "Weak",
+      "punishment_text": "2 Years",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Dishonestly removing or concealing property",
+          "matched_fact": "The applicant dishonestly transferred property to a third party.",
+          "status": "Satisfied",
+          "reason": "The act of transferring property without adequate consideration indicates dishonesty.",
+          "confidence": 0.95
+        },
+        {
+          "ingredient": "Intending to prevent distribution among creditors",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "No facts indicate the applicant's intent to prevent distribution among creditors.",
+          "confidence": 0.85
+        }
+      ],
+      "legal_reasoning": "The applicant's act of transferring property satisfies the ingredient of dishonestly removing property. However, the lack of evidence regarding intent to prevent distribution among creditors results in a weak prima facie case.",
+      "missing_supporting_facts": [
+        "Evidence of intent to prevent distribution among creditors"
+      ],
+      "investigation_requirements": [
+        "Investigate the financial situation of the applicant and the third party",
+        "Collect evidence of creditor claims"
+      ],
+      "retrieved_at_turn": 0
+    }
+  },
+  "argued_concepts": [
+    "forgery",
+    "fraudulent transfer"
+  ],
+  "prosecutor_positions": [
+    "The gravity of the offense warrants the rejection of anticipatory bail.",
+    "Custodial interrogation is necessary to protect the integrity of the investigation."
+  ],
+  "defense_positions": [],
+  "pillars_argued": [
+    "P1:Gravity",
+    "P2:PrimaFacie",
+    "P3:CustodialInterrogation",
+    "P4:FlightRisk"
+  ],
+  "turns": [
+    {
+      "turn_number": 1,
+      "speaker": "prosecutor",
+      "full_argument": "Your Honor, I stand before you to oppose the application for anticipatory bail filed by the applicant in a case that involves serious allegations of forgery and fraudulent property transfer. The gravity of the offense cannot be overstated. The applicant is accused of engaging in acts that not only violate the law but also threaten the integrity of property ownership, a cornerstone of our legal system. Under Section 468 IPC, the applicant's actions of forging ownership documents indicate a clear intent to deceive, which is a matter of grave concern for the court and society at large.\n\nWhile the prima facie strength of the case may be considered moderate, it is essential to recognize that the applicant's involvement in the forgery of ownership documents raises significant questions about their intent and knowledge of the fraudulent activities. The potential for further criminal conduct remains high, as the applicant has demonstrated a willingness to engage in deceitful practices. This is not merely a case of paperwork; it is a case that could lead to substantial financial loss for innocent parties and a breakdown of trust in property transactions.\n\nCustodial interrogation of the applicant is imperative to uncover the full extent of their involvement and to prevent any risk of evidence tampering. Given the nature of the allegations, there is a substantial risk that the applicant may attempt to destroy or alter evidence that could be crucial to the investigation. The integrity of the judicial process relies on the ability to conduct thorough and unimpeded inquiries, which necessitates the applicant's presence in custody.\n\nFurthermore, there is a significant flight risk associated with granting anticipatory bail in this case. The applicant, aware of the serious charges against them, may attempt to evade justice by fleeing the jurisdiction. Additionally, there is a risk of witness tampering, as the applicant may seek to influence or intimidate those who could provide testimony against them. The court must consider these factors seriously when determining whether to grant bail.\n\nIn conclusion, Your Honor, the gravity of the offense, the moderate prima facie strength of the case, the necessity for custodial interrogation, and the risks of flight and witness tampering all strongly support the rejection of the anticipatory bail application. I urge the court to deny the application and ensure that justice is served without delay.",
+      "summary_bullets": [
+        "The applicant's actions threaten the integrity of property ownership.",
+        "Custodial interrogation is essential to prevent evidence tampering.",
+        "There is a significant risk of flight and witness tampering."
+      ],
+      "concepts_used": [
+        "P1:Gravity",
+        "P2:PrimaFacie",
+        "P3:CustodialInterrogation",
+        "P4:FlightRisk"
+      ],
+      "positions_asserted": [
+        "The gravity of the offense warrants the rejection of anticipatory bail.",
+        "Custodial interrogation is necessary to protect the integrity of the investigation."
+      ],
+      "pillars_covered": [
+        "P1:Gravity",
+        "P2:PrimaFacie",
+        "P3:CustodialInterrogation",
+        "P4:FlightRisk"
+      ]
+    }
+  ],
+  "current_turn": 1,
+  "status": "active"
+}
