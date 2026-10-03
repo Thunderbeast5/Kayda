@@ -1,4 +1,5 @@
 """
+Shared LLM client config. Uses OpenAI.
 Shared LLM client config.
 Respects LLM_PROVIDER env var: "openai" | "groq" | "ollama"
 Import get_llm() wherever an agent needs to call the model.
@@ -7,6 +8,7 @@ Import get_llm() wherever an agent needs to call the model.
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(BASE_DIR / ".env")
@@ -58,23 +60,4 @@ def get_llm(temperature: float = 0.2, model_name: str = None):
             temperature=temperature,
             max_retries=3,
             timeout=60,
-        )
-
-    elif LLM_PROVIDER == "ollama":
-        try:
-            from langchain_community.chat_models import ChatOllama
-        except ImportError:
-            raise ImportError("Install langchain-community: pip install langchain-community")
-        chosen_model = model_name or OLLAMA_MODEL
-        print(f"[LLM Config] Using Ollama → {chosen_model}")
-        return ChatOllama(
-            model=chosen_model,
-            base_url=OLLAMA_BASE_URL,
-            temperature=temperature,
-        )
-
-    else:
-        raise ValueError(
-            f"Unknown LLM_PROVIDER='{LLM_PROVIDER}'. "
-            "Set LLM_PROVIDER to 'openai', 'groq', or 'ollama' in .env"
         )
