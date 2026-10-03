@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" agent="Claude" version="24.0.0">
+  <diagram id="vmc-architecture" name="Virtual Moot Court - Multi-Agent Architecture">
+    <mxGraphModel dx="2200" dy="1600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="2600" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- ================= LAYER TITLES ================= -->
+        <mxCell id="lbl1" value="1. User Input Layer" style="text;html=1;fontStyle=1;fontSize=13;align=center;" vertex="1" parent="1">
+          <mxGeometry x="40" y="30" width="220" height="20" as="geometry" />
+        </mxCell>
+
+        <!-- ================= NODES ================= -->
+
+        <!-- User Input -->
+        <mxCell id="n1" value="User Input Layer&#10;(FIR, Bail Application, Complaint, Charge Sheet,&#10;Medical Report, Witness Statements, Evidence,&#10;Text Query + Role Selection: Judge / Defence / Prosecutor)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="620" y="40" width="360" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Document Ingestion -->
+        <mxCell id="n2" value="2. Document Ingestion Agent&#10;(OCR, PDF Parsing, Image Processing,&#10;Classification, Cleaning, Merging)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="640" y="170" width="320" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Case Intake -->
+        <mxCell id="n3" value="3. Case Intake Agent&#10;(Extracts parties, timeline, allegations,&#10;applicable legal regime IPC/BNS, CrPC/BNSS)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="640" y="290" width="320" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Evidence Analyzer -->
+        <mxCell id="n4" value="4. Evidence Analyzer Agent&#10;(Weapon, Injuries, Medical Findings,&#10;CCTV/Digital Evidence, Contradictions,&#10;Evidence Strength)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="360" y="420" width="280" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- LexiGraph Retrieval Agent -->
+        <mxCell id="n5" value="5. LexiGraph Retrieval Agent&#10;(Query Understanding, Multi-Label Classification,&#10;Statutory Retrieval, IPC↔BNS Mapping, GraphRAG)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="680" y="420" width="300" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Legal Knowledge Base (external store) -->
+        <mxCell id="n5b" value="Legal Knowledge Base&#10;IPC / BNS / CrPC / BNSS / BSA / Constitution&#10;SC &amp; HC Judgments / Neo4j / Vector DB" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="415" width="240" height="90" as="geometry" />
+        </mxCell>
+
+        <!-- Precedent Retrieval Agent -->
+        <mxCell id="n6" value="6. Precedent Retrieval Agent&#10;(SC/HC Judgments, Similar Bail Cases,&#10;Ratio Decidendi, Bail Outcomes)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="680" y="560" width="300" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Bail Assessment Agent -->
+        <mxCell id="n7" value="7. Bail Assessment Agent&#10;(Gravity, Flight Risk, Custodial Need, Antecedents,&#10;Witness Tampering, Aggravating/Mitigating Factors)&#10;— Does NOT grant/reject bail —" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="470" y="670" width="330" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- AI Courtroom Orchestrator -->
+        <mxCell id="n8" value="8. AI Courtroom Orchestrator&#10;(Assigns speaking turns, controls debate sequence,&#10;triggers dynamic retrieval, ends hearing)&#10;— Central Controller —" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="470" y="800" width="330" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Courtroom State Memory -->
+        <mxCell id="n9" value="9. Courtroom State Memory&#10;Speaker / Legal Issue / Arguments / Q&amp;A /&#10;Evidence Discussed / Retrieved Laws &amp; Precedents&#10;(shared read/write store)" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="1040" y="800" width="260" height="100" as="geometry" />
+        </mxCell>
+
+        <!-- Defence Agent -->
+        <mxCell id="n10" value="10. Defence Agent&#10;(Opening, Bail Grounds, Constitutional&#10;Arguments, Precedents, Rebuttal)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="120" y="940" width="260" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- Prosecutor Agent -->
+        <mxCell id="n11" value="11. Prosecutor Agent&#10;(Opposition to Bail, Gravity of Offence,&#10;Custodial Need, Counter Arguments)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="940" width="260" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- Investigating Officer Agent -->
+        <mxCell id="n12" value="12. Investigating Officer Agent&#10;(Investigation Status, Recovery, Seized&#10;Material, Forensic Reports)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="720" y="940" width="260" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- Judge Agent -->
+        <mxCell id="n13" value="13. Judge Agent&#10;(Hears parties, evaluates evidence &amp; statutes,&#10;applies precedents, forms judicial findings)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="1060" width="330" height="75" as="geometry" />
+        </mxCell>
+
+        <!-- Multi-Agent Debate Engine -->
+        <mxCell id="n14" value="14. Multi-Agent Debate Engine&#10;Opening (Defence→Prosecution) → Judge Questions →&#10;IO Response → Rebuttals → Clarifications → Final Submissions" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="1170" width="630" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Dynamic Retrieval Trigger -->
+        <mxCell id="n15" value="15. Dynamic Retrieval Trigger&#10;(Real-time retrieval when a new&#10;legal issue arises mid-hearing)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="800" y="1170" width="260" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- Legal Verification Agent -->
+        <mxCell id="n16" value="16. Legal Verification Agent&#10;(Checks incorrect sections, wrong citations,&#10;hallucinations, missing ingredients, inconsistencies)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="1290" width="330" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Bail Order Generator -->
+        <mxCell id="n17" value="17. Bail Order Generator&#10;(Facts, Issues, Submissions, Evidence,&#10;Applicable Law, Analysis, Findings, Final Order,&#10;Bail Conditions)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="1410" width="330" height="85" as="geometry" />
+        </mxCell>
+
+        <!-- Performance Evaluation -->
+        <mxCell id="n18" value="18. Performance Evaluation &amp; Learning Feedback&#10;(Legal Accuracy, Argument Quality, Precedent Usage,&#10;Missed Issues, Recommendations)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="420" y="1540" width="330" height="80" as="geometry" />
+        </mxCell>
+
+        <!-- Final Output -->
+        <mxCell id="out1" value="FINAL OUTPUT:&#10;Anticipatory Bail Order&#10;+ Performance Score &amp; Feedback" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="420" y="1660" width="330" height="70" as="geometry" />
+        </mxCell>
+
+        <!-- ================= EDGES: MAIN PIPELINE (INPUT -> OUTPUT) ================= -->
+
+        <mxCell id="e1" value="Uploaded Documents / Text Query" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n1" target="n2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e2" value="Raw Extracted Text + Document Metadata" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n2" target="n3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e3" value="Structured Case Context" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n3" target="n4">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e4" value="Structured Case Context" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n3" target="n5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e5" value="Query / Retrieved Legal Knowledge" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;dashed=1;" edge="1" parent="1" source="n5" target="n5b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e6" value="Legal Context Package" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n5" target="n6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e7" value="Query / Retrieved Judgments" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;dashed=1;" edge="1" parent="1" source="n6" target="n5b">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e8" value="Evidence Context" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n4" target="n7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e9" value="Legal Context Package" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n5" target="n7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e10" value="Precedent Context" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n6" target="n7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e11" value="Bail Assessment Report" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n7" target="n8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e12" value="Evidence / Legal / Precedent Context (direct feed)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;dashed=1;" edge="1" parent="1" source="n4" target="n8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="n5" target="n8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;" edge="1" parent="1" source="n6" target="n8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Orchestrator assigns turns to courtroom agents -->
+        <mxCell id="e15" value="assigns turn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" edge="1" parent="1" source="n8" target="n10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e16" value="assigns turn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" edge="1" parent="1" source="n8" target="n11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e17" value="assigns turn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" edge="1" parent="1" source="n8" target="n12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e18" value="assigns turn" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" edge="1" parent="1" source="n8" target="n13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Courtroom memory read/write (bidirectional, dashed) -->
+        <mxCell id="m1" value="read/write" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=8;dashed=1;strokeColor=#999999;startArrow=classic;endArrow=classic;" edge="1" parent="1" source="n8" target="n9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#999999;startArrow=classic;endArrow=classic;" edge="1" parent="1" source="n13" target="n9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#999999;startArrow=classic;endArrow=classic;" edge="1" parent="1" source="n11" target="n9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="m4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;dashed=1;strokeColor=#999999;startArrow=classic;endArrow=classic;" edge="1" parent="1" source="n12" target="n9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Agents feed Judge -->
+        <mxCell id="e19" value="Defence Arguments" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n10" target="n13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e20" value="Prosecution Arguments" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n11" target="n13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e21" value="Investigation Report" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n12" target="n13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Debate engine sequencing (conceptual wrap) -->
+        <mxCell id="e22" value="sequences hearing" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;dashed=1;" edge="1" parent="1" source="n13" target="n14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Dynamic retrieval loop -->
+        <mxCell id="e23" value="new legal issue arises" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" edge="1" parent="1" source="n14" target="n15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e24" value="re-invoke" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;exitX=1;exitY=0.5;entryX=0.5;entryY=1;" edge="1" parent="1" source="n15" target="n5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1230" y="620" />
+              <mxPoint x="1230" y="500" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e25" value="re-invoke" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" edge="1" parent="1" source="n15" target="n6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e26" value="Updated Legal/Precedent Context" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;" edge="1" parent="1" source="n15" target="n8">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1200" y="900" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e27" value="updates" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=9;dashed=1;" edge="1" parent="1" source="n15" target="n9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Judge to Verification -->
+        <mxCell id="e28" value="Judicial Findings" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n13" target="n16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Verification feedback loop -->
+        <mxCell id="e29" value="correction needed (hallucination / wrong citation)" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=8;dashed=1;strokeColor=#b85450;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="n16" target="n13">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="1330" />
+              <mxPoint x="380" y="1097" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e30" value="correction needed" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=8;dashed=1;strokeColor=#b85450;" edge="1" parent="1" source="n16" target="n5">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1100" y="1330" />
+              <mxPoint x="1100" y="460" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Verified findings to Order Generator -->
+        <mxCell id="e31" value="Verified Judicial Findings" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n16" target="n17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Order to Performance -->
+        <mxCell id="e32" value="Final Anticipatory Bail Order" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n17" target="n18">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Also user arguments feed performance eval -->
+        <mxCell id="e33" value="User Role + User/AI Arguments" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=8;dashed=1;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="n14" target="n18">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="90" y="1205" />
+              <mxPoint x="90" y="1580" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Final output -->
+        <mxCell id="e34" value="Overall Performance Score, Strengths,&#10;Weaknesses, Recommendations" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontSize=10;" edge="1" parent="1" source="n18" target="out1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- ================= LEGEND ================= -->
+        <mxCell id="legend" value="Legend" style="text;html=1;fontStyle=1;fontSize=13;" vertex="1" parent="1">
+          <mxGeometry x="40" y="420" width="100" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="lg1" value="Input / Output boundary" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="450" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lg2" value="Processing Agent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="490" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lg3" value="Courtroom Persona Agent" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="530" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lg4" value="Controller / Judgment Layer" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="570" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lg5" value="Process / Trigger Flow" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="610" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lg6" value="Data Store" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="650" width="180" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="lg7" value="Final Output" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="695" width="180" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="lg8" value="—— solid arrow: primary data flow&#10;- - - dashed arrow: feedback / memory / trigger" style="text;html=1;fontSize=9;align=left;" vertex="1" parent="1">
+          <mxGeometry x="40" y="735" width="230" height="40" as="geometry" />
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
