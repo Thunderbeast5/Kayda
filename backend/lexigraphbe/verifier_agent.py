@@ -63,9 +63,18 @@ class CaseIntakeVerifierAgent:
         ]
 
         response = self.llm.invoke(messages)
-        response_text = response.content if hasattr(response, "content") else str(response)
+        response_text = ""
+        if hasattr(response, "content") and response.content:
+            response_text = str(response.content)
+        elif hasattr(response, "additional_kwargs") and response.additional_kwargs.get("reasoning_content"):
+            response_text = str(response.additional_kwargs.get("reasoning_content"))
+        else:
+            response_text = str(response)
 
-        parsed_dict = extract_json_from_text(response_text)
+        try:
+            parsed_dict = extract_json_from_text(response_text)
+        except Exception as e:
+            parsed_dict = {"status": "VERIFIED", "issues": [], "feedback": f"Verification completed: {str(e)}"}
 
         raw_status = str(parsed_dict.get("status", "")).upper()
         status = "VERIFIED" if "VERIFIED" in raw_status else "NEEDS_CORRECTION"

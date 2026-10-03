@@ -171,7 +171,7 @@ If any issue is found:
 - Specify which field is incorrect or unsupported.
 - Provide feedback for correction.
 
-Otherwise return STATUS = VERIFIED.
+Otherwise return valid JSON: {"status": "VERIFIED", "issues": [], "feedback": "All fields verified."}
 """
 
 

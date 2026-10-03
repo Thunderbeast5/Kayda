@@ -4,7 +4,7 @@ Stage 0 Pydantic Schemas: Case Intake & Context Initialization -> CaseContextObj
 
 import datetime
 from typing import Any, Dict, List, Optional, Tuple, Union
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 
 from .common import UNIVERSAL_PROCEDURAL_DOCUMENTS, STAGE1_MANDATORY_FIELDS
 
@@ -21,16 +21,16 @@ class CaseMetadata(BaseModel):
 
 
 class AccusedParty(BaseModel):
-    name: str = Field(description="Name or identity of accused person (e.g. Husband, Father-in-law, A1, A2)")
+    name: Optional[str] = Field(default="Accused", description="Name or identity of accused person (e.g. Husband, Father-in-law, A1, A2)")
     relationship: Optional[str] = Field(default=None, description="Relationship to victim/complainant (e.g. Husband, Mother-in-Law)")
     role_alleged: Optional[str] = Field(default=None, description="Role alleged in offence (e.g. Main Accused, Co-Accused, In-Law)")
     bail_status: Optional[str] = Field(default=None, description="Status regarding bail (e.g. Seeking Anticipatory Bail, Arrested, Not Arrested)")
 
 
 class Parties(BaseModel):
-    complainant: Union[List[str], str, None] = Field(default=None, description="Complainant name(s) or identity")
-    victim: Union[List[str], str, None] = Field(default=None, description="Victim name(s) or identity")
-    accused: Union[List[AccusedParty], List[str], str, None] = Field(
+    complainant: Union[List[Optional[str]], str, None] = Field(default=None, description="Complainant name(s) or identity")
+    victim: Union[List[Optional[str]], str, None] = Field(default=None, description="Victim name(s) or identity")
+    accused: Union[List[Optional[AccusedParty]], List[Optional[str]], str, None] = Field(
         default=None,
         description="Array of multiple accused persons or string identity (e.g. Husband, In-Laws, Co-Accused A1, A2)"
     )
@@ -38,9 +38,9 @@ class Parties(BaseModel):
 
 
 class PrimaryParticipants(BaseModel):
-    victim: Union[List[str], str, None] = Field(default=None, description="Victim(s) identified")
-    accused: Union[List[AccusedParty], List[str], str, None] = Field(default=None, description="Accused identified (array or string)")
-    witnesses: Union[List[str], str, None] = Field(default=None, description="Witnesses identified")
+    victim: Union[List[Optional[str]], str, None] = Field(default=None, description="Victim(s) identified")
+    accused: Union[List[Optional[AccusedParty]], List[Optional[str]], str, None] = Field(default=None, description="Accused identified (array or string)")
+    witnesses: Union[List[Optional[str]], str, None] = Field(default=None, description="Witnesses identified")
     investigating_officer: Optional[str] = Field(default=None, description="Investigating Officer name")
     advocate: Optional[str] = Field(default=None, description="Advocate name if mentioned")
 
@@ -120,22 +120,26 @@ class CaseProfile(BaseModel):
                     accused_names.append(src.strip())
             elif isinstance(src, list):
                 for item in src:
+                    if not item:
+                        continue
                     if isinstance(item, str) and item.strip():
                         accused_names.append(item.strip())
-                    elif isinstance(item, AccusedParty):
-                        accused_names.append(item.name)
-                    elif isinstance(item, dict) and "name" in item:
-                        accused_names.append(str(item["name"]))
-            elif isinstance(src, AccusedParty):
-                accused_names.append(src.name)
+                    elif isinstance(item, AccusedParty) and item.name and str(item.name).strip():
+                        accused_names.append(str(item.name).strip())
+                    elif isinstance(item, dict) and item.get("name") and str(item["name"]).strip():
+                        accused_names.append(str(item["name"]).strip())
+            elif isinstance(src, AccusedParty) and src.name and str(src.name).strip():
+                accused_names.append(str(src.name).strip())
 
         seen = set()
         result = []
         for name in accused_names:
-            if name not in seen:
-                seen.add(name)
-                result.append(name)
-        return result
+            if name is not None and isinstance(name, str):
+                cleaned_name = name.strip()
+                if cleaned_name and cleaned_name.lower() != "none" and cleaned_name not in seen:
+                    seen.add(cleaned_name)
+                    result.append(cleaned_name)
+        return result or ["Accused"]
 
     def check_procedural_missing_documents(self) -> List[str]:
         doc_strings_lower = [str(d).lower() for d in self.documents]
@@ -195,6 +199,19 @@ class CaseContextObject(BaseModel):
     active_parties: List[str] = Field(default_factory=list, description="Normalized list of accused party names for downstream routing")
     system_metadata: Dict[str, Any] = Field(default_factory=dict, description="System metadata including intake timestamp, overall confidence score")
 
+    @field_validator("active_parties", mode="before")
+    @classmethod
+    def validate_active_parties(cls, v: Any) -> List[str]:
+        if not v:
+            return ["Accused"]
+        if isinstance(v, str):
+            return [v.strip()] if v.strip() else ["Accused"]
+        cleaned = []
+        for item in v:
+            if item is not None and str(item).strip() and str(item).strip().lower() != "none":
+                cleaned.append(str(item).strip())
+        return cleaned or ["Accused"]
+
     def to_downstream_json(self) -> str:
         return self.model_dump_json(indent=2)
 
@@ -230,7 +247,11 @@ class IntakeVerificationResult(BaseModel):
     def export_case_context_object(self) -> CaseContextObject:
         profile = self.verified_case_profile or CaseProfile()
         status, violations = profile.validate_stage1_contract()
-        accused_names = profile.get_accused_list()
+        accused_names = [
+            str(n).strip()
+            for n in profile.get_accused_list()
+            if n is not None and str(n).strip() and str(n).strip().lower() != "none"
+        ] or ["Accused"]
         return CaseContextObject(
             schema_version="1.0",
             case_profile=profile,
