@@ -25,19 +25,31 @@ from config.llm_config import get_llm
 MAX_RETRIES = 3   # max regeneration attempts for the consistency guardrail
 
 
-# ── Redis helper (graceful degradation) ──────────────────────────────────────
+_redis_client = None
+_redis_checked = False
 
 def _get_redis():
-    """Return a Redis client or None if Redis is not reachable."""
+    """Return a Redis client or None if Redis is not reachable (memoized with fast timeout)."""
+    global _redis_client, _redis_checked
+    if _redis_checked:
+        return _redis_client
     try:
         import redis
         host = os.getenv("REDIS_HOST", "localhost")
         port = int(os.getenv("REDIS_PORT", 6379))
-        r = redis.Redis(host=host, port=port, decode_responses=True)
+        r = redis.Redis(
+            host=host,
+            port=port,
+            decode_responses=True,
+            socket_connect_timeout=0.3,
+            socket_timeout=0.3,
+        )
         r.ping()
-        return r
+        _redis_client = r
     except Exception:
-        return None
+        _redis_client = None
+    _redis_checked = True
+    return _redis_client
 
 
 def _load_history_from_redis(session_id: str) -> list[str]:
@@ -66,6 +78,20 @@ def _save_history_to_redis(session_id: str, history: list[str]) -> None:
 
 # ── Consistency checker ───────────────────────────────────────────────────────
 
+def _format_facts_for_accused(structured_facts: Any) -> str:
+    if isinstance(structured_facts, list):
+        lines = []
+        for i, f in enumerate(structured_facts):
+            fid = getattr(f, "id", f.get("id", f"fact_{i+1}") if isinstance(f, dict) else f"fact_{i+1}")
+            txt = getattr(f, "text", f.get("text", f.get("value", str(f))) if isinstance(f, dict) else str(f))
+            src = getattr(f, "source", f.get("source", "record") if isinstance(f, dict) else "record")
+            lines.append(f"[{fid}] {txt} (Source: {src})")
+        return "\n".join(lines) if lines else "No specific facts on record."
+    elif isinstance(structured_facts, dict):
+        return json.dumps(structured_facts, indent=2)
+    return str(structured_facts)
+
+
 def _is_consistent(
     llm,
     testimony: str,
@@ -84,12 +110,13 @@ def _is_consistent(
         history_block = "Prior statements by the accused:\n" + "\n".join(
             f"  - {h}" for h in prior_history
         )
+    facts_str = _format_facts_for_accused(structured_facts)
 
     prompt = f"""
 You are a legal consistency checker.
 
 Ground-truth facts established in the case:
-{json.dumps(structured_facts, indent=2)}
+{facts_str}
 
 {history_block}
 
@@ -173,7 +200,7 @@ Rules:
 ------------------------
 CASE FACTS (ground truth)
 ------------------------
-{json.dumps(structured_facts, indent=2)}
+{_format_facts_for_accused(structured_facts)}
 {history_block}
 
 ------------------------

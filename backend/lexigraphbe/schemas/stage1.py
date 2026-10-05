@@ -39,8 +39,17 @@ class ImportantFacts(BaseModel):
     weapon: Optional[Union[str, List[str]]] = Field(default=None, description="Weapon or instrument details if mentioned")
     medical_injury: Optional[Union[str, List[str]]] = Field(default=None, description="Medical injury details if mentioned")
     electronic_evidence: Optional[Union[str, List[str]]] = Field(default=None, description="Electronic evidence details if mentioned")
-    documents: List[str] = Field(default_factory=list, description="Documents mentioned or available")
-    witnesses: List[str] = Field(default_factory=list, description="Witnesses identified in factual narrative")
+    documents: Optional[Union[str, List[str]]] = Field(default_factory=list, description="Documents mentioned or available")
+    witnesses: Optional[Union[str, List[str]]] = Field(default_factory=list, description="Witnesses identified in factual narrative")
+
+    @field_validator("documents", "witnesses", mode="before")
+    @classmethod
+    def _coerce_to_list(cls, v):
+        if v is None:
+            return []
+        if isinstance(v, str):
+            return [v] if v.strip() else []
+        return v
 
 
 class LegalQueryObject(ManualReviewMixin):
@@ -62,7 +71,7 @@ class LegalQueryObject(ManualReviewMixin):
         default_factory=list,
         description="List of single-issue legal sub-queries"
     )
-    procedural_events: List[str] = Field(
+    procedural_events: List[Union[str, Dict[str, Any]]] = Field(
         default_factory=list,
         description="List of procedural events identified (e.g. Marriage, FIR Registered, Anticipatory Bail Application)"
     )

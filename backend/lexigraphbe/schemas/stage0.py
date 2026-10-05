@@ -103,7 +103,7 @@ class CaseProfile(BaseModel):
     case_facts: Optional[str] = Field(default="", description="Complete factual narrative preserved exactly as understood")
     primary_participants: PrimaryParticipants = Field(default_factory=PrimaryParticipants)
     missing_information: List[str] = Field(default_factory=list, description="Explicit list of missing important fields/documents or confirmation warnings")
-    confidence: Dict[str, float] = Field(
+    confidence: Dict[str, Any] = Field(
         default_factory=dict,
         description="Confidence scores between 0.0 and 1.0 for extracted fields"
     )

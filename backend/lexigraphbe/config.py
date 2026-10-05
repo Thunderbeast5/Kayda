@@ -1,14 +1,14 @@
 """
 LLM Configuration and JSON parsing utilities for LexiGraph Backend.
 Per-Stage Model Pinning (OpenAI GPT only):
-  Stage 0  – Case Intake            : gpt-4o-mini
-  Stage 1  – Legal Query             : gpt-4o-mini
-  Stage 2  – Subquery Mapping        : gpt-4o-mini
+  Stage 0  – Case Intake            : gpt-5.4-mini
+  Stage 1  – Legal Query             : gpt-5.4-mini
+  Stage 2  – Subquery Mapping        : gpt-5.4-mini
   Stage 3  – Chapter Identification  : Deterministic (No LLM)
   Stage 4  – Statutory Verification  : Deterministic (No LLM)
-  Stage 5  – Bail Reasoning          : gpt-4.1-mini
-  Stage 6  – Precedent Analysis      : gpt-4.1-mini
-  Stage 7  – Arguments & Judgment    : gpt-4.1-mini
+  Stage 5  – Bail Reasoning          : gpt-5.4-mini
+  Stage 6  – Precedent Analysis      : gpt-5.4-mini
+  Stage 7  – Arguments & Judgment    : gpt-5.4-mini
 Verifier agents inherit the same model as their primary stage.
 """
 
@@ -27,10 +27,10 @@ load_dotenv(BASE_DIR / ".env")
 # Per-Stage Model Constants (OpenAI GPT)
 # Override any of these via environment variables of the same name.
 # ---------------------------------------------------------------------------
-# Stages 0, 1, 2 – lightweight extraction & mapping
-MODEL_STAGE0 = os.getenv("MODEL_STAGE0", "gpt-4o-mini")   # Case Intake
-MODEL_STAGE1 = os.getenv("MODEL_STAGE1", "gpt-4o-mini")   # Legal Query
-MODEL_STAGE2 = os.getenv("MODEL_STAGE2", "gpt-4o-mini")   # Subquery Mapping
+# All LLM stages pinned to gpt-5.4-mini
+MODEL_STAGE0 = os.getenv("MODEL_STAGE0", "gpt-5.4-mini")   # Case Intake
+MODEL_STAGE1 = os.getenv("MODEL_STAGE1", "gpt-5.4-mini")   # Legal Query
+MODEL_STAGE2 = os.getenv("MODEL_STAGE2", "gpt-5.4-mini")   # Subquery Mapping
 # Stages 3, 4 – Deterministic; no LLM model constants needed
 # Stages 5, 6, 7 – deep legal reasoning
 MODEL_STAGE5 = os.getenv("MODEL_STAGE5", "gpt-5.4-mini")  # Bail Reasoning
@@ -40,10 +40,8 @@ MODEL_STAGE7 = os.getenv("MODEL_STAGE7", "gpt-5.4-mini")  # Arguments & Judgment
 # ---------------------------------------------------------------------------
 # Legacy two-tier aliases (kept for backward compatibility)
 # ---------------------------------------------------------------------------
-# Cheap tier  → same model used by Stages 0-2
-# Reasoning tier → same model used by Stages 5-7
-MODEL_TIER_CHEAP = "cheap"         # maps to MODEL_STAGE0 / gpt-4o-mini
-MODEL_TIER_REASONING = "reasoning" # maps to MODEL_STAGE5 / gpt-4.1-mini
+MODEL_TIER_CHEAP = "cheap"         # maps to MODEL_STAGE0 / gpt-5.4-mini
+MODEL_TIER_REASONING = "reasoning" # maps to MODEL_STAGE5 / gpt-5.4-mini
 
 
 class CallBudgetGuardrail:
@@ -72,10 +70,34 @@ class CallBudgetGuardrail:
 GLOBAL_CALL_GUARDRAIL = CallBudgetGuardrail(max_calls=25)
 
 
+# Models that do NOT support the temperature parameter.
+# Passing temperature to these models causes empty API responses.
+_MODELS_WITHOUT_TEMPERATURE = {
+    "gpt-5.4-mini",
+    "gpt-5.4",
+    "o1",
+    "o1-mini",
+    "o1-preview",
+    "o3",
+    "o3-mini",
+    "o4-mini",
+}
+
+
+def _openai_kwargs(model: str, temperature: float, api_key: str) -> dict:
+    """Build ChatOpenAI kwargs, omitting temperature for models that don't support it."""
+    kwargs: dict = {"model": model, "api_key": api_key}
+    if not any(m in model.lower() for m in _MODELS_WITHOUT_TEMPERATURE):
+        kwargs["temperature"] = temperature
+    return kwargs
+
+
 def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
     """
     Get configured LLM client. Prioritizes OPENAI_API_KEY when LLM_PROVIDER is set to 'openai' or when only OPENAI_API_KEY is available.
     Does not hardcode keys. Enforces process call ceiling check.
+    NOTE: Models like gpt-5.4-mini do not support the temperature parameter — it is
+    automatically omitted for such models to avoid empty API responses.
     """
     GLOBAL_CALL_GUARDRAIL.check_and_increment()
 
@@ -86,12 +108,8 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
     if (provider == "openai" or not groq_api_key) and openai_api_key:
         try:
             from langchain_openai import ChatOpenAI
-            target_model = model_name or os.getenv("STAGE0_MODEL", "gpt-4o")
-            return ChatOpenAI(
-                model=target_model,
-                api_key=openai_api_key,
-                temperature=temperature,
-            )
+            target_model = model_name or os.getenv("STAGE0_MODEL") or os.getenv("OPENAI_MODEL", "gpt-5.4-mini")
+            return ChatOpenAI(**_openai_kwargs(target_model, temperature, openai_api_key))
         except Exception as e:
             print(f"[LexiGraph Config] Warning loading ChatOpenAI: {e}")
 
@@ -110,12 +128,8 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
     if openai_api_key:
         try:
             from langchain_openai import ChatOpenAI
-            target_model = model_name or os.getenv("STAGE0_MODEL", "gpt-4o")
-            return ChatOpenAI(
-                model=target_model,
-                api_key=openai_api_key,
-                temperature=temperature,
-            )
+            target_model = model_name or os.getenv("STAGE0_MODEL") or os.getenv("OPENAI_MODEL", "gpt-5.4-mini")
+            return ChatOpenAI(**_openai_kwargs(target_model, temperature, openai_api_key))
         except Exception as e:
             print(f"[LexiGraph Config] Warning loading ChatOpenAI: {e}")
 

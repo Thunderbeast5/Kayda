@@ -5,11 +5,20 @@ from dataclasses import dataclass, field
 from typing import Optional, Dict, Any, List, Literal
 
 backend_dir = Path(__file__).resolve().parent.parent
-if str(backend_dir) not in sys.path:
-    sys.path.insert(0, str(backend_dir))
+prosecutor_dir = Path(__file__).resolve().parent
+for _p in [str(backend_dir), str(prosecutor_dir)]:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 
-from lexigraph_agent import LexiGraphAgent
-from services.citation_formatter_service import get_citation_formatter
+try:
+    from prosecutor.lexigraph_agent import LexiGraphAgent
+except ImportError:
+    from lexigraph_agent import LexiGraphAgent
+
+try:
+    from prosecutor.services.citation_formatter_service import get_citation_formatter
+except ImportError:
+    from services.citation_formatter_service import get_citation_formatter
 
 try:
     from agents.config.llm_config import get_llm
@@ -47,17 +56,16 @@ class ProsecutorTurnResult:
 # each phase gets behaviorally distinct instructions instead of one generic
 # prompt reused for every turn of a multi-round moot court.
 # ---------------------------------------------------------------------------
-PROSECUTOR_CORE_RULES = """You are the Public Prosecutor in a High Court / Sessions Court opposing an application for ANTICIPATORY BAIL (under Section 482 BNSS / Section 438 CrPC), in a live moot-court simulation against a law student.
+PROSECUTOR_CORE_RULES_TEMPLATE = """You are the Public Prosecutor in a High Court / Sessions Court opposing an application for ANTICIPATORY BAIL ({bail_provision}), in a live moot-court simulation against a law student.
 
 YOUR MANDATE:
 Argue forcefully against granting pre-arrest bail to the applicant using ONLY the verified statutory sections and precedents provided in the CONTEXT below. Never invent, guess, or recall a section number or case name from general knowledge — if it is not in the CONTEXT, do not cite it. If the context is thin on a point, argue from what IS present rather than filling the gap with an invented authority.
 
+LEGAL CODE IN FORCE FOR THIS CASE: {regime_statement}
+{code_restriction}
+
 LEGAL & DOMAIN RULES:
-1. Procedural Cross-Referencing: State provisions under both NEW and OLD codes when both appear in context:
-   - Anticipatory Bail: Section 482 BNSS [Section 438 CrPC].
-   - Custodial Remand: Section 187 BNSS [Section 167 CrPC].
-   - Evidence Recovery: Section 23 BSA [Section 27 IEA].
-   Where the CONTEXT gives you a cross-code pairing on a section's header line (e.g. "BNS 318 ... (corresponding to IPC 420 - Cheating)"), carry that SAME pairing into your own STATUTORY_BASIS text in that inline form — do not cite only the new-code number and drop the old-code equivalent, since most retrieved precedents will be decided under the old code and the bench needs the link stated, not implied.
+1. Procedural Cross-Referencing: {cross_ref_rule}
 2. For POCSO Cases (only if present in context/facts):
    - Cite relevant sections (e.g., Section 4, Section 6, Section 10 POCSO) as retrieved.
    - Emphasize Section 29 and Section 30 of POCSO regarding the Statutory Presumption of Guilt, if present in context.
@@ -184,7 +192,7 @@ class ProsecutorAgent:
     to a student as authoritative.
     """
 
-    def __init__(self, lexigraph_agent: LexiGraphAgent, model: str = "llama-3.3-70b-versatile", temperature: float = 0.2):
+    def __init__(self, lexigraph_agent: LexiGraphAgent, model: Optional[str] = None, temperature: float = 0.2):
         self.lexigraph = lexigraph_agent
         self.llm = get_llm(temperature=temperature, model_name=model)
         self.citation_formatter = get_citation_formatter()
@@ -192,6 +200,7 @@ class ProsecutorAgent:
         # closing) have real continuity instead of relying on the caller to
         # thread everything through manually each turn.
         self.transcript: List[Dict[str, str]] = []
+        self._retrieval_cache: Dict[str, Any] = {}
 
     # ------------------------------------------------------------------
     # Session management
@@ -199,6 +208,7 @@ class ProsecutorAgent:
     def reset_session(self) -> None:
         """Start a fresh moot-court hearing (new case or new student session)."""
         self.transcript = []
+        self._retrieval_cache.clear()
 
     def _record_turn(self, speaker: str, phase: str, text: str) -> None:
         self.transcript.append({"speaker": speaker, "phase": phase, "text": text})
@@ -217,9 +227,56 @@ class ProsecutorAgent:
     def _call(self, messages: List[tuple]) -> str:
         return self.llm.invoke(messages).content
 
-    def _build_system_prompt(self, phase: Phase) -> str:
+    def _build_system_prompt(self, phase: Phase, legal_regime: str = "IPC+CrPC") -> str:
         spoken_instructions = PHASE_SPOKEN_INSTRUCTIONS[phase]
-        return PROSECUTOR_CORE_RULES + OUTPUT_FORMAT_HEADER.format(spoken_instructions=spoken_instructions)
+
+        if legal_regime == "BNS+BNSS":
+            bail_provision = "under Section 482 BNSS"
+            regime_statement = (
+                "This case was filed on or after 1 July 2024. The applicable substantive code is the "
+                "BHARATIYA NYAYA SANHITA (BNS) and the applicable procedural code is the "
+                "BHARATIYA NAGARIK SURAKSHA SANHITA (BNSS). "
+                "Cite BNSS 482 (not CrPC 438), BNSS 187 (not CrPC 167), BSA 23 (not IEA 27), "
+                "and BNS substantive sections."
+            )
+            code_restriction = (
+                "DO NOT cite CrPC or IPC sections. If the CONTEXT provides an old-code equivalent in "
+                "parentheses, you may mention it in brackets for the judge's reference (e.g. "
+                "'BNSS 482 [equivalent of CrPC 438]') but frame the argument in the new code."
+            )
+            cross_ref_rule = (
+                "State provisions under the NEW code only (BNS/BNSS/BSA). "
+                "Where the CONTEXT supplies an old-code pairing (e.g. 'BNS 209 ... corresponding to IPC 174'), "
+                "you may note the equivalence in brackets but lead with the BNS/BNSS/BSA citation."
+            )
+        else:
+            bail_provision = "under Section 438 CrPC"
+            regime_statement = (
+                "This case was filed before 1 July 2024. The applicable substantive code is the "
+                "INDIAN PENAL CODE (IPC) and the applicable procedural code is the "
+                "CODE OF CRIMINAL PROCEDURE (CrPC). "
+                "Cite Section 438 CrPC (not BNSS 482), Section 167 CrPC (not BNSS 187), "
+                "Section 27 IEA (not BSA 23), and IPC substantive sections."
+            )
+            code_restriction = (
+                "DO NOT cite BNSS or BNS sections as primary authority. If the CONTEXT provides a "
+                "BNS/BNSS cross-reference in parentheses, you may note it in brackets for reference "
+                "(e.g. 'IPC 174 [BNS 209]') but frame the argument in the old code."
+            )
+            cross_ref_rule = (
+                "State provisions under the OLD code (IPC/CrPC/IEA). "
+                "Where the CONTEXT supplies a cross-code pairing (e.g. 'IPC 420 ... corresponding to BNS 318'), "
+                "carry that SAME pairing into your STATUTORY_BASIS in the form 'IPC 420 [BNS 318]' "
+                "so the bench can see both."
+            )
+
+        core_rules = PROSECUTOR_CORE_RULES_TEMPLATE.format(
+            bail_provision=bail_provision,
+            regime_statement=regime_statement,
+            code_restriction=code_restriction,
+            cross_ref_rule=cross_ref_rule,
+        )
+        return core_rules + OUTPUT_FORMAT_HEADER.format(spoken_instructions=spoken_instructions)
 
     def _parse_sections(self, raw: str) -> Dict[str, str]:
         sections = {}
@@ -284,7 +341,11 @@ class ProsecutorAgent:
             + verification.get("real_but_ungrounded_sections", [])
             + verification.get("unverified_cases", [])
         ):
-            if bad and bad in text:
+            # Guard: skip single characters and whitespace-only tokens
+            # (they arise when a string field is iterated character-by-character)
+            if not bad or not isinstance(bad, str) or len(bad.strip()) <= 1:
+                continue
+            if bad in text:
                 text = text.replace(bad, "[citation removed - unverified]")
                 redacted.append(bad)
         return text, redacted
@@ -330,12 +391,19 @@ class ProsecutorAgent:
         opposing_argument: Optional[str] = None,
         include_coaching: bool = False,
         debug: bool = False,
+        production_output: Optional[Dict[str, Any]] = None,
     ) -> ProsecutorTurnResult:
         if phase not in PHASE_SPOKEN_INSTRUCTIONS:
             raise ValueError(f"Unknown phase '{phase}'. Expected one of {list(PHASE_SPOKEN_INSTRUCTIONS)}.")
 
-        # 1. Query LexiGraphAgent for facts, statutes, cases & graph mappings
-        production_output = self.lexigraph.process_query(case_facts, debug=debug, role="prosecutor")
+        # 1. Query LexiGraphAgent for facts, statutes, cases & graph mappings (run once & cache)
+        if production_output is None:
+            cache_key = f"prosecutor:{case_facts.strip()}"
+            if cache_key in self._retrieval_cache:
+                production_output = self._retrieval_cache[cache_key]
+            else:
+                production_output = self.lexigraph.process_query(case_facts, debug=debug, role="prosecutor")
+                self._retrieval_cache[cache_key] = production_output
 
         # 2. Render merged verified context
         verified_context = self.lexigraph.render_context_for_agent(production_output)
@@ -350,7 +418,8 @@ class ProsecutorAgent:
             user_prompt += f"\n\nDEFENSE COUNSEL ARGUMENT TO REBUT:\n{opposing_argument}"
 
         # 3. LLM Prosecutor Argument Generation, with verify + self-correct loop
-        system_prompt = self._build_system_prompt(phase)
+        legal_regime = (production_output or {}).get("legal_regime", "IPC+CrPC")
+        system_prompt = self._build_system_prompt(phase, legal_regime=legal_regime)
         raw_output, parsed, spoken_formatted, verification, attempts, redacted = self._generate_verified(
             system_prompt, user_prompt, production_output
         )

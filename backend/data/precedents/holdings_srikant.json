@@ -1,0 +1,210 @@
+[
+  {
+    "id": "srikant_paraintro-1",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "intro-1",
+    "principle": "In the absence of any interim protection under Section 438 CrPC, the mere pendency of an anticipatory bail application does not bar the Trial Court from proceeding with proclamation under Section 82 CrPC and consequential steps under Section 83 CrPC in accordance with law.",
+    "conditions": "This applies where an anticipatory bail application is pending or has been adjourned without an interim order, and the accused has not obtained any interim protection from arrest.",
+    "effect": "procedural"
+  },
+  {
+    "id": "srikant_paraintro-1",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "intro-1",
+    "principle": "A court is not bound to pass an interim order on every hearing of an anticipatory bail application merely because the application is taken up for consideration; it may adjourn the matter without granting interim relief.",
+    "conditions": "This applies when an anticipatory bail application is filed under Section 438 CrPC and is listed for consideration, but the court chooses not to decide it finally or grant interim protection at that stage.",
+    "effect": "procedural"
+  },
+  {
+    "id": "srikant_paraintro-1",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "intro-1",
+    "principle": "An accused who persistently disobeys summons, bailable warrants, and non-bailable warrants, and who does not respond to a proclamation under Section 82 CrPC, is not entitled to the discretionary relief of pre-arrest bail.",
+    "conditions": "This applies where the accused has repeatedly failed to appear before the Trial Court despite summons and warrants, has not challenged the proclamation, and has shown conduct evincing avoidance of court process.",
+    "effect": "favours_denial"
+  },
+  {
+    "id": "srikant_para2-3",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "2-3",
+    "principle": "When an accused is absconding or concealing himself to avoid execution of a warrant and has been declared a proclaimed offender under Section 82 of the Code, he is ordinarily not entitled to anticipatory bail.",
+    "conditions": "Applies where a warrant has been issued, the person is absconding or concealing himself to evade execution of that warrant, and the person has been declared a proclaimed offender in terms of Section 82 CrPC.",
+    "effect": "favours_denial"
+  },
+  {
+    "id": "srikant_para4-5_1",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "4-5",
+    "principle": "A person who has been declared an absconder or proclaimed offender under Section 82 CrPC is not entitled to anticipatory bail under Section 438 CrPC.",
+    "conditions": "Applies where the accused has been declared an absconder/proclaimed offender through proceedings under Section 82 CrPC.",
+    "effect": "favours_denial"
+  },
+  {
+    "id": "srikant_para4-5_2",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "4-5",
+    "principle": "Anticipatory bail under Section 438 CrPC is an extraordinary remedy to be granted only in exceptional cases, such as where false implication is shown or where there are reasonable grounds to believe the accused is not likely to misuse liberty.",
+    "conditions": "Applies generally to requests for anticipatory bail and sets the threshold for invoking Section 438 CrPC.",
+    "effect": "procedural"
+  },
+  {
+    "id": "srikant_para4-5_3",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "4-5",
+    "principle": "Where an accused is absconding, concealing himself to evade arrest, and proceedings under Sections 82/83 CrPC have been initiated or a non-bailable warrant is outstanding, anticipatory bail should not be granted.",
+    "conditions": "Applies when the accused is evading service of warrant and proclamation proceedings under Sections 82/83 CrPC are in motion or pending.",
+    "effect": "favours_denial"
+  },
+  {
+    "id": "srikant_para6-7",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "6-7",
+    "principle": "A pending anticipatory bail application, even without interim protection, is not rendered non-maintainable merely because the trial court has issued a non-bailable warrant or initiated proceedings under Section 82 CrPC; the application must still be considered on its own merits.",
+    "conditions": "Applies where a person apprehending arrest has already filed an anticipatory bail application that remains pending without interim orders, and during that pendency the trial court issues a non-bailable warrant and/or initiates proclamation proceedings under Section 82 CrPC.",
+    "effect": "favours_grant"
+  },
+  {
+    "id": "srikant_para8-9",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "8-9",
+    "principle": "Anticipatory bail under Section 438 CrPC is an exceptional remedy to be granted only in exceptional cases and not as a matter of course, since its object is to protect a person from harassment or humiliation driven by a complainant’s grudge or vendetta.",
+    "conditions": "Applies when a court is considering whether to exercise the pre-arrest bail power under Section 438 CrPC in a case where arrest is sought to be avoided.",
+    "effect": "favours_denial"
+  },
+  {
+    "id": "srikant_para8-9",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "8-9",
+    "principle": "An order granting anticipatory bail does no more than direct that, if the person is arrested, he shall be released on bail subject to conditions, and courts should remember that a person who is lawfully summoned in relation to a serious offence must submit to the authority of law and pursue only lawful remedies rather than defy the process.",
+    "conditions": "Applies where anticipatory bail is sought or where a person, after investigation, charge-sheet, refer report, or summons, is expected to respond to the criminal process in accordance with law.",
+    "effect": "procedural"
+  },
+  {
+    "id": "srikant_para10-11",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "10-11",
+    "principle": "A proclamation under Section 82 CrPC can be validly initiated only after a warrant of arrest has already been issued by the court and the court has reason to believe that the accused has absconded or is concealing himself so that the warrant cannot be executed.",
+    "conditions": "Applies when a court considers issuing proclamation proceedings under Section 82 CrPC; the prerequisite is a prior arrest warrant, followed by the court's subjective satisfaction based on reasons to believe that the person has absconded or is concealing himself.",
+    "effect": "procedural"
+  },
+  {
+    "id": "srikant_para12-13",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "12-13",
+    "principle": "A court considering a limited legal question in an anticipatory bail matter need not examine collateral FIRs or a separate civil suit unless the bail question remains to be decided after resolving the threshold issue.",
+    "conditions": "Applies where multiple FIRs and a related civil suit exist, but the court is addressing a specific proposition of law in the anticipatory bail proceedings and those collateral matters are not necessary for deciding that proposition.",
+    "effect": "procedural"
+  },
+  {
+    "id": "srikant_para14-15",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "14-15",
+    "principle": "An application for anticipatory bail may be treated as not maintainable once the accused’s conduct has led to the issuance of proclamation under Section 82 CrPC and consequential proceedings under Section 83 CrPC in the same case.",
+    "conditions": "This applies where the accused has repeatedly failed to appear before the trial court despite summons/warrants, non-bailable warrants are pending, and proclamation under Section 82(1) CrPC and proceedings under Section 83 CrPC have been initiated before the anticipatory bail application is decided.",
+    "effect": "favours_denial"
+  },
+  {
+    "id": "srikant_para16-17",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "16-17",
+    "principle": "A person against whom summons, bailable warrants, non-bailable warrants, and a proclamation under Section 82 CrPC have been issued and who remains non-compliant cannot contend as of right that he was merely pursuing anticipatory bail and was neither evading arrest nor absconding; such conduct is relevant to assess deliberate defiance of legal process.",
+    "conditions": "Applies where the accused, after filing of the final report and issuance of process by the trial court, repeatedly fails to appear, does not secure cancellation or execution challenge of the warrants, and continues only to move bail applications despite escalation of coercive process including proclamation under Section 82 CrPC.",
+    "effect": "favours_denial"
+  },
+  {
+    "id": "srikant_para16-17",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "16-17",
+    "principle": "Under Section 70(2) CrPC, a warrant remains in force until it is either executed or cancelled by the issuing court.",
+    "conditions": "Applies to warrants issued under Section 70(1) CrPC, including bailable and non-bailable warrants, unless they are cancelled by the court that issued them or executed in accordance with law.",
+    "effect": "procedural"
+  },
+  {
+    "id": "srikant_para19-20",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "19-20",
+    "principle": "The expressions \"Judge\" and \"Court of Justice\" in the Penal Code are to be construed broadly to include not only formally designated judges, but also any person or body empowered by law to deliver definitive judicial determinations in civil or criminal proceedings, acting judicially.",
+    "conditions": "Applies when determining whether a person or body falls within the statutory meaning of \"Judge\" or \"Court of Justice\" under the Penal Code, based on their legal power to decide matters definitively and their exercise of judicial functions.",
+    "effect": "procedural"
+  },
+  {
+    "id": "srikant_para21-18",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "21-18",
+    "principle": "A conjoint reading of Sections 19, 20 and 21 IPC with Sections 174 and 174A IPC supports liability for further criminal proceedings where a person, being within the categories of \"Judge\", \"Court of Justice\" or \"Public Servant\", is legally bound to appear and fails to do so in response to summons, warrants, or a proclamation under Section 82 CrPC.",
+    "conditions": "Applies where summons, warrants, or proclamation have been issued in accordance with law, the person falls within the relevant IPC definitions, and there is non-attendance or failure to appear as required, including non-appearance under Section 82 CrPC.",
+    "effect": "favours_denial"
+  },
+  {
+    "id": "srikant_para19-20_1",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "19-20",
+    "principle": "Filing an anticipatory bail application through an advocate does not amount to appearance before a court for the purpose of proceedings under Sections 82 and 83 CrPC, because physical appearance is required.",
+    "conditions": "Applies where proceedings under Sections 82/83 CrPC have been initiated and the accused claims that a filing through counsel constitutes court appearance to avoid being treated as absconding.",
+    "effect": "favours_denial"
+  },
+  {
+    "id": "srikant_para19-20_2",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "19-20",
+    "principle": "For a person to be treated as absconding, there must be evidence that the person knew he was wanted and knew of the pending warrant of arrest, and absconding implies hiding or concealing oneself from arrest.",
+    "conditions": "Applies in determining whether an accused is an absconder in the context of execution of warrants and proceedings under Sections 82/83 CrPC.",
+    "effect": "favours_denial"
+  },
+  {
+    "id": "srikant_para19-20_3",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "19-20",
+    "principle": "A warrant of arrest continues in force until it is cancelled by the issuing court or executed, unless stayed or interfered with by a higher court.",
+    "conditions": "Applies where a warrant has been issued and no cancellation, execution, or higher-court interference has occurred.",
+    "effect": "procedural"
+  },
+  {
+    "id": "srikant_para21-22",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "21-22",
+    "principle": "The mere filing or pendency of an anticipatory bail application under Section 438 CrPC does not bar the trial court from proceeding under Sections 82 and 83 CrPC.",
+    "conditions": "Applies where the accused has sought anticipatory bail but the application remains pending or adjourned without interim protection, and the trial court thereafter proceeds to issue proclamation under Section 82 and initiate attachment proceedings under Section 83.",
+    "effect": "procedural"
+  },
+  {
+    "id": "srikant_para21-22",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "21-22",
+    "principle": "Courts should, as a matter of preference, decide anticipatory bail applications at the earliest, either by granting or refusing relief.",
+    "conditions": "Applies to anticipatory bail matters pending before the court, particularly where delay in listing or disposal may affect parallel criminal प्रक्रिया such as proclamation or attachment proceedings.",
+    "effect": "procedural"
+  },
+  {
+    "id": "srikant_para23-24",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "23-24",
+    "principle": "Pendency of an anticipatory bail application without any interim protection does not bar a trial court from proceeding with proclamation under Section 82 CrPC or consequential steps under Section 83 CrPC, and the court is not statutorily obliged to grant interim protection merely because the application is adjourned instead of being rejected forthwith.",
+    "conditions": "Applies where an anticipatory bail application under Section 438 CrPC is pending or adjourned without any interim order; in such circumstances, unless interim protection has been granted, the criminal court may continue with coercive process, including issuance/progress of proclamation and attachment proceedings.",
+    "effect": "procedural"
+  },
+  {
+    "id": "srikant_para23-24",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "23-24",
+    "principle": "Anticipatory bail is an extraordinary remedy to be exercised cautiously on the facts of each case, and courts must be mindful that interim or anticipatory protection in serious cases may impede investigation or facilitate tampering with evidence.",
+    "conditions": "Applies when a court is considering whether to grant anticipatory bail or interim protection under Section 438 CrPC, especially in serious offences or cases where investigation may be prejudiced.",
+    "effect": "favours_denial"
+  },
+  {
+    "id": "srikant_para25-26",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "25-26",
+    "principle": "An accused who repeatedly disobeys trial-court process, avoids appearance despite summons, bailable and non-bailable warrants, and does not challenge or comply with a proclamation under Section 82 CrPC, is not entitled to the discretionary benefit of anticipatory bail under Section 438 CrPC.",
+    "conditions": "Applies where the applicants have consistently failed to appear before the trial court despite summons and warrants, have attempted to evade arrest or withdraw surrender/bail steps out of fear of arrest, and have not taken timely steps to challenge or comply with proclamation proceedings under Section 82 CrPC.",
+    "effect": "favours_denial"
+  },
+  {
+    "id": "srikant_para25-26",
+    "case": "Srikant Upadhyay v. State of Bihar, 2024 INSC 202",
+    "para": "25-26",
+    "principle": "The Supreme Court may refuse to interfere with a High Court order declining anticipatory bail where the applicants’ conduct shows defiance of lawful court orders and an attempt to delay criminal proceedings.",
+    "conditions": "Applies when the High Court has rejected anticipatory bail and the record shows deliberate non-compliance with summons/warrants and procedural steps indicating obstruction or delay.",
+    "effect": "favours_denial"
+  }
+]

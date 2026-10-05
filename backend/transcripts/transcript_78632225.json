@@ -1,0 +1,1150 @@
+{
+  "session_id": "78632225",
+  "case_id": "C:\\proj\\MootCourt\\data\\fir\\2024 INSC 202.pdf",
+  "round_no": 1,
+  "max_rounds": 2,
+  "case_facts": [
+    {
+      "id": "fact_1",
+      "text": "The case is Srikant Upadhyay and Others v. State of Bihar and Another, Criminal Appeal No. 1552 of 2024, decided by the Supreme Court of India on 14 March 2024.",
+      "source": "case title and header",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_2",
+      "text": "The Bench consisted of Justice C. T. Ravikumar and Justice Sanjay Kumar.",
+      "source": "header",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_3",
+      "text": "The issue for consideration was whether the Trial Court could proceed under Section 82 of the Code of Criminal Procedure merely because an anticipatory bail application had been filed or because such application had been adjourned without any interim order.",
+      "source": "issue for consideration",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_4",
+      "text": "The appeal arose from the order dated 4 April 2023 of the High Court of Judicature at Patna in CRLM No. 67668 of 2022, which dismissed the appellants' anticipatory bail application.",
+      "source": "case arising from / para 1",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_5",
+      "text": "The pre-arrest bail application was connected with FIR No. 79 of 2020 registered at Govindganj Police Station, District East Champaran, Bihar.",
+      "source": "para 1",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_6",
+      "text": "FIR No. 79 of 2020 invoked Sections 341, 323, 354, 354B, 379, 504, 506, and 149 of the Indian Penal Code, 1860, and Sections 3 and 4 of the Prevention of Witch (Daain) Practices Act, 1999.",
+      "source": "para 1",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_7",
+      "text": "The appellants were represented by Basant R., Senior Advocate, along with Anand Shankar, Debashis Mukherjee, Param Nand, Kavinesh Rm, and Onkar Nath, Advocates.",
+      "source": "appearances for parties",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_8",
+      "text": "The respondents were represented by Anshul Narayan, Prem Prakash, Bhanwar Pal Singh Jadon, Susheel Tomar, Satya Prakash, Chetan Jadon, and Ms. Abha R. Sharma, Advocates.",
+      "source": "appearances for parties",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_9",
+      "text": "The Supreme Court granted leave to appeal.",
+      "source": "para 1",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_10",
+      "text": "The Court relied on Prem Shankar Prasad v. State of Bihar and Another, which in turn referred to State of Madhya Pradesh v. Pradeep Sharma and Lavesh v. State (NCT of Delhi).",
+      "source": "para 3",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_11",
+      "text": "In Lavesh v. State (NCT of Delhi), the Court held that when an accused is absconding and declared a proclaimed offender under Section 82 of the Code, he is not entitled to anticipatory bail.",
+      "source": "para 3",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_12",
+      "text": "In State of Madhya Pradesh v. Pradeep Sharma, the Court held that a person declared an absconder or proclaimed offender under Section 82 of the Code is not entitled to anticipatory bail.",
+      "source": "para 4",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_13",
+      "text": "In Prem Shankar Prasad, the Court set aside the High Court's order granting anticipatory bail because it had ignored proceedings under Sections 82 and 83 of the Code of Criminal Procedure.",
+      "source": "para 5",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_14",
+      "text": "The settled legal position noted by the Court was that when an accused is subject to a pending non-bailable warrant and proclamation proceedings under Sections 82 and 83 of the Code of Criminal Procedure are issued, the accused is not entitled to anticipatory bail.",
+      "source": "para 5",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_15",
+      "text": "The appellants argued that the settled law on pre-arrest bail did not apply where an anticipatory bail application was already pending without interim protection and, during its pendency, the Trial Court issued a proclamation under Section 82 of the Code of Criminal Procedure.",
+      "source": "para 6",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_16",
+      "text": "The appellants contended that even if a non-bailable warrant was pending, the anticipatory bail application should still be considered on its own merits and should not be dismissed solely on that ground.",
+      "source": "para 6",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_17",
+      "text": "The State argued that issuance of a non-bailable warrant and initiation of proceedings under Section 82 of the Code of Criminal Procedure are legally permissible even when an anticipatory bail application is pending, and that in the absence of interim protection there is no legal bar to those steps.",
+      "source": "para 7",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_18",
+      "text": "The Court reiterated that anticipatory bail under Section 438 of the Code of Criminal Procedure is an extraordinary power to be exercised only in exceptional cases.",
+      "source": "para 9",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_19",
+      "text": "The Court stated that the object of anticipatory bail is to prevent harassment or humiliation meant to satisfy the complainant's grudge or personal vendetta.",
+      "source": "para 9",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_20",
+      "text": "The Court stated that when anticipatory bail is granted, it only directs that in the event of arrest the accused shall be released on bail subject to terms and conditions.",
+      "source": "para 9",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_21",
+      "text": "The Court held that the sine qua non for initiating proceedings under Section 82 of the Code of Criminal Procedure is prior issuance of a warrant of arrest by the concerned court.",
+      "source": "para 10",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_22",
+      "text": "The Court explained that the expression 'reason to believe' in Section 82(1) means the Magistrate must be subjectively satisfied that the person has absconded or concealed himself.",
+      "source": "para 11",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_23",
+      "text": "The Court noted that 'absconded' in the context of Section 82 means hiding or concealing oneself and avoiding arrest.",
+      "source": "para 11",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_24",
+      "text": "The Court noted that the legality of the proceedings under Section 82 of the Code of Criminal Procedure was not under challenge.",
+      "source": "para 11",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_25",
+      "text": "The Court considered it unnecessary, for deciding the question before it, to deal with FIR No. 37 of 2018 dated 28 March 2018, FIR No. 66 of 2018, or Civil Suit No. 140 of 2019.",
+      "source": "para 12",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_26",
+      "text": "FIR No. 37 of 2018 dated 28 March 2018 had been filed against Rajiv Kumar Upadhyay and four others.",
+      "source": "para 12",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_27",
+      "text": "FIR No. 66 of 2018 had been registered against appellant No. 4, described as the first accused, and four other family members of the appellants.",
+      "source": "para 12",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_28",
+      "text": "Civil Suit No. 140 of 2019 had been filed against the family members of the appellants for illegal encroachment.",
+      "source": "para 12",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_29",
+      "text": "The complaint leading to FIR No. 79 of 2020 was filed under Section 156(3) of the Code of Criminal Procedure on the directions of the Chief Judicial Magistrate, East Champaran, Motihari.",
+      "source": "para 13",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_30",
+      "text": "On 22 February 2020 at about 8:00 a.m., Jagmati Kunwar, the grandmother of Respondent No. 4, went in front of the house of Appellant No. 2, Shashikant Upadhyay.",
+      "source": "para 13",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_31",
+      "text": "Shashikant Upadhyay allegedly told Jagmati Kunwar that she was a witch who had made his child sick and would not be spared.",
+      "source": "para 13",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_32",
+      "text": "The appellants and eight other family members allegedly gathered around Jagmati Kunwar.",
+      "source": "para 13",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_33",
+      "text": "Appellant No. 4 allegedly caught hold of Jagmati Kunwar's hair and asked others to bring dung.",
+      "source": "para 13",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_34",
+      "text": "Accused Paritosh Kumar allegedly brought dung, and accused Rishu allegedly put dung into Jagmati Kunwar's mouth, causing her to vomit and fall down.",
+      "source": "para 13",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_35",
+      "text": "When Respondent No. 2 and other witnesses went to help Jagmati Kunwar, Appellant No. 2, Shashikant Upadhyay, allegedly assaulted and abused Respondent No. 2.",
+      "source": "para 13",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_36",
+      "text": "Co-accused Paritosh Kumar and Jishu Kumar allegedly tore the blouse of Kiran Devi and disrobed her.",
+      "source": "para 13",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_37",
+      "text": "Co-accused Soni Devi allegedly snatched a gold chain from the complainant.",
+      "source": "para 13",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_38",
+      "text": "Co-accused Ravikant and Appellant No. 5 allegedly tore the clothes of Jagmati Kunwar and made her half-naked.",
+      "source": "para 13",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_39",
+      "text": "After investigation, a charge sheet was filed on 8 August 2022 only for offences under Sections 341, 323, and 504 of the Indian Penal Code, and that too only against accused Lakhpati Kunwar, accused No. 7.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_40",
+      "text": "On perusal of the FIR, charge sheet, and case diary, the Trial Court found sufficient materials to proceed against the other 12 accused, including the appellants.",
+      "source": "para 14",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_41",
+      "text": "By order dated 20 February 2021, the Trial Court took cognizance of offences under Sections 341, 323, and 354B of the Indian Penal Code and Section 3/4 of the Daain Act and issued summons to all accused, including the appellants, fixing 12 April 2022 as the date for appearance.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_42",
+      "text": "The accused were absent on 12 April 2022, and the Trial Court issued bailable warrants on that date.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_43",
+      "text": "On 25 May 2022, the accused other than the appellants appeared and applied for regular bail before the Trial Court, and the Trial Court granted them regular bail.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_44",
+      "text": "The complainant, Respondent No. 2, applied for cancellation of the bail granted to those accused, and by order dated 9 June 2022 the Trial Court issued show-cause notices to the bail grantees.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_45",
+      "text": "After receiving notice relating to cancellation of bail, the bail grantees unsuccessfully approached the Sessions Court by filing Criminal Revision Petition No. 94 of 2022 challenging the order taking cognizance.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_46",
+      "text": "Despite these developments, the appellants neither appeared before the Trial Court nor sought regular bail.",
+      "source": "para 14",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_47",
+      "text": "The appellants filed a bail-cum-surrender application before the Trial Court, but withdrew it on 23 August 2022 fearing arrest.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_48",
+      "text": "After withdrawal of the bail-cum-surrender application, the Trial Court fixed 30 August 2022 as the date for appearance of the appellants.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_49",
+      "text": "Before the date fixed for appearance, the appellants filed an anticipatory bail application before the Sessions Court.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_50",
+      "text": "On 6 September 2022, the appellants informed the Trial Court that the anticipatory bail matter was listed before the Sessions Court on 27 September 2022 for final hearing.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_51",
+      "text": "The Trial Court thereafter posted the matter for the appellants' appearance to 11 October 2022.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_52",
+      "text": "The appellants' anticipatory bail application before the Sessions Court was dismissed on 27 September 2022.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_53",
+      "text": "On 3 November 2022, because the appellants remained absent, the Trial Court issued non-bailable warrants and listed the matter for production on 4 November 2022.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_54",
+      "text": "Meanwhile, the appellants approached the High Court by filing CRLM No. 67668 of 2022 seeking anticipatory bail.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_55",
+      "text": "When the appellants filed the High Court anticipatory bail application, non-bailable warrants were already pending against them.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_56",
+      "text": "On 4 December 2022, the Trial Court was informed on behalf of the appellants that an anticipatory bail application had been filed before the High Court.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_57",
+      "text": "The matter was then listed before the Trial Court on 4 January 2023.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_58",
+      "text": "On 4 January 2023, because the appellants did not appear despite the earlier appearance order and despite issuance of non-bailable warrants, the Trial Court issued a proclamation under Section 82(1) of the Code of Criminal Procedure.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_59",
+      "text": "Proceedings under Section 83 of the Code of Criminal Procedure were later initiated.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_60",
+      "text": "On 15 March 2023, on behalf of the appellants, a request was made to postpone the process under Sections 82 and 83 of the Code of Criminal Procedure.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_61",
+      "text": "The Trial Court proceeded to issue process under Section 83 of the Code of Criminal Procedure on the basis of the proclamation under Section 82(1).",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_62",
+      "text": "On 4 April 2023, the appellants' anticipatory bail application was dismissed, taking note of the proceedings under Sections 82 and 83 of the Code of Criminal Procedure and observing that, because of those developments, the pre-arrest bail application could not be maintained.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_63",
+      "text": "The appellants contended that rejection of anticipatory bail without deciding it on merits, merely because a proclamation under Section 82 of the Code of Criminal Procedure had been issued, was unsustainable.",
+      "source": "para 15",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_64",
+      "text": "The appellants further contended that they were not evading arrest or absconding, and were only exercising their legal right to seek anticipatory bail.",
+      "source": "para 15",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_65",
+      "text": "The appellants argued that when an application for anticipatory bail is pending, issuance of a proclamation after issuance of non-bailable warrants cannot be used as a reason to refuse consideration of anticipatory bail on merits.",
+      "source": "para 15",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_66",
+      "text": "After the final report under Section 173(2) of the Code of Criminal Procedure was filed in FIR No. 79 of 2020, the appellants did not take any action in accordance with law except moving bail applications.",
+      "source": "para 16",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_67",
+      "text": "After the final report, summons, bailable warrants, and non-bailable warrants were issued against the appellants, and they failed to appear before the Court on the date fixed pursuant to the bailable warrants.",
+      "source": "para 16",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_68",
+      "text": "The Court noted that similarly situated co-accused appeared and obtained regular bail after the issuance of bailable warrants.",
+      "source": "para 16",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_69",
+      "text": "The Court observed that the appellants were virtually defying the authority of law and moving bail applications when they apprehended arrest due to their non-attendance and disobedience.",
+      "source": "para 16",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_70",
+      "text": "Section 70(2) of the Code of Criminal Procedure provides that every warrant issued under Section 70(1) remains in force until it is cancelled by the issuing court or executed.",
+      "source": "para 17",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_71",
+      "text": "The bailable warrants and later the non-bailable warrants issued against the appellants were neither cancelled by the Trial Court nor executed.",
+      "source": "para 17",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_72",
+      "text": "The appellants had not successfully challenged the warrants issued against them.",
+      "source": "para 17",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_73",
+      "text": "Sections 19, 20, 21, 174, and 174A of the Indian Penal Code were considered relevant in the context of the appellants' conduct.",
+      "source": "para 17",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_74",
+      "text": "Section 174 of the Indian Penal Code punishes intentional non-attendance in obedience to a summons, notice, order, or proclamation issued by a legally competent public servant.",
+      "source": "para 17",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_75",
+      "text": "Section 174A of the Indian Penal Code punishes failure to appear at the specified place and time in response to a proclamation published under Section 82(1) of the Code of Criminal Procedure.",
+      "source": "para 17",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_76",
+      "text": "The Court noted that, in light of the issuance of summons, warrants, and subsequently a proclamation, Sections 19, 20, and 21 of the Indian Penal Code, together with Sections 174 and 174A of the Indian Penal Code, can make the concerned persons liable to face further proceedings.",
+      "source": "para 18",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_77",
+      "text": "The Court held that non-attendance in obedience to a proclamation under Section 82 of the Code of Criminal Procedure also attracts liability.",
+      "source": "para 18",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_78",
+      "text": "In Savitaben Govindbhai Patel and Others v. State of Gujarat, the Gujarat High Court held that filing an anticipatory bail application through an advocate does not amount to appearance by the accused in proceedings under Sections 82 and 83 of the Code of Criminal Procedure.",
+      "source": "para 19",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_79",
+      "text": "The Gujarat High Court reasoned that otherwise an absconding accused could try to avoid the consequences of Section 83 proceedings by merely filing an anticipatory bail application through counsel, and that physical appearance is important when reading Sections 82 and 83 together.",
+      "source": "para 19",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_80",
+      "text": "The Supreme Court agreed that filing an anticipatory bail application through an advocate cannot be treated as appearance before a court by a person against whom proceedings under Sections 82 and 83 have been instituted.",
+      "source": "para 20",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_81",
+      "text": "The Court stated that the ordinary and etymological sense of 'absconded' is hiding or concealing oneself.",
+      "source": "para 20",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_82",
+      "text": "The Court stated that proof of absconding requires evidence that the person concerned knew he was wanted and knew about the pending warrant of arrest.",
+      "source": "para 20",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_83",
+      "text": "The Court noted that the appellants had been served with summons and that bailable warrants were issued against them on 12 April 2022.",
+      "source": "para 20",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_84",
+      "text": "The Court noted that the appellants themselves produced the order by which bailable warrants were issued against them.",
+      "source": "para 20",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_85",
+      "text": "The Court noted that, under Section 70(2) of the Code of Criminal Procedure, a warrant remains in force until cancelled by the issuing court or executed.",
+      "source": "para 20",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_86",
+      "text": "The Court recorded that there was no case made out by the appellants that the warrants had been cancelled or executed, and no case that the order had been interfered with by a higher court.",
+      "source": "para 20",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_87",
+      "text": "The Court noted that the appellants moved a bail-cum-surrender application before the Trial Court on 23 August 2022 but later withdrew it fearing arrest.",
+      "source": "para 20",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_88",
+      "text": "The Court noted that there was no order under Section 438(1-B) of the Code of Criminal Procedure directing the appellants' presence before the court, either suo motu or on an application by the public prosecutor.",
+      "source": "para 20",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_89",
+      "text": "On these circumstances, the Court concluded that the appellants could not contend that they were not hiding or concealing themselves from arrest or that they did not know they were wanted in a court of law.",
+      "source": "para 20",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_90",
+      "text": "The appellants argued that a proclamation under Section 82 of the Code of Criminal Procedure was issued by the Trial Court on 4 January 2023 and proceedings under Section 83 were initiated on 15 March 2023, while their anticipatory bail application had been filed in November 2022 and had not been listed for hearing until 4 April 2023.",
+      "source": "para 21",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_91",
+      "text": "The appellants argued that when they filed the anticipatory bail application, none of them had been declared absconders and no proceedings under Sections 82 or 83 of the Code of Criminal Procedure had been initiated against them.",
+      "source": "para 21",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_92",
+      "text": "The Court identified the question whether the Trial Court could proceed under Section 82 of the Code of Criminal Procedure merely because an anticipatory bail application had been filed or because such application had been adjourned without any interim order.",
+      "source": "para 22",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_93",
+      "text": "The Court observed that it is always preferable for bail applications to be decided at the earliest, one way or the other.",
+      "source": "para 22",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_94",
+      "text": "The Court noted that the appellants' anticipatory bail application was filed before the High Court in November 2022 and was taken up for hearing on 4 April 2023.",
+      "source": "para 22",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_95",
+      "text": "The Court held that in the absence of an interim order, the pendency of an anticipatory bail application does not bar the Trial Court from issuing or proceeding with proclamation and taking steps under Section 83 of the Code of Criminal Procedure in accordance with law.",
+      "source": "para 23",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_96",
+      "text": "The Court held that there is no statutory inhibition on arrest merely because an anticipatory bail application is pending and has been adjourned without an interim order.",
+      "source": "para 23",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_97",
+      "text": "The Court referred to and agreed with the view in Shrenik Jayantilal Jain and Another v. State of Maharashtra Through EOW Unit II, Mumbai that there is no statutory prohibition against such arrest or proceedings.",
+      "source": "para 23",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_98",
+      "text": "The Court held that if there is no interim protection, a pending anticipatory bail application does not prevent a police officer from arresting the accused without warrant on the basis of the accusation apprehended in the application.",
+      "source": "para 23",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_99",
+      "text": "The Court observed that an anticipatory bail application can be adjourned without passing any interim order.",
+      "source": "para 23",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_100",
+      "text": "The Court held that if a court can issue summons for non-obedience and then issue a warrant of arrest, it can also proceed under Section 82 of the Code of Criminal Procedure despite pendency of an anticipatory bail application.",
+      "source": "para 23",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_101",
+      "text": "The Court observed that filing successive anticipatory bail applications cannot be used as a device to escape the consequences of arrest warrants and proclamation under Section 82 of the Code of Criminal Procedure.",
+      "source": "para 23",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_102",
+      "text": "The Court held that anticipatory bail is an extraordinary power and not a matter of rule.",
+      "source": "para 24",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_103",
+      "text": "The Court held that the grant of anticipatory bail depends on the cautious and judicious discretion of the court, based on the facts and circumstances of each case.",
+      "source": "para 24",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_104",
+      "text": "The Court observed that granting interim protection in serious cases may lead to miscarriage of justice and may hamper investigation by causing tampering or distraction of evidence.",
+      "source": "para 24",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_105",
+      "text": "The Court observed that interim protection may still be granted in eminently fit cases to safeguard individual freedom against unwarranted arrest.",
+      "source": "para 24",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_106",
+      "text": "The Court held that a person who is continuously defying court orders and absconding is not entitled to anticipatory bail.",
+      "source": "para 24",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_107",
+      "text": "The factual narration stated that the appellants consistently disobeyed the Trial Court's orders.",
+      "source": "para 25",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_108",
+      "text": "The appellants failed to appear before the Trial Court after receiving summons, and they also failed to appear after bailable warrants were issued, even though their co-accused obtained regular bail after the issuance of bailable warrants.",
+      "source": "para 25",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_109",
+      "text": "On 23 August 2022, the appellants filed an application described by them as a bail-cum-surrender application and withdrew it fearing arrest.",
+      "source": "para 25",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_110",
+      "text": "Even after the issuance of non-bailable warrants on 3 November 2022, the appellants did not appear before the Trial Court and did not apply for regular bail after the warrants were recalled.",
+      "source": "para 25",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_111",
+      "text": "Even after coming to know about the proclamation under Section 82 of the Code of Criminal Procedure, the appellants did not challenge it or enter appearance before the Trial Court to avoid the consequences.",
+      "source": "para 25",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_112",
+      "text": "The Court held that the appellants' conduct showed consistent disobedience of the Trial Court's orders.",
+      "source": "para 25",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_113",
+      "text": "The Court held that the appellants were not entitled to the benefit of pre-arrest bail.",
+      "source": "para 25",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_114",
+      "text": "The Court held that there was no ground to interfere with the High Court's order rejecting the anticipatory bail application.",
+      "source": "para 26",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_115",
+      "text": "The Court held that the appellants' actions amounted to defying lawful orders of the Court and attempting to delay the proceedings.",
+      "source": "para 26",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_116",
+      "text": "The appeal was dismissed.",
+      "source": "result of the case",
+      "type": "procedural_event"
+    }
+  ],
+  "evidence_inventory": [
+    {
+      "item": "fir",
+      "status": "present",
+      "details": "FIR No. 79 of 2020 was registered at Govindganj Police Station, District East Champaran, Bihar, for offences under IPC Sections 341, 323, 354, 354B, 379, 504, 506, 149 and Sections 3/4 of the Prevention of Witch (Daain) Practices Act, 1999."
+    },
+    {
+      "item": "complaint_under_section_156_3_crpc",
+      "status": "present",
+      "details": "The complaint leading to FIR No. 79 of 2020 was filed under Section 156(3) CrPC on the directions of the Chief Judicial Magistrate, East Champaran, Motihari."
+    },
+    {
+      "item": "charge_sheet",
+      "status": "present",
+      "details": "After investigation, a charge sheet dated 8 August 2022 was filed only for IPC Sections 341, 323 and 504 against accused Lakhpati Kunwar (accused no. 7)."
+    },
+    {
+      "item": "cognizance_order",
+      "status": "present",
+      "details": "By order dated 20 February 2021, the Trial Court took cognizance of IPC Sections 341, 323, 354B and Sections 3/4 of the Daain Act."
+    },
+    {
+      "item": "summons",
+      "status": "present",
+      "details": "The Trial Court issued summons to all accused, including the appellants, fixing 12 April 2022 for appearance."
+    },
+    {
+      "item": "bailable_warrant",
+      "status": "present",
+      "details": "When the accused remained absent on 12 April 2022, the Trial Court issued bailable warrants."
+    },
+    {
+      "item": "non_bailable_warrant",
+      "status": "present",
+      "details": "On 3 November 2022, due to continued absence of the appellants, the Trial Court issued non-bailable warrants."
+    },
+    {
+      "item": "proclamation_sec_82",
+      "status": "present",
+      "details": "On 4 January 2023, the Trial Court issued a proclamation under Section 82(1) CrPC after the appellants failed to appear despite summons and warrants."
+    },
+    {
+      "item": "attachment_sec_83",
+      "status": "present",
+      "details": "Proceedings under Section 83 CrPC were later initiated and process under Section 83 was issued on the basis of the Section 82 proclamation."
+    },
+    {
+      "item": "regular_bail_orders_coaccused",
+      "status": "present",
+      "details": "On 25 May 2022, the co-accused who appeared before the Trial Court were granted regular bail."
+    },
+    {
+      "item": "bail_cum_surrender_application",
+      "status": "present",
+      "details": "The appellants filed a bail-cum-surrender application before the Trial Court and withdrew it on 23 August 2022 fearing arrest."
+    },
+    {
+      "item": "anticipatory_bail_applications",
+      "status": "present",
+      "details": "The appellants first sought anticipatory bail before the Sessions Court and later filed CRLM No. 67668 of 2022 before the Patna High Court, which was dismissed on 4 April 2023."
+    },
+    {
+      "item": "high_court_order",
+      "status": "present",
+      "details": "The Patna High Court by order dated 4 April 2023 dismissed the appellants' anticipatory bail application."
+    },
+    {
+      "item": "supreme_court_judgment",
+      "status": "present",
+      "details": "The Supreme Court granted leave, affirmed the legal position on Section 82/83 proceedings, and dismissed the appeal on 14 March 2024."
+    },
+    {
+      "item": "mlc_or_medical_report",
+      "status": "not_on_record",
+      "details": "No medical or MLC report is set out in the record excerpt."
+    }
+  ],
+  "transcript": [
+    {
+      "turn_no": 1,
+      "speaker": "prosecutor",
+      "round_no": 1,
+      "content": "### Legal Theory\nMay it please the Court, I strongly oppose this application for anticipatory bail.\n\n### Submissions\n1. This is not a case where the applicants came promptly before the court seeking protection in good faith. The record shows a deliberate and repeated failure to submit to the lawful process: summons were issued, bailable warrants followed, then non-bailable warrants, and finally a proclamation under Section 82 CrPC, with proceedings under Section 83 CrPC thereafter. Even after all of this, the applicants did not appear. They withdrew a bail-cum-surrender application fearing arrest and still chose not to surrender. That conduct speaks volumes.\n2. The offences alleged are serious. The FIR invokes Sections 341, 323, 354, 354B, 379, 504, 506, and 149 IPC, along with Sections 3 and 4 of the Prevention of Witch (Daain) Practices Act, 1999. These are allegations of group assault, intimidation, humiliation, theft, and disrobing of women in a witch-hunting context. Such offences are not to be treated lightly, and anticipatory bail under Section 438 CrPC is an exceptional remedy, not one granted as a matter of course.\n3. The Supreme Court in **Srikant Upadhyay v. State of Bihar, 2024 INSC 202** held that where an accused is absconding or concealing himself to avoid execution of a warrant and has been declared a proclaimed offender under Section 82 CrPC, he is ordinarily not entitled to anticipatory bail. The Court further held that a person lawfully summoned in a serious matter must submit to the authority of law and pursue lawful remedies rather than defy the process. That is exactly why this application must fail.\n4. Here, custodial process is necessary not because of any abstract formula, but because the applicants have shown by their conduct that they will not appear voluntarily. Their repeated non-appearance after summons and warrants makes the coercive process under Sections 82 and 83 CrPC fully relevant. Granting anticipatory bail in such circumstances would undermine the authority of the court and reward evasion.\n5. In view of the gravity of the offence, statutory presumptions, and the necessity of custodial interrogation, the prosecution humbly prays that this Anticipatory Bail application be rejected.\n- **Section 438 CrPC**: anticipatory bail; an exceptional pre-arrest protection, not a matter of course.\n- **Section 82 CrPC**: proclamation when an accused absconds or conceals himself to avoid execution of process.\n- **Section 83 CrPC**: attachment proceedings following proclamation.\n- **Section 167 CrPC**: not directly central on these facts, but relevant to custody/remand principles generally; however, the present record turns primarily on the applicants’ conduct under Sections 82/83 and their attempt to invoke Section 438 CrPC.\n- **IPC 341**: wrongful restraint.\n- **IPC 323**: voluntarily causing hurt.\n- **IPC 354**: assault or criminal force to woman with intent to outrage modesty.\n- **IPC 354B**: assault or use of criminal force to woman with intent to disrobe.\n- **IPC 379**: theft.\n- **IPC 504**: intentional insult with intent to provoke breach of the peace.\n- **IPC 506**: criminal intimidation.\n- **IPC 149**: every member of unlawful assembly guilty of offence committed in prosecution of common object.\n- **Prevention of Witch (Daain) Practices Act, 1999, Sections 3 and 4**: invoked in the FIR for the alleged witch-hunting related attack and humiliation.\nHere, the applicants were named in FIR No. 79 of 2020 for serious offences under IPC Sections 341, 323, 354, 354B, 379, 504, 506, and 149, along with Sections 3 and 4 of the Prevention of Witch (Daain) Practices Act, 1999. The allegations are not trivial: the complainant-side version speaks of a group attack, abuse, physical assault, disrobing of women, and humiliation by forcing dung into the mouth of an elderly woman. Such allegations directly engage the protective object of the penal provisions invoked.\n6. Most importantly, the applicants’ own conduct disentitles them to anticipatory bail. They did not appear after summons; they remained absent even after bailable warrants; they withdrew a bail-cum-surrender application fearing arrest; they then failed to appear even after non-bailable warrants were issued; and after proclamation under Section 82 CrPC, they still did not submit to process. Proceedings under Section 83 CrPC were then initiated. This is precisely the kind of conduct that **[CASE: Srikant Upadhyay v. State of Bihar, 2024 INSC 202]** says ordinarily bars anticipatory bail.\n7. The argument that their application was pending before the High Court when Section 82 proceedings were issued does not help them. The factual record shows a pattern of avoiding the trial court’s lawful directions, not bona fide pursuit of remedy. Once they had actual knowledge of coercive process, they still did not appear or challenge the proclamation in time. On these facts, Section 438 CrPC cannot be used as a shield against consequences of abscondence-like conduct.\n\n### Evidence References\n- **[fact_1]**: The case is Srikant Upadhyay and Others v. State of Bihar and Another, Criminal Appeal No. 1552 of 2024, decided by the Supreme Court of India on 14 March 2024.\n- **[fact_4]**: The appeal arose from the order dated 4 April 2023 of the High Court of Judicature at Patna in CRLM No. 67668 of 2022, which dismissed the appellants' anticipatory bail application.\n- **[fact_5]**: The pre-arrest bail application was connected with FIR No. 79 of 2020 registered at Govindganj Police Station, District East Champaran, Bihar.\n- **[fact_6]**: FIR No. 79 of 2020 invoked Sections 341, 323, 354, 354B, 379, 504, 506, and 149 of the Indian Penal Code, 1860, and Sections 3 and 4 of the Prevention of Witch (Daain) Practices Act, 1999.\n- **[fact_7]**: The appellants were represented by Basant R., Senior Advocate, along with Anand Shankar, Debashis Mukherjee, Param Nand, Kavinesh Rm, and Onkar Nath, Advocates.\n- **[fact_8]**: The respondents were represented by Anshul Narayan, Prem Prakash, Bhanwar Pal Singh Jadon, Susheel Tomar, Satya Prakash, Chetan Jadon, and Ms. Abha R. Sharma, Advocates.\n- **[fact_9]**: The Supreme Court granted leave to appeal.\n- **[fact_15]**: The appellants argued that the settled law on pre-arrest bail did not apply where an anticipatory bail application was already pending without interim protection and, during its pendency, the Trial Court issued a proclamation under Section 82 of the Code of Criminal Procedure.\n- **[fact_16]**: The appellants contended that even if a non-bailable warrant was pending, the anticipatory bail application should still be considered on its own merits and should not be dismissed solely on that ground.\n- **[fact_17]**: The State argued that issuance of a non-bailable warrant and initiation of proceedings under Section 82 of the Code of Criminal Procedure are legally permissible even when an anticipatory bail application is pending, and that in the absence of interim protection there is no legal bar to those steps.\n- **[fact_26]**: FIR No. 37 of 2018 dated 28 March 2018 had been filed against Rajiv Kumar Upadhyay and four others.\n- **[fact_27]**: FIR No. 66 of 2018 had been registered against appellant No. 4, described as the first accused, and four other family members of the appellants.\n- **[fact_28]**: Civil Suit No. 140 of 2019 had been filed against the family members of the appellants for illegal encroachment.\n- **[fact_29]**: The complaint leading to FIR No. 79 of 2020 was filed under Section 156(3) of the Code of Criminal Procedure on the directions of the Chief Judicial Magistrate, East Champaran, Motihari.\n- **[fact_30]**: On 22 February 2020 at about 8:00 a.m., Jagmati Kunwar, the grandmother of Respondent No. 4, went in front of the house of Appellant No. 2, Shashikant Upadhyay.\n- **[fact_31]**: Shashikant Upadhyay allegedly told Jagmati Kunwar that she was a witch who had made his child sick and would not be spared.\n- **[fact_33]**: Appellant No. 4 allegedly caught hold of Jagmati Kunwar's hair and asked others to bring dung.\n- **[fact_34]**: Accused Paritosh Kumar allegedly brought dung, and accused Rishu allegedly put dung into Jagmati Kunwar's mouth, causing her to vomit and fall down.\n- **[fact_35]**: When Respondent No. 2 and other witnesses went to help Jagmati Kunwar, Appellant No. 2, Shashikant Upadhyay, allegedly assaulted and abused Respondent No. 2.\n- **[fact_36]**: Co-accused Paritosh Kumar and Jishu Kumar allegedly tore the blouse of Kiran Devi and disrobed her.\n- **[fact_37]**: Co-accused Soni Devi allegedly snatched a gold chain from the complainant.\n- **[fact_38]**: Co-accused Ravikant and Appellant No. 5 allegedly tore the clothes of Jagmati Kunwar and made her half-naked.\n- **[fact_39]**: After investigation, a charge sheet was filed on 8 August 2022 only for offences under Sections 341, 323, and 504 of the Indian Penal Code, and that too only against accused Lakhpati Kunwar, accused No. 7.\n- **[fact_41]**: By order dated 20 February 2021, the Trial Court took cognizance of offences under Sections 341, 323, and 354B of the Indian Penal Code and Section 3/4 of the Daain Act and issued summons to all accused, including the appellants, fixing 12 April 2022 as the date for appearance.\n- **[fact_42]**: The accused were absent on 12 April 2022, and the Trial Court issued bailable warrants on that date.\n- **[fact_43]**: On 25 May 2022, the accused other than the appellants appeared and applied for regular bail before the Trial Court, and the Trial Court granted them regular bail.\n- **[fact_44]**: The complainant, Respondent No. 2, applied for cancellation of the bail granted to those accused, and by order dated 9 June 2022 the Trial Court issued show-cause notices to the bail grantees.\n- **[fact_45]**: After receiving notice relating to cancellation of bail, the bail grantees unsuccessfully approached the Sessions Court by filing Criminal Revision Petition No. 94 of 2022 challenging the order taking cognizance.\n- **[fact_46]**: Despite these developments, the appellants neither appeared before the Trial Court nor sought regular bail.\n- **[fact_47]**: The appellants filed a bail-cum-surrender application before the Trial Court, but withdrew it on 23 August 2022 fearing arrest.\n- **[fact_48]**: After withdrawal of the bail-cum-surrender application, the Trial Court fixed 30 August 2022 as the date for appearance of the appellants.\n- **[fact_49]**: Before the date fixed for appearance, the appellants filed an anticipatory bail application before the Sessions Court.\n- **[fact_50]**: On 6 September 2022, the appellants informed the Trial Court that the anticipatory bail matter was listed before the Sessions Court on 27 September 2022 for final hearing.\n- **[fact_51]**: The Trial Court thereafter posted the matter for the appellants' appearance to 11 October 2022.\n- **[fact_52]**: The appellants' anticipatory bail application before the Sessions Court was dismissed on 27 September 2022.\n- **[fact_53]**: On 3 November 2022, because the appellants remained absent, the Trial Court issued non-bailable warrants and listed the matter for production on 4 November 2022.\n- **[fact_54]**: Meanwhile, the appellants approached the High Court by filing CRLM No. 67668 of 2022 seeking anticipatory bail.\n- **[fact_55]**: When the appellants filed the High Court anticipatory bail application, non-bailable warrants were already pending against them.\n- **[fact_56]**: On 4 December 2022, the Trial Court was informed on behalf of the appellants that an anticipatory bail application had been filed before the High Court.\n- **[fact_57]**: The matter was then listed before the Trial Court on 4 January 2023.\n- **[fact_58]**: On 4 January 2023, because the appellants did not appear despite the earlier appearance order and despite issuance of non-bailable warrants, the Trial Court issued a proclamation under Section 82(1) of the Code of Criminal Procedure.\n- **[fact_59]**: Proceedings under Section 83 of the Code of Criminal Procedure were later initiated.\n- **[fact_60]**: On 15 March 2023, on behalf of the appellants, a request was made to postpone the process under Sections 82 and 83 of the Code of Criminal Procedure.\n- **[fact_61]**: The Trial Court proceeded to issue process under Section 83 of the Code of Criminal Procedure on the basis of the proclamation under Section 82(1).\n- **[fact_62]**: On 4 April 2023, the appellants' anticipatory bail application was dismissed, taking note of the proceedings under Sections 82 and 83 of the Code of Criminal Procedure and observing that, because of those developments, the pre-arrest bail application could not be maintained.\n- **[fact_63]**: The appellants contended that rejection of anticipatory bail without deciding it on merits, merely because a proclamation under Section 82 of the Code of Criminal Procedure had been issued, was unsustainable.\n- **[fact_64]**: The appellants further contended that they were not evading arrest or absconding, and were only exercising their legal right to seek anticipatory bail.\n- **[fact_65]**: The appellants argued that when an application for anticipatory bail is pending, issuance of a proclamation after issuance of non-bailable warrants cannot be used as a reason to refuse consideration of anticipatory bail on merits.\n- **[fact_71]**: The bailable warrants and later the non-bailable warrants issued against the appellants were neither cancelled by the Trial Court nor executed.\n- **[fact_90]**: The appellants argued that a proclamation under Section 82 of the Code of Criminal Procedure was issued by the Trial Court on 4 January 2023 and proceedings under Section 83 were initiated on 15 March 2023, while their anticipatory bail application had been filed in November 2022 and had not been listed for hearing until 4 April 2023.\n- **[fact_91]**: The appellants argued that when they filed the anticipatory bail application, none of them had been declared absconders and no proceedings under Sections 82 or 83 of the Code of Criminal Procedure had been initiated against them.\n- **[fact_108]**: The appellants failed to appear before the Trial Court after receiving summons, and they also failed to appear after bailable warrants were issued, even though their co-accused obtained regular bail after the issuance of bailable warrants.\n- **[fact_109]**: On 23 August 2022, the appellants filed an application described by them as a bail-cum-surrender application and withdrew it fearing arrest.\n- **[fact_110]**: Even after the issuance of non-bailable warrants on 3 November 2022, the appellants did not appear before the Trial Court and did not apply for regular bail after the warrants were recalled.\n- **[fact_111]**: Even after coming to know about the proclamation under Section 82 of the Code of Criminal Procedure, the appellants did not challenge it or enter appearance before the Trial Court to avoid the consequences.\n\n### Statutory Provisions\n- IPC 341\n- IPC 323\n- IPC 354\n- IPC 354B\n- IPC 379\n- IPC 504\n- IPC 506\n- IPC 149\n- CrPC 82\n- CrPC 83\n- CrPC 438\n- CrPC 167",
+      "citations": [
+        "IPC 341",
+        "IPC 323",
+        "IPC 354",
+        "IPC 354B",
+        "IPC 379",
+        "IPC 504",
+        "IPC 506",
+        "IPC 149",
+        "CrPC 82",
+        "CrPC 83",
+        "CrPC 438",
+        "CrPC 167",
+        "IPC 156"
+      ],
+      "evidence_refs": [
+        "fact_1",
+        "fact_4",
+        "fact_5",
+        "fact_6",
+        "fact_7",
+        "fact_8",
+        "fact_9",
+        "fact_15",
+        "fact_16",
+        "fact_17",
+        "fact_26",
+        "fact_27",
+        "fact_28",
+        "fact_29",
+        "fact_30",
+        "fact_31",
+        "fact_33",
+        "fact_34",
+        "fact_35",
+        "fact_36",
+        "fact_37",
+        "fact_38",
+        "fact_39",
+        "fact_41",
+        "fact_42",
+        "fact_43",
+        "fact_44",
+        "fact_45",
+        "fact_46",
+        "fact_47",
+        "fact_48",
+        "fact_49",
+        "fact_50",
+        "fact_51",
+        "fact_52",
+        "fact_53",
+        "fact_54",
+        "fact_55",
+        "fact_56",
+        "fact_57",
+        "fact_58",
+        "fact_59",
+        "fact_60",
+        "fact_61",
+        "fact_62",
+        "fact_63",
+        "fact_64",
+        "fact_65",
+        "fact_71",
+        "fact_90",
+        "fact_91",
+        "fact_108",
+        "fact_109",
+        "fact_110",
+        "fact_111"
+      ],
+      "structured_argument": {
+        "theory": "May it please the Court, I strongly oppose this application for anticipatory bail.",
+        "arguments": [
+          "This is not a case where the applicants came promptly before the court seeking protection in good faith. The record shows a deliberate and repeated failure to submit to the lawful process: summons were issued, bailable warrants followed, then non-bailable warrants, and finally a proclamation under Section 82 CrPC, with proceedings under Section 83 CrPC thereafter. Even after all of this, the applicants did not appear. They withdrew a bail-cum-surrender application fearing arrest and still chose not to surrender. That conduct speaks volumes.",
+          "The offences alleged are serious. The FIR invokes Sections 341, 323, 354, 354B, 379, 504, 506, and 149 IPC, along with Sections 3 and 4 of the Prevention of Witch (Daain) Practices Act, 1999. These are allegations of group assault, intimidation, humiliation, theft, and disrobing of women in a witch-hunting context. Such offences are not to be treated lightly, and anticipatory bail under Section 438 CrPC is an exceptional remedy, not one granted as a matter of course.",
+          "The Supreme Court in **Srikant Upadhyay v. State of Bihar, 2024 INSC 202** held that where an accused is absconding or concealing himself to avoid execution of a warrant and has been declared a proclaimed offender under Section 82 CrPC, he is ordinarily not entitled to anticipatory bail. The Court further held that a person lawfully summoned in a serious matter must submit to the authority of law and pursue lawful remedies rather than defy the process. That is exactly why this application must fail.",
+          "Here, custodial process is necessary not because of any abstract formula, but because the applicants have shown by their conduct that they will not appear voluntarily. Their repeated non-appearance after summons and warrants makes the coercive process under Sections 82 and 83 CrPC fully relevant. Granting anticipatory bail in such circumstances would undermine the authority of the court and reward evasion.",
+          "In view of the gravity of the offence, statutory presumptions, and the necessity of custodial interrogation, the prosecution humbly prays that this Anticipatory Bail application be rejected.",
+          "- **Section 438 CrPC**: anticipatory bail; an exceptional pre-arrest protection, not a matter of course.",
+          "- **Section 82 CrPC**: proclamation when an accused absconds or conceals himself to avoid execution of process.",
+          "- **Section 83 CrPC**: attachment proceedings following proclamation.",
+          "- **Section 167 CrPC**: not directly central on these facts, but relevant to custody/remand principles generally; however, the present record turns primarily on the applicants’ conduct under Sections 82/83 and their attempt to invoke Section 438 CrPC.",
+          "- **IPC 341**: wrongful restraint.",
+          "- **IPC 323**: voluntarily causing hurt.",
+          "- **IPC 354**: assault or criminal force to woman with intent to outrage modesty.",
+          "- **IPC 354B**: assault or use of criminal force to woman with intent to disrobe.",
+          "- **IPC 379**: theft.",
+          "- **IPC 504**: intentional insult with intent to provoke breach of the peace.",
+          "- **IPC 506**: criminal intimidation.",
+          "- **IPC 149**: every member of unlawful assembly guilty of offence committed in prosecution of common object.",
+          "- **Prevention of Witch (Daain) Practices Act, 1999, Sections 3 and 4**: invoked in the FIR for the alleged witch-hunting related attack and humiliation.",
+          "Here, the applicants were named in FIR No. 79 of 2020 for serious offences under IPC Sections 341, 323, 354, 354B, 379, 504, 506, and 149, along with Sections 3 and 4 of the Prevention of Witch (Daain) Practices Act, 1999. The allegations are not trivial: the complainant-side version speaks of a group attack, abuse, physical assault, disrobing of women, and humiliation by forcing dung into the mouth of an elderly woman. Such allegations directly engage the protective object of the penal provisions invoked.",
+          "Most importantly, the applicants’ own conduct disentitles them to anticipatory bail. They did not appear after summons; they remained absent even after bailable warrants; they withdrew a bail-cum-surrender application fearing arrest; they then failed to appear even after non-bailable warrants were issued; and after proclamation under Section 82 CrPC, they still did not submit to process. Proceedings under Section 83 CrPC were then initiated. This is precisely the kind of conduct that **[CASE: Srikant Upadhyay v. State of Bihar, 2024 INSC 202]** says ordinarily bars anticipatory bail.",
+          "The argument that their application was pending before the High Court when Section 82 proceedings were issued does not help them. The factual record shows a pattern of avoiding the trial court’s lawful directions, not bona fide pursuit of remedy. Once they had actual knowledge of coercive process, they still did not appear or challenge the proclamation in time. On these facts, Section 438 CrPC cannot be used as a shield against consequences of abscondence-like conduct."
+        ],
+        "evidence_refs": [
+          "fact_1",
+          "fact_4",
+          "fact_5",
+          "fact_6",
+          "fact_7",
+          "fact_8",
+          "fact_9",
+          "fact_15",
+          "fact_16",
+          "fact_17",
+          "fact_26",
+          "fact_27",
+          "fact_28",
+          "fact_29",
+          "fact_30",
+          "fact_31",
+          "fact_33",
+          "fact_34",
+          "fact_35",
+          "fact_36",
+          "fact_37",
+          "fact_38",
+          "fact_39",
+          "fact_41",
+          "fact_42",
+          "fact_43",
+          "fact_44",
+          "fact_45",
+          "fact_46",
+          "fact_47",
+          "fact_48",
+          "fact_49",
+          "fact_50",
+          "fact_51",
+          "fact_52",
+          "fact_53",
+          "fact_54",
+          "fact_55",
+          "fact_56",
+          "fact_57",
+          "fact_58",
+          "fact_59",
+          "fact_60",
+          "fact_61",
+          "fact_62",
+          "fact_63",
+          "fact_64",
+          "fact_65",
+          "fact_71",
+          "fact_90",
+          "fact_91",
+          "fact_108",
+          "fact_109",
+          "fact_110",
+          "fact_111"
+        ],
+        "sections": [
+          "IPC 341",
+          "IPC 323",
+          "IPC 354",
+          "IPC 354B",
+          "IPC 379",
+          "IPC 504",
+          "IPC 506",
+          "IPC 149",
+          "CrPC 82",
+          "CrPC 83",
+          "CrPC 438",
+          "CrPC 167",
+          "IPC 156"
+        ]
+      },
+      "grounded": true,
+      "unverified": []
+    },
+    {
+      "turn_no": 2,
+      "speaker": "defense",
+      "round_no": 1,
+      "content": "### Legal Theory\nThe prosecution case, even on its own showing, is materially weakened on proof, attribution, and mens rea; the record also shows that the more serious allegations were not carried through to the charge sheet, and the pre-arrest bail issue turns on legal consequence of process under CrPC 82/83 rather than automatic guilt.\n\n### Submissions\n1. The complainant-version alleges a group assault and humiliation, but the investigation did not sustain the full FIR narrative: the charge sheet was filed only under IPC 341, IPC 323, and IPC 504, and only against accused Lakhpati Kunwar [fact_39]. That narrowed police conclusion creates a real doubt about whether the broader allegations under IPC 354, IPC 354B, IPC 379, IPC 506, IPC 149 and the Daain Act were sufficiently supported on record. At the bail stage, such a divergence between FIR allegations and the final investigative outcome goes directly to the weight of the prosecution case.\n2. The record before the court does not contain any medical or MLC report [fact_15]. In a case alleging physical assault, forced feeding of dung, vomiting, falling down, tearing of clothes, and disrobing [fact_34] [fact_36] [fact_38], the absence of medical corroboration in the record weakens proof of actual injury, the nature of force used, and whether the incident rose to the level alleged. For the specific non-bailable and aggravated allegations, the prosecution has failed to produce on record independent corroboration of injury or forensic support, so the court cannot assume the highest version of events as established.\n3. Mens rea is also not established with the precision required by the invoked offences. Under IPC 504 and IPC 506, the prosecution must show intentional insult or criminal intimidation with the requisite intent to provoke breach of peace or cause alarm; however, the facts as recorded are largely a quarrel narrative surrounding a prior family/property dispute, including earlier FIRs and a civil suit [fact_26] [fact_27] [fact_28], which suggests possible background enmity and exaggeration rather than clear proof of specific intent. Likewise, the allegation under IPC 354B depends on proof of assault or use of criminal force with intent to disrobe; the present material contains accusations [fact_36] [fact_38], but the prosecution has not, on the record excerpt, supplied the kind of independent evidence that would eliminate reasonable doubt on attribution, common object under IPC 149, and the precise mental element of each appellant.\n4. As to the procedural posture under CrPC 438, the appellants rely on the fact that their anticipatory bail application had been filed before the later proclamation steps [fact_49] [fact_90] [fact_91]. The prosecution relies on CrPC 82 and CrPC 83, but those steps were taken after repeated non-appearance [fact_58] [fact_59]. That may justify adverse inference on conduct, yet it still does not cure the prosecution’s underlying evidentiary gaps on the substantive offences; under the binding ratio in Srikant Upadhyay v. State of Bihar, 2024 INSC 202, anticipatory bail is exceptional and ordinarily not available where a person is absconding after proclamation under CrPC 82 [srikant_para2-3], but the court must still be cautious not to convert process-default into conclusive proof of guilt.\n\n### Evidence References\n- **[fact_39]**: After investigation, a charge sheet was filed on 8 August 2022 only for offences under Sections 341, 323, and 504 of the Indian Penal Code, and that too only against accused Lakhpati Kunwar, accused No. 7.\n- **[fact_15]**: The appellants argued that the settled law on pre-arrest bail did not apply where an anticipatory bail application was already pending without interim protection and, during its pendency, the Trial Court issued a proclamation under Section 82 of the Code of Criminal Procedure.\n- **[fact_34]**: Accused Paritosh Kumar allegedly brought dung, and accused Rishu allegedly put dung into Jagmati Kunwar's mouth, causing her to vomit and fall down.\n- **[fact_36]**: Co-accused Paritosh Kumar and Jishu Kumar allegedly tore the blouse of Kiran Devi and disrobed her.\n- **[fact_38]**: Co-accused Ravikant and Appellant No. 5 allegedly tore the clothes of Jagmati Kunwar and made her half-naked.\n- **[fact_26]**: FIR No. 37 of 2018 dated 28 March 2018 had been filed against Rajiv Kumar Upadhyay and four others.\n- **[fact_27]**: FIR No. 66 of 2018 had been registered against appellant No. 4, described as the first accused, and four other family members of the appellants.\n- **[fact_28]**: Civil Suit No. 140 of 2019 had been filed against the family members of the appellants for illegal encroachment.\n- **[fact_49]**: Before the date fixed for appearance, the appellants filed an anticipatory bail application before the Sessions Court.\n- **[fact_58]**: On 4 January 2023, because the appellants did not appear despite the earlier appearance order and despite issuance of non-bailable warrants, the Trial Court issued a proclamation under Section 82(1) of the Code of Criminal Procedure.\n- **[fact_59]**: Proceedings under Section 83 of the Code of Criminal Procedure were later initiated.\n- **[fact_90]**: The appellants argued that a proclamation under Section 82 of the Code of Criminal Procedure was issued by the Trial Court on 4 January 2023 and proceedings under Section 83 were initiated on 15 March 2023, while their anticipatory bail application had been filed in November 2022 and had not been listed for hearing until 4 April 2023.\n- **[fact_91]**: The appellants argued that when they filed the anticipatory bail application, none of them had been declared absconders and no proceedings under Sections 82 or 83 of the Code of Criminal Procedure had been initiated against them.\n\n### Statutory Provisions\n- IPC 341\n- IPC 323\n- IPC 354B\n- IPC 504\n- IPC 506\n- IPC 149\n- CrPC 438\n- CrPC 82\n- CrPC 83",
+      "citations": [
+        "CrPC 82",
+        "IPC 341",
+        "IPC 323",
+        "IPC 504",
+        "IPC 354",
+        "IPC 354B",
+        "IPC 379",
+        "IPC 506",
+        "IPC 149",
+        "CrPC 438",
+        "CrPC 83"
+      ],
+      "evidence_refs": [
+        "fact_39",
+        "fact_15",
+        "fact_34",
+        "fact_36",
+        "fact_38",
+        "fact_26",
+        "fact_27",
+        "fact_28",
+        "fact_49",
+        "fact_90",
+        "fact_91",
+        "fact_58",
+        "fact_59"
+      ],
+      "structured_argument": {
+        "theory": "The prosecution case, even on its own showing, is materially weakened on proof, attribution, and mens rea; the record also shows that the more serious allegations were not carried through to the charge sheet, and the pre-arrest bail issue turns on legal consequence of process under CrPC 82/83 rather than automatic guilt.",
+        "arguments": [
+          "The complainant-version alleges a group assault and humiliation, but the investigation did not sustain the full FIR narrative: the charge sheet was filed only under IPC 341, IPC 323, and IPC 504, and only against accused Lakhpati Kunwar [fact_39]. That narrowed police conclusion creates a real doubt about whether the broader allegations under IPC 354, IPC 354B, IPC 379, IPC 506, IPC 149 and the Daain Act were sufficiently supported on record. At the bail stage, such a divergence between FIR allegations and the final investigative outcome goes directly to the weight of the prosecution case.",
+          "The record before the court does not contain any medical or MLC report [fact_15]. In a case alleging physical assault, forced feeding of dung, vomiting, falling down, tearing of clothes, and disrobing [fact_34] [fact_36] [fact_38], the absence of medical corroboration in the record weakens proof of actual injury, the nature of force used, and whether the incident rose to the level alleged. For the specific non-bailable and aggravated allegations, the prosecution has failed to produce on record independent corroboration of injury or forensic support, so the court cannot assume the highest version of events as established.",
+          "Mens rea is also not established with the precision required by the invoked offences. Under IPC 504 and IPC 506, the prosecution must show intentional insult or criminal intimidation with the requisite intent to provoke breach of peace or cause alarm; however, the facts as recorded are largely a quarrel narrative surrounding a prior family/property dispute, including earlier FIRs and a civil suit [fact_26] [fact_27] [fact_28], which suggests possible background enmity and exaggeration rather than clear proof of specific intent. Likewise, the allegation under IPC 354B depends on proof of assault or use of criminal force with intent to disrobe; the present material contains accusations [fact_36] [fact_38], but the prosecution has not, on the record excerpt, supplied the kind of independent evidence that would eliminate reasonable doubt on attribution, common object under IPC 149, and the precise mental element of each appellant.",
+          "As to the procedural posture under CrPC 438, the appellants rely on the fact that their anticipatory bail application had been filed before the later proclamation steps [fact_49] [fact_90] [fact_91]. The prosecution relies on CrPC 82 and CrPC 83, but those steps were taken after repeated non-appearance [fact_58] [fact_59]. That may justify adverse inference on conduct, yet it still does not cure the prosecution’s underlying evidentiary gaps on the substantive offences; under the binding ratio in Srikant Upadhyay v. State of Bihar, 2024 INSC 202, anticipatory bail is exceptional and ordinarily not available where a person is absconding after proclamation under CrPC 82 [srikant_para2-3], but the court must still be cautious not to convert process-default into conclusive proof of guilt."
+        ],
+        "evidence_refs": [
+          "fact_39",
+          "fact_15",
+          "fact_34",
+          "fact_36",
+          "fact_38",
+          "fact_26",
+          "fact_27",
+          "fact_28",
+          "fact_49",
+          "fact_90",
+          "fact_91",
+          "fact_58",
+          "fact_59"
+        ],
+        "sections": [
+          "CrPC 82",
+          "IPC 341",
+          "IPC 323",
+          "IPC 504",
+          "IPC 354",
+          "IPC 354B",
+          "IPC 379",
+          "IPC 506",
+          "IPC 149",
+          "CrPC 438",
+          "CrPC 83"
+        ]
+      },
+      "grounded": true,
+      "unverified": []
+    }
+  ],
+  "judge_scores": {
+    "prosecution": {
+      "legal_validity": 8,
+      "evidence_linkage": 9,
+      "logic_coherence": 8,
+      "total": 25.0,
+      "average": 8.33
+    },
+    "defense": {
+      "legal_validity": 4,
+      "evidence_linkage": 5,
+      "logic_coherence": 6,
+      "total": 15.0,
+      "average": 5.0
+    },
+    "overall": 6.67
+  },
+  "verdict": {
+    "decision": "DENIED",
+    "confidence": "low",
+    "confidence_label": "low",
+    "agreement_rate": 1.0,
+    "valid_votes": 2,
+    "total_votes": 5,
+    "agree_count": 2,
+    "laws_applied": [
+      "CrPC 438",
+      "CrPC 82",
+      "IPC 174",
+      "CrPC 83",
+      "IPC 174A",
+      "2024 INSC 202"
+    ],
+    "statutes": [
+      "CrPC 438",
+      "CrPC 82",
+      "IPC 174",
+      "CrPC 83",
+      "IPC 174A"
+    ],
+    "precedents": [
+      "2024 INSC 202"
+    ],
+    "holdings_relied": [
+      "srikant_para2-3",
+      "srikant_para8-9"
+    ],
+    "reasoning": "This application is denied because the controlling holding in Srikant Upadhyay applies: the appellants had summons, bailable warrants, non-bailable warrants, and then a proclamation under Section 82, yet still did not submit to process. The Paragraph 24 exception for extreme, exceptional cases does not assist them, since there is no challenge showing the warrant/proclamation was without jurisdiction or a malicious abuse of process; rather, the record reflects a lawful progression of coercive steps after repeated non-appearance. The individual allegations also differ as to each applicant, with specific overt acts alleged against Appellant No. 2, Appellant No. 4, and Appellant No. 5, so this is not a case of bare omnibus accusation. The pendency of the anticipatory bail application, without interim protection, does not cure defiance of process or prevent Section 82/83 steps, and the appeal therefore fails.\n\n[Record Basis: Facts relied on: fact_100, fact_106, fact_113, fact_21, fact_24, fact_31, fact_33, fact_35, fact_38, fact_41, fact_42, fact_47, fact_49, fact_53, fact_55, fact_58, fact_62, fact_80, fact_95, fact_96, fact_98; Holdings relied on: srikant_para2-3, srikant_para8-9; Open Questions: None (factual record complete)]",
+    "factors": [
+      {
+        "finding": "As against Appellant No. 2 Shashikant Upadhyay and the other appellants, the record shows repeated non-appearance after summons and warrants, withdrawal of a bail-cum-surrender application, and continued defiance even after proclamation under Section 82, bringing the case within the rule that absconding/proclaimed persons are ordinarily not entitled to anticipatory bail.",
+        "fact_ids": [
+          "fact_41",
+          "fact_42",
+          "fact_47",
+          "fact_53",
+          "fact_58",
+          "fact_62",
+          "fact_106",
+          "fact_113"
+        ],
+        "holding_ids": [
+          "srikant_para2-3",
+          "srikant_para8-9"
+        ]
+      },
+      {
+        "finding": "The individual roles alleged against the applicants are not merely omnibus: Appellant No. 2 is specifically attributed the initial abusive and assaultive conduct, Appellant No. 4 is specifically attributed catching hold of Jagmati Kunwar's hair and summoning dung, and Appellant No. 5 is specifically linked to tearing Jagmati Kunwar's clothes, so the case cannot be treated as one of vague general allegations.",
+        "fact_ids": [
+          "fact_31",
+          "fact_33",
+          "fact_35",
+          "fact_38"
+        ],
+        "holding_ids": [
+          "srikant_para8-9"
+        ]
+      },
+      {
+        "finding": "The Paragraph 24 exception does not apply because the Section 82 proclamation followed a prior summons, bailable warrants, and non-bailable warrants, the legality of the Section 82 proceedings was not challenged, and there is no material of want of jurisdiction or malicious abuse of process.",
+        "fact_ids": [
+          "fact_21",
+          "fact_24",
+          "fact_42",
+          "fact_53",
+          "fact_58",
+          "fact_95",
+          "fact_106"
+        ],
+        "holding_ids": [
+          "srikant_para2-3",
+          "srikant_para8-9"
+        ]
+      },
+      {
+        "finding": "The appellants' reliance on the pending anticipatory bail application does not help them, because the Supreme Court held that in the absence of interim protection a pending application does not bar proclamation or arrest proceedings and filing counsel-led applications is not appearance before court.",
+        "fact_ids": [
+          "fact_49",
+          "fact_55",
+          "fact_80",
+          "fact_95",
+          "fact_96",
+          "fact_98",
+          "fact_100"
+        ],
+        "holding_ids": [
+          "srikant_para8-9"
+        ]
+      }
+    ],
+    "open_questions": [],
+    "vote_tally": {
+      "DENIED": 2
+    }
+  },
+  "errors": []
+}

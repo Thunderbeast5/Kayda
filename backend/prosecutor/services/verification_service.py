@@ -135,16 +135,6 @@ class VerificationService:
             print(f"\n[WARN] Multiple successor mappings found for {act_clean} {sec_clean}: {target_list}. Selecting primary: {target_list[0]}")
 
         matched = list(unique_targets.values())[0]
-        
-        print("\n" + "=" * 50)
-        print(f"Requested:\n{act_clean} {sec_clean}")
-        print("  |")
-        print(f"Matched Node:\nLawSection({act_clean} {sec_clean})")
-        print("  |")
-        print(f"Relationship:\n{matched.get('rel', 'REPLACES')}")
-        print("  |")
-        print(f"Returned:\n{matched['act']} {matched['section']}")
-        print("=" * 50 + "\n")
 
         return {
             "act": matched["act"],
