@@ -1,0 +1,380 @@
+{
+  "case_id": "_2012_8_SCR_270",
+  "doc_meta": {
+    "source_file": "VILAS PANDURANG PAWAR & ANR..pdf",
+    "pdf_pages": 8,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment",
+      "author": "author:0"
+    },
+    "format_profile": "scr_reporter",
+    "citation_scr": "[2012] 8 SCR 270",
+    "scr_year": 2012,
+    "scr_volume": 8,
+    "scr_first_page": 270,
+    "decided_on": "2012-09-10",
+    "coram_raw": "P. SATHASIVAM AND RANJAN GOGOi, JJ.",
+    "coram_regex": [
+      "P. SATHASIVAM",
+      "RANJAN GOGOi"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "VILAS PANDURANG PAWAR & ANR.",
+    "respondent_regex": "STATE OF MAHARASHTRA & ORS.",
+    "court_regex": "Supreme Court of India",
+    "year": 2012,
+    "pre_judgment_block": "CRIMINAL APPELLATE JURISDICTION: Special Leave Petition (Crl.) No. 6432 of 2012. From the Judgment & Order dated 19.07.2012 of the High Court of Bombay Bench at Aurangabad in Criminal Application No. 3012 of 2012. Dilip Annasaheb Taur, Anil Kumar for the Appellants.",
+    "case_no": "Special Leave Petition (Crl.) No. 6432 of 2012",
+    "appeal_from_raw": "From the Judgment & Order dated 19.07.2012 of the High Court of Bombay Bench at Aurangabad in Criminal Application No. 3012 of 2012",
+    "judgment_author_regex": "P. SATHASIVAM",
+    "layout": "unnumbered_page_anchored",
+    "ocr_noise_score": 0.0008
+  },
+  "flags": [],
+  "case": {
+    "case_name": "Vilas Pandurang Pawar & Anr. v. State of Maharashtra & Ors.",
+    "petitioner": "Vilas Pandurang Pawar & Anr.",
+    "respondent": "State of Maharashtra & Ors.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "P. SATHASIVAM",
+      "RANJAN GOGOi"
+    ],
+    "judgment_author": "P. SATHASIVAM",
+    "procedural_stage": "pre_arrest",
+    "offence_types": [
+      "atrocity",
+      "assault"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "The case involves a dispute over rainwater between neighbors where the complainant alleges that the accused abused and assaulted the complainant and their family by referring to their caste. An FIR was filed under various IPC sections and Section 3(1)(x) of the SC/ST Act. The accused sought anticipatory bail, but the session and high courts rejected their application, leading to a special leave petition to the Supreme Court.",
+    "lower_court_outcome": "Anticipatory bail rejected by Sessions Court and partly by High Court.",
+    "disposition": "SLP dismissed",
+    "statutes": [
+      {
+        "act": "CrPC 1973",
+        "section": "438",
+        "how_used": "interpreted",
+        "note": "Section 438 of CrPC is not applicable for offences under SC/ST Act."
+      },
+      {
+        "act": "Scheduled Castes and Scheduled Tribes (Prevention of Atrocities) Act 1989",
+        "section": "18",
+        "how_used": "interpreted",
+        "note": "Section 18 creates a bar for anticipatory bail when offences under SC/ST Act are alleged."
+      }
+    ],
+    "issues": [
+      {
+        "question": "Is an accused charged under IPC and SC/ST Act entitled to anticipatory bail under Section 438 CrPC?",
+        "short_answer": "No",
+        "anchors": [
+          "p272.1",
+          "p276.1",
+          "p277.10"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "Section 18 of the SC/ST Act creates a bar for invoking Section 438 CrPC for anticipatory bail in offences under the SC/ST Act.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [
+          "Scheduled Castes and Scheduled Tribes (Prevention of Atrocities) Act 1989",
+          "CrPC 1973"
+        ],
+        "anchors": [
+          "p276.1",
+          "p277.10"
+        ],
+        "quote": "Section 18 of the SC/ST Act creates a bar for invoking Section 438 of the Code.",
+        "tags": [
+          "special_statute_bar",
+          "sc_st_atrocities"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition discusses the bar created by Section 18 of the SC/ST Act against anticipatory bail under Section 438 CrPC, which is a binding legal principle established by the Supreme Court.",
+        "authorities": []
+      },
+      {
+        "id": "p2",
+        "text": "Courts must verify the averments in the complaint to determine if an offence under Section 3(1) of the SC/ST Act is prima facie made out before deciding on anticipatory bail.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [
+          "Scheduled Castes and Scheduled Tribes (Prevention of Atrocities) Act 1989"
+        ],
+        "anchors": [
+          "p276.6",
+          "p276.7"
+        ],
+        "quote": "a duty is cast on the court to verify the averments in the complaint and to find out whether an offence under Section 3(1) of the SC/ST Act has been prima facie made out.",
+        "tags": [
+          "sc_st_atrocities",
+          "prima_facie_weak",
+          "anticipatory_vs_regular"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition emphasizes the necessity for courts to verify the complaint's averments under the SC/ST Act before deciding on anticipatory bail, indicating a binding legal principle regarding the prima facie requirement in such cases.",
+        "authorities": []
+      },
+      {
+        "id": "p3",
+        "text": "When an offence is registered under the SC/ST Act, courts should not engage in critical analysis of evidence during anticipatory bail proceedings.",
+        "speaker": "supreme_court",
+        "kind": "obiter",
+        "is_holding": false,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p276.7"
+        ],
+        "quote": "Court is not expected to indulge in critical analysis of the evidence on record.",
+        "tags": [
+          "sc_st_atrocities",
+          "anticipatory_vs_regular",
+          "presumption_of_innocence"
+        ],
+        "binding_level": "persuasive",
+        "tag_reasoning": "The proposition discusses the handling of anticipatory bail in cases under the SC/ST Act, emphasizing that courts should not critically analyze evidence at this stage, which aligns with the principles of the SC/ST Act and anticipatory bail. However, it is presented as obiter, making it persuasive rather than binding.",
+        "authorities": []
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The appellants argued that despite the bar under Section 18 of the SC/ST Act, courts have previously granted anticipatory bail under similar circumstances.",
+        "outcome": "rejected",
+        "anchors": [
+          "p277.1"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "Dr. R.K. Sangwan and Anr. vs State",
+        "citation": "2009 (112) DRJ 473(08)",
+        "treatment": "referred_to",
+        "used_for": "Despite specific bar, anticipatory bail has been granted previously.",
+        "where": "p277.1"
+      },
+      {
+        "name": "Ramesh Prasad Bhanja and Ors. vs. State of Orissa",
+        "citation": "1996 Cri. L.J. 2743",
+        "treatment": "referred_to",
+        "used_for": "Courts have granted anticipatory bail under similar allegations.",
+        "where": "p277.1"
+      }
+    ]
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "unsupported",
+      "favors_correct": false,
+      "note": "The anchor text does not explicitly create a bar for invoking Section 438 CrPC for anticipatory bail; it only states that the petitioners are not entitled to anticipatory bail."
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    }
+  },
+  "needs_review": [
+    "p1: quote not found in its anchors",
+    "p1: verifier says unsupported, favors_correct=False - The anchor text does not explicitly create a bar for invoking Section 438 CrPC for anticipatory bail; it only states that the petitioners are not entitled to anticipatory bail."
+  ],
+  "paragraphs": {
+    "p272.1": {
+      "text": "c P. SATHASIVAM, J. 1. The short question to be decided in this petition is whether an accused charged with various offences under the Indian Penal Code, 1860 (in short 'IPC') along with the provisions of the Scheduled Castes and the Scheduled Tribes (Prevention of Atrocities) Act, 1989 (in short 'the SC/ST Act') is entitled for anticipatory bail under Section 438 of the Code of Criminal Procedure, 1973 (in short 'the Code').",
+      "page_start": 272,
+      "page_end": 272
+    },
+    "p272.2": {
+      "text": "2. In the complaint filed by Savita Madhav Akhade - Respondent No.3 herein, it has been alleged that she has been residing with her family members at Khandeshwari, Taluq Karjat, Ahmednagar, Maharashtra and earning their livelihood from agricultural work. It is further alleged that the complainant is having an agricultural land adjacent to the agricultural land of one Balu Bhanudas Pawar and Arun Bhanudas Pawar. On 15.06.2012, the complainant allowed the rain water, which was accumulated, to flow into the field of Balu Bhanudas Pawar. When the complainant and her husband was standing on S.T. stand for going to Karjat, at that time, Balu Bhanudas Pawar came there and abused them on caste on account of the rain water flowing from the agricultural land of the complainant to his land. The complainant has also alleged that after their return to home, the petitioner along with other co-accused persons gathered at their house and they again abused them on their caste and assaulted the complainant and her family members MAHARASHTRA [P. SATHASIVAM, J.] by using sticks, stones, fighters etc. Thereafter, on the same day, an FIR was registered being No. 139/2012 at Karjat P.S., Ahmednagar, Maharashtra.",
+      "page_start": 272,
+      "page_end": 273
+    },
+    "p273.1": {
+      "text": "3. The petitioners along with other co-accused filed an application for anticipatory bail under Section 438 of the Code being Criminal Miscellaneous Application No. 712 of 2012 before the Court of Sessions Judge, Ahmednagar. By order dated 04.07.2012, the Additional Sessions Judge rejected their application for anticipatory bail.",
+      "page_start": 273,
+      "page_end": 273
+    },
+    "p273.2": {
+      "text": "4. Aggrieved by the order of Sessions Judge, the petitioners filed Criminal Application No. 3012 of 2012 before the High Court of Bombay, Bench at Aurangabad. By impugned judgment and order dated 19.07.2012, the High Court, while rejecting the anticipatory bail application of the present petitioners, allowed the anticipatory bail to 13 accused out of 15. Being aggrieved, the petitioners approached this court by filing special leave petition under Article 136 of the Constitution of India.",
+      "page_start": 273,
+      "page_end": 273
+    },
+    "p273.3": {
+      "text": "5. Heard Mr. Dilip Annasaheb Taur, learned counsel for the petitioners.",
+      "page_start": 273,
+      "page_end": 273
+    },
+    "p273.4": {
+      "text": "6. Taking note of the fact that the complaint not only refers to various offences under !PC but also under Section 3(1)(x) of the SC/ST Act, we posed a question to the counsel by drawing his attention to Section 18 of the SC/ST Act as to how the petitioners are entitled to anticipatory bail. It is useful to reproduce Section 18 of the SC/ST Act which reads as under: \"18. Section 438 of the Code not to apply to persons committing an offence under the Act.- Nothing in section 438 of the code shall apply in relation to any case involving the arrest of any person on an accusation of having committed an offence under this Act.\"",
+      "page_start": 273,
+      "page_end": 273
+    },
+    "p273.5": {
+      "text": "reading of the above provision makes it clear that Section 438 of the Code is not applicable to persons committing an offence under the SC/ST Act. In the complaint, the complainant has specifically averred that she and her family members were insulted by the petitioners by mentioning her caste and also assaulted them by saying \"Beat the Mahar so that, they should not live in the village. \"",
+      "page_start": 273,
+      "page_end": 274
+    },
+    "p274.1": {
+      "text": "7. In order to understand the grievance of the Complainant and the claim of the petitioners, it is useful to extract the complaint dated 15.06.2012.",
+      "page_start": 274,
+      "page_end": 274
+    },
+    "p274.2": {
+      "text": "\"COMPLAINT c I. Sau. Savita Madhav Akhade, Age-45 years, Occu. Household, Rio Takali-Khandeshwari. Tq. Karjat, (Caste- Hindu Mahar)",
+      "page_start": 274,
+      "page_end": 274
+    },
+    "p274.3": {
+      "text": "I am giving in writing the complaint in the Police Station that, I am residing on the above place with hushand - Madhav, my sons Ramesh, Umesh jointly. My husband is in service in the Beed district. Near my house, Dadasaheb Paraji Akhade, Sadashiv Paraji Akhade and Deelip Paraji Akhade are residing with their families and doing the agricultural work. There is my agricultural land in Khandeshwari area. Near my agricultural land, there is agricultural land of Balu Bhanudas Pawar and Arun Bhanudas Pawar and they are cultivating their lands. On 15.06.2012, we allowed the rain water to flow the lower side and that flow is running from previously.",
+      "page_start": 274,
+      "page_end": 274
+    },
+    "p274.4": {
+      "text": "Today on dated 15.06.2012 at about 7.00 O'Clock, my husband stood on Takali-Khandeshwari S.T. stand for going to Ka~at, at that time, Balu Bhanudas Pawar came there and said my husband that, \"Mahardya\", I will not be allowed your water to come in my field and started beating him. After that, the people, who gathered along with Shivaji Anna Thombe has rescued the quarrel. After that, my husband came at home. After we came at home, while I was fetching the water from water tank, the TATA ACC MAHARASHTRA [P. SATHASIVAM, J.] belongs to Vilas Pawar in that all the people, namely, Balu Bhanudas Pawar, Vilas Pandurang Pawar, Ravi Dada Pawar, Arun Bhanudas, Pawar, Shrirang Pawar, Deepak Bhagade, Parmeshwar lndrajit Phadtare, Sudhir Chhagan Phadtare, Satish Namdeo Kirdat, Raghunath Tukaram Savant, Vitthal Raghunath Savant, Sandeep Raghunath Savant, Aba Kaka Phadtare, Dattatray Namdeo Pawar, Nephew of Balu Pawar, all Rio Takali Khandeshwari (Pawar Vasti) came there and said that, beat the Mahar so that, they should not live in the village, they are behaving arrogantly, saying that, they started beating with the weapons in hand like sticks, stones, fighters. In that quarrel, I myself, Dada Paraji Akhade, Sadashiv Paraji Akhade, Kundlik Gaikwad, Ramesh Akhade, Umesh Akhade, Rahul Akhade, Asru Akhade, Deelip Akhade are beaten at the hands of these people, so also, Nanda Deelip Akhade, Chhabubai Dadasaheb Akhade including myself were snatched on corner and beaten by these people.",
+      "page_start": 274,
+      "page_end": 275
+    },
+    "p275.1": {
+      "text": "Thereafter, Vilas Pandurang Pawar told to Raghunath Tukaram Savant to help them. Thereafter, we phoned to police and the quarrel is stopped after the Police came on the spot.",
+      "page_start": 275,
+      "page_end": 275
+    },
+    "p275.2": {
+      "text": "Therefore, on 15.06.2012, near about 7.00 to 7.30 A.M. the persons namely, Balu Bhanudas Pawar, Vilas Pandurang Pawar, Ravi Dada Pawar, Arun Bhanudas Pawar, Shrirang Pawar, Deepak Bhagade, Parmeshwar lndrajit Phadtare, Sudhir Chhagan Phadtare, Salish Namdeo Kirdat, Raghunath Tukaram Savant, Vitthal Raghunath Savant, Sandeep Raghunath Savant, Aba Kaka Phadtare, Dattatray Namdeo Pawar, Nephew of Balu Pawar, name is not known, all Rio Takali Khandeshwari have gathered unlawful assembly and assaulted the complainant and her relatives by means of sticks, stones, fighters and .also abused on caste by saying, \"Beat the Mahar so that, they should not live in the village\", on the ~ground that, the rain water is allowed to flow in the filed of Balu Bhanudas Pawar. I and others have sustained injuries. We want to go in Hospital.",
+      "page_start": 275,
+      "page_end": 276
+    },
+    "p276.1": {
+      "text": "My complaint is read over to me and it is true as stated by me.",
+      "page_start": 276,
+      "page_end": 276
+    },
+    "p276.2": {
+      "text": "Before Hence, written Sd!- Date: 1.5/06/12 Police Station Officer, Karjat Police Station.",
+      "page_start": 276,
+      "page_end": 276
+    },
+    "p276.3": {
+      "text": "c Sent to:",
+      "page_start": 276,
+      "page_end": 276
+    },
+    "p276.4": {
+      "text": "Hon'ble JMFC Karjat.",
+      "page_start": 276,
+      "page_end": 276
+    },
+    "p276.5": {
+      "text": "Sdl- Police Station Officer Karjat Police Station.\"",
+      "page_start": 276,
+      "page_end": 276
+    },
+    "p276.6": {
+      "text": "A perusal of the complaint shows that the petitioners and other accused persons abused the complainant and her husband by calling their caste (Mahar) and assaulted them for their action of letting rain water to their field. 8. Section 18 of the SC/ST Act creates a bar for invoking Section 438 of the Code. However, a duty is cast on the court to verify the averments in the complaint and to find out whether an offence under Section 3(1) of the SC/ST Act has been prima facie made out. In other words, if there is a specific averment in the complaint, namely, insult or intimidation with intent to humiliate by calling with caste name, the accused persons are not entitled to anticipatory bail.",
+      "page_start": 276,
+      "page_end": 276
+    },
+    "p276.7": {
+      "text": "9. The scope of Section 18 of the SC/ST Act read with Section 438 of the Code is such that it creates a specific bar in the grant of anticipatory bail. When an offence is registered against a person under the provisions of the SC/ST Act, no Court shall entertain application for anticipatory bail, unless it prima facie finds tha! such an offence is not made out. MAHARASHTRA [P. SATHASIVAM, J.] Moreover, while considering the application for bail, scope for app-reciation of evidence and other material on record is limited. Court is not expected to indulge in critical analysis of the evidence on record. When a provision has been enacted in the Special Act to protect the persons who belong to the Scheduled Castes and the Scheduled Tribes and a bar has been imposed in granting bail under Section 438 of the Code, the provision in the Special Act cannot be easily brushed aside by elaborate discussion on the evidence.",
+      "page_start": 276,
+      "page_end": 277
+    },
+    "p277.1": {
+      "text": "· ' 10. Learned counsel appearing for the petitioners, relying on the decisions of the Delhi High· Court in• of. R.K. Sangwan. c & Anr. vs. State, 2009 (112rDRJ 473 (DB) and in Crl. M.C. No. 386612008 and Crl. M.C. No. 122212009 titled M.A~ Rashid vs. Gopal Cha'ncira.decided'on 23.03.2012 and a decision of the .Orissa High Court in Ramesh Prasad Bhanja & Ors. vs. State of Onssa, 1996 Cri. L.J. 2743, submitted that in spite of the specific bar under Section 438 of the Code, the Courts have granted anticipatory bail to the accused who were ::·1, charged under Section 3(1) of the SC/ST Act. ·· ii;",
+      "page_start": 277,
+      "page_end": 277
+    },
+    "p277.2": {
+      "text": "I .",
+      "page_start": 277,
+      "page_end": 277
+    },
+    "p277.3": {
+      "text": ".",
+      "page_start": 277,
+      "page_end": 277
+    },
+    "p277.4": {
+      "text": ".",
+      "page_start": 277,
+      "page_end": 277
+    },
+    "p277.5": {
+      "text": ".",
+      "page_start": 277,
+      "page_end": 277
+    },
+    "p277.6": {
+      "text": "·1:",
+      "page_start": 277,
+      "page_end": 277
+    },
+    "p277.7": {
+      "text": "-. . · 11 :, In view of the 'specific statutory bar. provided under i( Section 18 of the SC/ST Act, the above decisions relied on by .. the petitioners cannot be 'taken as a precedent and as discussed above, it depends upoJl the nature of the averments m'ade in the complaint. • · ' · · · · · · · · :.",
+      "page_start": 277,
+      "page_end": 277
+    },
+    "p277.8": {
+      "text": "···· .",
+      "page_start": 277,
+      "page_end": 277
+    },
+    "p277.9": {
+      "text": "~ . '·- ~ ;·, - - \" ' - .",
+      "page_start": 277,
+      "page_end": 277
+    },
+    "p277.10": {
+      "text": "' ' 12. In view of the above discussion and in the light of the, - specific averments in the complaint made by the complainant- . respondent No.3 herein, we are of the view that Section 18 of·• the· SC/ST Actis applicable to the case on hand and in view of the same; the petitioners are not entitled to anticipatory bail I under Section 438 of the Code. Accordingly, the special leave I petition is dismissed. However, it is made clear that the present conclusion is confined only to the disposal of this petition and the trial Court is free to decide the case on merits. I.I \" t \"",
+      "page_start": 277,
+      "page_end": 277
+    },
+    "p277.11": {
+      "text": "K.K.T.",
+      "page_start": 277,
+      "page_end": 277
+    },
+    "p277.12": {
+      "text": "SLP dismissed.",
+      "page_start": 277,
+      "page_end": 277
+    },
+    "p277.13": {
+      "text": "'ii I",
+      "page_start": 277,
+      "page_end": 277
+    }
+  },
+  "headnote_raw": " \nVILAS PANDURANG PAWAR & ANR.\nv.\nSTATE OF MAHARASHTRA & ORS.\n(SLP (Crl.) No. 6432 of 2012)\nSEPTEMBER 10, 2012\n[P. SATHASIVAM AND RANJAN GOGOi, JJ.]\nCode of Criminal Procedure, 1973 -\ns. 438 -\nAnticipatory bail - Entitlement - To the accused charged with\noffences under /PC with provisions under Scheduled Castes\nand Scheduled Tribes (Prevention of Atrocities) Act, 1989 -\nHeld: s. 18 of the Act creates a bar invoking s. 438 - When\nan offence is registered under provisions of the Act, no court\nshall entertain anticipatory bail, unless it prima facie finds that\nsuch an offence is not made out - In view of the averments\nin the complaint in the present case, s. 18 is applicable -\nHence, accused not entitled to anticipatory bail - Scheduled\nCastes and Scheduled Tnbes (Prevention of Atrocities) Act,\n1989 - ss. 3(1) and 18 - Penal Code, 1860 - Ball.\nThe question for consideration in the present petition\nwas whether an accused charged with various offences\nunder IPC along with the provisions of the Scheduled\nCastes and the Scheduled Tribes (Prevention of\nAtrocities) Act, 1989 is entitled for anticipatory bail under\nSection 438 Cr.P.C.\nDismissing the petition, the Court\nHELD: 1. Section 18 of Scheduled Castes and\nScheduled Tribes (Prevention of Atrocities) Act, 1989\ncreates a bar for invoking Section 438 Cr.P.C. However,\na duty is cast on the court to verify the averments in the\ncomplaint and to find out whether an offence u/s. 3(1) of\nthe Act has been prima facie made out In other words, if\n \nMAHARASHTRA\nthere is a specific averment in the complaint, namely,\ninsult or intimidation with intenf to humiliate by calling\nwith caste name, the accused persons are not entitled to\nanticipatory bail. When an offence is registered against\na person under the provisions of the Act, no Court shall\nentertain application for anticipatory bail, unless it prima\nfacie finds that such an offence is not made out.\nMoreover, while considering the application for bail,\nscope for appreciation of evidence and other material on\nrecord is limited. Court is not expected to indulge in\ncritical analysis of the evidence on record. When a c\nprovision has been enacted in the Special Act to protect\nthe persons who belong to the Scheduled Castes and the\nScheduled Tribes and a bar has been imposed in\ngranting bail u/s. 438 Cr.P.C., the provision in the Special\nAct cannot be easily brushed aside by elaborate\n0\ndiscussion on the evidence. [Paras 8 and 9] [276-E-H;\n277-A-8]\n2. In the complaint, the complainant has specifically\naverred that she and her family members were insulted\nby the petitioners by mentioning her caste and also\nassaulted them by saying \"Beat the Mahar so that, they\nshould not live in the village.\" In the light of the specific\naverments in the complaint made by the complainant-\nrespondent No.3, Section 18 of the Act is applicable to\nthe case on hand and in view of the same, the petitioners\nare not entitled to anticipatory bail u/s. 438 Cr.P.C. [Paras\n6 and 12] [27 4-A-8; 277-F-G]\nDr. R.K. Sangwan and Anr. vs. State 2009 (112) ORJ\n473(08); Ramesh Prasad Bhanja and Ors. vs. State of Orissa\n1996 Cri. L.J. 2743 - referred to.\nCase Law Reference:\n2009 (112) ORJ 473(08)\nReferred to\nPara 10\n \n1996 Cri. L.J. 2743\nReferred to\nPara 10\n"
+}

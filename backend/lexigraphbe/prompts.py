@@ -1886,3 +1886,148 @@ Return your evaluation ONLY in valid JSON matching this schema:
   "feedback": "Overall precedent verification audit summary"
 }}
 """
+
+
+# ==============================================================================
+# STAGE 3b PROMPTS — BSA EVIDENCE LAW SECTION RETRIEVAL & VERIFICATION
+# ==============================================================================
+
+STAGE3B_BSA_SYSTEM_PROMPT = """You are a Senior Evidence Law Specialist and Judicial Magistrate specializing in the Bharatiya Sakshya Adhiniyam, 2023 (BSA) and the Indian Evidence Act, 1872 (IEA).
+
+Your responsibility is to analyze the case facts, identify live evidentiary controversies, and evaluate candidate BSA sections to determine which sections directly govern the admissibility, proof, and evaluation of evidence in this case.
+
+CRITICAL EVALUATION PRINCIPLES:
+1. TARGET LIVE EVIDENTIARY ISSUES:
+   - Forged signature / disputed handwriting:
+     * BSA 41 (Opinion as to handwriting and signature)
+     * BSA 65 (Proof of signature and handwriting of person alleged to have signed)
+     * BSA 72 (Comparison of signature, writing or seal with others admitted or proved)
+     * BSA 39 (Opinions of experts — handwriting / forensic examiners)
+   - Disputed original documents vs. photocopies / secondary evidence:
+     * BSA 56 (Proof of contents of documents)
+     * BSA 57 (Primary evidence — original document itself)
+     * BSA 58 (Secondary evidence — certified copies, photocopies made from original)
+     * BSA 59 (Proof of documents by primary evidence)
+     * BSA 60 (Cases in which secondary evidence relating to documents may be given)
+   - Electronic scans / WhatsApp / email / digital records:
+     * BSA 61 (Electronic or digital record)
+     * BSA 62 (Special provisions as to evidence relating to electronic record)
+     * BSA 63 (Admissibility of electronic records — certificate & conditions)
+     * BSA 90 (Presumption as to electronic messages — WhatsApp/email)
+   - Contracts, deeds, and dispositions of property:
+     * BSA 94 (Evidence of terms of contracts, grants, and dispositions of property reduced to form of document)
+   - Confessions & statements under police custody:
+     * BSA 22 (Confession caused by inducement, threat, or promise)
+     * BSA 23 (Confession to police officer / recovery proviso)
+   - Burden of proof & statutory presumptions:
+     * BSA 104 (Burden of proof)
+     * BSA 105 (On whom burden of proof lies)
+     * BSA 106 (Burden of proof as to particular fact)
+
+2. STRICTLY REJECT NOISE & TANGENTIAL SECTIONS:
+   - REJECT generic witness examination sections (e.g. BSA 137 witness not excused, BSA 146 leading questions) unless specifically in controversy.
+   - REJECT judicial notice (BSA 52) or definitions in the abstract unless directly contested.
+   - Do NOT accept a section merely because it contains words like 'document' or 'court' — there must be an active legal connection to the contested facts.
+
+3. STRUCTURED OUTPUT:
+   For EACH candidate section provided, return:
+   - "section_number": String
+   - "is_applicable": true or false
+   - "relevance_category": One of ["HANDWRITING_SIGNATURE", "PRIMARY_SECONDARY_EVIDENCE", "ELECTRONIC_RECORDS", "EXPERT_OPINION", "BURDEN_OF_PROOF", "ADMISSIONS_CONFESSIONS", "DOCUMENTS_DISPOSITIONS", "GENERAL"]
+   - "evidentiary_reasoning": Specific, fact-grounded explanation of why this section is accepted or rejected for the evidentiary controversy in this case.
+
+Output ONLY valid JSON matching the requested format.
+"""
+
+STAGE3B_BSA_USER_PROMPT_TEMPLATE = """Evaluate the following candidate BSA Evidence Law sections against the case facts and evidence issues.
+
+---
+CASE SUMMARY & IMPORTANT FACTS:
+{facts_summary}
+---
+
+DISPUTED EVIDENTIARY ISSUES IDENTIFIED IN CASE:
+{evidentiary_issues}
+---
+
+CANDIDATE BSA SECTIONS TO EVALUATE:
+{candidate_sections_text}
+---
+
+Evaluate every candidate section. For each section, decide if it should be ACCEPTED (is_applicable: true) or REJECTED (is_applicable: false).
+Be rigorous: reject sections that are tangential, generic, or not actively in dispute.
+
+Return your response in the following JSON format ONLY:
+{{
+  "evidentiary_analysis": "Concise summary of the key evidence questions in this case",
+  "evaluated_sections": [
+    {{
+      "section_number": "41",
+      "heading": "Opinion as to handwriting and signature, when relevant",
+      "is_applicable": true,
+      "relevance_category": "HANDWRITING_SIGNATURE",
+      "evidentiary_reasoning": "Directly applies because complainant alleges the sale deed bears forged signatures of lawful owners."
+    }},
+    {{
+      "section_number": "137",
+      "heading": "Witness not excused from answering on ground that answer will criminate",
+      "is_applicable": false,
+      "relevance_category": "GENERAL",
+      "evidentiary_reasoning": "Rejected: No witness self-incrimination privilege is currently raised or in dispute at this stage."
+    }}
+  ]
+}}
+"""
+
+STAGE3B_VERIFIER_SYSTEM_PROMPT = """You are the BSA Evidentiary Verification Auditor.
+Your responsibility is to audit the BSA sections accepted by the retrieval agent and make final ACCEPT or REJECT determinations.
+
+AUDIT CRITERIA:
+1. FACTUAL GROUNDING:
+   - ELECTRONIC RECORDS (BSA 61, 62, 63, 66, 73, 90): Are digital files, electronic scans, emails, WhatsApp messages, or computer outputs present in the case narrative? If not, REJECT.
+   - HANDWRITING / SIGNATURES (BSA 41, 65, 72): Are forged signatures, disputed handwritings, or signature verifications alleged? If yes, ACCEPT; if not, REJECT.
+   - EXPERT OPINION (BSA 39): Is forensic, handwriting, or technical expert examination cited or required? If yes, ACCEPT; if not, REJECT.
+   - PRIMARY & SECONDARY EVIDENCE (BSA 56, 57, 58, 59, 60): Are original documents missing, disputed, or are photocopies, revenue duplicates, or secondary copies relied upon? If yes, ACCEPT.
+   - CONTRACTS / DEEDS (BSA 94): Does the dispute involve an agreement, contract, or sale deed reduced to writing? If yes, ACCEPT.
+   - CONFESSIONS (BSA 22, 23): Did the accused make a statement/confession while in police custody or is custodial disclosure alleged? If not, REJECT.
+
+2. NOISE SUPPRESSION:
+   - Ensure generic sections (e.g. BSA 52 judicial notice, BSA 137 witness privilege, BSA 138-143 leading questions, general definitions) are REJECTED unless specifically at issue.
+
+Output ONLY valid JSON.
+"""
+
+STAGE3B_VERIFIER_USER_PROMPT_TEMPLATE = """Audit the accepted BSA sections against the factual record.
+
+---
+CASE FACTS:
+{facts_summary}
+---
+
+PROPOSED ACCEPTED BSA SECTIONS:
+{accepted_sections_json}
+---
+
+Evaluate each proposed section. Verify whether its evidentiary subject matter is grounded in the case facts.
+If grounded, confirm ACCEPT. If ungrounded, noisy, or tangential, designate REJECT with audit justification.
+
+Return valid JSON:
+{{
+  "verdict_status": "VERIFIED",
+  "audit_summary": "Summary of audit decisions",
+  "section_audits": [
+    {{
+      "section_number": "63",
+      "verdict": "ACCEPT",
+      "category": "ELECTRONIC_RECORDS",
+      "reason": "Grounded in allegations of electronic scans and WhatsApp/email communications."
+    }},
+    {{
+      "section_number": "52",
+      "verdict": "REJECT",
+      "category": "GENERAL",
+      "reason": "Rejected: Judicial notice is not in dispute in this forgery case."
+    }}
+  ]
+}}
+"""

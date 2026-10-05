@@ -1,0 +1,286 @@
+{
+  "case_id": "_2025_3_SCR_205",
+  "doc_meta": {
+    "source_file": "Case concerning anticipatory bail in alleged cheating under pretext of marriage.pdf",
+    "pdf_pages": 3,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:d_month_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment"
+    },
+    "format_profile": "scr_modern",
+    "citation_neutral": "2025 INSC 246",
+    "neutral_year": 2025,
+    "citation_scr": "[2025] 3 SCR 205",
+    "scr_year": 2025,
+    "scr_volume": 3,
+    "scr_first_page": 205,
+    "decided_on": "2025-02-18",
+    "coram_raw": "Bela M. Trivedi and Prasanna B. Varale, JJ.",
+    "coram_regex": [
+      "Bela M. Trivedi",
+      "Prasanna B. Varale"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "Hitesh Umeshbhai Mashru",
+    "respondent_regex": "The State of Gujarat & Anr.",
+    "court_regex": "Supreme Court of India",
+    "year": 2025,
+    "reporter_trailer": "Result of the case: Appeal allowed. Headnotes prepared by: Divya Pandey",
+    "result_of_case": "Appeal allowed.",
+    "pre_judgment_block": "CRIMINAL APPELLATE JURISDICTION: Criminal Appeal No. 812 of 2025 From the Judgment and Order dated 23.08.2024 of the High Court of Gujarat at Ahmedabad in CRMA No. 16462 of 2024 Appearances for Parties Virat Popat, Lokesh Kumar Choudhary, Advs. for the Appellant Prashant Bhagwati, Ms. Swati Ghildiyal, Ms. Aastha Mehta, Anshuman Srivastava, Advs. for the Respondents. 206\b Digital Supreme Court Reports Judgment / Order of the Supreme Court",
+    "case_no": "Criminal Appeal No. 812 of 2025",
+    "appeal_from_raw": "From the Judgment and Order dated 23.08.2024 of the High Court of Gujarat at Ahmedabad in CRMA No. 16462 of 2024",
+    "issue_for_consideration": "Appellant, if entitled to anticipatory bail.",
+    "keywords": [
+      "Anticipatory bail",
+      "Protection against arrest",
+      "Cheated under the pretext of marriage"
+    ],
+    "acts_listed": [
+      "Penal Code, 1860",
+      "Code of Criminal Procedure, 1973"
+    ],
+    "layout": "numbered_paras",
+    "ocr_noise_score": 0.0
+  },
+  "flags": [
+    "author_not_found"
+  ],
+  "case": {
+    "case_name": "Hitesh Umeshbhai Mashru v. The State of Gujarat & Anr.",
+    "petitioner": "Hitesh Umeshbhai Mashru",
+    "respondent": "The State of Gujarat & Anr.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "Bela M. Trivedi",
+      "Prasanna B. Varale"
+    ],
+    "judgment_author": null,
+    "procedural_stage": "pre_arrest",
+    "offence_types": [
+      "cheating",
+      "sexual_offence"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "This appeal addresses the denial of anticipatory bail by the Gujarat High Court to an appellant facing allegations under Sections 493 and 376(2)(n) of the IPC, for allegedly deceiving the complainant with a false promise of marriage. The parties had a customary, though unregistered, marriage and the appellant later participated in the investigation under arrest protection. With both the investigation's completion and filing of a charge-sheet, the Supreme Court reviewed anticipatory bail granting conditions.",
+    "lower_court_outcome": "Application for anticipatory bail rejected by Gujarat High Court.",
+    "disposition": "Appeal allowed, granting anticipatory bail.",
+    "statutes": [
+      {
+        "act": "Penal Code, 1860",
+        "section": "493",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "Penal Code, 1860",
+        "section": "376(2)",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "Code of Criminal Procedure, 1973",
+        "section": "438",
+        "how_used": "applied",
+        "note": null
+      }
+    ],
+    "issues": [
+      {
+        "question": "Whether the appellant is entitled to anticipatory bail?",
+        "short_answer": "Yes, subject to conditions.",
+        "anchors": [
+          "P2",
+          "P8"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "The completion of investigation and filing of a charge-sheet can justify the grant of anticipatory bail.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [
+          "no other cases pending against appellant",
+          "compliance with conditions imposed by Trial Court"
+        ],
+        "statutes": [
+          "Code of Criminal Procedure, 1973"
+        ],
+        "anchors": [
+          "P7",
+          "P8"
+        ],
+        "quote": "the charge-sheet has already been filed but, without expressing any opinion on the merits of the case, we are inclined to accept the present appeal.",
+        "tags": [
+          "bail_not_jail",
+          "presumption_of_innocence",
+          "stage_of_investigation"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition emphasizes the principle that the completion of investigation and filing of a charge-sheet can justify the grant of anticipatory bail, aligning with the presumption of innocence and the general rule that bail should be granted unless there are compelling reasons for detention.",
+        "authorities": []
+      },
+      {
+        "id": "p2",
+        "text": "The state may file for cancellation of bail if conditions imposed by the Trial Court are violated.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [
+          "Code of Criminal Procedure, 1973"
+        ],
+        "anchors": [
+          "P9"
+        ],
+        "quote": "the respondent-State shall be at liberty to file appropriate application seeking cancellation of bail.",
+        "tags": [
+          "bail_not_jail",
+          "presumption_of_innocence",
+          "previous_bail_misuse"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition emphasizes the state's ability to file for cancellation of bail if conditions are violated, which aligns with the principles of bail not being a right but subject to conditions, and the presumption of innocence until proven guilty. The mention of conditions implies a concern for previous bail misuse.",
+        "authorities": []
+      },
+      {
+        "id": "p3",
+        "text": "Joining the investigation after securing interim protection can influence the grant of anticipatory bail.",
+        "speaker": "supreme_court",
+        "kind": "obiter",
+        "is_holding": false,
+        "favors": "accused",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P4"
+        ],
+        "quote": "the appellant has joined the investigation after he was granted protection against his arrest by this Court.",
+        "tags": [
+          "cooperation_with_investigation",
+          "anticipatory_vs_regular",
+          "presumption_of_innocence"
+        ],
+        "binding_level": "persuasive",
+        "tag_reasoning": "The proposition discusses the influence of the accused's cooperation with the investigation on the grant of anticipatory bail, which is a principle that aligns with the broader legal framework regarding anticipatory bail and the presumption of innocence.",
+        "authorities": []
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The appellant argued for anticipatory bail, stating that he married the prosecutrix and already joined the investigation after securing interim protection from arrest.",
+        "outcome": "accepted",
+        "anchors": [
+          "P4"
+        ]
+      },
+      {
+        "side": "respondent",
+        "text": "The state opposed anticipatory bail, citing the appellant's alleged deceit under the guise of marriage and the unregistered nature of their marriage.",
+        "outcome": "rejected",
+        "anchors": [
+          "P5",
+          "P6"
+        ]
+      }
+    ],
+    "authorities": []
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "unsupported",
+      "favors_correct": true,
+      "note": "The anchor text does not provide evidence that joining the investigation after securing interim protection can influence the grant of anticipatory bail."
+    }
+  },
+  "needs_review": [
+    "statute Code of Criminal Procedure, 1973 s.438 not found in text",
+    "p3: verifier says unsupported, favors_correct=True - The anchor text does not provide evidence that joining the investigation after securing interim protection can influence the grant of anticipatory bail.",
+    "parser flag: author_not_found"
+  ],
+  "paragraphs": {
+    "P1": {
+      "text": "Leave granted.",
+      "page_start": 206,
+      "page_end": 206
+    },
+    "P2": {
+      "text": "The present appeal arises out of the impugned judgment and order dated 23.08.2024, passed by the High Court of Gujarat at Ahmedabad in R/ Criminal Misc. Application (for successive anticipatory bail) No. 16462 of 2024, whereby the High Court had rejected the said application, filed by the present appellant, seeking anticipatory bail in connection with the F.I.R. No. 11203024220505 dated 16.07.2022, registered at Police Station-B-Division, District-Junagadh, for the offence punishable under Sections-493 and 376(2)(n) of the Indian Penal Code (for short ‘IPC’).",
+      "page_start": 206,
+      "page_end": 206
+    },
+    "P3": {
+      "text": "Heard learned counsel appearing for the parties and perused the material on record.",
+      "page_start": 206,
+      "page_end": 206
+    },
+    "P4": {
+      "text": "It is sought to be submitted by the learned counsel, Mr. Virat Popat, appearing for the appellant, that the appellant had married the prosecutrix (respondent no.2) at the age of 47 years, and it was the third marriage of both the parties i.e. the appellant and the prosecutrix. He further submitted that the appellant has joined the investigation after he was granted protection against his arrest by this Court vide the order dated 01.10.2024.",
+      "page_start": 206,
+      "page_end": 206
+    },
+    "P5": {
+      "text": "Learned counsel appearing for the respondent-State, relying upon the additional affidavit filed by the Investigating officer, submitted that the investigation is over, and as per his instructions, the charge-sheet has already been filed in the case.",
+      "page_start": 206,
+      "page_end": 206
+    },
+    "P6": {
+      "text": "Learned counsel, Ms. Aastha Mehta, appearing for respondent no.2 (prosecutrix), however, has objected to the granting of the anticipatory bail to the appellant by submitting that the appellant had cheated the respondent no.2 (prosecutrix) under the pretext of marriage. She further submitted that their marriage was also not registered, however they had married as per their customs.",
+      "page_start": 206,
+      "page_end": 206
+    },
+    "P7": {
+      "text": "Having regard to the submissions made by the learned counsels appearing for the parties and to the fact that now the charge-sheet has already been filed but, without expressing any opinion on the merits of the case, we are inclined to accept the present appeal. [2025] 3 S.C.R. \b",
+      "page_start": 206,
+      "page_end": 207
+    },
+    "P8": {
+      "text": "Hence, it is directed that in the event of the arrest of the appellant, in connection with the F.I.R. No. 11203024220505 dated 16.07.2022, registered at Police Station-B-Division, District-Junagadh, he shall be released on bail, if not required in any other case, on such terms and conditions that may be imposed by the Trial Court. He shall continue to co-operate with the investigation.",
+      "page_start": 207,
+      "page_end": 207
+    },
+    "P9": {
+      "text": "It goes without saying that the respondent-State shall be at liberty to file appropriate application seeking cancellation of bail in case any of the conditions, that may be imposed by the Trial Court, are violated or breached by the appellant.",
+      "page_start": 207,
+      "page_end": 207
+    },
+    "P10": {
+      "text": "Accordingly, the appeal is allowed.",
+      "page_start": 207,
+      "page_end": 207
+    },
+    "P11": {
+      "text": "Pending application(s), if any, shall stand closed.",
+      "page_start": 207,
+      "page_end": 207
+    }
+  },
+  "headnote_raw": " \n[2025] 3 S.C.R. 205 : 2025 INSC 246\nHitesh Umeshbhai Mashru\nv.\nThe State of Gujarat & Anr.\n(Criminal Appeal No. 812 of 2025)\n18 February 2025\n[Bela M. Trivedi and Prasanna B. Varale, JJ.]\nIssue for Consideration\nAppellant, if entitled to anticipatory bail.\nHeadnotes\nAnticipatory Bail – FIR against the appellant u/ss.493, 376(2),\nPenal Code, 1860 – High Court declined to grant anticipatory\nbail – Appellant joined the investigation after he was granted\nprotection against arrest by this Court – Investigation over,\ncharge-sheet filed:\nHeld: Appellant granted anticipatory bail. [Para 8]\nList of Acts\nPenal Code, 1860; Code of Criminal Procedure, 1973.\nList of Keywords\nAnticipatory bail; Protection against arrest; Cheated under the\npretext of marriage.\nCase Arising From\n"
+}

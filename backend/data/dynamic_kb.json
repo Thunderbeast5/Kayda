@@ -2130,5 +2130,251 @@
     "subject_matter_scope": null,
     "disqualifying_subject_matters": [],
     "requires_trigger_gate": false
+  },
+  {
+    "section": "339",
+    "statute": "IPC",
+    "bns_equivalent": "339",
+    "title": "Wrongful restraint",
+    "mandatory_ingredients": [
+      "wrongful_restraint"
+    ],
+    "factual_triggers": [
+      "have",
+      "land",
+      "wrongful",
+      "restraint"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Wrongful restraint",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "481",
+    "statute": "IPC",
+    "bns_equivalent": "481",
+    "title": "Using a false property mark",
+    "mandatory_ingredients": [
+      "using_a_false_property_mark"
+    ],
+    "factual_triggers": [
+      "false",
+      "property",
+      "under",
+      "using",
+      "mark"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Using a false property mark",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "479",
+    "statute": "IPC",
+    "bns_equivalent": "479",
+    "title": "Property mark",
+    "mandatory_ingredients": [
+      "property_mark"
+    ],
+    "factual_triggers": [
+      "part",
+      "property",
+      "under",
+      "mark"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Property mark",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "486",
+    "statute": "IPC",
+    "bns_equivalent": "486",
+    "title": "Selling goods marked with a counterfeit property mark",
+    "mandatory_ingredients": [
+      "selling_goods_marked_with_a_counterfeit_property_mark"
+    ],
+    "factual_triggers": [
+      "accused",
+      "commercial",
+      "property",
+      "selling",
+      "goods",
+      "marked",
+      "counterfeit",
+      "mark"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Selling goods marked with a counterfeit property mark",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "441",
+    "statute": "IPC",
+    "bns_equivalent": "441",
+    "title": "Criminal trespass",
+    "mandatory_ingredients": [
+      "criminal_trespass"
+    ],
+    "factual_triggers": [
+      "enter",
+      "into",
+      "lawful",
+      "criminal",
+      "trespass"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Criminal trespass",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "493",
+    "statute": "IPC",
+    "bns_equivalent": "493",
+    "title": "Cohabitation caused by a man deceitfully inducing a belief of lawful marriage",
+    "mandatory_ingredients": [
+      "cohabitation_caused_by_a_man_deceitfully_inducing_a_belief_of_lawful_marriage"
+    ],
+    "factual_triggers": [
+      "false",
+      "from",
+      "used",
+      "cohabitation",
+      "caused",
+      "deceitfully",
+      "inducing",
+      "belief",
+      "lawful",
+      "marriage"
+    ],
+    "chapter_number": "Of Offences Relating to Marriage",
+    "chapter_title": "Cohabitation caused by a man deceitfully inducing a belief of lawful marriage",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "489E",
+    "statute": "IPC",
+    "bns_equivalent": "489E",
+    "title": "Making or using documents resembling currency-notes or bank-notes",
+    "mandatory_ingredients": [
+      "making_or_using_documents_resembling_currency_notes_or_bank_notes"
+    ],
+    "factual_triggers": [
+      "deceive",
+      "only",
+      "making",
+      "using",
+      "documents",
+      "resembling",
+      "currency",
+      "notes",
+      "bank"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Making or using documents resembling currency-notes or bank-notes",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "505",
+    "statute": "IPC",
+    "bns_equivalent": "505",
+    "title": "Statements conducing to public mischief",
+    "mandatory_ingredients": [
+      "statements_conducing_to_public_mischief"
+    ],
+    "factual_triggers": [
+      "circulating",
+      "original",
+      "statements",
+      "conducing",
+      "public",
+      "mischief"
+    ],
+    "chapter_number": "Of Criminal Intimidation, Insult and Annoyance",
+    "chapter_title": "Statements conducing to public mischief",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "510",
+    "statute": "IPC",
+    "bns_equivalent": "510",
+    "title": "Misconduct in public by a drunken person",
+    "mandatory_ingredients": [
+      "misconduct_in_public_by_a_drunken_person"
+    ],
+    "factual_triggers": [
+      "only",
+      "original",
+      "misconduct",
+      "public",
+      "drunken",
+      "person"
+    ],
+    "chapter_number": "Of Criminal Intimidation, Insult and Annoyance",
+    "chapter_title": "Misconduct in public by a drunken person",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
   }
 ]

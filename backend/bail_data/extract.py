@@ -1,320 +1,251 @@
 #!/usr/bin/env python3
 """
-Precedent extractor for Indian Supreme Court judgments (SCR-format PDFs + LawSuperOnline JSON).
+Precedent extractor for Indian Supreme Court judgments (SCR / SCC / AIR / slip PDFs + LawSuperOnline JSON).
 
-Pipeline:  deterministic parse -> LLM structured extraction -> deterministic verification
+Pipeline:  deterministic parse (judgment_parser) -> LLM structured extraction -> deterministic verification
            -> repair pass -> independent LLM verifier -> case JSON + retrieval chunks.
 
+Robustness rules in this version
+  * Enum-like fields never crash validation: unknown/variant values ("approved", "Relied upon", None ...) are
+    coerced to a canonical value or a conservative default, and every coercion is logged into needs_review.
+  * Free-text / list fields accept the wrong JSON type (int, list, None) and are coerced.
+  * Anchors are normalised ("[[P5]]", "p5", "5", "Para 5" -> real paragraph id) before checking.
+  * A schema failure triggers ONE retry that feeds the validation error back to the model.
+  * One bad file never kills the batch: errors go to <out>/errors.jsonl and the run continues.
+  * Resumable: finished cases are skipped (use --force to redo); chunks.jsonl is never blindly truncated.
+  * The repair note is appended AFTER prompt truncation, so it can no longer be cut off.
+
 pip install pymupdf pydantic openai rapidfuzz python-dotenv
-export OPENAI_API_KEY=...
-python extract_precedents.py gurubaksh_sibbia.pdf P__CHIDAMBARAM.pdf Batch1__TheLawsSuperOnline-1.json --out out
-(OCR fallback for scanned pages needs tesseract installed.)
 """
 from __future__ import annotations
-import argparse, bisect, json, os, re, statistics, time
-from collections import Counter
-from dataclasses import dataclass, field
-from datetime import datetime
-from pathlib import Path
-from typing import Literal, Optional
 
-import fitz  # PyMuPDF
+import argparse
+import json
+import os
+import re
+import time
+import traceback
+from pathlib import Path
+from typing import Annotated, Any, Literal, Optional
+
 from dotenv import load_dotenv
 from openai import OpenAI
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, BeforeValidator, Field, ValidationError
 from rapidfuzz import fuzz
 
+from judgment_parser import Doc, load_document
+
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env"))
+load_dotenv()
 
 EXTRACT_MODEL = os.getenv("EXTRACT_MODEL", os.getenv("MODEL_STAGE6", "gpt-4o"))
 VERIFY_MODEL = os.getenv("VERIFY_MODEL", os.getenv("MODEL_STAGE1", "gpt-4o-mini"))  # deliberately a different model
 
+# --------------------------------------------------------------------------- lenient coercion helpers
+COERCIONS: list[str] = []          # filled by validators during one model_validate(); drained per case
+
+
+def _key(v: Any) -> str:
+    return re.sub(r"[\s\-/.]+", "_", str(v).strip().lower()).strip("_")
+
+
+def enum_field(canon: tuple[str, ...], default: Optional[str], synonyms: Optional[dict] = None, label: str = ""):
+    """BeforeValidator: map any variant of an enum value onto `canon`; fall back to `default`
+    (conservative) and log it. default=None means 'no safe default' -> let validation fail -> retry."""
+    syn = {_key(k): v for k, v in (synonyms or {}).items()}
+
+    def f(v):
+        if v is None:
+            if default is None:
+                return v
+            COERCIONS.append(f"{label}: null -> '{default}'")
+            return default
+        k = _key(v)
+        if k in canon:
+            return k
+        if k in syn:
+            COERCIONS.append(f"{label}: '{v}' -> '{syn[k]}'")
+            return syn[k]
+        for c in canon:                                    # e.g. "relied_upon_by_court" contains "relied"
+            if c in k or (len(k) >= 4 and k in c):
+                COERCIONS.append(f"{label}: '{v}' -> '{c}'")
+                return c
+        if default is None:
+            return v
+        COERCIONS.append(f"{label}: unrecognised '{v}' -> default '{default}'")
+        return default
+    return BeforeValidator(f)
+
+
+def _to_str(v):
+    if v is None:
+        return None
+    if isinstance(v, (list, tuple, set)):
+        return "; ".join(str(x) for x in v if x is not None)
+    if isinstance(v, dict):
+        return json.dumps(v, ensure_ascii=False)
+    return str(v)
+
+
+def _to_str_req(v):
+    return "" if v is None else _to_str(v)
+
+
+def _to_list(v):
+    if v is None:
+        return []
+    if isinstance(v, (list, tuple, set)):
+        return [str(x) for x in v if x is not None]
+    if isinstance(v, str):
+        parts = [p.strip() for p in re.split(r"[;\n]|,(?![^()]*\))", v) if p.strip()]
+        return parts or []
+    return [str(v)]
+
+
+def _to_bool(v):
+    if isinstance(v, str):
+        return v.strip().lower() in ("true", "yes", "1")
+    return bool(v)
+
+
+OptStr = Annotated[Optional[str], BeforeValidator(_to_str)]
+Str = Annotated[str, BeforeValidator(_to_str_req)]
+StrList = Annotated[list[str], BeforeValidator(_to_list)]
+Bool = Annotated[bool, BeforeValidator(_to_bool)]
+
 # --------------------------------------------------------------------------- schema
-Side = Literal["accused", "prosecution", "neutral"]
-Speaker = Literal["supreme_court", "lower_court", "appellant_counsel", "respondent_counsel",
-                  "quoted_authority", "law_commission_or_statute"]
-Treatment = Literal["followed", "applied", "relied_on", "referred_to", "distinguished",
-                    "overruled", "not_followed", "quoted", "other"]
+_SIDE = ("accused", "prosecution", "neutral")
+_SPEAKER = ("supreme_court", "lower_court", "appellant_counsel", "respondent_counsel",
+            "quoted_authority", "law_commission_or_statute")
+_TREAT = ("followed", "applied", "relied_on", "referred_to", "distinguished", "overruled",
+          "not_followed", "quoted", "other")
+_KIND = ("ratio", "obiter", "rejected_view", "argument")
+_USED = ("interpreted", "applied", "charged", "distinguished", "referred", "discussed")
+_STAGE = ("pre_arrest", "post_arrest_bail", "trial", "conviction_appeal", "quashing", "other")
+_NATURE = ("serious_criminal", "economic_offence", "civil_dispute", "political", "other")
+_OUTCOME = ("accepted", "rejected", "partly", "not_decided")
+_VERD = ("supported", "overstated", "unsupported")
+
+Side = Annotated[Literal[_SIDE], enum_field(_SIDE, "neutral", {"petitioner": "accused", "defence": "accused",
+                  "state": "prosecution", "complainant": "prosecution", "both": "neutral", "none": "neutral"}, "favors")]
+Speaker = Annotated[Literal[_SPEAKER], enum_field(_SPEAKER, "quoted_authority", {   # conservative: never invent a holding
+    "court": "supreme_court", "sc": "supreme_court", "this_court": "supreme_court", "high_court": "lower_court",
+    "trial_court": "lower_court", "counsel": "appellant_counsel", "appellant": "appellant_counsel",
+    "respondent": "respondent_counsel", "state": "respondent_counsel", "statute": "law_commission_or_statute",
+    "law_commission": "law_commission_or_statute", "quoted": "quoted_authority", "authority": "quoted_authority",
+    "cited_case": "quoted_authority"}, "speaker")]
+Treatment = Annotated[Literal[_TREAT], enum_field(_TREAT, "other", {
+    "approved": "followed", "approved_of": "followed", "affirmed": "followed", "upheld": "followed",
+    "followed_with_approval": "followed", "relied_upon": "relied_on", "relied": "relied_on",
+    "reliance_placed": "relied_on", "referred": "referred_to", "cited": "referred_to", "considered": "referred_to",
+    "discussed": "referred_to", "noticed": "referred_to", "mentioned": "referred_to",
+    "distinguished_on_facts": "distinguished", "reversed": "overruled", "overruled_in_part": "overruled",
+    "disapproved": "not_followed", "doubted": "not_followed", "declined_to_follow": "not_followed",
+    "extracted": "quoted", "reproduced": "quoted", "adopted": "applied", "affirmed_and_applied": "applied"},
+    "authority.treatment")]
+Kind = Annotated[Literal[_KIND], enum_field(_KIND, "obiter", {                       # conservative: not a holding
+    "holding": "ratio", "ratio_decidendi": "ratio", "rule": "ratio", "dictum": "obiter", "obiter_dictum": "obiter",
+    "rejected": "rejected_view", "overruled_view": "rejected_view", "contention": "argument",
+    "submission": "argument", "counsel_argument": "argument"}, "kind")]
+HowUsed = Annotated[Literal[_USED], enum_field(_USED, "referred", {
+    "interpret": "interpreted", "construed": "interpreted", "applies": "applied", "invoked": "applied",
+    "framed": "charged", "referred_to": "referred", "cited": "referred", "mentioned": "referred",
+    "considered": "discussed", "analysed": "discussed", "analyzed": "discussed"}, "statute.how_used")]
+Stage = Annotated[Literal[_STAGE], enum_field(_STAGE, "other", {
+    "anticipatory_bail": "pre_arrest", "pre_arrest_bail": "pre_arrest", "section_438": "pre_arrest",
+    "regular_bail": "post_arrest_bail", "bail": "post_arrest_bail", "post_arrest": "post_arrest_bail",
+    "custody": "post_arrest_bail", "appeal": "conviction_appeal", "quash": "quashing",
+    "investigation": "pre_arrest", "cancellation_of_bail": "post_arrest_bail"}, "procedural_stage")]
+Nature = Annotated[Literal[_NATURE], enum_field(_NATURE, "other", {
+    "criminal": "serious_criminal", "violent": "serious_criminal", "murder": "serious_criminal",
+    "heinous": "serious_criminal", "economic": "economic_offence", "financial": "economic_offence",
+    "fraud": "economic_offence", "cheating": "economic_offence", "commercial": "civil_dispute",
+    "civil": "civil_dispute", "business": "civil_dispute", "matrimonial": "other"}, "dispute_nature")]
+Outcome = Annotated[Literal[_OUTCOME], enum_field(_OUTCOME, "not_decided", {
+    "accept": "accepted", "upheld": "accepted", "allowed": "accepted", "reject": "rejected", "dismissed": "rejected",
+    "partially": "partly", "partly_accepted": "partly", "partial": "partly", "undecided": "not_decided",
+    "left_open": "not_decided", "not_considered": "not_decided"}, "contention.outcome")]
+Verd = Annotated[Literal[_VERD], enum_field(_VERD, "unsupported", {                  # conservative: flags for review
+    "support": "supported", "ok": "supported", "correct": "supported", "overstate": "overstated",
+    "partially_supported": "overstated", "partly_supported": "overstated", "not_supported": "unsupported"}, "verdict")]
+ContSide = Annotated[Literal["appellant", "respondent"], enum_field(
+    ("appellant", "respondent"), None, {"petitioner": "appellant", "accused": "appellant", "state": "respondent",
+                                        "complainant": "appellant", "opposite_party": "respondent"}, "contention.side")]
 
 
 class Statute(BaseModel):
-    act: str = Field(description="e.g. 'CrPC 1973', 'PMLA 2002', 'IPC'")
-    section: str = Field(description="e.g. '438', '438(2)', '45'")
-    how_used: Literal["interpreted", "applied", "charged", "distinguished", "referred"]
-    note: Optional[str] = Field(None, description="What the court said about this section, if interpreted")
+    act: Str = Field(description="e.g. 'CrPC 1973', 'PMLA 2002', 'IPC'")
+    section: Str = Field(description="e.g. '438', '438(2)', '45'")
+    how_used: HowUsed = "referred"
+    note: OptStr = Field(None, description="What the court said about this section, if interpreted")
 
 
 class Proposition(BaseModel):
-    id: str = Field(description="p1, p2, ...")
-    text: str = Field(description="One self-contained legal rule in neutral wording. No party names/amounts/dates.")
+    id: Str = Field(description="p1, p2, ...")
+    text: Str = Field(description="One self-contained legal rule in neutral wording. No party names/amounts/dates.")
     speaker: Speaker = Field(description="WHO says this. Only 'supreme_court' can create law in this judgment.")
-    kind: Literal["ratio", "obiter", "rejected_view", "argument"] = Field(
-        description="ratio=court's own necessary holding; obiter=court's passing remark; "
-                    "rejected_view=a lower-court/counsel view the court REJECTED; argument=counsel position")
-    is_holding: bool
+    kind: Kind = Field(description="ratio=court's own necessary holding; obiter=court's passing remark; "
+                                   "rejected_view=a lower-court/counsel view the court REJECTED; argument=counsel position")
+    is_holding: Bool = False
     favors: Side = Field(description="accused = expands bail/liberty or limits investigative reach; "
                                      "prosecution = restricts bail or protects investigative freedom; neutral = procedural")
-    conditions: list[str] = Field(default_factory=list, description="Limits/exceptions/preconditions attached")
-    statutes: list[str] = Field(default_factory=list)
-    anchors: list[str] = Field(description="Paragraph ids exactly as shown in [[ ]] in the judgment text")
-    quote: str = Field(description="Verbatim excerpt (<=40 words) copied from one of the anchors")
+    conditions: StrList = Field(default_factory=list, description="Limits/exceptions/preconditions attached")
+    statutes: StrList = Field(default_factory=list)
+    anchors: StrList = Field(description="Paragraph ids exactly as shown in [[ ]] in the judgment text")
+    quote: Str = Field("", description="Verbatim excerpt (<=40 words) copied from one of the anchors")
 
 
 class Issue(BaseModel):
-    question: str
-    short_answer: str
-    anchors: list[str]
+    question: Str
+    short_answer: Str = ""
+    anchors: StrList = Field(default_factory=list)
 
 
 class Contention(BaseModel):
-    side: Literal["appellant", "respondent"]
-    text: str
-    outcome: Literal["accepted", "rejected", "partly", "not_decided"]
-    anchors: list[str]
+    side: ContSide
+    text: Str
+    outcome: Outcome = "not_decided"
+    anchors: StrList = Field(default_factory=list)
 
 
 class Authority(BaseModel):
-    name: str
-    citation: Optional[str] = None
-    treatment: Treatment
-    used_for: Optional[str] = Field(None, description="Proposition it was cited for, one line")
-    where: Optional[str] = Field(None, description="paragraph id(s) in this judgment")
+    name: Str
+    citation: OptStr = None
+    treatment: Treatment = "other"
+    used_for: OptStr = Field(None, description="Proposition it was cited for, one line")
+    where: OptStr = Field(None, description="paragraph id(s) in this judgment")
 
 
 class CaseLLM(BaseModel):
-    case_name: str
-    petitioner: str
-    respondent: str
-    court: str
-    coram: list[str]
-    judgment_author: Optional[str] = None
-    procedural_stage: Literal["pre_arrest", "post_arrest_bail", "trial", "conviction_appeal", "quashing", "other"]
-    offence_types: list[str] = Field(description="normalised, e.g. 'corruption', 'money laundering', 'economic offence'")
-    dispute_nature: Literal["serious_criminal", "economic_offence", "civil_dispute", "political", "other"]
-    abstract_facts: str = Field(description="3-5 sentences, anonymised, describing WHAT kind of case this is")
-    lower_court_outcome: str
-    disposition: str
-    statutes: list[Statute]
-    issues: list[Issue]
-    propositions: list[Proposition]
-    contentions: list[Contention]
-    authorities: list[Authority]
+    case_name: Str
+    petitioner: Str = ""
+    respondent: Str = ""
+    court: Str = ""
+    coram: StrList = Field(default_factory=list)
+    judgment_author: OptStr = None
+    procedural_stage: Stage = "other"
+    offence_types: StrList = Field(default_factory=list,
+                                   description="normalised, e.g. 'corruption', 'money laundering', 'economic offence'")
+    dispute_nature: Nature = "other"
+    abstract_facts: Str = Field("", description="3-5 sentences, anonymised, describing WHAT kind of case this is")
+    lower_court_outcome: Str = ""
+    disposition: Str = ""
+    statutes: list[Statute] = Field(default_factory=list)
+    issues: list[Issue] = Field(default_factory=list)
+    propositions: list[Proposition] = Field(default_factory=list)
+    contentions: list[Contention] = Field(default_factory=list)
+    authorities: list[Authority] = Field(default_factory=list)
 
 
 class Verdict(BaseModel):
-    id: str
-    verdict: Literal["supported", "overstated", "unsupported"]
-    favors_correct: bool
-    note: str = ""
+    id: Str
+    verdict: Verd = "unsupported"
+    favors_correct: Bool = True
+    note: Str = ""
 
 
 class Verdicts(BaseModel):
-    items: list[Verdict]
-
-
-# --------------------------------------------------------------------------- loading
-@dataclass
-class Doc:
-    source: str
-    fmt: str
-    meta: dict
-    headnote: str
-    paras: dict            # id -> {"text","page_start","page_end"}
-    authority_table: list = field(default_factory=list)
-    flags: list = field(default_factory=list)
-
-
-MARK = re.compile(r"^⟦p(\d+)⟧$")
-HDR_PATTERNS = [re.compile(p) for p in [
-    r"^\s*\d{2,4}\s+SUPREME\s+COURT\s+.*$",
-    r"^\s*SUPREME\s+COURT\s+REPORTS.*$",
-    r"^\s*\[\d{4}\]\s*\d+\s*S\.?C\.?R\.?\s*\d*\s*$",
-    r"^\s*\d{2,4}A?\s*$",
-    r"^\s*[A-Z][A-Z\.\s,&':]+\b[vV]\.\s[A-Z][A-Z\.\s,&':]+(\(.*?\))?\s*\d{0,4}[A-H]?\s*$",
-    r"^\s*\[[A-Z\.\s,]+J\.\]\s*$",
-    r"^\s*[A-H]\s*$",                     # margin letters
-]]
-MONTHS = "January|February|March|April|May|June|July|August|September|October|November|December"
-
-
-def detect_page(raw: str) -> Optional[int]:
-    head = raw.splitlines()[:14]
-    for ln in head:
-        m = re.match(r"^\s*(\d{2,4})\s+SUPREME\s+COURT", ln)
-        if m:
-            return int(m.group(1))
-    for ln in head:
-        m = (re.match(r"^\s*(\d{2,4})A?\s*$", ln)
-             or re.match(r"^[A-Z][^\n]{0,70}\b[vV]\.\s[^\n]{0,50}?\s(\d{3,4})\s*[A-H]?\s*$", ln))
-        if m:
-            return int(m.group(1))
-    return None
-
-
-def assign_pages(raws: list[str]) -> list[int]:
-    det = [detect_page(r) for r in raws]
-    votes = Counter(d - i for i, d in enumerate(det) if d)
-    base = votes.most_common(1)[0][0] if votes else 1
-    pages, prev = [], None
-    for i, d in enumerate(det):
-        exp = base + i if prev is None else prev + 1
-        pages.append(d if d and abs(d - exp) <= 1 else exp)
-        prev = pages[-1]
-    return pages
-
-
-def clean_page(raw: str) -> list[str]:
-    return [l.rstrip() for l in raw.splitlines() if l.strip() and not any(p.match(l) for p in HDR_PATTERNS)]
-
-
-def read_pdf_pages(path: str) -> list[str]:
-    doc, out = fitz.open(path), []
-    for pg in doc:
-        t = pg.get_text("text")
-        if len(t.strip()) < 200:                       # scanned page -> OCR fallback
-            try:
-                t = pg.get_text("text", textpage=pg.get_textpage_ocr(dpi=300, full=True))
-            except Exception:
-                pass
-        out.append(t)
-    return out
-
-
-def noise_score(text: str) -> float:
-    toks = text.split() or ["x"]
-    bad = sum(bool(re.search(r"[A-Za-z][^\w\s.,;:'\"()\-\[\]/&–—][A-Za-z]|\b\w*\d\w*[a-z]\w*\b", t)) for t in toks)
-    return bad / len(toks)
-
-
-def segment_numbered(body: str):
-    hits, last = [], 0
-    for m in re.finditer(r"(?m)^\s*(\d{1,3})\.\s+(?=[A-Z“\"(])", body):
-        if int(m.group(1)) == last + 1:
-            hits.append((m.start(), int(m.group(1)), m.end()))
-            last += 1
-    return hits
-
-
-def to_paras_numbered(body: str, hits) -> dict:
-    marks = [(m.start(), int(m.group(1))) for m in re.finditer(r"⟦p(\d+)⟧", body)]
-    pos = [p for p, _ in marks]
-
-    def page_at(i):
-        j = bisect.bisect_right(pos, i) - 1
-        return marks[j][1] if j >= 0 else None
-
-    paras = {}
-    for k, (s, n, e) in enumerate(hits):
-        end = hits[k + 1][0] if k + 1 < len(hits) else len(body)
-        txt = re.sub(r"⟦p\d+⟧", " ", body[e:end])
-        paras[f"P{n}"] = {"text": re.sub(r"\s+", " ", txt).strip(),
-                          "page_start": page_at(s), "page_end": page_at(end - 1)}
-    return paras
-
-
-def to_paras_unnumbered(body: str) -> dict:
-    lines = body.split("\n")
-    widths = [len(l) for l in lines if len(l) > 30 and not l.startswith("⟦")]
-    med = statistics.median(widths) if widths else 60
-    paras, cur, page, cur_page, per_page = {}, [], None, None, Counter()
-
-    def flush():
-        nonlocal cur
-        if cur:
-            per_page[cur_page] += 1
-            txt = re.sub(r"(\w-)\s+(\w)", r"\1\2", " ".join(cur))
-            paras[f"p{cur_page}.{per_page[cur_page]}"] = {"text": re.sub(r"\s+", " ", txt).strip(),
-                                                          "page_start": cur_page, "page_end": page}
-        cur = []
-
-    for l in lines:
-        m = MARK.match(l.strip())
-        if m:
-            page = int(m.group(1))
-            continue
-        l = l.strip()
-        if not l:
-            continue
-        if not cur:
-            cur_page = page
-        cur.append(l)
-        if re.search(r"[.:;?\"”)]$", l) and len(l) < 0.8 * med:
-            flush()
-    flush()
-    return paras
-
-
-def parse_authority_table(headnote: str) -> list[dict]:
-    rows = []
-    for ln in headnote.splitlines():
-        m = re.match(r"^\s*(?P<cite>[\[(]\d{4}[\])].*?)\s+(?P<treat>relied on|referred to|followed|distinguished|"
-                     r"applied|overruled|approved)\s+Para\s+(?P<para>\d+)\s*$", ln)
-        if m:
-            rows.append({"cite": m["cite"], "treatment": m["treat"], "para": int(m["para"])})
-    return rows
-
-
-def load_pdf(path: str) -> Doc:
-    raws = read_pdf_pages(path)
-    pages = assign_pages(raws)
-    head_raw = "\n".join(raws[:2])
-    full = "\n".join(f"⟦p{pg}⟧\n" + "\n".join(clean_page(r)) for pg, r in zip(pages, raws))
-    flags, meta = [], {"source_file": Path(path).name, "pdf_pages": len(raws)}
-
-    m = re.search(r"\[(\d{4})\]\s*(\d+)\s*S\.?\s?C\.?\s?R", head_raw)
-    if m:
-        meta.update(year=int(m[1]), scr_volume=int(m[2]), scr_first_page=pages[0])
-        meta["citation_scr"] = f"[{m[1]}] {m[2]} SCR {pages[0]}"
-    d = re.search(rf"(?i)\b({MONTHS})\.?\s+(\d{{1,2}}),?\s+(\d{{4}})", head_raw[:1500])
-    try:
-        meta["decided_on"] = datetime.strptime(f"{d[1].title()} {int(d[2])} {d[3]}", "%B %d %Y").date().isoformat()
-    except Exception:
-        flags.append("date_not_parsed")
-    c = re.search(r"\[([^\[\]]*?\bJJ?\.?)\s*\]", head_raw[:1200], re.S)
-    if c:
-        toks = [t.strip() for t in re.split(r",|\bAND\b", c[1].replace("\n", " ")) if t.strip()]
-        toks = [t for t in toks if not re.fullmatch(r"C?\.?\s?J{1,2}\.?", t)]
-        meta["coram_raw"] = c[1].replace("\n", " ")
-        meta["bench_strength_regex"] = len(toks)
-        meta["constitution_bench"] = len(toks) >= 5
-    else:
-        flags.append("coram_not_parsed")
-
-    juris = re.search(r"(?:CRIMINAL|CIVIL)\s*APPELLATE\s*JURISDICTION", full)
-    marker = re.search(r"The Judgment of the Court was delivered by", full)
-    if not (juris and marker):
-        flags.append("zone_split_failed_using_whole_text")
-    headnote = full[:juris.start()] if juris else ""
-    body = full[marker.end():] if marker else full
-    a = re.search(r"([A-Z][A-Z\.\s]{3,40}?),\s*(C\.\s?J\.|J\.)", body[:250])
-    if a:
-        meta["judgment_author_regex"] = a[1].strip()
-
-    hits = segment_numbered(body)
-    if len(hits) >= 5:
-        paras, layout = to_paras_numbered(body, hits), "numbered_paras"
-    else:
-        paras, layout = to_paras_unnumbered(body), "unnumbered_page_anchored"
-    meta["layout"] = layout
-    ns = noise_score(full)
-    meta["ocr_noise_score"] = round(ns, 4)
-    if ns > 0.03:
-        flags.append("ocr_noisy: copy quotes as printed; never 'correct' names or numbers by guessing")
-    headnote = re.sub(r"⟦p\d+⟧", " ", headnote)
-    return Doc(path, "scr_pdf", meta, headnote, paras, parse_authority_table(headnote), flags)
-
-
-def load_laws_json(path: str) -> Doc:
-    j = json.load(open(path, encoding="utf-8"))
-    meta = {"source_file": Path(path).name, "citation_laws": j.get("case_citation"),
-            "court": j.get("court"), "decided_on": j.get("decided_on"), "year": j.get("decided_on_year"),
-            "coram_raw": j.get("coram"), "layout": "numbered_paras",
-            "equivalent_citations": j.get("equivalent_citations"),
-            "cited_by": j.get("cited_judgments")}          # NB: these are LATER citing cases, not authorities relied on
-    flags = ["laws_json: 'cited_judgments' = cited_by; procedural_history date is unreliable (e.g. '11')"]
-    paras = {f"P{p['number']}": {"text": re.sub(r"\s+", " ", p["text"]), "page_start": None, "page_end": None}
-             for p in j.get("numbered_paragraphs", [])}
-    return Doc(path, "laws_json", meta, j.get("headnote_raw", ""), paras, [], flags)
+    items: list[Verdict] = Field(default_factory=list)
 
 
 # --------------------------------------------------------------------------- LLM
@@ -332,71 +263,74 @@ Rules:
 5. 'favors' is about who the rule helps in a bail contest, judged from the rule itself, not the case outcome.
 6. Propositions must be atomic (one rule each), neutral, and free of party names. Aim for every distinct ratio.
 7. authorities = cases relied on BY this judgment, with the treatment the court gives them. Use the AUTHORITY TABLE hints.
-8. If the text is OCR-noisy, do not repair names/numbers by guessing."""
+   'treatment' MUST be exactly one of: followed, applied, relied_on, referred_to, distinguished, overruled,
+   not_followed, quoted, other. Map hint words onto these (e.g. approved->followed, considered->referred_to).
+8. If the text is OCR-noisy, do not repair names/numbers by guessing.
+9. Use ONLY the enum values listed in the schema, spelled exactly. Paragraph ids in anchors are copied exactly as in [[ ]]."""
+
+_MAX_BODY_CHARS = int(os.getenv("MAX_PROMPT_CHARS", "90000"))
 
 
-# ~4 chars per token; keep well under 30k TPM limit (leave room for output + system prompt)
-_MAX_PROMPT_CHARS = 90_000
+def build_prompt(doc: Doc, extra: str = "") -> str:
+    """Header + judgment body (body truncated from the tail if too long) + `extra` (never truncated)."""
+    head = [f"LAYOUT FLAGS: {doc.flags}",
+            "DETERMINISTIC METADATA (trust over your own guess): " + json.dumps(
+                {k: v for k, v in doc.meta.items() if k not in ("cited_by", "_sources", "footnotes")},
+                ensure_ascii=False, default=str),
+            "AUTHORITY TABLE HINTS: " + json.dumps(doc.authority_table, ensure_ascii=False),
+            "=== HEADNOTE (reporter's summary; not an anchor) ===", doc.headnote[:12000],
+            "=== JUDGMENT ==="]
+    header = "\n".join(head)
+    lines, used = [], len(header)
+    for pid, p in doc.paras.items():
+        ln = f"[[{pid}]] {p['text']}"
+        if used + len(ln) + 1 > _MAX_BODY_CHARS and lines:
+            print(f"  [warn] {Path(doc.source).name}: prompt truncated after {len(lines)}/{len(doc.paras)} paragraphs")
+            lines.append("[[TRUNCATED: remaining paragraphs omitted - do not anchor to them]]")
+            break
+        lines.append(ln); used += len(ln) + 1
+    return header + "\n" + "\n".join(lines) + (("\n" + extra) if extra else "")
 
 
-def _truncate_prompt(user: str) -> str:
-    """If the prompt is too large, drop paragraphs from the tail until it fits."""
-    if len(user) <= _MAX_PROMPT_CHARS:
-        return user
-    # Find the judgment body start and trim paragraphs from the end
-    judgment_marker = "=== JUDGMENT ==="
-    split_idx = user.find(judgment_marker)
-    if split_idx == -1:
-        return user[:_MAX_PROMPT_CHARS]  # fallback: hard truncate
-    header = user[:split_idx + len(judgment_marker)]
-    body = user[split_idx + len(judgment_marker):]
-    # Each paragraph line starts with [[id]]
-    para_lines = body.split("\n[[")
-    while len(header) + sum(len(p) + 3 for p in para_lines) > _MAX_PROMPT_CHARS and len(para_lines) > 1:
-        para_lines.pop()
-    truncated = header + "\n[[" + "\n[[".join(para_lines)
-    print(f"  [warn] Prompt truncated to {len(truncated):,} chars to fit token limit")
-    return truncated
-
-
-def call(system: str, user: str, model_cls, model: str, max_tokens=12000):
+def call(system: str, user: str, model_cls, model: str, max_tokens: int = 12000):
+    """Tool-call the model and validate. Retries: rate limits (backoff), transient API errors, and ONE schema retry
+    that feeds the validation error back to the model."""
     client = OpenAI()
-    user = _truncate_prompt(user)
-    tool = {"type": "function",
-            "function": {"name": "record",
-                         "description": "Record the structured result",
-                         "parameters": model_cls.model_json_schema()}}
-    for attempt in range(5):
+    tool = {"type": "function", "function": {"name": "record", "description": "Record the structured result",
+                                             "parameters": model_cls.model_json_schema()}}
+    feedback, schema_retry = "", True
+    for attempt in range(6):
         try:
+            COERCIONS.clear()
             r = client.chat.completions.create(
-                model=model,
-                max_tokens=max_tokens,
-                messages=[{"role": "system", "content": system},
-                          {"role": "user", "content": user}],
-                tools=[tool],
-                tool_choice={"type": "function", "function": {"name": "record"}},
-            )
-            args = json.loads(r.choices[0].message.tool_calls[0].function.arguments)
+                model=model, max_tokens=max_tokens,
+                messages=[{"role": "system", "content": system}, {"role": "user", "content": user + feedback}],
+                tools=[tool], tool_choice={"type": "function", "function": {"name": "record"}})
+            msg = r.choices[0].message
+            if not msg.tool_calls:
+                raise ValueError("model returned no tool call")
+            raw = msg.tool_calls[0].function.arguments
+            try:
+                args = json.loads(raw)
+            except json.JSONDecodeError:
+                args = json.loads(re.sub(r",\s*([}\]])", r"\1", raw))       # trailing commas
             return model_cls.model_validate(args)
-        except Exception as e:
-            if "429" in str(e) or "rate_limit" in str(e).lower():
-                wait = 60 * (attempt + 1)  # 60s, 120s, 180s ...
-                print(f"  [rate limit] Waiting {wait}s before retry (attempt {attempt + 1}/5)...")
+        except (ValidationError, ValueError) as e:                         # schema/JSON problem (JSONDecodeError is a ValueError)
+            if not schema_retry:
+                raise
+            schema_retry = False
+            print(f"  [schema] {str(e)[:300].splitlines()[0]} ... retrying once with feedback")
+            feedback = ("\n\n=== YOUR PREVIOUS OUTPUT FAILED SCHEMA VALIDATION. Fix and return the complete record. "
+                        "Use only the enum values from the schema ===\n" + str(e)[:1500])
+        except Exception as e:                                             # API-level
+            s = str(e).lower()
+            if "429" in s or "rate_limit" in s or "timeout" in s or "502" in s or "503" in s or "overloaded" in s:
+                wait = min(60 * (attempt + 1), 240)
+                print(f"  [retry] {type(e).__name__}; waiting {wait}s (attempt {attempt + 1}/6)")
                 time.sleep(wait)
             else:
                 raise
-    raise RuntimeError("Exceeded maximum retries due to rate limiting")
-
-
-def build_prompt(doc: Doc) -> str:
-    parts = [f"LAYOUT FLAGS: {doc.flags}",
-             "DETERMINISTIC METADATA (trust over your own guess): " + json.dumps(
-                 {k: v for k, v in doc.meta.items() if k != "cited_by"}, ensure_ascii=False),
-             "AUTHORITY TABLE HINTS: " + json.dumps(doc.authority_table),
-             "=== HEADNOTE (reporter's summary; not an anchor) ===", doc.headnote,
-             "=== JUDGMENT ==="]
-    parts += [f"[[{pid}]] {p['text']}" for pid, p in doc.paras.items()]
-    return "\n".join(parts)
+    raise RuntimeError("Exceeded maximum retries")
 
 
 # --------------------------------------------------------------------------- verification
@@ -407,6 +341,49 @@ def norm(s: str) -> str:
 def quote_ok(quote: str, text: str) -> bool:
     q, t = norm(quote), norm(text)
     return bool(q) and (q in t or fuzz.partial_ratio(q, t) >= 90)
+
+
+def make_anchor_resolver(doc: Doc):
+    """Map whatever the model wrote ('[[P5]]', 'p5', '5', 'Para 5', 'paras 5-6') onto real paragraph ids."""
+    ids = list(doc.paras)
+    lower = {i.lower(): i for i in ids}
+    def one(a: str) -> list[str]:
+        a = re.sub(r"^\W+|\W+$", "", str(a)).strip()
+        a = re.sub(r"(?i)^paras?\.?\s*", "", a)
+        if a.lower() in lower:
+            return [lower[a.lower()]]
+        if f"P{a}".lower() in lower:
+            return [lower[f"P{a}".lower()]]
+        m = re.fullmatch(r"(\d+)\s*[-–]\s*(\d+)", a)                        # 'P5-6' / '5-6' range
+        if m:
+            lo, hi = int(m[1]), int(m[2])
+            got = [lower[f"p{n}"] for n in range(lo, min(hi, lo + 15) + 1) if f"p{n}" in lower]
+            if got:
+                return got
+        return [a]                                                          # unknown -> reported by check()
+    def resolve(anchors: list[str]) -> list[str]:
+        out: list[str] = []
+        for a in anchors:
+            for x in one(a):
+                if x not in out:
+                    out.append(x)
+        return out
+    return resolve
+
+
+def normalise(rec: CaseLLM, doc: Doc) -> None:
+    res = make_anchor_resolver(doc)
+    for p in rec.propositions:
+        p.anchors = res(p.anchors)
+    for i in rec.issues:
+        i.anchors = res(i.anchors)
+    for c in rec.contentions:
+        c.anchors = res(c.anchors)
+    seen = set()
+    for n, p in enumerate(rec.propositions, 1):                             # ids must be unique for verdict mapping
+        if not p.id or p.id in seen:
+            p.id = f"p{n}" if f"p{n}" not in seen else f"p{n}_{len(seen)}"
+        seen.add(p.id)
 
 
 def check(rec: CaseLLM, doc: Doc) -> list[str]:
@@ -424,37 +401,42 @@ def check(rec: CaseLLM, doc: Doc) -> list[str]:
         if any(a not in ptxt for a in i.anchors):
             probs.append(f"issue '{i.question[:40]}': unknown anchors")
     for s in rec.statutes:
-        if not re.search(rf"\b{re.escape(s.section.split('(')[0])}\b", full):
+        sec = s.section.split("(")[0].strip()
+        if sec and not re.search(rf"\b{re.escape(sec)}\b", full):
             probs.append(f"statute {s.act} s.{s.section} not found in text")
     for a in rec.authorities:
-        first = re.split(r"\s+v\.?\s+", a.name)[0]
-        if not quote_ok(first, full):
+        first = re.split(r"\s+v\.?s?\.?\s+", a.name)[0]
+        if first.strip() and not quote_ok(first, full):
             probs.append(f"authority '{a.name}' not found in text")
     return probs
 
 
 def llm_verify(rec: CaseLLM, doc: Doc) -> dict[str, Verdict]:
+    if not rec.propositions:
+        return {}
     payload = [{"id": p.id, "proposition": p.text, "favors": p.favors, "speaker": p.speaker, "kind": p.kind,
-                "anchor_text": " ".join(doc.paras[a]["text"] for a in p.anchors if a in doc.paras)}
+                "anchor_text": " ".join(doc.paras[a]["text"] for a in p.anchors if a in doc.paras)[:6000]}
                for p in rec.propositions]
-    sys = ("You are a strict legal cite-checker. For each item decide if anchor_text supports the proposition exactly "
-           "as worded (supported / overstated = broader or more absolute than the text / unsupported) and whether "
-           "'favors' is correct for a bail contest. Also flag if a rejected view is presented as the court's own.")
-    out = call(sys, json.dumps(payload, ensure_ascii=False), Verdicts, VERIFY_MODEL, 6000)
+    sys_ = ("You are a strict legal cite-checker. For each item decide if anchor_text supports the proposition exactly "
+            "as worded (supported / overstated = broader or more absolute than the text / unsupported) and whether "
+            "'favors' is correct for a bail contest. Also flag if a rejected view is presented as the court's own. "
+            "verdict MUST be exactly one of: supported, overstated, unsupported. Return one item per input id.")
+    out = call(sys_, json.dumps(payload, ensure_ascii=False), Verdicts, VERIFY_MODEL, 6000)
     return {v.id: v for v in out.items}
 
 
 # --------------------------------------------------------------------------- outputs
 def case_id(doc: Doc) -> str:
     m = doc.meta
-    if m.get("citation_scr"):
-        return re.sub(r"\W+", "_", m["citation_scr"])
-    return re.sub(r"\W+", "_", str(m.get("citation_laws") or Path(doc.source).stem))
+    for k in ("citation_scr", "citation_scc", "citation_air", "citation_neutral", "citation_online", "citation_laws"):
+        if m.get(k):
+            return re.sub(r"\W+", "_", str(m[k]))
+    return re.sub(r"\W+", "_", Path(doc.source).stem)
 
 
 def make_chunks(cid: str, rec: CaseLLM, doc: Doc, verdicts: dict) -> list[dict]:
-    base = {"case_id": cid, "court": rec.court, "year": doc.meta.get("year"),
-            "bench_strength": doc.meta.get("bench_strength_regex"),
+    base = {"case_id": cid, "court": rec.court or doc.meta.get("court_regex") or doc.meta.get("court"),
+            "year": doc.meta.get("year"), "bench_strength": doc.meta.get("bench_strength_regex"),
             "statutes": [f"{s.act} {s.section}" for s in rec.statutes]}
     ch = []
     for p in rec.propositions:
@@ -470,64 +452,127 @@ def make_chunks(cid: str, rec: CaseLLM, doc: Doc, verdicts: dict) -> list[dict]:
                "text": f"{rec.abstract_facts} Stage: {rec.procedural_stage}. Nature: {rec.dispute_nature}. "
                        f"Offences: {', '.join(rec.offence_types)}."})
     for pid, p in doc.paras.items():                          # for BM25 / quote lookup
-        ch.append({**base, "id": f"{cid}:{pid}", "type": "paragraph", "text": p["text"],
-                   "page": p["page_start"]})
+        ch.append({**base, "id": f"{cid}:{pid}", "type": "paragraph", "text": p["text"], "page": p["page_start"]})
     return ch
 
 
-def process(path: str, out: Path, verify=True):
-    doc = load_pdf(path) if path.lower().endswith(".pdf") else load_laws_json(path)
+def replace_chunks(path: Path, cid: str, new: list[dict]) -> None:
+    """Rewrite chunks.jsonl without any old chunks of this case, then append the new ones."""
+    keep = []
+    if path.exists():
+        for ln in path.read_text(encoding="utf-8").splitlines():
+            try:
+                if ln.strip() and json.loads(ln).get("case_id") != cid:
+                    keep.append(ln)
+            except json.JSONDecodeError:
+                continue
+    keep += [json.dumps(c, ensure_ascii=False) for c in new]
+    path.write_text("\n".join(keep) + "\n", encoding="utf-8")
+
+
+def process(path: str, out: Path, verify: bool = True, force: bool = False) -> str:
+    doc = load_document(path)
     cid = case_id(doc)
+    target = out / f"{cid}.json"
+    if target.exists():
+        try:
+            prev_src = json.loads(target.read_text(encoding="utf-8")).get("doc_meta", {}).get("source_file")
+        except Exception:
+            prev_src = None
+        if prev_src == doc.meta.get("source_file") and not force:
+            print(f"{cid}: already done - skipped (use --force to redo)")
+            return "skipped"
+        if prev_src and prev_src != doc.meta.get("source_file"):         # two different files, same citation
+            stem = re.sub(r"\W+", "_", Path(path).stem)[:40]
+            cid = f"{cid}__{stem}"
+            target = out / f"{cid}.json"
+
+    if not doc.paras:
+        raise RuntimeError(f"no paragraphs extracted from {Path(path).name}; flags={doc.flags}")
+
+    coerced: list[str] = []
     rec = call(SYSTEM, build_prompt(doc), CaseLLM, EXTRACT_MODEL)
+    coerced += COERCIONS
+    normalise(rec, doc)
     probs = check(rec, doc)
     if probs:                                                 # one repair round, failing items only
         note = ("\n\n=== VERIFICATION FAILURES: fix these and return the complete record. Use only real anchors "
-                "and exact quotes; drop propositions you cannot ground ===\n" + "\n".join(probs) +
+                "(exactly as in [[ ]]) and exact quotes; drop propositions you cannot ground ===\n" + "\n".join(probs) +
                 "\n\nPREVIOUS OUTPUT:\n" + rec.model_dump_json())
-        rec = call(SYSTEM, build_prompt(doc) + note, CaseLLM, EXTRACT_MODEL)
-        probs = check(rec, doc)
-    verdicts = llm_verify(rec, doc) if verify else {}
+        try:
+            rec2 = call(SYSTEM, build_prompt(doc, note), CaseLLM, EXTRACT_MODEL)
+            coerced += COERCIONS
+            normalise(rec2, doc)
+            probs2 = check(rec2, doc)
+            if len(probs2) <= len(probs):                     # never let a repair make things worse
+                rec, probs = rec2, probs2
+        except Exception as e:
+            probs.append(f"repair pass failed: {type(e).__name__}: {str(e)[:200]}")
+
+    verdicts: dict[str, Verdict] = {}
     review = list(probs)
+    if verify:
+        try:
+            verdicts = llm_verify(rec, doc)
+            coerced += COERCIONS
+        except Exception as e:
+            review.append(f"verifier failed: {type(e).__name__}: {str(e)[:200]}")
+    for pr in rec.propositions:
+        if verify and pr.id not in verdicts:
+            review.append(f"{pr.id}: no verifier verdict returned")
     for pid, v in verdicts.items():
         if v.verdict != "supported" or not v.favors_correct:
             review.append(f"{pid}: verifier says {v.verdict}, favors_correct={v.favors_correct} - {v.note}")
     if doc.meta.get("bench_strength_regex") and len(rec.coram) != doc.meta["bench_strength_regex"]:
         review.append("coram count differs between regex and LLM")
+    if not rec.propositions:
+        review.append("no propositions extracted")
+    review += [f"auto-coerced: {c}" for c in dict.fromkeys(coerced)]
+    review += [f"parser flag: {f}" for f in doc.flags if not f.startswith("ocr_noisy")]
+
     result = {"case_id": cid, "doc_meta": doc.meta, "flags": doc.flags, "case": rec.model_dump(),
               "authority_table": doc.authority_table, "verdicts": {k: v.model_dump() for k, v in verdicts.items()},
               "needs_review": review, "paragraphs": doc.paras, "headnote_raw": doc.headnote}
-    (out / f"{cid}.json").write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")
-    with open(out / "chunks.jsonl", "a", encoding="utf-8") as f:
-        for c in make_chunks(cid, rec, doc, verdicts):
-            f.write(json.dumps(c, ensure_ascii=False) + "\n")
+    target.write_text(json.dumps(result, indent=2, ensure_ascii=False, default=str), encoding="utf-8")
+    replace_chunks(out / "chunks.jsonl", cid, make_chunks(cid, rec, doc, verdicts))
     print(f"{cid}: {len(rec.propositions)} propositions, {len(doc.paras)} paragraphs, {len(review)} need review")
+    return "ok"
 
 
 _DEFAULT_INPUT_DIR = Path(__file__).parent / "Anticipatory bail application"
 
-if __name__ == "__main__":
-    ap = argparse.ArgumentParser(
-        description="Extract precedent data from bail judgment PDFs/JSONs."
-    )
-    ap.add_argument(
-        "files", nargs="*",
-        help="PDF or JSON files to process. "
-             f"Defaults to all PDFs in '{_DEFAULT_INPUT_DIR.name}/' if omitted."
-    )
+
+def main():
+    ap = argparse.ArgumentParser(description="Extract precedent data from bail judgment PDFs/JSONs.")
+    ap.add_argument("files", nargs="*", help=f"PDF/JSON files. Defaults to all PDFs in '{_DEFAULT_INPUT_DIR.name}/'.")
     ap.add_argument("--out", default="out", help="Output directory (default: out/)")
     ap.add_argument("--no-verify", action="store_true", help="Skip LLM verification pass")
+    ap.add_argument("--force", action="store_true", help="Re-process cases that already have output")
     a = ap.parse_args()
 
     if not a.files:
         a.files = sorted(str(p) for p in _DEFAULT_INPUT_DIR.glob("*.pdf"))
         if not a.files:
-            ap.error(f"No PDF files found in '{_DEFAULT_INPUT_DIR}'. "
-                     "Please pass file paths explicitly.")
-        print(f"No files specified — processing {len(a.files)} PDFs from "
-              f"'{_DEFAULT_INPUT_DIR.name}/':\n" +
-              "\n".join(f"  {Path(f).name}" for f in a.files) + "\n")
+            ap.error(f"No PDF files found in '{_DEFAULT_INPUT_DIR}'. Please pass file paths explicitly.")
+        print(f"No files specified - processing {len(a.files)} PDFs from '{_DEFAULT_INPUT_DIR.name}/'\n")
 
-    Path(a.out).mkdir(parents=True, exist_ok=True)
-    (Path(a.out) / "chunks.jsonl").write_text("", encoding="utf-8")
+    out = Path(a.out)
+    out.mkdir(parents=True, exist_ok=True)
+    stats = {"ok": 0, "skipped": 0, "failed": 0}
     for fp in a.files:
-        process(fp, Path(a.out), verify=not a.no_verify)
+        try:
+            stats[process(fp, out, verify=not a.no_verify, force=a.force)] += 1
+        except KeyboardInterrupt:
+            raise
+        except Exception as e:
+            stats["failed"] += 1
+            print(f"  [FAILED] {Path(fp).name}: {type(e).__name__}: {str(e)[:300]}")
+            with open(out / "errors.jsonl", "a", encoding="utf-8") as f:
+                f.write(json.dumps({"file": fp, "error": f"{type(e).__name__}: {e}",
+                                    "trace": traceback.format_exc()[-1500:]}, ensure_ascii=False) + "\n")
+    print(f"\nDone: {stats['ok']} ok, {stats['skipped']} skipped, {stats['failed']} failed"
+          + (f" (see {out / 'errors.jsonl'})" if stats["failed"] else ""))
+
+
+if __name__ == "__main__":
+    main()

@@ -3,45 +3,70 @@
   "doc_meta": {
     "source_file": "SALAUDDIN ABDULSAMAD SHAIKH.pdf",
     "pdf_pages": 3,
+    "_sources": {
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:coram_block",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on"
+    },
+    "format_profile": "scr_reporter",
     "decided_on": "1995-12-11",
+    "coram_raw": "the same judge, he directed the petitioner to move a regular bail application before the Court which was in seisin of the",
+    "coram_regex": [
+      "same judge",
+      "he directed petitioner to move a regular bail application Court which was in seisin of"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "SALAUDDIN ABDULSAMAD SHAIKH",
+    "respondent_regex": "THE STATE OF MAHARASHTRA",
+    "court_regex": "Supreme Court of India",
+    "year": 1995,
+    "reporter_trailer": "G.N. Petition disposed of",
+    "result_of_case": "Petition disposed of",
     "layout": "unnumbered_page_anchored",
     "ocr_noise_score": 0.0017
   },
   "flags": [
-    "coram_not_parsed",
-    "zone_split_failed_using_whole_text"
+    "citation_not_found",
+    "headnote_end_not_found",
+    "zone_split_failed_using_whole_text",
+    "case_no_not_found",
+    "appeal_from_not_found",
+    "author_not_found"
   ],
   "case": {
-    "case_name": "Salauddin Abdulsamad Shaikh v. The State of Maharashtra",
-    "petitioner": "Salauddin Abdulsamad Shaikh",
-    "respondent": "The State of Maharashtra",
+    "case_name": "SALAUDDIN ABDULSAMAD SHAIKH v. THE STATE OF MAHARASHTRA",
+    "petitioner": "SALAUDDIN ABDULSAMAD SHAIKH",
+    "respondent": "THE STATE OF MAHARASHTRA",
     "court": "Supreme Court of India",
     "coram": [
       "A.M. Ahmadi, CJ",
-      "S.C. Sen, J",
-      "K.S. Paripoornan, J"
+      "S.C. Sen",
+      "K.S. Paripoornan"
     ],
     "judgment_author": null,
-    "procedural_stage": "pre_arrest",
+    "procedural_stage": "post_arrest_bail",
     "offence_types": [
-      "other"
+      "serious criminal"
     ],
     "dispute_nature": "serious_criminal",
-    "abstract_facts": "The petitioner filed an application in the High Court under Section 438 CrPC seeking anticipatory bail, which was granted with conditions. The bail order was set to expire on 26.9.1995. Before final disposal, the High Court directed the petitioner to apply for regular bail and stated the application should be decided uninfluenced by previous observations. The petitioner filed a Special Leave Petition against this order.",
-    "lower_court_outcome": "Anticipatory bail with conditions and limited duration granted by High Court, to transition to regular bail process.",
-    "disposition": "Special Leave Petition dismissed; the High Court's procedure upheld.",
+    "abstract_facts": "The case involves a petitioner who applied for anticipatory bail under Section 438 of the Code of Criminal Procedure, 1973, due to fear of arrest in a non-bailable crime. The High Court initially granted an ad-interim anticipatory bail with conditions, which was to last until a specified date. Upon its expiry, the High Court directed the petitioner to apply for regular bail before the appropriate court. The decision was contested, leading to the special leave petition in the Supreme Court of India.",
+    "lower_court_outcome": "Ad-interim anticipatory bail granted with conditions",
+    "disposition": "Petition disposed of",
     "statutes": [
       {
         "act": "CrPC 1973",
         "section": "438",
         "how_used": "interpreted",
-        "note": "Anticipatory bail should be of limited duration and not bypass regular court."
+        "note": "Anticipatory bail orders should generally have limited duration, leaving matter to regular court on expiry."
       }
     ],
     "issues": [
       {
-        "question": "Whether anticipatory bail granted under Section 438 CrPC should be of limited duration and transition to regular bail?",
-        "short_answer": "Yes.",
+        "question": "Does the court granting anticipatory bail have the authority to bypass the regular court?",
+        "short_answer": "No",
         "anchors": [
           "p556.5",
           "p557.6"
@@ -51,63 +76,42 @@
     "propositions": [
       {
         "id": "p1",
-        "text": "Anticipatory bail is intended for a limited duration and should not bypass the regular court responsible for the trial.",
+        "text": "Anticipatory bail is granted at a stage when the investigation is incomplete, and therefore such orders should be of limited duration.",
         "speaker": "supreme_court",
         "kind": "ratio",
         "is_holding": true,
-        "favors": "neutral",
-        "conditions": [
-          "Granted at a stage when investigation is incomplete"
-        ],
-        "statutes": [
-          "CrPC 1973 438"
-        ],
-        "anchors": [
-          "p556.5",
-          "p557.6"
-        ],
-        "quote": "Anticipatory bail is granted in anticipation of arrest in non-bailable cases, but that does not mean that the regular court, which is to try the offender, is sought to be by-passed."
-      },
-      {
-        "id": "p2",
-        "text": "The High Court's practice of setting an outer date for anticipatory bail and directing the petitioner to move for regular bail is correct.",
-        "speaker": "supreme_court",
-        "kind": "ratio",
-        "is_holding": true,
-        "favors": "neutral",
+        "favors": "prosecution",
         "conditions": [],
         "statutes": [],
         "anchors": [
           "p556.5",
           "p557.6"
         ],
-        "quote": "the High Court very rightly fixed the outer date for the continuance of the bail and on the date of its expiry directed the petitioner to move the regular Court for bail."
+        "quote": "when the investigation is incomplete and, therefore, it is necessary that such anticipatory bail orders should be of a limited duration only"
       },
       {
-        "id": "p3",
-        "text": "Anticipatory bail orders should leave it to the regular court to decide on regular bail after investigation progress or charge-sheet submission.",
+        "id": "p2",
+        "text": "The court granting anticipatory bail should not substitute itself for the regular court expected to deal with the offence after evidence is placed post-investigation.",
         "speaker": "supreme_court",
         "kind": "ratio",
         "is_holding": true,
-        "favors": "neutral",
-        "conditions": [
-          "Investigation progress or charge-sheet submission"
-        ],
-        "statutes": [
-          "CrPC 1973 438"
-        ],
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
         "anchors": [
+          "p556.5",
           "p557.6"
         ],
-        "quote": "after the investigation has made progress or the chargesheet is submitted."
+        "quote": "ordinarily the Court granting anticipatory bail should not substitute itself for the original Court which is expected to deal with the offence"
       }
     ],
     "contentions": [
       {
         "side": "appellant",
-        "text": "The petitioner argued against the High Court's direction to apply for regular bail and the uninfluenced decision by the earlier order.",
+        "text": "The appellant contested the High Court's direction to move a regular bail application upon expiry of anticipatory bail.",
         "outcome": "rejected",
         "anchors": [
+          "p556.4",
           "p557.6"
         ]
       }
@@ -118,27 +122,27 @@
   "verdicts": {
     "p1": {
       "id": "p1",
-      "verdict": "supported",
+      "verdict": "unsupported",
       "favors_correct": false,
-      "note": "The text states that anticipatory bail should not bypass the regular court but does not explicitly assert it should only be for a limited duration."
+      "note": "The anchor text does not clearly state that anticipatory bail should be of limited duration; it discusses a procedure related to a specific case instead."
     },
     "p2": {
       "id": "p2",
       "verdict": "supported",
-      "favors_correct": false,
-      "note": "The anchor text supports the proposition that the High Court's practice is correct regarding anticipatory bail."
-    },
-    "p3": {
-      "id": "p3",
-      "verdict": "supported",
-      "favors_correct": false,
-      "note": "The anchor text supports the proposition that anticipatory bail orders should leave decisions to the regular court after evidence appreciation."
+      "favors_correct": true,
+      "note": ""
     }
   },
   "needs_review": [
-    "p1: verifier says supported, favors_correct=False - The text states that anticipatory bail should not bypass the regular court but does not explicitly assert it should only be for a limited duration.",
-    "p2: verifier says supported, favors_correct=False - The anchor text supports the proposition that the High Court's practice is correct regarding anticipatory bail.",
-    "p3: verifier says supported, favors_correct=False - The anchor text supports the proposition that anticipatory bail orders should leave decisions to the regular court after evidence appreciation."
+    "p1: quote not found in its anchors",
+    "p1: verifier says unsupported, favors_correct=False - The anchor text does not clearly state that anticipatory bail should be of limited duration; it discusses a procedure related to a specific case instead.",
+    "coram count differs between regex and LLM",
+    "parser flag: citation_not_found",
+    "parser flag: headnote_end_not_found",
+    "parser flag: zone_split_failed_using_whole_text",
+    "parser flag: case_no_not_found",
+    "parser flag: appeal_from_not_found",
+    "parser flag: author_not_found"
   ],
   "paragraphs": {
     "p556.1": {
@@ -152,22 +156,22 @@
       "page_end": 556
     },
     "p556.3": {
-      "text": "S. 438-Anticipatory bail-Grant of-Ordinarily the regular Coun which C is to deal with that panicular offence cannot be by-passed-Coun granting anticipatory bail should not substitute itself for the original Coun and the duration of the bail order should also be limited.",
+      "text": "S. 438-Anticipatory bail-Grant of-Ordinarily the regular Coun which is to deal with that panicular offence cannot be by-passed-Coun granting anticipatory bail should not substitute itself for the original Coun and the duration of the bail order should also be limited.",
       "page_start": 556,
       "page_end": 556
     },
     "p556.4": {
-      "text": "The petitioner filed an application in the High Court under Section 438 of the Code of Criminal Procedur., and secured an ad-interim an-D ticipatory bail order which was to enure upto 26.9.1995. The High Court imposed certain conditions, one of which was that he will report at the Police Station every day till 25.9.1995. When the matter came up on that day for final disposal before the same judge, he directed the petitioner to move a regular bail application before the Court which was in seisin of the E criminal case pending against him and observed that the bail application should be disposed of nninflnenced by the observations made in the earlier order of 13.9.1995. Against this order passed by the Single Jndge the present SLP has been filed.",
+      "text": "The petitioner filed an application in the High Court under Section 438 of the Code of Criminal Procedur., and secured an ad-interim an-ticipatory bail order which was to enure upto 26.9.1995. The High Court imposed certain conditions, one of which was that he will report at the Police Station every day till 25.9.1995. When the matter came up on that day for final disposal before the same judge, he directed the petitioner to move a regular bail application before the Court which was in seisin of the criminal case pending against him and observed that the bail application should be disposed of nninflnenced by the observations made in the earlier order of 13.9.1995. Against this order passed by the Single Jndge the present SLP has been filed.",
       "page_start": 556,
       "page_end": 556
     },
     "p556.5": {
-      "text": "Disposing of the appeal, this Court HELD : 1. Anticipatory bail is granted in anticipation of arrest in non-bailable cases, bnt that does not mean that the regular conrt, which is to try the offender, is songht to be by-passed and that is the reason why the High Conrt very rightly fixed the outer date for the continuance of the bail and on tl1e date of its expiry directed the petitioner to move the regular G court for bail. That is the correct procedure to follow because when the Court of Session or the High Court is granting anticipatory bail, it is granted at a stage when the investigation is complete and, therefore, it is not informed abont the nature of evidence against the alleged offende~-. It is, therefore, necessary that snch anticipatory bail orders shonld :.e of a H limited duration only and ordinarily on the expiry of that d:tration or •.",
+      "text": "Disposing of the appeal, this Court HELD : 1. Anticipatory bail is granted in anticipation of arrest in non-bailable cases, bnt that does not mean that the regular conrt, which is to try the offender, is songht to be by-passed and that is the reason why the High Conrt very rightly fixed the outer date for the continuance of the bail and on tl1e date of its expiry directed the petitioner to move the regular court for bail. That is the correct procedure to follow because when the Court of Session or the High Court is granting anticipatory bail, it is granted at a stage when the investigation is complete and, therefore, it is not informed abont the nature of evidence against the alleged offende~-. It is, therefore, necessary that snch anticipatory bail orders shonld :.e of a limited duration only and ordinarily on the expiry of that d:tration or •.",
       "page_start": 556,
       "page_end": 556
     },
     "p557.1": {
-      "text": "extended duration the Court granting anticipatory bail should leave it to A the regular Court to deal with the matter on an appreciation of evidence placed before it after the investigation has made progress or the char-gesheet is submitted. (558-B-D] 2. An order of anticipatory bail could even be obtained in cases of serious nature such as murder and, therefore, it is essential that the duration of that o_rder should be limited and ordinarily the Court granting anticipatory bail should not substitute itself for the original Court which is expected to deal with the offence. It is that Court which has then to consider whether, having regard to the material placed before it, the accused person is entitled to ilail. In the instant case, therefore, the High C Court had followed the currect procedure and there is no reason to interfere. (558-E-F] CRIMINAL AfPELLATE JURISDICTION : Special Leave Peti-tion (CRL) No. 3628 of 1995.",
+      "text": "extended duration the Court granting anticipatory bail should leave it to the regular Court to deal with the matter on an appreciation of evidence placed before it after the investigation has made progress or the char-gesheet is submitted. (558-B-D] 2. An order of anticipatory bail could even be obtained in cases of serious nature such as murder and, therefore, it is essential that the duration of that o_rder should be limited and ordinarily the Court granting anticipatory bail should not substitute itself for the original Court which is expected to deal with the offence. It is that Court which has then to consider whether, having regard to the material placed before it, the accused person is entitled to ilail. In the instant case, therefore, the High Court had followed the currect procedure and there is no reason to interfere. (558-E-F] CRIMINAL AfPELLATE JURISDICTION : Special Leave Peti-tion (CRL) No. 3628 of 1995.",
       "page_start": 557,
       "page_end": 557
     },
@@ -192,18 +196,8 @@
       "page_end": 557
     },
     "p557.6": {
-      "text": "The petitioner filed an application in the High Court being Criminal Application No. 2230/95 under Section 436 of the Code of Criminal Pro-cedure and secured an ad-interim anticipatory bail order which was to enure upto 26.9.1995. The High Court imposed certain conditions, one of which was that he will report at the Police Station every day till 25.9.1995. The petitioner says that he has complied with each and every condition imposed under that order. Be that as it may, it was an ad-interim order which was to enure upto 26.9.1995. When the matter came up on that day for final disposal before the same learned Judge, he directed the petitioner G to move a regular bail ap_plication before the Court which was in seisin of the criminal case pending against him and observed that the bail applica; tion should be disposed of uninfluenced by the observations made in the earlier order of U.9.1995. It is against this order passed by the learned Single Judge of the High Court that this SLP is filed. We see no reason to H A entertain this petition. Under section 438 of the Code of Criminal Proce-dure when any person has reason to believe that he may be arrested on an accusation of having committed a non-bailable offence, the High Court or the Court of Session may, if it thinks fit, direct that in the event of such arrest, he shall be released on bail and in passing that order, it may include B such conditions having regard to the facts of the particular case as it may deem appropriate. Anticipatory bail is granted in anticipation of arrest in non-bailable cases, but that does not mean that the regular court, which is to try the offender, is sought to be by passed and that is the reason why the High Court very rightly fo<ed the outer date for the continuance of the bail and on the date of its expiry directed the petitioner to move the regular C Court for bail. That is the correct procedure to follow because it must be realised that when the Court of Session or the High Court is granting anticipatory bail, it is granted at a stage when the investigation is incom-plete and, therefore, it is not informed about the nature of evidence against the alleged offender. It is, therefore, necessary that such anticipatory bail D orders should be of a limited duration only and ordinarily on the expiry of that duration or extended duration the Court granting anticipatory bail should leave it to the regular Court to deal with the matter on an apprecia-tion of evidence placed before it after the investigation has made progress or the chargesheet is submitted. It should be realised that an order of anticipatory bail could even be obtained in cases of serious nature as for example murder and, therefore, it is essential that the duration of that order should be limited and ordinarily the Court granting anticipatory bail should not substitute itself for the original Court which is expected to deal with the offence. It is that Court which has then to consider whether, having regard to the material placed before it, the accused person is entitled to bail. In the instant case, therefore, the High Court had followed the correct procedure and we see no reason to interfere. However, Mr. Bhasme, learned counsel for the petitioner, states that since this Court had granted an interim order by which the duration of the order was extended he ha• not applied for bail before the regular Court. He may do so, if he so desires, within two weeks from today. The petition will stand disposed of G accordingly.",
+      "text": "The petitioner filed an application in the High Court being Criminal Application No. 2230/95 under Section 436 of the Code of Criminal Pro-cedure and secured an ad-interim anticipatory bail order which was to enure upto 26.9.1995. The High Court imposed certain conditions, one of which was that he will report at the Police Station every day till 25.9.1995. The petitioner says that he has complied with each and every condition imposed under that order. Be that as it may, it was an ad-interim order which was to enure upto 26.9.1995. When the matter came up on that day for final disposal before the same learned Judge, he directed the petitioner to move a regular bail ap_plication before the Court which was in seisin of the criminal case pending against him and observed that the bail applica; tion should be disposed of uninfluenced by the observations made in the earlier order of U.9.1995. It is against this order passed by the learned Single Judge of the High Court that this SLP is filed. We see no reason to entertain this petition. Under section 438 of the Code of Criminal Proce-dure when any person has reason to believe that he may be arrested on an accusation of having committed a non-bailable offence, the High Court or the Court of Session may, if it thinks fit, direct that in the event of such arrest, he shall be released on bail and in passing that order, it may include such conditions having regard to the facts of the particular case as it may deem appropriate. Anticipatory bail is granted in anticipation of arrest in non-bailable cases, but that does not mean that the regular court, which is to try the offender, is sought to be by passed and that is the reason why the High Court very rightly fo<ed the outer date for the continuance of the bail and on the date of its expiry directed the petitioner to move the regular Court for bail. That is the correct procedure to follow because it must be realised that when the Court of Session or the High Court is granting anticipatory bail, it is granted at a stage when the investigation is incom-plete and, therefore, it is not informed about the nature of evidence against the alleged offender. It is, therefore, necessary that such anticipatory bail orders should be of a limited duration only and ordinarily on the expiry of that duration or extended duration the Court granting anticipatory bail should leave it to the regular Court to deal with the matter on an apprecia-tion of evidence placed before it after the investigation has made progress or the chargesheet is submitted. It should be realised that an order of anticipatory bail could even be obtained in cases of serious nature as for example murder and, therefore, it is essential that the duration of that order should be limited and ordinarily the Court granting anticipatory bail should not substitute itself for the original Court which is expected to deal with the offence. It is that Court which has then to consider whether, having regard to the material placed before it, the accused person is entitled to bail. In the instant case, therefore, the High Court had followed the correct procedure and we see no reason to interfere. However, Mr. Bhasme, learned counsel for the petitioner, states that since this Court had granted an interim order by which the duration of the order was extended he ha• not applied for bail before the regular Court. He may do so, if he so desires, within two weeks from today. The petition will stand disposed of accordingly.",
       "page_start": 557,
-      "page_end": 558
-    },
-    "p558.1": {
-      "text": "G.N.",
-      "page_start": 558,
-      "page_end": 558
-    },
-    "p558.2": {
-      "text": "Petition disposed of",
-      "page_start": 558,
       "page_end": 558
     }
   },

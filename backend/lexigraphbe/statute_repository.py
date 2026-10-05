@@ -39,6 +39,10 @@ class StatuteRepository:
                     instance.ipc_to_bns = {}
                     instance.bns_to_ipc = {}
                     instance.ipc_json_section_numbers = set()
+                    instance.bsa_sections_db = []          # BSA flat list for prefilter
+                    instance.bsa_statute_db = {}           # BSA_<n> -> metadata dict
+                    instance.bsa_to_iea = {}               # str(bsa_sec) -> str IEA sec(s)
+                    instance.bsa_json_section_numbers = set()  # authoritative BSA section numbers
                     instance._is_loaded = False
                     instance._load_all_datasets()
                     cls._instance = instance
@@ -228,12 +232,199 @@ class StatuteRepository:
             pass
 
     def _load_all_datasets(self) -> None:
-        """Loads IPC datasets strictly and exclusively from ipc.json."""
+        """Loads IPC datasets strictly and exclusively from ipc.json, then BSA from bsa.json, and IPC->BNS mappings from Neo4j/CSV."""
         if self._is_loaded:
             return
 
-        self._load_ipc_json()  # Strictly use ipc.json as sole source
+        self._load_ipc_json()   # IPC sections from ipc.json
+        self._load_bsa_json()   # BSA evidence sections from bsa.json
+        self._load_ipc_to_bns_neo4j()  # Authoritative Neo4j REPLACED_BY edges
+        self._load_ipc2bns_mapping()   # Supplementary CSV mapping & details
         self._is_loaded = True
+
+
+    # ------------------------------------------------------------------
+    # BSA section loading
+    # ------------------------------------------------------------------
+
+    # Pre-computed BSA -> IEA mapping (sourced from Neo4j REPLACES edges).
+    # Covers all 179 REPLACES relationships found.  BSA sections without
+    # an IEA equivalent are absent from this dict (value would be None).
+    # Sections that map to multiple IEA sections are comma-separated strings.
+    _BSA_TO_IEA: Dict[str, str] = {
+        "1": "1", "2": "3, 4", "3": "5", "4": "6", "5": "7", "6": "8",
+        "7": "9", "8": "10", "9": "11", "10": "12", "11": "13",
+        "12": "14", "13": "15", "14": "16", "15": "17", "16": "18",
+        "17": "19", "18": "20", "19": "21", "20": "22", "21": "23",
+        "22": "24, 28, 29", "23": "25, 26, 27", "24": "30", "25": "31",
+        "26": "32", "27": "33", "28": "34", "29": "35", "30": "36",
+        "31": "37", "32": "38", "33": "39", "34": "40", "35": "41",
+        "36": "42", "37": "43", "38": "44", "39": "45, 45A", "40": "46",
+        "41": "47, 47A", "42": "48", "43": "49", "44": "50", "45": "51",
+        "46": "52", "47": "53", "48": "53A", "49": "54", "50": "55",
+        "51": "56", "52": "57", "53": "58", "54": "59", "55": "60",
+        "56": "61", "57": "62", "58": "63", "59": "64", "60": "65",
+        # BSA 61 (Electronic or digital record) — no IEA equivalent in Neo4j
+        "62": "65A", "63": "65B", "64": "66", "65": "67", "66": "67A",
+        "67": "68", "68": "69", "69": "70", "70": "71", "71": "72",
+        "72": "73", "73": "73A", "74": "74, 75", "75": "76", "76": "77",
+        "77": "78", "78": "79", "79": "80", "80": "81", "81": "81A",
+        "82": "83", "83": "84", "84": "85", "85": "85A", "86": "85B",
+        "87": "85C", "88": "86", "89": "87", "90": "88A", "91": "89",
+        "92": "90", "93": "90A", "94": "91", "95": "92", "96": "93",
+        "97": "94", "98": "95", "99": "96", "100": "97", "101": "98",
+        "102": "99", "103": "100", "104": "101", "105": "102", "106": "103",
+        "107": "104", "108": "105", "109": "106", "110": "107", "111": "108",
+        "112": "109", "113": "110", "114": "111", "115": "111A", "116": "112",
+        "117": "113A", "118": "113B", "119": "114", "120": "114A",
+        "121": "115", "122": "116", "123": "117", "124": "118", "125": "119",
+        "126": "120", "127": "121", "128": "122", "129": "123", "130": "124",
+        "131": "125", "132": "126, 127", "133": "128", "134": "129",
+        "135": "130", "136": "131", "137": "132", "138": "133", "139": "134",
+        "140": "135", "141": "136", "142": "137", "143": "138", "144": "139",
+        "145": "140", "146": "141, 142, 143", "147": "144", "148": "145",
+        "149": "146", "150": "147", "151": "148", "152": "149", "153": "150",
+        "154": "151", "155": "152", "156": "153", "157": "154", "158": "155",
+        "159": "156", "160": "157", "161": "158", "162": "159", "163": "160",
+        "164": "161", "165": "162", "166": "163", "167": "164", "168": "165",
+        "169": "167",
+        # BSA 170 (Repeal and savings) — no IEA equivalent in Neo4j
+    }
+
+    def _load_bsa_json(self) -> None:
+        """
+        Loads BSA (Bharatiya Sakshya Adhiniyam, 2023) sections from bsa.json.
+        Populates bsa_sections_db, bsa_statute_db, bsa_to_iea, and bsa_json_section_numbers.
+        BSA sections do NOT have criminal ingredients — they are evidentiary rules.
+        """
+        import json as _json
+        candidate_paths = [
+            Path(__file__).parent / "bsa.json",
+            Path("backend/lexigraphbe/bsa.json"),
+            Path("lexigraphbe/bsa.json"),
+            Path("bsa.json"),
+        ]
+        target_path = None
+        for p in candidate_paths:
+            if p.exists():
+                target_path = p
+                break
+        if not target_path:
+            return
+
+        # Pre-populate BSA->IEA from embedded map
+        self.bsa_to_iea = dict(self._BSA_TO_IEA)
+
+        try:
+            with open(target_path, mode="r", encoding="utf-8-sig") as f:
+                data = _json.load(f)
+
+            chapters = data.get("chapters", [])
+            for chapter in chapters:
+                chapter_number = chapter.get("chapter_number", "")
+                chapter_title = chapter.get("chapter_title", "")
+
+                for section in chapter.get("sections", []):
+                    sec_num = str(section.get("section_number", "")).strip()
+                    if not sec_num:
+                        continue
+
+                    self.bsa_json_section_numbers.add(sec_num)
+
+                    heading = section.get("heading", "") or ""
+                    text = section.get("text", "") or ""
+
+                    # Sub-sections text assembly (some BSA sections have sub_sections instead of text)
+                    if not text and section.get("sub_sections"):
+                        sub_texts = []
+                        for sub in section["sub_sections"]:
+                            lbl = sub.get("label", "")
+                            stxt = sub.get("text", "")
+                            if lbl and stxt:
+                                sub_texts.append(f"{lbl} {stxt}")
+                            elif stxt:
+                                sub_texts.append(stxt)
+                        text = " ".join(sub_texts)
+
+                    # IEA equivalent from embedded BSA->IEA map (or from replaces_IEA field if present)
+                    replaces_iea = section.get("replaces_IEA") or self.bsa_to_iea.get(sec_num)
+
+                    # Build searchable full text
+                    searchable_parts = [heading, text, sec_num, f"BSA {sec_num}"]
+                    if replaces_iea:
+                        searchable_parts.append(f"IEA {replaces_iea}")
+                    # Add provisos, explanations
+                    for prov in section.get("provisos", []):
+                        if isinstance(prov, str):
+                            searchable_parts.append(prov)
+                        elif isinstance(prov, dict):
+                            searchable_parts.append(prov.get("text", ""))
+                    clean_parts = [p for p in searchable_parts if isinstance(p, str) and p.strip()]
+                    full_text_lower = " ".join(clean_parts).lower()
+
+                    self.bsa_sections_db.append({
+                        "identifier": f"BSA {sec_num}",
+                        "statute": "BSA",
+                        "section_number": sec_num,
+                        "title": heading or f"BSA Section {sec_num}",
+                        "chapter_number": chapter_number,
+                        "chapter_title": chapter_title,
+                        "full_text": full_text_lower,
+                        "replaces_IEA": replaces_iea,
+                        "raw_section": section,
+                    })
+
+                    self.bsa_statute_db[f"BSA_{sec_num}"] = {
+                        "statute": "BSA",
+                        "section_number": sec_num,
+                        "section_title": heading,
+                        "chapter_number": chapter_number,
+                        "chapter_title": chapter_title,
+                        "full_text": text,
+                        "replaces_IEA": replaces_iea,
+                        "is_omitted": section.get("is_omitted", False),
+                        "is_repealed": section.get("is_repealed", False),
+                    }
+        except Exception:
+            pass
+
+    # ------------------------------------------------------------------
+    # BSA accessor methods
+    # ------------------------------------------------------------------
+
+    def get_bsa_sections_db(self) -> List[Dict[str, Any]]:
+        """Returns flat list of all loaded BSA sections (for prefilter keyword search)."""
+        return self.bsa_sections_db
+
+    def get_bsa_statute_db(self) -> Dict[str, Dict[str, Any]]:
+        """Returns BSA_<n> -> metadata dict."""
+        return self.bsa_statute_db
+
+    def get_bsa_to_iea_map(self) -> Dict[str, str]:
+        """Returns BSA section number -> IEA equivalent(s) string map."""
+        return self.bsa_to_iea
+
+    def get_bsa_section_details(self, section_number: str) -> Optional[Dict[str, Any]]:
+        """Returns full metadata dict for a BSA section."""
+        clean = str(section_number).strip()
+        record = self.bsa_statute_db.get(f"BSA_{clean}")
+        if record:
+            return record
+        # Linear scan fallback
+        for key, rec in self.bsa_statute_db.items():
+            if rec.get("section_number", "").strip() == clean:
+                return rec
+        return None
+
+    def get_bsa_iea_equivalent(self, section_number: str) -> Optional[str]:
+        """Returns IEA equivalent(s) for a BSA section as a comma-separated string, or None."""
+        clean = str(section_number).strip()
+        return self.bsa_to_iea.get(clean)
+
+    def is_in_bsa_json(self, section_number: str) -> bool:
+        """Returns True if section_number is a valid BSA section present in bsa.json."""
+        return str(section_number).strip() in self.bsa_json_section_numbers
+
 
     def _load_ipc_and_bns_sections(self) -> None:
         candidate_ipc = [
@@ -395,8 +586,81 @@ class StatuteRepository:
                 "illustrations": "N/A",
             }
 
+    def _load_ipc_to_bns_neo4j(self) -> bool:
+        """
+        Loads authoritative IPC -> BNS mappings directly from Neo4j using the
+        [:REPLACED_BY] edge: (IPCSection)-[:REPLACED_BY]->(BNSSection).
+        Populates self.ipc_to_bns and self.bns_to_ipc.
+        Returns True if successful, False otherwise.
+        """
+        import os
+        from dotenv import load_dotenv
+        env_candidates = [
+            Path(__file__).parent.parent / ".env",
+            Path("backend/.env"),
+            Path(".env"),
+        ]
+        for ep in env_candidates:
+            if ep.exists():
+                load_dotenv(ep)
+                break
+
+        uri = os.getenv("NEO4J_URI")
+        user = os.getenv("NEO4J_USER") or os.getenv("NEO4J_USERNAME")
+        pwd = os.getenv("NEO4J_PASSWORD")
+        db = os.getenv("NEO4J_DATABASE", "neo4j")
+
+        if not (uri and user and pwd):
+            return False
+
+        try:
+            from neo4j import GraphDatabase
+            driver = GraphDatabase.driver(uri, auth=(user, pwd))
+            query = """
+                MATCH (ipc:IPCSection)-[r:REPLACED_BY]->(bns:BNSSection)
+                RETURN ipc.section AS ipc, bns.section AS bns, r.status AS status,
+                       ipc.title AS ipc_title, bns.title AS bns_title
+            """
+            with driver.session(database=db) as session:
+                records = session.run(query).data()
+
+            if not records:
+                query_fallback = """
+                    MATCH (ipc:LawSection {act: 'IPC'})-[r:REPLACED_BY]->(bns:LawSection {act: 'BNS'})
+                    RETURN ipc.section AS ipc, bns.section AS bns, r.status AS status,
+                           ipc.title AS ipc_title, bns.title AS bns_title
+                """
+                with driver.session(database=db) as session:
+                    records = session.run(query_fallback).data()
+
+            driver.close()
+
+            for rec in records:
+                ipc_sec = str(rec.get("ipc") or "").strip().upper()
+                bns_sec = str(rec.get("bns") or "").strip().upper()
+                if not ipc_sec:
+                    continue
+                entry = {
+                    "ipc_section": ipc_sec,
+                    "ipc_title": rec.get("ipc_title") or "",
+                    "bns_section_clean": bns_sec,
+                    "bns_section_raw": bns_sec,
+                    "bns_title": rec.get("bns_title") or "",
+                    "parent_bns_section": "",
+                    "status": rec.get("status") or "VALID",
+                    "source": "neo4j_replaced_by",
+                }
+                self.ipc_to_bns[ipc_sec] = entry
+                if bns_sec:
+                    self.bns_to_ipc[bns_sec] = entry
+
+            return len(records) > 0
+        except Exception:
+            return False
+
     def _load_ipc2bns_mapping(self) -> None:
         candidate_paths = [
+            Path(__file__).parent / "ipc2bns_clean.csv",
             Path("backend/lexigraphbe/ipc2bns_clean.csv"),
             Path("ipc2bns_clean.csv"),
             Path("c:/proj/MootCourt/backend/lexigraphbe/ipc2bns_clean.csv"),
@@ -432,10 +696,19 @@ class StatuteRepository:
                         "parent_bns_section": parent_bns,
                     }
 
+                    # If already present from Neo4j, update titles/raw fields if missing
                     if ipc_sec:
-                        self.ipc_to_bns[ipc_sec] = entry
+                        if ipc_sec in self.ipc_to_bns:
+                            existing = self.ipc_to_bns[ipc_sec]
+                            if not existing.get("ipc_title") and ipc_title:
+                                existing["ipc_title"] = ipc_title
+                            if not existing.get("bns_title") and bns_title:
+                                existing["bns_title"] = bns_title
+                        else:
+                            self.ipc_to_bns[ipc_sec] = entry
                     if bns_clean:
-                        self.bns_to_ipc[bns_clean] = entry
+                        if bns_clean not in self.bns_to_ipc:
+                            self.bns_to_ipc[bns_clean] = entry
         except Exception:
             pass
 
@@ -448,8 +721,20 @@ class StatuteRepository:
     def get_bns_to_ipc_map(self) -> Dict[str, Dict[str, str]]:
         return self.bns_to_ipc
 
+    def get_ipc_bns_equivalent(self, section_number: str) -> Optional[str]:
+        """
+        Returns the BNS equivalent section number for a given IPC section number,
+        authoritatively mapped via Neo4j [:REPLACED_BY] or ipc2bns CSV.
+        """
+        clean = str(section_number).strip().upper().replace("IPC_", "").replace("SECTION ", "")
+        entry = self.ipc_to_bns.get(clean)
+        if entry:
+            return entry.get("bns_section_clean") or entry.get("bns_section_raw")
+        return None
+
     def get_statute_db(self) -> Dict[str, Dict[str, Any]]:
         return self.statute_db
+
 
     def get_statutory_definition(self, section_number: str, statute: str = "IPC") -> Optional[str]:
         """

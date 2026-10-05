@@ -1,5 +1,5 @@
 """
-LexiGraph Backend - Stage 0 (Intake), Stage 1 (Query Understanding), Stage 2 (Sub-Query Mapping), Stage 3 (Chapter Identification), Stage 4 (Statutory Verification), Stage 5 (Bail Reasoning), Stage 6 (Precedent Retrieval), IPC ↔ BNS Mapper, Local Classifier Pre-filter, and Batched Pipeline Utilities.
+LexiGraph Backend - Stage 0 (Intake), Stage 1 (Query Understanding), Stage 2 (Sub-Query Mapping), Stage 3 (Chapter Identification), Stage 3b (BSA Evidence Law Retrieval), Stage 4 (Statutory Verification), Stage 5 (Bail Reasoning), Stage 6 (Precedent Retrieval), IPC ↔ BNS Mapper, Local Classifier Pre-filter, and Batched Pipeline Utilities.
 """
 
 from .schemas import (
@@ -74,6 +74,10 @@ from .stage5_pipeline import Stage5Pipeline
 from .precedent_retrieval_agent import PrecedentRetrievalAgent
 from .precedent_verifier_agent import PrecedentVerificationAuditor
 from .stage6_pipeline import Stage6Pipeline
+from .bsa_retrieval_agent import BSARetrievalAgent
+from .bsa_verifier_agent import BSAVerifierAgent
+from .schemas import BSASectionItem, BSAVerificationIssue, BSARetrievalObject
+
 
 __all__ = [
     # Stage 0
@@ -144,6 +148,13 @@ __all__ = [
     "PrecedentRetrievalAgent",
     "PrecedentVerificationAuditor",
     "Stage6Pipeline",
+    # Stage 3b — BSA Evidence Law Retrieval
+    "BSASectionItem",
+    "BSAVerificationIssue",
+    "BSARetrievalObject",
+    "BSARetrievalAgent",
+    "BSAVerifierAgent",
+
     # Local Classifier Pre-filter & Evaluation
     "CandidateSectionMatch",
     "StatuteClassifierPrefilter",

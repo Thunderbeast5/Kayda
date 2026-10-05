@@ -77,6 +77,13 @@ from .stage6 import (
     PrecedentVerificationResult,
 )
 
+from .stage_bsa import (
+    BSASectionItem,
+    BSAVerificationIssue,
+    BSARetrievalObject,
+)
+
+
 __all__ = [
     "ManualReviewMixin",
     "_sanitize_manual_review",
@@ -127,4 +134,8 @@ __all__ = [
     "PrecedentRetrievalObject",
     "PrecedentVerificationIssue",
     "PrecedentVerificationResult",
+    "BSASectionItem",
+    "BSAVerificationIssue",
+    "BSARetrievalObject",
 ]
+

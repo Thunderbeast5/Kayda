@@ -3,194 +3,172 @@
   "doc_meta": {
     "source_file": "Savitri Agarwal v. State of Maharashtra.pdf",
     "pdf_pages": 17,
-    "year": 2009,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "appeal_no",
+      "author": "author:0"
+    },
+    "format_profile": "scr_reporter",
+    "citation_scr": "[2009] 10 SCR 978",
+    "scr_year": 2009,
     "scr_volume": 10,
     "scr_first_page": 978,
-    "citation_scr": "[2009] 10 SCR 978",
     "decided_on": "2009-07-10",
     "coram_raw": "D.K. JAIN AND R.M. LODHA, JJ.",
+    "coram_regex": [
+      "D.K. JAIN",
+      "R.M. LODHA"
+    ],
     "bench_strength_regex": 2,
     "constitution_bench": false,
+    "petitioner_regex": "SAVITRI AGARWAL & ORS.",
+    "respondent_regex": "STATE OF MAHARASHTRA & ANR.",
+    "court_regex": "Supreme Court of India",
+    "year": 2009,
+    "footnotes": [
+      {
+        "page": 982,
+        "text": "'i'"
+      },
+      {
+        "page": 992,
+        "text": ".;"
+      },
+      {
+        "page": 992,
+        "text": "I.."
+      }
+    ],
+    "reporter_trailer": "N.J. Appeals disposed of.",
+    "result_of_case": "Appeals disposed of.",
+    "case_no": "Criminal Appeal Nos. 1178-1179 of 2009",
     "judgment_author_regex": "D.K. JAIN",
     "layout": "unnumbered_page_anchored",
-    "ocr_noise_score": 0.0046
+    "ocr_noise_score": 0.0047
   },
   "flags": [
-    "zone_split_failed_using_whole_text"
+    "headnote_end_not_found",
+    "appeal_from_not_found"
   ],
   "case": {
     "case_name": "Savitri Agarwal v. State of Maharashtra",
-    "petitioner": "Savitri Agarwal",
-    "respondent": "State of Maharashtra",
+    "petitioner": "Savitri Agarwal & Ors.",
+    "respondent": "State of Maharashtra & Anr.",
     "court": "Supreme Court of India",
     "coram": [
-      "D.K. Jain",
-      "R.M. Lodha"
+      "D.K. JAIN",
+      "R.M. LODHA"
     ],
-    "judgment_author": "D.K. Jain",
+    "judgment_author": "D.K. JAIN",
     "procedural_stage": "post_arrest_bail",
     "offence_types": [
       "dowry death",
-      "domestic violence"
+      "cruelty"
     ],
     "dispute_nature": "serious_criminal",
-    "abstract_facts": "The case involves accusations of dowry death and domestic violence against a woman's in-laws and husband after her and her child's death by fire. The deceased had made two dying declarations suggesting an accident, but her father alleged ongoing torture and dowry demands by her in-laws.",
-    "lower_court_outcome": "Anticipatory bail granted by Sessions Judge.",
-    "disposition": "Supreme Court restored the anticipatory bail granted by the Sessions Judge.",
+    "abstract_facts": "The appellants, who are family members of the deceased, were accused of dowry death and cruelty after the deceased, Laxmi, died from burn injuries. Despite Laxmi's initial accidental explanation in her dying declarations, their anticipatory bail granted by the Sessions Judge was revoked by the High Court due to neglected incriminating circumstances. The Supreme Court was approached to contest this revocation.",
+    "lower_court_outcome": "Anticipatory bail granted by Sessions Judge but later canceled by the High Court.",
+    "disposition": "Appeals allowed, anticipatory bail restored.",
     "statutes": [
       {
         "act": "CrPC 1973",
         "section": "438",
         "how_used": "interpreted",
-        "note": "The court discusses the principles and conditions for granting anticipatory bail under Section 438."
+        "note": "Power of anticipatory bail is exceptional and should be used without unnecessary constraints."
       },
       {
         "act": "IPC",
         "section": "498A",
-        "how_used": "charged",
+        "how_used": "referred",
         "note": null
       },
       {
         "act": "IPC",
         "section": "304-B",
-        "how_used": "charged",
-        "note": null
-      },
-      {
-        "act": "IPC",
-        "section": "34",
-        "how_used": "charged",
+        "how_used": "referred",
         "note": null
       },
       {
         "act": "Dowry Prohibition Act 1961",
         "section": "3",
-        "how_used": "charged",
+        "how_used": "referred",
         "note": null
       },
       {
         "act": "Dowry Prohibition Act 1961",
         "section": "4",
-        "how_used": "charged",
+        "how_used": "referred",
         "note": null
       }
     ],
     "issues": [
       {
-        "question": "What are the parameters for granting anticipatory bail under Section 438 of the CrPC?",
-        "short_answer": "The discretion must be exercised with care and based on reasonable grounds anticipating arrest for a non-bailable offense.",
+        "question": "Can anticipatory bail be canceled when no new overwhelming circumstances have emerged after its grant?",
+        "short_answer": "No",
         "anchors": [
-          "p985.1",
-          "p989.2"
+          "p994.2"
         ]
       }
     ],
     "propositions": [
       {
         "id": "p1",
-        "text": "Anticipatory bail under Section 438 of the CrPC should be exercised with due care and based on a reasonable belief of potential arrest for a non-bailable offense.",
+        "text": "Anticipatory bail is an exceptional remedy and should not be restricted by overly rigid rules.",
         "speaker": "supreme_court",
         "kind": "ratio",
         "is_holding": true,
         "favors": "accused",
         "conditions": [
-          "Exercise with care and circumspection"
-        ],
-        "statutes": [
-          "CrPC 1973"
-        ],
-        "anchors": [
-          "p989.3"
-        ],
-        "quote": "The discretion under the Section has to be exercised with due care and circumspection."
-      },
-      {
-        "id": "p2",
-        "text": "Judicial discretion in granting anticipatory bail should not be labeled as perverse merely because the appellate court holds a different view on the same material.",
-        "speaker": "supreme_court",
-        "kind": "ratio",
-        "is_holding": true,
-        "favors": "accused",
-        "conditions": [
-          "Different judicial views on same material"
+          "Grant based on reasonable belief applicable."
         ],
         "statutes": [],
         "anchors": [
-          "p993.2"
+          "p988.2"
         ],
-        "quote": "Merely because the High Court had a different view on same set of material."
+        "quote": "Generalizations on matters which rest on discretion and the attempt to discover formulae of universal application when facts are bound to differ from case to case frustrate the very purpose of conferring discretion."
       },
       {
-        "id": "p3",
-        "text": "Very cogent and overwhelming circumstances are required for the cancellation of bail already granted.",
+        "id": "p2",
+        "text": "Very cogent and overwhelming circumstances are necessary for an order directing the cancellation of anticipatory bail already granted.",
         "speaker": "supreme_court",
         "kind": "ratio",
         "is_holding": true,
         "favors": "accused",
         "conditions": [
-          "Cancellation requires strong reasons"
+          "Absence of cooperation or abuse of bail conditions."
         ],
         "statutes": [],
         "anchors": [
           "p994.2"
         ],
-        "quote": "Very cogent and overwhelming circumstances are necessary for an order directing the cancellation."
+        "quote": "Very cogent and overwhelming circumstances are necessary for an order directing the cancellation of bail already granted."
       },
       {
-        "id": "p4",
-        "text": "The High Court should distinguish factors for rejecting bail in the first instance from those for canceling already granted bail.",
-        "speaker": "supreme_court",
+        "id": "p3",
+        "text": "Courts must specify offences for which anticipatory bail is granted and can impose conditions under Section 438(2) to ensure an uninterrupted investigation.",
+        "speaker": "quoted_authority",
         "kind": "ratio",
-        "is_holding": true,
-        "favors": "accused",
+        "is_holding": false,
+        "favors": "neutral",
         "conditions": [
-          "Different bases for rejection and cancellation"
+          "Ensure investigation continuation."
         ],
         "statutes": [],
         "anchors": [
-          "p994.1"
+          "p990.4"
         ],
-        "quote": "Rejection of bail in a non-bailable case at the initial stage and the cancellation of bail."
-      },
-      {
-        "id": "p5",
-        "text": "Anticipatory bail cannot be invoked after the arrest of the accused; Section 437 or 439 must be used instead.",
-        "speaker": "supreme_court",
-        "kind": "ratio",
-        "is_holding": true,
-        "favors": "neutral",
-        "conditions": [
-          "Applicable before arrest only"
-        ],
-        "statutes": [
-          "CrPC 1973"
-        ],
-        "anchors": [
-          "p991.4"
-        ],
-        "quote": "The provisions of Section 438 cannot be invoked after the arrest of the accused."
-      },
-      {
-        "id": "p6",
-        "text": "An order granting anticipatory bail becomes operative only on arrest.",
-        "speaker": "supreme_court",
-        "kind": "obiter",
-        "is_holding": false,
-        "favors": "neutral",
-        "conditions": [],
-        "statutes": [
-          "CrPC 1973"
-        ],
-        "anchors": [
-          "p985.4"
-        ],
-        "quote": "It is only on arrest that the order granting anticipatory bail becomes operative."
+        "quote": "appropriate conditions can be imposed under Section 438(2) so as to ensure an uninterrupted investigation."
       }
     ],
     "contentions": [
       {
         "side": "appellant",
-        "text": "The anticipatory bail was granted based on dying declarations, and there was no misuse of bail or non-cooperation in investigations by the appellants.",
+        "text": "The High Court failed to appreciate that both dying declarations did not accuse the appellants and there was no new overwhelming reason to cancel the anticipatory bail once granted by the Sessions Judge.",
         "outcome": "accepted",
         "anchors": [
           "p983.4"
@@ -198,29 +176,14 @@
       },
       {
         "side": "respondent",
-        "text": "Custodial interrogation is necessary as circumstances point a needle of suspicion towards the appellants.",
+        "text": "Custodial interrogation is necessary due to suspicious circumstances; anticipatory bail should be canceled to facilitate truth-finding in light of incriminating evidence against the appellants.",
         "outcome": "rejected",
         "anchors": [
           "p984.1"
         ]
       }
     ],
-    "authorities": [
-      {
-        "name": "Gurbaksh Singh Sibbia & Ors. v. State of Punjab",
-        "citation": "(1980) 2 SCC 565",
-        "treatment": "relied_on",
-        "used_for": "Principles for anticipatory bail under Section 438 of the CrPC.",
-        "where": "p985.1"
-      },
-      {
-        "name": "Dolat Ram & Ors. v. State of Haryana",
-        "citation": "(1995) 1 SCC 349",
-        "treatment": "relied_on",
-        "used_for": "Difference between rejection and cancellation of bail.",
-        "where": "p993.4"
-      }
-    ]
+    "authorities": []
   },
   "authority_table": [],
   "verdicts": {
@@ -241,56 +204,36 @@
       "verdict": "supported",
       "favors_correct": true,
       "note": ""
-    },
-    "p4": {
-      "id": "p4",
-      "verdict": "unsupported",
-      "favors_correct": true,
-      "note": "The anchor text does not discuss distinguishing factors for rejecting bail versus canceling bail."
-    },
-    "p5": {
-      "id": "p5",
-      "verdict": "supported",
-      "favors_correct": false,
-      "note": "While the proposition is supported, the 'favors' is labeled as 'neutral' which is correct."
-    },
-    "p6": {
-      "id": "p6",
-      "verdict": "unsupported",
-      "favors_correct": false,
-      "note": "The anchor text mentions how anticipatory bail becomes operative only upon arrest, but does not support the proposition as worded."
     }
   },
   "needs_review": [
-    "p2: quote not found in its anchors",
-    "p4: quote not found in its anchors",
-    "p4: verifier says unsupported, favors_correct=True - The anchor text does not discuss distinguishing factors for rejecting bail versus canceling bail.",
-    "p5: verifier says supported, favors_correct=False - While the proposition is supported, the 'favors' is labeled as 'neutral' which is correct.",
-    "p6: verifier says unsupported, favors_correct=False - The anchor text mentions how anticipatory bail becomes operative only upon arrest, but does not support the proposition as worded."
+    "p3: quote not found in its anchors",
+    "parser flag: headnote_end_not_found",
+    "parser flag: appeal_from_not_found"
   ],
   "paragraphs": {
-    "pNone.1": {
+    "p981.1": {
       "text": "D.K. JAIN, J. 1. Leave granted.",
-      "page_start": null,
-      "page_end": null
+      "page_start": 981,
+      "page_end": 981
     },
-    "pNone.2": {
+    "p981.2": {
       "text": "2. Challenge in these two appeals is to the judgment and order dated 2nd July, 2008 passed by the High Court of Judicature at Bombay, Nagpur Bench, Nagpur in Criminal ~ Applications No.250 and 2081 of 2008, whereby the said two ..",
-      "page_start": null,
-      "page_end": null
+      "page_start": 981,
+      "page_end": 981
     },
-    "pNone.3": {
-      "text": "applications filed by the State and the complainant respectively, have been allowed and the protection granted to the appellants by the Sessions Judge, Amravati vide order dated 18th December, 2007 in terms of Section 438 of the Code of Criminal Procedure, 1973 (for short 'the Code') has been withdrawn. The appellants herein are the mother-in-law, father-in-law, husband and the younger brother of the father-in-law of G ~j the deceased-Laxmi. They are accused of having committed offences punishable under Sections 498A, 304-B read with Section 34 of the Indian Penal Code, 1860 (for short 'the IPC') and Sections 3 and 4 of the Dowry Prohibition Act, 1961. 3. Material facts, leading to the filing of these appeals, are as follows:",
-      "page_start": null,
+    "p981.3": {
+      "text": "applications filed by the State and the complainant respectively, have been allowed and the protection granted to the appellants by the Sessions Judge, Amravati vide order dated 18th December, 2007 in terms of Section 438 of the Code of Criminal Procedure, 1973 (for short 'the Code') has been withdrawn. The appellants herein are the mother-in-law, father-in-law, husband and the younger brother of the father-in-law of the deceased-Laxmi. They are accused of having committed ~j offences punishable under Sections 498A, 304-B read with Section 34 of the Indian Penal Code, 1860 (for short 'the IPC') and Sections 3 and 4 of the Dowry Prohibition Act, 1961. 3. Material facts, leading to the filing of these appeals, are as follows:",
+      "page_start": 981,
       "page_end": 982
     },
     "p982.1": {
-      "text": "The deceased-Laxmi got married to appellant No.3 on 26th January, 2006. On 13th October, 2006, they were blessed 8 with a baby boy. On 6th December, 2007 at about 4.30 p.m., appellant No.2 (father-in-law) is stated to have heard the cries of Laxmi and when he rushed to the second floor of the house, he saw her burning. He tried to douse the fire. Laxmi told him that her son was lying in the bathroom. He rushed to the bathroom and found that the child also had burns. Laxmi and C her child were removed to the hospital. At about 6.40 p.m., her statement was recorded by the Executive Magistrate wherein she stated that she and her son caught fire when she was pouring kerosene oil in the lamp which accidentally fell down; the oil got spilled over and both of them got burnt. At about D 10.55 p.m., the minor child expired. On receiving the intimation, parents of Laxmi reached the hospital at about 11.30 p.m. the same night. On 7th December, 2007, at about 1.40 p.m. another statement of Laxmi was recorded by the Executive Magistrate wherein again she reiterated that.she had got burnt accidentally. 4. On 8th December, 2007, father of Laxmi lodged a complaint with Police Station City Kotwali, Amravati against the appellants, inter alia, alleging that after the marriage of his daughter on 26th January, 2006, the appellants were torturing F her for not meeting dowry demand of Rs.2 lakhs and earlier on 15th July, 2006, due to torture she had left the matrimonial home, intending to commit suicide but due to intervention of the relatives, she returned back to Amravati. On the said complaint, the police registered an FIR against the appellants for offences G under Section 498A read with Section 34, IPC and Sections 3 and 4 of the Dowry Prohibition Act, 1961.",
+      "text": "The deceased-Laxmi got married to appellant No.3 on 26th January, 2006. On 13th October, 2006, they were blessed 8 with a baby boy. On 6th December, 2007 at about 4.30 p.m., appellant No.2 (father-in-law) is stated to have heard the cries of Laxmi and when he rushed to the second floor of the house, he saw her burning. He tried to douse the fire. Laxmi told him that her son was lying in the bathroom. He rushed to the bathroom and found that the child also had burns. Laxmi and her child were removed to the hospital. At about 6.40 p.m., her statement was recorded by the Executive Magistrate wherein she stated that she and her son caught fire when she was pouring kerosene oil in the lamp which accidentally fell down; the oil got spilled over and both of them got burnt. At about 10.55 p.m., the minor child expired. On receiving the intimation, parents of Laxmi reached the hospital at about 11.30 p.m. the same night. On 7th December, 2007, at about 1.40 p.m. another statement of Laxmi was recorded by the Executive Magistrate wherein again she reiterated that.she had got burnt accidentally. 4. On 8th December, 2007, father of Laxmi lodged a complaint with Police Station City Kotwali, Amravati against the appellants, inter alia, alleging that after the marriage of his daughter on 26th January, 2006, the appellants were torturing her for not meeting dowry demand of Rs.2 lakhs and earlier on 15th July, 2006, due to torture she had left the matrimonial home, intending to commit suicide but due to intervention of the relatives, she returned back to Amravati. On the said complaint, the police registered an FIR against the appellants for offences under Section 498A read with Section 34, IPC and Sections 3 and 4 of the Dowry Prohibition Act, 1961.",
       "page_start": 982,
       "page_end": 982
     },
     "p982.2": {
-      "text": "5. On 6th December, 2007 the appellants applied for grant of anticipatory bail before the Sessions Judge, Amravati, who, vide order dated 10th December, 2007, initially granted interim H protection to them from arrest till the next date of hearing i.e. 'i' MAHARASHTRA & ANR. [D.K. JAIN, J.] · 17th December, 2007. On 16th December, 2007, Laxmi ---.",
+      "text": "5. On 6th December, 2007 the appellants applied for grant of anticipatory bail before the Sessions Judge, Amravati, who, vide order dated 10th December, 2007, initially granted interim protection to them from arrest till the next date of hearing i.e. MAHARASHTRA & ANR. [D.K. JAIN, J.] · 17th December, 2007. On 16th December, 2007, Laxmi ---.",
       "page_start": 982,
       "page_end": 983
     },
@@ -300,7 +243,7 @@
       "page_end": 983
     },
     "p983.2": {
-      "text": "6. Aggrieved, the State of Maharashtra and the complainant filed petitions before the High Court for cancellation c of anticipatory bail granted to the appellants. As noted earlier, by the impugned order, the High Court has cancelled the anticipatory bail granted to the appellants, on the ground that~ the Sessions Judge had failed to apply his mind to certain vital circumstances viz. - absence of mention of lantern and match .;t stick in the panchnama; necessity of lantern and its lighting at 4 p.m. in the afternoon when the house was equipped with an inverter; the daughter-in-law doing such risky work with one year old child, particularly when elders in the family were present in the house and had everything been well in the house, there was no occasion for. the parents of the deceased to implicate her in-laws. Inter alia, observing that the evidence, which directly \"f involved the appellants, had been ignored, rendering the order ~ passed by the Sessions Judge perverse, as noted above, the High Court has set aside the said order. The High Court has also noted that the offences complained. of, being of serious nature, there was no ground to grant anticipatory bail to the appellants. Being aggrieved, the appellants are before us in these appeals.",
+      "text": "6. Aggrieved, the State of Maharashtra and the complainant filed petitions before the High Court for cancellation c of anticipatory bail granted to the appellants. As noted earlier, by the impugned order, the High Court has cancelled the anticipatory bail granted to the appellants, on the ground that~ the Sessions Judge had failed to apply his mind to certain vital circumstances viz. - absence of mention of lantern and match .;t stick in the panchnama; necessity of lantern and its lighting at 4 p.m. in the afternoon when the house was equipped with an inverter; the daughter-in-law doing such risky work with one year old child, particularly when elders in the family were present in the house and had everything been well in the house, there was no occasion for. the parents of the deceased to implicate her in-laws. Inter alia, observing that the evidence, which directly involved the appellants, had been ignored, rendering the order \"f passed by the Sessions Judge perverse, as noted above, the ~ High Court has set aside the said order. The High Court has also noted that the offences complained. of, being of serious nature, there was no ground to grant anticipatory bail to the appellants. Being aggrieved, the appellants are before us in these appeals.",
       "page_start": 983,
       "page_end": 983
     },
@@ -310,17 +253,17 @@
       "page_end": 983
     },
     "p983.4": {
-      "text": "allegation against the appellants for demanding any dowry or A for torturing her for any other purpose. It was strenuously urged that the second dying declaration recorded on 7th December, 2007 at about 1.40 p.m. was in the presence and perhaps at the instance of the father of the deceased, who admittedly had arrived in the hospital on 6th December, 2007 at 11.30 p.m., B yet the deceased did not level any allegation against the appellants. Learned counsel argued that the anticipatory bail having been granted by the Sessions Judge upon consideration of the relevant material placed before him by the prosecution, viz. the dying declarations, the statements c recorded by the investigating officer and the case diary, in the absence of any complaint by the Investigating Officer that the appellants were not cooperating in the investigations after the grant of interim protection on 10th December, 2007, or that they had misused the anticipatory bail granted to them, there was 0 no other overwhelming circumstance before the High Court, warranting interference with the judicial discretion exercised by the Sessions Judge and cancellation of bail.",
+      "text": "allegation against the appellants for demanding any dowry or for torturing her for any other purpose. It was strenuously urged .. - that the second dying declaration recorded on 7th December, 2007 at about 1.40 p.m. was in the presence and perhaps at the instance of the father of the deceased, who admittedly had arrived in the hospital on 6th December, 2007 at 11.30 p.m., yet the deceased did not level any allegation against the appellants. Learned counsel argued that the anticipatory bail having been granted by the Sessions Judge upon consideration of the relevant material placed before him by the prosecution, viz. the dying declarations, the statements c recorded by the investigating officer and the case diary, in the absence of any complaint by the Investigating Officer that the appellants were not cooperating in the investigations after the grant of interim protection on 10th December, 2007, or that they had misused the anticipatory bail granted to them, there was 0 no other overwhelming circumstance before the High Court, warranting interference with the judicial discretion exercised by the Sessions Judge and cancellation of bail.",
       "page_start": 983,
       "page_end": 984
     },
     "p984.1": {
-      "text": "8. Per contra, Mr. Sekhar Naphade, learned senior counsel, appearing on behalf of the State strenuously urged that E the circumstances relied upon by the High Court in its order cancelling the anticipatory bail point a needle of suspicion at the appellants and therefore, to elicit the truth custodial interrogation of the appellants would be necessary. Highlighting the fact that the deceased had left her matrimonial home on F 15th July, 2006 intending to commit suicide because of torture by the appellants and had returned back to her matrimonial home on being persuaded by the relatives of both sides on the assurance by the appellants that she would not be harassed, the incident in question raises presumption against the G appellants in terms of Section 304-B IPC. Learned counsel for the complainant, supporting the orders passed by the High Court, submitted that since order granting anticipatory bail had been passed by the Sessions Judge by ignoring evidence and material on record and the nature of offence, in the light of the .. - ·~ MAHARASHTRA & ANR. [D.K. JAIN, J.] decision of this Court in Puran Vs. Rambi/as & Anr. 1, the Hjgh \"-1 Court was justified in cancelling the bail.",
+      "text": "8. Per contra, Mr. Sekhar Naphade, learned senior counsel, appearing on behalf of the State strenuously urged that the circumstances relied upon by the High Court in its order cancelling the anticipatory bail point a needle of suspicion at the appellants and therefore, to elicit the truth custodial interrogation of the appellants would be necessary. Highlighting the fact that the deceased had left her matrimonial home on 15th July, 2006 intending to commit suicide because of torture by the appellants and had returned back to her matrimonial home on being persuaded by the relatives of both sides on the assurance by the appellants that she would not be harassed, the incident in question raises presumption against the appellants in terms of Section 304-B IPC. Learned counsel for the complainant, supporting the orders passed by the High Court, submitted that since order granting anticipatory bail had been passed by the Sessions Judge by ignoring evidence and material on record and the nature of offence, in the light of the ·~ MAHARASHTRA & ANR. [D.K. JAIN, J.] decision of this Court in Puran Vs. Rambi/as & Anr. 1, the Hjgh \"-1 Court was justified in cancelling the bail.",
       "page_start": 984,
       "page_end": 985
     },
     "p985.1": {
-      "text": "9. Before examining the merits of the rival contentions, We deem it appropriate to re-capitulate the background in which Section 438 was inserted in the Code and the bro~d B parameters to be kept in view while dealing with an application under the said provision because despite plethora of case law ·-r on the subject including a decision of the Constitution Bench in Shri Gurbaksh Singh Sibbia & Ors. Vs. State of Punjab2 certain misgivings in regarb to the concept and scope of the said provision still seem to revail.",
+      "text": "9. Before examining the merits of the rival contentions, We deem it appropriate to re-capitulate the background in which Section 438 was inserted in the Code and the bro~d parameters to be kept in view while dealing with an application under the said provision because despite plethora of case law on the subject including a decision of the Constitution Bench ·-r in Shri Gurbaksh Singh Sibbia & Ors. Vs. State of Punjab2 certain misgivings in regarb to the concept and scope of the c said provision still seem to revail.",
       "page_start": 985,
       "page_end": 985
     },
@@ -330,7 +273,7 @@
       "page_end": 985
     },
     "p985.3": {
-      "text": "c 10. Section 438 of the Code confers on the High Court and the Court of Session, the power to grant 'anticipatory bail' if the applicant has 'reason to believe' that he may be arrested on ..;t· accusation of having committed a non-bailable offence. The expression ·anticipatory bail' has not been defined in the Code. But as observed in Balchand Jain Vs. State of M.P. 3 , 'anticipatory bail' means 'bail in anticipation of arrest'. The expression 'anticipatory bail' is a misnomer inasmuch as it is not as if bail is presently granted by the Court in anticipation of arrest. When a competent court grants ·anticipatory bail', it 'f makes an order that in the event of arrest, a person shall be released on bail. There is no question of release on bail unless ;.",
+      "text": "10. Section 438 of the Code confers on the High Court and the Court of Session, the power to grant 'anticipatory bail' if the applicant has 'reason to believe' that he may be arrested on ..;t· accusation of having committed a non-bailable offence. The expression ·anticipatory bail' has not been defined in the Code. But as observed in Balchand Jain Vs. State of M.P. 3 , 'anticipatory bail' means 'bail in anticipation of arrest'. The expression 'anticipatory bail' is a misnomer inasmuch as it is not as if bail is presently granted by the Court in anticipation of arrest. When a competent court grants ·anticipatory bail', it makes an order that in the event of arrest, a person shall be 'f released on bail. There is no question of release on bail unless ;.",
       "page_start": 985,
       "page_end": 985
     },
@@ -340,27 +283,27 @@
       "page_end": 985
     },
     "p985.5": {
-      "text": "2.",
-      "page_start": 985,
-      "page_end": 985
-    },
-    "p985.6": {
       "text": "(1980) 2 sec 565.",
       "page_start": 985,
       "page_end": 985
     },
-    "p985.7": {
-      "text": "3.",
+    "p985.6": {
+      "text": "2.",
       "page_start": 985,
       "page_end": 985
     },
-    "p985.8": {
+    "p985.7": {
       "text": "(1976) 4 sec 572.",
       "page_start": 985,
       "page_end": 985
     },
+    "p985.8": {
+      "text": "3.",
+      "page_start": 985,
+      "page_end": 985
+    },
     "p986.1": {
-      "text": "A be exercised. The power being rather unusual in nature, it is entrusted only to the higher echelons of judicial service, i.e. a ~- Court of Session and the High Court. Thus, the ambit of power conferred by Section 438 of the Code was held to be limited. 11. Historically, the Code of Criminal Procedure, 1898 (old Code) did not contain specific provision corresponding to Section 438 of the present Code of 1973. Under the old Code, there was a sharp difference of opinion amongst various High Courts on the question whether a Court had inherent power to c make an order of bail in anticipation of arrest. The preponderance of view, however, was that it did not have such power. The Law Commission of India considered the question and vide its 41 st Report, recommended introduction of an express provision in this behalf.",
+      "text": "be exercised. The power being rather unusual in nature, it is entrusted only to the higher echelons of judicial service, i.e. a ~- Court of Session and the High Court. Thus, the ambit of power conferred by Section 438 of the Code was held to be limited. 11. Historically, the Code of Criminal Procedure, 1898 (old Code) did not contain specific provision corresponding to Section 438 of the present Code of 1973. Under the old Code, there was a sharp difference of opinion amongst various High Courts on the question whether a Court had inherent power to c make an order of bail in anticipation of arrest. The preponderance of view, however, was that it did not have such power. The Law Commission of India considered the question and vide its 41 st Report, recommended introduction of an express provision in this behalf.",
       "page_start": 986,
       "page_end": 986
     },
@@ -380,7 +323,7 @@
       "page_end": 986
     },
     "p986.5": {
-      "text": "We are further of the view that in order to ensure that the provision is not put to abuse at the instance of unscrupulous petitioners, the final order should be made only after notice to the Public Prosecutor. The initial order should only be an interim one. Further, the relevant section should make it clear that the direction can be issued only ._, MAHARASHTRA & ANR. [O.K. JAIN, J.] for reasons to be recorded, and if the court is satisfied that such a direction is necessary in the interests of justice. It will also be convenient to provide that notice of the interim order as well as of the final orders will be given to the Superintendent of Police forthwith\".",
+      "text": "We are further of the view that in order to ensure that the provision is not put to abuse at the instance of unscrupulous petitioners, the final order should be made only after notice to the Public Prosecutor. The initial order should only be an interim one. Further, the relevant section should make it clear that the direction can be issued only MAHARASHTRA & ANR. [O.K. JAIN, J.] ._, for reasons to be recorded, and if the court is satisfied that such a direction is necessary in the interests of justice. It will also be convenient to provide that notice of the interim order as well as of the final orders will be given to the Superintendent of Police forthwith\".",
       "page_start": 986,
       "page_end": 987
     },
@@ -390,7 +333,7 @@
       "page_end": 987
     },
     "p987.2": {
-      "text": "15. In Gurbaksh Singh Sibbia (supra), the Constitution 1 Bench was called upon lb consider correctness or otherwise of principles laid down by the Full Bench of High Court of Punjab & Haryana in Gurbaksh Singh Sibbia ys. State of Punjab4 • The Full Bench ofthe High Court summarized the law relating to anticipatory bail as reflected in Section 438 of the Cbde and laid down eight principles which were to be kept in view while exercising discretionary power to grant anticipatory bail. 16. The Constitution Bench while disagreeing in principle with the constraints which the High Court had engrafted on the power conferred by Section 438 of the Code, inter alia, observed that Jhe Legislature has conferred a wide discretion on the High Court and the Court of Session to grant anticipatory 4.",
+      "text": "15. In Gurbaksh Singh Sibbia (supra), the Constitution Bench was called upon lb consider correctness or otherwise of principles laid down by the Full Bench of High Court of Punjab & Haryana in Gurbaksh Singh Sibbia ys. State of Punjab • The Full Bench ofthe High Court summarized the law relating to anticipatory bail as reflected in Section 438 of the Cbde and laid down eight principles which were to be kept in view while exercising discretionary power to grant anticipatory bail. 16. The Constitution Bench while disagreeing in principle with the constraints which the High Court had engrafted on the power conferred by Section 438 of the Code, inter alia, observed that Jhe Legislature has conferred a wide discretion on the High Court and the Court of Session to grant anticipatory 4.",
       "page_start": 987,
       "page_end": 987
     },
@@ -400,12 +343,12 @@
       "page_end": 987
     },
     "p988.1": {
-      "text": "A bail since it felt, firstly, that it would be difficult to enumerate t-' the conditions under which anticipatory bail should or should not be granted and secondly, because the intention was to allow the higher courts in the echelon a somewhat free hand in the matter of grant of relief in the nature of anticipatory bail. The B Court said;",
+      "text": "bail since it felt, firstly, that it would be difficult to enumerate t-' the conditions under which anticipatory bail should or should not be granted and secondly, because the intention was to allow the higher courts in the echelon a somewhat free hand in the matter of grant of relief in the nature of anticipatory bail. The Court said;",
       "page_start": 988,
       "page_end": 988
     },
     "p988.2": {
-      "text": "\"Generalizations on matters which rest on discretion and the attempt to discover formulae of universal application when facts are bound to differ from case to case frustrate c the very purpose of conferring discretion. No two cases are alike on facts and therefore, Courts have to be allowed a little free play in the joints if the conferment of discretionary power is to be meaningful. There is no risk involved in entrusting a wide discretion to the Court of Session and the High Court in granting anticipatory bail because, firstly, ~ these are higher Courts manned by experienced persons. secondly, their orders are not final but are open to appellate or revisional scrutiny and above all because, discretion has always to be exercised by Courts judicially and not according to whim, caprice or fancy. On the other hand, there is a risk in foreclosing categories of cases in which anticipatory bail may be allowed because life throws up unforeseen possibilities and offers new challenges. \"",
+      "text": "\"Generalizations on matters which rest on discretion and the attempt to discover formulae of universal application when facts are bound to differ from case to case frustrate the very purpose of conferring discretion. No two cases are c alike on facts and therefore, Courts have to be allowed a little free play in the joints if the conferment of discretionary power is to be meaningful. There is no risk involved in entrusting a wide discretion to the Court of Session and the High Court in granting anticipatory bail because, firstly, ~ these are higher Courts manned by experienced persons. secondly, their orders are not final but are open to appellate or revisional scrutiny and above all because, discretion has always to be exercised by Courts judicially and not according to whim, caprice or fancy. On the other hand, there is a risk in foreclosing categories of cases in which anticipatory bail may be allowed because life throws up unforeseen possibilities and offers new challenges. \"",
       "page_start": 988,
       "page_end": 988
     },
@@ -415,12 +358,12 @@
       "page_end": 988
     },
     "p988.4": {
-      "text": "17. The Court felt that wide discretionary power conferred by the Legislature on the higher echelons in the criminal justice delivery system cannot be put in the form of straight-jacket rules G for universal application as the question whether to grant bail or not depends for its answer upon a variety of circumstances, '- the cumulative effect of which must enter into the judicial verdict. A circumstance which, in a given case, turns out to be conclusive, may or may not have any significance in another H case. While cautioning against imposition of unnecessary MAHARASHTRA & ANR. [D.K. JAIN, J.] restrictions on the scope of the Section, because, in its opinion, ..",
+      "text": "17. The Court felt that wide discretionary power conferred by the Legislature on the higher echelons in the criminal justice delivery system cannot be put in the form of straight-jacket rules for universal application as the question whether to grant bail or not depends for its answer upon a variety of circumstances, '- the cumulative effect of which must enter into the judicial verdict. circumstance which, in a given case, turns out to be conclusive, may or may not have any significance in another case. While cautioning against imposition of unnecessary MAHARASHTRA & ANR. [D.K. JAIN, J.] ..",
       "page_start": 988,
       "page_end": 989
     },
     "p989.1": {
-      "text": "_ _,, over generous infusion of constraints and conditions, which ..",
+      "text": "restrictions on the scope of the Section, because, in its opinion, _ _,, over generous infusion of constraints and conditions, which ..",
       "page_start": 989,
       "page_end": 989
     },
@@ -430,7 +373,7 @@
       "page_end": 989
     },
     "p989.3": {
-      "text": "Though the power conferred under Section 438 of c the Code can be described as of an extraordinary character, but this does not justify the conclusion that the power must be exercised in exceptional cases only because it is of an extraordinary character. Nonetheless, the discretion under the -~ Section has to be exercised with due care and circumspection depending on circumstances justifying its exercise.",
+      "text": "Though the power conferred under Section 438 of c the Code can be described as of an extraordinary character, but this does not justify the conclusion that the power must be exercised in exceptional cases only because it is of an extraordinary character. Nonetheless, the discretion under the Section has to be exercised with due care and -~ circumspection depending on circumstances justifying its exercise.",
       "page_start": 989,
       "page_end": 989
     },
@@ -440,22 +383,22 @@
       "page_end": 989
     },
     "p989.5": {
-      "text": "Before power under sub-section (1) of Section 438 of the Code is exercised, the Court must be satisfied that the applicant invoking the provision has reason to believe that he is likely to be arrested ~ for a non-bailable of:fence and that belief must be i founded on reasonable grounds. Mere \"fear\" is not belief, for which re'ason, it is not enough for the applicant to show that he has some sort of vague apprehension that some one is going to make an accusation against him, in pursuance of which he may be arrested. The grounds on which the belief of the applicant is based that he may be arrested for a non-bailable offence, must be capable of _)",
+      "text": "Before power under sub-section (1) of Section 438 of the Code is exercised, the Court must be satisfied that the applicant invoking the provision has reason to believe that he is likely to be arrested for a non-bailable of:fence and that belief must be ~ i founded on reasonable grounds. Mere \"fear\" is not belief, for which re'ason, it is not enough for the applicant to show that he has some sort of vague apprehension that some one is going to make an accusation against him, in pursuance of which he may be arrested. The grounds on which the belief of the applicant is based that he may be arrested for a non-bailable offence, must be capable of being examined by the Court objectively. Specific _)",
       "page_start": 989,
       "page_end": 989
     },
     "p989.6": {
-      "text": "being examined by the Court objectively. Specific events and facts must be disclosed by the applicant in order to enable the Court to judge of the reasonableness of his belief, the existence of which , is the sine qua non of the exercise of power conferred by the Section.",
+      "text": "events and facts must be disclosed by the applicant in order to enable the Court to judge of the reasonableness of his belief, the existence of which , is the sine qua non of the exercise of power t• conferred by the Section.",
       "page_start": 989,
       "page_end": 990
     },
     "p990.1": {
-      "text": "t• ~ (iii)",
+      "text": "~ (iii)",
       "page_start": 990,
       "page_end": 990
     },
     "p990.2": {
-      "text": "The observations made in Balchand Jain's case (supra), regarding the nature of the power conferred by Section 438 and regarding the question whether the conditions mentioned in Section 437 should be read into Section 438 cannot be treated as conclusive on the point. There is no warrant for reading into Section 438, the conditions subject to c which bail can be granted under Section 437(1) of the Code and therefore, anticipatory bail cannot be refused in respect of offences like criminal breach of trust for the mere reason that the punishment · provided for is imprisonment for life. Circumstances may broadly justify the grant of bail in such cases too, though of course, the Court is free to refuse anticipatory bail in any case if there is material before it justifying such refusal.",
+      "text": "The observations made in Balchand Jain's case (supra), regarding the nature of the power conferred by Section 438 and regarding the question whether the conditions mentioned in Section 437 should be read into Section 438 cannot be treated as conclusive on the point. There is no warrant for reading into Section 438, the conditions subject to which bail can be granted under Section 437(1) of c the Code and therefore, anticipatory bail cannot be refused in respect of offences like criminal breach of trust for the mere reason that the punishment · provided for is imprisonment for life. Circumstances may broadly justify the grant of bail in such cases too, though of course, the Court is free to refuse anticipatory bail in any case if there is material before it justifying such refusal.",
       "page_start": 990,
       "page_end": 990
     },
@@ -470,87 +413,77 @@
       "page_end": 990
     },
     "p990.5": {
-      "text": "appropriate conditions can be imposed under Section 438(2) so as to ensure an uninterrupted investigation. One such condition can even be that in the event of the police making out a case of a likely discovery under Section 27 of the Evidence Act, the person released on bail shall be liable to be taken in police custody for facilitating the recovery. Otherwise, such an order can become a \\, - charter of lawlessness and a weapon to stifle prompt investigation into offences which could not possibly be predicated when the order was passed.",
+      "text": "appropriate conditions can be imposed under Section 438(2) so as to ensure an uninterrupted investigation. One such condition can even be that in the event of the police making out a case of a likely discovery under Section 27 of the Evidence Act, the person released on bail shall be liable to be taken in police custody for facilitating the \\, - recovery. Otherwise, such an order can become a charter of lawlessness and a weapon to stifle prompt investigation into offences which could not - possibly be predicated when the order was passed.",
       "page_start": 990,
       "page_end": 990
     },
-    "p990.6": {
-      "text": "- MAHARASHTRA & ANR. [D.K. JAIN, J.] (v)",
-      "page_start": 990,
-      "page_end": 991
-    },
     "p991.1": {
-      "text": "The filing of First Information Report (FIR) is not a A --i' condition precedent to the exercise of power under ~-! Section 438. The imminence of a likely arrest founded on a reasonable belief can be shown to exist even if an FIR is not yet filed.",
+      "text": "MAHARASHTRA & ANR. [D.K. JAIN, J.] (v)",
       "page_start": 991,
       "page_end": 991
     },
     "p991.2": {
-      "text": "(vi)",
+      "text": "The filing of First Information Report (FIR) is not a --i' condition precedent to the exercise of power under Section 438. The imminence of a likely arrest ~-! founded on a reasonable belief can be shown to exist even if an FIR is not yet filed.",
       "page_start": 991,
       "page_end": 991
     },
     "p991.3": {
-      "text": "An anticipatory bail can be granted even after an FIR is filed so long as the applicant has not been arrested.",
+      "text": "(vi)",
       "page_start": 991,
       "page_end": 991
     },
     "p991.4": {
-      "text": "(vii) The provisions of Section 438 cannot be invoked c after the arrest of the accused. After arrest, the accused must seek his remedy under Section 437 or Section 439 of the Code, if he wants to be released on bail in respect of the offence or offences for which he is arrested.",
+      "text": "An anticipatory bail can be granted even after an FIR is filed so long as the applicant has not been arrested.",
       "page_start": 991,
       "page_end": 991
     },
     "p991.5": {
-      "text": "' (viii) An interim bail order can be passed under Section 438 of the Code without notice to the Public Prosecutor but notice should be issued to the Public Prosecutor or to the Government advocate forthwith and the question of bail should be re-examined in ~ the light of respective contentions of the parties. The ad-interim order too must conform to the 1-requirements of the Section and suitable conditions - should be imposed on the applicant even at that stage.",
+      "text": "(vii) The provisions of Section 438 cannot be invoked c after the arrest of the accused. After arrest, the accused must seek his remedy under Section 437 or Section 439 of the Code, if he wants to be released on bail in respect of the offence or offences for which he is arrested.",
       "page_start": 991,
       "page_end": 991
     },
     "p991.6": {
-      "text": "(ix)",
+      "text": "' (viii) An interim bail order can be passed under Section 438 of the Code without notice to the Public Prosecutor but notice should be issued to the Public Prosecutor or to the Government advocate forthwith and the question of bail should be re-examined in the light of respective contentions of the parties. The ~ ad-interim order too must conform to the requirements of the Section and suitable conditions - 1-should be imposed on the applicant even at that stage.",
       "page_start": 991,
       "page_end": 991
     },
     "p991.7": {
+      "text": "(ix)",
+      "page_start": 991,
+      "page_end": 991
+    },
+    "p991.8": {
       "text": "Though it is not necessary that the operation of an order passed under Section 438( 1) of the Code be limited in point of time but the Court may, if there are reasons for doing so, limit the operation of the order to a short period until after the filing of FIR in . ,..-' respect of the matter covered by the order. The applicant may, in such cases, be directed to obtain an order of bail under Section 437 or 439 of the Code within a reasonable short period after the filing of the FIR.",
       "page_start": 991,
       "page_end": 991
     },
     "p992.1": {
-      "text": "18. At this juncture, it would be appropriate to note that the view expressed by this Court in Adri Dharan Das Vs. State of t - W.B. 5 to the effect that while dealing with an application under ...",
+      "text": "18. At this juncture, it would be appropriate to note that the t - view expressed by this Court in Adri Dharan Das Vs. State of ...",
       "page_start": 992,
       "page_end": 992
     },
     "p992.2": {
-      "text": "Section 438 of the Code, the Court cannot pass an interim order restraining arrest as it will amount to interference in the B investi8ation, does not appear to be in consonance with the opinion of the Constitution Bench in Sibbia's case (supra). Similarly, the observation that power under Section 438 is to be exercised only in exceptional cases seems to be based on the decision in Balchand's case (supra), which has not been c fully approved by the Constitution Bench. On this aspect, the Constitution Bench stated thus:",
+      "text": "W.B. to the effect that while dealing with an application under Section 438 of the Code, the Court cannot pass an interim order restraining arrest as it will amount to interference in the investi8ation, does not appear to be in consonance with the opinion of the Constitution Bench in Sibbia's case (supra). Similarly, the observation that power under Section 438 is to be exercised only in exceptional cases seems to be based on the decision in Balchand's case (supra), which has not been c fully approved by the Constitution Bench. On this aspect, the Constitution Bench stated thus:",
       "page_start": 992,
       "page_end": 992
     },
     "p992.3": {
-      "text": "\"The observations made in Balchand Jain regarding the nature of the power conferred by Section 438 and regarding the question whether the conditions mentioned in Section 437 should be read into Section 438 cannot • therefore be treated as concluding the points which arise directly for our consideration. We agree, with respect, that the power conferred by Section 438 is of an extraordinary character in the sense indicated above, namely, that it is not ordinarily resorted to like the power conferred by Sections 437 and 439. We also agree that the power to grant anticipatory bail should be exercised with due care .;",
+      "text": "\"The observations made in Balchand Jain regarding the nature of the power conferred by Section 438 and regarding the question whether the conditions mentioned • in Section 437 should be read into Section 438 cannot therefore be treated as concluding the points which arise directly for our consideration. We agree, with respect, that the power conferred by Section 438 is of an extraordinary character in the sense indicated above, namely, that it is not ordinarily resorted to like the power conferred by Sections 437 and 439. We also agree that the power to grant anticipatory bail should be exercised with due care and circumspection but beyond that, it is not possible to agree with the observations made in Balchand Jain in an altogether different context on an altogether different point\". (Emphasis Supplied)",
       "page_start": 992,
       "page_end": 992
     },
     "p992.4": {
-      "text": "and circumspection but beyond that, it is not possible to agree with the observations made in Balchand Jain in an altogether different context on an altogether different point\". (Emphasis Supplied)",
+      "text": "19. It would also be of some significance to mention that Section 438 has been amended by the Code of Criminal Procedure (Amendment) Act, 2005. The amended Section is more or less in line with the parameters laid down in Sibbia's case (supra). However, the amended provision has not yet been brought into force.",
       "page_start": 992,
       "page_end": 992
     },
     "p992.5": {
-      "text": "19. It would also be of some significance to mention that Section 438 has been amended by the Code of Criminal Procedure (Amendment) Act, 2005. The amended Section is more or less in line with the parameters laid down in Sibbia's I..",
+      "text": "5.",
       "page_start": 992,
       "page_end": 992
     },
     "p992.6": {
-      "text": "case (supra). However, the amended provision has not yet been brought into force.",
-      "page_start": 992,
-      "page_end": 992
-    },
-    "p992.7": {
-      "text": "H 5.",
-      "page_start": 992,
-      "page_end": 992
-    },
-    "p992.8": {
-      "text": "(2005) 4 sec 303.",
+      "text": "(2005) sec 303.",
       "page_start": 992,
       "page_end": 992
     },
@@ -570,37 +503,32 @@
       "page_end": 993
     },
     "p993.4": {
-      "text": "21. It also appears to us that the High Court has overlooked the distinction of factors relevant for rejecting bail in a non-bailable case in the first instance and the cancellation of bail already granted. In Do/at Ram & Ors. Vs. State of Haryana6 , while dealing with a similar situation where the High Court had cancelled the anticipatory bail granted by the . , 6.",
+      "text": "21. It also appears to us that the High Court has overlooked the distinction of factors relevant for rejecting bail in a non-bailable case in the first instance and the cancellation of bail already granted. In Do/at Ram & Ors. Vs. State of Haryana6 , while dealing with a similar situation where the High Court had cancelled the anticipatory bail granted by the . , (1995) 1 sec 349.",
       "page_start": 993,
       "page_end": 993
     },
     "p993.5": {
-      "text": "(1995) 1 sec 349.",
+      "text": "6.",
       "page_start": 993,
       "page_end": 993
     },
     "p994.1": {
-      "text": "A Sessions Judge in a dowry death case, this Court had observed that rejection of bail in a non-bailable case at the initial +'\"",
+      "text": "Sessions Judge in a dowry death case, this Court had +'\"",
       "page_start": 994,
       "page_end": 994
     },
     "p994.2": {
-      "text": "stage and the cancellation of bail had to be considered or dealt with on different basis. Very cogent and overwhelming circumstances are necessary for an order directing the B cancellation of bail already granted, which, in our opinion, were missing in the instant case. Nothing was brought to our notice from which it could be inferred that the appellants have not co-operated in the investigations or have, in any manner, abused Y-the concession of bail granted to them. As a matter of fact, Mr. c Naphade, learned senior counsel representing the State, stated that after grant of anticipatory bail to the appellants, no investigation in the case has been conducted.",
+      "text": "observed that rejection of bail in a non-bailable case at the initial stage and the cancellation of bail had to be considered or dealt with on different basis. Very cogent and overwhelming circumstances are necessary for an order directing the cancellation of bail already granted, which, in our opinion, were missing in the instant case. Nothing was brought to our notice from which it could be inferred that the appellants have not co-operated in the investigations or have, in any manner, abused Y-the concession of bail granted to them. As a matter of fact, Mr. c Naphade, learned senior counsel representing the State, stated that after grant of anticipatory bail to the appellants, no investigation in the case has been conducted.",
       "page_start": 994,
       "page_end": 994
     },
     "p994.3": {
-      "text": "22. For the foregoing reasons, in our judgment, the impugned order setting aside the anticipatory bail granted to the appellants by the learned Additional Sessions Judge, cannot be sustained. Accordingly, the appeals are allowed; impugned order is set aside and order dated 18th December, 2007 passed by the Additional Sessions Judge confirming the ad-interim anticipatory bail to the appellants, is restored. It goes E without saying that nothing said by the High Court or by us hereinabove shall be construed as expression of any opinion on the merits of the case.",
+      "text": "22. For the foregoing reasons, in our judgment, the impugned order setting aside the anticipatory bail granted to the appellants by the learned Additional Sessions Judge, cannot be sustained. Accordingly, the appeals are allowed; impugned order is set aside and order dated 18th December, 2007 passed by the Additional Sessions Judge confirming the ad-interim anticipatory bail to the appellants, is restored. It goes without saying that nothing said by the High Court or by us hereinabove shall be construed as expression of any opinion ., on the merits of the case.",
       "page_start": 994,
       "page_end": 994
     },
     "p994.4": {
-      "text": "., 23. Both the appeals stand disposed of, accordingly. F N.J.",
-      "page_start": 994,
-      "page_end": 994
-    },
-    "p994.5": {
-      "text": "Appeals disposed of.",
+      "text": "23. Both the appeals stand disposed of, accordingly.",
       "page_start": 994,
       "page_end": 994
     }

@@ -430,7 +430,7 @@ Given case facts, identify the correct IPC sections and return ONLY valid JSON:
             
             console.print("[dim]→ Defense will use lexigraphbe sections in arguments[/dim]")
             
-            return {"agent": agent, "session": None, "sections": self.sections.verified_sections}
+            return {"agent": agent, "session": None, "sections": self.sections.verified_sections, "previous_arguments": []}
 
     def run_moot_court_session(self):
         """
@@ -473,26 +473,26 @@ Given case facts, identify the correct IPC sections and return ONLY valid JSON:
         # Opening argument from prosecution (whoever that is)
         if self.student_role == "prosecution":
             # Student goes first (prosecution)
-            student_opening = self._get_student_argument("opening")
+            student_arg = self._get_student_argument("opening")
             # LLM defense responds
-            llm_rebuttal = self._get_llm_argument(llm_agent_wrapper, "rebuttal", student_opening)
+            llm_arg = self._get_llm_argument(llm_agent_wrapper, "rebuttal", student_arg)
             # Continue rounds
             while True:
-                student_rebuttal = self._get_student_argument("rebuttal", llm_rebuttal)
-                if not student_rebuttal:
+                student_arg = self._get_student_argument("rebuttal", llm_arg)
+                if not student_arg:
                     break
-                llm_counter = self._get_llm_argument(llm_agent_wrapper, "rebuttal", student_rebuttal)
+                llm_arg = self._get_llm_argument(llm_agent_wrapper, "rebuttal", student_arg)
         else:
             # LLM goes first (prosecution)
-            llm_opening = self._get_llm_argument(llm_agent_wrapper, "opening")
+            llm_arg = self._get_llm_argument(llm_agent_wrapper, "opening")
             # Student defense responds
-            student_rebuttal = self._get_student_argument("rebuttal", llm_opening)
+            student_arg = self._get_student_argument("rebuttal", llm_arg)
             # Continue rounds
             while True:
-                if not student_rebuttal:
+                if not student_arg:
                     break
-                llm_counter = self._get_llm_argument(llm_agent_wrapper, "rebuttal", student_rebuttal)
-                student_rebuttal = self._get_student_argument("rebuttal", llm_counter)
+                llm_arg = self._get_llm_argument(llm_agent_wrapper, "rebuttal", student_arg)
+                student_arg = self._get_student_argument("rebuttal", llm_arg)
 
     def _get_student_argument(self, arg_type: str, previous_argument: str = None) -> str:
         """Get argument from student via CLI."""
@@ -505,9 +505,7 @@ Given case facts, identify the correct IPC sections and return ONLY valid JSON:
             border_style="yellow", padding=(1, 2)
         ))
         
-        if previous_argument:
-            console.print(f"\n[bold]Opposing Argument:[/bold]")
-            console.print(Panel(previous_argument, border_style="dim", padding=(0, 1)))
+        # No need to display previous_argument again - it was just shown above by AI
         
         console.print(f"\n[bold]Enter your {arg_type}:[/bold] (or type 'done' to end session)")
         console.print("[dim]Tip: Reference sections from the retrieved list above[/dim]\n")
@@ -542,6 +540,7 @@ Given case facts, identify the correct IPC sections and return ONLY valid JSON:
         
         agent = agent_wrapper["agent"]
         session = agent_wrapper.get("session")
+        previous_arguments = agent_wrapper.get("previous_arguments", [])
         
         # Call appropriate agent method
         if arg_type == "opening":
@@ -561,10 +560,15 @@ Given case facts, identify the correct IPC sections and return ONLY valid JSON:
                 session = agent.rebuttal(session, previous_argument)
                 argument = session.turn_history[-1].argument
             else:
-                # DefenseAgent
-                result = agent.handle_rebuttal(previous_argument)
+                # DefenseAgent - pass previous defense arguments to avoid repetition
+                result = agent.handle_rebuttal(previous_argument, previous_arguments)
                 # Extract rebuttal text from nested structure
                 argument = result.get("defense_response", {}).get("rebuttal", "")
+        
+        # Track this argument for future turns
+        if self.llm_role == "defense":
+            previous_arguments.append(argument)
+            agent_wrapper["previous_arguments"] = previous_arguments
         
         # Update session in wrapper if it exists
         if session:

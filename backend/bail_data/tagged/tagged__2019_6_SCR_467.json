@@ -1,0 +1,257 @@
+{
+  "case_id": "_2019_6_SCR_467",
+  "doc_meta": {
+    "source_file": "P. SURENDRAN.pdf",
+    "pdf_pages": 5,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment"
+    },
+    "format_profile": "unknown",
+    "citation_scr": "[2019] 6 SCR 467",
+    "scr_year": 2019,
+    "scr_volume": 6,
+    "scr_first_page": 467,
+    "decided_on": "2019-03-29",
+    "coram_raw": "N.V. RAMANA AND MOHAN M. SHANTANAGOUDAR JJ.",
+    "coram_regex": [
+      "N.V. RAMANA",
+      "MOHAN M. SHANTANAGOUDAR"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "P. SURENDRAN",
+    "respondent_regex": "STATE BY INSPECTOR OF POLICE",
+    "court_regex": "Supreme Court of India",
+    "year": 2019,
+    "footnotes": [
+      {
+        "page": 471,
+        "text": "Kalpana K. Tripathy"
+      },
+      {
+        "page": 471,
+        "text": "Petition disposed of."
+      }
+    ],
+    "case_no": "Special Leave Petition (Criminal) No.1832 of 2019",
+    "appeal_from_raw": "From the Judgment and Order dated 02.01.2019 of the High Court of Principal Sessions Judge, Kancheepuram District at Chengalpattu, Tamil Nadu in Crl. M.P. No.5697 of 2018",
+    "layout": "numbered_paras",
+    "ocr_noise_score": 0.0
+  },
+  "flags": [
+    "format_unrecognised_using_generic_patterns",
+    "zone_split_failed_using_whole_text",
+    "author_not_found"
+  ],
+  "case": {
+    "case_name": "P. SURENDRAN v. STATE BY INSPECTOR OF POLICE",
+    "petitioner": "P. SURENDRAN",
+    "respondent": "STATE BY INSPECTOR OF POLICE",
+    "court": "Supreme Court of India",
+    "coram": [
+      "N.V. RAMANA",
+      "MOHAN M. SHANTANAGOUDAR"
+    ],
+    "judgment_author": null,
+    "procedural_stage": "post_arrest_bail",
+    "offence_types": [
+      "atrocity",
+      "violence"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "The petitioner filed for anticipatory bail in a case involving allegations under the Scheduled Castes and Scheduled Tribes (Prevention of Atrocities) Act. The District Judge initially denied bail, and the High Court Registry refused to number and list the application over maintainability concerns, as the offence was under the SC/ST Act. The Supreme Court examined whether the Registry's refusal impinged on the judicial function of the High Court.",
+    "lower_court_outcome": "Anticipatory bail denied by District Judge; High Court Registry refused to number the application.",
+    "disposition": "Petition disposed of; High Court Registry directed to number and list the application.",
+    "statutes": [
+      {
+        "act": "Scheduled Castes and Scheduled Tribes (Prevention of Atrocities) Act, 1989",
+        "section": "3(ii)",
+        "how_used": "referred",
+        "note": null
+      },
+      {
+        "act": "Scheduled Castes and Scheduled Tribes (Prevention of Atrocities) Act, 1989",
+        "section": "18A",
+        "how_used": "interpreted",
+        "note": "The objections of the Registry on maintainability require judicial application of mind."
+      },
+      {
+        "act": "CrPC 1973",
+        "section": "438",
+        "how_used": "discussed",
+        "note": null
+      }
+    ],
+    "issues": [
+      {
+        "question": "Whether the Registry of the High Court was wrong in not numbering the anticipatory bail petition over maintainability concerns under the SC/ST Act?",
+        "short_answer": "Yes",
+        "anchors": [
+          "P4"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "The determination of the maintainability of a petition, such as an anticipatory bail application, requires judicial application of mind and cannot be relegated to administrative processes by a court registry.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [],
+        "statutes": [
+          "Scheduled Castes and Scheduled Tribes (Prevention of Atrocities) Act, 1989"
+        ],
+        "anchors": [
+          "P9"
+        ],
+        "quote": "The act of numbering a petition is purely administrative.",
+        "tags": [
+          "right_to_liberty",
+          "bail_not_jail",
+          "sc_st_atrocities"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition emphasizes the judicial necessity in determining the maintainability of anticipatory bail applications, aligning with the principles of personal liberty and the presumption against pre-trial detention, particularly under the SC/ST Atrocities Act.",
+        "authorities": []
+      },
+      {
+        "id": "p2",
+        "text": "The role of the High Court Registry does not extend to deciding the maintainability of petitions based on law, as this is a judicial function that requires determination by a bench.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P10"
+        ],
+        "quote": "The High Court Registry could not have exercised such judicial power to answer the maintainability of the petition.",
+        "tags": [
+          "right_to_liberty",
+          "bail_not_jail"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition emphasizes the judicial function of determining maintainability, which relates to the fundamental right to personal liberty and the principle that bail should be granted unless there are compelling reasons to deny it.",
+        "authorities": []
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The Madras High Court Registry was incorrect in refusing to number the anticipatory bail application, as the determination of maintainability involves a judicial function that should be adjudicated by an appropriate bench.",
+        "outcome": "accepted",
+        "anchors": [
+          "P6"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "Jaswant Sugar Mills Ltd., Meerut v. Lakshmichand and Ors.",
+        "citation": "AIR 1963 SC 677",
+        "treatment": "followed",
+        "used_for": "Defining judicial function",
+        "where": "P9"
+      }
+    ]
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": false,
+      "note": "The proposition claims that the role doesn't extend to deciding maintainability based on law, yet the truth is that it doesn't extend to deciding the maintainability at all."
+    }
+  },
+  "needs_review": [
+    "p2: verifier says supported, favors_correct=False - The proposition claims that the role doesn't extend to deciding maintainability based on law, yet the truth is that it doesn't extend to deciding the maintainability at all.",
+    "parser flag: format_unrecognised_using_generic_patterns",
+    "parser flag: zone_split_failed_using_whole_text",
+    "parser flag: author_not_found"
+  ],
+  "paragraphs": {
+    "P1": {
+      "text": "This Special Leave Petition has been filed against the impugned order and judgment dated 02.01.2019, in Crl.M.P. No. 5697 of 2018 passed by the Learned Court of. The Principle Sessions Judge of Kancheepuram District at Chengalpattu, Tamil Nadu and the order of the High Court Registry, in not numbering the anticipatory bail petition of the petitioner-accused herein.",
+      "page_start": 468,
+      "page_end": 468
+    },
+    "P2": {
+      "text": "We need to refer to the basic facts necessary for the disposal of the case at hand. An FIR was filed against the three co-accused (Murugesan, S. M. Ekambaram and Ramaswamy), before the PS Pallikaranai, St. Thomas Mount, Kancheepuram District, Tamil Nadu, being Crime No. 937 of 2017, dated 03.04.2017, under Section 147, 148, 448, 302 and 506 of IPC. It is averred that subsequently Offence under Section 3(ii) of the Scheduled castes and the Scheduled Tribes (prevention of atrocities) Act, 1989 [‘SC/ST Act’] was also added. Further it is to be noted that the Petitioner herein was later arrayed as an accused by the police. In view of apprehension of arrest, the petitioner filed an Anticipatory Bail Application being Crl.M.P. No. 5697 of 2018, before the Learned Court of The Principal Sessions Judge of Kancheepuram at Chengalpattu.",
+      "page_start": 468,
+      "page_end": 468
+    },
+    "P3": {
+      "text": "The District Principal Judge by an Order dated 02.01.2019, dismissed the anticipatory bail application of the petitioner. Aggrieved by the same, petitioner approached the High Court of Madras seeking anticipatory bail, but the Registry of the High Court refused to number and list the matter before the court on the following office objection- “It may be stated how this petition for Anticipatory Bail is maintainable, since the offence is under SC/ST Act” Even though the petitioner herein replied to the aforesaid office objection, the High Court Registry rejected numbering of the petition and dismissed the Anticipatory Bail Petition on the issue of maintainability under SC/ST Act.",
+      "page_start": 468,
+      "page_end": 469
+    },
+    "P4": {
+      "text": "Aggrieved by such non-registration, the petitioner is before this Court on a question of law as to whether the Madras High Court Registry was wrong, in not numbering the Anticipatory-Bail Petition and as to whether consequent dismissal of the same on the issue of maintainability of the petition impinges on the judicial function of the High Court?",
+      "page_start": 469,
+      "page_end": 469
+    },
+    "P5": {
+      "text": "In view of the importance of the matter, this Court had requested the assistance of the Attorney General for India who acceded our request and assisted this Court.",
+      "page_start": 469,
+      "page_end": 469
+    },
+    "P6": {
+      "text": "Learned Attorney General has stated that the stance of the Registry of the Madras High Court in refusing to number the anticipatory bail application and not placing it before the appropriate bench is incorrect. He states that in light of the subsequent amendment of 2018 to the SC/ST Act, particularly the inclusion of Section 18A under the SC/ST Act, appropriate bench has to adjudicate the matter as the same is a judicial function. Therefore, the registry of the Madras High Court cannot refuse to number the anticipatory bail application on the ground of maintainability.",
+      "page_start": 469,
+      "page_end": 469
+    },
+    "P7": {
+      "text": "Recently, the Government amended the SC/ST Act, through The Scheduled Castes and The Scheduled Tribes (Prevention of Atrocities) Amendment Act, 2018 No. 27 of 2018, wherein a new provi-sion being Section 18-A was inserted, which reads as under- 18A. (1) For the purposes of this Act,— (a) preliminary enquiry shall not be required for registration of a First Information Report against any person; or (b) the investigating officer shall not require approval for the arrest, if necessary, of any person, against whom an accusation of having committed an offence under this Act has been made and no procedure other than that provided under this Act or the Code shall apply. (2) The provisions of section 438 of the Code shall not apply to a case under this Act, notwithstanding any judgment or order or direction of any Court.”. (emphasis added)",
+      "page_start": 469,
+      "page_end": 470
+    },
+    "P8": {
+      "text": "We may note that the aforesaid amendment has been constitutionally challenged in various writ petitions listed before a different bench of this Court along with the R.P. (Crl.) No. 228 of 2018, titled Union of India v. State of Maharashtra and Others. However, the question before this Court herein is different, distinct and limited. We are only concerned with the question whether Registry could have questioned the maintainability of the Petition.",
+      "page_start": 470,
+      "page_end": 470
+    },
+    "P9": {
+      "text": "The nature of judicial function is well settled under our legal system. Judicial function is the duty to act judicially, which invests with that character. The distinguishing factor which separates administrative and judicial function is the duty and authority to act judicially. Judicial function may thus be defined as the process of considering the proposal, opposition and then arriving at a decision upon the same on consideration of facts and circumstances according to the rules of reason and justice. A Constitution Bench of five judges in Jaswant Sugar Mills Ltd., Meerut vs. Lakshmichand and Ors., AIR 1963 SC 677, formulated the following criteria to ascertain whether a decision or an act is judicial function or not, in the following manner- (1) it is in substance a determination upon investigation of a question by the application of objective standards to facts found in the light of pre-existing legal rule; (2) it declares rights or imposes upon parties obligations affecting their civil rights; and (3) that the investigation is subject to certain procedural attributes contemplating an opportunity of presenting its case to a party, ascertainment of facts by means of evidence if a dispute be on questions of fact, and if the dispute be on question of law on the presentation of legal argument, and a decision resulting in the disposal of the matter on findings based upon those questions of law and fact. (emphasis added) The act of numbering a petition is purely administrative. The objections taken by the Madras High Court Registry on the aspect of maintainability requires judicial application of mind by utilizing appropriate judicial standard. Moreover, the wordings of Section 18A of the SC/ST Act itself indicates at application of judicial mind. In this context, we accept the statement of the Attorney General, that the determination in this case is a judicial function and the High Court Reg-istry could not have rejected the numbering.",
+      "page_start": 470,
+      "page_end": 471
+    },
+    "P10": {
+      "text": "Therefore, we hold that the High Court Registry could not have exercised such judicial power to answer the maintainability of the petition, when the same was in the realm of the Court. As the power of judicial function cannot be delegated to the Registry, we cannot sustain the order, rejecting the numbering/registration of the Petition, by the Madras High Court Registry. Accordingly, the Madras High Court Registry is directed to number the petition and place it before an appro-priate bench.",
+      "page_start": 471,
+      "page_end": 471
+    },
+    "P11": {
+      "text": "Having said so, we make it clear that we have not expressed any views on the nature of the amendment, the standard of judicial review and the extent of justiciability under Section 18-A of the SC/ST Act, which is left open for the appropriate Bench to consider.",
+      "page_start": 471,
+      "page_end": 471
+    },
+    "P12": {
+      "text": "Before we part with this case, we note that this Court has not expressed any views on the merits of the case and the High Court is requested to consider the matter uninfluenced by the observations made herein.",
+      "page_start": 471,
+      "page_end": 471
+    },
+    "P13": {
+      "text": "In view of the discussion, this petition is accordingly disposed of in the aforesaid terms.",
+      "page_start": 471,
+      "page_end": 471
+    }
+  },
+  "headnote_raw": " \nP. SURENDRAN\nv.\nSTATE BY INSPECTOR OF POLICE\n(SLP (Crl.) No. 1832  of  2019)\nMARCH 29, 2019\nBail:\nAnticipatory bail – Sought in a case wherein offence u/s. 3(ii)\nof Scheduled Castes and Scheduled Tribes (Prevention of\nAtrocities) Act, 1989 was alleged – Initially rejected by District Judge\n– Later High Court registry refused to number and list the\napplication before the Court and dismissed the application on the\nground that offence being under SC/ST Act, the bail application\nwas not maintainable – On appeal, held: The act of numbering a\npetition is purely administrative –  The objections taken by the Court\nRegistry on the aspect of maintainability requires judicial\napplication of mind by utilizing appropriate judicial standard –\nMoreover, the wordings of Section 18A of the SC/ST Act itself indi-\ncates at application of judicial mind – The determination in this\ncase is a judicial function and the High Court Registry could not\nhave rejected the numbering – The High Court Registry could not\nhave exercised such judicial power to answer the maintainability\nof the petition, when the same was in the realm of the Court – The\npower of judicial function cannot be delegated to the Registry –\nThe Madras High Court Registry is directed to number the petition\nand place it before an appropriate Bench.\nJaswant Sugar Mills Ltd., Meerut v. Lakshmichand and\nOrs. AIR 1963 SC 677 : [1963]  Suppl. SCR 242 –\nfollowed.\nCase Law Reference\n[1963]  Suppl. SCR  242       followed\nPara 9\n \n"
+}

@@ -22,7 +22,10 @@ from .stage3_pipeline import Stage3Pipeline
 from .stage4_pipeline import Stage4Pipeline
 from .stage5_pipeline import Stage5Pipeline
 from .stage6_pipeline import Stage6Pipeline
+from .bsa_retrieval_agent import BSARetrievalAgent
+from .statute_repository import StatuteRepository
 from .schemas import IntakeInput
+
 
 def _print_pipeline_transition(stage_num: int, res: dict) -> None:
     """Prints a concise pipeline transition summary after each stage output."""
@@ -195,15 +198,162 @@ def run_stage3(legal_query_input: dict, stage2_input: Optional[dict] = None) -> 
     return {"status": res.status, "feedback": res.feedback}
 
 
-def run_stage4(legal_query_input: dict, chapter_input: dict) -> dict:
+def run_stage3b(
+    legal_query_input: dict,
+    stage3_input: Optional[dict] = None,
+) -> dict:
+    """
+    Executes Stage 3b: BSA Evidence Law Section Retrieval.
+
+    Runs deterministically (0 LLM calls) and returns a BSARetrievalObject dict
+    containing relevant Bharatiya Sakshya Adhiniyam sections with IEA equivalents
+    and IPC → BNS equivalents for offences identified in Stage 3.
+
+    Args:
+        legal_query_input: LegalQueryObject dict from Stage 1.
+        stage3_input: Optional ChapterIdentificationObject dict from Stage 3
+                      (used to resolve IPC → BNS equivalents for identified offences).
+
+    Returns:
+        BSARetrievalObject as dict.
+    """
+    agent = BSARetrievalAgent()
+    verified_offences = None
+    if stage3_input:
+        verified_offences = stage3_input.get("verified_offences", [])
+
+    print("\n" + "=" * 60, flush=True)
+    print("  STAGE 3b: BSA EVIDENCE LAW SECTION RETRIEVAL & VERIFICATION", flush=True)
+    print("=" * 60, flush=True)
+
+    result = agent.run(
+        legal_query=legal_query_input,
+        verified_offences=verified_offences,
+    )
+
+    result_dict = result.model_dump()
+    sections = result_dict.get("relevant_sections", [])
+    rejected = result_dict.get("rejected_sections", [])
+    ipc_bns_map = result_dict.get("ipc_to_bns_map", {})
+
+    print(f"\n  [VERIFIED / ACCEPTED BSA SECTIONS ({len(sections)})]:", flush=True)
+    for sec in sections:
+        iea = sec.get("replaces_IEA") or "—"
+        cat = sec.get("relevance_category") or "DOCUMENTS"
+        v_reason = sec.get("verification_reason") or sec.get("relevance_reason") or ""
+        print(
+            f"    ✓ [BSA {sec['section_number']:>3}] "
+            f"{sec['heading'][:50]:<50} "
+            f"| IEA: {iea:<10} "
+            f"| [{cat}]",
+            flush=True,
+        )
+        if v_reason:
+            print(f"      Grounding: {v_reason}", flush=True)
+
+    if rejected:
+        print(f"\n  [AUDITED & REJECTED CANDIDATES ({len(rejected)})]:", flush=True)
+        for sec in rejected[:5]:
+            rej_reason = sec.get("verification_reason") or "Tangential / generic noise"
+            print(f"    ✗ [BSA {sec['section_number']:>3}] {sec['heading'][:45]:<45} -> {rej_reason}", flush=True)
+
+    if ipc_bns_map:
+        print(f"\n  [IPC → BNS EQUIVALENTS (via Neo4j REPLACED_BY) ({len(ipc_bns_map)})]:", flush=True)
+        for ipc_sec, bns_sec in sorted(ipc_bns_map.items()):
+            print(f"    IPC {ipc_sec:>3} → BNS {bns_sec}", flush=True)
+
+    for note in result_dict.get("retrieval_notes", []):
+        print(f"  NOTE: {note}", flush=True)
+
+    print("=" * 60, flush=True)
+    return result_dict
+
+
+def run_stage4(
+    legal_query_input: dict,
+    chapter_input: dict,
+    bsa_input: Optional[dict] = None,
+) -> dict:
     """
     Executes Stage 4 pipeline on LegalQueryObject and ChapterIdentificationObject dicts.
+    At the conclusion of Stage 4, displays both:
+      1. Verified IPC sections mapped to BNS equivalents (via Neo4j REPLACED_BY)
+      2. Verified BSA evidence sections mapped to IEA equivalents (via Neo4j REPLACES)
     """
     pipeline = Stage4Pipeline()
     res = pipeline.run(legal_query_input, chapter_input)
-    if res.verified_statutory_object:
-        return res.verified_statutory_object.model_dump()
-    return {"status": res.status, "feedback": res.feedback}
+    
+    stage4_dict = (
+        res.verified_statutory_object.model_dump()
+        if res.verified_statutory_object
+        else {"status": res.status, "feedback": res.feedback}
+    )
+
+    # If BSA input was not passed from Stage 3b, run it now to guarantee both mappings are present
+    if not bsa_input:
+        try:
+            bsa_input = run_stage3b(legal_query_input, chapter_input)
+        except Exception:
+            bsa_input = {}
+
+    # Extract IPC -> BNS mappings
+    repo = StatuteRepository.get_instance()
+    ipc_bns_mappings = []
+    verified_offences = stage4_dict.get("verified_offences", [])
+    if not verified_offences and chapter_input:
+        verified_offences = chapter_input.get("verified_offences", [])
+
+    for off in verified_offences:
+        raw_sec = str(off.get("ipc_equivalent") or off.get("section_number") or "").strip()
+        clean_sec = raw_sec.upper().replace("IPC_", "").replace("SECTION ", "").strip()
+        title = off.get("section_title") or off.get("offence_title") or ""
+        bns_eq = repo.get_ipc_bns_equivalent(clean_sec) or off.get("bns_equivalent") or "N/A"
+        ipc_bns_mappings.append({
+            "ipc_section": clean_sec,
+            "title": title,
+            "bns_equivalent": bns_eq,
+        })
+
+    # Extract BSA -> IEA mappings
+    bsa_iea_mappings = []
+    if bsa_input and "relevant_sections" in bsa_input:
+        for b_sec in bsa_input["relevant_sections"]:
+            bsa_num = str(b_sec.get("section_number", "")).strip()
+            heading = b_sec.get("heading", "")
+            cat = b_sec.get("relevance_category", "DOCUMENTS")
+            iea_eq = b_sec.get("replaces_IEA") or "None"
+            bsa_iea_mappings.append({
+                "bsa_section": bsa_num,
+                "heading": heading,
+                "category": cat,
+                "iea_equivalent": iea_eq,
+            })
+
+    # Terminal summary of both mappings at the end of Stage 4
+    print("\n" + "=" * 80, flush=True)
+    print("  STAGE 4 COMPREHENSIVE STATUTE EQUIVALENCE SUMMARY", flush=True)
+    print("=" * 80, flush=True)
+    print("  [1] VERIFIED SUBSTANTIVE OFFENCES (IPC → BNS via Neo4j REPLACED_BY):", flush=True)
+    if ipc_bns_mappings:
+        for m in ipc_bns_mappings:
+            title_snippet = f"({m['title'][:40]})" if m['title'] else ""
+            print(f"      • IPC {m['ipc_section']:<5} {title_snippet:<42} ──► BNS {m['bns_equivalent']}", flush=True)
+    else:
+        print("      • (No substantive offences to map)", flush=True)
+
+    print("\n  [2] VERIFIED EVIDENCE LAW PROVISIONS (BSA → IEA via Neo4j REPLACES):", flush=True)
+    if bsa_iea_mappings:
+        for b in bsa_iea_mappings:
+            head_snippet = f"({b['heading'][:40]})" if b['heading'] else ""
+            print(f"      • BSA {b['bsa_section']:<5} {head_snippet:<42} ──► IEA {b['iea_equivalent']:<10} [{b['category']}]", flush=True)
+    else:
+        print("      • (No evidentiary provisions mapped)", flush=True)
+    print("=" * 80 + "\n", flush=True)
+
+    stage4_dict["ipc_to_bns_equivalents"] = ipc_bns_mappings
+    stage4_dict["bsa_to_iea_equivalents"] = bsa_iea_mappings
+    return stage4_dict
+
 
 
 def run_stage5(case_context_input: dict, legal_query_input: dict, statutory_input: dict) -> dict:
@@ -236,7 +386,9 @@ def run_full_pipeline(
     legal_regime_override: Optional[str] = None,
 ) -> dict:
     """
-    Chains Stage 0 -> Stage 1 -> Stage 2 -> Stage 3 -> Stage 4 -> Stage 5 -> Stage 6 and returns combined outputs.
+    Chains Stage 0 -> Stage 1 -> Stage 2 -> Stage 3 -> Stage 3b -> Stage 4 -> Stage 5 -> Stage 6
+    and returns combined outputs.
+    Stage 3b is BSA Evidence Law Section Retrieval (parallel to Stage 3, 0 LLM calls).
     """
     stage0_out = run_stage0(
         text=text,
@@ -249,15 +401,18 @@ def run_full_pipeline(
     stage1_out = run_stage1(stage0_out)
     stage2_out = run_stage2(stage1_out)
     stage3_out = run_stage3(stage1_out, stage2_out)
-    stage4_out = run_stage4(stage1_out, stage3_out)
+    stage3b_out = run_stage3b(stage1_out, stage3_out)  # BSA retrieval & verification
+    stage4_out = run_stage4(stage1_out, stage3_out, bsa_input=stage3b_out)
     stage5_out = run_stage5(stage0_out, stage1_out, stage4_out)
     stage6_out = run_stage6(stage0_out, stage1_out, stage4_out, stage5_out)
+
 
     return {
         "stage0_case_context": stage0_out,
         "stage1_legal_query": stage1_out,
         "stage2_subquery_mapping": stage2_out,
         "stage3_chapter_identification": stage3_out,
+        "stage3b_bsa_retrieval": stage3b_out,
         "stage4_statutory_verification": stage4_out,
         "stage5_bail_reasoning": stage5_out,
         "stage6_precedent_retrieval": stage6_out,
@@ -265,34 +420,40 @@ def run_full_pipeline(
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Run Stage 0, Stage 1, Stage 2, Stage 3, Stage 4, Stage 5, Stage 6 & Full LexiGraph Backend Pipelines")
+    parser = argparse.ArgumentParser(description="Run Stage 0, Stage 1, Stage 2, Stage 3, Stage 3b (BSA), Stage 4, Stage 5, Stage 6 & Full LexiGraph Backend Pipelines")
     parser.add_argument("--file", "-f", type=str, help="Path to input raw document text file")
     parser.add_argument("--text", "-t", type=str, help="Raw document text input string")
     parser.add_argument("--query", "-q", type=str, help="User instructions / query")
     parser.add_argument("--court", type=str, help="Court type (Sessions Court / High Court)")
     parser.add_argument("--regime", type=str, default="IPC + CrPC", help="Legal regime (default: IPC + CrPC)")
-    parser.add_argument("--stage", type=int, choices=[0, 1, 2, 3, 4, 5, 6, 7], default=7, help="Target stage to run (0=Intake, 1=Query Understanding, 2=SubQuery Mapping, 3=Chapter Identification, 4=Statutory Verification, 5=Bail Reasoning, 6=Precedent Retrieval, 7=Full Chain)")
+    parser.add_argument(
+        "--stage",
+        type=str,
+        choices=["0", "1", "2", "3", "3b", "4", "5", "6", "7"],
+        default="7",
+        help="Target stage to run (0=Intake, 1=Query Understanding, 2=SubQuery Mapping, 3=Chapter Identification, 3b=BSA Retrieval, 4=Statutory Verification, 5=Bail Reasoning, 6=Precedent Retrieval, 7=Full Chain)",
+    )
 
     args = parser.parse_args()
 
     try:
-        if args.stage == 0:
+        if args.stage == "0":
             res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
             print("\n=== STAGE 0 CASE CONTEXT RESULT ===", flush=True)
             print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
-        elif args.stage == 1:
+        elif args.stage == "1":
             stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
             res = run_stage1(stage0_res)
             print("\n=== STAGE 1 LEGAL QUERY RESULT ===", flush=True)
             print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
-        elif args.stage == 2:
+        elif args.stage == "2":
             stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
             stage1_res = run_stage1(stage0_res)
             res = run_stage2(stage1_res)
             print("\n=== STAGE 2 BATCHED SUB-QUERY MAPPING RESULT ===", flush=True)
             print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
             _print_pipeline_transition(2, res)
-        elif args.stage == 3:
+        elif args.stage == "3":
             stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
             stage1_res = run_stage1(stage0_res)
             stage2_res = run_stage2(stage1_res)
@@ -300,7 +461,15 @@ def main():
             print("\n=== STAGE 3 CHAPTER IDENTIFICATION RESULT ===", flush=True)
             print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
             _print_pipeline_transition(3, res)
-        elif args.stage == 4:
+        elif args.stage == "3b":
+            stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
+            stage1_res = run_stage1(stage0_res)
+            stage2_res = run_stage2(stage1_res)
+            stage3_res = run_stage3(stage1_res, stage2_res)
+            res = run_stage3b(stage1_res, stage3_res)
+            print("\n=== STAGE 3b BSA RETRIEVAL RESULT ===", flush=True)
+            print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
+        elif args.stage == "4":
             stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
             stage1_res = run_stage1(stage0_res)
             stage2_res = run_stage2(stage1_res)
@@ -309,7 +478,7 @@ def main():
             print("\n=== STAGE 4 STATUTORY VERIFICATION RESULT ===", flush=True)
             print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
             _print_pipeline_transition(4, res)
-        elif args.stage == 5:
+        elif args.stage == "5":
             stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
             stage1_res = run_stage1(stage0_res)
             stage2_res = run_stage2(stage1_res)
@@ -318,7 +487,7 @@ def main():
             res = run_stage5(stage0_res, stage1_res, stage4_res)
             print("\n=== STAGE 5 BAIL REASONING RESULT ===", flush=True)
             print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
-        elif args.stage == 6:
+        elif args.stage == "6":
             stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
             stage1_res = run_stage1(stage0_res)
             stage2_res = run_stage2(stage1_res)
@@ -330,7 +499,7 @@ def main():
             print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
         else:
             res = run_full_pipeline(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
-            print("\n=== FULL END-TO-END STAGE 0+1+2+3+4+5+6 PIPELINE CHAIN RESULT ===", flush=True)
+            print("\n=== FULL END-TO-END STAGE 0+1+2+3+3b+4+5+6 PIPELINE CHAIN RESULT ===", flush=True)
             print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
     except Exception as e:
         print(f"Error running pipeline: {e}", file=sys.stderr)

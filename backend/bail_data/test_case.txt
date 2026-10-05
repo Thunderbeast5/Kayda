@@ -1,33 +1,45 @@
-BAIL APPLICATION CASE
-
-Facts:
-The accused, a 45-year-old businessman with no prior criminal record, has been charged under Section 420 IPC (cheating) and Section 406 IPC (criminal breach of trust) in connection with a property transaction dispute. The complainant alleges that the accused entered into an agreement to purchase a commercial property worth Rs. 75 lakhs but failed to complete the transaction despite receiving an advance of Rs. 15 lakhs.
-
-The accused contends that this is a purely civil dispute arising from a commercial transaction, and that the complainant has given it a criminal color to exert pressure. The accused states that he was unable to complete the transaction due to financial difficulties arising from the COVID-19 pandemic, and that he has offered to refund the advance amount with interest.
-
-Current Status:
-- Investigation is complete and chargesheet has been filed
-- Accused has surrendered his passport voluntarily
-- Accused has deep roots in the community, owning residential property and running a business in the city for 20 years
-- No history of witness tampering or intimidation
-- Accused has been cooperating with the investigation throughout
-- The matter is currently at the stage of framing of charges
-- Accused is seeking regular bail under Section 437 CrPC
-
-Complainant's Position:
-- The complainant argues that this is a serious economic offence involving misappropriation of Rs. 15 lakhs
-- Claims that the accused has diverted the money for personal use
-- States that the accused should remain in custody to prevent him from disposing of assets
-- Argues that the accused has influential connections and may tamper with evidence
-
-Defense Position:
-- This is a commercial dispute arising from a failed business transaction
-- The accused has a clean record and has always been law-abiding
-- The accused has strong ties to the community and is not a flight risk
-- Investigation is complete, so there is no risk of tampering with evidence
-- The amounts involved are not of such magnitude as to deny bail
-- The accused has the right to liberty under Article 21 of the Constitution
-- Bail is the rule, jail is the exception
-- The accused has already spent 45 days in custody
-
-The defense seeks bail on the grounds that the offences are bailable, the accused is not a flight risk, investigation is complete, and continued detention is not justified given the nature of the case and the individual circumstances of the accused.
+Facts
+The applicant, a 42-year-old businessman with no previous criminal record, apprehends arrest in an FIR registered under Sections 406, 420, 465, 468 and 471 IPC.
+The complainant alleges that the applicant entered into an agreement for the purchase of a commercial property valued at approximately ₹80 lakhs and received an advance payment of ₹18 lakhs. According to the complainant, the applicant subsequently failed to complete the transaction and allegedly used certain documents relating to the property that were claimed to be forged.
+The applicant denies the allegations and submits that the transaction was a commercial dispute arising out of a failed property agreement. He contends that the documents relied upon by him were supplied during the negotiations and that he had no knowledge that any document was allegedly defective or forged.
+The applicant further states that the transaction could not be completed because of financial difficulties and disruption to his business, and that he has offered to return the advance amount along with reasonable interest.
+Present Circumstances
+- The applicant has no previous criminal antecedents.
+- He has been residing at the same address for more than 15 years.
+- He owns a business and residential property in the city.
+- He has voluntarily appeared before the investigating officer whenever called.
+- He is willing to cooperate fully with the investigation.
+- He is willing to surrender his passport and comply with any condition imposed by the Court.
+- The principal documents relating to the transaction are already in the possession of the investigating agency.
+- The applicant is not alleged to have threatened or contacted any prosecution witness.
+- The dispute primarily concerns documentary evidence relating to a commercial property transaction.
+Prosecution's Position
+The prosecution opposes anticipatory bail on the ground that the allegations involve cheating, criminal breach of trust and forgery.
+It is argued that the applicant deliberately induced the complainant to part with ₹18 lakhs and subsequently relied upon allegedly forged documents.
+The prosecution further submits that custodial interrogation may be necessary to determine:
+1. the source and destination of the money;
+2. the authenticity of the property documents;
+3. whether other persons were involved in the transaction; and
+4. whether the applicant has committed similar acts with other purchasers.
+The prosecution also argues that the seriousness of the allegations and the possibility of influencing witnesses justify denial of anticipatory bail.
+Defense Position
+The applicant submits that the allegations essentially arise from a commercial/property transaction and that a contractual dispute has been given a criminal colour.
+The defense argues that:
+- the applicant has no criminal antecedents;
+- there is no allegation of violence or threat;
+- the dispute is predominantly documentary in nature;
+- the applicant has cooperated with the investigation;
+- the relevant documents are already available with the investigating agency;
+- the applicant is a permanent resident and is not a flight risk;
+- he is willing to surrender his passport;
+- there is no material showing that he has attempted to influence witnesses;
+- custodial interrogation is not necessary merely because the allegations involve economic offences; and
+- arrest should not be used as a means of recovering money or settling a commercial dispute.
+The defense relies upon the principle that personal liberty under Article 21 must be balanced against the requirements of investigation, and that anticipatory bail may be granted where the circumstances do not demonstrate a genuine necessity for custodial interrogation.
+Relief Sought
+The applicant seeks anticipatory bail under Section 438 CrPC, subject to conditions such as:
+- appearing before the investigating officer when required;
+- not leaving India without permission of the Court;
+- surrendering his passport;
+- not contacting or influencing prosecution witnesses; and
+- cooperating with the investigation.

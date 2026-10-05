@@ -3,14 +3,48 @@
   "doc_meta": {
     "source_file": "Satpal Singh v. State of Punjab.pdf",
     "pdf_pages": 11,
-    "year": 2018,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment",
+      "author": "author:0"
+    },
+    "format_profile": "scr_reporter",
+    "citation_scr": "[2018] 3 SCR 739",
+    "scr_year": 2018,
     "scr_volume": 3,
     "scr_first_page": 739,
-    "citation_scr": "[2018] 3 SCR 739",
     "decided_on": "2018-03-27",
     "coram_raw": "KURIAN JOSEPH, MOHAN M. SHANTANAGOUDAR AND NAVIN SINHA, JJ.",
+    "coram_regex": [
+      "KURIAN JOSEPH",
+      "MOHAN M. SHANTANAGOUDAR",
+      "NAVIN SINHA"
+    ],
     "bench_strength_regex": 3,
     "constitution_bench": false,
+    "petitioner_regex": "SATPAL SINGH",
+    "respondent_regex": "THE STATE OF PUNJAB",
+    "court_regex": "Supreme Court of India",
+    "year": 2018,
+    "footnotes": [
+      {
+        "page": 749,
+        "text": "Kalpana K. Tripathy"
+      },
+      {
+        "page": 749,
+        "text": "Appeals disposed of."
+      }
+    ],
+    "pre_judgment_block": "CRIMINAL APPELLATE JURISDICTION : Criminal Appeal No. 462 of 2018. From the Judgment and Order dated 04.10.2017 of the High Court of Punjab & Haryana at Chandigarh in CRM-M-37140 of 2017 WITH Criminal Appeal No. 463 of 2018. H. P. S. Ghuman, Devesh Kumar Tripathi, Advs. for the Appellant. Ms. Jaspreet Gogia, Adv. for the Respondent.",
+    "case_no": "Criminal Appeal No. 462 of 2018",
+    "appeal_from_raw": "From the Judgment and Order dated 04.10.2017 of the High Court of Punjab & Haryana at Chandigarh in CRM-M-37140 of 2017",
     "judgment_author_regex": "KURIAN",
     "layout": "unnumbered_page_anchored",
     "ocr_noise_score": 0.001
@@ -18,23 +52,23 @@
   "flags": [],
   "case": {
     "case_name": "Satpal Singh v. State of Punjab",
-    "petitioner": "Satpal Singh",
-    "respondent": "State of Punjab",
+    "petitioner": "SATPAL SINGH",
+    "respondent": "THE STATE OF PUNJAB",
     "court": "Supreme Court of India",
     "coram": [
-      "Kurian Joseph",
-      "Mohan M. Shantanagoudar",
-      "Navin Sinha"
+      "KURIAN JOSEPH",
+      "MOHAN M. SHANTANAGOUDAR",
+      "NAVIN SINHA"
     ],
-    "judgment_author": "Kurian Joseph",
+    "judgment_author": "KURIAN JOSEPH",
     "procedural_stage": "pre_arrest",
     "offence_types": [
       "narcotics"
     ],
     "dispute_nature": "serious_criminal",
-    "abstract_facts": "The appellant sought anticipatory bail under sections 22 and 29 of the NDPS Act. He argued for parity as co-accused were granted bail, which the High Court rejected, citing Section 37 NDPS Act limitations. The Sessions Court, however, granted them regular bail based on an interim High Court order. The Supreme Court found that the orders granting bail to co-accused did not consider Section 37 NDPS, setting them aside.",
-    "lower_court_outcome": "Anticipatory and regular bail granted to co-accused by Sessions Court.",
-    "disposition": "Appeal dismissed; State's appeal allowed, bail orders set aside.",
+    "abstract_facts": "The appellant sought anticipatory bail in an FIR filed under sections 22 and 29 of the NDPS Act. The application was filed on the grounds of parity since two co-accused had been granted anticipatory bail by a coordinate Bench of the High Court. However, the High Court rejected the bail due to limitations under section 37 of the NDPS Act. The Sessions Court incorrectly granted regular bail to the accused based on an interim order. The Supreme Court held that the High Court's rejection of anticipatory bail was correct under section 37.",
+    "lower_court_outcome": "Anticipatory bail denied by High Court.",
+    "disposition": "Appeal by accused dismissed. Appeal by State allowed.",
     "statutes": [
       {
         "act": "NDPS Act 1985",
@@ -52,102 +86,139 @@
         "act": "NDPS Act 1985",
         "section": "37",
         "how_used": "interpreted",
-        "note": "Stringent limitations on bail for offences under this Act due to seriousness and additional conditions to be satisfied for bail."
+        "note": "Stringent limitations on bail are in addition to those under Cr.P.C. due to seriousness of offences."
       },
       {
         "act": "CrPC 1973",
         "section": "438",
         "how_used": "interpreted",
-        "note": null
+        "note": "Protection under Section 438 Cr.P.C. is different from regular bail considerations."
       },
       {
         "act": "CrPC 1973",
         "section": "439",
         "how_used": "interpreted",
-        "note": null
+        "note": "Different satisfaction required for granting regular bail compared to anticipatory bail."
       }
     ],
     "issues": [
       {
-        "question": "Whether the High Court was correct in denying anticipatory bail to the appellant?",
-        "short_answer": "Yes, considering Section 37 NDPS limitations.",
+        "question": "Can anticipatory bail be granted if co-accused have been granted such bail without considering Section 37 of the NDPS Act?",
+        "short_answer": "No",
         "anchors": [
-          "pNone.2",
-          "p743.1"
-        ]
-      },
-      {
-        "question": "Is anticipatory bail automatically converted to regular bail?",
-        "short_answer": "No, separate criteria apply under CrPC.",
-        "anchors": [
-          "p748.5",
-          "p749.1"
+          "p742.2",
+          "p743.1",
+          "p743.4"
         ]
       }
     ],
     "propositions": [
       {
         "id": "p1",
-        "text": "Under Section 37 of NDPS Act, a person accused of offences involving commercial quantity cannot be released on bail unless the Public Prosecutor opposes and the court is satisfied of certain conditions.",
+        "text": "Section 37 of the NDPS Act imposes stringent limitations on granting bail for offences involving commercial quantities of contraband.",
         "speaker": "supreme_court",
         "kind": "ratio",
         "is_holding": true,
         "favors": "prosecution",
-        "conditions": [
-          "Public Prosecutor given opportunity to oppose",
-          "Satisfaction of court on reasonable grounds for believing innocence",
-          "Likelihood of non-recidivism"
-        ],
+        "conditions": [],
         "statutes": [
-          "NDPS Act 1985"
+          "NDPS Act 1985",
+          "CrPC 1973"
         ],
         "anchors": [
           "p743.2",
+          "p743.3",
           "p743.4"
         ],
-        "quote": "the court must be satisfied that there are reasonable grounds for believing that the person is not guilty of the alleged offence"
+        "quote": "These limitations are in addition to those prescribed under the Cr.P.C."
       },
       {
         "id": "p2",
-        "text": "Anticipatory bail under Section 438 CrPC does not lead to an automatic entitlement to regular bail under Section 439 CrPC.",
+        "text": "Protection under Section 438 Cr.P.C. is preliminary and does not automatically entitle an accused to regular bail.",
         "speaker": "supreme_court",
         "kind": "ratio",
         "is_holding": true,
-        "favors": "neutral",
-        "conditions": [
-          "Regular bail must be considered on its own merits"
-        ],
+        "favors": "prosecution",
+        "conditions": [],
         "statutes": [
           "CrPC 1973"
         ],
         "anchors": [
           "p748.5",
-          "p749.1"
+          "p748.4"
         ],
-        "quote": "Merely because an accused was under the protection of anticipatory bail does not mean that he is automatically entitled to regular bail"
+        "quote": "does not mean that he is automatically entitled to regular bail"
+      },
+      {
+        "id": "p3",
+        "text": "A coordinate bench's grant of anticipatory bail without considering the stringent requirements under Section 37 of the NDPS Act is incorrect.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [
+          "NDPS Act 1985"
+        ],
+        "anchors": [
+          "p749.1",
+          "p742.2"
+        ],
+        "quote": "order granting bail to the co-accused was without reference to s. 37 of NDPS Act"
+      },
+      {
+        "id": "p4",
+        "text": "Sessions Courts must ensure that interim orders do not mislead into granting regular bail where final orders do not permit.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p746.3",
+          "p748.4"
+        ],
+        "quote": "did not take note of the final order passed by the High Court"
       }
     ],
     "contentions": [
       {
         "side": "appellant",
-        "text": "The High Court erred in denying anticipatory bail when co-accused were granted bail on similar grounds.",
+        "text": "The appellant sought anticipatory bail on the ground of parity as two co-accused were granted such bail by a coordinate bench of the High Court.",
         "outcome": "rejected",
         "anchors": [
-          "pNone.2",
-          "p744.2"
+          "p742.2"
         ]
       },
       {
         "side": "respondent",
-        "text": "The High Court correctly applied Section 37 NDPS Act limitations which were not considered in co-accused's bail.",
+        "text": "The High Court properly denied anticipatory bail considering the stringent requirements under section 37 of the NDPS Act.",
         "outcome": "accepted",
         "anchors": [
-          "p743.1",
-          "p744.1"
+          "p742.2",
+          "p749.1"
+        ]
+      },
+      {
+        "side": "respondent",
+        "text": "The State challenged the High Court's order granting anticipatory bail to co-accused without considering section 37 of the NDPS Act.",
+        "outcome": "accepted",
+        "anchors": [
+          "p746.1",
+          "p746.2"
         ]
       }
     ],
-    "authorities": []
+    "authorities": [
+      {
+        "name": "Vinod Kumar v. State of Punjab",
+        "citation": "(2013) 1 RCR (Criminal) 428",
+        "treatment": "referred_to",
+        "used_for": "Illustrates State's awareness of serious drug issues.",
+        "where": "p746.2"
+      }
+    ]
   },
   "authority_table": [],
   "verdicts": {
@@ -162,21 +233,33 @@
       "verdict": "supported",
       "favors_correct": true,
       "note": ""
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p4": {
+      "id": "p4",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
     }
   },
   "needs_review": [
-    "p2: quote not found in its anchors"
+    "p3: quote not found in its anchors"
   ],
   "paragraphs": {
-    "pNone.1": {
+    "p742.1": {
       "text": "KURIAN, J. 1. Leave granted.",
-      "page_start": null,
-      "page_end": null
+      "page_start": 742,
+      "page_end": 742
     },
-    "pNone.2": {
+    "p742.2": {
       "text": "2. The appellant – Satpal Singh (in Crl. Appeal. No. 462 of 2018) is before this Court, challenging the order dated 04.10.2017 passed by the High Court of Punjab and Haryana at Chandigarh in CRM-M-37140 of 2017 rejecting his application for anticipatory bail. The High Court took note of the fact that the appellant was an accused in FIR No. 0053, dated 11.06.2017 under Sections 22 and 29 of the Narcotic Drugs and Psychotropic Substances Act, 1985 (in short, “the NDPS Act”), registered at Police Station Bhadson, District Patiala. Though it was argued that a coordinate Bench of the High Court had granted anticipatory bail to the co-accused, namely, Beant Singh and Gurwinder Singh, who are brothers of the appellant, as per order dated 21.09.2017, the learned Judge was not inclined to accept the contention since there was no question of parity as far as the bail is concerned and in view of the fact that the Coordinate Bench had not taken note of the limitations under Section 37 of the NDPS Act. In our view, the learned Judge is perfectly right in his approach and in declining the protection under Section 438 of the Code of Criminal Procedure, 1973 (in short “Cr.P.C.”)",
-      "page_start": null,
-      "page_end": null
+      "page_start": 742,
+      "page_end": 742
     },
     "p743.1": {
       "text": "3. Section 37 of the NDPS Act reads as follows :- “Offences to be cognizable and non-bailable – (1) Notwithstanding anything contained in the Code of Criminal Procedure, 1973 (2 of 1974) - (a) every offence punishable under this Act shall be cognizable;",
@@ -362,12 +445,7 @@
       "text": "18. With the above observations and directions, the Crl. Appeal No. 462 of 2018 is dismissed and that of the State i.e. Crl. Appeal No. 463 of 2018 is allowed.",
       "page_start": 749,
       "page_end": 749
-    },
-    "p749.4": {
-      "text": "Kalpana K. Tripathy Appeals disposed of.",
-      "page_start": 749,
-      "page_end": 749
     }
   },
-  "headnote_raw": " \nSATPAL SINGH\nv.\nTHE STATE OF PUNJAB\n(Criminal Appeal No. 462 of 2018 etc.)\nMARCH 27, 2018\n[KURIAN JOSEPH, MOHAN M. SHANTANAGOUDAR\nAND NAVIN SINHA, JJ.]\nBail:\nApplication seeking anticipatory bail – By appellant-accused\nin FIR u/s. 22 and 29 of NDPS Act – On the ground of parity as the\ntwo co-accused were granted anticipatory bail by a co-ordinate\nBench – High Court by an interim order directed the accused to\nsurrender before Police to join investigation – Pursuant to interim\norder the accused (including the petitioner) surrendered before\nSessions Court and were released on regular bail – High Court by\nfinal order rejecting the plea of parity and taking note of limitations\nu/s. 37 of NDPS Act, dismissed the application of anticipatory bail\n– On appeal, Supreme Court noticing that orders granting bail to\nthe co-accused were without taking into notice s. 37 of NDPS Act\nwas apparently wrong, directed the State to verify as to whether\nany step was being taken against that order – State challenged the\norder granting anticipatory bail to the co-accused – Held: High\nCourt rightly rejected the application seeking anticipatory bail of\nappellant-accused – The order granting bail to the co-accused was\nwithout reference to s. 37 of NDPS Act and hence not correct –\nSessions Court was also not correct in granting regular bail to  the\naccused on the basis of interim order passed by the High Court and\nwithout noticing the final order passed in respect of anticipatory\nbail – Code of Criminal Procedure, 1973 – ss. 438 and 439 –\nNarcotic Drugs and Psychotropic Substances Act, 1985 – s. 37.\nAnticipatory bail vis-a-vis regular bail – Held: The\nsatisfaction of the Court for granting protection u/s. 438 Cr.P.C.\n(anticipatory bail) is different from the one u/s. 439 Cr.P.C. (regular\nbail) – Merely because an accused was under protection of\nanticipatory bail does not entitle him automatically to regular bail\n– Code of Criminal Procedure, 1973 – ss. 438 and 439.\n \nNarcotic Drugs and Psychotropic Substances Act, 1985:\ns. 37 – Limitations under – For grant of bail – Held: The\nstringent limitations on the discretion of Court to grant bail have\nbeen consciously put in view of the seriousness of offences – These\nlimitations are in addition to those prescribed under Cr.P.C. or any\nother law in force on the grant of bail – Bail.\nDismissing the appeal of the accused and allowing that of\nthe State, the Court\nHELD : 1. High Court is perfectly right in its approach and\nin declining the protection under Section 438 of the Code of\nCriminal Procedure, 1973. Under Section 37 of Narcotic Drugs\nand Psychotropic Substances Act, when a person is accused of an\noffence punishable under Section 19 or 24 or 27A and also for\noffences involving commercial quantity, he shall not be released\non bail unless the Public Prosecutor  has been given an\nopportunity  to oppose the application for such release, and in\ncase a Public Prosecutor opposes the application, the court must\nbe satisfied that there are reasonable  grounds for believing that\nthe person is not guilty of the alleged offence and that he is not\nlikely to commit any offence while on bail. Materials on record\nare to be seen and the antecedents of the accused is to be\nexamined to enter such a satisfaction. These limitations are in\naddition to those prescribed under the Cr.P.C or any other law in\nforce on the grant of bail. In view of the seriousness of the offence,\nthe law makers have consciously put such stringent restrictions\non the discretion available to the court while considering\napplication for release of a person on bail. [Paras 2, 3 and 4]\n[742-G-H; 743-E-G]\n2. Pursuant to the order passed by the High Court, the\naccused persons had surrendered before the Sessions Court and\nthey were released on regular bail by order dated 31.10.2017.\nThe Sessions Judge took note of the interim order passed by the\nHigh Court. It did not take note of the final order passed by the\nHigh Court.  The Court should have enquired as to whether the\nmatter had been finally disposed of, particularly after noticing\nthe interim order. The casual approach adopted by the Sessions\nJudge has apparently led to the accused being released on regular\nbail, on the basis of the interim order passed by the High Court.\n \nWhen the application for anticipatory bail was the subject matter\nbefore the High Court, the accused had no business to go and\nsurrender before the Sessions Court and seek regular bail on\nthe basis of an interim order. [Paras 10, 11 and 13] [746-C;\n748-E-F]\n3. Protection under Section 438 Cr.P.C. is available to the\naccused only till the court summons the accused based on the\ncharge sheet (report under Section 173(2) Cr.P.C.). On such\nappearance, the accused has to seek regular bail under Section\n439 Cr.P.C. and that application has to be considered by the court\non its own merits. Merely because an accused was under the\nprotection of anticipatory bail granted under Section 438 Cr.P.C.\nthat does not mean that he is automatically entitled to regular\nbail under Section 439 Cr.P.C. The satisfaction of the court for\ngranting protection under Section 438 Cr.P.C., is different from\nthe one under Section 439 Cr.P.C., while considering regular bail.\n[Para 14] [748-G-H; 749-A]\n4.  The order passed by the High Court does not show that\nthere is any reference to Section 37 of the NDPS Act. The quantity\nof the contraband is reportedly commercial. In the facts and\ncircumstances of the case, the High Court could not have and\nshould not have passed the order under Sections 438 or 439\nCr.P.C. without reference to Section 37 of the NDPS Act and\nwithout entering a finding on the required level of satisfaction in\ncase the Court was otherwise inclined to grant the bail. [Para 15]\n[749-B-C]\n5. Consequently, the order dated 31.10.2017 passed by the\nSessions Court is also set aside.  All the three accused in both\nthese appeals are directed to surrender before the trial court.\nHowever, it is made clear that they are free to apply for regular\nbail, in which case, the Sessions Court will consider the matter\non the merits of the application. [Para 16] [749-D]\n6. Even in the inquiry conducted pursuant to the orders\npassed by this Court, there was no reference to the regular bail\ngranted to the co-accused and that too, on production of an interim\norder passed by the High Court.  Had the same been noticed,\nthe State would have certainly taken steps much earlier. This is\nonce again to remind the police and the prosecutor that they need\n \nto show due diligence and vigilance while dealing with the cases\nunder the NDPS Act. [Para 16] [749-E]\nVinod Kumar v. State of Punjab (2013) 1 RCR\n(Criminal) 428 – referred to.\nCase Law Reference\n(2013) 1 RCR (Criminal) 428\nreferred to\n    Para 9\n"
+  "headnote_raw": " \nSATPAL SINGH\nv.\nTHE STATE OF PUNJAB\n(Criminal Appeal No. 462 of 2018 etc.)\nMARCH 27, 2018\n[KURIAN JOSEPH, MOHAN M. SHANTANAGOUDAR\nAND NAVIN SINHA, JJ.]\nBail:\nApplication seeking anticipatory bail – By appellant-accused\nin FIR u/s. 22 and 29 of NDPS Act – On the ground of parity as the\ntwo co-accused were granted anticipatory bail by a co-ordinate\nBench – High Court by an interim order directed the accused to\nsurrender before Police to join investigation – Pursuant to interim\norder the accused (including the petitioner) surrendered before\nSessions Court and were released on regular bail – High Court by\nfinal order rejecting the plea of parity and taking note of limitations\nu/s. 37 of NDPS Act, dismissed the application of anticipatory bail\n– On appeal, Supreme Court noticing that orders granting bail to\nthe co-accused were without taking into notice s. 37 of NDPS Act\nwas apparently wrong, directed the State to verify as to whether\nany step was being taken against that order – State challenged the\norder granting anticipatory bail to the co-accused – Held: High\nCourt rightly rejected the application seeking anticipatory bail of\nappellant-accused – The order granting bail to the co-accused was\nwithout reference to s. 37 of NDPS Act and hence not correct –\nSessions Court was also not correct in granting regular bail to  the\naccused on the basis of interim order passed by the High Court and\nwithout noticing the final order passed in respect of anticipatory\nbail – Code of Criminal Procedure, 1973 – ss. 438 and 439 –\nNarcotic Drugs and Psychotropic Substances Act, 1985 – s. 37.\nAnticipatory bail vis-a-vis regular bail – Held: The\nsatisfaction of the Court for granting protection u/s. 438 Cr.P.C.\n(anticipatory bail) is different from the one u/s. 439 Cr.P.C. (regular\nbail) – Merely because an accused was under protection of\nanticipatory bail does not entitle him automatically to regular bail\n– Code of Criminal Procedure, 1973 – ss. 438 and 439.\n \nNarcotic Drugs and Psychotropic Substances Act, 1985:\ns. 37 – Limitations under – For grant of bail – Held: The\nstringent limitations on the discretion of Court to grant bail have\nbeen consciously put in view of the seriousness of offences – These\nlimitations are in addition to those prescribed under Cr.P.C. or any\nother law in force on the grant of bail – Bail.\nDismissing the appeal of the accused and allowing that of\nthe State, the Court\nHELD : 1. High Court is perfectly right in its approach and\nin declining the protection under Section 438 of the Code of\nCriminal Procedure, 1973. Under Section 37 of Narcotic Drugs\nand Psychotropic Substances Act, when a person is accused of an\noffence punishable under Section 19 or 24 or 27A and also for\noffences involving commercial quantity, he shall not be released\non bail unless the Public Prosecutor  has been given an\nopportunity  to oppose the application for such release, and in\ncase a Public Prosecutor opposes the application, the court must\nbe satisfied that there are reasonable  grounds for believing that\nthe person is not guilty of the alleged offence and that he is not\nlikely to commit any offence while on bail. Materials on record\nare to be seen and the antecedents of the accused is to be\nexamined to enter such a satisfaction. These limitations are in\naddition to those prescribed under the Cr.P.C or any other law in\nforce on the grant of bail. In view of the seriousness of the offence,\nthe law makers have consciously put such stringent restrictions\non the discretion available to the court while considering\napplication for release of a person on bail. [Paras 2, 3 and 4]\n[742-G-H; 743-E-G]\n2. Pursuant to the order passed by the High Court, the\naccused persons had surrendered before the Sessions Court and\nthey were released on regular bail by order dated 31.10.2017.\nThe Sessions Judge took note of the interim order passed by the\nHigh Court. It did not take note of the final order passed by the\nHigh Court.  The Court should have enquired as to whether the\nmatter had been finally disposed of, particularly after noticing\nthe interim order. The casual approach adopted by the Sessions\nJudge has apparently led to the accused being released on regular\nbail, on the basis of the interim order passed by the High Court.\n \nWhen the application for anticipatory bail was the subject matter\nbefore the High Court, the accused had no business to go and\nsurrender before the Sessions Court and seek regular bail on\nthe basis of an interim order. [Paras 10, 11 and 13] [746-C;\n748-E-F]\n3. Protection under Section 438 Cr.P.C. is available to the\naccused only till the court summons the accused based on the\ncharge sheet (report under Section 173(2) Cr.P.C.). On such\nappearance, the accused has to seek regular bail under Section\n439 Cr.P.C. and that application has to be considered by the court\non its own merits. Merely because an accused was under the\nprotection of anticipatory bail granted under Section 438 Cr.P.C.\nthat does not mean that he is automatically entitled to regular\nbail under Section 439 Cr.P.C. The satisfaction of the court for\ngranting protection under Section 438 Cr.P.C., is different from\nthe one under Section 439 Cr.P.C., while considering regular bail.\n[Para 14] [748-G-H; 749-A]\n4.  The order passed by the High Court does not show that\nthere is any reference to Section 37 of the NDPS Act. The quantity\nof the contraband is reportedly commercial. In the facts and\ncircumstances of the case, the High Court could not have and\nshould not have passed the order under Sections 438 or 439\nCr.P.C. without reference to Section 37 of the NDPS Act and\nwithout entering a finding on the required level of satisfaction in\ncase the Court was otherwise inclined to grant the bail. [Para 15]\n[749-B-C]\n5. Consequently, the order dated 31.10.2017 passed by the\nSessions Court is also set aside.  All the three accused in both\nthese appeals are directed to surrender before the trial court.\nHowever, it is made clear that they are free to apply for regular\nbail, in which case, the Sessions Court will consider the matter\non the merits of the application. [Para 16] [749-D]\n6. Even in the inquiry conducted pursuant to the orders\npassed by this Court, there was no reference to the regular bail\ngranted to the co-accused and that too, on production of an interim\norder passed by the High Court.  Had the same been noticed,\nthe State would have certainly taken steps much earlier. This is\nonce again to remind the police and the prosecutor that they need\n \nto show due diligence and vigilance while dealing with the cases\nunder the NDPS Act. [Para 16] [749-E]\nVinod Kumar v. State of Punjab (2013) 1 RCR\n(Criminal) 428 – referred to.\nCase Law Reference\n(2013) 1 RCR (Criminal) 428\nreferred to\nPara 9\n"
 }

@@ -15,11 +15,14 @@ def run_phase_1(args):
     print("PHASE 1: DATA NORMALIZATION AND TAGGING")
     print("="*80 + "\n")
     
-    # Step 1: Tag propositions
-    print("Step 1: Tagging propositions with taxonomy...")
-    from tagger import PropositionTagger
-    tagger = PropositionTagger(taxonomy_path=args.taxonomy, model=args.tagger_model)
-    tagger.tag_all_cases(args.input_dir, args.tagged_dir)
+    # Step 1: Tag propositions (can be skipped)
+    if not args.skip_tagging:
+        print("Step 1: Tagging propositions with taxonomy...")
+        from tagger import PropositionTagger
+        tagger = PropositionTagger(taxonomy_path=args.taxonomy, model=args.tagger_model)
+        tagger.tag_all_cases(args.input_dir, args.tagged_dir)
+    else:
+        print("Step 1: Skipping tagging (using existing tagged files)...")
     
     # Step 2: Normalize data
     print("\nStep 2: Normalizing data for database...")
@@ -71,15 +74,21 @@ def run_phase_3_test(args):
     print("PHASE 3: TESTING RETRIEVAL PIPELINE")
     print("="*80 + "\n")
     
-    if not args.test_case:
-        print("✗ No test case provided. Use --test-case <file>")
+    # Get case text from file or direct input
+    if args.test_case:
+        print(f"Reading test case from file: {args.test_case}")
+        with open(args.test_case, 'r', encoding='utf-8') as f:
+            case_text = f.read()
+    elif args.case_text:
+        print("Using direct case text input")
+        case_text = args.case_text
+    else:
+        print("✗ No test case provided. Use --test-case <file> or --case-text <text>")
+        print("\nExample:")
+        print('  python run_pipeline.py --phase 3 --case-text "The applicant seeks anticipatory bail..."')
         return
     
     from retrieval_pipeline import RetrievalPipeline
-    
-    # Read test case
-    with open(args.test_case, 'r', encoding='utf-8') as f:
-        case_text = f.read()
     
     # Initialize pipeline
     pipeline = RetrievalPipeline(connection_string=args.connection)
@@ -125,17 +134,27 @@ Examples:
   # Run only Phase 1 (tagging & normalization)
   python run_pipeline.py --phase 1 --input-dir out
   
+  # Run only normalization (skip tagging if already done)
+  python run_pipeline.py --normalize-only --tagged-dir tagged
+  
+  # Run Phase 1 with skip tagging
+  python run_pipeline.py --phase 1 --skip-tagging --tagged-dir tagged
+  
   # Run only Phase 2 (database setup)
   python run_pipeline.py --phase 2 --create-schema --clear-data
   
-  # Run only Phase 3 (test retrieval)
+  # Run only Phase 3 (test retrieval with file)
   python run_pipeline.py --phase 3 --test-case test_case.txt
+  
+  # Run only Phase 3 (test retrieval with direct text input)
+  python run_pipeline.py --phase 3 --case-text "In an FIR concerning alleged forgery..."
         """
     )
     
     # Phase selection
     parser.add_argument("--all", action="store_true", help="Run all phases")
     parser.add_argument("--phase", type=int, choices=[1, 2, 3], help="Run specific phase")
+    parser.add_argument("--normalize-only", action="store_true", help="Run only normalization (skip tagging, equivalent to --phase 1 --skip-tagging)")
     
     # Phase 1 arguments
     parser.add_argument("--input-dir", default="out", help="Input directory with case JSON files")
@@ -143,6 +162,7 @@ Examples:
     parser.add_argument("--normalized-file", default="normalized_bail_data.json", help="Output normalized data file")
     parser.add_argument("--taxonomy", default="taxonomy.json", help="Taxonomy JSON file")
     parser.add_argument("--tagger-model", default="gpt-4o-mini", help="Model for tagging")
+    parser.add_argument("--skip-tagging", action="store_true", help="Skip tagging step (use existing tagged files)")
     
     # Phase 2 arguments
     parser.add_argument("--connection", help="PostgreSQL connection string")
@@ -152,12 +172,17 @@ Examples:
     
     # Phase 3 arguments
     parser.add_argument("--test-case", help="Test case file for Phase 3")
+    parser.add_argument("--case-text", help="Direct case text input (alternative to --test-case)")
     
     args = parser.parse_args()
     
     # Determine which phases to run
     phases_to_run = []
-    if args.all:
+    if args.normalize_only:
+        # Convenience option: just run normalization
+        args.skip_tagging = True
+        phases_to_run = [1]
+    elif args.all:
         phases_to_run = [1, 2, 3]
     elif args.phase:
         phases_to_run = [args.phase]

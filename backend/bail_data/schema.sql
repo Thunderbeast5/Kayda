@@ -1,6 +1,9 @@
 -- PostgreSQL Schema for Bail Precedent Database
 -- Stores normalized case data with structured retrieval support
 
+-- Ensure we're using the public schema (no special permissions needed if database owner)
+SET search_path TO public;
+
 -- Cases table
 CREATE TABLE IF NOT EXISTS bail_cases (
     case_id VARCHAR(255) PRIMARY KEY,
@@ -136,7 +139,7 @@ BEGIN
             CASE WHEN p.binding_level = 'binding' THEN 3.0 ELSE 0.0 END +
             CASE WHEN p.is_holding THEN 2.0 ELSE 0.0 END +
             CASE WHEN c.court = 'Supreme Court of India' THEN 2.0 ELSE 0.0 END
-        ) AS relevance_score
+        )::FLOAT AS relevance_score
     FROM bail_propositions p
     JOIN bail_cases c ON p.case_id = c.case_id
     WHERE 
@@ -164,8 +167,8 @@ SELECT
     (SELECT COUNT(*) FROM bail_propositions WHERE is_holding = TRUE) AS holdings,
     (SELECT COUNT(*) FROM bail_propositions WHERE quote_verified = TRUE) AS verified_propositions,
     (SELECT COUNT(*) FROM bail_propositions WHERE binding_level = 'binding') AS binding_propositions,
-    (SELECT COUNT(DISTINCT unnest(tags)) FROM bail_propositions) AS unique_tags,
-    (SELECT COUNT(DISTINCT unnest(normalized_statutes)) FROM bail_propositions) AS unique_statutes;
+    (SELECT COUNT(DISTINCT tag) FROM bail_propositions, LATERAL unnest(tags) AS tag) AS unique_tags,
+    (SELECT COUNT(DISTINCT statute) FROM bail_propositions, LATERAL unnest(normalized_statutes) AS statute) AS unique_statutes;
 
 -- Trigger to update updated_at timestamp
 CREATE OR REPLACE FUNCTION update_updated_at_column()

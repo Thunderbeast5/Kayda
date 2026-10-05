@@ -1,0 +1,227 @@
+{
+  "case_id": "_2011_9_SCR_875",
+  "doc_meta": {
+    "source_file": "BHASKAR MISHRA.pdf",
+    "pdf_pages": 4,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment"
+    },
+    "format_profile": "unknown",
+    "citation_scr": "[2011] 9 SCR 875",
+    "scr_year": 2011,
+    "scr_volume": 9,
+    "scr_first_page": 875,
+    "decided_on": "2011-08-08",
+    "coram_raw": "HARJIT SINGH BEDI AND GYAN SUDHA MISRA, JJ.",
+    "coram_regex": [
+      "HARJIT SINGH BEDI",
+      "GYAN SUDHA MISRA"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "BHASKAR MISHRA",
+    "respondent_regex": "STATE OF MADHYA PRADESH",
+    "court_regex": "Supreme Court of India",
+    "year": 2011,
+    "reporter_trailer": "B.B.B. Special Leave Petition dismissed.",
+    "result_of_case": "Petition dismissed.",
+    "pre_judgment_block": "CRIMINAL APPELLATE JURISDICTION: SLP (Crl.) No. 5568 of 2011. o From the Judgment & Order dated 29.04.2011 of the High Court of Madhya Pradesh Bench at Indore in M. Cr. C. No. 2171 of 2011. Vikas Upadhyay, Dr. Vipin Gupta for the Petitioner. The following order of the Court was delivered",
+    "case_no": "SLP (Crl.) No. 5568 of 2011",
+    "appeal_from_raw": "From the Judgment & Order dated 29.04.2011 of the High Court of Madhya Pradesh Bench at Indore in M. Cr. C. No. 2171 of 2011",
+    "layout": "unnumbered_page_anchored",
+    "ocr_noise_score": 0.0169
+  },
+  "flags": [
+    "format_unrecognised_using_generic_patterns",
+    "author_not_found"
+  ],
+  "case": {
+    "case_name": "BHASKAR MISHRA v. STATE OF MADHYA PRADESH",
+    "petitioner": "BHASKAR MISHRA",
+    "respondent": "STATE OF MADHYA PRADESH",
+    "court": "Supreme Court of India",
+    "coram": [
+      "HARJIT SINGH BEDI",
+      "GYAN SUDHA MISRA"
+    ],
+    "judgment_author": null,
+    "procedural_stage": "post_arrest_bail",
+    "offence_types": [
+      "attempted_murder"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "The petitioner was charged under Section 307 of the IPC in Madhya Pradesh. He filed multiple bail applications, attempting to secure anticipatory and regular bail. After being granted anticipatory bail for a limited period, he failed to appear in subsequent hearings, citing illness. His repeated bail requests were dismissed by the Sessions and High Court, as well as a Special Leave Petition to the Supreme Court, citing misuse of the judicial process.",
+    "lower_court_outcome": "Dismissed applications for bail due to absconding.",
+    "disposition": "Petition dismissed.",
+    "statutes": [
+      {
+        "act": "IPC",
+        "section": "307",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "CrPC 1973",
+        "section": "438",
+        "how_used": "discussed",
+        "note": "Court imposed preconditions for further bail applications after repeated misuse of process."
+      },
+      {
+        "act": "CrPC 1973",
+        "section": "439",
+        "how_used": "discussed",
+        "note": null
+      },
+      {
+        "act": "CrPC 1973",
+        "section": "482",
+        "how_used": "referred",
+        "note": null
+      }
+    ],
+    "issues": [
+      {
+        "question": "Whether repeated applications for bail after absconding constitute misuse of court process?",
+        "short_answer": "Yes",
+        "anchors": [
+          "p876.1",
+          "p878.2",
+          "p878.3"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "Repeated applications for bail after absconding and flouting court directions constitute a gross misuse of the process of the court.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p878.2",
+          "p878.3"
+        ],
+        "quote": "repeated applications are a gross misuse of the process of the court.",
+        "tags": [
+          "previous_bail_misuse",
+          "proclaimed_offender",
+          "flight_risk"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition addresses the misuse of bail applications after absconding, which is a significant legal principle in determining bail eligibility. The tags selected reflect the issues of prior bail misuse, the status of the accused as a proclaimed offender, and the risk of flight, all of which are relevant to the court's decision-making process.",
+        "authorities": []
+      },
+      {
+        "id": "p2",
+        "text": "No further application for bail, anticipatory or otherwise, will be entertained until a specified sum is deposited as a precondition.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [
+          "Deposit of Rupees One Lac"
+        ],
+        "statutes": [
+          "CrPC 1973"
+        ],
+        "anchors": [
+          "p878.3"
+        ],
+        "quote": "no further application for bail anticipatory or otherwise will be entertained by any Court until...",
+        "tags": [
+          "previous_bail_misuse",
+          "flight_risk",
+          "influential_accused"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition establishes a precondition for further bail applications due to the accused's previous misuse of bail and failure to appear, indicating a flight risk and potential influence over the investigation.",
+        "authorities": []
+      }
+    ],
+    "contentions": [
+      {
+        "side": "respondent",
+        "text": "The petitioner has misused the bail process by repeatedly filing applications and not complying with court orders.",
+        "outcome": "accepted",
+        "anchors": [
+          "p878.2",
+          "p878.3"
+        ]
+      },
+      {
+        "side": "appellant",
+        "text": "The petitioner's applications were justified as he was seeking legal redress due to judicial errors such as the non-consideration of the Siddharam Satlingapppa Mhetre case.",
+        "outcome": "rejected",
+        "anchors": [
+          "p878.1"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "Siddharam Satlingapppa Mhetre v. State of Maharashtra and Others",
+        "citation": "2011 (1) SCC 694",
+        "treatment": "referred_to",
+        "used_for": "Consideration of anticipatory bail standard",
+        "where": "p878.1"
+      }
+    ]
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    }
+  },
+  "needs_review": [
+    "parser flag: format_unrecognised_using_generic_patterns",
+    "parser flag: author_not_found"
+  ],
+  "paragraphs": {
+    "p876.1": {
+      "text": "• 1. This Special Leave Petition is an example of the gross misuse of the process of the Court. The facts are as under: 2.A case under Section 307 of the Indian Penal Code was registered against the petitioner in Police Station MIG, Indore, Madhya Pradesh. Apprehending his arrest, he filed an application for anticipatory bail under Section 438 of the Cr.P.C. on the 3rd of September 201 O before the Court of Sessions which was dismissed on the 7th September 2010. The petitioner thereupon filed a similar application before the Madhya Pradesh High Court and on the 24th September 2010 the High Court granted anticipatory bail to the petitioner for a - PRADESH period of four weeks and also directed him to apply for regular bail in the meanwhile. The petitioner accordingly filed an application dated 5th of October 2010 in the Court of Sessions, Indore under Section 439 of the Cr.P.C. for the grant of regular baii. The matter was listed on seven different dates between the 5th of October 2010 and the 1st of November 2010 and except for one date (i.e. the 20th October 2010) the petitioner remained absent during the hearing of the bail application pleading sickness. The Sessions Judge finally dismissed the application on the 1st of November 2010. The petitioner agairi moved the High Court on the 26th October 2010 praying-that c the period of four weeks granted by the High Court for moving an application for regular bail be extended. The High Court vide its order dated 26th October 2010 extended the time up till 12th 'November 2010. The petitioner instead of surrendering before the Sessions Court filed another application dated 8th November 2010 in the High Court under Section 438 read with Sections 439 and 482 of the Cr.P.C. for the grant of regular bail. This application was dismissed by the High Court on the 12th of November 2010, by observing that an application under Section 439 would lie only if an accused was in custody. Still undeterred, the petitioner filed yet another application for further extending the period of fo~r weeks which too was dismissed on the 16th of December 2Q10. The petitioner thereupon filed SLP (CRL) No. 849-850 of 4011 impugning the orders dated 12th November, 2010 and 1'6th December, 2010 which was dismissed by this Court on the 1st of February 2011. After the dismissal of the SLP, the petitioner filed yet another application under Section 438 of the Criminal Procedure Code before the High Court on the plea that the judgment of this Court in Siddharam Satlingapppa Mhetre Versus State of Maharashtra and Others [2011 (1) SCC 694) had not earlier been brought to the notice of the High Court or the Supreme Court. This application \"too has been dismissed by the impugned order dated 29th April, 2011 observing that the cited judgment was not applicable to the facts of the case as four earlier applications for anticipatory bail had been rejected. This [2011J 9 S.C.R.",
+      "page_start": 876,
+      "page_end": 878
+    },
+    "p878.1": {
+      "text": "order has now been impugned before us.",
+      "page_start": 878,
+      "page_end": 878
+    },
+    "p878.2": {
+      "text": "3. We have heard the learned counsel for the petitioner and gone through the record. The facts reproduced above show that the petitioner has been absconding and though he has been shown great indulgence by the Sessions as well as the High ..",
+      "page_start": 878,
+      "page_end": 878
+    },
+    "p878.3": {
+      "text": "8 Court on several occasions, the directions issued by the courts have been relentlessly flouted. We are, therefore, of the opinion that the repeated applications are a gross misuse of the process of the court and the matter has to be dealt with in that background. We accordingly dismiss the Special Leave Petition and direct that no further application for bail anticipatory or otherwise will be entertained by any Court until and unless the petitioner deposits a sum of Rupees One Lac before the Court of Sessions at Indore as a pre condition for the consideration of any bail application that he may choose ~ to file. A copy of this order be sent to the Registrar General of the Madhya Pradesh High Court as also to the Sessions Judge who is seized of the matter.",
+      "page_start": 878,
+      "page_end": 878
+    },
+    "p878.4": {
+      "text": "4. The Special Leave Petition is dismiss.ed accordingly.",
+      "page_start": 878,
+      "page_end": 878
+    }
+  },
+  "headnote_raw": " \nBHASKAR MISHRA\nv.\nSTATE OF MADHYA PRADESH\n(Special Leave Petition (CRL) No. 5568 of 2011)\nAUGUST 8, 2011\nBail - Repeated applications - Gross misuse of the\nprocess of the Court -\nCase registered u/s.307 /PC -\nAccused filed application for anticipatory bail uls.438 Cr.P. C.\nbefore the Court of Sessions which was dismissed - High\nCourt however granted anticipatory bail to the accused for a\nperiod of four weeks and also directed him to apply for regular\nbail in the meanwhile - Accused filed application in the Court\nof Sessions uls.439 Cr.P.C. for grant of regular bail -\nApplication dismissed - Accused again moved the High\nCourt praying that the period of four weeks granted by the High\nCourt for moving an application for regular bail be extended\n- High Court extended the time - Accused filed another\napplication in the High Court u/s.438 rlw ss.439 and 482 of\nCr.P.C. for grant of regular bail - Application dismissed by\nthe High Court on the ground that the accused was not in\ncustody - Accused filed yet another application for further\nextending the period of four weeks which too was dismissed\n- Accused thereupon filed SLP which was dismissed -\nAccused filed yet another application u/s. 438 CrPC before\nHigh Court - Application dismissed - Instant SLP against the\nsaid order -\nHeld: The accused-petitioner had been\nabsconding and though he was shown great indulgence by\nthe Sessions as we// as the High Court on several occasions,\nthe directions issued by the courts were relentlessly flouted -\nThe repeated applications were a gross misuse of the process\nof the court - SLP dismissed with direction that no further\napplication for bail anticipatory or otherwise will be entertained\n \n[20111 9 S.C.R.\nby any Court until and unless the accused-petitioner\ndeposited a sum of Rupees One Lac before the Court of\nSessions as a pre-condition for the consideration of any bail\napplication that he may choose to file - Code of Criminal\nProcedure, 1973 - ss.438 and 439.\nSiddharam Satlingapppa Mhetre v. State of Maharashtra\nand Others, 2011 (1) SCC 694: 2010 (15) SCR 201 -\nreferred to.\nCase Law Reference:\nc\n2010 (15 ) SCR 201\nreferred to\nPara 3\n"
+}

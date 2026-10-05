@@ -1,0 +1,346 @@
+{
+  "case_id": "_2024_12_SCR_2083__Shambhu_Debnath_v_State_of_Bihar_Ors_",
+  "doc_meta": {
+    "source_file": "Shambhu Debnath v. State of Bihar & Ors..pdf",
+    "pdf_pages": 6,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:d_month_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment",
+      "author": "author:0"
+    },
+    "format_profile": "scr_modern",
+    "citation_neutral": "2024 INSC 1032",
+    "neutral_year": 2024,
+    "citation_scr": "[2024] 12 SCR 2083",
+    "scr_year": 2024,
+    "scr_volume": 12,
+    "scr_first_page": 2083,
+    "decided_on": "2024-12-20",
+    "coram_raw": "Vikram Nath* and Prasanna B. Varale, JJ.",
+    "coram_regex": [
+      "Vikram Nath",
+      "Prasanna B. Varale"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "judgment_author_from_coram": "Vikram Nath",
+    "petitioner_regex": "Shambhu Debnath",
+    "respondent_regex": "The State of Bihar & Ors.",
+    "court_regex": "Supreme Court of India",
+    "year": 2024,
+    "footnotes": [
+      {
+        "page": 2085,
+        "text": "“IPC”, hereinafter."
+      },
+      {
+        "page": 2087,
+        "text": "(2020) 5 SCC 1"
+      }
+    ],
+    "reporter_trailer": "Result of the case: Appeal allowed. Headnotes prepared by: \u0007Ankitesh Ojha, Hony. Associate Editor (Verified by: Shadan Farasat, Sr. Adv.)",
+    "result_of_case": "Appeal allowed.",
+    "pre_judgment_block": "CRIMINAL APPELLATE JURISDICTION: Criminal Appeal No. 5579 of 2024 From the Judgment and Order dated 25.07.2023 of the High Court of Judicature at Patna in CRLM No. 28525 of 2023 [2024] 12 S.C.R. \b Appearances for Parties Anuj Prakash, Namit Saxena, Neeraj Dubey, Pradum Kumar, Chaitanya, Advs. for the Appellant. Samir Ali Khan, Pranjal Sharma, Arup Banerjee, Amitava Poddar, Ms. Ananya Poddar, Saurav Mitra, Advs. for the Respondents. Sudhir Tiwari, S.I. (I.O.) Judgment / Order of the Supreme Court",
+    "case_no": "Criminal Appeal No. 5579 of 2024",
+    "appeal_from_raw": "From the Judgment and Order dated 25.07.2023 of the High Court of Judicature at Patna in CRLM No. 28525 of 2023",
+    "judgment_author_regex": "Vikram Nath",
+    "issue_for_consideration": "Whether the High Court erred in granting anticipatory bail to accused persons despite specific allegations of heinous crime u/s.302 of Penal Code, 1860 and chargesheet on record that established the allegations made u/s.302 of Penal Code, 1860 are true.",
+    "keywords": [
+      "Anticipatory bail",
+      "Section 302 IPC",
+      "Heinous offense",
+      "Cryptic order",
+      "Mechanical manner",
+      "Intention to kill",
+      "Specific averments",
+      "Chargesheet"
+    ],
+    "acts_listed": [
+      "Penal Code, 1860"
+    ],
+    "layout": "numbered_paras",
+    "ocr_noise_score": 0.0012
+  },
+  "flags": [],
+  "case": {
+    "case_name": "Shambhu Debnath v. The State of Bihar & Ors.",
+    "petitioner": "Shambhu Debnath",
+    "respondent": "The State of Bihar & Ors.",
+    "court": "",
+    "coram": [
+      "Vikram Nath",
+      "Prasanna B. Varale"
+    ],
+    "judgment_author": "Vikram Nath",
+    "procedural_stage": "post_arrest_bail",
+    "offence_types": [
+      "heinous_offense"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "The case involves the appellant, who saw his nephew on fire, allegedly set ablaze by the accused with an intention to kill. Despite specific allegations and a chargesheet confirming the accusations, the Patna High Court granted anticipatory bail to the accused. The Supreme Court reviewed whether the High Court erred in its decision.",
+    "lower_court_outcome": "Anticipatory bail granted by the Patna High Court.",
+    "disposition": "Appeal allowed.",
+    "statutes": [
+      {
+        "act": "IPC",
+        "section": "302",
+        "how_used": "interpreted",
+        "note": "Discussed in context of specific allegations being ignored by the High Court decision."
+      }
+    ],
+    "issues": [
+      {
+        "question": "Whether the High Court erred in granting anticipatory bail to accused persons despite specific allegations of heinous crime u/s.302 of Penal Code, 1860 and chargesheet on record that established the allegations made u/s.302 of Penal Code, 1860 are true.",
+        "short_answer": "Yes, the High Court erred.",
+        "anchors": [
+          "P13",
+          "P14"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "Courts must consider the nature and gravity of offenses, the applicant's role, and case facts when deciding on anticipatory bail.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [
+          "IPC"
+        ],
+        "anchors": [
+          "P12"
+        ],
+        "quote": "Courts ought to be generally guided by considerations such as the nature and gravity of the offences.",
+        "tags": [
+          "anticipatory_vs_regular",
+          "violence_involved",
+          "right_to_liberty"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition emphasizes the need for courts to consider the nature and gravity of offenses, which aligns with the principles governing anticipatory bail and the right to liberty. The involvement of violence in the case further supports the relevance of these tags.",
+        "authorities": []
+      },
+      {
+        "id": "p2",
+        "text": "It is inappropriate for anticipatory bail to be granted in cases involving heinous crimes, like murder with intent, without thorough consideration.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [
+          "IPC"
+        ],
+        "anchors": [
+          "P13"
+        ],
+        "quote": "The High Court has erred in granting the relief in a cryptic and mechanical manner.",
+        "tags": [
+          "violence_involved",
+          "anticipatory_vs_regular",
+          "right_to_liberty"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition emphasizes the inappropriateness of granting anticipatory bail in heinous crimes, highlighting the necessity of thorough consideration, which aligns with the principles of violence involved and the distinction between anticipatory and regular bail. The right to liberty is also invoked in the context of bail considerations.",
+        "authorities": []
+      },
+      {
+        "id": "p3",
+        "text": "High Court orders granting anticipatory bail must not be cryptic or mechanical but should consider the materials on record.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [
+          "IPC"
+        ],
+        "anchors": [
+          "P13"
+        ],
+        "quote": "The High Court has erred in granting the relief in a cryptic and mechanical manner without considering the materials available on record.",
+        "tags": [
+          "anticipatory_vs_regular",
+          "right_to_liberty",
+          "presumption_of_innocence"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition emphasizes the necessity for High Court orders granting anticipatory bail to be well-reasoned and not mechanical, aligning with the principles of right to liberty and presumption of innocence, which are fundamental in bail considerations.",
+        "authorities": []
+      },
+      {
+        "id": "p4",
+        "text": "When deciding on anticipatory bail, courts must ensure conditions, if any, align with the case facts and circumstances.",
+        "speaker": "quoted_authority",
+        "kind": "ratio",
+        "is_holding": false,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [
+          "IPC"
+        ],
+        "anchors": [
+          "P12"
+        ],
+        "quote": "Whether and if so, what kind of special conditions are to be imposed (or not imposed) are dependent on facts of the case.",
+        "tags": [
+          "anticipatory_vs_regular",
+          "presumption_of_innocence",
+          "bail_not_jail"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition emphasizes the need for courts to align bail conditions with the facts of the case, which relates to the principles governing anticipatory bail and the presumption of innocence. These principles are foundational in bail law and are likely to be binding as they stem from Supreme Court interpretations.",
+        "authorities": []
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The High Court’s grant of anticipatory bail was unwarranted given the serious allegations and supporting chargesheet against the accused.",
+        "outcome": "accepted",
+        "anchors": [
+          "P7"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "Sushila Aggarwal v. State (NCT of Delhi)",
+        "citation": "2020 INSC 106 : [2020] 2 SCR 1",
+        "treatment": "relied_on",
+        "used_for": "Factors to be considered while granting anticipatory bail",
+        "where": "P12"
+      }
+    ]
+  },
+  "authority_table": [
+    {
+      "name": "Sushila Aggarwal v. State (NCT of Delhi)",
+      "cite": "2020 INSC 106 : [2020] 2 SCR 1",
+      "treatment": "relied_on",
+      "para": null
+    }
+  ],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "unsupported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "unsupported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p4": {
+      "id": "p4",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    }
+  },
+  "needs_review": [
+    "p2: verifier says unsupported, favors_correct=True - ",
+    "p3: verifier says unsupported, favors_correct=True - "
+  ],
+  "paragraphs": {
+    "P1": {
+      "text": "Leave granted.",
+      "page_start": 2085,
+      "page_end": 2085
+    },
+    "P2": {
+      "text": "The instant appeal has been preferred by the complainant against the grant of anticipatory bail to respondents nos. 2 to 4 by the High Court of Judicature at Patna in Criminal Miscellaneous No. 28525 of 2023, vide order dated 25.07.2023.",
+      "page_start": 2085,
+      "page_end": 2085
+    },
+    "P3": {
+      "text": "Brief facts of the present case are that the appellant herein had submitted a written application on 13.01.2023 before S.H.O., Mufasil alleging that on the same day at around 7.00 pm, he came out of the house hearing the ruckus and saw that the body of his 20-year-old nephew, Mukesh Kumar, was ablaze the fire. When the appellant asked his injured nephew, he was told that Sindhu Devnath, Sanjit Devnath, Ratan Devnath (respondent no. 2 herein), Lalita Devi (respondent no. 3 herein), Sunil Devnath and Rina Devi (respondent no. 4 herein) had caught hold of him, whereby Sindhu Devnath told him that the appellant’s nephew loved his daughter and all of them started beating and abusing him. Further, it was stated that all of the accused persons, with an intention to kill, poured kerosene oil over the appellant’s nephew and set his body on fire. As such, Motihari Mufasil P.S. Case No. 28 of 2023 was lodged for the offences punishable under sections 341, 323, 307, 504 and 34 of the Indian Penal Code, 1860. 2086\b",
+      "page_start": 2085,
+      "page_end": 2086
+    },
+    "P4": {
+      "text": "In the course of the treatment, the nephew of the appellant succumbed to the burn injuries on 17.01.2023 and consequently, Section 302 of the IPC was added.",
+      "page_start": 2086,
+      "page_end": 2086
+    },
+    "P5": {
+      "text": "Apprehending their arrest in connection with the above-mentioned FIR, respondent nos. 2 to 4 preferred an application seeking anticipatory bail before the Sessions Court which was rejected by the Court of Additional District and Sessions Judge-22, East Champaran, Motihari, vide its order dated 24.03.2023. Subsequently, the Police submitted chargesheet against one of the accused persons namely Sindhu Devnath, wherein it was also categorically mentioned that from the investigation so far, the case has been found true against all the accused persons named in the FIR and subsidiary investigation of the case was still pending then.",
+      "page_start": 2086,
+      "page_end": 2086
+    },
+    "P6": {
+      "text": "Aggrieved by the rejection of anticipatory bail by the Court of Additional District and Sessions Judge, respondent nos. 2 to 4 preferred an application seeking anticipatory bail before the Patna High Court. The High Court, vide the impugned order, allowed the application of respondent nos. 2 to 4 and granted them anticipatory bail.",
+      "page_start": 2086,
+      "page_end": 2086
+    },
+    "P7": {
+      "text": "The appellant-complainant is aggrieved by the order dated 25.07.2023 and has submitted that such a grant of anticipatory bail by the High Court was unwarranted.",
+      "page_start": 2086,
+      "page_end": 2086
+    },
+    "P8": {
+      "text": "Notices in the instant matter were issued on 12.01.2024. However, despite service of notice, respondent nos. 2 to 4 had initially failed to put in appearance. Eventually, the respondents did put in appearance and sought time to file counter-affidavit which was recorded in the order dated 04.11.2024. However, on 25.11.2024, we were apprised by Mr. Amitava Poddar, learned counsel appearing for the respondent-accused nos. 2 to 4 that the accused persons have instructed him not to appear on their behalf anymore. Therefore, we had directed for non-bailable warrants to be issued against respondent nos. 2 to 4 to ensure that they are taken into custody and be produced before this Court on the next date.",
+      "page_start": 2086,
+      "page_end": 2086
+    },
+    "P9": {
+      "text": "Pursuant to the abovementioned order dated 25.11.2024, respondent nos. 2 to 4 are present in the Court today.",
+      "page_start": 2086,
+      "page_end": 2086
+    },
+    "P10": {
+      "text": "Mr. Arup Banerjee, Advocate-on-Record represents respondent nos. 2 to 4. Respondent no. 4 has been produced before us by Sub Inspector Mr. Sudhir Tiwari, East Champaran, Bihar. [2024] 12 S.C.R. \b",
+      "page_start": 2086,
+      "page_end": 2087
+    },
+    "P11": {
+      "text": "As the respondent no. 4 has been produced in custody and such non-bailable warrants were issued only for the purpose of appearance since the respondents were evading to enter appearance before this Court, she was directed to be released.",
+      "page_start": 2087,
+      "page_end": 2087
+    },
+    "P12": {
+      "text": "As for the matter with regard to grant of anticipatory bail to the respondents-accused, the law has been enunciated by this Court in Sushila Aggarwal v. State (NCT of Delhi), wherein it was held that the following factors have to be considered while granting the relief of anticipatory bail, which are as follows: “92.4. Courts ought to be generally guided by considerations such as the nature and gravity of the offences, the role attributed to the applicant, and the facts of the case, while considering whether to grant anticipatory bail, or refuse it. Whether to grant or not is a matter of discretion; equally whether and if so, what kind of special conditions are to be imposed (or not imposed) are dependent on facts of the case, and subject to the discretion of the court.”",
+      "page_start": 2087,
+      "page_end": 2087
+    },
+    "P13": {
+      "text": "Considering the above laid law and the fact that there are specific averments in the FIR against all the accused persons including the respondents herein that all of them had set the deceased on fire with an intention to kill him, we fail to understand as to how the High Court had granted relief of anticipatory bail to the respondents in an offence under Section 302 of the IPC. The High Court has erred in granting the relief in a cryptic and mechanical manner without considering the materials available on record including the chargesheet which stated that the case has been found true against all the accused persons of such a heinous offence of murder by pouring kerosene oil and setting the deceased on fire.",
+      "page_start": 2087,
+      "page_end": 2087
+    },
+    "P14": {
+      "text": "Therefore, in the facts and circumstances of the case, we do not deem it appropriate that anticipatory bail should be granted to the respondents-accused.",
+      "page_start": 2087,
+      "page_end": 2087
+    },
+    "P15": {
+      "text": "Accordingly, the instant appeal is allowed. The impugned order of the High Court dated 25.07.2023 is set aside. Respondent nos. 2 to 4 are directed to surrender before the Trial Court within four 2088\b weeks from today and they are granted liberty to file an application for regular bail, which if filed would be considered as per law on its own merits uninfluenced by any observations made in this judgment.",
+      "page_start": 2087,
+      "page_end": 2088
+    },
+    "P16": {
+      "text": "Pending application(s), if any, shall stand disposed of.",
+      "page_start": 2088,
+      "page_end": 2088
+    }
+  },
+  "headnote_raw": " \n[2024] 12 S.C.R. 2083 : 2024 INSC 1032\nShambhu Debnath\nv.\nThe State of Bihar & Ors.\n(Criminal Appeal No. 5579 of 2024)\n20 December 2024\n[Vikram Nath* and Prasanna B. Varale, JJ. ]\nIssue for Consideration\nWhether the High Court erred in granting anticipatory bail to accused\npersons despite specific allegations of heinous crime u/s.302 of\nPenal Code, 1860 and chargesheet on record that established the\nallegations made u/s.302 of Penal Code, 1860 are true.\nHeadnotes\nComplainant saw victim ablaze and filed FIR – Complainant\nsubmitted a written application as he saw that the body of his\n20 year old nephew, was ablaze the fire – On being asked, the\ninjured nephew named the accused persons – FIR registered:\nFactors for consideration for anticipatory bail – Courts must\nevaluate the nature and gravity of the offense, the role of\nthe accused, and the facts of the case – Failure to take into\naccount heinous nature of crime – The High Court, failed to\naccount for specific averments against the accused in the\nFIR and the findings in the chargesheet that the allegations\nmade u/s.302 of Penal Code, 1860 are true – This mechanical\nand cryptic approach is not sustainable:\nHeld: The High Court erred in granting anticipatory bail to\nRespondent Nos. 2 to 4 in a case involving a heinous offense\nu/s.302 of Penal Code, 1860 – Specific averments were made in\nthe FIR of the heinous nature of crime i.e., setting the deceased\non fire with an intention to kill, and the chargesheet stated that the\nallegations have been found true against all the accused persons\nof such a heinous offence – Despite this, the High Court granted\nrelief in a cryptic and mechanical manner – Grant of anticipatory\nbail in such serious offenses requires careful consideration of the\nmaterials on record, the gravity of the offense, and the role of the\n \n2084\b\naccused – In the present case, the High Court failed to consider\nthese aspects and disregarded the evidence. [Paras 12-13]\nConsequence of non-appearance by accused persons –\nDespite service of notice, accused persons had initially failed\nto put in appearance – Subsequently, after putting appearance\nand seeking liberty to file counter affidavit, the accused\npersons instructed the counsels not to appear – The Supreme\nCourt issued non-bailable warrant to accused persons to be\nproduced before court on the next date:\nHeld: Despite service of notice, the accused persons had initially\nfailed to put in appearance – Eventually, the accused persons\ndid put in appearance and sought time to file counter-affidavit –\nHowever, the accused persons have instructed their counsel not\nto appear on their behalf anymore – Therefore, it is appropriate\nto issue direction for non-bailable warrants to ensure that they\nare taken into custody and be produced before this Court on the\nnext date – Such non-bailable warrants were issued only for the\npurpose of appearance since the respondents were evading to\nenter appearance before the Supreme Court. [Paras 8, 11]\nCase Law Cited\nSushila Aggarwal v. State (NCT of Delhi), 2020 INSC 106 : [2020]\n2 SCR 1 – relied on.\nList of Acts\nPenal Code, 1860.\nList of Keywords\nAnticipatory bail; Section 302 IPC; Heinous offense; Cryptic\norder; Mechanical manner; Intention to kill; Specific averments;\nChargesheet.\nCase Arising From\n"
+}

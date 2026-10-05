@@ -21,7 +21,9 @@ class StatuteNormalizer:
         "377": "377",  # Unnatural offences
         "406": "316",  # Criminal breach of trust
         "420": "318",  # Cheating
+        "465": "336",  # Forgery (plain)
         "467": "336",  # Forgery of valuable security
+        "468": "336",  # Forgery for purpose of cheating
         "471": "340",  # Using forged document
         "506": "351",  # Criminal intimidation
         "120B": "61",  # Criminal conspiracy

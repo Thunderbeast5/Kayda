@@ -1,0 +1,555 @@
+{
+  "case_id": "2025_INSC_878",
+  "doc_meta": {
+    "source_file": "Nikita Jagganath Shetty @ Nikita Vishwajeet Jadhav v. State of Maharashtra & Anr..pdf",
+    "pdf_pages": 11,
+    "_sources": {
+      "citation": "neutral",
+      "decided_on": "tail:month_d_y",
+      "coram": "coram:signature_block",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "author": "author:0"
+    },
+    "format_profile": "slip_opinion",
+    "citation_neutral": "2025 INSC 878",
+    "neutral_year": 2025,
+    "decided_on": "2025-07-21",
+    "coram_raw": "VIKRAM NATH , SANDEEP MEHTA",
+    "coram_regex": [
+      "VIKRAM NATH",
+      "SANDEEP MEHTA"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "NIKITA JAGGANATH SHETTY @ NIKITA VISHWAJEET JADHAV",
+    "respondent_regex": "THE STATE OF MAHARASHTRA AND ANOTHER",
+    "court_regex": "Supreme Court of India",
+    "year": 2025,
+    "footnotes": [
+      {
+        "page": 1,
+        "text": "Signature Not Verified"
+      },
+      {
+        "page": 1,
+        "text": "Digitally signed by"
+      },
+      {
+        "page": 1,
+        "text": "NEETU KHAJURIA"
+      },
+      {
+        "page": 1,
+        "text": "Date: 2025.07.21"
+      },
+      {
+        "page": 1,
+        "text": "17:54:20 IST"
+      },
+      {
+        "page": 1,
+        "text": "Reason:"
+      },
+      {
+        "page": 2,
+        "text": "Hereinafter referred to as ‘High Court’."
+      },
+      {
+        "page": 2,
+        "text": "Hereinafter referred to as ‘appellant-complainant.’"
+      },
+      {
+        "page": 2,
+        "text": "Hereinafter referred to as ‘accused-Vishwajeet.’"
+      },
+      {
+        "page": 2,
+        "text": "Hereinafter referred to as ‘subject-hotel’."
+      },
+      {
+        "page": 2,
+        "text": "Crl. Appeal @ SLP (Crl.) No (s). 10251 of 2024"
+      },
+      {
+        "page": 3,
+        "text": "FIR No. 119 of 2023."
+      },
+      {
+        "page": 3,
+        "text": "Crl. Appeal @ SLP (Crl.) No (s). 10251 of 2024"
+      },
+      {
+        "page": 4,
+        "text": "For short ‘IPC’."
+      },
+      {
+        "page": 4,
+        "text": "Crl. Appeal @ SLP (Crl.) No (s). 10251 of 2024"
+      },
+      {
+        "page": 5,
+        "text": "Hereinafter, referred to as “State”."
+      },
+      {
+        "page": 5,
+        "text": "Crl. Appeal @ SLP (Crl.) No (s). 10251 of 2024"
+      },
+      {
+        "page": 6,
+        "text": "Crl. Appeal @ SLP (Crl.) No (s). 10251 of 2024"
+      },
+      {
+        "page": 7,
+        "text": "Crl. Appeal @ SLP (Crl.) No (s). 10251 of 2024"
+      },
+      {
+        "page": 9,
+        "text": "Crl. Appeal @ SLP (Crl.) No (s). 10251 of 2024"
+      },
+      {
+        "page": 10,
+        "text": "Crl. Appeal @ SLP (Crl.) No (s). 10251 of 2024"
+      },
+      {
+        "page": 11,
+        "text": "Crl. Appeal @ SLP (Crl.) No (s). 10251 of 2024"
+      }
+    ],
+    "reporter_trailer": "….……………………J. (VIKRAM NATH) ...…………………….J. (SANDEEP MEHTA) NEW DELHI; JULY 21, 2025.",
+    "pre_judgment_block": "CRIMINAL APPELLATE JURISDICTION CRIMINAL APPEAL NO(S). OF 2025 (Arising out of SLP (Crl.) No (s). 10251 of 2024) NIKITA JAGGANATH SHETTY @ NIKITA VISHWAJEET JADHAV ….APPELLANT(S) VERSUS THE STATE OF MAHARASHTRA AND ANOTHER ..RESPONDENT(S) WITH CRIMINAL APPEAL NO(S). OF 2025 (Arising out of SLP (Crl.) No (s). 10255 of 2024)",
+    "case_no": "CRIMINAL APPEAL NO(S). OF 2025",
+    "judgment_author_regex": "Mehta",
+    "layout": "numbered_paras",
+    "ocr_noise_score": 0.0082
+  },
+  "flags": [
+    "appeal_from_not_found"
+  ],
+  "case": {
+    "case_name": "Nikita Jagganath Shetty @ Nikita Vishwajeet Jadhav v. State of Maharashtra & Anr.",
+    "petitioner": "Nikita Jagganath Shetty @ Nikita Vishwajeet Jadhav",
+    "respondent": "The State of Maharashtra and Another",
+    "court": "Supreme Court of India",
+    "coram": [
+      "VIKRAM NATH",
+      "SANDEEP MEHTA"
+    ],
+    "judgment_author": "Sandeep Mehta",
+    "procedural_stage": "pre_arrest",
+    "offence_types": [
+      "property_trespass",
+      "matrimonial"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "The case involves a criminal appeal against the grant of anticipatory bail by the High Court to several accused involved in a property dispute. The complainant alleges that her estranged husband and co-accused attempted to forcibly take possession of a property, a hotel, that she inherited. The appellant seeks cancellation of anticipatory bail due to the accused's criminal actions, including trespass and threatening behavior.",
+    "lower_court_outcome": "Anticipatory bail granted by the High Court.",
+    "disposition": "The Supreme Court quashed the High Court's order granting anticipatory bail and directed the accused to surrender.",
+    "statutes": [
+      {
+        "act": "IPC",
+        "section": "143",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "147",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "149",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "323",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "387",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "427",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "452",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "504",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "506",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "406",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "403",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "420",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "467",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "468",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "471",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "120-B",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "34",
+        "how_used": "charged",
+        "note": null
+      }
+    ],
+    "issues": [
+      {
+        "question": "Did the High Court err in granting anticipatory bail to the accused respondents?",
+        "short_answer": "Yes",
+        "anchors": [
+          "P17",
+          "P18",
+          "P19",
+          "P20"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "Anticipatory bail is an exceptional remedy and ought not to be granted in a routine manner. There must exist strong reasons for extending this remedy to a person accused of grave offences.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [
+          "applied in cases of grave offences"
+        ],
+        "statutes": [],
+        "anchors": [
+          "P18"
+        ],
+        "quote": "anticipatory bail is an exceptional remedy and ought not to be granted in a routine manner.",
+        "tags": [
+          "anticipatory_vs_regular",
+          "civil_dispute_criminalised",
+          "bail_not_jail"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition emphasizes that anticipatory bail should not be granted routinely and should be reserved for cases involving grave offences, aligning with the legal principle that bail is the rule and jail is the exception.",
+        "authorities": []
+      },
+      {
+        "id": "p2",
+        "text": "The Court, while considering an application for anticipatory bail, must consider the nature and gravity of allegations and the need for custodial investigation.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [
+          "custodial investigation needed"
+        ],
+        "statutes": [],
+        "anchors": [
+          "P19"
+        ],
+        "quote": "without considering the nature and gravity of allegations attributed to them and the fact that there was an imminent need for custodial investigation of the accused respondents.",
+        "tags": [
+          "custodial_interrogation_necessity",
+          "bail_not_jail",
+          "presumption_of_innocence"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition emphasizes the necessity of considering custodial investigation in the context of anticipatory bail, which aligns with established principles in Indian bail law. The Supreme Court's stance on the presumption of innocence and the preference for bail over jail further supports the selection of these tags.",
+        "authorities": []
+      },
+      {
+        "id": "p3",
+        "text": "The existence of criminal antecedents may preclude the grant of anticipatory bail.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P20"
+        ],
+        "quote": "failed to notice the criminal antecedents of the accused persons.",
+        "tags": [
+          "first_time_offender",
+          "habitual_offender",
+          "bail_not_jail"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition discusses the impact of criminal antecedents on the grant of anticipatory bail, which is a binding principle established by the Supreme Court.",
+        "authorities": []
+      },
+      {
+        "id": "p4",
+        "text": "Misleading the court by concealing material facts undermines the legitimacy of a bail plea.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P19"
+        ],
+        "quote": "the accused respondents tried to mislead the Court by concealing the fact that the ex parte injunction order had been set aside.",
+        "tags": [
+          "bail_not_jail",
+          "presumption_of_innocence",
+          "complainant_motive"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition emphasizes the importance of material facts in bail applications, aligning with the principles of bail being the rule and the presumption of innocence. It also hints at the potential motive of the complainant, which is relevant in assessing the legitimacy of the bail plea.",
+        "authorities": []
+      },
+      {
+        "id": "p5",
+        "text": "Violation of bail conditions can justify the cancellation of anticipatory bail.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P20"
+        ],
+        "quote": "by threatening the witnesses, the accused-Vishwajeet has flouted the conditions of anticipatory bail order.",
+        "tags": [
+          "previous_bail_misuse",
+          "cooperation_with_investigation"
+        ],
+        "binding_level": "binding",
+        "tag_reasoning": "The proposition discusses the violation of bail conditions, which relates to previous bail misuse and the accused's cooperation with the investigation. These tags reflect the legal principle that violations can lead to cancellation of anticipatory bail.",
+        "authorities": []
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The High Court erred in granting anticipatory bail to the accused respondents, considering the serious allegations and need for custodial investigation.",
+        "outcome": "accepted",
+        "anchors": [
+          "P17",
+          "P19",
+          "P20"
+        ]
+      }
+    ],
+    "authorities": []
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": false,
+      "note": "The court's statement on anticipatory bail being an exceptional remedy is aligned with the proposition but the favoring of prosecution is incorrect as bail considerations often balance rights of the accused."
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": false,
+      "note": "The statement confirms the necessity to consider allegations and need for custodial investigation, but the favoring of prosecution lacks context as the court’s role includes protecting the accused’s rights."
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": false,
+      "note": "The existence of criminal antecedents is accurately linked to restricting anticipatory bail, but the prosecutor’s favoring is misleading given the balance of justice principles."
+    },
+    "p4": {
+      "id": "p4",
+      "verdict": "supported",
+      "favors_correct": false,
+      "note": "The remark on misleading the court is consistent with the proposition, but favoring prosecution is not fully appropriate as it implies a bias in bail decisions."
+    },
+    "p5": {
+      "id": "p5",
+      "verdict": "supported",
+      "favors_correct": false,
+      "note": "The suggestion that violation of bail conditions allows for cancellation aligns well with the proposition, yet 'favors' indicates a one-sided view not reflective of judges' duties."
+    }
+  },
+  "needs_review": [
+    "p4: quote not found in its anchors",
+    "p1: verifier says supported, favors_correct=False - The court's statement on anticipatory bail being an exceptional remedy is aligned with the proposition but the favoring of prosecution is incorrect as bail considerations often balance rights of the accused.",
+    "p2: verifier says supported, favors_correct=False - The statement confirms the necessity to consider allegations and need for custodial investigation, but the favoring of prosecution lacks context as the court’s role includes protecting the accused’s rights.",
+    "p3: verifier says supported, favors_correct=False - The existence of criminal antecedents is accurately linked to restricting anticipatory bail, but the prosecutor’s favoring is misleading given the balance of justice principles.",
+    "p4: verifier says supported, favors_correct=False - The remark on misleading the court is consistent with the proposition, but favoring prosecution is not fully appropriate as it implies a bias in bail decisions.",
+    "p5: verifier says supported, favors_correct=False - The suggestion that violation of bail conditions allows for cancellation aligns well with the proposition, yet 'favors' indicates a one-sided view not reflective of judges' duties.",
+    "parser flag: appeal_from_not_found"
+  ],
+  "paragraphs": {
+    "P1": {
+      "text": "Heard.",
+      "page_start": 1,
+      "page_end": 1
+    },
+    "P2": {
+      "text": "Leave granted.",
+      "page_start": 1,
+      "page_end": 1
+    },
+    "P3": {
+      "text": "These appeals, by special leave, call into question the order dated 19th June, 2024, passed by the learned Single Judge of High Court of Judicature at Bombay in Anticipatory Bail Application Nos. 3137 of 2023 and 2499 of 2023, whereby respondent No. 2 in Criminal Appeal @ SLP(Crl.) No. 10251 of 2024 and respondent Nos. 2, 3, and 4 in Criminal Appeal @ SLP(Crl.) No. 10255 of 2024, were granted pre-arrest bail in connection with Crime No. 1-103 of 2023.",
+      "page_start": 1,
+      "page_end": 2
+    },
+    "P4": {
+      "text": "The appellant herein is the complainant-victim who filed Crime No. 1-103 of 2023 at Deccan Police Station, Pune, against her husband, namely, Vishwajeet Vinaykrao Jadhav (respondent No. 4 in Criminal Appeal @ SLP(Crl.) No. 10255 of 2024) and the other accused persons (private respondents in both the appeals) alleging inter alia that these accused persons acting in concert attempted to take forcible possession of a property, known as Hotel Vaishali, which was owned by the appellant-complainant’s father and devolved upon her post his demise.",
+      "page_start": 2,
+      "page_end": 3
+    },
+    "P5": {
+      "text": "The appellant-complainant and the accused- Vishwajeet who were married on 1st January, 2018, developed matrimonial strife. The accused- Vishwajeet managed to procure the power of attorney, and a gift deed of the subject-hotel executed in his name. For these acts, the appellant-complainant filed an FIR against accused- Vishwajeet and his family members and others on 19th June, 2023, at Shivajinagar Police Station, Pune.",
+      "page_start": 3,
+      "page_end": 3
+    },
+    "P6": {
+      "text": "The accused-Vishwajeet filed a Civil Suit No. 1248 of 2023 in the Court of Civil Judge, Senior Division who, vide order dated 27th June 2023, granted an interim ex parte injunction in his favour. Armed with the ex parte injunction order, accused- Vishwajeet, along with his companions (co-accused persons) went to the hotel and forcibly trespassed into the premises owned by the appellant-complainant, where they caused extensive damage including disconnecting the CCTV system, cutting down the DVR wires, and vandalizing the interiors of the property.",
+      "page_start": 3,
+      "page_end": 4
+    },
+    "P7": {
+      "text": "The appellant-complainant registered an FIR being Crime No. 1-103 of 2023, against the accused respondents at Deccan Police Station, Pune on 29th June, 2023 for the offences punishable under Sections 143, 147, 149, 323, 387, 427, 452, 504 and 506 of the Indian Penal Code, 1860.",
+      "page_start": 4,
+      "page_end": 4
+    },
+    "P8": {
+      "text": "The accused respondents herein, apprehending their arrest in connection with the aforesaid FIR, approached the Sessions Court, Pune, seeking the grant of pre-arrest bail. It may be mentioned that, in the meantime, the appellant-complainant had filed a Civil Misc. Appeal No. 254 of 2023 before the District Judge for challenging the ex parte interim order dated 27th June, 2023, which was allowed vide Order dated 17th August, 2023 and the interim order granting injunction was set aside.",
+      "page_start": 4,
+      "page_end": 4
+    },
+    "P9": {
+      "text": "The application for pre-arrest bail filed by the private respondents came to be rejected by the Additional Sessions Judge, Pune, vide order dated 25th August, 2023. The learned Additional Sessions Judge took note of the fact that the accused- Vishwajeet, while seeking anticipatory bail, had concealed the material fact that the ex parte injunction order had been set aside by the District Court in appeal filed by the appellant. The accused- Vishwajeet actually relied upon the said ex parte interim order to obtain interim bail.",
+      "page_start": 4,
+      "page_end": 5
+    },
+    "P10": {
+      "text": "Be that as it may, the accused respondents approached the High Court seeking anticipatory bail by way of Anticipatory Bail Application Nos. 3137 of 2023 and 2499 of 2023. The aforesaid applications filed by accused respondents stand allowed vide order dated 19th December, 2024, which is subject matter of challenge in these appeals by special leave.",
+      "page_start": 5,
+      "page_end": 5
+    },
+    "P11": {
+      "text": "The accused respondents in both the appeals though duly served, have chosen not to put in appearance before this Court.",
+      "page_start": 5,
+      "page_end": 5
+    },
+    "P12": {
+      "text": "Respondent No.1-State has filed counter affidavit supporting the appellant-complainant and levelling grave allegations against the accused respondents including that of misusing and violating the conditions of the ad interim bail. There is a specific allegation in the counter affidavit that the accused-Vishwajeet threatened an employee of the subject-hotel, namely, Bahadur (the guard), with dire consequences insinuating that he would be removed from his job. A non-cognizable Crime No. 283 of 2023 has been registered against the accused-Vishwajeet, for the said act of threatening the witnesses.",
+      "page_start": 5,
+      "page_end": 6
+    },
+    "P13": {
+      "text": "In addition thereto, the counter affidavit filed by the State also refers to a complaint that has been registered at Deccan Police Station, Pune, which led to registration of Crime No. 167 of 2023 against the accused-Vishwajeet for the offences punishable under Sections 406, 403, 420, 467, 468, 471, 120-B read with Section 34 of the IPC. The allegations in the said FIR pertain to misuse of power of attorney and securing a loan of Rs. 5 crores by mortgaging the subject-hotel using duplicate documents. Accused- Vishwajeet was involved in yet another incident of threatening the employees of the appellant-complainant on 4th December, 2023, for which another application was submitted at the police station. Accused-Vishwajeet also faces four more criminal cases in addition to FIR No. 1-103 of 2023, which fact is noted at paragraph (j) of the counter affidavit.",
+      "page_start": 6,
+      "page_end": 7
+    },
+    "P14": {
+      "text": "The presence of the other accused persons at the scene of the crime, for the purpose of removing the existing banners from the subject-hotel, has also been recorded in paragraph 3 of the counter affidavit, which is based on the recordings captured in the CCTV footage.",
+      "page_start": 7,
+      "page_end": 7
+    },
+    "P15": {
+      "text": "It is in this background that the appellant-complainant seeks cancellation of anticipatory bail granted to the accused respondents.",
+      "page_start": 7,
+      "page_end": 7
+    },
+    "P16": {
+      "text": "The State has supported the plea of the appellant-complainant seeking cancellation of anticipatory bail granted to the accused respondents. It is specifically mentioned in the counter affidavit that the police custody of accused-Vishwajeet is necessary because he did not cooperate in the investigation.",
+      "page_start": 7,
+      "page_end": 7
+    },
+    "P17": {
+      "text": "Having heard and considered the submissions advanced by learned counsel for the appellant-complainant and learned Standing counsel for the State, and after going through the impugned order and the material placed on record, we find that the High Court clearly erred in extending the benefit of pre-arrest bail to the accused respondents.",
+      "page_start": 7,
+      "page_end": 8
+    },
+    "P18": {
+      "text": "This Court, in numerous judgments, has held that anticipatory bail is an exceptional remedy and ought not to be granted in a routine manner. There must exist strong reasons for extending indulgence of this extraordinary remedy to a person accused of grave offences. In this regard, we may gainfully refer to Srikant Upadhyay v. State of Bihar wherein this Court noted as follows: “We have already held that the power to grant anticipatory bail is an extraordinary power. Though in many cases it was held that bail is said to be a rule, it cannot, by any stretch of imagination, be said that anticipatory bail is the rule. It cannot be the rule and the question of its grant should be left to the cautious and judicious discretion by the Court depending on the facts and circumstances of each case. While called upon to exercise the said power, the Court concerned has to be very cautious as the grant of interim protection or protection to the accused in serious cases may lead to miscarriage of justice and may hamper the investigation to a great extent as it may sometimes lead to tampering or distraction of the evidence. We shall not be understood to have held that the Court shall not pass an interim 2024 SCC OnLine SC 282. 8 Crl. Appeal @ SLP (Crl.) No (s). 10251 of 2024 protection pending consideration of such application as the Section is destined to safeguard the freedom of an individual against unwarranted arrest and we say that such orders shall be passed in eminently fit cases….” (emphasis supplied)",
+      "page_start": 8,
+      "page_end": 9
+    },
+    "P19": {
+      "text": "In the present case, the allegations against the accused respondents, including accused-Vishwajeet, are grave in nature. There is a clear observation by the learned Additional Sessions Judge in the bail rejection order dated 7th September 2023 that the accused respondents tried to mislead the Court by concealing the fact that the ex parte injunction order dated 27th June, 2023 had been set aside in appeal. The High Court seems to have glossed over this important aspect of the case and granted indulgence of pre-arrest bail to the accused respondents without considering the nature and gravity of allegations attributed to them and the fact that there was an imminent need for custodial investigation of the accused respondents.",
+      "page_start": 9,
+      "page_end": 9
+    },
+    "P20": {
+      "text": "Additionally, the High Court failed to notice the criminal antecedents of the accused persons, which are highlighted in the counter affidavit filed by the State. Apparently, the incident recorded in the FIR was a clear-cut attempt by the estranged husband (accused-Vishwajeet) to dispossess his own wife (appellant-complainant) from her lawfully inherited property i.e., the subject-hotel, by use of force and by employing henchmen to do the dirty work. Hence, considering the gravity of allegations, it is not a case warranting indulgence of pre-arrest bail to the accused. In our view, the High Court clearly erred in granting such liberty to the accused respondents. Furthermore, by threatening the witnesses, the accused-Vishwajeet has flouted the conditions of anticipatory bail order. For this reason, also he cannot be allowed to continue on anticipatory bail.",
+      "page_start": 9,
+      "page_end": 10
+    },
+    "P21": {
+      "text": "In the wake of the discussion made hereinabove, the impugned order dated 19th June, 2024 passed by the High Court, is hereby quashed and set aside. The anticipatory bail granted to the private respondents in both the appeals is hereby cancelled. The accused respondents shall surrender before the trial Court within a period of two weeks from today. They shall be at liberty to apply for regular bail, which shall be considered as per law, subject to the right of the Investigating Officer to seek police custody/remand.",
+      "page_start": 10,
+      "page_end": 11
+    },
+    "P22": {
+      "text": "The appeals are allowed accordingly.",
+      "page_start": 11,
+      "page_end": 11
+    },
+    "P23": {
+      "text": "Pending application(s), if any, shall stand disposed of.",
+      "page_start": 11,
+      "page_end": 11
+    }
+  },
+  "headnote_raw": " \nIN THE SUPREME COURT OF INDIA\n"
+}

@@ -1287,15 +1287,22 @@ LENGTH: 180–250 words. Concise, argumentative, courtroom-style. NO filler, NO 
     # Step 5: Rebuttal to prosecution argument
     # -----------------------------------------------------------------------
 
-    def handle_rebuttal(self, prosecution_argument: str) -> Dict[str, Any]:
+    def handle_rebuttal(self, prosecution_argument: str, previous_defense_arguments: List[str] = None) -> Dict[str, Any]:
         """
-        Rebuttal to the prosecution's opening or counter-argument.
-        Uses the cached defense matrix to respond to each prosecution point.
+        Rebuttal to the prosecution's argument.
+        Uses the cached defense matrix to respond to SPECIFIC prosecution points raised THIS TURN.
+        
+        Args:
+            prosecution_argument: The prosecution's current argument to rebut
+            previous_defense_arguments: List of defense arguments already made (to avoid repetition)
         """
         print("\n[DefenseAgent] Preparing Rebuttal to Prosecution...")
 
         if not self.defense_analysis:
             raise ValueError("Must run analyze_case() first")
+        
+        if previous_defense_arguments is None:
+            previous_defense_arguments = []
 
         matrix = self._cached_defense_matrix or []
         matrix_block_parts = []
@@ -1345,59 +1352,105 @@ LENGTH: 180–250 words. Concise, argumentative, courtroom-style. NO filler, NO 
                 + "\n\n".join(sections_list)
                 + "\n\n"
             )
+        
+        # Format previous defense arguments to avoid repetition
+        previous_args_block = ""
+        if previous_defense_arguments:
+            previous_args_block = (
+                "ARGUMENTS ALREADY MADE BY DEFENSE — DO NOT REPEAT:\n"
+                + "\n".join(f"  {i+1}. {arg[:200]}..." for i, arg in enumerate(previous_defense_arguments))
+                + "\n\n"
+            )
 
-        prompt = f"""You are a Senior Defense Counsel making sharp rebuttal submissions seeking anticipatory bail under Section 438 CrPC / Section 482 BNSS.
+        prompt = f"""You are a Senior Defense Counsel making a REBUTTAL to the prosecution's latest argument.
 
-{orchestrator_sections_block}DEFENSE INGREDIENT MATRIX:
+{orchestrator_sections_block}{previous_args_block}DEFENSE INGREDIENT MATRIX:
 {matrix_block}
 
 {arnesh_block}
 
-CASE FACTS:
+CASE FACTS (authoritative — the ONLY source of facts):
 {case_facts}
 
-PROSECUTION ARGUMENT TO REBUT:
+PROSECUTION'S LATEST ARGUMENT (respond to THIS specifically):
 {prosecution_argument}
 
-REBUTTAL RULES — STRICT:
+CRITICAL REBUTTAL RULES:
 
-0. SECTION CITATION RULE (mandatory):
-   Every time you name a charge, immediately cite its section number and statute exactly as written in the DEFENSE INGREDIENT MATRIX (e.g. "Section 498A IPC / Section 84 BNS").
+0. ANALYZE PROSECUTION'S ARGUMENT FIRST:
+   - What SPECIFIC facts did prosecution rely on in THIS argument?
+   - What SPECIFIC allegations did prosecution make in THIS argument?
+   - What NEW points did prosecution raise that weren't in previous arguments?
+   - Respond ONLY to what prosecution said THIS TURN, not what they might say.
 
-1. Respond ONLY to contentions the prosecution actually made in the argument above. Do not invent prosecution points that were not raised.
+1. NO REPETITION FROM PREVIOUS DEFENSE ARGUMENTS:
+   - Read "ARGUMENTS ALREADY MADE BY DEFENSE" carefully
+   - DO NOT restate any point, argument, or ground already made
+   - If prosecution raised a point you already addressed, briefly reference your previous position
+   - Focus on NEW prosecution contentions or NEW angles on existing contentions
 
-2. NO REPETITION. Do not restate the same response or ground multiple times in different words.
+2. SECTION CITATION RULE — STRATEGIC USE:
+   - You have statutory sections from lexigraphbe - use them strategically to strengthen your argument
+   - Cite sections when: (a) directly countering a prosecution charge, (b) establishing an ingredient is not met, (c) showing no prima facie case
+   - DO cite sections to show why prosecution's allegations don't meet statutory requirements
+   - Use natural phrasing: "Section X requires..." or "the prosecution must establish under Section X that..."
+   - Select which sections to cite based on relevance to THIS prosecution argument
 
-3. For each prosecution contention, in this order:
-   (a) State what the prosecution relies upon;
-   (b) State what that evidence establishes (concede it if established);
-   (c) State what it does NOT establish and why, by reference to the matrix;
-   (d) State the applicant's counter-position if present in the matrix.
+3. RESPOND TO ACTUAL CONTENTIONS:
+   - For EACH specific prosecution point raised THIS TURN:
+     (a) What did prosecution claim?
+     (b) What case fact supports or contradicts it?
+     (c) What is the defense position on THIS specific point?
+   - Do NOT respond to points prosecution didn't make
 
-4. Do not deny an act the applicant has admitted.
+4. GROUNDED IN CASE FACTS ONLY:
+   - Every factual claim must be traceable to CASE FACTS verbatim
+   - Do NOT generate, invent, or assume facts not stated in case facts
+   - Do NOT speculate about what "might have" happened
+   - If a fact isn't in the case facts, you cannot argue it
 
-5. EVIDENCE ACKNOWLEDGMENT RULE:
-   If the matrix or case facts identify evidence for an ingredient, acknowledge it by name. You may challenge its reliability, interpretation, sufficiency, or inferential connection to the ingredient, but MUST NOT claim no evidence exists when the matrix shows that it does.
+5. EVIDENCE ACKNOWLEDGMENT:
+   - If prosecution cited specific evidence from case facts, acknowledge it
+   - Then challenge its interpretation, sufficiency, or connection to the ingredient
+   - Do NOT deny evidence that exists in the case facts
 
-6. DO NOT make conclusive statements like "the ingredients are not satisfied" unless verified analysis confirms it. Use qualified language: "the material does not conclusively establish..."
+6. QUALIFIED LANGUAGE:
+   - Use: "the material does not establish..." not "the prosecution has failed..."
+   - Use: "the applicant submits that..." not "it is clear that..."
+   - Do NOT make conclusive legal determinations
 
-7. DO NOT repeat the opening argument unless directly needed to answer a specific prosecution contention.
+7. PROPORTIONALITY:
+   - Match the length and intensity to what prosecution actually argued
+   - If prosecution made 2 points, address those 2 points
+   - Do NOT make a generic speech; make a targeted response
 
-8. DO NOT create a new defense ground during rebuttal.
+8. NO BOILERPLATE:
+   - Do NOT use generic phrases like "the Hon'ble Court will appreciate that..."
+   - Be specific to the prosecution's actual argument and actual case facts
 
-9. DO NOT use consequence-based reasoning ("no harm → no offence").
+9. FORMAT: Single continuous prose. No headings. No bullet points. 150-250 words max.
 
-10. DO NOT introduce any fact, section, case, or evidence not in the matrix or the verified bail law block.
+10. End with: "It is therefore prayed that anticipatory bail be granted."
 
-11. If any ingredient has prosecution_status UNKNOWN, do not argue it.
+STRUCTURE:
 
-12. Use bail law only for the arrest/custody question — not to argue that an offence is not made out.
+Identification (1 sentence):
+Identify the key prosecution contention(s) raised THIS TURN.
 
-13. End with exactly: "It is therefore prayed that anticipatory bail be granted."
+Specific Response (3-5 sentences):
+Address each prosecution point specifically:
+- What case fact did they rely on?
+- What does it actually show vs. what doesn't it show?
+- What is the applicant's position on this specific fact/allegation?
 
-FORMAT: Single continuous prose. No headings. No bullet points. 150–250 words max.
+Counter-Position (1-2 sentences):
+State why, despite prosecution's argument, bail should still be granted.
+Reference only NEW points or angles not previously covered.
 
-Write only the rebuttal text."""
+Prayer (1 sentence):
+"It is therefore prayed that anticipatory bail be granted."
+
+Write ONLY the rebuttal text. Do NOT write meta-commentary about what you're doing."""
 
         response = self.llm.invoke(prompt)
         rebuttal_text = (response.content if hasattr(response, "content") else str(response)).strip()
