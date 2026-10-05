@@ -1,5 +1,5 @@
 """
-LexiGraph Backend - Stage 0 (Intake), Stage 1 (Query Understanding), Stage 2 (Sub-Query Mapping), Stage 3 (Chapter Identification), Stage 4 (Statutory Verification), Stage 5 (Bail Reasoning), Stage 6 (Precedent Retrieval), IPC ↔ BNS Mapper, Local Classifier Pre-filter, and Batched Pipeline Utilities.
+LexiGraph Backend - Stage 0 (Intake), Stage 1 (Query Understanding), Stage 2 (Sub-Query Mapping), Stage 3 (Chapter Identification), Stage 4 (Statutory Verification), Stage 5 (Bail Reasoning), Stage 6 (Precedent Retrieval), Local Classifier Pre-filter, and Batched Pipeline Utilities.
 """
 
 from .schemas import (
@@ -49,7 +49,6 @@ from .batch_utils import (
     Stage5BatchedIngredientResponse,
 )
 from .classifier_prefilter import CandidateSectionMatch, StatuteClassifierPrefilter
-from .ipc2bns_mapper import IPC2BNSMapper
 from .eval_prefilter import run_prefilter_recall_evaluation, BENCHMARK_CORPUS
 from .eval_models import evaluate_model_performance, ModelBenchmarkReport
 from .eval_auditor import run_auditor_benchmark_evaluation
@@ -147,7 +146,6 @@ __all__ = [
     # Local Classifier Pre-filter & Evaluation
     "CandidateSectionMatch",
     "StatuteClassifierPrefilter",
-    "IPC2BNSMapper",
     "run_prefilter_recall_evaluation",
     "BENCHMARK_CORPUS",
     "evaluate_model_performance",

@@ -1,0 +1,282 @@
+{
+  "session_id": "2b4ecff3",
+  "case_id": "The accused, Ramesh Kumar, allegedly stabbed the victim Suresh Gupta with a kitchen knife outside a restaurant on 12 March 2026. Two eyewitnesses were present. The victim was hospitalized and survived. A blood-stained kitchen knife was recovered from the accused's bag.",
+  "round_no": 1,
+  "max_rounds": 2,
+  "case_facts": [
+    {
+      "id": "fact_1",
+      "label": "who.complainant",
+      "value": "None",
+      "source": "llm",
+      "verified": true
+    },
+    {
+      "id": "fact_2",
+      "label": "who.accused",
+      "value": "['Ramesh Kumar']",
+      "source": "llm",
+      "verified": true
+    },
+    {
+      "id": "fact_3",
+      "label": "who.victims",
+      "value": "['Suresh Gupta']",
+      "source": "llm",
+      "verified": true
+    },
+    {
+      "id": "fact_4",
+      "label": "incident.summary",
+      "value": "Ramesh Kumar allegedly stabbed Suresh Gupta with a kitchen knife outside a restaurant; the victim was hospitalized and survived.",
+      "source": "llm",
+      "verified": true
+    },
+    {
+      "id": "fact_5",
+      "label": "incident.date",
+      "value": "12/03/2026",
+      "source": "llm",
+      "verified": true
+    },
+    {
+      "id": "fact_6",
+      "label": "incident.time",
+      "value": "None",
+      "source": "llm",
+      "verified": true
+    },
+    {
+      "id": "fact_7",
+      "label": "incident.place",
+      "value": "Outside a restaurant",
+      "source": "llm",
+      "verified": true
+    },
+    {
+      "id": "fact_8",
+      "label": "property.cash",
+      "value": "None",
+      "source": "llm",
+      "verified": true
+    },
+    {
+      "id": "fact_9",
+      "label": "property.gold",
+      "value": "None",
+      "source": "llm",
+      "verified": true
+    },
+    {
+      "id": "fact_10",
+      "label": "property.documents",
+      "value": "None",
+      "source": "llm",
+      "verified": true
+    },
+    {
+      "id": "fact_11",
+      "label": "property.vehicles",
+      "value": "[]",
+      "source": "llm",
+      "verified": true
+    },
+    {
+      "id": "fact_12",
+      "label": "property.other_property",
+      "value": "[]",
+      "source": "llm",
+      "verified": true
+    },
+    {
+      "id": "fact_13",
+      "label": "property.estimated_loss",
+      "value": "None",
+      "source": "llm",
+      "verified": true
+    }
+  ],
+  "evidence_inventory": [
+    {
+      "item": "eyewitnesses",
+      "status": "present",
+      "details": "Two eyewitnesses were present at the incident outside the restaurant."
+    },
+    {
+      "item": "weapon",
+      "status": "present",
+      "details": "A blood-stained kitchen knife was recovered from the accused's bag."
+    },
+    {
+      "item": "medical_report",
+      "status": "not_on_record",
+      "details": "The victim was hospitalized and survived, but no MLC, injury report, or doctor testimony is mentioned."
+    },
+    {
+      "item": "fir",
+      "status": "not_on_record",
+      "details": "No FIR or written police complaint is mentioned in the case text."
+    },
+    {
+      "item": "cctv_digital",
+      "status": "not_on_record",
+      "details": "No CCTV footage, phone recording, CDR, or other digital evidence is mentioned."
+    },
+    {
+      "item": "forensic_report",
+      "status": "not_on_record",
+      "details": "No FSL, ballistic, fingerprint, DNA, or chemical report is mentioned."
+    },
+    {
+      "item": "recovery_memo",
+      "status": "not_on_record",
+      "details": "The knife recovery is mentioned, but no seizure panchnama or recovery memo is specifically recorded."
+    },
+    {
+      "item": "complainant",
+      "status": "not_on_record",
+      "details": "The complainant is listed as none, and no complainant/victim presence on record is described."
+    }
+  ],
+  "transcript": [
+    {
+      "turn_no": 1,
+      "speaker": "prosecutor",
+      "round_no": 1,
+      "content": "### Legal Theory\nMay it please the Court, I strongly oppose this application for anticipatory bail. The prosecution case is that the applicant, Ramesh Kumar, stabbed the victim Suresh Gupta with a kitchen knife outside a restaurant, and the victim was hospitalized. This is a direct, violent assault involving a deadly weapon and actual bodily injury. It is precisely the kind of case where pre-arrest protection would seriously prejudice the investigation.\n\n### Submissions\n1. Under **BNSS Section 482 [Section 438 CrPC]**, anticipatory bail is not to be granted mechanically. The Court must consider the seriousness of the accusation and the needs of investigation. Here, the prosecution requires custody under **BNSS Section 187 [Section 167 CrPC]** so that the police can examine the exact sequence of events, confront the accused with the circumstances of the assault, and pursue recovery-related investigation under **Section 23 BSA [Section 27 IEA]**, particularly in relation to the kitchen knife used in the offence.\n2. In **DR NARESH KUMAR MANGLA v. SMT. ANITA AGARWAL & ORS. ETC.**, the Supreme Court held that whether the reported incident took place and led to the injuries examined at hospital is a matter for investigation. That principle squarely applies here, because the victim was hospitalized after a knife assault, and the prosecution must investigate the manner, weapon, and surrounding circumstances before any pre-arrest shield is given.\n3. The facts here disclose neither a trivial dispute nor a case fit for routine protection. This was an attack in a public place, involving a knife and bodily injury. The prosecution humbly submits that custody is indispensable for effective investigation and for securing the truth in this violent offence.\n4. In view of the gravity of the offence, statutory presumptions, and the necessity of custodial interrogation, the prosecution humbly prays that this Anticipatory Bail application be rejected.\n- **BNS provision corresponding to the alleged violent assault with a knife:** On the facts supplied, the conduct discloses **physical force/assault** and **bodily hurt caused**, with a **kitchen knife** used as a weapon. The extracted facts do not provide a complete section-header mapping from the context for a specific BNS offence number, so I will not invent one.\n- **BNSS Section 482 [Section 438 CrPC]**: anticipatory bail. The Court must assess whether pre-arrest protection is justified having regard to the seriousness of the offence and investigative needs.\n- **BNSS Section 187 [Section 167 CrPC]**: custodial remand framework. Where investigation requires effective questioning, the prosecution may seek custody in accordance with law.\n- **Evidence recovery principle under Section 23 BSA [Section 27 IEA]**: any discovery/recovery attributable to the accused during custody is a relevant investigative consideration. Here, the knife and the exact circumstances of its use are central.\n- No POCSO or Dowry Prohibition Act provisions are attracted on the present facts.\nThe extracted facts show that **Ramesh Kumar** allegedly **stabbed Suresh Gupta with a kitchen knife outside a restaurant**, and the victim was hospitalized. This is not a speculative or documentary offence; it is a direct, violent assault causing bodily injury. The case requires custodial investigation because the prosecution must determine the exact weapon used, whether the knife recovered from the accused matches the incident, the immediate cause of the altercation, and whether there were other persons present outside the restaurant who may have seen the assault.\n5. The need for custody is tied to the concrete facts here: the weapon is specifically a **kitchen knife**, the place is a **public location outside a restaurant**, and the victim was **hospitalized**. These facts justify effective questioning and possible recovery-related investigation under the custodial framework of **BNSS Section 187 [Section 167 CrPC]** and the recovery principle under **Section 23 BSA [Section 27 IEA]**. The Supreme Court’s observation in **DR NARESH KUMAR MANGLA** that such incidents and injuries are matters for investigation is directly apposite.\n6. There are no facts suggesting false implication, delay, or a merely technical accusation. Rather, the allegation is of a deliberate knife assault. The defence cannot invoke anticipatory bail to short-circuit a necessary investigation into a serious act of violence.\n\n### Evidence References\n- **[fact_2]**: who.accused: ['Ramesh Kumar']\n- **[fact_3]**: who.victims: ['Suresh Gupta']\n- **[fact_4]**: incident.summary: Ramesh Kumar allegedly stabbed Suresh Gupta with a kitchen knife outside a restaurant; the victim was hospitalized and survived.\n- **[fact_7]**: incident.place: Outside a restaurant\n\n### Statutory Provisions\n- BNSS 482\n- BNSS 187\n- CrPC 438\n- CrPC 167\n- BSA 23\n- IEA 27",
+      "citations": [
+        "BNSS 482",
+        "BNSS 187",
+        "CrPC 438",
+        "CrPC 167",
+        "BSA 23",
+        "IEA 27"
+      ],
+      "evidence_refs": [
+        "fact_2",
+        "fact_3",
+        "fact_4",
+        "fact_7"
+      ],
+      "structured_argument": {
+        "theory": "May it please the Court, I strongly oppose this application for anticipatory bail. The prosecution case is that the applicant, Ramesh Kumar, stabbed the victim Suresh Gupta with a kitchen knife outside a restaurant, and the victim was hospitalized. This is a direct, violent assault involving a deadly weapon and actual bodily injury. It is precisely the kind of case where pre-arrest protection would seriously prejudice the investigation.",
+        "arguments": [
+          "Under **BNSS Section 482 [Section 438 CrPC]**, anticipatory bail is not to be granted mechanically. The Court must consider the seriousness of the accusation and the needs of investigation. Here, the prosecution requires custody under **BNSS Section 187 [Section 167 CrPC]** so that the police can examine the exact sequence of events, confront the accused with the circumstances of the assault, and pursue recovery-related investigation under **Section 23 BSA [Section 27 IEA]**, particularly in relation to the kitchen knife used in the offence.",
+          "In **DR NARESH KUMAR MANGLA v. SMT. ANITA AGARWAL & ORS. ETC.**, the Supreme Court held that whether the reported incident took place and led to the injuries examined at hospital is a matter for investigation. That principle squarely applies here, because the victim was hospitalized after a knife assault, and the prosecution must investigate the manner, weapon, and surrounding circumstances before any pre-arrest shield is given.",
+          "The facts here disclose neither a trivial dispute nor a case fit for routine protection. This was an attack in a public place, involving a knife and bodily injury. The prosecution humbly submits that custody is indispensable for effective investigation and for securing the truth in this violent offence.",
+          "In view of the gravity of the offence, statutory presumptions, and the necessity of custodial interrogation, the prosecution humbly prays that this Anticipatory Bail application be rejected.",
+          "- **BNS provision corresponding to the alleged violent assault with a knife:** On the facts supplied, the conduct discloses **physical force/assault** and **bodily hurt caused**, with a **kitchen knife** used as a weapon. The extracted facts do not provide a complete section-header mapping from the context for a specific BNS offence number, so I will not invent one.",
+          "- **BNSS Section 482 [Section 438 CrPC]**: anticipatory bail. The Court must assess whether pre-arrest protection is justified having regard to the seriousness of the offence and investigative needs.",
+          "- **BNSS Section 187 [Section 167 CrPC]**: custodial remand framework. Where investigation requires effective questioning, the prosecution may seek custody in accordance with law.",
+          "- **Evidence recovery principle under Section 23 BSA [Section 27 IEA]**: any discovery/recovery attributable to the accused during custody is a relevant investigative consideration. Here, the knife and the exact circumstances of its use are central.",
+          "- No POCSO or Dowry Prohibition Act provisions are attracted on the present facts.",
+          "The extracted facts show that **Ramesh Kumar** allegedly **stabbed Suresh Gupta with a kitchen knife outside a restaurant**, and the victim was hospitalized. This is not a speculative or documentary offence; it is a direct, violent assault causing bodily injury. The case requires custodial investigation because the prosecution must determine the exact weapon used, whether the knife recovered from the accused matches the incident, the immediate cause of the altercation, and whether there were other persons present outside the restaurant who may have seen the assault.",
+          "The need for custody is tied to the concrete facts here: the weapon is specifically a **kitchen knife**, the place is a **public location outside a restaurant**, and the victim was **hospitalized**. These facts justify effective questioning and possible recovery-related investigation under the custodial framework of **BNSS Section 187 [Section 167 CrPC]** and the recovery principle under **Section 23 BSA [Section 27 IEA]**. The Supreme Court’s observation in **DR NARESH KUMAR MANGLA** that such incidents and injuries are matters for investigation is directly apposite.",
+          "There are no facts suggesting false implication, delay, or a merely technical accusation. Rather, the allegation is of a deliberate knife assault. The defence cannot invoke anticipatory bail to short-circuit a necessary investigation into a serious act of violence."
+        ],
+        "evidence_refs": [
+          "fact_2",
+          "fact_3",
+          "fact_4",
+          "fact_7"
+        ],
+        "sections": [
+          "BNSS 482",
+          "BNSS 187",
+          "CrPC 438",
+          "CrPC 167",
+          "BSA 23",
+          "IEA 27"
+        ]
+      }
+    },
+    {
+      "turn_no": 2,
+      "speaker": "defense",
+      "round_no": 1,
+      "content": "### Legal Theory\nThe prosecution version raises a suspicion of a knife assault, but the record is procedurally and evidentially incomplete on the nature of injuries, exact manner of occurrence, and corroboration of the alleged recovery. At best, the material presently supports a disputed incident requiring proof of the statutory ingredients under IPC 324, IPC 323, or IPC 352, not a denial of liberty on assumptions.\n\n### Submissions\n1. The prosecution relies on a broad allegation that Ramesh Kumar allegedly stabbed Suresh Gupta with a kitchen knife outside a restaurant [fact_4], but the evidentiary weight of that claim is weakened because the only asserted corroboration is that two eyewitnesses were present and a knife was recovered from the accused's bag. Presence of eyewitnesses and recovery cannot, by themselves, establish the exact role, intention, or manner of use without independent corroboration and a tested chain of proof. In particular, the recovery is asserted, but the prosecution has not placed on record a seizure panchnama or recovery memo, so the alleged recovery remains unvouched in the present record.\n2. The record before the court does not contain a medical report, MLC, injury report, or doctor testimony, despite the assertion that the victim was hospitalized and survived [fact_4]. The prosecution has also failed to produce on record any FIR or written police complaint, any CCTV or other digital evidence, and any forensic report linking the alleged blood-stained knife to the incident. In the absence of these records, the Court is left only with an untested narrative, which is insufficient to conclusively fix the nature of hurt or the manner of assault.\n3. On the statutory ingredients, the material does not presently establish the precise mens rea necessary for IPC 324 or IPC 326. The facts only state that an assault with a kitchen knife allegedly occurred [fact_4], but they do not disclose any prior enmity, premeditation, targeted motive, or circumstances showing a deliberate intention to cause the specific degree of hurt required. At the highest, the prosecution may seek to argue IPC 352 or IPC 323, but even those provisions still require reliable proof of wrongful use of force and actual hurt. Without medical evidence and without a properly proved recovery, the prosecution has not eliminated reasonable doubt as to the exact nature of the occurrence, the degree of injury, or the accused's mental element.\n4. The prosecution's reliance on custody-based investigation cannot substitute for proof. The case facts do not supply the exact time of occurrence [fact_6], and the place is only broadly stated as outside a restaurant [fact_7]. These gaps matter because they prevent a clear reconstruction of the incident and the alleged use of the kitchen knife. Accordingly, the present material is better suited to a limited, cautious view rather than the prosecution's attempt to treat accusation as proof.\n\n### Evidence References\n- **[fact_2]**: who.accused: ['Ramesh Kumar']\n- **[fact_3]**: who.victims: ['Suresh Gupta']\n- **[fact_4]**: incident.summary: Ramesh Kumar allegedly stabbed Suresh Gupta with a kitchen knife outside a restaurant; the victim was hospitalized and survived.\n- **[fact_7]**: incident.place: Outside a restaurant\n\n### Statutory Provisions\n- IPC 324\n- IPC 323\n- IPC 352\n- IPC 326\n- CrPC 438",
+      "citations": [
+        "IPC 324",
+        "IPC 323",
+        "IPC 352",
+        "IPC 326",
+        "CrPC 438"
+      ],
+      "evidence_refs": [
+        "fact_4",
+        "fact_6",
+        "fact_7",
+        "fact_2",
+        "fact_3"
+      ],
+      "structured_argument": {
+        "theory": "The prosecution version raises a suspicion of a knife assault, but the record is procedurally and evidentially incomplete on the nature of injuries, exact manner of occurrence, and corroboration of the alleged recovery. At best, the material presently supports a disputed incident requiring proof of the statutory ingredients under IPC 324, IPC 323, or IPC 352, not a denial of liberty on assumptions.",
+        "arguments": [
+          "The prosecution relies on a broad allegation that Ramesh Kumar allegedly stabbed Suresh Gupta with a kitchen knife outside a restaurant [fact_4], but the evidentiary weight of that claim is weakened because the only asserted corroboration is that two eyewitnesses were present and a knife was recovered from the accused's bag. Presence of eyewitnesses and recovery cannot, by themselves, establish the exact role, intention, or manner of use without independent corroboration and a tested chain of proof. In particular, the recovery is asserted, but the prosecution has not placed on record a seizure panchnama or recovery memo, so the alleged recovery remains unvouched in the present record.",
+          "The record before the court does not contain a medical report, MLC, injury report, or doctor testimony, despite the assertion that the victim was hospitalized and survived [fact_4]. The prosecution has also failed to produce on record any FIR or written police complaint, any CCTV or other digital evidence, and any forensic report linking the alleged blood-stained knife to the incident. In the absence of these records, the Court is left only with an untested narrative, which is insufficient to conclusively fix the nature of hurt or the manner of assault.",
+          "On the statutory ingredients, the material does not presently establish the precise mens rea necessary for IPC 324 or IPC 326. The facts only state that an assault with a kitchen knife allegedly occurred [fact_4], but they do not disclose any prior enmity, premeditation, targeted motive, or circumstances showing a deliberate intention to cause the specific degree of hurt required. At the highest, the prosecution may seek to argue IPC 352 or IPC 323, but even those provisions still require reliable proof of wrongful use of force and actual hurt. Without medical evidence and without a properly proved recovery, the prosecution has not eliminated reasonable doubt as to the exact nature of the occurrence, the degree of injury, or the accused's mental element.",
+          "The prosecution's reliance on custody-based investigation cannot substitute for proof. The case facts do not supply the exact time of occurrence [fact_6], and the place is only broadly stated as outside a restaurant [fact_7]. These gaps matter because they prevent a clear reconstruction of the incident and the alleged use of the kitchen knife. Accordingly, the present material is better suited to a limited, cautious view rather than the prosecution's attempt to treat accusation as proof."
+        ],
+        "evidence_refs": [
+          "fact_4",
+          "fact_6",
+          "fact_7",
+          "fact_2",
+          "fact_3"
+        ],
+        "sections": [
+          "IPC 324",
+          "IPC 323",
+          "IPC 352",
+          "IPC 326",
+          "CrPC 438"
+        ]
+      }
+    },
+    {
+      "turn_no": 3,
+      "speaker": "accused",
+      "round_no": 1,
+      "content": "No, I do not admit that. I do not accept that the knife recovered from my bag was used in the incident outside the restaurant on 12/03/2026.",
+      "citations": [],
+      "evidence_refs": [],
+      "structured_argument": {
+        "theory": "No, I do not admit that. I do not accept that the knife recovered from my bag was used in the incident outside the restaurant on 12/03/2026.",
+        "arguments": [
+          "No, I do not admit that. I do not accept that the knife recovered from my bag was used in the incident outside the restaurant on 12/03/2026."
+        ],
+        "evidence_refs": [],
+        "sections": []
+      }
+    }
+  ],
+  "judge_scores": {
+    "prosecution": {
+      "legal_validity": 7,
+      "evidence_linkage": 8,
+      "logic_coherence": 8,
+      "total": 23.0,
+      "average": 7.67
+    },
+    "defense": {
+      "legal_validity": 5,
+      "evidence_linkage": 4,
+      "logic_coherence": 6,
+      "total": 15.0,
+      "average": 5.0
+    },
+    "overall": 6.33
+  },
+  "verdict": {
+    "decision": "guilty",
+    "confidence": 0.76,
+    "laws_applied": [
+      "323",
+      "324",
+      "326",
+      "352"
+    ],
+    "reasoning": "Section 1: Prosecution Case & Evidentiary Proof — The record proves a violent incident outside a restaurant on 12/03/2026 in which Ramesh Kumar allegedly stabbed Suresh Gupta with a kitchen knife. The evidence inventory records two eyewitnesses as present, and it also records that a blood-stained kitchen knife was recovered from the accused’s bag. These are material incriminating circumstances. The accused has specifically denied that the recovered knife was used in the incident, but that denial does not erase the existence of eyewitness evidence or the recovery itself. On the facts before the Court, the use of a dangerous weapon is sufficiently established to attract IPC 324.\n\nSection 2: Defense Submissions & Reasonable Doubts — The defence is correct that several documents are missing from the record: there is no FIR, no medical report/MLC, no doctor testimony, no CCTV, no forensic report, and no recorded seizure memo. These omissions weaken the prosecution on the precise nature and degree of injury, and they prevent the Court from safely elevating the case to a graver offence such as IPC 326 on the present record. The defence also rightly points out that there is no proof of premeditation or exact intent beyond the assault allegation. However, absence of those documents does not negate the proved core facts of an assault with a knife and the presence of eyewitnesses.\n\nSection 3: Judicial Finding & Verdict Rationale — Weighing the totality of the record, the Court finds that the prosecution has proved beyond reasonable doubt that the accused used a dangerous weapon in a violent attack causing hurt, or at minimum assault with criminal force in the course of the incident. Accordingly, conviction under IPC 324 is warranted, with IPC 323 and IPC 352 operating as included, lesser forms of liability on the same facts. The lack of medical and forensic material creates doubt only as to any enhanced charge, not as to the basic culpability for a knife assault. Therefore, the accused is held guilty under the verified provisions noted above."
+  },
+  "errors": []
+}

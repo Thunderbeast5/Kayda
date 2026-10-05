@@ -247,110 +247,61 @@ def _chunk_document_aware(raw_text: str) -> List[str]:
 # ====================================================================
 
 BASE_RULES = """\
-You are a legal document analyst reviewing an Indian FIR/evidence document.
+You are a legal document analyst reviewing an Indian criminal case, FIR, petition, or order.
 
 Source may be Hindi/Marathi/English mixed with OCR noise.
 CRITICAL: Output EVERY string in English only.
 - Translate descriptions/locations to English.
 - Transliterate person names to Roman script.
-- Canonicalize OCR spelling variants of same person into one best form.
+- Canonicalize OCR spelling variants of the same entity.
 Return ONLY valid JSON (no markdown fences, no commentary).
 """
 
 UNIFIED_PROMPT = BASE_RULES + """\
+Task: Extract an open, comprehensive list of facts from the text.
+Extract each distinct factual assertion as an item in a list, tied to its specific source (e.g. paragraph number, page, FIR, complaint, or order) and classify each fact by its type.
+Do NOT use fixed category fields. Extract facts freely.
 
-Task: Extract complete structured facts from this FIR/evidence text.
+Include all material facts:
+- Parties involved (complainant, accused, victim, eyewitnesses)
+- Narrative of the alleged incident (dates, times, places, specific actions)
+- Physical & documentary evidence (injuries, weapons, medical examination, recoveries, seizure memos)
+- Procedural history & investigation status (FIR details, notices, summons, non-bailable warrants, proclamation under Sec 82 CrPC/BNSS, arrest status)
+- Statutory sections invoked (IPC, BNS, CrPC, BNSS, etc.)
 
-Rules:
-- complainant: person who filed complaint.
-- accused: only officially named accused.
-- victims: only directly harmed persons (exclude police/witnesses unless harmed).
-- Do NOT include accused as victims.
-- Incident date/time/place should describe offence occurrence (not FIR filing date unless needed).
-- Priority for date/time/place:
-  1) complaint narrative / first information contents / gist
-  2) incident description section
-  3) registration header only if narrative missing
-- Use 24-hour time format.
-- Preserve quantities/units exactly for property fields (no conversion).
-- estimated_loss: use FIR stated total if present, else compute from stated amounts.
-- sections: include IPC/BNS/special Act sections; deduplicate/normalize
-  like "IPC 420", "BNS 303", "IT Act 66C".
+Classify each fact with "type":
+- "allegation": assertions, charges, or factual claims made by complainant, informant, FIR, prosecution, or defense
+- "procedural_event": official court or police process events (summons, bailable/non-bailable warrants, Section 82 proclamation, attachment, dates of filing/orders)
+- "court_finding": judicial evaluations, findings, observations, or legal conclusions of the presiding judge/court
 
 Return JSON schema:
-{{
-  "who": {{
-    "complainant": "string or null",
-    "accused": ["string"],
-    "victims": ["string"]
-  }},
-  "incident": {{
-    "summary": "string or null",
-    "date": "DD/MM/YYYY or null",
-    "time": "HH:MM or HH:MM - HH:MM or null",
-    "place": "string or null"
-  }},
-  "property": {{
-    "cash": "string or null",
-    "gold": "string or null",
-    "documents": "string or null",
-    "vehicles": [
-      {{
-        "type": "string or null",
-        "registration_no": "string or null",
-        "make_model": "string or null",
-        "engine_chassis_no": "string or null",
-        "estimated_value": "string or null"
-      }}
-    ],
-    "other_property": ["string"],
-    "estimated_loss": "string or null"
-  }},
-  "sections": ["string"]
-}}
+[
+  {{
+    "id": "fact_1",
+    "text": "Detailed statement of the fact",
+    "source": "para 14",
+    "type": "allegation|procedural_event|court_finding"
+  }}
+]
 
 TEXT:
 {text}
 """
 
 UNIFIED_RECON_PROMPT = BASE_RULES + """\
-Task: Reconcile complete structured facts from multiple chunk outputs + full OCR text.
+Task: Reconcile complete extracted facts from multiple chunk outputs + full OCR text.
 Use full OCR text as ground truth where conflicts exist.
-Devanagari OCR denoising is critical for names.
-Each real person must appear once in canonical spelling.
-Deduplicate legal sections and normalize.
+Deduplicate and refine into an open list of facts with explicit IDs, sources, and type ("allegation" | "procedural_event" | "court_finding").
 
 Return JSON schema:
-{{
-  "who": {{
-    "complainant": "string or null",
-    "accused": ["string"],
-    "victims": ["string"]
-  }},
-  "incident": {{
-    "summary": "string or null",
-    "date": "DD/MM/YYYY or null",
-    "time": "HH:MM or HH:MM - HH:MM or HH:MM or null",
-    "place": "string or null"
-  }},
-  "property": {{
-    "cash": "string or null",
-    "gold": "string or null",
-    "documents": "string or null",
-    "vehicles": [
-      {{
-        "type": "string or null",
-        "registration_no": "string or null",
-        "make_model": "string or null",
-        "engine_chassis_no": "string or null",
-        "estimated_value": "string or null"
-      }}
-    ],
-    "other_property": ["string"],
-    "estimated_loss": "string or null"
-  }},
-  "sections": ["string"]
-}}
+[
+  {{
+    "id": "fact_1",
+    "text": "Detailed statement of the fact",
+    "source": "para 14",
+    "type": "allegation|procedural_event|court_finding"
+  }}
+]
 
 FULL OCR TEXT:
 {full_text}
@@ -365,14 +316,46 @@ PARTIALS:
 # ====================================================================
 
 def _strip_json_fences(text: str) -> str:
-    return re.sub(r"^```(?:json)?|```$", "", text.strip(), flags=re.MULTILINE).strip()
+    """Strip markdown code fences and extract the outermost JSON value (array or object)."""
+    cleaned = re.sub(r"^```(?:json)?|```$", "", text.strip(), flags=re.MULTILINE).strip()
+
+    # Try to find a JSON array first (preferred output format)
+    arr_start = cleaned.find("[")
+    arr_end   = cleaned.rfind("]")
+    obj_start = cleaned.find("{")
+    obj_end   = cleaned.rfind("}")
+
+    if arr_start != -1 and arr_end > arr_start:
+        # Array found — but only prefer it over an object if it starts earlier or at same pos
+        if obj_start == -1 or arr_start <= obj_start:
+            return cleaned[arr_start:arr_end + 1]
+
+    if obj_start != -1 and obj_end > obj_start:
+        return cleaned[obj_start:obj_end + 1]
+
+    return cleaned
 
 
-def _parse_llm_json(raw_response: str) -> Optional[Dict[str, Any]]:
+def _parse_llm_json(raw_response: str) -> Optional[Any]:
+    if not raw_response or not isinstance(raw_response, str):
+        return None
     cleaned = _strip_json_fences(raw_response)
     try:
-        return json.loads(cleaned)
+        result = json.loads(cleaned)
+        # Reject if the parser returned a bare string (broken JSON capture)
+        if isinstance(result, str):
+            print(f"[evidence_analyzer] Warning: JSON parsed to bare string, skipping.")
+            return None
+        return result
     except json.JSONDecodeError:
+        # Try json_repair if available
+        try:
+            import json_repair
+            repaired = json_repair.repair_json(cleaned, return_objects=True)
+            if isinstance(repaired, (dict, list)):
+                return repaired
+        except ImportError:
+            pass
         print("Warning: could not parse LLM output:")
         print(cleaned[:600])
         return None
@@ -381,80 +364,76 @@ def _parse_llm_json(raw_response: str) -> Optional[Dict[str, Any]]:
 # key = os.getenv("GROQ_API_KEY")
 # print("Using key:", key[:12], "...", key[-6:])
 
-def _llm_json(prompt: str) -> Optional[Dict[str, Any]]:
+def _llm_json(prompt: str) -> Optional[Any]:
     llm = get_llm(temperature=0)
     response = llm.invoke(prompt)
     return _parse_llm_json(response.content)
 
 
-def _normalise_vehicle(v: Dict[str, Any]) -> Dict[str, Optional[str]]:
-    return {
-        "type": (v.get("type") or None),
-        "registration_no": (v.get("registration_no") or None),
-        "make_model": (v.get("make_model") or None),
-        "engine_chassis_no": (v.get("engine_chassis_no") or None),
-        "estimated_value": (v.get("estimated_value") or None),
-    }
+def _normalise_facts(facts: Any) -> List[Dict[str, Any]]:
+    """
+    Normalise whatever the LLM returned into List[{id, text, source}].
+    Handles:
+      - Correct: list of fact dicts           [{"id":..., "text":..., "source":...}, ...]
+      - Wrapper: dict with facts/items key     {"facts": [{...}]}
+      - Single:  a single fact dict            {"id":..., "text":..., "source":...}
+      - Legacy:  nested key-value dict         {"accused": {"name": "X"}, ...}
+      - String:  bare string (broken capture)  -> empty
+    """
+    # Unwrap common wrapper patterns
+    if isinstance(facts, dict):
+        for wrapper_key in ("facts", "items", "result", "results", "data", "extracted_facts"):
+            if wrapper_key in facts and isinstance(facts[wrapper_key], list):
+                facts = facts[wrapper_key]
+                break
+        else:
+            # Check if it looks like a single fact object
+            if "text" in facts or "value" in facts:
+                single_txt = str(facts.get("text") or facts.get("value") or "").strip()
+                if single_txt:
+                    return [{"id": "fact_1",
+                             "text": single_txt,
+                             "source": str(facts.get("source", "record")).strip()}]
+            # Legacy nested dict: flatten
+            out: List[Dict[str, Any]] = []
+            for k, v in facts.items():
+                if isinstance(v, dict):
+                    for sub_k, sub_v in v.items():
+                        if sub_v:
+                            out.append({"id": f"fact_{len(out) + 1}",
+                                        "text": f"{k}.{sub_k}: {sub_v}",
+                                        "source": "record"})
+                elif isinstance(v, list):
+                    for item in v:
+                        if item:
+                            out.append({"id": f"fact_{len(out) + 1}",
+                                        "text": f"{k}: {item}",
+                                        "source": "record"})
+                elif v:
+                    out.append({"id": f"fact_{len(out) + 1}",
+                                "text": f"{k}: {v}",
+                                "source": "record"})
+            return out
 
-
-def _normalise_facts(facts: Dict[str, Any]) -> Dict[str, Any]:
-    who = facts.get("who") or {}
-    incident = facts.get("incident") or {}
-    prop = facts.get("property") or {}
-
-    vehicles_raw = prop.get("vehicles") or []
-    vehicles = []
-    if isinstance(vehicles_raw, list):
-        for item in vehicles_raw:
+    if isinstance(facts, list):
+        out = []
+        for i, item in enumerate(facts):
             if isinstance(item, dict):
-                vehicles.append(_normalise_vehicle(item))
+                fid = item.get("id") or f"fact_{i + 1}"
+                txt = item.get("text") or item.get("value") or str(item)
+                src = item.get("source") or "record"
+                ftype = item.get("type") or "allegation"
+                out.append({"id": str(fid), "text": str(txt).strip(), "source": str(src).strip(), "type": str(ftype).strip()})
+            elif isinstance(item, str) and item.strip():
+                out.append({"id": f"fact_{i + 1}", "text": item.strip(), "source": "record", "type": "allegation"})
+        return out
 
-    other_property = prop.get("other_property") or []
-    if not isinstance(other_property, list):
-        other_property = []
-
-    sections = facts.get("sections") or []
-    if not isinstance(sections, list):
-        sections = []
-
-    return {
-        "who": {
-            "complainant": who.get("complainant") or None,
-            "accused": list(who.get("accused") or []),
-            "victims": list(who.get("victims") or []),
-        },
-        "incident": {
-            "summary": incident.get("summary") or None,
-            "date": incident.get("date") or None,
-            "time": incident.get("time") or None,
-            "place": incident.get("place") or None,
-        },
-        "property": {
-            "cash": prop.get("cash") or None,
-            "gold": prop.get("gold") or None,
-            "documents": prop.get("documents") or None,
-            "vehicles": vehicles,
-            "other_property": [str(x) for x in other_property if x is not None],
-            "estimated_loss": prop.get("estimated_loss") or None,
-        },
-        "sections": [str(x) for x in sections if x is not None],
-    }
+    # Anything else (None, string, int) — return empty
+    return []
 
 
-def _empty_facts() -> Dict[str, Any]:
-    return {
-        "who": {"complainant": None, "accused": [], "victims": []},
-        "incident": {"summary": None, "date": None, "time": None, "place": None},
-        "property": {
-            "cash": None,
-            "gold": None,
-            "documents": None,
-            "vehicles": [],
-            "other_property": [],
-            "estimated_loss": None,
-        },
-        "sections": [],
-    }
+def _empty_facts() -> List[Dict[str, Any]]:
+    return []
 
 
 def _extract_single_call_from_text(text: str) -> Dict[str, Any]:
@@ -504,10 +483,20 @@ def _extract_chunked_with_reconciliation(raw_text: str) -> Dict[str, Any]:
     )
 
     if not recon:
-        # fallback to first partial if reconciliation fails
-        return _normalise_facts(partials[0])
+        # fallback: merge all partial results
+        merged: List[Dict[str, Any]] = []
+        seen_texts: set = set()
+        for partial in partials:
+            for fact in _normalise_facts(partial):
+                txt = fact.get("text", "").strip()
+                if txt and txt not in seen_texts:
+                    seen_texts.add(txt)
+                    fact["id"] = f"fact_{len(merged) + 1}"
+                    merged.append(fact)
+        return merged if merged else _normalise_facts(partials[0])
 
     return _normalise_facts(recon)
+
 
 
 def extract_facts(raw_text: str) -> Dict[str, Any]:
@@ -557,9 +546,18 @@ def store_to_pinecone(session_id: str, facts: Dict[str, Any]):
     from sentence_transformers import SentenceTransformer
     from pinecone import Pinecone
 
-    text_for_embedding = facts.get("incident", {}).get("summary") or ""
+    if isinstance(facts, list):
+        text_for_embedding = " ".join([f.get("text", "") for f in facts[:10]]).strip()
+        place_meta = ""
+    elif isinstance(facts, dict):
+        text_for_embedding = facts.get("incident", {}).get("summary") or ""
+        place_meta = facts.get("incident", {}).get("place") or ""
+    else:
+        text_for_embedding = str(facts).strip()
+        place_meta = ""
+
     if not text_for_embedding:
-        print("Skipping Pinecone: no incident summary to embed")
+        print("Skipping Pinecone: no facts text to embed")
         return
 
     model = SentenceTransformer("all-MiniLM-L6-v2")
@@ -574,8 +572,8 @@ def store_to_pinecone(session_id: str, facts: Dict[str, Any]):
         "metadata": {
             "type": "case_evidence",
             "session_id": session_id,
-            "summary": text_for_embedding,
-            "place": facts.get("incident", {}).get("place") or "",
+            "summary": text_for_embedding[:500],
+            "place": place_meta,
         },
     }])
 
@@ -596,9 +594,16 @@ def build_session_id(file_path: str) -> str:
 def analyze_evidence(session_id: str, file_path: str) -> Dict[str, Any]:
     raw_text = extract_text(file_path)
     facts = extract_facts(raw_text)
-    store_to_firestore(session_id, raw_text, facts)
-    store_to_pinecone(session_id, facts)
+    try:
+        store_to_firestore(session_id, raw_text, facts)
+    except Exception as e:
+        print(f"[EvidenceAnalyzer] Skipping Firestore storage: {e}")
+    try:
+        store_to_pinecone(session_id, facts)
+    except Exception as e:
+        print(f"[EvidenceAnalyzer] Skipping Pinecone storage: {e}")
     return facts
+
 
 
 if __name__ == "__main__":

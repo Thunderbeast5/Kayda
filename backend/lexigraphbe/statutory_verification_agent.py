@@ -157,17 +157,46 @@ class StatutoryVerificationAgent:
         return self._llm
 
     def _load_statutory_text_db(self):
-        """Loads complete statutory text database strictly and exclusively from ipc.json via StatuteRepository."""
-        repo = StatuteRepository.get_instance()
-        self.statute_db = repo.get_statute_db()
+        """Loads complete statutory text database from data/new/ CSV and JSON datasets."""
+        ipc_paths = [
+            Path("data/new/ipc_sections.csv"),
+            Path("../data/new/ipc_sections.csv"),
+            Path("c:/MootCourt/data/new/ipc_sections.csv"),
+        ]
+
+        # Load IPC DB
+        for p in ipc_paths:
+            if p.exists():
+                try:
+                    with open(p, mode="r", encoding="utf-8", errors="ignore") as f:
+                        reader = csv.DictReader(f)
+                        for row in reader:
+                            sec_num = (row.get("Section") or "").replace("IPC_", "").strip()
+                            offense = (row.get("Offense") or "").strip()
+                            desc = (row.get("Description") or "").strip()
+                            punishment = (row.get("Punishment") or "").strip()
+                            if sec_num:
+                                self.statute_db[f"IPC_{sec_num}"] = {
+                                    "statute": "IPC",
+                                    "section_number": sec_num,
+                                    "section_title": offense,
+                                    "full_text": desc,
+                                    "punishment": punishment or desc,
+                                    "explanations": "See statutory description.",
+                                    "illustrations": "N/A",
+                                    "exceptions": "N/A",
+                                    "provisos": "N/A",
+                                }
+                    break
+                except Exception:
+                    pass
 
     def retrieve_statutory_context_for_candidates(
         self,
         chapter_obj: ChapterIdentificationObject,
     ) -> List[Dict[str, Any]]:
         """Retrieves full statutory context records for all section candidates shortlisted in Stage 3."""
-        regime_str = chapter_obj.legal_regime or ""
-        statute_prefix = "BNS" if "BNS" in regime_str.upper() else "IPC"
+        statute_prefix = "IPC"
 
         context_list = []
         target_list = chapter_obj.verified_offences or chapter_obj.section_candidates

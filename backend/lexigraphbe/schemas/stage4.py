@@ -155,7 +155,7 @@ class StatutoryVerificationObject(ManualReviewMixin):
     )
     legal_regime: Optional[str] = Field(
         default="IPC + CrPC",
-        description="Legal regime passed through unchanged from Stage 3 ('IPC + CrPC' or 'BNS + BNSS')"
+        description="Legal regime passed through unchanged from Stage 3 ('IPC + CrPC')"
     )
 
     verification_status: str = Field(

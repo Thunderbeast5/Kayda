@@ -119,12 +119,21 @@ class LexiGraphAgent:
         self.evidence_ranking_service = EvidenceRankingService()
         self.feedback_service = FeedbackService()
 
-    def process_query(self, query: str, debug: bool = False) -> Dict[str, Any]:
+    def process_query(self, query: str, debug: bool = False, role: str = "neutral") -> Dict[str, Any]:
         """
         Processes a user query and returns consolidated, validated, and ranked legal provisions
         using a hierarchical retrieval pipeline.
         Returns a lean Production JSON by default, or includes diagnostic details if debug=True.
+
+        Args:
+            query: The legal query or case facts to analyse.
+            debug: If True, includes full diagnostic details in the output.
+            role:  Caller role hint — "prosecutor", "defense", or "neutral".
+                   Logged for traceability; also stored as ``_caller_role`` in
+                   the output dict so downstream agents can inspect it.
+                   Will be wired into prompt-tuning in a future pass.
         """
+        print(f"\n[LexiGraphAgent] called by role='{role}' for query: '{query[:80]}{'...' if len(query)>80 else ''}'")
         user_asked_ipc = any(word in query.lower() for word in ["ipc", "indian penal code", "historical", "before bns"])
 
         # ── STEP 1: Query Understanding, Expansion & Citation Grounding Gate ──
@@ -612,7 +621,8 @@ class LexiGraphAgent:
             "supporting_principles": supporting_principles,
             "supporting_graph": supporting_graph,
             "community": community_info,
-            "rejected_sections": rejected_sections_formatted
+            "rejected_sections": rejected_sections_formatted,
+            "_caller_role": role,   # traceability: which agent triggered this retrieval
         }
 
         if debug:

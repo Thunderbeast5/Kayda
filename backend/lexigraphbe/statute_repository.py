@@ -23,8 +23,6 @@ class StatuteRepository:
             raise RuntimeError("StatuteRepository is a singleton. Use StatuteRepository.get_instance().")
 
         self.sections_db: List[Dict[str, Any]] = []
-        self.ipc_to_bns: Dict[str, Dict[str, str]] = {}
-        self.bns_to_ipc: Dict[str, Dict[str, str]] = {}
         self._is_loaded = False
 
     @classmethod
@@ -36,9 +34,6 @@ class StatuteRepository:
                     instance = super(StatuteRepository, cls).__new__(cls)
                     instance.sections_db = []
                     instance.statute_db = {}
-                    instance.ipc_to_bns = {}
-                    instance.bns_to_ipc = {}
-                    instance.ipc_json_section_numbers = set()
                     instance._is_loaded = False
                     instance._load_all_datasets()
                     cls._instance = instance
@@ -228,27 +223,19 @@ class StatuteRepository:
             pass
 
     def _load_all_datasets(self) -> None:
-        """Loads IPC datasets strictly and exclusively from ipc.json."""
+        """Loads IPC and Special Acts datasets into shared memory index."""
         if self._is_loaded:
             return
 
-        self._load_ipc_json()  # Strictly use ipc.json as sole source
+        self._load_ipc_sections()
         self._is_loaded = True
 
-    def _load_ipc_and_bns_sections(self) -> None:
+    def _load_ipc_sections(self) -> None:
         candidate_ipc = [
             Path("data/new/ipc_sections.csv"),
             Path("../data/new/ipc_sections.csv"),
             Path("c:/proj/MootCourt/data/new/ipc_sections.csv"),
             Path("c:/MootCourt/data/new/ipc_sections.csv"),
-        ]
-        candidate_bns = [
-            Path("data/new/bns_sections1.csv"),
-            Path("c:/proj/MootCourt/data/new/bns_sections1.csv"),
-            Path("data/new/bns_sections_clean.csv"),
-            Path("../data/new/bns_sections_clean.csv"),
-            Path("c:/proj/MootCourt/data/new/bns_sections_clean.csv"),
-            Path("c:/MootCourt/data/new/bns_sections_clean.csv"),
         ]
 
         # 1. Load IPC dataset
@@ -289,45 +276,7 @@ class StatuteRepository:
                 except Exception:
                     pass
 
-        # 2. Load BNS dataset
-        for p in candidate_bns:
-            if p.exists():
-                try:
-                    with open(p, mode="r", encoding="utf-8", errors="ignore") as f:
-                        reader = csv.DictReader(f)
-                        for row in reader:
-                            sec_num = (row.get("BNS_Section_Clean") or row.get("bns_section") or row.get("Section") or "").strip()
-                            title = (row.get("BNS_Title") or row.get("title") or row.get("Offense") or "").strip()
-                            desc = (row.get("Description") or row.get("content") or "").strip()
-                            punishment = (row.get("Punishment") or "").strip()
-                            if sec_num:
-                                clean_num = sec_num.replace("BNS_", "").strip()
-                                full_text = f"{title} {desc} {clean_num}".lower()
-                                self.sections_db.append({
-                                    "identifier": f"BNS {clean_num}",
-                                    "statute": "BNS",
-                                    "section_number": clean_num,
-                                    "title": title or f"BNS Section {clean_num}",
-                                    "chapter": "BNS Offence Chapter",
-                                    "full_text": full_text,
-                                    "raw_row": dict(row),
-                                })
-                                self.statute_db[f"BNS_{clean_num}"] = {
-                                    "statute": "BNS",
-                                    "section_number": clean_num,
-                                    "section_title": title,
-                                    "full_text": desc,
-                                    "punishment": punishment or desc,
-                                    "explanations": "See statutory description.",
-                                    "illustrations": "N/A",
-                                }
-                    break
-                except Exception:
-                    pass
-
-        # 3. Load Special Acts datasets (Dowry Prohibition Act, PWDVA, etc.)
-        # NOTE: full_text here is real statutory text, not keyword bags.
-        # This ensures get_statutory_definition() returns definition-grounded text for scope checking.
+        # 2. Load Special Acts datasets (Dowry Prohibition Act, PWDVA, etc.)
         special_acts = [
             {
                 "identifier": "DP Act Section 4",
@@ -395,58 +344,8 @@ class StatuteRepository:
                 "illustrations": "N/A",
             }
 
-    def _load_ipc2bns_mapping(self) -> None:
-        candidate_paths = [
-            Path("backend/lexigraphbe/ipc2bns_clean.csv"),
-            Path("ipc2bns_clean.csv"),
-            Path("c:/proj/MootCourt/backend/lexigraphbe/ipc2bns_clean.csv"),
-            Path("c:/MootCourt/backend/lexigraphbe/ipc2bns_clean.csv"),
-        ]
-
-        target_path = None
-        for p in candidate_paths:
-            if p.exists():
-                target_path = p
-                break
-
-        if not target_path:
-            return
-
-        try:
-            with open(target_path, mode="r", encoding="utf-8", errors="ignore") as f:
-                reader = csv.DictReader(f)
-                for row in reader:
-                    ipc_sec = (row.get("IPC_Section") or "").strip().upper()
-                    bns_clean = (row.get("BNS_Section_Clean") or "").strip().upper()
-                    bns_raw = (row.get("BNS_Section_Raw") or "").strip()
-                    ipc_title = (row.get("IPC_Title") or "").strip()
-                    bns_title = (row.get("BNS_Title") or "").strip()
-                    parent_bns = (row.get("ParentSection") or "").strip()
-
-                    entry = {
-                        "ipc_section": ipc_sec,
-                        "ipc_title": ipc_title,
-                        "bns_section_clean": bns_clean,
-                        "bns_section_raw": bns_raw,
-                        "bns_title": bns_title,
-                        "parent_bns_section": parent_bns,
-                    }
-
-                    if ipc_sec:
-                        self.ipc_to_bns[ipc_sec] = entry
-                    if bns_clean:
-                        self.bns_to_ipc[bns_clean] = entry
-        except Exception:
-            pass
-
     def get_sections_db(self) -> List[Dict[str, Any]]:
         return self.sections_db
-
-    def get_ipc_to_bns_map(self) -> Dict[str, Dict[str, str]]:
-        return self.ipc_to_bns
-
-    def get_bns_to_ipc_map(self) -> Dict[str, Dict[str, str]]:
-        return self.bns_to_ipc
 
     def get_statute_db(self) -> Dict[str, Dict[str, Any]]:
         return self.statute_db
@@ -535,15 +434,6 @@ class StatuteRepository:
                 "cognizable": True,
                 "bailable": False,
             },
-            "85": {  # BNS equivalent of 498A
-                "chapter_number": "V",
-                "chapter_title": "Of Offences Against Woman and Child",
-                "punishment_minimum": None,
-                "punishment_maximum": "3 Years",
-                "fine": True,
-                "cognizable": True,
-                "bailable": False,
-            },
             "304B": {
                 "chapter_number": "XVI",
                 "chapter_title": "Offences Affecting Life / Offences Against Woman",
@@ -553,26 +443,8 @@ class StatuteRepository:
                 "cognizable": True,
                 "bailable": False,
             },
-            "80": {  # BNS equivalent of 304B
-                "chapter_number": "V",
-                "chapter_title": "Of Offences Against Woman and Child",
-                "punishment_minimum": "7 Years",
-                "punishment_maximum": "Life Imprisonment",
-                "fine": True,
-                "cognizable": True,
-                "bailable": False,
-            },
             "302": {
                 "chapter_number": "XVI",
-                "chapter_title": "Offences Affecting Life",
-                "punishment_minimum": None,
-                "punishment_maximum": "Death or Life Imprisonment",
-                "fine": True,
-                "cognizable": True,
-                "bailable": False,
-            },
-            "103": {  # BNS equivalent of 302
-                "chapter_number": "VI",
                 "chapter_title": "Offences Affecting Life",
                 "punishment_minimum": None,
                 "punishment_maximum": "Death or Life Imprisonment",
@@ -589,21 +461,21 @@ class StatuteRepository:
                 "cognizable": True,
                 "bailable": False,
             },
-            "109": {  # BNS equivalent of 307
-                "chapter_number": "VI",
-                "chapter_title": "Offences Affecting Life",
-                "punishment_minimum": None,
-                "punishment_maximum": "Life Imprisonment",
-                "fine": True,
-                "cognizable": True,
-                "bailable": False,
-            },
             "376": {
                 "chapter_number": "XVI",
                 "chapter_title": "Offences Affecting Human Body",
                 "punishment_minimum": "7 Years",
                 "punishment_maximum": "Life Imprisonment",
-                "fine": False,
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "406": {
+                "chapter_number": "XVII",
+                "chapter_title": "Offences Against Property / Criminal Breach of Trust",
+                "punishment_minimum": None,
+                "punishment_maximum": "3 Years",
+                "fine": True,
                 "cognizable": True,
                 "bailable": False,
             },
@@ -616,36 +488,9 @@ class StatuteRepository:
                 "cognizable": True,
                 "bailable": False,
             },
-            "318": {  # BNS equivalent of 420
-                "chapter_number": "XI",
-                "chapter_title": "Offences Against Property",
-                "punishment_minimum": None,
-                "punishment_maximum": "7 Years",
-                "fine": True,
-                "cognizable": True,
-                "bailable": False,
-            },
-            "406": {
-                "chapter_number": "XVII",
-                "chapter_title": "Offences Against Property",
-                "punishment_minimum": None,
-                "punishment_maximum": "3 Years",
-                "fine": True,
-                "cognizable": True,
-                "bailable": False,
-            },
-            "316": {  # BNS equivalent of 406
-                "chapter_number": "XI",
-                "chapter_title": "Offences Against Property",
-                "punishment_minimum": None,
-                "punishment_maximum": "3 Years",
-                "fine": True,
-                "cognizable": True,
-                "bailable": False,
-            },
             "506": {
                 "chapter_number": "XXII",
-                "chapter_title": "Criminal Intimidation, Insult, and Annoyance",
+                "chapter_title": "Criminal Intimidation, Insult and Annoyance",
                 "punishment_minimum": None,
                 "punishment_maximum": "2 Years",
                 "fine": True,
@@ -661,14 +506,32 @@ class StatuteRepository:
                 "cognizable": False,
                 "bailable": True,
             },
-            "115": {  # BNS equivalent of 323
-                "chapter_number": "V",
-                "chapter_title": "Offences Affecting Human Body",
+            "324": {
+                "chapter_number": "XVI",
+                "chapter_title": "Voluntarily Causing Hurt by Dangerous Weapons or Means",
                 "punishment_minimum": None,
-                "punishment_maximum": "1 Year",
+                "punishment_maximum": "3 Years",
                 "fine": True,
-                "cognizable": False,
+                "cognizable": True,
                 "bailable": True,
+            },
+            "325": {
+                "chapter_number": "XVI",
+                "chapter_title": "Voluntarily Causing Grievous Hurt",
+                "punishment_minimum": None,
+                "punishment_maximum": "7 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": True,
+            },
+            "326": {
+                "chapter_number": "XVI",
+                "chapter_title": "Voluntarily Causing Grievous Hurt by Dangerous Weapons or Means",
+                "punishment_minimum": None,
+                "punishment_maximum": "10 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
             },
             "SECTION 4": {  # Dowry Prohibition Act
                 "chapter_number": "DP Act",
@@ -715,15 +578,7 @@ class StatuteRepository:
                 "cognizable": True,
                 "bailable": False,
             },
-            "338": {  # BNS equivalent of IPC 468
-                "chapter_number": "XI",
-                "chapter_title": "Offences Relating to Documents",
-                "punishment_minimum": None,
-                "punishment_maximum": "7 Years",
-                "fine": True,
-                "cognizable": True,
-                "bailable": False,
-            },
+            # --- Non-cognizable, Bailable sections (First Schedule IPC) ---
             "465": {  # IPC 465: Forgery — Non-cognizable, Bailable, 2 Years
                 "chapter_number": "XVIII",
                 "chapter_title": "Offences Relating to Documents",
@@ -733,16 +588,7 @@ class StatuteRepository:
                 "cognizable": False,
                 "bailable": True,
             },
-            "336": {  # BNS equivalent of IPC 465
-                "chapter_number": "XI",
-                "chapter_title": "Offences Relating to Documents",
-                "punishment_minimum": None,
-                "punishment_maximum": "2 Years",
-                "fine": True,
-                "cognizable": False,
-                "bailable": True,
-            },
-            "423": {  # IPC 423: Fraudulent Deed Execution
+            "423": {  # IPC 423: Fraudulent Deed Execution — Non-cognizable, Bailable, 2 Years
                 "chapter_number": "XVII",
                 "chapter_title": "Offences Relating to Property",
                 "punishment_minimum": None,
@@ -751,26 +597,8 @@ class StatuteRepository:
                 "cognizable": False,
                 "bailable": True,
             },
-            "305": {  # BNS equivalent of IPC 423
-                "chapter_number": "XI",
-                "chapter_title": "Offences Relating to Property",
-                "punishment_minimum": None,
-                "punishment_maximum": "2 Years",
-                "fine": True,
-                "cognizable": False,
-                "bailable": True,
-            },
-            "403": {  # IPC 403: Dishonest Misappropriation of Property
+            "403": {  # IPC 403: Dishonest Misappropriation of Property — Non-cognizable, Bailable, 2 Years
                 "chapter_number": "XVII",
-                "chapter_title": "Offences Against Property",
-                "punishment_minimum": None,
-                "punishment_maximum": "2 Years",
-                "fine": True,
-                "cognizable": False,
-                "bailable": True,
-            },
-            "314": {  # BNS equivalent of IPC 403
-                "chapter_number": "XI",
                 "chapter_title": "Offences Against Property",
                 "punishment_minimum": None,
                 "punishment_maximum": "2 Years",

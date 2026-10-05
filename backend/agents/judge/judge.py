@@ -14,19 +14,64 @@ Routing logic (used by orchestrator_graph.py):
   total_prosecution_score < SUFFICIENCY_THRESHOLD  →  "needs_accused"
   otherwise                                         →  "verdict"
 
-Max debate rounds: 2  (prevents infinite loops)
+Max debate rounds: configurable via ORCHESTRATOR_MAX_ROUNDS (default 2)
 """
 
+import os
 import json
 import re
+from typing import Any, List
 
 from config.llm_config import get_llm
 
+try:
+    from agents.lexigraph.holding_retrieval import format_holdings_for_prompt
+except ImportError:
+    def format_holdings_for_prompt(holdings):
+        return json.dumps(holdings, indent=2)
+
 # If prosecution total score is below this, Judge asks Accused for clarification
-SUFFICIENCY_THRESHOLD = 15   # out of 30
+SUFFICIENCY_THRESHOLD = float(os.getenv("JUDGE_TOTAL_SUFFICIENCY_THRESHOLD", os.getenv("JUDGE_SUFFICIENCY_THRESHOLD", "15.0")))
+
+# Number of LLM votes per verdict call (set via env or default 5)
+VOTE_COUNT = int(os.getenv("JUDGE_VOTE_COUNT", "5"))
 
 
 # ── helpers ───────────────────────────────────────────────────────────────────
+
+def _format_laws_block(relevant_laws: list) -> str:
+    """Format verified LexiGraph laws into a prompt-ready bulleted list."""
+    if not relevant_laws:
+        return "No specific statutory provisions retrieved."
+    lines = []
+    for item in relevant_laws:
+        if isinstance(item, dict):
+            sec = item.get("section", "")
+            desc = item.get("description", "") or ""
+            pun = item.get("punishment", "") or ""
+            line = f"• IPC Section {sec}: {desc.strip()}"
+            if pun and str(pun).strip().lower() not in ("nan", "(not specified)", ""):
+                line += f" [Punishment: {pun.strip()}]"
+            lines.append(line)
+        elif isinstance(item, str):
+            lines.append(f"• {item}")
+    return "\n".join(lines) if lines else "No specific statutory provisions retrieved."
+
+
+def _format_facts_block(structured_facts: Any) -> str:
+    """Format facts into a readable list with ID, text, and source."""
+    if isinstance(structured_facts, list):
+        lines = []
+        for i, f in enumerate(structured_facts):
+            fid = getattr(f, "id", f.get("id", f"fact_{i+1}") if isinstance(f, dict) else f"fact_{i+1}")
+            txt = getattr(f, "text", f.get("text", f.get("value", str(f))) if isinstance(f, dict) else str(f))
+            src = getattr(f, "source", f.get("source", "record") if isinstance(f, dict) else "record")
+            lines.append(f"• [{fid}] {txt} (Source: {src})")
+        return "\n".join(lines) if lines else "No specific facts extracted."
+    elif isinstance(structured_facts, dict):
+        return json.dumps(structured_facts, indent=2)
+    return str(structured_facts)
+
 
 def _parse_scores(text: str) -> dict:
     """
@@ -52,34 +97,84 @@ def _parse_scores(text: str) -> dict:
     return scores
 
 
-def _parse_verdict(text: str) -> dict:
+def _parse_verdict(text: str, verified_laws: list = None) -> dict:
     """
     Extract structured verdict from the LLM's final verdict response.
     Returns a dict with: decision, laws_applied, confidence, explanation.
+    Validates laws_applied against verified legal provisions to prevent hallucination.
     """
     lower = text.lower()
 
-    # Decision
-    if "not guilty" in lower:
-        decision = "Not Guilty"
-    elif "guilty" in lower:
-        decision = "Guilty"
+    # Decision parsing: GRANTED | DENIED | NO_OPINION | INTERIM
+    m_dec = re.search(r"(?:verdict|decision|order)\s*:\s*([a-z_\s]+)", lower)
+    head = m_dec.group(1).strip() if m_dec else lower[:120]
+
+    if "interim" in head:
+        decision = "INTERIM"
+    elif "no_opinion" in head or "no opinion" in head or "cannot decide" in head:
+        decision = "NO_OPINION"
+    elif "grant" in head or "allow" in head or "not guilty" in head:
+        decision = "GRANTED"
+    elif "deni" in head or "reject" in head or "dismiss" in head or "guilty" in head:
+        decision = "DENIED"
+    elif "interim" in lower:
+        decision = "INTERIM"
+    elif "no_opinion" in lower or "no opinion" in lower or "inconclusive" in lower:
+        decision = "NO_OPINION"
+    elif "granted" in lower or "allowed" in lower:
+        decision = "GRANTED"
+    elif "denied" in lower or "rejected" in lower:
+        decision = "DENIED"
     else:
-        decision = "Inconclusive"
+        decision = "NO_OPINION"
+
 
     # Confidence — look for "confidence: 82%" or "82 percent" etc.
     conf_match = re.search(r"confidence[:\s]+(\d+)\s*%?", lower)
     confidence = int(conf_match.group(1)) if conf_match else 50
 
-    # IPC sections cited — look for "IPC 379", "Section 302" etc.
-    laws = list(set(re.findall(r"(?:ipc\s*|section\s*)(\d+[a-z]?)", lower)))
+    # IPC sections cited in the verdict text — look for "IPC 379", "Section 302" etc.
+    cited_raw = list(set(re.findall(r"(?:ipc\s*|section\s*)(\d+[a-z]?)", lower)))
+
+    # Anti-hallucination verification: collect known/verified section numbers
+    verified_sections = set()
+    if verified_laws:
+        for law in verified_laws:
+            if isinstance(law, dict) and law.get("section"):
+                verified_sections.add(str(law["section"]).strip().lower())
+            elif isinstance(law, str):
+                s = re.search(r"\b(\d+[a-z]?)\b", law)
+                if s:
+                    verified_sections.add(s.group(1).lower())
+
+    if verified_sections:
+        # Prioritize cited sections that are verified in LexiGraph
+        verified_cited = [s for s in cited_raw if s.lower() in verified_sections]
+        laws = verified_cited if verified_cited else cited_raw
+    else:
+        laws = cited_raw
+
+    # Extract only the actual explanation text after EXPLANATION: header
+    explanation_match = re.search(r"(?:###\s*)?EXPLANATION\s*:\s*([\s\S]*)", text, re.IGNORECASE)
+    if explanation_match:
+        explanation = explanation_match.group(1).strip()
+    else:
+        # Fallback: strip leading VERDICT, CONFIDENCE, LAWS APPLIED headers
+        cleaned = re.sub(
+            r"^(?:\s*(?:VERDICT|CONFIDENCE|LAWS\s+APPLIED)[^\n]*\n*)+",
+            "",
+            text.strip(),
+            flags=re.IGNORECASE,
+        ).strip()
+        explanation = cleaned or text.strip()
 
     return {
         "decision":     decision,
         "laws_applied": laws,
         "confidence":   confidence,
-        "explanation":  text.strip(),
+        "explanation":  explanation,
     }
+
 
 
 # ── JudgeAgent ────────────────────────────────────────────────────────────────
@@ -110,30 +205,48 @@ class JudgeAgent:
         structured_facts: dict,
         prosecution_args: str,
         defense_args: str,
+        relevant_laws: list = None,
+        evidence_inventory: list = None,
+        holdings: list = None,
     ) -> tuple[dict, str]:
         """
-        Score both arguments and decide if a clarification question is needed.
-
-        Returns
-        -------
-        scores   : dict  — {prosecution: {...}, defense: {...}}
-        question : str   — non-empty only when prosecution total < SUFFICIENCY_THRESHOLD
+        Score both arguments independently against the facts, inventory, and retrieved precedent holdings.
         """
+        laws_block = _format_laws_block(relevant_laws) if relevant_laws else "No specific statutory provisions retrieved."
+        holdings_block = format_holdings_for_prompt(holdings) if holdings else "No specific judicial precedent holdings retrieved."
+        inv_str = json.dumps(evidence_inventory, indent=2) if evidence_inventory else "No formal inventory; rely on case facts."
+        facts_block = _format_facts_block(structured_facts)
+
         prompt = f"""
 You are the Honourable Judge presiding over an Indian criminal court.
 
-Your task is to SCORE the prosecution and defense arguments independently.
+Your task is to SCORE the prosecution and defense arguments INDEPENDENTLY and IMPARTIALLY.
 Do NOT decide the verdict yet.
 
 Score each argument on three axes, each out of 10:
-  • Legal Validity   (are the cited IPC sections correctly applied?)
-  • Evidence Linkage (do the facts map to the legal claim?)
-  • Logic Coherence  (is the argument internally consistent?)
+  • Legal Validity   (are the cited statutory sections and precedent holdings correctly applied?)
+  • Evidence Linkage (do the assertions strictly map to the verified case facts and evidence inventory?)
+  • Logic Coherence  (is the argument internally consistent and procedurally sound?)
 
 ------------------------
 CASE FACTS
 ------------------------
-{json.dumps(structured_facts, indent=2)}
+{facts_block}
+
+------------------------
+EVIDENCE INVENTORY (RECORD STATUS)
+------------------------
+{inv_str}
+
+------------------------
+VERIFIED APPLICABLE LAWS (LEXIGRAPH)
+------------------------
+{laws_block}
+
+------------------------
+RETRIEVED PRECEDENT HOLDINGS (BINDING RATIO DECIDENDI)
+------------------------
+{holdings_block}
 
 ------------------------
 PROSECUTION ARGUMENTS
@@ -144,6 +257,16 @@ PROSECUTION ARGUMENTS
 DEFENSE ARGUMENTS
 ------------------------
 {defense_args}
+
+JUDICIAL SCORING CRITERIA:
+1. PROSECUTION SCORING:
+   - Check if prosecution proves statutory ingredients and correctly cites retrieved precedent holdings (e.g. Srikant Upadhyay on Section 82 proclamation / absconding, custodial necessity).
+   - If prosecution claims grievous hurt or attempt to murder without supporting medical evidence on record, reduce Evidence Linkage accordingly.
+   - CRITICAL: Simulated accused testimony is unverified simulation. Concessions or statements in simulated testimony must NEVER increase the prosecution's Evidence Linkage score beyond what is verified on the original case record.
+2. DEFENSE SCORING:
+   - Reward legitimate defense challenges regarding missing documents or absence of proof on record (e.g. "record does not show MLC/medical report", lack of premeditated intent, distinguishing precedent conditions).
+   - NOTE ON MERITS VS PROCESS: Missing medical and forensic proof is a trial-stage merits point. It does NOT answer, cure, or counter Section 82 CrPC proclamation / absconding / defiance of process in an anticipatory bail application. Do not award high Legal Validity to defense arguments claiming lack of forensic proof answers a Section 82 proclamation bar.
+   - PENALIZE Evidence Linkage heavily if the defense falsely asserts the absence of evidence that is explicitly marked 'present' in the inventory (e.g. falsely claiming no knife was recovered or no eyewitnesses were present).
 
 Respond in EXACTLY this format (no extra text):
 
@@ -195,90 +318,58 @@ QUESTION FOR ACCUSED (only if SUFFICIENCY is NO): <one precise factual question>
 
         return scores, question
 
-    # ── pass 2: verdict ───────────────────────────────────────────────────────
+    # -- pass 2: verdict (voting) -----------------------------------------------
 
     def verdict(
         self,
-        structured_facts: dict,
+        structured_facts,
         prosecution_args: str,
         defense_args: str,
-        accused_history: list[str],
+        accused_history,
         judge_scores: dict,
+        relevant_laws=None,
+        evidence_inventory=None,
+        holdings=None,
     ) -> dict:
         """
-        Deliver the final verdict after all arguments (and any Accused testimony)
-        have been heard.
+        Deliver the final verdict via n-shot majority voting.
+
+        Calls voting.decide() which:
+          1. Builds a structured prompt with facts + retrieved holdings.
+          2. Calls the LLM JUDGE_VOTE_COUNT times (default 5, env: JUDGE_VOTE_COUNT).
+          3. Validates each vote structurally (no invented citations, no
+             escape-hatch NO_OPINION without justification).
+          4. Aggregates by majority vote.
 
         Returns
         -------
-        verdict_object : dict — {decision, laws_applied, confidence, explanation}
+        dict with keys: decision, confidence (0.0-1.0), confidence_label,
+                        laws_applied, reasoning, factors, open_questions, vote_tally
         """
-        testimony_block = ""
-        if accused_history:
-            testimony_block = "\n------------------------\nACCUSED TESTIMONY\n------------------------\n"
-            for i, t in enumerate(accused_history, 1):
-                testimony_block += f"\nRound {i}:\n{t}\n"
+        from agents.judge.voting import decide
 
-        score_summary = ""
-        if judge_scores:
-            p = judge_scores.get("prosecution", {})
-            d = judge_scores.get("defense", {})
-            score_summary = (
-                f"\nPrevious scoring summary:\n"
-                f"  Prosecution — Legal: {p.get('legal_validity',0)}, "
-                f"Evidence: {p.get('evidence_linkage',0)}, "
-                f"Logic: {p.get('logic_coherence',0)}, "
-                f"Total: {p.get('total',0)}/30\n"
-                f"  Defense     — Legal: {d.get('legal_validity',0)}, "
-                f"Evidence: {d.get('evidence_linkage',0)}, "
-                f"Logic: {d.get('logic_coherence',0)}, "
-                f"Total: {d.get('total',0)}/30\n"
-            )
+        # Normalise facts: if it is a list already, pass it; otherwise wrap or empty
+        if isinstance(structured_facts, list):
+            facts_list = structured_facts
+        elif isinstance(structured_facts, dict):
+            # Convert legacy dict-style facts into list
+            facts_list = [{"id": k, "text": str(v), "source": "record"}
+                          for k, v in structured_facts.items() if v]
+        else:
+            facts_list = []
 
-        prompt = f"""
-You are the Honourable Judge presiding over an Indian criminal court.
-
-You have heard all arguments and testimony. Now deliver the FINAL VERDICT.
-
-------------------------
-CASE FACTS
-------------------------
-{json.dumps(structured_facts, indent=2)}
-
-------------------------
-PROSECUTION ARGUMENTS
-------------------------
-{prosecution_args}
-
-------------------------
-DEFENSE ARGUMENTS
-------------------------
-{defense_args}
-{testimony_block}
-{score_summary}
-
-Deliver your verdict in this EXACT format:
-
-VERDICT: <Guilty / Not Guilty>
-
-CONFIDENCE: <percentage, e.g. 78%>
-
-LAWS APPLIED:
-<List each IPC section you are relying on, one per line, e.g. IPC 379>
-
-EXPLANATION:
-<3–5 paragraphs. Explain your reasoning, how you weighed the evidence,
-which argument was stronger, and why you arrived at this verdict.
-Cite specific facts and IPC sections. Be precise and impartial.>
-"""
-
-        response = self.llm.invoke(prompt)
-        return _parse_verdict(response.content)
-
-
-# ── LangGraph node wrappers ───────────────────────────────────────────────────
-
-_judge_agent = None
+        result = decide(
+            facts=facts_list,
+            holdings=holdings or [],
+            prosecution_args=prosecution_args or "",
+            defense_args=defense_args or "",
+            accused_history=accused_history or [],
+            llm=self.llm,
+            relevant_laws=relevant_laws or [],
+            evidence_inventory=evidence_inventory or [],
+            n=VOTE_COUNT,
+        )
+        return result.to_dict()
 
 
 def _get_judge() -> JudgeAgent:
@@ -291,7 +382,7 @@ def _get_judge() -> JudgeAgent:
 def judge_score_node(state: dict) -> dict:
     """
     LangGraph node — scoring pass.
-    Reads prosecution_args + defense_args, writes judge_scores + judge_question.
+    Reads prosecution_args + defense_args + relevant_laws, writes judge_scores + judge_question.
     Routing: orchestrator checks state['judge_question'] to decide next node.
     """
     judge = _get_judge()
@@ -300,21 +391,24 @@ def judge_score_node(state: dict) -> dict:
         structured_facts  = state.get("structured_facts", {}),
         prosecution_args  = state.get("prosecution_args", ""),
         defense_args      = state.get("defense_args", ""),
+        relevant_laws     = state.get("relevant_laws", []),
     )
 
-    state["judge_scores"]   = scores
-    state["judge_question"] = question
-
-    p = scores["prosecution"]
-    d = scores["defense"]
+    p = scores.get("prosecution", {})
+    d = scores.get("defense", {})
     print(
-        f"[Judge] Scoring done. "
-        f"Prosecution: {p['total']}/30  |  Defense: {d['total']}/30"
+        f"[Judge] Scoring complete — "
+        f"Prosecution: {p.get('total', 0)}/30  |  Defense: {d.get('total', 0)}/30"
     )
     if question:
-        print(f"[Judge] Evidence insufficient — asking Accused: '{question}'")
+        print(f"[Judge] Clarification needed — questioning Accused: '{question}'")
+    else:
+        print("[Judge] Arguments sufficient — proceeding to Verdict.")
 
-    return state
+    return {
+        "judge_scores": scores,
+        "judge_question": question,
+    }
 
 
 def judge_verdict_node(state: dict) -> dict:
@@ -330,26 +424,28 @@ def judge_verdict_node(state: dict) -> dict:
         defense_args     = state.get("defense_args", ""),
         accused_history  = state.get("accused_history", []),
         judge_scores     = state.get("judge_scores", {}),
+        relevant_laws    = state.get("relevant_laws", []),
     )
 
-    state["judge_verdict"] = verdict
+    conf_str = str(verdict.get("confidence_label") or verdict.get("confidence") or "medium").upper()
     print(
-        f"[Judge] Verdict: {verdict['decision']}  "
-        f"(confidence {verdict['confidence']}%)"
+        f"[Judge] Final Verdict: {verdict.get('decision', 'Inconclusive')} "
+        f"(Confidence: {conf_str} | Laws Applied: {verdict.get('laws_applied', [])})"
     )
-    return state
+    return {"judge_verdict": verdict}
 
 
 def should_ask_accused(state: dict) -> str:
     """
     LangGraph conditional edge function.
     Returns "needs_accused" or "verdict" based on judge_question and debate_round.
+    Configurable via ORCHESTRATOR_MAX_ROUNDS (default 2).
     """
-    MAX_ROUNDS = 2
+    max_rounds = int(os.getenv("ORCHESTRATOR_MAX_ROUNDS", "2"))
     question   = state.get("judge_question", "")
     rounds     = state.get("debate_round", 0)
 
-    if question and rounds < MAX_ROUNDS:
+    if question and rounds < max_rounds:
         return "needs_accused"
     return "verdict"
 

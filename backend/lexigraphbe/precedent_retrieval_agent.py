@@ -21,6 +21,8 @@ def load_precedents_corpus() -> List[Dict[str, Any]]:
     Falls back to inline dataset if file is inaccessible.
     """
     candidate_paths = [
+        Path(__file__).resolve().parent.parent.parent / "data" / "new" / "precedents_structured.json",
+        Path("c:/proj/MootCourt/data/new/precedents_structured.json"),
         Path("data/new/precedents_structured.json"),
         Path("../data/new/precedents_structured.json"),
         Path("c:/MootCourt/data/new/precedents_structured.json"),

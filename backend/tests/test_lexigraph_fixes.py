@@ -75,6 +75,13 @@ class TestResults:
         return len(self.failed) == 0
 
 
+import pytest
+
+@pytest.fixture
+def results():
+    return TestResults()
+
+
 def test_1_case_retrieval_count(results: TestResults):
     """
     Test 1: Graph enrichment retrieves > 0 Supreme Court cases for IPC 420
