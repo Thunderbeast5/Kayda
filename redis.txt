@@ -1,3 +1,4 @@
+redis cmd
 redis-server --daemonize yes
 redis-cli ping
 redis-cli shutdown
