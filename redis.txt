@@ -2,3 +2,5 @@ redis-server --daemonize yes
 redis-cli ping
 redis-cli shutdown
 dsv
+
+Start-Process "C:\Program Files\Redis\redis-server.exe" -WindowStyle Hidden; Start-Sleep -Seconds 1; & "C:\Program Files\Redis\redis-cli.exe" ping
