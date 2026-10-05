@@ -8,6 +8,13 @@ import sys
 from pathlib import Path
 from typing import Optional
 
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+        sys.stderr.reconfigure(encoding="utf-8")
+    except Exception:
+        pass
+
 from .pipeline import Stage0Pipeline
 from .stage1_pipeline import Stage1Pipeline
 from .stage2_pipeline import Stage2Pipeline
@@ -16,6 +23,96 @@ from .stage4_pipeline import Stage4Pipeline
 from .stage5_pipeline import Stage5Pipeline
 from .stage6_pipeline import Stage6Pipeline
 from .schemas import IntakeInput
+
+def _print_pipeline_transition(stage_num: int, res: dict) -> None:
+    """Prints a concise pipeline transition summary after each stage output."""
+    sep = "=" * 60
+    if stage_num == 2:
+        mappings = res.get("mappings", [])
+        all_sections: dict = {}
+        for m in mappings:
+            sq_id = m.get("sub_query_id", "?")
+            for p in m.get("primary_candidate_sections", []):
+                s = p.get("section_number", "?")
+                all_sections.setdefault(s, {"classifications": [], "sub_queries": []})
+                all_sections[s]["classifications"].append("PRIMARY")
+                all_sections[s]["sub_queries"].append(sq_id)
+            for s_item in m.get("secondary_candidate_sections", []):
+                s = s_item.get("section_number", "?")
+                all_sections.setdefault(s, {"classifications": [], "sub_queries": []})
+                all_sections[s]["classifications"].append("SECONDARY")
+                all_sections[s]["sub_queries"].append(sq_id)
+            for c in m.get("conditional_candidate_sections", []):
+                s = c.get("section_number", "?")
+                all_sections.setdefault(s, {"classifications": [], "sub_queries": []})
+                all_sections[s]["classifications"].append("CONDITIONAL")
+                all_sections[s]["sub_queries"].append(sq_id)
+            for s in m.get("candidate_sections", []):
+                if isinstance(s, str):
+                    all_sections.setdefault(s, {"classifications": [], "sub_queries": []})
+                    all_sections[s]["classifications"].append("CANDIDATE")
+                    all_sections[s]["sub_queries"].append(sq_id)
+        print(f"\n{sep}", flush=True)
+        print(f"  STAGE 2 -> STAGE 3 PIPELINE HANDOFF", flush=True)
+        print(sep, flush=True)
+        print(f"  Sections being passed to Stage 3 ({len(all_sections)} total):", flush=True)
+        for sec, info in sorted(all_sections.items()):
+            types = "/".join(sorted(set(info["classifications"])))
+            sqs = ", ".join(sorted(set(info["sub_queries"])))
+            print(f"    [OK] Section {sec:>6}  [{types}]  (from {sqs})", flush=True)
+        print(sep, flush=True)
+    elif stage_num == 3:
+        pt = res.get("pipeline_transition")
+        if not pt:
+            accepted = [vo.get("section_number") for vo in res.get("verified_offences", [])]
+            print(f"\n{sep}", flush=True)
+            print(f"  STAGE 3 -> STAGE 4 PIPELINE HANDOFF", flush=True)
+            print(sep, flush=True)
+            print(f"  Sections passing to Stage 4: {accepted}", flush=True)
+            print(sep, flush=True)
+            return
+        received = pt.get("stage2_input_sections", [])
+        accepted = pt.get("stage3_accepted_sections", [])
+        rejected = pt.get("stage3_rejected_sections", [])
+        print(f"\n{sep}", flush=True)
+        print(f"  STAGE 3 -> STAGE 4 PIPELINE HANDOFF", flush=True)
+        print(sep, flush=True)
+        print(f"  Received from Stage 2 ({len(received)}): {received}", flush=True)
+        print(f"  Accepted by Stage 3   ({len(accepted)}): {accepted}", flush=True)
+        if rejected:
+            print(f"  Rejected by Stage 3   ({len(rejected)}):", flush=True)
+            for r in rejected:
+                print(f"    [!!] Section {r.get('section_number'):>6}  [{r.get('rejection_type', 'UNKNOWN')}]  -- {r.get('reason', '')}", flush=True)
+        else:
+            print(f"  Rejected by Stage 3   (0): None", flush=True)
+        print(f"  Passing to Stage 4: {pt.get('passing_to_stage4', accepted)}", flush=True)
+        print(sep, flush=True)
+    elif stage_num == 4:
+        pt = res.get("pipeline_transition")
+        if not pt:
+            accepted = [vs.get("section_number") for vs in res.get("verified_sections", [])]
+            print(f"\n{sep}", flush=True)
+            print(f"  STAGE 4 -> STAGE 5 PIPELINE HANDOFF", flush=True)
+            print(sep, flush=True)
+            print(f"  Sections confirmed for bail analysis: {accepted}", flush=True)
+            print(sep, flush=True)
+            return
+        received = pt.get("stage3_input_sections", [])
+        accepted = pt.get("stage4_accepted_sections", [])
+        rejected = pt.get("stage4_rejected_sections", [])
+        print(f"\n{sep}", flush=True)
+        print(f"  STAGE 4 -> STAGE 5 PIPELINE HANDOFF", flush=True)
+        print(sep, flush=True)
+        print(f"  Received from Stage 3 ({len(received)}): {received}", flush=True)
+        print(f"  Confirmed by Stage 4  ({len(accepted)}): {accepted}", flush=True)
+        if rejected:
+            print(f"  Dropped by Stage 4    ({len(rejected)}):", flush=True)
+            for r in rejected:
+                print(f"    [!!] Section {r.get('section_number'):>6}  -- {r.get('reason', '')}", flush=True)
+        else:
+            print(f"  Dropped by Stage 4    (0): None", flush=True)
+        print(f"  Passing to Stage 5: {pt.get('passing_to_stage5', accepted)}", flush=True)
+        print(sep, flush=True)
 
 
 def run_stage0(
@@ -32,7 +129,21 @@ def run_stage0(
         p = Path(file_path)
         if not p.exists():
             raise FileNotFoundError(f"File not found: {file_path}")
-        doc_text = p.read_text(encoding="utf-8")
+        if p.suffix.lower() == ".pdf":
+            try:
+                import fitz
+                doc = fitz.open(str(p))
+                pages_text = [page.get_text() for page in doc]
+                doc_text = "\n".join(pages_text)
+                if len(doc_text) > 35000:
+                    doc_text = "\n".join(pages_text[:12])
+            except Exception:
+                import pypdf
+                reader = pypdf.PdfReader(str(p))
+                pages_text = [page.extract_text() or "" for page in reader.pages]
+                doc_text = "\n".join(pages_text[:12]) if len(pages_text) > 12 else "\n".join(pages_text)
+        else:
+            doc_text = p.read_text(encoding="utf-8")
     elif text:
         doc_text = text
     else:
@@ -167,53 +278,60 @@ def main():
     try:
         if args.stage == 0:
             res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
-            print("\n=== STAGE 0 CASE CONTEXT RESULT ===")
-            print(json.dumps(res, indent=2, ensure_ascii=False))
+            print("\n=== STAGE 0 CASE CONTEXT RESULT ===", flush=True)
+            print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
         elif args.stage == 1:
             stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
             res = run_stage1(stage0_res)
-            print("\n=== STAGE 1 LEGAL QUERY RESULT ===")
-            print(json.dumps(res, indent=2, ensure_ascii=False))
+            print("\n=== STAGE 1 LEGAL QUERY RESULT ===", flush=True)
+            print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
         elif args.stage == 2:
             stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
             stage1_res = run_stage1(stage0_res)
             res = run_stage2(stage1_res)
-            print("\n=== STAGE 2 BATCHED SUB-QUERY MAPPING RESULT ===")
-            print(json.dumps(res, indent=2, ensure_ascii=False))
+            print("\n=== STAGE 2 BATCHED SUB-QUERY MAPPING RESULT ===", flush=True)
+            print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
+            _print_pipeline_transition(2, res)
         elif args.stage == 3:
             stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
             stage1_res = run_stage1(stage0_res)
-            res = run_stage3(stage1_res)
-            print("\n=== STAGE 3 CHAPTER IDENTIFICATION RESULT ===")
-            print(json.dumps(res, indent=2, ensure_ascii=False))
+            stage2_res = run_stage2(stage1_res)
+            res = run_stage3(stage1_res, stage2_res)
+            print("\n=== STAGE 3 CHAPTER IDENTIFICATION RESULT ===", flush=True)
+            print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
+            _print_pipeline_transition(3, res)
         elif args.stage == 4:
             stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
             stage1_res = run_stage1(stage0_res)
-            stage3_res = run_stage3(stage1_res)
+            stage2_res = run_stage2(stage1_res)
+            stage3_res = run_stage3(stage1_res, stage2_res)
             res = run_stage4(stage1_res, stage3_res)
-            print("\n=== STAGE 4 STATUTORY VERIFICATION RESULT ===")
-            print(json.dumps(res, indent=2, ensure_ascii=False))
+            print("\n=== STAGE 4 STATUTORY VERIFICATION RESULT ===", flush=True)
+            print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
+            _print_pipeline_transition(4, res)
         elif args.stage == 5:
             stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
             stage1_res = run_stage1(stage0_res)
-            stage3_res = run_stage3(stage1_res)
+            stage2_res = run_stage2(stage1_res)
+            stage3_res = run_stage3(stage1_res, stage2_res)
             stage4_res = run_stage4(stage1_res, stage3_res)
             res = run_stage5(stage0_res, stage1_res, stage4_res)
-            print("\n=== STAGE 5 BAIL REASONING RESULT ===")
-            print(json.dumps(res, indent=2, ensure_ascii=False))
+            print("\n=== STAGE 5 BAIL REASONING RESULT ===", flush=True)
+            print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
         elif args.stage == 6:
             stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
             stage1_res = run_stage1(stage0_res)
-            stage3_res = run_stage3(stage1_res)
+            stage2_res = run_stage2(stage1_res)
+            stage3_res = run_stage3(stage1_res, stage2_res)
             stage4_res = run_stage4(stage1_res, stage3_res)
             stage5_res = run_stage5(stage0_res, stage1_res, stage4_res)
             res = run_stage6(stage0_res, stage1_res, stage4_res, stage5_res)
-            print("\n=== STAGE 6 PRECEDENT RETRIEVAL RESULT ===")
-            print(json.dumps(res, indent=2, ensure_ascii=False))
+            print("\n=== STAGE 6 PRECEDENT RETRIEVAL RESULT ===", flush=True)
+            print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
         else:
             res = run_full_pipeline(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
-            print("\n=== FULL END-TO-END STAGE 0+1+2+3+4+5+6 PIPELINE CHAIN RESULT ===")
-            print(json.dumps(res, indent=2, ensure_ascii=False))
+            print("\n=== FULL END-TO-END STAGE 0+1+2+3+4+5+6 PIPELINE CHAIN RESULT ===", flush=True)
+            print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
     except Exception as e:
         print(f"Error running pipeline: {e}", file=sys.stderr)
         sys.exit(1)

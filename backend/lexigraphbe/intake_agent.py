@@ -26,7 +26,7 @@ class CaseIntakeAgent:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm(temperature=0.1, model_name=MODEL_STAGE0)
+            self._llm = get_llm(temperature=0.0, model_name=MODEL_STAGE0)
         return self._llm
 
     def run(
@@ -90,11 +90,24 @@ class CaseIntakeAgent:
         # Parse extracted JSON
         extracted_dict = extract_json_from_text(response_text)
 
-        # Handle explicit user regime override
+        # Handle legal regime (always default to IPC + CrPC)
         if inp.legal_regime_override:
             extracted_dict["legal_regime"] = inp.legal_regime_override
             extracted_dict["flag_for_confirmation"] = False
             extracted_dict["regime_notes"] = f"User explicit override applied: {inp.legal_regime_override}"
+        else:
+            extracted_dict["legal_regime"] = "IPC + CrPC"
+            extracted_dict["flag_for_confirmation"] = False
+            extracted_dict["regime_notes"] = "Statute regime: Indian Penal Code (IPC) + Code of Criminal Procedure (CrPC)."
+
+        # Normalize case_facts from common LLM synonym keys if needed
+        if not extracted_dict.get("case_facts"):
+            for alt_key in ["case_narrative", "factual_narrative", "facts", "narrative", "offence_narrative"]:
+                if extracted_dict.get(alt_key):
+                    extracted_dict["case_facts"] = extracted_dict[alt_key]
+                    break
+        if not extracted_dict.get("case_facts") and inp.documents_text:
+            extracted_dict["case_facts"] = inp.documents_text
 
         # Validate with CaseProfile schema
         case_profile = CaseProfile.model_validate(extracted_dict)

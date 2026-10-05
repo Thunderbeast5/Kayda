@@ -1,0 +1,1931 @@
+{
+  "session_id": "d8441ccc-f576-4681-a6a8-ed43575c1158",
+  "schema_version": "1.0",
+  "created_at": "2026-08-21T09:19:05.081602+00:00",
+  "case_text": "The applicant seeks anticipatory bail after an FIR alleges that he forged ownership documents of agricultural land, executed a fraudulent sale deed, and dishonestly transferred the property to a third party; the applicant claims the documents are genuine, asserts that the dispute concerns title over immovable property, and has cooperated with the investigating agency",
+  "case_summary": "The applicant is seeking anticipatory bail in response to allegations of forgery and fraudulent transfer of agricultural land ownership. The case involves a dispute over the title of immovable property.",
+  "accused": "The applicant (name not specified)",
+  "victim": "The rightful owner of the agricultural land (name not specified)",
+  "nature_of_offence": "Forgery and fraud related to property",
+  "bail_relevant_facts": [
+    {
+      "fact": "The allegations involve serious criminal activity related to property fraud.",
+      "citation": "alleges that he forged ownership documents of agricultural land, executed a fraudulent sale deed, and dishonestly transferred the property to a third party",
+      "bail_factor": "Gravity/nature of offence"
+    },
+    {
+      "fact": "The nature of the allegations suggests a strong prima facie case against the applicant.",
+      "citation": "alleges that he forged ownership documents of agricultural land, executed a fraudulent sale deed",
+      "bail_factor": "Prima facie strength of evidence"
+    },
+    {
+      "fact": "The applicant's actions could lead to the destruction of evidence related to the fraudulent transaction.",
+      "citation": "executed a fraudulent sale deed, and dishonestly transferred the property to a third party",
+      "bail_factor": "Risk of evidence tampering / destruction"
+    }
+  ],
+  "smart_subqueries": [
+    {
+      "id": "PSQ1",
+      "query": "Forgery of property documents",
+      "concept": "Forgery",
+      "bail_relevance": "This concept is crucial as it highlights the serious nature of the offence and the potential for evidence tampering."
+    },
+    {
+      "id": "PSQ2",
+      "query": "Fraudulent transfer of property",
+      "concept": "Fraud",
+      "bail_relevance": "Understanding the implications of fraudulent property transactions is essential for assessing the risk of further criminal activity."
+    }
+  ],
+  "bail_factors_present": [
+    "Gravity/nature of offence",
+    "Prima facie strength of evidence",
+    "Risk of evidence tampering / destruction"
+  ],
+  "full_pipeline_output": {
+    "stage0_case_context": {
+      "schema_version": "1.0",
+      "case_profile": {
+        "case_metadata": {
+          "case_id": null,
+          "court": null,
+          "police_station": null,
+          "fir_number": null,
+          "fir_date": null,
+          "offence_date": null,
+          "state": null,
+          "district": null
+        },
+        "parties": {
+          "complainant": null,
+          "victim": null,
+          "accused": [
+            {
+              "name": "Applicant",
+              "relationship": null,
+              "role_alleged": "Accused",
+              "bail_status": "Seeking Anticipatory Bail"
+            }
+          ],
+          "relationship": null
+        },
+        "procedural_stage": "Anticipatory Bail",
+        "requested_relief": "Anticipatory Bail",
+        "legal_regime": "UNKNOWN",
+        "flag_for_confirmation": true,
+        "regime_notes": "Both Offence Date and FIR Date are absent.",
+        "min_confidence_threshold": 0.7,
+        "low_confidence_fields": [],
+        "overall_confidence": 0.93,
+        "contract_status": "CONTRACT_WARNING",
+        "contract_violations": [],
+        "documents": [],
+        "case_facts": "The applicant seeks anticipatory bail after an FIR alleges that he forged ownership documents of agricultural land, executed a fraudulent sale deed, and dishonestly transferred the property to a third party; the applicant claims the documents are genuine, asserts that the dispute concerns title over immovable property, and has cooperated with the investigating agency.",
+        "primary_participants": {
+          "victim": [],
+          "accused": [
+            "Applicant"
+          ],
+          "witnesses": [],
+          "investigating_officer": null,
+          "advocate": null
+        },
+        "missing_information": [
+          "FIR Date",
+          "Offence Date",
+          "Court",
+          "Police Station",
+          "FIR Number",
+          "State",
+          "District",
+          "Legal regime confirmation (Offence/FIR date missing)",
+          "Procedural Document Missing: FIR / Complaint Copy",
+          "Procedural Document Missing: Bail Application Copy"
+        ],
+        "confidence": {
+          "procedural_stage": 0.95,
+          "legal_regime": 0.9
+        }
+      },
+      "contract_status": "CONTRACT_WARNING",
+      "contract_violations": [],
+      "verification_status": "NEEDS_CORRECTION",
+      "active_parties": [
+        "Applicant"
+      ],
+      "system_metadata": {
+        "intake_timestamp": "2026-08-21T09:19:37.395086+00:00",
+        "overall_confidence": 0.93,
+        "low_confidence_count": 0,
+        "flag_for_confirmation": true
+      }
+    },
+    "stage1_legal_query": {
+      "manual_review": [],
+      "schema_version": "1.0",
+      "case_type": "Anticipatory Bail",
+      "entities": {
+        "victim": [],
+        "accused": [
+          "Applicant"
+        ]
+      },
+      "relationship": [],
+      "legal_concepts": [
+        {
+          "concept": "Forgery",
+          "confidence": 0.95
+        },
+        {
+          "concept": "Fraudulent Sale Deed",
+          "confidence": 0.95
+        },
+        {
+          "concept": "Dishonest Transfer of Property",
+          "confidence": 0.95
+        },
+        {
+          "concept": "Dispute over Title of Immovable Property",
+          "confidence": 0.95
+        }
+      ],
+      "sub_queries": [
+        {
+          "id": "SQ1",
+          "query": "The applicant is alleged to have forged ownership documents of agricultural land.",
+          "concept": "Forgery",
+          "target_parties": [
+            "Applicant"
+          ],
+          "role_alleged": "Main Accused / Forgery of Documents"
+        },
+        {
+          "id": "SQ2",
+          "query": "The applicant is alleged to have executed a fraudulent sale deed regarding agricultural land.",
+          "concept": "Fraudulent Sale Deed",
+          "target_parties": [
+            "Applicant"
+          ],
+          "role_alleged": "Main Accused / Execution of Fraudulent Sale Deed"
+        },
+        {
+          "id": "SQ3",
+          "query": "The applicant is alleged to have dishonestly transferred property to a third party.",
+          "concept": "Dishonest Transfer of Property",
+          "target_parties": [
+            "Applicant"
+          ],
+          "role_alleged": "Main Accused / Dishonest Transfer"
+        },
+        {
+          "id": "SQ4",
+          "query": "The applicant claims that the dispute concerns title over immovable property.",
+          "concept": "Dispute over Title of Immovable Property",
+          "target_parties": [
+            "Applicant"
+          ],
+          "role_alleged": "Main Accused / Title Dispute"
+        }
+      ],
+      "procedural_events": [
+        "FIR Registered",
+        "Bail Application"
+      ],
+      "important_facts": {
+        "money": null,
+        "location": null,
+        "dates": [],
+        "weapon": null,
+        "medical_injury": null,
+        "electronic_evidence": null,
+        "documents": [],
+        "witnesses": []
+      },
+      "legal_regime": "UNKNOWN",
+      "flag_for_confirmation": true,
+      "regime_notes": "Both Offence Date and FIR Date are absent.",
+      "verification_status": "VERIFIED"
+    },
+    "stage2_subquery_mapping": {
+      "schema_version": "1.0",
+      "mappings": [
+        {
+          "sub_query_id": "SQ1",
+          "sub_query_text": "The applicant is alleged to have forged ownership documents of agricultural land.",
+          "target_parties": [
+            "Applicant"
+          ],
+          "facts_extracted": [
+            "Allegation of forgery of ownership documents",
+            "FIR registered, accused seeking anticipatory bail"
+          ],
+          "ingredients_matched": [
+            "Forgery of documents",
+            "Intent to deceive or defraud"
+          ],
+          "candidate_chapters": [
+            "Of Forgery"
+          ],
+          "primary_candidate_sections": [
+            {
+              "section_number": "468",
+              "section_title": "Forgery for Purpose of Cheating",
+              "statute": "IPC",
+              "candidate_type": "PRIMARY",
+              "score": 0.85,
+              "score_breakdown": {
+                "ingredient_match": 1.0,
+                "classifier_score": 0.85,
+                "keyword_match": 0.85,
+                "semantic_similarity": 0.85
+              },
+              "ingredients_matched": [
+                "Forgery established",
+                "Purpose of cheating alleged"
+              ],
+              "missing_facts": [],
+              "relevance_reasoning": "Direct legal nexus: Allegation of forgery with intent to deceive"
+            }
+          ],
+          "secondary_candidate_sections": [
+            {
+              "section_number": "471",
+              "section_title": "Using Forged Document as Genuine",
+              "statute": "IPC",
+              "candidate_type": "SECONDARY",
+              "score": 0.8,
+              "score_breakdown": {
+                "ingredient_match": 0.85,
+                "classifier_score": 0.75,
+                "keyword_match": 0.8,
+                "semantic_similarity": 0.8
+              },
+              "ingredients_matched": [
+                "Use of forged document alleged"
+              ],
+              "missing_facts": [
+                "Specific instances of using the forged document"
+              ],
+              "relevance_reasoning": "Secondary legal nexus: Allegation of using forged documents in a transaction"
+            }
+          ],
+          "not_triggered_sections": [],
+          "candidate_sections": [
+            "468",
+            "471"
+          ],
+          "relevance_reasoning": "Mapped facts to primary forgery offence and secondary use of forged documents."
+        },
+        {
+          "sub_query_id": "SQ2",
+          "sub_query_text": "The applicant is alleged to have executed a fraudulent sale deed regarding agricultural land.",
+          "target_parties": [
+            "Applicant"
+          ],
+          "facts_extracted": [
+            "Allegation of executing a fraudulent sale deed",
+            "FIR registered, accused seeking anticipatory bail"
+          ],
+          "ingredients_matched": [
+            "Fraudulent execution of sale deed",
+            "Intent to deceive in property transaction"
+          ],
+          "candidate_chapters": [
+            "Of Cheating"
+          ],
+          "primary_candidate_sections": [
+            {
+              "section_number": "318",
+              "section_title": "Cheating and Dishonestly Inducing Delivery of Property",
+              "statute": "BNS",
+              "candidate_type": "PRIMARY",
+              "score": 0.85,
+              "score_breakdown": {
+                "ingredient_match": 1.0,
+                "classifier_score": 0.85,
+                "keyword_match": 0.85,
+                "semantic_similarity": 0.85
+              },
+              "ingredients_matched": [
+                "Fraudulent sale deed execution",
+                "Inducing delivery of property"
+              ],
+              "missing_facts": [],
+              "relevance_reasoning": "Direct legal nexus: Allegation of executing a fraudulent sale deed to deceive"
+            }
+          ],
+          "secondary_candidate_sections": [],
+          "not_triggered_sections": [],
+          "candidate_sections": [
+            "318"
+          ],
+          "relevance_reasoning": "Mapped facts to primary offence of cheating through fraudulent sale deed."
+        },
+        {
+          "sub_query_id": "SQ3",
+          "sub_query_text": "The applicant is alleged to have dishonestly transferred property to a third party.",
+          "target_parties": [
+            "Applicant"
+          ],
+          "facts_extracted": [
+            "Allegation of dishonest transfer of property",
+            "FIR registered, accused seeking anticipatory bail"
+          ],
+          "ingredients_matched": [
+            "Dishonest transfer of property",
+            "Intent to defraud third party"
+          ],
+          "candidate_chapters": [
+            "Of Cheating"
+          ],
+          "primary_candidate_sections": [
+            {
+              "section_number": "318",
+              "section_title": "Cheating and Dishonestly Inducing Delivery of Property",
+              "statute": "BNS",
+              "candidate_type": "PRIMARY",
+              "score": 0.85,
+              "score_breakdown": {
+                "ingredient_match": 1.0,
+                "classifier_score": 0.85,
+                "keyword_match": 0.85,
+                "semantic_similarity": 0.85
+              },
+              "ingredients_matched": [
+                "Dishonest transfer of property",
+                "Inducing delivery to third party"
+              ],
+              "missing_facts": [],
+              "relevance_reasoning": "Direct legal nexus: Allegation of dishonest transfer of property to defraud"
+            }
+          ],
+          "secondary_candidate_sections": [],
+          "not_triggered_sections": [],
+          "candidate_sections": [
+            "318"
+          ],
+          "relevance_reasoning": "Mapped facts to primary offence of cheating through dishonest transfer of property."
+        },
+        {
+          "sub_query_id": "SQ4",
+          "sub_query_text": "The applicant claims that the dispute concerns title over immovable property.",
+          "target_parties": [
+            "Applicant"
+          ],
+          "facts_extracted": [
+            "Claim of dispute over title of immovable property",
+            "FIR registered, accused seeking anticipatory bail"
+          ],
+          "ingredients_matched": [
+            "Dispute over title of property",
+            "Potential civil claims"
+          ],
+          "candidate_chapters": [
+            "Of Property Disputes"
+          ],
+          "primary_candidate_sections": [],
+          "secondary_candidate_sections": [],
+          "not_triggered_sections": [],
+          "candidate_sections": [],
+          "relevance_reasoning": "No specific criminal offences identified; potential civil claims may apply but not covered in current statutory candidates."
+        }
+      ]
+    },
+    "stage3_chapter_identification": {
+      "manual_review": [
+        "UNKNOWN legal regime: returned both IPC and BNS equivalents for human verification.",
+        "Section 471 excluded (NOT_TRIGGERED): Screening non-trigger: Mandatory statutory ingredients (using_forged_document_as_genuine, knowledge_that_it_is_forged) not indicated in case facts.",
+        "Section 318 excluded (NOT_TRIGGERED): Screening non-trigger: Mandatory statutory ingredients (deception_or_cheating, dishonest_inducement_to_deliver_property) not indicated in case facts."
+      ],
+      "schema_version": "3.0",
+      "verified_offences": [
+        {
+          "section_number": "468",
+          "statute": "IPC / BNS",
+          "ipc_equivalent": "468",
+          "bns_equivalent": "468",
+          "title": "Forgery for Purpose of Cheating",
+          "chapter_number": "XVIII",
+          "chapter_title": "Offences Relating to Documents",
+          "punishment": {
+            "minimum": null,
+            "maximum": "7 Years",
+            "fine": true
+          },
+          "classification": "PRIMARY",
+          "cognizable": true,
+          "bailable": false,
+          "verification_status": "VERIFIED",
+          "verification_notes": [
+            "Statutory existence verified against Knowledge Base registry.",
+            "IPC <-> BNS equivalent mapped (IPC 468 <-> BNS 468).",
+            "Canonical chapter (XVIII) and punishment metadata verified.",
+            "Legal regime is UNKNOWN: surfaced dual IPC & BNS equivalents."
+          ]
+        }
+      ],
+      "chapter_candidates": [
+        {
+          "concept": "Forgery for Purpose of Cheating",
+          "chapter_number": "XVIII",
+          "chapter_name": "Offences Relating to Documents",
+          "confidence": 0.95
+        }
+      ],
+      "section_candidates": [
+        {
+          "concept": "Forgery for Purpose of Cheating",
+          "section_number": "468",
+          "section_title": "Forgery for Purpose of Cheating",
+          "confidence": 0.95
+        }
+      ],
+      "legal_regime": "UNKNOWN",
+      "verification_status": "VERIFIED"
+    },
+    "stage4_statutory_verification": {
+      "manual_review": [
+        "Verified section 468 ('Forgery for Purpose of Cheating') confidence 0.60 < cutoff 0.7."
+      ],
+      "schema_version": "4.0",
+      "verified_offences": [
+        {
+          "section_number": "468",
+          "statute": "IPC / BNS",
+          "title": "Forgery for Purpose of Cheating",
+          "ingredient_evaluation": [
+            {
+              "ingredient": "Dishonest or Fraudulent Intent",
+              "matched_fact": "The applicant is alleged to have forged ownership documents.",
+              "status": "Satisfied",
+              "reason": "The allegation of forgery implies dishonest intent.",
+              "confidence": 0.95
+            },
+            {
+              "ingredient": "Making a False Document",
+              "matched_fact": "The applicant is alleged to have forged ownership documents.",
+              "status": "Satisfied",
+              "reason": "The act of forging ownership documents constitutes making a false document.",
+              "confidence": 0.95
+            },
+            {
+              "ingredient": "Use of Forged Document as Genuine",
+              "matched_fact": null,
+              "status": "Missing",
+              "reason": "There are no facts indicating that the forged document was used as genuine.",
+              "confidence": 0.9
+            },
+            {
+              "ingredient": "Knowledge that Document is Forged",
+              "matched_fact": null,
+              "status": "Missing",
+              "reason": "No facts indicate that the applicant knew the document was forged at the time of use.",
+              "confidence": 0.9
+            }
+          ],
+          "overall_prima_facie_strength": "Weak",
+          "missing_mandatory_facts": [],
+          "missing_supporting_facts": [
+            "Evidence of the use of the forged document",
+            "Witness statements regarding the knowledge of forgery"
+          ],
+          "investigation_requirements": [
+            "Obtain copies of the forged documents",
+            "Collect statements from individuals who may have witnessed the transaction",
+            "Investigate the context of the alleged fraudulent sale deed"
+          ],
+          "legal_reasoning": "The allegations satisfy the ingredients of dishonest intent and making a false document. However, the lack of evidence regarding the use of the forged document as genuine and the applicant's knowledge of the forgery weakens the prima facie case. Therefore, the offence is not fully attracted.",
+          "overall_status": "Not Attracted"
+        }
+      ],
+      "verified_sections": [
+        {
+          "section_number": "468",
+          "section_title": "Forgery for Purpose of Cheating",
+          "punishment_text": "Punishment up to 7 Years",
+          "max_imprisonment_years": 7.0,
+          "arnesh_kumar_threshold_exceeded": false,
+          "ingredients": [
+            {
+              "ingredient": "Dishonest or Fraudulent Intent",
+              "logical_operator": "MANDATORY",
+              "condition_group": "default",
+              "status": "Satisfied",
+              "reason": "The allegation of forgery implies dishonest intent."
+            },
+            {
+              "ingredient": "Making a False Document",
+              "logical_operator": "MANDATORY",
+              "condition_group": "default",
+              "status": "Satisfied",
+              "reason": "The act of forging ownership documents constitutes making a false document."
+            },
+            {
+              "ingredient": "Use of Forged Document as Genuine",
+              "logical_operator": "MANDATORY",
+              "condition_group": "default",
+              "status": "Not Satisfied",
+              "reason": "There are no facts indicating that the forged document was used as genuine."
+            },
+            {
+              "ingredient": "Knowledge that Document is Forged",
+              "logical_operator": "MANDATORY",
+              "condition_group": "default",
+              "status": "Not Satisfied",
+              "reason": "No facts indicate that the applicant knew the document was forged at the time of use."
+            }
+          ],
+          "disjunctive_clause_applied": null,
+          "overall_confidence": 0.6
+        }
+      ],
+      "legal_regime": "UNKNOWN",
+      "verification_status": "VERIFIED"
+    },
+    "stage5_bail_reasoning": {
+      "manual_review": [
+        "UNKNOWN legal regime: defaulted to dual provision 'Section 438 CrPC / Section 482 BNSS'; verify offence date to determine whether CrPC S.438 or BNSS S.482 applies."
+      ],
+      "schema_version": "1.0",
+      "target_side": "BOTH",
+      "bail_provision_applied": "Section 438 CrPC / Section 482 BNSS",
+      "legal_regime": "UNKNOWN",
+      "bail_evaluation": {
+        "gravity_of_offence": {
+          "value": "Medium",
+          "reason": "The offence involves forgery and fraudulent transfer of property, which are serious but non-violent in nature. The punishment under Section 468 IPC is up to 7 years, which does not exceed the Arnesh Kumar threshold."
+        },
+        "prima_facie_case": {
+          "value": "Weak",
+          "reason": "The statutory ingredients of 'Use of Forged Document as Genuine' and 'Knowledge that Document is Forged' are not satisfied, weakening the prima facie case."
+        },
+        "custodial_interrogation": {
+          "value": "Not Required",
+          "reason": "There is no indication of pending recovery or need for custodial interrogation to gather further evidence."
+        },
+        "witness_tampering": {
+          "value": "Low",
+          "reason": "No evidence or allegations suggest the applicant has attempted or is likely to tamper with witnesses."
+        },
+        "evidence_tampering": {
+          "value": "Medium",
+          "reason": "There is a potential risk of tampering with documentary evidence related to the property transaction."
+        },
+        "flight_risk": {
+          "value": "Low",
+          "reason": "The applicant has shown cooperation with the investigation and there is no indication of intent to flee."
+        },
+        "criminal_antecedents": {
+          "value": "None",
+          "reason": "There are no prior convictions or criminal history reported for the applicant."
+        },
+        "cooperation": {
+          "value": "Cooperative",
+          "reason": "The applicant has cooperated with the investigating agency as per the case facts."
+        }
+      },
+      "prosecution_arguments": {
+        "target_side": "PROSECUTION",
+        "primary_objective": "REJECT_BAIL",
+        "key_factors_highlighted": [
+          "Evidence Tampering Risk"
+        ],
+        "argument_points": [
+          "Potential risk of tampering with documentary evidence related to the property transaction."
+        ],
+        "suggested_conditions_or_objections": [
+          "Anticipatory bail should be conditional to prevent evidence tampering."
+        ]
+      },
+      "defense_arguments": {
+        "target_side": "DEFENSE",
+        "primary_objective": "GRANT_BAIL",
+        "key_factors_highlighted": [
+          "Cooperation with Investigation",
+          "Low Flight Risk"
+        ],
+        "argument_points": [
+          "Applicant has cooperated with the investigation and has no intention to flee.",
+          "The prima facie case is weak due to missing statutory ingredients."
+        ],
+        "suggested_conditions_or_objections": [
+          "Applicant shall not tamper with evidence and shall report to the police station as required."
+        ]
+      },
+      "overall_recommendation": {
+        "decision": "Recommend Conditional Anticipatory Bail",
+        "confidence": 0.85,
+        "summary_reasoning": "Given the medium gravity of the offence, weak prima facie case, and low flight risk, conditional anticipatory bail is recommended to ensure cooperation and prevent evidence tampering."
+      },
+      "verification_status": "VERIFIED"
+    },
+    "stage6_precedent_retrieval": {
+      "manual_review": [
+        "Precedent 'Siddharam Satlingappa Mhetre v. State of Maharashtra' computed similarity 0.65 (F1=0.40 section, F2=0.00 ingredient, F3=0.20 subject, F4=0.05 stage) < cutoff 0.70: low factual overlap with verified case.",
+        "Precedent 'P. Chidambaram v. Directorate of Enforcement' computed similarity 0.65 (F1=0.40 section, F2=0.00 ingredient, F3=0.20 subject, F4=0.05 stage) < cutoff 0.70: low factual overlap with verified case.",
+        "Unresolved precedent retrieval audit issue (Siddharam Satlingappa Mhetre v. State of Maharashtra): Similarity score below threshold and low factual overlap with the current case.",
+        "Unresolved precedent retrieval audit issue (P. Chidambaram v. Directorate of Enforcement): Similarity score below threshold and low factual overlap with the current case.",
+        "Unresolved precedent retrieval audit issue (Similarity Scores): Similarity scores are not ranked in descending order."
+      ],
+      "schema_version": "1.0",
+      "precedents": [
+        {
+          "case_name": "Siddharam Satlingappa Mhetre v. State of Maharashtra",
+          "court": "Supreme Court",
+          "citation": "(2011) 1 SCC 694",
+          "facts": "The applicant sought anticipatory bail in a case involving allegations of forgery and fraudulent property transactions. The applicant argued that the dispute was civil in nature and that he had cooperated with the investigation.",
+          "verified_offences": [
+            "468 IPC"
+          ],
+          "bail_outcome": "Anticipatory Bail Granted",
+          "ratio_decidendi": "Anticipatory bail should be granted when the allegations are primarily civil in nature and the applicant has cooperated with the investigation.",
+          "similarity_score": 0.65
+        },
+        {
+          "case_name": "P. Chidambaram v. Directorate of Enforcement",
+          "court": "Supreme Court",
+          "citation": "(2019) 9 SCC 24",
+          "facts": "The applicant was accused of economic offences involving forgery and fraudulent transactions. The court considered the gravity of the offence and the applicant's cooperation with the investigation.",
+          "verified_offences": [
+            "468 IPC"
+          ],
+          "bail_outcome": "Anticipatory Bail Denied",
+          "ratio_decidendi": "In cases of economic offences, the gravity of the offence and potential impact on the economy are significant factors in deciding anticipatory bail.",
+          "similarity_score": 0.65
+        }
+      ],
+      "verification_status": "PENDING"
+    }
+  },
+  "retrieval_cache": {
+    "forgery": {
+      "stage0_case_context": {
+        "schema_version": "1.0",
+        "case_profile": {
+          "case_metadata": {
+            "case_id": null,
+            "court": null,
+            "police_station": null,
+            "fir_number": null,
+            "fir_date": null,
+            "offence_date": null,
+            "state": null,
+            "district": null
+          },
+          "parties": {
+            "complainant": null,
+            "victim": null,
+            "accused": [
+              {
+                "name": "Applicant",
+                "relationship": null,
+                "role_alleged": "Accused",
+                "bail_status": "Seeking Anticipatory Bail"
+              }
+            ],
+            "relationship": null
+          },
+          "procedural_stage": "Anticipatory Bail",
+          "requested_relief": "Anticipatory Bail",
+          "legal_regime": "UNKNOWN",
+          "flag_for_confirmation": true,
+          "regime_notes": "Both Offence Date and FIR Date are absent.",
+          "min_confidence_threshold": 0.7,
+          "low_confidence_fields": [],
+          "overall_confidence": 0.93,
+          "contract_status": "CONTRACT_WARNING",
+          "contract_violations": [],
+          "documents": [],
+          "case_facts": "The applicant seeks anticipatory bail after an FIR alleges that he forged ownership documents of agricultural land, executed a fraudulent sale deed, and dishonestly transferred the property to a third party; the applicant claims the documents are genuine, asserts that the dispute concerns title over immovable property, and has cooperated with the investigating agency.",
+          "primary_participants": {
+            "victim": [],
+            "accused": [
+              "Applicant"
+            ],
+            "witnesses": [],
+            "investigating_officer": null,
+            "advocate": null
+          },
+          "missing_information": [
+            "FIR Date",
+            "Offence Date",
+            "Court",
+            "Police Station",
+            "FIR Number",
+            "State",
+            "District",
+            "Legal regime confirmation (Offence/FIR date missing)",
+            "Procedural Document Missing: FIR / Complaint Copy",
+            "Procedural Document Missing: Bail Application Copy"
+          ],
+          "confidence": {
+            "procedural_stage": 0.95,
+            "legal_regime": 0.9
+          }
+        },
+        "contract_status": "CONTRACT_WARNING",
+        "contract_violations": [],
+        "verification_status": "NEEDS_CORRECTION",
+        "active_parties": [
+          "Applicant"
+        ],
+        "system_metadata": {
+          "intake_timestamp": "2026-08-21T09:19:37.395086+00:00",
+          "overall_confidence": 0.93,
+          "low_confidence_count": 0,
+          "flag_for_confirmation": true
+        }
+      },
+      "stage1_legal_query": {
+        "manual_review": [],
+        "schema_version": "1.0",
+        "case_type": "Anticipatory Bail",
+        "entities": {
+          "victim": [],
+          "accused": [
+            "Applicant"
+          ]
+        },
+        "relationship": [],
+        "legal_concepts": [
+          {
+            "concept": "Forgery",
+            "confidence": 0.95
+          },
+          {
+            "concept": "Fraudulent Sale Deed",
+            "confidence": 0.95
+          },
+          {
+            "concept": "Dishonest Transfer of Property",
+            "confidence": 0.95
+          },
+          {
+            "concept": "Dispute over Title of Immovable Property",
+            "confidence": 0.95
+          }
+        ],
+        "sub_queries": [
+          {
+            "id": "SQ1",
+            "query": "The applicant is alleged to have forged ownership documents of agricultural land.",
+            "concept": "Forgery",
+            "target_parties": [
+              "Applicant"
+            ],
+            "role_alleged": "Main Accused / Forgery of Documents"
+          },
+          {
+            "id": "SQ2",
+            "query": "The applicant is alleged to have executed a fraudulent sale deed regarding agricultural land.",
+            "concept": "Fraudulent Sale Deed",
+            "target_parties": [
+              "Applicant"
+            ],
+            "role_alleged": "Main Accused / Execution of Fraudulent Sale Deed"
+          },
+          {
+            "id": "SQ3",
+            "query": "The applicant is alleged to have dishonestly transferred property to a third party.",
+            "concept": "Dishonest Transfer of Property",
+            "target_parties": [
+              "Applicant"
+            ],
+            "role_alleged": "Main Accused / Dishonest Transfer"
+          },
+          {
+            "id": "SQ4",
+            "query": "The applicant claims that the dispute concerns title over immovable property.",
+            "concept": "Dispute over Title of Immovable Property",
+            "target_parties": [
+              "Applicant"
+            ],
+            "role_alleged": "Main Accused / Title Dispute"
+          }
+        ],
+        "procedural_events": [
+          "FIR Registered",
+          "Bail Application"
+        ],
+        "important_facts": {
+          "money": null,
+          "location": null,
+          "dates": [],
+          "weapon": null,
+          "medical_injury": null,
+          "electronic_evidence": null,
+          "documents": [],
+          "witnesses": []
+        },
+        "legal_regime": "UNKNOWN",
+        "flag_for_confirmation": true,
+        "regime_notes": "Both Offence Date and FIR Date are absent.",
+        "verification_status": "VERIFIED"
+      },
+      "stage2_subquery_mapping": {
+        "schema_version": "1.0",
+        "mappings": [
+          {
+            "sub_query_id": "SQ1",
+            "sub_query_text": "The applicant is alleged to have forged ownership documents of agricultural land.",
+            "target_parties": [
+              "Applicant"
+            ],
+            "facts_extracted": [
+              "Allegation of forgery of ownership documents",
+              "FIR registered, accused seeking anticipatory bail"
+            ],
+            "ingredients_matched": [
+              "Forgery of documents",
+              "Intent to deceive or defraud"
+            ],
+            "candidate_chapters": [
+              "Of Forgery"
+            ],
+            "primary_candidate_sections": [
+              {
+                "section_number": "468",
+                "section_title": "Forgery for Purpose of Cheating",
+                "statute": "IPC",
+                "candidate_type": "PRIMARY",
+                "score": 0.85,
+                "score_breakdown": {
+                  "ingredient_match": 1.0,
+                  "classifier_score": 0.85,
+                  "keyword_match": 0.85,
+                  "semantic_similarity": 0.85
+                },
+                "ingredients_matched": [
+                  "Forgery established",
+                  "Purpose of cheating alleged"
+                ],
+                "missing_facts": [],
+                "relevance_reasoning": "Direct legal nexus: Allegation of forgery with intent to deceive"
+              }
+            ],
+            "secondary_candidate_sections": [
+              {
+                "section_number": "471",
+                "section_title": "Using Forged Document as Genuine",
+                "statute": "IPC",
+                "candidate_type": "SECONDARY",
+                "score": 0.8,
+                "score_breakdown": {
+                  "ingredient_match": 0.85,
+                  "classifier_score": 0.75,
+                  "keyword_match": 0.8,
+                  "semantic_similarity": 0.8
+                },
+                "ingredients_matched": [
+                  "Use of forged document alleged"
+                ],
+                "missing_facts": [
+                  "Specific instances of using the forged document"
+                ],
+                "relevance_reasoning": "Secondary legal nexus: Allegation of using forged documents in a transaction"
+              }
+            ],
+            "not_triggered_sections": [],
+            "candidate_sections": [
+              "468",
+              "471"
+            ],
+            "relevance_reasoning": "Mapped facts to primary forgery offence and secondary use of forged documents."
+          },
+          {
+            "sub_query_id": "SQ2",
+            "sub_query_text": "The applicant is alleged to have executed a fraudulent sale deed regarding agricultural land.",
+            "target_parties": [
+              "Applicant"
+            ],
+            "facts_extracted": [
+              "Allegation of executing a fraudulent sale deed",
+              "FIR registered, accused seeking anticipatory bail"
+            ],
+            "ingredients_matched": [
+              "Fraudulent execution of sale deed",
+              "Intent to deceive in property transaction"
+            ],
+            "candidate_chapters": [
+              "Of Cheating"
+            ],
+            "primary_candidate_sections": [
+              {
+                "section_number": "318",
+                "section_title": "Cheating and Dishonestly Inducing Delivery of Property",
+                "statute": "BNS",
+                "candidate_type": "PRIMARY",
+                "score": 0.85,
+                "score_breakdown": {
+                  "ingredient_match": 1.0,
+                  "classifier_score": 0.85,
+                  "keyword_match": 0.85,
+                  "semantic_similarity": 0.85
+                },
+                "ingredients_matched": [
+                  "Fraudulent sale deed execution",
+                  "Inducing delivery of property"
+                ],
+                "missing_facts": [],
+                "relevance_reasoning": "Direct legal nexus: Allegation of executing a fraudulent sale deed to deceive"
+              }
+            ],
+            "secondary_candidate_sections": [],
+            "not_triggered_sections": [],
+            "candidate_sections": [
+              "318"
+            ],
+            "relevance_reasoning": "Mapped facts to primary offence of cheating through fraudulent sale deed."
+          },
+          {
+            "sub_query_id": "SQ3",
+            "sub_query_text": "The applicant is alleged to have dishonestly transferred property to a third party.",
+            "target_parties": [
+              "Applicant"
+            ],
+            "facts_extracted": [
+              "Allegation of dishonest transfer of property",
+              "FIR registered, accused seeking anticipatory bail"
+            ],
+            "ingredients_matched": [
+              "Dishonest transfer of property",
+              "Intent to defraud third party"
+            ],
+            "candidate_chapters": [
+              "Of Cheating"
+            ],
+            "primary_candidate_sections": [
+              {
+                "section_number": "318",
+                "section_title": "Cheating and Dishonestly Inducing Delivery of Property",
+                "statute": "BNS",
+                "candidate_type": "PRIMARY",
+                "score": 0.85,
+                "score_breakdown": {
+                  "ingredient_match": 1.0,
+                  "classifier_score": 0.85,
+                  "keyword_match": 0.85,
+                  "semantic_similarity": 0.85
+                },
+                "ingredients_matched": [
+                  "Dishonest transfer of property",
+                  "Inducing delivery to third party"
+                ],
+                "missing_facts": [],
+                "relevance_reasoning": "Direct legal nexus: Allegation of dishonest transfer of property to defraud"
+              }
+            ],
+            "secondary_candidate_sections": [],
+            "not_triggered_sections": [],
+            "candidate_sections": [
+              "318"
+            ],
+            "relevance_reasoning": "Mapped facts to primary offence of cheating through dishonest transfer of property."
+          },
+          {
+            "sub_query_id": "SQ4",
+            "sub_query_text": "The applicant claims that the dispute concerns title over immovable property.",
+            "target_parties": [
+              "Applicant"
+            ],
+            "facts_extracted": [
+              "Claim of dispute over title of immovable property",
+              "FIR registered, accused seeking anticipatory bail"
+            ],
+            "ingredients_matched": [
+              "Dispute over title of property",
+              "Potential civil claims"
+            ],
+            "candidate_chapters": [
+              "Of Property Disputes"
+            ],
+            "primary_candidate_sections": [],
+            "secondary_candidate_sections": [],
+            "not_triggered_sections": [],
+            "candidate_sections": [],
+            "relevance_reasoning": "No specific criminal offences identified; potential civil claims may apply but not covered in current statutory candidates."
+          }
+        ]
+      },
+      "stage3_chapter_identification": {
+        "manual_review": [
+          "UNKNOWN legal regime: returned both IPC and BNS equivalents for human verification.",
+          "Section 471 excluded (NOT_TRIGGERED): Screening non-trigger: Mandatory statutory ingredients (using_forged_document_as_genuine, knowledge_that_it_is_forged) not indicated in case facts.",
+          "Section 318 excluded (NOT_TRIGGERED): Screening non-trigger: Mandatory statutory ingredients (deception_or_cheating, dishonest_inducement_to_deliver_property) not indicated in case facts."
+        ],
+        "schema_version": "3.0",
+        "verified_offences": [
+          {
+            "section_number": "468",
+            "statute": "IPC / BNS",
+            "ipc_equivalent": "468",
+            "bns_equivalent": "468",
+            "title": "Forgery for Purpose of Cheating",
+            "chapter_number": "XVIII",
+            "chapter_title": "Offences Relating to Documents",
+            "punishment": {
+              "minimum": null,
+              "maximum": "7 Years",
+              "fine": true
+            },
+            "classification": "PRIMARY",
+            "cognizable": true,
+            "bailable": false,
+            "verification_status": "VERIFIED",
+            "verification_notes": [
+              "Statutory existence verified against Knowledge Base registry.",
+              "IPC <-> BNS equivalent mapped (IPC 468 <-> BNS 468).",
+              "Canonical chapter (XVIII) and punishment metadata verified.",
+              "Legal regime is UNKNOWN: surfaced dual IPC & BNS equivalents."
+            ]
+          }
+        ],
+        "chapter_candidates": [
+          {
+            "concept": "Forgery for Purpose of Cheating",
+            "chapter_number": "XVIII",
+            "chapter_name": "Offences Relating to Documents",
+            "confidence": 0.95
+          }
+        ],
+        "section_candidates": [
+          {
+            "concept": "Forgery for Purpose of Cheating",
+            "section_number": "468",
+            "section_title": "Forgery for Purpose of Cheating",
+            "confidence": 0.95
+          }
+        ],
+        "legal_regime": "UNKNOWN",
+        "verification_status": "VERIFIED"
+      },
+      "stage4_statutory_verification": {
+        "manual_review": [
+          "Verified section 468 ('Forgery for Purpose of Cheating') confidence 0.60 < cutoff 0.7."
+        ],
+        "schema_version": "4.0",
+        "verified_offences": [
+          {
+            "section_number": "468",
+            "statute": "IPC / BNS",
+            "title": "Forgery for Purpose of Cheating",
+            "ingredient_evaluation": [
+              {
+                "ingredient": "Dishonest or Fraudulent Intent",
+                "matched_fact": "The applicant is alleged to have forged ownership documents.",
+                "status": "Satisfied",
+                "reason": "The allegation of forgery implies dishonest intent.",
+                "confidence": 0.95
+              },
+              {
+                "ingredient": "Making a False Document",
+                "matched_fact": "The applicant is alleged to have forged ownership documents.",
+                "status": "Satisfied",
+                "reason": "The act of forging ownership documents constitutes making a false document.",
+                "confidence": 0.95
+              },
+              {
+                "ingredient": "Use of Forged Document as Genuine",
+                "matched_fact": null,
+                "status": "Missing",
+                "reason": "There are no facts indicating that the forged document was used as genuine.",
+                "confidence": 0.9
+              },
+              {
+                "ingredient": "Knowledge that Document is Forged",
+                "matched_fact": null,
+                "status": "Missing",
+                "reason": "No facts indicate that the applicant knew the document was forged at the time of use.",
+                "confidence": 0.9
+              }
+            ],
+            "overall_prima_facie_strength": "Weak",
+            "missing_mandatory_facts": [],
+            "missing_supporting_facts": [
+              "Evidence of the use of the forged document",
+              "Witness statements regarding the knowledge of forgery"
+            ],
+            "investigation_requirements": [
+              "Obtain copies of the forged documents",
+              "Collect statements from individuals who may have witnessed the transaction",
+              "Investigate the context of the alleged fraudulent sale deed"
+            ],
+            "legal_reasoning": "The allegations satisfy the ingredients of dishonest intent and making a false document. However, the lack of evidence regarding the use of the forged document as genuine and the applicant's knowledge of the forgery weakens the prima facie case. Therefore, the offence is not fully attracted.",
+            "overall_status": "Not Attracted"
+          }
+        ],
+        "verified_sections": [
+          {
+            "section_number": "468",
+            "section_title": "Forgery for Purpose of Cheating",
+            "punishment_text": "Punishment up to 7 Years",
+            "max_imprisonment_years": 7.0,
+            "arnesh_kumar_threshold_exceeded": false,
+            "ingredients": [
+              {
+                "ingredient": "Dishonest or Fraudulent Intent",
+                "logical_operator": "MANDATORY",
+                "condition_group": "default",
+                "status": "Satisfied",
+                "reason": "The allegation of forgery implies dishonest intent."
+              },
+              {
+                "ingredient": "Making a False Document",
+                "logical_operator": "MANDATORY",
+                "condition_group": "default",
+                "status": "Satisfied",
+                "reason": "The act of forging ownership documents constitutes making a false document."
+              },
+              {
+                "ingredient": "Use of Forged Document as Genuine",
+                "logical_operator": "MANDATORY",
+                "condition_group": "default",
+                "status": "Not Satisfied",
+                "reason": "There are no facts indicating that the forged document was used as genuine."
+              },
+              {
+                "ingredient": "Knowledge that Document is Forged",
+                "logical_operator": "MANDATORY",
+                "condition_group": "default",
+                "status": "Not Satisfied",
+                "reason": "No facts indicate that the applicant knew the document was forged at the time of use."
+              }
+            ],
+            "disjunctive_clause_applied": null,
+            "overall_confidence": 0.6
+          }
+        ],
+        "legal_regime": "UNKNOWN",
+        "verification_status": "VERIFIED"
+      },
+      "stage5_bail_reasoning": {
+        "manual_review": [
+          "UNKNOWN legal regime: defaulted to dual provision 'Section 438 CrPC / Section 482 BNSS'; verify offence date to determine whether CrPC S.438 or BNSS S.482 applies."
+        ],
+        "schema_version": "1.0",
+        "target_side": "BOTH",
+        "bail_provision_applied": "Section 438 CrPC / Section 482 BNSS",
+        "legal_regime": "UNKNOWN",
+        "bail_evaluation": {
+          "gravity_of_offence": {
+            "value": "Medium",
+            "reason": "The offence involves forgery and fraudulent transfer of property, which are serious but non-violent in nature. The punishment under Section 468 IPC is up to 7 years, which does not exceed the Arnesh Kumar threshold."
+          },
+          "prima_facie_case": {
+            "value": "Weak",
+            "reason": "The statutory ingredients of 'Use of Forged Document as Genuine' and 'Knowledge that Document is Forged' are not satisfied, weakening the prima facie case."
+          },
+          "custodial_interrogation": {
+            "value": "Not Required",
+            "reason": "There is no indication of pending recovery or need for custodial interrogation to gather further evidence."
+          },
+          "witness_tampering": {
+            "value": "Low",
+            "reason": "No evidence or allegations suggest the applicant has attempted or is likely to tamper with witnesses."
+          },
+          "evidence_tampering": {
+            "value": "Medium",
+            "reason": "There is a potential risk of tampering with documentary evidence related to the property transaction."
+          },
+          "flight_risk": {
+            "value": "Low",
+            "reason": "The applicant has shown cooperation with the investigation and there is no indication of intent to flee."
+          },
+          "criminal_antecedents": {
+            "value": "None",
+            "reason": "There are no prior convictions or criminal history reported for the applicant."
+          },
+          "cooperation": {
+            "value": "Cooperative",
+            "reason": "The applicant has cooperated with the investigating agency as per the case facts."
+          }
+        },
+        "prosecution_arguments": {
+          "target_side": "PROSECUTION",
+          "primary_objective": "REJECT_BAIL",
+          "key_factors_highlighted": [
+            "Evidence Tampering Risk"
+          ],
+          "argument_points": [
+            "Potential risk of tampering with documentary evidence related to the property transaction."
+          ],
+          "suggested_conditions_or_objections": [
+            "Anticipatory bail should be conditional to prevent evidence tampering."
+          ]
+        },
+        "defense_arguments": {
+          "target_side": "DEFENSE",
+          "primary_objective": "GRANT_BAIL",
+          "key_factors_highlighted": [
+            "Cooperation with Investigation",
+            "Low Flight Risk"
+          ],
+          "argument_points": [
+            "Applicant has cooperated with the investigation and has no intention to flee.",
+            "The prima facie case is weak due to missing statutory ingredients."
+          ],
+          "suggested_conditions_or_objections": [
+            "Applicant shall not tamper with evidence and shall report to the police station as required."
+          ]
+        },
+        "overall_recommendation": {
+          "decision": "Recommend Conditional Anticipatory Bail",
+          "confidence": 0.85,
+          "summary_reasoning": "Given the medium gravity of the offence, weak prima facie case, and low flight risk, conditional anticipatory bail is recommended to ensure cooperation and prevent evidence tampering."
+        },
+        "verification_status": "VERIFIED"
+      },
+      "stage6_precedent_retrieval": {
+        "manual_review": [
+          "Precedent 'Siddharam Satlingappa Mhetre v. State of Maharashtra' computed similarity 0.65 (F1=0.40 section, F2=0.00 ingredient, F3=0.20 subject, F4=0.05 stage) < cutoff 0.70: low factual overlap with verified case.",
+          "Precedent 'P. Chidambaram v. Directorate of Enforcement' computed similarity 0.65 (F1=0.40 section, F2=0.00 ingredient, F3=0.20 subject, F4=0.05 stage) < cutoff 0.70: low factual overlap with verified case.",
+          "Unresolved precedent retrieval audit issue (Siddharam Satlingappa Mhetre v. State of Maharashtra): Similarity score below threshold and low factual overlap with the current case.",
+          "Unresolved precedent retrieval audit issue (P. Chidambaram v. Directorate of Enforcement): Similarity score below threshold and low factual overlap with the current case.",
+          "Unresolved precedent retrieval audit issue (Similarity Scores): Similarity scores are not ranked in descending order."
+        ],
+        "schema_version": "1.0",
+        "precedents": [
+          {
+            "case_name": "Siddharam Satlingappa Mhetre v. State of Maharashtra",
+            "court": "Supreme Court",
+            "citation": "(2011) 1 SCC 694",
+            "facts": "The applicant sought anticipatory bail in a case involving allegations of forgery and fraudulent property transactions. The applicant argued that the dispute was civil in nature and that he had cooperated with the investigation.",
+            "verified_offences": [
+              "468 IPC"
+            ],
+            "bail_outcome": "Anticipatory Bail Granted",
+            "ratio_decidendi": "Anticipatory bail should be granted when the allegations are primarily civil in nature and the applicant has cooperated with the investigation.",
+            "similarity_score": 0.65
+          },
+          {
+            "case_name": "P. Chidambaram v. Directorate of Enforcement",
+            "court": "Supreme Court",
+            "citation": "(2019) 9 SCC 24",
+            "facts": "The applicant was accused of economic offences involving forgery and fraudulent transactions. The court considered the gravity of the offence and the applicant's cooperation with the investigation.",
+            "verified_offences": [
+              "468 IPC"
+            ],
+            "bail_outcome": "Anticipatory Bail Denied",
+            "ratio_decidendi": "In cases of economic offences, the gravity of the offence and potential impact on the economy are significant factors in deciding anticipatory bail.",
+            "similarity_score": 0.65
+          }
+        ],
+        "verification_status": "PENDING"
+      }
+    },
+    "fraud": {
+      "stage0_case_context": {
+        "schema_version": "1.0",
+        "case_profile": {
+          "case_metadata": {
+            "case_id": null,
+            "court": null,
+            "police_station": null,
+            "fir_number": null,
+            "fir_date": null,
+            "offence_date": null,
+            "state": null,
+            "district": null
+          },
+          "parties": {
+            "complainant": null,
+            "victim": null,
+            "accused": [
+              {
+                "name": "Applicant",
+                "relationship": null,
+                "role_alleged": "Accused",
+                "bail_status": "Seeking Anticipatory Bail"
+              }
+            ],
+            "relationship": null
+          },
+          "procedural_stage": "Anticipatory Bail",
+          "requested_relief": "Anticipatory Bail",
+          "legal_regime": "UNKNOWN",
+          "flag_for_confirmation": true,
+          "regime_notes": "Both Offence Date and FIR Date are absent.",
+          "min_confidence_threshold": 0.7,
+          "low_confidence_fields": [],
+          "overall_confidence": 0.93,
+          "contract_status": "CONTRACT_WARNING",
+          "contract_violations": [],
+          "documents": [],
+          "case_facts": "The applicant seeks anticipatory bail after an FIR alleges that he forged ownership documents of agricultural land, executed a fraudulent sale deed, and dishonestly transferred the property to a third party; the applicant claims the documents are genuine, asserts that the dispute concerns title over immovable property, and has cooperated with the investigating agency.",
+          "primary_participants": {
+            "victim": [],
+            "accused": [
+              "Applicant"
+            ],
+            "witnesses": [],
+            "investigating_officer": null,
+            "advocate": null
+          },
+          "missing_information": [
+            "FIR Date",
+            "Offence Date",
+            "Court",
+            "Police Station",
+            "FIR Number",
+            "State",
+            "District",
+            "Legal regime confirmation (Offence/FIR date missing)",
+            "Procedural Document Missing: FIR / Complaint Copy",
+            "Procedural Document Missing: Bail Application Copy"
+          ],
+          "confidence": {
+            "procedural_stage": 0.95,
+            "legal_regime": 0.9
+          }
+        },
+        "contract_status": "CONTRACT_WARNING",
+        "contract_violations": [],
+        "verification_status": "NEEDS_CORRECTION",
+        "active_parties": [
+          "Applicant"
+        ],
+        "system_metadata": {
+          "intake_timestamp": "2026-08-21T09:19:37.395086+00:00",
+          "overall_confidence": 0.93,
+          "low_confidence_count": 0,
+          "flag_for_confirmation": true
+        }
+      },
+      "stage1_legal_query": {
+        "manual_review": [],
+        "schema_version": "1.0",
+        "case_type": "Anticipatory Bail",
+        "entities": {
+          "victim": [],
+          "accused": [
+            "Applicant"
+          ]
+        },
+        "relationship": [],
+        "legal_concepts": [
+          {
+            "concept": "Forgery",
+            "confidence": 0.95
+          },
+          {
+            "concept": "Fraudulent Sale Deed",
+            "confidence": 0.95
+          },
+          {
+            "concept": "Dishonest Transfer of Property",
+            "confidence": 0.95
+          },
+          {
+            "concept": "Dispute over Title of Immovable Property",
+            "confidence": 0.95
+          }
+        ],
+        "sub_queries": [
+          {
+            "id": "SQ1",
+            "query": "The applicant is alleged to have forged ownership documents of agricultural land.",
+            "concept": "Forgery",
+            "target_parties": [
+              "Applicant"
+            ],
+            "role_alleged": "Main Accused / Forgery of Documents"
+          },
+          {
+            "id": "SQ2",
+            "query": "The applicant is alleged to have executed a fraudulent sale deed regarding agricultural land.",
+            "concept": "Fraudulent Sale Deed",
+            "target_parties": [
+              "Applicant"
+            ],
+            "role_alleged": "Main Accused / Execution of Fraudulent Sale Deed"
+          },
+          {
+            "id": "SQ3",
+            "query": "The applicant is alleged to have dishonestly transferred property to a third party.",
+            "concept": "Dishonest Transfer of Property",
+            "target_parties": [
+              "Applicant"
+            ],
+            "role_alleged": "Main Accused / Dishonest Transfer"
+          },
+          {
+            "id": "SQ4",
+            "query": "The applicant claims that the dispute concerns title over immovable property.",
+            "concept": "Dispute over Title of Immovable Property",
+            "target_parties": [
+              "Applicant"
+            ],
+            "role_alleged": "Main Accused / Title Dispute"
+          }
+        ],
+        "procedural_events": [
+          "FIR Registered",
+          "Bail Application"
+        ],
+        "important_facts": {
+          "money": null,
+          "location": null,
+          "dates": [],
+          "weapon": null,
+          "medical_injury": null,
+          "electronic_evidence": null,
+          "documents": [],
+          "witnesses": []
+        },
+        "legal_regime": "UNKNOWN",
+        "flag_for_confirmation": true,
+        "regime_notes": "Both Offence Date and FIR Date are absent.",
+        "verification_status": "VERIFIED"
+      },
+      "stage2_subquery_mapping": {
+        "schema_version": "1.0",
+        "mappings": [
+          {
+            "sub_query_id": "SQ1",
+            "sub_query_text": "The applicant is alleged to have forged ownership documents of agricultural land.",
+            "target_parties": [
+              "Applicant"
+            ],
+            "facts_extracted": [
+              "Allegation of forgery of ownership documents",
+              "FIR registered, accused seeking anticipatory bail"
+            ],
+            "ingredients_matched": [
+              "Forgery of documents",
+              "Intent to deceive or defraud"
+            ],
+            "candidate_chapters": [
+              "Of Forgery"
+            ],
+            "primary_candidate_sections": [
+              {
+                "section_number": "468",
+                "section_title": "Forgery for Purpose of Cheating",
+                "statute": "IPC",
+                "candidate_type": "PRIMARY",
+                "score": 0.85,
+                "score_breakdown": {
+                  "ingredient_match": 1.0,
+                  "classifier_score": 0.85,
+                  "keyword_match": 0.85,
+                  "semantic_similarity": 0.85
+                },
+                "ingredients_matched": [
+                  "Forgery established",
+                  "Purpose of cheating alleged"
+                ],
+                "missing_facts": [],
+                "relevance_reasoning": "Direct legal nexus: Allegation of forgery with intent to deceive"
+              }
+            ],
+            "secondary_candidate_sections": [
+              {
+                "section_number": "471",
+                "section_title": "Using Forged Document as Genuine",
+                "statute": "IPC",
+                "candidate_type": "SECONDARY",
+                "score": 0.8,
+                "score_breakdown": {
+                  "ingredient_match": 0.85,
+                  "classifier_score": 0.75,
+                  "keyword_match": 0.8,
+                  "semantic_similarity": 0.8
+                },
+                "ingredients_matched": [
+                  "Use of forged document alleged"
+                ],
+                "missing_facts": [
+                  "Specific instances of using the forged document"
+                ],
+                "relevance_reasoning": "Secondary legal nexus: Allegation of using forged documents in a transaction"
+              }
+            ],
+            "not_triggered_sections": [],
+            "candidate_sections": [
+              "468",
+              "471"
+            ],
+            "relevance_reasoning": "Mapped facts to primary forgery offence and secondary use of forged documents."
+          },
+          {
+            "sub_query_id": "SQ2",
+            "sub_query_text": "The applicant is alleged to have executed a fraudulent sale deed regarding agricultural land.",
+            "target_parties": [
+              "Applicant"
+            ],
+            "facts_extracted": [
+              "Allegation of executing a fraudulent sale deed",
+              "FIR registered, accused seeking anticipatory bail"
+            ],
+            "ingredients_matched": [
+              "Fraudulent execution of sale deed",
+              "Intent to deceive in property transaction"
+            ],
+            "candidate_chapters": [
+              "Of Cheating"
+            ],
+            "primary_candidate_sections": [
+              {
+                "section_number": "318",
+                "section_title": "Cheating and Dishonestly Inducing Delivery of Property",
+                "statute": "BNS",
+                "candidate_type": "PRIMARY",
+                "score": 0.85,
+                "score_breakdown": {
+                  "ingredient_match": 1.0,
+                  "classifier_score": 0.85,
+                  "keyword_match": 0.85,
+                  "semantic_similarity": 0.85
+                },
+                "ingredients_matched": [
+                  "Fraudulent sale deed execution",
+                  "Inducing delivery of property"
+                ],
+                "missing_facts": [],
+                "relevance_reasoning": "Direct legal nexus: Allegation of executing a fraudulent sale deed to deceive"
+              }
+            ],
+            "secondary_candidate_sections": [],
+            "not_triggered_sections": [],
+            "candidate_sections": [
+              "318"
+            ],
+            "relevance_reasoning": "Mapped facts to primary offence of cheating through fraudulent sale deed."
+          },
+          {
+            "sub_query_id": "SQ3",
+            "sub_query_text": "The applicant is alleged to have dishonestly transferred property to a third party.",
+            "target_parties": [
+              "Applicant"
+            ],
+            "facts_extracted": [
+              "Allegation of dishonest transfer of property",
+              "FIR registered, accused seeking anticipatory bail"
+            ],
+            "ingredients_matched": [
+              "Dishonest transfer of property",
+              "Intent to defraud third party"
+            ],
+            "candidate_chapters": [
+              "Of Cheating"
+            ],
+            "primary_candidate_sections": [
+              {
+                "section_number": "318",
+                "section_title": "Cheating and Dishonestly Inducing Delivery of Property",
+                "statute": "BNS",
+                "candidate_type": "PRIMARY",
+                "score": 0.85,
+                "score_breakdown": {
+                  "ingredient_match": 1.0,
+                  "classifier_score": 0.85,
+                  "keyword_match": 0.85,
+                  "semantic_similarity": 0.85
+                },
+                "ingredients_matched": [
+                  "Dishonest transfer of property",
+                  "Inducing delivery to third party"
+                ],
+                "missing_facts": [],
+                "relevance_reasoning": "Direct legal nexus: Allegation of dishonest transfer of property to defraud"
+              }
+            ],
+            "secondary_candidate_sections": [],
+            "not_triggered_sections": [],
+            "candidate_sections": [
+              "318"
+            ],
+            "relevance_reasoning": "Mapped facts to primary offence of cheating through dishonest transfer of property."
+          },
+          {
+            "sub_query_id": "SQ4",
+            "sub_query_text": "The applicant claims that the dispute concerns title over immovable property.",
+            "target_parties": [
+              "Applicant"
+            ],
+            "facts_extracted": [
+              "Claim of dispute over title of immovable property",
+              "FIR registered, accused seeking anticipatory bail"
+            ],
+            "ingredients_matched": [
+              "Dispute over title of property",
+              "Potential civil claims"
+            ],
+            "candidate_chapters": [
+              "Of Property Disputes"
+            ],
+            "primary_candidate_sections": [],
+            "secondary_candidate_sections": [],
+            "not_triggered_sections": [],
+            "candidate_sections": [],
+            "relevance_reasoning": "No specific criminal offences identified; potential civil claims may apply but not covered in current statutory candidates."
+          }
+        ]
+      },
+      "stage3_chapter_identification": {
+        "manual_review": [
+          "UNKNOWN legal regime: returned both IPC and BNS equivalents for human verification.",
+          "Section 471 excluded (NOT_TRIGGERED): Screening non-trigger: Mandatory statutory ingredients (using_forged_document_as_genuine, knowledge_that_it_is_forged) not indicated in case facts.",
+          "Section 318 excluded (NOT_TRIGGERED): Screening non-trigger: Mandatory statutory ingredients (deception_or_cheating, dishonest_inducement_to_deliver_property) not indicated in case facts."
+        ],
+        "schema_version": "3.0",
+        "verified_offences": [
+          {
+            "section_number": "468",
+            "statute": "IPC / BNS",
+            "ipc_equivalent": "468",
+            "bns_equivalent": "468",
+            "title": "Forgery for Purpose of Cheating",
+            "chapter_number": "XVIII",
+            "chapter_title": "Offences Relating to Documents",
+            "punishment": {
+              "minimum": null,
+              "maximum": "7 Years",
+              "fine": true
+            },
+            "classification": "PRIMARY",
+            "cognizable": true,
+            "bailable": false,
+            "verification_status": "VERIFIED",
+            "verification_notes": [
+              "Statutory existence verified against Knowledge Base registry.",
+              "IPC <-> BNS equivalent mapped (IPC 468 <-> BNS 468).",
+              "Canonical chapter (XVIII) and punishment metadata verified.",
+              "Legal regime is UNKNOWN: surfaced dual IPC & BNS equivalents."
+            ]
+          }
+        ],
+        "chapter_candidates": [
+          {
+            "concept": "Forgery for Purpose of Cheating",
+            "chapter_number": "XVIII",
+            "chapter_name": "Offences Relating to Documents",
+            "confidence": 0.95
+          }
+        ],
+        "section_candidates": [
+          {
+            "concept": "Forgery for Purpose of Cheating",
+            "section_number": "468",
+            "section_title": "Forgery for Purpose of Cheating",
+            "confidence": 0.95
+          }
+        ],
+        "legal_regime": "UNKNOWN",
+        "verification_status": "VERIFIED"
+      },
+      "stage4_statutory_verification": {
+        "manual_review": [
+          "Verified section 468 ('Forgery for Purpose of Cheating') confidence 0.60 < cutoff 0.7."
+        ],
+        "schema_version": "4.0",
+        "verified_offences": [
+          {
+            "section_number": "468",
+            "statute": "IPC / BNS",
+            "title": "Forgery for Purpose of Cheating",
+            "ingredient_evaluation": [
+              {
+                "ingredient": "Dishonest or Fraudulent Intent",
+                "matched_fact": "The applicant is alleged to have forged ownership documents.",
+                "status": "Satisfied",
+                "reason": "The allegation of forgery implies dishonest intent.",
+                "confidence": 0.95
+              },
+              {
+                "ingredient": "Making a False Document",
+                "matched_fact": "The applicant is alleged to have forged ownership documents.",
+                "status": "Satisfied",
+                "reason": "The act of forging ownership documents constitutes making a false document.",
+                "confidence": 0.95
+              },
+              {
+                "ingredient": "Use of Forged Document as Genuine",
+                "matched_fact": null,
+                "status": "Missing",
+                "reason": "There are no facts indicating that the forged document was used as genuine.",
+                "confidence": 0.9
+              },
+              {
+                "ingredient": "Knowledge that Document is Forged",
+                "matched_fact": null,
+                "status": "Missing",
+                "reason": "No facts indicate that the applicant knew the document was forged at the time of use.",
+                "confidence": 0.9
+              }
+            ],
+            "overall_prima_facie_strength": "Weak",
+            "missing_mandatory_facts": [],
+            "missing_supporting_facts": [
+              "Evidence of the use of the forged document",
+              "Witness statements regarding the knowledge of forgery"
+            ],
+            "investigation_requirements": [
+              "Obtain copies of the forged documents",
+              "Collect statements from individuals who may have witnessed the transaction",
+              "Investigate the context of the alleged fraudulent sale deed"
+            ],
+            "legal_reasoning": "The allegations satisfy the ingredients of dishonest intent and making a false document. However, the lack of evidence regarding the use of the forged document as genuine and the applicant's knowledge of the forgery weakens the prima facie case. Therefore, the offence is not fully attracted.",
+            "overall_status": "Not Attracted"
+          }
+        ],
+        "verified_sections": [
+          {
+            "section_number": "468",
+            "section_title": "Forgery for Purpose of Cheating",
+            "punishment_text": "Punishment up to 7 Years",
+            "max_imprisonment_years": 7.0,
+            "arnesh_kumar_threshold_exceeded": false,
+            "ingredients": [
+              {
+                "ingredient": "Dishonest or Fraudulent Intent",
+                "logical_operator": "MANDATORY",
+                "condition_group": "default",
+                "status": "Satisfied",
+                "reason": "The allegation of forgery implies dishonest intent."
+              },
+              {
+                "ingredient": "Making a False Document",
+                "logical_operator": "MANDATORY",
+                "condition_group": "default",
+                "status": "Satisfied",
+                "reason": "The act of forging ownership documents constitutes making a false document."
+              },
+              {
+                "ingredient": "Use of Forged Document as Genuine",
+                "logical_operator": "MANDATORY",
+                "condition_group": "default",
+                "status": "Not Satisfied",
+                "reason": "There are no facts indicating that the forged document was used as genuine."
+              },
+              {
+                "ingredient": "Knowledge that Document is Forged",
+                "logical_operator": "MANDATORY",
+                "condition_group": "default",
+                "status": "Not Satisfied",
+                "reason": "No facts indicate that the applicant knew the document was forged at the time of use."
+              }
+            ],
+            "disjunctive_clause_applied": null,
+            "overall_confidence": 0.6
+          }
+        ],
+        "legal_regime": "UNKNOWN",
+        "verification_status": "VERIFIED"
+      },
+      "stage5_bail_reasoning": {
+        "manual_review": [
+          "UNKNOWN legal regime: defaulted to dual provision 'Section 438 CrPC / Section 482 BNSS'; verify offence date to determine whether CrPC S.438 or BNSS S.482 applies."
+        ],
+        "schema_version": "1.0",
+        "target_side": "BOTH",
+        "bail_provision_applied": "Section 438 CrPC / Section 482 BNSS",
+        "legal_regime": "UNKNOWN",
+        "bail_evaluation": {
+          "gravity_of_offence": {
+            "value": "Medium",
+            "reason": "The offence involves forgery and fraudulent transfer of property, which are serious but non-violent in nature. The punishment under Section 468 IPC is up to 7 years, which does not exceed the Arnesh Kumar threshold."
+          },
+          "prima_facie_case": {
+            "value": "Weak",
+            "reason": "The statutory ingredients of 'Use of Forged Document as Genuine' and 'Knowledge that Document is Forged' are not satisfied, weakening the prima facie case."
+          },
+          "custodial_interrogation": {
+            "value": "Not Required",
+            "reason": "There is no indication of pending recovery or need for custodial interrogation to gather further evidence."
+          },
+          "witness_tampering": {
+            "value": "Low",
+            "reason": "No evidence or allegations suggest the applicant has attempted or is likely to tamper with witnesses."
+          },
+          "evidence_tampering": {
+            "value": "Medium",
+            "reason": "There is a potential risk of tampering with documentary evidence related to the property transaction."
+          },
+          "flight_risk": {
+            "value": "Low",
+            "reason": "The applicant has shown cooperation with the investigation and there is no indication of intent to flee."
+          },
+          "criminal_antecedents": {
+            "value": "None",
+            "reason": "There are no prior convictions or criminal history reported for the applicant."
+          },
+          "cooperation": {
+            "value": "Cooperative",
+            "reason": "The applicant has cooperated with the investigating agency as per the case facts."
+          }
+        },
+        "prosecution_arguments": {
+          "target_side": "PROSECUTION",
+          "primary_objective": "REJECT_BAIL",
+          "key_factors_highlighted": [
+            "Evidence Tampering Risk"
+          ],
+          "argument_points": [
+            "Potential risk of tampering with documentary evidence related to the property transaction."
+          ],
+          "suggested_conditions_or_objections": [
+            "Anticipatory bail should be conditional to prevent evidence tampering."
+          ]
+        },
+        "defense_arguments": {
+          "target_side": "DEFENSE",
+          "primary_objective": "GRANT_BAIL",
+          "key_factors_highlighted": [
+            "Cooperation with Investigation",
+            "Low Flight Risk"
+          ],
+          "argument_points": [
+            "Applicant has cooperated with the investigation and has no intention to flee.",
+            "The prima facie case is weak due to missing statutory ingredients."
+          ],
+          "suggested_conditions_or_objections": [
+            "Applicant shall not tamper with evidence and shall report to the police station as required."
+          ]
+        },
+        "overall_recommendation": {
+          "decision": "Recommend Conditional Anticipatory Bail",
+          "confidence": 0.85,
+          "summary_reasoning": "Given the medium gravity of the offence, weak prima facie case, and low flight risk, conditional anticipatory bail is recommended to ensure cooperation and prevent evidence tampering."
+        },
+        "verification_status": "VERIFIED"
+      },
+      "stage6_precedent_retrieval": {
+        "manual_review": [
+          "Precedent 'Siddharam Satlingappa Mhetre v. State of Maharashtra' computed similarity 0.65 (F1=0.40 section, F2=0.00 ingredient, F3=0.20 subject, F4=0.05 stage) < cutoff 0.70: low factual overlap with verified case.",
+          "Precedent 'P. Chidambaram v. Directorate of Enforcement' computed similarity 0.65 (F1=0.40 section, F2=0.00 ingredient, F3=0.20 subject, F4=0.05 stage) < cutoff 0.70: low factual overlap with verified case.",
+          "Unresolved precedent retrieval audit issue (Siddharam Satlingappa Mhetre v. State of Maharashtra): Similarity score below threshold and low factual overlap with the current case.",
+          "Unresolved precedent retrieval audit issue (P. Chidambaram v. Directorate of Enforcement): Similarity score below threshold and low factual overlap with the current case.",
+          "Unresolved precedent retrieval audit issue (Similarity Scores): Similarity scores are not ranked in descending order."
+        ],
+        "schema_version": "1.0",
+        "precedents": [
+          {
+            "case_name": "Siddharam Satlingappa Mhetre v. State of Maharashtra",
+            "court": "Supreme Court",
+            "citation": "(2011) 1 SCC 694",
+            "facts": "The applicant sought anticipatory bail in a case involving allegations of forgery and fraudulent property transactions. The applicant argued that the dispute was civil in nature and that he had cooperated with the investigation.",
+            "verified_offences": [
+              "468 IPC"
+            ],
+            "bail_outcome": "Anticipatory Bail Granted",
+            "ratio_decidendi": "Anticipatory bail should be granted when the allegations are primarily civil in nature and the applicant has cooperated with the investigation.",
+            "similarity_score": 0.65
+          },
+          {
+            "case_name": "P. Chidambaram v. Directorate of Enforcement",
+            "court": "Supreme Court",
+            "citation": "(2019) 9 SCC 24",
+            "facts": "The applicant was accused of economic offences involving forgery and fraudulent transactions. The court considered the gravity of the offence and the applicant's cooperation with the investigation.",
+            "verified_offences": [
+              "468 IPC"
+            ],
+            "bail_outcome": "Anticipatory Bail Denied",
+            "ratio_decidendi": "In cases of economic offences, the gravity of the offence and potential impact on the economy are significant factors in deciding anticipatory bail.",
+            "similarity_score": 0.65
+          }
+        ],
+        "verification_status": "PENDING"
+      }
+    }
+  },
+  "retrieved_concepts": [
+    "Forgery",
+    "Fraud"
+  ],
+  "turns": [
+    {
+      "round": 1,
+      "role": "prosecutor",
+      "full_argument": "Your Honor, I stand before this Hon'ble Court to oppose the anticipatory bail application filed by the applicant, who is accused of serious allegations of forgery and fraudulent transfer of agricultural land ownership. The nature of the offences, as outlined in Section 468 of the Indian Penal Code (IPC), which pertains to forgery for the purpose of cheating, carries a punishment of up to seven years of imprisonment. The gravity of these allegations cannot be understated, as they involve not only the act of forgery but also the execution of a fraudulent sale deed that has resulted in the dishonest transfer of property to a third party. Such actions undermine the very foundation of property rights and trust in transactions, warranting a stringent response from this Court.\n\nFurthermore, the prosecution submits that there exists a strong prima facie case against the applicant. The allegations clearly indicate that the applicant forged ownership documents and executed a fraudulent sale deed. This evidence, while still under investigation, suggests a deliberate and calculated attempt to deceive the rightful owner of the agricultural land. The strength of this evidence is significant and should weigh heavily against the grant of anticipatory bail, as it indicates a likelihood of conviction should the matter proceed to trial.\n\nMoreover, there is a substantial risk of evidence tampering should anticipatory bail be granted. The applicant's actions have already demonstrated a willingness to engage in fraudulent activities, and there is a legitimate concern that he may attempt to destroy or alter documentary evidence related to the fraudulent transaction. This risk is not merely speculative; it is grounded in the nature of the allegations and the applicant's potential motivations to evade justice. The prosecution urges this Hon'ble Court to consider the implications of allowing the applicant to remain at large, as it could severely compromise the integrity of the ongoing investigation.\n\nIn light of the serious nature of the offences, the strong prima facie evidence against the applicant, and the significant risk of evidence tampering, we respectfully request that this Hon'ble Court deny the anticipatory bail application. The potential for the applicant to interfere with the investigation and the gravity of the charges necessitate a firm stance to uphold the rule of law and protect the interests of justice.\n\nTherefore, we pray that the anticipatory bail application be rejected, ensuring that the applicant does not pose a risk to the investigation or the rightful owner of the property in question. Thank you, Your Honor.",
+      "summary_bullets": [
+        "The applicant faces serious allegations of forgery and fraudulent transfer of agricultural land ownership under Section 468 of the IPC.",
+        "There is a strong prima facie case against the applicant, indicating deliberate forgery and deception.",
+        "Granting anticipatory bail poses a substantial risk of evidence tampering by the applicant.",
+        "The nature of the offences and the strength of the evidence warrant a denial of the anticipatory bail application.",
+        "Denying bail is essential to uphold the rule of law and protect the integrity of the ongoing investigation."
+      ],
+      "positions": [
+        "Gravity/nature of offence",
+        "Prima facie strength of evidence",
+        "Risk of evidence tampering / destruction"
+      ],
+      "concepts_used": [
+        "Forgery",
+        "Fraud"
+      ],
+      "timestamp": "2026-08-21T09:20:52.353379+00:00"
+    }
+  ],
+  "argument_summaries": [
+    "[Round 1 — Prosecutor] The applicant faces serious allegations of forgery and fraudulent transfer of agricultural land ownership under Section 468 of the IPC. | There is a strong prima facie case against the applicant, indicating deliberate forgery and deception. | Granting anticipatory bail poses a substantial risk of evidence tampering by the applicant. | The nature of the offences and the strength of the evidence warrant a denial of the anticipatory bail application. | Denying bail is essential to uphold the rule of law and protect the integrity of the ongoing investigation."
+  ],
+  "positions_taken": [
+    "Gravity/nature of offence",
+    "Prima facie strength of evidence",
+    "Risk of evidence tampering / destruction"
+  ],
+  "defense_positions": [],
+  "round_number": 1
+}

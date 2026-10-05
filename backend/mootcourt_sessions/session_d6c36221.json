@@ -1,0 +1,243 @@
+{
+  "session_id": "d6c36221",
+  "case_id": "20260822152501",
+  "case_text": "The applicant seeks anticipatory bail after an FIR alleges that he forged ownership documents of agricultural land, executed a fraudulent sale deed, and dishonestly transferred the property to a third party; the applicant claims the documents are genuine, asserts that the dispute concerns title over immovable property, and has cooperated with the investigating agency.",
+  "student_role": "defense",
+  "prosecutor_output": {
+    "schema_version": "1.0",
+    "case_summary": "",
+    "victim": [],
+    "accused": [],
+    "relationship": "",
+    "legal_concepts": [],
+    "sub_queries": [],
+    "bail_rejection_summary": "",
+    "hallucination_flags": [],
+    "verification_status": "VERIFIED"
+  },
+  "section_usage_plan": {
+    "sections": [
+      {
+        "section_number": "403",
+        "statute": "IPC",
+        "title": "Dishonest Misappropriation of Property",
+        "pillar": "P1:Gravity",
+        "deploy_when": "opening",
+        "anchored_fact": "The allegation of dishonest transfer of property.",
+        "argument_enabled": "The nature of the offence indicates a serious breach of trust and societal norms, warranting a strong response from the court.",
+        "prima_facie_strength": "Strong",
+        "overall_status": "Prima Facie Attracted"
+      },
+      {
+        "section_number": "465",
+        "statute": "IPC",
+        "title": "Forgery",
+        "pillar": "P2:PrimaFacie",
+        "deploy_when": "rebuttal",
+        "anchored_fact": "The allegation of forging ownership documents.",
+        "argument_enabled": "While the evidence of knowledge of forgery is weak, the act of forgery itself raises significant concerns about the applicant's integrity.",
+        "prima_facie_strength": "Weak",
+        "overall_status": "Partially Attracted"
+      },
+      {
+        "section_number": "468",
+        "statute": "IPC",
+        "title": "Forgery for Purpose of Cheating",
+        "pillar": "P2:PrimaFacie",
+        "deploy_when": "rebuttal",
+        "anchored_fact": "The use of a forged sale deed.",
+        "argument_enabled": "The use of forged documents for potential cheating highlights the applicant's questionable intentions.",
+        "prima_facie_strength": "Weak",
+        "overall_status": "Partially Attracted"
+      },
+      {
+        "section_number": "421",
+        "statute": "IPC",
+        "title": "Fraudulent removal or concealment of property etc., to prevent distribution among creditors",
+        "pillar": "P2:PrimaFacie",
+        "deploy_when": "rebuttal",
+        "anchored_fact": "The allegation of dishonest transfer.",
+        "argument_enabled": "The act of fraudulent removal indicates a deliberate attempt to evade legal obligations, which is a serious concern.",
+        "prima_facie_strength": "Weak",
+        "overall_status": "Partially Attracted"
+      }
+    ]
+  },
+  "retrieved_sections": {
+    "465": {
+      "section_number": "465",
+      "statute": "IPC",
+      "title": "Forgery",
+      "classification": "PRIMARY",
+      "overall_status": "Partially Attracted",
+      "overall_prima_facie_strength": "Weak",
+      "punishment_text": "2 Years",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Using a forged document",
+          "matched_fact": "The applicant is alleged to have forged ownership documents of agricultural land.",
+          "status": "Satisfied",
+          "reason": "The allegation directly states that the applicant forged documents.",
+          "confidence": 0.95
+        },
+        {
+          "ingredient": "Knowledge that the document is forged",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "There is no indication in the facts that the applicant knew the documents were forged.",
+          "confidence": 0.9
+        }
+      ],
+      "legal_reasoning": "The allegation of forging ownership documents satisfies the ingredient of using a forged document. However, the lack of evidence regarding the applicant's knowledge of the forgery weakens the prima facie case.",
+      "missing_supporting_facts": [
+        "Evidence of intent or knowledge regarding the forgery"
+      ],
+      "investigation_requirements": [
+        "Obtain original documents for comparison",
+        "Collect witness statements regarding the authenticity of the documents"
+      ],
+      "retrieved_at_turn": 0
+    },
+    "468": {
+      "section_number": "468",
+      "statute": "IPC",
+      "title": "Forgery for Purpose of Cheating",
+      "classification": "PRIMARY",
+      "overall_status": "Partially Attracted",
+      "overall_prima_facie_strength": "Weak",
+      "punishment_text": "7 Years",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Using a forged document for cheating",
+          "matched_fact": "The applicant is alleged to have executed a fraudulent sale deed regarding agricultural land.",
+          "status": "Satisfied",
+          "reason": "The allegation indicates that the forged document was used in a fraudulent sale.",
+          "confidence": 0.95
+        },
+        {
+          "ingredient": "Intention to use the forged document for cheating",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "There is no explicit mention of the applicant's intent to cheat.",
+          "confidence": 0.85
+        }
+      ],
+      "legal_reasoning": "The use of a forged sale deed satisfies the ingredient of using a forged document for cheating. However, the absence of clear intent to cheat limits the strength of the prima facie case.",
+      "missing_supporting_facts": [
+        "Evidence of intent to cheat"
+      ],
+      "investigation_requirements": [
+        "Gather evidence of the transaction related to the sale deed",
+        "Interview parties involved in the sale"
+      ],
+      "retrieved_at_turn": 0
+    },
+    "421": {
+      "section_number": "421",
+      "statute": "IPC",
+      "title": "Fraudulent removal or concealment of property etc., to prevent distribution among creditors",
+      "classification": "PRIMARY",
+      "overall_status": "Partially Attracted",
+      "overall_prima_facie_strength": "Weak",
+      "punishment_text": "2 years or fine or both",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Dishonest removal or concealment of property",
+          "matched_fact": "The applicant is alleged to have dishonestly transferred property to a third party.",
+          "status": "Satisfied",
+          "reason": "The allegation directly states that the applicant transferred property dishonestly.",
+          "confidence": 0.95
+        },
+        {
+          "ingredient": "Intention to prevent distribution among creditors",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "There is no indication that the transfer was intended to prevent distribution among creditors.",
+          "confidence": 0.9
+        }
+      ],
+      "legal_reasoning": "The allegation of dishonest transfer satisfies the ingredient of fraudulent removal. However, the lack of evidence regarding intent to prevent creditor distribution weakens the prima facie case.",
+      "missing_supporting_facts": [
+        "Evidence of creditor claims or potential claims"
+      ],
+      "investigation_requirements": [
+        "Investigate the financial status of the applicant",
+        "Identify any creditors involved"
+      ],
+      "retrieved_at_turn": 0
+    },
+    "403": {
+      "section_number": "403",
+      "statute": "IPC",
+      "title": "Dishonest Misappropriation of Property",
+      "classification": "PRIMARY",
+      "overall_status": "Prima Facie Attracted",
+      "overall_prima_facie_strength": "Strong",
+      "punishment_text": "2 Years",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Dishonest misappropriation of movable property",
+          "matched_fact": "The applicant is alleged to have dishonestly transferred property to a third party.",
+          "status": "Satisfied",
+          "reason": "The allegation indicates that the applicant misappropriated property.",
+          "confidence": 0.95
+        }
+      ],
+      "legal_reasoning": "The allegation of dishonest transfer satisfies the ingredient of misappropriation of property, making this offence prima facie attracted.",
+      "missing_supporting_facts": [],
+      "investigation_requirements": [
+        "Collect evidence of the property transfer",
+        "Interview the third party involved"
+      ],
+      "retrieved_at_turn": 0
+    }
+  },
+  "argued_concepts": [],
+  "prosecutor_positions": [
+    "The nature of the offence indicates a serious breach of trust.",
+    "There is a significant risk of flight and witness tampering."
+  ],
+  "defense_positions": [],
+  "pillars_argued": [
+    "P1:Gravity",
+    "P2:PrimaFacie",
+    "P3:CustodialInterrogation",
+    "P4:FlightRisk"
+  ],
+  "sections_cited_so_far": [
+    "403 IPC"
+  ],
+  "turns": [
+    {
+      "turn_number": 1,
+      "speaker": "prosecutor",
+      "full_argument": "Your Honor, I stand before you to argue against the grant of anticipatory bail to the applicant. Firstly, under Section 403 of the Indian Penal Code, we are dealing with a serious allegation of dishonest misappropriation of property. The nature of this offence indicates a grave breach of trust and societal norms, which warrants a strong response from this court. The applicant's actions, as alleged, not only undermine the integrity of property transactions but also erode public confidence in the legal system. \n\nSecondly, the prima facie strength of the case is compelling. The allegations of dishonest transfer of property are substantiated by evidence that indicates misappropriation, making this offence prima facie attracted. The seriousness of the charge necessitates that the applicant be held accountable and that the court take a firm stance against such conduct.\n\nFurthermore, custodial interrogation is essential in this case. It is imperative to ascertain the full extent of the applicant's involvement and to uncover any potential accomplices or further fraudulent activities. The nature of the allegations suggests that the applicant may possess critical information that can only be obtained through custodial interrogation.\n\nLastly, there is a significant risk of flight and witness tampering. Given the serious nature of the charges, the applicant may be incentivized to evade justice or influence witnesses to alter their testimonies. This court must ensure that the integrity of the investigation is preserved and that the applicant does not abscond from the legal process.\n\nIn conclusion, Your Honor, the gravity of the offence, the prima facie strength of the case, the necessity for custodial interrogation, and the risks associated with flight and witness tampering all strongly argue against the grant of anticipatory bail. I respectfully urge the court to reject the application for anticipatory bail.",
+      "summary_bullets": [
+        "The allegations involve serious dishonest misappropriation of property under Section 403 IPC.",
+        "The prima facie case is strong, indicating clear misappropriation.",
+        "Custodial interrogation is essential to uncover further details and prevent witness tampering."
+      ],
+      "concepts_used": [
+        "P1:Gravity",
+        "P2:PrimaFacie",
+        "P3:CustodialInterrogation",
+        "P4:FlightRisk"
+      ],
+      "positions_asserted": [
+        "The nature of the offence indicates a serious breach of trust.",
+        "There is a significant risk of flight and witness tampering."
+      ],
+      "pillars_covered": [
+        "P1:Gravity",
+        "P2:PrimaFacie",
+        "P3:CustodialInterrogation",
+        "P4:FlightRisk"
+      ],
+      "sections_cited": [
+        "403 IPC"
+      ]
+    }
+  ],
+  "current_turn": 1,
+  "status": "active"
+}

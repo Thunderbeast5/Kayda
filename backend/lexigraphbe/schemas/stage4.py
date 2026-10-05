@@ -34,6 +34,10 @@ class VerifiedOffenceItemStage4(BaseModel):
     section_number: str = Field(description="Section number string e.g. '498A', '85', 'Section 4'")
     statute: str = Field(default="IPC", description="Statute name e.g. 'IPC', 'BNS', 'Dowry Prohibition Act'")
     title: str = Field(description="Canonical statutory title")
+    irac_reasoning: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description="IRAC structured reasoning: issue, rule, application (prosecution_version, defence_version, net_evaluation), conclusion"
+    )
     ingredient_evaluation: List[IngredientEvaluationItem] = Field(
         default_factory=list,
         description="Detailed ingredient evaluation trace"
@@ -59,6 +63,10 @@ class VerifiedOffenceItemStage4(BaseModel):
         default="Prima Facie Attracted",
         description="Overall status: 'Prima Facie Attracted', 'Partially Attracted', or 'Not Attracted'"
     )
+    confidence: Optional[float] = Field(
+        default=None,
+        description="Explicit numerical confidence score (0.0 to 1.0) if provided"
+    )
 
     @property
     def section_title(self) -> str:
@@ -66,6 +74,8 @@ class VerifiedOffenceItemStage4(BaseModel):
 
     @property
     def overall_confidence(self) -> float:
+        if self.confidence is not None:
+            return self.confidence
         mapping = {"Strong": 0.95, "Moderate": 0.80, "Weak": 0.60, "Not Attracted": 0.20}
         return mapping.get(self.overall_prima_facie_strength, 0.85)
 
@@ -151,6 +161,10 @@ class StatutoryVerificationObject(ManualReviewMixin):
     verification_status: str = Field(
         default="VERIFIED",
         description="Verification status: PENDING, VERIFIED, or RETRY"
+    )
+    pipeline_transition: Optional[Dict[str, Any]] = Field(
+        default=None,
+        description="Stage-to-stage transition audit: lists sections received from Stage 3, confirmed, dropped (with reasons), and passing to Stage 5."
     )
 
     def model_post_init(self, __context: Any) -> None:

@@ -1,13 +1,14 @@
 """
-Shared LLM client config. Uses Groq.
+Shared LLM client config. Uses OpenAI.
+Shared LLM client config.
+Respects LLM_PROVIDER env var: "openai" | "groq" | "ollama"
 Import get_llm() wherever an agent needs to call the model.
 """
 
 import os
 from pathlib import Path
-
 from dotenv import load_dotenv
-from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(BASE_DIR / ".env")
