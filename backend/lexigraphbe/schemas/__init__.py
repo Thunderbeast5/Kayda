@@ -77,10 +77,32 @@ from .stage6 import (
     PrecedentVerificationResult,
 )
 
+from .stage5_precedent import (
+    MatchedStatuteItem,
+    PropositionItem,
+    RoleSpecificRelevanceEvaluation,
+    RoleSpecificPrecedentItem,
+    RoleSpecificPrecedentRetrievalObject,
+    PrecedentRetrievalIssue,
+    PrecedentRetrievalResult,
+)
+
 from .stage_bsa import (
     BSASectionItem,
     BSAVerificationIssue,
     BSARetrievalObject,
+)
+
+from .stage_bnss import (
+    BNSSSectionItem,
+    BNSSVerificationIssue,
+    BNSSRetrievalObject,
+)
+
+from .stage_special_act import (
+    ActRoutingDecisionItem,
+    SpecialActSectionItem,
+    SpecialActRetrievalObject,
 )
 
 
@@ -130,12 +152,27 @@ __all__ = [
     "BailVerificationIssue",
     "BailVerificationResult",
     "OverallBailRecommendation",
+    "SideArgumentPackage",
     "PrecedentItem",
     "PrecedentRetrievalObject",
     "PrecedentVerificationIssue",
     "PrecedentVerificationResult",
+    "MatchedStatuteItem",
+    "PropositionItem",
+    "RoleSpecificRelevanceEvaluation",
+    "RoleSpecificPrecedentItem",
+    "RoleSpecificPrecedentRetrievalObject",
+    "PrecedentRetrievalIssue",
+    "PrecedentRetrievalResult",
     "BSASectionItem",
     "BSAVerificationIssue",
     "BSARetrievalObject",
+    "BNSSSectionItem",
+    "BNSSVerificationIssue",
+    "BNSSRetrievalObject",
+    "ActRoutingDecisionItem",
+    "SpecialActSectionItem",
+    "SpecialActRetrievalObject",
 ]
+
 

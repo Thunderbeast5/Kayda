@@ -341,7 +341,8 @@
       "confession",
       "compel",
       "restoration",
-      "property"
+      "property",
+      "voluntarily causing hurt"
     ],
     "chapter_number": "Of Offences Affecting the Human Body",
     "chapter_title": "Voluntarily causing hurt to extort confession, or to compel restoration of property",
@@ -370,7 +371,8 @@
       "public",
       "servant",
       "from",
-      "duty"
+      "duty",
+      "voluntarily causing hurt"
     ],
     "chapter_number": "Of Offences Affecting the Human Body",
     "chapter_title": "Voluntarily causing hurt to deter public servant from his duty",
@@ -720,7 +722,8 @@
       "poison",
       "intent",
       "commit",
-      "offence"
+      "offence",
+      "causing hurt by means of poison, etc., with intent to commit an offence"
     ],
     "chapter_number": "Of Offences Affecting the Human Body",
     "chapter_title": "Causing hurt by means of poison, etc., with intent to commit an offence",
@@ -2368,6 +2371,353 @@
     ],
     "chapter_number": "Of Criminal Intimidation, Insult and Annoyance",
     "chapter_title": "Misconduct in public by a drunken person",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "305",
+    "statute": "IPC",
+    "bns_equivalent": "305",
+    "title": "Abetment of suicide of child or insane person",
+    "mandatory_ingredients": [
+      "abetment_of_suicide_of_child_or_insane_person"
+    ],
+    "factual_triggers": [
+      "abetment",
+      "suicide",
+      "child",
+      "insane",
+      "person"
+    ],
+    "chapter_number": "XI",
+    "chapter_title": "Offences Relating to Property",
+    "punishment_minimum": null,
+    "punishment_maximum": "2 Years",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "354B",
+    "statute": "IPC",
+    "bns_equivalent": "354B",
+    "title": "Assault or use of criminal force to woman with intent to disrobe",
+    "mandatory_ingredients": [
+      "assault_or_use_of_criminal_force_to_woman_with_intent_to_disrobe"
+    ],
+    "factual_triggers": [
+      "abetment",
+      "assault",
+      "criminal",
+      "force",
+      "woman",
+      "intent",
+      "disrobe"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Assault or use of criminal force to woman with intent to disrobe",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "313",
+    "statute": "IPC",
+    "bns_equivalent": "313",
+    "title": "Causing miscarriage without woman's consent",
+    "mandatory_ingredients": [
+      "causing_miscarriage_without_woman_s_consent"
+    ],
+    "factual_triggers": [
+      "consent",
+      "without",
+      "causing",
+      "miscarriage",
+      "woman"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Causing miscarriage without woman's consent",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "361",
+    "statute": "IPC",
+    "bns_equivalent": "361",
+    "title": "Kidnapping from lawful guardianship",
+    "mandatory_ingredients": [
+      "kidnapping_from_lawful_guardianship"
+    ],
+    "factual_triggers": [
+      "consent",
+      "take",
+      "without",
+      "kidnapping",
+      "from",
+      "lawful",
+      "guardianship"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Kidnapping from lawful guardianship",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "349",
+    "statute": "IPC",
+    "bns_equivalent": "349",
+    "title": "Force",
+    "mandatory_ingredients": [
+      "force"
+    ],
+    "factual_triggers": [
+      "consent",
+      "take",
+      "without",
+      "force"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Force",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "351",
+    "statute": "IPC",
+    "bns_equivalent": "351",
+    "title": "Assault",
+    "mandatory_ingredients": [
+      "assault"
+    ],
+    "factual_triggers": [
+      "take",
+      "without",
+      "assault"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Assault",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "354C",
+    "statute": "IPC",
+    "bns_equivalent": "354C",
+    "title": "Voyeurism",
+    "mandatory_ingredients": [
+      "voyeurism"
+    ],
+    "factual_triggers": [
+      "consent",
+      "without",
+      "voyeurism"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Voyeurism",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "502",
+    "statute": "IPC",
+    "bns_equivalent": "502",
+    "title": "Sale of printed or engraved substance containing defamatory matter",
+    "mandatory_ingredients": [
+      "sale_of_printed_or_engraved_substance_containing_defamatory_matter"
+    ],
+    "factual_triggers": [
+      "sale",
+      "printed",
+      "engraved",
+      "substance",
+      "containing",
+      "defamatory",
+      "matter"
+    ],
+    "chapter_number": "Of Defamation",
+    "chapter_title": "Sale of printed or engraved substance containing defamatory matter",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "511",
+    "statute": "IPC",
+    "bns_equivalent": "511",
+    "title": "Punishment for attempting to commit offences punishable with imprisonment for life or other imprisonment",
+    "mandatory_ingredients": [
+      "punishment_for_attempting_to_commit_offences_punishable_with_imprisonment_for_life_or_other_imprisonment"
+    ],
+    "factual_triggers": [
+      "break",
+      "into",
+      "punishment",
+      "attempting",
+      "commit",
+      "offences",
+      "punishable",
+      "imprisonment",
+      "life",
+      "other"
+    ],
+    "chapter_number": "Of Attempts to Commit Offences",
+    "chapter_title": "Punishment for attempting to commit offences punishable with imprisonment for life or other imprisonment",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "424",
+    "statute": "IPC",
+    "bns_equivalent": "424",
+    "title": "Dishonest or fraudulent removal or concealment of property",
+    "mandatory_ingredients": [
+      "dishonest_or_fraudulent_removal_or_concealment_of_property"
+    ],
+    "factual_triggers": [
+      "dishonest",
+      "fraudulent",
+      "property",
+      "property fraud",
+      "removal",
+      "concealment"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Dishonest or fraudulent removal or concealment of property",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "347",
+    "statute": "IPC",
+    "bns_equivalent": "347",
+    "title": "Wrongful confinement to extort property, or constrain to illegal act",
+    "mandatory_ingredients": [
+      "wrongful_confinement_to_extort_property_or_constrain_to_illegal_act"
+    ],
+    "factual_triggers": [
+      "property",
+      "wrongful",
+      "confinement",
+      "extort",
+      "constrain",
+      "illegal"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Wrongful confinement to extort property, or constrain to illegal act",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "348",
+    "statute": "IPC",
+    "bns_equivalent": "348",
+    "title": "Wrongful confinement to extort confession, or compel restoration of property",
+    "mandatory_ingredients": [
+      "wrongful_confinement_to_extort_confession_or_compel_restoration_of_property"
+    ],
+    "factual_triggers": [
+      "property",
+      "wrongful",
+      "confinement",
+      "extort",
+      "confession",
+      "compel",
+      "restoration"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Wrongful confinement to extort confession, or compel restoration of property",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "497",
+    "statute": "IPC",
+    "bns_equivalent": "497",
+    "title": "Adultery",
+    "mandatory_ingredients": [
+      "adultery"
+    ],
+    "factual_triggers": [
+      "accused",
+      "husband",
+      "wife",
+      "adultery"
+    ],
+    "chapter_number": "Of Offences Relating to Marriage",
+    "chapter_title": "Adultery",
     "punishment_minimum": null,
     "punishment_maximum": "As specified under statute",
     "fine": true,

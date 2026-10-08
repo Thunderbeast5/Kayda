@@ -1,0 +1,360 @@
+KAYDA – SPECIAL ACT ROUTING / APPLICABILITY DECISION PROMPT
+===============================================================
+
+PURPOSE
+-------
+Use this instruction after IPC/BNS, BSA and BNSS retrieval has already been performed.
+
+The task is NOT to perform final legal reasoning and NOT to decide guilt.
+The task is only to decide which Special-Act documents should be processed further.
+
+AVAILABLE SPECIAL-ACT DOCUMENTS
+--------------------------------
+1. dowry_prohibition_act.json
+2. indian_institutes_of_information_technology_act.json
+3. itpa.json
+4. juvenile_justice_act.json
+5. pocso_act.json
+6. posh_act.json
+7. prohibition_of_child_marriage_act.json
+8. sc_st_prevention_of_atrocities_act.json
+
+INPUTS PROVIDED TO THE MODEL
+----------------------------
+A. CASE FACTS
+   The extracted factual description of the case.
+
+B. RETRIEVED IPC/BNS SECTIONS
+   Sections already retrieved by the legal retrieval pipeline.
+   Use these as supporting legal signals, NOT as proof that a Special Act applies.
+
+C. RETRIEVED BSA SECTIONS
+   Evidence-law sections already retrieved.
+   Use these to understand the type of evidence involved, but do not infer a Special
+   Act merely because a BSA section appears.
+
+D. RETRIEVED BNSS SECTIONS
+   Procedural sections already retrieved.
+   Use these to understand arrest, bail, investigation, custody, search, etc.,
+   but do not infer a Special Act merely from procedural provisions.
+
+E. SPECIAL-ACT DOCUMENT NAMES
+   The eight documents listed above.
+
+CORE DECISION RULE
+------------------
+For EACH Special Act, determine whether the case facts contain a sufficiently
+specific factual/legal connection to that Act that its sections could materially
+change the legal analysis.
+
+Do NOT ask:
+    "Can I imagine some connection to this Act?"
+
+Ask:
+    "Is there a concrete fact, allegation, victim/offender relationship,
+     object of conduct, protected class, location/context, or transaction
+     in this case that makes this Act reasonably applicable?"
+
+A Special Act should be selected for further processing when there is a
+PLAUSIBLE AND FACT-GROUNDED POSSIBILITY that at least one provision of that Act
+governs the alleged conduct, protected person, transaction, or procedure.
+
+The model must prefer RECALL over aggressive exclusion at this stage.
+It is safer to pass one additional plausible Act to the next stage than to
+silently discard an Act that could materially affect the case.
+
+IMPORTANT:
+- Do NOT require the exact statutory terminology to appear in the case.
+- Understand paraphrases, indirect descriptions, factual equivalents, and
+  ordinary-language descriptions.
+- Do NOT select an Act solely because one keyword happens to appear.
+- Do NOT select an Act solely because an IPC/BNS section looks superficially related.
+- Do NOT use the mere presence of words such as "woman", "child", "electronic",
+  "marriage", "land", or "harassment" as sufficient by themselves.
+- Distinguish between facts that establish applicability and facts that are merely
+  background.
+
+ACT-SPECIFIC APPLICABILITY GUIDANCE
+-----------------------------------
+
+1. DOWRY PROHIBITION ACT
+Select when the facts indicate a demand, giving, taking, receiving, agreeing to
+give/take, or transaction involving property/valuable security connected with
+marriage.
+
+Examples of indirect wording that SHOULD trigger consideration:
+- demand for cash, gold, vehicle, property or valuables as a marriage-related demand
+- additional money demanded from the bride's/boy's family because of marriage
+- articles/property demanded as a condition for marriage or continuation of marriage
+- allegations that marriage-related property was demanded, given or received
+
+Do NOT select merely because:
+- the case is a matrimonial dispute
+- the accused is a husband/in-law
+- cruelty is alleged without a marriage-related property/valuable-security connection
+
+2. INDIAN INSTITUTES OF INFORMATION TECHNOLOGY ACT
+Select ONLY when the facts specifically concern an institution, authority,
+establishment, governance, powers, offences, appointments, administration,
+or statutory framework governed by the Indian Institutes of Information
+Technology legislation.
+
+Do NOT select merely because:
+- computers, software, internet or electronic evidence are involved
+- the accused is a student/teacher
+- an educational institution is mentioned unless it is specifically an
+  Indian Institute of Information Technology within the relevant statutory context
+
+3. IMMORAL TRAFFIC (PREVENTION) ACT (ITPA)
+Select when the facts indicate commercial sexual exploitation, trafficking/
+procuring/inducing persons for prostitution, keeping/managing a brothel,
+living on earnings of prostitution, soliciting for prostitution, or another
+specific activity falling within the Act's subject matter.
+
+Do NOT select merely because:
+- sexual assault is alleged
+- consensual sexual activity is mentioned
+- a woman is involved
+- prostitution is mentioned in an unrelated/background context without a
+  conduct connection to the Act
+
+4. JUVENILE JUSTICE ACT
+Select when the case materially concerns a child in conflict with law,
+child in need of care and protection, juvenile justice proceedings,
+rehabilitation/child-care institutions, adoption, foster care, or another
+specific statutory juvenile-justice issue.
+
+Do NOT select merely because:
+- the word "child" appears
+- the victim is young, unless the facts indicate a juvenile-justice issue
+- POCSO-type sexual offences are alleged against a child; POCSO may apply
+  independently, while JJ Act applicability must be separately established
+
+5. POCSO ACT
+Select when the facts indicate a person below 18 years is the victim/subject
+of a sexual offence, sexual assault, sexual harassment, use of a child for
+pornographic purposes/material, or another offence specifically concerning
+sexual offences against children.
+
+The case does NOT need to use the word "minor" or "POCSO".
+Equivalent factual descriptions must be recognized, such as:
+- 15-year-old girl/boy
+- school-going child subjected to sexual acts
+- victim was below eighteen
+- sexual conduct involving a child
+- explicit material involving a child
+
+Do NOT select merely because:
+- a young adult is involved
+- the case involves a school or college
+- the word "child" refers to an adult's son/daughter without establishing
+  the person's statutory age
+
+6. POSH ACT
+Select when the facts concern sexual harassment in the workplace or an
+employment/professional environment covered by the legislation, including
+workplace-related complaints, employer/employee context, Internal Committee/
+complaint mechanism, workplace inquiry, or sexual harassment occurring in a
+covered workplace context.
+
+Recognize indirect wording such as:
+- superior demanded sexual favours from employee
+- inappropriate sexual conduct by manager toward subordinate
+- employee complained to employer about sexual harassment
+- complaint before workplace/internal committee
+
+Do NOT select merely because:
+- sexual harassment occurred in a private/non-workplace setting
+- the victim is a woman
+- harassment is mentioned without a workplace connection
+
+7. PROHIBITION OF CHILD MARRIAGE ACT
+Select when the facts indicate a marriage involving a person below the legally
+prescribed marriage age, arranging/solemnizing such a marriage, promoting,
+permitting, or facilitating child marriage, or proceedings concerning the
+validity/prohibition of such a marriage.
+
+Recognize indirect wording such as:
+- girl aged 16 was married
+- family arranged marriage of a 17-year-old
+- marriage was solemnized before the person reached the prescribed age
+
+Do NOT select merely because:
+- the case concerns marriage
+- the victim is a young adult
+- POCSO applies; child marriage applicability must be independently grounded
+
+8. SC/ST (PREVENTION OF ATROCITIES) ACT
+Select when the facts indicate that the victim/complainant or accused's legal
+status as a member of a Scheduled Caste or Scheduled Tribe is materially
+connected to the alleged offence, or the allegations concern a caste/tribe-
+based atrocity covered by the Act.
+
+Recognize indirect wording such as:
+- accused abused victim by caste name
+- victim was targeted because of caste identity
+- SC/ST member was dispossessed/intimidated/humiliated in circumstances
+  covered by the Act
+- allegation expressly identifies the victim as belonging to an SC/ST community
+  and connects that status to the offence
+
+Do NOT select merely because:
+- "caste" is mentioned as background
+- the parties belong to different communities without a legally relevant
+  caste-based allegation
+- a general assault/cheating/property dispute occurs between persons of
+  different castes without an atrocity-related factual connection
+
+HOW TO USE IPC/BNS RETRIEVAL
+----------------------------
+IPC/BNS sections are supporting signals.
+
+Examples:
+- An offence involving a child + sexual conduct -> strengthens POCSO consideration.
+- Matrimonial allegations alone do NOT automatically establish Dowry Act applicability.
+- Caste-related facts + relevant substantive offence -> strengthens SC/ST Act consideration.
+- Workplace sexual-harassment facts -> strengthen POSH consideration.
+- Cyber/electronic facts alone do NOT automatically establish applicability of
+  the IT Act.
+
+The retrieved IPC/BNS sections can increase or decrease confidence, but CASE FACTS
+must remain the primary basis for the decision.
+
+HOW TO USE BSA RETRIEVAL
+------------------------
+BSA sections identify the evidence involved.
+
+Examples:
+- electronic records -> may support consideration of the IT Act ONLY if the
+  underlying conduct is cyber/electronic conduct governed by that Act
+- documents/signatures -> do NOT by themselves imply any Special Act
+- expert evidence -> do NOT by itself imply any Special Act
+
+Never route an Act simply because a BSA evidence category happens to overlap.
+
+HOW TO USE BNSS RETRIEVAL
+-------------------------
+BNSS sections primarily describe procedure.
+
+Examples:
+- anticipatory bail, arrest, custody, search, seizure, investigation, etc.
+  should generally NOT determine Special-Act applicability by themselves.
+- A Special Act should be selected because of the underlying facts and substantive
+  legal context, not because the case involves bail.
+
+DECISION LEVELS
+---------------
+Use exactly one of these labels for every Act:
+
+1. PROCESS
+   Strong or reasonably strong factual/legal basis exists. The Act should be
+   loaded and its relevant sections should be retrieved/processed further.
+
+2. CANDIDATE
+   There is a plausible factual connection, but applicability cannot yet be
+   determined confidently from the available facts. Keep the Act for downstream
+   verification.
+
+3. SKIP
+   No material factual/legal connection is present in the supplied case.
+
+ROUTING THRESHOLD
+-----------------
+Use the following conservative rule:
+
+PROCESS:
+    There are one or more concrete facts directly matching the Act's subject
+    matter AND the Act could materially affect the legal analysis.
+
+CANDIDATE:
+    The facts are incomplete/ambiguous but contain a meaningful signal that
+    could make the Act applicable.
+
+SKIP:
+    There is no meaningful factual connection after considering reasonable
+    paraphrases and indirect wording.
+
+When uncertain between PROCESS and CANDIDATE:
+    choose CANDIDATE.
+
+When uncertain between CANDIDATE and SKIP:
+    choose CANDIDATE if the potential connection could materially affect
+    criminal liability, victim protection, jurisdiction, procedure, or bail.
+
+OUTPUT REQUIREMENTS
+-------------------
+Return STRICT JSON ONLY.
+
+Use this schema:
+
+{
+  "act_routing": [
+    {
+      "document": "pocso_act.json",
+      "decision": "PROCESS",
+      "confidence": 0.96,
+      "matched_facts": [
+        "The victim is stated to be 15 years old",
+        "The allegation concerns sexual acts against the victim"
+      ],
+      "reason": "The facts describe a sexual offence against a person below 18 years, creating a direct factual basis for POCSO applicability."
+    },
+    {
+      "document": "dowry_prohibition_act.json",
+      "decision": "SKIP",
+      "confidence": 0.97,
+      "matched_facts": [],
+      "reason": "No marriage-related demand, giving, taking or receiving of property or valuable security is alleged."
+    }
+  ]
+}
+
+RULES FOR OUTPUT:
+- Include ALL eight documents.
+- Do not invent facts.
+- matched_facts must quote or closely paraphrase only facts actually present in CASE FACTS.
+- Do not cite a section number unless that section number was supplied in the inputs.
+- confidence is confidence in the ROUTING DECISION, not confidence in guilt.
+- Keep reasons short and fact-grounded.
+- If facts are ambiguous, use CANDIDATE rather than SKIP.
+- Do not perform full section retrieval in this step.
+- Do not decide guilt, innocence, bail, admissibility, or final applicability conclusively.
+- The purpose is only to decide which Special-Act JSON documents deserve further processing.
+
+ANTI-HALLUCINATION CHECK
+-------------------------
+Before returning PROCESS or CANDIDATE, ask internally:
+
+1. What exact fact in the case supports this Act?
+2. Is that fact actually present in the case?
+3. Am I relying on a keyword alone?
+4. Am I confusing a generic criminal offence with a Special-Act offence?
+5. Could this Act materially affect the case if the factual allegation is proved?
+
+If no concrete answer exists for questions 1 and 2, return SKIP.
+
+FINAL ROUTING PRINCIPLE
+-----------------------
+MAXIMIZE RECALL AT THIS STAGE, BUT REQUIRE A FACTUAL BASIS.
+
+The output of this prompt will be used as a gate:
+
+    CASE FACTS
+        +
+    IPC/BNS retrieval
+        +
+    BSA retrieval
+        +
+    BNSS retrieval
+              ↓
+       SPECIAL-ACT ROUTER
+              ↓
+       PROCESS / CANDIDATE
+              ↓
+      load only selected JSONs
+              ↓
+      retrieve relevant sections
+              ↓
+      downstream legal verifier/reasoner
+
+Never load all Special-Act JSON files merely because they exist.

@@ -1736,17 +1736,25 @@ RULES & BOUNDARIES:
 - Do NOT retrieve judgments only because they cite the same IPC/BNS section.
 - Retrieve judgments based on:
   • factual similarity
-  • verified offences
+  • verified offences (IPC/BNS criminal offences)
+  • procedural sections (BNSS/CrPC bail and criminal procedure sections)
+  • evidence sections (BSA/IEA evidentiary provisions)
+  • special act provisions (POCSO, NDPS, SC/ST, etc.)
   • procedural stage
   • bail reasoning
   • judicial outcome
+- Consider ALL statute types when assessing relevance:
+  • Criminal Offences: IPC/BNS sections (e.g., 498A IPC ↔ 85 BNS, 406 IPC ↔ 316 BNS)
+  • Criminal Procedure: CrPC/BNSS sections (e.g., 438 CrPC ↔ 482 BNSS for anticipatory bail)
+  • Evidence: IEA/BSA sections (e.g., 27 IEA ↔ 25 BSA for confessions)
+  • Special Acts: POCSO, NDPS, SC/ST, PCA, UAPA, PMLA, etc.
 - Search both Supreme Court and High Court judgments.
 - For every retrieved judgment return:
   • case_name
   • court
   • citation
   • facts
-  • verified_offences
+  • verified_offences (list ALL statute types: IPC/BNS, BNSS/CrPC, BSA/IEA, Special Acts)
   • bail_outcome
   • ratio_decidendi
   • similarity_score (0.0 to 1.0)
@@ -1789,9 +1797,15 @@ CANDIDATE JUDGMENT CORPUS RECORDS:
 
 Perform the following tasks:
 1. Retrieve judgments having similar factual matrix, same procedural stage, similar offences, and bail considerations.
-2. For each relevant precedent, output: case_name, court, citation, facts, verified_offences, bail_outcome, ratio_decidendi, and similarity_score (0.0 to 1.0).
-3. Rank precedents by overall similarity_score descending.
-4. If similarity_score < 0.70, place judgment note in manual_review.
+2. Consider ALL statute types when assessing similarity:
+   - Criminal Offences: IPC/BNS sections (e.g., 498A IPC, 85 BNS, 406 IPC, 316 BNS)
+   - Criminal Procedure: CrPC/BNSS sections (e.g., 438 CrPC, 482 BNSS, 439 CrPC, 483 BNSS)
+   - Evidence: IEA/BSA sections (e.g., 27 IEA, 25 BSA, 24 IEA, 22 BSA)
+   - Special Acts: POCSO, NDPS, SC/ST, PCA, UAPA, PMLA, etc.
+3. For each relevant precedent, output: case_name, court, citation, facts, verified_offences (include ALL statute types), bail_outcome, ratio_decidendi, and similarity_score (0.0 to 1.0).
+4. In verified_offences, include references to ALL relevant statutes (e.g., ["498A IPC", "438 CrPC", "27 IEA", "3 POCSO"]).
+5. Rank precedents by overall similarity_score descending.
+6. If similarity_score < 0.70, place judgment note in manual_review.
 
 Return ONLY valid JSON matching this schema:
 {{
@@ -1802,7 +1816,7 @@ Return ONLY valid JSON matching this schema:
       "court": "Supreme Court",
       "citation": "(2014) 8 SCC 273",
       "facts": "Dowry harassment allegations under Section 498A.",
-      "verified_offences": ["498A IPC"],
+      "verified_offences": ["498A IPC", "438 CrPC"],
       "bail_outcome": "Anticipatory Bail Principles Applied",
       "ratio_decidendi": "Arrest should not be automatic in offences punishable up to seven years.",
       "similarity_score": 0.94
@@ -1812,7 +1826,7 @@ Return ONLY valid JSON matching this schema:
       "court": "Supreme Court",
       "citation": "LAWS(SC)-2021-1-41",
       "facts": "Property transaction, cheating allegations.",
-      "verified_offences": ["420 IPC", "406 IPC"],
+      "verified_offences": ["420 IPC", "406 IPC", "482 CrPC"],
       "bail_outcome": "Conditional bail modified",
       "ratio_decidendi": "Bail proceedings cannot become recovery proceedings.",
       "similarity_score": 0.89
@@ -2030,4 +2044,4 @@ Return valid JSON:
     }}
   ]
 }}
-"""
+"""

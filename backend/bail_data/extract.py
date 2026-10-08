@@ -38,8 +38,8 @@ from judgment_parser import Doc, load_document
 load_dotenv(dotenv_path=os.path.join(os.path.dirname(__file__), "..", ".env"))
 load_dotenv()
 
-EXTRACT_MODEL = os.getenv("EXTRACT_MODEL", os.getenv("MODEL_STAGE6", "gpt-4o"))
-VERIFY_MODEL = os.getenv("VERIFY_MODEL", os.getenv("MODEL_STAGE1", "gpt-4o-mini"))  # deliberately a different model
+EXTRACT_MODEL = os.getenv("EXTRACT_MODEL", os.getenv("MODEL_STAGE6", "gpt-4o-mini"))
+VERIFY_MODEL = os.getenv("VERIFY_MODEL", os.getenv("MODEL_STAGE1", "gpt-4o-mini"))
 
 # --------------------------------------------------------------------------- lenient coercion helpers
 COERCIONS: list[str] = []          # filled by validators during one model_validate(); drained per case

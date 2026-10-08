@@ -1,0 +1,2523 @@
+{
+  "document": {
+    "title": "The Indian Institutes of Information Technology Act, 2014",
+    "act_number": "Act No. 30 of 2014",
+    "enacted_date": "8th December, 2014",
+    "as_on_date": "23rd July, 2025",
+    "amending_acts": [
+      {
+        "title": "The Indian Institutes of Information Technology (Amendment) Act, 2017",
+        "citation": "25 of 2017"
+      },
+      {
+        "title": "The Indian Institutes of Information Technology Laws (Amendment) Act, 2020",
+        "citation": "27 of 2020"
+      }
+    ],
+    "abbreviations_used": [
+      {
+        "abbreviation": "Cl., cls.",
+        "meaning": "Clause, clauses."
+      },
+      {
+        "abbreviation": "Ins.",
+        "meaning": "Inserted."
+      },
+      {
+        "abbreviation": "Notifn.",
+        "meaning": "Notification."
+      },
+      {
+        "abbreviation": "S., ss.",
+        "meaning": "Section, sections."
+      },
+      {
+        "abbreviation": "Sch.",
+        "meaning": "Schedule."
+      },
+      {
+        "abbreviation": "Subs.",
+        "meaning": "Substituted."
+      },
+      {
+        "abbreviation": "w.e.f.",
+        "meaning": "with effect from."
+      }
+    ],
+    "source_pages": "1–22",
+    "long_title": "An Act to declare certain institutions of information technology to be institutions of national importance, with a view to develop new knowledge in information technology and to provide manpower of global standards for the information technology industry and to provide for certain other matters connected with such institutions or incidental thereto.",
+    "enacting_formula": "BE it enacted by Parliament in the Sixty-fifth Year of the Republic of India as follows:—",
+    "arrangement_of_sections": [
+      {
+        "section_number": "1",
+        "heading": "Short title and commencement",
+        "chapter": "I"
+      },
+      {
+        "section_number": "2",
+        "heading": "Declaration of certain institutions as institutions of national importance",
+        "chapter": "I"
+      },
+      {
+        "section_number": "3",
+        "heading": "Definitions",
+        "chapter": "I"
+      },
+      {
+        "section_number": "4",
+        "heading": "Incorporation of Institutes",
+        "chapter": "II"
+      },
+      {
+        "section_number": "5",
+        "heading": "Effect of incorporation of Institutes",
+        "chapter": "II"
+      },
+      {
+        "section_number": "6",
+        "heading": "Objects of Institute",
+        "chapter": "II"
+      },
+      {
+        "section_number": "7",
+        "heading": "Powers and functions of Institute",
+        "chapter": "II"
+      },
+      {
+        "section_number": "8",
+        "heading": "Institute to be open to all races, creeds and classes",
+        "chapter": "II"
+      },
+      {
+        "section_number": "9",
+        "heading": "Teaching at Institute",
+        "chapter": "II"
+      },
+      {
+        "section_number": "10",
+        "heading": "Institute to be a distinct legal entity not-for-profit",
+        "chapter": "II"
+      },
+      {
+        "section_number": "11",
+        "heading": "Visitor",
+        "chapter": "II"
+      },
+      {
+        "section_number": "12",
+        "heading": "Authorities of Institute",
+        "chapter": "III"
+      },
+      {
+        "section_number": "13",
+        "heading": "Board of Governors",
+        "chapter": "III"
+      },
+      {
+        "section_number": "14",
+        "heading": "Term of office of, vacancies among, and allowances payable to, members of Board",
+        "chapter": "III"
+      },
+      {
+        "section_number": "15",
+        "heading": "Powers and functions of Board of Governors",
+        "chapter": "III"
+      },
+      {
+        "section_number": "16",
+        "heading": "Senate",
+        "chapter": "III"
+      },
+      {
+        "section_number": "17",
+        "heading": "Powers and functions of Senate",
+        "chapter": "III"
+      },
+      {
+        "section_number": "18",
+        "heading": "Finance Committee",
+        "chapter": "III"
+      },
+      {
+        "section_number": "19",
+        "heading": "Power and functions of Finance Committee",
+        "chapter": "III"
+      },
+      {
+        "section_number": "20",
+        "heading": "Building and Works Committee",
+        "chapter": "III"
+      },
+      {
+        "section_number": "21",
+        "heading": "Powers and functions of Building and Works Committee",
+        "chapter": "III"
+      },
+      {
+        "section_number": "22",
+        "heading": "Research Council",
+        "chapter": "III"
+      },
+      {
+        "section_number": "23",
+        "heading": "Meetings",
+        "chapter": "III"
+      },
+      {
+        "section_number": "24",
+        "heading": "Director",
+        "chapter": "III"
+      },
+      {
+        "section_number": "25",
+        "heading": "Registrar",
+        "chapter": "III"
+      },
+      {
+        "section_number": "26",
+        "heading": "Other authorities and officers",
+        "chapter": "III"
+      },
+      {
+        "section_number": "27",
+        "heading": "Review of performance of Institute",
+        "chapter": "III"
+      },
+      {
+        "section_number": "28",
+        "heading": "Grants by Central Government",
+        "chapter": "IV"
+      },
+      {
+        "section_number": "29",
+        "heading": "Fund of Institute",
+        "chapter": "IV"
+      },
+      {
+        "section_number": "30",
+        "heading": "Accounts and audit",
+        "chapter": "IV"
+      },
+      {
+        "section_number": "31",
+        "heading": "Pension and provident fund",
+        "chapter": "IV"
+      },
+      {
+        "section_number": "32",
+        "heading": "Appointments",
+        "chapter": "IV"
+      },
+      {
+        "section_number": "33",
+        "heading": "Statutes",
+        "chapter": "IV"
+      },
+      {
+        "section_number": "34",
+        "heading": "Statutes how to be made",
+        "chapter": "IV"
+      },
+      {
+        "section_number": "35",
+        "heading": "Ordinances",
+        "chapter": "IV"
+      },
+      {
+        "section_number": "36",
+        "heading": "Ordinances how to be made",
+        "chapter": "IV"
+      },
+      {
+        "section_number": "37",
+        "heading": "Tribunal of Arbitration",
+        "chapter": "IV"
+      },
+      {
+        "section_number": "38",
+        "heading": "Annual report of Director",
+        "chapter": "IV"
+      },
+      {
+        "section_number": "39",
+        "heading": "Annual report of each Institute",
+        "chapter": "IV"
+      },
+      {
+        "section_number": "40",
+        "heading": "Council of Institutes",
+        "chapter": "V"
+      },
+      {
+        "section_number": "41",
+        "heading": "Term of office and allowances payable to members of Council",
+        "chapter": "V"
+      },
+      {
+        "section_number": "42",
+        "heading": "Function and duties of Council",
+        "chapter": "V"
+      },
+      {
+        "section_number": "43",
+        "heading": "Power to make rules in respect of matters in this Chapter",
+        "chapter": "V"
+      },
+      {
+        "section_number": "44",
+        "heading": "Acts and proceedings not to be invalidated by vacancies, etc",
+        "chapter": "VI"
+      },
+      {
+        "section_number": "45",
+        "heading": "Returns and information to be provided to Central Government",
+        "chapter": "VI"
+      },
+      {
+        "section_number": "46",
+        "heading": "Power of Central Government to issue directions",
+        "chapter": "VI"
+      },
+      {
+        "section_number": "47",
+        "heading": "Institute to be public authority under Right to Information Act",
+        "chapter": "VI"
+      },
+      {
+        "section_number": "48",
+        "heading": "Transitional provisions",
+        "chapter": "VI"
+      },
+      {
+        "section_number": "49",
+        "heading": "Power to remove difficulties",
+        "chapter": "VI"
+      },
+      {
+        "section_number": "50",
+        "heading": "Laying of rules and notification",
+        "chapter": "VI"
+      },
+      {
+        "section_number": null,
+        "heading": "The Schedule"
+      }
+    ],
+    "footnotes": [],
+    "coverage": "Complete Act: Chapters I–VI (sections 1–50), The Schedule and the Statement of Objects and Reasons",
+    "notes": [
+      "The uploaded file named \"Information Technology Act\" is the Indian Institutes of Information Technology Act, 2014 (Act No. 30 of 2014, as on 23 July 2025), not the Information Technology Act, 2000.",
+      "Square-bracket amendment markers and footnote reference numbers are removed from the text; each section lists its amendment footnotes (marker, page, text, parsed action/act/effective date) under \"footnotes\".",
+      "Spelling as printed in the source PDF is preserved (e.g. the chapter headings \"THEINSTITUTES\" and \"INSTITUTEOF\")."
+    ]
+  },
+  "chapters": [
+    {
+      "chapter_number": "I",
+      "chapter_title": "Preliminary",
+      "page_start": 5,
+      "page_end": 5,
+      "section_range": [
+        "1",
+        "3"
+      ],
+      "sub_headings": [],
+      "sections": [
+        {
+          "section_number": "1",
+          "section_type": "interpretive",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Short title and commencement",
+          "sub_heading": null,
+          "text": "(1) This Act may be called the Indian Institutes of Information Technology Act, 2014.\n(2) It shall come into force on such date as the Central Government may, by notification in the Official Gazette, appoint.",
+          "page": 5,
+          "page_end": 5,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "This Act may be called the Indian Institutes of Information Technology Act, 2014."
+            },
+            {
+              "label": "(2)",
+              "text": "It shall come into force on such date as the Central Government may, by notification in the Official Gazette, appoint."
+            }
+          ],
+          "footnotes": [
+            {
+              "marker": 1,
+              "page": 5,
+              "text": "5th January, 2015, vide notification No. S.O. 41(E), dated 5th January, 2015, see Gazette of India, Extraordinary, Part II, sec. 3(ii)."
+            }
+          ]
+        },
+        {
+          "section_number": "2",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Declaration of certain institutions as institutions of national importance",
+          "sub_heading": null,
+          "text": "Whereas the objects of the Institutes mentioned in the Schedule are such as to make them institutions of national importance, it is hereby declared that each such Institute is an institution of national importance.",
+          "page": 5,
+          "page_end": 5,
+          "footnotes": []
+        },
+        {
+          "section_number": "3",
+          "section_type": "definitional",
+          "is_definition": true,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Definitions",
+          "sub_heading": null,
+          "text": "In this Act, unless the context otherwise requires,—\n(a) “Board”, in relation to any Institute, means the Board of Governors referred to in sub-section\n(1) of section 13; (b) “Chairperson” means the Chairperson of the Board of Governors appointed under sub-section\n(2) of section 13; (c) “Council” means the Council established under sub-section (1) of section 40; (d) “Director” means the Director of the Institute; (e) “existing Institute” means the institute mentioned in column (3) of the Schedule; (f) “Institute” means any of the institutions mentioned in column (5) of the Schedule; (g) “prescribed” means prescribed by rules made under this Act; (h) “Schedule” means the Schedule to this Act;\n(i) “Senate”, in relation to any Institute, means the Senate thereof;\n(j) “Statutes” and “Ordinances”, in relation to any Institute, means the Statutes and Ordinances of the Institute made under this Act.",
+          "page": 5,
+          "page_end": 5,
+          "lead_text": "In this Act, unless the context otherwise requires,—",
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "of section 13; (b) “Chairperson” means the Chairperson of the Board of Governors appointed under sub-section"
+            },
+            {
+              "label": "(2)",
+              "text": "of section 13; (c) “Council” means the Council established under sub-section (1) of section 40; (d) “Director” means the Director of the Institute; (e) “existing Institute” means the institute mentioned in column (3) of the Schedule; (f) “Institute” means any of the institutions mentioned in column (5) of the Schedule; (g) “prescribed” means prescribed by rules made under this Act; (h) “Schedule” means the Schedule to this Act;",
+              "clauses": [
+                {
+                  "label": "(i)",
+                  "text": "“Senate”, in relation to any Institute, means the Senate thereof;"
+                },
+                {
+                  "label": "(j)",
+                  "text": "“Statutes” and “Ordinances”, in relation to any Institute, means the Statutes and Ordinances of the Institute made under this Act."
+                }
+              ]
+            }
+          ],
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "“Board”, in relation to any Institute, means the Board of Governors referred to in sub-section"
+            }
+          ],
+          "footnotes": []
+        }
+      ]
+    },
+    {
+      "chapter_number": "II",
+      "chapter_title": "Theinstitutes",
+      "page_start": 5,
+      "page_end": 8,
+      "section_range": [
+        "4",
+        "11"
+      ],
+      "sub_headings": [],
+      "sections": [
+        {
+          "section_number": "4",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Incorporation of Institutes",
+          "sub_heading": null,
+          "text": "(1) On and from the commencement of this Act, every existing Institute, shall be a body corporate by the same name as mentioned in column (5) of the Schedule.\n(2) Every existing Institute referred to in column (5) of the Schedule shall have perpetual succession and a common seal, with power, subject to the provisions of this Act, to acquire, hold and dispose of property, both movable and immovable, and to contract, and shall, by the said name, sue or be sued.",
+          "page": 5,
+          "page_end": 5,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "On and from the commencement of this Act, every existing Institute, shall be a body corporate by the same name as mentioned in column (5) of the Schedule."
+            },
+            {
+              "label": "(2)",
+              "text": "Every existing Institute referred to in column (5) of the Schedule shall have perpetual succession and a common seal, with power, subject to the provisions of this Act, to acquire, hold and dispose of property, both movable and immovable, and to contract, and shall, by the said name, sue or be sued."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "5",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Effect of incorporation of Institutes",
+          "sub_heading": null,
+          "text": "On and from the commencement of this Act,—\n(a) any reference to a Society in any contract or other instrument shall be deemed as a reference to the corresponding Institute mentioned in column (5) of the Schedule;\n(b) all properties, movable and immovable, of or belonging to every existing Institute shall vest in the corresponding Institute mentioned under column (5) of the Schedule;\n(c) all rights and debts and other liabilities of every existing Institute mentioned in column (3) of the Schedule shall be transferred to, and be the rights and liabilities of, the corresponding Institute mentioned in column (5) of the Schedule;\n(d) every person employed by every existing Institute mentioned in column (3) of the Schedule, immediately before such commencement shall hold his office or service in the corresponding Institute mentioned in column (5) of the Schedule, with the same tenure, at the same remuneration and upon the same terms and conditions and with the same rights and privileges as to pension, leave, gratuity, provident fund and other matters as he would have held the same if this Act had not been enacted and shall continue to do so unless and until his employment is terminated or until such tenure, remuneration and terms and conditions are duly altered by the Statutes:\nProvided that if the alteration so made is not acceptable to such employee, his employment may be terminated by the Institute in accordance with the terms of the contract with the employee or, if no provision is made therein in this behalf, on payment, to him by the Institute, of compensation equivalent to three months’ remuneration in case of permanent employees and one month’s remuneration in the case of other employees:\nProvided further that any reference, by whatever form of words, to the Director, Registrar and other officers of an existing Institute mentioned in column (3) of the Schedule, in any law for the time being in force, or in any instrument or other document, shall be construed as a reference to the Director, Registrar and other officers of the corresponding Institute mentioned in column (5) of the Schedule;\n(e) every person pursuing, before the commencement of this Act, any academic or research course in every existing Institute mentioned in column (3) of the Schedule, shall be deemed to have migrated and registered with the corresponding Institute mentioned in column (5) of the Schedule, on such commencement at the same level of course in the Institute from which such person migrated;\n(f) all suits and other legal proceedings instituted or which could have been instituted by or against an existing Institute, mentioned in column (3) of the Schedule, immediately before the commencement of this Act shall be continued or instituted by or against the corresponding Institute mentioned in column (5) of the Schedule.",
+          "page": 6,
+          "page_end": 6,
+          "lead_text": "On and from the commencement of this Act,—",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "any reference to a Society in any contract or other instrument shall be deemed as a reference to the corresponding Institute mentioned in column (5) of the Schedule;"
+            },
+            {
+              "label": "(b)",
+              "text": "all properties, movable and immovable, of or belonging to every existing Institute shall vest in the corresponding Institute mentioned under column (5) of the Schedule;"
+            },
+            {
+              "label": "(c)",
+              "text": "all rights and debts and other liabilities of every existing Institute mentioned in column (3) of the Schedule shall be transferred to, and be the rights and liabilities of, the corresponding Institute mentioned in column (5) of the Schedule;"
+            },
+            {
+              "label": "(d)",
+              "text": "every person employed by every existing Institute mentioned in column (3) of the Schedule, immediately before such commencement shall hold his office or service in the corresponding Institute mentioned in column (5) of the Schedule, with the same tenure, at the same remuneration and upon the same terms and conditions and with the same rights and privileges as to pension, leave, gratuity, provident fund and other matters as he would have held the same if this Act had not been enacted and shall continue to do so unless and until his employment is terminated or until such tenure, remuneration and terms and conditions are duly altered by the Statutes:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that if the alteration so made is not acceptable to such employee, his employment may be terminated by the Institute in accordance with the terms of the contract with the employee or, if no provision is made therein in this behalf, on payment, to him by the Institute, of compensation equivalent to three months’ remuneration in case of permanent employees and one month’s remuneration in the case of other employees:"
+                },
+                {
+                  "label": "Proviso",
+                  "text": "Provided further that any reference, by whatever form of words, to the Director, Registrar and other officers of an existing Institute mentioned in column (3) of the Schedule, in any law for the time being in force, or in any instrument or other document, shall be construed as a reference to the Director, Registrar and other officers of the corresponding Institute mentioned in column (5) of the Schedule;"
+                }
+              ]
+            },
+            {
+              "label": "(e)",
+              "text": "every person pursuing, before the commencement of this Act, any academic or research course in every existing Institute mentioned in column (3) of the Schedule, shall be deemed to have migrated and registered with the corresponding Institute mentioned in column (5) of the Schedule, on such commencement at the same level of course in the Institute from which such person migrated;"
+            },
+            {
+              "label": "(f)",
+              "text": "all suits and other legal proceedings instituted or which could have been instituted by or against an existing Institute, mentioned in column (3) of the Schedule, immediately before the commencement of this Act shall be continued or instituted by or against the corresponding Institute mentioned in column (5) of the Schedule."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "6",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Objects of Institute",
+          "sub_heading": null,
+          "text": "Each Institute shall have the following objects, namely:—\n(a) to emerge amongst the foremost institutions in information technology and allied fields of knowledge;\n(b) to advance new knowledge and innovation in information technology and allied fields to empower the nation to the forefront in the global context;\n(c) to develop competent and capable youth imbued with the spirit of innovation and entrepreneurship with the social and environmental orientation to meet the knowledge needs of the country and provide global leadership in information technology and allied fields;\n(d) to promote and provide transparency of highest order in matters of admission, appointments to various positions, academic evaluation, administration and finance.",
+          "page": 6,
+          "page_end": 6,
+          "lead_text": "Each Institute shall have the following objects, namely:—",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "to emerge amongst the foremost institutions in information technology and allied fields of knowledge;"
+            },
+            {
+              "label": "(b)",
+              "text": "to advance new knowledge and innovation in information technology and allied fields to empower the nation to the forefront in the global context;"
+            },
+            {
+              "label": "(c)",
+              "text": "to develop competent and capable youth imbued with the spirit of innovation and entrepreneurship with the social and environmental orientation to meet the knowledge needs of the country and provide global leadership in information technology and allied fields;"
+            },
+            {
+              "label": "(d)",
+              "text": "to promote and provide transparency of highest order in matters of admission, appointments to various positions, academic evaluation, administration and finance."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "7",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Powers and functions of Institute",
+          "sub_heading": null,
+          "text": "(1) Subject to the provisions of this Act, every Institute shall exercise the following powers and perform the following functions, namely:—\n(a) to provide instruction in such fields of knowledge concerning information technology and allied areas as such Institute may think fit, for the advancement of learning and dissemination of knowledge;\n(b) to lead, organise and conduct research and innovation in information technology and allied fields of knowledge in such manner as the Institute may think fit, including in collaboration or in association with any other Institute, educational institution, research organisation or body corporate;\n(c) to hold examinations and grant degrees, diplomas and other academic distinctions or titles; and to confer honorary degrees;\n(d) to institute teaching, research or other academic positions, required by the Institute with such designations as it may deem fit, and to appoint persons on tenure, term or otherwise to such positions, other than the post of Director in accordance with the policy laid down by the Council;\n(e) to appoint persons working in any other Institute or educational institution or involved in research of significance in any industry as adjunct, guest or visiting faculty of the Institute on such terms and for such duration as the Institute may decide;\n(f) to create administrative and other posts and to make appointments thereto in accordance with the policy laid down by the Council;\n(g) to make provision for dissemination of knowledge emerging from research and for that purpose to enter into such arrangements, including consultancy and advisory services, with other institutions, industry, civil society or other organisations, as the Institute may deem necessary;\n(h) to create a website, highlight all information not restricted to those related to students, admission, fee, administrative structure, policies including recruitment rules, faculty and non-faculty posts, annual reports and financial details including statement of account of the Institute;\n(i) to determine, specify and receive payment of the charges, as the Institute may deem fit, from person, institution or body corporate for services, including training, consultancy and advisory services, provided by the Institute;\n(j) to deal with any property belonging to or vested in, the Institute in such manner as the Institute may deem fit for advancing the objects of the Institute:\nProvided that where the land for the Institute has been provided free of cost by a State Government, such land may be disposed of only with the prior approval of such State Government;\n(k) to receive gifts, grants, donations or benefactions from the Government and to receive bequests, donations and transfers of movable or immovable properties from testators, donors or transferors, as the case may be;\n(l) to co-operate with educational or other institutions in any part of the world having objects wholly or partly similar to those of the Institute by exchange of teachers and scholars and generally in such manner as may be conducive to their common objects;\n(m) to establish and maintain such infrastructure as may be necessary, incidental or conducive to the attainment of the objects of the Institute;\n(n) to institute and award fellowships, scholarships, exhibitions, prizes and medals;\n(o) to strive to meet the technological needs of the States and the Union territories by supporting technical educational institutions; and\n(p) to do all such things as may be necessary, incidental or conducive to the attainment of all or any of the objects of the Institute.\n(2) Notwithstanding anything contained in clause (j), an Institute shall not dispose of in any manner any immovable property, without the prior approval of the Visitor.",
+          "page": 6,
+          "page_end": 7,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Subject to the provisions of this Act, every Institute shall exercise the following powers and perform the following functions, namely:—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "to provide instruction in such fields of knowledge concerning information technology and allied areas as such Institute may think fit, for the advancement of learning and dissemination of knowledge;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "to lead, organise and conduct research and innovation in information technology and allied fields of knowledge in such manner as the Institute may think fit, including in collaboration or in association with any other Institute, educational institution, research organisation or body corporate;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "to hold examinations and grant degrees, diplomas and other academic distinctions or titles; and to confer honorary degrees;"
+                },
+                {
+                  "label": "(d)",
+                  "text": "to institute teaching, research or other academic positions, required by the Institute with such designations as it may deem fit, and to appoint persons on tenure, term or otherwise to such positions, other than the post of Director in accordance with the policy laid down by the Council;"
+                },
+                {
+                  "label": "(e)",
+                  "text": "to appoint persons working in any other Institute or educational institution or involved in research of significance in any industry as adjunct, guest or visiting faculty of the Institute on such terms and for such duration as the Institute may decide;"
+                },
+                {
+                  "label": "(f)",
+                  "text": "to create administrative and other posts and to make appointments thereto in accordance with the policy laid down by the Council;"
+                },
+                {
+                  "label": "(g)",
+                  "text": "to make provision for dissemination of knowledge emerging from research and for that purpose to enter into such arrangements, including consultancy and advisory services, with other institutions, industry, civil society or other organisations, as the Institute may deem necessary;"
+                },
+                {
+                  "label": "(h)",
+                  "text": "to create a website, highlight all information not restricted to those related to students, admission, fee, administrative structure, policies including recruitment rules, faculty and non-faculty posts, annual reports and financial details including statement of account of the Institute;"
+                },
+                {
+                  "label": "(i)",
+                  "text": "to determine, specify and receive payment of the charges, as the Institute may deem fit, from person, institution or body corporate for services, including training, consultancy and advisory services, provided by the Institute;"
+                },
+                {
+                  "label": "(j)",
+                  "text": "to deal with any property belonging to or vested in, the Institute in such manner as the Institute may deem fit for advancing the objects of the Institute:",
+                  "provisos": [
+                    {
+                      "label": "Proviso",
+                      "text": "Provided that where the land for the Institute has been provided free of cost by a State Government, such land may be disposed of only with the prior approval of such State Government;"
+                    }
+                  ]
+                },
+                {
+                  "label": "(k)",
+                  "text": "to receive gifts, grants, donations or benefactions from the Government and to receive bequests, donations and transfers of movable or immovable properties from testators, donors or transferors, as the case may be;"
+                },
+                {
+                  "label": "(l)",
+                  "text": "to co-operate with educational or other institutions in any part of the world having objects wholly or partly similar to those of the Institute by exchange of teachers and scholars and generally in such manner as may be conducive to their common objects;"
+                },
+                {
+                  "label": "(m)",
+                  "text": "to establish and maintain such infrastructure as may be necessary, incidental or conducive to the attainment of the objects of the Institute;"
+                },
+                {
+                  "label": "(n)",
+                  "text": "to institute and award fellowships, scholarships, exhibitions, prizes and medals;"
+                },
+                {
+                  "label": "(o)",
+                  "text": "to strive to meet the technological needs of the States and the Union territories by supporting technical educational institutions; and"
+                },
+                {
+                  "label": "(p)",
+                  "text": "to do all such things as may be necessary, incidental or conducive to the attainment of all or any of the objects of the Institute."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "Notwithstanding anything contained in clause (j), an Institute shall not dispose of in any manner any immovable property, without the prior approval of the Visitor."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "8",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Institute to be open to all races, creeds and classes",
+          "sub_heading": null,
+          "text": "(1) Every Institute shall be open to all persons irrespective of gender, caste, creed, disability, domicile, ethnicity, social or economic background.\n(2) No bequest, donation or transfer of any property shall be accepted by any Institute which in the opinion of the Council involves conditions or obligations opposed to the spirit and object of this section.\n(3) Admissions to every programme of study in each Institute shall be based on merit assessed through transparent and reasonable criteria disclosed through its prospectus, prior to the commencement of the process of admission by such Institute:\nProvided that every such Institute shall be a Central Educational Institution for the purposes of the Central Educational Institutions (Reservation in Admission) Act, 2006 (5 of 2007).",
+          "page": 7,
+          "page_end": 8,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Every Institute shall be open to all persons irrespective of gender, caste, creed, disability, domicile, ethnicity, social or economic background."
+            },
+            {
+              "label": "(2)",
+              "text": "No bequest, donation or transfer of any property shall be accepted by any Institute which in the opinion of the Council involves conditions or obligations opposed to the spirit and object of this section."
+            },
+            {
+              "label": "(3)",
+              "text": "Admissions to every programme of study in each Institute shall be based on merit assessed through transparent and reasonable criteria disclosed through its prospectus, prior to the commencement of the process of admission by such Institute:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that every such Institute shall be a Central Educational Institution for the purposes of the Central Educational Institutions (Reservation in Admission) Act, 2006 (5 of 2007)."
+                }
+              ]
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "9",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Teaching at Institute",
+          "sub_heading": null,
+          "text": "All teaching at each of the Institute shall be conducted by or in the name of the Institute in accordance with the Statutes and Ordinances made in this behalf.",
+          "page": 8,
+          "page_end": 8,
+          "footnotes": []
+        },
+        {
+          "section_number": "10",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Institute to be a distinct legal entity not-for-profit",
+          "sub_heading": null,
+          "text": "Each Institute shall be a not-for-profit legal entity and no part of the surplus, if any, in revenue of such Institute, after meeting all expenditure in regard to its operations under this Act, shall be invested for any purpose other than for the growth and development of such Institute or for conducting research therein.",
+          "page": 8,
+          "page_end": 8,
+          "footnotes": []
+        },
+        {
+          "section_number": "11",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Visitor",
+          "sub_heading": null,
+          "text": "(1) The President of India shall be the Visitor of every Institute.\n(2) The Visitor may appoint one or more persons to review the work and progress of any Institute and to hold inquiries into the affairs thereof and to report thereon in such manner as the Visitor may direct.\n(3) Upon receipt of any such report, the Visitor may take such action and issue such directions as he considers necessary in respect of any of the matters dealt with in the report and the Institute shall be bound to comply with such directions within a reasonable time.",
+          "page": 8,
+          "page_end": 8,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The President of India shall be the Visitor of every Institute."
+            },
+            {
+              "label": "(2)",
+              "text": "The Visitor may appoint one or more persons to review the work and progress of any Institute and to hold inquiries into the affairs thereof and to report thereon in such manner as the Visitor may direct."
+            },
+            {
+              "label": "(3)",
+              "text": "Upon receipt of any such report, the Visitor may take such action and issue such directions as he considers necessary in respect of any of the matters dealt with in the report and the Institute shall be bound to comply with such directions within a reasonable time."
+            }
+          ],
+          "footnotes": []
+        }
+      ]
+    },
+    {
+      "chapter_number": "III",
+      "chapter_title": "Authorities of Centrally Funded Indian Instituteof Information Technology",
+      "page_start": 8,
+      "page_end": 14,
+      "section_range": [
+        "12",
+        "27"
+      ],
+      "sub_headings": [],
+      "sections": [
+        {
+          "section_number": "12",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Authorities of Institute",
+          "sub_heading": null,
+          "text": "The following shall be the authorities of an Institute, namely:—\n(a) Board of Governors;\n(b) Senate;\n(c) Finance Committee;\n(d) Building and Works Committee;\n(e) Research Council;\n(f) such other authorities as may be declared by the Statutes to be the authorities of the Institute.",
+          "page": 8,
+          "page_end": 8,
+          "lead_text": "The following shall be the authorities of an Institute, namely:—",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "Board of Governors;"
+            },
+            {
+              "label": "(b)",
+              "text": "Senate;"
+            },
+            {
+              "label": "(c)",
+              "text": "Finance Committee;"
+            },
+            {
+              "label": "(d)",
+              "text": "Building and Works Committee;"
+            },
+            {
+              "label": "(e)",
+              "text": "Research Council;"
+            },
+            {
+              "label": "(f)",
+              "text": "such other authorities as may be declared by the Statutes to be the authorities of the Institute."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "13",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Board of Governors",
+          "sub_heading": null,
+          "text": "(1) The Board of Governors of each Institute shall be the principal executive body of that Institute.\n(2) The Board of Governors of each Institute shall consist of the following members, namely:—\n(a) a Chairperson, an eminent technologist or industrialist or educationist to be nominated by the Visitor from a panel of three names recommended by the Central Government;\n(b) Secretary incharge of Information Technology or Higher Education in the State in which the Institute is located, ex officio;\n(c) one representative of the Department of Higher Education, Government of India dealing with Indian Institute of Information Technology, ex officio;\n(d) one representative of the Ministry of Communication and Information Technology, Government of India, ex officio;\n(e) Director of Indian Institute of Technology to be nominated by the Central Government;\n(f) Director of Indian Institute of Management to be nominated by the Central Government;\n(g) four persons having special knowledge or practical experience in respect of information technology or engineering or science or allied areas to be nominated by the Council;\n(h) two Professors of the Institute nominated by the Senate;\n(i) Director of the Institute, ex officio;\n(j) the Registrar, ex officio Secretary.",
+          "page": 8,
+          "page_end": 9,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The Board of Governors of each Institute shall be the principal executive body of that Institute."
+            },
+            {
+              "label": "(2)",
+              "text": "The Board of Governors of each Institute shall consist of the following members, namely:—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "a Chairperson, an eminent technologist or industrialist or educationist to be nominated by the Visitor from a panel of three names recommended by the Central Government;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "Secretary incharge of Information Technology or Higher Education in the State in which the Institute is located, ex officio;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "one representative of the Department of Higher Education, Government of India dealing with Indian Institute of Information Technology, ex officio;"
+                },
+                {
+                  "label": "(d)",
+                  "text": "one representative of the Ministry of Communication and Information Technology, Government of India, ex officio;"
+                },
+                {
+                  "label": "(e)",
+                  "text": "Director of Indian Institute of Technology to be nominated by the Central Government;"
+                },
+                {
+                  "label": "(f)",
+                  "text": "Director of Indian Institute of Management to be nominated by the Central Government;"
+                },
+                {
+                  "label": "(g)",
+                  "text": "four persons having special knowledge or practical experience in respect of information technology or engineering or science or allied areas to be nominated by the Council;"
+                },
+                {
+                  "label": "(h)",
+                  "text": "two Professors of the Institute nominated by the Senate;"
+                },
+                {
+                  "label": "(i)",
+                  "text": "Director of the Institute, ex officio;"
+                },
+                {
+                  "label": "(j)",
+                  "text": "the Registrar, ex officio Secretary."
+                }
+              ]
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "14",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Term of office of, vacancies among, and allowances payable to, members of Board",
+          "sub_heading": null,
+          "text": "(1) Save as otherwise provided in this section, the term of office of member of the Board, other than the ex officio member, shall be three years from the date of nomination.\n(2) The term of office of an ex officio member shall continue so long as he holds the office by virtue of which he is a member.\n(3) The term of office of a member nominated under clause (h) of sub-section (2) of section 13 shall be two years from the date of nomination.\n(4) A member of the Board, other than an ex officio member, who fails to attend three consecutive meetings of the Board, shall cease to a member of the Board.\n(5) Notwithstanding anything contained in this section, an outgoing member shall, unless the Council directs, continue in office until another person is nominated as a member in his place.\n(6) Members of the Board shall be entitled to such allowances, as may be specified in the Statutes, for attending meetings of the Board or as may be convened by the Institute.",
+          "page": 9,
+          "page_end": 9,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Save as otherwise provided in this section, the term of office of member of the Board, other than the ex officio member, shall be three years from the date of nomination."
+            },
+            {
+              "label": "(2)",
+              "text": "The term of office of an ex officio member shall continue so long as he holds the office by virtue of which he is a member."
+            },
+            {
+              "label": "(3)",
+              "text": "The term of office of a member nominated under clause (h) of sub-section (2) of section 13 shall be two years from the date of nomination."
+            },
+            {
+              "label": "(4)",
+              "text": "A member of the Board, other than an ex officio member, who fails to attend three consecutive meetings of the Board, shall cease to a member of the Board."
+            },
+            {
+              "label": "(5)",
+              "text": "Notwithstanding anything contained in this section, an outgoing member shall, unless the Council directs, continue in office until another person is nominated as a member in his place."
+            },
+            {
+              "label": "(6)",
+              "text": "Members of the Board shall be entitled to such allowances, as may be specified in the Statutes, for attending meetings of the Board or as may be convened by the Institute."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "15",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Powers and functions of Board of Governors",
+          "sub_heading": null,
+          "text": "(1) Subject to the provisions of this Act, the Board of every Institute shall be responsible for the general superintendence, direction and control of the affairs of the Institute and shall have the power to frame, amend, modify or rescind the Statutes and Ordinances governing the affairs of the Institute to achieve the objects specified in section 6.\n(2) Without prejudice to the provisions of sub-section (1), the Board shall have the following powers, namely:—\n(a) to take decisions on questions of policy relating to the administration and working of the Institute;\n(b) to establish departments, faculties or schools of studies and initiate programmes or courses of study at the Institute;\n(c) to examine and approve the annual budget estimates of such Institute;\n(d) to examine and approve the plan for development of such Institute and to identify sources of finance for implementation of the plan;\n(e) to create teaching and other academic posts, to determine, by Statutes, the number and emoluments of such posts and to define the duties and conditions of service of teachers and other academic staff:\nProvided that the Board shall not take action otherwise than on consideration of the recommendations of the Senate;\n(f) to provide, by Statutes, the qualifications, criteria and processes for appointment to teaching and other posts in such Institute;\n(g) to fix fees, by the Statutes and other charges to be demanded for pursuit of studies in the Institute;\n(h) to make Statutes governing the administration, management and operations of such Institute; and\n(i) to exercise such other powers and perform such other duties as may be conferred or imposed upon it by this Act or Statutes.\n(3) The Board shall have the power to appoint such committees, as it considers necessary for the exercise of its powers and the performance of its duties under this Act.\n(4) The Board shall conduct an annual review of the performance of the Director with specific reference to his leadership in the context of the achievement of the objects of the Institute.\n(5) Where in the opinion of the Director or the Chairperson, the situation is so emergent that an immediate decision needs to be taken in the interest of the Institute, the Chairperson, in consultation with the Director may issue such orders as may be necessary, recording the grounds for his opinion:\nProvided that such orders shall be submitted for ratification of the Board in the next meeting.",
+          "page": 9,
+          "page_end": 10,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Subject to the provisions of this Act, the Board of every Institute shall be responsible for the general superintendence, direction and control of the affairs of the Institute and shall have the power to frame, amend, modify or rescind the Statutes and Ordinances governing the affairs of the Institute to achieve the objects specified in section 6."
+            },
+            {
+              "label": "(2)",
+              "text": "Without prejudice to the provisions of sub-section (1), the Board shall have the following powers, namely:—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "to take decisions on questions of policy relating to the administration and working of the Institute;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "to establish departments, faculties or schools of studies and initiate programmes or courses of study at the Institute;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "to examine and approve the annual budget estimates of such Institute;"
+                },
+                {
+                  "label": "(d)",
+                  "text": "to examine and approve the plan for development of such Institute and to identify sources of finance for implementation of the plan;"
+                },
+                {
+                  "label": "(e)",
+                  "text": "to create teaching and other academic posts, to determine, by Statutes, the number and emoluments of such posts and to define the duties and conditions of service of teachers and other academic staff:",
+                  "provisos": [
+                    {
+                      "label": "Proviso",
+                      "text": "Provided that the Board shall not take action otherwise than on consideration of the recommendations of the Senate;"
+                    }
+                  ]
+                },
+                {
+                  "label": "(f)",
+                  "text": "to provide, by Statutes, the qualifications, criteria and processes for appointment to teaching and other posts in such Institute;"
+                },
+                {
+                  "label": "(g)",
+                  "text": "to fix fees, by the Statutes and other charges to be demanded for pursuit of studies in the Institute;"
+                },
+                {
+                  "label": "(h)",
+                  "text": "to make Statutes governing the administration, management and operations of such Institute; and"
+                },
+                {
+                  "label": "(i)",
+                  "text": "to exercise such other powers and perform such other duties as may be conferred or imposed upon it by this Act or Statutes."
+                }
+              ]
+            },
+            {
+              "label": "(3)",
+              "text": "The Board shall have the power to appoint such committees, as it considers necessary for the exercise of its powers and the performance of its duties under this Act."
+            },
+            {
+              "label": "(4)",
+              "text": "The Board shall conduct an annual review of the performance of the Director with specific reference to his leadership in the context of the achievement of the objects of the Institute."
+            },
+            {
+              "label": "(5)",
+              "text": "Where in the opinion of the Director or the Chairperson, the situation is so emergent that an immediate decision needs to be taken in the interest of the Institute, the Chairperson, in consultation with the Director may issue such orders as may be necessary, recording the grounds for his opinion:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that such orders shall be submitted for ratification of the Board in the next meeting."
+                }
+              ]
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "16",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Senate",
+          "sub_heading": null,
+          "text": "(1) The Senate of each Institute shall consist of the following persons, namely:—\n(a) Director of the Institute, ex officio Chairperson;\n(b) Deputy Director, ex officio;\n(c) Deans, ex officio;\n(d) Heads of the Departments of the Institute, ex officio;\n(e) all Professors other than the Deans or Heads of the Departments;\n(f) three persons from amongst educationists of repute or persons from another field related to the activities of the Institute who are not in service of the Institute, nominated by the Board of Governors;\n(g) three persons who are not members of teaching staff co-opted by the Senate for their specialised knowledge;\n(h) Registrar of the Institute, ex officio Secretary.\n(2) The term of office of members other than ex officio member shall be two years from the date of nomination.\n(3) The term of office of an ex officio member shall continue so long as he holds the office by virtue of which he is a member.",
+          "page": 10,
+          "page_end": 10,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The Senate of each Institute shall consist of the following persons, namely:—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "Director of the Institute, ex officio Chairperson;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "Deputy Director, ex officio;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "Deans, ex officio;"
+                },
+                {
+                  "label": "(d)",
+                  "text": "Heads of the Departments of the Institute, ex officio;"
+                },
+                {
+                  "label": "(e)",
+                  "text": "all Professors other than the Deans or Heads of the Departments;"
+                },
+                {
+                  "label": "(f)",
+                  "text": "three persons from amongst educationists of repute or persons from another field related to the activities of the Institute who are not in service of the Institute, nominated by the Board of Governors;"
+                },
+                {
+                  "label": "(g)",
+                  "text": "three persons who are not members of teaching staff co-opted by the Senate for their specialised knowledge;"
+                },
+                {
+                  "label": "(h)",
+                  "text": "Registrar of the Institute, ex officio Secretary."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "The term of office of members other than ex officio member shall be two years from the date of nomination."
+            },
+            {
+              "label": "(3)",
+              "text": "The term of office of an ex officio member shall continue so long as he holds the office by virtue of which he is a member."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "17",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Powers and functions of Senate",
+          "sub_heading": null,
+          "text": "(1) Subject to the provisions of this Act, the Senate shall be the principal academic body of the Institute and shall have the power to enact, amend, modify Ordinances, governing academic matters and the affairs and well-being of students in the Institute.\n(2) Without prejudice to the provisions of sub-section (1), the Senate shall have the following powers, namely:—\n(a) to specify the criteria and process for admission to courses or programmes of study offered by the Institute;\n(b) to recommend to the Board creation of teaching and other academic posts, determination of the number and emoluments of such posts and defining the duties and conditions of service of teachers and other academic posts;\n(c) to recommend to the Board about commencement of new programmes or courses of study;\n(d) to specify the broad academic content of programmes and courses of study and undertake modifications therein;\n(e) to specify the academic calendar and approve grant of degrees, diplomas and other academic distinctions or titles;\n(f) to appoint examiners, moderators, tabulators and such other personnel for different examinations;\n(g) to recognise diplomas and degrees or Universities and other Institutes and to determine equivalence with the diplomas and degrees of the Institute;\n(h) to suggest measures for departmental co-ordination;\n(i) to make major recommendations to the Board of Governors on— (a)measures for improvement of standard of teaching, training and research; (b)institution of chairs, fellowships, scholarships, studentships, free-ships, medals and prizes and other related matters; (c)establishment or abolition of departments or centres; and (d)bye-laws covering the academic functioning of the institute, discipline, residence, admissions, examinations, award of fellowships and studentships, free-ships concessions, attendance and other related matters;\n(j) to appoint sub-committees to advise on such specific matters as may be referred to by the Board of Governors or by itself;\n(k) to consider the recommendations of the sub-committees and to take such action including making of recommendations to the Board of Governors as may be required;\n(l) to take periodical review of the activities of the Departments or Centres and to take appropriate action including making of recommendations to the Board of Governors with a view to maintain and improve the standards of instructions, in the institutions; and\n(m) to exercise such other powers and discharge such other functions as may be assigned to it, by Statutes or otherwise, by the Board.",
+          "page": 10,
+          "page_end": 11,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Subject to the provisions of this Act, the Senate shall be the principal academic body of the Institute and shall have the power to enact, amend, modify Ordinances, governing academic matters and the affairs and well-being of students in the Institute."
+            },
+            {
+              "label": "(2)",
+              "text": "Without prejudice to the provisions of sub-section (1), the Senate shall have the following powers, namely:—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "to specify the criteria and process for admission to courses or programmes of study offered by the Institute;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "to recommend to the Board creation of teaching and other academic posts, determination of the number and emoluments of such posts and defining the duties and conditions of service of teachers and other academic posts;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "to recommend to the Board about commencement of new programmes or courses of study;"
+                },
+                {
+                  "label": "(d)",
+                  "text": "to specify the broad academic content of programmes and courses of study and undertake modifications therein;"
+                },
+                {
+                  "label": "(e)",
+                  "text": "to specify the academic calendar and approve grant of degrees, diplomas and other academic distinctions or titles;"
+                },
+                {
+                  "label": "(f)",
+                  "text": "to appoint examiners, moderators, tabulators and such other personnel for different examinations;"
+                },
+                {
+                  "label": "(g)",
+                  "text": "to recognise diplomas and degrees or Universities and other Institutes and to determine equivalence with the diplomas and degrees of the Institute;"
+                },
+                {
+                  "label": "(h)",
+                  "text": "to suggest measures for departmental co-ordination;"
+                },
+                {
+                  "label": "(i)",
+                  "text": "to make major recommendations to the Board of Governors on— (a)measures for improvement of standard of teaching, training and research; (b)institution of chairs, fellowships, scholarships, studentships, free-ships, medals and prizes and other related matters; (c)establishment or abolition of departments or centres; and (d)bye-laws covering the academic functioning of the institute, discipline, residence, admissions, examinations, award of fellowships and studentships, free-ships concessions, attendance and other related matters;"
+                },
+                {
+                  "label": "(j)",
+                  "text": "to appoint sub-committees to advise on such specific matters as may be referred to by the Board of Governors or by itself;"
+                },
+                {
+                  "label": "(k)",
+                  "text": "to consider the recommendations of the sub-committees and to take such action including making of recommendations to the Board of Governors as may be required;"
+                },
+                {
+                  "label": "(l)",
+                  "text": "to take periodical review of the activities of the Departments or Centres and to take appropriate action including making of recommendations to the Board of Governors with a view to maintain and improve the standards of instructions, in the institutions; and"
+                },
+                {
+                  "label": "(m)",
+                  "text": "to exercise such other powers and discharge such other functions as may be assigned to it, by Statutes or otherwise, by the Board."
+                }
+              ]
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "18",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Finance Committee",
+          "sub_heading": null,
+          "text": "(1) The Finance Committee of each Institute shall consist of the following persons, namely:—\n(a) the Chairperson, Board of Governors, ex officio, who shall be the Chairperson of the Committee;\n(b) one representative of the Government of India, Ministry of Human Resource Development, Department of Higher Education handling the matters relating to Indian Institute of Information Technology, ex officio;\n(c) one representative of the Government of India, Ministry of Human Resource Development, Department of Higher Education handling the matters relating to finance, ex officio;\n(d) two persons nominated by the Board;\n(e) the Director, ex officio;\n(f) the Officer incharge of Finance and Accounts of the Institute, ex officio Secretary.\n(2) The members of the Finance Committee other than ex officio members shall hold office for a term of three years.",
+          "page": 11,
+          "page_end": 11,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The Finance Committee of each Institute shall consist of the following persons, namely:—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "the Chairperson, Board of Governors, ex officio, who shall be the Chairperson of the Committee;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "one representative of the Government of India, Ministry of Human Resource Development, Department of Higher Education handling the matters relating to Indian Institute of Information Technology, ex officio;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "one representative of the Government of India, Ministry of Human Resource Development, Department of Higher Education handling the matters relating to finance, ex officio;"
+                },
+                {
+                  "label": "(d)",
+                  "text": "two persons nominated by the Board;"
+                },
+                {
+                  "label": "(e)",
+                  "text": "the Director, ex officio;"
+                },
+                {
+                  "label": "(f)",
+                  "text": "the Officer incharge of Finance and Accounts of the Institute, ex officio Secretary."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "The members of the Finance Committee other than ex officio members shall hold office for a term of three years."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "19",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Powers and functions of Finance Committee",
+          "sub_heading": null,
+          "text": "The Finance Committee shall examine the accounts, scrutinise proposals for expenditure and financial estimates of the Institute and thereafter submit it to the Board of Governors together with its comments for approval.",
+          "page": 11,
+          "page_end": 11,
+          "footnotes": []
+        },
+        {
+          "section_number": "20",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Building and Works Committee",
+          "sub_heading": null,
+          "text": "The Building and Works Committee of each Institute shall consist of the following persons, namely:—\n(a) the Director, ex officio, who shall be the Chairperson of the Committee;\n(b) one person nominated by Indian Institute of Technology located in the State in which the Institute is situated;\n(c) one person nominated by the Board from amongst its members;\n(d) Dean, Planning and Development;\n(e) a civil engineer not below the rank of superintending engineer in the Government or Government Agency nominated by the Board;\n(f) an electrical engineer not below the rank of superintending engineer in the Government or Government Agency nominated by the Board;\n(g) the officer incharge of Estate of the Institute, ex officio Secretary.",
+          "page": 11,
+          "page_end": 11,
+          "lead_text": "The Building and Works Committee of each Institute shall consist of the following persons, namely:—",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "the Director, ex officio, who shall be the Chairperson of the Committee;"
+            },
+            {
+              "label": "(b)",
+              "text": "one person nominated by Indian Institute of Technology located in the State in which the Institute is situated;"
+            },
+            {
+              "label": "(c)",
+              "text": "one person nominated by the Board from amongst its members;"
+            },
+            {
+              "label": "(d)",
+              "text": "Dean, Planning and Development;"
+            },
+            {
+              "label": "(e)",
+              "text": "a civil engineer not below the rank of superintending engineer in the Government or Government Agency nominated by the Board;"
+            },
+            {
+              "label": "(f)",
+              "text": "an electrical engineer not below the rank of superintending engineer in the Government or Government Agency nominated by the Board;"
+            },
+            {
+              "label": "(g)",
+              "text": "the officer incharge of Estate of the Institute, ex officio Secretary."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "21",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Powers and functions of Building and Works Committee",
+          "sub_heading": null,
+          "text": "The Building and Works Committee shall discharge the following powers and functions, namely:—\n(a) it shall be the responsibility of the Committee for construction of all major capital works after securing from the Board the necessary administrative approval and financial sanction;\n(b) it shall have the power to give the necessary administrative approval and financial sanction for all construction work and work pertaining to maintenance and repairs, within the grant place at the disposal of the Institute for the purpose;\n(c) it shall cause to be prepared estimates of cost of building and other capital work, minor works, repair, maintenance and the like;\n(d) it shall be responsible for making technical scrutiny of each work as may be considered necessary by it;\n(e) it shall be responsible for enlistment of suitable contractors and acceptance of tenders and shall have the power to give direction for departmental works where necessary.",
+          "page": 11,
+          "page_end": 12,
+          "lead_text": "The Building and Works Committee shall discharge the following powers and functions, namely:—",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "it shall be the responsibility of the Committee for construction of all major capital works after securing from the Board the necessary administrative approval and financial sanction;"
+            },
+            {
+              "label": "(b)",
+              "text": "it shall have the power to give the necessary administrative approval and financial sanction for all construction work and work pertaining to maintenance and repairs, within the grant place at the disposal of the Institute for the purpose;"
+            },
+            {
+              "label": "(c)",
+              "text": "it shall cause to be prepared estimates of cost of building and other capital work, minor works, repair, maintenance and the like;"
+            },
+            {
+              "label": "(d)",
+              "text": "it shall be responsible for making technical scrutiny of each work as may be considered necessary by it;"
+            },
+            {
+              "label": "(e)",
+              "text": "it shall be responsible for enlistment of suitable contractors and acceptance of tenders and shall have the power to give direction for departmental works where necessary."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "22",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Research Council",
+          "sub_heading": null,
+          "text": "(1) Each Institute shall establish a Research Council comprising of the Director and such other members as may be specified, by Statutes, by the Board.\n(2) The Research Council of each Institute shall—\n(a) interface with research funding organisations, industry and civil society to identify potential areas for research;\n(b) to organise and promote research in such Institute or in collaboration with any institution of higher learning or research laboratories;\n(c) assist teachers in obtaining funding from external sources for research projects prepared by them;\n(d) provide, out of the funds placed at its disposal by the Board, research resources and grant assistance for research projects proposed to be undertaken by teachers in such Institute;\n(e) provide for incubation of technology applications emerging from research and to protect and utilise the intellectual property obtained from research in the Institutes;\n(f) make provision for research and advisory services and for that purpose enter into such arrangements with other institutions, industry, civil society or other organisations and enable the fruits of research to be disseminated to industry and society through such arrangements;\n(g) exercise such other powers and perform such other duties as may be assigned to it by Statutes.",
+          "page": 12,
+          "page_end": 12,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Each Institute shall establish a Research Council comprising of the Director and such other members as may be specified, by Statutes, by the Board."
+            },
+            {
+              "label": "(2)",
+              "text": "The Research Council of each Institute shall—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "interface with research funding organisations, industry and civil society to identify potential areas for research;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "to organise and promote research in such Institute or in collaboration with any institution of higher learning or research laboratories;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "assist teachers in obtaining funding from external sources for research projects prepared by them;"
+                },
+                {
+                  "label": "(d)",
+                  "text": "provide, out of the funds placed at its disposal by the Board, research resources and grant assistance for research projects proposed to be undertaken by teachers in such Institute;"
+                },
+                {
+                  "label": "(e)",
+                  "text": "provide for incubation of technology applications emerging from research and to protect and utilise the intellectual property obtained from research in the Institutes;"
+                },
+                {
+                  "label": "(f)",
+                  "text": "make provision for research and advisory services and for that purpose enter into such arrangements with other institutions, industry, civil society or other organisations and enable the fruits of research to be disseminated to industry and society through such arrangements;"
+                },
+                {
+                  "label": "(g)",
+                  "text": "exercise such other powers and perform such other duties as may be assigned to it by Statutes."
+                }
+              ]
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "23",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Meetings",
+          "sub_heading": null,
+          "text": "(1) The Chairperson shall ordinarily preside over the meetings of the Board, Finance Committee and at the convocations of the Institute.\n(2) It shall be the duty of the Chairperson to ensure that the decisions taken by the Board are implemented.\n(3) The Chairperson shall exercise such other powers and perform such other duties as may be assigned to him by this Act or the Statutes.",
+          "page": 12,
+          "page_end": 12,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The Chairperson shall ordinarily preside over the meetings of the Board, Finance Committee and at the convocations of the Institute."
+            },
+            {
+              "label": "(2)",
+              "text": "It shall be the duty of the Chairperson to ensure that the decisions taken by the Board are implemented."
+            },
+            {
+              "label": "(3)",
+              "text": "The Chairperson shall exercise such other powers and perform such other duties as may be assigned to him by this Act or the Statutes."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "24",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Director",
+          "sub_heading": null,
+          "text": "(1) The Director of a Institute shall be appointed by the Central Government from a panel of names recommended in order of merit by a search-cum-selection committee with prior approval of the Visitor.\n(2) The search-cum-selection committee shall consist of the following, namely:—\n(a) an eminent person to be nominated by the Minister in charge of Human Resource Development in the Government of India as Chairperson of the Committee;\n(b) the Chairperson, Board of Governors of the concerned Indian Institutes of Information Technology – Member, ex officio;\n(c) Secretary incharge of Higher Education in the Government of India – Member, ex officio;\n(d) Director of a Indian Institute of Technology to be nominated by Minister incharge of Human Resource Development – Member, ex officio;\n(e) a person of eminence in the field of information technology to be nominated by Minister incharge of Human Resource Development;\n(f) Head of Bureau, Ministry of Human Resource Development dealing with Indian Institutes of Information Technology – non-member Secretary, ex officio.\n(3) The Director shall be appointed on such terms and conditions of service as may be provided by the Statutes.\n(4) The Director shall be the principal academic and executive officer of the Institute and shall be responsible for the implementation of the decisions of the Board and Senate and day-to-day administration of the Institute.\n(5) The Director shall exercise such other powers and perform such other duties as may be assigned to him by this Act or the Statutes or delegated by the Board or the Senate or the Ordinances.\n(6) The Director shall submit annual reports and audited accounts to the Board.\n(7) The Director may during his absence from the headquarters, authorise the Deputy Director or one of the Deans or the senior most Professor present, to sanction advances for travelling allowances, contingencies and medical treatment of the staff and sign and countersign bills on his behalf and authorise to the Deputy Director or one of the Dean or the senior most Professor present, by him in writing.",
+          "page": 12,
+          "page_end": 13,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The Director of a Institute shall be appointed by the Central Government from a panel of names recommended in order of merit by a search-cum-selection committee with prior approval of the Visitor."
+            },
+            {
+              "label": "(2)",
+              "text": "The search-cum-selection committee shall consist of the following, namely:—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "an eminent person to be nominated by the Minister in charge of Human Resource Development in the Government of India as Chairperson of the Committee;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "the Chairperson, Board of Governors of the concerned Indian Institutes of Information Technology – Member, ex officio;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "Secretary incharge of Higher Education in the Government of India – Member, ex officio;"
+                },
+                {
+                  "label": "(d)",
+                  "text": "Director of a Indian Institute of Technology to be nominated by Minister incharge of Human Resource Development – Member, ex officio;"
+                },
+                {
+                  "label": "(e)",
+                  "text": "a person of eminence in the field of information technology to be nominated by Minister incharge of Human Resource Development;"
+                },
+                {
+                  "label": "(f)",
+                  "text": "Head of Bureau, Ministry of Human Resource Development dealing with Indian Institutes of Information Technology – non-member Secretary, ex officio."
+                }
+              ]
+            },
+            {
+              "label": "(3)",
+              "text": "The Director shall be appointed on such terms and conditions of service as may be provided by the Statutes."
+            },
+            {
+              "label": "(4)",
+              "text": "The Director shall be the principal academic and executive officer of the Institute and shall be responsible for the implementation of the decisions of the Board and Senate and day-to-day administration of the Institute."
+            },
+            {
+              "label": "(5)",
+              "text": "The Director shall exercise such other powers and perform such other duties as may be assigned to him by this Act or the Statutes or delegated by the Board or the Senate or the Ordinances."
+            },
+            {
+              "label": "(6)",
+              "text": "The Director shall submit annual reports and audited accounts to the Board."
+            },
+            {
+              "label": "(7)",
+              "text": "The Director may during his absence from the headquarters, authorise the Deputy Director or one of the Deans or the senior most Professor present, to sanction advances for travelling allowances, contingencies and medical treatment of the staff and sign and countersign bills on his behalf and authorise to the Deputy Director or one of the Dean or the senior most Professor present, by him in writing."
+            }
+          ],
+          "footnotes": [
+            {
+              "marker": 1,
+              "page": 12,
+              "text": "Subs. by Act 25 of 2017 s.2, for “Indian Institutes of Information Technology” (w.e.f. 07-09-2017).",
+              "action": "substituted",
+              "amending_act": "Act 25 of 2017",
+              "effective_from": "07-09-2017"
+            }
+          ]
+        },
+        {
+          "section_number": "25",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Registrar",
+          "sub_heading": null,
+          "text": "(1) The Registrar of every Institute shall be appointed on such terms and conditions as may be laid down by the Statutes and shall be the custodian of records, the common seal, the funds of the Institute and such other property of the Institute as the Board shall commit to his charge.\n(2) The Registrar shall act as the Secretary of the Board, Senate and such committees as may be prescribed by the Statutes.\n(3) The Registrar shall be responsible to the Director for the proper discharge of his functions.\n(4) The Registrar shall exercise such other powers and perform such other duties as may be assigned to him by this Act or the Statutes or by the Director.",
+          "page": 13,
+          "page_end": 13,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The Registrar of every Institute shall be appointed on such terms and conditions as may be laid down by the Statutes and shall be the custodian of records, the common seal, the funds of the Institute and such other property of the Institute as the Board shall commit to his charge."
+            },
+            {
+              "label": "(2)",
+              "text": "The Registrar shall act as the Secretary of the Board, Senate and such committees as may be prescribed by the Statutes."
+            },
+            {
+              "label": "(3)",
+              "text": "The Registrar shall be responsible to the Director for the proper discharge of his functions."
+            },
+            {
+              "label": "(4)",
+              "text": "The Registrar shall exercise such other powers and perform such other duties as may be assigned to him by this Act or the Statutes or by the Director."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "26",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Other authorities and officers",
+          "sub_heading": null,
+          "text": "(1) The Board may, by Statutes, declare such other posts as authorities of the Institute and specify the duties and function of each such authority.\n(2) The Board may constitute such authorities as it may deem fit for proper management of affairs of the Institute.",
+          "page": 13,
+          "page_end": 13,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The Board may, by Statutes, declare such other posts as authorities of the Institute and specify the duties and function of each such authority."
+            },
+            {
+              "label": "(2)",
+              "text": "The Board may constitute such authorities as it may deem fit for proper management of affairs of the Institute."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "27",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Review of performance of Institute",
+          "sub_heading": null,
+          "text": "(1) Each Institute shall, within five years from the establishment and incorporation of Institute under this Act and thereafter at the expiration of every fifth year, constitute, with the prior approval of the Central Government, a Committee to evaluate and review the performance of the Institute in achievement of its objects in the said period.\n(2) The Committee under sub-section (1) shall consist of members of acknowledged repute in academia or industry, drawn from such fields of knowledge as may have relevance to teaching, learning and research in such Institute.\n(3) The Committee shall assess the performance of Institute and make recommendations on—\n(a) the extent of fulfilment of the objects of the Institute referred to in section 6, as demonstrated by the state of teaching, learning and research and its contribution to society;\n(b) the promotion of transformational research and its impact on industry and society;\n(c) the advancement of fundamental research beyond the current frontiers of knowledge;\n(d) the establishment of the Institute as amongst the global leaders in the area of information technology;\n(e) such other matters as the Board may specify.\n(4) The Board shall consider the recommendations referred to in sub-section (3) and take such action on it as it may deem fit:\nProvided that the recommendations of the Committee along with an explanatory memorandum on the action taken or proposed to be taken, specifying the reasons thereof, shall be submitted to the Central Government.",
+          "page": 13,
+          "page_end": 14,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Each Institute shall, within five years from the establishment and incorporation of Institute under this Act and thereafter at the expiration of every fifth year, constitute, with the prior approval of the Central Government, a Committee to evaluate and review the performance of the Institute in achievement of its objects in the said period."
+            },
+            {
+              "label": "(2)",
+              "text": "The Committee under sub-section (1) shall consist of members of acknowledged repute in academia or industry, drawn from such fields of knowledge as may have relevance to teaching, learning and research in such Institute."
+            },
+            {
+              "label": "(3)",
+              "text": "The Committee shall assess the performance of Institute and make recommendations on—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "the extent of fulfilment of the objects of the Institute referred to in section 6, as demonstrated by the state of teaching, learning and research and its contribution to society;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "the promotion of transformational research and its impact on industry and society;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "the advancement of fundamental research beyond the current frontiers of knowledge;"
+                },
+                {
+                  "label": "(d)",
+                  "text": "the establishment of the Institute as amongst the global leaders in the area of information technology;"
+                },
+                {
+                  "label": "(e)",
+                  "text": "such other matters as the Board may specify."
+                }
+              ]
+            },
+            {
+              "label": "(4)",
+              "text": "The Board shall consider the recommendations referred to in sub-section (3) and take such action on it as it may deem fit:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that the recommendations of the Committee along with an explanatory memorandum on the action taken or proposed to be taken, specifying the reasons thereof, shall be submitted to the Central Government."
+                }
+              ]
+            }
+          ],
+          "footnotes": []
+        }
+      ]
+    },
+    {
+      "chapter_number": "IV",
+      "chapter_title": "Accounts and Audit",
+      "page_start": 14,
+      "page_end": 17,
+      "section_range": [
+        "28",
+        "39"
+      ],
+      "sub_headings": [],
+      "sections": [
+        {
+          "section_number": "28",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Grants by Central Government",
+          "sub_heading": null,
+          "text": "(1) For the purposes of enabling the Institutes to discharge their functions efficiently under this Act, the Central Government may, after due appropriation made by Parliament by law in this behalf, pay to each Institute in every financial year such sums of money in such manner as it may think fit.\n(2) The Central Government shall provide to each Institute, grants of such sums of money as are required to meet the expenditure on scholarships or fellowships instituted by it, including scholarships or fellowships for students from socially and educationally backward classes of citizens enrolled in such Institute.",
+          "page": 14,
+          "page_end": 14,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "For the purposes of enabling the Institutes to discharge their functions efficiently under this Act, the Central Government may, after due appropriation made by Parliament by law in this behalf, pay to each Institute in every financial year such sums of money in such manner as it may think fit."
+            },
+            {
+              "label": "(2)",
+              "text": "The Central Government shall provide to each Institute, grants of such sums of money as are required to meet the expenditure on scholarships or fellowships instituted by it, including scholarships or fellowships for students from socially and educationally backward classes of citizens enrolled in such Institute."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "29",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Fund of Institute",
+          "sub_heading": null,
+          "text": "(1) Every Institute shall maintain a fund to which shall be credited—\n(a) all monies provided by the Central Government or State Government, as the case may be;\n(b) all fees and other charges received by the Institute from students;\n(c) all monies received by the Institute by way of grants, gifts, donations, benefactions, bequests or transfers;\n(d) all monies received by the Institute from utilisation of intellectual property arising from research conducted or provision of advisory or consultancy services by it; and\n(e) all monies received by the Institute in any other manner or from any other source.\n(2) The fund of every Institute shall be applied towards meeting the expenses of the Institute, including expenses incurred in the exercise of its powers and discharge of its duties under this Act, furtherance of research in the Institute or in collaboration with other educational institutions or industry and for capital investment aimed at the growth and development of the Institute.",
+          "page": 14,
+          "page_end": 14,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Every Institute shall maintain a fund to which shall be credited—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "all monies provided by the Central Government or State Government, as the case may be;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "all fees and other charges received by the Institute from students;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "all monies received by the Institute by way of grants, gifts, donations, benefactions, bequests or transfers;"
+                },
+                {
+                  "label": "(d)",
+                  "text": "all monies received by the Institute from utilisation of intellectual property arising from research conducted or provision of advisory or consultancy services by it; and"
+                },
+                {
+                  "label": "(e)",
+                  "text": "all monies received by the Institute in any other manner or from any other source."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "The fund of every Institute shall be applied towards meeting the expenses of the Institute, including expenses incurred in the exercise of its powers and discharge of its duties under this Act, furtherance of research in the Institute or in collaboration with other educational institutions or industry and for capital investment aimed at the growth and development of the Institute."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "30",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Accounts and audit",
+          "sub_heading": null,
+          "text": "(1) Every Institute shall maintain proper accounts and other relevant records and prepare annual statement of accounts including the balance sheet in such form and accounting standard as may be specified by notification, by the Central Government in consultation with the Comptroller and Auditor-General of India.\n(2) Where the statement of income and expenditure and the balance sheet of the Institute do not comply with the accounting standards, the Institute shall disclose in its statement of income and expenditure and balance sheet, the following, namely:—\n(a) the deviation from the accounting standards;\n(b) the reasons for such deviation; and\n(c) the financial effect, if any, arising out due to such deviation.\n(3) The accounts of every Institute shall be audited by the Comptroller and Auditor-General of India and any expenditure incurred by audit team in connection with such audit shall be payable by the Institute to the Comptroller and Auditor-General of India.\n(4) The Comptroller and Auditor-General of India and any person appointed by him in connection with the audit of the accounts of any Institute shall have the same rights, privileges and authority in connection with such audit as the Comptroller and Auditor-General of India has in connection with the audit of the Government accounts and, in particular, shall have the rights to demand the production of books, accounts, connected vouchers and other documents and papers and to inspect the offices of the Institute.\n(5) The accounts of every Institute as certified by the Comptroller and Auditor-General of India or any other person appointed by him in this behalf together with the audit report thereon shall be forwarded annually to the Central Government and that Government shall cause the same to be laid before each House of Parliament in accordance with such procedure as may be laid down by the Central Government.",
+          "page": 14,
+          "page_end": 15,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Every Institute shall maintain proper accounts and other relevant records and prepare annual statement of accounts including the balance sheet in such form and accounting standard as may be specified by notification, by the Central Government in consultation with the Comptroller and Auditor-General of India."
+            },
+            {
+              "label": "(2)",
+              "text": "Where the statement of income and expenditure and the balance sheet of the Institute do not comply with the accounting standards, the Institute shall disclose in its statement of income and expenditure and balance sheet, the following, namely:—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "the deviation from the accounting standards;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "the reasons for such deviation; and"
+                },
+                {
+                  "label": "(c)",
+                  "text": "the financial effect, if any, arising out due to such deviation."
+                }
+              ]
+            },
+            {
+              "label": "(3)",
+              "text": "The accounts of every Institute shall be audited by the Comptroller and Auditor-General of India and any expenditure incurred by audit team in connection with such audit shall be payable by the Institute to the Comptroller and Auditor-General of India."
+            },
+            {
+              "label": "(4)",
+              "text": "The Comptroller and Auditor-General of India and any person appointed by him in connection with the audit of the accounts of any Institute shall have the same rights, privileges and authority in connection with such audit as the Comptroller and Auditor-General of India has in connection with the audit of the Government accounts and, in particular, shall have the rights to demand the production of books, accounts, connected vouchers and other documents and papers and to inspect the offices of the Institute."
+            },
+            {
+              "label": "(5)",
+              "text": "The accounts of every Institute as certified by the Comptroller and Auditor-General of India or any other person appointed by him in this behalf together with the audit report thereon shall be forwarded annually to the Central Government and that Government shall cause the same to be laid before each House of Parliament in accordance with such procedure as may be laid down by the Central Government."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "31",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Pension and provident fund",
+          "sub_heading": null,
+          "text": "(1) Every Institute may constitute for the benefit of its employees such provident or pension fund or provide such insurance scheme as it may deem fit in such manner and subject to such conditions as may be prescribed by the Statutes.\n(2) Where such provident fund or pension fund has been so constituted, the Central Government may declare that the provisions of the Provident Funds Act, 1925 (19 of 1925), shall apply to such fund, as if it were a Government Provident Fund.",
+          "page": 15,
+          "page_end": 15,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Every Institute may constitute for the benefit of its employees such provident or pension fund or provide such insurance scheme as it may deem fit in such manner and subject to such conditions as may be prescribed by the Statutes."
+            },
+            {
+              "label": "(2)",
+              "text": "Where such provident fund or pension fund has been so constituted, the Central Government may declare that the provisions of the Provident Funds Act, 1925 (19 of 1925), shall apply to such fund, as if it were a Government Provident Fund."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "32",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Appointments",
+          "sub_heading": null,
+          "text": "All appointments of the staff of every Institute, except that of the Director, shall be made in accordance with the procedure laid down in the Statutes, by—\n(a) the Board, if the appointment is made on the academic staff in the post of Assistant Professor or above or if the appointment is made on the non-academic staff in every cadre the maximum of the pay scale for which exceeds prevalent grade pay scale for Group A Officers;\n(b) the Director, in any other case.",
+          "page": 15,
+          "page_end": 15,
+          "lead_text": "All appointments of the staff of every Institute, except that of the Director, shall be made in accordance with the procedure laid down in the Statutes, by—",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "the Board, if the appointment is made on the academic staff in the post of Assistant Professor or above or if the appointment is made on the non-academic staff in every cadre the maximum of the pay scale for which exceeds prevalent grade pay scale for Group A Officers;"
+            },
+            {
+              "label": "(b)",
+              "text": "the Director, in any other case."
+            }
+          ],
+          "footnotes": [
+            {
+              "marker": 1,
+              "page": 15,
+              "text": "Subs. by Act 25 of 2017 s.3, for “Assistant Professor” (w.e.f. 07-09-2017).",
+              "action": "substituted",
+              "amending_act": "Act 25 of 2017",
+              "effective_from": "07-09-2017"
+            }
+          ]
+        },
+        {
+          "section_number": "33",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Statutes",
+          "sub_heading": null,
+          "text": "Subject to the provisions of this Act, the Statutes may provide for all or any of the following matters, namely:—\n(a) the conferment of honorary degree;\n(b) the formation of departments of teaching;\n(c) the fees to be charged for courses of study in the Institute and for admission to the examinations of degrees and diplomas of the Institute;\n(d) the institution of fellowships, scholarships, exhibitions, medals and prizes;\n(e) the terms of office and the method of appointment of officers of the Institute;\n(f) the qualifications of teachers of the Institute;\n(g) the classification, the method of appointment and the determination of the terms and conditions of service of teachers and other staff of the Institute;\n(h) the constitution of pension, insurance and provident funds for the benefit of the officers, teachers and other staff of the Institute;\n(i) the constitution, powers and duties of the authorities of the Institute;\n(j) the establishment and maintenance of halls and hostels;\n(k) the conditions of residence of students of the Institute and the levying of fees for residence in the halls and hostels and of other charges;\n(l) the allowances to be paid to the Chairperson and members of the Board;\n(m) the authentication of the orders and decisions of the Board; and\n(n) the meetings of the Board, the Senate, or any Committee, the quorum at such meetings and the procedure to be followed in the conduct of their business.",
+          "page": 15,
+          "page_end": 15,
+          "lead_text": "Subject to the provisions of this Act, the Statutes may provide for all or any of the following matters, namely:—",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "the conferment of honorary degree;"
+            },
+            {
+              "label": "(b)",
+              "text": "the formation of departments of teaching;"
+            },
+            {
+              "label": "(c)",
+              "text": "the fees to be charged for courses of study in the Institute and for admission to the examinations of degrees and diplomas of the Institute;"
+            },
+            {
+              "label": "(d)",
+              "text": "the institution of fellowships, scholarships, exhibitions, medals and prizes;"
+            },
+            {
+              "label": "(e)",
+              "text": "the terms of office and the method of appointment of officers of the Institute;"
+            },
+            {
+              "label": "(f)",
+              "text": "the qualifications of teachers of the Institute;"
+            },
+            {
+              "label": "(g)",
+              "text": "the classification, the method of appointment and the determination of the terms and conditions of service of teachers and other staff of the Institute;"
+            },
+            {
+              "label": "(h)",
+              "text": "the constitution of pension, insurance and provident funds for the benefit of the officers, teachers and other staff of the Institute;"
+            },
+            {
+              "label": "(i)",
+              "text": "the constitution, powers and duties of the authorities of the Institute;"
+            },
+            {
+              "label": "(j)",
+              "text": "the establishment and maintenance of halls and hostels;"
+            },
+            {
+              "label": "(k)",
+              "text": "the conditions of residence of students of the Institute and the levying of fees for residence in the halls and hostels and of other charges;"
+            },
+            {
+              "label": "(l)",
+              "text": "the allowances to be paid to the Chairperson and members of the Board;"
+            },
+            {
+              "label": "(m)",
+              "text": "the authentication of the orders and decisions of the Board; and"
+            },
+            {
+              "label": "(n)",
+              "text": "the meetings of the Board, the Senate, or any Committee, the quorum at such meetings and the procedure to be followed in the conduct of their business."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "34",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Statutes how to be made",
+          "sub_heading": null,
+          "text": "(1) The first Statutes of each Institute shall be made by the Board with the prior approval of the Visitor and a copy of the same shall be laid as soon as may be before each House of Parliament.\n(2) The Board may, from time to time, make new or additional Statutes or may amend or repeal the Statutes in the manner provided in this section.\n(3) Every new Statutes or addition to the Statutes or any amendment or repeal of Statutes shall require the prior approval of the Visitor who may grant assent or withhold assent or remit it to the Board for consideration.\n(4) New Statutes or a Statute amending or repealing an existing Statute shall have no validity unless it has been assented to by the Visitor:\nProvided that the Central Government with the prior approval of the Visitor may make or amend the Statutes for the Institute, if the same is required for uniformity, and a copy of the same shall be laid as soon as may be before each House of the Parliament.",
+          "page": 15,
+          "page_end": 16,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The first Statutes of each Institute shall be made by the Board with the prior approval of the Visitor and a copy of the same shall be laid as soon as may be before each House of Parliament."
+            },
+            {
+              "label": "(2)",
+              "text": "The Board may, from time to time, make new or additional Statutes or may amend or repeal the Statutes in the manner provided in this section."
+            },
+            {
+              "label": "(3)",
+              "text": "Every new Statutes or addition to the Statutes or any amendment or repeal of Statutes shall require the prior approval of the Visitor who may grant assent or withhold assent or remit it to the Board for consideration."
+            },
+            {
+              "label": "(4)",
+              "text": "New Statutes or a Statute amending or repealing an existing Statute shall have no validity unless it has been assented to by the Visitor:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that the Central Government with the prior approval of the Visitor may make or amend the Statutes for the Institute, if the same is required for uniformity, and a copy of the same shall be laid as soon as may be before each House of the Parliament."
+                }
+              ]
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "35",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Ordinances",
+          "sub_heading": null,
+          "text": "Subject to the provisions of this Act and the Statutes, the Ordinances of every Institute may provide for all or any of the following matters, namely:—\n(a) the admission of the students to the Institute;\n(b) the courses of study to be laid down for all degrees and diplomas of the Institute;\n(c) the conditions under which students shall be admitted to the degree or diploma courses and to the examinations of the Institute, and shall be eligible for degrees and diplomas;\n(d) the conditions of award of the fellowships, scholarships, exhibitions, medals and prizes;\n(e) the conditions and mode of appointment and duties of examining bodies, examiners and moderators;\n(f) the conduct of examinations;\n(g) the maintenance of discipline among the students of the Institute; and\n(h) any other matter which by this Act or the Statutes is to be or may be provided for by the Ordinances.",
+          "page": 16,
+          "page_end": 16,
+          "lead_text": "Subject to the provisions of this Act and the Statutes, the Ordinances of every Institute may provide for all or any of the following matters, namely:—",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "the admission of the students to the Institute;"
+            },
+            {
+              "label": "(b)",
+              "text": "the courses of study to be laid down for all degrees and diplomas of the Institute;"
+            },
+            {
+              "label": "(c)",
+              "text": "the conditions under which students shall be admitted to the degree or diploma courses and to the examinations of the Institute, and shall be eligible for degrees and diplomas;"
+            },
+            {
+              "label": "(d)",
+              "text": "the conditions of award of the fellowships, scholarships, exhibitions, medals and prizes;"
+            },
+            {
+              "label": "(e)",
+              "text": "the conditions and mode of appointment and duties of examining bodies, examiners and moderators;"
+            },
+            {
+              "label": "(f)",
+              "text": "the conduct of examinations;"
+            },
+            {
+              "label": "(g)",
+              "text": "the maintenance of discipline among the students of the Institute; and"
+            },
+            {
+              "label": "(h)",
+              "text": "any other matter which by this Act or the Statutes is to be or may be provided for by the Ordinances."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "36",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Ordinances how to be made",
+          "sub_heading": null,
+          "text": "(1) Save as otherwise provided in this section, Ordinances shall be made by the Senate.\n(2) All Ordinances made by the Senate shall have effect from such date as it may direct, but every Ordinance so made shall be submitted, as soon as may be, to the Board and shall be considered by the Board at its next meeting.\n(3) The Board shall have power by resolution to modify or cancel any such Ordinance and such Ordinance shall from the date of such resolution stand modified accordingly or cancelled, as the case may be.",
+          "page": 16,
+          "page_end": 16,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Save as otherwise provided in this section, Ordinances shall be made by the Senate."
+            },
+            {
+              "label": "(2)",
+              "text": "All Ordinances made by the Senate shall have effect from such date as it may direct, but every Ordinance so made shall be submitted, as soon as may be, to the Board and shall be considered by the Board at its next meeting."
+            },
+            {
+              "label": "(3)",
+              "text": "The Board shall have power by resolution to modify or cancel any such Ordinance and such Ordinance shall from the date of such resolution stand modified accordingly or cancelled, as the case may be."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "37",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Tribunal of Arbitration",
+          "sub_heading": null,
+          "text": "(1) (a) Any dispute arising out of a contract between a Institute and any of its employees shall, at the request of the employee concerned or at the instance of the Institute, be referred to a Tribunal of Arbitration consisting of one member appointed by the Institute, one member nominated by the employee, and an umpire appointed by the Visitor. (b) The decision of the Tribunal shall be final and shall not be questioned in any court. (c) No suit or proceeding shall lie in any court in respect of any matter, which is required by sub-section (1) to be referred to the Tribunal of Arbitration. (d) The Tribunal of Arbitration shall have power to regulate its own procedure:\nProvided that the Tribunal shall have regard to the principles of natural justice while making such procedure. (e) Nothing in any law for the time being in force relating to arbitration shall apply to arbitrations under this section.\n(2) Any student or candidate for an examination whose name has been removed from the rolls of the Institute by the orders or resolution of the Director of the Institute and who has been debarred from the appearing at the examinations of the Institute for more than one year, may within ten days of the date of receipt of such resolution by him, appeal to the Board of Governors who may confirm, modify or reverse the decision of the Director.\n(3) Any dispute arising out of any disciplinary action taken by the Institute against a student shall, at the request of such student, be referred to a Tribunal of Arbitration and the provisions of sub-section (1) shall, as far as may be, apply to a reference made under this sub-section.\n(4) Every employee or student of the Institute, notwithstanding anything contained in this Act, have a right to appeal within such time as may be prescribed by the Statutes, to the Board of Governors against the decision of any officer or authority of the Institute as the case may be and thereupon the Board of Governors may confirm, modify or reverse the decision appealed against.",
+          "page": 16,
+          "page_end": 17,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "(a) Any dispute arising out of a contract between a Institute and any of its employees shall, at the request of the employee concerned or at the instance of the Institute, be referred to a Tribunal of Arbitration consisting of one member appointed by the Institute, one member nominated by the employee, and an umpire appointed by the Visitor. (b) The decision of the Tribunal shall be final and shall not be questioned in any court. (c) No suit or proceeding shall lie in any court in respect of any matter, which is required by sub-section (1) to be referred to the Tribunal of Arbitration. (d) The Tribunal of Arbitration shall have power to regulate its own procedure:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that the Tribunal shall have regard to the principles of natural justice while making such procedure. (e) Nothing in any law for the time being in force relating to arbitration shall apply to arbitrations under this section."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "Any student or candidate for an examination whose name has been removed from the rolls of the Institute by the orders or resolution of the Director of the Institute and who has been debarred from the appearing at the examinations of the Institute for more than one year, may within ten days of the date of receipt of such resolution by him, appeal to the Board of Governors who may confirm, modify or reverse the decision of the Director."
+            },
+            {
+              "label": "(3)",
+              "text": "Any dispute arising out of any disciplinary action taken by the Institute against a student shall, at the request of such student, be referred to a Tribunal of Arbitration and the provisions of sub-section (1) shall, as far as may be, apply to a reference made under this sub-section."
+            },
+            {
+              "label": "(4)",
+              "text": "Every employee or student of the Institute, notwithstanding anything contained in this Act, have a right to appeal within such time as may be prescribed by the Statutes, to the Board of Governors against the decision of any officer or authority of the Institute as the case may be and thereupon the Board of Governors may confirm, modify or reverse the decision appealed against."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "38",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Annual report of Director",
+          "sub_heading": null,
+          "text": "(1) There shall be attached to every statement of accounts laid before the Board of each Institute, a report by its Director, with respect to—\n(a) the state of affairs of such Institute;\n(b) the amounts, if any, which it proposes to carry to any surplus reserves in its balance sheet;\n(c) the extent to which understatement or overstatement of any surplus of income over expenditure or any shortfall of expenditure over income has been indicated in the auditor’s report and the reasons for such understatement or overstatement;\n(d) the productivity of research projects undertaken by the Institute measured in accordance with such norms as may be specified by any statutory regulatory authority;\n(e) appointments of the officers and teachers of the Institute;\n(f) benchmark and internal standards set by the Institute, including the nature of innovations in teaching, research and application of knowledge.\n(2) The Director shall also be bound to give the complete information and explanations in its report aforesaid on every reservation, qualification or adverse remark contained in the auditors’ report.",
+          "page": 17,
+          "page_end": 17,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "There shall be attached to every statement of accounts laid before the Board of each Institute, a report by its Director, with respect to—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "the state of affairs of such Institute;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "the amounts, if any, which it proposes to carry to any surplus reserves in its balance sheet;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "the extent to which understatement or overstatement of any surplus of income over expenditure or any shortfall of expenditure over income has been indicated in the auditor’s report and the reasons for such understatement or overstatement;"
+                },
+                {
+                  "label": "(d)",
+                  "text": "the productivity of research projects undertaken by the Institute measured in accordance with such norms as may be specified by any statutory regulatory authority;"
+                },
+                {
+                  "label": "(e)",
+                  "text": "appointments of the officers and teachers of the Institute;"
+                },
+                {
+                  "label": "(f)",
+                  "text": "benchmark and internal standards set by the Institute, including the nature of innovations in teaching, research and application of knowledge."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "The Director shall also be bound to give the complete information and explanations in its report aforesaid on every reservation, qualification or adverse remark contained in the auditors’ report."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "39",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Annual report of each Institute",
+          "sub_heading": null,
+          "text": "(1) The annual report of each Institute shall be prepared under the direction of the Board, which shall include, among other matters, the steps taken by the Institute towards the fulfilment of its objects and an outcome based assessment of the research being undertaken in such Institute, and be submitted to the Board on or before such date as may be specified and the Board shall consider the report in its annual meeting.\n(2) The annual report on its approval by the Board shall be published on the website of the Institute.\n(3) The annual report of each Institute shall be submitted to the Central Government who shall, as soon as may be, cause the same to be laid before both Houses of Parliament.",
+          "page": 17,
+          "page_end": 17,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The annual report of each Institute shall be prepared under the direction of the Board, which shall include, among other matters, the steps taken by the Institute towards the fulfilment of its objects and an outcome based assessment of the research being undertaken in such Institute, and be submitted to the Board on or before such date as may be specified and the Board shall consider the report in its annual meeting."
+            },
+            {
+              "label": "(2)",
+              "text": "The annual report on its approval by the Board shall be published on the website of the Institute."
+            },
+            {
+              "label": "(3)",
+              "text": "The annual report of each Institute shall be submitted to the Central Government who shall, as soon as may be, cause the same to be laid before both Houses of Parliament."
+            }
+          ],
+          "footnotes": []
+        }
+      ]
+    },
+    {
+      "chapter_number": "V",
+      "chapter_title": "The Council",
+      "page_start": 17,
+      "page_end": 19,
+      "section_range": [
+        "40",
+        "43"
+      ],
+      "sub_headings": [],
+      "sections": [
+        {
+          "section_number": "40",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Council of Institutes",
+          "sub_heading": null,
+          "text": "(1) In order that there may be better coordination between the Institutes, the Central Government may, by notification in the Official Gazette, establish, with effect from such date as may be specified in the notification, there shall be established for all the Institutes specified in column (5) of the Schedule, a central body to be called the Council.\n(2) The Council shall consist of the following, namely:—\n(i) the Minister of the Central Government in charge of technical education, who shall be the Chairperson of the Council, ex officio;\n(ii) two members of Parliament of India (one member to be nominated by Speaker of Lok Sabha and one member to be nominated by Chairperson of Rajya Sabha), ex officio;\n(iii) Secretary, Government of India, Ministry of Human Resource Development, Department of Higher Education;\n(iv) the Chairpersons of each of the Institutes, ex officio;\n(v) the Directors of each of the Institutes, ex officio;\n(vi) the Director-General, Council of Scientific and Industrial Research, ex officio;\n(vii) three persons to be nominated by the Central Government, one each to represent the Ministry concerned with Finance, Science and Technology and Information Technology;\n(viii) three persons to be nominated by Visitor, who shall be persons having special knowledge or practical experience in respect of industry, academia, engineering, alumni and social sciences to be nominated by the Council from a panel comprised of two names recommended by each Institute;\n(ix) one representative of University Grants Commission;\n(x) one representative of All India Council of Technical Education; and\n(xi) Chairperson, Central Board of Secondary Education.\n(3) An officer of the Department of Higher Education, Government of India, concerned with technical education shall be nominated by that Government to act as the Secretary of the Council.\n(4) The Council may, at its discretion, constitute a Standing Committee of the Indian Institute of Information Technology Council to assist the Council in discharge of its duties and responsibilities.\n(5) The expenditure on the Council shall be met by the Central Government.",
+          "page": 17,
+          "page_end": 18,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "In order that there may be better coordination between the Institutes, the Central Government may, by notification in the Official Gazette, establish, with effect from such date as may be specified in the notification, there shall be established for all the Institutes specified in column (5) of the Schedule, a central body to be called the Council."
+            },
+            {
+              "label": "(2)",
+              "text": "The Council shall consist of the following, namely:—",
+              "clauses": [
+                {
+                  "label": "(i)",
+                  "text": "the Minister of the Central Government in charge of technical education, who shall be the Chairperson of the Council, ex officio;"
+                },
+                {
+                  "label": "(ii)",
+                  "text": "two members of Parliament of India (one member to be nominated by Speaker of Lok Sabha and one member to be nominated by Chairperson of Rajya Sabha), ex officio;"
+                },
+                {
+                  "label": "(iii)",
+                  "text": "Secretary, Government of India, Ministry of Human Resource Development, Department of Higher Education;"
+                },
+                {
+                  "label": "(iv)",
+                  "text": "the Chairpersons of each of the Institutes, ex officio;"
+                },
+                {
+                  "label": "(v)",
+                  "text": "the Directors of each of the Institutes, ex officio;"
+                },
+                {
+                  "label": "(vi)",
+                  "text": "the Director-General, Council of Scientific and Industrial Research, ex officio;"
+                },
+                {
+                  "label": "(vii)",
+                  "text": "three persons to be nominated by the Central Government, one each to represent the Ministry concerned with Finance, Science and Technology and Information Technology;"
+                },
+                {
+                  "label": "(viii)",
+                  "text": "three persons to be nominated by Visitor, who shall be persons having special knowledge or practical experience in respect of industry, academia, engineering, alumni and social sciences to be nominated by the Council from a panel comprised of two names recommended by each Institute;"
+                },
+                {
+                  "label": "(ix)",
+                  "text": "one representative of University Grants Commission;"
+                },
+                {
+                  "label": "(x)",
+                  "text": "one representative of All India Council of Technical Education; and"
+                },
+                {
+                  "label": "(xi)",
+                  "text": "Chairperson, Central Board of Secondary Education."
+                }
+              ]
+            },
+            {
+              "label": "(3)",
+              "text": "An officer of the Department of Higher Education, Government of India, concerned with technical education shall be nominated by that Government to act as the Secretary of the Council."
+            },
+            {
+              "label": "(4)",
+              "text": "The Council may, at its discretion, constitute a Standing Committee of the Indian Institute of Information Technology Council to assist the Council in discharge of its duties and responsibilities."
+            },
+            {
+              "label": "(5)",
+              "text": "The expenditure on the Council shall be met by the Central Government."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "41",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Term of office and allowances payable to members of Council",
+          "sub_heading": null,
+          "text": "(1) Save as otherwise provided in this section, the term of office of a member of the Council, other than an ex officio member, shall be for a period of three years from the date of nomination.\n(2) The term of office of an ex officio member shall continue so long as he holds the office by virtue of which he is a member.\n(3) The term of office of a member nominated under clause (ii) of sub-section (2) of section 40 shall expire as soon as he ceases to be a member of the House which nominated him.\n(4) Notwithstanding anything contained in this section, an outgoing member shall, unless the Council directs, continue in office until another person is nominated as a member in his place.\n(5) Members of the Council shall be entitled to travelling and such other allowances, as may be prescribed, for attending meetings of the Council or its Committees thereof.",
+          "page": 18,
+          "page_end": 18,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Save as otherwise provided in this section, the term of office of a member of the Council, other than an ex officio member, shall be for a period of three years from the date of nomination."
+            },
+            {
+              "label": "(2)",
+              "text": "The term of office of an ex officio member shall continue so long as he holds the office by virtue of which he is a member."
+            },
+            {
+              "label": "(3)",
+              "text": "The term of office of a member nominated under clause (ii) of sub-section (2) of section 40 shall expire as soon as he ceases to be a member of the House which nominated him."
+            },
+            {
+              "label": "(4)",
+              "text": "Notwithstanding anything contained in this section, an outgoing member shall, unless the Council directs, continue in office until another person is nominated as a member in his place."
+            },
+            {
+              "label": "(5)",
+              "text": "Members of the Council shall be entitled to travelling and such other allowances, as may be prescribed, for attending meetings of the Council or its Committees thereof."
+            }
+          ],
+          "footnotes": [
+            {
+              "marker": 1,
+              "page": 18,
+              "text": "Subs. by Act 28 of 2020 s.2, for “elected” (w.e.f. 10-10-2020).",
+              "action": "substituted",
+              "amending_act": "Act 28 of 2020",
+              "effective_from": "10-10-2020"
+            }
+          ]
+        },
+        {
+          "section_number": "42",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Functions and duties of Council",
+          "sub_heading": null,
+          "text": "(1) The Council shall work to coordinate the activities of all the Institutes.\n(2) Without prejudice to the provisions of sub-section (1), the Council shall perform the following functions, namely:—\n(a) to advise on matters relating to the duration of the courses, the degrees and other academic distinctions to be conferred by the Institutes, admission standards and other academic matters;\n(b) to lay down policy regarding cadres, methods of recruitment and conditions of service of employees, institution of scholarships and free-ships, levying of fees and other matters of common interest;\n(c) to examine the development plans of each Institute and to approve such of them as are considered necessary and also to indicate broadly the financial implications of such approved plans;\n(d) to examine the annual budget estimates of each Institute and to recommend to the Central Government the allocation of funds for that purpose;\n(e) to recommend to the Central Government, the institution of scholarships including research and for the benefit of students belonging to the Scheduled Castes, the Scheduled Tribes and Other Backward Classes of citizens;\n(f) to recommend to the Central Government, proposals for establishment of new Institutes of Information Technology;\n(g) to advise the Visitor, if so required, in respect of any function to be performed by him under this Act; and\n(h) to perform such other functions as may be referred to it by the Central Government:\nProvided that nothing in this section shall derogate the powers and functions vested by law in the Board or Senate or other authorities of each Institute.\n(3) The Chairperson of the Council shall ordinarily preside at the meetings of the Council and in his or her absence, any other member, chosen by the Members present from amongst themselves at the meeting, shall preside at the meeting.\n(4) The Council shall meet once in every year and follow such procedure in its meetings as may be prescribed.",
+          "page": 18,
+          "page_end": 19,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The Council shall work to coordinate the activities of all the Institutes."
+            },
+            {
+              "label": "(2)",
+              "text": "Without prejudice to the provisions of sub-section (1), the Council shall perform the following functions, namely:—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "to advise on matters relating to the duration of the courses, the degrees and other academic distinctions to be conferred by the Institutes, admission standards and other academic matters;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "to lay down policy regarding cadres, methods of recruitment and conditions of service of employees, institution of scholarships and free-ships, levying of fees and other matters of common interest;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "to examine the development plans of each Institute and to approve such of them as are considered necessary and also to indicate broadly the financial implications of such approved plans;"
+                },
+                {
+                  "label": "(d)",
+                  "text": "to examine the annual budget estimates of each Institute and to recommend to the Central Government the allocation of funds for that purpose;"
+                },
+                {
+                  "label": "(e)",
+                  "text": "to recommend to the Central Government, the institution of scholarships including research and for the benefit of students belonging to the Scheduled Castes, the Scheduled Tribes and Other Backward Classes of citizens;"
+                },
+                {
+                  "label": "(f)",
+                  "text": "to recommend to the Central Government, proposals for establishment of new Institutes of Information Technology;"
+                },
+                {
+                  "label": "(g)",
+                  "text": "to advise the Visitor, if so required, in respect of any function to be performed by him under this Act; and"
+                },
+                {
+                  "label": "(h)",
+                  "text": "to perform such other functions as may be referred to it by the Central Government:"
+                }
+              ],
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that nothing in this section shall derogate the powers and functions vested by law in the Board or Senate or other authorities of each Institute."
+                }
+              ]
+            },
+            {
+              "label": "(3)",
+              "text": "The Chairperson of the Council shall ordinarily preside at the meetings of the Council and in his or her absence, any other member, chosen by the Members present from amongst themselves at the meeting, shall preside at the meeting."
+            },
+            {
+              "label": "(4)",
+              "text": "The Council shall meet once in every year and follow such procedure in its meetings as may be prescribed."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "43",
+          "section_type": "power_conferring",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Power to make rules in respect of matters in this Chapter",
+          "sub_heading": null,
+          "text": "(1) The Central Government may, after previous publication, by notification, make rules to carry out the purposes of this Chapter.\n(2) In particular and without prejudice to the generality of the foregoing power, such rules may provide for all or any of the following matters, namely:—\n(a) the travelling and other allowances payable to members of the Council under sub-section (5) of section 41;\n(b) the procedure to be followed in the meetings of the Council under sub-section (4) of section 42.",
+          "page": 19,
+          "page_end": 19,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The Central Government may, after previous publication, by notification, make rules to carry out the purposes of this Chapter."
+            },
+            {
+              "label": "(2)",
+              "text": "In particular and without prejudice to the generality of the foregoing power, such rules may provide for all or any of the following matters, namely:—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "the travelling and other allowances payable to members of the Council under sub-section (5) of section 41;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "the procedure to be followed in the meetings of the Council under sub-section (4) of section 42."
+                }
+              ]
+            }
+          ],
+          "footnotes": []
+        }
+      ]
+    },
+    {
+      "chapter_number": "VI",
+      "chapter_title": "Miscellaneous",
+      "page_start": 19,
+      "page_end": 20,
+      "section_range": [
+        "44",
+        "50"
+      ],
+      "sub_headings": [],
+      "sections": [
+        {
+          "section_number": "44",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Acts and proceedings not to be invalidated by vacancies, etc",
+          "sub_heading": null,
+          "text": "No act of the Council, or any Institute, Board or Senate or any other body set-up under this Act or the Statutes, shall be invalid merely by reason of—\n(a) any vacancy in or defect in the constitution thereof;\n(b) any irregularity in its procedure not affecting the merits of the case;\n(c) any defect in the selection, nomination or appointment of a person acting as a member thereof.",
+          "page": 19,
+          "page_end": 19,
+          "lead_text": "No act of the Council, or any Institute, Board or Senate or any other body set-up under this Act or the Statutes, shall be invalid merely by reason of—",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "any vacancy in or defect in the constitution thereof;"
+            },
+            {
+              "label": "(b)",
+              "text": "any irregularity in its procedure not affecting the merits of the case;"
+            },
+            {
+              "label": "(c)",
+              "text": "any defect in the selection, nomination or appointment of a person acting as a member thereof."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "45",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Returns and information to be provided to Central Government",
+          "sub_heading": null,
+          "text": "Every Institute shall furnish to the Central Government such returns or other information with respect to its policies or activities as the Central Government may, for the purpose of reporting to Parliament or for the making of policy, from time to time require.",
+          "page": 19,
+          "page_end": 19,
+          "footnotes": []
+        },
+        {
+          "section_number": "46",
+          "section_type": "power_conferring",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Power of Central Government to issue directions",
+          "sub_heading": null,
+          "text": "The Institute shall carry out such directions as may be issued to it from time to time by the Central Government for the efficient administration of this Act.",
+          "page": 19,
+          "page_end": 19,
+          "footnotes": []
+        },
+        {
+          "section_number": "47",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Institute to be public authority under Right to Information Act",
+          "sub_heading": null,
+          "text": "The provisions of the Right to Information Act, 2005 (22 of 2005) shall apply to each Institute, defined in clause (h) of section 2 of the Right to Information Act, 2005.",
+          "page": 19,
+          "page_end": 19,
+          "footnotes": []
+        },
+        {
+          "section_number": "48",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Transitional provisions",
+          "sub_heading": null,
+          "text": "(1) Notwithstanding anything contained in this Act—\n(a) the Board of Governors of an Institute functioning as such immediately before the commencement of this Act shall continue to so function until a new Board is constituted for that Institute under this Act, but on the constitution of a new Board under this Act, the members of the Board holding office before the commencement of this Act shall cease to hold office;\n(b) every Senate constituted in relation to every Institute before the commencement of this Act shall be deemed to be the Senate constituted under this Act until a Senate is constituted under this Act for the Institute, but on the constitution of the new Senate under this Act, the members of the Senate holding office before the commencement of this Act shall cease to hold office;\n(c) the Statutes, Ordinances, rules, regulations and bye-laws of each existing Institute as in force, immediately before the commencement of this Act, shall continue to apply to the corresponding institute in so far as they are not inconsistent with the provisions of this Act until the first Statutes and the Ordinances are made under this Act;\n(d) any student who joined classes of the existing Institute on or after the academic year 2007-2008 or completed the course on or after the academic year 2010-2011 shall for the purpose of clause (c)of sub-section (1) of section 7, be deemed to have pursued a course of study in the existing Institute located at Kancheepuram only if such student has not already been awarded degree or diploma for the same course of study.\n(2) The Central Government may, without prejudice to the provisions of sub-section (1), if it considers necessary and expedient to do so, by notification, take such measures which may be necessary for the transfer of the existing Institute mentioned in column (3) of the Schedule to the corresponding Institute mentioned under column (5) of the Schedule.",
+          "page": 19,
+          "page_end": 20,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Notwithstanding anything contained in this Act—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "the Board of Governors of an Institute functioning as such immediately before the commencement of this Act shall continue to so function until a new Board is constituted for that Institute under this Act, but on the constitution of a new Board under this Act, the members of the Board holding office before the commencement of this Act shall cease to hold office;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "every Senate constituted in relation to every Institute before the commencement of this Act shall be deemed to be the Senate constituted under this Act until a Senate is constituted under this Act for the Institute, but on the constitution of the new Senate under this Act, the members of the Senate holding office before the commencement of this Act shall cease to hold office;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "the Statutes, Ordinances, rules, regulations and bye-laws of each existing Institute as in force, immediately before the commencement of this Act, shall continue to apply to the corresponding institute in so far as they are not inconsistent with the provisions of this Act until the first Statutes and the Ordinances are made under this Act;"
+                },
+                {
+                  "label": "(d)",
+                  "text": "any student who joined classes of the existing Institute on or after the academic year 2007-2008 or completed the course on or after the academic year 2010-2011 shall for the purpose of clause (c)of sub-section (1) of section 7, be deemed to have pursued a course of study in the existing Institute located at Kancheepuram only if such student has not already been awarded degree or diploma for the same course of study."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "The Central Government may, without prejudice to the provisions of sub-section (1), if it considers necessary and expedient to do so, by notification, take such measures which may be necessary for the transfer of the existing Institute mentioned in column (3) of the Schedule to the corresponding Institute mentioned under column (5) of the Schedule."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "49",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Power to remove difficulties",
+          "sub_heading": null,
+          "text": "(1) If any difficulty arises in giving effect to the provisions of this Act the Central Government, may, by order published in the Official Gazette, make such provisions not inconsistent with the provisions of this Act, as may appear to it to be necessary or expedient for removing the difficulty:\nProvided that no such order shall be made after the expiry of the period of three years from the date of commencement of this Act.\n(2) Every order made under this section shall, as soon as may be, after it is made, be laid before each House of Parliament.",
+          "page": 20,
+          "page_end": 20,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "If any difficulty arises in giving effect to the provisions of this Act the Central Government, may, by order published in the Official Gazette, make such provisions not inconsistent with the provisions of this Act, as may appear to it to be necessary or expedient for removing the difficulty:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that no such order shall be made after the expiry of the period of three years from the date of commencement of this Act."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "Every order made under this section shall, as soon as may be, after it is made, be laid before each House of Parliament."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "50",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Laying of rules and notification",
+          "sub_heading": null,
+          "text": "Every rule made and every notification issued by the Central Government under this Act, shall be laid, as soon as may be after it is made or issued, before each House of Parliament, while it is in session, for a total period of thirty days which may be comprised in one session or in two or more successive sessions, and if, before the expiry of the session immediately following the session or the successive sessions aforesaid, both Houses agree in making any modification in the rule or notification or both Houses agree that the rule or notification should not be made or issued, the rule or notification shall thereafter have effect only in such modified form or be of no effect, as the case may be; so, however, that any such modification or annulment shall be without prejudice to the validity of anything previously done under that rule or notification.",
+          "page": 20,
+          "page_end": 20,
+          "footnotes": []
+        }
+      ]
+    }
+  ],
+  "schedules": [
+    {
+      "schedule_number": "Only",
+      "title": "THE SCHEDULE",
+      "subtitle": "[See section 4(1)]",
+      "page_start": 21,
+      "page_end": 21,
+      "columns": [
+        "Sl. No.",
+        "Name of the State",
+        "Name of the existing Institute",
+        "Location",
+        "Name of the Institute under this Act"
+      ],
+      "entries": [
+        {
+          "sl_no": "1",
+          "state": "Uttar Pradesh",
+          "existing_institute": "Indian Institute of Information Technology, Allahabad",
+          "location": "Allahabad",
+          "institute": "Indian Institute of Information Technology, Allahabad.",
+          "page": 21
+        },
+        {
+          "sl_no": "2",
+          "state": "Madhya Pradesh",
+          "existing_institute": "Indian Institute of Information Technology, Gwalior",
+          "location": "Gwalior",
+          "institute": "Atal Bihari Vajpayee Indian Institute of Information Technology and Management, Gwalior.",
+          "page": 21
+        },
+        {
+          "sl_no": "3",
+          "state": "Madhya Pradesh",
+          "existing_institute": "Indian Institute of Information Technology, Design and Manufacturing",
+          "location": "Jabalpur",
+          "institute": "Pandit Dwarka Prasad Mishra Indian Institute of Information Technology, Design and Manufacturing, Jabalpur.",
+          "page": 21
+        },
+        {
+          "sl_no": "4",
+          "state": "Tamil Nadu",
+          "existing_institute": "Indian Institute of Information Technology, Design and Manufacturing",
+          "location": "Kancheepuram",
+          "institute": "Indian Institute of Information Technology, Design and Manufacturing, Kancheepuram.",
+          "page": 21
+        },
+        {
+          "sl_no": "5",
+          "state": "Andhra Pradesh",
+          "existing_institute": "Indian Institute of Information Technology, Design and Manufacturing",
+          "location": "Kurnool",
+          "institute": "Indian Institute of Information Technology, Design and Manufacturing, Kurnool.",
+          "page": 21,
+          "inserted_by_amendment": true
+        }
+      ],
+      "footnotes": [
+        {
+          "marker": 1,
+          "page": 21,
+          "text": "Ins. by Act 25 of 2017 s.4 (w.e.f. 07-09-2017).",
+          "action": "inserted",
+          "amending_act": "Act 25 of 2017",
+          "effective_from": "07-09-2017"
+        }
+      ]
+    }
+  ],
+  "end_matter": {
+    "statement_of_objects_and_reasons": {
+      "page": 22,
+      "paragraphs": [
+        "Education is a key element for developing human resources and contributing to the growth of the society. From a relatively small beginning, the Indian Information Technology (IT) industry has emerged as a strong and credible force and is now recognised as a major constituent of the global IT services industry. In order to develop manpower for different areas of knowledge economy, education and training in Information Technology is a prerequisite.",
+        "2. A major objective in establishing Indian Institutes of Information Technology (IIITs) is also to set up a model of education which can produce best-in-class human resources in IT and harnessing the multi-dimensional facets of IT in various domains. These are conceived as research-led institutions contributing significantly to the global competitiveness of key sectors of the Indian economy and industry with application of IT in selected domain areas. While the number of students produced by these IIITs may be small, the impact they are likely to create will be substantial.",
+        "3. The Bill seeks to provide the four existing IIITs funded by the Central Government independent statutory status with uniform governance structure and policy frame work as also to declare them as Institutions of national importance and to enable them to grant degrees to their students in the academic courses conducted by these Institutes.",
+        "4. The Bill seeks to achieve the above objectives."
+      ],
+      "signatory": "Smriti Zubin Irani",
+      "place_and_date": "NEW DELHI; The 5th August, 2014."
+    }
+  }
+}

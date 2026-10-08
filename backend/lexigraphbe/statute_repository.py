@@ -43,8 +43,13 @@ class StatuteRepository:
                     instance.bsa_statute_db = {}           # BSA_<n> -> metadata dict
                     instance.bsa_to_iea = {}               # str(bsa_sec) -> str IEA sec(s)
                     instance.bsa_json_section_numbers = set()  # authoritative BSA section numbers
+                    instance.bnss_sections_db = []         # BNSS flat list for prefilter
+                    instance.bnss_statute_db = {}          # BNSS_<n> -> metadata dict
+                    instance.bnss_to_crpc = {}             # str(bnss_sec) -> str CrPC sec(s)
+                    instance.bnss_json_section_numbers = set()  # authoritative BNSS section numbers
                     instance._is_loaded = False
                     instance._load_all_datasets()
+
                     cls._instance = instance
         return cls._instance
 
@@ -238,9 +243,11 @@ class StatuteRepository:
 
         self._load_ipc_json()   # IPC sections from ipc.json
         self._load_bsa_json()   # BSA evidence sections from bsa.json
+        self._load_bnss_json()  # BNSS procedural sections from bnss_bail_core.json (fallback bnss.json)
         self._load_ipc_to_bns_neo4j()  # Authoritative Neo4j REPLACED_BY edges
         self._load_ipc2bns_mapping()   # Supplementary CSV mapping & details
         self._is_loaded = True
+
 
 
     # ------------------------------------------------------------------
@@ -424,6 +431,176 @@ class StatuteRepository:
     def is_in_bsa_json(self, section_number: str) -> bool:
         """Returns True if section_number is a valid BSA section present in bsa.json."""
         return str(section_number).strip() in self.bsa_json_section_numbers
+
+    # ------------------------------------------------------------------
+    # BNSS section loading & accessors
+    # ------------------------------------------------------------------
+
+    def _load_bnss_json(self) -> None:
+        """
+        Loads BNSS (Bharatiya Nagarik Suraksha Sanhita, 2023) sections.
+        Primary: bnss_bail_core.json (core bail/arrest/custody corpus).
+        Fallback: bnss.json (full 531-section corpus).
+        Populates bnss_sections_db, bnss_statute_db, bnss_to_crpc, and bnss_json_section_numbers.
+        BNSS sections do NOT have criminal ingredients — they are procedural provisions.
+        """
+        import json as _json
+
+        # 1. Load primary: bnss_bail_core.json
+        core_candidates = [
+            Path(__file__).parent / "bnss_bail_core.json",
+            Path("backend/lexigraphbe/bnss_bail_core.json"),
+            Path("lexigraphbe/bnss_bail_core.json"),
+            Path("bnss_bail_core.json"),
+        ]
+        core_path = next((p for p in core_candidates if p.exists()), None)
+
+        if core_path:
+            try:
+                with open(core_path, mode="r", encoding="utf-8-sig") as f:
+                    core_data = _json.load(f)
+
+                for section in core_data.get("sections", []):
+                    sec_num = str(section.get("section_number", "")).strip()
+                    if not sec_num:
+                        continue
+
+                    self.bnss_json_section_numbers.add(sec_num)
+                    heading = section.get("heading", "") or ""
+                    text = section.get("text", "") or ""
+                    replaces_crpc = section.get("replaces_CrPC")
+
+                    if replaces_crpc:
+                        self.bnss_to_crpc[sec_num] = replaces_crpc
+
+                    searchable_parts = [heading, text, sec_num, f"BNSS {sec_num}"]
+                    if replaces_crpc:
+                        searchable_parts.append(f"CrPC {replaces_crpc}")
+                    full_text_lower = " ".join(searchable_parts).lower()
+
+                    entry = {
+                        "identifier": f"BNSS {sec_num}",
+                        "statute": "BNSS",
+                        "section_number": sec_num,
+                        "title": heading or f"BNSS Section {sec_num}",
+                        "chapter_number": section.get("chapter_number", ""),
+                        "chapter_title": section.get("chapter_title", ""),
+                        "full_text": full_text_lower,
+                        "replaces_CrPC": replaces_crpc,
+                        "raw_section": section,
+                        "source": "bnss_bail_core",
+                    }
+                    self.bnss_sections_db.append(entry)
+                    self.bnss_statute_db[f"BNSS_{sec_num}"] = {
+                        "statute": "BNSS",
+                        "section_number": sec_num,
+                        "section_title": heading,
+                        "chapter_number": section.get("chapter_number", ""),
+                        "chapter_title": section.get("chapter_title", ""),
+                        "full_text": text,
+                        "replaces_CrPC": replaces_crpc,
+                        "source": "bnss_bail_core",
+                    }
+            except Exception:
+                pass
+
+        # 2. Load fallback: bnss.json (supplement sections not present in core)
+        fallback_candidates = [
+            Path(__file__).parent / "bnss.json",
+            Path("backend/lexigraphbe/bnss.json"),
+            Path("lexigraphbe/bnss.json"),
+            Path("bnss.json"),
+        ]
+        fallback_path = next((p for p in fallback_candidates if p.exists()), None)
+
+        if fallback_path:
+            try:
+                with open(fallback_path, mode="r", encoding="utf-8-sig") as f:
+                    full_data = _json.load(f)
+
+                for chapter in full_data.get("chapters", []):
+                    ch_num = chapter.get("chapter_number", "")
+                    ch_title = chapter.get("chapter_title", "")
+                    for section in chapter.get("sections", []):
+                        sec_num = str(section.get("section_number", "")).strip()
+                        if not sec_num:
+                            continue
+
+                        replaces_crpc = section.get("replaces_CrPC")
+                        if replaces_crpc and sec_num not in self.bnss_to_crpc:
+                            self.bnss_to_crpc[sec_num] = replaces_crpc
+
+                        # If already loaded from core, do not duplicate in sections_db
+                        if sec_num in self.bnss_json_section_numbers:
+                            continue
+
+                        self.bnss_json_section_numbers.add(sec_num)
+                        heading = section.get("heading", "") or ""
+                        text = section.get("text", "") or ""
+                        searchable_parts = [heading, text, sec_num, f"BNSS {sec_num}"]
+                        if replaces_crpc:
+                            searchable_parts.append(f"CrPC {replaces_crpc}")
+                        full_text_lower = " ".join(searchable_parts).lower()
+
+                        entry = {
+                            "identifier": f"BNSS {sec_num}",
+                            "statute": "BNSS",
+                            "section_number": sec_num,
+                            "title": heading or f"BNSS Section {sec_num}",
+                            "chapter_number": ch_num,
+                            "chapter_title": ch_title,
+                            "full_text": full_text_lower,
+                            "replaces_CrPC": replaces_crpc,
+                            "raw_section": section,
+                            "source": "bnss_fallback",
+                        }
+                        self.bnss_sections_db.append(entry)
+                        self.bnss_statute_db[f"BNSS_{sec_num}"] = {
+                            "statute": "BNSS",
+                            "section_number": sec_num,
+                            "section_title": heading,
+                            "chapter_number": ch_num,
+                            "chapter_title": ch_title,
+                            "full_text": text,
+                            "replaces_CrPC": replaces_crpc,
+                            "source": "bnss_fallback",
+                        }
+            except Exception:
+                pass
+
+    def get_bnss_sections_db(self) -> List[Dict[str, Any]]:
+        """Returns flat list of loaded BNSS sections (from core + fallback)."""
+        return self.bnss_sections_db
+
+    def get_bnss_statute_db(self) -> Dict[str, Dict[str, Any]]:
+        """Returns BNSS_<n> -> metadata dict."""
+        return self.bnss_statute_db
+
+    def get_bnss_to_crpc_map(self) -> Dict[str, str]:
+        """Returns BNSS section number -> CrPC equivalent(s) string map."""
+        return self.bnss_to_crpc
+
+    def get_bnss_section_details(self, section_number: str) -> Optional[Dict[str, Any]]:
+        """Returns full metadata dict for a BNSS section."""
+        clean = str(section_number).strip().upper().replace("BNSS_", "").replace("SECTION ", "")
+        record = self.bnss_statute_db.get(f"BNSS_{clean}")
+        if record:
+            return record
+        for key, rec in self.bnss_statute_db.items():
+            if rec.get("section_number", "").strip() == clean:
+                return rec
+        return None
+
+    def get_bnss_crpc_equivalent(self, section_number: str) -> Optional[str]:
+        """Returns CrPC equivalent(s) for a BNSS section as a string, or None."""
+        clean = str(section_number).strip().upper().replace("BNSS_", "").replace("SECTION ", "")
+        return self.bnss_to_crpc.get(clean)
+
+    def is_in_bnss_json(self, section_number: str) -> bool:
+        """Returns True if section_number is present in loaded BNSS corpus."""
+        clean = str(section_number).strip().upper().replace("BNSS_", "").replace("SECTION ", "")
+        return clean in self.bnss_json_section_numbers
+
 
 
     def _load_ipc_and_bns_sections(self) -> None:
@@ -901,15 +1078,6 @@ class StatuteRepository:
                 "cognizable": True,
                 "bailable": False,
             },
-            "318": {  # BNS equivalent of 420
-                "chapter_number": "XI",
-                "chapter_title": "Offences Against Property",
-                "punishment_minimum": None,
-                "punishment_maximum": "7 Years",
-                "fine": True,
-                "cognizable": True,
-                "bailable": False,
-            },
             "406": {
                 "chapter_number": "XVII",
                 "chapter_title": "Offences Against Property",
@@ -1000,26 +1168,8 @@ class StatuteRepository:
                 "cognizable": True,
                 "bailable": False,
             },
-            "338": {  # BNS equivalent of IPC 468
-                "chapter_number": "XI",
-                "chapter_title": "Offences Relating to Documents",
-                "punishment_minimum": None,
-                "punishment_maximum": "7 Years",
-                "fine": True,
-                "cognizable": True,
-                "bailable": False,
-            },
             "465": {  # IPC 465: Forgery — Non-cognizable, Bailable, 2 Years
                 "chapter_number": "XVIII",
-                "chapter_title": "Offences Relating to Documents",
-                "punishment_minimum": None,
-                "punishment_maximum": "2 Years",
-                "fine": True,
-                "cognizable": False,
-                "bailable": True,
-            },
-            "336": {  # BNS equivalent of IPC 465
-                "chapter_number": "XI",
                 "chapter_title": "Offences Relating to Documents",
                 "punishment_minimum": None,
                 "punishment_maximum": "2 Years",
@@ -1036,15 +1186,72 @@ class StatuteRepository:
                 "cognizable": False,
                 "bailable": True,
             },
-            "305": {  # BNS equivalent of IPC 423
-                "chapter_number": "XI",
-                "chapter_title": "Offences Relating to Property",
+            "IPC:467": {  # IPC 467: Forgery of valuable security / will — life or up to 10 years
+                "chapter_number": "XVIII",
+                "chapter_title": "Offences Relating to Documents",
+                "punishment_minimum": None,
+                "punishment_maximum": "Life Imprisonment (or up to 10 Years)",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "BNS:338": {  # BNS 338 = IPC 467 (forgery of valuable security) — life or up to 10 years
+                "chapter_number": "XVIII",
+                "chapter_title": "Offences Relating to Documents",
+                "punishment_minimum": None,
+                "punishment_maximum": "Life Imprisonment (or up to 10 Years)",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "BNS:336(2)": {  # BNS 336(2) = IPC 465 (forgery)
+                "chapter_number": "XVIII",
+                "chapter_title": "Offences Relating to Documents",
                 "punishment_minimum": None,
                 "punishment_maximum": "2 Years",
                 "fine": True,
                 "cognizable": False,
                 "bailable": True,
             },
+            "BNS:336(3)": {  # BNS 336(3) = IPC 468 (forgery for purpose of cheating)
+                "chapter_number": "XVIII",
+                "chapter_title": "Offences Relating to Documents",
+                "punishment_minimum": None,
+                "punishment_maximum": "7 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "BNS:318(4)": {  # BNS 318(4) = IPC 420 (cheating and dishonestly inducing delivery of property)
+                "chapter_number": "XVII",
+                "chapter_title": "Offences Against Property",
+                "punishment_minimum": None,
+                "punishment_maximum": "7 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "BNS:318": {  # parent of BNS 318(4) — cheating; sub-section metadata is authoritative
+                "chapter_number": "XVII",
+                "chapter_title": "Offences Against Property",
+                "punishment_minimum": None,
+                "punishment_maximum": "7 Years",
+                "fine": True,
+                "cognizable": True,
+                "bailable": False,
+            },
+            "BNS:322": {  # BNS 322 = IPC 423 (deed of transfer containing false statement of consideration)
+                "chapter_number": "XVII",
+                "chapter_title": "Offences Against Property",
+                "punishment_minimum": None,
+                "punishment_maximum": "2 Years",
+                "fine": True,
+                "cognizable": False,
+                "bailable": True,
+            },
+            # NOTE: IPC 471 / BNS 340 are intentionally NOT hard-coded. Punishment of 471 equals the punishment of the
+            # forgery of the document that is used as genuine (465 -> 2y, 468 -> 7y, 467 -> life). Derive it from the
+            # linked forgery section in the Stage 4 parser instead of assuming a flat 3 years.
             "403": {  # IPC 403: Dishonest Misappropriation of Property
                 "chapter_number": "XVII",
                 "chapter_title": "Offences Against Property",
@@ -1065,8 +1272,19 @@ class StatuteRepository:
             },
         }
 
-        if clean_sec in registry:
-            return registry[clean_sec]
+        stat_key = (statute or "IPC").upper().replace(".", "").strip()
+        if "NYAYA" in stat_key:
+            stat_key = "BNS"
+        elif "PENAL" in stat_key:
+            stat_key = "IPC"
+        lookup_keys = [f"{stat_key}:{clean_sec}"]
+        # BNS sub-sections like "336(3)" / "318(4)" are unambiguous even if the caller left statute at its IPC default
+        if "(" in clean_sec:
+            lookup_keys.append(f"BNS:{clean_sec}")
+        lookup_keys.append(clean_sec)
+        for k in lookup_keys:
+            if k in registry:
+                return registry[k]
 
         # 2. Dynamic CSV Row Text Fallback Parsing
         for rec in self.sections_db:

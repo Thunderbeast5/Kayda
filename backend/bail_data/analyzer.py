@@ -16,7 +16,7 @@ load_dotenv()
 class CaseAnalyzer:
     """Analyzes input case and structures it for retrieval"""
     
-    def __init__(self, taxonomy_path: str = "taxonomy.json", model: str = "gpt-4o"):
+    def __init__(self, taxonomy_path: str = "taxonomy.json", model: str = "gpt-4o-mini"):
         self.model = model
         openai.api_key = os.getenv("OPENAI_API_KEY")
         self.statute_normalizer = StatuteNormalizer()

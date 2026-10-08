@@ -20,7 +20,7 @@ class RetrievalPipeline:
     def __init__(
         self,
         connection_string: str = None,
-        analyzer_model: str = "gpt-4o",
+        analyzer_model: str = "gpt-4o-mini",
         reranker_model: str = "gpt-4o-mini"
     ):
         self.connection_string = connection_string or os.getenv(

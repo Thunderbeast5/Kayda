@@ -21,7 +21,7 @@ class RetrievalPipelineSQLite:
     def __init__(
         self,
         db_path: str = "bail_precedents.db",
-        analyzer_model: str = "gpt-4o",
+        analyzer_model: str = "gpt-4o-mini",
         reranker_model: str = "gpt-4o-mini",
         enable_verification: bool = False
     ):
