@@ -5,6 +5,9 @@ import tailwindcss from '@tailwindcss/vite'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  optimizeDeps: {
+    include: ['react-router-dom', 'react-router'],
+  },
   server: {
     headers: {
       // Allow Firebase Google Sign-In popup to communicate back to the opener.

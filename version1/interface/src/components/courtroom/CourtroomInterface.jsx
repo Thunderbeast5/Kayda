@@ -531,7 +531,7 @@ import { useAuth } from "../../context/AuthContext";
 
 export default function CourtroomInterface({ userRole, gameId, onExit }) {
   const { currentUser } = useAuth();
-  const userId = currentUser?.uid;
+  const userId = currentUser?.uid || sessionStorage.getItem("mootcourt_user_id") || "guest_player";
 
   const [messages, setMessages] = useState([]);
   const [activeSpeaker, setActiveSpeaker] = useState(null);
@@ -824,6 +824,48 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
             } else {
               setActiveSpeaker(userRole === "prosecutor" ? "defense" : "prosecutor");
             }
+          } else if (data.type === "JUDGE_MESSAGE" || data.type === "JUDGE_INTERRUPTION") {
+            handleEvent({
+              agent_id: "judge",
+              display_name: data.display_name || "Hon’ble Judge",
+              full_text: data.content,
+              verified_citations: data.citations || [],
+            });
+            setActiveSpeaker("judge");
+            if (data.phase) {
+              setTrialPhase(data.phase);
+            }
+            if (data.active_turn) {
+              setTimeout(() => {
+                if (data.active_turn === userId) {
+                  setActiveSpeaker(userRole);
+                } else {
+                  setActiveSpeaker(userRole === "prosecutor" ? "defense" : "prosecutor");
+                }
+              }, 4500);
+            }
+          } else if (data.type === "OBJECTION_RAISED") {
+            const isMe = data.player_id === userId;
+            const objectingRole = data.player_role || (isMe ? userRole : (userRole === "prosecutor" ? "defense" : "prosecutor"));
+            handleEvent({
+              agent_id: objectingRole,
+              display_name: isMe ? `[YOU] ${roleNameMap[userRole]}` : roleNameMap[objectingRole],
+              full_text: `⚠️ OBJECTION: ${data.text || "Formal objection raised to the Court."}`,
+              verified_citations: [],
+            });
+            setActiveSpeaker(objectingRole);
+          } else if (data.type === "GAME_COMPLETED") {
+            setStatus("completed");
+            setTrialPhase("VERDICT RENDERED");
+            if (data.verdict_summary) {
+              handleEvent({
+                agent_id: "judge",
+                display_name: "Hon’ble Judge — Final Order",
+                full_text: data.verdict_summary,
+                verified_citations: ["Verdict Rendered"],
+              });
+              setActiveSpeaker("judge");
+            }
           } else if (data.type === "PLAYER_CONNECTED") {
             console.log("[WS] Player connected:", data.player?.user_id);
           } else if (data.type === "PLAYER_READY") {
@@ -1066,6 +1108,17 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
     });
   };
 
+  const raiseObjection = (reason = "Objection: Submissions exceed the evidentiary record.") => {
+    if (gameId && wsRef.current && wsRef.current.readyState === WebSocket.OPEN) {
+      wsRef.current.send(JSON.stringify({
+        action: "RAISE_OBJECTION",
+        text: reason
+      }));
+    } else {
+      alert("Objection Raised!\nThe Court has noted your objection.");
+    }
+  };
+
   return (
     <div className="h-screen flex bg-surface-court text-textPrimary font-body overflow-hidden">
       <CourtroomSidebar
@@ -1084,6 +1137,7 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
         activeSpeaker={activeSpeaker}
         latestMessage={messages[messages.length - 1] || null}
         status={status}
+        onRaiseObjection={raiseObjection}
       />
 
       <CaseSelectionModal
@@ -1146,9 +1200,11 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
         ) : (
           <CourtroomInputBar
             status={status}
-            activeSpeaker={activeSpeaker}
-            isMyTurn={gameId ? activeSpeaker === userRole : activeSpeaker === null}
-            trialPhase={trialPhase}
+            isMyTurn={
+              gameId 
+                ? (activeSpeaker === userRole || (trialPhase === "CASE_INTRO" && userRole === "prosecutor") || (trialPhase === "DEFENSE REBUTTAL" && userRole === "defense")) 
+                : (activeSpeaker === null || activeSpeaker === userRole)
+            }
             inputText={inputText}
             setInputText={setInputText}
             submitUserInput={submitUserInput}

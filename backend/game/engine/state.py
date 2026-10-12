@@ -15,6 +15,7 @@ async def init_game_state(game_id: str, firestore_data: Dict[str, Any]) -> Dict[
     
     state = {
         "game_id": game_id,
+        "case_id": firestore_data.get("case_id", "1"),
         "phase": "CASE_INTRO",
         "round": 1,
         "current_turn": prosecution_id,  # Prosecution usually starts
@@ -26,6 +27,7 @@ async def init_game_state(game_id: str, firestore_data: Dict[str, Any]) -> Dict[
             "prosecution": 0,
             "defense": 0
         },
+        "transcript": [],
         "turn": {
             "player_id": prosecution_id,
             "started_at": 0,
@@ -61,12 +63,13 @@ def sync_to_firestore_sync(game_id: str, state: Dict[str, Any]) -> None:
         db = _get_firestore_client()
         game_ref = db.collection("games").document(game_id)
         
-        # We only sync core fields that need persistence right now
+        # We sync core fields that need persistence
         updates = {
             "phase": state.get("phase"),
             "round": state.get("round"),
             "status": state.get("status"),
-            "current_turn": state.get("current_turn")
+            "current_turn": state.get("current_turn"),
+            "scores": state.get("scores", {"prosecution": 0, "defense": 0})
         }
         game_ref.update(updates)
     except Exception as e:

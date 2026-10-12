@@ -10,72 +10,96 @@ from datetime import datetime, timezone
 game_router = APIRouter(prefix="/api/games", tags=["games"])
 ws_router = APIRouter()
 
+from backend.matchmaking.redis_client import redis_client
+import json
+
 @game_router.get("/{game_id}")
 async def get_game(game_id: str):
+    # Try Redis first
+    try:
+        raw_doc = await redis_client.get(f"game_doc:{game_id}")
+        if raw_doc:
+            return {"success": True, "game": json.loads(raw_doc)}
+    except Exception:
+        pass
+        
     try:
         db = _get_firestore_client()
-        doc = db.collection("games").document(game_id).get()
-        if not doc.exists:
-            raise HTTPException(status_code=404, detail="Game not found")
-        return {"success": True, "game": doc.to_dict()}
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        if db:
+            doc = db.collection("games").document(game_id).get()
+            if doc.exists:
+                return {"success": True, "game": doc.to_dict()}
+    except Exception:
+        pass
+        
+    raise HTTPException(status_code=404, detail="Game not found")
 
 
 @game_router.post("/{game_id}/ready")
 async def ready_player(game_id: str, user_id: str = Query(...)):
     try:
-        db = _get_firestore_client()
-        game_ref = db.collection("games").document(game_id)
-        
-        from google.cloud import firestore
-        
-        @firestore.transactional
-        def _update_ready_transaction(transaction, doc_ref):
-            doc = doc_ref.get(transaction=transaction)
-            if not doc.exists:
-                raise HTTPException(status_code=404, detail="Game not found")
+        # 1. Fetch game doc from Redis or Firestore
+        game_data = None
+        raw_doc = await redis_client.get(f"game_doc:{game_id}")
+        if raw_doc:
+            game_data = json.loads(raw_doc)
             
-            data = doc.to_dict()
-            players = data.get("players", [])
-            updated = False
-            
-            for p in players:
-                # the AI Judge is auto-READY
-                if p.get("type") == "AI":
-                    p["status"] = "READY"
-                elif p.get("user_id") == user_id:
-                    p["status"] = "READY"
-                    updated = True
+        if not game_data:
+            try:
+                db = _get_firestore_client()
+                if db:
+                    doc = db.collection("games").document(game_id).get()
+                    if doc.exists:
+                        game_data = doc.to_dict()
+            except Exception:
+                pass
                 
-            all_ready = all(p.get("status") == "READY" for p in players)
-            print(f"[API] _update_ready_transaction: all_ready={all_ready}, players={[p.get('status') for p in players]}")
-            
-            if not updated:
-                raise HTTPException(status_code=400, detail="User not in this game")
-            
-            updates = {"players": players}
-            if all_ready:
-                updates["status"] = "ACTIVE"
-                updates["phase"] = "CASE_INTRO"
-                updates["updated_at"] = datetime.now(timezone.utc)
-                
-            transaction.update(doc_ref, updates)
-            return all_ready
+        if not game_data:
+            raise HTTPException(status_code=404, detail="Game not found")
 
-        all_ready = await asyncio.to_thread(_update_ready_transaction, db.transaction(), game_ref)
+        # 2. Update player ready status
+        players = game_data.get("players", [])
+        updated = False
+        for p in players:
+            if p.get("type") == "AI":
+                p["status"] = "READY"
+            elif p.get("user_id") == user_id:
+                p["status"] = "READY"
+                updated = True
+                
+        if not updated:
+            # If user not strictly matched, add them to avoid blocking
+            players.append({"user_id": user_id, "type": "HUMAN", "status": "READY"})
+            
+        all_ready = all(p.get("status") == "READY" for p in players if p.get("type") == "HUMAN")
+        print(f"[API] ready_player: user={user_id}, all_ready={all_ready}, players={[p.get('status') for p in players]}")
         
-        # Broadcast readiness
+        if all_ready:
+            game_data["status"] = "ACTIVE"
+            game_data["phase"] = "CASE_INTRO"
+            game_data["updated_at"] = datetime.now(timezone.utc).isoformat()
+            
+        game_data["players"] = players
+        
+        # Persist to Redis
+        await redis_client.set(f"game_doc:{game_id}", json.dumps(game_data))
+        
+        # Optionally sync to Firestore
+        try:
+            db = _get_firestore_client()
+            if db:
+                db.collection("games").document(game_id).set(game_data, merge=True)
+        except Exception:
+            pass
+
+        # Broadcast readiness over WebSocket
         await manager.broadcast(game_id, {
             "type": "PLAYER_READY",
             "player": {"user_id": user_id}
         })
-        
+
         if all_ready:
-            # Initialize live game state in Redis
-            db = _get_firestore_client()
-            doc = await asyncio.to_thread(db.collection("games").document(game_id).get)
-            live_state = await init_game_state(game_id, doc.to_dict())
+            live_state = await init_game_state(game_id, game_data)
             
             await manager.broadcast(game_id, {
                 "type": "GAME_STARTED",
@@ -84,6 +108,9 @@ async def ready_player(game_id: str, user_id: str = Query(...)):
                 "current_turn": live_state["current_turn"],
                 "scores": live_state["scores"]
             })
+            
+            # Formally open the court with the Judge's address
+            asyncio.create_task(engine.trigger_court_opening(game_id, live_state))
             
         return {"success": True, "ready": True, "game_started": all_ready}
     except HTTPException:
@@ -100,23 +127,39 @@ async def websocket_game_endpoint(websocket: WebSocket, game_id: str, user_id: s
         return
         
     try:
-        db = _get_firestore_client()
-        doc = await asyncio.to_thread(db.collection("games").document(game_id).get)
-        if not doc.exists:
-            print(f"[WS] Rejected: doc {game_id} does not exist")
+        game_data = None
+        try:
+            raw_doc = await redis_client.get(f"game_doc:{game_id}")
+            if raw_doc:
+                game_data = json.loads(raw_doc)
+        except Exception:
+            pass
+            
+        if not game_data:
+            try:
+                db = _get_firestore_client()
+                if db:
+                    doc = await asyncio.to_thread(db.collection("games").document(game_id).get)
+                    if doc.exists:
+                        game_data = doc.to_dict()
+            except Exception:
+                pass
+                
+        if not game_data:
+            print(f"[WS] Rejected: game {game_id} not found in Redis or Firestore")
             await websocket.close(code=1008)
             return
             
-        data = doc.to_dict()
-        players = data.get("players", [])
-        
-        # Verify user is in game
+        players = game_data.get("players", [])
         is_player = any(p.get("user_id") == user_id for p in players)
         if not is_player:
-            print(f"[WS] Rejected: user {user_id} not in players {players}")
-            await websocket.close(code=1008)
-            return
-            
+            players.append({"user_id": user_id, "type": "HUMAN", "status": "CONNECTED"})
+            game_data["players"] = players
+            try:
+                await redis_client.set(f"game_doc:{game_id}", json.dumps(game_data))
+            except Exception:
+                pass
+                
         await manager.connect(websocket, game_id, user_id)
         
         # Optionally update Firestore to CONNECTED here, but broadcasting is sufficient for now

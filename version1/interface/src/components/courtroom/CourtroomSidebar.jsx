@@ -200,7 +200,8 @@ export default function CourtroomSidebar({
   handleSidebarFileUpload,
   fileInputRef,
   latestMessage,
-  status
+  status,
+  onRaiseObjection
 }) {
   return (
     <>
@@ -343,7 +344,13 @@ export default function CourtroomSidebar({
               </button>
               <button 
                 type="button" 
-                onClick={() => alert("Objection Raised!\nThe Court has noted your objection. The Judge will rule shortly.")}
+                onClick={() => {
+                  if (onRaiseObjection) {
+                    onRaiseObjection("Objection: Submissions exceed the verified evidence on record.");
+                  } else {
+                    alert("Objection Raised!\nThe Court has noted your objection.");
+                  }
+                }}
                 className="w-full flex items-center justify-center gap-1.5 text-[9px] uppercase font-bold tracking-widest text-white bg-[#D32F2F] px-3 py-2 rounded border border-[#B71C1C] hover:bg-[#B71C1C]/90 transition-all cursor-pointer"
               >
                 <AlertTriangle size={12} fill="currentColor" className="text-white" />
