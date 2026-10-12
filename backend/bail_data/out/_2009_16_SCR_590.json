@@ -1,0 +1,349 @@
+{
+  "case_id": "_2009_16_SCR_590",
+  "doc_meta": {
+    "source_file": "HDFC Bank Ltd. v. J.J. Mannan.pdf",
+    "pdf_pages": 9,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment",
+      "author": "author:0"
+    },
+    "format_profile": "scr_reporter",
+    "citation_scr": "[2009] 16 SCR 590",
+    "scr_year": 2009,
+    "scr_volume": 16,
+    "scr_first_page": 590,
+    "decided_on": "2009-12-16",
+    "coram_raw": "ALTAMAS KABIR AND DEEPAK VERMA, JJ.",
+    "coram_regex": [
+      "ALTAMAS KABIR",
+      "DEEPAK VERMA"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "HDFC BANK LTD.",
+    "respondent_regex": "J.J. MANNAN @ J.M. JOHN PAUL & ANR.",
+    "court_regex": "Supreme Court of India",
+    "year": 2009,
+    "footnotes": [
+      {
+        "page": 591,
+        "text": "\\"
+      },
+      {
+        "page": 591,
+        "text": "'"
+      },
+      {
+        "page": 591,
+        "text": "y"
+      },
+      {
+        "page": 592,
+        "text": ",l"
+      },
+      {
+        "page": 593,
+        "text": "\\"
+      },
+      {
+        "page": 594,
+        "text": "("
+      },
+      {
+        "page": 594,
+        "text": "-r"
+      }
+    ],
+    "reporter_trailer": "R.P. Appeal Partly allowed.",
+    "result_of_case": "Appeal Partly allowed.",
+    "pre_judgment_block": "CRIMINAL APPELLATE JURISDICTION: Criminal Appeal No. 2415 of 2009. From the Judgment & Order dated 3.7.2006 of the High Court of Judicature at Madras in Criminal Original Petition No. 15217 of 2006 and Crl. M.P. No. 3784 of 2006. Manik Karanjawala for the Appellant. Rajiv Dutta, K.P. Narajanan, Anukul Raj, K.K. Mani, S. Thananjayan for the Respondent.",
+    "case_no": "Criminal Appeal No. 2415 of 2009",
+    "appeal_from_raw": "From the Judgment & Order dated 3.7.2006 of the High Court of Judicature at Madras in Criminal Original Petition No. 15217 of 2006 and Crl. M.P. No. 3784 of 2006",
+    "judgment_author_regex": "ALTAMAS KABIR",
+    "layout": "unnumbered_page_anchored",
+    "ocr_noise_score": 0.0049
+  },
+  "flags": [],
+  "case": {
+    "case_name": "HDFC Bank Ltd. v. J.J. Mannan",
+    "petitioner": "HDFC Bank Ltd.",
+    "respondent": "J.J. Mannan @ J.M. John Paul & Anr.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "ALTAMAS KABIR",
+      "DEEPAK VERMA"
+    ],
+    "judgment_author": "ALTAMAS KABIR",
+    "procedural_stage": "post_arrest_bail",
+    "offence_types": [
+      "economic offence"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "The appellant, a bank, extended a loan for purchasing machinery. It was later discovered that the loan amount was not used for the intended purpose, and the beneficiary was accused of colluding with accomplices to defraud the bank. An FIR was filed alleging offences under multiple IPC sections. The respondent obtained anticipatory bail, which was interpreted to preclude any appearance or surrender during the investigation and trial. The Supreme Court modified the anticipatory bail order, emphasizing the requirement for regular bail after charges.",
+    "lower_court_outcome": "Anticipatory bail granted to respondent by High Court",
+    "disposition": "Appeal Partly allowed.",
+    "statutes": [
+      {
+        "act": "CrPC 1973",
+        "section": "438",
+        "how_used": "interpreted",
+        "note": "Explained that Section 438 anticipatory bail does not prevent court appearances post-chargesheet."
+      },
+      {
+        "act": "IPC",
+        "section": "419",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "420",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "468",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "471",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "120-B",
+        "how_used": "charged",
+        "note": null
+      }
+    ],
+    "issues": [
+      {
+        "question": "Can an order under Section 438 CrPC grant anticipatory bail in a way that exempts an accused from appearing during trial?",
+        "short_answer": "No",
+        "anchors": [
+          "p596.3",
+          "p598.2"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "Section 438 CrPC does not permit anticipatory bail to be used to avoid court appearances after charges are filed.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [
+          "CrPC 1973"
+        ],
+        "anchors": [
+          "p595.4",
+          "p596.3"
+        ],
+        "quote": "no blanket order could be passed under Section 438 Cr.P.C. to prevent the accused from being arrested at all in connection with the case."
+      },
+      {
+        "id": "p2",
+        "text": "The accused must surrender and seek regular bail once the investigation concludes and a chargesheet is filed.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [
+          "CrPC 1973"
+        ],
+        "anchors": [
+          "p598.1",
+          "p598.2"
+        ],
+        "quote": "accused has to surrender to the custody of the Court and pray for regular bail."
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The High Court misapplied Section 438 CrPC by granting a blanket anticipatory bail order that allowed the respondent to avoid court appearance during the trial.",
+        "outcome": "accepted",
+        "anchors": [
+          "p595.3"
+        ]
+      },
+      {
+        "side": "respondent",
+        "text": "The anticipatory bail was rightly granted, as the respondent has cooperated with the investigation and no incriminating evidence was found.",
+        "outcome": "rejected",
+        "anchors": [
+          "p595.4",
+          "p596.2"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "Adri Dharan Das vs. State of West Bengal",
+        "citation": "(2005) 4 SCC 303",
+        "treatment": "relied_on",
+        "used_for": "Duration of anticipatory bail should be limited for regular bail process.",
+        "where": "p595.3"
+      },
+      {
+        "name": "Salauddin Abdulsamad Shaikh vs. State of Maharashtra",
+        "citation": "(1996) 1 SCC 667",
+        "treatment": "relied_on",
+        "used_for": "Anticipatory bail should be of limited duration.",
+        "where": "p595.3"
+      },
+      {
+        "name": "Gurbaksh Singh Sibbia vs. State of Punjab",
+        "citation": "(1980) 2 SCC 565",
+        "treatment": "referred_to",
+        "used_for": null,
+        "where": "p595.4"
+      },
+      {
+        "name": "Savitri Agarwal & Ors. vs. State of Maharashtra & Anr.",
+        "citation": "(2009) 8 SCC 325",
+        "treatment": "referred_to",
+        "used_for": null,
+        "where": "p596.1"
+      }
+    ]
+  },
+  "authority_table": [
+    {
+      "name": "and Savitri Agarwal & Ors. vs. State of Maharashtra & Anr. 2009 (10) SCR 978 = JT 2009 (9) SC 460 =",
+      "cite": "(2009) 8 SCC 325",
+      "treatment": "referred_to",
+      "para": null
+    }
+  ],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    }
+  },
+  "needs_review": [
+    "p2: quote not found in its anchors"
+  ],
+  "paragraphs": {
+    "p592.1": {
+      "text": "ALTAMAS KABIR, J. 1. Leave granted.",
+      "page_start": 592,
+      "page_end": 592
+    },
+    "p592.2": {
+      "text": "2. This appeal has been filed by the H.D.F.C. Bank Ltd. (hereinafter referred to as \"the Bank\") against the judgment and order dated 3rd July, 2006, passed by the Madras High Court in Crl.M.P.No.3784 of 2006 and Crl.O.P.No.15217 of 2006, HDFC BANK L TO. v. J.J. MANNAN @ J.M. JOHN PAUL & ANR. [ALTAMAS KABIR, J.] , I allowing the application filed by the Respondent No.1 under Section 438 of the Code of Criminal Procedure (Cr.P.C.) for grant of anticipatory bail to him.",
+      "page_start": 592,
+      "page_end": 593
+    },
+    "p593.1": {
+      "text": "3. According to the Bank, the Respondent No.1 in his capacity as the Managing Director of the Mannan Construction Corporation Private Limited, a company engaged in the execution of Highway Contracts and contracts of the Public Works Department (hereinafter referred to as \"the Company\"), along with one Mis. Immanuel Projects Private Ltd., applied for a loan of Rs.2,03,40,0001- (Rupees Two Crores, three lakhs and forty thousand) only, for purchase of 6 Krishna Electronic Sensor Paver Finishers from one Mis. Krishna Engineering Works in Ahmedabad. The said loan was duly sanctioned and after signing of necessary Agreements and other documents, six cheques for the loan amount of Rs.2,03,40,0001-, drawn in the name of Mis. Krishna Engineering Works, were handed over .J to the Respondent No.1 on 9th March, 2006. Subsequently, by a letter dated 24th May, 2006, the Bank informed Mis. Krishna Engineering Works in Ahmedabad that a sum of Rs.2,03,40,0001-had been disbursed to them on account of the Respondent No.1 and requested them to confirm receipt of the same. Mis. Krishna Engineering Works wrote back to the Bank stating that it had not received any payment on account of Mr. J.M. John Paul.",
+      "page_start": 593,
+      "page_end": 593
+    },
+    "p593.2": {
+      "text": "4. The Bank thereupon caused enquiries to be made and came to learn that no machineries had, in fact, been purchased by the Respondent No.1, and that the Respondent No.1 had colluded with Mis. Immanuel Projects Private Limited and their Directors and one Mr. R.I. Jambert Mathuram with the intention of cheating the Bank and in the process had committed offences punishable under Sections 420, 467, 468, 471 and 120-B Indian Penal Code.",
+      "page_start": 593,
+      "page_end": 593
+    },
+    "p593.3": {
+      "text": "5. The Bank filed a complaint with the Commissioner of Police, Egmore, Chennai-600008 on 27th May, 2006, setting out the facts relating to sanction of the loan and the handing \\ .",
+      "page_start": 593,
+      "page_end": 594
+    },
+    "p594.1": {
+      "text": "over of the six Banker's cheques in the name of M/s. Krishna Engineering Works. The complaint also contained the manner in which the Respondent No.1 had opened a fictitious account with l.C.l.C.I. Bank, Tuticorin Branch, in the name of M/s. Krishna Engineering Works and deposited the cheques meant for supply of road construction equipment by Krishna Engineering Works of Ahmedabad. Thereafter, the said amount was encashed and transferred to M/s. Matrix Enterprises having its office at No.41, C.G.E. Colony, 5th > Street, Tuticorin-628 003, which was holding an account in the c Tuticorin Branch of l.C.l.C.1. Bank. The said amounts were again transferred to the account of M/s. Delta Enterprises, also having its office at No.41, C.G.E. Colony, 5th Street, Tuticorin, with the Tuticorin Branch of the LC.LC.I. Bank.",
+      "page_start": 594,
+      "page_end": 594
+    },
+    "p594.2": {
+      "text": "6. After the aforesaid transactions, the moneys were finally credited to the account of the Respondent No.1 in the same \\ .",
+      "page_start": 594,
+      "page_end": 594
+    },
+    "p594.3": {
+      "text": "Branch of the l.C.l.C.I. Bank. It was also found on enquiry that the addresses of all the above-mentioned companies were that of the residence of the Respondent No.1, Mr. J.M. John Paul. 7. F.l.R. No.157 of 2006 dated 12th June, 2006, was drawn up on the basis of the aforesaid complaint against the Respondent No.1 and others by the Central Crime Branch, Chennai, under Sections 419, 420, 468, 473 read with Section 120B Indian Penal Code.",
+      "page_start": 594,
+      "page_end": 594
+    },
+    "p594.4": {
+      "text": "8. The Respondent No.1 thereupon filed an application in the Madras High Court under Section 438 Cr.P.C. for grant of Anticipatory Bail and the learned Single Judge of the said High Court, by his order dated 3rd July, 2006, allowed the same upon holding that since the investigating agency had already seized all relevant and vital documents and had recorded the statements of all the important witnesses, the custodial interrogation of the Respondent No.1 was not required. 9. The present appeal has been filed by the Bank for cancellation of the Anticipatory Bail granted to the Respondent PAUL & ANR. [ALTAMAS KABIR, J.] , I No.1.",
+      "page_start": 594,
+      "page_end": 595
+    },
+    "p595.1": {
+      "text": "10. On behalf of the Union of India it was contended that in the facts of the case, the High Court had erred in allowing the Respondent No.1's application under Section 438 Cr.P.C. since he had allegedly master-minded the fraud and having regard to the gravity of the offence alleged, the Anticipatory Bail ..",
+      "page_start": 595,
+      "page_end": 595
+    },
+    "p595.2": {
+      "text": "granted to him was liable to be cancelled. Mr. Lalit submitted that the Respondent No.1 had misappropriated what was meant to be paid to the supplier of the road construction equipment, in a planned manner and the whereabouts of the moneys was c yet to be ascertained.",
+      "page_start": 595,
+      "page_end": 595
+    },
+    "p595.3": {
+      "text": "11. Mr. Lalit submitted that the provisions of Section 438 Cr.P.C. had been misapplied by the High Court in this case, since there was sufficient material on record to prima facie indicate that the Respondent was a direct player in the -~ fraudulent episode, and, in any event, the High Court could not have granted a blanket order of Anticipatory-Bail upto the end of the trial. Mr. Lal it submitted that in view o{ the impugned order, the Respondent No.1 had never appeared 1n Court even once, at any stage of the case, and had not even surrendered and obtained regular bail. Mr. Lalit referred to the decision of this Court in Adri Dharan Das vs. State of West Bengal [(2005) 4 sec 303], wherein it was categorically indicated that \\ mir Anticipatory Bail had to be given for a limited duration so as to enable the accused to move for regular bail under Section 437 Cr.P.C. Reference was also made to the decision of this Court in Sa/auddin Abdulsamad Shaikh vs. State of Maharashtra [(1996) 1 sec 667] where the same essentials have been reiterated.",
+      "page_start": 595,
+      "page_end": 595
+    },
+    "p595.4": {
+      "text": "12. Appearing for the Respondent No.1, Mr. Rajiv Dutta, y learned Senior Advocate, submitted that except for wild allegations made against the Respondent No.1, nothing incriminating had been found against him. Mr. Dutta urged that the Respondent No.1 had been granted Anticip<1lory Bail as far back as on 3rd July, 2006, and he had never misused the \\ - privilege and had co-operated with the investigating agencies all through. Furthermore, the trial had already commenced and several witnesses had been examined and there could, therefore, be no justification for cancelling the Anticipatory Bail granted to him by the High Court more than three years ago. Referring to the decision of the Constitution Bench in the case of Gurbaksh Singh Sibbia vs. State of Punjab ((1980) 2 SCC 565), wherein the application of Section 438 Cr.P.C. had been > considered in detail, Mr. Dutta submitted that the said provision had been interpreted to be a beneficent provision relating to c personal liberty guaranteed under Section 21 of the \\ Constitution. Mr. Dutta submitted that the Constitution Bench had observed that since denial of bail amounts to deprivation of personal liberty, the court should lean against the imposition of unnecessary restrictions on the scope of Section 438 Cr.P.C. ..",
+      "page_start": 595,
+      "page_end": 596
+    },
+    "p596.1": {
+      "text": "~ 13. Reference was also made to the decision of this Court in the case of Savitri Agarwal & Ors. vs. State of Maharashtra & Anr. [JT 2009 (9) SC 460 = (2009) 8 SCC 325), where the various decisions in this regard, with special emphasis on Sibbia's case (supra) as also Adri Dharan Das's case (supra), were referred to. Their Lordships took note of the fact that the provisions of Section 438, as amended, had not yet been notified and that as a result the old provision continued to be in I ..",
+      "page_start": 596,
+      "page_end": 596
+    },
+    "p596.2": {
+      "text": "force. Hence, the earlier decisions would continue to be relevant to the facts of this case. Mr. Dutta submitted that having regard to the views expressed by this Court in no uncertain terms, prayer for Anticipatory Bail should not be refused and, in any event, in this case Anticipatory Bail had already been granted more than three years ago and hence the submissions now being made as to when Anticipatory Bail should be granted have become irrelevant.",
+      "page_start": 596,
+      "page_end": 596
+    },
+    "p596.3": {
+      "text": "'f 14. Having carefully considered the submissions made on behalf of the respective parties and the decisions referred to in support of their respective cases, we are of the view that the role of the Respondent No.1 in the entire episode did not entitle • t PAUL & ANR. [ALTAMAS KABIR, J.] him to the relief of Anticipatory Bail, much less a blanket order of bail. However, t_hat is now a closed chapter. But what is of relevance is whether the High Court should have worded its order in such a way that it could be interpreted to mean, as has been done by all concerned, that the Respondent No.1 was not required to even appear and surrender before the Court during - the entire investigation stage and the trial. Taking advantage . ~' of the same, the Respondent No.1 has successfully avoided the Court from the very initial stage of investigation and even the trial. Such kind of an order is not contemplated under Section 438 Cr.P.C. as has been repeatedly explained by this c Court. The said position has been clearly enunciated in Adri Dharan Das's case (supra). Furthermore, it has also been consistently indicated that no blanket order could be passed under Section 438 Cr.P.C. to prevent the accused from being arrested at all in connection with the case. To avoid such an -- Ji eventuality it was observed in Adri Dharan Das's case (supra) that Anticipatory Bail is given for a limited duration to enable the accused to surrender and to obtain regular bail. The same view was reiterated in Salauddin's case (supra) wherein it was, inter alia, observed that Anticipatory Bail should be of limited duration only and primarily on the expiry of that duration or extended duration, the Court granting Anticipatory Bail should leave it to the regular court to deal with the matter on an appreciation of evidence placed before it after the investigation has made progress or the charge-sheet is submitted. 15. The object of Section 438 Cr.P.C. has been repeatedly explained by this Court and the High Courts to mean that a person should not be harassed or humiliated in order to satisfy the grudge or personal vendetta of the complainant. But at the same time the provisions of Section 438 Cr.P.C. cannot > l also be invoked to exempt the accused from surrendering to the Court after the investigation is complete and if charge-sheet is filed against him. Such an interpretation would amount to violence to the provisions of Section 438 Cr.P .C., since even though a charge-sheet may be filed against an accused and charge is framed against him, he may still not appear before the Court at all even during the trial. Section 438 Cr.P.C. contemplates arrest at the stage of investigation and provides a mechanism for an accused to be released on bail should he be arrested during the period of investigation. Once the investigation makes out a case against him and he is included as an accused in the charge-sheet, the accused has to surrender to the custody of the Court and pray for regular bail. f- On the strength of an order granting Anticipatory Bail, an accused against whom charge has been framed, cannot avoid appearing before the trial court. If what has been submitted on behalf of the appellant that the Respondent No.1 has never appeared before the trial court is to be accepted, it will lead to the absurd situation that charge was framed against the accused in his absence, which would defeat the very purpose of Sub-Section (2) of Section 240 Cr.P.C.",
+      "page_start": 596,
+      "page_end": 598
+    },
+    "p598.1": {
+      "text": "\" •.",
+      "page_start": 598,
+      "page_end": 598
+    },
+    "p598.2": {
+      "text": "0 16. Having regard to the above, the order of the High Court dated 3rd July, 2006, is modified to the extent that the Respondent No.1 shall surrender before the Trial Court forthwith and pray for regular bail and the Trial Court shall dispose of the same on merits, in accordance with law, before proceeding further with the trial.",
+      "page_start": 598,
+      "page_end": 598
+    },
+    "p598.3": {
+      "text": "17. The appeal is allowed to the above extent.",
+      "page_start": 598,
+      "page_end": 598
+    }
+  },
+  "headnote_raw": " \n(2009] 16 (ADDL.) S.C.R. 590\n~ .\nHDFC BANK LTD.\nv.\nJ.J. MANNAN @ J.M. JOHN PAUL & ANR.\n(Criminal Appeal No. 2415 of 2009)\nDECEMBER 16, 2009\n,.. .\nCode of Criminal Procedure, 1973:\nc\ns. 438 - Anticipatory bail - Scope of - HELD: High Court,\nwhile granting anticipatory bail to accused, worded its order\nin such a way that it could be, and wa~ interpreted by all\nconcerned to mean that accused was not required to even\nappear and surrender before court during entire investigation\nstage and trial - Such kind of order is not contemplated uls\n438 - No blanket order could be passed uls 438 to prevent\n•.\nthe accused from being arrested at all in connection with the\ncase - Order of High Court modified to the extent that\naccused shall surrender before trial court forth with and pray\nfor regular bail.\nOn a complaint made by the appellant-Bank that it\nhad been cheated of Rs.2,04,40,000/- by respondent no.\n1 and others, an FIR was drawn up accused on 12.6.2006\n)\nagainst the persons named in the complaint, for offences\npunishable u/ss. 419, 420, 468, 473 read with s.120-B IPC.\nRespondent no. 1 applied for and was granted\nanticipatory bail u/s 438 CrPC by the High Court by its\norder dated 3.7.2006.\nIn the instant appeal filed by the Bank, it was\ncontended for the appellant that the High Court\nmisapplied the provisions of s.438 CrPC and could not\n...\n'(\nhave granted a blanket order of anticipatory bail upto the\nend of the trial. It was submitted that respondent no. 1\n \nPAUL & ANR.\n- J\nnever appeared in court even once, at any stage of the\ncase, and did not even surrender and obtain regular bail.\nPartly allowing the appeal, the Court\nHELD: 1.1. Section 438 Cr.P.C. contemplates arrest\nat the stage of investigation and provides a mechanism\nfor an accused to be released on ba'i'I should he be\narrested during the period of investigation. Once the\n\"\"\ninvestigation makes out a case against him and he is\nincluded as an accused in the charge-sheet, the accused\nhas to surrender to the custody of the court and pray for c\nregular bail. On the strength of an order granting\nanticipafdry bail, an accused against whom charge has\nbeen framed, cannot avoid appearing before the trial\ncourt. [Para 15] [598-A-C]\n1.2. In the instant case, the role of respondent No.1\n' -· ,/..\nin the entire episode did not entitle him to the relief of\nanticipatory bail, much less a blanket order of bail. The\nHigh Court worded its order in such a way that it could\nbe interpreted to mean, as has been done by all\nconcerned, that respondent No.1 was not required to\neven appear and surrender before the court during the\nentire investigation stage and the trial. Taking advantage\nof the same, respondent No.1 has successfully avoided\nthe court from the very initial stage of investigation and\neven the trial. Such kind of an order is not contemplated\nu/s 438 Cr.P.C. as has been repeatedly explained by this\nCourt. [Para 14] [596·G-H; 597-A-C]\nAdri Dharan Das vs. State of West Bengal 2005 (2)\nSCR 188 = (2005) 4 SCC 303; and Salauddin Abdulsamad\nShaikh vs. State of Maharashtra 1995 ( 6 ) SMi>pl. SCR\n556 = (1996) 1 sec 667-- relied on.\nGurbaksh Singh Sibbia vs. State of Punjab 1980 (3)\n \nSCR 383 = (1980) 2 SCC 565; and Savitri Agarwal & Ors.\nvs. State of Maharashtra & Anr. 2009 (10) SCR 978 = JT\n2009 (9) SC 460 = (2009) 8 SCC 325, referred to.\n1.3. The order of the High Court dated 3rd July, 2006,\nis modified to the extent that respondent No.1 shall\n8 surrender before the trial court forthwith and pray for\nregular bail. The trial court shall dispose of the application\non merits, in accordance with law, before proceeding\n;. .\nfurther with the trial. [Para 16) [598-D-E]\nc\nCase Law Reference:\n2005 (2) SCR 188\nrelied on\npara 11\n1995 (6) Suppl. SCR 556 relied on\npara 11\n1980 (3) SCR 383\nreferred to\npara 12\n2009 (10) SCR 978\nreferred to\npara 13\n"
+}

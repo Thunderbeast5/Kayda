@@ -21,7 +21,7 @@ class CaseMetadata(BaseModel):
 
 
 class AccusedParty(BaseModel):
-    name: str = Field(description="Name or identity of accused person (e.g. Husband, Father-in-law, A1, A2)")
+    name: Optional[str] = Field(default="Applicant", description="Name or identity of accused person (e.g. Husband, Father-in-law, A1, A2, Applicant, Accused)")
     relationship: Optional[str] = Field(default=None, description="Relationship to victim/complainant (e.g. Husband, Mother-in-Law)")
     role_alleged: Optional[str] = Field(default=None, description="Role alleged in offence (e.g. Main Accused, Co-Accused, In-Law)")
     bail_status: Optional[str] = Field(default=None, description="Status regarding bail (e.g. Seeking Anticipatory Bail, Arrested, Not Arrested)")

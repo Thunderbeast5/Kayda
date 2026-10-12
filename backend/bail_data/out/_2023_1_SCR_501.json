@@ -1,0 +1,307 @@
+{
+  "case_id": "_2023_1_SCR_501",
+  "doc_meta": {
+    "source_file": "BIMLA TIWARI.pdf",
+    "pdf_pages": 6,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "appeal_from": "from_the_judgment"
+    },
+    "format_profile": "unknown",
+    "citation_scr": "[2023] 1 SCR 501",
+    "scr_year": 2023,
+    "scr_volume": 1,
+    "scr_first_page": 501,
+    "decided_on": "2023-01-16",
+    "coram_raw": "DINESH MAHESHWARI AND HRISHIKESH ROY, JJ.",
+    "coram_regex": [
+      "DINESH MAHESHWARI",
+      "HRISHIKESH ROY"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "BIMLA TIWARI",
+    "respondent_regex": "STATE OF BIHAR & ORS.",
+    "court_regex": "Supreme Court of India",
+    "year": 2023,
+    "reporter_trailer": "Bibhuti Bhushan Bose Petitions disposed of.",
+    "result_of_case": "Petitions disposed of.",
+    "appeal_from_raw": "From the Judgment and Order dated 14.11.2022 of the High Court of Judicature at Patna in CRLMN Nos.15125 and 19515 of 2022",
+    "layout": "numbered_paras",
+    "ocr_noise_score": 0.0011
+  },
+  "flags": [
+    "format_unrecognised_using_generic_patterns",
+    "headnote_end_not_found",
+    "case_no_not_found",
+    "author_not_found"
+  ],
+  "case": {
+    "case_name": "BIMLA TIWARI",
+    "petitioner": "Bimla Tiwari",
+    "respondent": "State of Bihar & Ors.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "DINESH MAHESHWARI",
+      "HRISHIKESH ROY"
+    ],
+    "judgment_author": null,
+    "procedural_stage": "pre_arrest",
+    "offence_types": [
+      "cheating",
+      "dowry"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "The case involves allegations against the respondents of taking money and articles under the pretext of an engagement arrangement for the informant's daughter, which was later called off. The informant accused the respondents of demanding additional money and a vehicle, and failing to return the money after the engagement was canceled. The High Court had granted pre-arrest bail to the accused-respondents, on the condition of payment, which the informant challenged at the Supreme Court.",
+    "lower_court_outcome": "Pre-arrest bail granted with payment condition.",
+    "disposition": "Petitions disposed of.",
+    "statutes": [
+      {
+        "act": "IPC",
+        "section": "406",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "IPC",
+        "section": "420",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "Dowry Prohibition Act, 1961",
+        "section": "3",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "Dowry Prohibition Act, 1961",
+        "section": "4",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "CrPC 1973",
+        "section": "438",
+        "how_used": "discussed",
+        "note": "Outlined that bail should not be contingent on repayment."
+      },
+      {
+        "act": "CrPC 1973",
+        "section": "82",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "CrPC 1973",
+        "section": "83",
+        "how_used": "charged",
+        "note": null
+      }
+    ],
+    "issues": [
+      {
+        "question": "Was the consideration of repayment of money as a condition for granting pre-arrest bail appropriate?",
+        "short_answer": "No",
+        "anchors": [
+          "P10",
+          "P11"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "Granting bail should not be contingent on repayment or offers of repayment, as it is independent of criminal law processes.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P10",
+          "P11"
+        ],
+        "quote": "the process of criminal law cannot be utilised for arm-twisting and money recovery, particularly while opposing the prayer for bail"
+      },
+      {
+        "id": "p2",
+        "text": "Repayment or offers of payment should not automatically lead to granting or denial of pre-arrest or regular bail.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [],
+        "statutes": [
+          "CrPC 1973"
+        ],
+        "anchors": [
+          "P10"
+        ],
+        "quote": "in a given case, the concession of pre-arrest bail or regular bail could be declined even if the accused has made payment"
+      },
+      {
+        "id": "p3",
+        "text": "Recovery of money is within the realm of civil proceedings, not criminal law, particularly in the context of bail.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [],
+        "statutes": [
+          "CrPC 1973"
+        ],
+        "anchors": [
+          "P11"
+        ],
+        "quote": "Recovery of money is essentially within the realm of civil proceedings."
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The prayer for pre-arrest bail should not have been granted after the issuance of process under Section 82 CrPC and given the illegal demand of money as well as the cheating involved.",
+        "outcome": "rejected",
+        "anchors": [
+          "P7"
+        ]
+      },
+      {
+        "side": "respondent",
+        "text": "One of the accused had already returned Rs. 6,00,000/- by bank draft and offered a further Rs. 75,000/- to the informant, indicating cooperation.",
+        "outcome": "accepted",
+        "anchors": [
+          "P6",
+          "P8"
+        ]
+      }
+    ],
+    "authorities": []
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    }
+  },
+  "needs_review": [
+    "parser flag: format_unrecognised_using_generic_patterns",
+    "parser flag: headnote_end_not_found",
+    "parser flag: case_no_not_found",
+    "parser flag: author_not_found"
+  ],
+  "paragraphs": {
+    "P1": {
+      "text": "Permission to file petitions for special leave is granted.",
+      "page_start": 501,
+      "page_end": 501
+    },
+    "P2": {
+      "text": "By way of these petitions, the petitioner/informant seeks to question the order dated 14.11.2022 as passed by the High Court of Judicature at Patna in Crl. Misc. Case No. 15125 of 2022 and 19515 of 2022, whereby the High Court took note of the offer made by the accused-respondent No. 2, of making payment of a sum of Rs.75,000/- (seventy-five thousand) to the petitioner/informant and, considering such an offer and having regard to the facts and circumstances of the case pertaining to offences under Sections 406 and 420 of the Indian Penal Code, 1860 and Sections 3 and 4 of the Dowry Prohibition Act, 1961, granted the concession of pre-arrest bail to the respondents, subject to the offered payment.",
+      "page_start": 501,
+      "page_end": 502
+    },
+    "P3": {
+      "text": "The allegations had been that marriage of the informant’s daughter was fixed with son of the respondent No. 2 and in the engagement rituals, amongst other things, the informant’s husband gave a sum of Rs. 6,00,000/- (six lakhs) in cash to the respondents. According to the petitioner-informant, thereafter, the respondents demanded further money and vehicle and, for such a demand being found inappropriate, the marriage was called off but the respondents did not return the money and the articles.",
+      "page_start": 502,
+      "page_end": 502
+    },
+    "P4": {
+      "text": "It appears from the submissions made that earlier, the respondents’ prayer for pre-arrest bail was declined by the Court of Additional Sessions Judge-IV, Patna and then, the petition filed in the High Court bearing No. 5967 of 2019, seeking pre-arrest bail, was also dismissed on 02.04.2019. It appears further that after the report of investigation, the Trial Court found enough material to take cognizance of the offences against the accused in its order dated 14.09.2020. The respondents, thereafter, made yet another prayer for pre-arrest bail which was again declined by the Court of Additional Sessions Judge–IV, Patna on 21.12.2021. Hence, the respondents approached the High Court and their petitions were considered together and decided by the common order dated 14.11.2022, which is sought to be questioned in these petitions by the informant.",
+      "page_start": 502,
+      "page_end": 502
+    },
+    "P5": {
+      "text": "One of the submissions before the High Court while seeking pre-arrest bail had been that one of the accused, namely Vijaya Malviya, was granted pre-arrest bail by the High Court in its order dated 10.03.2022 passed in Criminal Misc. No.32384 of 2021 after considering that the money involved in the matter had been returned by a Bank Draft in the sum of Rs. 6,00,000/- (six lakhs), drawn in favour of the informant, which was handed over to her counsel.",
+      "page_start": 502,
+      "page_end": 503
+    },
+    "P6": {
+      "text": "The pre-arrest bail plea of the respondents herein was, however, opposed by the State as also by the informant, inter alia, on the ground that the processes under Sections 82 and 83 of the Code of Criminal Procedure,1973 (‘CrPC’) had already been issued and that the money spent in engagement ceremony had not been returned. Thereafter, an offer was made on behalf of the respondent No. 2 herein that he would make payment of another sum of Rs.75,000/- (seventy-five thousand) by way of Demand Draft within six weeks; and accepting such a submission, the High Court granted the concession of pre-arrest bail, subject to the offered payment.",
+      "page_start": 503,
+      "page_end": 503
+    },
+    "P7": {
+      "text": "Seeking to challenge the order so passed by the High Court, several grounds are urged in support of the present petitions, including that after issuance of process under Section 82 CrPC, prayer for pre-arrest bail ought not to have been granted; and that it had clearly been a case of illegal demand of money as also cheating of the informant.",
+      "page_start": 503,
+      "page_end": 503
+    },
+    "P8": {
+      "text": "Having examined the matter in its totality, we are not only inclined to dismiss these petitions and affirm the order impugned granting pre-arrest bail to the private respondents but are also inclined to delete the requirement of payment of a sum of Rs.75,000/- (seventy-five thousand) to the informant.",
+      "page_start": 503,
+      "page_end": 503
+    },
+    "P9": {
+      "text": "We have indicated on more than one occasion that the process of criminal law, particularly in matters of grant of bail, is not akin to money recovery proceedings but what has been noticed in the present case carries the peculiarities of its own.",
+      "page_start": 503,
+      "page_end": 503
+    },
+    "P10": {
+      "text": "We would reiterate that the process of criminal law cannot be utilised for arm-twisting and money recovery, particularly while opposing the prayer for bail. The question as to whether pre-arrest bail, or for that matter regular bail, in a given case is to be granted or not is required to be examined and the discretion is required to be exercised by the Court with reference to the material on record and the parameters governing bail considerations. Putting it in other words, in a given case, the concession of pre-arrest bail or regular bail could be declined even if the accused has made payment of the money involved or offers to make any payment; conversely, in a given case, the concession of pre-arrest bail or regular bail could be granted irrespective of any payment or any offer of payment.",
+      "page_start": 503,
+      "page_end": 504
+    },
+    "P11": {
+      "text": "We would further emphasize that, ordinarily, there is no justification in adopting such a course that for the purpose of being given the concession of pre-arrest bail, the person apprehending arrest ought to make payment. Recovery of money is essentially within the realm of civil proceedings.",
+      "page_start": 504,
+      "page_end": 504
+    },
+    "P12": {
+      "text": "Moreover, it is noticed that the factum of payment of the sum of Rs. 6,00,000/- (six lakhs) by the co-accused in this very case to the present petitioner (informant) was submitted before the High Court and was taken note of in the impugned order dated 14.11.2022 in the following terms: “…It is submitted that one of the accused namely Vijaya Malviya was granted bail by a co-ordinate Bench of this Court vide order dated 10.03.2022 passed in Cr. Misc. No.32384 of 2021, considering that a bank draft of Rs.Six Lakh, in favour of informant Bimla Ti-wary, was handed over to the counsel for the infor-mant. As such, the money has already been returned to the informant.”",
+      "page_start": 504,
+      "page_end": 504
+    },
+    "P13": {
+      "text": "Thus, the aforesaid order dated 10.03.2022, recording the factum of the said payment of a sum of Rs. 6,00,000/- (six lakhs), is obviously carrying a material bearing on the case but, while filing the present petitions, copy thereof has not been placed on record; and even in the factual narration and list of dates, such relevant facts, about the petitioner having received the said sum of Rs. 6,00,000/- (six lakhs) from the co-accused and about the order dated 10.03.2022, have not been mentioned.",
+      "page_start": 504,
+      "page_end": 504
+    },
+    "P14": {
+      "text": "We have taken note of the said order dated 10.03.2022, as available on the website of the High Court and it is quite intriguing to find that not only the said amount of Rs. 6,00,000/- (six lakhs) was paid by the co-accused to the present petitioner but, the present petitioner indeed accepted the offer and received the Bank Draft during the course of hearing before the High Court. The said order dated 10.03.2022, in its entirety, reads as under: “Heard learned counsel for the petitioner, learned counsel for the informant and learned APP for the State. The petitioner is apprehending his arrest in a case registered for the offences punishable under Sections 420 and 406 of the Indian Penal Code and Sections 3/4 of the D.P. Act. The basic accusation is of torture for non-fulfill-ment of dowry demand. It is submitted by learned counsel for the peti-tioner that the petitioner has falsely been implicated in this case. He further submits that a bank draft of Rs.6,00,000/- (six lac) dated 28.02.2022 bearing draft number 283114 is being handed over to the learned counsel for the informant which is in favour of the informant (Bimla Tiwary). The learned counsel appearing on behalf of the in-formant has accepted the offer of the petitioner and received the aforesaid bank draft during course of hearing of the case. Considering the aforestated facts, let the petitioner, above named in the event of his arrest or sur-render before the court below within a period of four weeks from today, be released on anticipatory bail on furnishing bail bonds of Rs.10,000/- (ten thousand) with two sureties of the like amount each to the sat-isfaction of learned Sub Divisional Judicial Magis-trate, Patna Sadar, Patna in connection with Jakkanpur Case No. 346 of 2018, subject to the conditions as laid down under Section 438(2) of the Cr.P.C.”",
+      "page_start": 504,
+      "page_end": 505
+    },
+    "P15": {
+      "text": "Thus, it is noticed that these criminal proceedings are being prosecuted only as money recovery proceedings. We have expressed reservations even as regards the aforesaid order dated 10.03.2022, wherein the High Court has proceeded on the propositions of offer made by the co-accused of payment of the sum of Rs.6,00,000/- (six lakhs) and acceptance thereof by the informant (present petitioner). However, since the said order is not before us, we would refrain from making any directions in that regard and else, in our view, even the said order too, on the proposition of granting bail with reference to payment, has its own shortcomings.",
+      "page_start": 505,
+      "page_end": 505
+    },
+    "P16": {
+      "text": "Even when we are not modifying the condition in the said order dated 10.03.2022 for the same being not before us, so far as the impugned order dated 14.11.2022 is concerned, in our view, it shall be in the interest of justice to annul the requirement of payment of a sum of Rs. 75,000/- (seventy-five thousand) by the accused-respondent No. 2. Hence, the order granting pre-arrest bail to the respondents stands affirmed but, the condition therein, of payment of Rs.75,000/- (seventy-five thousand) by the respondent No.2, stands annulled.",
+      "page_start": 505,
+      "page_end": 506
+    },
+    "P17": {
+      "text": "Subject to the observations and requirements foregoing, these petitions stand dismissed.",
+      "page_start": 506,
+      "page_end": 506
+    },
+    "P18": {
+      "text": "All pending applications stand disposed of.",
+      "page_start": 506,
+      "page_end": 506
+    }
+  },
+  "headnote_raw": ""
+}

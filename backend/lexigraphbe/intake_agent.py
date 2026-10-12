@@ -109,6 +109,21 @@ class CaseIntakeAgent:
         if not extracted_dict.get("case_facts") and inp.documents_text:
             extracted_dict["case_facts"] = inp.documents_text
 
+        # Normalize accused party names if None (handle cases without explicit names)
+        if extracted_dict.get("parties") and extracted_dict["parties"].get("accused"):
+            accused_list = extracted_dict["parties"]["accused"]
+            if isinstance(accused_list, list):
+                for i, accused in enumerate(accused_list):
+                    if isinstance(accused, dict) and accused.get("name") is None:
+                        accused["name"] = "Applicant" if "anticipatory" in combined_case_text.lower() else "Accused"
+        
+        if extracted_dict.get("primary_participants") and extracted_dict["primary_participants"].get("accused"):
+            accused_list = extracted_dict["primary_participants"]["accused"]
+            if isinstance(accused_list, list):
+                for i, accused in enumerate(accused_list):
+                    if isinstance(accused, dict) and accused.get("name") is None:
+                        accused["name"] = "Applicant" if "anticipatory" in combined_case_text.lower() else "Accused"
+
         # Validate with CaseProfile schema
         case_profile = CaseProfile.model_validate(extracted_dict)
         case_profile.min_confidence_threshold = inp.min_confidence_threshold

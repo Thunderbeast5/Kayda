@@ -1,7 +1,7 @@
 """
 Precedent Verification Auditor for Stage 6: Judicial Precedent Retrieval Engine.
 Audits PrecedentRetrievalObject against source case facts, statutory outputs, and bail evaluations to verify 7 criteria.
-Model: gpt-4.1-mini (MODEL_STAGE6) — inherits primary stage model.
+Model: gpt-4o-mini (MODEL_STAGE6) — inherits primary stage model.
 Includes programmatic pre-checks for instant deterministic verification.
 """
 
@@ -17,7 +17,7 @@ from .schemas import BailReasoningObject, CaseContextObject, PrecedentRetrievalO
 class PrecedentVerificationAuditor:
     """
     Stage 6 Precedent Verification Auditor inspecting PrecedentRetrievalObject.
-    Model: gpt-4.1-mini (MODEL_STAGE6) — inherits primary stage model.
+    Model: gpt-4o-mini (MODEL_STAGE6) — inherits primary stage model.
     Includes programmatic pre-checks for instant deterministic verification.
     """
 

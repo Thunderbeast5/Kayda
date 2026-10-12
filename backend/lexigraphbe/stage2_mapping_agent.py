@@ -387,11 +387,13 @@ Respond ONLY with this JSON (no other text):
         repo = StatuteRepository.get_instance()
         valid_section_numbers = set()
         for c in enriched_active_candidates:
-            if repo.is_in_ipc_json(c["section_number"]):
-                valid_section_numbers.add(c["section_number"])
+            sec = c.get("section_number", "")
+            if repo.is_in_ipc_json(sec) or repo.is_in_bnss_json(sec):
+                valid_section_numbers.add(sec)
         for c in not_triggered_candidates:
-            if repo.is_in_ipc_json(c["section_number"]):
-                valid_section_numbers.add(c["section_number"])
+            sec = c.get("section_number", "")
+            if repo.is_in_ipc_json(sec) or repo.is_in_bnss_json(sec):
+                valid_section_numbers.add(sec)
         
         # Filter each mapping to remove non-ipc.json / hallucinated sections
         if valid_section_numbers:

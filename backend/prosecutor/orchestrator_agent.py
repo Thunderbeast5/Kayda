@@ -1,30 +1,39 @@
 """
 Orchestrator Agent
 ==================
-Single responsibility: run lexigraphbe and return verified sections.
+Main backbone of the moot court system.
 
-Two methods:
-  run(case_text)              — full pipeline on the entire case (session start)
-  query_for_fact(fact_text)   — targeted pipeline on a specific fact + context
-                                (mid-session, when defense raises something new)
+Flow:
+1. Ask user for case input
+2. Ask user to choose role: Prosecution or Defense
+3. Run lexigraphbe 7-stage pipeline to retrieve statutory sections
+4. Pass sections to prosecutor_agent or defense_agent based on user role
+5. Facilitate back-and-forth arguments between student and LLM
 
-NO injection, NO manipulation of Stage 1.
-The lexigraphbe pipeline runs exactly as it was designed to run.
+The orchestrator coordinates the entire moot court session.
 """
 
 from __future__ import annotations
 import json
 import os
+import sys
 import re
 import traceback
-from typing import Any, Dict, List, Optional
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Literal
 
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
+from rich.prompt import Prompt, Confirm
 from rich import box
 
-from .schemas import OrchestratorInput, OrchestratorResult, VerifiedSection
+# Add backend directory to path for imports
+backend_dir = Path(__file__).resolve().parent.parent
+if str(backend_dir) not in sys.path:
+    sys.path.insert(0, str(backend_dir))
+
+from schemas import OrchestratorInput, OrchestratorResult, VerifiedSection
 
 console = Console()
 
@@ -157,117 +166,132 @@ def _display_sections(result: OrchestratorResult, label: str = "") -> None:
 
 class OrchestratorAgent:
     """
-    Thin wrapper around lexigraphbe's run_full_pipeline.
-    Does NOT manipulate lexigraphbe inputs in any way.
+    Main orchestrator for the moot court system.
+    Coordinates between user input, lexigraphbe pipeline, and argument agents.
     """
 
     def __init__(self, api_key: Optional[str] = None, model: str = "gpt-4o-mini"):
         self.api_key = api_key or os.environ.get("OPENAI_API_KEY", "")
         self.model   = model
         self._run_full_pipeline = _try_import_lexigraphbe_runner()
+        
+        self.case_text: Optional[str] = None
+        self.student_role: Optional[Literal["prosecution", "defense"]] = None
+        self.llm_role: Optional[Literal["prosecution", "defense"]] = None
+        self.sections: Optional[OrchestratorResult] = None
+        self.turn_count: int = 0
 
-    def _run_pipeline(self, text: str, label: str) -> OrchestratorResult:
+    def get_case_input(self) -> str:
+        """Ask user for case input via CLI."""
+        console.print()
+        console.print(Panel(
+            "[bold cyan]VIRTUAL MOOT COURT - ANTICIPATORY BAIL HEARING[/bold cyan]\n"
+            "[dim]Step 1: Case Input[/dim]",
+            border_style="cyan", padding=(1, 2)
+        ))
+        
+        choice = Prompt.ask(
+            "\nHow would you like to input the case?",
+            choices=["text", "file"],
+            default="file"
+        )
+        
+        if choice == "file":
+            file_path = Prompt.ask("\nEnter the path to case file (PDF/TXT)")
+            try:
+                if file_path.lower().endswith(".pdf"):
+                    # Use existing PDF reader from prosecutor_agent
+                    from prosecutor_agent import read_pdf
+                    case_text = read_pdf(file_path)
+                else:
+                    case_text = Path(file_path).read_text(encoding="utf-8")
+                console.print(f"[green]✓ Loaded {len(case_text)} characters from {file_path}[/green]")
+                return case_text
+            except Exception as e:
+                console.print(f"[red]✗ Error reading file: {e}[/red]")
+                console.print("[yellow]Falling back to text input...[/yellow]")
+        
+        console.print("\n[bold]Enter case facts[/bold] (press Ctrl+D or Ctrl+Z when done):")
+        console.print("[dim]Tip: Paste your case text and press Enter, then Ctrl+D (Unix) or Ctrl+Z (Windows)[/dim]\n")
+        
+        lines = []
+        try:
+            while True:
+                line = input()
+                lines.append(line)
+        except EOFError:
+            pass
+        
+        case_text = "\n".join(lines).strip()
+        if case_text:
+            console.print(f"\n[green]✓ Received {len(case_text)} characters[/green]")
+        else:
+            console.print("[red]✗ No case text entered![/red]")
+        
+        return case_text
+
+    def get_role_choice(self) -> Literal["prosecution", "defense"]:
+        """Ask user which role they want to play."""
+        console.print()
+        console.print(Panel(
+            "[bold cyan]Step 2: Role Selection[/bold cyan]",
+            border_style="cyan", padding=(1, 2)
+        ))
+        
+        role = Prompt.ask(
+            "\nWhich role do you want to play?",
+            choices=["prosecution", "defense"],
+            default="defense"
+        )
+        
+        opposite = "defense" if role == "prosecution" else "prosecution"
+        console.print(f"\n[bold green]✓ You will play: {role.upper()}[/bold green]")
+        console.print(f"[dim]The AI will play: {opposite.upper()}[/dim]")
+        
+        return role  # type: ignore
+
+    def run_lexigraphbe_pipeline(self, case_text: str) -> OrchestratorResult:
         """
-        Internal: run lexigraphbe on `text`, display result, return OrchestratorResult.
-        Falls back to GPT simulation if lexigraphbe not installed.
+        Run the complete 7-stage lexigraphbe pipeline on case text.
+        Returns verified sections.
         """
-        console.rule(f"[bold blue]ORCHESTRATOR — {label}[/bold blue]")
-        console.print(f"[dim]Running lexigraphbe on {len(text)} chars of text…[/dim]")
+        console.print()
+        console.print(Panel(
+            "[bold cyan]Step 3: Running Lexigraphbe 7-Stage Pipeline[/bold cyan]\n"
+            "[dim]Analyzing case and retrieving applicable statutory sections...[/dim]",
+            border_style="cyan", padding=(1, 2)
+        ))
 
         if self._run_full_pipeline:
             try:
-                # Debug: Log the function being called
-                import inspect
-                func_file = inspect.getfile(self._run_full_pipeline)
-                console.print(f"[dim]→ Calling run_full_pipeline from: {func_file}[/dim]")
+                console.print("[dim]→ Stage 0: Case Intake...[/dim]")
+                console.print("[dim]→ Stage 1: Legal Query Understanding...[/dim]")
+                console.print("[dim]→ Stage 2: Sub-query Mapping...[/dim]")
+                console.print("[dim]→ Stage 3: Chapter Identification...[/dim]")
+                console.print("[dim]→ Stage 4: Statutory Verification...[/dim]")
+                console.print("[dim]→ Stage 5: Bail Reasoning...[/dim]")
+                console.print("[dim]→ Stage 6: Precedent Retrieval...[/dim]")
                 
-                raw = self._run_full_pipeline(text=text)
-                
-                # Debug: Log Stage 2 output
-                s2 = raw.get("stage2_subquery_mapping", {})
-                if s2:
-                    mappings = s2.get("mappings", [])
-                    console.print(f"[dim]→ Stage 2 returned {len(mappings)} mappings[/dim]")
-                    for m in mappings:
-                        primary = [s.get("section_number") for s in m.get("primary_candidate_sections", [])]
-                        console.print(f"[dim]  {m.get('sub_query_id')}: primary={primary}[/dim]")
-                
+                raw = self._run_full_pipeline(text=case_text)
                 result = _parse_pipeline_result(raw)
-                _display_sections(result, label="VERIFIED SECTIONS")
+                
+                _display_sections(result, label="VERIFIED STATUTORY SECTIONS")
+                
+                console.print(f"[bold green]✓ Retrieved {len(result.verified_sections)} statutory sections[/bold green]")
                 return result
+                
             except Exception as e:
-                console.print(f"[red]lexigraphbe error: {e}[/red]")
+                console.print(f"[red]✗ Lexigraphbe error: {e}[/red]")
                 traceback.print_exc()
-                console.print("[yellow]Falling back to GPT simulation…[/yellow]")
-
+                console.print("[yellow]⚠ Falling back to GPT simulation...[/yellow]")
+        
         # Fallback simulation
-        result = self._simulate(text)
-        _display_sections(result, label="SIMULATED SECTIONS")
-        return result
+        return self._simulate_lexigraphbe(case_text)
 
-    def run(self, orchestrator_input: OrchestratorInput) -> OrchestratorResult:
-        """
-        Full pipeline on the entire case text. Called once at session start.
-        """
-        return self._run_pipeline(
-            text=orchestrator_input.case_text,
-            label="FULL CASE PIPELINE",
-        )
-
-    def query_for_fact(
-        self,
-        fact_text: str,
-        context_text: str,
-        existing_section_numbers: List[str],
-    ) -> OrchestratorResult:
-        """
-        Targeted pipeline for a specific unaddressed fact raised mid-session.
-
-        Args:
-            fact_text:               The specific fact for which no section exists.
-            context_text:            2-3 surrounding sentences from the original case
-                                     for Stage 0 CaseIntakeAgent to have enough context.
-            existing_section_numbers: Sections already in session — returned result
-                                      will exclude these so only NEW sections come back.
-
-        Returns OrchestratorResult containing only sections NOT already in session.
-        """
-        # Compose a focused query text: fact + context
-        query_text = (
-            f"RELEVANT CASE CONTEXT:\n{context_text}\n\n"
-            f"SPECIFIC FACT REQUIRING LEGAL ANALYSIS:\n{fact_text}"
-        )
-        result = self._run_pipeline(
-            text=query_text,
-            label=f"TARGETED FACT QUERY",
-        )
-
-        # Filter out sections already retrieved
-        new_sections = [
-            vs for vs in result.verified_sections
-            if vs.section_number not in existing_section_numbers
-        ]
-        result.verified_sections = new_sections
-
-        if new_sections:
-            console.print(
-                f"[green]  → {len(new_sections)} new section(s) found: "
-                f"{[vs.section_number for vs in new_sections]}[/green]"
-            )
-        else:
-            console.print(
-                "[dim]  → No new sections found beyond what is already retrieved.[/dim]"
-            )
-
-        return result
-
-    # ── GPT simulation fallback ──────────────────────────────
-
-    def _simulate(self, text: str) -> OrchestratorResult:
+    def _simulate_lexigraphbe(self, text: str) -> OrchestratorResult:
         """GPT-4o-mini simulation when lexigraphbe is not installed."""
         from openai import OpenAI
-        import re as _re
-
+        
         client = OpenAI(api_key=self.api_key)
         system = """You are a legal AI simulating lexigraphbe Stages 0-6 for Indian criminal law.
 Given case facts, identify the correct IPC sections and return ONLY valid JSON:
@@ -300,8 +324,8 @@ Given case facts, identify the correct IPC sections and return ONLY valid JSON:
             ],
         )
         raw_text = resp.choices[0].message.content.strip()
-        cleaned  = _re.sub(r"^```(?:json)?\s*", "", raw_text, flags=_re.MULTILINE)
-        cleaned  = _re.sub(r"\s*```$", "", cleaned, flags=_re.MULTILINE)
+        cleaned  = re.sub(r"^```(?:json)?\s*", "", raw_text, flags=re.MULTILINE)
+        cleaned  = re.sub(r"\s*```$", "", cleaned, flags=re.MULTILINE)
         data     = json.loads(cleaned.strip())
 
         sections = [
@@ -320,8 +344,284 @@ Given case facts, identify the correct IPC sections and return ONLY valid JSON:
             )
             for vs in data.get("verified_sections", [])
         ]
-        return OrchestratorResult(
+        
+        result = OrchestratorResult(
             verified_sections=sections,
             bail_recommendation=data.get("bail_recommendation", "Unknown"),
             manual_review_flags=data.get("manual_review_flags", []),
         )
+        
+        _display_sections(result, label="SIMULATED SECTIONS")
+        return result
+
+    def initialize_agent(self, role: Literal["prosecution", "defense"]):
+        """Initialize prosecutor or defense agent with sections and case."""
+        console.print()
+        console.print(Panel(
+            f"[bold cyan]Step 4: Initializing {role.upper()} Agent[/bold cyan]\n"
+            "[dim]Preparing arguments with retrieved sections...[/dim]",
+            border_style="cyan", padding=(1, 2)
+        ))
+        
+        if role == "prosecution":
+            from prosecutor_agent import ProsecutorAgent
+            from schemas import SessionState, RetrievedSection
+            
+            agent = ProsecutorAgent(api_key=self.api_key, model=self.model)
+            
+            # Convert sections to the format ProsecutorAgent expects
+            retrieved_sections = {}
+            for vs in self.sections.verified_sections:
+                retrieved_sections[vs.section_number] = RetrievedSection(
+                    section_number=vs.section_number,
+                    statute=vs.statute,
+                    title=vs.title,
+                    classification=vs.classification,
+                    overall_status=vs.overall_status,
+                    overall_prima_facie_strength=vs.overall_prima_facie_strength,
+                    punishment_text=vs.punishment_text,
+                    ingredient_evaluation=vs.ingredient_evaluation,
+                    legal_reasoning=vs.legal_reasoning,
+                    missing_supporting_facts=vs.missing_supporting_facts,
+                    investigation_requirements=vs.investigation_requirements,
+                    retrieved_at_turn=0,
+                )
+            
+            # Display sections being used
+            console.print(f"[green]→ Using {len(retrieved_sections)} sections from lexigraphbe:[/green]")
+            for sec_num, sec in retrieved_sections.items():
+                console.print(f"  [cyan]§ {sec_num} {sec.statute}:[/cyan] {sec.title}")
+            
+            # Initialize prosecutor extraction and planning
+            console.print("[dim]→ Prosecutor analyzing case and sections...[/dim]")
+            p_output = agent._extract_case(self.case_text, retrieved_sections)
+            usage_plan = agent._build_usage_plan(self.case_text, p_output, retrieved_sections)
+            
+            # Create session state
+            session = SessionState(
+                session_id="orchestrator",
+                case_id="moot_court",
+                case_text=self.case_text,
+                student_role=self.student_role,
+                retrieved_sections=retrieved_sections,
+                prosecutor_output=p_output,
+                section_usage_plan=usage_plan,
+                turn_history=[],
+            )
+            
+            return {"agent": agent, "session": session, "sections": retrieved_sections}
+        else:
+            from defense import DefenseAgent
+            
+            agent = DefenseAgent()
+            
+            # Display sections being used
+            console.print(f"[green]→ Using {len(self.sections.verified_sections)} sections from lexigraphbe:[/green]")
+            for vs in self.sections.verified_sections:
+                console.print(f"  [cyan]§ {vs.section_number} {vs.statute}:[/cyan] {vs.title}")
+            
+            # Initialize defense analysis with case
+            console.print("[dim]→ Defense analyzing case...[/dim]")
+            agent.analyze_case(self.case_text)
+            
+            # Pass the lexigraphbe sections to the defense agent
+            # Store them in the agent for use in arguments
+            agent._orchestrator_sections = self.sections.verified_sections
+            
+            console.print("[dim]→ Defense will use lexigraphbe sections in arguments[/dim]")
+            
+            return {"agent": agent, "session": None, "sections": self.sections.verified_sections, "previous_arguments": []}
+
+    def run_moot_court_session(self):
+        """
+        Main entry point: orchestrate complete moot court session.
+        1. Get case input
+        2. Get role choice  
+        3. Run lexigraphbe
+        4. Initialize agents
+        5. Run argument rounds
+        """
+        # Step 1: Get case input
+        self.case_text = self.get_case_input()
+        if not self.case_text:
+            console.print("[red]✗ Cannot proceed without case text![/red]")
+            return
+        
+        # Step 2: Get role choice
+        self.student_role = self.get_role_choice()
+        self.llm_role = "defense" if self.student_role == "prosecution" else "prosecution"
+        
+        # Step 3: Run lexigraphbe
+        self.sections = self.run_lexigraphbe_pipeline(self.case_text)
+        
+        # Step 4: Initialize agent for LLM side
+        llm_agent = self.initialize_agent(self.llm_role)
+        
+        # Step 5: Run argument rounds
+        console.print()
+        console.print(Panel(
+            "[bold cyan]Step 5: Moot Court Session Started[/bold cyan]\n"
+            f"[bold]Student Role:[/bold] {self.student_role.upper()}\n"
+            f"[bold]AI Role:[/bold] {self.llm_role.upper()}",
+            border_style="cyan", padding=(1, 2)
+        ))
+        
+        self._run_argument_rounds(llm_agent)
+
+    def _run_argument_rounds(self, llm_agent_wrapper):
+        """Run back-and-forth arguments between student and LLM."""
+        # Opening argument from prosecution (whoever that is)
+        if self.student_role == "prosecution":
+            # Student goes first (prosecution)
+            student_arg = self._get_student_argument("opening")
+            # LLM defense responds
+            llm_arg = self._get_llm_argument(llm_agent_wrapper, "rebuttal", student_arg)
+            # Continue rounds
+            while True:
+                student_arg = self._get_student_argument("rebuttal", llm_arg)
+                if not student_arg:
+                    break
+                llm_arg = self._get_llm_argument(llm_agent_wrapper, "rebuttal", student_arg)
+        else:
+            # LLM goes first (prosecution)
+            llm_arg = self._get_llm_argument(llm_agent_wrapper, "opening")
+            # Student defense responds
+            student_arg = self._get_student_argument("rebuttal", llm_arg)
+            # Continue rounds
+            while True:
+                if not student_arg:
+                    break
+                llm_arg = self._get_llm_argument(llm_agent_wrapper, "rebuttal", student_arg)
+                student_arg = self._get_student_argument("rebuttal", llm_arg)
+
+    def _get_student_argument(self, arg_type: str, previous_argument: str = None) -> str:
+        """Get argument from student via CLI."""
+        self.turn_count += 1
+        
+        console.print()
+        console.print(Panel(
+            f"[bold yellow]Turn {self.turn_count}: YOUR {arg_type.upper()}[/bold yellow]\n"
+            f"[dim]Role: {self.student_role.upper()}[/dim]",
+            border_style="yellow", padding=(1, 2)
+        ))
+        
+        # No need to display previous_argument again - it was just shown above by AI
+        
+        console.print(f"\n[bold]Enter your {arg_type}:[/bold] (or type 'done' to end session)")
+        console.print("[dim]Tip: Reference sections from the retrieved list above[/dim]\n")
+        
+        lines = []
+        try:
+            while True:
+                line = input()
+                if line.strip().lower() == 'done':
+                    return ""
+                lines.append(line)
+                if line.strip() == "":  # Empty line ends input
+                    break
+        except EOFError:
+            pass
+        
+        argument = "\n".join(lines).strip()
+        return argument
+
+    def _get_llm_argument(self, agent_wrapper, arg_type: str, previous_argument: str = None) -> str:
+        """Get argument from LLM agent."""
+        self.turn_count += 1
+        
+        console.print()
+        console.print(Panel(
+            f"[bold red]Turn {self.turn_count}: AI {arg_type.upper()}[/bold red]\n"
+            f"[dim]Role: {self.llm_role.upper()}[/dim]",
+            border_style="red", padding=(1, 2)
+        ))
+        
+        console.print("[dim]→ AI is formulating argument...[/dim]\n")
+        
+        agent = agent_wrapper["agent"]
+        session = agent_wrapper.get("session")
+        previous_arguments = agent_wrapper.get("previous_arguments", [])
+        
+        # Call appropriate agent method
+        if arg_type == "opening":
+            # Opening argument
+            if self.llm_role == "prosecution":
+                # ProsecutorAgent
+                session = agent.opening_argument(session)
+                argument = session.turn_history[-1].argument
+            else:
+                # DefenseAgent
+                result = agent.build_opening_argument()
+                argument = result.get("opening_statement", "")
+        else:
+            # Rebuttal
+            if self.llm_role == "prosecution":
+                # ProsecutorAgent
+                session = agent.rebuttal(session, previous_argument)
+                argument = session.turn_history[-1].argument
+            else:
+                # DefenseAgent - pass previous defense arguments to avoid repetition
+                result = agent.handle_rebuttal(previous_argument, previous_arguments)
+                # Extract rebuttal text from nested structure
+                argument = result.get("defense_response", {}).get("rebuttal", "")
+        
+        # Track this argument for future turns
+        if self.llm_role == "defense":
+            previous_arguments.append(argument)
+            agent_wrapper["previous_arguments"] = previous_arguments
+        
+        # Update session in wrapper if it exists
+        if session:
+            agent_wrapper["session"] = session
+        
+        console.print(Panel(argument, border_style="green", padding=(1, 2)))
+        
+        return argument
+
+
+# ─────────────────────────────────────────────────────────────
+# Legacy methods for compatibility
+# ─────────────────────────────────────────────────────────────
+
+    def run(self, orchestrator_input: OrchestratorInput) -> OrchestratorResult:
+        """
+        Legacy method for compatibility.
+        Full pipeline on the entire case text. Called once at session start.
+        """
+        return self.run_lexigraphbe_pipeline(orchestrator_input.case_text)
+
+    def query_for_fact(
+        self,
+        fact_text: str,
+        context_text: str,
+        existing_section_numbers: List[str],
+    ) -> OrchestratorResult:
+        """
+        Legacy method for compatibility.
+        Targeted pipeline for a specific unaddressed fact raised mid-session.
+        """
+        # Compose a focused query text: fact + context
+        query_text = (
+            f"RELEVANT CASE CONTEXT:\n{context_text}\n\n"
+            f"SPECIFIC FACT REQUIRING LEGAL ANALYSIS:\n{fact_text}"
+        )
+        result = self.run_lexigraphbe_pipeline(query_text)
+
+        # Filter out sections already retrieved
+        new_sections = [
+            vs for vs in result.verified_sections
+            if vs.section_number not in existing_section_numbers
+        ]
+        result.verified_sections = new_sections
+
+        if new_sections:
+            console.print(
+                f"[green]  → {len(new_sections)} new section(s) found: "
+                f"{[vs.section_number for vs in new_sections]}[/green]"
+            )
+        else:
+            console.print(
+                "[dim]  → No new sections found beyond what is already retrieved.[/dim]"
+            )
+
+        return result

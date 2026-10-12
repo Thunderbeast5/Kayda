@@ -1,0 +1,230 @@
+{
+  "case_id": "_2007_3_SCR_851",
+  "doc_meta": {
+    "source_file": "2007 INSC 272.pdf",
+    "pdf_pages": 5,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "impugned",
+      "author": "author:0"
+    },
+    "format_profile": "scr_reporter",
+    "citation_scr": "[2007] 3 SCR 851",
+    "scr_year": 2007,
+    "scr_volume": 3,
+    "scr_first_page": 851,
+    "decided_on": "2007-03-09",
+    "coram_raw": "S.B. SINHA AND MARKANDEY KATJU, JJ.",
+    "coram_regex": [
+      "S.B. SINHA",
+      "MARKANDEY KATJU"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "court_regex": "Supreme Court of India",
+    "year": 2007,
+    "reporter_trailer": "RP . Appeals allowed. •",
+    "result_of_case": "Appeals allowed.",
+    "pre_judgment_block": "CIVIL APPELLATE JURISDICTION: Civil Appeal No. 1235 of2007. From the Judgment and order dated 6.9.2005 of the High Court of Uttaranchal at Nainital in Writ Petition No. 774 of2002 (M/S). WITH C.A. Nos. 1236, 1237 and 1238 of2007. Pradeep Misra for the Appellant. Kailash Chand for the Respondent.",
+    "case_no": "Civil Appeal No. 1235 of2007",
+    "appeal_from_raw": "impugned judgment and order dated 6.9.2005 of the Uttaranchal High Court in Writ Petition No",
+    "judgment_author_regex": "MARKANDEY KAT JU",
+    "layout": "numbered_paras",
+    "ocr_noise_score": 0.0006
+  },
+  "flags": [
+    "parties_not_found",
+    "numbering_starts_at_2",
+    "para_number_gaps: 10-10"
+  ],
+  "case": {
+    "case_name": "U.P. STATE ROAD TRANSPORT CORPORATION v. U.P. RAJYA SADAK PARIYAHAN KARAMCHARI UNION",
+    "petitioner": "",
+    "respondent": "",
+    "court": "Supreme Court of India",
+    "coram": [
+      "S.B. SINHA",
+      "MARKANDEY KATJU"
+    ],
+    "judgment_author": "MARKANDEY KATJU",
+    "procedural_stage": "other",
+    "offence_types": [],
+    "dispute_nature": "other",
+    "abstract_facts": "This case involves an appeal by the U.P. Road Transport Corporation challenging orders from the Labour Court and the High Court concerning the regularization of contract workers to full-time employee status. The Labour Court had ruled in favor of the workers, leading to this appeal.",
+    "lower_court_outcome": "Writ petition of the Corporation dismissed by the High Court.",
+    "disposition": "Appeals allowed.",
+    "statutes": [],
+    "issues": [
+      {
+        "question": "What is the scope of the Labour Court's power under Section 11-C of the U.P. Industrial Disputes Act?",
+        "short_answer": "Narrower than under Section 10 of the Industrial Disputes Act.",
+        "anchors": [
+          "P10"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "The power of the Labour Court under section 11-C of the U.P. Industrial Disputes Act is much narrower than the power under Section 10 of the Industrial Disputes Act.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P10"
+        ],
+        "quote": "the power of the Labour Court under Section 11-C of the U.P. Industrial Disputes Act or under Section 13-A of the Industrial Employment (Standing Orders) Act, 1946 is much narrower than the power of the Labour Court on a reference under Section 10 of the Industrial Disputes Act"
+      },
+      {
+        "id": "p2",
+        "text": "The Labour Court cannot grant relief that can only be given on a regular reference under Section 4-K of the U.P. Industrial Disputes Act or Section 10 of the Industrial Disputes Act.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P11"
+        ],
+        "quote": "the Labour Court could not have granted the relief it granted by the order dated 19.9.2001, as that could only have been granted on a regular reference under Section 4-K of the U.P. Industrial Disputes Act or under Section 10 of the Industrial Disputes Act"
+      },
+      {
+        "id": "p3",
+        "text": "The Labour Court cannot amend the regulations while hearing an application under Section 11-C of the U.P. Industrial Disputes Act.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P12"
+        ],
+        "quote": "the Labour Court cannot amend the Regulations while hearing an application under Section 11-C of the Industrial Disputes Act."
+      },
+      {
+        "id": "p4",
+        "text": "It is open to workmen to raise their grievances before the authority under Section 4-K of the U.P. Industrial Disputes Act or under Section 10 of the Industrial Disputes Act.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P14"
+        ],
+        "quote": "it is open to the concerned workmen to raise their grievances before the concerned authority under Section 4-K of the U.P. Industrial Disputes Act or under Section 10 of Industrial Disputes Act."
+      }
+    ],
+    "contentions": [],
+    "authorities": []
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "unsupported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p4": {
+      "id": "p4",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    }
+  },
+  "needs_review": [
+    "p1: unknown/missing anchors ['P10']",
+    "issue 'What is the scope of the Labour Court's ': unknown anchors",
+    "p1: verifier says unsupported, favors_correct=True - ",
+    "parser flag: parties_not_found",
+    "parser flag: numbering_starts_at_2",
+    "parser flag: para_number_gaps: 10-10"
+  ],
+  "paragraphs": {
+    "P2": {
+      "text": "These appeals have been directed against the impugned judgment and order dated 6.9.2005 of the Uttaranchal High Court in Writ Petition No. 774 of2002.",
+      "page_start": 852,
+      "page_end": 852
+    },
+    "P3": {
+      "text": "The appellant - U.P. Road Transport Corporation (hereinafter referred to as the 'Corporation'), has been constituted under the Road Transport Corporation Act, 1950. The respondent which is a Trade Union of the appellant- Corporation, filed an Application before the Labour Court, Dehradun under Section 11-C of the U .P. Industrial Disputes Act, 194 7 read with Section l 3A of the Industrial Employment (Standing Orders) Act, 1946, praying for a declaration that the 15 persons who were appointed on contract basis as U.P_ STATE R04.0 TR.A1'SPORT COPR:-.! 1. lJ P RAJY1' SADAK PARl\\'AHAN KARAMCH . .,,,Rl UNION IMARKANOEY KATJU. J_ I 853 .. 'drivers' and 'conductors' as shown in the annexed chart, be declared as 4-- regular and substantive workmen of the Corporation. It was also prayed in the said Application that the concerned workmen be given all the benefits and facilities of regular employees.",
+      "page_start": 852,
+      "page_end": 853
+    },
+    "P4": {
+      "text": "The aforesaid Application was allowed by the Labour Court, Dehradun by its order dated 19.9.2001. The Labour Court directed that the concerned workmen be given the minimum wages admissible to the regular employees in the pay scales of 'drivers' and 'coniluctors'. The Labour Court also held that ) the said workmen are employees of the Corporation. )_",
+      "page_start": 853,
+      "page_end": 853
+    },
+    "P5": {
+      "text": "It is not disputed that the concerned workmen were appointed on c contract basis. Before the Labour Court, the Corporation had contended that Rule 2 ofU.P.S.R.T.C Employees (Other than Officers) Service Regulations, 1981 (hereinafter referred to as the 'Regulations') clearly mentions that these regulations shall not apply to employees working on contract basis. The persons working on contract basis filed Writ Petition No. 41349/1999 Kanchi Lal and Ors. v. UP.SR. TC before the Allahabad High Court for grant of same benefits as the regular employees of the Corporation, but the said writ petition had been dismissed. However, the objection of the Corporation was rejected by the Labour ·court. It filed a writ petition thereafter before the High Court which was dismissed by the impugned judgment.",
+      "page_start": 853,
+      "page_end": 853
+    },
+    "P6": {
+      "text": "It was contended in the writ petition by the appellant that the concerned workmen had not been selected in terms of the process of selection required for appointment of regular employees and hence they cannot be directed to be given minimum pay scales of regular employees. It was also contended that the Labour Court acted beyond its jurisdiction by passing the impugned order dated 19.9.2001 since Section 11-A only pennits interpretation _,__ and application of a standing order and not any particular relief which can only be given under the Industrial Disputes Act, 1947.",
+      "page_start": 853,
+      "page_end": 853
+    },
+    "P7": {
+      "text": "It may be noted that the scope of Section 11-C is much narrower than the scope of a regular reference under Section I 0 of the Industrial Disputes Act or Section 4-K of the U.P. Industrial Disputes Act.",
+      "page_start": 853,
+      "page_end": 853
+    },
+    "P8": {
+      "text": "Section 11-C of the U.P. Industrial Disputes Act states: .,,..~ \"11-C. Interpretation, etc. of standing orders - If any question as to the application or interpretation of a standing order certified under the Industrial Employment (Standing Orders) Act, 1946, any employer or workman may refer the question to any one of the Labour Courts specified for the disposal of such proceeding by the State Government by notification in the Official Gazette, and the Labour Court to which the question_ is so referred shall, after giving the parties an opportunity of being heard, decide the question and such decision shall be final and binding on the parties\"",
+      "page_start": 853,
+      "page_end": 854
+    },
+    "P9": {
+      "text": "Similarly Section 13-A of the Industrial Employment (Standing Orders) Act 1946 states:. \"13-A. Jnterpretalion e/c. of slanding orders - If any question arises c as to the application or interpretation of a standing order certified under this Act, any employer or workman or a trade union or other representative body of the workmen may refer the question to any one of the Labour Courts constituted under the Industrial Disputes Act, 1947, and specified for the disposal of such proceedings by the appropriate Government by notification in the Official Gazette, and the Labour Court to which the question is so referred shall, after giving the parties an opportunity of being heard, decide the question and such decision shall be final and binding on the parties\". I 0. In our opinion, the power of the Labour Court under Section 11-C of the UP Industrial Disputes Act or under Section 13-A of the Industrial Employment (Standing Orders) Act, 1946 is much narrower than the power of the Labour Court on a reference under Section 10 of the Industrial Disputes Act which corresponds to Section 4-K of the U.P. Industrial Disputes Act.",
+      "page_start": 854,
+      "page_end": 854
+    },
+    "P11": {
+      "text": "In our opinion, the Labour Court could not have granted the relief it granted by the order dated 19.9.2001, as that could only have been granted on a regular reference under Section 4-K of the U.P. Industrial Disputes Act -.x or under Section 10 of the Industrial Disputes Act:",
+      "page_start": 854,
+      "page_end": 854
+    },
+    "P12": {
+      "text": "A perusal of the order of the Labour Court dated 19.9.2001 shows that it has not referred to any standing order of the appellant. On the other hand, paragraph 3 of the said order refers to Rule 2 of the 1981 Regulations which clearly provides that the Regulations do not apply to employees engaged on contract basis. In our opinion, the Labour Court cannot amend the Regulations while hearing an application under Section 11-C of the Industrial Disputes Act. lJ.P. STA.TE ROADTRo\\NSPORTCOPRN 1·. UP. RAJYA SADA.K PARJVAH . .i.N K.-\\RAMCHARI UNION IMARKANDEY KATJU. J. t 855",
+      "page_start": 854,
+      "page_end": 855
+    },
+    "P13": {
+      "text": "As already stated above, the scope of Section 11-C is limited to decide a question arising out of an application or interpretation of a standing order and lhe Labour Court cannot go beyond the scope of Section 11-C of the U.P. Industrial Disputes Act.",
+      "page_start": 855,
+      "page_end": 855
+    },
+    "P14": {
+      "text": "For the reasons given above, the appeals are allowed. The impugned judgment of the High Court as well as the order of the Labour Court dated 19.9.2001 are set aside. However, it is open to the copcerned workmen to raise their grievances before the concerned authority under Section 4-K of the U.P. Industrial Disputes Act or under Section I 0 of Industrial Disputes Act, as the case may be, and if the State Government refers such a dispute to the Labour Court or Tribunal, we hope that the same will be decided expeditiously. No costs.",
+      "page_start": 855,
+      "page_end": 855
+    }
+  },
+  "headnote_raw": " \nU.P. STATE ROAD TRANSPORT CORPORATION\nI'.\nU.P. RAJYA SADAK PARIYAHAN KARAMCHARI UNION\nMARCH 9, 2007\n)\nLabour Laws:\nU.P. Industrial Disputes Act, 1947/Jndustrial Employment (Standing\nOrders) Act, 1946:\ns. I J-Cls.13-A-Scope of-Application before labour Court for\nregularization of certain contract workers-Allowed by Labour Court-Writ\npetition of employer dismissed by High Court-Held, Power of labour Court\nunder the two provisions is much narrower than that under s. I 0 of Industrial\nDisputes Act or under s.4-K of Industrial Disputes Act-labour Court erred\nin granting the relief-Impugned orders set aside-Workmen may raise their\ngrievances u/s 4-K of Industrial Disputes Act or s. l 0 of Industrial Oisputes\n. Act.\nRespondent-Union filed an application before the Labour Court under\ns.11-C of the U.P. Industrial Disputes Act, 1947 read with section 13-A of the\nIndustrial Employment (Standing Orders) Act, 1946 for a declaration that\npersons appointed on contract basis as drivers and conductors, be declared\nas regular and substantive workmen of the appellant-Corporation with\nconsequential benefits. The Labour Court allowed the application. The writ\npetition of the Corporation having been dismissed by the High Court, it filed\nthe present appeals.\n:>=-\nAllowing the appeal, the Court\nHELD: 1.1. The power of the Labour Court under section 11-C of the\nU.P. lndu;;trial Disputes Act or under Section 13 of the Industrial Employment\n(Standing Orders) Act, 1946 is much narrower than the power on a reference\n.., ....\nunder Section I 0 of the Industrial Disputes Act which corresponds to Section\n4-K of the U.P. Industrial Disputes Act. The Labour Court could not have\ngranted the relief, it granted as the same could only have been granted on a\n \n[2007] 3 S. C._R.\nregular reference under Section 4-K of the U.P. Industrial Disputes Act or\nunder Section IO of the Industrial Disputes Act. Besides, a perusal of the ·\n•-!-\n,._\n'.\norder of the Labour Court shows that it has not referred to any standing order\nof the appellant but refers to Rule 2 of the 1981 Regulations which clearly\nprovides that the Regulations do not apply to employees engaged on contract\nbasis. The Labour Court cannot amend the Regulations while hearing an\napplication under Section ll-C. [Paras 10 and 12) (854-E, F, Gf\n1.2. The impugned judgment of the High Court as well as the order of\nthe Labour Court are set aside. However, it is open to the workmen to raise\ntheir grievances before the authority concerned under Section 4-K of the U.P.\n;\nIndustrial Disputes Act or under Section IO of Industrial Disputes Act, as\nthe case may be, and if the State Government refers such a dispute to the\nLabour Court or Tribunal, the same will be decided expeditiously.\n[Para 14) [855-A, BJ\n"
+}

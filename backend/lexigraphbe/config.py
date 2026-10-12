@@ -1,14 +1,14 @@
 """
 LLM Configuration and JSON parsing utilities for LexiGraph Backend.
-Per-Stage Model Pinning (OpenAI GPT only):
-  Stage 0  – Case Intake            : gpt-5.4-mini
-  Stage 1  – Legal Query             : gpt-5.4-mini
-  Stage 2  – Subquery Mapping        : gpt-5.4-mini
+Per-Stage Model Pinning (OpenAI GPT-4o-mini):
+  Stage 0  – Case Intake            : gpt-4o-mini
+  Stage 1  – Legal Query             : gpt-4o-mini
+  Stage 2  – Subquery Mapping        : gpt-4o-mini
   Stage 3  – Chapter Identification  : Deterministic (No LLM)
   Stage 4  – Statutory Verification  : Deterministic (No LLM)
-  Stage 5  – Bail Reasoning          : gpt-5.4-mini
-  Stage 6  – Precedent Analysis      : gpt-5.4-mini
-  Stage 7  – Arguments & Judgment    : gpt-5.4-mini
+  Stage 5  – Bail Reasoning          : gpt-4o-mini
+  Stage 6  – Precedent Analysis      : gpt-4o-mini
+  Stage 7  – Arguments & Judgment    : gpt-4o-mini
 Verifier agents inherit the same model as their primary stage.
 """
 
@@ -28,21 +28,46 @@ load_dotenv(BASE_DIR / ".env")
 # Override any of these via environment variables of the same name.
 # Defaults to Ollama models (local), falls back to Groq/OpenAI if not available
 # ---------------------------------------------------------------------------
-# All LLM stages pinned to gpt-5.4-mini
-MODEL_STAGE0 = os.getenv("MODEL_STAGE0", "gpt-5.4-mini")   # Case Intake
-MODEL_STAGE1 = os.getenv("MODEL_STAGE1", "gpt-5.4-mini")   # Legal Query
-MODEL_STAGE2 = os.getenv("MODEL_STAGE2", "gpt-5.4-mini")   # Subquery Mapping
-# Stages 3, 4 – Deterministic; no LLM model constants needed
-# Stages 5, 6, 7 – deep legal reasoning
-MODEL_STAGE5 = os.getenv("MODEL_STAGE5", "gpt-5.4-mini")  # Bail Reasoning
-MODEL_STAGE6 = os.getenv("MODEL_STAGE6", "gpt-5.4-mini")  # Precedent Analysis
-MODEL_STAGE7 = os.getenv("MODEL_STAGE7", "gpt-5.4-mini")  # Arguments & Judgment
+# Determine provider
+_DEFAULT_PROVIDER = os.getenv("LLM_PROVIDER", "openai").lower()  # Changed default to "openai"
+_OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+_HAS_GROQ = bool(os.getenv("GROQ_API_KEY"))
+_HAS_OPENAI = bool(os.getenv("OPENAI_API_KEY"))
+
+# Use Ollama models by default (local, no API key needed)
+if _DEFAULT_PROVIDER == "ollama":
+    # Ollama - use local models (default to llama3.2:3b for all stages)
+    _OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
+    MODEL_STAGE0 = os.getenv("MODEL_STAGE0", _OLLAMA_MODEL)   # Case Intake
+    MODEL_STAGE1 = os.getenv("MODEL_STAGE1", _OLLAMA_MODEL)   # Legal Query
+    MODEL_STAGE2 = os.getenv("MODEL_STAGE2", _OLLAMA_MODEL)   # Subquery Mapping
+    MODEL_STAGE5 = os.getenv("MODEL_STAGE5", _OLLAMA_MODEL)   # Bail Reasoning
+    MODEL_STAGE6 = os.getenv("MODEL_STAGE6", _OLLAMA_MODEL)   # Precedent Analysis
+    MODEL_STAGE7 = os.getenv("MODEL_STAGE7", _OLLAMA_MODEL)   # Arguments & Judgment
+elif (_DEFAULT_PROVIDER == "groq" or _DEFAULT_PROVIDER == "") and _HAS_GROQ:
+    # Groq models (using GPT-OSS models available on your account)
+    MODEL_STAGE0 = os.getenv("MODEL_STAGE0", "openai/gpt-oss-120b")   # Case Intake
+    MODEL_STAGE1 = os.getenv("MODEL_STAGE1", "openai/gpt-oss-120b")   # Legal Query
+    MODEL_STAGE2 = os.getenv("MODEL_STAGE2", "openai/gpt-oss-120b")   # Subquery Mapping
+    MODEL_STAGE5 = os.getenv("MODEL_STAGE5", "openai/gpt-oss-120b")  # Bail Reasoning
+    MODEL_STAGE6 = os.getenv("MODEL_STAGE6", "openai/gpt-oss-120b")  # Precedent Analysis
+    MODEL_STAGE7 = os.getenv("MODEL_STAGE7", "openai/gpt-oss-120b")  # Arguments & Judgment
+else:
+    # OpenAI models (default)
+    MODEL_STAGE0 = os.getenv("MODEL_STAGE0", "gpt-4o-mini")   # Case Intake
+    MODEL_STAGE1 = os.getenv("MODEL_STAGE1", "gpt-4o-mini")   # Legal Query
+    MODEL_STAGE2 = os.getenv("MODEL_STAGE2", "gpt-4o-mini")   # Subquery Mapping
+    MODEL_STAGE5 = os.getenv("MODEL_STAGE5", "gpt-4o-mini")  # Bail Reasoning
+    MODEL_STAGE6 = os.getenv("MODEL_STAGE6", "gpt-4o-mini")  # Precedent Analysis
+    MODEL_STAGE7 = os.getenv("MODEL_STAGE7", "gpt-4o-mini")  # Arguments & Judgment
 
 # ---------------------------------------------------------------------------
 # Legacy two-tier aliases (kept for backward compatibility)
 # ---------------------------------------------------------------------------
-MODEL_TIER_CHEAP = "cheap"         # maps to MODEL_STAGE0 / gpt-5.4-mini
-MODEL_TIER_REASONING = "reasoning" # maps to MODEL_STAGE5 / gpt-5.4-mini
+# Cheap tier  → same model used by Stages 0-2
+# Reasoning tier → same model used by Stages 5-7
+MODEL_TIER_CHEAP = "cheap"         # maps to MODEL_STAGE0 / gpt-4o-mini
+MODEL_TIER_REASONING = "reasoning" # maps to MODEL_STAGE5 / gpt-4o-mini
 
 
 class CallBudgetGuardrail:
@@ -95,20 +120,48 @@ def _openai_kwargs(model: str, temperature: float, api_key: str) -> dict:
 
 def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
     """
-    Get configured LLM client. Uses Ollama by default, falls back to Groq, then OpenAI.
+    Get configured LLM client. Uses OpenAI by default, falls back to Groq/Ollama if configured.
     Does not hardcode keys. Enforces process call ceiling check.
     NOTE: Models like gpt-5.4-mini do not support the temperature parameter — it is
     automatically omitted for such models to avoid empty API responses.
     """
     GLOBAL_CALL_GUARDRAIL.check_and_increment()
 
-    provider = os.getenv("LLM_PROVIDER", "ollama").lower()  # Default to Ollama
+    provider = os.getenv("LLM_PROVIDER", "openai").lower()  # Changed default to "openai"
     ollama_base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
     ollama_model = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
     openai_api_key = os.getenv("OPENAI_API_KEY")
     groq_api_key = os.getenv("GROQ_API_KEY")
 
-    # Try Ollama first (default, local, no API key needed)
+    # OpenAI first (default)
+    if (provider == "openai" or provider == "") and openai_api_key:
+        try:
+            from langchain_openai import ChatOpenAI
+            target_model = model_name or os.getenv("STAGE0_MODEL", "gpt-4o-mini")
+            return ChatOpenAI(
+                model=target_model,
+                api_key=openai_api_key,
+                temperature=temperature,
+            )
+        except Exception as e:
+            print(f"[LexiGraph Config] Warning loading ChatOpenAI: {e}")
+            print(f"[LexiGraph Config] Falling back to Groq/Ollama...")
+
+    # Groq (alternative cloud inference)
+    if provider == "groq" and groq_api_key:
+        try:
+            from langchain_groq import ChatGroq
+            target_model = model_name or os.getenv("STAGE0_MODEL", "openai/gpt-oss-120b")
+            return ChatGroq(
+                model=target_model,
+                groq_api_key=groq_api_key,
+                temperature=temperature,
+            )
+        except Exception as e:
+            print(f"[LexiGraph Config] Warning loading ChatGroq: {e}")
+            print(f"[LexiGraph Config] Falling back to Ollama...")
+
+    # Try Ollama (local, no API key needed)
     if provider == "ollama":
         try:
             from langchain_ollama import ChatOllama
@@ -120,87 +173,44 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
             )
         except Exception as e:
             print(f"[LexiGraph Config] Warning loading ChatOllama: {e}")
-            print(f"[LexiGraph Config] Falling back to Groq/OpenAI...")
-
-    # Try Groq (fast, cloud)
-    if (provider == "groq" or provider == "") and groq_api_key:
-        try:
-            from langchain_groq import ChatGroq
-            target_model = model_name or os.getenv("STAGE0_MODEL", "llama-3.3-70b-versatile")
-            return ChatGroq(
-                model=target_model,
-                groq_api_key=groq_api_key,
-                temperature=temperature,
-            )
-        except Exception as e:
-            print(f"[LexiGraph Config] Warning loading ChatGroq: {e}")
-
-    # Fall back to OpenAI if explicitly requested or others unavailable
-    if (provider == "openai" or not groq_api_key) and openai_api_key:
-        try:
-            from langchain_openai import ChatOpenAI
-            target_model = model_name or os.getenv("STAGE0_MODEL") or os.getenv("OPENAI_MODEL", "gpt-5.4-mini")
-            return ChatOpenAI(**_openai_kwargs(target_model, temperature, openai_api_key))
-        except Exception as e:
-            print(f"[LexiGraph Config] Warning loading ChatOpenAI: {e}")
-
-    if groq_api_key:
-        try:
-            from langchain_groq import ChatGroq
-            target_model = model_name or os.getenv("STAGE0_MODEL", "llama-3.3-70b-versatile")
-            return ChatGroq(
-                model=target_model,
-                api_key=groq_api_key,
-                temperature=temperature,
-            )
-        except Exception as e:
-            print(f"[LexiGraph Config] Warning loading ChatGroq: {e}")
-
-    if openai_api_key:
-        try:
-            from langchain_openai import ChatOpenAI
-            target_model = model_name or os.getenv("STAGE0_MODEL") or os.getenv("OPENAI_MODEL", "gpt-5.4-mini")
-            return ChatOpenAI(**_openai_kwargs(target_model, temperature, openai_api_key))
-        except Exception as e:
-            print(f"[LexiGraph Config] Warning loading ChatOpenAI: {e}")
 
     # Fallback to error if no API key is set
     raise RuntimeError(
         "No valid LLM available. Options:\n"
-        "1. Ollama (local): Install Ollama and set OLLAMA_BASE_URL=http://localhost:11434\n"
-        "2. Groq (cloud): Set GROQ_API_KEY in .env\n"
-        "3. OpenAI (cloud): Set OPENAI_API_KEY in .env"
+        "1. OpenAI (cloud, default): Set OPENAI_API_KEY in .env\n"
+        "2. Groq (cloud, fast): Set GROQ_API_KEY in .env\n"
+        "3. Ollama (local): Install Ollama and set OLLAMA_BASE_URL=http://localhost:11434"
     )
 
 
 def get_llm_for_tier(tier: str = MODEL_TIER_CHEAP, temperature: float = 0.1, model_name: Optional[str] = None):
     """
     Get configured LLM client routed by task tier.
-    - 'cheap' tier: lightweight model (llama-3.3-70b-versatile for Groq, gpt-4o-mini for OpenAI).
-    - 'reasoning' tier: flagship model (llama-3.3-70b-versatile for Groq, gpt-4o for OpenAI).
-    Default provider: Groq
+    - 'cheap' tier: gpt-4o-mini (OpenAI default).
+    - 'reasoning' tier: gpt-4o-mini (OpenAI default).
+    Default provider: OpenAI
     """
     if model_name:
         return get_llm(temperature=temperature, model_name=model_name)
 
-    provider = os.getenv("LLM_PROVIDER", "groq").lower()  # Default to Groq
+    provider = os.getenv("LLM_PROVIDER", "openai").lower()  # Default to OpenAI
     openai_api_key = os.getenv("OPENAI_API_KEY")
     groq_api_key = os.getenv("GROQ_API_KEY")
 
-    # Groq models (default)
-    if (provider == "groq" or provider == "") and groq_api_key:
-        groq_cheap = os.getenv("MODEL_CHEAP", "llama-3.3-70b-versatile")
-        groq_reasoning = os.getenv("MODEL_REASONING", "llama-3.3-70b-versatile")
-        groq_target = groq_cheap if tier == MODEL_TIER_CHEAP else groq_reasoning
-        return get_llm(temperature=temperature, model_name=groq_target)
-
-    # OpenAI models (fallback)
-    if (provider == "openai" or not groq_api_key) and openai_api_key:
-        # Map legacy tiers to per-stage pinned models
+    # OpenAI models (default)
+    if (provider == "openai" or provider == "") and openai_api_key:
+        # Map legacy tiers to per-stage pinned models (all gpt-4o-mini)
         cheap_model = MODEL_STAGE0       # gpt-4o-mini
-        reasoning_model = MODEL_STAGE5   # gpt-4.1-mini
+        reasoning_model = MODEL_STAGE5   # gpt-4o-mini
         target_model = cheap_model if tier == MODEL_TIER_CHEAP else reasoning_model
         return get_llm(temperature=temperature, model_name=target_model)
+
+    # Groq models (alternative)
+    if provider == "groq" and groq_api_key:
+        groq_cheap = os.getenv("MODEL_CHEAP", "openai/gpt-oss-20b")
+        groq_reasoning = os.getenv("MODEL_REASONING", "openai/gpt-oss-120b")
+        groq_target = groq_cheap if tier == MODEL_TIER_CHEAP else groq_reasoning
+        return get_llm(temperature=temperature, model_name=groq_target)
 
     return get_llm(temperature=temperature, model_name=model_name)
 
