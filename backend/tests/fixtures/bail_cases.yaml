@@ -1,0 +1,121 @@
+﻿# bail_cases.yaml
+# ================
+# Test fixtures for the voting judge.
+# Each case specifies:
+#   - case:   unique fixture id (used in pytest parametrize)
+#   - desc:   human-readable description
+#   - expect: the expected outcome (GRANTED | DENIED | NO_OPINION | INTERIM)
+#   - facts:  list of fact objects {id, text, source}
+#   - holdings: list of holding objects that would be retrieved for this case
+#   - prosecution_args / defense_args: representative argument text
+#
+# RULE: Expected outcomes drive CI. If a case regresses, fix extraction or
+# holdings -- never add if-statements to the judge logic.
+
+- case: srikant_upadhyay_absconding
+  desc: >
+    Applicants against whom a proclamation under Section 82 CrPC was issued
+    after NBW were not executed. Directly on Srikant Upadhyay 2024 INSC 202.
+  expect: DENIED
+  facts:
+    - id: fact_1
+      text: "Non-bailable warrant (NBW) issued against applicants on 03.11.2022."
+      source: "para 14"
+    - id: fact_2
+      text: "NBW could not be executed; applicants did not appear before the court."
+      source: "para 14"
+    - id: fact_3
+      text: "Proclamation under Section 82 CrPC issued on 15.12.2022."
+      source: "para 15"
+    - id: fact_4
+      text: "Applicants have not surrendered or joined the investigation."
+      source: "para 16"
+    - id: fact_5
+      text: "FIR registered under Sections 302 and 120B IPC."
+      source: "FIR"
+  holdings:
+    - id: srikant_para23
+      case: "Srikant Upadhyay v. State of Bihar, 2024 INSC 202"
+      para: "23"
+      principle: >
+        An accused against whom a proclamation under Section 82 CrPC has been issued
+        is ordinarily not entitled to anticipatory bail.
+      conditions: >
+        Proclamation under Section 82 CrPC must have been issued AND the accused
+        must not have surrendered or joined investigation.
+      effect: "favours_denial"
+  prosecution_args: >
+    The applicants are proclaimed offenders under Section 82 CrPC. NBW was issued
+    and could not be executed. Applicants are absconding. Under Srikant Upadhyay
+    (2024 INSC 202), anticipatory bail must be denied.
+  defense_args: >
+    Applicants deny the allegations. The FIR is politically motivated.
+    No direct evidence links them to the alleged offence.
+
+- case: vague_fir_cooperating_applicant
+  desc: >
+    Applicant has cooperated fully with investigation, FIR is vague with no
+    corroborating material, no flight risk. Bail should be granted with conditions.
+  expect: GRANTED
+  facts:
+    - id: fact_1
+      text: "Applicant appeared for all court dates and cooperated with police."
+      source: "affidavit"
+    - id: fact_2
+      text: "FIR is vague; no specific role attributed to applicant."
+      source: "FIR, para 3"
+    - id: fact_3
+      text: "No recovery of any contraband or weapon from or at applicant's instance."
+      source: "police report"
+    - id: fact_4
+      text: "No prior criminal antecedents."
+      source: "antecedents report"
+    - id: fact_5
+      text: "Applicant is employed and has fixed residence."
+      source: "affidavit"
+  holdings:
+    - id: sibbia_para18
+      case: "Gurbaksh Singh Sibbia v. State of Punjab, (1980) 2 SCC 565"
+      para: "18"
+      principle: >
+        Anticipatory bail should ordinarily be granted when the prima facie case
+        against the applicant is weak or doubtful and the applicant is ready to cooperate.
+      conditions: >
+        Prima facie case must be weak, applicant must have cooperated, and there
+        must be no flight risk or evidence tampering risk.
+      effect: "favours_grant"
+  prosecution_args: >
+    Applicant is named in the FIR. The offence is serious. Custodial interrogation
+    is required to recover further evidence.
+  defense_args: >
+    Applicant has cooperated throughout. FIR is vague with no specific overt act.
+    No recovery. Custodial interrogation is unnecessary as applicant has complied
+    with all conditions imposed.
+
+- case: bare_application_no_facts
+  desc: >
+    Completely bare application — no FIR details, no warrant status, no cooperation
+    information. Record is insufficient to decide any way.
+  expect: NO_OPINION
+  facts:
+    - id: fact_1
+      text: "Application for anticipatory bail filed by applicant."
+      source: "petition"
+    - id: fact_2
+      text: "No FIR number, police station, or case details provided."
+      source: "petition"
+  holdings:
+    - id: sibbia_para18
+      case: "Gurbaksh Singh Sibbia v. State of Punjab, (1980) 2 SCC 565"
+      para: "18"
+      principle: >
+        Anticipatory bail should ordinarily be granted when the prima facie case
+        against the applicant is weak or doubtful and the applicant is ready to cooperate.
+      conditions: >
+        Prima facie case must be weak, applicant must have cooperated, and there
+        must be no flight risk or evidence tampering risk.
+      effect: "favours_grant"
+  prosecution_args: >
+    Prosecution has no information on file.
+  defense_args: >
+    Applicant apprehends arrest. No further details available.

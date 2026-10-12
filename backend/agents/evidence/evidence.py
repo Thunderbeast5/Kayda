@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 import sys
 import json
@@ -11,36 +13,64 @@ from typing import Any, Dict, List, Optional
 agents_dir = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(agents_dir))
 
-import pytesseract
-from PIL import Image
-from PyPDF2 import PdfReader
-from dotenv import load_dotenv
+# ---------------------------------------------------------------------------
+# Hard dependencies — wrap so module loads even if some are missing
+# ---------------------------------------------------------------------------
+try:
+    import pytesseract
+    pytesseract.pytesseract.tesseract_cmd = (
+        r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    )
+except Exception:
+    pytesseract = None  # type: ignore
 
-import firebase_admin
-from firebase_admin import credentials, firestore
+try:
+    from PIL import Image
+except Exception:
+    Image = None  # type: ignore
 
+_TESSERACT_AVAILABLE = bool(pytesseract is not None and Image is not None)
 
-from config.llm_config import get_llm
-import pytesseract
+try:
+    from PyPDF2 import PdfReader
+    _PYPDF2_AVAILABLE = True
+except ImportError:
+    try:
+        from pypdf import PdfReader   # pypdf is the maintained fork
+        _PYPDF2_AVAILABLE = True
+    except Exception:
+        PdfReader = None  # type: ignore
+        _PYPDF2_AVAILABLE = False
 
-pytesseract.pytesseract.tesseract_cmd = (
-    r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-)
+try:
+    import firebase_admin
+    from firebase_admin import credentials, firestore
+    _FIREBASE_AVAILABLE = True
+except ImportError:
+    _FIREBASE_AVAILABLE = False
 
-# Optional Google Vision imports (graceful fallback if not installed)
+# Optional Google Vision / pdf2image imports (graceful fallback if not installed)
 try:
     from google.cloud import vision
-    from pdf2image import convert_from_path
-    _VISION_AVAILABLE = True
 except Exception:
-    _VISION_AVAILABLE = False
+    vision = None
+
+try:
+    # pyrefly: ignore [missing-import]
+    from pdf2image import convert_from_path
+except Exception:
+    convert_from_path = None
+
+_VISION_AVAILABLE = bool(vision is not None and convert_from_path is not None)
+
+from dotenv import load_dotenv
+from config.llm_config import get_llm
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent  # backend/
 load_dotenv(BASE_DIR / ".env")
 
+
 FIREBASE_CREDENTIALS_PATH = os.getenv("FIREBASE_CREDENTIALS_PATH")
-PINECONE_API_KEY = os.getenv("PINECONE_API_KEY")
-PINECONE_INDEX_NAME = "legal-embeddings"
 
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".tiff", ".bmp"}
 
@@ -72,12 +102,20 @@ _firebase_app = None
 
 def _get_firestore_client():
     global _firebase_app
+    if not _FIREBASE_AVAILABLE:
+        return None
+    if not FIREBASE_CREDENTIALS_PATH:
+        return None
+    cred_path = BASE_DIR / FIREBASE_CREDENTIALS_PATH
+    if not cred_path.exists():
+        return None
     if _firebase_app is None:
-        if not FIREBASE_CREDENTIALS_PATH:
-            raise ValueError("FIREBASE_CREDENTIALS_PATH not set in .env")
-        cred_path = BASE_DIR / FIREBASE_CREDENTIALS_PATH
-        cred = credentials.Certificate(str(cred_path))
-        _firebase_app = firebase_admin.initialize_app(cred)
+        try:
+            cred = credentials.Certificate(str(cred_path))
+            _firebase_app = firebase_admin.initialize_app(cred)
+        except Exception as e:
+            print(f"[Warning] Firebase initialization failed ({e}).")
+            return None
     return firestore.client()
 
 
@@ -134,26 +172,40 @@ def _extract_text_with_tesseract(file_path: Path) -> str:
     ext = file_path.suffix.lower()
 
     if ext == ".pdf":
-        reader = PdfReader(str(file_path))
         text = ""
-        for page in reader.pages:
-            text += page.extract_text() or ""
-        text = text.strip()
+        if _PYPDF2_AVAILABLE and PdfReader is not None:
+            try:
+                reader = PdfReader(str(file_path))
+                for page in reader.pages:
+                    text += page.extract_text() or ""
+                text = text.strip()
+            except Exception:
+                text = ""
 
         if text:
             return text
 
         # OCR fallback for scanned PDFs
-        from pdf2image import convert_from_path
-        images = convert_from_path(str(file_path), dpi=300)
-        ocr_text = ""
-        for img in images:
-            ocr_text += pytesseract.image_to_string(img, lang=OCR_LANGS, config="--psm 6") + "\n"
-        return ocr_text.strip()
+        if convert_from_path is not None and _TESSERACT_AVAILABLE and pytesseract is not None:
+            try:
+                images = convert_from_path(str(file_path), dpi=300)
+                ocr_text = ""
+                for img in images:
+                    ocr_text += pytesseract.image_to_string(img, lang=OCR_LANGS, config="--psm 6") + "\n"
+                return ocr_text.strip()
+            except Exception as e:
+                print(f"Warning: OCR fallback failed: {e}")
+
+        if text:
+            return text
+
+        return ""
 
     elif ext in IMAGE_EXTENSIONS:
-        image = Image.open(file_path)
-        return pytesseract.image_to_string(image, lang=OCR_LANGS).strip()
+        if _TESSERACT_AVAILABLE and pytesseract is not None and Image is not None:
+            image = Image.open(file_path)
+            return pytesseract.image_to_string(image, lang=OCR_LANGS).strip()
+        return ""
 
     raise ValueError(f"Unsupported file type: {ext}")
 
@@ -186,6 +238,45 @@ def extract_text(file_path: str) -> str:
 
     # Explicit tesseract mode
     return _extract_text_with_tesseract(path)
+
+
+def extract_text_from_any(source: Any) -> str:
+    """
+    Accepts:
+      - A file path (str or Path) to PDF, image, txt, or json
+      - Raw text string
+    Returns extracted text as string.
+    """
+    if isinstance(source, Path):
+        path = source
+    elif isinstance(source, str):
+        p = Path(source)
+        if p.exists() and p.is_file():
+            path = p
+        else:
+            # It is raw text directly
+            return source
+    else:
+        return str(source)
+
+    ext = path.suffix.lower()
+    if ext == ".json":
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if isinstance(data, dict):
+            for key in ["text", "case_text", "content", "judgement", "judgment", "body"]:
+                if key in data and isinstance(data[key], str):
+                    return data[key]
+            return json.dumps(data, indent=2)
+        elif isinstance(data, list):
+            return "\n\n".join(str(item) for item in data)
+        return str(data)
+
+    if ext in {".txt", ".md"}:
+        return path.read_text(encoding="utf-8", errors="replace")
+
+    # PDF or Images
+    return extract_text(str(path))
 
 
 # ====================================================================
@@ -244,35 +335,35 @@ def _chunk_document_aware(raw_text: str) -> List[str]:
 # ====================================================================
 
 BASE_RULES = """\
-You are a legal document analyst reviewing an Indian FIR/evidence document.
+You are a legal document analyst reviewing an Indian legal document.
 
 Source may be Hindi/Marathi/English mixed with OCR noise.
 CRITICAL: Output EVERY string in English only.
 - Translate descriptions/locations to English.
 - Transliterate person names to Roman script.
 - Canonicalize OCR spelling variants of same person into one best form.
+- NEVER confuse court staff (typists, stenographers, clerks who sign orders) with
+  case parties. A person whose name appears only in a digital signature block at the
+  end of an order is court staff, NOT a complainant or victim.
 Return ONLY valid JSON (no markdown fences, no commentary).
 """
 
+# ------------------------------------------------------------------
+# For FIR / charge-sheet documents
+# ------------------------------------------------------------------
 UNIFIED_PROMPT = BASE_RULES + """\
 
-Task: Extract complete structured facts from this FIR/evidence text.
+Task: Extract complete structured facts from this FIR / charge-sheet / evidence text.
 
 Rules:
-- complainant: person who filed complaint.
-- accused: only officially named accused.
-- victims: only directly harmed persons (exclude police/witnesses unless harmed).
-- Do NOT include accused as victims.
-- Incident date/time/place should describe offence occurrence (not FIR filing date unless needed).
-- Priority for date/time/place:
-  1) complaint narrative / first information contents / gist
-  2) incident description section
-  3) registration header only if narrative missing
+- complainant: person who filed the complaint at the police station (from FIR narrative).
+- accused: only officially named accused persons.
+- victims: only directly harmed persons. Do NOT include accused as victims.
+- Incident date/time/place: the offence occurrence, NOT the FIR filing date.
 - Use 24-hour time format.
-- Preserve quantities/units exactly for property fields (no conversion).
-- estimated_loss: use FIR stated total if present, else compute from stated amounts.
-- sections: include IPC/BNS/special Act sections; deduplicate/normalize
-  like "IPC 420", "BNS 303", "IT Act 66C".
+- Preserve quantities/units exactly for property fields.
+- estimated_loss: use FIR stated total; compute from itemised amounts if total absent.
+- sections: IPC/BNS/special-Act sections; normalise as "BNS 310(2)", "IT Act 66C".
 
 Return JSON schema:
 {{
@@ -310,6 +401,89 @@ TEXT:
 {text}
 """
 
+# ------------------------------------------------------------------
+# For bail order / anticipatory bail application documents
+# ------------------------------------------------------------------
+UNIFIED_BAIL_PROMPT = BASE_RULES + """\
+
+Task: Extract complete structured facts from this Indian anticipatory bail or regular
+bail court order / application.
+
+IMPORTANT PARTY IDENTIFICATION RULES:
+- "applicant" = the accused person seeking bail (named at the top under the case title).
+- "complainant" = the original FIR complainant / informant (victim who filed the FIR).
+  This is NOT the court typist or stenographer whose name may appear in a digital
+  signature block at the very end of the document.
+- "victims" = persons who suffered the crime (often same as or includes complainant).
+- "co_accused" = other accused persons named in FIR / remand reports / chargesheet
+  (EXCLUDING the applicant themselves).
+- "court_staff" = persons named only in the digital signature / certification block;
+  do NOT include them in any party category.
+
+Return this JSON schema exactly (use null for any absent field):
+{{
+  "document_type": "bail_order",
+  "case_number": "string or null",
+  "court": "string or null",
+  "judge": "string or null",
+  "date_of_order": "DD/MM/YYYY or null",
+  "bail_type": "anticipatory or regular",
+  "applicant": "name of the accused seeking bail or null",
+  "applicant_role_in_crime": "specific role alleged e.g. driver of getaway car or null",
+  "respondent": "State of Maharashtra or null",
+  "complainant": "original FIR informant / complainant name or null",
+  "victims": ["names of persons who suffered the crime"],
+  "co_accused": ["other accused persons — NOT the applicant"],
+  "applicant_counsel": "advocate name or null",
+  "state_counsel": "APP/advocate name or null",
+  "investigating_officer": "IO name and designation or null",
+  "fir_number": "string or null",
+  "police_station": "string or null",
+  "district": "string or null",
+  "incident_summary": "one clear paragraph describing the underlying crime as narrated in the order",
+  "incident_date": "DD/MM/YYYY or null",
+  "incident_time": "HH:MM (24h) or null",
+  "incident_place": "string or null",
+  "offence_nature": "brief label e.g. dacoity at village fair or null",
+  "sections_charged": ["e.g. BNS 310(2)", "BNSS 482"],
+  "property_stolen": ["item-by-item list of stolen property with values where stated"],
+  "total_loss": "total rupee value stated or null",
+  "key_evidence_items": [
+    "list every piece of evidence mentioned — cell phone, SIM card, vehicle, witness statements, etc."
+  ],
+  "investigation_findings": [
+    "list every factual finding made during investigation as separate strings"
+  ],
+  "chargesheet_filed": true,
+  "applicant_described_as_absconding": true,
+  "custodial_interrogation_sought": true,
+  "identification_parade_required": true,
+  "defense_submissions": [
+    "each argument made by defence counsel as a separate string"
+  ],
+  "prosecution_submissions": [
+    "each argument made by prosecution / APP as a separate string"
+  ],
+  "procedural_history": [
+    {{"date": "DD/MM/YYYY or null", "event": "description of procedural step"}}
+  ],
+  "prior_bail_orders": [
+    {{"court": "court name", "application_no": "string or null", "date": "DD/MM/YYYY or null",
+      "outcome": "rejected/granted/modified or null", "reason": "brief reason or null"}}
+  ],
+  "actual_bail_outcome": "granted or rejected or modified or null",
+  "court_reasoning": "verbatim or close paraphrase of the court's reasoning paragraphs",
+  "ratio_decidendi": "the legal principle/ratio applied by the court or null",
+  "judicial_observations": ["each notable observation as a separate string"],
+  "key_legal_findings": ["each legal finding as a separate string"],
+  "bail_conditions_imposed": ["conditions if bail granted, else empty list"],
+  "bail_amount": "surety amount if stated or null"
+}}
+
+DOCUMENT TEXT:
+{text}
+"""
+
 UNIFIED_RECON_PROMPT = BASE_RULES + """\
 Task: Reconcile complete structured facts from multiple chunk outputs + full OCR text.
 Use full OCR text as ground truth where conflicts exist.
@@ -317,10 +491,14 @@ Devanagari OCR denoising is critical for names.
 Each real person must appear once in canonical spelling.
 Deduplicate legal sections and normalize.
 
+IMPORTANT: The person whose name appears only in a digital signature block at the
+END of the document is court staff (typist/stenographer), NOT a complainant or victim.
+Identify the complainant from the FIR narrative body, not from signature blocks.
+
 Return JSON schema:
 {{
   "who": {{
-    "complainant": "string or null",
+    "complainant": "FIR complainant from the narrative body, not the digital signer or null",
     "accused": ["string"],
     "victims": ["string"]
   }},
@@ -362,7 +540,14 @@ PARTIALS:
 # ====================================================================
 
 def _strip_json_fences(text: str) -> str:
-    return re.sub(r"^```(?:json)?|```$", "", text.strip(), flags=re.MULTILINE).strip()
+    """Remove markdown code fences and any surrounding commentary."""
+    text = text.strip()
+    text = re.sub(r"^```(?:json)?\s*", "", text)
+    text = re.sub(r"\s*```$", "", text)
+    last_brace = max(text.rfind("}"), text.rfind("]"))
+    if last_brace != -1:
+        text = text[:last_brace + 1]
+    return text.strip()
 
 
 def _parse_llm_json(raw_response: str) -> Optional[Dict[str, Any]]:
@@ -414,14 +599,49 @@ def _normalise_facts(facts: Dict[str, Any]) -> Dict[str, Any]:
     if not isinstance(sections, list):
         sections = []
 
+    def _clean(v: Any) -> Optional[str]:
+        """Return None for Python None, the string 'null', or empty strings."""
+        if v is None:
+            return None
+        s = str(v).strip()
+        return None if s.lower() in ("null", "") else s
+
+    _PROCEDURAL_PREFIXES_LC = ("bnss", "crpc", "code of criminal procedure")
+
+    def _is_procedural(sec: str) -> bool:
+        return any(sec.strip().lower().startswith(p) for p in _PROCEDURAL_PREFIXES_LC)
+
+    clean_complainant = _clean(who.get("complainant"))
+    clean_accused = [str(a) for a in (who.get("accused") or [])
+                     if a is not None and _clean(str(a)) is not None]
+    clean_victims  = [str(v) for v in (who.get("victims") or [])
+                      if v is not None and _clean(str(v)) is not None]
+
+    all_sections = [str(x) for x in sections if x is not None and _clean(str(x))]
+    offence_secs    = [s for s in all_sections if not _is_procedural(s)]
+    procedural_secs = [s for s in all_sections if _is_procedural(s)]
+
+    # Build incident summary with source attribution if it's a plain string
+    raw_summary = incident.get("summary")
+    if isinstance(raw_summary, dict):
+        summary_field = raw_summary  # already attributed
+    elif raw_summary:
+        summary_field = {
+            "text": raw_summary,
+            "source": "prosecution_case",
+            "certainty": "alleged",
+        }
+    else:
+        summary_field = None
+
     return {
         "who": {
-            "complainant": who.get("complainant") or None,
-            "accused": list(who.get("accused") or []),
-            "victims": list(who.get("victims") or []),
+            "complainant": clean_complainant,
+            "accused": clean_accused,
+            "victims": clean_victims,
         },
         "incident": {
-            "summary": incident.get("summary") or None,
+            "summary": summary_field,
             "date": incident.get("date") or None,
             "time": incident.get("time") or None,
             "place": incident.get("place") or None,
@@ -431,10 +651,12 @@ def _normalise_facts(facts: Dict[str, Any]) -> Dict[str, Any]:
             "gold": prop.get("gold") or None,
             "documents": prop.get("documents") or None,
             "vehicles": vehicles,
-            "other_property": [str(x) for x in other_property if x is not None],
+            "other_property": [str(x) for x in other_property
+                               if x is not None and _clean(str(x))],
             "estimated_loss": prop.get("estimated_loss") or None,
         },
-        "sections": [str(x) for x in sections if x is not None],
+        "sections": offence_secs,
+        "procedural_provisions": procedural_secs,
     }
 
 
@@ -454,19 +676,366 @@ def _empty_facts() -> Dict[str, Any]:
     }
 
 
-def _extract_single_call_from_text(text: str) -> Dict[str, Any]:
-    result = _llm_json(UNIFIED_PROMPT.format(text=text))
-    return _normalise_facts(result or _empty_facts())
-
-
-def _extract_single_pass(raw_text: str) -> Dict[str, Any]:
+def _detect_bail_order(raw_text: str) -> bool:
     """
-    Short docs path: 1 focused call over full text.
+    Quick heuristic: if the text looks like a bail order / application,
+    use the bail-aware prompt instead of the FIR prompt.
+    Checked before any LLM call to avoid the expensive doc-type detection step
+    that lives in case_prep.py (which has its own full classifier).
     """
-    return _extract_single_call_from_text(raw_text)
+    markers = [
+        "anticipatory bail", "bail application", "anticipatory bail application",
+        "bharatiya nagarik suraksha sanhita", "bnss", "coram:", "j.\n",
+        "criminal appellate jurisdiction", "sessions judge", "high court",
+    ]
+    snippet = raw_text[:3000].lower()
+    return sum(1 for m in markers if m in snippet) >= 2
 
 
-def _extract_chunked_with_reconciliation(raw_text: str) -> Dict[str, Any]:
+def _select_prompt(raw_text: str, doc_type: Optional[str] = None) -> str:
+    """Return the appropriate extraction prompt for this document."""
+    if doc_type in ("bail_order", "general"):
+        return UNIFIED_BAIL_PROMPT
+    if doc_type in ("fir", "charge_sheet"):
+        return UNIFIED_PROMPT
+    # No hint supplied — fall back to heuristic
+    return UNIFIED_BAIL_PROMPT if _detect_bail_order(raw_text) else UNIFIED_PROMPT
+
+
+def _extract_single_call_from_text(
+    text: str, doc_type: Optional[str] = None
+) -> Dict[str, Any]:
+    prompt = _select_prompt(text, doc_type).format(text=text)
+    result = _llm_json(prompt)
+    # Bail-order extraction returns a richer schema; normalise only the
+    # FIR-compatible subset so downstream graph/timeline code still works.
+    return _normalise_facts_from_any(result or _empty_facts())
+
+
+def _build_accused_evolution(raw: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """
+    Reconstruct the accused-list changes across FIR → remand → chargesheet stages
+    from the procedural_history and defense_submissions in a bail order.
+
+    Issue #5: The investigation story (how the applicant came to be accused)
+    is critical for moot court and must be captured explicitly.
+    """
+    evolution: List[Dict[str, Any]] = []
+    co_accused: List[str] = raw.get("co_accused") or []
+    applicant: Optional[str] = raw.get("applicant")
+
+    # Stage 1 — FIR (co-accused only; applicant not yet named)
+    if co_accused:
+        evolution.append({
+            "stage": "FIR",
+            "persons": co_accused,
+            "status": "named_or_unknown",
+            "source": "fir",
+            "certainty": "recorded",
+        })
+
+    # Stage 2+ — procedural history may describe remand reports
+    for step in (raw.get("procedural_history") or []):
+        if not isinstance(step, dict):
+            continue
+        event_text = (step.get("event") or "").lower()
+        if "first remand" in event_text or "1st remand" in event_text:
+            evolution.append({
+                "stage": "first_remand",
+                "date": step.get("date"),
+                "persons": co_accused,
+                "source": "procedural_record",
+                "certainty": "recorded",
+            })
+        elif "second remand" in event_text or "2nd remand" in event_text:
+            evolution.append({
+                "stage": "second_remand",
+                "date": step.get("date"),
+                "persons": co_accused,
+                "source": "procedural_record",
+                "certainty": "recorded",
+            })
+
+    # Final stage — applicant added through subsequent investigation
+    if applicant:
+        defence_subs: List[str] = raw.get("defense_submissions") or []
+        basis = (
+            "co-accused statement"
+            if any("co-accused" in s.lower() for s in defence_subs)
+            else "investigation"
+        )
+        evolution.append({
+            "stage": "subsequent_investigation",
+            "added": [applicant],
+            "basis": basis,
+            "alleged_role": raw.get("applicant_role_in_crime"),
+            "source": "prosecution_case",
+            "certainty": "alleged",
+        })
+
+    return evolution
+
+
+def _build_disputed_facts(raw: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """
+    Derive the principal disputed facts from prosecution and defence submissions.
+
+    Issue #8: Surfaces the actual moot-court issues automatically so
+    the Judge/Defense/Prosecution agents have explicit, structured controversy.
+    """
+    disputed: List[Dict[str, Any]] = []
+
+    defence_subs: List[str] = raw.get("defense_submissions") or []
+    prosecution_subs: List[str] = raw.get("prosecution_submissions") or []
+    applicant: Optional[str] = raw.get("applicant")
+
+    # Issue 1: applicant's involvement
+    if applicant:
+        d_pos = next(
+            (s for s in defence_subs if "not involved" in s.lower() or "denies" in s.lower()),
+            "Applicant denies involvement in the offence.",
+        )
+        p_pos = next(
+            (s for s in prosecution_subs if applicant.split()[0].lower() in s.lower()
+             or "involvement" in s.lower()),
+            raw.get("applicant_role_in_crime") or "Prosecution alleges applicant participated.",
+        )
+        disputed.append({
+            "issue": "Applicant's involvement in the offence",
+            "defence_position": d_pos,
+            "prosecution_position": p_pos,
+        })
+
+    # Issue 2: basis of implication
+    if any("co-accused" in s.lower() for s in defence_subs):
+        disputed.append({
+            "issue": "Basis of implication of applicant",
+            "defence_position": "Applicant implicated solely on the basis of a co-accused's statement.",
+            "prosecution_position": (
+                next(
+                    (s for s in (raw.get("investigation_findings") or [])
+                     if "sim" in s.lower() or "phone" in s.lower() or "vehicle" in s.lower()),
+                    "Investigation revealed connecting evidence (SIM card / vehicle).",
+                )
+            ),
+        })
+
+    # Issue 3: need for custodial interrogation
+    if raw.get("custodial_interrogation_sought") or raw.get("identification_parade_required"):
+        disputed.append({
+            "issue": "Necessity of custodial interrogation / identification parade",
+            "defence_position": (
+                next(
+                    (s for s in defence_subs if "antecedent" in s.lower() or "bail" in s.lower()),
+                    "No criminal antecedents; anticipatory bail should be granted.",
+                )
+            ),
+            "prosecution_position": (
+                "Identification parade is required; custodial interrogation is necessary."
+            ),
+        })
+
+    return disputed
+
+
+def _normalise_facts_from_any(raw: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Accept either the FIR schema (who/incident/property/sections)
+    or the bail-order schema (applicant, victims, incident_*, sections_charged …)
+    and return the canonical FIR-compatible shape.
+
+    Bail-order keys that have no FIR equivalent are preserved under
+    the top-level key "bail_details" so callers can still access them.
+    """
+    # ── Detect which schema we received ──────────────────────────────────
+    is_bail = "applicant" in raw or "bail_type" in raw or "document_type" in raw
+
+    if is_bail:
+        # Build the canonical who/incident/property/sections subset
+        victims: List[str] = raw.get("victims") or []
+        co_accused: List[str] = raw.get("co_accused") or []
+        applicant: Optional[str] = raw.get("applicant")
+
+        # The applicant IS an accused person for graph/timeline purposes
+        accused_list: List[str] = []
+        if applicant:
+            accused_list.append(applicant)
+        accused_list.extend(co_accused)
+
+        # complainant from bail order text
+        complainant: Optional[str] = raw.get("complainant") or None
+
+        # If victims list is empty but complainant is known, treat them as victim too
+        if complainant and complainant not in victims:
+            victims = [complainant] + victims
+
+        # ── Section classification: split offence sections from procedural ones ──
+        # BNSS/CrPC provisions (e.g. BNSS 482, CrPC 438) are procedural bail
+        # provisions, not substantive offence charges.  Keep them separate so
+        # LexiGraph / statutory agents are never confused.
+        _PROCEDURAL_PREFIXES = ("bnss", "crpc", "code of criminal procedure")
+        all_sections: List[str] = raw.get("sections_charged") or []
+        offence_sections: List[str] = []
+        procedural_sections: List[str] = []
+        for sec in all_sections:
+            sec_lower = (sec or "").lower()
+            if any(sec_lower.startswith(p) for p in _PROCEDURAL_PREFIXES):
+                procedural_sections.append(sec)
+            else:
+                offence_sections.append(sec)
+
+        # ── Bail application metadata ─────────────────────────────────────────
+        # Captures why the applicant is before this court (Issue #4 / #6).
+        bail_application = {
+            "type": raw.get("bail_type") or "anticipatory",
+            "applicant": applicant,
+            "provision": procedural_sections[0] if procedural_sections else None,
+            "relief_sought": "anticipatory bail" if (
+                raw.get("bail_type") or "anticipatory"
+            ) == "anticipatory" else "regular bail",
+        }
+
+        # ── Applicant's own position (defense submissions distilled) ──────────
+        defence_subs: List[str] = raw.get("defense_submissions") or []
+        applicant_position = {
+            "denies_involvement": any(
+                "not involved" in s.lower() or "denies" in s.lower()
+                for s in defence_subs
+            ),
+            "implication_basis": (
+                "statement of co-accused"
+                if any("co-accused" in s.lower() or "co accused" in s.lower() for s in defence_subs)
+                else None
+            ),
+            "criminal_antecedents": not any(
+                "no criminal antecedent" in s.lower() or "no antecedent" in s.lower()
+                for s in defence_subs
+            ),
+            "applicant_described_as_absconding": raw.get(
+                "applicant_described_as_absconding", False
+            ),
+        }
+
+        # ── Investigation story: accused evolution across stages ──────────────
+        accused_evolution = _build_accused_evolution(raw)
+
+        # ── Disputed facts for moot court ─────────────────────────────────────
+        disputed_facts = _build_disputed_facts(raw)
+
+        canonical = {
+            "who": {
+                # Never store the string "null" — use Python None.
+                "complainant": complainant if complainant and complainant.lower() != "null" else None,
+                "accused": [a for a in accused_list if a and str(a).lower() != "null"],
+                "victims": [v for v in victims if v and str(v).lower() != "null"],
+            },
+            "incident": {
+                "summary": {
+                    "text": raw.get("incident_summary") or None,
+                    "source": "prosecution_case",
+                    "certainty": "alleged",
+                },
+                "date": raw.get("incident_date") or None,
+                "time": raw.get("incident_time") or None,
+                "place": raw.get("incident_place") or None,
+            },
+            "property": {
+                "cash": None,
+                "gold": None,
+                "documents": None,
+                "vehicles": [],
+                "other_property": [
+                    p for p in (raw.get("property_stolen") or [])
+                    if p and str(p).lower() != "null"
+                ],
+                "estimated_loss": raw.get("total_loss") or None,
+            },
+            # Offence sections only — no procedural provisions mixed in.
+            "sections": offence_sections,
+            # Procedural bail provisions stored separately.
+            "procedural_provisions": procedural_sections,
+            # Bail-application details
+            "bail_application": bail_application,
+            # Applicant's litigation posture
+            "applicant_position": applicant_position,
+            # Full investigation story
+            "investigation": {
+                "accused_evolution": accused_evolution,
+            },
+            # Moot-court disputed facts layer
+            "disputed_facts": disputed_facts,
+            # All remaining bail-specific data
+            "bail_details": {
+                "case_number": raw.get("case_number"),
+                "court": raw.get("court"),
+                "judge": raw.get("judge"),
+                "date_of_order": raw.get("date_of_order"),
+                "bail_type": raw.get("bail_type"),
+                "applicant": applicant,
+                "applicant_role_in_crime": raw.get("applicant_role_in_crime"),
+                "applicant_counsel": raw.get("applicant_counsel"),
+                "state_counsel": raw.get("state_counsel"),
+                "investigating_officer": raw.get("investigating_officer"),
+                "fir_number": raw.get("fir_number"),
+                "police_station": raw.get("police_station"),
+                "district": raw.get("district"),
+                "offence_nature": raw.get("offence_nature"),
+                "key_evidence_items": raw.get("key_evidence_items") or [],
+                "investigation_findings": raw.get("investigation_findings") or [],
+                "chargesheet_filed": raw.get("chargesheet_filed", False),
+                "custodial_interrogation_sought": raw.get(
+                    "custodial_interrogation_sought", False
+                ),
+                "identification_parade_required": raw.get(
+                    "identification_parade_required", False
+                ),
+                "defense_submissions": defence_subs,
+                "prosecution_submissions": raw.get("prosecution_submissions") or [],
+                "procedural_history": raw.get("procedural_history") or [],
+                "prior_bail_orders": raw.get("prior_bail_orders") or [],
+                "actual_bail_outcome": raw.get("actual_bail_outcome"),
+                "court_reasoning": raw.get("court_reasoning"),
+                "ratio_decidendi": raw.get("ratio_decidendi"),
+                "judicial_observations": raw.get("judicial_observations") or [],
+                "key_legal_findings": raw.get("key_legal_findings") or [],
+                "bail_conditions_imposed": raw.get("bail_conditions_imposed") or [],
+                "bail_amount": raw.get("bail_amount"),
+            },
+        }
+
+        # Normalise the core FIR-compatible subset through the existing normaliser,
+        # then re-attach the bail-specific enrichments that _normalise_facts doesn't know about.
+        normalised_core = _normalise_facts(canonical)
+
+        # Merge bail-enriched keys back (they are not touched by _normalise_facts).
+        for extra_key in (
+            "sections",              # offence sections only (already set in canonical)
+            "procedural_provisions",
+            "bail_application",
+            "applicant_position",
+            "investigation",
+            "disputed_facts",
+            "bail_details",
+        ):
+            if extra_key in canonical:
+                normalised_core[extra_key] = canonical[extra_key]
+
+        return normalised_core
+
+    # Plain FIR schema — use existing normaliser as-is
+    return _normalise_facts(raw)
+
+
+def _extract_single_pass(
+    raw_text: str, doc_type: Optional[str] = None
+) -> Dict[str, Any]:
+    """Short docs path: 1 focused call over full text."""
+    return _extract_single_call_from_text(raw_text, doc_type)
+
+
+def _extract_chunked_with_reconciliation(
+    raw_text: str, doc_type: Optional[str] = None
+) -> Dict[str, Any]:
     """
     Long docs path:
       - chunk document-aware
@@ -474,17 +1043,17 @@ def _extract_chunked_with_reconciliation(raw_text: str) -> Dict[str, Any]:
       - do 1 unified reconciliation with full text + partials
     """
     chunks = _chunk_document_aware(raw_text)
+    prompt_template = _select_prompt(raw_text, doc_type)
 
     partials: List[Dict[str, Any]] = []
     for chunk in chunks:
-        p = _llm_json(UNIFIED_PROMPT.format(text=chunk))
+        p = _llm_json(prompt_template.format(text=chunk))
         if p:
             partials.append(p)
 
     if not partials:
-        # fallback: best effort from first chunk if available
         if chunks:
-            return _extract_single_call_from_text(chunks[0])
+            return _extract_single_call_from_text(chunks[0], doc_type)
         return _empty_facts()
 
     full_text_cut = raw_text[:MAX_RECON_FULL_TEXT_CHARS]
@@ -501,22 +1070,31 @@ def _extract_chunked_with_reconciliation(raw_text: str) -> Dict[str, Any]:
     )
 
     if not recon:
-        # fallback to first partial if reconciliation fails
-        return _normalise_facts(partials[0])
+        return _normalise_facts_from_any(partials[0])
 
-    return _normalise_facts(recon)
+    return _normalise_facts_from_any(recon)
 
 
-def extract_facts(raw_text: str) -> Dict[str, Any]:
+def extract_facts(
+    raw_text: str, doc_type: Optional[str] = None
+) -> Dict[str, Any]:
+    """
+    Extract structured facts from raw text.
+
+    Args:
+        raw_text: extracted text from any legal document.
+        doc_type: optional hint — "bail_order", "fir", "charge_sheet", "general".
+                  When None, a heuristic detects the document type automatically.
+    """
     if len(raw_text) <= MAX_DIRECT_CHARS:
         print(f"[evidence_analyzer] {len(raw_text)} chars — short-doc unified extraction (1 call).")
-        return _extract_single_pass(raw_text)
+        return _extract_single_pass(raw_text, doc_type)
 
     print(
         f"[evidence_analyzer] {len(raw_text)} chars (> {MAX_DIRECT_CHARS}) — "
         "chunked unified extraction + unified reconciliation."
     )
-    return _extract_chunked_with_reconciliation(raw_text)
+    return _extract_chunked_with_reconciliation(raw_text, doc_type)
 
 
 # ====================================================================
@@ -524,6 +1102,10 @@ def extract_facts(raw_text: str) -> Dict[str, Any]:
 # ====================================================================
 def store_to_firestore(session_id: str, raw_text: str, facts: Dict[str, Any]) -> str:
     db = _get_firestore_client()
+    if db is None:
+        print("[evidence_analyzer] Skipping Firestore: credentials file not found or service unconfigured.")
+        return session_id
+
     doc_ref = db.collection("document_store").document(session_id)
 
     if doc_ref.get().exists:
@@ -544,40 +1126,6 @@ def store_to_firestore(session_id: str, raw_text: str, facts: Dict[str, Any]) ->
 
 
 # ====================================================================
-# Step 5: Embed + store to Pinecone
-# ====================================================================
-def store_to_pinecone(session_id: str, facts: Dict[str, Any]):
-    if not PINECONE_API_KEY:
-        print("Skipping Pinecone: PINECONE_API_KEY not set")
-        return
-
-    from sentence_transformers import SentenceTransformer
-    from pinecone import Pinecone
-
-    text_for_embedding = facts.get("incident", {}).get("summary") or ""
-    if not text_for_embedding:
-        print("Skipping Pinecone: no incident summary to embed")
-        return
-
-    model = SentenceTransformer("all-MiniLM-L6-v2")
-    embedding = model.encode(text_for_embedding).tolist()
-
-    pc = Pinecone(api_key=PINECONE_API_KEY)
-    index = pc.Index(PINECONE_INDEX_NAME)
-
-    index.upsert(vectors=[{
-        "id": f"CASE_{session_id}",
-        "values": embedding,
-        "metadata": {
-            "type": "case_evidence",
-            "session_id": session_id,
-            "summary": text_for_embedding,
-            "place": facts.get("incident", {}).get("place") or "",
-        },
-    }])
-
-
-# ====================================================================
 # Session ID helper
 # ====================================================================
 def build_session_id(file_path: str) -> str:
@@ -594,7 +1142,6 @@ def analyze_evidence(session_id: str, file_path: str) -> Dict[str, Any]:
     raw_text = extract_text(file_path)
     facts = extract_facts(raw_text)
     store_to_firestore(session_id, raw_text, facts)
-    store_to_pinecone(session_id, facts)
     return facts
 
 
@@ -619,12 +1166,16 @@ Rules:
   CONSOLIDATE related sub-actions into one event:
     e.g. "parked vehicle, went to market, returned, found vehicle missing" = ONE event
          ("Complainant parked vehicle and discovered it stolen upon return").
-- Typical event sequence for a theft FIR:
-    1. Offence occurrence (vehicle parked / theft took place)
-    2. Complainant searched area
-    3. Complainant filed complaint at police station
-    4. FIR registered
-    5. IO assigned
+- For bail orders, always capture: incident, FIR registration, each remand report,
+  subsequent implication of applicant, chargesheet filing, bail order.
+- Typical event sequence for a bail order:
+    1. Offence occurrence
+    2. FIR registered
+    3. First remand report
+    4. Second remand report (if any)
+    5. Applicant implicated / chargesheet filed
+    6. Lower court bail application (if any)
+    7. High Court bail hearing and order
 - date: "DD/MM/YYYY" if stated, else null.
 - time: "HH:MM" strictly in 24-hour format. CRITICAL 12h→24h rule:
     * Marathi/Hindi evening markers: सायंकाळी, संध्याकाळी, सायं, रात्री near a digit
@@ -637,10 +1188,20 @@ Rules:
       filing date (shown in the FIR header), NOT the incident date.
     * complaint_filed / fir_registered always come AFTER all incident events.
 - event_type: one of
-  ["incident","transaction","communication","threat","promise",
+  ["incident","transaction","communication","threat","promise","following",
+   "blocking","harassment","contact_attempt","evidence_recovery","witness_observation",
    "complaint_filed","fir_registered","investigation_action","other"]
+<<<<<<< HEAD
 - actors: use KNOWN CANONICAL ENTITIES spellings. Include only people directly
   and meaningfully involved in this event.
+  CRITICAL for bail orders: Distinguish "alleged_perpetrators" from "applicant_role".
+  Do NOT list the bail applicant as a direct perpetrator of the underlying act unless
+  the order explicitly says so — only co-accused who were caught at the scene are
+  perpetrators. The applicant's role (e.g. getaway driver) is alleged and indirect.
+- witnesses: names of any persons who observed this specific event, if stated.
+- source: who is asserting this fact — one of [prosecution_case, defence_submission,
+  court_finding, procedural_record, fir].
+- certainty: one of [alleged, recorded, established].
 - amount: numeric string without currency symbol, or null.
 - location: string or null.
 - description: one clear, factual sentence in English.
@@ -654,8 +1215,11 @@ Return JSON schema:
     "event_type": "string",
     "description": "string",
     "actors": ["string"],
+    "witnesses": ["string"],
     "location": "string or null",
-    "amount": "string or null"
+    "amount": "string or null",
+    "source": "fir or prosecution_case or defence_submission or court_finding or procedural_record",
+    "certainty": "alleged or recorded or established"
   }}
 ]
 
@@ -719,6 +1283,9 @@ def _normalise_timeline_event(e: Dict[str, Any], fallback_id: str) -> Dict[str, 
     actors_raw = e.get("actors") or []
     if not isinstance(actors_raw, list):
         actors_raw = []
+    witnesses_raw = e.get("witnesses") or []
+    if not isinstance(witnesses_raw, list):
+        witnesses_raw = []
     return {
         "event_id": e.get("event_id") or fallback_id,
         "date": e.get("date") or None,
@@ -726,8 +1293,12 @@ def _normalise_timeline_event(e: Dict[str, Any], fallback_id: str) -> Dict[str, 
         "event_type": e.get("event_type") or "other",
         "description": e.get("description") or None,
         "actors": [str(a) for a in actors_raw if a is not None],
+        "witnesses": [str(w) for w in witnesses_raw if w is not None],
         "location": e.get("location") or None,
         "amount": e.get("amount") or None,
+        # Source attribution — who is asserting this fact (Issue #6).
+        "source": e.get("source") or "procedural_record",
+        "certainty": e.get("certainty") or "recorded",
     }
 
 
@@ -1051,16 +1622,28 @@ def build_case_graph(
     Node shape:   {"id", "label", "properties": {...}}
     Edge shape:   {"source", "target", "type", "properties": {...}}
 
-    Minimal, clean graph — only the essential case facts:
+    For bail orders the graph is enriched with applicant-specific relationships:
+
+      Applicant  → APPLICANT_IN          → BailApplication
+      Applicant  → ACCUSED_IN            → FIR (with alleged role)
+      Applicant  → ALLEGED_ROLE          → RoleNode
+      Applicant  → IMPLICATED_THROUGH    → CoAccusedPerson
+      Prosecution → ALLEGES              → Applicant
+      Defence     → DENIES_ON_BEHALF_OF  → Applicant
+
+    For FIRs / general cases:
       Person(complainant) → FILED       → Case
       Person(accused)    → ACCUSED_IN  → Case
       Person(victim)     → VICTIM_IN   → Case
       Case → OCCURRED_AT     → Location
-      Case → CHARGED_UNDER   → Section
+      Case → CHARGED_UNDER   → Section  (offence sections only)
       Case → INVOLVES_PROPERTY → Property
 
-    No event nodes, no NEXT chains, no per-event edges.
-    Node ids are deterministic slugs for idempotent Neo4j MERGE.
+    Rules:
+    - NEVER create a node for None / "null" — skip those entries.
+    - Sections in `facts["sections"]` are offence-only (procedural provisions
+      live in `facts["procedural_provisions"]` and are NOT graph-connected to Case).
+    - Node ids are deterministic slugs for idempotent Neo4j MERGE.
     """
     nodes: Dict[str, Dict[str, Any]] = {}
     edges: List[Dict[str, Any]] = []
@@ -1088,26 +1671,46 @@ def build_case_graph(
             "properties": properties or {},
         })
 
+    def _is_null(v: Any) -> bool:
+        return v is None or str(v).strip().lower() in ("null", "")
+
+    def get_person_node(name: str) -> Optional[str]:
+        """Return a Person node id, or None if name is null/empty."""
+        if _is_null(name):
+            return None
+        pid = f"person:{_slug(name)}"
+        add_node(pid, "Person", {"name": name})
+        return pid
+
     who = facts.get("who") or {}
     incident = facts.get("incident") or {}
     prop = facts.get("property") or {}
+    # Use offence sections only — procedural provisions are not charged offences.
     sections = facts.get("sections") or []
+    bail_details = facts.get("bail_details") or {}
+    bail_application = facts.get("bail_application") or {}
 
-    # ── Case node ─────────────────────────────────────────────────────
+    # ── Resolve summary text (may be a dict with source attribution) ──────
+    summary_raw = incident.get("summary")
+    summary_text = (
+        summary_raw.get("text") if isinstance(summary_raw, dict) else summary_raw
+    )
+
+    # ── Case node ─────────────────────────────────────────────────────────
     case_id = add_node(
         f"case:{session_id}",
         "Case",
         {
             "session_id": session_id,
-            "summary": incident.get("summary"),
+            "summary": summary_text,
             "date": incident.get("date"),
             "time": incident.get("time"),
             "place": incident.get("place"),
         },
     )
 
-    # ── Primary incident location ──────────────────────────────────────
-    if incident.get("place"):
+    # ── Primary incident location ──────────────────────────────────────────
+    if incident.get("place") and not _is_null(incident["place"]):
         loc_id = add_node(
             f"location:{_slug(incident['place'])}",
             "Location",
@@ -1115,31 +1718,95 @@ def build_case_graph(
         )
         add_edge(case_id, loc_id, "OCCURRED_AT")
 
-    # ── People (from facts only — canonical spelling guaranteed) ────────
-    def get_person_node(name: str) -> str:
-        pid = f"person:{_slug(name)}"
-        add_node(pid, "Person", {"name": name})
-        return pid
-
+    # ── People ────────────────────────────────────────────────────────────
     complainant = who.get("complainant")
-    if complainant:
-        add_edge(get_person_node(complainant), case_id, "FILED")
+    complainant_id = get_person_node(complainant) if not _is_null(complainant) else None
+    if complainant_id:
+        add_edge(complainant_id, case_id, "FILED")
+
+    # For bail orders, identify the applicant for richer graph treatment
+    applicant_name: Optional[str] = bail_application.get("applicant") or bail_details.get("applicant")
 
     for name in who.get("accused") or []:
-        if name:
-            add_edge(get_person_node(name), case_id, "ACCUSED_IN")
+        if _is_null(name):
+            continue
+        person_id = get_person_node(name)
+        if person_id is None:
+            continue
+        if name == applicant_name and bail_details:
+            # Richer relationships for the bail applicant (Issue #7)
+            add_edge(person_id, case_id, "ACCUSED_IN",
+                     {"basis": "prosecution_allegation", "certainty": "alleged"})
+
+            # APPLICANT_IN → bail application node
+            aba_number = bail_details.get("case_number") or session_id
+            aba_id = add_node(
+                f"bail_application:{_slug(aba_number)}",
+                "BailApplication",
+                {
+                    "case_number": aba_number,
+                    "court": bail_details.get("court"),
+                    "provision": bail_application.get("provision"),
+                    "relief_sought": bail_application.get("relief_sought"),
+                },
+            )
+            add_edge(person_id, aba_id, "APPLICANT_IN")
+
+            # Alleged role in the crime
+            role = bail_details.get("applicant_role_in_crime")
+            if role and not _is_null(role):
+                role_id = add_node(
+                    f"role:{_slug(role)}",
+                    "AllegedRole",
+                    {"description": role, "source": "prosecution_case", "certainty": "alleged"},
+                )
+                add_edge(person_id, role_id, "ALLEGED_ROLE")
+
+            # Implication through co-accused statement
+            appl_pos = facts.get("applicant_position") or {}
+            if appl_pos.get("implication_basis"):
+                # Find the co-accused whose statement triggered implication
+                co_acc_list = bail_details.get("defense_submissions") or []
+                # Use the first co-accused as the link source if available
+                co_accused_names = who.get("accused") or []
+                for co_name in co_accused_names:
+                    if co_name != applicant_name and not _is_null(co_name):
+                        co_id = get_person_node(co_name)
+                        if co_id:
+                            add_edge(
+                                person_id, co_id, "IMPLICATED_THROUGH",
+                                {"basis": appl_pos["implication_basis"]},
+                            )
+                        break  # only link to the primary implying co-accused
+        else:
+            add_edge(person_id, case_id, "ACCUSED_IN")
 
     for name in who.get("victims") or []:
-        if name:
-            add_edge(get_person_node(name), case_id, "VICTIM_IN")
+        if _is_null(name):
+            continue
+        pid = get_person_node(name)
+        if pid:
+            add_edge(pid, case_id, "VICTIM_IN")
 
-    # ── Legal sections ────────────────────────────────────────────────
+    # ── Prosecution and Defence party nodes (bail orders only) ────────────
+    if bail_details:
+        pros_id = add_node("party:prosecution", "Party", {"name": "Prosecution", "role": "state"})
+        def_id  = add_node("party:defence",     "Party", {"name": "Defence",     "role": "accused_counsel"})
+        if applicant_name and not _is_null(applicant_name):
+            appl_id = get_person_node(applicant_name)
+            if appl_id:
+                add_edge(pros_id, appl_id, "ALLEGES")
+                add_edge(def_id,  appl_id, "REPRESENTS")
+        add_edge(pros_id, case_id, "PARTY_IN")
+        add_edge(def_id,  case_id, "PARTY_IN")
+
+    # ── Legal sections (offence sections only) ────────────────────────────
     for sec in sections:
-        if sec:
+        if sec and not _is_null(sec):
             sec_id = add_node(f"section:{_slug(sec)}", "Section", {"name": sec})
             add_edge(case_id, sec_id, "CHARGED_UNDER")
 
-    # ── Property ──────────────────────────────────────────────────────
+    # ── Property ──────────────────────────────────────────────────────────
     prop_index = 0
     for veh in prop.get("vehicles") or []:
         prop_index += 1
@@ -1151,6 +1818,8 @@ def build_case_graph(
         add_edge(case_id, pid, "INVOLVES_PROPERTY")
 
     for other in prop.get("other_property") or []:
+        if _is_null(other):
+            continue
         prop_index += 1
         pid = add_node(
             f"property:other:{prop_index}",
@@ -1159,11 +1828,11 @@ def build_case_graph(
         )
         add_edge(case_id, pid, "INVOLVES_PROPERTY")
 
-    if prop.get("cash"):
+    if prop.get("cash") and not _is_null(prop["cash"]):
         pid = add_node("property:cash:1", "Property", {"kind": "cash", "value": prop["cash"]})
         add_edge(case_id, pid, "INVOLVES_PROPERTY")
 
-    if prop.get("gold"):
+    if prop.get("gold") and not _is_null(prop["gold"]):
         pid = add_node("property:gold:1", "Property", {"kind": "gold", "value": prop["gold"]})
         add_edge(case_id, pid, "INVOLVES_PROPERTY")
 
@@ -1183,6 +1852,9 @@ def store_timeline_and_graph(
     graph: Dict[str, List[Dict[str, Any]]],
 ) -> None:
     db = _get_firestore_client()
+    if db is None:
+        return
+
     doc_ref = db.collection("document_store").document(session_id)
 
     if not doc_ref.get().exists:
@@ -1204,11 +1876,23 @@ def store_timeline_and_graph(
 #  analyze_evidence() above remains fully independent and unchanged.)
 # ====================================================================
 
-def analyze_evidence_with_context(session_id: str, file_path: str) -> Dict[str, Any]:
+def analyze_evidence_with_context(
+    session_id: str,
+    file_path: str,
+    doc_type: Optional[str] = None,
+) -> Dict[str, Any]:
+    """
+    Full pipeline: extract → store → timeline → graph.
+
+    Args:
+        session_id: unique case identifier.
+        file_path:  path to PDF / image file.
+        doc_type:   optional type hint ("bail_order", "fir", "charge_sheet", "general").
+                    When None, auto-detected by heuristic inside extract_facts.
+    """
     raw_text = extract_text(file_path)
-    facts = extract_facts(raw_text)
+    facts = extract_facts(raw_text, doc_type)
     store_to_firestore(session_id, raw_text, facts)
-    store_to_pinecone(session_id, facts)
 
     # Pass already-extracted facts so timeline LLM uses identical canonical names
     # and is anchored to the correct incident date/time (fixes 12h/24h confusion).

@@ -6,7 +6,7 @@ Evaluates StatutoryVerificationAuditor across a representative n=20 benchmark su
 """
 
 import json
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Tuple, Optional
 from unittest.mock import MagicMock
 
 from .schemas import (

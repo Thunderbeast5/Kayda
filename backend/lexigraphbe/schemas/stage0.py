@@ -21,7 +21,7 @@ class CaseMetadata(BaseModel):
 
 
 class AccusedParty(BaseModel):
-    name: Optional[str] = Field(default="Accused", description="Name or identity of accused person (e.g. Husband, Father-in-law, A1, A2)")
+    name: Optional[str] = Field(default="Applicant", description="Name or identity of accused person (e.g. Husband, Father-in-law, A1, A2, Applicant, Accused)")
     relationship: Optional[str] = Field(default=None, description="Relationship to victim/complainant (e.g. Husband, Mother-in-Law)")
     role_alleged: Optional[str] = Field(default=None, description="Role alleged in offence (e.g. Main Accused, Co-Accused, In-Law)")
     bail_status: Optional[str] = Field(default=None, description="Status regarding bail (e.g. Seeking Anticipatory Bail, Arrested, Not Arrested)")
@@ -68,8 +68,8 @@ class CaseProfile(BaseModel):
         description="Requested legal relief (e.g. Anticipatory Bail, Regular Bail, Quashing, Appeal, Revision)"
     )
     legal_regime: Optional[str] = Field(
-        default="UNKNOWN",
-        description="Applicable legal regime: 'IPC + CrPC', 'BNS + BNSS', or 'UNKNOWN'"
+        default="IPC + CrPC",
+        description="Applicable legal regime: 'IPC + CrPC' (default) or 'UNKNOWN'"
     )
     flag_for_confirmation: bool = Field(
         default=False,
@@ -103,7 +103,7 @@ class CaseProfile(BaseModel):
     case_facts: Optional[str] = Field(default="", description="Complete factual narrative preserved exactly as understood")
     primary_participants: PrimaryParticipants = Field(default_factory=PrimaryParticipants)
     missing_information: List[str] = Field(default_factory=list, description="Explicit list of missing important fields/documents or confirmation warnings")
-    confidence: Dict[str, float] = Field(
+    confidence: Dict[str, Any] = Field(
         default_factory=dict,
         description="Confidence scores between 0.0 and 1.0 for extracted fields"
     )

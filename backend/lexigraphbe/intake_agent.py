@@ -26,7 +26,7 @@ class CaseIntakeAgent:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm(temperature=0.1, model_name=MODEL_STAGE0)
+            self._llm = get_llm(temperature=0.0, model_name=MODEL_STAGE0)
         return self._llm
 
     def run(
@@ -90,26 +90,55 @@ class CaseIntakeAgent:
         # Parse extracted JSON
         extracted_dict = extract_json_from_text(response_text)
 
-        # Handle explicit user regime override
+        # Handle legal regime (always default to IPC + CrPC)
         if inp.legal_regime_override:
             extracted_dict["legal_regime"] = inp.legal_regime_override
             extracted_dict["flag_for_confirmation"] = False
             extracted_dict["regime_notes"] = f"User explicit override applied: {inp.legal_regime_override}"
+        else:
+            extracted_dict["legal_regime"] = "IPC + CrPC"
+            extracted_dict["flag_for_confirmation"] = False
+            extracted_dict["regime_notes"] = "Statute regime: Indian Penal Code (IPC) + Code of Criminal Procedure (CrPC)."
+
+        # Normalize case_facts from common LLM synonym keys if needed
+        if not extracted_dict.get("case_facts"):
+            for alt_key in ["case_narrative", "factual_narrative", "facts", "narrative", "offence_narrative"]:
+                if extracted_dict.get(alt_key):
+                    extracted_dict["case_facts"] = extracted_dict[alt_key]
+                    break
+        if not extracted_dict.get("case_facts") and inp.documents_text:
+            extracted_dict["case_facts"] = inp.documents_text
+
+        # Normalize accused party names if None (handle cases without explicit names)
+        if extracted_dict.get("parties") and extracted_dict["parties"].get("accused"):
+            accused_list = extracted_dict["parties"]["accused"]
+            if isinstance(accused_list, list):
+                for i, accused in enumerate(accused_list):
+                    if isinstance(accused, dict) and accused.get("name") is None:
+                        accused["name"] = "Applicant" if "anticipatory" in combined_case_text.lower() else "Accused"
+        
+        if extracted_dict.get("primary_participants") and extracted_dict["primary_participants"].get("accused"):
+            accused_list = extracted_dict["primary_participants"]["accused"]
+            if isinstance(accused_list, list):
+                for i, accused in enumerate(accused_list):
+                    if isinstance(accused, dict) and accused.get("name") is None:
+                        accused["name"] = "Applicant" if "anticipatory" in combined_case_text.lower() else "Accused"
 
         # Validate with CaseProfile schema
         case_profile = CaseProfile.model_validate(extracted_dict)
         case_profile.min_confidence_threshold = inp.min_confidence_threshold
 
+        # Enforce IPC-only pipeline: normalize any BNS regime
+        if "BNS" in (case_profile.legal_regime or "").upper():
+            case_profile.legal_regime = "IPC + CrPC"
+
         # Post-validation sanity check on regime precedence flags
         meta = case_profile.case_metadata
         if not inp.legal_regime_override:
             if not meta.offence_date and not meta.fir_date:
-                case_profile.legal_regime = "UNKNOWN"
-                case_profile.flag_for_confirmation = True
-                if "Legal regime confirmation (Offence/FIR date missing)" not in case_profile.missing_information:
-                    case_profile.missing_information.append("Legal regime confirmation (Offence/FIR date missing)")
+                case_profile.legal_regime = "IPC + CrPC"
                 if not case_profile.regime_notes:
-                    case_profile.regime_notes = "UNKNOWN legal regime: defaulted to dual IPC/BNS + CrPC/BNSS representation."
+                    case_profile.regime_notes = "Defaulted to IPC + CrPC representation."
             elif not meta.offence_date and meta.fir_date:
                 case_profile.flag_for_confirmation = True
                 if not case_profile.regime_notes:

@@ -1,0 +1,298 @@
+{
+  "case_id": "_2007_7_SCR_1109",
+  "doc_meta": {
+    "source_file": "2007 INSC 712.pdf",
+    "pdf_pages": 6,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment",
+      "author": "author:0"
+    },
+    "format_profile": "scr_reporter",
+    "citation_scr": "[2007] 7 SCR 1109",
+    "scr_year": 2007,
+    "scr_volume": 7,
+    "scr_first_page": 1109,
+    "decided_on": "2007-06-21",
+    "coram_raw": "DR. ARIJIT PASA Y AT AND P.P. NAOLEKAR, JJ.",
+    "coram_regex": [
+      "ARIJIT PASA Y AT",
+      "P.P. NAOLEKAR"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "I f STATE. NCTOF DELHI ------<",
+    "respondent_regex": "MALVINDER SINGH",
+    "court_regex": "Supreme Court of India",
+    "year": 2007,
+    "footnotes": [
+      {
+        "page": 1113,
+        "text": ":::::j"
+      }
+    ],
+    "pre_judgment_block": "CRIMINAL APPELLATE JURISDICTION : Criminal Appeal No. 433 of 2002. From the Judgment and Order dated 1.5.2001 of the High Court at New Delhi in Criminal Appeal No. 16 of 1992. · B.B. Singh, Vikas Sharma and D.S. Mahra for the Appellant. K. Sarda Devi for the Respondent.",
+    "case_no": "Criminal Appeal No. 433 of 2002",
+    "appeal_from_raw": "From the Judgment and Order dated 1.5.2001 of the High Court at New Delhi in Criminal Appeal No. 16 of 1992",
+    "judgment_author_regex": "ARIJIT PASAYA T",
+    "layout": "unnumbered_page_anchored",
+    "ocr_noise_score": 0.0004
+  },
+  "flags": [],
+  "case": {
+    "case_name": "State, NCT of Delhi v. Malvinder Singh",
+    "petitioner": "State, NCT of Delhi",
+    "respondent": "Malvinder Singh",
+    "court": "Supreme Court of India",
+    "coram": [
+      "DR. ARIJIT PASA Y AT",
+      "P.P. NAOLEKAR"
+    ],
+    "judgment_author": "DR. ARIJIT PASA Y AT",
+    "procedural_stage": "post_arrest_bail",
+    "offence_types": [
+      "narcotic"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "This case involves the appeal against the acquittal of the accused for possession of narcotics. The High Court acquitted the accused due to procedural non-compliance regarding record-keeping under Section 42 of the NDPS Act. The Supreme Court examined the applicability of Section 42 in the context of police conduct while on patrol and the legality of the search conducted.",
+    "lower_court_outcome": "Acquittal of the accused by High Court on grounds of non-compliance with Section 42 requirements.",
+    "disposition": "Appeal allowed; acquittal overturned and trial court's conviction restored.",
+    "statutes": [
+      {
+        "act": "Narcotic Drugs and Psychotropic Substances Act, 1985",
+        "section": "42",
+        "how_used": "interpreted",
+        "note": "Section 42 does not apply where a police officer, while on patrol, stops a vehicle in a public place."
+      },
+      {
+        "act": "Narcotic Drugs and Psychotropic Substances Act, 1985",
+        "section": "43",
+        "how_used": "interpreted",
+        "note": "Section 43 allows for seizure in public places without the need to record satisfaction under Section 42."
+      }
+    ],
+    "issues": [
+      {
+        "question": "Is Section 42 of the NDPS Act applicable when a police officer conducts a search during patrol?",
+        "short_answer": "No.",
+        "anchors": [
+          "p1114.3"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "Section 42 of the NDPS Act does not apply when a police officer conducts a search of a vehicle in transit at a public place under patrol duty.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p1114.3"
+        ],
+        "quote": "Section 42 has no application to the facts of the case."
+      },
+      {
+        "id": "p2",
+        "text": "Under Section 43 of the NDPS Act, an officer may seize narcotic drugs in any public place or in transit without the need for prior written satisfaction as required under Section 42.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p1113.4"
+        ],
+        "quote": "If a public conveyance is searched in a public place, the officer making the search is not required to record his satisfaction."
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The High Court mistakenly applied Section 42 where it does not apply; the search was conducted in a public place by officers on patrol duty.",
+        "outcome": "accepted",
+        "anchors": [
+          "p1112.1"
+        ]
+      },
+      {
+        "side": "respondent",
+        "text": "The High Court's acquittal was justified due to non-compliance with Section 42 of the NDPS Act.",
+        "outcome": "rejected",
+        "anchors": [
+          "p1112.2"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "State of Haryana v. Jarnail Singh",
+        "citation": "[2004] 5 SCC 188",
+        "treatment": "relied_on",
+        "used_for": "Applicability of Section 42 in similar circumstances.",
+        "where": null
+      },
+      {
+        "name": "T. Thomson v. State of Kerala and Anr.",
+        "citation": "[2002] 9 SCC 618",
+        "treatment": "relied_on",
+        "used_for": "No statutory requirement to produce information record in court.",
+        "where": "[p1112.4]"
+      }
+    ]
+  },
+  "authority_table": [
+    {
+      "name": "T. Thomson v. State of Kara/a and Anr",
+      "cite": "[2002) 9 SCC 618",
+      "treatment": "relied_on",
+      "para": null
+    }
+  ],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "unsupported",
+      "favors_correct": true,
+      "note": "The anchor_text indicates that Section 42 is not applicable but does not directly support the proposition about searches conducted during patrol."
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    }
+  },
+  "needs_review": [
+    "p2: quote not found in its anchors",
+    "p1: verifier says unsupported, favors_correct=True - The anchor_text indicates that Section 42 is not applicable but does not directly support the proposition about searches conducted during patrol."
+  ],
+  "paragraphs": {
+    "p1110.1": {
+      "text": "DR ARIJIT PASAYA T, J. 1. Challenge in this appeal is to the judgment of a learned Single Judge of· Delhi High Court directing acquittal of the · respondent (hereinafter referred to as the 'Accused'). Learned Session Judge, Delhi in Sessions Case No. 698 of 1991 found the accused guilty of the offence punishable under Section 17 of the Narcotic Drugs and Psychotropic Substances Act, 1985 (in short the 'Act') and sentenced him to undergo rigorous imprisonment for ten years with a fine of Rs.1,00,000/- with d.efault stipulation.",
+      "page_start": 1110,
+      "page_end": 1110
+    },
+    "p1110.2": {
+      "text": "' 2. Background facts in a nutshell are as follows:",
+      "page_start": 1110,
+      "page_end": 1110
+    },
+    "p1110.3": {
+      "text": "On 20th February, 1990 Pran Nath, Sub Inspector of Special staff, north District, was on patrolling duty along with Ramesh Kumar, Assistant Sub- Inspector, Puran Chand, Head Constable; Raghbir Singh, Head Constable; Ved Parkash Head Constable and other constables. At about 7 a.m., near the petrol pump at Mall Road situated within the bounds of Police Station, STATE.NCTOFDELHl1·.MALVINDERSINGH[PASAYAT.J.j Timarpur. a police Informer gave information to Pran Nath, Sub Inspector of the accused's possession of opium.",
+      "page_start": 1110,
+      "page_end": 1111
+    },
+    "p1111.1": {
+      "text": "Consequently, a raiding party was · organized. Jeet Lal, public witness was also joined in the raiding party beside.s the above mentioned cops. Thereafter. the members of the raiding party lay waiting at the Ring Road crossing, Timarpur. At about 7.45 a.m. scooter No. DIA 819 was spotted by the members of the raiding party. It was observed that Malvinder Singh (accused) was plying the said scooter and accused Om Parkash @ Lalla @ Gupta was sitting on its pillion seat. At the instance of the informer the scooter was stopped. Pran Nath, Sub Inspector acquainted the accused with the contents of the information and with the fact that if the accused so desired, they could be produced before an Officer (Gazetted) for conducting their search. The accused reeled off their refusal to the said proposal and made clean breast of the charge that they were having opium. However, Pran Nath sent information to Ramesh Chand Saini, the then S.H.O. of Police Station Timarpur and H.M. Meena, A.C.P. and called them to the spot. After some time ACP Shri Meena and SHO Shri Saini arrived at the spot one after the other. Both of verified the facts on the spot. Thereafter, they directed the Investigating Officer to conduct the search. The search of Om Parkash accused resulted in recovery of opium weighing 800 gms. which had been wrapped in a newspaper and kept in between chest, shirt and sweater of Om Parkash. Malvinder accused produced the key of the scooter. He brought out the same from the lock of the head of the scooter. Opium weighing 700 gms., wrapped in green polythene paper was recovered from dicky of the above said scooter. Two samples weighing 50 grams each were separated from the above said opium weighing 800 grams and 700 grams. Both the samples and the remaining two parcels of the opium were separately packed and sealed with the seals bearing the initials of RKV belonging to Ramesh Kumar Vohra ASI and RCS belonging to the SHO. CFSL form was filled in and both the seals were affixed thereon. The seal of RKV was entrusted with Jeet Lal, public witness, but the SHO retained his seal with him. SHO carried the case property and CFSL form to the police station and deposited the same with the Moharar Malkhana. The case property recovered from the possession of Om Prakash was seized vide recovery memo Ex. PW l/B, Malvinder's case property, scooter, keys were seized vide recovery memo Ex. PWl/A. Kuldip Singh constable took the ruqqa Ex. PW 6/A to the police station and Kedar Nath Singh, Head Constable registered the instant case. Report of CFSL Ex. 7/B depicted the percentage of Morphine in the samples as 5.5 and 4.8. approximately. The Public Analyst came to the conclusion that the samples had given positive tests for opium.",
+      "page_start": 1111,
+      "page_end": 1111
+    },
+    "p1111.2": {
+      "text": "The accused were thus arrested and charged under Section 17 of the N.D.P.S. Act. (2007) 7 S.C.R.",
+      "page_start": 1111,
+      "page_end": 1112
+    },
+    "p1112.1": {
+      "text": "3. After investigation. charge sheet was filed. Accused pleaded innocence. Appellant also pleaded that on account of animosity with the Head Constable Chandrika Parshad. he was falsely implicated. The trial court . found the evidence to be cogent and credible and convicted both the accused persons i.e. Om Prakash and the present respondent. Respondent preferred an appeal before the High Court and questioned the conviction primarily on the ground that there was non compliance of the requirements of Section 42 of the Act. The High Court accepted the plea that the secret information received was not reduced into writing and was also not sent to the higher officer. In the absence of any evidence in this effect it was held that there was non compliance of the mandatory requirements of Section 42 of the Act. Accordingly the conviction was set aside and acquittal was directed. 4. In support of the appeal learned counsel for the appellant submitted that the High Court had erroneously concluded that this was a case to which Section 42 has application. Undisputedly, the police officer while on patrol duty, received secret information and had organized the raid party. The ACP was also informed and he was a party of the raid party and, therefore, Section 42 has no application. In any case there was no requirement to send any information which in fact had been done. It was for the accused to call for the record relating to the information given to the superior officer. In any event, this is a case which is not only covered by Section 43 IPC but also covered by Section 41 IPC.",
+      "page_start": 1112,
+      "page_end": 1112
+    },
+    "p1112.2": {
+      "text": "5. Learned counsel for the accused supported the order of the High Court.",
+      "page_start": 1112,
+      "page_end": 1112
+    },
+    "p1112.3": {
+      "text": "6. At this juncture it would be relevant to take note of what has been ;..",
+      "page_start": 1112,
+      "page_end": 1112
+    },
+    "p1112.4": {
+      "text": "stated by this Court in T. Thomson v. State of Kera/a and Anr., (2002] 9 SCC ~ ......... t 618. At para 5 it was observed as follows:",
+      "page_start": 1112,
+      "page_end": 1112
+    },
+    "p1112.5": {
+      "text": "\"5. Learned Senior Counsel further argued that the record alleged -'.",
+      "page_start": 1112,
+      "page_end": 1112
+    },
+    "p1112.6": {
+      "text": "to have been prepared by PW l on getting information regarding the movement of the appellants has not been produced in court. But he conceded that no motion was made on behalf of the appellants to call for the said record. There is no statutory requirement that such a record should be produced in the court as a matter of course. We are, therefore, not disposed to upset the finding on that score either.\" 7. It appears that no effort was made by the accused to call for the records of information, if any, sent. The further question is whether in a case STATE. NCTOFDELHI v. MALVINDERSINGH [PASAYAT.J.J of this nature while the police officer on patrol duty stops the vehicle in -.( transit in a public place and conducts search and seizure. Section 42 has no application.",
+      "page_start": 1112,
+      "page_end": 1113
+    },
+    "p1113.1": {
+      "text": "8. In State of Hmyana v. Jarnail Singh and Ors., [2004] 5 SCC 188, it was held as follows:",
+      "page_start": 1113,
+      "page_end": 1113
+    },
+    "p1113.2": {
+      "text": "'The next question is whether Section 42 of the NDPS Act applies to the facts of this case. In our view Section 42 of the NDPS Act has no application to the facts of this case. Section 42 authorises an officer of the departments enumerated therein, who are duly empowered in this behalf, to enter into and search any such building, conveyance c or place, if he has reason to believe from personal knowledge or information given by any person and taken down in writing that any narcotic drug or psychotropic substance etc. is kept or concealed in any building, conveyance or enclosed place. This power can be exercised freely between sunrise and sunset but between sunset and sunrise if such an officer proposes to enter and search such building, conveyance or enclosed place, he must record the grounds for his belief that a search warrant or authorization cannot be obtained without affording opportunity for the concealment of evidence or facility for the escape of an offender.",
+      "page_start": 1113,
+      "page_end": 1113
+    },
+    "p1113.3": {
+      "text": "Section 43 of the NDPS Act provides that any officer of any of the departments mentioned in Section 42 may seize in any public place or in transit any narcotic drug or psychotropic substance etc. in respect of which he has reason to believe that an offence punishable under the Act has been committed. He is also authorized to detain and search any person whom he has reason to believe to have committed an offence punishable under the Act. Explanation to Section 43 lays ........",
+      "page_start": 1113,
+      "page_end": 1113
+    },
+    "p1113.4": {
+      "text": "down that for the purposes of this section, the expression \"public place\" includes any public conveyance, hotel, shop, or other place intended for use by, or accessible to, the public.",
+      "page_start": 1113,
+      "page_end": 1113
+    },
+    "p1113.5": {
+      "text": "Sections 42 and 43, therefore. contemplate two different situations. Section 42 contemplates entry into and search of any building, conveyance or enclosed place, while Section 43 contemplates a seizure made in any public place or in transit. ff seizure is made under Section ,:_ 1' 42 between sunset and sunrise, the requirement of the proviso thereto has to be complied with. There is no such proviso in Section 43 of the Act and, therefore, it is obvious that if a public conveyance is searched in a public place. the officer making the search is not required to record his satisfaction as contemplated by the proviso to Section 42 of the NDPS Act for searching the vehicle between sunset and the sunrise.",
+      "page_start": 1113,
+      "page_end": 1114
+    },
+    "p1114.1": {
+      "text": "In the instant case there is no dispute that the tanker was moving on the public highway when it was stopped and searched. Section 43 therefore clearly applied to the facts of this case. Such being the factual position there was no requirement of the officer conducting the search to record the grounds of his belief as contemplated by the proviso to Section 42. Moreover it cannot be lost sight of that the c Superintendent of Police was also a member of the searching party. It has been held by this Court in M. Prabhulal vs. Assistant Director, Directorate of Revenue Intelligence [2003 (8) SCC 449] that where a search is conducted by a gazetted officer himself acting under Section 41 of the NDPS Act, it was not necessary to comply with the requirement of Section 42. For this reason also, in the facts of this case, it was not necessary to comply with the requirement of the proviso to Section 42 of the NDPS Act.\"",
+      "page_start": 1114,
+      "page_end": 1114
+    },
+    "p1114.2": {
+      "text": "9. Above being the position of Jaw as stated above, the order of the High Court is clearly unsustainable.",
+      "page_start": 1114,
+      "page_end": 1114
+    },
+    "p1114.3": {
+      "text": "Section 42 has no application to the facts of the case. The order of the High Court is set aside and that of the trial court is restored.",
+      "page_start": 1114,
+      "page_end": 1114
+    },
+    "p1114.4": {
+      "text": "Respondent accused shall surrender forthwith to custody to serve remainder of sentence.",
+      "page_start": 1114,
+      "page_end": 1114
+    },
+    "p1114.5": {
+      "text": "10. Appeal is allowed.",
+      "page_start": 1114,
+      "page_end": 1114
+    },
+    "p1114.6": {
+      "text": "Appeal allowed.",
+      "page_start": 1114,
+      "page_end": 1114
+    },
+    "p1114.7": {
+      "text": "K.KT.",
+      "page_start": 1114,
+      "page_end": 1114
+    }
+  },
+  "headnote_raw": " \nI\nf\nSTATE. NCTOF DELHI\n------<\nv.\nMALVINDER SINGH\nJUNE 21, 2007\n_......,\nNarcotic Drugs and Psychotropic Substances Act, 1985-ss. 42 and\n43-Applicability of s. 42-To cases where police officer on patrol duty\nconducts search and seizure, by stopping the vehicle in transit, in a public c\nplace-Held : In such cases provision of s. 42 is not applicable in view of\nthe provision uls. 43.\nThe question for consideration in the present case was whether in a\ncase where the police officer on patrol duty stops the vehicle in transit in a\npublic place and conducts search and seizure, Section 42 of Narcotic Drugs\nand Psychotropic Substances Act, 1985 is applicable. In this case High Court\nhad acquitted the accused on the ground that in such a case secret information\n~,..\nreceived was not reduced into writing and was also not sent to the Higher\nOfficer and thus there was non-compliance of provision u/s 42 of the Act.\nAllowing the appeal, the Court\nHELD : 1.1. The order of the High Court is clearly unsustainable.\nSection 42 has no applic;ation to the facts of the case. In a case where the\npolice officer on patrol duty stops the vehicle in transit in a public place and\nconducts search and seizure, Section 42 has no application. [Paras 9 and 7)\n(1114-E; 1112-H; 1113-A)\n......>.\n1.2. Section 43 of the Narcotic Drugs and Psychotropic Act, 1985\nprovides that any officer of any of the departments mentioned in Section 42\nmay seize in any public place or in transit any narcotic drug or psychotropic\nsubstance etc. in respect of which he has reason to believe that an offence\npunishable under the Act has been committed. He is also authorized to detain\nand search any person whom he has reason to believe to have committed an\noffence punishable under the Act. Explanation to Section 43 lays down that\nfor the purposes of this section, the expression \"public place\" includes any\n-t\npublic conveyance, hote~ shop, or other place intended for use by, or accessible\nto, the public. If a public conveyance is searched in a public place, the officer\n \n(2007) 7 S.C.R.\nmaking the search is not required to record his satisfaction as contemplated\nby the proviso to ~tion 42 of the NDPS Act for searching the vehicle between\nsunset and the sunrise. (Para 81 (1113-E-H; 1I14-AI\n'State of Haryana v. Jarnail Singh and Ors., 120041 5 SCC 188, relied\non.\n2. It appears that no effort was made by the accused to call for the records\nof information, if any, sent. There is no statutory requirement that such a\nrecord should be produced in the court as a matter of course. [Paras 7 and\n6)\nc\nr.\nT. Thomson v. State of Kara/a and Anr., [2002) 9 SCC 618, relied on.\n"
+}

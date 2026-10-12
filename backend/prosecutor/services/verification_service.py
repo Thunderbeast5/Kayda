@@ -39,7 +39,11 @@ class VerificationService:
                    n.keywords AS keywords, n.act AS act
             LIMIT 1
         """
-        rows = self.neo4j_service.run_query(query, {"act": act, "section": section})
+        try:
+            rows = self.neo4j_service.run_query(query, {"act": act, "section": section})
+        except Exception as e:
+            print(f"[VerificationService] Neo4j unavailable for get_node_info({act} {section}): {e}")
+            return {}
         if rows:
             return rows[0]
         return {}
@@ -131,16 +135,6 @@ class VerificationService:
             print(f"\n[WARN] Multiple successor mappings found for {act_clean} {sec_clean}: {target_list}. Selecting primary: {target_list[0]}")
 
         matched = list(unique_targets.values())[0]
-        
-        print("\n" + "=" * 50)
-        print(f"Requested:\n{act_clean} {sec_clean}")
-        print("  |")
-        print(f"Matched Node:\nLawSection({act_clean} {sec_clean})")
-        print("  |")
-        print(f"Relationship:\n{matched.get('rel', 'REPLACES')}")
-        print("  |")
-        print(f"Returned:\n{matched['act']} {matched['section']}")
-        print("=" * 50 + "\n")
 
         return {
             "act": matched["act"],

@@ -147,5 +147,25 @@
       "General and omnibus allegations against in-laws warrant grant of anticipatory bail",
       "Courts must scrutinize whether allegations are exaggerated due to matrimonial acrimony"
     ]
+  },
+  {
+    "case_id": "PREC_SC_009",
+    "case_name": "Srikant Upadhyay v. State of Bihar",
+    "court": "Supreme Court of India",
+    "citation": "2024 INSC 202",
+    "year": 2024,
+    "bench": "C.T. Ravikumar, Sanjay Kumar, JJ.",
+    "offences_covered": ["438 CrPC", "82 CrPC", "83 CrPC", "482 BNSS", "84 BNSS"],
+    "procedural_stage": "Anticipatory Bail",
+    "bail_outcome": "Anticipatory Bail Denied / Quashed",
+    "facts_summary": "Accused failed to appear despite repeated summons, bailable warrants, and non-bailable warrants. Proclamation under Section 82 CrPC was issued and executed. High Court granted anticipatory bail despite proclamation.",
+    "ratio_decidendi": "An accused who is absconding, defying court warrants, or against whom proclamation under Section 82 CrPC has been issued is not entitled to anticipatory bail under Section 438 CrPC. Pendency of anticipatory bail does not bar trial court from issuing Section 82 proclamation.",
+    "key_bail_principles": [
+      "Absconding or evasion of warrants bars discretionary relief of anticipatory bail",
+      "Proclamation under Section 82 CrPC disentitles accused from Section 438 CrPC protection",
+      "Mere pendency of anticipatory bail without interim order does not bar Trial Court from Section 82/83 proceedings",
+      "Anticipatory bail is an extraordinary remedy not meant for fugitives defying court process"
+    ]
   }
 ]
+

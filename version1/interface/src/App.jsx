@@ -1,56 +1,71 @@
-import { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/auth/ProtectedRoute";
+import AuthPage from "./pages/AuthPage";
 import HomePage from "./pages/HomePage";
 import EvidenceAnalyzerPage from "./pages/EvidenceAnalyzerPage";
 import LexiGraphCypherPage from "./pages/LexiGraphCypherPage";
 import LexiGraphAgentPage from "./pages/LexiGraphAgentPage";
+import ProfilePage from "./pages/ProfilePage";
 
 export default function App() {
-  const [page, setPage] = useState(getPageFromHash());
+  return (
+    <BrowserRouter>
+      <AuthProvider>
+        <Routes>
+          {/* Public routes */}
+          <Route path="/auth" element={<AuthPage />} />
+          <Route path="/login" element={<Navigate to="/auth" replace />} />
 
-  useEffect(() => {
-    const onHashChange = () => setPage(getPageFromHash());
-    window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
-  }, []);
+          {/* Public landing page */}
+          <Route path="/" element={<HomePage />} />
 
-  if (page === "evidence-analyzer") {
-    return (
-      <EvidenceAnalyzerPage
-        onBack={() => {
-          window.location.hash = "#/";
-        }}
-      />
-    );
-  }
+          {/* Protected routes */}
+          <Route
+            path="/evidence-analyzer"
+            element={
+              <ProtectedRoute>
+                <EvidenceAnalyzerPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/lexigraph-agent"
+            element={
+              <ProtectedRoute>
+                <LexiGraphAgentPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/text2cypher"
+            element={
+              <ProtectedRoute>
+                <LexiGraphCypherPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/profile/:userId"
+            element={
+              <ProtectedRoute>
+                <ProfilePage />
+              </ProtectedRoute>
+            }
+          />
 
-  if (page === "lexigraph-agent" || page === "lexigraph_agent") {
-    return (
-      <LexiGraphAgentPage
-        onBack={() => {
-          window.location.hash = "#/";
-        }}
-        onSwitchToCypher={() => {
-          window.location.hash = "#/text2cypher";
-        }}
-      />
-    );
-  }
-
-  if (page === "text2cypher" || page === "lexigraph" || page === "cypher") {
-    return (
-      <LexiGraphCypherPage
-        onBack={() => {
-          window.location.hash = "#/";
-        }}
-      />
-    );
-  }
-
-  return <HomePage />;
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </AuthProvider>
+    </BrowserRouter>
+  );
 }
-
-function getPageFromHash() {
-  const hash = window.location.hash.replace("#/", "").replace("#", "");
-  return hash || "home";
-}
-

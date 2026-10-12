@@ -1,0 +1,273 @@
+{
+  "case_id": "_2018_1_SCR_909",
+  "doc_meta": {
+    "source_file": "2018 INSC 105.pdf",
+    "pdf_pages": 6,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment",
+      "author": "author:0"
+    },
+    "format_profile": "scr_reporter",
+    "citation_scr": "[2018] 1 SCR 909",
+    "scr_year": 2018,
+    "scr_volume": 1,
+    "scr_first_page": 909,
+    "decided_on": "2018-02-06",
+    "coram_raw": "MADAN B. LOKUR AND DEEPAK GUPTA, JJ.",
+    "coram_regex": [
+      "MADAN B. LOKUR",
+      "DEEPAK GUPTA"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "THE STATE OF KARNATAKA & ORS.",
+    "respondent_regex": "SHANKAR BABURAO KANGRALKAR & ANR.",
+    "court_regex": "Supreme Court of India",
+    "year": 2018,
+    "footnotes": [
+      {
+        "page": 914,
+        "text": "Ankit Gyan"
+      },
+      {
+        "page": 914,
+        "text": "Appeal allowed."
+      }
+    ],
+    "pre_judgment_block": "CIVIL APPELLATE JURISDICTION : Civil Appeal No. 1612 of 2018. From the Judgment and Order dated 09.09.2011 of the High Court of Karnataka, Circuit Bench at Dharwad in W. P. No. 63822 of 2010. V. N. Raghupathy, Adv for the Appellants. Anirudh Sanganeria, Chinmay Deshpande, Ms. Astha Deep, Nicholas Choudhury, Brij Kishor Sah, Shivaji M. Jadhav, S.K. Jain, Advs for the Respondents.",
+    "case_no": "Civil Appeal No. 1612 of 2018",
+    "appeal_from_raw": "From the Judgment and Order dated 09.09.2011 of the High Court of Karnataka, Circuit Bench at Dharwad in W. P. No. 63822 of 2010",
+    "judgment_author_regex": "MADAN B. LOKUR",
+    "layout": "numbered_paras",
+    "ocr_noise_score": 0.0094
+  },
+  "flags": [
+    "numbering_starts_at_2"
+  ],
+  "case": {
+    "case_name": "The State of Karnataka & Ors. v. Shankar Baburao Kangralkar & Anr.",
+    "petitioner": "THE STATE OF KARNATAKA & ORS.",
+    "respondent": "SHANKAR BABURAO KANGRALKAR & ANR.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "MADAN B. LOKUR",
+      "DEEPAK GUPTA"
+    ],
+    "judgment_author": "MADAN B. LOKUR",
+    "procedural_stage": "other",
+    "offence_types": [],
+    "dispute_nature": "other",
+    "abstract_facts": "This case concerns the non-selection of Respondent No.1 for the position of Hindi Language Assistant in a Government High School in Karnataka, challenging the interpretation of eligibility criteria under the relevant Recruitment Rules.",
+    "lower_court_outcome": "Both the Tribunal and the High Court granted relief to Respondent No.1.",
+    "disposition": "The appeal is allowed in the above circumstances but with no order as to costs.",
+    "statutes": [
+      {
+        "act": "Karnataka Education Department Services (Department of Public Instructions) (Recruitment) (Amendment) Rules, 2002",
+        "section": "",
+        "how_used": "interpreted",
+        "note": ""
+      }
+    ],
+    "issues": [
+      {
+        "question": "What are the eligibility criteria for the position of Hindi Language Assistant?",
+        "short_answer": "A Bachelor's Degree in Arts with Hindi as a major subject and a B.Ed Degree with Hindi as a teaching method are required.",
+        "anchors": [
+          "P3"
+        ]
+      },
+      {
+        "question": "Was the non-selection of Respondent No.1 justified?",
+        "short_answer": "Yes, due to the lack of a B.Ed Degree with Hindi as a teaching method.",
+        "anchors": [
+          "P13"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "For the post of Hindi Language Assistant, candidates must hold a Bachelor's Degree with Hindi as a major subject and a B.Ed Degree with Hindi as a teaching method.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P3",
+          "P10"
+        ],
+        "quote": "must be a holder of Bachelor Degree with Hindi as major subject.. Must be holder of degree in Education with the concerned subject or subjects as teaching methods"
+      },
+      {
+        "id": "p2",
+        "text": "The Karnataka Education Department Services Rules provide a specific set of eligibility requirements for the position of Hindi Language Assistant, which are stricter than other language assistants.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P10"
+        ],
+        "quote": "the requirement for a Hindi Language Assistant is much stricter than it is for any other language such as Kannada, Marathi, Telugu, Tamil etc."
+      },
+      {
+        "id": "p3",
+        "text": "If a special provision is made for a particular matter, that matter is excluded from general provisions.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P12"
+        ],
+        "quote": "if a special provision is made on a certain matter, that matter is excluded from the general provision."
+      },
+      {
+        "id": "p4",
+        "text": "Both the Karnataka Administrative Tribunal and the High Court failed to appropriately apply the eligibility criteria for the post of Hindi Language Assistant, leading to an error in their judgments.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P9"
+        ],
+        "quote": "both the Karnataka Administrative Tribunal as well as the High Court were in error and took a rather narrow and restricted view of the eligibility criteria."
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The eligibility criteria for Hindi Language Assistant require stricter qualifications than what Respondent No.1 possesses, specifically the B.Ed with Hindi.",
+        "outcome": "accepted",
+        "anchors": [
+          "P10",
+          "P13"
+        ]
+      },
+      {
+        "side": "respondent",
+        "text": "Respondent No.1 satisfies the qualifications based on his degree holdings and should be considered for selection.",
+        "outcome": "rejected",
+        "anchors": [
+          "P8",
+          "P6"
+        ]
+      }
+    ],
+    "authorities": []
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p4": {
+      "id": "p4",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    }
+  },
+  "needs_review": [
+    "parser flag: numbering_starts_at_2"
+  ],
+  "paragraphs": {
+    "P2": {
+      "text": "The appellants are aggrieved by a judgment and order dated 9th September, 2011 passed by the Division Bench of the Karnataka High Court in Writ Petition No.63822/2010 and Writ Petition No.65517/ 2010. The controversy in this appeal is narrow and concerns the non-selection of Respondent No.1 (Shankar Baburao Kangralkar) to the post of Hindi Language Assistant in a Government High School in Karnataka.",
+      "page_start": 911,
+      "page_end": 911
+    },
+    "P3": {
+      "text": "A recruitment notification was issued by the appellants on 30th July, 2003 for the appointment of High School Assistant Teacher Grade- 2. We are concerned with the appointment of Hindi Language Assistant. In terms of the notification the eligibility criteria was as follows: “In case of Hindi Language Assistant, must be a holder of Bachelor Degree with Hindi as major subject. AND Must be holder of degree in Education with the concerned subject or subjects as teaching methods”",
+      "page_start": 911,
+      "page_end": 912
+    },
+    "P4": {
+      "text": "Admittedly, Respondent No.1 is a holder of a Bachelor’s Degree with Hindi as a major subject but does not hold a B.Ed Degree with Hindi as a teaching method although he does hold a B.Ed Degree from Karnataka University. Consequently, even though Respondent No.1 had done quite well in the selection process, he was not selected on the ground that he did not possess the requisite qualification for appointment.",
+      "page_start": 912,
+      "page_end": 912
+    },
+    "P5": {
+      "text": "Feeling aggrieved, Respondent No.1 preferred Application No. 931 of 2004 before the Karnataka Administrative Tribunal challenging his non-selection. By its judgment and order dated 4th December, 2009 the Tribunal came to the conclusion that under the Recruitment Rules, namely, The Karnataka Education Department Services (Department of Public Instructions) (Recruitment) (Amendment) Rules, 2002 there are three sets of qualifications postulated for appointment to the post of Language Assistant. Broadly, a Language Assistant must have a Bachelor’s Degree in Arts with the concerned language as one of the optional subjects and must be the holder of a degree in Education. Secondly, in the case of a Hindi Language Assistant, the candidate must be a holder of a Bachelor’s Degree with Hindi as a major subject and must be the holder of a B.Ed Degree with the concerned subject as teaching methods. Thirdly, a special provision is made for a Language Assistant in Hindi in the case of a certain category of candidates. We are not concerned with the third category.",
+      "page_start": 912,
+      "page_end": 912
+    },
+    "P6": {
+      "text": "The Tribunal took the view that as long as Respondent No.1 holds a Bachelor’s Degree in Arts with Hindi as a major subject and holds a degree in Education from the Karnataka University, he fulfills the eligibility requirement and therefore is entitled to a direction for being considered for selection as per his merit by removing the last selected candidate.",
+      "page_start": 912,
+      "page_end": 912
+    },
+    "P7": {
+      "text": "Feeling aggrieved by the decision of the Tribunal, the appellants preferred a writ petition in the Karnataka High Court and the last selected candidate Prakash Kundalik Patil also preferred a writ petition in the BABURAO KANGRALKAR & ANR. [MADAN B. LOKUR, J.] High Court. Both the writ petitions were heard and dismissed by the High Court with the result that Respondent No.1 was required to be considered for the post of Language Assistant.",
+      "page_start": 912,
+      "page_end": 913
+    },
+    "P8": {
+      "text": "The High Court took the view that as long as Respondent No.1 holds a Bachelor’s Degree with Hindi as a major subject and a B.Ed Degree from Karnataka University, he was entitled to be considered for selection to the post of Language Assistant. The High Court held that the primary requirement under the Recruitment Rules was that a candidate for appointment as a Language Assistant must be a holder of a Bachelor’s Degree in Arts with the concerned language as one of the optional subjects and must be the holder of degree in Education. Since Respondent No.1 satisfied both the requirements, he was entitled to be considered for selection.",
+      "page_start": 913,
+      "page_end": 913
+    },
+    "P9": {
+      "text": "Feeling aggrieved, the present appeal has been preferred by the State of Karnataka. Prakash Kundalik Patil has not preferred any appeal in this Court. In our opinion, both the Karnataka Administrative Tribunal as well as the High Court were in error and took a rather narrow and restricted view of the eligibility criteria.",
+      "page_start": 913,
+      "page_end": 913
+    },
+    "P10": {
+      "text": "There is no doubt that under the Recruitment Rules a Bachelor’s Degree in Arts in the concerned language is a pre-requisite as also a B.Ed Degree but as far as a Hindi Language Assistant is concerned, the eligibility criterion for that post has been singled out with other requirements. The Recruitment Rules make a specific category for a Hindi Language Assistant by requiring a candidate to not only hold a Bachelor’s Degree but hold such a degree with Hindi as a major subject and not only as an optional subject. The additional requirement under the Recruitment Rules is that the candidate must hold a degree in Education with the concerned subject (Hindi) as a teaching method. In other words, the requirement for a Hindi Language Assistant is much stricter than it is for any other language such as Kannada, Marathi, Telugu, Tamil etc. Essentially, the Recruitment Rules have carved out a special set of requirements for a Hindi Language Assistant and there is no challenge to such a specific requirement.",
+      "page_start": 913,
+      "page_end": 913
+    },
+    "P11": {
+      "text": "Recently, in Independent Thought v. Union of India we have discussed the primacy given to and the application of a special law as against a general law from paragraph 95 onwards of the Report. More recently in Atma Ram Properties Pvt. Ltd. v. The Oriental Insurance Co. Ltd. a reference was made to the following passage from St. Stephen’s College v. University of Delhi (1992) 1 SCC 558 wherein it was held: “140. … The golden rule of interpretation is that words should be read in the ordinary, natural and grammatical meaning and the principle of harmonious construction merely applies the rule that where there is a general provision of law dealing with a subject, and a special provision dealing with the same subject, the special prevails over the general. If it is not constructed in that way the result would be that the special provision would be wholly defeated.”",
+      "page_start": 913,
+      "page_end": 914
+    },
+    "P12": {
+      "text": "Clearly therefore, it is well settled that if a special provision is made on a certain matter, that matter is excluded from the general provision. This principle is fully applicable to The Karnataka Education Department Services (Department of Public Instructions) (Recruitment) (Amendment) Rules, 2002 and the provision relating to the post of a Hindi Language Assistant.",
+      "page_start": 914,
+      "page_end": 914
+    },
+    "P13": {
+      "text": "The undisputed facts are that although Respondent No.1 does have a Bachelor’s Degree with Hindi as a major subject, but he does not have a B.Ed with Hindi as a teaching method. That being so, the appellants were justified in not accepting the candidature of Respondent No.1 and the Karnataka Administrative Tribunal as well as the High Court were in error in granting relief to Respondent No.1.",
+      "page_start": 914,
+      "page_end": 914
+    },
+    "P14": {
+      "text": "The appeal is allowed in the above circumstances but with no order as to costs. 2017 SCC OnLine SC 1424",
+      "page_start": 914,
+      "page_end": 914
+    }
+  },
+  "headnote_raw": " \nTHE STATE OF KARNATAKA & ORS.\nv.\nSHANKAR BABURAO KANGRALKAR & ANR.\n(Civil Appeal No. 1612 of 2018)\nFEBRUARY 06, 2018\nKarnataka Education Department Services (Department of\nPublic Instructions) (Recruitment) (Amendment) Rules, 2002 –\nRecruitment Rules – Interpretation of – Recruitment notification was\nissued by the appellants for the appointment of High School Assistant\nTeacher Grade-2 – In terms  of the notification the eligibility criteria\nfor Hindi Language Assistant in Government High School was: (i)\nOne must  be a holder of Bachelor Degree with Hindi as major\nsubject and (ii) One must be holder of degree in Education with the\nconcerned subject or subjects as teaching methods – Respondent\nNo.1 was not selected on the ground that he did not possess the\nrequisite qualification for appointment – Both Tribunal and High\nCourt held that Respondent No.1 was entitled to be considered for\nselection to the post of Language Assistant – On appeal, held: The\nrecruitment rules make a specific category for a Hindi Language\nAssistant by requiring a candidate to not only hold a Bachelor’s\nDegree but hold such a degree with Hindi as a major subject – The\nadditional requirement under the Recruitment Rules is that the\ncandidate must hold a degree in Education with the concerned\nsubject (Hindi) as a teaching method – Respondent No.1 is a holder\nof a Bachelor’s Degree with Hindi as a major subject but does not\nhold a B.Ed Degree with Hindi as a teaching method – That being\nso, the appellants were  justified in not accepting the candidature\nof Respondent No.1 and the Tribunal as well as the High Court\nwere in error in granting relief to Respondent No.1 – Service Law.\nInterpretation of Statutes – Principle of harmonious\nconstruction – Primacy given to, and application of special law as\nagainst general law – Held: If a special provision is made on a\ncertain matter, that matter is excluded from general provision – This\nprinciple is fully applicable to the Karnataka Education Department\nServices Rules which has carved out a special set of eligibility\n \nrequirements for a Hindi Language Assistant and there is no\nchallenge to such a specific requirement – Karnataka Education\nDepartment Services (Department of Public Instructions)\n(Recruitment) (Amendment) Rules, 2002.\nAllowing the appeal, the Court\nHELD: 1. Both the Karnataka Administrative Tribunal as\nwell as the High Court were in error and took a rather narrow\nand restricted view of the eligibility criteria. [Para 9] [913-D]\n2. There is no doubt that under the Karnataka Education\nDepartment Services (Department of Public Instructions)\n(Recruitment) (Amendment) Rules, 2002, a Bachelor’s Degree\nin Arts in the concerned language is a pre-requisite as also a\nB.Ed Degree but as far as a Hindi Language Assistant is\nconcerned, the eligibility criterion for that post has been singled\nout with other requirements. The Recruitment Rules make a\nspecific category for a Hindi Language Assistant by requiring a\ncandidate to not only hold a Bachelor’s Degree but hold such a\ndegree with Hindi as a major subject and not only as an optional\nsubject. The additional requirement under the Recruitment Rules\nis that the candidate must hold a degree in Education with the\nconcerned subject (Hindi) as a teaching method. In other words,\nthe requirement for a Hindi Language Assistant is much stricter\nthan it is for any other language such as Kannada, Marathi, Telugu,\nTamil etc. Essentially, the Recruitment Rules have carved out a\nspecial set of requirements for a Hindi Language Assistant and\nthere is no challenge to such a specific requirement. [Para 10]\n[913-E-G]\n3.  It is well settled that if a special provision is made on a\ncertain matter, that matter is excluded from the general provision.\nThis principle is fully applicable to The Karnataka Education\nDepartment Services (Department of Public Instructions)\n(Recruitment) (Amendment) Rules, 2002 and the provision\nrelating to the post of a Hindi Language Assistant. [Para 12]\n[914-D]\n4.  The undisputed facts are that although Respondent No.1\ndoes have a Bachelor’s Degree with Hindi as a major subject,\nbut he does not have a B.Ed with Hindi as a teaching method.\nThat being so, the appellants were justified in not accepting the\n \nBABURAO KANGRALKAR & ANR.\ncandidature of Respondent No.1 and the Karnataka Administrative\nTribunal as well as the High Court were in error in granting relief\nto Respondent No.1. [Para 13] [914-E]\nIndependent Thought v. Union of India (2017) 10 SCC\n800 ; Atma Ram Properties Pvt. Ltd. v. The Oriental\nInsurance Co. Ltd.\n2017 SCC OnLine SC 1424 ;\nSt. Stephen’s College v. University of Delhi (1992) 1\nSCC 558 :  [1991]  3 Suppl.  SCR  121 – referred to.\nCase Law Reference\nreferred to\nPara 11\n[1991] 3 Suppl. SCR 121    referred to            Para 11\n"
+}

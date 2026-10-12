@@ -136,6 +136,131 @@ def _role_config(role: str) -> Dict[str, Any]:
     return ROLE_BIAS_CONFIG.get((role or "neutral").lower(), ROLE_BIAS_CONFIG["neutral"])
 
 
+_PROCEDURAL_SECTIONS = {
+    "438", "482", "437", "439", "480", "483",  # Anticipatory & regular bail (CrPC / BNSS)
+    "167", "187",                                # Remand & custody (CrPC / BNSS)
+    "27", "23",                                  # Recovery of evidence (IEA / BSA)
+    "161", "164", "180", "183",                  # Police & judicial statements (CrPC / BNSS)
+    "313", "351",                                # Statement of accused (CrPC / BNSS)
+    "70", "71", "72", "73",                      # Warrants (CrPC / BNSS)
+    "82", "83", "84", "85",                      # Proclamation & attachment (CrPC / BNSS)
+    "156", "173", "190", "200", "202", "204",    # Investigation, charge-sheet, cognizance (CrPC / BNSS)
+    # Substantive offences inseparable from proclamation/absconder cases
+    "172", "174", "174a", "175",                 # IPC: non-compliance proclamation / disobedience of summons / absconding to avoid service
+    "206", "209", "210",                         # BNS equivalents of IPC 172/174/174A/175
+}
+
+_STATUTE_CROSSWALK = {
+    # CrPC <-> BNSS
+    ("CRPC", "82"): ("BNSS", "84"),
+    ("CRPC", "83"): ("BNSS", "85"),
+    ("CRPC", "70"): ("BNSS", "72"),
+    ("CRPC", "70(2)"): ("BNSS", "72(2)"),
+    ("CRPC", "70(1)"): ("BNSS", "72(1)"),
+    ("CRPC", "156"): ("BNSS", "175"),
+    ("CRPC", "156(3)"): ("BNSS", "175(3)"),
+    ("CRPC", "167"): ("BNSS", "187"),
+    ("CRPC", "173"): ("BNSS", "193"),
+    ("CRPC", "173(2)"): ("BNSS", "193(2)"),
+    ("CRPC", "438"): ("BNSS", "482"),
+    ("CRPC", "437"): ("BNSS", "480"),
+    ("CRPC", "439"): ("BNSS", "483"),
+    ("CRPC", "482"): ("BNSS", "528"),
+    ("CRPC", "161"): ("BNSS", "180"),
+    ("CRPC", "164"): ("BNSS", "183"),
+    ("CRPC", "313"): ("BNSS", "351"),
+    # IPC <-> BNS (substantive)
+    ("IPC", "172"): ("BNS", "206"),   # Absconding to avoid service of summons
+    ("IPC", "174"): ("BNS", "209"),
+    ("IPC", "174A"): ("BNS", "209"),
+    ("IPC", "174a"): ("BNS", "209"),   # lowercase variant
+    ("IPC", "175"): ("BNS", "210"),
+    ("IPC", "341"): ("BNS", "126"),
+    ("IPC", "323"): ("BNS", "115"),
+    ("IPC", "324"): ("BNS", "117"),
+    ("IPC", "325"): ("BNS", "118"),
+    ("IPC", "354"): ("BNS", "74"),
+    ("IPC", "354B"): ("BNS", "76"),
+    ("IPC", "379"): ("BNS", "303"),
+    ("IPC", "504"): ("BNS", "352"),
+    ("IPC", "506"): ("BNS", "351"),
+    ("IPC", "149"): ("BNS", "190"),
+    ("IPC", "420"): ("BNS", "318"),
+    ("IPC", "302"): ("BNS", "103"),
+    ("IPC", "307"): ("BNS", "109"),
+    ("IPC", "376"): ("BNS", "64"),
+    ("IPC", "498A"): ("BNS", "85"),
+    # IEA <-> BSA
+    ("IEA", "27"): ("BSA", "23"),
+}
+for (a1, s1), (a2, s2) in list(_STATUTE_CROSSWALK.items()):
+    _STATUTE_CROSSWALK[(a2, s2)] = (a1, s1)
+
+
+# ── Legal regime detection ───────────────────────────────────────────────────
+# Cases filed before 1 July 2024 → IPC + CrPC
+# Cases filed on/after 1 July 2024 → BNS + BNSS
+_BNSS_CUTOFF_DATE = (2024, 7, 1)  # (year, month, day)
+
+_YEAR_RE = re.compile(r'\b(20\d{2}|19\d{2})\b')
+
+
+def _detect_legal_regime(query: str) -> str:
+    """
+    Infer whether the case falls under the old code (IPC + CrPC) or the new
+    code (BNS + BNSS) from dates found in the query / facts text.
+
+    Returns "IPC+CrPC" or "BNS+BNSS".
+    """
+    # Fast path: explicit BNS/BNSS/BSA references → new code
+    if re.search(r'\b(BNS|BNSS|BSA)\b', query, re.IGNORECASE):
+        # But only treat as new code if no strong old-code signal too
+        if not re.search(r'\b(IPC|CrPC|IEA)\b', query, re.IGNORECASE):
+            return "BNS+BNSS"
+
+    # Look for the earliest year mentioned in the text (FIR year, case year, …)
+    years = [int(m) for m in _YEAR_RE.findall(query)]
+    if years:
+        earliest = min(years)
+        cutoff_year = _BNSS_CUTOFF_DATE[0]
+        if earliest < cutoff_year:
+            return "IPC+CrPC"
+        # Year == cutoff year: check for a month/day hint
+        # (If the filing/FIR date is before 1 July 2024 use old code.)
+        # Without an explicit month we conservatively use old code for 2024.
+        if earliest == cutoff_year:
+            # Look for "July" or later in the text
+            if re.search(r'\b(July|August|September|October|November|December)\s+2024\b', query, re.IGNORECASE):
+                return "BNS+BNSS"
+            return "IPC+CrPC"
+
+    # Default: fall back to old code (most archived cases are pre-2024)
+    return "IPC+CrPC"
+
+_ACT_ALIASES = {
+    "indian penal code": "IPC",
+    "ipc": "IPC",
+    "code of criminal procedure": "CRPC",
+    "crpc": "CRPC",
+    "cr.p.c.": "CRPC",
+    "cr.p.c": "CRPC",
+    "bharatiya nyaya sanhita": "BNS",
+    "bns": "BNS",
+    "bharatiya nagarik suraksha sanhita": "BNSS",
+    "bnss": "BNSS",
+    "indian evidence act": "IEA",
+    "iea": "IEA",
+    "bharatiya sakshya adhiniyam": "BSA",
+    "bsa": "BSA",
+    "pocso": "POCSO",
+    "dpa": "DPA",
+    "dowry prohibition act": "DPA",
+    "prevention of witch (daain) practices act": "DAAIN",
+    "daain act": "DAAIN",
+    "daain": "DAAIN",
+}
+
+
 class LexiGraphAgent:
     """
     LexiGraphAgent - Comprehensive Retrieval Engine for Anticipatory Bail
@@ -255,10 +380,25 @@ class LexiGraphAgent:
         print("[LexiGraphAgent] Step 3: Graph Verification & Code Cross-Mapping...")
         consolidated_candidates: Dict[str, Dict[str, Any]] = {}
 
-        # Always include anticipatory bail provisions
-        for p_act, p_sec in (("BNSS", "482"), ("CRPC", "438")):
+        # Detect legal regime from query text (date-based)
+        legal_regime = _detect_legal_regime(query)
+        print(f"[LexiGraphAgent] Legal regime detected: {legal_regime}")
+
+        # Always include the correct anticipatory bail provision for the regime.
+        # Pre-July 1 2024 → CrPC 438 only; on/after → BNSS 482 only.
+        if legal_regime == "BNS+BNSS":
+            bail_provisions = [("BNSS", "482")]
+        else:
+            bail_provisions = [("CRPC", "438")]
+
+        for p_act, p_sec in bail_provisions:
             node_info = self.verification_service.get_node_info(p_act, p_sec)
-            if node_info:
+            if not node_info:
+                # Try looking up the equivalent code as a fallback
+                alt_pair = _STATUTE_CROSSWALK.get((p_act, p_sec))
+                if alt_pair:
+                    node_info = self.verification_service.get_node_info(alt_pair[0], alt_pair[1]) or {}
+            if node_info is not None:
                 key = f"{p_act} {p_sec}"
                 consolidated_candidates[key] = {
                     "section": key,
@@ -267,10 +407,11 @@ class LexiGraphAgent:
                     "punishment": "",
                     "act": p_act,
                     "section_num": p_sec,
-                    "vector_similarity": 0.70,   # reduced from 0.95 to prevent domination
+                    "vector_similarity": 0.70,
                     "graph_verified": True,
                     "metadata": node_info,
-                    "sources": ["Anticipatory bail provision - the specific relief sought"]
+                    "sources": ["Anticipatory bail provision - the specific relief sought"],
+                    "is_procedural": True,
                 }
 
         FALLBACK_MIN_CANDIDATES = 5
@@ -427,12 +568,23 @@ class LexiGraphAgent:
                         "reason": f"Interprets/relates to {c.get('section')}, retrieved for this case's facts."
                     })
 
+        # Collect holding IDs from top candidates for panel display
+        holding_ids = []
+        for cand in top_candidates:
+            rel = cand.get("relationships") or {}
+            for sc in rel.get("supreme_court_cases") or []:
+                hid = sc.get("id") or sc.get("holding_id")
+                if hid and hid not in holding_ids:
+                    holding_ids.append(hid)
+
         production_output = {
             "role": role,
             "query": query,
+            "legal_regime": legal_regime,
             "extracted_facts": extracted_facts,
             "pipeline_confidence": top_recommended[0]["confidence"] if top_recommended else 0.8,
             "recommended_sections": top_recommended,
+            "holding_ids": holding_ids,
             "supporting_cases": supporting_cases,
             "similar_cases": top_similar_cases[:10],
             "supporting_articles": supporting_graph.get("articles", []),
@@ -516,14 +668,153 @@ class LexiGraphAgent:
         return "\n".join(lines)
 
     def verify_claims(self, generated_text: str, production_output: Dict[str, Any]) -> Dict[str, Any]:
-        # (unchanged; keep as provided)
-        retrieved_section_keys = {
-            (s.get("act"), s.get("section")) for s in production_output.get("recommended_sections", [])
-        }
-        retrieved_case_names = {
-            str(c.get("case_name", "")).lower().strip()
-            for c in (production_output.get("supporting_cases", []) + production_output.get("similar_cases", []))
-        }
+        # Allowed citations = sections referenced by recommended sections, retrieved holdings, and case facts
+        allowed_section_keys = set()
+        allowed_section_numbers = set(_PROCEDURAL_SECTIONS)
+
+        # 1. Recommended sections and equivalents
+        for s in production_output.get("recommended_sections", []):
+            act_n, sec_n = _normalize_section_params(s.get("act", ""), s.get("section", ""))
+            if sec_n:
+                allowed_section_keys.add((act_n, sec_n))
+                allowed_section_numbers.add(sec_n)
+                allowed_section_numbers.add(sec_n.lower())
+                base_m = re.match(r"^(\d+[a-zA-Z]?)", sec_n)
+                if base_m:
+                    allowed_section_numbers.add(base_m.group(1))
+                    allowed_section_numbers.add(base_m.group(1).lower())
+            eq = s.get("equivalent_section")
+            if isinstance(eq, dict):
+                eq_act, eq_sec = _normalize_section_params(eq.get("act", ""), eq.get("section", ""))
+                if eq_sec:
+                    allowed_section_keys.add((eq_act, eq_sec))
+                    allowed_section_numbers.add(eq_sec)
+                    allowed_section_numbers.add(eq_sec.lower())
+            elif isinstance(eq, str) and eq:
+                m_eq = re.search(r"\b(BNS|IPC|BNSS|CRPC|BSA|IEA)\s*(\d+[A-Za-z]?)\b", eq, flags=re.IGNORECASE)
+                if m_eq:
+                    eq_act, eq_sec = _normalize_section_params(m_eq.group(1), m_eq.group(2))
+                    allowed_section_keys.add((eq_act, eq_sec))
+                    allowed_section_numbers.add(eq_sec)
+
+        # 2. Extract sections from case facts, query text, holdings, and case lists
+        text_sources = [str(production_output.get("query", ""))]
+        for f in production_output.get("extracted_facts", []):
+            text_sources.append(str(f))
+        for h in production_output.get("holdings", []):
+            if isinstance(h, dict):
+                text_sources.extend([str(h.get("principle", "")), str(h.get("conditions", "")), str(h.get("case", "")), str(h.get("applicable_sections", ""))])
+            else:
+                text_sources.append(str(h))
+        for sc in (production_output.get("supporting_cases", []) + production_output.get("similar_cases", [])):
+            if isinstance(sc, dict):
+                text_sources.extend([str(sc.get("case_name", "")), str(sc.get("ratio_decidendi", "")), str(sc.get("facts_summary", ""))])
+                for inter in sc.get("interprets", []):
+                    text_sources.append(str(inter))
+
+        combined_text = "\n".join(text_sources)
+
+        # Extract structured section lists: "Sections 341, 323, 354 ... of the Indian Penal Code"
+        list_pat = re.compile(
+            r'Sections?\s+([0-9A-Za-z,\s\(\)/]+?)\s+(?:of\s+(?:the\s+)?)?'
+            r'(Indian Penal Code|Code of Criminal Procedure|Bharatiya Nyaya Sanhita|Bharatiya Nagarik Suraksha Sanhita|Indian Evidence Act|Bharatiya Sakshya Adhiniyam|Prevention of Witch \(Daain\) Practices Act|CrPC|IPC|BNS|BNSS|IEA|BSA|POCSO|DPA|Daain Act|Daain)\b',
+            re.IGNORECASE,
+        )
+        for m in list_pat.finditer(combined_text):
+            sec_part = m.group(1)
+            act_part = m.group(2).lower()
+            act = _ACT_ALIASES.get(act_part, act_part.upper())
+            for s in re.findall(r'\b\d+[A-Za-z]?(?:\(\d+\))?\b', sec_part):
+                allowed_section_keys.add((act, s.upper()))
+                allowed_section_numbers.add(s)
+                allowed_section_numbers.add(s.lower())
+                base_m = re.match(r"^(\d+[a-zA-Z]?)", s)
+                if base_m:
+                    allowed_section_numbers.add(base_m.group(1))
+                    allowed_section_numbers.add(base_m.group(1).lower())
+
+        # Extract single mentions: "CrPC 82" or "Section 82 CrPC"
+        single_pat = re.compile(r'\b(BNS|IPC|BNSS|CRPC|BSA|IEA|POCSO|DPA|DAAIN)\s*(?:Sec(?:tion|\.)?|S\.)?\s*(\d+[A-Za-z]?(?:\(\d+\))?)\b', re.IGNORECASE)
+        for m in single_pat.finditer(combined_text):
+            a_norm, s_norm = _normalize_section_params(m.group(1), m.group(2))
+            allowed_section_keys.add((a_norm, s_norm))
+            allowed_section_numbers.add(s_norm)
+            allowed_section_numbers.add(s_norm.lower())
+            base_m = re.match(r"^(\d+[a-zA-Z]?)", s_norm)
+            if base_m:
+                allowed_section_numbers.add(base_m.group(1))
+                allowed_section_numbers.add(base_m.group(1).lower())
+
+        sec_act_pat = re.compile(r'\b(?:Sec(?:tion|\.)?|S\.|u/s)\s*(\d+[A-Za-z]?(?:\(\d+\))?)\s*(?:of\s+(?:the\s+)?)?(BNS|IPC|BNSS|CRPC|BSA|IEA|POCSO|DPA|DAAIN)\b', re.IGNORECASE)
+        for m in sec_act_pat.finditer(combined_text):
+            a_norm, s_norm = _normalize_section_params(m.group(2), m.group(1))
+            allowed_section_keys.add((a_norm, s_norm))
+            allowed_section_numbers.add(s_norm)
+            allowed_section_numbers.add(s_norm.lower())
+            base_m = re.match(r"^(\d+[a-zA-Z]?)", s_norm)
+            if base_m:
+                allowed_section_numbers.add(base_m.group(1))
+                allowed_section_numbers.add(base_m.group(1).lower())
+
+        # Generic Section mentions in facts/holdings: "Section 82", "Section 83"
+        gen_sec_pat = re.compile(r'\b(?:Section|Sec\.|S\.)\s*(\d+[A-Za-z]?(?:\(\d+\))?)\b', re.IGNORECASE)
+        for m in gen_sec_pat.finditer(combined_text):
+            s_val = m.group(1)
+            allowed_section_numbers.add(s_val)
+            allowed_section_numbers.add(s_val.lower())
+            base_m = re.match(r"^(\d+[a-zA-Z]?)", s_val)
+            if base_m:
+                allowed_section_numbers.add(base_m.group(1))
+                allowed_section_numbers.add(base_m.group(1).lower())
+
+        # Crosswalk mapping expansion
+        for (a_in, s_in) in list(allowed_section_keys):
+            eq_pair = _STATUTE_CROSSWALK.get((a_in, s_in))
+            if eq_pair:
+                allowed_section_keys.add(eq_pair)
+                allowed_section_numbers.add(eq_pair[1])
+                allowed_section_numbers.add(eq_pair[1].lower())
+                base_m = re.match(r"^(\d+[a-zA-Z]?)", eq_pair[1])
+                if base_m:
+                    allowed_section_numbers.add(base_m.group(1))
+                    allowed_section_numbers.add(base_m.group(1).lower())
+
+        # Procedural sections crosswalk
+        for p_sec in _PROCEDURAL_SECTIONS:
+            allowed_section_numbers.add(p_sec)
+            for act_name in ("CRPC", "BNSS", "IPC", "BNS", "IEA", "BSA"):
+                allowed_section_keys.add((act_name, p_sec))
+
+        retrieved_case_names = set()
+        for c in (production_output.get("supporting_cases", []) + production_output.get("similar_cases", [])):
+            cn = str(c.get("case_name", "")).lower().strip()
+            if cn:
+                retrieved_case_names.add(cn)
+                # Also add short party names (first part before " v. ")
+                parts = re.split(r'\bv\.?s?\.?\b', cn, flags=re.IGNORECASE)
+                for part in parts:
+                    short = part.strip().rstrip(",").strip()
+                    if len(short) > 4:
+                        retrieved_case_names.add(short)
+
+        # Also include case names mentioned in holdings
+        for h in production_output.get("holdings", []):
+            if isinstance(h, dict):
+                hcase = str(h.get("case", "")).lower().strip()
+                if hcase:
+                    retrieved_case_names.add(hcase)
+                    parts = re.split(r'\bv\.?s?\.?\b', hcase, flags=re.IGNORECASE)
+                    for part in parts:
+                        short = part.strip().rstrip(",").strip()
+                        if len(short) > 4:
+                            retrieved_case_names.add(short)
+
+        # Include case text within facts and query
+        combined_for_cases = str(production_output.get("query", ""))
+        for entry in (production_output.get("extracted_facts") or []):
+            combined_for_cases += " " + str(entry)
+        for m in re.finditer(r'([A-Z][A-Za-z.]*(?:\s+(?:[A-Z][A-Za-z.]*|of|the|and)){0,6}\s+v\.?s?\.?\s+[A-Z][A-Za-z.]*(?:\s+[A-Z][A-Za-z.]*){0,5})', combined_for_cases):
+            retrieved_case_names.add(m.group(0).lower().strip())
 
         result = {
             "is_clean": True,
@@ -543,7 +834,7 @@ class LexiGraphAgent:
                 continue
             seen_sections.add(key)
 
-            if key in retrieved_section_keys:
+            if key in allowed_section_keys or sec_norm in allowed_section_numbers or sec_norm.lower() in allowed_section_numbers:
                 result["verified_sections"].append(f"{act_norm} {sec_norm}")
                 continue
 

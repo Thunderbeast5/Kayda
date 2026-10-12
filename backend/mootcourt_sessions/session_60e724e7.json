@@ -1,0 +1,236 @@
+{
+  "session_id": "60e724e7",
+  "case_id": "20260824133243",
+  "case_text": "The applicant seeks anticipatory bail after an FIR alleges that he forged ownership documents of agricultural land, executed a fraudulent sale deed, and dishonestly transferred the property to a third party; the applicant claims the documents are genuine, asserts that the dispute concerns title over immovable property, and has cooperated with the investigating agency.",
+  "student_role": "defense",
+  "prosecutor_output": {
+    "schema_version": "1.0",
+    "case_summary": "The applicant is seeking anticipatory bail in a case involving allegations of forgery, fraudulent sale deed execution, and dishonest property transfer. Although the allegations are weakly attracted under sections 465, 468, and 420 IPC, the nature of the accusations raises concerns about the applicant's intent and potential risk of absconding.",
+    "victim": [
+      "third party"
+    ],
+    "accused": [
+      "applicant"
+    ],
+    "relationship": "dispute over property ownership",
+    "legal_concepts": [
+      "Forgery",
+      "Cheating"
+    ],
+    "sub_queries": [
+      {
+        "id": "PSQ1",
+        "query": "Allegation of forging ownership documents",
+        "legal_concept": "Forgery",
+        "bail_relevance": "The allegation indicates a serious breach of trust and legality, suggesting a risk of further offenses.",
+        "supporting_facts": [
+          {
+            "fact_label": "Forgery Allegation",
+            "inferred_meaning": "The act of forging documents is a criminal offense under IPC, indicating intent to deceive.",
+            "verbatim_quote": "alleges that he forged ownership documents of agricultural land",
+            "char_start": 51,
+            "char_end": 114
+          }
+        ],
+        "priority": 1
+      },
+      {
+        "id": "PSQ2",
+        "query": "Execution of a fraudulent sale deed",
+        "legal_concept": "Cheating",
+        "bail_relevance": "The execution of a fraudulent sale deed suggests a calculated attempt to deceive, which raises concerns about the applicant's character.",
+        "supporting_facts": [
+          {
+            "fact_label": "Fraudulent Sale Deed",
+            "inferred_meaning": "Executing a fraudulent sale deed is indicative of intent to cheat, relevant under IPC section 468.",
+            "verbatim_quote": "executed a fraudulent sale deed",
+            "char_start": 116,
+            "char_end": 147
+          }
+        ],
+        "priority": 2
+      },
+      {
+        "id": "PSQ3",
+        "query": "Dishonest transfer of property",
+        "legal_concept": "Cheating",
+        "bail_relevance": "The dishonest transfer of property raises questions about the applicant's integrity and potential for reoffending.",
+        "supporting_facts": [
+          {
+            "fact_label": "Dishonest Transfer",
+            "inferred_meaning": "Dishonest transfer of property is a serious allegation that can undermine public trust in property transactions.",
+            "verbatim_quote": "dishonestly transferred the property to a third party",
+            "char_start": 153,
+            "char_end": 206
+          }
+        ],
+        "priority": 3
+      }
+    ],
+    "bail_rejection_summary": "The allegations of forgery, fraudulent sale deed execution, and dishonest property transfer, although weakly attracted under IPC sections 465, 468, and 420, indicate a serious breach of trust and legality. The applicant's actions suggest a potential risk of further offenses and a likelihood of absconding, warranting the rejection of anticipatory bail.",
+    "hallucination_flags": [],
+    "verification_status": "VERIFIED"
+  },
+  "section_usage_plan": {
+    "sections": []
+  },
+  "retrieved_sections": {
+    "465": {
+      "section_number": "465",
+      "statute": "IPC",
+      "title": "Forgery",
+      "classification": "PRIMARY",
+      "overall_status": "Not Attracted",
+      "overall_prima_facie_strength": "Weak",
+      "punishment_text": "2 Years",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Forging a document",
+          "matched_fact": "The applicant is alleged to have forged ownership documents of agricultural land.",
+          "status": "Satisfied",
+          "reason": "The allegation directly states that the applicant forged documents.",
+          "confidence": 0.95
+        },
+        {
+          "ingredient": "Intent to cause damage or injury",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "No facts provided indicate the intent to cause damage or injury.",
+          "confidence": 0.85
+        }
+      ],
+      "legal_reasoning": "The allegation of forgery is established, but the intent to cause damage or injury is not supported by the current facts. Therefore, the offence is weakly attracted.",
+      "missing_supporting_facts": [
+        "Evidence of intent to cause damage or injury"
+      ],
+      "investigation_requirements": [
+        "Obtain the forged documents",
+        "Collect statements from witnesses regarding the intent"
+      ],
+      "retrieved_at_turn": 0
+    },
+    "468": {
+      "section_number": "468",
+      "statute": "IPC",
+      "title": "Forgery for Purpose of Cheating",
+      "classification": "PRIMARY",
+      "overall_status": "Not Attracted",
+      "overall_prima_facie_strength": "Weak",
+      "punishment_text": "7 Years",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Forging a document",
+          "matched_fact": "The applicant is alleged to have executed a fraudulent sale deed regarding agricultural land.",
+          "status": "Satisfied",
+          "reason": "The allegation states that the applicant executed a fraudulent document.",
+          "confidence": 0.95
+        },
+        {
+          "ingredient": "Intent to cheat",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "No facts provided indicate the intent to cheat.",
+          "confidence": 0.85
+        }
+      ],
+      "legal_reasoning": "The allegation of executing a fraudulent sale deed is established, but the intent to cheat is not supported by the current facts. Therefore, the offence is weakly attracted.",
+      "missing_supporting_facts": [
+        "Evidence of intent to cheat"
+      ],
+      "investigation_requirements": [
+        "Investigate the circumstances of the sale deed",
+        "Collect evidence of the applicant's intent"
+      ],
+      "retrieved_at_turn": 0
+    },
+    "420": {
+      "section_number": "420",
+      "statute": "IPC",
+      "title": "Cheating and Dishonestly Inducing Delivery of Property",
+      "classification": "PRIMARY",
+      "overall_status": "Not Attracted",
+      "overall_prima_facie_strength": "Weak",
+      "punishment_text": "7 Years",
+      "ingredient_evaluation": [
+        {
+          "ingredient": "Deceitful inducement",
+          "matched_fact": "The applicant is alleged to have dishonestly transferred property to a third party.",
+          "status": "Satisfied",
+          "reason": "The allegation indicates that the applicant dishonestly transferred property.",
+          "confidence": 0.95
+        },
+        {
+          "ingredient": "Delivery of property",
+          "matched_fact": null,
+          "status": "Missing",
+          "reason": "No facts provided indicate that property was delivered as a result of deceit.",
+          "confidence": 0.85
+        }
+      ],
+      "legal_reasoning": "The allegation of dishonest transfer of property is established, but the delivery of property as a result of deceit is not supported by the current facts. Therefore, the offence is weakly attracted.",
+      "missing_supporting_facts": [
+        "Evidence of property delivery"
+      ],
+      "investigation_requirements": [
+        "Verify the transfer of property",
+        "Collect evidence of the transaction"
+      ],
+      "retrieved_at_turn": 0
+    }
+  },
+  "argued_concepts": [
+    "Forgery",
+    "Cheating"
+  ],
+  "prosecutor_positions": [
+    "The nature of the allegations raises significant concerns regarding the applicant's intent.",
+    "There is a substantial risk of flight and witness tampering by the applicant."
+  ],
+  "defense_positions": [],
+  "pillars_argued": [
+    "P1:Gravity",
+    "P2:PrimaFacie",
+    "P3:CustodialInterrogation",
+    "P4:FlightRisk"
+  ],
+  "sections_cited_so_far": [
+    "465 IPC",
+    "468 IPC",
+    "420 IPC"
+  ],
+  "turns": [
+    {
+      "turn_number": 1,
+      "speaker": "prosecutor",
+      "full_argument": "Your Honor, I stand before you to oppose the application for anticipatory bail filed by the applicant in this case involving serious allegations of forgery, fraudulent sale deed execution, and dishonest property transfer. The gravity of the offences, although weakly attracted under Sections 465, 468, and 420 of the Indian Penal Code, cannot be understated. The applicant is accused of actions that undermine the very foundation of property rights and trust in transactions, which are essential to our society. \n\nWhile it is true that the allegations under Section 465 IPC for forgery, Section 468 IPC for forgery for the purpose of cheating, and Section 420 IPC for cheating and dishonestly inducing delivery of property are weakly attracted, the implications of these actions are severe. The potential for harm to the victims and the community at large is significant, as these offences can lead to financial ruin and loss of property for innocent parties. \n\nFurthermore, the prima facie strength of the case, although not robust, indicates that there is enough evidence to warrant further investigation. The allegations of executing a fraudulent sale deed and the dishonest transfer of property, while lacking in clear intent to cheat, still suggest a troubling pattern of behavior that necessitates scrutiny. \n\nCustodial interrogation is essential in this case to uncover the full extent of the applicant's involvement and to ascertain the motivations behind these actions. It is crucial to determine whether there are additional accomplices or if the applicant has engaged in a broader scheme of deceit that could affect more victims. The investigative process requires the applicant's presence to facilitate a thorough examination of the facts. \n\nLastly, there is a significant risk of flight and witness tampering. Given the nature of the allegations, the applicant may be incentivized to abscond to evade justice or to influence potential witnesses. The court must consider the possibility that the applicant could attempt to obstruct the investigation, thereby undermining the integrity of the judicial process. \n\nIn conclusion, Your Honor, while the charges may not be strongly substantiated at this stage, the gravity of the allegations, the need for custodial interrogation, and the risk of flight and witness tampering compel this court to reject the application for anticipatory bail. Thank you.",
+      "summary_bullets": [
+        "The gravity of the offences undermines property rights and trust in transactions.",
+        "Prima facie evidence suggests a troubling pattern of behavior warranting further investigation.",
+        "Custodial interrogation is essential to uncover the full extent of the applicant's involvement."
+      ],
+      "concepts_used": [
+        "P1:Gravity",
+        "P2:PrimaFacie",
+        "P3:CustodialInterrogation",
+        "P4:FlightRisk"
+      ],
+      "positions_asserted": [
+        "The nature of the allegations raises significant concerns regarding the applicant's intent.",
+        "There is a substantial risk of flight and witness tampering by the applicant."
+      ],
+      "pillars_covered": [
+        "P1:Gravity",
+        "P2:PrimaFacie",
+        "P3:CustodialInterrogation",
+        "P4:FlightRisk"
+      ],
+      "sections_cited": [
+        "465 IPC",
+        "468 IPC",
+        "420 IPC"
+      ]
+    }
+  ],
+  "current_turn": 1,
+  "status": "active"
+}

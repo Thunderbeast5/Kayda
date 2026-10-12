@@ -1,0 +1,346 @@
+{
+  "case_id": "_2024_2_SCR_348",
+  "doc_meta": {
+    "source_file": "2024 INSC 115.pdf",
+    "pdf_pages": 9,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:d_month_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment",
+      "author": "author:0"
+    },
+    "format_profile": "scr_modern",
+    "citation_neutral": "2024 INSC 115",
+    "neutral_year": 2024,
+    "citation_scr": "[2024] 2 SCR 348",
+    "scr_year": 2024,
+    "scr_volume": 2,
+    "scr_first_page": 348,
+    "decided_on": "2024-02-15",
+    "coram_raw": "B.R. Gavai and Prashant Kumar Mishra,* JJ.",
+    "coram_regex": [
+      "B.R. Gavai",
+      "Prashant Kumar Mishra"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "Chatrapal",
+    "respondent_regex": "The State of Uttar Pradesh & Anr.",
+    "court_regex": "Supreme Court of India",
+    "year": 2024,
+    "footnotes": [
+      {
+        "page": 352,
+        "text": "[1986] 2 SCR 957 : AIR 1986 SC 995"
+      },
+      {
+        "page": 352,
+        "text": "[2014] 6 SCR 138 : AIR 2014 SC 2966"
+      },
+      {
+        "page": 354,
+        "text": "[2014] 13 SCR 1312 : (2015) 2 SCC 610"
+      },
+      {
+        "page": 354,
+        "text": "(1977) 2 SCC 491"
+      },
+      {
+        "page": 354,
+        "text": "[2014] 1 SCR 987 : (2014) 4 SCC 108"
+      }
+    ],
+    "reporter_trailer": "Headnotes prepared by: Divya Pandey\b Result of the case: Appeal allowed.",
+    "result_of_case": "Appeal allowed.",
+    "pre_judgment_block": "CIVIL APPELLATE JURISDICTION : Civil Appeal No.2461 of 2024 From the Judgment and Order dated 08.01.2019 of the High Court of Judicature at Allahabad in WPC No. 297 of 2008 Appearances for Parties P. K. Dey, Sr. Adv., Ms. Shilpi Dey Auditya, Ms. Shehla Chaudhary, Md. Anas Chaudhary, Sumit Kumar Sharma, Subart, Ansar Ahmad Chaudhary, Advs. for the Appellant. Tanmaya Agarwal, Wrick Chatterjee, Ms. Aditi Agarwal, Vinayak Mohan, Advs. for the Respondents.. 350\b Judgment / Order of the Supreme Court",
+    "case_no": "Civil Appeal No.2461 of 2024",
+    "appeal_from_raw": "From the Judgment and Order dated 08.01.2019 of the High Court of Judicature at Allahabad in WPC No. 297 of 2008",
+    "judgment_author_regex": "Prashant Kumar Mishra",
+    "issue_for_consideration": "Inquiry Officer found that the charges levelled against the appellant were duly established. Inquiry report was accepted and the appellant was dismissed from service. Whether the dismissal of the appellant was justified and was the High Court justified in upholding the same.",
+    "keywords": [
+      "Class-IV employee",
+      "Departmental inquiry",
+      "Inquiry Officer",
+      "Dismissal",
+      "Misconduct",
+      "Insubordination",
+      "Finding of guilt",
+      "Perverse findings",
+      "Financial hardship",
+      "Termination from service",
+      "Reinstatement",
+      "Consequential benefits"
+    ],
+    "acts_listed": [
+      "U.P",
+      "Government Servant Conduct Rules"
+    ],
+    "layout": "numbered_paras",
+    "ocr_noise_score": 0.0014
+  },
+  "flags": [
+    "numbering_starts_at_2",
+    "numbers_inside_quotations_ignored: 1"
+  ],
+  "case": {
+    "case_name": "Chatrapal v. The State of Uttar Pradesh & Anr.",
+    "petitioner": "Chatrapal",
+    "respondent": "The State of Uttar Pradesh & Anr.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "B.R. Gavai",
+      "Prashant Kumar Mishra"
+    ],
+    "judgment_author": "Prashant Kumar Mishra",
+    "procedural_stage": "post_arrest_bail",
+    "offence_types": [
+      "misconduct"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "This case involves an appeal by a Class-IV employee who was dismissed from service following a departmental inquiry that found him guilty of misconduct. The inquiry reportedly established two charges against him, which were upheld by the High Court. The employee contested the validity of the findings and the subsequent dismissal.",
+    "lower_court_outcome": "Dismissed being devoid of merit.",
+    "disposition": "Appeal allowed.",
+    "statutes": [
+      {
+        "act": "U.P",
+        "section": "Government Servant Conduct Rules",
+        "how_used": "discussed",
+        "note": null
+      },
+      {
+        "act": "",
+        "section": "",
+        "how_used": "discussed",
+        "note": null
+      }
+    ],
+    "issues": [
+      {
+        "question": "Was the dismissal of the appellant justified?",
+        "short_answer": "No.",
+        "anchors": [
+          "P11"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "Findings recorded by the Inquiry Officer should not be interfered with by the appellate authority unless they are based on perverse findings.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P12"
+        ],
+        "quote": "However, when the finding of guilt recorded by the Inquiry Officer is based on perverse finding the same can always be interfered."
+      },
+      {
+        "id": "p2",
+        "text": "Class-IV employees may represent directly to their superior when in financial hardship, but this does not constitute major misconduct warranting termination.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P11"
+        ],
+        "quote": "Class-IV employee, when in financial hardship, may represent directly to the superior but that by itself cannot amount to major misconduct."
+      },
+      {
+        "id": "p3",
+        "text": "A finding of guilt based on a false or perverse interpretation of evidence cannot sustain disciplinary action against an employee.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P9"
+        ],
+        "quote": "this finding in the inquiry report is perverse."
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The charges against the appellant are vague and the findings of the Inquiry Officer are perverse.",
+        "outcome": "accepted",
+        "anchors": [
+          "P4"
+        ]
+      },
+      {
+        "side": "respondent",
+        "text": "The charges against the appellant are specific and he has a history of making false allegations against senior officers.",
+        "outcome": "rejected",
+        "anchors": [
+          "P5"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "Union of India v. P. Gunasekaran",
+        "citation": "[2014] 13 SCR 1312 : (2015) 2 SCC 610",
+        "treatment": "relied_on",
+        "used_for": "finding on the standards for departmental inquiries",
+        "where": "[P12]"
+      },
+      {
+        "name": "Chennai Metropolitan Water Supply and Sewerage Board v. T.T. Murali Babu",
+        "citation": "[2014] 1 SCR 987 : (2014) 4 SCC 108",
+        "treatment": "relied_on",
+        "used_for": "finding on the standards for departmental inquiries",
+        "where": "[P12]"
+      },
+      {
+        "name": "State of Haryana v. Rattan Singh",
+        "citation": "(1977) 2 SCC 491",
+        "treatment": "followed",
+        "used_for": "finding on the standards for departmental inquiries",
+        "where": "[P12]"
+      },
+      {
+        "name": "Santosh Bakshi vs. State of Punjab",
+        "citation": "[2014] 6 SCR 138 : AIR 2014 SC 2966",
+        "treatment": "referred_to",
+        "used_for": "regarding the principles governing departmental inquiries",
+        "where": "[P12]"
+      }
+    ]
+  },
+  "authority_table": [
+    {
+      "name": "Chennai Metropolitan Water Supply and Sewerage Board v. T.T. Murali Babu",
+      "cite": "[2014] 1 SCR 987 : (2014) 4 SCC 108",
+      "treatment": "relied_on",
+      "para": null
+    },
+    {
+      "name": "Santosh Bakshi vs. State of Punjab",
+      "cite": "[2014] 6 SCR 138 : AIR 2014 SC 2966",
+      "treatment": "referred_to",
+      "para": null
+    }
+  ],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    }
+  },
+  "needs_review": [
+    "auto-coerced: procedural_stage: 'post_arrest' -> 'post_arrest_bail'",
+    "parser flag: numbering_starts_at_2",
+    "parser flag: numbers_inside_quotations_ignored: 1"
+  ],
+  "paragraphs": {
+    "P2": {
+      "text": "The present appeal, by special leave, is directed against the judgment and order dated 08.01.2019 passed by the High Court of Judicature at Allahabad in Writ Petition (C) No. 297 of 2008, whereby the High Court has dismissed the petition of the appellant being devoid of merit.",
+      "page_start": 350,
+      "page_end": 350
+    },
+    "P3": {
+      "text": "The facts, briefly stated, are that the appellant was appointed on permanent basis on the post of Ardly (a class IV Post) in the Bareilly Judgeship. The appellant was transferred and posted as Process Server in the Nazarat of outlying court of Baheri, District Bareilly on 24.08.2001. In compliance of the transfer order, the appellant joined the Nazarat Branch in Baheri, District Bareilly as Process Server on 31.08.2001 but he was being paid the remuneration of Ardly.",
+      "page_start": 350,
+      "page_end": 350
+    },
+    "P3.1": {
+      "text": "Being aggrieved, the appellant made a representation on 20.01.2003 to the District Judge to pay the salary due to the post of Process Server. The said representation was duly considered by the competent authority and a report from the Munsarim in the office of Civil Judge, Baheri, Bareilly was called for. As per the report of Munsarim dated 27.02.2003, the appellant joined the post of Process Server in the Court of Civil Judge, Baheri, Bareilly on 31.08.2001 and since then is working on the said post. Allegedly, after submission of the said report, the Central Nazir started harassing the appellant and demanded illegal amount of gratification for settling his dues.",
+      "page_start": 350,
+      "page_end": 350
+    },
+    "P3.2": {
+      "text": "Since the grievance of the appellant was not being redressed, he made a representation dated 05.06.2003 to the Janapad Nyaayaadeesh inter alia stating that he is deprived of the allowance that is admissible to the incumbents who are posted at an outlying court as Process Server. It is further stated that when the appellant went to meet the Central Nazir on 04.06.2003, he demanded bribe to get his work done. The District Judge, Bareilly sought an explanation from the Central Nazir, Bareilly Judgeship who in turn admitted that by mistake the salary of the appellant has been shown as against the post of Ardly, however, he denied having demanded illegal gratification from the appellant.",
+      "page_start": 350,
+      "page_end": 351
+    },
+    "P3.3": {
+      "text": "The District Judge placed the appellant under suspension vide order dated 21.06.2003 and initiated a departmental inquiry. The Inquiry Officer vide memorandum dated 22.08.2003 served the charge sheet on the appellant on the charges firstly, the appellant vide communication dated 05.06.2003 had used inappropriate, derogatory and objectionable language and made false allegations against the officers including the District Judge as well as against the Presiding Officer of Aonla Court and secondly, the appellant communicated letters and representations to the Registrar General of High Court and other officials of the State Government including the then Chief Minister without routing the same through proper channel. The Inquiry Officer, upon completion of enquiry, recorded in his report dated 21.04.2006 that the charges levelled against the appellant are duly established. The District Judge, Bareilly accepted the inquiry report dated 21.04.2006 and vide order dated 30.04.2007 dismissed the appellant which was challenged in appeal before the High Court and the same was dismissed vide order dated 19.09.2007 being devoid of any substance while affirming the order dated 30.04.2007 passed by the Disciplinary Authority imposing punishment of dismissal.",
+      "page_start": 351,
+      "page_end": 351
+    },
+    "P3.4": {
+      "text": "Being aggrieved by the order dated 19.09.2007 passed by the Administrative Judge of the High Court of Allahabad, the appellant filed the Writ Petition (C) No. 297 of 2008 before the High Court which attained the same fate as that of the appeal. Hence, the present appeal.",
+      "page_start": 351,
+      "page_end": 351
+    },
+    "P4": {
+      "text": "Learned counsel for the appellant would submit that the first charge, in particular, is vague as no finding has been recorded by the Inquiry Officer with regard to the allegations made in the letter dated 05.06.2003 against the officials. Learned counsel would further submit that if it is presumed that the language used in the complaint constitutes flagrant breach of Rule 3 of the U.P. Government Servant Conduct Rules, the quantum of punishment imposed on the appellant is not commensurate to the guilt. Learned counsel for the appellant next submits that the appellant was not supplied copy of various documents including proposed evidence and thus he was prejudiced. 352\b It is lastly argued that the findings of guilt recorded by the enquiry officer is perverse. In support of his submissions, learned counsel for the appellant has placed reliance on the decisions of this Court rendered in ‘Sawai Singh vs. State of Rajasthan’ and ‘Santosh Bakshi vs. State of Punjab’",
+      "page_start": 351,
+      "page_end": 352
+    },
+    "P5": {
+      "text": "On the contrary, the learned counsel for the High Court would submit that the appellant is habitual of making false allegations against the senior officers including the District Judge and the charges framed against him are specific and definite and not vague.",
+      "page_start": 352,
+      "page_end": 352
+    },
+    "P6": {
+      "text": "We have heard learned counsel for the parties at length and perused the case papers.",
+      "page_start": 352,
+      "page_end": 352
+    },
+    "P7": {
+      "text": "The appellant was subjected to the departmental inquiry on two charges of misconduct and insubordination. For the first charge, it was alleged that he used inappropriate, derogatory and objectional language and made false allegations against the Central Nazir and higher officials and earlier also he had lodged a false report against the Presiding Officer of Aonla Court. For the second charge, he allegedly sent a representation dated 05.06.2003 to the Registrar General of the High Court and Harijan Society Welfare Minister as also to the Chief Minister without using the proper channel and without permission of the Head of the Department.",
+      "page_start": 352,
+      "page_end": 352
+    },
+    "P8": {
+      "text": "The Inquiry Officer has found both the charges to be proved. In the discussion with respect to the first charge, it is mentioned in the inquiry report that the appellant’s statement in his letter dated 05.06.2003 that he met the Central Nazir, Bareilly number of times between 24.08.2001 to 15.01.2003 is false because from the order dated 21.06.2003 of the District Judge, Bareilly it is clear that the Central Nazir took charge at Bareilly on 23.07.2002, therefore, he could not have met the Central Nazir, Bareilly before 23.07.2002.",
+      "page_start": 352,
+      "page_end": 352
+    },
+    "P9": {
+      "text": "However, the finding of the Inquiry Officer that the appellant’s statement in his application dated 05.06.2003 that he met the Central Nazir number of times between 24.08.2001 to 15.01.2003 is not reflected in appellant’s representation. In fact, the application dated 05.06.2003 was addressed to the Janapad Nyaayaadeesh and the relevant statement is that the applicant met the addressee i.e. Janapad Nyaayaadeesh number of times between 24.08.2001 to 15.01.2003. There is no statement that he met the Central Nazir during this period. In respect of meeting the Central Nazir, his statement is that he met him on 04.06.2003. Thus, the finding of making false statement and allegation in his representation dated 05.06.2003 is not borne out from the record. Since, this finding is the fulcrum of the reasoning to hold that charge no. 1 is proved, in our considered view, this finding in the inquiry report is perverse.",
+      "page_start": 352,
+      "page_end": 353
+    },
+    "P10": {
+      "text": "Insofar as the allegation that the appellant made false allegations of discrimination on caste basis, it is significant to notice that the appellant himself has not made any such allegation in his letter dated 05.06.2003. In the said letter, he has stated that it was the Central Nazir who told him that the District Judge is saying that the appellant is a Harijan employee, and he hates the people of such community. Thus, it is clear that the appellant himself has not made any such allegation against the District Judge but it was the Central Nazir who made that statement. The Inquiry Officer had referred to the report of the Central Nazir dated 20.06.2003 which is available on record. Regarding the above statement, the Central Nazir has not denied specifically. He has only stated that the charges levelled by the appellant are false and baseless. The Central Nazir has neither made any specific denial that he has not demanded illegal gratification of Rs. 3,000/- from the appellant. Even though, in his letter dated 05.06.2003, the appellant has made specific allegation to this effect against the Central Nazir.",
+      "page_start": 353,
+      "page_end": 353
+    },
+    "P11": {
+      "text": "The charge no. 2 against the appellant concerns directly sending the representations to the High Court and Hon’ble Chief Minister/ Minister without routing the same through proper channel. In this regard, it is suffice to observe that Class-IV employee, when in financial hardship, may represent directly to the superior but that by itself cannot amount to major misconduct for which punishment of termination from service should be imposed. Even otherwise, the appellant has cited examples of other employees of the District Court, Bareilly who have sent representations directly to the superiors, but no action has been taken against them. 354\b",
+      "page_start": 353,
+      "page_end": 354
+    },
+    "P12": {
+      "text": "It is trite law that ordinarily the findings recorded by the Inquiry Officer should not be interfered by the appellate authority or by the writ court. However, when the finding of guilt recorded by the Inquiry Officer is based on perverse finding the same can always be interfered as held in Union of India vs. P. Gunasekaran, State of Haryana vs. Rattan Singh and Chennai Metropolitan Water Supply and Sewerage Board vs. T.T. Murali Babu. In P. Gunasekaran (supra), the following has been held by this Court in para nos. 12, 13, 16 & 17: “12. Despite the well-settled position, it is painfully disturbing to note that the High Court has acted as an appellate authority in the disciplinary proceedings, reappreciating even the evidence before the enquiry officer. The finding on Charge I was accepted by the disciplinary authority and was also endorsed by the Central Administrative Tribunal. In disciplinary proceedings, the High Court is not and cannot act as a second court of first appeal. The High Court, in exercise of its powers under Articles 226/227 of the Constitution of India, shall not venture into reappreciation of the evidence. The High Court can only see whether: (a) the enquiry is held by a competent authority; (b) the enquiry is held according to the procedure prescribed in that behalf; (c) there is violation of the principles of natural justice in conducting the proceedings; (d) the authorities have disabled themselves from reaching a fair conclusion by some considerations extraneous to the evidence and merits of the case; (e) the authorities have allowed themselves to be influenced by irrelevant or extraneous considerations; (f) the conclusion, on the very face of it, is so wholly arbitrary and capricious that no reasonable person could ever have arrived at such conclusion; (g) the disciplinary authority had erroneously failed to admit the admissible and material evidence; (h) the disciplinary authority had erroneously admitted inadmissible evidence which influenced the finding; (i) the finding of fact is based on no evidence. 13. Under Articles 226/227 of the Constitution of India, the High Court shall not: (i) reappreciate the evidence; (ii) interfere with the conclusions in the enquiry, in case the same has been conducted in accordance with law; (iii) go into the adequacy of the evidence; (iv) go into the reliability of the evidence; (v) interfere, if there be some legal evidence on which findings can be based. (vi) correct the error of fact however grave it may appear to be; (vii) go into the proportionality of punishment unless it shocks its conscience. 16. These principles have been succinctly summed up by the living legend and centenarian V.R. Krishna Iyer, J. in State of Haryana v. Rattan Singh [(1977) 2 SCC 491 : 1977 SCC (L&S) 298] . To quote the unparalleled and inimitable expressions: (SCC p. 493, para 4) “4. … in a domestic enquiry the strict and sophisticated rules of evidence under the Indian Evidence Act may not apply. All materials which are logically probative for a prudent mind are permissible. There is no allergy to hearsay evidence provided it has reasonable nexus and credibility. It is true that departmental authorities 356\b and administrative tribunals must be careful in evaluating such material and should not glibly swallow what is strictly speaking not relevant under the Indian Evidence Act. For this proposition it is not necessary to cite decisions nor textbooks, although we have been taken through case law and other authorities by counsel on both sides. The essence of a judicial approach is objectivity, exclusion of extraneous materials or considerations and observance of rules of natural justice. Of course, fair play is the basis and if perversity or arbitrariness, bias or surrender of independence of judgment vitiate the conclusions reached, such finding, even though of a domestic tribunal, cannot be held good.” (emphasis supplied) 17. In all the subsequent decisions of this Court up to the latest in Chennai Metropolitan Water Supply and Sewerage Board v. T.T. Murali Babu (2014) 4 SCC 108: (2014) 1 SCC (L&S) 38, these principles have been consistently followed adding practically nothing more or altering anything.”",
+      "page_start": 354,
+      "page_end": 356
+    },
+    "P13": {
+      "text": "Having considered the entire material available on record and keeping in view that the appellant is a Class-IV employee against whom charge no. 1 was found proved on the basis of perverse finding and charge no. 2 is only about sending the representation to the High Court directly without availing the proper channel, we deem it appropriate to set-aside the impugned judgment of the High Court as well as the order dated 30.04.2007 whereby the appellant was terminated from service. Consequently, the appellant is reinstated in service with all consequential benefits. The appeal is allowed.",
+      "page_start": 356,
+      "page_end": 356
+    }
+  },
+  "headnote_raw": " \n[2024] 2 S.C.R. 348 : 2024 INSC 115\nChatrapal\nv.\nThe State of Uttar Pradesh & Anr.\n(Civil Appeal No. 2461 of 2024)\n15 February 2024\n[B.R. Gavai and Prashant Kumar Mishra,* JJ.]\nIssue for Consideration\nInquiry Officer found that the charges levelled against the appellant\nwere duly established. Inquiry report was accepted and the\nappellant was dismissed from service. Whether the dismissal of\nthe appellant was justified and was the High Court justified in\nupholding the same.\nHeadnotes\nService Law – Findings recorded by Inquiry Officer – Interference\n– Scope – Appellant appointed as Ardly (a class IV Post) in the\nBareilly Judgeship was later transferred and posted as Process\nServer however, was being paid the salary of Ardly – Aggrieved,\nappellant made representations – Appellant was subjected to\ndepartmental inquiry on charges of misconduct, insubordination\nalleging that he used inappropriate, derogatory and objectional\nlanguage and made false allegations against various higher\nofficials; and had sent the representations directly to the High\nCourt and Chief Minister/Minister without routing the same\nthrough proper channel – Inquiry Officer found that the charges\nlevelled against the appellant were established – Appellant\ndismissed – Dismissal upheld by High Court – Correctness:\nHeld: Finding of making false statement and allegation in his\nrepresentation not borne out from the record – Since, this finding\nis the fulcrum of the reasoning to hold that charge no.1 is proved,\nthis finding in the inquiry report is perverse – Ordinarily the\nfindings recorded by the Inquiry Officer should not be interfered\nby the appellate authority or by the writ court – However, when\nthe finding of guilt recorded by the Inquiry Officer is based on\nperverse finding the same can always be interfered – Further,\n \nClass-IV employee, when in financial hardship, may represent\ndirectly to the superior but that by itself cannot amount to major\nmisconduct for which punishment of termination from service should\nbe imposed – Impugned judgment of the High Court as well as the\norder terminating the appellant from service, set aside – Appellant\nreinstated with all consequential benefits. [Paras 9, 11-13]\nCase Law Cited\nUnion of India v. P. Gunasekaran, [2014] 13 SCR 1312 :\n(2015) 2 SCC 610; State of Haryana v. Rattan Singh,\n(1977) 2 SCC 491; Chennai Metropolitan Water Supply\nand Sewerage Board v. T.T. Murali Babu, [2014] 1 SCR\n987 : (2014) 4 SCC 108 – relied on.\nSawai Singh v. State of Rajasthan, [1986] 2 SCR 957 :\nAIR 1986 SC 995; Santosh Bakshi vs. State of Punjab,\n[2014] 6 SCR 138 : AIR 2014 SC 2966 – referred to.\nList of Acts\nU.P. Government Servant Conduct Rules.\nList of Keywords\nClass-IV employee; Departmental inquiry; Inquiry Officer; Dismissal;\nMisconduct; Insubordination; Finding of guilt; Perverse findings;\nFinancial hardship; Termination from service; Reinstatement;\nConsequential benefits.\nCase Arising From\n"
+}

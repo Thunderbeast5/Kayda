@@ -41,8 +41,8 @@ class SideArgumentPackage(BaseModel):
 class BailReasoningObject(ManualReviewMixin):
     schema_version: str = Field(default="5.0", description="Schema version of BailReasoningObject contract")
     target_side: str = Field(default="BOTH", description="Target role side: 'PROSECUTION', 'DEFENSE', or 'BOTH'")
-    bail_provision_applied: str = Field(default="Section 438 CrPC", description="Statutory bail provision applied ('Section 438 CrPC' or 'Section 482 BNSS')")
-    legal_regime: Optional[str] = Field(default="UNKNOWN", description="Legal regime passed through unchanged ('IPC + CrPC' or 'BNS + BNSS')")
+    bail_provision_applied: str = Field(default="Section 438 CrPC", description="Statutory bail provision applied ('Section 438 CrPC')")
+    legal_regime: Optional[str] = Field(default="IPC + CrPC", description="Legal regime passed through unchanged ('IPC + CrPC')")
     bail_evaluation: BailEvaluationMap = Field(description="Structured evaluation of 8 judicially developed anticipatory bail factors")
     prosecution_arguments: Optional[SideArgumentPackage] = Field(default=None, description="Prosecution argument package advocating bail DENIAL")
     defense_arguments: Optional[SideArgumentPackage] = Field(default=None, description="Defense argument package advocating bail GRANT")

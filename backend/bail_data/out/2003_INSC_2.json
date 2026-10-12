@@ -1,0 +1,365 @@
+{
+  "case_id": "2003_INSC_2",
+  "doc_meta": {
+    "source_file": "2003 INSC 2.pdf",
+    "pdf_pages": 11,
+    "_sources": {
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment",
+      "author": "author:0"
+    },
+    "format_profile": "scr_reporter",
+    "decided_on": "2003-01-07",
+    "coram_raw": "R.C. LAHOTI AND BRIJESH KUMAR, JJ.",
+    "coram_regex": [
+      "R.C. LAHOTI",
+      "BRIJESH KUMAR"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "RAJENDRA SHANT ARAM TODANKAR",
+    "respondent_regex": "ST A TE OF MAHARASHTRA AND ORS.",
+    "court_regex": "Supreme Court of India",
+    "year": 2003,
+    "reporter_trailer": "K.K.T. Appeals partly allowed.",
+    "result_of_case": "Appeals partly allowed.",
+    "pre_judgment_block": "CRIMINAL APPELLATE JURISDICTION : Criminal Appeal Nos. 651-652 of 2001. ' From the Judgment and Order dated 18.7.2000 of the Mumbai High Court in Crl. A. No. 692 of 1995. S.B. Sanyal, Sanjay K. Visen, Manoj K. Mishra. Devashish Bharuka and Ajit S. Bhasme for the Appellant in Crl. A. No. 651/200 l and Ajit S. Bhasme for the Appellant in Crl.A. No. 651/200 I. R. Sundravardan, Sunil Kr. Verma and S.M. Jadhav for the Appellant in Crl. A. No. 652/2001. R.S. TODANKAR v. STATE OF MAHARASHTRA [R.C. LAHOTI, J.) 13 Ravi K. Adsure and S.S. Shinde for V.N. Raghupathy for the Respondents. \\",
+    "case_no": "Criminal Appeal Nos. 651-652 of 2001",
+    "appeal_from_raw": "From the Judgment and Order dated 18.7.2000 of the Mumbai High Court in Crl. A. No. 692 of 1995",
+    "judgment_author_regex": "R.C. LAHOTI",
+    "layout": "unnumbered_page_anchored",
+    "ocr_noise_score": 0.0037
+  },
+  "flags": [
+    "citation_not_found"
+  ],
+  "case": {
+    "case_name": "Rajendra Shant Aram Todankar v. State of Maharashtra and Ors.",
+    "petitioner": "Rajendra Shant Aram Todankar",
+    "respondent": "State of Maharashtra and Ors.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "R.C. LAHOTI",
+      "BRIJESH KUMAR"
+    ],
+    "judgment_author": "R.C. LAHOTI",
+    "procedural_stage": "post_arrest_bail",
+    "offence_types": [
+      "murder",
+      "assault"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "The case involves multiple accused charged with murder and assault. The Supreme Court examined the evidence regarding the involvement of each accused in the fatal assault, leading to acquittals and maintained convictions based on the nature of the assembly and individual actions.",
+    "lower_court_outcome": "Conviction of all accused upheld by the High Court.",
+    "disposition": "Appeals partly allowed.",
+    "statutes": [],
+    "issues": [
+      {
+        "question": "What is the liability of members of an unlawful assembly for criminal acts committed by other members?",
+        "short_answer": "Not every member becomes liable unless the commission of the act falls within their knowledge of the unlawful assembly's object.",
+        "anchors": [
+          "17-H; 18-A-C"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "The common object of an unlawful assembly must be shared by all members for vicarious liability under Section 149 IPC to apply.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "17-H; 18-A-C"
+        ],
+        "quote": "the common object of the alleged unlawful assembly of eight persons was to cause the death of the deceased as also to cause injuries to PW1 and such common object was shared by all the eight accused persons."
+      },
+      {
+        "id": "p2",
+        "text": "The requirement for vicarious liability under Section 149 IPC is that the likelihood of the commission of an act must be within the knowledge of members.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "17-H; 18-A-C"
+        ],
+        "quote": "the inference as to likelihood of the commission of the given criminal act must be capable of being held to be within the knowledge of another member of the assembly."
+      },
+      {
+        "id": "p3",
+        "text": "Members of an unlawful assembly cannot be held liable for individual acts unless it is shown they participated in actions that were part of the common object.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "18-H; 19-A; 20-C-D"
+        ],
+        "quote": "Once an unlawful assembly has come into existence, each member of the assembly becomes vicariously liable for the criminal act of any other member."
+      },
+      {
+        "id": "p4",
+        "text": "An accused may be acquitted if their involvement in the assault is not corroborated by reliable evidence.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "19-E, F; 20-B"
+        ],
+        "quote": "The injuries specifically attributed to accused No. 8 by PWs 1 and 5 and consequently the role assigned to him in the incident is belied by medical evidence."
+      },
+      {
+        "id": "p5",
+        "text": "Individual liabilities must be assessed based on the actions during the incident and the presence of corroborative evidence.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "19-G, H; 20-A"
+        ],
+        "quote": "Their assault on PW-1 is proved beyond reasonable doubt."
+      }
+    ],
+    "contentions": [],
+    "authorities": []
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "unsupported",
+      "favors_correct": false,
+      "note": "No anchor text is provided to support the proposition."
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "unsupported",
+      "favors_correct": false,
+      "note": "No anchor text is provided to support the proposition."
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "unsupported",
+      "favors_correct": false,
+      "note": "No anchor text is provided to support the proposition."
+    },
+    "p4": {
+      "id": "p4",
+      "verdict": "unsupported",
+      "favors_correct": false,
+      "note": "No anchor text is provided to support the proposition."
+    },
+    "p5": {
+      "id": "p5",
+      "verdict": "unsupported",
+      "favors_correct": false,
+      "note": "No anchor text is provided to support the proposition."
+    }
+  },
+  "needs_review": [
+    "p1: unknown/missing anchors ['17-H; 18-A-C']",
+    "p2: unknown/missing anchors ['17-H; 18-A-C']",
+    "p3: unknown/missing anchors ['18-H; 19-A; 20-C-D']",
+    "p4: unknown/missing anchors ['19-E, F; 20-B']",
+    "p5: unknown/missing anchors ['19-G, H; 20-A']",
+    "issue 'What is the liability of members of an u': unknown anchors",
+    "p1: verifier says unsupported, favors_correct=False - No anchor text is provided to support the proposition.",
+    "p2: verifier says unsupported, favors_correct=False - No anchor text is provided to support the proposition.",
+    "p3: verifier says unsupported, favors_correct=False - No anchor text is provided to support the proposition.",
+    "p4: verifier says unsupported, favors_correct=False - No anchor text is provided to support the proposition.",
+    "p5: verifier says unsupported, favors_correct=False - No anchor text is provided to support the proposition.",
+    "parser flag: citation_not_found"
+  ],
+  "paragraphs": {
+    "p13.1": {
+      "text": "R.C. LAHOTI, J. Eight accused persons, namely, Ashok Bhikaji Gurav (accused no.I), Nathuram Bhikaji Gurav (accused no.2), Santosh @ Kalya Jagannath Shirwadkar (accused n0:3), Santosh @ Babya Dashrath Nagvekar (accused no.4), Ravindra @ Bobby Anant Surve (accused no.5), Anant @ Papya Jagannath Shirodkar (accused no.6), Prakash. @ Vatanya Laxman Pednekar (accused no.7) and Rajendra Shantaram Todankar (accused no.8) were tried on several charges framed under Sections 143, 144, 147, 302, 302/ c 149, 302/34, 307, 307/149, 307/34, 324, 324/149, 324/34 and 324/511 IPC. On trial all the accused persons were held to have committed offences punishable under Sections 143, 144, 147, 302/149 and 324/149 IPC. For offence under Section 302 read with Section 149 IPC each of the accused persons was sentenced to suffer imprisonment for life and to pay a fine of Rs. 1000, in default of payment to suffer further R.I. for 6 months. For offence under Section 324/149 IPC each of the accused was sentenced to suffer RI. for 6 months. Though all the accused were also convicted for the offences punishable under Sections 143, 144 and .147 of the IPC but no separate sentences were awarded thereon. All the eight accused persons preferred an appeal before the High Court. During the pendency of the appeal Santosh @ Babya Dashrath Nagvekar and Prakash @ Vatanya Laxman Pednekar - the accused numbers 4 and 7, died. The appeal surviving for decision as regards the six accused was held liable to be dismissed upholding the conviction as recorded and the sentences as passed by the Trial Court.",
+      "page_start": 13,
+      "page_end": 13
+    },
+    "p13.2": {
+      "text": "Ashok Bhikaji, accused no. I and Nathuram Bhikaji accused. no.2 filed SLP (Cr!.) No.3738/2000 which was dismissed as not admitted by this Court .'v on 25.1.2001. Accused no.8, Rajendra Todankar filed SLP(Crl.) 4205/00 which 'has been registered as Cr!. Appeal No. 65112001 on leave to appeal having been granted. SLP (Cr!.) preferred by Santosh Shirwadkar, Ravindra Surve and Anant Shirodkar (accused nos.3, 5 and 6) has been registered as Criminal Appeal No.652/02 on leave being granted. Thus, in substance it is the guilt of the accused nos. 3, 5, 6 and 8 which survives for determination in these appeals.",
+      "page_start": 13,
+      "page_end": 13
+    },
+    "p13.3": {
+      "text": ").",
+      "page_start": 13,
+      "page_end": 13
+    },
+    "p13.4": {
+      "text": "For the sake of convenience the accused persons shall be referred to by their numbers as they were arrayed before the Sessions Court. Reference to accused nos. 1 and 2 though their SLP(Crl) has been dismissed and to accused [2003] I S.C.R.",
+      "page_start": 13,
+      "page_end": 14
+    },
+    "p14.1": {
+      "text": "nos.4 and 7, who have died during the pendency of their appeal in the High Court i~ being made where necessary only for the purpose of determining the )- guilt of the accus~d~.appellants before us.",
+      "page_start": 14,
+      "page_end": 14
+    },
+    "p14.2": {
+      "text": "In the locality knQW!l as Prabhadevi situated within the jurisdiction of police station Dadar of Mumbai there is a place known as Hatiskar Wadi. Nariman Bhat Nagar is an adjoining locality. One Mukesh Purav resides in Hatiskar Wadi. Ashok Gurav, accu~ed no.I resides in Nariman Bhat Nagar. These two persons are ring-leaders of their respective gangs formed in the two localities and they are involved in various illegal activities. The injured persons and the accused persons are residents of these two localities and were known to each other since before the incident. An acute rivalry prevails between the two groups. Prior to this incident on the festival of Janmashtami there was a competitive game played known as Dahi Handi, also known as 'Govinda', wherein both the gangs had participated and quarrelled with each other. The present incident took place on 27th September, 1991 at about 8.30 p.m.",
+      "page_start": 14,
+      "page_end": 14
+    },
+    "p14.3": {
+      "text": "There is a four-storeyed building the ground-floor whereof is occupied by a restaurant known as 'Sanket Bar'. There is a road in front of the hotel. The door leading to the way for upper floors of the building is by the side of the hotel. There is a pan shop near the hotel. By the side of the hotel there are other shops providing the look of a commercial complex. Gopikrishna, who die!'.! in the incident, was standing in front of the entrance door of the building. Jaideep Bhosale, PW3 and Dyandeo Sawant, PW4 were standing near Gopikrishna. The three were busy talking to each other. At a little distance from there one Sanjay Patil, PW! was standing. Apparently, Sanjay Patil and the trio consisting of Jaideep, Dyandeo and Gopikrishna had nothing to do with each other. Sanjay, PWI saw all the eight appellants coming towards the hotel. The accused persons passed by his side and reached the place where the three persons including Gopikrishna were chit-chatting. The accused persons were anned with naked weapons such as swords; choppers and gupti. As soon as they reached near Gopikrishna they opened an assault on all the three persons standing there. Jaideep and Dyandeo ran away from the place. Gopikrishna tried to escape for his life by running towards the door providing access to the staircase leading to upper floors of the building. He went on running upto the fourth floor leaving a trail of blood behind. The accused persons chased him and injured him fatally. He fell down in a pool of blood on the landing of the fourth floor. - R.S. TODANKAR v. STATE OF MAHARASHTRA (R.C. LAHOT!, J.] Sanjay, PWI apprehended that he may be assaulted and injured. He -· tried to run away from the place of the incident. He was noticed by the appellants; some of them followed him and inflicted injuries on his person. The appellants then shouted loudly so as to create terror in the locality. The frightened neighbours downed the shutters of their shops and houses. The appellants ran away. Sanjay, PW.I picked up a taxi and proceeded to KEM hospital for medical help and treatment. In the meantime the witnesses Jaideep and Dyandeo returned to the place of the incident. They reached the fourth floor and found Gopikrishna lying injured and bleeding profusely. They brought him down and removed him to KEM hospital where he was to the police station whereon PSI Agarkar and Pl Pisa! rushed to the hospital c declared dead. A police constable on duty at the hospital flashed a message with police force. The statement of Sanjay was recorded, got signed by him and sent to the police station where it was registered as FIR of the incident at 11.30 p.m. The investigation commenced. Inquest on the dead body of Gopikrishna was held. His clothes were seized. Autopsy on the dead body •· was performed by Dr. Subhash, PW14. The following injuries were found on his person :",
+      "page_start": 14,
+      "page_end": 15
+    },
+    "p15.1": {
+      "text": "(i)",
+      "page_start": 15,
+      "page_end": 15
+    },
+    "p15.2": {
+      "text": "Incised wound on back of head, 4 cm x 1.0 t;m. x muscle deep. On right side of midline in pareieto-occipital region (ii) Incised stab wound on left gluteal fold. Oblique wound. Lower and pointed upper end. Blunt regged contused. Dimensions : 2.5 cm x 0.8 cm x deep in muscles.",
+      "page_start": 15,
+      "page_end": 15
+    },
+    "p15.3": {
+      "text": "(iii) Incised wound on right thumb palmar aspect. Vertical wound 1.5 cm x 0.5 cm.",
+      "page_start": 15,
+      "page_end": 15
+    },
+    "p15.4": {
+      "text": "(iv) Scratch on right occipital bone outer table in base of injury no.I ....",
+      "page_start": 15,
+      "page_end": 15
+    },
+    "p15.5": {
+      "text": "with contusion in layer of scalp deep to the injury .",
+      "page_start": 15,
+      "page_end": 15
+    },
+    "p15.6": {
+      "text": "On dissecting, the injury no.2 was found to be deep in gluteal muscles and had cut in gluteal vessels with extensive haemorrhage found in muscles. Total. depth of injury was 15.0 cm.",
+      "page_start": 15,
+      "page_end": 15
+    },
+    "p15.7": {
+      "text": "In the opinion of Dr. Subhash, the cause of death was haemorrhage and shock due to injury to major blood vessels by sharp-edged weapons. All the ;..",
+      "page_start": 15,
+      "page_end": 15
+    },
+    "p15.8": {
+      "text": "injuries were ante-mortem and sufficient in the ordinary course of nature to cause death. When Dr. Subhash was examined in the Court he stated that the injuries on the person of the deceased could be caused by weapons like gupti and chopper. Though buttock is not a vital organ of the body but in case of • [2003] l S.C.R.",
+      "page_start": 15,
+      "page_end": 16
+    },
+    "p16.1": {
+      "text": "the deceased important blood vessels in the buttock were injured and so the death was caused. In spite of having sustained the injuries, the deceased could have run and climbed the stairs to save his life.",
+      "page_start": 16,
+      "page_end": 16
+    },
+    "p16.2": {
+      "text": "Sanjay Patil, PWI was medico-legally examined by Dr. Subhash Shivade who prepared the memo of injuries. However by the time the trial commenced · Dr. Shivade had left the Government service and gone to England. Dr. Arun, PW17, who had worked with Dr. Shivade, was examined. He proved the memo of injuries containing the particulars of the injuries suffered by Sanjay, PWI.",
+      "page_start": 16,
+      "page_end": 16
+    },
+    "p16.3": {
+      "text": "c The following injuries were found on the person of Sanjay Patil : (l) Incised wound in right perictal region 6 x 2 cm, bone deep (2) Incised wound on right elbow, joint opened.",
+      "page_start": 16,
+      "page_end": 16
+    },
+    "p16.4": {
+      "text": "--- I (3) Multiple abrasions on back and right scapula.",
+      "page_start": 16,
+      "page_end": 16
+    },
+    "p16.5": {
+      "text": "(4) Stab injuries on right hypocondrium (abdomen) 2.5 x 2x3 ems, about 4 ems from the subcostal region, about l 0 ems lateral to the mid line.",
+      "page_start": 16,
+      "page_end": 16
+    },
+    "p16.6": {
+      "text": "In the opinion of Dr. Arun, looking to the nature of injuries, death was unlikely from such injuries. The injuries could have been caused by weapons like gupti and chopper. There was no bony injury. No vital organ of the body was cut or damaged.",
+      "page_start": 16,
+      "page_end": 16
+    },
+    "p16.7": {
+      "text": "The prosecution case hinges upon the testimony of four witnesses, namely, Sanjay Patil (PW-I), Jaideep (PW-3), Dyandeo Sawant (PW-4) and Prashant (PW-5). We will analyse the testimony of these four witnesses so as to find out the nature of the offence committed and the involvement of the .1.",
+      "page_start": 16,
+      "page_end": 16
+    },
+    "p16.8": {
+      "text": "accused persons. Whether all the accused persons, as alleged, were involved in the incident, and if so, to what extent ?",
+      "page_start": 16,
+      "page_end": 16
+    },
+    "p16.9": {
+      "text": "We have already noticed that the localities to which the accused persons and the deceased and the witnesses belong are situated adjoining each other. The presence of the accused persons at the place of occurrence can be natural as well. Though the witnesses have deposed to all the eight accused persons having come together at the place of the incident and all the accused persons having assaulted the deceased Gopikrishna and the injured Sanjay ~atil (PW- 1 ), however, a closer scrutiny of the testimony of the eyewitnesses reveals that, in fact, there are two incidents of assault which have taken place in ..",
+      "page_start": 16,
+      "page_end": 16
+    },
+    "p17.1": {
+      "text": "R.S. TODANKAR v. STATE OF MAHARASHTRA [R.C. LAHOTI, l.] 17 quick succession. The nature of the guilt attributable to the accused persons or the criminal liability which can be fastened on them shall have to be determined by reference to the two assaults. There is no material available on record to hold that the deceased Gopikrishna and the injured Sanjay Patil had anything to do with each other or the common object of the alleged unlawful assembly of eight persons was to cause the death of Gopikrishna as also to cause injuries to Sanjay Patil and such common object was shared by all the eight accused persons. A careful reading of the testimony of the eyewitnesses reveals that while accused Nos. 1 to 5 assaulted the deceased Gopjkrishna, ~ the other three accused persons have allegedly participated in assault on I Sanjay Patil. We are referring to assault by three accused persons, namely, accused Nos. 6 to 8 on Sanjay Patil by way of stating the prosecution case because as we will discuss shortly hereinafter, we have grave doubts if Rajendra Todankar, the accused No. 8, had really participated in the assault and, therefore, whether in the facts and circumstances of the case he deserves to be allowed benefit of doubt.",
+      "page_start": 17,
+      "page_end": 17
+    },
+    "p17.2": {
+      "text": "Section I 49 of the Indian Penal Code provides that if an offence is committed by any member of an unlawful assembly in prosecution of the common object of that assembly, or such as the members of that assembly knew to be likely to be committed in prosecution of that object, every person who at the time of the committing of that offence, is a member of the same assembly is guilty of that offence. The two clauses of Section 149 vary in degree of certainty. The first clause contemplates the commission of an offence by any member of an unlawful assembly which can be held to have been committed in prosecution of the common object of the assembly. The second clause embraces within its fold the commission of an act which may not necessarily be the common object of the assembly nevertheless the members of the assembly had knowledge of likelihood of the commission of that offence in prosecution of the common object. The common object may be commission of one offence while there may be likelihood of the commission of yet another offence the knowledge whereof is capable of being safely attributable to the members of the unlawful assembly. In either case every member of the assembly would be vicariously liable for the offence actually committed by any other member of the assembly. A mere possibility of the commission of the offence would not necessarily enable the Court to draw an inference that the likelihood of commission of such offence was within the knowledge of every member of the unlawful assembly. It is difficult indeed, though not impossible, to collect direct evidence of such knowledge. An inference may be drawn from circumstances such as the background of the [2003] I S.C.R.",
+      "page_start": 17,
+      "page_end": 18
+    },
+    "p18.1": {
+      "text": "incident, the motive, the nature of the assembly, the nature of the arms carried by the members of the assembly, their common object and the behaviour of the members soon before, at or after the actual commission of the crime. Unless the applicability of Section 149 either clause is attracted and the Court is convinced, on facts and in law both, of liability capable of being fastened vicariously by reference to either clause of Section 149 of IPC merely because a criminal act was committed by a member of the assembly every other member thereof would not necessarily become liable for such criminal act. The inference as to likelihood of the commission of the given criminal act must be capable of being held to be within the knowledge of another member of the assembly who is sought to be held vicariously liable for the said criminal act. These principles are settled. Applying these tests to the facts found proved beyond reasonable doubt the accused nos. I to 5 can be held liable for the offence under Section 302/149 IPC for the assault resulting in death of Gopi Krishna while accused nos. 6 and 7 can be held liable for their individual acts of assault committed on Sanjay Patil. They are the accused Nos. I to 5 who had assaulted the deceased and followed him upto the 4th floor. The accused Nos. I to 5 armed severally with deadly weapons having initially assault~d the deceased Gopikrishna when he was standing on the ground floor, chased him by following him on the staircase leading to the 4th floor where he fell ~own in the pool of blood. · · So far as accused Nos. I to 5 are concerned, it can be safely inferred that they were the members of unlawful assembly armed with deadly weapons formed with the common object of fatally injuring the deceased Gopikrishna so as to cause his death. Their conviction for the offence under Section 302 r/w 149 IPC is liable to be sustained. If death l,las been caused in prosecution of common object of unlawful assembly, it is not necessary to record a definite and specific finding as to which particular accused out of the members of the unlawful assembly caused the fatal injury. Once an unlawful assembly has come into existence, each member of the assembly becomes vicariously liable for the criminal act of any other member of the assembly committed in prosecution of the common object of the assembly.",
+      "page_start": 18,
+      "page_end": 18
+    },
+    "p18.2": {
+      "text": "So far as the assault on Sanjay Patil (PW-I) is concerned, the witnesses do not attribute any overt act qua Sanjay Patil (PW-I) to the accused Nos. I to 5. It appears that while beating the retreat. some of the accused other than accused nos. l to 5 noticed Sanjay Patil and diverted themselves to an assault on him. Assault on Sanjay Patil was not pre-planned nor shared as common object by accused nos.I to 5. No unlawful assembly was in existence nor formed into being at the spur of the moment so far as the assault on Sanjay Patil is concerned.",
+      "page_start": 18,
+      "page_end": 19
+    },
+    "p19.1": {
+      "text": "-;",
+      "page_start": 19,
+      "page_end": 19
+    },
+    "p19.2": {
+      "text": "We would like to deal specifically with the case of Rajendra Todankar (accused No.8). According to Sanjay Patil (PW-I}, he was assaulted by three accused persons, namely, Anant @ Papya (accused No. 6) who stabbed on the right side of the stomach with a gupti; by Prakash Pednekar @ Vatanya (accused No. 7) who dealt a sword blow on the right side of upper head and by Rajendra Todankar (accused No. 8) who dealt sura (dragger) blows on his back twice and on the left arm near elbow, whereafter he fell down, During cross-examination he stated that the accused Rajendra Todankar had used his (accused No. 7) and Rajendra Todankar (accused No. 8) assaulted Sanjay c weapon with force while assaulting on him. Prashant (PW-5) states Vatanya Patil. According to this witness, the weapon said to have been used by Rajendra Todankar was a chopper. During cross-examination he stated that Rajendra Todankar had dealt chopper blows forcefully on Sanjay. He further stated -~ that the accused Babya had also stabbed Sanjay. Apart from the fact that there is divergence in the statements of the two witnesses as to the weapon which is attributed to accused no.8, what is more significant is that injuries by chopper or sura (dragger)' are not to be found on the back of Sanjay and in the manner in which the two witnesses stated the injuries having been caused to Sanjay forcefully. Such use of sharp weapon would not result in · ' •. _;..",
+      "page_start": 19,
+      "page_end": 19
+    },
+    "p19.3": {
+      "text": "mere abrasion on the back. There is no injury on the left arm of Sanjay (PW- I). Thus, the injuries specifically attributed to accused Rajendra Todankar by Sanjay (PW-I) and Prashant (PW-5) and consequently the role assigned to him in the incident is belied by medical evidence. Jaideep (PW-3) and Dyandeo Sa want (PW-4) have not mentioned even the presence of Rajendra Todankar much less any participation by him in the assault. This accused Rajendra Todankar is in government service. In his statement u/s 313 CrPC he stated that he is a social worker whose activities are not to the liking of Mukesh Purav, the gang leader, and that is the reason why he has been falsely implicated. The participation of Rajendra Todankar (accused No. 8) in the incident is rendered doubtful.",
+      "page_start": 19,
+      "page_end": 19
+    },
+    "p19.4": {
+      "text": "So far as the accused Anartt@ Papya (accused No. 6) and Prakash @ Vatanya (accused No. 7) are concerned, they cannot be held to be the members ....\\ of the unlawful assembly, which assaulted Gopikrishna. Their assault on Sanjay Patil (PW-I) is proved beyond reasonable doubt. Each one of them has caused simple injuries by sharp weapon on the person of Sanjay Patil. Therefore, they can each be held liable only for an offence punishable u/s [2003] I S.C.R.",
+      "page_start": 19,
+      "page_end": 20
+    },
+    "p20.1": {
+      "text": "324 IPC. Their conviction under Section 302 r/w 149 IPC, so far as the murder of Gopikrishna is concerned, cannot be sustained and must be set aside. So also their conviction under Sections 143, 144 and 147 IPC must go. For the foregoing reasons, Criminal Appeal No. 651 of2001 preferred by Rajendra Shantaram Todankar (accused No. 8 ln the Trial Court) is allowed. His conviction is set aside and he is acquitted of the charges framed against him. He shall be released forthwith if not required to be detained in connection with any other offence.",
+      "page_start": 20,
+      "page_end": 20
+    },
+    "p20.2": {
+      "text": "In Criminal Appeal ,No. 652 of 2001 the appellants are Santosh @ Kalya (A-3), Ravinder @ Bobby (A-5) and Anant @ Papya Shirodkar (A-6). The conviction of accused Santosh @ Kalya (A-3) and Ravinder @ Bobby (A-5) under Section 302 r/w 149 IPC along with the sentence of imprisonment for life are maintained. Their conviction under Section 324/149 IPC is set aside. So far as accused Anant @ Papya Shirodkar (A-6) is concerned, his conviction under Section 302/149 IPC as also under Sections 143, 144 and 147 IPC is set aside. He is held guilty under Section 324 IPC and for this offence sentence of R.I. for 6 months is maintained. Criminal Appeal No. 652 of 200 I is allowed in part to this extent.",
+      "page_start": 20,
+      "page_end": 20
+    }
+  },
+  "headnote_raw": " \nRAJENDRA SHANT ARAM TODANKAR\nv.\nST A TE OF MAHARASHTRA AND ORS.\nJANUARY 7, 2003\nPenal Code, 1860: Ss. 143, 144, 147, 3021149 and 3241149-Prosecution\nof 8 accused-For causing death of one and injury to another person-Evidence\nrevealing that the accused who caused death did not cause injury to another\nperson-Injuries and the role attributed to one of the accused causing injury\nnot corroborated by medical evidence-Conviction by trial Court of all the\naccused-Upheld by High Court-On appeal, held-Conviction of all the\naccused of all the charges by application of Section 149 not justified-Accused\ncausing death convicted uls 3021149 while acquitted u/s 3241149-Accused\ncausing injury convicted only u/s 3241149-Prosecution case not proved against\naccused alleged for causing injury-Hence acquitted of all the charges.\n/\nS. 149-Vicarious liability of member of unlawful assembly for criminal\nact committed by another member of the assembly-Ascertaining of-Held,\nmerely because a criminal act was committed by a member of the assembly\nevery other member thereof would not necessarily become liable for such\ncriminal act-The inference as to likelihood of the commission of the criminal\nact must be capable of being held to be within the knowledge of another\nmember of the assembly who is sought to be held vicariously liable for the\nsaid criminal act.\nAppellant-accused Nos. 3, 5, 6 and 8 alongwith accused l to 4 were\ntried for offences u/ss. 143, 144, 147, 302/149 and 324/149 IPC.\nProsecution case was that all the accused persons came armed with\ndeadly weapons and opened an assault on three persons (PWs 3, 4 and\nthe deceased). PWl who was standing at a distance apprehended attack\nand ran away. Some of the accused chased him and inflicted injuries on\nhim. Accused, deceased and prosecution witnesses belonged to adjoining\nlocalities. Testimony of eye witnesses revealed that deceased was assaulted\nby accused Nos. l to 5 and PWl was assaulted by other accused persons.\nAccused No. 8, a government servant, took the plea of false implication.\nThe injuries specifically attributed to him and the role assigned to him\n \nR.S. TODANKAR v. STATE OF Mf\\HARASHTRA\nII\nby PWs 1 and 5 were not corroborated by medical evidence, Trial Court\ncon~icted all the accused of all the offences. High Court confirmed the\nconviction. During pendency of the appeal before Higll Court accused 3\nand. 4 died. Accused 1 and 2 had filed a11peals lwfore this Court which\nwere dismissed. Present appeals are by acc11sed J, 5, 6 and 8.\nPartly allowing the appeals, tl\\Q Court\nHELD: 1. A careful fi>ndln11 of the testimony of the eyewitnesses\nreveals that while aeeused Nos.1 to 5 assaulted the deceased, the other three\naccused persons have allegedly participated in assault on PWJ. In fact,\nthere are two incidents of assault which have taken place in quick\nsuccession. The nature of the guilt attributable to the accused persons or\nthe criminal liability which can be fastened 011 them shall have to be\ndetermined by reference to the two assaults. There is no material available\npn record to hold that the deceased and tile injured PWl had anything to\ndo with each other or the common object of the alleged unlawful assembly\nof eight persons was to cause the death of the deceased as also to cause\ninjuries to PWl and such co111mon object was shared by all the eight\naccused persons. [16-H; 17-A-C)\n2. Unless the applicability of Section 149.eitber clause-is attracted\nand the Court is convince<\\ on facts and in law both, of liability capable\nof being fastened vicariously by reference to either clause of Section 149\nlPC merely because a criminal act Wiii committed by a member of the\nassembly every other member thereof would not necessarily become liable\nfor such criminal act. The inference as to likelihood of the commission of\nthe given criminal act must be capable of being held to be within the\nknowledge of another member of the assembly who is sought to be held\nvicariously liable for the ~aid criminal act. It is difficult though not\nimpossible, to collect direct evidence of such knowledge. An inference may\nbe drawn from circumstance~ such as the background of the incident, the\nmotive, the nature of the assembly, the nature of the arms carried by the\nmembers of the assembly, their common object and the behaviour of the\nmembers soon before, at 11r 11ner tho actual commission of the crime.\n(17-H; 18-A-C]\n3. Regarding accused Nos.I to 5 It can be inferred that they were\nthe members of unlawful assembly armed with deadly weapons formed\nwith the common object of fatally injuring the deceased so as to cause his\ndeath. If death has been caused In prosecution of common object of\n \n[2003] l S.C.R.\nunlawful assembly, it is not necessary to record a definite and specific\nfinding as to which particular accused out of the members of the unlawful\nassembly caused the fatal injury. Once an unlawful assembly has come\ninto existence, each member of the assembly becomes vicariously liable\nfor the criminal act of any other member of the assembly committed in\nprosecution of the common object of the assembly. Witnesses do not\nattribute any overt act qua PW-1 to the accused Nos. l to 5. Assault on\nPW l was not pre-planned, not shared as common object by accused nos.\nl to 5. No unlawful assembly was in existence nor formed into being at\nthe spur of the moment so far as the assault on PW l is concerned. The\nconviction of accused Nos. 3 and 5 u/s 302 r/w Section 149 IPC are\nmaintained. Their conviction u/s 324 r/w Section 149 is set aside.\n[18-E-H; 19-A; 20-C-DJ\n4. The injuries specifically attributed to accused No. 8 by PWs l and\nS and consequently the role assigned to him in the incident is belied by\nmedical evidence. PW-3 and PW-4 have not mentioned even his presence\nmuch less any participation by him in the assault. This accused is in\ngovernment service. In his statement u/s 313 Cr.P.C. he stated that he has\nbeen falsely implicated. His participation in the incident is rendered\ndoubtful. His conviction is set aside and he is acquitted of the charges\nframed against him. [19-E, F; 20-B)\n5. Accused Nos. 6 and 7 cannot be held to be the members of the\nunlawful assembly, which assaulted the deceased. Their assault on PW-1\nis proved beyond reasonable doubt. Therefore, they can each be held liable\nonly for an offence punishable u/s 324 IPC. Conviction of accused 6 under\nSection 302/149 IPC as also under Sections 143, 144 and 147 IPC is set\naside. He is held guilty under Section 324 IPC. [19-G, H; 20-A]\n"
+}

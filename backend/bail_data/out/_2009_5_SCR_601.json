@@ -1,0 +1,265 @@
+{
+  "case_id": "_2009_5_SCR_601",
+  "doc_meta": {
+    "source_file": "2009 INSC 410.pdf",
+    "pdf_pages": 5,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment",
+      "author": "author:0"
+    },
+    "format_profile": "scr_reporter",
+    "citation_scr": "[2009] 5 SCR 601",
+    "scr_year": 2009,
+    "scr_volume": 5,
+    "scr_first_page": 601,
+    "decided_on": "2009-03-26",
+    "coram_raw": "DR. ARIJIT PASAYAT, LOKESHWAR SINGH PANTA AND P. SATHASIVAM, JJ.",
+    "coram_regex": [
+      "ARIJIT PASAYAT",
+      "LOKESHWAR SINGH PANTA",
+      "P. SATHASIVAM"
+    ],
+    "bench_strength_regex": 3,
+    "constitution_bench": false,
+    "petitioner_regex": "1 STATE OF PUNJAB",
+    "respondent_regex": "RAM PAL",
+    "court_regex": "Supreme Court of India",
+    "year": 2009,
+    "reporter_trailer": "K.K.T. . Appeal allowed.",
+    "result_of_case": "Appeal allowed.",
+    "pre_judgment_block": "CRIMINAL APPELLATE JURISDICTION : Criminal Appeal No. 291 of 2004. From the Judgment & Order dated 25.02.2003 of the High Court of Punjab & Haryana at Chandigarh in Crl. Appeal No . • .l,, 441-DB/2002. Kuldip Singh, R.K. Pandey, T.P. Mishra and Sanjay Katyal for the Appellant. c",
+    "case_no": "Criminal Appeal No. 291 of 2004",
+    "appeal_from_raw": "From the Judgment & Order dated 25.02.2003 of the High Court of Punjab & Haryana at Chandigarh in Crl. Appeal No . • .l,, 441-DB/2002",
+    "judgment_author_regex": "ARIJIT PASAYAT",
+    "layout": "unnumbered_page_anchored",
+    "ocr_noise_score": 0.0
+  },
+  "flags": [],
+  "case": {
+    "case_name": "STATE OF PUNJAB v. RAM PAL",
+    "petitioner": "STATE OF PUNJAB",
+    "respondent": "RAM PAL",
+    "court": "Supreme Court of India",
+    "coram": [
+      "DR. ARIJIT PASAYAT",
+      "LOKESHWAR SINGH PANTA",
+      "P. SATHASIVAM"
+    ],
+    "judgment_author": "DR. ARIJIT PASAYAT",
+    "procedural_stage": "post_arrest_bail",
+    "offence_types": [
+      "narcotic"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "The case involves an appeal against a High Court judgment that acquitted the respondent of charges under the Narcotic Drugs and Psychotropic Substances Act for lack of conscious possession. The Supreme Court evaluates the legal principles surrounding the concept of possession as it applies to narcotics offences.",
+    "lower_court_outcome": "Acquittal by the High Court for lack of conscious possession established.",
+    "disposition": "Appeal allowed, matter remitted to High Court.",
+    "statutes": [],
+    "issues": [
+      {
+        "question": "What is the meaning of 'conscious possession' under the Narcotic Drugs and Psychotropic Substances Act?",
+        "short_answer": "The Supreme Court clarifies the legal understanding of conscious possession in relation to narcotics offences.",
+        "anchors": [
+          "p604.2"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "The expression 'possession' is a polymorphous term that assumes different meanings in different contexts; it may not be possible to provide a uniform definition applicable to all statutes.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p604.1"
+        ],
+        "quote": "The expression 'possession' is a polymorphous term which assumed different colours in different contexts."
+      },
+      {
+        "id": "p2",
+        "text": "The word 'conscious' refers to awareness of a particular fact and denotes a deliberate or intended state of mind.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p604.2"
+        ],
+        "quote": "The word 'conscious' means awareness about a particular fact, it is a state of mind which is deliberate or intended."
+      },
+      {
+        "id": "p3",
+        "text": "Possession can be constructive and not just physical; it implies having power and control over an article.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p604.4"
+        ],
+        "quote": "Possession in a given case need not be physical possession but can be constructive, having power and control over the article."
+      },
+      {
+        "id": "p4",
+        "text": "Once possession is established, the onus shifts to the person claiming it was not conscious possession to prove otherwise, as the circumstances surrounding their possession fall within their special knowledge.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p605.1"
+        ],
+        "quote": "Once possession is established, the person who claims that it was not a conscious possession has to establish it."
+      },
+      {
+        "id": "p5",
+        "text": "Sections 35 and 54 of the Narcotic Drugs and Psychotropic Substances Act create a statutory presumption regarding conscious possession and the possession of illicit articles, respectively.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p605.1"
+        ],
+        "quote": "Section 35 of the Act gives a statutory recognition of this position because of the presumption available in law."
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The High Court did not consider the correct position in law regarding conscious possession as articulated by the Supreme Court in prior judgments.",
+        "outcome": "accepted",
+        "anchors": [
+          "p603.4"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "Gunwantlal vs. State of M.P",
+        "citation": "(1973) 1 SCR 508",
+        "treatment": "relied_on",
+        "used_for": "Meaning of possession in the context of narcotic laws.",
+        "where": "[p604.4]"
+      }
+    ]
+  },
+  "authority_table": [
+    {
+      "name": "Gunwantlal vs. State of M.P",
+      "cite": "(1973) 1 SCR 508",
+      "treatment": "relied_on",
+      "para": null
+    }
+  ],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p4": {
+      "id": "p4",
+      "verdict": "unsupported",
+      "favors_correct": true,
+      "note": "The anchor text does not address the shifting of the onus of proof."
+    },
+    "p5": {
+      "id": "p5",
+      "verdict": "unsupported",
+      "favors_correct": false,
+      "note": "The anchor text does not mention sections 35 and 54 or create a presumption regarding possession."
+    }
+  },
+  "needs_review": [
+    "p4: quote not found in its anchors",
+    "p5: quote not found in its anchors",
+    "p4: verifier says unsupported, favors_correct=True - The anchor text does not address the shifting of the onus of proof.",
+    "p5: verifier says unsupported, favors_correct=False - The anchor text does not mention sections 35 and 54 or create a presumption regarding possession."
+  ],
+  "paragraphs": {
+    "p603.1": {
+      "text": "DR. ARIJIT PASAYAT, J. 1. Challenge in this appeal is to the judgment of acquittal recorded by a Division Bench of the Punjab and Haryana High Court directing acquittal of the respondent who faced trial for alleged commission of offence ·~ punishable under Section 25 of the Narcotic Drugs and Psychotropic Substances Act, 1985 (in short 'Act'). He was sentenced to undergo rigorous imprisonment for a period of 11 years and to pay a fine of Rs. 1,00,000/- with default stipulation by the learned Single Judge, Patiala.",
+      "page_start": 603,
+      "page_end": 603
+    },
+    "p603.2": {
+      "text": "2. So far as co-accused Amirk Singh is concerned, he was convicted under Section 15 of the Act and was awarded the same sentence. Two separate appeals were filed. It needs to be mentioned here that respondent Ram Pal was also charged _)",
+      "page_start": 603,
+      "page_end": 603
+    },
+    "p603.3": {
+      "text": "for offence punishable under Section 15 of the Act but in view of the conviction recorded in respect of Section 25 of the Act no sentence was awarded. Therefore, no separate sentence was imposed in respect of accusation relatable to Section 15 of the Act. The High Court primarily directed acquittal on the· ground that conscious possession has not been established. 3. Learned counsel for the appellant-State submitted that ~ ),.",
+      "page_start": 603,
+      "page_end": 603
+    },
+    "p603.4": {
+      "text": "the position in law relation to conscious possession has been dealt with in detail by this court in Madan Lal and Anr. vs. State of H.P. 2003 (7) SCC 465. The High Court has not kept the correct position in view.",
+      "page_start": 603,
+      "page_end": 604
+    },
+    "p604.1": {
+      "text": "4. There is no appearance on behalf of the respondent. 5. The expression \"possession\" is a polymorphous term which assumed different Colours in different contexts. It may carry different meanings in contextually different backgrounds. It is impossible, as was observed in Spdt. & Remembrancer of Legal Affairs, W.B. vs. Anil Kumar Bhujja to work out a completely logical and precise definition of \"Possession\" uniformally applicable to all situations in the context of all statues.",
+      "page_start": 604,
+      "page_end": 604
+    },
+    "p604.2": {
+      "text": "6. The word \"conscious\" means awareness about a particular fact. It is a state of mind which is deliberate or )- .",
+      "page_start": 604,
+      "page_end": 604
+    },
+    "p604.3": {
+      "text": "intended.",
+      "page_start": 604,
+      "page_end": 604
+    },
+    "p604.4": {
+      "text": "7. As noted in Gunwant/al vs. State of M.P. possession in a given case need not be physical possession but can be constructive, having power and control over the article in the case in question, while the person to whom physical possession is given holds it subject to that power or control. 8. The word \"possession\" means the legal right to possession. In an interesting case it was observed that whereas person keeps his firearm in his mother's flat which is safer than his own home, he must be considered to be in \\- possession of the same.",
+      "page_start": 604,
+      "page_end": 604
+    },
+    "p604.5": {
+      "text": "9. Once possession is established, the person who claims that it was not a conscious possession has to establish it, because how he came to be in possession is within his special knowledge. Section 35 of the Act gives a statutory recognition of this position because of the presumption available in law. Similar is the position in terms of Section 54 where also presumption is available to be drawn from possession of illicit articles.",
+      "page_start": 604,
+      "page_end": 604
+    },
+    "p605.1": {
+      "text": "10. Normally we would have decided the matter taking note of what is stated in Madan Lal and Anr. vs. State of H.P. 2003 (7) 465. But the respondent is not represented and, therefore, we deem it proper to set aside the impugned judgment and remit the matter to the High Court afresh in the light of what is stated by this court in Madan Lal case (supra). The present judgment will cover the case of accused Ram Pal only. 11. The appeal is allowed to the aforesaid extent.",
+      "page_start": 605,
+      "page_end": 605
+    }
+  },
+  "headnote_raw": " \n[2009) 5 S.C.R. 601\n·;-1\nSTATE OF PUNJAB\nv.\nRAM PAL\n(Criminal Appeal No. 291 of 2004)\nMARCH 26, 2009\n[DR. ARIJIT PASAYAT, LOKESHWAR SINGH PANTA\nAND P. SATHASIVAM, JJ.]\nNarcotic Drugs and Psychotropic Substances Act, 1985 c\n- s. 25, 35 and 54 - Conviction u/s. 25 - Acquittal holding\nthat conscious possession not established - On appeal, held:\nLaw relating to conscious possession dealt with in a case\ndecided by Supreme Court - Since the accused not\nrepresented, matter remitted to High Court to decide the case\n~ in accordance with decision passed by Supreme Court.\nWords and Phrases - 'Conscious' and 'Possession' -\nMeaning of in the context of Narcotic Drugs and Psychotropic\nsubstances Act, 1985.\nRespondent-accused was charged u/s. 15 of\nNarcotic Drugs and Psychotropic su'bstances Act, 1985\nwith co-accused. Respondent was convicted u/s. 25 of\nthe Act. High Court directed acquittal ?n th~ ground that\nconscious possession had not been established. Hence\n_)\nthe present appeal.\nI\nAllowing the appeal and remitting t,he matter to High\nCourt, the Court\nI\n'\nHELD: 1. The expression \"possession\" is a\npolymorphous term which assumed different colours in\ndifferent contexts. It may carry different meanings in\n~,~\ncontextually different backgrounds. It is impossible, to\nwork out a completely logical and precise definition of\n\"possession\" informally applicable to all situations in the\n \n(2009] 5 S.C.R.\n.... -\ncontext of all statutes. The word \"conscious\" means\nawarness about a particular fact, it is a state of mind\nwhich is deliberate or intended. Possession in a given\ncase need not be physical possession but can be\nconstructive, having power and control over the article\nin the case in question, while the person to whom\n;._\nphysical possession is given holds it subject to that\npower or control. The word \"possession\" means the\nlegal right to possession. [Paras 4, 5, 6 and 8] [604-8, C;\n604-D; 604-E]\nc\nSpdt. and Remembranqer of Legal Affairs, WB. vs. Anil\nKumar Bhujja (1980) 1 SCR 323 and Gunwantlal vs. State\nof M.P. (1973) 1 SCR 508, relied on.\n2. Once possession is established, the person who\nclaims that it was not a conscious possession has to\nestablish it, because how he came to be in possession\nis within his special knowledge. Section 35 of the Act\ngives a statutory recognition of this position because of\nthe presumption available in law. Similar is the position\nin terms of Section 54 where also presumption is available\nto be drawn from possession of illicit articles. [Para 9]\n[604-G]\n3. Since the respondent is not represented the\nimpugned judgment is set aside and the matter is remitted\n\\_\nto the High Court for deciding the matter afresh in the\nlight of what is stated by this court in Madan Lal's case.\n[Para 9] [605-8)\nMadan Lal and Anr. vs. State of H.P. 2003 (7) SCC 465,\nrelied on.\nCase Law Reference:\n2003 (7) sec 465\nPara 3\nRelied on.\nPara 4\n(1980) 1 SCR 323\nRelied on.\n \n-\nJr\n(1973) 1 SCR 508\nRelied on.\nPara 6\n"
+}

@@ -32,6 +32,19 @@ class IngredientValidatorService:
         sec_num = candidate.get("section_num", "")
         sec_str = f"{act} {sec_num}".upper()
 
+        # Check if this is a procedural or process-defiance provision (Bail, Remand, Warrants, Proclamation, Absconding)
+        sec_clean = str(sec_num).lower().strip()
+        procedural_secs = {
+            "438", "482", "437", "439", "167", "187",
+            "70", "71", "72", "82", "83", "84", "85",
+            "174", "174a", "175", "206", "209", "210",
+        }
+        if sec_clean in procedural_secs:
+            raw_facts_text = str(facts or "").lower()
+            if any(k in raw_facts_text for k in ("warrant", "proclamation", "abscond", "evad", "summons", "notice", "appear", "bail", "remand", "custod")):
+                return True, 0.88, f"Candidate {sec_str} – Procedural / process-defiance provision directly applicable to bail grounds."
+            return True, 0.80, f"Candidate {sec_str} – Standard procedural provision for bail proceeding."
+
         ingredients = self._get_section_ingredients(act, sec_num)
 
         # If no ingredients at all (direct or via equivalent), fall back to a
@@ -101,10 +114,11 @@ class IngredientValidatorService:
         note_str = f" ({'; '.join(verification_notes[:2])})" if verification_notes else ""
         summary_reason = f"Verified statutory ingredients matched ({matched_actus}/{total_actus} Actus Reus, {matched_mens}/{total_mens} Mens Rea).{note_str}"
 
-        if confidence >= 0.45:
+        INGREDIENT_MIN_THRESHOLD = float(os.getenv("INGREDIENT_MIN_THRESHOLD", os.getenv("LEXIGRAPH_INGREDIENT_CUTOFF", "0.45")))
+        if confidence >= INGREDIENT_MIN_THRESHOLD:
             return True, confidence, summary_reason
         else:
-            return False, confidence, f"Statutory ingredient match score ({confidence:.2f}) below minimum applicability threshold (0.45).{note_str}"
+            return False, confidence, f"Statutory ingredient match score ({confidence:.2f}) below minimum applicability threshold ({INGREDIENT_MIN_THRESHOLD}).{note_str}"
 
     def get_ingredient_summary(self, candidate: Dict[str, Any], facts: Dict[str, Any]) -> List[Dict[str, Any]]:
         """

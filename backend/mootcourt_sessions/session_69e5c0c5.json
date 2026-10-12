@@ -1,0 +1,30 @@
+{
+  "session_id": "69e5c0c5",
+  "case_id": "20260824133950",
+  "case_text": "The applicant seeks anticipatory bail after being accused of repeatedly encouraging a seventeen-year-old boy to end his life following a personal dispute. The prosecution alleges that the applicant deliberately pressured and instigated the boy through repeated messages, after which the boy died by suicide. The applicant denies encouraging the deceased and claims that the messages have been taken out of context. He submits that there is no direct evidence establishing that he intended or assisted the act. He has cooperated with the investigation and undertakes not to influence witnesses or tamper with evidence.",
+  "student_role": "defense",
+  "prosecutor_output": {
+    "schema_version": "1.0",
+    "case_summary": "",
+    "victim": [],
+    "accused": [],
+    "relationship": "",
+    "legal_concepts": [],
+    "sub_queries": [],
+    "bail_rejection_summary": "",
+    "hallucination_flags": [],
+    "verification_status": "VERIFIED"
+  },
+  "section_usage_plan": {
+    "sections": []
+  },
+  "retrieved_sections": {},
+  "argued_concepts": [],
+  "prosecutor_positions": [],
+  "defense_positions": [],
+  "pillars_argued": [],
+  "sections_cited_so_far": [],
+  "turns": [],
+  "current_turn": 0,
+  "status": "active"
+}

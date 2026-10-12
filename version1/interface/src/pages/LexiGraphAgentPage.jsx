@@ -251,7 +251,7 @@ export default function LexiGraphAgentPage({ onBack, onSwitchToCypher }) {
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-4">
             <button
-              onClick={onBack || (() => { window.location.hash = "#/"; })}
+              onClick={onBack || (() => { navigate("/"); })}
               className="p-2 rounded-full hover:bg-[#2C1810]/5 text-[#2C1810] transition-colors cursor-pointer"
               title="Return to Home"
             >

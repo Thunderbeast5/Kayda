@@ -121,16 +121,17 @@ class VerificationService:
 
         matched = list(unique_targets.values())[0]
         
-        # STEP 7: Improved Logging
-        print("\n" + "=" * 50)
-        print(f"Requested:\n{act_clean} {sec_clean}")
-        print("  |")
-        print(f"Matched Node:\nLawSection({act_clean} {sec_clean})")
-        print("  |")
-        print(f"Relationship:\n{matched.get('rel', 'SUCCEEDED_BY')}")
-        print("  |")
-        print(f"Returned:\n{matched['act']} {matched['section']}")
-        print("=" * 50 + "\n")
+        # STEP 7: Logging (hidden unless --verbose)
+        if os.getenv("VERBOSE", "").lower() in ("1", "true", "yes"):
+            print("\n" + "=" * 50)
+            print(f"Requested:\n{act_clean} {sec_clean}")
+            print("  |")
+            print(f"Matched Node:\nLawSection({act_clean} {sec_clean})")
+            print("  |")
+            print(f"Relationship:\n{matched.get('rel', 'SUCCEEDED_BY')}")
+            print("  |")
+            print(f"Returned:\n{matched['act']} {matched['section']}")
+            print("=" * 50 + "\n")
 
         return {
             "act": matched["act"],

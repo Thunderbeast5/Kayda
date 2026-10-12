@@ -1,0 +1,455 @@
+{
+  "case_id": "_2017_2_SCR_703",
+  "doc_meta": {
+    "source_file": "Manju Devi v. Onkarjit Singh Ahluwalia.pdf",
+    "pdf_pages": 13,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "author": "author:0"
+    },
+    "format_profile": "scr_reporter",
+    "citation_scr": "[2017] 2 SCR 703",
+    "scr_year": 2017,
+    "scr_volume": 2,
+    "scr_first_page": 703,
+    "decided_on": "2017-03-24",
+    "coram_raw": "R. K. AGRAWAL AND ASHOK BHUSHAN, JJ.",
+    "coram_regex": [
+      "R. K. AGRAWAL",
+      "ASHOK BHUSHAN"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "MANJU DEVI",
+    "respondent_regex": "ONKARJIT SINGH AHLUWALIA @ OMKARJEET SINGH & OTHERS",
+    "court_regex": "Supreme Court of India",
+    "year": 2017,
+    "reporter_trailer": "Devika Gujral Appeal allowed.",
+    "result_of_case": "Appeal allowed.",
+    "pre_judgment_block": "CRIMINAL APPELLATE JURISDICTION: Criminal Appeal No. 570 of2017. From the Judgment and Order dated 03.12.2014 of the High Court of Judicature at Patna in Crl. Misc. No. 25561 of2014. A. Sharan, Mrs. Anjana Prakash, Sr. Advs., Sanjeev Kumar, H.K. Naik, Rajnish, Ajay Amrit Raj, P. S. Nerwal, Himanshu Shekhar, Abhinave Mukerji, Siddharth Garg, Mrs. Bihu Sharma, Ms. Purnima Krishna, Sanchit, Ms. Swati, Ms. Aanchal Duta, Suman Jyoti Khaitan, Advs. for the appearing parties.",
+    "case_no": "Criminal Appeal No. 570 of2017",
+    "judgment_author_regex": "R. K. AGRAWAL",
+    "layout": "unnumbered_page_anchored",
+    "ocr_noise_score": 0.0019
+  },
+  "flags": [
+    "appeal_from_not_found"
+  ],
+  "case": {
+    "case_name": "Manju Devi v. Onkarjit Singh Ahluwalia",
+    "petitioner": "MANJU DEVI",
+    "respondent": "ONKARJIT SINGH AHLUWALIA @ OMKARJEET SINGH & OTHERS",
+    "court": "Supreme Court of India",
+    "coram": [
+      "R. K. AGRAWAL",
+      "ASHOK BHUSHAN"
+    ],
+    "judgment_author": "R. K. AGRAWAL",
+    "procedural_stage": "pre_arrest",
+    "offence_types": [
+      "physical assault",
+      "outrage modesty",
+      "intentional insult"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "The case involves allegations by a woman belonging to a Scheduled Caste that the accused entered her quarters to outrage her modesty, insulted her using offensive caste-related terms, and threatened her for revealing the incident. The complaint was initially reported to the police leading to an FIR, and later a magisterial cognizance was taken despite a police closure report. The accused sought anticipatory bail, which was granted by the High Court, leading to an appeal by the complainant to the Supreme Court.",
+    "lower_court_outcome": "Anticipatory bail granted",
+    "disposition": "Appeal allowed",
+    "statutes": [
+      {
+        "act": "CrPC 1973",
+        "section": "438",
+        "how_used": "interpreted",
+        "note": "Section 438 of the Code is not applicable for offences under the SC/ST Act."
+      },
+      {
+        "act": "SC/ST Act 1989",
+        "section": "3(1)(xi)",
+        "how_used": "interpreted",
+        "note": "Assaults or uses force on a woman of SC/ST to dishonour or outrage her modesty is an aggravated offence when caste is involved."
+      },
+      {
+        "act": "SC/ST Act 1989",
+        "section": "18",
+        "how_used": "interpreted",
+        "note": "Excludes the applicability of Section 438 CrPC in connection with offences under the SC/ST Act."
+      }
+    ],
+    "issues": [
+      {
+        "question": "Whether the High Court was justified in granting anticipatory bail to the respondents?",
+        "short_answer": "No",
+        "anchors": [
+          "p707.5"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "Section 438 of the Code of Criminal Procedure, which is available for offences under the IPC, is not applicable in respect of offences under the SC/ST Act, as they fall into a separate and special class related to the practice of untouchability.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [
+          "CrPC 1973",
+          "SC/ST Act 1989"
+        ],
+        "anchors": [
+          "p711.1"
+        ],
+        "quote": "Section 438 of the Code, which is available to an accused in respect of offences under the IPC, is not available in respect of offences under the SC/ST Act."
+      },
+      {
+        "id": "p2",
+        "text": "Section 18 of the SC/ST Act creates a specific bar against invoking Section 438 of the Code for anticipatory bail in cases where a prima facie case under Section 3(1) of the SC/ST Act is made out.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [
+          "SC/ST Act 1989"
+        ],
+        "anchors": [
+          "p713.1",
+          "p714.1"
+        ],
+        "quote": "Section 18 of the SC/ST Act creates a bar for invoking Section 438 of the Code."
+      },
+      {
+        "id": "p3",
+        "text": "The offences under the SC/ST Act are committed to humiliate and subjugate members of Scheduled Castes and Tribes, and such offences cannot be compared to offences under the Penal Code.",
+        "speaker": "supreme_court",
+        "kind": "obiter",
+        "is_holding": false,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [
+          "SC/ST Act 1989"
+        ],
+        "anchors": [
+          "p712.3"
+        ],
+        "quote": "These offences constitute a separate class and cannot be compared with offences under the Penal Code."
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The High Court erred in granting anticipatory bail as sufficient material supported a prima facie case, as concluded by additional sessions judge and magistrate.",
+        "outcome": "accepted",
+        "anchors": [
+          "p707.6"
+        ]
+      },
+      {
+        "side": "respondent",
+        "text": "The allegations are false, the complaint was used to settle scores between the respondent and his brother, and anticipatory bail posed no issue since its granting by the High Court.",
+        "outcome": "rejected",
+        "anchors": [
+          "p708.1"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "Vilas Pandurang Pawar and Another v. State of Maharashtra and Others",
+        "citation": "(2012) 8 SCC 795",
+        "treatment": "relied_on",
+        "used_for": "Explaining the bar under Section 18 of the SC/ST Act against using Section 438 CrPC for anticipatory bail.",
+        "where": "p713.1"
+      },
+      {
+        "name": "Bachu Das v. State of Bihar and Others",
+        "citation": "(2014) 3 SCC 471",
+        "treatment": "relied_on",
+        "used_for": "Following principles of bail limitation under SC/ST Act from Vilas Pandurang Pawar's case.",
+        "where": "p714.2"
+      },
+      {
+        "name": "Jai Singh and Another v. Union of India and Others",
+        "citation": "AIR 1993 Raj. 177",
+        "treatment": "followed",
+        "used_for": "Supporting view of Section 18 SC/ST Act creating a bar against anticipatory bail.",
+        "where": "p714.3"
+      },
+      {
+        "name": "Nirmal Jeet Kaur v. State of M.P. and Another",
+        "citation": "[2004] 3 Suppl. SCR 1006",
+        "treatment": "distinguished",
+        "used_for": "Asserting that Sections 438 and 439 operate differently in anticipatory vs regular bail.",
+        "where": "p714.4"
+      }
+    ]
+  },
+  "authority_table": [
+    {
+      "name": "Bachu Das v. State of Bihar and Others",
+      "cite": "(2014) 3 SCC 471 : [2014] 2 SCR 287",
+      "treatment": "relied_on",
+      "para": "16"
+    },
+    {
+      "name": "Nirmal Jeet Kaur v. Stafe of MP. and Another (2004) 7 sec 558 : [2004] 3 Suppl. SCR 1006 - held inapplicable. Case Law Reference",
+      "cite": "[2012] 8 SCR 270",
+      "treatment": "relied_on",
+      "para": "16"
+    }
+  ],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    }
+  },
+  "needs_review": [
+    "auto-coerced: authority.treatment: 'approved' -> 'followed'",
+    "parser flag: appeal_from_not_found"
+  ],
+  "paragraphs": {
+    "p706.1": {
+      "text": "R. K. AGRAWAL, J. I. Leave granted.",
+      "page_start": 706,
+      "page_end": 706
+    },
+    "p706.2": {
+      "text": "2. This appeal is directed against the judgment and order dated 03.12.2014 passed by the learned single Judge of the High Court of Judicature at Patna in Criminal Miscellaneous No. 25561 of2014 whereby the High Court granted anticipatory bail to the respondents herein accused of commission of offence under Sections 323, 354 and 452 of the Indian Penal Code, 1860 (in short 'the !PC') and Section 3(1 )(xi) of the Scheduled Castes and the Scheduled Tribes (Prevention of Atrocities) Act, 1989 (in short 'the SC/ST Act').",
+      "page_start": 706,
+      "page_end": 706
+    },
+    "p706.3": {
+      "text": "3. Brief facts:",
+      "page_start": 706,
+      "page_end": 706
+    },
+    "p706.4": {
+      "text": "(a) On 04.05.2009, one Manju Devi - the appellant herein-the complainant, filed a complaint being Complaint Case No. I 079C/09 in the Court of Chief Judicial Magistrate, Begusarai under Sections 323, 354 and 452 of'the !PC' and Section 3(l)(xi) of'the SC/ST Act' stating that on the fateful day, i.e., on 18.04.2009, at around 3 :00 p.m., the respondents entered into her quarter and caught hold of her in order to outrage her modesty. When the appellant herein somehow managed to come out of their clutches, the respondents abused her and her family members on their caste by calling them 'Harijans and Dhobis' and threatened with dire consequences for revealing the said incident outside. (b) The above complaint resulted into registration of first information report (FIR) being No. 65109 under Sections 323, 354 and MANJU DEVI v. ONKARJJT SINGH AHLUWALIA @ OMKARJEET SINGH & OTHERS [R. K. AGRAWAL, J.] 452 of the !PC and Section 3( I )(xi) of the SC/ST Act in P.S. Sadar, Begusarai.",
+      "page_start": 706,
+      "page_end": 707
+    },
+    "p707.1": {
+      "text": "(c) After investigation, the police filed a closure report in the same. However, the Chief Judicial Magistrate, Begusarai, being dissatisfied with the report, vi de order dated 20.03.2013; took cognizance of the offence and process was issued against the respondents for commission of offence under the aforesaid Sections of the !PC as well as the SC/ST Act.",
+      "page_start": 707,
+      "page_end": 707
+    },
+    "p707.2": {
+      "text": "(d) Aggrieved by the order dated 20.03.2013, the respondents preferred a Criminal Revision being'No. 3I0/2013 before the Additional c Sessions Judge, Begusarai. Learned Additional Sessions Judge, Begusarai, vide order dated 14.12.2013, affirmed the order dated 20.03.2013 passed by the Chief Judicial Magistrate, Begusarai.",
+      "page_start": 707,
+      "page_end": 707
+    },
+    "p707.3": {
+      "text": "(e) The respondents preferred Criminal Miscellaneous No. 12468 of2014 before the High Court against the order dated 14.12.2013. Learned single Judge of the High Court, vide order dated 25.03.2014, confirmed the order dated 14.12.2013. The respondents further preferred a Criminal Miscellaneous being No. 25561 of2014 for anticipatory bail. Learned single Judge of the High Court, vide order dated 03.12.2014, granted anticipatory bail to the respondents to the satisfaction of Judicial Magistrate, l\" Class, Begusarai. · (t) Being aggrieved by the order dated 03.12.2014, the appellant herein has preferred this appeal by way of special leave before this Court.",
+      "page_start": 707,
+      "page_end": 707
+    },
+    "p707.4": {
+      "text": "4. Heard Mr. Sanjeev Kumar, learned counsel for the appellant herein and Mr. A. Sharan, learned senior counsel for the respondents. Point for consideration:",
+      "page_start": 707,
+      "page_end": 707
+    },
+    "p707.5": {
+      "text": "· 5. The only point for consideration before this Court is whether the High Court was justified in granting anticipatory bail to the respondents in the present facts and circumstances of the case?",
+      "page_start": 707,
+      "page_end": 707
+    },
+    "p707.6": {
+      "text": "· Rival contentions:",
+      "page_start": 707,
+      "page_end": 707
+    },
+    "p707.7": {
+      "text": "6. Learned counsel for the appellant, by drawing our attention to the relevant materials, namely, the complaint, the statement of the complainant a5 well as.thetelevantprovisions of the SC/ST Act submitted that the High Court. was not justified in, granting anticipatory bail to the respondents, particularly, in the light of the factual conclusion arrived at by the learned Additional Sessions Judge, Begusarai in the order dated • 14.12.2013. It was further contended from the side of the appellant that in view of the clear findings on the point, the High Court was not right in granting anticipatory bail to the respondents.",
+      "page_start": 707,
+      "page_end": 708
+    },
+    "p708.1": {
+      "text": "7. Learned senior counsel appearing for the respondents submitted that the allegations against them are false as the appellant was working as maid at the relevant time and was used to settle the scores between the respondent No. 1 and his brother owing to a long drawn dispute pending between them. Learned senior counsel further submitted that from the day, namely, 03.12.2014, when the High Court c granted anticipatory bail to them, no untoward incident had occµrred and the respondents had cooperated with the investigating officer. It was further argued that in the above circumstances, the High Court was right in granting anticipatory bail to the respondents and no interference sought for by this Court at this stage.",
+      "page_start": 708,
+      "page_end": 708
+    },
+    "p708.2": {
+      "text": "Discussion:",
+      "page_start": 708,
+      "page_end": 708
+    },
+    "p708.3": {
+      "text": "8. A perusal of the complaint shows thatthe complainant belongs to the Scheduled Caste and was working as a maid at the relevant time. The respondents, in order to outrage the modesty of the complainant, entered into her house and caught hold of her. When the complainant resisted to their acts, the respondents forcefully pushed her on the floor and started abusing her with filth:' words that \"you 'Harijan ', 'dhoban ', you survive on our leftover and you show attitude to us. You 'Harijan' people attitude have gone very high and today you will be left destroyed\". It was further mentioned in the complaint that the respondents threatened herfor]ife before leaving the place in case of disclosing about the incident to anyone.",
+      "page_start": 708,
+      "page_end": 708
+    },
+    "p708.4": {
+      "text": "9. Accordingly, cognizance was taken by the Chief Judicial Magistrate, vide order dated 20.03.2013, for the offence under various Sections of the IPC and the SC/ST Act. The Additional District and Sessions Judge, Begusarai, after finding out that there was sufficient material before the Chief Judicial Magistrate at the time of_passing the order dated 20.03.2013, affirmed the same which was affirmed by the High Court, vi de order dated 25 .03.2014.",
+      "page_start": 708,
+      "page_end": 708
+    },
+    "p708.5": {
+      "text": "10. In this backdrop, it would be apt to quote Section 18 of the SC/ST Act which reads as under:- MAN:JU DEVI v. ON]\\ARJIT SINGH AHLUWALIA @ OMKARJEET SINGH f' OTHERS [R. K. AGRAWAL, J.] \"18. Section 438 of the Code not to apply to persons committing an offence und.er the Ac!.-N\"athing\" in section 438 of the Code shall tpply in relation to any case' involving the arrest of any person on an accusation of havi.Rg committed an offence under this Act.\"",
+      "page_start": 708,
+      "page_end": 709
+    },
+    "p709.1": {
+      "text": "11. The SC/ST Act was enacted in order to prevent the commission of atrocities against members of Scheduled Castes and Scheduled Tribes and to provipe for special courts for the trial of offence under the said Act as also to provide for the relief and rehabilitation of viCtims of such offences. 'Atrbcity' has been defined under Section 2 of the said Act to mean an offence punishable under Section 3. Section c 3(1) provides as follows:",
+      "page_start": 709,
+      "page_end": 709
+    },
+    "p709.2": {
+      "text": "\"3. Punishments for offences of atrocities.-{_ I) Whoever, not being a member of a Scheduled Caste or a Scheduled Tribe,- •J (i) forces a member of a Scheduled Caste or a Scheduled Tribe to drink or eat any inedible orobnoxious substance;",
+      "page_start": 709,
+      "page_end": 709
+    },
+    "p709.3": {
+      "text": "(ii) acts with intent to cause injury, insult or annoyance to any member of a Schedu'led Caste or a Scheduled Tribe by dumping excreta, waste matter, carcasses or any other ob11oxious substance in his premises or neighbourhood; (iii) forcibly removes clothes from the person ofa member of a Scheduled Caste or a Scheduled Tribe or parades him naked or with painted face or body or commits any similar act which is derogatory to human dignity;",
+      "page_start": 709,
+      "page_end": 709
+    },
+    "p709.4": {
+      "text": "(iv). wrongfully occupies or cultivates any land owned by, or allotted to, or notified by any competent authority to be allotted to, a member of a Scheduled Caste or a Scheduled Tribe or gets the land allotted to him transferred;",
+      "page_start": 709,
+      "page_end": 709
+    },
+    "p709.5": {
+      "text": "(v)",
+      "page_start": 709,
+      "page_end": 709
+    },
+    "p709.6": {
+      "text": "wrongfully dispossesses a member of a Scheduled Caste or a Scheduled Tribe from his land or·premises or interferes with the enjoyment ofhis rights over any land; premises or . water;, · (vi) compels or entices a member of a Scheduled Caste or a Scheduled Tribe to do- 'begar' or other similar forms of forced or bonded labour other than any compulsory service for public purposes imposed by Government;",
+      "page_start": 709,
+      "page_end": 709
+    },
+    "p710.1": {
+      "text": "( rii) forces or intimidates a member of a Scheduled Caste or a Scheduled Tribe not to vote or to vote to a particular candidate or to vote in a manner other than that provided by law;",
+      "page_start": 710,
+      "page_end": 710
+    },
+    "p710.2": {
+      "text": "(viii) institutes false, malicious or vexatious suit or criminal or other legal proceedings against a member of a Scheduled Caste or a Scheduled Tribe;",
+      "page_start": 710,
+      "page_end": 710
+    },
+    "p710.3": {
+      "text": "(ix) gives any false or frivolous information to any public servant and thereby causes such public servant to use his lawful power to the injury or annoyance of a member of a c Scheduled Caste or a Scheduled Tribe;",
+      "page_start": 710,
+      "page_end": 710
+    },
+    "p710.4": {
+      "text": "(x) intentionally insults or intimidates with intentto humiliate a member of a Scheduled Caste or a Scheduled Tribe in any place within public view;",
+      "page_start": 710,
+      "page_end": 710
+    },
+    "p710.5": {
+      "text": "· (xi) assaults or uses force to any woman belonging to a Scheduled Caste or a Scheduled Tribe with intent to dishonour or outrage her modesty;",
+      "page_start": 710,
+      "page_end": 710
+    },
+    "p710.6": {
+      "text": "(xii) being in a position to dominate the will of a woman belonging to a Scheduled Caste or a Scheduled Tribe and uses that position to exploit her sexually to which she would not have otherwise agreed;",
+      "page_start": 710,
+      "page_end": 710
+    },
+    "p710.7": {
+      "text": "(xiii)corrupts or fouls the water of any spring, reservoir or any other source ordinarily used by members of the Scheduled Castes or the Scheduled Tribes so as to render it less fit for the purpose for which it is ordinarily used;",
+      "page_start": 710,
+      "page_end": 710
+    },
+    "p710.8": {
+      "text": "(xiv)denies a member of a Scheduled Caste or a Scheduled Tribe any customary right of passage to a place of public resort or obstructs such member so as to prevent him from using or having access to a place of public resort to which other members of public or any section thereof have a right to use or access to;",
+      "page_start": 710,
+      "page_end": 710
+    },
+    "p710.9": {
+      "text": "(xv) forces or causes a member of a Scheduled Caste or a Scheduled Tribe to leave his house, village or other place of residence, shall be punishable with imprisonment for a term which shall not MANJU DEVI v. ONKARJJT SINGH AHLUWALIA @ OMKARJEET SINGH & OTHERS [R. K. AGRAWAL, J.] be less than six months but which may extend to five years and with fine.\"",
+      "page_start": 710,
+      "page_end": 711
+    },
+    "p711.1": {
+      "text": "12. It is undoubtedly true that Section 4 3 8 of the Code, which is available to an accused in respect of offences under the !PC, is not available in respect of offences under the SC/ST Act. The offences enumerated under the SC/ST Act fall into a separate and special class. Article 17 of the Constitution expressly deals with abolition of 'untouchability' and forbids its practice in any form and also provides that enforcement ofany disability arising out of 'untouchability' shall be an offence punishable in accordance with law. The offences, therefore, which are enumerated under Section 3(1) of the SC/ST Act arise out of c the practice of'untouchability'. It is in this context that certain special provisions have been made in the SC/ST Act, including the impugned provision under Section 18 which is before us. The exclusion of Section 438 of the Code in connection with offences under the SC/ST Act has to be viewed in the context of the prevailing social conditions which give rise to such offences, and the apprehension that perpetrators of such atrocities are likely to threaten and intimidate their victims and prevent or obstruct them in the prosecution of these offenders, if the offenders are allowed to avail of anticipatory bail.",
+      "page_start": 711,
+      "page_end": 711
+    },
+    "p711.2": {
+      "text": "13. In this connection, it is pertinent to refer to the Statement of Objects and Reasons appended to the SC/ST Act which is as under:- \"Despite various measures to improve the socio-economic conditions of the Scheduled Castes and Scheduled Tribes, they remain vulnerable. They are denied number of civil rights. They are subjected to various offences, indignities, humiliations and harassment. They have, in several brutal incidents, been deprived of their life and property. Serious crimes are committed against them for various historical, social and economic reasons.. · 2. Because of the awareness created amongst the Scheduled Castes and the Scheduled Tribes through spread of education, etc., they are trying to assert their rights and this is not being taken very kindly by the others. When they assert their rights and resist practices of untouchabi I ity against them or demand statutory minimum wages or refuse to do any bonded and forced labour, the vested interests try to cow them down and terrorise them. When the Scheduled Castes and the Scheduled Tribestry to preserve their self-respet or honour of their women, they become·irritants for the dominat and the mightly. Occupation and Gultivation of even the Government allotted land by the Scheduled Castes and the Scheduled Tribes is resented and more often these people become victims of attacks by the vested interests·. Of late, there has been an increase in the disturbing trend of commission of certain atrocities like making the Scheduled Caste persons eat inedible substances like human excreta and attacks on and mass killings of helpless Scheduled Castes and the Scheduled Tribes and rape of women belonging to Scheduled Castes and the Scheduled Tribes. Under the c circumstances, the existing laws like the Protection of Civil Rights Act, l 955 and the normal provisions of the Indian Penal Code have been found to be inadequate to check these crimes. special Legislation to check and deter crimes against them committed by non-Scheduled Castes and non-Scheduled Tribes, has therefore, become necessary.",
+      "page_start": 711,
+      "page_end": 712
+    },
+    "p712.1": {
+      "text": "3. The term 'atrocity' has not been defined so far. It is considered necessary that not only the term 'atrocity' should be defined but stringent measures should be introduced to provide for higher punishments for committing such atrocities. It is also proposed to enjoining on the States and the Union Territories to take specific preventive and punitive measures to protect the Scheduled Castes and the Scheduled Tribes from being.victimized and where atrocities are committed, to provide adequate relief and assistance to rehabilitate them.\"",
+      "page_start": 712,
+      "page_end": 712
+    },
+    "p712.2": {
+      "text": "14. In the above context, it is now easy to understand the factual matrix of the case. The use of the word 'Harijan' 'Dhobi' etc. is often used by people belonging to the so-called upper castes as a word of insult, abuse and derision. Calling a person by these names is nowadays all' abusive language and is offensive. It is basically used nowadays not to denote a caste but to intentionally insult and humiliate someone. We, as a citizen of this country, should always keep one thing in our mind and heart that no people or community should be today insulted or looked down upon, and nobody's feelings should be hurt.",
+      "page_start": 712,
+      "page_end": 712
+    },
+    "p712.3": {
+      "text": "15. Though the Constitution oflndia abolishes 'untouchability' but in view of the social attitudes which lead to the commission of such offences against Scheduled Castes and Scheduled Tribes, there is MANJU DEVI v. ONKARJ!T SINGH AHLUWALIA @ OMKARJEET SINGH & OTHERS [R. K. AGRAWAL, J.] justification for an apprehension that ifthe benefit of anticipatory bail is made available to the persons who are alleged to have committed such offences, there is every likelihood oftheirmisusing their liberty while on anticipatory bail to terrorise their victims and to prevent a proper investigation. It is in this context that Section 18 has been incorporated in the SC/ST Act. The offences which are enumerated under Section 3 of the SC/ST Act are offences which, to say the least, denigrate members of Scheduled Castes and Scheduled Tribes in the eyes of society and prevent them from leading a life of dignity and self-respect. Such offences are committed to humiliate and subjugate members of Scheduled Castes and Scheduled Tribes with a view to keeping them in a state of c servitude. These offences constitute a separate class and cannot be compared with offences under the Penal Code.",
+      "page_start": 712,
+      "page_end": 713
+    },
+    "p713.1": {
+      "text": "16. In view of the above, it would be relevant to quote a decision of this Court in Vilas Pandurang Pawar amt Another vs. State of Maharashtra and Others (2012) 8 SCC 795 wherein this Court has held as under:- \"9. Section 18 of the SC/ST Act creates a bar for invoking Section 438 of the Code. However, a duty is cast on the court to verify the averments in the complaint and to find out whether an offence under Section 3( I) of the SC/ST Act has been prima facie made out. In other words, ifthere is a specific averment in the complaint, namely, insult or intimidation with intent to humiliate by calling with caste name, the accused persons are not entitled to anticipatory bail.",
+      "page_start": 713,
+      "page_end": 713
+    },
+    "p713.2": {
+      "text": "10. The scope of Section 18 of the SC/ST Act read with Section 438 of the Code is such that it creates a specific bar in the grant of anticipatory bail. When an offence is registered against a person under the provisions of the SC/ST Act, no court shall entertain an application for anticipatory bail, unless it prima facie finds that such an offence is not made out. Moreover, while considering the application for bail, scope for appreciation of evidence and other material on record is limited. The court is not expected to indulge in critical analysis of the evidence on record. When a provision has been enacted in the Special Act to protect the persons who belong to the Scheduled Castes and the Scheduled Tribes and a bar has been imposed in granting bail under Section 438 of the Code, the provision in the Special Act . (20 I 7] 2 S.C.R.",
+      "page_start": 713,
+      "page_end": 714
+    },
+    "p714.1": {
+      "text": "cannot be easily brushed aside by elaborate discussion on the eviderice.\"",
+      "page_start": 714,
+      "page_end": 714
+    },
+    "p714.2": {
+      "text": "The principles laid down in the aforementioned case .has been · followed by this Court in Bachu Das vs. State of Bihar and Others (2014) 3 sec 471.",
+      "page_start": 714,
+      "page_end": 714
+    },
+    "p714.3": {
+      "text": "17. A similar view of Section 18 of the SC/ST Act has been taken by the Full Bench of the Rajasthan High Court in the case of Jai Singh and Another vs. Union of India and Otfters AIR 1993 Raj. 177 wherein it was held that the SC/ST Act with which we are concerned aims at to prevent the commission of offences of atrocities against the c members of the Scheduled Castes and Scheduled Tribes. The two Acts may be different in their amplitude, but indignity tolerated up to. the year 1988 by the Scheduled Castes and Scheduled Tribes had been felt not to be tolerable any more, consequently, the present Act was enacted and we respectfully agree with itsJindings.",
+      "page_start": 714,
+      "page_end": 714
+    },
+    "p714.4": {
+      "text": "18. The decision relied upon by learned senior counsel for the respondents in Nirmal Jeet Kaur vs. State of M.P. and Anotl1er (2004) 7 SCC 558 does not help the respondents for the simple reason that in the aforesaid case it has been held that Sections 438 and 439 operate in different fields and for making an application in terms of Section 439 of the Code a person has to be in custody whereas Section 438 of the Code deals with direction for grant of bail to person apprehending arrest and contemplates merely an order directing the release ofaccused on.bail in the event of his arrest.· 19. It is clear that'. learned Magistrate carefully perused the complail)t as well as the.statement of the complainant and arrived at a conclusion that a prima facie case is made against the respondents which was upheld in revision before the Sessions Court and even in the High Court. With regard to the plea that the complaint filed by the complainant is false and malicious and to wreck vengeance by the brother of the respondent No. I herein, we are of the view that it cannot be looked into at the stage of taking cognizance and issue of process and the malajide or bona fide of a case can only be taken into consideration at the time of trial.",
+      "page_start": 714,
+      "page_end": 714
+    },
+    "p714.5": {
+      "text": "20. A victim of molestation and indignation is in the same position as an injured witness and her testimony should receive the same weight. In the instant case, after careful consideration of the materials on record, MANJU DEVI v. ONKARJIT SINGH AHLUWALIA @ OMKARJEET SINGH & OTHERS [R. K. AGRAWAL, J.] the trial court and the High Court have found that a primafacie case for taking cognizance against the respondents is made out. Section 3( 1 )(xi) of the SC/ST Act which deals with assaults or use of force to any woman belonging to a Scheduled i::;aste or Scheduled.Tribe with the intent to dishonour or outrage her modesty is an aggravated form of the offence. The only difference between Section 3(1 )(xi) and Section 354 is essentially the caste or the t~ibe to which th~ victim belongs. If she belongs to a Scheduled Caste or Scheduled Tribe, Section 3(1 )(xi) applies. The other difference is that in Section 3( I )(xi) dishonour of such victim is also made an offence.",
+      "page_start": 714,
+      "page_end": 715
+    },
+    "p715.1": {
+      "text": "21. In view of the above discussion and in the light of the specific c averments in the complaint made by the complainant, we are of the considered opinion that Section 18 of the SC/ST Act creates a bar for invoking ·Section 438 of the Code and the High Court has committed grave error in granting anticipatory bail to the respondents. Accordingly, the order dated 03.12.2014, passed by the High Court, is set aside. 22. The appeal is allowed. The respondents are granted four weeks' time from today to surrender before the appropriate court and seek for regular bail. ijowever, it is made clear that the present conclusion is confined onlyito the disposal of this petition and the trial court is free to decide the case on merits.",
+      "page_start": 715,
+      "page_end": 715
+    }
+  },
+  "headnote_raw": " \nMANJU DEVI\nv.\nONKARJIT SINGH AHLUWALIA @ OMKARJEET SINGH &\nOTHERS\n(Criminal Appeal No.570of2017)\nMARCH 24, 2017\nCode of Criminal Procedure, 1973 - s.438 - Anticipatory\nbail granted to the respondents accused of commission of offence\nc\nu!ss.323, 354 and 452 !PC and s.3(1){xi) of SC/ST Act -Appeal by\ncomplainant - Held: s.438 of the Code is not available in respect of\noffences under the SC/ST Act - Offences enumerated under the\nSC/ST Act fall into a separate and special class - High Court\ncommitted grave error in granting anticipatory bail lo respondents\n- Constitution of India - Art.17 - Scheduled Castes and the\nScheduled Tribes (Prevention of Atrocities) Act, 1989 - s.3(/)(xi).\nScheduled Castes and the Scheduled Tribes (Prevention of\nAtrocities) Act, 1989:\ns.18 - Exclusion of s.438 Cr.PC in connection with offences\nunder the SC/ST Act - Purpose of incorporating s.18 in the Act -\nHeld: The exclusion to be viewed in the context of the prevailing\nsocial conditions which give rise to such offences, and the\napprehension that perpetrators of such atrocities are likely to\nthreaten and intimidate their victims and prevent or obstruct them\nin the prosecution of these offenders, if the offenders are allowed\nto avail of anticipatory bail.\ns.3(1)(x1) - Distinction between s.3(1)(xi) and s.354 !PC -\nPenal Code, 1860 - s.354.\nAllowing the appeal, the Court\nHELD: 1.1. The SC/ST Act was enacted in order to prevent\nthe commission of atrocities against members of Scheduled\nCastes and Scheduled Tribes and to provide for special courts\nfor the trial of offence under the said Act as also to provide for\nthe relief and rehabilitation of victims of such offences. It is\n \n[2017) 2 S.C.R.\nundoubtedly true that Section 438 of the Code, which is available\nto an accused in respect of offences under the IPC, is not available\nin respect of offences under the SC/ST Act. The offences\nenumerated under the SC/ST Act fall into a separate and special\nclass. Article 17 of the Constitution expressly deals with abolition\nof 'untouchability' and forbids its practice in any form anci also\nprovides that enforcement of any disability arising out of\n'untonchability' shall be an offence punishable in accordance.with\nlaw. The offences, therefore, which are enumerated under Section\n3(1) of the SC/ST Act arise out of the practice of 'untouchability'.\nThe use of the word 'Harijan' 'Dhobi' etc. is often used· by people\nc\nbelonging to the so-called upper castes as a w9rd of insult, abuse\nand derision. · Calling a person by these names is: nowadays an\nabusive language and is offensive. It is basically used nowadays\nnot to denote a caste but to intentionally insult and humiliate\nsomeone. No community should be today insulted or looked down\nupon, and nobody's feelings should be hurt. (Paras 11, 12 and 14)\n(709-B-C; 711-B-C; 712-F-GJ\n2. Though the Constitution of India abolishes\n'untouchability' but in view of the social attitudes which lead to\nthe commission of such offences against Scheduled Castes and\nScheduled Tribes, there is justification for an apprehension that\nif the benefit of anticipatory bail is made available to the persons\nwho are alleged to have committed such offences, there is every\nlikelihood of their misusing their liberty while ou anticipatory\nbail to terrorise their victims and to prevent a proper\ninvestigation. It is in this context that Section 18 has been\nincorporated in the SC/ST Act. The offences which are enumerated\nunder Section 3 of the SC/ST Act are offences which denigrate\nmembers of Scheduled Castes and Scheduled Tribes in the· eyes\nof society and prevent them from leading a life of dignity and self-\nrespect. Such offences are committed to humiliate and subjugate\nmembers of Scheduled Castes and Scheduled Tribes with a view\nto keeping them in a state of servitude. These offences constitute\na separate class and cannot be compared with offences under the\nPenal Code. [Para 15) (712-H; 713-A-C)\n3.1 It is clear that Magistrate carefully perused the\ncomplaint as well as the statement of the complainant and arrived\nat a conclusion that a prim(l f(lcie case is made against the\n \nMANJU DEVI v. ONKARJIT SINGH AHLUWALIA @\nOMKARJEET SINGH & OTHERS\nrespondents which was npheld in revision before the Sessions\nCourt and even in the High Court. The plea that the complaint\nfiled by the complainant is false and malicious and to wreck\nvengeance by the brother of the respondent No. 1 cannot be\niooked into at the stage of taking cognizance and issue of process\nand the nut/a fide or bona fide of a case can only be taken into\nconsideration at the time of trial. [Para 19] [714-F-G]\n3.2 A victim of molestation and indignation is ii! the same\nposition as an injured witness and her testimony should receive\nthe same weight. In the instl)nt case, after careful consideration\nof the materials on record, the trial court and· the High Court\nc\nhave found that a prima facie case for taking cognizance against\nthe respondents is made out. Section 3(l)(xi) of the SC/ST Act\nwhich deals with assaults or use of force to any woman belonging\nto a Scheduled Caste or Scheduled Tribe with the intent to\ndishonour or outrage her modesty is an aggravated form of the\noffence. The only difference between Section 3(1)(xi) and Section\n354 is essentially the caste or the tribe to which the victim belongs.\nIf she belongs to a Scheduled Caste or Scheduled Tribe, Section\n3(l)(xi) applies. TJie other difference is that in Section 3(1)(xi)\ndishonour of such victim is also made an offence. Section 18 of.\nthe SC/ST Act creates a bar for invoking Section 438 of the Code\nand the High Court has committed grave error in granting\nanticipatory bail to the respondents. [Paras 20, 21] [714-H;\n715-A-B]\nVilas Pandurang Pawar and Another v. State of\nMaharashtra and Others (2012) 8 SCC 795 : [2012]\n8 SCR 270; Bachu Das v. State of Bihar and Others\n(2014) 3 SCC 471 : [2014] 2 SCR 287 - relied on.\nJai Singh and Another v. Union of India and Others\nAIR 1993 Raj. 177 - approved.\nNirmal Jeet Kaur v. Stafe of MP. and Another (2004)\n7 sec 558 : [2004] 3 Suppl. SCR 1006 - held\ninapplicable.\nCase Law Reference\n[2012] 8 SCR 270\nrelied on\nPara 16\n[2014] 2 SCR 287\nrelied on\nPara 16\n \nAIR 1993 Raj. 177\napproved\nPara 17\n[2004] 3 Suppl. SCR 1006\nheld inapplicable\nPara 18\n"
+}

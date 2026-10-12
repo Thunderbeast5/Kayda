@@ -95,10 +95,11 @@ class IngredientValidatorService:
         note_str = f" ({'; '.join(verification_notes[:2])})" if verification_notes else ""
         summary_reason = f"Verified statutory ingredients matched ({matched_actus}/{total_actus} Actus Reus, {matched_mens}/{total_mens} Mens Rea).{note_str}"
 
-        if confidence >= 0.45:
+        INGREDIENT_MIN_THRESHOLD = float(os.getenv("INGREDIENT_MIN_THRESHOLD", os.getenv("LEXIGRAPH_INGREDIENT_CUTOFF", "0.45")))
+        if confidence >= INGREDIENT_MIN_THRESHOLD:
             return True, confidence, summary_reason
         else:
-            return False, confidence, f"Statutory ingredient match score ({confidence:.2f}) below minimum applicability threshold (0.45).{note_str}"
+            return False, confidence, f"Statutory ingredient match score ({confidence:.2f}) below minimum applicability threshold ({INGREDIENT_MIN_THRESHOLD}).{note_str}"
 
     def _evaluate_ingredient(self, ing: Dict[str, Any], facts: Dict[str, Any]) -> Tuple[str, str]:
         """
