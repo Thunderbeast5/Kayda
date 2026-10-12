@@ -622,10 +622,6 @@ from evidence.evidence import (
     _get_firestore_client,
     IMAGE_EXTENSIONS,
 )
-from backend.agents.lexigraph.cypher.legal_text2cypher.agents.pipeline import run_pipeline
-from backend.agents.lexigraph.cypher.legal_text2cypher.config.settings import get_settings
-from backend.agents.lexigraph.lexigraph_agent import LexiGraphAgent
-
 lexigraph_agent_instance = None
 
 
@@ -734,67 +730,9 @@ async def api_simulate(case_id: str):
 TEMP_DIR = backend_dir / "temp_uploads"
 TEMP_DIR.mkdir(exist_ok=True)
 
-# Initialize LexiGraph Agent
-lexigraph_agent = LexiGraphAgent()
-
-
-class CypherQueryRequest(BaseModel):
-    query: str
-
-
 class LexiGraphAgentQueryRequest(BaseModel):
     query: str
     debug: bool = False
-
-
-@app.get("/api/cypher/health")
-async def cypher_health():
-    try:
-        cfg = get_settings()
-        return {
-            "status": "online",
-            "neo4j_uri": cfg.neo4j_uri,
-            "model": cfg.groq_model,
-        }
-    except Exception as e:
-        return {"status": "degraded", "error": str(e)}
-
-
-@app.post("/api/cypher/query")
-@app.post("/api/query")
-async def cypher_query_endpoint(req: CypherQueryRequest):
-    if not req.query or not req.query.strip():
-        return JSONResponse(
-            status_code=400,
-            content={"success": False, "message": "Query string cannot be empty."}
-        )
-    
-    try:
-        # Run synchronous Text2Cypher multi-stage pipeline in threadpool
-        result = await asyncio.to_thread(run_pipeline, req.query.strip())
-        
-        # Dump model to json-serializable dict
-        data = result.model_dump(mode="json")
-        
-        intent_val = result.intent.value if hasattr(result.intent, "value") else str(result.intent)
-        
-        return {
-            "success": True,
-            "data": data,
-            "intent": intent_val,
-            "answer": result.answer,
-            "response": result.answer,
-            "agent": "LexiGraph Cypher",
-        }
-    except Exception as e:
-        print(f"Error executing Text2Cypher pipeline: {str(e)}", file=sys.stderr)
-        return JSONResponse(
-            status_code=500,
-            content={
-                "success": False,
-                "message": f"Legal Text2Cypher pipeline error: {str(e)}"
-            }
-        )
 
 
 import json
@@ -1287,7 +1225,7 @@ async def lexigraph_analyze_endpoint(req: LexiGraphAgentQueryRequest):
     
     try:
         # Run the LexiGraph hierarchical retrieval pipeline in threadpool
-        result = await asyncio.to_thread(lexigraph_agent.process_query, req.query.strip(), debug=False)
+        result = await asyncio.to_thread(get_lexigraph_agent().process_query, req.query.strip(), debug=False)
         
         return {
             "success": True,
