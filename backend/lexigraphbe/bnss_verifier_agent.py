@@ -81,7 +81,7 @@ Return valid JSON:
       "section_number": "35",
       "verdict": "ACCEPT",
       "category": "ARREST_PROCEDURE",
-      "reason": "Applies because custodial interrogation necessity and notice of appearance under subsection (3) are in dispute."
+      "reason": "Applies because police power of arrest in cognizable offences and necessity of arrest or custodial interrogation are at issue."
     }}
   ]
 }}

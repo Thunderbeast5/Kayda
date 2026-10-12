@@ -2726,5 +2726,239 @@
     "subject_matter_scope": null,
     "disqualifying_subject_matters": [],
     "requires_trigger_gate": false
+  },
+  {
+    "section": "301",
+    "statute": "IPC",
+    "bns_equivalent": "301",
+    "title": "Culpable homicide by causing death of person other than person whose death was intended",
+    "mandatory_ingredients": [
+      "culpable_homicide_by_causing_death_of_person_other_than_person_whose_death_was_intended"
+    ],
+    "factual_triggers": [
+      "causing",
+      "culpable homicide",
+      "death",
+      "homicide",
+      "culpable",
+      "person",
+      "other",
+      "than",
+      "whose",
+      "intended"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Culpable homicide by causing death of person other than person whose death was intended",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "316",
+    "statute": "IPC",
+    "bns_equivalent": "316",
+    "title": "Causing death of quick unborn child by act amounting to culpable homicide",
+    "mandatory_ingredients": [
+      "causing_death_of_quick_unborn_child_by_act_amounting_to_culpable_homicide"
+    ],
+    "factual_triggers": [
+      "causing",
+      "culpable homicide",
+      "death",
+      "homicide",
+      "quick",
+      "unborn",
+      "child",
+      "amounting",
+      "culpable"
+    ],
+    "chapter_number": "XI",
+    "chapter_title": "Offences Against Property",
+    "punishment_minimum": null,
+    "punishment_maximum": "3 Years",
+    "fine": true,
+    "cognizable": true,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "338",
+    "statute": "IPC",
+    "bns_equivalent": "338",
+    "title": "Causing grievous hurt by act endangering life or personal safety of others",
+    "mandatory_ingredients": [
+      "causing_grievous_hurt_by_act_endangering_life_or_personal_safety_of_others"
+    ],
+    "factual_triggers": [
+      "medical",
+      "negligence",
+      "causing",
+      "grievous",
+      "hurt",
+      "endangering",
+      "life",
+      "personal",
+      "safety",
+      "others"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Causing grievous hurt by act endangering life or personal safety of others",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "376C",
+    "statute": "IPC",
+    "bns_equivalent": "376C",
+    "title": "Sexual intercourse by a person in authority",
+    "mandatory_ingredients": [
+      "sexual_intercourse_by_a_person_in_authority"
+    ],
+    "factual_triggers": [
+      "hospital",
+      "officer",
+      "sexual",
+      "intercourse",
+      "person",
+      "authority"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Sexual intercourse by a person in authority",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "368",
+    "statute": "IPC",
+    "bns_equivalent": "368",
+    "title": "Wrongfully concealing or keeping in confinement, kidnapped or abducted person",
+    "mandatory_ingredients": [
+      "wrongfully_concealing_or_keeping_in_confinement_kidnapped_or_abducted_person"
+    ],
+    "factual_triggers": [
+      "conceal",
+      "wrongfully",
+      "concealing",
+      "keeping",
+      "confinement",
+      "kidnapped",
+      "abducted",
+      "person"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Wrongfully concealing or keeping in confinement, kidnapped or abducted person",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "414",
+    "statute": "IPC",
+    "bns_equivalent": "414",
+    "title": "Assisting in concealment of stolen property",
+    "mandatory_ingredients": [
+      "assisting_in_concealment_of_stolen_property"
+    ],
+    "factual_triggers": [
+      "conceal",
+      "assisting",
+      "concealment",
+      "stolen",
+      "property"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Assisting in concealment of stolen property",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "317",
+    "statute": "IPC",
+    "bns_equivalent": "317",
+    "title": "Exposure and abandonment of child under twelve years, by parent or person having care of it",
+    "mandatory_ingredients": [
+      "exposure_and_abandonment_of_child_under_twelve_years_by_parent_or_person_having_care_of_it"
+    ],
+    "factual_triggers": [
+      "care",
+      "exposure",
+      "abandonment",
+      "child",
+      "under",
+      "twelve",
+      "years",
+      "parent",
+      "person",
+      "having"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Exposure and abandonment of child under twelve years, by parent or person having care of it",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "477",
+    "statute": "IPC",
+    "bns_equivalent": "477",
+    "title": "Fraudulent cancellation, destruction, etc., of will, authority to adopt, or valuable security",
+    "mandatory_ingredients": [
+      "fraudulent_cancellation_destruction_etc_of_will_authority_to_adopt_or_valuable_security"
+    ],
+    "factual_triggers": [
+      "destruction",
+      "fraudulent",
+      "cancellation",
+      "will",
+      "authority",
+      "adopt",
+      "valuable",
+      "security"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Fraudulent cancellation, destruction, etc., of will, authority to adopt, or valuable security",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
   }
 ]

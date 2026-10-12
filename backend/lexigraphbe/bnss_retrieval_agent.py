@@ -110,7 +110,7 @@ Return your response in the following JSON format ONLY:
       "heading": "When police may arrest without warrant",
       "is_applicable": true,
       "relevance_category": "ARREST_PROCEDURE",
-      "procedural_reasoning": "Applies because custodial interrogation necessity and notice of appearance under subsection (3) are central to whether arrest is warranted."
+      "procedural_reasoning": "Applies because police power of arrest in cognizable offences and necessity of arrest or custodial interrogation are at issue."
     }}
   ]
 }}

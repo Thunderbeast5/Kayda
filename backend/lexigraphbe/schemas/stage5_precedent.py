@@ -39,6 +39,34 @@ class PropositionItem(BaseModel):
     binding_level: Optional[str] = Field(default=None, description="Binding level: 'binding', 'persuasive'")
 
 
+class CaseRetrievalProfile(BaseModel):
+    """Structured case retrieval profile constructed prior to precedent search."""
+    procedural_stage: str = Field(description="Procedural stage, e.g. 'anticipatory_bail' or 'regular_bail'")
+    legal_regime: str = Field(default="IPC + CrPC", description="Legal regime, e.g. 'IPC + CrPC' or 'BNS + BNSS'")
+    offences: List[str] = Field(default_factory=list, description="Offence sections, e.g. ['420', '468']")
+    fact_patterns: List[str] = Field(default_factory=list, description="Key factual patterns/facets")
+    defence_themes: List[str] = Field(default_factory=list, description="Thematic arguments for defense")
+    prosecution_themes: List[str] = Field(default_factory=list, description="Thematic arguments for prosecution")
+
+
+class CompactPrecedentSummary(BaseModel):
+    """
+    Compact 'why this case matters' summary structure for downstream agents.
+    Prevents downstream agents from having to re-read and re-parse giant case objects.
+    """
+    case_id: str = Field(description="Unique case identifier")
+    case_name: str = Field(description="Full case name")
+    procedural_match: str = Field(description="HIGH, MODERATE, or LOW")
+    factual_match: str = Field(description="HIGH, MODERATE, or LOW")
+    statutory_match: List[str] = Field(default_factory=list, description="Matched statute section numbers")
+    role: str = Field(description="DEFENSE or PROSECUTION")
+    supports_role: bool = Field(description="Whether this case supports this role's position")
+    use_for: List[str] = Field(default_factory=list, description="Key arguments to make using this precedent")
+    against_role: List[str] = Field(default_factory=list, description="Vulnerabilities or points against this role")
+    binding_level: str = Field(default="binding", description="Binding authority level: 'binding' or 'persuasive'")
+    relevance_score: float = Field(ge=0.0, le=10.0, description="Calibrated score on 0.0 to 10.0 scale")
+
+
 class RoleSpecificRelevanceEvaluation(BaseModel):
     """
     LLM evaluation of a precedent's relevance to a specific role (prosecution or defense).
@@ -51,7 +79,7 @@ class RoleSpecificRelevanceEvaluation(BaseModel):
         description="Whether this precedent is relevant to this role's argument"
     )
     relevance_type: str = Field(
-        description="Type of relevance: 'strongly_supporting', 'supporting', 'distinguishable', 'contradictory', 'not_relevant'"
+        description="Type of relevance: 'DIRECTLY_SUPPORTING', 'DIRECTLY_OPPOSING', 'STRONGLY_SUPPORTING', 'STRONGLY_OPPOSING', 'DISTINGUISHABLE', 'BACKGROUND', 'LOW_RELEVANCE'"
     )
     confidence: float = Field(
         ge=0.0,
@@ -141,10 +169,17 @@ class RoleSpecificPrecedentItem(BaseModel):
         description="Role-specific relevance evaluation by LLM"
     )
     
-    # Ranking
+    # Ranking (calibrated to 0.0 - 10.0 scale)
     final_relevance_score: float = Field(
         ge=0.0,
-        description="Final relevance score combining statutory match and LLM evaluation"
+        le=10.0,
+        description="Final relevance score combining stage, facts, statutory match, principle, and LLM evaluation (0.0 to 10.0)"
+    )
+
+    # Compact "why this case matters" summary
+    compact_summary: Optional[CompactPrecedentSummary] = Field(
+        default=None,
+        description="Compact summary for quick role-agent consumption"
     )
 
 
@@ -153,8 +188,10 @@ class RoleSpecificPrecedentRetrievalObject(ManualReviewMixin):
     Complete Stage 5 output with separate prosecution and defense precedent lists.
     
     Each role gets its own ranked list of precedents based on:
-    1. Deterministic statutory matching (OR logic)
-    2. LLM-based relevance evaluation specific to that role's argument position
+    1. Case Retrieval Profile construction
+    2. Deterministic statutory + fact + procedural stage matching
+    3. LLM-based role-relative relevance evaluation
+    4. Compact summaries and shared conflict-preserving precedents
     """
     schema_version: str = Field(
         default="5.0-precedent",
@@ -168,6 +205,10 @@ class RoleSpecificPrecedentRetrievalObject(ManualReviewMixin):
     input_statutes: List[Dict[str, str]] = Field(
         description="Statutes from Stage 4 that were used for matching"
     )
+    case_retrieval_profile: Optional[CaseRetrievalProfile] = Field(
+        default=None,
+        description="Structured profile used to drive retrieval"
+    )
     
     # Retrieval statistics
     total_judgments_scanned: int = Field(
@@ -177,17 +218,27 @@ class RoleSpecificPrecedentRetrievalObject(ManualReviewMixin):
         description="Number of candidates after deterministic statutory matching"
     )
     
-    # Role-specific precedent lists
+    # Role-specific precedent lists (Top 5 each)
     prosecution_precedents: List[RoleSpecificPrecedentItem] = Field(
         default_factory=list,
-        description="Precedents relevant to prosecution's position, ranked by relevance"
+        description="Top precedents relevant to prosecution's position, ranked by relevance"
     )
     defense_precedents: List[RoleSpecificPrecedentItem] = Field(
         default_factory=list,
-        description="Precedents relevant to defense's position, ranked by relevance"
+        description="Top precedents relevant to defense's position, ranked by relevance"
     )
     
-    # Shared precedents (relevant to both sides)
+    # Compact summaries for fast agent access
+    compact_prosecution_summaries: List[CompactPrecedentSummary] = Field(
+        default_factory=list,
+        description="Compact summaries for prosecution precedents"
+    )
+    compact_defense_summaries: List[CompactPrecedentSummary] = Field(
+        default_factory=list,
+        description="Compact summaries for defense precedents"
+    )
+    
+    # Shared precedents (relevant to both sides with preserved conflicting propositions)
     shared_precedents: List[str] = Field(
         default_factory=list,
         description="Case IDs of precedents that appear in both prosecution and defense lists"
@@ -236,6 +287,8 @@ class PrecedentRetrievalResult(BaseModel):
 __all__ = [
     "MatchedStatuteItem",
     "PropositionItem",
+    "CaseRetrievalProfile",
+    "CompactPrecedentSummary",
     "RoleSpecificRelevanceEvaluation",
     "RoleSpecificPrecedentItem",
     "RoleSpecificPrecedentRetrievalObject",

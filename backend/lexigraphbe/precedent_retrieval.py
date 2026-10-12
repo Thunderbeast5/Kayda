@@ -46,19 +46,20 @@ CANCEL_MARKERS = ("cancel", "set aside", "setting aside", "quash the order grant
 
 FACET_KEYWORDS: Dict[str, Tuple[str, ...]] = {
     "immovable_property": ("land", "plot", "immovable", "agricultural", "property dispute", "possession of a property",
-                           "premises", "hotel", "tenan", "inherit", "flat", "apartment"),
+                           "premises", "hotel", "tenan", "inherit", "flat", "apartment", "revenue"),
     "deed": ("sale deed", "deed", "power of attorney", "gpa", "mutation", "agreement to sell", "registered document",
-             "ownership document", "title document"),
+             "ownership document", "title document", "conveyance"),
     "forgery": ("forged", "forgery", "fabricated", "counterfeit", "false document", "spurious"),
     "cheating": ("cheat", "fraud", "deceiv", "dishonest", "misrepresent"),
-    "title_dispute": ("title", "ownership", "owner", "civil dispute", "civil nature"),
+    "title_dispute": ("title", "ownership", "owner", "civil dispute", "civil nature", "commercial dispute"),
     # facets that make a precedent factually DIFFERENT from a private land/forgery dispute
     "public_economic": ("public fund", "money laundering", "foreign investment", "corruption", "disproportionate assets",
-                        "public servant", "bank fraud", "ponzi"),
-    "matrimonial": ("dowry", "matrimonial", "cruelty", "498a", "husband", "in-laws"),
-    "violence": ("murder", "homicide", "culpable homicide", "grievous hurt", "rape", "assault"),
+                        "public servant", "bank fraud", "ponzi", "fipb"),
+    "matrimonial": ("dowry", "matrimonial", "cruelty", "498a", "in-laws", "marriage dispute", "domestic violence", "stridhan"),
+    "sexual_offence": ("rape", "sexual", "376", "modesty", "354", "promise of marriage", "pretext of marriage", "pocso", "intercourse"),
+    "violence": ("murder", "homicide", "culpable homicide", "grievous hurt", "302", "307", "304", "assault", "killing", "dead body"),
 }
-DISQUALIFYING_FACETS = {"public_economic", "matrimonial", "violence"}
+DISQUALIFYING_FACETS = {"matrimonial", "sexual_offence", "violence"}
 
 ROLE_THEMES: Dict[str, Tuple[str, ...]] = {
     "prosecution": ("custodial interrogation", "custodial", "gravity", "grave", "forgery", "fraud", "investigation",
@@ -117,6 +118,32 @@ def extract_facets(text: str) -> Set[str]:
     return {facet for facet, kws in FACET_KEYWORDS.items() if any(k in t for k in kws)}
 
 
+def extract_case_facets(case: Dict[str, Any], doc_meta: Optional[Dict[str, Any]] = None) -> Set[str]:
+    """Extracts facets from case text, keywords, offence types, and charged statutes."""
+    text_blobs = [
+        str(case.get("abstract_facts") or ""),
+        str(case.get("disposition") or ""),
+        " ".join(str(i.get("question") or "") for i in case.get("issues", []) or []),
+        " ".join(str(ot) for ot in case.get("offence_types", []) or []),
+        " ".join(str(kw) for kw in (doc_meta or {}).get("keywords", []) or []),
+    ]
+    full_text = " ".join(text_blobs).lower()
+    facets = {facet for facet, kws in FACET_KEYWORDS.items() if any(k in full_text for k in kws)}
+
+    # Check statutes directly for substantive offence categories
+    for st in case.get("statutes", []) or []:
+        sec = str(st.get("section") or "").strip().upper()
+        act = str(st.get("act") or "").strip().upper()
+        if any(v in sec for v in ("302", "307", "304")):
+            facets.add("violence")
+        elif any(s in sec for s in ("376", "354", "493")) or "POCSO" in act:
+            facets.add("sexual_offence")
+        elif "498A" in sec or "304B" in sec or "DOWRY" in act or "DPA" in act:
+            facets.add("matrimonial")
+
+    return facets
+
+
 @dataclass
 class RetrievalProfile:
     """What we are looking for, built once from Stage 4 + Stage 0."""
@@ -133,6 +160,77 @@ class RetrievalProfile:
             "facets": sorted(self.facets),
             "statutes": [f"{s['act']} {s['section']} ({s['kind']}, w={s['weight']})" for s in self.statutes],
         }
+
+
+from .schemas.stage5_precedent import CaseRetrievalProfile
+
+
+def build_case_retrieval_profile(
+    stage4_result: Dict[str, Any],
+    case_context: Optional[Dict[str, Any]] = None,
+    matcher: Optional[PrecedentStatuteMatcher] = None,
+) -> CaseRetrievalProfile:
+    """
+    Constructs a structured CaseRetrievalProfile from Stage 4 and CaseContext.
+    Includes procedural_stage, legal_regime, offences, fact_patterns, defence_themes, prosecution_themes.
+    """
+    if matcher is None:
+        matcher = PrecedentStatuteMatcher()
+    stage_mode = detect_stage_mode(stage4_result, case_context)
+    procedural_stage = "anticipatory_bail" if stage_mode == "anticipatory" else ("regular_bail" if stage_mode == "regular" else "bail_or_quashing")
+    
+    legal_regime = stage4_result.get("legal_regime", "IPC + CrPC")
+    
+    # Extract offence section numbers
+    offences: List[str] = []
+    for off in stage4_result.get("verified_offences", []):
+        sec = str(off.get("section_number", "")).strip()
+        if sec and sec not in offences:
+            offences.append(sec)
+    
+    # Collect context text to extract fact patterns
+    ctx = case_context if isinstance(case_context, dict) else {}
+    full_text = " ".join([_collect_text(ctx), _collect_text(stage4_result.get("verified_offences", []))]).lower()
+    
+    fact_patterns: List[str] = []
+    if any(k in full_text for k in ("forged", "forgery", "fabricated", "false document")):
+        fact_patterns.append("forged ownership documents")
+    if any(k in full_text for k in ("sale deed", "agreement to sell", "power of attorney", "gpa")):
+        fact_patterns.append("fraudulent sale deed / commercial transaction")
+    if any(k in full_text for k in ("land", "agricultural", "plot", "property")):
+        fact_patterns.append("immovable property / agricultural land")
+    if any(k in full_text for k in ("title", "ownership", "civil nature", "commercial dispute")):
+        fact_patterns.append("property / title / commercial dispute")
+    if any(k in full_text for k in ("dishonest", "cheat", "deceiv")):
+        fact_patterns.append("alleged dishonest inducement / cheating")
+    if any(k in full_text for k in ("cooperat", "appeared", "voluntary")):
+        fact_patterns.append("cooperation with investigation")
+    if any(k in full_text for k in ("genuine", "bona fide", "denies")):
+        fact_patterns.append("accused claims documents are genuine / commercial dispute")
+    
+    defence_themes = [
+        "civil dispute dressed as criminal case",
+        "absence of fraudulent or dishonest intention",
+        "genuineness of documents and commercial nature",
+        "cooperation with investigation and no flight risk",
+        "custodial interrogation unnecessary"
+    ]
+    prosecution_themes = [
+        "forgery and fabrication of documents",
+        "use of forged document for fraudulent transfer",
+        "fraudulent inducement to deliver property",
+        "need for investigation into money trail and authenticity",
+        "necessity of custodial interrogation"
+    ]
+    
+    return CaseRetrievalProfile(
+        procedural_stage=procedural_stage,
+        legal_regime=legal_regime,
+        offences=offences,
+        fact_patterns=fact_patterns,
+        defence_themes=defence_themes,
+        prosecution_themes=prosecution_themes,
+    )
 
 
 def build_profile(
@@ -188,6 +286,7 @@ class PrecedentCandidate:
     authorities: List[Dict[str, str]] = field(default_factory=list)
 
     source_file: str = ""
+    citation: Optional[str] = None
 
     # --- new: deterministic scoring output ---
     inferred_stage: str = ""
@@ -230,19 +329,45 @@ class PrecedentRetriever:
     Scores every tagged judgment against a RetrievalProfile and returns role-specific shortlists.
     """
 
-    def __init__(self, tagged_dir: Optional[Path] = None, max_candidates: int = 20):
+    def __init__(
+        self,
+        precedent_dir: Optional[Path] = None,
+        tagged_dir: Optional[Path] = None,
+        max_candidates: int = 20
+    ):
         self.matcher = PrecedentStatuteMatcher()
         self.max_candidates = max_candidates
 
-        if tagged_dir is None:
-            tagged_dir = Path(__file__).parent.parent / "bail_data" / "tagged"
-        self.tagged_dir = Path(tagged_dir)
-        if not self.tagged_dir.exists():
-            raise FileNotFoundError(f"Tagged directory not found: {self.tagged_dir}")
+        chosen_dir = precedent_dir or tagged_dir
+        if chosen_dir is None:
+            bail_data_dir = Path(__file__).parent.parent / "bail_data"
+            # Prioritize 'out' or '.out' directory over legacy 'tagged'
+            if (bail_data_dir / "out").exists():
+                chosen_dir = bail_data_dir / "out"
+            elif (bail_data_dir / ".out").exists():
+                chosen_dir = bail_data_dir / ".out"
+            elif (bail_data_dir / "tagged").exists():
+                chosen_dir = bail_data_dir / "tagged"
+            else:
+                chosen_dir = bail_data_dir / "out"
+
+        self.precedent_dir = Path(chosen_dir)
+        self.tagged_dir = self.precedent_dir  # Backwards compatibility alias
+        if not self.precedent_dir.exists():
+            raise FileNotFoundError(f"Precedent directory not found: {self.precedent_dir}")
 
         self._cache: Dict[str, Dict] = {}
 
     # -- loading ------------------------------------------------------------
+
+    def get_judgment_files(self) -> List[Path]:
+        """Returns all valid judgment JSON files from the precedent directory."""
+        if not self.precedent_dir.exists():
+            return []
+        return [
+            p for p in sorted(self.precedent_dir.glob("*.json"))
+            if not p.name.startswith(".") and not p.name.startswith("_temp")
+        ]
 
     def load_judgment(self, json_path: Path) -> Optional[Dict]:
         key = str(json_path)
@@ -251,6 +376,8 @@ class PrecedentRetriever:
         try:
             with open(json_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
+            if not isinstance(data, dict) or "case" not in data:
+                return None
             self._cache[key] = data
             return data
         except Exception as e:
@@ -288,12 +415,12 @@ class PrecedentRetriever:
         profile: RetrievalProfile,
         case: Dict[str, Any],
         matched: List[Dict[str, str]],
+        doc_meta: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         inferred = infer_case_stage(case)
         stage = STAGE_AFFINITY[profile.stage_mode].get(inferred, 0.2)
 
-        case_facets = extract_facets(" ".join([str(case.get("abstract_facts") or "")] +
-                                              [str(i.get("question") or "") for i in case.get("issues", []) or []]))
+        case_facets = extract_case_facets(case, doc_meta)
         penalty = 0.4 * len(case_facets & DISQUALIFYING_FACETS)
         if profile.facets:
             fact = max(0.0, len(profile.facets & case_facets) / len(profile.facets) - penalty)
@@ -349,19 +476,48 @@ class PrecedentRetriever:
         exact_ratio = (sum(1 for m in matched if m.get("match_type") == "exact") / n_unique) if n_unique else 0
         legacy_score = match_count + (n_unique / n_in if n_in else 0) * 0.5 + exact_ratio * 0.3
 
+        meta = judgment_data.get("doc_meta", {})
+        citation = (
+            meta.get("citation_scr")
+            or meta.get("citation_neutral")
+            or meta.get("case_no")
+            or None
+        )
+
         scored: Dict[str, Any] = {}
         if profile is not None:
-            scored = self._score(profile, case, matched)
-            # procedure-only matches (e.g. just CrPC 438) are not enough
-            if not scored["substantive_match"] and scored["breakdown"]["fact"] < 0.5:
+            scored = self._score(profile, case, matched, doc_meta=meta)
+            cand_facets = set(scored.get("case_facets", []))
+
+            # 1. Subject-matter gate: Exclude cases with violent or sexual offences,
+            # or matrimonial disputes unless substantive property/fraud offences (420/467/468/471) are charged.
+            has_substantive_fraud = scored.get("substantive_match", False)
+            if "violence" in cand_facets and "violence" not in profile.facets:
+                return None
+            if "sexual_offence" in cand_facets and "sexual_offence" not in profile.facets:
+                return None
+            if "matrimonial" in cand_facets and "matrimonial" not in profile.facets and not has_substantive_fraud:
                 return None
 
-        meta = judgment_data.get("doc_meta", {})
+            # 2. Procedure-only matches (e.g. just CrPC 438 without any substantive offence overlap):
+            if not scored["substantive_match"]:
+                # Exclude cases that turn on restrictive special act bail conditions (Companies Act 212(6), NDPS, PMLA, etc.)
+                j_acts = {str(s.get("act", "")).lower() for s in judgment_statutes}
+                special_acts_restrictive = ("companies act", "ndps", "prevention of money laundering", "pmla", "uapa", "pocso")
+                if any(sa in a for a in j_acts for sa in special_acts_restrictive):
+                    return None
+
+                # Allow if factual match is high OR if it is a landmark anticipatory bail authority with rich propositions (e.g. Sibbia)
+                has_rich_holdings = len([p for p in case.get("propositions", []) if p.get("is_holding") or p.get("kind") == "ratio"]) >= 4
+                if scored["breakdown"]["fact"] < 0.4 and not (scored["breakdown"]["stage"] >= 0.8 and has_rich_holdings):
+                    return None
+
         return PrecedentCandidate(
             case_id=judgment_data.get("case_id", "unknown"),
             case_name=case.get("case_name", "Unknown Case"),
             court=case.get("court", "Unknown Court"),
             decided_on=meta.get("decided_on", ""),
+            citation=citation,
             disposition=case.get("disposition", ""),
             procedural_stage=case.get("procedural_stage", ""),
             matched_statutes=matched,
@@ -393,16 +549,33 @@ class PrecedentRetriever:
             print(f"  - {s['act']} {s['section']}  [{s['kind']}, weight {s['weight']}]")
 
         candidates: List[PrecedentCandidate] = []
+        seen_case_names: Set[str] = set()
+        rejected_gate: List[str] = []
         total = 0
-        for json_file in sorted(self.tagged_dir.glob("tagged_*.json")):
+
+        for json_file in self.get_judgment_files():
             total += 1
             data = self.load_judgment(json_file)
             if data is None:
                 continue
+
+            case_name = str((data.get("case") or {}).get("case_name") or "").strip().lower()
+            if case_name and case_name in seen_case_names:
+                continue
+
             cand = self.match_judgment(profile.statutes, data, profile)
             if cand:
                 candidates.append(cand)
-        print(f"[PrecedentRetriever] Scanned {total} judgments, {len(candidates)} passed the statutory/fact gate")
+                if case_name:
+                    seen_case_names.add(case_name)
+            else:
+                cid = data.get("case_id", json_file.stem)
+                cname = (data.get("case") or {}).get("case_name", "Unknown")
+                rejected_gate.append(f"{cname} ({cid})")
+
+        print(f"[PrecedentRetriever] Scanned {total} judgments, {len(candidates)} passed gate, {len(rejected_gate)} rejected/unmatched")
+        if rejected_gate:
+            print(f"[PrecedentRetriever] Sample gate-filtered cases ({min(5, len(rejected_gate))}/{len(rejected_gate)}): {rejected_gate[:5]}")
         return profile, candidates
 
     def retrieve_candidates(

@@ -1,0 +1,230 @@
+{
+  "case_id": "_2022_6_SCR_848",
+  "doc_meta": {
+    "source_file": "2022 INSC 789.pdf",
+    "pdf_pages": 5,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment",
+      "author": "author:0"
+    },
+    "format_profile": "scr_reporter",
+    "citation_scr": "[2022] 6 SCR 848",
+    "scr_year": 2022,
+    "scr_volume": 6,
+    "scr_first_page": 848,
+    "decided_on": "2022-08-03",
+    "coram_raw": "M. R. SHAH AND B. V. NAGARATHNA, JJ.",
+    "coram_regex": [
+      "M. R. SHAH",
+      "B. V. NAGARATHNA"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "DELHI TRANSPORT CORPORATION",
+    "respondent_regex": "SANDEEP KAUSHIK AND ORS.",
+    "court_regex": "Supreme Court of India",
+    "year": 2022,
+    "reporter_trailer": "Bibhuti Bhushan Bose Appeals partly allowed.",
+    "result_of_case": "Appeals partly allowed.",
+    "pre_judgment_block": "CIVIL APPELLATE JURISDICTION: Civil Appeal Nos. 4920- 4921 of 2022. From the Judgment and Order dated 13.09.2013 of the High Court of Delhi at New Delhi in W.P. (C) No.3510 of 2012 and Order dated 05.09.2014 in Review Petition No.195 of 2014 in W.P. (C) No.3510 of 2012. Dr. Monika Gusain, Adv. for the Appellant. Manish Bhardwaj, Piyush Sharma, Nachiketa Joshi, Shiv Mangal Sharma, Om Prakash Shukla, Amit Sharma, G. S. Makker, Advs. for the Respondents.",
+    "case_no": "Civil Appeal Nos. 4920- 4921 of 2022",
+    "appeal_from_raw": "From the Judgment and Order dated 13.09.2013 of the High Court of Delhi at New Delhi in W.P. (C) No.3510 of 2012 and Order dated 05.09.2014 in Review Petition No.195 of 2014 in W.P. (C) No.3510 of 2012",
+    "judgment_author_regex": "M. R. SHAH",
+    "layout": "numbered_paras",
+    "ocr_noise_score": 0.0012
+  },
+  "flags": [],
+  "case": {
+    "case_name": "DELHI TRANSPORT CORPORATION v. SANDEEP KAUSHIK AND ORS.",
+    "petitioner": "DELHI TRANSPORT CORPORATION",
+    "respondent": "SANDEEP KAUSHIK AND ORS.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "M. R. SHAH",
+      "B. V. NAGARATHNA"
+    ],
+    "judgment_author": "M. R. SHAH",
+    "procedural_stage": "other",
+    "offence_types": [],
+    "dispute_nature": "civil_dispute",
+    "abstract_facts": "This case concerns the recruitment process of drivers in the Delhi Transport Corporation. The High Court directed the Corporation to appoint a respondent based on a flawed recruitment process. After 14 years and changed circumstances, the Supreme Court found actual appointment impractical and awarded compensation instead.",
+    "lower_court_outcome": "The High Court ordered the appointment of Sandeep Kaushik as a driver without back wages based on a flawed recruitment process.",
+    "disposition": "Appeals partly allowed.",
+    "statutes": [],
+    "issues": [
+      {
+        "question": "Whether Sandeep Kaushik should be appointed after 14 years from the initial recruitment and under changed circumstances?",
+        "short_answer": "No, actual appointment is not possible due to changed circumstances and lack of available posts.",
+        "anchors": [
+          "P5"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "The entire recruitment process was held to be bad as the appointments were made solely based on the marks allocated in the viva test, which does not call for interference by the Supreme Court.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P5"
+        ],
+        "quote": "the impugned judgment and order passed by the High Court, insofar as holding the entire recruitment process bad, does not call for any interference."
+      },
+      {
+        "id": "p2",
+        "text": "As of the current date, no post of driver is available, and all subsequent appointments are being made on a contractual basis.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P5"
+        ],
+        "quote": "it is pointed out that as on today, no post of driver is available. All the subsequent appointments are now being made on contractual basis."
+      },
+      {
+        "id": "p3",
+        "text": "If a respondent is to be appointed as a driver now, he will need to pass a driving test, considering that 14 years have passed since the initial recruitment.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P5"
+        ],
+        "quote": "If the respondent No.1 is to be appointed now as driver, he will have to clear the driving test to drive the bus on the road."
+      },
+      {
+        "id": "p4",
+        "text": "Given the circumstances that make the actual appointment of a respondent impractical, a lumpsum compensation can be awarded in lieu of the appointment.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P5"
+        ],
+        "quote": "if the respondent No.1 – original writ petitioner is awarded a lumpsum compensation in lieu of actual appointment as a driver with reasonable interest, the same can be said to be in larger interest and can be said to be doing substantial justice."
+      },
+      {
+        "id": "p5",
+        "text": "The compensation awarded to the respondent is Rs.7.5 lakhs with 6% interest from September 2013 until payment is made.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "P6"
+        ],
+        "quote": "the appellant shall pay a sum of Rs.7.5 lakhs with 6 per cent interest from September, 2013 till the actual payment is made to the respondent No.1."
+      }
+    ],
+    "contentions": [],
+    "authorities": []
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "unsupported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p4": {
+      "id": "p4",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p5": {
+      "id": "p5",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    }
+  },
+  "needs_review": [
+    "p3: quote not found in its anchors",
+    "p1: verifier says unsupported, favors_correct=True - "
+  ],
+  "paragraphs": {
+    "P1": {
+      "text": "Feeling aggrieved and dissatisfied with the impugned judgment and order dated 13.09.2013 passed by the High Court of Delhi at New Delhi in Writ Petition No. 3510 of 2012 and the order dated 05.09.2014 passed in Review Petition No. 195 of 2014 in Writ Petition No. 3510 of 2012, the Delhi Transport Corporation has preferred the present appeals.",
+      "page_start": 849,
+      "page_end": 850
+    },
+    "P1.1": {
+      "text": "By the impugned judgment and order, the High Court has allowed the writ petition and directed the appellant to appoint the private respondent herein – original writ petitioner in the writ petition namely, Sandeep Kaushik as Driver with seniority as per his merit position without any back wages.",
+      "page_start": 850,
+      "page_end": 850
+    },
+    "P2": {
+      "text": "Dr. Monika Gusain, learned counsel appearing on behalf of the appellant – Delhi Transport Corporation (DTC) has vehemently submitted that in the present case, the appellant sent a requisition to the respondent No. 2 for recruitment of drivers as far as back in the year 2007. It is submitted that the advertisement was issued to fill up the post of drivers in the month of January, 2008 and thereafter 14 years have passed and there are changed circumstances due to which now it is not possible to reinstate/appoint the private respondent herein – original writ petitioner on the post of driver.",
+      "page_start": 850,
+      "page_end": 850
+    },
+    "P2.1": {
+      "text": "It is vehemently submitted that as on today there is no post of driver available on which the private respondent herein – original writ petitioner can be accommodated and/or reinstated. It is pointed out that now, all the appointments on the post of drivers are being made contractually. It is also submitted that the retirement age of the drivers is 55 years and the original writ petitioner, at present, would be approximately of 49 years of age and even if he is to be reinstated/ appointed on the post in question – driver, he has to clear the driving test. It is pointed out that therefore, at this stage, no actual appointment can possibly be made.",
+      "page_start": 850,
+      "page_end": 850
+    },
+    "P2.2": {
+      "text": "It is also vehemently submitted by Dr. Monika Gusain, learned counsel appearing on behalf of the appellant that in fact there was no fault and/or illegality on the part of the appellant – DTC. It is submitted that the entire process of recruitment was handed over to respondent No.2, who conducted the examination and the entire recruitment process and the appellant – DTC was to make the appointment as per the recommendations made by respondent No.2.",
+      "page_start": 850,
+      "page_end": 850
+    },
+    "P3": {
+      "text": "Shri Nachiketa Joshi, learned counsel appearing on behalf of respondent No.2 is not in a position to support their action making the appointments only on the basis of the marks allotted in the viva test and without there being any guidelines to bifurcate the marks on different AND ORS. [M. R. SHAH, J.] aspects. However, he has submitted that subsequently now the entire system has been changed.",
+      "page_start": 850,
+      "page_end": 851
+    },
+    "P4": {
+      "text": "Mr. Manish Bhardwaj, learned counsel appearing on behalf of respondent No.1 - original writ petitioner has vehemently submitted that as such the original writ petitioner has succeeded before the High Court and the Hon’ble High Court has specifically observed and held that the entire recruitment process was bad as the appointments were made solely on the basis of the marks allotted in the viva test. It is submitted that the respondent No.1 – original writ petitioner is fighting since the year 2008/2009 and even the Hon’ble High Court has directed to appoint the respondent No.1 – original writ petitioner without back wages. Therefore, it is prayed not to interfere with the same.",
+      "page_start": 851,
+      "page_end": 851
+    },
+    "P5": {
+      "text": "Having heard the learned counsel appearing on behalf of the respective parties and the impugned judgment and order passed by the High Court and considering the fact that the appointments were made solely on the basis of the marks allotted in the viva test, the impugned judgment and order passed by the High Court, insofar as holding the entire recruitment process bad, does not call for any interference by this Court. However, at the same time, the question, which is required to be considered is whether the respondent No.1 is to be appointed now after a period of 14 years from the date of initial recruitment and when there are changed circumstances due to which it is now not possible to actually appoint the respondent No.1 – original writ petitioner. It is pointed out that as on today, no post of driver is available. All the subsequent appointments are now being made on contractual basis and through contractors. As on today, the age of the respondent No.1 would be approximately 49 years. The retirement age of the driver is reported to be 55 years. If the respondent No.1 – original writ petitioner is to be appointed now as driver, he will have to clear the driving test to drive the bus on the road. Considering the overall facts and circumstances of the case, we are of the opinion that at this stage, the actual appointment of respondent No.1 – original writ petitioner is not possible. Therefore, we are of the opinion that if the respondent No.1 – original writ petitioner is awarded a lumpsum compensation in lieu of actual appointment as a driver with reasonable interest, the same can be said to be in larger interest and can be said to be doing substantial justice. We are of the opinion that if in lieu of actual appointment, the respondent No. 1 – original writ petitioner is awarded a sum of Rs. 7.5 lakhs as compensation with 6 per cent interest from September, 2013 onwards till the actual payment is made, the same will meet the ends of justice. To the aforesaid extent, the impugned judgment and order passed by the High Court is to be modified.",
+      "page_start": 851,
+      "page_end": 852
+    },
+    "P6": {
+      "text": "In view of the above and for the reasons stated above, the present appeals succeed in part. The impugned judgment and order passed by the High Court is hereby modified and it is directed that the appellant shall pay a sum of Rs.7.5 lakhs with 6 per cent interest from September, 2013 till the actual payment is made to the respondent No.1 – original writ petitioner by way of compensation in lieu of actual appointment, to be paid within a period of eight weeks from today. It will be open for the appellant to recover the same from respondent No.2. However, the initial liability to pay the aforesaid amount would be on the appellant – DTC. The impugned judgment and order passed by the High Court is modified to the aforesaid extent. Present appeals are accordingly partly allowed to the aforesaid extent. However, in the facts and circumstances of the case, there shall be no order as to costs.",
+      "page_start": 852,
+      "page_end": 852
+    }
+  },
+  "headnote_raw": " \nDELHI TRANSPORT CORPORATION\nv.\nSANDEEP KAUSHIK AND ORS.\n(Civil Appeal Nos. 4920-4921 of 2022)\nAUGUST 03, 2022\nService Law – Appointment / Recruitment – Of Drivers in\nappellant-transport Corporation – High Court while holding the\nentire recruitment process to be bad as the appointments were made\nsolely on the basis of marks allotted in the viva test, directed the\nappellant-transport corporation to appoint respondent no.1 as\nDriver with seniority as per his merit position without any back\nwages – Plea of appellant–transport corporation before Supreme\nCourt that 14 years have passed from the date of the recruitment\nand there are changed circumstances due to which it is not possible\nnow to actually reinstate/appoint respondent no.1 on the post of\ndriver – Held: On facts, as on today, no post of driver is available\n– All the subsequent appointments are now being made on\ncontractual basis and through contractors – As on today, the age\nof respondent No.1 would be approximately 49 years while the\nretirement age of a driver is reported to be 55 years – If respondent\nNo.1 is to be appointed now as driver, he will have to clear the\ndriving test to drive the bus on the road – Considering the overall\nfacts and circumstances, at this stage, actual appointment of\nrespondent No.1 is not possible – However, with a view to do\nsubstantial justice, respondent No.1 awarded lumpsum compensation\nof Rs.7.5 lakhs in lieu of actual appointment with 6% interest from\nSeptember, 2013 onwards till the actual payment is made to\nrespondent no.1.\nPartly allowing the appeals, the Court\nHELD:1.1. Considering the fact that the appointments were\nmade solely on the basis of the marks allotted in the viva test,\nthe impugned judgment and order passed by the High Court,\ninsofar as holding the entire recruitment process bad, does not\ncall for any interference. [Para 5][851-D]\n \nAND ORS.\n1.2. It is however pointed out that as on today, no post of\ndriver is available. All the subsequent appointments are now being\nmade on contractual basis and through contractors. As on today,\nthe age of the respondent No.1 would be approximately 49 years.\nThe retirement age of the driver is reported to be 55 years. If\nrespondent No.1 is to be appointed now as driver, he will have to\nclear the driving test to drive the bus on the road. Considering\nthe overall facts and circumstances of the case, at this stage, the\nactual appointment of respondent No.1 is not possible. Therefore,\nif respondent No.1 is awarded a lumpsum compensation in lieu of\nactual appointment as a driver with reasonable interest, the same\ncan be said to be in larger interest and can be said to be doing\nsubstantial justice. [Para 5][851-E-H]\n2. The appellant-transport corporation shall pay a sum of\nRs.7.5 lakhs to respondent No.1 as compensation with 6 per cent\ninterest from September, 2013 onwards till the actual payment is\nmade. It will be open for the appellant to recover the same from\nrespondent No.2. However, the initial liability to pay the aforesaid\namount would be on the appellant. [Para 6][852-C-D]\n"
+}

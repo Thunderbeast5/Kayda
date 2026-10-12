@@ -21,13 +21,15 @@ def test_stage5_with_real_case():
     print("TESTING STAGE 5 PRECEDENT RETRIEVAL PIPELINE WITH REAL CASE")
     print("="*100)
     
-    # Load test case
+    # Load test case if available
     test_case_path = Path(__file__).parent / "bail_data" / "test_case.txt"
-    with open(test_case_path, "r", encoding="utf-8") as f:
-        test_case_text = f.read()
-    
-    print(f"\nTest case loaded ({len(test_case_text)} characters)")
-    print(f"First 200 chars: {test_case_text[:200]}...")
+    if test_case_path.exists():
+        with open(test_case_path, "r", encoding="utf-8") as f:
+            test_case_text = f.read()
+        print(f"\nTest case loaded ({len(test_case_text)} characters)")
+        print(f"First 200 chars: {test_case_text[:200]}...")
+    else:
+        print("\nTest case file test_case.txt not found on disk; using structured test case summary.")
     
     # Create mock Stage 4 output based on the test case
     # The test case mentions: Sections 406, 420, 465, 468, 471 IPC
@@ -156,9 +158,18 @@ def test_stage5_with_real_case():
         for stat in obj.input_statutes:
             print(f"  - {stat['act']} Section {stat['section']}")
         
+        if obj.case_retrieval_profile:
+            prof = obj.case_retrieval_profile
+            print(f"\nCASE RETRIEVAL PROFILE:")
+            print(f"  - Procedural Stage: {prof.procedural_stage}")
+            print(f"  - Offences: {prof.offences}")
+            print(f"  - Fact Patterns: {prof.fact_patterns}")
+            print(f"  - Defence Themes: {prof.defence_themes}")
+            print(f"  - Prosecution Themes: {prof.prosecution_themes}")
+        
         # Prosecution precedents
         print(f"\n" + "-"*100)
-        print(f"PROSECUTION PRECEDENTS: {len(obj.prosecution_precedents)}")
+        print(f"PROSECUTION PRECEDENTS (TOP {len(obj.prosecution_precedents)}):")
         print("-"*100)
         
         for i, prec in enumerate(obj.prosecution_precedents, 1):
@@ -167,32 +178,28 @@ def test_stage5_with_real_case():
             print(f"   Court: {prec.court}")
             print(f"   Decided: {prec.decided_on}")
             print(f"   Procedural Stage: {prec.procedural_stage}")
-            print(f"   Final Relevance Score: {prec.final_relevance_score:.3f}")
+            print(f"   Calibrated Relevance Score (0-10): {prec.final_relevance_score:.2f}")
             print(f"   Statutory Match Score: {prec.match_score:.3f}")
             
+            if prec.compact_summary:
+                cs = prec.compact_summary
+                print(f"   COMPACT SUMMARY:")
+                print(f"   - Procedural Match: {cs.procedural_match} | Factual Match: {cs.factual_match}")
+                print(f"   - Supports Role: {cs.supports_role}")
+                print(f"   - Use For: {cs.use_for}")
+                print(f"   - Against Role: {cs.against_role}")
+            
             rel_eval = prec.relevance_evaluation
-            print(f"\n   LLM EVALUATION:")
+            print(f"   LLM EVALUATION:")
             print(f"   - Relevant: {rel_eval.is_relevant}")
             print(f"   - Relevance Type: {rel_eval.relevance_type}")
             print(f"   - Confidence: {rel_eval.confidence:.2f}")
             print(f"   - Factual Similarity: {rel_eval.factual_similarity[:150]}...")
             print(f"   - Legal Principle Alignment: {rel_eval.legal_principle_alignment[:150]}...")
-            print(f"   - Usage Recommendation: {rel_eval.usage_recommendation[:200]}...")
-            
-            if rel_eval.supporting_propositions:
-                print(f"   - Supporting Propositions: {rel_eval.supporting_propositions}")
-            if rel_eval.key_quotes:
-                print(f"   - Key Quotes ({len(rel_eval.key_quotes)}):")
-                for quote in rel_eval.key_quotes[:2]:
-                    print(f"     • {quote[:150]}...")
-            
-            print(f"\n   MATCHED STATUTES:")
-            for match in prec.matched_statutes:
-                print(f"   - {match.judgment_act} Section {match.judgment_section} [{match.match_type}]")
         
         # Defense precedents
         print(f"\n" + "-"*100)
-        print(f"DEFENSE PRECEDENTS: {len(obj.defense_precedents)}")
+        print(f"DEFENSE PRECEDENTS (TOP {len(obj.defense_precedents)}):")
         print("-"*100)
         
         for i, prec in enumerate(obj.defense_precedents, 1):
@@ -201,33 +208,29 @@ def test_stage5_with_real_case():
             print(f"   Court: {prec.court}")
             print(f"   Decided: {prec.decided_on}")
             print(f"   Procedural Stage: {prec.procedural_stage}")
-            print(f"   Final Relevance Score: {prec.final_relevance_score:.3f}")
+            print(f"   Calibrated Relevance Score (0-10): {prec.final_relevance_score:.2f}")
             print(f"   Statutory Match Score: {prec.match_score:.3f}")
             
+            if prec.compact_summary:
+                cs = prec.compact_summary
+                print(f"   COMPACT SUMMARY:")
+                print(f"   - Procedural Match: {cs.procedural_match} | Factual Match: {cs.factual_match}")
+                print(f"   - Supports Role: {cs.supports_role}")
+                print(f"   - Use For: {cs.use_for}")
+                print(f"   - Against Role: {cs.against_role}")
+            
             rel_eval = prec.relevance_evaluation
-            print(f"\n   LLM EVALUATION:")
+            print(f"   LLM EVALUATION:")
             print(f"   - Relevant: {rel_eval.is_relevant}")
             print(f"   - Relevance Type: {rel_eval.relevance_type}")
             print(f"   - Confidence: {rel_eval.confidence:.2f}")
             print(f"   - Factual Similarity: {rel_eval.factual_similarity[:150]}...")
             print(f"   - Legal Principle Alignment: {rel_eval.legal_principle_alignment[:150]}...")
-            print(f"   - Usage Recommendation: {rel_eval.usage_recommendation[:200]}...")
-            
-            if rel_eval.supporting_propositions:
-                print(f"   - Supporting Propositions: {rel_eval.supporting_propositions}")
-            if rel_eval.key_quotes:
-                print(f"   - Key Quotes ({len(rel_eval.key_quotes)}):")
-                for quote in rel_eval.key_quotes[:2]:
-                    print(f"     • {quote[:150]}...")
-            
-            print(f"\n   MATCHED STATUTES:")
-            for match in prec.matched_statutes:
-                print(f"   - {match.judgment_act} Section {match.judgment_section} [{match.match_type}]")
         
         # Shared precedents
         if obj.shared_precedents:
             print(f"\n" + "-"*100)
-            print(f"SHARED PRECEDENTS (Relevant to both sides): {len(obj.shared_precedents)}")
+            print(f"SHARED PRECEDENTS (Independently useful to both sides): {len(obj.shared_precedents)}")
             print("-"*100)
             for case_id in obj.shared_precedents:
                 print(f"  - {case_id}")

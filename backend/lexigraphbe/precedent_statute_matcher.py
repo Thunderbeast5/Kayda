@@ -28,15 +28,14 @@ import re
 from typing import Any, Dict, List, Optional, Set, Tuple
 
 from .statute_repository import StatuteRepository
+from .offence_taxonomy import gravity_factor, max_years_from_text
 
 
 # Stage-4 prima facie strength -> weight of that offence in retrieval.
 STRENGTH_WEIGHT = {"strong": 1.0, "moderate": 0.7, "weak": 0.3}
 
-# Offences whose Stage 4 "satisfied" verdict is known to be unreliable until Stage 4 stops treating
-# land documents as "valuable security". Empty this dict once Stage 4 marks that ingredient unestablished.
-CONDITIONAL_OFFENCE_CAP = {"467": 0.4}
-
+# Gravity is derived from the statute's own punishment (StatuteRepository / First Schedule), not from per-section
+# constants: see offence_taxonomy.gravity_factor().
 PROCEDURE_WEIGHT = 0.8
 EVIDENCE_WEIGHT = 0.1
 SPECIAL_ACT_WEIGHT = 1.0
@@ -84,6 +83,7 @@ class PrecedentStatuteMatcher:
         bnss_to_crpc = getattr(repo, "get_bnss_to_crpc_map", lambda: {})() or {}
         bsa_to_iea = getattr(repo, "get_bsa_to_iea_map", lambda: {})() or {}
 
+        self._repo = repo
         self.crpc_to_bnss, self.bnss_to_crpc = self._build_pair_maps(bnss_to_crpc, _FALLBACK_CRPC_TO_BNSS)
         self.iea_to_bsa, self.bsa_to_iea = self._build_pair_maps(bsa_to_iea, {})
 
@@ -251,6 +251,14 @@ class PrecedentStatuteMatcher:
         # Special acts have no equivalents.
         return eq
 
+    def gravity(self, act: str, section: str) -> float:
+        """0.4..1.0 from the offence's maximum punishment; 1.0 when the registry has no entry."""
+        try:
+            md = self._repo.get_first_schedule_metadata(str(section), self.normalize_act_name(act))
+            return gravity_factor(max_years_from_text((md or {}).get("punishment_maximum")))
+        except Exception:
+            return 1.0
+
     @staticmethod
     def get_parent_section(section: str) -> Optional[str]:
         """'439(2)' -> '439';  '406' -> None."""
@@ -368,8 +376,9 @@ class PrecedentStatuteMatcher:
                 continue
             sec = str(off.get("section_number") or "")
             strength = str(off.get("overall_prima_facie_strength") or "").strip().lower()
+            sec_norm = self.normalize_section_number(sec)
             weight = STRENGTH_WEIGHT.get(strength, 0.7)
-            weight = min(weight, CONDITIONAL_OFFENCE_CAP.get(self.normalize_section_number(sec), 1.0))
+            weight = round(weight * self.gravity(off.get("statute") or "IPC", sec_norm), 3)
             add(off.get("statute") or "IPC", sec, "offence", weight,
                 strength=off.get("overall_prima_facie_strength"), status=status)
 

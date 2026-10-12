@@ -43,6 +43,7 @@ class Stage5PrecedentPipeline:
         max_candidates: int = 20,
         max_prosecution_precedents: int = 10,
         max_defense_precedents: int = 10,
+        precedent_dir: Optional[Path] = None,
         tagged_dir: Optional[Path] = None
     ):
         """
@@ -54,10 +55,11 @@ class Stage5PrecedentPipeline:
             max_candidates: Maximum candidates to retrieve from statutory matching
             max_prosecution_precedents: Maximum precedents to return for prosecution
             max_defense_precedents: Maximum precedents to return for defense
-            tagged_dir: Directory containing tagged judgment files
+            precedent_dir: Directory containing extracted judgment JSON files (defaults to bail_data/out)
+            tagged_dir: Legacy alias for precedent_dir
         """
         self.retriever = retriever or PrecedentRetriever(
-            tagged_dir=tagged_dir,
+            precedent_dir=precedent_dir or tagged_dir,
             max_candidates=max_candidates
         )
         self.evaluator = evaluator or PrecedentRelevanceBatchEvaluator()
@@ -68,42 +70,62 @@ class Stage5PrecedentPipeline:
         self,
         case_context: Union[CaseContextObject, Dict[str, Any], str]
     ) -> str:
-        """Extract case summary from CaseContextObject."""
+        """Extract comprehensive case summary from CaseContextObject, dict, or str."""
         if isinstance(case_context, str):
-            return case_context
+            s = case_context.strip()
+            if s:
+                return s
         
         if isinstance(case_context, dict):
             # Extract from dict
-            case_profile = case_context.get("case_profile", {})
-            facts = case_context.get("case_facts", {})
-            
             summary_parts = []
+            case_profile = case_context.get("case_profile") or {}
+            facts = case_context.get("case_facts") or {}
             
-            # Add case type and nature
-            case_type = case_profile.get("case_type", "")
-            dispute_nature = case_profile.get("dispute_nature", "")
-            if case_type:
-                summary_parts.append(f"Case Type: {case_type}")
-            if dispute_nature:
-                summary_parts.append(f"Dispute Nature: {dispute_nature}")
+            # Check if case_facts is itself a string or dict
+            if isinstance(facts, str) and facts.strip():
+                summary_parts.append(facts.strip())
+            elif isinstance(facts, dict):
+                factual_summary = facts.get("factual_summary", "")
+                if factual_summary:
+                    summary_parts.append(f"Facts: {factual_summary}")
+                allegations = facts.get("allegations", [])
+                if allegations and isinstance(allegations, list):
+                    summary_parts.append(f"Allegations: {'; '.join(str(a) for a in allegations[:4])}")
             
-            # Add factual summary
-            factual_summary = facts.get("factual_summary", "")
-            if factual_summary:
-                summary_parts.append(f"Facts: {factual_summary}")
+            # Add profile context
+            if isinstance(case_profile, dict):
+                case_type = case_profile.get("case_type", "")
+                dispute_nature = case_profile.get("dispute_nature", "")
+                procedural_stage = case_profile.get("procedural_stage", "")
+                if case_type:
+                    summary_parts.append(f"Case Type: {case_type}")
+                if dispute_nature:
+                    summary_parts.append(f"Dispute Nature: {dispute_nature}")
+                if procedural_stage:
+                    summary_parts.append(f"Procedural Stage: {procedural_stage}")
             
-            # Add allegations
-            allegations = facts.get("allegations", [])
-            if allegations:
-                summary_parts.append(f"Allegations: {'; '.join(allegations[:3])}")
+            for k in ("requested_relief", "relief"):
+                if case_context.get(k):
+                    summary_parts.append(f"Requested Relief: {case_context[k]}")
             
-            return "\n".join(summary_parts) if summary_parts else "Case details not available"
+            if summary_parts:
+                return "\n".join(summary_parts)
+            
+            # If dict has raw string fields
+            for k in ("facts", "summary", "text", "description"):
+                if isinstance(case_context.get(k), str) and case_context[k].strip():
+                    return case_context[k].strip()
         
         # CaseContextObject instance
-        if hasattr(case_context, 'case_facts') and hasattr(case_context.case_facts, 'factual_summary'):
-            return case_context.case_facts.factual_summary
+        if hasattr(case_context, 'case_facts'):
+            cf = case_context.case_facts
+            if hasattr(cf, 'factual_summary') and cf.factual_summary:
+                return cf.factual_summary
+            if isinstance(cf, str) and cf.strip():
+                return cf.strip()
         
-        return "Case summary not available"
+        return str(case_context) if case_context else "Case summary not available"
     
     def _extract_input_statutes(
         self,
@@ -221,6 +243,16 @@ class Stage5PrecedentPipeline:
         input_case_summary = self._extract_case_summary(case_context)
         input_statutes = self._extract_input_statutes(statutory_object)
         
+        # Prepare context dict for retriever & matcher
+        case_context_dict = self._convert_to_dict(case_context) if case_context else {}
+        if isinstance(case_context, str) and not case_context_dict:
+            case_context_dict = {"case_facts": case_context, "requested_relief": "Anticipatory Bail" if "anticipatory" in case_context.lower() else "Bail"}
+        elif isinstance(case_context_dict, dict) and "requested_relief" not in case_context_dict:
+            if "anticipatory" in input_case_summary.lower():
+                case_context_dict["requested_relief"] = "Anticipatory Bail"
+            if "case_facts" not in case_context_dict:
+                case_context_dict["case_facts"] = input_case_summary
+        
         if not input_statutes:
             print("[Stage5] WARNING: No statutes found in Stage 4 output")
             return PrecedentRetrievalResult(
@@ -242,15 +274,37 @@ class Stage5PrecedentPipeline:
         print(f"\n[Stage5] Input case summary: {input_case_summary[:200]}...")
         print(f"[Stage5] Input statutes: {input_statutes}")
         
-        # Step 1: Deterministic statutory candidate retrieval
+        # Step 0: Construct structured Case Retrieval Profile
         print("\n" + "-"*80)
-        print("STEP 1: DETERMINISTIC STATUTORY MATCHING")
+        print("STEP 0: CONSTRUCTING CASE RETRIEVAL PROFILE")
+        print("-"*80)
+        from .precedent_retrieval import build_case_retrieval_profile
+        case_retrieval_profile = build_case_retrieval_profile(
+            stage4_result=statutory_dict,
+            case_context=case_context_dict
+        )
+        print(f"[Stage5] Profile procedural_stage: {case_retrieval_profile.procedural_stage}")
+        print(f"[Stage5] Profile offences: {case_retrieval_profile.offences}")
+        print(f"[Stage5] Profile fact_patterns: {case_retrieval_profile.fact_patterns}")
+        print(f"[Stage5] Defence themes: {case_retrieval_profile.defence_themes}")
+        print(f"[Stage5] Prosecution themes: {case_retrieval_profile.prosecution_themes}")
+
+        # Step 1: Branched Candidate Retrieval for Prosecution & Defense
+        print("\n" + "-"*80)
+        print("STEP 1: SEPARATE PROSECUTION AND DEFENSE CANDIDATE RETRIEVAL")
         print("-"*80)
         
-        candidates = self.retriever.retrieve_candidates(
+        branched_pools = self.retriever.retrieve_by_role(
             stage4_result=statutory_dict,
-            case_context=self._convert_to_dict(case_context) if case_context else None
+            case_context=case_context_dict,
+            top_k=max(self.retriever.max_candidates, 10)
         )
+        prosecution_candidates = branched_pools.get("prosecution", [])
+        defense_candidates = branched_pools.get("defense", [])
+        
+        # Unique candidates across both pools for audit scanning
+        all_candidates_map = {c.case_id: c for c in prosecution_candidates + defense_candidates}
+        candidates = list(all_candidates_map.values())
         
         if not candidates:
             print("[Stage5] No precedent candidates found")
@@ -261,52 +315,83 @@ class Stage5PrecedentPipeline:
                 verified_precedent_object=RoleSpecificPrecedentRetrievalObject(
                     input_case_summary=input_case_summary,
                     input_statutes=input_statutes,
-                    total_judgments_scanned=len(list(self.retriever.tagged_dir.glob("tagged_*.json"))),
+                    case_retrieval_profile=case_retrieval_profile,
+                    total_judgments_scanned=len(self.retriever.get_judgment_files()),
                     candidates_after_statutory_match=0,
                     prosecution_precedents=[],
                     defense_precedents=[],
+                    compact_prosecution_summaries=[],
+                    compact_defense_summaries=[],
                     shared_precedents=[],
                     verification_status="VERIFIED"
                 )
             )
         
-        print(f"[Stage5] Found {len(candidates)} candidates after statutory matching")
+        print(f"[Stage5] Found {len(prosecution_candidates)} prosecution candidates and {len(defense_candidates)} defense candidates")
         
-        # Step 2: Role-specific LLM evaluation (prosecution + defense)
+        # Step 2: Role-specific LLM evaluation
         print("\n" + "-"*80)
         print("STEP 2: ROLE-SPECIFIC LLM EVALUATION")
         print("-"*80)
         
-        role_evaluations = self.evaluator.evaluate_candidates_for_both_roles(
-            candidates=candidates,
-            input_case_summary=input_case_summary,
-            input_statutes=input_statutes,
-            stage4_result=statutory_dict
-        )
+        stage4_summary = self.evaluator._extract_stage4_summary(statutory_dict)
+        prosecution_evaluated = []
+        defense_evaluated = []
         
-        # Step 3: Build RoleSpecificPrecedentItem objects
+        print(f"[Stage5] Evaluating {len(prosecution_candidates)} candidates for PROSECUTION...")
+        for i, cand in enumerate(prosecution_candidates, 1):
+            eval_res = self.evaluator.reasoner.evaluate_precedent_for_role(
+                "prosecution", cand, input_case_summary, input_statutes, stage4_summary
+            )
+            v_res = self.evaluator.verifier.verify_evaluation("prosecution", cand, eval_res)
+            v_eval = v_res.get("evaluation", eval_res)
+            if v_eval.get("is_relevant", False) and v_eval.get("relevance_type") != "LOW_RELEVANCE":
+                prosecution_evaluated.append({"candidate": cand, "evaluation": v_eval, "verification": v_res})
+                print(f"  [{i}] {cand.case_name}: [+] {v_eval.get('relevance_type')}")
+            else:
+                print(f"  [{i}] {cand.case_name}: [-] {v_eval.get('relevance_type')}")
+        
+        print(f"[Stage5] Evaluating {len(defense_candidates)} candidates for DEFENSE...")
+        for i, cand in enumerate(defense_candidates, 1):
+            eval_res = self.evaluator.reasoner.evaluate_precedent_for_role(
+                "defense", cand, input_case_summary, input_statutes, stage4_summary
+            )
+            v_res = self.evaluator.verifier.verify_evaluation("defense", cand, eval_res)
+            v_eval = v_res.get("evaluation", eval_res)
+            if v_eval.get("is_relevant", False) and v_eval.get("relevance_type") != "LOW_RELEVANCE":
+                defense_evaluated.append({"candidate": cand, "evaluation": v_eval, "verification": v_res})
+                print(f"  [{i}] {cand.case_name}: [+] {v_eval.get('relevance_type')}")
+            else:
+                print(f"  [{i}] {cand.case_name}: [-] {v_eval.get('relevance_type')}")
+        
+        role_evaluations = {"prosecution": prosecution_evaluated, "defense": defense_evaluated}
+        
+        # Step 3: Build RoleSpecificPrecedentItem objects & Compact summaries
         print("\n" + "-"*80)
-        print("STEP 3: BUILDING ROLE-SPECIFIC PRECEDENT LISTS")
+        print("STEP 3: BUILDING ROLE-SPECIFIC PRECEDENT LISTS & COMPACT SUMMARIES")
         print("-"*80)
         
         prosecution_items = self.evaluator.build_role_specific_precedent_items(
-            role_evaluations["prosecution"]
+            prosecution_evaluated, role="prosecution"
         )[:self.max_prosecution_precedents]
         
         defense_items = self.evaluator.build_role_specific_precedent_items(
-            role_evaluations["defense"]
+            defense_evaluated, role="defense"
         )[:self.max_defense_precedents]
         
-        print(f"[Stage5] Prosecution precedents: {len(prosecution_items)}")
-        print(f"[Stage5] Defense precedents: {len(defense_items)}")
+        compact_prosecution = [item.compact_summary for item in prosecution_items if item.compact_summary]
+        compact_defense = [item.compact_summary for item in defense_items if item.compact_summary]
         
-        # Identify shared precedents (appearing in both lists)
+        print(f"[Stage5] Top {len(prosecution_items)} Prosecution precedents selected")
+        print(f"[Stage5] Top {len(defense_items)} Defense precedents selected")
+        
+        # Identify shared precedents (cases independently useful to both sides with preserved conflicting propositions)
         prosecution_case_ids = {item.case_id for item in prosecution_items}
         defense_case_ids = {item.case_id for item in defense_items}
         shared_precedents = list(prosecution_case_ids & defense_case_ids)
         
         if shared_precedents:
-            print(f"[Stage5] Shared precedents (relevant to both sides): {len(shared_precedents)}")
+            print(f"[Stage5] Shared precedents (relevant to both sides): {shared_precedents}")
         
         # Step 4: Construct final output object
         print("\n" + "-"*80)
@@ -316,10 +401,13 @@ class Stage5PrecedentPipeline:
         precedent_object = RoleSpecificPrecedentRetrievalObject(
             input_case_summary=input_case_summary,
             input_statutes=input_statutes,
-            total_judgments_scanned=len(list(self.retriever.tagged_dir.glob("tagged_*.json"))),
+            case_retrieval_profile=case_retrieval_profile,
+            total_judgments_scanned=len(self.retriever.get_judgment_files()),
             candidates_after_statutory_match=len(candidates),
             prosecution_precedents=prosecution_items,
             defense_precedents=defense_items,
+            compact_prosecution_summaries=compact_prosecution,
+            compact_defense_summaries=compact_defense,
             shared_precedents=shared_precedents,
             verification_status="VERIFIED",
             retrieval_metadata={

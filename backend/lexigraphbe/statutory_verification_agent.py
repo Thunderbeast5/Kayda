@@ -33,7 +33,7 @@ STATUTORY_INGREDIENTS: Dict[str, List[tuple]] = {
     "467": [("Forgery of a Valuable Security, Will, or Document creating/transferring interest in property", True), ("Intent to cause damage or injury", True)],
     "468": [("Act of Forgery", True), ("Purpose / Intention of Cheating", True)],
     "471": [("Using / Presenting / Registering a Document as Genuine", True), ("Knowledge or Reason to Believe Document is Forged", True)],
-    "423": [("Execution of a Deed / Instrument (sale deed, mortgage, gift deed, etc.)", True), ("Deed Contains a False / Misleading Statement or is made without full consideration", True), ("Dishonest or Fraudulent Intent", True)],
+    "423": [("Execution of Deed / Instrument purporting to transfer or charge property", True), ("Deed contains false statement relating to consideration or person for whose use/benefit it is intended to operate", True), ("Dishonest or Fraudulent Intent", True)],
     # Property offences
     "378": [("Movable Property", True), ("Taken out of possession of another", True), ("Without consent", True), ("Dishonest Intention", True)],
     "379": [("Movable Property", True), ("Taken out of possession of another", True), ("Without consent", True), ("Dishonest Intention", True)],

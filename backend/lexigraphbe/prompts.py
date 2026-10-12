@@ -1204,7 +1204,7 @@ OFFENCES AGAINST DOCUMENTS & PROPERTY FRAUD:
 
   s.423 — Dishonest or Fraudulent Execution of Deed:
     [MANDATORY] Execution of a Deed / Instrument
-    [MANDATORY] Deed Contains False / Misleading Statement OR made without full consideration
+    [MANDATORY] Deed Contains False Statement relating to consideration or true beneficiary
     [MANDATORY] Dishonest or Fraudulent Intent
 
 OFFENCES AGAINST PROPERTY:
@@ -1976,11 +1976,11 @@ Return your response in the following JSON format ONLY:
   "evidentiary_analysis": "Concise summary of the key evidence questions in this case",
   "evaluated_sections": [
     {{
-      "section_number": "41",
-      "heading": "Opinion as to handwriting and signature, when relevant",
+      "section_number": "56",
+      "heading": "Proof of contents of documents",
       "is_applicable": true,
-      "relevance_category": "HANDWRITING_SIGNATURE",
-      "evidentiary_reasoning": "Directly applies because complainant alleges the sale deed bears forged signatures of lawful owners."
+      "relevance_category": "PRIMARY_SECONDARY_EVIDENCE",
+      "evidentiary_reasoning": "Applies because proving the contents and genuineness of disputed documents is central to the allegations."
     }},
     {{
       "section_number": "137",
