@@ -5,8 +5,10 @@ from pathlib import Path
 from typing import Dict, Any, List, Tuple
 
 backend_dir = Path(__file__).resolve().parent.parent
-if str(backend_dir) not in sys.path:
-    sys.path.insert(0, str(backend_dir))
+lexigraph_dir = backend_dir / "agents" / "lexigraph"
+for _p in [str(backend_dir), str(lexigraph_dir)]:
+    if _p not in sys.path:
+        sys.path.insert(0, _p)
 
 try:
     from .services.query_understanding_service import QueryUnderstandingService

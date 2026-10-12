@@ -61,6 +61,11 @@ def get_llm(temperature: float = 0.1):
         )
 
     # Default: Ollama
+    ollama_api_key = os.getenv("OLLAMA_API_KEY", "")
+    client_kwargs = {}
+    if ollama_api_key:
+        client_kwargs["headers"] = {"Authorization": f"Bearer {ollama_api_key}"}
+
     try:
         from langchain_ollama import ChatOllama
         print(f"[LLM] Provider: Ollama | Model: {OLLAMA_MODEL} | URL: {OLLAMA_BASE_URL}")
@@ -68,14 +73,21 @@ def get_llm(temperature: float = 0.1):
             model=OLLAMA_MODEL,
             base_url=OLLAMA_BASE_URL,
             temperature=temperature,
-        )
-    except ImportError:
-        raise ImportError(
-            "langchain-ollama is not installed. Run: pip install langchain-ollama"
+            client_kwargs=client_kwargs,
         )
     except Exception as e:
-        raise RuntimeError(
-            f"Ollama connection failed: {e}\n"
-            f"Make sure Ollama is running: ollama serve\n"
-            f"And model is pulled: ollama pull {OLLAMA_MODEL}"
-        )
+        print(f"[LLM] Warning loading ChatOllama in judge_agents: {e}")
+        try:
+            from langchain_openai import ChatOpenAI
+            return ChatOpenAI(
+                model=OLLAMA_MODEL,
+                base_url=f"{OLLAMA_BASE_URL.rstrip('/')}/v1",
+                api_key=ollama_api_key or "ollama",
+                temperature=temperature,
+            )
+        except Exception as e2:
+            raise RuntimeError(
+                f"Ollama connection failed: {e}\n"
+                f"Make sure Ollama is running at {OLLAMA_BASE_URL}\n"
+                f"And model is pulled: ollama pull {OLLAMA_MODEL}"
+            )

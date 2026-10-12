@@ -199,8 +199,9 @@ def run_session(
     Full terminal session loop.
     Can be called programmatically or via CLI.
     """
-    api_key = api_key or os.environ.get("OPENAI_API_KEY", "")
-    if not api_key:
+    provider = os.environ.get("LLM_PROVIDER", "ollama").lower()
+    api_key = api_key or os.environ.get("OPENAI_API_KEY", "") or os.environ.get("OLLAMA_API_KEY", "")
+    if provider == "openai" and not api_key:
         console.print(
             "[red]Error: OPENAI_API_KEY not set. "
             "Export it or pass --api-key.[/red]"

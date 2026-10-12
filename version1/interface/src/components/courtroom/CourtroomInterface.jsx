@@ -548,24 +548,41 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
 
   // Case Selection & Observer Mode state
   const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
-  const [selectedCaseId, setSelectedCaseId] = useState("1");
+  const [selectedCaseId, setSelectedCaseId] = useState("8efffec1");
   const [caseData, setCaseData] = useState({
-    fileId: "1",
-    title: "Sasikala Pushpa vs. State of Tamil Nadu",
-    firNo: "LAWS(SC)-2019-5-25",
-    charge: "S.438 CrPC / IPC 193",
-    evidenceLinked: true
+    fileId: "8efffec1",
+    title: "Srikant Upadhyay and Others vs. State of Bihar and Another",
+    firNo: "FIR No. 79/2020 (Patna)",
+    charge: "CrPC 438 / IPC 354B, 379, 149",
+    evidenceLinked: true,
+    case_facts: [],
+    evidence_inventory: [],
   });
 
   const [observerEvents, setObserverEvents] = useState([]);
   const [observerIndex, setObserverIndex] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(false);
+
+  // Auto-play timer effect
+  useEffect(() => {
+    let timer = null;
+    if (isAutoPlaying && observerEvents.length > 0 && observerIndex < observerEvents.length) {
+      timer = setTimeout(() => {
+        revealNextObserverTurn();
+      }, 2400);
+    } else if (observerEvents.length > 0 && observerIndex >= observerEvents.length) {
+      setIsAutoPlaying(false);
+    }
+    return () => clearTimeout(timer);
+  }, [isAutoPlaying, observerIndex, observerEvents]);
 
   // Loads the full transcript for a case once — no SSE, no pacing.
-  // The user clicks "Next" to reveal each turn instead of it auto-playing.
+  // The user clicks "Next" to reveal each turn or uses "Auto-Play".
   const loadObserverEvents = async (caseId) => {
     setMessages([]);
     setActiveSpeaker(null);
     setObserverIndex(0);
+    setIsAutoPlaying(false);
     setTrialPhase("PROCEEDINGS INITIATION");
 
     try {
@@ -574,6 +591,15 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
       if (!res.ok) throw new Error(`Server status ${res.status}`);
       const data = await res.json();
       setObserverEvents(data.events || []);
+
+      // Also refresh caseData details
+      const cRes = await fetch(`${apiUrl}/api/cases/${caseId}`);
+      if (cRes.ok) {
+        const cData = await cRes.json();
+        if (cData.caseData) {
+          setCaseData(cData.caseData);
+        }
+      }
     } catch (err) {
       console.error("Failed to load simulation transcript:", err);
       setObserverEvents([]);
@@ -597,6 +623,7 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
     setMessages([]);
     setActiveSpeaker(null);
     setObserverIndex(0);
+    setIsAutoPlaying(false);
     setTrialPhase("PROCEEDINGS INITIATION");
   };
 
@@ -611,9 +638,7 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
           setCaseData(data.caseData);
         }
       }
-      if (userRole === "observer") {
-        loadObserverEvents(caseId); // new case picked — load its transcript
-      }
+      loadObserverEvents(caseId);
     } catch (err) {
       console.error("Error fetching case details:", err);
     }
@@ -897,59 +922,127 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
   };
 
   const handleEvent = (event) => {
-    setActiveSpeaker(event.agent_id);
+    if (!event) return;
+
+    // 1. Phase change
+    if (event.type === "phase_change") {
+      const phaseNames = {
+        INIT: "PROCEEDINGS INITIATION",
+        EVIDENCE: "EVIDENCE EXTRACTION & CLASSIFICATION",
+        LEXIGRAPH: "LEXIGRAPH GRAPH RETRIEVAL",
+        COURTROOM: `DEBATE ROUND ${event.round || 1}`,
+        VERDICT: "JUDICIAL ADJUDICATION",
+        DONE: "PROCEEDINGS CONCLUDED",
+        FAILED: "SIMULATION FAILED",
+      };
+      setTrialPhase(phaseNames[event.phase] || event.phase);
+      if (event.phase === "DONE") {
+        setActiveSpeaker(null);
+      }
+      return;
+    }
+
+    // 2. Verdict Decree
+    if (event.type === "verdict") {
+      setActiveSpeaker("judge");
+      setTrialPhase("VERDICT CONCLUDED");
+      setMessages((prev) => [
+        ...prev,
+        {
+          type: "verdict",
+          agentId: "verdict",
+          result: event.result || "DENIED",
+          confidence: event.confidence || event.confidence_label || "high",
+          valid_votes: event.valid_votes ?? 3,
+          total_votes: event.total_votes ?? 5,
+          agree_count: event.agree_count ?? 3,
+          statutes: event.statutes || [],
+          precedents: event.precedents || [],
+          holdings_relied: event.holdings_relied || [],
+          vote_tally: event.vote_tally || {},
+          explanation: event.explanation || event.reasoning || "",
+        }
+      ]);
+      return;
+    }
+
+    // 3. Judge evaluation scores
+    if (event.type === "judge_scores") {
+      setMessages((prev) => [
+        ...prev,
+        {
+          type: "judge_scores",
+          scores: event.scores || {
+            prosecution: event.prosecution,
+            defense: event.defense,
+            overall: event.overall
+          }
+        }
+      ]);
+      return;
+    }
+
+    // 4. Judicial Inquiry
+    if (event.type === "judge_question") {
+      setActiveSpeaker("judge");
+      setTrialPhase("JUDICIAL INQUIRY");
+      const questionText = event.question || "";
+      setMessages((prev) => [
+        ...prev,
+        {
+          agentId: "judge",
+          speaker: "Hon’ble Judge (Inquiry to Accused)",
+          text: questionText,
+          content: questionText,
+          citations: [],
+        }
+      ]);
+      if (ttsEnabledRef.current && questionText) {
+        speakText(questionText, "judge");
+      }
+      return;
+    }
+
+    // 5. Agent message (prosecutor, defense, accused, evidence_analyzer, lexigraph)
+    const agent = event.agent || event.agent_id || "prosecutor";
+    const displayName = event.display_name || roleNameMap[agent] || agent.toUpperCase();
+    const content = event.content || event.full_text || event.text || "";
+    const citations = event.citations || event.verified_citations || [];
+    const evidenceRefs = event.evidence_refs || [];
+    const facts = event.facts || [];
+    const inventory = event.inventory || [];
+    const holdings = event.holdings || [];
+    const precedents = event.precedents || [];
+    const round = event.round;
+
+    setActiveSpeaker(agent);
+
     setMessages((prev) => [
       ...prev,
       {
-        speaker: event.display_name,
-        text: event.full_text,
-        citations: event.verified_citations,
-        agentId: event.agent_id
+        agentId: agent,
+        speaker: displayName,
+        text: content,
+        content: content,
+        citations: citations,
+        evidence_refs: evidenceRefs,
+        facts: facts,
+        inventory: inventory,
+        holdings: holdings,
+        precedents: precedents,
+        round: round,
       },
     ]);
 
-    if (ttsEnabledRef.current) {
-      speakText(event.full_text, event.agent_id);
+    if (ttsEnabledRef.current && content) {
+      speakText(content, agent);
     }
   };
 
   const startCasePractice = () => {
     setStatus("running");
-    setSidebarOpen(false); // Close sidebar on mobile when started
-    
-    if (userRole === "observer") {
-        loadObserverEvents(selectedCaseId); // loads transcript; user clicks Next to advance
-    } else if (userRole === "defense") {
-        setTrialPhase("PROSECUTION OPENING STATEMENT");
-        setActiveSpeaker("judge");
-        setTimeout(() => {
-          handleEvent({
-            agent_id: "judge",
-            display_name: "Hon’ble Judge",
-            full_text: "The court is in session. State vs. Rahul Sharma. Public Prosecutor, please present your opening framing of the charges.",
-            verified_citations: [],
-          });
-          
-          setTimeout(() => {
-             setActiveSpeaker("prosecutor");
-             setTimeout(() => {
-                 handleEvent({
-                    agent_id: "prosecutor",
-                    display_name: "Public Prosecutor",
-                    full_text: "May it please the Hon’ble Court, on the night of Oct 12th, the accused intentionally relocated the complainant's property without consent. The evidence definitively establishes theft under Section 379.",
-                    verified_citations: ["IPC 379"],
-                 });
-                 setTimeout(() => {
-                     setActiveSpeaker(null);
-                     setTrialPhase("DEFENSE REBUTTAL");
-                 }, 500);
-             }, 800);
-          }, 1000);
-
-        }, 100);
-    } else {
-        setTrialPhase("AWAITING YOUR OPENING");
-    }
+    setSidebarOpen(false);
+    loadObserverEvents(selectedCaseId);
   };
 
   const submitUserInput = (e) => {
@@ -1136,12 +1229,14 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
         
         <ChatPanel messages={messages} userRole={userRole} speakText={speakText} />
 
-        {userRole === "observer" ? (
+        {(!gameId || userRole === "observer" || observerEvents.length > 0) ? (
           <ObserverControlBar
             currentIndex={observerIndex}
             totalTurns={observerEvents.length}
             onNext={revealNextObserverTurn}
             onRestart={restartObserverPlayback}
+            isAutoPlaying={isAutoPlaying}
+            onToggleAutoPlay={() => setIsAutoPlaying(!isAutoPlaying)}
           />
         ) : (
           <CourtroomInputBar

@@ -1805,5 +1805,37 @@
     "subject_matter_scope": null,
     "disqualifying_subject_matters": [],
     "requires_trigger_gate": false
+  },
+  {
+    "section": "394",
+    "statute": "IPC",
+    "bns_equivalent": "394",
+    "title": "Person voluntarily causing hurt in committing or attempting to commit robbery, or any other person jointly concerned in such robbery",
+    "mandatory_ingredients": [
+      "person_voluntarily_causing_hurt_in_committing_or_attempting_to_commit_robbery_or_any_other_person_jointly_concerned_in_such_robbery"
+    ],
+    "factual_triggers": [
+      "causing",
+      "hurt",
+      "voluntarily",
+      "person",
+      "committing",
+      "attempting",
+      "commit",
+      "robbery",
+      "other",
+      "jointly",
+      "concerned"
+    ],
+    "chapter_number": "IPC Offence Chapter",
+    "chapter_title": "Person voluntarily causing hurt in committing or attempting to commit robbery, or any other person jointly concerned in such robbery",
+    "punishment_minimum": null,
+    "punishment_maximum": "imprisonment for life or rigorous imprisonment for",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
   }
 ]

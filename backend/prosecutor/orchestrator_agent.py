@@ -161,9 +161,10 @@ class OrchestratorAgent:
     Does NOT manipulate lexigraphbe inputs in any way.
     """
 
-    def __init__(self, api_key: Optional[str] = None, model: str = "gpt-4o-mini"):
-        self.api_key = api_key or os.environ.get("OPENAI_API_KEY", "")
-        self.model   = model
+    def __init__(self, api_key: Optional[str] = None, model: Optional[str] = None):
+        self.api_key = api_key or os.environ.get("OPENAI_API_KEY", "") or os.environ.get("OLLAMA_API_KEY", "")
+        default_model = os.getenv("OLLAMA_MODEL", "llama3.2:3b") if os.getenv("LLM_PROVIDER", "ollama").lower() == "ollama" else "gpt-4o-mini"
+        self.model   = model or default_model
         self._run_full_pipeline = _try_import_lexigraphbe_runner()
 
     def _run_pipeline(self, text: str, label: str) -> OrchestratorResult:
@@ -264,11 +265,10 @@ class OrchestratorAgent:
     # ── GPT simulation fallback ──────────────────────────────
 
     def _simulate(self, text: str) -> OrchestratorResult:
-        """GPT-4o-mini simulation when lexigraphbe is not installed."""
-        from openai import OpenAI
+        """Simulation fallback when lexigraphbe is not installed."""
         import re as _re
+        from langchain_core.messages import SystemMessage, HumanMessage
 
-        client = OpenAI(api_key=self.api_key)
         system = """You are a legal AI simulating lexigraphbe Stages 0-6 for Indian criminal law.
 Given case facts, identify the correct IPC sections and return ONLY valid JSON:
 {
@@ -292,17 +292,26 @@ Given case facts, identify the correct IPC sections and return ONLY valid JSON:
   "bail_recommendation": "Reject Anticipatory Bail",
   "manual_review_flags": []
 }"""
-        resp = client.chat.completions.create(
-            model=self.model, temperature=0.0,
-            messages=[
-                {"role": "system", "content": system},
-                {"role": "user",   "content": f"CASE TEXT:\n{text}"},
-            ],
-        )
-        raw_text = resp.choices[0].message.content.strip()
-        cleaned  = _re.sub(r"^```(?:json)?\s*", "", raw_text, flags=_re.MULTILINE)
-        cleaned  = _re.sub(r"\s*```$", "", cleaned, flags=_re.MULTILINE)
-        data     = json.loads(cleaned.strip())
+        try:
+            from lexigraphbe.config import get_llm, extract_json_from_text
+            llm = get_llm(temperature=0.0, model_name=self.model)
+            resp = llm.invoke([SystemMessage(content=system), HumanMessage(content=f"CASE TEXT:\n{text}")])
+            raw_text = resp.content.strip() if hasattr(resp, "content") else str(resp).strip()
+            data = extract_json_from_text(raw_text)
+        except Exception:
+            from openai import OpenAI
+            client = OpenAI(api_key=self.api_key)
+            resp = client.chat.completions.create(
+                model=self.model, temperature=0.0,
+                messages=[
+                    {"role": "system", "content": system},
+                    {"role": "user",   "content": f"CASE TEXT:\n{text}"},
+                ],
+            )
+            raw_text = resp.choices[0].message.content.strip()
+            cleaned  = _re.sub(r"^```(?:json)?\s*", "", raw_text, flags=_re.MULTILINE)
+            cleaned  = _re.sub(r"\s*```$", "", cleaned, flags=_re.MULTILINE)
+            data     = json.loads(cleaned.strip())
 
         sections = [
             VerifiedSection(
