@@ -667,6 +667,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount LexiGraph 7-stage pipeline router
+from lexigraph_router import router as lexigraph_pipeline_router
+app.include_router(lexigraph_pipeline_router)
 app.include_router(matchmaking_router)
 app.include_router(game_router)
 app.include_router(ws_router)
