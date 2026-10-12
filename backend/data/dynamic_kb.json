@@ -2960,5 +2960,635 @@
     "subject_matter_scope": null,
     "disqualifying_subject_matters": [],
     "requires_trigger_gate": false
+  },
+  {
+    "section": "306",
+    "statute": "IPC",
+    "bns_equivalent": "306",
+    "title": "Abetment of suicide",
+    "mandatory_ingredients": [
+      "abetment_of_suicide"
+    ],
+    "factual_triggers": [
+      "abetment",
+      "abetment of suicide",
+      "suicide"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Abetment of suicide",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "309",
+    "statute": "IPC",
+    "bns_equivalent": "309",
+    "title": "Attempt to commit suicide",
+    "mandatory_ingredients": [
+      "attempt_to_commit_suicide"
+    ],
+    "factual_triggers": [
+      "suicide",
+      "attempt",
+      "commit"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Attempt to commit suicide",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "477A",
+    "statute": "IPC",
+    "bns_equivalent": "477A",
+    "title": "Falsification of accounts",
+    "mandatory_ingredients": [
+      "falsification_of_accounts"
+    ],
+    "factual_triggers": [
+      "abetment",
+      "falsification",
+      "accounts",
+      "falsification of accounts"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Falsification of accounts",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "498",
+    "statute": "IPC",
+    "bns_equivalent": "498",
+    "title": "Enticing or taking away or detaining with criminal intent a married woman",
+    "mandatory_ingredients": [
+      "enticing_or_taking_away_or_detaining_with_criminal_intent_a_married_woman"
+    ],
+    "factual_triggers": [
+      "matrimonial",
+      "enticing",
+      "taking",
+      "away",
+      "detaining",
+      "criminal",
+      "intent",
+      "married",
+      "woman"
+    ],
+    "chapter_number": "Of Offences Relating to Marriage",
+    "chapter_title": "Enticing or taking away or detaining with criminal intent a married woman",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "376D",
+    "statute": "IPC",
+    "bns_equivalent": "376D",
+    "title": "Gang rape",
+    "mandatory_ingredients": [
+      "gang_rape"
+    ],
+    "factual_triggers": [
+      "common",
+      "intention",
+      "gang",
+      "rape"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Gang rape",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "376A",
+    "statute": "IPC",
+    "bns_equivalent": "376A",
+    "title": "Punishment for causing death or resulting in persistent vegetative state of victim",
+    "mandatory_ingredients": [
+      "punishment_for_causing_death_or_resulting_in_persistent_vegetative_state_of_victim"
+    ],
+    "factual_triggers": [
+      "condition",
+      "death",
+      "medical",
+      "which",
+      "punishment",
+      "causing",
+      "resulting",
+      "persistent",
+      "vegetative",
+      "state",
+      "victim"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Punishment for causing death or resulting in persistent vegetative state of victim",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "411",
+    "statute": "IPC",
+    "bns_equivalent": "411",
+    "title": "Dishonestly receiving stolen property",
+    "mandatory_ingredients": [
+      "dishonestly_receiving_stolen_property"
+    ],
+    "factual_triggers": [
+      "actual",
+      "have",
+      "dishonestly",
+      "receiving",
+      "stolen",
+      "property"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Dishonestly receiving stolen property",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "494",
+    "statute": "IPC",
+    "bns_equivalent": "494",
+    "title": "Marrying again during lifetime of husband or wife",
+    "mandatory_ingredients": [
+      "marrying_again_during_lifetime_of_husband_or_wife"
+    ],
+    "factual_triggers": [
+      "acted",
+      "have",
+      "marrying",
+      "again",
+      "during",
+      "lifetime",
+      "husband",
+      "wife"
+    ],
+    "chapter_number": "Of Offences Relating to Marriage",
+    "chapter_title": "Marrying again during lifetime of husband or wife",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "302",
+    "statute": "IPC",
+    "bns_equivalent": "302",
+    "title": "Punishment for murder",
+    "mandatory_ingredients": [
+      "punishment_for_murder"
+    ],
+    "factual_triggers": [
+      "murder",
+      "punishment"
+    ],
+    "chapter_number": "XVI",
+    "chapter_title": "Offences Affecting Life",
+    "punishment_minimum": null,
+    "punishment_maximum": "Death or Life Imprisonment",
+    "fine": true,
+    "cognizable": true,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "303",
+    "statute": "IPC",
+    "bns_equivalent": "303",
+    "title": "Punishment for murder by life-convict",
+    "mandatory_ingredients": [
+      "punishment_for_murder_by_life_convict"
+    ],
+    "factual_triggers": [
+      "murder",
+      "punishment",
+      "life",
+      "convict"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Punishment for murder by life-convict",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "304",
+    "statute": "IPC",
+    "bns_equivalent": "304",
+    "title": "Punishment for culpable homicide not amounting to murder",
+    "mandatory_ingredients": [
+      "punishment_for_culpable_homicide_not_amounting_to_murder"
+    ],
+    "factual_triggers": [
+      "murder",
+      "punishment",
+      "culpable",
+      "homicide",
+      "amounting"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Punishment for culpable homicide not amounting to murder",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "364",
+    "statute": "IPC",
+    "bns_equivalent": "364",
+    "title": "Kidnapping or abducting in order to murder",
+    "mandatory_ingredients": [
+      "kidnapping_or_abducting_in_order_to_murder"
+    ],
+    "factual_triggers": [
+      "murder",
+      "kidnapping",
+      "abducting",
+      "order"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Kidnapping or abducting in order to murder",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "396",
+    "statute": "IPC",
+    "bns_equivalent": "396",
+    "title": "Dacoity with murder",
+    "mandatory_ingredients": [
+      "dacoity_with_murder"
+    ],
+    "factual_triggers": [
+      "murder",
+      "dacoity"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Dacoity with murder",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "308",
+    "statute": "IPC",
+    "bns_equivalent": "308",
+    "title": "Attempt to commit culpable homicide",
+    "mandatory_ingredients": [
+      "attempt_to_commit_culpable_homicide"
+    ],
+    "factual_triggers": [
+      "murder",
+      "attempt",
+      "commit",
+      "culpable",
+      "homicide"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Attempt to commit culpable homicide",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "363",
+    "statute": "IPC",
+    "bns_equivalent": "363",
+    "title": "Punishment for kidnapping",
+    "mandatory_ingredients": [
+      "punishment_for_kidnapping"
+    ],
+    "factual_triggers": [
+      "murder",
+      "punishment",
+      "kidnapping"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Punishment for kidnapping",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": true,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "304A",
+    "statute": "IPC",
+    "bns_equivalent": "304A",
+    "title": "Causing death by negligence",
+    "mandatory_ingredients": [
+      "causing_death_by_negligence"
+    ],
+    "factual_triggers": [
+      "causing",
+      "culpable homicide",
+      "death",
+      "homicide",
+      "negligence",
+      "causing death by negligence"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Causing death by negligence",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "312",
+    "statute": "IPC",
+    "bns_equivalent": "312",
+    "title": "Causing miscarriage",
+    "mandatory_ingredients": [
+      "causing_miscarriage"
+    ],
+    "factual_triggers": [
+      "medical",
+      "causing",
+      "miscarriage"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Causing miscarriage",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "315",
+    "statute": "IPC",
+    "bns_equivalent": "315",
+    "title": "Act done with intent to prevent child being born alive or to cause it to die after birth",
+    "mandatory_ingredients": [
+      "act_done_with_intent_to_prevent_child_being_born_alive_or_to_cause_it_to_die_after_birth"
+    ],
+    "factual_triggers": [
+      "medical",
+      "done",
+      "intent",
+      "prevent",
+      "child",
+      "being",
+      "born",
+      "alive",
+      "cause",
+      "after",
+      "birth"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Act done with intent to prevent child being born alive or to cause it to die after birth",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "326A",
+    "statute": "IPC",
+    "bns_equivalent": "326A",
+    "title": "Voluntarily causing grievous hurt by use of acid, etc.",
+    "mandatory_ingredients": [
+      "voluntarily_causing_grievous_hurt_by_use_of_acid_etc"
+    ],
+    "factual_triggers": [
+      "medical",
+      "voluntarily",
+      "causing",
+      "grievous",
+      "hurt",
+      "acid"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Voluntarily causing grievous hurt by use of acid, etc.",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "375",
+    "statute": "IPC",
+    "bns_equivalent": "375",
+    "title": "Rape",
+    "mandatory_ingredients": [
+      "rape"
+    ],
+    "factual_triggers": [
+      "medical",
+      "rape"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Rape",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "376AB",
+    "statute": "IPC",
+    "bns_equivalent": "376AB",
+    "title": "Punishment for rape on woman under twelve years of age",
+    "mandatory_ingredients": [
+      "punishment_for_rape_on_woman_under_twelve_years_of_age"
+    ],
+    "factual_triggers": [
+      "medical",
+      "punishment",
+      "rape",
+      "woman",
+      "under",
+      "twelve",
+      "years"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Punishment for rape on woman under twelve years of age",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "320",
+    "statute": "IPC",
+    "bns_equivalent": "320",
+    "title": "Grievous hurt",
+    "mandatory_ingredients": [
+      "grievous_hurt"
+    ],
+    "factual_triggers": [
+      "destruction",
+      "grievous",
+      "hurt"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Grievous hurt",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "436",
+    "statute": "IPC",
+    "bns_equivalent": "436",
+    "title": "Mischief by fire or explosive substance with intent to destroy house, etc.",
+    "mandatory_ingredients": [
+      "mischief_by_fire_or_explosive_substance_with_intent_to_destroy_house_etc"
+    ],
+    "factual_triggers": [
+      "destruction",
+      "mischief",
+      "fire",
+      "explosive",
+      "substance",
+      "intent",
+      "destroy",
+      "house"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Mischief by fire or explosive substance with intent to destroy house, etc.",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "489",
+    "statute": "IPC",
+    "bns_equivalent": "489",
+    "title": "Tampering with property mark with intent to cause injury",
+    "mandatory_ingredients": [
+      "tampering_with_property_mark_with_intent_to_cause_injury"
+    ],
+    "factual_triggers": [
+      "destruction",
+      "tampering",
+      "property",
+      "mark",
+      "intent",
+      "cause",
+      "injury"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Tampering with property mark with intent to cause injury",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
   }
 ]
