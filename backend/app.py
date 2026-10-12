@@ -589,6 +589,12 @@
 
 import os
 import sys
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+
 import shutil
 import uuid
 import asyncio
@@ -1301,6 +1307,261 @@ async def lexigraph_analyze_endpoint(req: LexiGraphAgentQueryRequest):
 from backend.game.api import game_router, ws_router
 app.include_router(game_router)
 app.include_router(ws_router)
+
+
+# ── Orchestrator Endpoint ──────────────────────────────────────────────────────
+
+# Lazy-init singleton for the compiled LangGraph graph.
+# We do NOT build it at import time so the server can start even if optional
+# services (Groq, Neo4j, Pinecone) are not yet reachable.
+_orchestrator_graph = None
+
+
+def _get_orchestrator_graph():
+    """Return (and lazy-build) the compiled LangGraph orchestrator."""
+    global _orchestrator_graph
+    if _orchestrator_graph is None:
+        from backend.agents.orchestrator.orchestrator_graph import build_graph
+        _orchestrator_graph = build_graph()
+    return _orchestrator_graph
+
+
+class OrchestratorRunRequest(BaseModel):
+    query: str
+
+
+@app.post("/api/orchestrator/run", tags=["Orchestrator"])
+async def orchestrator_run(req: OrchestratorRunRequest):
+    """
+    Run the full LangGraph Court Orchestrator for a given case query / FIR text synchronously.
+
+    The pipeline executes:
+        evidence_analyzer → lexigraph → prosecutor + defense (parallel)
+        → judge_score → [accused?] → judge_verdict
+    """
+    query = (req.query or "").strip()
+    if not query:
+        return JSONResponse(
+            status_code=400,
+            content={"success": False, "message": "Field 'query' must not be empty."},
+        )
+
+    from backend.agents.evidence.evidence_analyzer import build_session_id
+    session_id = build_session_id(query)
+
+    try:
+        from backend.agents.orchestrator.orchestrator_graph import run_orchestrator
+        result: dict = await asyncio.to_thread(run_orchestrator, query, session_id)
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return JSONResponse(
+            status_code=500,
+            content={
+                "success": False,
+                "message": f"Orchestrator pipeline error: {str(e)}",
+            },
+        )
+
+    verdict = result.get("judge_verdict") or {}
+
+    return {
+        "success":          True,
+        "session_id":       result.get("session_id", session_id),
+        "verdict":          verdict,
+        "prosecution_args": result.get("prosecution_args", ""),
+        "defense_args":     result.get("defense_args", ""),
+        "judge_scores":     result.get("judge_scores", {}),
+        "accused_history":  result.get("accused_history", []),
+        "debate_round":     result.get("debate_round", 0),
+        "structured_facts": result.get("structured_facts", {}),
+        "relevant_laws":    result.get("relevant_laws", []),
+    }
+
+
+# ── Async Job-Based Orchestrator Endpoints ─────────────────────────────────────
+# In-memory job store — suitable for single-process dev / Quick Tunnel usage.
+# Thread-safe: mutated from background threads and read from the event loop.
+
+import threading
+from typing import Any
+
+_jobs: dict[str, dict[str, Any]] = {}
+_jobs_lock = threading.Lock()
+
+
+def _run_orchestrator_job(job_id: str, query: str) -> None:
+    """
+    Blocking function executed inside a worker thread.
+    Runs the full LangGraph orchestrator and stores the result (or error)
+    against *job_id* in the in-memory job store with stage progress tracking.
+    """
+    def on_stage_progress(stage_name: str, message: str = ""):
+        with _jobs_lock:
+            if job_id in _jobs:
+                _jobs[job_id]["stage"] = stage_name
+                _jobs[job_id]["message"] = message
+
+    try:
+        from backend.agents.orchestrator.orchestrator_graph import run_orchestrator
+        from backend.agents.evidence.evidence_analyzer import build_session_id
+        session_id = build_session_id(query)
+
+        result: dict = run_orchestrator(query, session_id=session_id, on_stage=on_stage_progress)
+
+        verdict = result.get("judge_verdict") or {}
+        payload = {
+            "success":          True,
+            "session_id":       result.get("session_id", session_id),
+            "verdict":          verdict,
+            "prosecution_args": result.get("prosecution_args", ""),
+            "defense_args":     result.get("defense_args", ""),
+            "judge_scores":     result.get("judge_scores", {}),
+            "accused_history":  result.get("accused_history", []),
+            "debate_round":     result.get("debate_round", 0),
+            "structured_facts": result.get("structured_facts", {}),
+            "relevant_laws":    result.get("relevant_laws", []),
+        }
+
+        with _jobs_lock:
+            _jobs[job_id]["status"] = "completed"
+            _jobs[job_id]["stage"] = "completed"
+            _jobs[job_id]["message"] = "Orchestration completed successfully."
+            _jobs[job_id]["result"] = payload
+
+    except Exception as exc:
+        import traceback
+        traceback.print_exc()
+        with _jobs_lock:
+            _jobs[job_id]["status"] = "failed"
+            _jobs[job_id]["stage"] = "failed"
+            _jobs[job_id]["error"] = str(exc)
+
+
+@app.post(
+    "/api/orchestrator/start",
+    status_code=202,
+    tags=["Orchestrator"],
+    summary="Start an async orchestrator job",
+    response_description="Job accepted — poll /api/orchestrator/status/{job_id} for results.",
+)
+async def orchestrator_start(req: OrchestratorRunRequest):
+    """
+    Kick off the LangGraph Court Orchestrator **asynchronously**.
+
+    Returns HTTP 202 with a `job_id` immediately.  The orchestrator
+    runs in a background thread; poll `/api/orchestrator/status/{job_id}`
+    to retrieve the result once it completes.
+
+    Request JSON:
+        { "query": "<case description or FIR text>" }
+
+    Response JSON (HTTP 202):
+        { "success": true, "job_id": "...", "status": "running", "stage": "started" }
+    """
+    query = (req.query or "").strip()
+    if not query:
+        return JSONResponse(
+            status_code=400,
+            content={"success": False, "message": "Field 'query' must not be empty."},
+        )
+
+    # Pre-validate that the graph can be built (fail fast before 202).
+    try:
+        _get_orchestrator_graph()
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return JSONResponse(
+            status_code=503,
+            content={
+                "success": False,
+                "message": f"Orchestrator graph failed to initialise: {str(e)}",
+            },
+        )
+
+    job_id = f"orch_{uuid.uuid4().hex}"
+
+    with _jobs_lock:
+        _jobs[job_id] = {
+            "status": "running",
+            "stage": "started",
+            "message": "Job received and queued.",
+            "result": None,
+            "error": None,
+        }
+
+    # Fire-and-forget: schedule the blocking work on the default thread-pool
+    # executor.  asyncio.get_event_loop().run_in_executor does NOT block the
+    # caller, so the 202 response is returned immediately.
+    loop = asyncio.get_event_loop()
+    loop.run_in_executor(None, _run_orchestrator_job, job_id, query)
+
+    return JSONResponse(
+        status_code=202,
+        content={
+            "success": True,
+            "job_id": job_id,
+            "status": "running",
+            "stage": "started",
+        },
+    )
+
+
+@app.get(
+    "/api/orchestrator/status/{job_id}",
+    tags=["Orchestrator"],
+    summary="Poll orchestrator job status",
+)
+async def orchestrator_status(job_id: str):
+    """
+    Check the status of a previously started orchestrator job.
+
+    Possible statuses:
+    - **running** — the pipeline is executing (stage field shows active step).
+    - **completed** — finished successfully; full verdict and arguments in `result`.
+    - **failed** — an error occurred; details in `error`.
+
+    Returns HTTP 404 if `job_id` is unknown.
+    """
+    with _jobs_lock:
+        job = _jobs.get(job_id)
+
+    if job is None:
+        return JSONResponse(
+            status_code=404,
+            content={"success": False, "message": f"Job '{job_id}' not found."},
+        )
+
+    status = job["status"]
+
+    if status == "completed":
+        return {
+            "success": True,
+            "job_id": job_id,
+            "status": "completed",
+            "stage": "completed",
+            "result": job["result"],
+        }
+    elif status == "failed":
+        return JSONResponse(
+            status_code=200,
+            content={
+                "success": False,
+                "job_id": job_id,
+                "status": "failed",
+                "stage": "failed",
+                "error": job["error"],
+            },
+        )
+    else:
+        return {
+            "success": True,
+            "job_id": job_id,
+            "status": "running",
+            "stage": job.get("stage", "running"),
+            "message": job.get("message", "Processing moot-court orchestration..."),
+        }
 
 
 if __name__ == "__main__":

@@ -1,6 +1,6 @@
 """
 Bail Reasoning Agent for Stage 5: Anticipatory Bail Reasoning Engine.
-Evaluates whether anticipatory bail should be granted or denied under Section 438 CrPC / Section 482 BNSS
+Evaluates whether anticipatory bail should be granted or denied under Section 438 CrPC
 by applying judicial bail reasoning principles to verified outputs from previous stages.
 Statically injects exact statutory text and factors of Section 438 CrPC / Section 482 BNSS based on regime.
 Model: gpt-4o-mini (MODEL_STAGE5) — deep judicial reasoning.
@@ -27,25 +27,13 @@ PROCEDURAL_BAIL_PROVISIONS: Dict[str, Dict[str, Any]] = {
             "(iii) the possibility of the applicant to flee from justice; and",
             "(iv) where the accusation has been made with the object of injuring or humiliating the applicant by having him so arrested."
         ]
-    },
-    "Section 482 BNSS": {
-        "provision_name": "Section 482, Bharatiya Nagarik Suraksha Sanhita, 2023",
-        "title": "Direction for grant of bail to person apprehending arrest",
-        "legal_regime": "BNS + BNSS",
-        "full_statutory_text": "When any person has reason to believe that he may be arrested on an accusation of having committed a non-bailable offence, he may apply to the High Court or the Court of Session for a direction under this section that in the event of such arrest he shall be released on bail; and that Court may, after taking into consideration, inter alia, the statutory factors: (i) nature and gravity of accusation; (ii) antecedents of applicant; (iii) flight risk; (iv) object of accusation to humiliate applicant.",
-        "statutory_factors": [
-            "(i) the nature and gravity of the accusation;",
-            "(ii) the antecedents of the applicant including previous imprisonment on conviction;",
-            "(iii) the possibility of the applicant to flee from justice; and",
-            "(iv) whether accusation is made with object of injuring or humiliating applicant."
-        ]
     }
 }
 
 
 class BailReasoningAgent:
     """
-    Stage 5 Bail Reasoning Agent evaluating anticipatory bail under Sec 438 CrPC / Sec 482 BNSS.
+    Stage 5 Bail Reasoning Agent evaluating anticipatory bail under Sec 438 CrPC.
     Injects full statutory text and statutory factors of procedural bail provisions.
     Model: gpt-4o-mini (MODEL_STAGE5) — deep judicial reasoning.
     """
@@ -114,28 +102,12 @@ class BailReasoningAgent:
         else:
             svo_json_str = str(statutory_object)
 
-        # Determine statutory bail provision
-        legal_regime_clean = regime or "IPC + CrPC"
-        if "UNKNOWN" in legal_regime_clean.upper():
-            bail_provision = "Section 438 CrPC / Section 482 BNSS"
-        elif "BNS" in legal_regime_clean.upper():
-            bail_provision = "Section 482 BNSS"
-        else:
-            bail_provision = "Section 438 CrPC"
+        # Determine statutory bail provision (IPC-only pipeline)
+        legal_regime_clean = "IPC + CrPC"
+        bail_provision = "Section 438 CrPC"
 
-        # Retrieve full statutory text & factors for procedural bail provision
-        if bail_provision == "Section 438 CrPC / Section 482 BNSS":
-            p1 = PROCEDURAL_BAIL_PROVISIONS["Section 438 CrPC"]
-            p2 = PROCEDURAL_BAIL_PROVISIONS["Section 482 BNSS"]
-            statutory_text_fmt = (
-                f"DUAL REGIME BAIL PROVISIONS (Regime Unresolved):\n"
-                f"1. {p1['provision_name']}: {p1['full_statutory_text']}\n"
-                f"2. {p2['provision_name']}: {p2['full_statutory_text']}\n"
-                f"Statutory Factors: " + "; ".join(p1["statutory_factors"])
-            )
-        else:
-            prov_record = PROCEDURAL_BAIL_PROVISIONS.get(bail_provision, PROCEDURAL_BAIL_PROVISIONS["Section 438 CrPC"])
-            statutory_text_fmt = f"Provision: {prov_record['provision_name']}\nTitle: {prov_record['title']}\nStatutory Text: {prov_record['full_statutory_text']}\nStatutory Factors: " + "; ".join(prov_record["statutory_factors"])
+        prov_record = PROCEDURAL_BAIL_PROVISIONS["Section 438 CrPC"]
+        statutory_text_fmt = f"Provision: {prov_record['provision_name']}\nTitle: {prov_record['title']}\nStatutory Text: {prov_record['full_statutory_text']}\nStatutory Factors: " + "; ".join(prov_record["statutory_factors"])
 
         feedback_section = ""
         if correction_feedback:
@@ -169,11 +141,6 @@ class BailReasoningAgent:
         bail_obj.target_side = target_side_clean
         bail_obj.bail_provision_applied = bail_provision
         bail_obj.legal_regime = legal_regime_clean
-
-        if "UNKNOWN" in legal_regime_clean.upper():
-            note = f"UNKNOWN legal regime: defaulted to dual provision '{bail_provision}'; verify offence date to determine whether CrPC S.438 or BNSS S.482 applies."
-            if note not in bail_obj.manual_review:
-                bail_obj.manual_review.append(note)
 
         # Ensure SideArgumentPackage for Prosecution (advocating BAIL REJECTION)
         if not bail_obj.prosecution_arguments:

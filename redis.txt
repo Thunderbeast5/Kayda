@@ -1,0 +1,4 @@
+redis-server --daemonize yes
+redis-cli ping
+redis-cli shutdown
+dsv

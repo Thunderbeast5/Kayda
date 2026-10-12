@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import os
 import sys
 import json
@@ -16,15 +18,18 @@ sys.path.insert(0, str(agents_dir))
 # ---------------------------------------------------------------------------
 try:
     import pytesseract
-    from PIL import Image
     pytesseract.pytesseract.tesseract_cmd = (
         r"C:\Program Files\Tesseract-OCR\tesseract.exe"
     )
-    _TESSERACT_AVAILABLE = True
 except Exception:
     pytesseract = None  # type: ignore
+
+try:
+    from PIL import Image
+except Exception:
     Image = None  # type: ignore
-    _TESSERACT_AVAILABLE = False
+
+_TESSERACT_AVAILABLE = bool(pytesseract is not None and Image is not None)
 
 try:
     from PyPDF2 import PdfReader

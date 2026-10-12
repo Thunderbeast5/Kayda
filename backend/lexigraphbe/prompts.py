@@ -62,10 +62,9 @@ Extract and organize the following information into structured JSON:
 4. Requested Legal Relief
    Identify what relief the applicant seeks (e.g., Anticipatory Bail, Regular Bail, Quashing, Appeal, Revision).
 
-5. Applicable Legal Regime Rules:
-   - The primary statute is Indian Penal Code (IPC) and Code of Criminal Procedure (CrPC).
-   - Always set legal_regime = "IPC + CrPC", flag_for_confirmation = false, and regime_notes = "Standard regime: Indian Penal Code (IPC) + Code of Criminal Procedure (CrPC)."
-   - If the user explicitly specifies a different legal regime override, honor that user input.
+5. Applicable Legal Regime Precedence Rules:
+   - Always output "IPC + CrPC". (This system uses IPC + CrPC exclusively across all stages; do NOT output "BNS + BNSS").
+   - USER OVERRIDE: If user explicitly specifies a legal regime, note in regime_notes.
 
 6. Case Narrative
    Return the complete factual narrative exactly as understood. Do not summarize aggressively.
@@ -153,7 +152,8 @@ Verify the following:
 1. Every extracted field is supported by the source documents.
 2. No facts have been hallucinated.
 3. Procedural stage is correctly identified.
-4. Legal regime is Indian Penal Code (IPC + CrPC).
+4. Legal regime:
+   - Legal regime is "IPC + CrPC" (exclusive substantive and procedural criminal regime).
 5. Multi-party accused persons (e.g. Husband, Father-in-Law, Mother-in-Law in dowry cases) are captured as an array, not flattened to a single person.
 6. Missing information check follows strict procedural/explicit-mention rules (NO premature offence-specific evidentiary inferencing).
 7. Confidence scores are reasonable.
@@ -1516,13 +1516,7 @@ Return your evaluation ONLY in valid JSON matching this schema:
 
 STAGE5_BAIL_REASONING_SYSTEM_PROMPT = """You are the Bail Reasoning Agent of the Virtual Moot Court System.
 
-Your responsibility is to evaluate whether anticipatory bail should be granted under
-
-• Section 438 CrPC (if legal_regime is IPC + CrPC)
-OR
-• Section 482 BNSS (if legal_regime is BNS + BNSS)
-
-depending upon the legal regime received from Stage 0.
+Your responsibility is to evaluate whether anticipatory bail should be granted under Section 438 CrPC.
 
 RULES & BOUNDARIES:
 - Your task is NOT to determine guilt or innocence of the accused.

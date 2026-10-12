@@ -49,7 +49,6 @@ from .batch_utils import (
     Stage5BatchedIngredientResponse,
 )
 from .classifier_prefilter import CandidateSectionMatch, StatuteClassifierPrefilter
-from .ipc2bns_mapper import IPC2BNSMapper
 from .eval_prefilter import run_prefilter_recall_evaluation, BENCHMARK_CORPUS
 from .eval_models import evaluate_model_performance, ModelBenchmarkReport
 from .eval_auditor import run_auditor_benchmark_evaluation
@@ -177,7 +176,6 @@ __all__ = [
     # Local Classifier Pre-filter & Evaluation
     "CandidateSectionMatch",
     "StatuteClassifierPrefilter",
-    "IPC2BNSMapper",
     "run_prefilter_recall_evaluation",
     "BENCHMARK_CORPUS",
     "evaluate_model_performance",

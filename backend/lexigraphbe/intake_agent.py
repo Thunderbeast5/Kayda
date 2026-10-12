@@ -128,11 +128,21 @@ class CaseIntakeAgent:
         case_profile = CaseProfile.model_validate(extracted_dict)
         case_profile.min_confidence_threshold = inp.min_confidence_threshold
 
-        if not inp.legal_regime_override:
+        # Enforce IPC-only pipeline: normalize any BNS regime
+        if "BNS" in (case_profile.legal_regime or "").upper():
             case_profile.legal_regime = "IPC + CrPC"
-            case_profile.flag_for_confirmation = False
-            if not case_profile.regime_notes:
-                case_profile.regime_notes = "Statute regime: Indian Penal Code (IPC) + Code of Criminal Procedure (CrPC)."
+
+        # Post-validation sanity check on regime precedence flags
+        meta = case_profile.case_metadata
+        if not inp.legal_regime_override:
+            if not meta.offence_date and not meta.fir_date:
+                case_profile.legal_regime = "IPC + CrPC"
+                if not case_profile.regime_notes:
+                    case_profile.regime_notes = "Defaulted to IPC + CrPC representation."
+            elif not meta.offence_date and meta.fir_date:
+                case_profile.flag_for_confirmation = True
+                if not case_profile.regime_notes:
+                    case_profile.regime_notes = f"Regime determined using FIR date fallback ({meta.fir_date}) because Offence Date is unstated."
 
         # Check universal procedural document checklist (without premature legal inferencing)
         case_profile.check_procedural_missing_documents()

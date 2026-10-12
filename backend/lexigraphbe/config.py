@@ -96,10 +96,34 @@ class CallBudgetGuardrail:
 GLOBAL_CALL_GUARDRAIL = CallBudgetGuardrail(max_calls=25)
 
 
+# Models that do NOT support the temperature parameter.
+# Passing temperature to these models causes empty API responses.
+_MODELS_WITHOUT_TEMPERATURE = {
+    "gpt-5.4-mini",
+    "gpt-5.4",
+    "o1",
+    "o1-mini",
+    "o1-preview",
+    "o3",
+    "o3-mini",
+    "o4-mini",
+}
+
+
+def _openai_kwargs(model: str, temperature: float, api_key: str) -> dict:
+    """Build ChatOpenAI kwargs, omitting temperature for models that don't support it."""
+    kwargs: dict = {"model": model, "api_key": api_key}
+    if not any(m in model.lower() for m in _MODELS_WITHOUT_TEMPERATURE):
+        kwargs["temperature"] = temperature
+    return kwargs
+
+
 def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
     """
     Get configured LLM client. Uses OpenAI by default, falls back to Groq/Ollama if configured.
     Does not hardcode keys. Enforces process call ceiling check.
+    NOTE: Models like gpt-5.4-mini do not support the temperature parameter — it is
+    automatically omitted for such models to avoid empty API responses.
     """
     GLOBAL_CALL_GUARDRAIL.check_and_increment()
 
@@ -150,7 +174,7 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
         except Exception as e:
             print(f"[LexiGraph Config] Warning loading ChatOllama: {e}")
 
-    # Fallback to error if no LLM available
+    # Fallback to error if no API key is set
     raise RuntimeError(
         "No valid LLM available. Options:\n"
         "1. OpenAI (cloud, default): Set OPENAI_API_KEY in .env\n"
