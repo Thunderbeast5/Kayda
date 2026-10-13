@@ -208,17 +208,22 @@ class JudgeAgent:
         relevant_laws: list = None,
         evidence_inventory: list = None,
         holdings: list = None,
+        canonical_case_file: Optional[str] = None,
     ) -> tuple[dict, str]:
         """
         Score both arguments independently against the facts, inventory, and retrieved precedent holdings.
+        Uses prompt caching prefix with static case file placed at the very start.
         """
-        laws_block = _format_laws_block(relevant_laws) if relevant_laws else "No specific statutory provisions retrieved."
-        holdings_block = format_holdings_for_prompt(holdings) if holdings else "No specific judicial precedent holdings retrieved."
-        inv_str = json.dumps(evidence_inventory, indent=2) if evidence_inventory else "No formal inventory; rely on case facts."
-        facts_block = _format_facts_block(structured_facts)
+        from agents.orchestrator.case_file import build_canonical_case_file, format_cached_messages
 
-        prompt = f"""
-You are the Honourable Judge presiding over an Indian criminal court.
+        case_file_block = canonical_case_file or build_canonical_case_file(
+            case_facts=structured_facts,
+            evidence_inventory=evidence_inventory,
+            lexigraph_output={"ipc_sections": relevant_laws or []},
+            holdings=holdings,
+        )
+
+        role_instructions = """You are the Honourable Judge presiding over an Indian criminal court.
 
 Your task is to SCORE the prosecution and defense arguments INDEPENDENTLY and IMPARTIALLY.
 Do NOT decide the verdict yet.
@@ -226,29 +231,9 @@ Do NOT decide the verdict yet.
 Score each argument on three axes, each out of 10:
   • Legal Validity   (are the cited statutory sections and precedent holdings correctly applied?)
   • Evidence Linkage (do the assertions strictly map to the verified case facts and evidence inventory?)
-  • Logic Coherence  (is the argument internally consistent and procedurally sound?)
+  • Logic Coherence  (is the argument internally consistent and procedurally sound?)"""
 
-------------------------
-CASE FACTS
-------------------------
-{facts_block}
-
-------------------------
-EVIDENCE INVENTORY (RECORD STATUS)
-------------------------
-{inv_str}
-
-------------------------
-VERIFIED APPLICABLE LAWS (LEXIGRAPH)
-------------------------
-{laws_block}
-
-------------------------
-RETRIEVED PRECEDENT HOLDINGS (BINDING RATIO DECIDENDI)
-------------------------
-{holdings_block}
-
-------------------------
+        dynamic_turn_content = f"""------------------------
 PROSECUTION ARGUMENTS
 ------------------------
 {prosecution_args}
@@ -281,10 +266,10 @@ Evidence Linkage: <0-10>
 Logic Coherence: <0-10>
 
 SUFFICIENCY: <YES or NO>
-QUESTION FOR ACCUSED (only if SUFFICIENCY is NO): <one precise factual question>
-"""
+QUESTION FOR ACCUSED (only if SUFFICIENCY is NO): <one precise factual question>"""
 
-        response = self.llm.invoke(prompt)
+        messages = format_cached_messages(case_file_block, role_instructions, dynamic_turn_content)
+        response = self.llm.invoke(messages)
         text     = response.content
 
         # Split prosecution / defense sections
@@ -330,6 +315,7 @@ QUESTION FOR ACCUSED (only if SUFFICIENCY is NO): <one precise factual question>
         relevant_laws=None,
         evidence_inventory=None,
         holdings=None,
+        canonical_case_file: Optional[str] = None,
     ) -> dict:
         """
         Deliver the final verdict via n-shot majority voting.
@@ -368,6 +354,7 @@ QUESTION FOR ACCUSED (only if SUFFICIENCY is NO): <one precise factual question>
             relevant_laws=relevant_laws or [],
             evidence_inventory=evidence_inventory or [],
             n=VOTE_COUNT,
+            canonical_case_file=canonical_case_file,
         )
         return result.to_dict()
 

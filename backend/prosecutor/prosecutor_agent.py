@@ -350,9 +350,21 @@ class ProsecutorAgent:
                 redacted.append(bad)
         return text, redacted
 
-    def _generate_verified(self, system_prompt: str, user_prompt: str, production_output: Dict[str, Any]) -> tuple:
+    def _generate_verified(
+        self,
+        system_prompt: str,
+        user_prompt: str,
+        production_output: Dict[str, Any],
+        canonical_case_file: Optional[str] = None,
+    ) -> tuple:
         """Generate -> verify -> self-correct loop. Returns (raw_text, verification, attempts, redacted)."""
-        messages = [("system", system_prompt), ("user", user_prompt)]
+        from agents.orchestrator.case_file import format_cached_messages
+        from langchain_core.messages import AIMessage, HumanMessage, BaseMessage
+
+        if canonical_case_file:
+            messages = format_cached_messages(canonical_case_file, system_prompt, user_prompt)
+        else:
+            messages = [("system", system_prompt), ("user", user_prompt)]
         raw = self._call(messages)
         parsed = self._parse_sections(raw)
         spoken = parsed.get("spoken", raw)
@@ -362,8 +374,12 @@ class ProsecutorAgent:
         attempts = 0
         while not verification.get("is_clean", True) and attempts < MAX_CORRECTION_ATTEMPTS:
             attempts += 1
-            messages.append(("assistant", raw))
-            messages.append(("user", self._correction_prompt(verification)))
+            if messages and isinstance(messages[0], BaseMessage):
+                messages.append(AIMessage(content=raw))
+                messages.append(HumanMessage(content=self._correction_prompt(verification)))
+            else:
+                messages.append(("assistant", raw))
+                messages.append(("user", self._correction_prompt(verification)))
             raw = self._call(messages)
             parsed = self._parse_sections(raw)
             spoken = parsed.get("spoken", raw)
@@ -392,6 +408,7 @@ class ProsecutorAgent:
         include_coaching: bool = False,
         debug: bool = False,
         production_output: Optional[Dict[str, Any]] = None,
+        canonical_case_file: Optional[str] = None,
     ) -> ProsecutorTurnResult:
         if phase not in PHASE_SPOKEN_INSTRUCTIONS:
             raise ValueError(f"Unknown phase '{phase}'. Expected one of {list(PHASE_SPOKEN_INSTRUCTIONS)}.")
@@ -405,23 +422,27 @@ class ProsecutorAgent:
                 production_output = self.lexigraph.process_query(case_facts, debug=debug, role="prosecutor")
                 self._retrieval_cache[cache_key] = production_output
 
-        # 2. Render merged verified context
-        verified_context = self.lexigraph.render_context_for_agent(production_output)
-
-        user_prompt = f"CASE FACTS:\n{case_facts}\n\n{verified_context}"
-
+        # 2. Render dynamic turn content (strictly at the END of prompt)
+        turn_parts = []
         transcript_context = self._transcript_so_far()
         if transcript_context:
-            user_prompt += f"\n\n{transcript_context}"
+            turn_parts.append(transcript_context)
 
         if opposing_argument:
-            user_prompt += f"\n\nDEFENSE COUNSEL ARGUMENT TO REBUT:\n{opposing_argument}"
+            turn_parts.append(f"DEFENSE COUNSEL ARGUMENT TO REBUT:\n{opposing_argument}")
+
+        turn_parts.append("Deliver your structured courtroom argument opposing anticipatory bail now.")
+        dynamic_turn_content = "\n\n".join(turn_parts)
 
         # 3. LLM Prosecutor Argument Generation, with verify + self-correct loop
         legal_regime = (production_output or {}).get("legal_regime", "IPC+CrPC")
         system_prompt = self._build_system_prompt(phase, legal_regime=legal_regime)
+
         raw_output, parsed, spoken_formatted, verification, attempts, redacted = self._generate_verified(
-            system_prompt, user_prompt, production_output
+            system_prompt,
+            dynamic_turn_content,
+            production_output,
+            canonical_case_file=canonical_case_file or case_facts,
         )
 
         # 4. Record this turn for continuity in later phases

@@ -93,7 +93,21 @@ def get_llm(temperature: float = 0.2, model_name: Optional[str] = None):
         target_model = OPENAI_MODEL if (not model_name or "llama" in model_name.lower()) else model_name
         return ChatOpenAI(**_openai_kwargs(target_model, temperature, OPENAI_API_KEY))
 
-    # 3. Groq
+    # 3. Anthropic (supports explicit prompt caching with cache_control)
+    anthropic_key = os.getenv("ANTHROPIC_API_KEY")
+    if (provider == "anthropic" or (anthropic_key and provider not in ("openai", "groq", "ollama"))):
+        try:
+            from langchain_anthropic import ChatAnthropic
+            anthropic_model = os.getenv("ANTHROPIC_MODEL", "claude-3-5-sonnet-20241022")
+            return ChatAnthropic(
+                model=model_name or anthropic_model,
+                api_key=anthropic_key,
+                temperature=temperature,
+            )
+        except ImportError:
+            print("[LLM] langchain_anthropic not installed; install via: pip install langchain-anthropic")
+
+    # 4. Groq
     if GROQ_API_KEY:
         try:
             from langchain_groq import ChatGroq
