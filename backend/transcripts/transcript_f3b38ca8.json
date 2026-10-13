@@ -1,0 +1,479 @@
+{
+  "session_id": "f3b38ca8",
+  "case_id": "C:\\proj\\MootCourt\\backend\\data\\2007 INSC 272.pdf",
+  "round_no": 2,
+  "max_rounds": 2,
+  "case_facts": [
+    {
+      "id": "fact_1",
+      "text": "The case concerns the U.P. State Road Transport Corporation and the U.P. Rajya Sadak Pariyahan Karamchari Union.",
+      "source": "title",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_2",
+      "text": "The judgment was delivered on March 9, 2007, by a Bench comprising S. B. Sinha and Markandey Katju, JJ.",
+      "source": "title",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_3",
+      "text": "The dispute arose under the U.P. Industrial Disputes Act, 1947 and the Industrial Employment (Standing Orders) Act, 1946.",
+      "source": "headnote",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_4",
+      "text": "The respondent union filed an application before the Labour Court under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.",
+      "source": "para 3",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_5",
+      "text": "The application sought a declaration that 15 persons appointed on contract basis as drivers and conductors be declared regular and substantive workmen of the Corporation.",
+      "source": "para 3",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_6",
+      "text": "The application also sought consequential benefits and regular employee facilities for those contract workers.",
+      "source": "para 3",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_7",
+      "text": "The Labour Court, Dehradun allowed the application by order dated September 19, 2001.",
+      "source": "para 4",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_8",
+      "text": "The Labour Court directed that the concerned workmen be given the minimum wages admissible to regular employees in the pay scales of drivers and conductors.",
+      "source": "para 4",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_9",
+      "text": "The Labour Court held that the said workmen were employees of the Corporation.",
+      "source": "para 4",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_10",
+      "text": "It was not disputed that the concerned workmen had been appointed on contract basis.",
+      "source": "para 5",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_11",
+      "text": "The Corporation contended before the Labour Court that Rule 2 of the U.P.S.R.T.C. Employees (Other Than Officers) Service Regulations, 1981 provides that the Regulations do not apply to employees working on contract basis.",
+      "source": "para 5",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_12",
+      "text": "Persons working on contract basis had earlier filed Writ Petition No. 41349 of 1999, Kanchi Lal and Others v. U.P.S.R.T.C., before the Allahabad High Court seeking the same benefits as regular employees of the Corporation.",
+      "source": "para 5",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_13",
+      "text": "That earlier writ petition was dismissed by the Allahabad High Court.",
+      "source": "para 5",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_14",
+      "text": "The Corporation's objection before the Labour Court was rejected.",
+      "source": "para 5",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_15",
+      "text": "The Corporation filed a writ petition against the Labour Court's order, and that writ petition was dismissed by the High Court through the impugned judgment.",
+      "source": "para 5",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_16",
+      "text": "The Corporation argued in the writ petition that the concerned workmen had not been selected through the process required for appointment of regular employees.",
+      "source": "para 6",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_17",
+      "text": "The Corporation argued that the workmen therefore could not be directed to receive the minimum pay scales of regular employees.",
+      "source": "para 6",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_18",
+      "text": "The Corporation contended that the Labour Court acted beyond its jurisdiction by passing the order dated September 19, 2001.",
+      "source": "para 6",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_19",
+      "text": "The Corporation contended that Section 11-A only permits interpretation and application of a standing order and does not permit grant of the particular relief, which could be granted only under the Industrial Disputes Act, 1947.",
+      "source": "para 6",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_20",
+      "text": "The Court stated that the scope of Section 11-C of the U.P. Industrial Disputes Act is much narrower than the scope of a regular reference under Section 10 of the Industrial Disputes Act or Section 4-K of the U.P. Industrial Disputes Act.",
+      "source": "para 7 and para 10",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_21",
+      "text": "Section 11-C of the U.P. Industrial Disputes Act allows an employer or workman to refer a question regarding application or interpretation of a certified standing order to a Labour Court notified by the State Government.",
+      "source": "para 8",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_22",
+      "text": "Under Section 11-C, the Labour Court must hear the parties and decide the question, and its decision is final and binding.",
+      "source": "para 8",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_23",
+      "text": "Section 13-A of the Industrial Employment (Standing Orders) Act, 1946 similarly permits any employer, workman, trade union, or representative body to refer a question regarding application or interpretation of a certified standing order to a Labour Court.",
+      "source": "para 9",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_24",
+      "text": "Under Section 13-A, the Labour Court must hear the parties and decide the question, and its decision is final and binding.",
+      "source": "para 9",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_25",
+      "text": "The Court held that the Labour Court could not have granted the relief granted by its order dated September 19, 2001 because such relief could only have been granted on a regular reference under Section 4-K of the U.P. Industrial Disputes Act or under Section 10 of the Industrial Disputes Act.",
+      "source": "para 11",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_26",
+      "text": "The Court observed that the Labour Court's order did not refer to any standing order of the appellant.",
+      "source": "para 12",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_27",
+      "text": "The Labour Court's order referred instead to Rule 2 of the 1981 Regulations, which states that the Regulations do not apply to employees engaged on contract basis.",
+      "source": "para 12",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_28",
+      "text": "The Court held that the Labour Court could not amend the Regulations while hearing an application under Section 11-C.",
+      "source": "para 12",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_29",
+      "text": "The Court held that the scope of Section 11-C is limited to deciding questions arising out of application or interpretation of a standing order, and the Labour Court cannot go beyond that scope.",
+      "source": "para 13",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_30",
+      "text": "The appeals were allowed.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_31",
+      "text": "The High Court's impugned judgment and the Labour Court's order dated September 19, 2001 were set aside.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_32",
+      "text": "The Court left it open to the concerned workmen to raise their grievances before the competent authority under Section 4-K of the U.P. Industrial Disputes Act or under Section 10 of the Industrial Disputes Act, as applicable.",
+      "source": "para 14",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_33",
+      "text": "The Court stated that if the State Government refers such a dispute to the Labour Court or Tribunal, it should be decided expeditiously.",
+      "source": "para 14",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_34",
+      "text": "No costs were awarded.",
+      "source": "para 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_35",
+      "text": "The matter was before the Supreme Court in Civil Appeal No. 1235 of 2007, with Civil Appeal Nos. 1236, 1237, and 1238 of 2007 also connected.",
+      "source": "heading",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_36",
+      "text": "The Supreme Court appeal arose from the judgment and order dated September 6, 2005 of the High Court of Uttaranchal at Nainital in Writ Petition No. 774 of 2002 (M/S).",
+      "source": "heading",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_37",
+      "text": "Pradeep Misra appeared for the appellant and Kailash Chand appeared for the respondent.",
+      "source": "heading",
+      "type": "procedural_event"
+    }
+  ],
+  "evidence_inventory": [
+    {
+      "item": "application_under_section_11C",
+      "status": "present",
+      "details": "The respondent union filed an application before the Labour Court under Section 11-C of the U.P. Industrial Disputes Act read with Section 13-A of the Industrial Employment (Standing Orders) Act."
+    },
+    {
+      "item": "labour_court_order",
+      "status": "present",
+      "details": "By order dated 19 September 2001, the Labour Court held the contract workmen to be employees of the Corporation and directed payment of minimum wages applicable to regular drivers and conductors."
+    },
+    {
+      "item": "high_court_writ_judgment",
+      "status": "present",
+      "details": "The Corporation's writ petition challenging the Labour Court's order was dismissed by the High Court in the impugned judgment dated 6 September 2005."
+    },
+    {
+      "item": "supreme_court_judgment",
+      "status": "present",
+      "details": "The Supreme Court allowed the appeals, set aside the High Court judgment and the Labour Court order, and left the workmen to pursue remedies under the appropriate industrial dispute provisions."
+    },
+    {
+      "item": "contract_appointment_record",
+      "status": "present",
+      "details": "It was undisputed that the concerned 15 drivers and conductors had been appointed on contract basis."
+    },
+    {
+      "item": "prior_writ_petition_kanchi_lal",
+      "status": "present",
+      "details": "An earlier writ petition by similarly placed contract workers, Writ Petition No. 41349 of 1999 (Kanchi Lal and others), seeking the same benefits had already been dismissed by the Allahabad High Court."
+    },
+    {
+      "item": "service_regulation_rule_2",
+      "status": "present",
+      "details": "Rule 2 of the U.P.S.R.T.C. Employees (Other Than Officers) Service Regulations, 1981 was relied on to contend that the Regulations do not apply to contract employees."
+    },
+    {
+      "item": "standing_orders",
+      "status": "not_on_record",
+      "details": "No specific certified standing order text was identified or produced; the Court noted the Labour Court's order did not refer to any standing order of the appellant."
+    },
+    {
+      "item": "section_11C_provision",
+      "status": "present",
+      "details": "Section 11-C was discussed as permitting reference of questions regarding application or interpretation of a certified standing order to the Labour Court, with a final and binding decision."
+    },
+    {
+      "item": "section_13A_provision",
+      "status": "present",
+      "details": "Section 13-A of the Industrial Employment (Standing Orders) Act was discussed as similarly allowing reference of interpretation/application issues concerning certified standing orders to the Labour Court."
+    },
+    {
+      "item": "section_4K_or_section_10_reference",
+      "status": "present",
+      "details": "The Court held that the relief sought could only have been granted in a regular industrial dispute reference under Section 4-K of the U.P. Industrial Disputes Act or Section 10 of the Industrial Disputes Act."
+    }
+  ],
+  "transcript": [
+    {
+      "turn_no": 1,
+      "speaker": "prosecutor",
+      "round_no": 1,
+      "content": "### Legal Theory\nNone\n\n### Submissions\n1. None\n\n### Evidence References\n- *(No specific evidence references cited)*\n\n### Statutory Provisions\n- *(No statutory provisions cited)*",
+      "citations": [],
+      "evidence_refs": [],
+      "structured_argument": {
+        "theory": "None",
+        "arguments": [
+          "None"
+        ],
+        "evidence_refs": [],
+        "sections": []
+      },
+      "grounded": true,
+      "unverified": []
+    },
+    {
+      "turn_no": 2,
+      "speaker": "defense",
+      "round_no": 1,
+      "content": "### Legal Theory\nThe prosecution could not sustain the Labour Court’s wide relief on the basis of a limited standing-order proceeding; the record before the court shows only undisputed contract engagement, while the claim to regular status and regular pay required a proper industrial dispute adjudication. The key weakness is jurisdictional overreach and absence of the foundational certified standing order material needed to invoke the special standing-order remedy.\n\n### Submissions\n1. The Corporation’s core objection was that the concerned workmen were admittedly appointed on contract basis [fact_10], and the Labour Court nevertheless granted regular-status-related relief [fact_7, fact_8]. That approach is vulnerable because the relief sought was not merely interpretive; it altered service status and pay consequences, which the Supreme Court held could only be pursued in an appropriate industrial dispute proceeding, not by stretching the standing-order mechanism [fact_18, fact_19, fact_30, fact_31].\n2. The record before the court does not contain any specific certified standing order text of the appellant, and the Court itself noted that the Labour Court’s order did not refer to any standing order of the appellant [standing_orders]. In the absence of the actual standing order provisions on record, the Labour Court could not conclusively assume a right to regularisation or minimum pay scales under Section 11-C of the U.P. Industrial Disputes Act read with Section 13-A of the Industrial Employment (Standing Orders) Act [fact_4, fact_3].\n3. On mens rea/ingredient analysis, the record does not show any deliberate statutory violation by the Corporation; at most, there was a legal dispute about the proper forum and the extent of the Labour Court’s powers [fact_11, fact_16, fact_18, fact_19]. Since the workmen were undisputedly on contract [fact_10], the essential foundation for treating them as regular employees was not established on the record before the Labour Court, and the Supreme Court therefore set aside the orders and left the parties to the proper industrial dispute remedy [fact_30, fact_31].\n\n### Evidence References\n- **[fact_4]**: The respondent union filed an application before the Labour Court under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n- **[fact_7]**: The Labour Court, Dehradun allowed the application by order dated September 19, 2001.\n- **[fact_8]**: The Labour Court directed that the concerned workmen be given the minimum wages admissible to regular employees in the pay scales of drivers and conductors.\n- **[fact_10]**: It was not disputed that the concerned workmen had been appointed on contract basis.\n- **[fact_11]**: The Corporation contended before the Labour Court that Rule 2 of the U.P.S.R.T.C. Employees (Other Than Officers) Service Regulations, 1981 provides that the Regulations do not apply to employees working on contract basis.\n- **[fact_18]**: The Corporation contended that the Labour Court acted beyond its jurisdiction by passing the order dated September 19, 2001.\n- **[fact_19]**: The Corporation contended that Section 11-A only permits interpretation and application of a standing order and does not permit grant of the particular relief, which could be granted only under the Industrial Disputes Act, 1947.\n- **[fact_30]**: The appeals were allowed.\n- **[fact_31]**: The High Court's impugned judgment and the Labour Court's order dated September 19, 2001 were set aside.\n- **[standing_orders]**\n\n### Statutory Provisions\n- U.P. Industrial Disputes Act, 1947 Section 11-C\n- Industrial Employment (Standing Orders) Act, 1946 Section 13-A\n- U.P. Industrial Disputes Act, 1947 Section 4-K\n- Industrial Disputes Act, 1947 Section 10",
+      "citations": [
+        "IPC 11",
+        "IPC 13",
+        "IPC 4",
+        "IPC 10"
+      ],
+      "evidence_refs": [
+        "fact_10",
+        "fact_7",
+        "fact_8",
+        "fact_18",
+        "fact_19",
+        "fact_30",
+        "fact_31",
+        "fact_4",
+        "fact_3",
+        "fact_11",
+        "fact_16"
+      ],
+      "structured_argument": {
+        "theory": "The prosecution could not sustain the Labour Court’s wide relief on the basis of a limited standing-order proceeding; the record before the court shows only undisputed contract engagement, while the claim to regular status and regular pay required a proper industrial dispute adjudication. The key weakness is jurisdictional overreach and absence of the foundational certified standing order material needed to invoke the special standing-order remedy.",
+        "arguments": [
+          "The Corporation’s core objection was that the concerned workmen were admittedly appointed on contract basis [fact_10], and the Labour Court nevertheless granted regular-status-related relief [fact_7, fact_8]. That approach is vulnerable because the relief sought was not merely interpretive; it altered service status and pay consequences, which the Supreme Court held could only be pursued in an appropriate industrial dispute proceeding, not by stretching the standing-order mechanism [fact_18, fact_19, fact_30, fact_31].",
+          "The record before the court does not contain any specific certified standing order text of the appellant, and the Court itself noted that the Labour Court’s order did not refer to any standing order of the appellant [standing_orders]. In the absence of the actual standing order provisions on record, the Labour Court could not conclusively assume a right to regularisation or minimum pay scales under Section 11-C of the U.P. Industrial Disputes Act read with Section 13-A of the Industrial Employment (Standing Orders) Act [fact_4, fact_3].",
+          "On mens rea/ingredient analysis, the record does not show any deliberate statutory violation by the Corporation; at most, there was a legal dispute about the proper forum and the extent of the Labour Court’s powers [fact_11, fact_16, fact_18, fact_19]. Since the workmen were undisputedly on contract [fact_10], the essential foundation for treating them as regular employees was not established on the record before the Labour Court, and the Supreme Court therefore set aside the orders and left the parties to the proper industrial dispute remedy [fact_30, fact_31]."
+        ],
+        "evidence_refs": [
+          "fact_10",
+          "fact_7",
+          "fact_8",
+          "fact_18",
+          "fact_19",
+          "fact_30",
+          "fact_31",
+          "fact_4",
+          "fact_3",
+          "fact_11",
+          "fact_16"
+        ],
+        "sections": [
+          "IPC 11",
+          "IPC 13",
+          "IPC 4",
+          "IPC 10"
+        ]
+      },
+      "grounded": true,
+      "unverified": []
+    },
+    {
+      "turn_no": 3,
+      "speaker": "prosecutor",
+      "round_no": 2,
+      "content": "### Legal Theory\nNone\n\n### Submissions\n1. None\n\n### Evidence References\n- *(No specific evidence references cited)*\n\n### Statutory Provisions\n- *(No statutory provisions cited)*",
+      "citations": [],
+      "evidence_refs": [],
+      "structured_argument": {
+        "theory": "None",
+        "arguments": [
+          "None"
+        ],
+        "evidence_refs": [],
+        "sections": []
+      },
+      "grounded": true,
+      "unverified": []
+    },
+    {
+      "turn_no": 4,
+      "speaker": "defense",
+      "round_no": 2,
+      "content": "### Legal Theory\nThe prosecution case is vulnerable on jurisdiction and proof: the Labour Court granted substantive relief without the statutory foundation of a certified standing order on record, and the dispute was in substance one requiring adjudication under the industrial dispute reference mechanism rather than under Section 11-C of the U.P. Industrial Disputes Act, 1947 / Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n\n### Submissions\n1. The challenge to the Labour Court’s jurisdiction is substantial. Although the application was filed under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946 [fact_4], the relief actually granted was a declaration of regular/substantive status and consequential pay benefits [fact_5][fact_6][fact_8]. That goes beyond mere interpretation or application of standing orders and instead invades the field reserved for a regular industrial dispute reference; the Supreme Court later accepted this submission and set aside both orders [fact_30][fact_31].\n2. The record before the court does not contain any certified standing order text or any specific standing order of the appellant that could lawfully be interpreted or applied to confer regular status on the contract workers. The evidence inventory expressly marks standing orders as not_on_record, and the Court itself noted that the Labour Court’s order did not refer to any standing order of the appellant. In the absence of that foundational document, the Labour Court could not have validly exercised Section 11-C / Section 13-A jurisdiction [fact_3][fact_4].\n3. On the merits, the Corporation’s position is that the 15 workmen were admittedly appointed on contract basis [fact_10][fact_11], and therefore they were not shown to have been selected through the process required for regular appointment [fact_16]. On these facts, the prosecution of the claim for regular pay scale and regular employee facilities does not establish the necessary legal foundation for substantive regularization; at most, it shows an admitted contractual engagement, which by itself does not satisfy the statutory conditions for regular status. The Supreme Court’s holding that the proper route was an industrial dispute reference under Section 4-K of the U.P. Industrial Disputes Act, 1947 or Section 10 of the Industrial Disputes Act, 1947 underscores this jurisdictional and evidentiary gap [fact_19][fact_31].\n\n### Evidence References\n- **[fact_3]**: The dispute arose under the U.P. Industrial Disputes Act, 1947 and the Industrial Employment (Standing Orders) Act, 1946.\n- **[fact_4]**: The respondent union filed an application before the Labour Court under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n- **[fact_5]**: The application sought a declaration that 15 persons appointed on contract basis as drivers and conductors be declared regular and substantive workmen of the Corporation.\n- **[fact_6]**: The application also sought consequential benefits and regular employee facilities for those contract workers.\n- **[fact_8]**: The Labour Court directed that the concerned workmen be given the minimum wages admissible to regular employees in the pay scales of drivers and conductors.\n- **[fact_10]**: It was not disputed that the concerned workmen had been appointed on contract basis.\n- **[fact_11]**: The Corporation contended before the Labour Court that Rule 2 of the U.P.S.R.T.C. Employees (Other Than Officers) Service Regulations, 1981 provides that the Regulations do not apply to employees working on contract basis.\n- **[fact_16]**: The Corporation argued in the writ petition that the concerned workmen had not been selected through the process required for appointment of regular employees.\n- **[fact_19]**: The Corporation contended that Section 11-A only permits interpretation and application of a standing order and does not permit grant of the particular relief, which could be granted only under the Industrial Disputes Act, 1947.\n- **[fact_30]**: The appeals were allowed.\n- **[fact_31]**: The High Court's impugned judgment and the Labour Court's order dated September 19, 2001 were set aside.\n\n### Statutory Provisions\n- U.P. Industrial Disputes Act, 1947 Section 11-C\n- Industrial Employment (Standing Orders) Act, 1946 Section 13-A\n- U.P. Industrial Disputes Act, 1947 Section 4-K\n- Industrial Disputes Act, 1947 Section 10",
+      "citations": [
+        "IPC 11",
+        "IPC 13",
+        "IPC 4",
+        "IPC 10"
+      ],
+      "evidence_refs": [
+        "fact_4",
+        "fact_5",
+        "fact_6",
+        "fact_8",
+        "fact_30",
+        "fact_31",
+        "fact_3",
+        "fact_10",
+        "fact_11",
+        "fact_16",
+        "fact_19"
+      ],
+      "structured_argument": {
+        "theory": "The prosecution case is vulnerable on jurisdiction and proof: the Labour Court granted substantive relief without the statutory foundation of a certified standing order on record, and the dispute was in substance one requiring adjudication under the industrial dispute reference mechanism rather than under Section 11-C of the U.P. Industrial Disputes Act, 1947 / Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.",
+        "arguments": [
+          "The challenge to the Labour Court’s jurisdiction is substantial. Although the application was filed under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946 [fact_4], the relief actually granted was a declaration of regular/substantive status and consequential pay benefits [fact_5][fact_6][fact_8]. That goes beyond mere interpretation or application of standing orders and instead invades the field reserved for a regular industrial dispute reference; the Supreme Court later accepted this submission and set aside both orders [fact_30][fact_31].",
+          "The record before the court does not contain any certified standing order text or any specific standing order of the appellant that could lawfully be interpreted or applied to confer regular status on the contract workers. The evidence inventory expressly marks standing orders as not_on_record, and the Court itself noted that the Labour Court’s order did not refer to any standing order of the appellant. In the absence of that foundational document, the Labour Court could not have validly exercised Section 11-C / Section 13-A jurisdiction [fact_3][fact_4].",
+          "On the merits, the Corporation’s position is that the 15 workmen were admittedly appointed on contract basis [fact_10][fact_11], and therefore they were not shown to have been selected through the process required for regular appointment [fact_16]. On these facts, the prosecution of the claim for regular pay scale and regular employee facilities does not establish the necessary legal foundation for substantive regularization; at most, it shows an admitted contractual engagement, which by itself does not satisfy the statutory conditions for regular status. The Supreme Court’s holding that the proper route was an industrial dispute reference under Section 4-K of the U.P. Industrial Disputes Act, 1947 or Section 10 of the Industrial Disputes Act, 1947 underscores this jurisdictional and evidentiary gap [fact_19][fact_31]."
+        ],
+        "evidence_refs": [
+          "fact_4",
+          "fact_5",
+          "fact_6",
+          "fact_8",
+          "fact_30",
+          "fact_31",
+          "fact_3",
+          "fact_10",
+          "fact_11",
+          "fact_16",
+          "fact_19"
+        ],
+        "sections": [
+          "IPC 11",
+          "IPC 13",
+          "IPC 4",
+          "IPC 10"
+        ]
+      },
+      "grounded": true,
+      "unverified": []
+    }
+  ],
+  "judge_scores": {
+    "prosecution": {
+      "legal_validity": 0,
+      "evidence_linkage": 0,
+      "logic_coherence": 0,
+      "total": 0.0,
+      "average": 0.0
+    },
+    "defense": {
+      "legal_validity": 9,
+      "evidence_linkage": 10,
+      "logic_coherence": 9,
+      "total": 28.0,
+      "average": 9.33
+    },
+    "overall": 4.67
+  },
+  "verdict": {
+    "decision": "NO_OPINION",
+    "confidence": "low",
+    "confidence_label": "low",
+    "agreement_rate": 0.5,
+    "valid_votes": 4,
+    "total_votes": 5,
+    "agree_count": 2,
+    "laws_applied": [],
+    "statutes": [],
+    "precedents": [],
+    "holdings_relied": [],
+    "reasoning": "Judge split: {'NO_OPINION': 1, 'DENIED': 2, 'GRANTED': 1}. No majority outcome (< 60% agreement).",
+    "factors": [],
+    "open_questions": [
+      "Is there any criminal FIR, specific accused, or individual overt act alleged against the applicants?",
+      "Have summons, warrants, or a Section 82 CrPC proclamation been issued, and if so, were they lawfully issued or arguably within the Paragraph 24 exception for jurisdictional defect or malicious abuse?",
+      "Are the applicants absconding, cooperating with investigation, or facing custodial interrogation demands?",
+      "What offence sections are actually invoked in the anticipatory bail matter?"
+    ],
+    "vote_tally": {
+      "NO_OPINION": 1,
+      "DENIED": 2,
+      "GRANTED": 1
+    }
+  },
+  "errors": [
+    "LexiGraph failed (attempt 1): 3 validation errors for CaseProfile\nparties.accused.list[AccusedParty].0.name\n  Input should be a valid string [type=string_type, input_value=None, input_type=NoneType]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_type\nparties.accused.list[str].0\n  Input should be a valid string [type=string_type, input_value={'name': None, 'relations...ne, 'bail_status': None}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_type\nparties.accused.str\n  Input should be a valid string [type=string_type, input_value=[{'name': None, 'relation...e, 'bail_status': None}], input_type=list]\n    For further information visit https://errors.pydantic.dev/2.13/v/string_type"
+  ]
+}

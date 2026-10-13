@@ -122,14 +122,13 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
     """
     Get configured LLM client. Uses OpenAI by default, falls back to Groq/Ollama if configured.
     Does not hardcode keys. Enforces process call ceiling check.
-    NOTE: Models like gpt-5.4-mini do not support the temperature parameter — it is
-    automatically omitted for such models to avoid empty API responses.
     """
     GLOBAL_CALL_GUARDRAIL.check_and_increment()
 
     provider = os.getenv("LLM_PROVIDER", "openai").lower()  # Changed default to "openai"
     ollama_base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
     ollama_model = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
+    ollama_api_key = os.getenv("OLLAMA_API_KEY", "")
     openai_api_key = os.getenv("OPENAI_API_KEY")
     groq_api_key = os.getenv("GROQ_API_KEY")
 
@@ -142,6 +141,7 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
                 model=target_model,
                 api_key=openai_api_key,
                 temperature=temperature,
+                client_kwargs=client_kwargs,
             )
         except Exception as e:
             print(f"[LexiGraph Config] Warning loading ChatOpenAI: {e}")
@@ -183,7 +183,6 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
         except Exception as e:
             print(f"[LexiGraph Config] Warning loading ChatOllama: {e}")
 
-    # Fallback to error if no API key is set
     raise RuntimeError(
         "No valid LLM available. Options:\n"
         "1. OpenAI (cloud, default): Set OPENAI_API_KEY in .env\n"
@@ -320,7 +319,7 @@ def extract_json_from_text(text: Any) -> Dict[str, Any]:
             if end != -1:
                 cleaned = cleaned[start : end + 1]
 
-    # Attempt 1: Standard json.loads
+    # Attempt 1: Standard json.loads with invalid escape normalization
     try:
         parsed = json.loads(cleaned)
         if isinstance(parsed, dict):
@@ -333,6 +332,11 @@ def extract_json_from_text(text: Any) -> Dict[str, Any]:
         import json_repair
         print("[JSON Parse] Attempting json_repair...")
         repaired = json_repair.repair_json(cleaned, return_objects=True)
+        if isinstance(repaired, str):
+            try:
+                repaired = json.loads(repaired, strict=False)
+            except Exception:
+                pass
         if isinstance(repaired, dict):
             # Fix Ollama issue: missing_information should be List[str], not List[dict]
             if "missing_information" in repaired:
@@ -369,7 +373,7 @@ def extract_json_from_text(text: Any) -> Dict[str, Any]:
         fixed = re.sub(r'\s+', ' ', fixed)
         
         print("[JSON Parse] Attempting with manual fixes...")
-        return json.loads(fixed)
+        return json.loads(fixed, strict=False)
     except json.JSONDecodeError as e2:
         print(f"[JSON Parse] Manual fixes failed at position {e2.pos}: {e2.msg}")
 

@@ -11,21 +11,24 @@ from typing import Any, Dict, List, Optional
 agents_dir = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(agents_dir))
 
-import pytesseract
-from PIL import Image
+# pytesseract is optional — only needed when OCR_PROVIDER=tesseract
+try:
+    import pytesseract
+    from PIL import Image
+    _TESSERACT_AVAILABLE = True
+    pytesseract.pytesseract.tesseract_cmd = (
+        r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    )
+except ImportError:
+    pytesseract = None  # type: ignore
+    Image = None        # type: ignore
+    _TESSERACT_AVAILABLE = False
+
 from PyPDF2 import PdfReader
 from dotenv import load_dotenv
-
 import firebase_admin
 from firebase_admin import credentials, firestore
-
-
 from config.llm_config import get_llm
-import pytesseract
-
-pytesseract.pytesseract.tesseract_cmd = (
-    r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-)
 
 # Optional Google Vision imports (graceful fallback if not installed)
 try:

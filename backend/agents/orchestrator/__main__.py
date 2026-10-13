@@ -295,10 +295,21 @@ def main() -> None:
     if md_file.exists():
         export_info = f"\n\n[bold green]Full Transcripts Saved:[/] \n  • Markdown: [underline]{md_file}[/underline]\n  • JSON    : [underline]{json_file}[/underline]"
 
+    raw_conf = verdict.get('confidence', 0.5)
+    conf_map = {"low": "30%", "medium": "60%", "high": "90%"}
+    if isinstance(raw_conf, str) and raw_conf.lower() in conf_map:
+        conf_display = f"{raw_conf.capitalize()} ({conf_map[raw_conf.lower()]})"
+    else:
+        try:
+            conf_val = float(raw_conf)
+            conf_display = f"{int(conf_val * 100)}%" if conf_val <= 1.0 else f"{int(conf_val)}%"
+        except (ValueError, TypeError):
+            conf_display = str(raw_conf)
+
     console.print(
         Panel(
             f"[bold]Decision[/]   : {verdict.get('decision', 'N/A').upper()}\n"
-            f"[bold]Confidence[/] : {int(float(verdict.get('confidence', 0.5)) * 100)}%\n"
+            f"[bold]Confidence[/] : {conf_display}\n"
             f"[bold]Laws Applied[/]: {', '.join(verdict.get('laws_applied', []))}"
             f"{export_info}",
             title=f"⚖️  MOOT COURT SUMMARY · Session {sid[:8]}",

@@ -1,103 +1,477 @@
-// import { CheckCircle2, Volume2 } from "lucide-react";
-// import { useEffect, useRef } from "react";
+import { 
+  CheckCircle2, 
+  Volume2, 
+  User, 
+  Bot, 
+  Scale, 
+  Shield, 
+  Gavel, 
+  FileText, 
+  Network, 
+  AlertTriangle, 
+  Award, 
+  ChevronDown, 
+  ChevronUp,
+  Bookmark,
+  Check,
+  X
+} from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
-// export default function ChatPanel({ messages, userRole, speakText }) {
-//   const chatEndRef = useRef(null);
+// Lightweight legal markdown renderer for clean paragraph & bullet formatting
+function FormattedLegalText({ text }) {
+  if (!text) return null;
 
-//   useEffect(() => {
-//     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
-//   }, [messages]);
+  // Split into lines
+  const lines = text.split("\n");
+  const elements = [];
 
-//   return (
-//     <div className="flex-1 overflow-y-auto bg-surface-paperMain px-3 py-4 md:px-6 md:py-6 space-y-4 shadow-[inset_0_4px_25px_rgba(0,0,0,0.03)] w-full relative z-0 scroll-smooth flex flex-col items-center">
-//       <div className="w-full max-w-4xl space-y-4 transition-all duration-[350ms] ease-in-out">
-//         {messages.length === 0 && (
-//           <div className="h-[250px] flex flex-col items-center justify-center text-primaryBrown/50 opacity-80 z-10 relative">
-//             <p className="font-heading text-xl font-bold tracking-[0.2em] uppercase text-primaryBrown/60">Official Trial Transcript</p>
-//             <p className="font-serif text-sm mt-2 opacity-80 italic">Proceedings have not commenced.</p>
-//           </div>
-//         )}
+  for (let i = 0; i < lines.length; i++) {
+    const rawLine = lines[i].trim();
+    if (!rawLine) {
+      elements.push(<div key={i} className="h-2" />);
+      continue;
+    }
 
-//         {messages.map((msg, i) => {
-//           const isUser = msg.agentId === userRole;
-//           const isProsecutor = msg.agentId === "prosecutor";
-//           const isJudge = msg.agentId === "judge";
-//           const isDefense = msg.agentId === "defense";
-          
-//           let displaySpeaker = msg.speaker;
-//           if (isUser) {
-//              displaySpeaker = `[YOU - ${msg.speaker.toUpperCase()}]`;
-//           } else {
-//              displaySpeaker = `[AI - ${msg.speaker.toUpperCase()}]`;
-//           }
+    // Heading 3 or 4
+    if (rawLine.startsWith("### ") || rawLine.startsWith("#### ")) {
+      const headingText = rawLine.replace(/^#{3,4}\s+/, "");
+      elements.push(
+        <h4 key={i} className="font-heading font-bold text-[13px] md:text-[14px] uppercase tracking-wider text-[#2C1810] mt-3 mb-1 border-b border-[#2C1810]/10 pb-1">
+          {headingText}
+        </h4>
+      );
+      continue;
+    }
 
-//           const borderColor = isProsecutor 
-//             ? "border-l-[#1E3A8A]" // Blue
-//             : isDefense 
-//               ? "border-l-[#991B1B]" // Red
-//               : "border-l-gold"; // Gold
+    // Numbered list item: "1. ..."
+    const numMatch = rawLine.match(/^(\d+)\.\s+(.*)/);
+    if (numMatch) {
+      elements.push(
+        <div key={i} className="flex items-start gap-2.5 my-1.5 pl-1">
+          <span className="font-mono text-xs font-bold text-[#8C5A3C] shrink-0 bg-[#8C5A3C]/10 px-1.5 py-0.5 rounded">
+            {numMatch[1]}
+          </span>
+          <p className="text-[13px] md:text-[14.5px] leading-relaxed text-[#2C1810]">
+            <RenderInlineBold text={numMatch[2]} />
+          </p>
+        </div>
+      );
+      continue;
+    }
 
-//           return (
-//             <div key={i} className={`bg-white border-l-[6px] ${borderColor} rounded-r-xl rounded-bl-md shadow-[0_5px_15px_rgba(0,0,0,0.04)] border-y border-r border-surface-border p-4 md:p-5 relative max-w-[90%] md:max-w-[85%] ${isUser ? 'ml-auto' : 'mr-auto'} z-10 transition-all hover:shadow-[0_8px_25px_rgba(0,0,0,0.06)]`}>
+    // Bullet list item: "- ..." or "* ..."
+    if (rawLine.startsWith("- ") || rawLine.startsWith("* ")) {
+      const bulletText = rawLine.substring(2);
+      elements.push(
+        <div key={i} className="flex items-start gap-2 my-1 pl-1">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2 shrink-0" />
+          <p className="text-[13px] md:text-[14.5px] leading-relaxed text-[#2C1810]">
+            <RenderInlineBold text={bulletText} />
+          </p>
+        </div>
+      );
+      continue;
+    }
 
-//               {/* Header Identity */}
-//               <div className="flex justify-between items-start mb-3 border-b border-surface-border pb-2">
-//                 <span className={`font-bold flex items-center gap-3 text-[11px] uppercase tracking-[0.15em] font-body px-3 py-1.5 rounded-sm ${isUser ? 'bg-primaryBrown text-white shadow-sm' : 'text-wood-dark bg-[#F5F5F0]'}`}>
-//                   <div className={`w-2 h-2 rounded-full ${isProsecutor ? 'bg-[#1E3A8A]' : isJudge ? 'bg-gold' : isDefense ? 'bg-[#991B1B]' : 'bg-white'}`} />
-//                   {displaySpeaker}
-//                 </span>
-                
-//                 <div className="flex gap-2 items-center">
-//                   {msg.citations?.length > 0 && (
-//                     <span className="flex items-center gap-1.5 text-[10px] uppercase font-black tracking-widest bg-[#F0FDF4] text-[#166534] border border-[#166534]/30 px-2.5 py-1 rounded shadow-[0_2px_4px_rgba(22,101,52,0.05)]">
-//                       <CheckCircle2 size={12} strokeWidth={3} className="text-[#166534]" /> LexiGraph Linked
-//                     </span>
-//                   )}
-//                   {speakText && (
-//                     <button
-//                       onClick={() => speakText(msg.text, msg.agentId)}
-//                       className="p-1 bg-white border border-surface-border rounded-md text-primaryBrown hover:bg-gold/10 hover:text-gold hover:border-gold/30 transition-all flex items-center justify-center cursor-pointer"
-//                       title="Speak Message"
-//                     >
-//                       <Volume2 size={12} />
-//                     </button>
-//                   )}
-//                 </div>
-//               </div>
+    // Normal paragraph
+    elements.push(
+      <p key={i} className="text-[13px] md:text-[14.5px] leading-relaxed text-[#2C1810] my-1">
+        <RenderInlineBold text={rawLine} />
+      </p>
+    );
+  }
 
-//               {/* Transcript Text - Explicitly forced to serif for legal document feel */}
-//               <p className="mt-2 font-serif text-[14px] md:text-[16px] leading-relaxed text-textPrimary tracking-tight">
-//                  "{msg.text}"
-//               </p>
+  return <div className="space-y-1 font-body">{elements}</div>;
+}
 
-//               {/* Evidence Sub-Panel */}
-//               {msg.citations?.length > 0 && (
-//                 <div className="mt-4 flex gap-3 flex-wrap items-center pt-3 bg-surface-paperLight -mx-4 md:-mx-5 -mb-4 md:-mb-5 px-4 md:px-5 pb-3 border-t border-surface-border rounded-br-xl">
-//                   <span className="text-[11px] tracking-widest text-primaryBrown font-bold uppercase font-body flex items-center gap-1.5 opacity-80">
-//                      🔗 Case Links:
-//                   </span>
-//                   {msg.citations.map((c, idx) => (
-//                     <span
-//                       key={idx}
-//                       className="bg-white border border-surface-border text-primaryBrown px-3.5 py-1.5 text-[12px] font-mono rounded shadow-sm hover:border-[#1E3A8A] hover:text-[#1E3A8A] hover:bg-semantic-infoBg hover:shadow-md transition-all cursor-pointer select-none font-bold"
-//                       title="Click to view LexiGraph Entity"
-//                     >
-//                       {c}
-//                     </span>
-//                   ))}
-//                 </div>
-//               )}
-//             </div>
-//           );
-//         })}
-//       </div>
-//       <div ref={chatEndRef} />
-//     </div>
-//   );
-// }
+// Parses **bold text**
+function RenderInlineBold({ text }) {
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  return (
+    <>
+      {parts.map((part, index) => {
+        if (part.startsWith("**") && part.endsWith("**")) {
+          return (
+            <strong key={index} className="font-bold text-[#1C120C]">
+              {part.slice(2, -2)}
+            </strong>
+          );
+        }
+        return part;
+      })}
+    </>
+  );
+}
 
-import { CheckCircle2, Volume2, User, Bot, Scale, Shield, Gavel } from "lucide-react";
-import { useEffect, useRef } from "react";
+// Component for Evidence Analyzer Output
+function EvidenceAnalyzerCard({ msg }) {
+  const [showAllFacts, setShowAllFacts] = useState(false);
+  const facts = msg.facts || [];
+  const inventory = msg.inventory || [];
+
+  const displayedFacts = showAllFacts ? facts : facts.slice(0, 5);
+
+  return (
+    <div className="w-full bg-white border border-indigo-200/80 rounded-2xl shadow-sm overflow-hidden my-3 animate-fadeIn">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-indigo-900 to-slate-900 text-white px-5 py-3.5 flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="p-1.5 rounded-lg bg-indigo-500/20 text-indigo-300">
+            <FileText size={18} />
+          </div>
+          <div>
+            <h3 className="font-heading font-bold text-sm tracking-wide text-white">
+              Evidence Analyzer Briefing
+            </h3>
+            <p className="text-[10px] font-mono text-indigo-300 tracking-wider uppercase">
+              Fact Classification & Evidence Inventory
+            </p>
+          </div>
+        </div>
+        <span className="text-[10px] font-mono bg-indigo-800/60 text-indigo-200 px-2 py-0.5 rounded-full border border-indigo-700/50">
+          {facts.length} Facts · {inventory.length} Records
+        </span>
+      </div>
+
+      <div className="p-5 space-y-4">
+        <p className="text-xs md:text-sm text-[#4A3B32] font-medium leading-relaxed">
+          {msg.content || msg.text}
+        </p>
+
+        {/* Evidence Inventory Badges */}
+        {inventory.length > 0 && (
+          <div className="space-y-2 pt-2 border-t border-slate-100">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#7A6A60] block">
+              Evidence Inventory (Record Verification):
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {inventory.slice(0, 14).map((item, idx) => {
+                const isPresent = item.status === "present";
+                return (
+                  <span
+                    key={idx}
+                    className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-mono font-semibold border ${
+                      isPresent
+                        ? "bg-emerald-50 text-emerald-800 border-emerald-200"
+                        : "bg-slate-100 text-slate-600 border-slate-200"
+                    }`}
+                    title={item.details || ""}
+                  >
+                    {isPresent ? <Check size={11} className="text-emerald-600" /> : <X size={11} className="text-slate-400" />}
+                    <span>{item.item || item.name}</span>
+                    <span className="opacity-70 text-[9px] font-normal">({item.status})</span>
+                  </span>
+                );
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* Classified Facts Preview */}
+        {facts.length > 0 && (
+          <div className="space-y-2 pt-2 border-t border-slate-100">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#7A6A60] block">
+              Extracted Facts by Legal Category:
+            </span>
+            <div className="space-y-1.5">
+              {displayedFacts.map((fact, idx) => {
+                const ftype = fact.type || "allegation";
+                let tagColor = "bg-amber-50 text-amber-800 border-amber-200";
+                if (ftype === "procedural_event") tagColor = "bg-sky-50 text-sky-800 border-sky-200";
+                else if (ftype === "court_finding") tagColor = "bg-purple-50 text-purple-800 border-purple-200";
+
+                return (
+                  <div key={idx} className="p-2.5 rounded-lg bg-[#FAF9F7] border border-[#2C1810]/10 flex items-start gap-2.5 text-xs">
+                    <span className="font-mono text-[9px] font-bold text-[#8C5A3C] shrink-0 bg-white border border-[#2C1810]/15 px-1.5 py-0.5 rounded shadow-2xs">
+                      {fact.id || `fact_${idx + 1}`}
+                    </span>
+                    <span className={`text-[9px] font-mono font-bold uppercase px-1.5 py-0.5 rounded border shrink-0 ${tagColor}`}>
+                      {ftype.replace("_", " ")}
+                    </span>
+                    <p className="text-[#2C1810] leading-snug flex-1">
+                      {fact.text || fact.value}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
+            {facts.length > 5 && (
+              <button
+                onClick={() => setShowAllFacts(!showAllFacts)}
+                className="text-[11px] font-bold font-mono text-indigo-700 hover:text-indigo-900 flex items-center gap-1 pt-1 cursor-pointer"
+              >
+                {showAllFacts ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                {showAllFacts ? "Show Less Facts" : `View All ${facts.length} Extracted Facts`}
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Component for LexiGraph Output
+function LexigraphCard({ msg }) {
+  const citations = msg.citations || [];
+  const holdings = msg.holdings || [];
+  const precedents = msg.precedents || [];
+
+  return (
+    <div className="w-full bg-white border border-[#D4AF37]/50 rounded-2xl shadow-sm overflow-hidden my-3 animate-fadeIn">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-[#2C1810] to-[#452718] text-white px-5 py-3.5 flex items-center justify-between border-b border-[#D4AF37]/30">
+        <div className="flex items-center gap-2.5">
+          <div className="p-1.5 rounded-lg bg-[#D4AF37]/20 text-[#D4AF37]">
+            <Network size={18} />
+          </div>
+          <div>
+            <h3 className="font-heading font-bold text-sm tracking-wide text-white">
+              LexiGraph Legal Retrieval
+            </h3>
+            <p className="text-[10px] font-mono text-[#D4AF37]/80 tracking-wider uppercase">
+              Statutory Framework & Precedent Holdings
+            </p>
+          </div>
+        </div>
+        <span className="text-[10px] font-mono bg-[#D4AF37]/20 text-[#D4AF37] px-2 py-0.5 rounded-full border border-[#D4AF37]/40 font-bold">
+          Verified Graph
+        </span>
+      </div>
+
+      <div className="p-5 space-y-4">
+        <p className="text-xs md:text-sm text-[#4A3B32] font-medium leading-relaxed">
+          {msg.content || msg.text}
+        </p>
+
+        {/* Governing Statutory Sections */}
+        {citations.length > 0 && (
+          <div className="space-y-1.5">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#7A6A60] block">
+              Governing Statutory Provisions:
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {citations.map((c, idx) => (
+                <span
+                  key={idx}
+                  className="px-2.5 py-1 text-[11px] font-mono font-bold rounded-lg bg-[#FAF8F5] border border-[#D4AF37]/60 text-[#2C1810] shadow-2xs"
+                >
+                  § {c}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Precedents and Holdings */}
+        {(holdings.length > 0 || precedents.length > 0) && (
+          <div className="space-y-1.5 pt-2 border-t border-amber-100">
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#7A6A60] block">
+              Retrieved Precedent Holdings:
+            </span>
+            <div className="flex flex-wrap gap-1.5">
+              {holdings.map((h, idx) => {
+                const label = typeof h === "string" ? h : (h.id || h.case || "Holding");
+                return (
+                  <span
+                    key={idx}
+                    className="px-2.5 py-1 text-[10px] font-mono font-medium rounded-md bg-amber-50 border border-amber-300 text-amber-900 shadow-2xs"
+                  >
+                    ⚖ {label}
+                  </span>
+                );
+              })}
+              {precedents.map((p, idx) => (
+                <span
+                  key={idx}
+                  className="px-2.5 py-1 text-[10px] font-mono font-medium rounded-md bg-blue-50 border border-blue-200 text-blue-900 shadow-2xs"
+                >
+                  📜 {p}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Component for Judge Scores Scorecard
+function JudgeScoresCard({ msg }) {
+  const scores = msg.scores || {};
+  const pros = scores.prosecution || {};
+  const def = scores.defense || {};
+  const overall = scores.overall || 0;
+
+  return (
+    <div className="w-full bg-[#FAF9F7] border border-amber-300/80 rounded-2xl shadow-sm p-4 my-3 animate-fadeIn">
+      <div className="flex items-center justify-between border-b border-amber-200 pb-2.5 mb-3">
+        <div className="flex items-center gap-2 text-amber-900">
+          <Award size={16} className="text-[#D4AF37]" />
+          <h4 className="font-heading font-bold text-xs uppercase tracking-wider">
+            Judicial Argument Evaluation
+          </h4>
+        </div>
+        <span className="font-mono text-xs font-bold px-2 py-0.5 bg-amber-100 border border-amber-300 rounded text-amber-900">
+          Overall Bench Score: {overall}/10
+        </span>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {/* Prosecution */}
+        <div className="bg-white p-3 rounded-xl border border-blue-100 shadow-2xs space-y-1 text-xs">
+          <span className="font-heading font-bold text-blue-900 block text-[11px] uppercase tracking-wider">
+            Public Prosecutor (Avg: {pros.average || 0})
+          </span>
+          <div className="space-y-1 font-mono text-[10px] text-slate-700">
+            <div className="flex justify-between"><span>Legal Validity:</span> <span className="font-bold">{pros.legal_validity || 0}/10</span></div>
+            <div className="flex justify-between"><span>Evidence Linkage:</span> <span className="font-bold">{pros.evidence_linkage || 0}/10</span></div>
+            <div className="flex justify-between"><span>Logic Coherence:</span> <span className="font-bold">{pros.logic_coherence || 0}/10</span></div>
+          </div>
+        </div>
+
+        {/* Defense */}
+        <div className="bg-white p-3 rounded-xl border border-rose-100 shadow-2xs space-y-1 text-xs">
+          <span className="font-heading font-bold text-rose-900 block text-[11px] uppercase tracking-wider">
+            Defense Counsel (Avg: {def.average || 0})
+          </span>
+          <div className="space-y-1 font-mono text-[10px] text-slate-700">
+            <div className="flex justify-between"><span>Legal Validity:</span> <span className="font-bold">{def.legal_validity || 0}/10</span></div>
+            <div className="flex justify-between"><span>Evidence Linkage:</span> <span className="font-bold">{def.evidence_linkage || 0}/10</span></div>
+            <div className="flex justify-between"><span>Logic Coherence:</span> <span className="font-bold">{def.logic_coherence || 0}/10</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Component for the Final Verdict Decree
+function VerdictCard({ msg }) {
+  const result = (msg.result || msg.decision || "DENIED").toUpperCase();
+  const confidence = (msg.confidence || msg.confidence_label || "HIGH").toUpperCase();
+  const validVotes = msg.valid_votes ?? 3;
+  const totalVotes = msg.total_votes ?? 5;
+  const agreeCount = msg.agree_count ?? 3;
+
+  const statutes = msg.statutes || [];
+  const precedents = msg.precedents || [];
+  const holdingsRelied = msg.holdings_relied || [];
+  const explanation = msg.explanation || msg.reasoning || msg.text || "";
+
+  // Color schemes
+  let bannerBg = "bg-gradient-to-br from-red-950 via-[#450a0a] to-[#260505] border-red-500/60";
+  let badgeColor = "bg-red-900/60 text-red-200 border-red-400/40";
+  if (result.includes("GRANT")) {
+    bannerBg = "bg-gradient-to-br from-emerald-950 via-[#064e3b] to-[#022c22] border-emerald-500/60";
+    badgeColor = "bg-emerald-900/60 text-emerald-200 border-emerald-400/40";
+  } else if (result.includes("INTERIM")) {
+    bannerBg = "bg-gradient-to-br from-blue-950 via-[#1e3a8a] to-[#0f172a] border-blue-500/60";
+    badgeColor = "bg-blue-900/60 text-blue-200 border-blue-400/40";
+  }
+
+  return (
+    <div className={`w-full text-white border-2 rounded-2xl shadow-xl overflow-hidden my-6 animate-fadeIn ${bannerBg}`}>
+      {/* Decree Header */}
+      <div className="p-6 md:p-8 space-y-4 border-b border-white/10">
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md flex items-center justify-center border border-white/20 shadow-inner">
+              <Gavel size={26} className="text-[#D4AF37]" />
+            </div>
+            <div>
+              <span className="text-[10px] font-mono tracking-[0.2em] uppercase text-[#D4AF37] font-bold block">
+                Official Judicial Pronouncement
+              </span>
+              <h2 className="font-heading text-2xl md:text-3xl font-extrabold tracking-tight text-white">
+                VERDICT: {result}
+              </h2>
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-2 items-center">
+            <span className={`px-3 py-1 text-xs font-mono font-bold uppercase rounded-full border ${badgeColor}`}>
+              Confidence: {confidence}
+            </span>
+            <span className="px-3 py-1 text-xs font-mono font-semibold rounded-full bg-white/10 border border-white/20 text-white/90">
+              {validVotes}/{totalVotes} Valid Votes ({agreeCount}/{validVotes} Agree)
+            </span>
+          </div>
+        </div>
+
+        {/* 3 Categories of Law */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-3">
+          {/* Statutes */}
+          <div className="bg-black/30 backdrop-blur-sm p-3 rounded-xl border border-white/10 space-y-1.5">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-amber-300 font-bold block">
+              Statutes Applied:
+            </span>
+            <div className="flex flex-wrap gap-1">
+              {statutes.length > 0 ? (
+                statutes.map((s, idx) => (
+                  <span key={idx} className="px-2 py-0.5 text-[10px] font-mono font-bold bg-white/10 rounded border border-white/15 text-white">
+                    § {s}
+                  </span>
+                ))
+              ) : (
+                <span className="text-[11px] text-white/50 italic">None cited</span>
+              )}
+            </div>
+          </div>
+
+          {/* Precedents */}
+          <div className="bg-black/30 backdrop-blur-sm p-3 rounded-xl border border-white/10 space-y-1.5">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-sky-300 font-bold block">
+              Precedents Cited:
+            </span>
+            <div className="flex flex-wrap gap-1">
+              {precedents.length > 0 ? (
+                precedents.map((p, idx) => (
+                  <span key={idx} className="px-2 py-0.5 text-[10px] font-mono bg-white/10 rounded border border-white/15 text-white">
+                    📜 {p}
+                  </span>
+                ))
+              ) : (
+                <span className="text-[11px] text-white/50 italic">None cited</span>
+              )}
+            </div>
+          </div>
+
+          {/* Holdings Relied */}
+          <div className="bg-black/30 backdrop-blur-sm p-3 rounded-xl border border-white/10 space-y-1.5">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-emerald-300 font-bold block">
+              Holdings Relied On:
+            </span>
+            <div className="flex flex-wrap gap-1">
+              {holdingsRelied.length > 0 ? (
+                holdingsRelied.map((h, idx) => (
+                  <span key={idx} className="px-2 py-0.5 text-[10px] font-mono bg-white/10 rounded border border-white/15 text-white">
+                    ⚖ {h}
+                  </span>
+                ))
+              ) : (
+                <span className="text-[11px] text-white/50 italic">Standard Ratio</span>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Judicial Rationale & Findings */}
+      <div className="p-6 md:p-8 bg-black/40 backdrop-blur-md space-y-3">
+        <h4 className="font-heading font-bold text-xs uppercase tracking-widest text-[#D4AF37]">
+          Ratio Decidendi & Judicial Rationale:
+        </h4>
+        <div className="text-[13px] md:text-[14.5px] leading-relaxed text-white/90 font-serif space-y-2 whitespace-pre-line">
+          {explanation}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function ChatPanel({ messages, userRole, speakText }) {
   const chatEndRef = useRef(null);
@@ -108,36 +482,57 @@ export default function ChatPanel({ messages, userRole, speakText }) {
 
   return (
     <div className="flex-1 overflow-y-auto bg-[#FAF9F7] px-4 py-6 md:px-8 space-y-6 w-full scroll-smooth">
-      <div className="w-full max-w-4xl mx-auto space-y-8 transition-all duration-300">
+      <div className="w-full max-w-4xl mx-auto space-y-6 transition-all duration-300">
         
         {/* Empty State */}
         {messages.length === 0 && (
           <div className="h-[300px] flex flex-col items-center justify-center text-[#2C1810]/40 mt-10">
-            <div className="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-5">
+            <div className="w-16 h-16 rounded-full bg-white shadow-sm flex items-center justify-center mb-5 border border-[#D4AF37]/30">
               <Scale size={28} className="text-[#D4AF37]" />
             </div>
-            <p className="font-heading text-xl md:text-2xl font-bold tracking-tight text-[#2C1810]/60">
+            <p className="font-heading text-xl md:text-2xl font-bold tracking-tight text-[#2C1810]/70">
               Court is now in session
             </p>
-            <p className="font-body text-sm mt-2 opacity-80">
-              The AI courtroom is ready. Send a message to begin proceedings.
+            <p className="font-body text-sm mt-2 opacity-80 text-center max-w-md">
+              The AI Moot Courtroom is standing ready. Select a case from the bank or step through the simulation turns below.
             </p>
           </div>
         )}
 
         {messages.map((msg, i) => {
-          const isUser = msg.agentId === userRole;
-          const isProsecutor = msg.agentId === "prosecutor" || msg.agentId === "accused";
-          const isJudge = msg.agentId === "judge";
-          const isDefense = msg.agentId === "defense";
+          // Special Message Types
+          if (msg.type === "verdict" || msg.agentId === "verdict" || msg.agent === "verdict") {
+            return <VerdictCard key={i} msg={msg} />;
+          }
 
-          // Icon selection based on AI role
+          if (msg.agentId === "evidence_analyzer" || msg.agent === "evidence_analyzer") {
+            return <EvidenceAnalyzerCard key={i} msg={msg} />;
+          }
+
+          if (msg.agentId === "lexigraph" || msg.agent === "lexigraph") {
+            return <LexigraphCard key={i} msg={msg} />;
+          }
+
+          if (msg.type === "judge_scores") {
+            return <JudgeScoresCard key={i} msg={msg} />;
+          }
+
+          // Counsel Turns
+          const agentId = msg.agentId || msg.agent || "";
+          const isUser = agentId === userRole;
+          const isProsecutor = agentId === "prosecutor";
+          const isJudge = agentId === "judge";
+          const isDefense = agentId === "defense";
+          const isAccused = agentId === "accused";
+
+          // Icon selection
           let Icon = Bot;
           if (isProsecutor) Icon = Scale;
           else if (isJudge) Icon = Gavel;
           else if (isDefense) Icon = Shield;
+          else if (isAccused) Icon = User;
 
-          // Alignment logic: Defense -> Left, Judge -> Center, Prosecutor/User -> Right
+          // Alignment logic
           let alignContainer = "justify-start";
           let alignBubbleContainer = "items-start";
           if (isJudge) {
@@ -148,25 +543,32 @@ export default function ChatPanel({ messages, userRole, speakText }) {
             alignBubbleContainer = "items-end";
           }
 
-          // Dynamic Bubble Styling for distinct AI personas
-          let bubbleStyle = "bg-white text-[#2C1810] border border-[#2C1810]/10 rounded-tl-sm"; // Default fallback
+          // Dynamic Bubble Styling
+          let bubbleStyle = "bg-white text-[#2C1810] border border-[#2C1810]/15 rounded-tl-sm";
           if (isUser) {
             bubbleStyle = "bg-[#2C1810] text-[#FAF9F7] rounded-tr-sm";
           } else if (isProsecutor) {
-            bubbleStyle = "bg-blue-50/90 text-[#2C1810] border border-blue-200/80 rounded-tr-sm shadow-sm";
+            bubbleStyle = "bg-blue-50/90 text-[#2C1810] border border-blue-200/90 rounded-tr-sm shadow-2xs";
           } else if (isJudge) {
-            bubbleStyle = "bg-amber-50 text-[#2C1810] border border-amber-300/70 rounded-2xl shadow-md";
+            bubbleStyle = "bg-amber-50 text-[#2C1810] border border-amber-300/80 rounded-2xl shadow-sm";
           } else if (isDefense) {
-            bubbleStyle = "bg-rose-50/90 text-[#2C1810] border border-rose-200/80 rounded-tl-sm shadow-sm";
+            bubbleStyle = "bg-rose-50/90 text-[#2C1810] border border-rose-200/90 rounded-tl-sm shadow-2xs";
+          } else if (isAccused) {
+            bubbleStyle = "bg-slate-50 text-[#2C1810] border border-slate-200 rounded-tl-sm shadow-2xs";
           }
+
+          const rawText = msg.text || msg.content || "";
+          const citations = msg.citations || msg.verified_citations || [];
+          const evidenceRefs = msg.evidence_refs || [];
+          const unverified = msg.unverified || [];
 
           return (
             <div key={i} className={`flex w-full gap-3 md:gap-4 ${alignContainer} animate-fadeIn`}>
               
-              {/* Left Avatar (Defense / AI) */}
+              {/* Left Avatar (Defense / Accused) */}
               {!isJudge && !isProsecutor && !isUser && (
                 <div className="w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full bg-white border border-[#D4AF37]/30 flex items-center justify-center shadow-sm mt-1">
-                  <Icon size={18} className="text-red-700" />
+                  <Icon size={18} className={isDefense ? "text-red-700" : "text-slate-700"} />
                 </div>
               )}
 
@@ -178,51 +580,71 @@ export default function ChatPanel({ messages, userRole, speakText }) {
               )}
 
               {/* Message Content Container */}
-              <div className={`flex flex-col gap-1.5 max-w-[85%] md:max-w-[70%] ${alignBubbleContainer}`}>
+              <div className={`flex flex-col gap-1.5 max-w-[88%] md:max-w-[75%] ${alignBubbleContainer}`}>
                 
-                {/* Header (Speaker Name & Verification Badge) */}
-                <div className="flex items-center gap-2.5 px-1.5">
-                  <span className="text-xs font-semibold text-[#5D4037] capitalize">
-                    {msg.speaker} {isUser ? "(You)" : ""}
+                {/* Header (Speaker Name & Citations badge) */}
+                <div className="flex items-center gap-2 px-1.5">
+                  <span className="text-xs font-semibold text-[#5D4037] capitalize flex items-center gap-1.5">
+                    {msg.speaker || agentId} {isUser ? "(You)" : ""}
+                    {msg.round ? (
+                      <span className="text-[9px] font-mono text-[#8C5A3C] bg-[#8C5A3C]/10 px-1.5 py-0.2 rounded font-bold">
+                        R{msg.round}
+                      </span>
+                    ) : null}
                   </span>
-                  {msg.citations?.length > 0 && (
+
+                  {citations.length > 0 && (
                     <span className="flex items-center gap-1 text-[9px] uppercase font-bold tracking-wider bg-emerald-50 text-emerald-700 px-2 py-0.5 rounded-full border border-emerald-200">
                       <CheckCircle2 size={10} strokeWidth={3} /> Verified
                     </span>
                   )}
+
+                  {unverified.length > 0 && (
+                    <span className="flex items-center gap-1 text-[9px] uppercase font-bold tracking-wider bg-amber-50 text-amber-800 px-2 py-0.5 rounded-full border border-amber-300" title={`Unverified citations: ${unverified.join(', ')}`}>
+                      <AlertTriangle size={10} /> Notice
+                    </span>
+                  )}
                 </div>
 
-                {/* Chat Bubble with Dynamic Colors */}
-                <div className={`relative px-5 py-3.5 md:py-4 md:px-6 rounded-3xl shadow-sm text-[14px] md:text-[15px] leading-relaxed font-body ${bubbleStyle}`}>
-                  {msg.text}
+                {/* Chat Bubble with formatted legal text */}
+                <div className={`relative px-5 py-3.5 md:py-4 md:px-6 rounded-3xl shadow-2xs leading-relaxed ${bubbleStyle}`}>
+                  <FormattedLegalText text={rawText} />
                 </div>
 
-                {/* Bottom Actions Bar (TTS & Citations) */}
-                <div className={`flex flex-wrap items-center gap-2 mt-1 px-1.5 ${isProsecutor || isUser ? "flex-row-reverse" : "flex-row"}`}>
+                {/* Bottom Actions Bar (TTS, Citations, Evidence Tags) */}
+                <div className={`flex flex-wrap items-center gap-1.5 mt-1 px-1.5 ${isProsecutor || isUser ? "flex-row-reverse" : "flex-row"}`}>
                   
                   {speakText && (
                     <button
-                      onClick={() => speakText(msg.text, msg.agentId)}
+                      onClick={() => speakText(rawText, agentId)}
                       className="p-1.5 rounded-full text-[#5D4037]/60 hover:text-[#2C1810] hover:bg-black/5 transition-colors cursor-pointer"
                       title="Read aloud"
                     >
-                      <Volume2 size={15} />
+                      <Volume2 size={14} />
                     </button>
                   )}
 
-                  {msg.citations?.length > 0 && (
-                    <div className="flex flex-wrap gap-1.5">
-                      {msg.citations.map((c, idx) => (
-                        <span
-                          key={idx}
-                          className="px-2.5 py-1 text-[10px] font-mono font-medium rounded-full bg-white border border-[#2C1810]/15 text-[#5D4037] hover:border-[#D4AF37] hover:text-[#8C5A3C] transition-colors cursor-pointer select-none shadow-sm"
-                          title="View LexiGraph Entity"
-                        >
-                          {c}
-                        </span>
-                      ))}
-                    </div>
-                  )}
+                  {/* Citations Badges */}
+                  {citations.map((c, idx) => (
+                    <span
+                      key={`cite-${idx}`}
+                      className="px-2 py-0.5 text-[10px] font-mono font-bold rounded-md bg-white border border-[#2C1810]/15 text-[#5D4037] hover:border-[#D4AF37] hover:text-[#8C5A3C] transition-colors cursor-pointer select-none shadow-2xs"
+                      title="Cited Section / Precedent"
+                    >
+                      § {c}
+                    </span>
+                  ))}
+
+                  {/* Evidence References Badges */}
+                  {evidenceRefs.map((f, idx) => (
+                    <span
+                      key={`ref-${idx}`}
+                      className="px-2 py-0.5 text-[9px] font-mono font-medium rounded-md bg-slate-100 border border-slate-200 text-slate-700 select-none"
+                      title="Cited Case Fact"
+                    >
+                      📌 {f}
+                    </span>
+                  ))}
                 </div>
 
               </div>

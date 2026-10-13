@@ -80,6 +80,7 @@ from agents.judge.judge       import JudgeAgent
 from agents.accused.accused   import AccusedAgent
 from agents.defense.defense   import DefenseAgent
 from agents.lexigraph          import lexigraph_node as _lexigraph_retrieve, format_for_prompt
+from agents.orchestrator.case_file import get_or_build_case_file
 
 # ── Constants ────────────────────────────────────────────────────────────────
 MAX_EVIDENCE_RETRIES  = 2
@@ -571,7 +572,9 @@ def _prosecutor_context(state: SimulationState) -> dict:
             last_defense = t["content"]
             break
     debate_facts = _get_debate_facts(state.get("case_facts", []))
+    canonical_case_file = get_or_build_case_file(state)
     return {
+        "canonical_case_file": canonical_case_file,
         "case_facts":      debate_facts,
         "evidence_inventory": state.get("evidence_inventory", []),
         "evidence_map":    {getattr(f, "id", f.get("id")): getattr(f, "text", f.get("text", "")) for f in debate_facts if getattr(f, "id", f.get("id", None))},
@@ -588,7 +591,9 @@ def _defense_context(state: SimulationState) -> dict:
         if t["speaker"] == "prosecutor":
             last_prosecution = t["content"]
             break
+    canonical_case_file = get_or_build_case_file(state)
     return {
+        "canonical_case_file": canonical_case_file,
         "case_facts":      _get_debate_facts(state.get("case_facts", [])),
         "evidence_inventory": state.get("evidence_inventory", []),
         "lexigraph_output": state.get("lexigraph_output", {}),
@@ -599,8 +604,11 @@ def _defense_context(state: SimulationState) -> dict:
 
 
 def _judge_context(state: SimulationState) -> dict:
+    canonical_case_file = get_or_build_case_file(state)
     return {
+        "canonical_case_file": canonical_case_file,
         "case_facts":      state.get("case_facts", []),
+        "evidence_inventory": state.get("evidence_inventory", []),
         "lexigraph_output": state.get("lexigraph_output", {}),
         "holdings":        state.get("holdings") or state.get("lexigraph_output", {}).get("holdings", []),
         "transcript":      state.get("transcript", []),
@@ -1095,11 +1103,13 @@ def node_prosecutor(state: SimulationState, *, emit: Optional[Callable] = None) 
         # and the LLM-retry loop only regenerates the LLM call, not the whole
         # embedding + Pinecone + graph pipeline.
         cached_production = ctx.get("lexigraph_output") or None
+        case_file = ctx.get("canonical_case_file") or get_or_build_case_file(state)
         result = prosecutor.generate_turn(
-            case_facts=case_input_text,
+            case_facts=case_file,
             phase=phase,
             opposing_argument=last_defense or None,
             production_output=cached_production,
+            canonical_case_file=case_file,
         )
         formatted_md, _, _, _ = structure_prosecution_turn(
             result, ctx["case_facts"], ctx["lexigraph_output"]
@@ -1189,6 +1199,7 @@ def node_defense(state: SimulationState, *, emit: Optional[Callable] = None) -> 
             prosecution_arguments=ctx.get("last_prosecution_argument", ""),
             evidence_inventory=ctx.get("evidence_inventory", []),
             case_facts=ctx["case_facts"],
+            canonical_case_file=ctx.get("canonical_case_file"),
         )
 
     content, citations, grounded, unverified = _generate_with_citation_check(_call, state, "defense", emit)
@@ -1255,7 +1266,13 @@ def node_judge_evaluate(state: SimulationState, *, emit: Optional[Callable] = No
     holdings = state.get("holdings") or state.get("lexigraph_output", {}).get("holdings", [])
 
     scores_raw, question = _judge().score(
-        facts_list, p_arg, d_arg, relevant_laws, evidence_inventory=inventory, holdings=holdings
+        facts_list,
+        p_arg,
+        d_arg,
+        relevant_laws,
+        evidence_inventory=inventory,
+        holdings=holdings,
+        canonical_case_file=ctx.get("canonical_case_file"),
     )
 
     # Normalize scores to 0–10 overall for each side
@@ -1420,6 +1437,7 @@ def node_judge_verdict(state: SimulationState, *, emit: Optional[Callable] = Non
         relevant_laws=relevant_laws,
         evidence_inventory=inventory,
         holdings=holdings,
+        canonical_case_file=get_or_build_case_file(state),
     )
 
     decision   = str(raw_verdict.get("decision", "NO_OPINION")).upper()

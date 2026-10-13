@@ -37,24 +37,17 @@ class DefenseAgent:
         prosecution_arguments: str,
         evidence_inventory: list = None,
         case_facts: list = None,
+        canonical_case_file: Optional[str] = None,
     ) -> str:
+        from agents.orchestrator.case_file import build_canonical_case_file, format_cached_messages
 
-        retrieved_laws = format_for_prompt(lexigraph_result)
-        inv_str = json.dumps(evidence_inventory, indent=2) if evidence_inventory else "No formal inventory; rely on case facts."
+        case_file_block = canonical_case_file or build_canonical_case_file(
+            case_facts=case_facts,
+            evidence_inventory=evidence_inventory,
+            lexigraph_output=lexigraph_result,
+        )
 
-        if case_facts:
-            facts_lines = []
-            for i, f in enumerate(case_facts):
-                fid = getattr(f, "id", f.get("id", f"fact_{i+1}") if isinstance(f, dict) else f"fact_{i+1}")
-                txt = getattr(f, "text", f.get("text", f.get("value", "")) if isinstance(f, dict) else str(f))
-                src = getattr(f, "source", f.get("source", "record") if isinstance(f, dict) else "record")
-                facts_lines.append(f"[{fid}] {txt} (Source: {src})")
-            facts_display = "\n".join(facts_lines)
-        else:
-            facts_display = json.dumps(structured_facts, indent=2)
-
-        prompt = f"""
-You are an experienced Indian Criminal Defense Lawyer.
+        role_instructions = """You are an experienced Indian Criminal Defense Lawyer.
 
 Your objective is NOT to prove innocence.
 
@@ -80,31 +73,12 @@ CRITICAL ADVOCACY RULES ON EVIDENCE AND RECORD:
 3. NEVER INVENT ABSENCE OF COMPLAINANT / VICTIM:
    - If the victim/complainant is identified in the facts (e.g. Suresh Gupta), do NOT claim there is no complainant or that no complaint was made.
 4. DO NOT INVENT WEAPONS OR CONFLICTING FACTS:
-   - Never introduce fabricated firearms, injuries, or non-existent third parties.
+   - Never introduce fabricated firearms, injuries, or non-existent third parties."""
 
+        dynamic_turn_content = f"""------------------------
+PROSECUTION ARGUMENTS (TO COUNTER / REBUT)
 ------------------------
-CASE FACTS (WITH FACT IDS)
-------------------------
-
-{facts_display}
-
-------------------------
-EVIDENCE INVENTORY (RECORD STATUS)
-------------------------
-
-{inv_str}
-
-------------------------
-PROSECUTION ARGUMENTS
-------------------------
-
 {prosecution_arguments}
-
-------------------------
-LEXIGRAPH RETRIEVAL
-------------------------
-
-{retrieved_laws}
 
 Return your response strictly as valid JSON matching this schema:
 {{
@@ -116,10 +90,10 @@ Return your response strictly as valid JSON matching this schema:
   ],
   "evidence_refs": ["fact_1", "fact_3"],
   "sections": ["IPC 324", "CrPC 438"]
-}}
-"""
+}}"""
 
-        response = self.llm.invoke(prompt)
+        messages = format_cached_messages(case_file_block, role_instructions, dynamic_turn_content)
+        response = self.llm.invoke(messages)
         parsed = parse_argument_structure(response.content)
 
         facts_lookup = {}
