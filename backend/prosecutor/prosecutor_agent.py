@@ -149,6 +149,7 @@ PHASE_SPOKEN_INSTRUCTIONS: Dict[Phase, str] = {
     ),
 }
 
+<<<<<<< tokens
 COACH_SYSTEM_PROMPT = """You are a moot-court coach for an Indian law student practicing as either Prosecutor or Defense Counsel on an anticipatory bail matter.
 
 You will be given the VERIFIED LEGAL CONTEXT that was available for this case, and the STUDENT'S ARGUMENT they just delivered in their chosen role.
@@ -157,6 +158,392 @@ Give concise, constructive feedback (120-180 words) covering:
 - One thing the student argued well (grounded in the actual context).
 - One missed statutory provision, precedent, or principle that WAS available in the context but the student didn't use.
 - One structural or advocacy point (e.g. didn't address the strongest opposing point, weak prayer, didn't engage presumptions).
+=======
+SESSIONS_DIR = Path("mootcourt_sessions")
+
+
+# ─────────────────────────────────────────────────────────────
+# File I/O
+# ─────────────────────────────────────────────────────────────
+
+def read_pdf(path: Union[str, Path]) -> str:
+    path = Path(path)
+    if not path.exists():
+        raise FileNotFoundError(f"PDF not found: {path}")
+    parts: List[str] = []
+    with pdfplumber.open(path) as pdf:
+        for page in pdf.pages:
+            t = page.extract_text()
+            if t:
+                parts.append(t)
+    return "\n".join(parts)
+
+
+def load_case_text(source: Union[str, Path]) -> str:
+    s = str(source)
+    if s.lower().endswith(".pdf"):
+        console.print(f"[dim]Reading PDF: {s}[/dim]")
+        return read_pdf(s)
+    if s.lower().endswith(".txt") and Path(s).exists():
+        return Path(s).read_text(encoding="utf-8")
+    return s
+
+
+def _session_path(session_id: str) -> Path:
+    SESSIONS_DIR.mkdir(exist_ok=True)
+    return SESSIONS_DIR / f"session_{session_id}.json"
+
+
+def _save_session(session: SessionState) -> None:
+    _session_path(session.session_id).write_text(
+        session.model_dump_json(indent=2), encoding="utf-8"
+    )
+
+
+# ─────────────────────────────────────────────────────────────
+# LLM helpers
+# ─────────────────────────────────────────────────────────────
+
+def _call_llm(client: OpenAI, system: str, user: str,
+              model: str = "gpt-4o-mini", temperature: float = 0.1) -> str:
+    resp = client.chat.completions.create(
+        model=model, temperature=temperature,
+        messages=[
+            {"role": "system", "content": system},
+            {"role": "user",   "content": user},
+        ],
+    )
+    return resp.choices[0].message.content.strip()
+
+
+def _parse_json(raw: str) -> Dict[str, Any]:
+    cleaned = re.sub(r"^```(?:json)?\s*", "", raw, flags=re.MULTILINE)
+    cleaned = re.sub(r"\s*```$",          "", cleaned, flags=re.MULTILINE)
+    return json.loads(cleaned.strip())
+
+
+# ─────────────────────────────────────────────────────────────
+# Context window helper — find surrounding sentences for a fact
+# ─────────────────────────────────────────────────────────────
+
+def _extract_fact_context(case_text: str, fact_text: str, window: int = 3) -> str:
+    """
+    Given a specific fact (a sentence or phrase), find it in the case text
+    and return it together with `window` surrounding sentences on each side.
+    This gives Stage 0 enough context to build a proper CaseContextObject.
+    """
+    sentences = re.split(r'(?<=[.!?])\s+', case_text)
+    # Find the sentence(s) most relevant to the fact
+    fact_lower = fact_text.lower()
+    best_idx = 0
+    best_overlap = 0.0
+    fact_tokens = set(fact_lower.split())
+    for i, sent in enumerate(sentences):
+        sent_tokens = set(sent.lower().split())
+        overlap = len(fact_tokens & sent_tokens) / max(len(fact_tokens), 1)
+        if overlap > best_overlap:
+            best_overlap = overlap
+            best_idx = i
+    start = max(0, best_idx - window)
+    end   = min(len(sentences), best_idx + window + 1)
+    return " ".join(sentences[start:end])
+
+
+# ─────────────────────────────────────────────────────────────
+# Prompts
+# ─────────────────────────────────────────────────────────────
+
+def _extraction_system(sections_text: str) -> str:
+    return f"""You are a Senior Public Prosecutor preparing for an ANTICIPATORY BAIL hearing.
+You have already received the verified IPC sections that apply to this case (retrieved by a statutory analysis pipeline).
+
+VERIFIED SECTIONS RETRIEVED:
+{sections_text}
+
+Your task: read the case facts carefully and produce a structured JSON analysis.
+
+RULES:
+1. Every inferred fact MUST be backed by a VERBATIM quote from the case text.
+   Copy the quote exactly as written. If no direct quote exists, omit the fact.
+2. Extract only what is EXPLICITLY stated. No speculation.
+3. Your sub_queries are for YOUR OWN argument planning — they are NOT sent back to the pipeline.
+4. Rank sub_queries by bail-rejection importance (priority 1 = most critical).
+5. Respond ONLY with valid JSON. No preamble, no markdown.
+
+OUTPUT SCHEMA:
+{{
+  "case_summary": "<one paragraph, prosecutor perspective, referencing retrieved sections>",
+  "victim": ["<name or description>"],
+  "accused": ["<name or description>"],
+  "relationship": "<relationship>",
+  "legal_concepts": ["<concept1>"],
+  "sub_queries": [
+    {{
+      "id": "PSQ1",
+      "query": "<factual allegation>",
+      "legal_concept": "<concept>",
+      "bail_relevance": "<why this supports bail rejection>",
+      "priority": 1,
+      "supporting_facts": [
+        {{
+          "fact_label": "<short label>",
+          "inferred_meaning": "<legal meaning, referencing specific section if applicable>",
+          "verbatim_quote": "<EXACT text from case>"
+        }}
+      ]
+    }}
+  ],
+  "bail_rejection_summary": "<consolidated argument citing retrieved sections>"
+}}"""
+
+
+EXTRACTION_REFLECTION = """You are a Senior Public Prosecutor.
+Your previous JSON had citation errors — some verbatim quotes were NOT found in the case text.
+Re-read the case and fix ONLY the flagged quotes. Return the COMPLETE corrected JSON. No preamble."""
+
+
+def _usage_plan_system(sections_text: str, case_summary: str) -> str:
+    return f"""You are a Senior Public Prosecutor building your argument strategy for an anticipatory bail hearing.
+
+CASE SUMMARY:
+{case_summary}
+
+VERIFIED IPC SECTIONS (from statutory analysis — these are the ONLY sections you may use):
+{sections_text}
+
+THE 4 PILLARS you must cover across your arguments:
+  P1:Gravity               — Gravity of offence: nature, severity, societal impact
+  P2:PrimaFacie            — Prima facie strength: ingredients satisfied, evidence
+  P3:CustodialInterrogation — Why custody is needed: evidence tampering, investigation needs
+  P4:FlightRisk             — Flight risk, witness tampering, roots in society
+
+YOUR TASK: For each retrieved section, decide:
+  1. Which pillar does it primarily support?
+  2. When should it be deployed?
+     - "opening"     : cite in opening argument
+     - "rebuttal"    : keep for rebuttal (stronger impact when defense has spoken)
+     - "conditional" : only deploy if defense specifically raises this line of argument
+  3. Which specific fact from the case does it anchor to?
+  4. What prosecution argument does it enable (one sentence)?
+
+Only include sections where overall_status is "Prima Facie Attracted" or "Partially Attracted".
+Do NOT plan to use sections marked "Not Attracted".
+
+Return ONLY valid JSON, no preamble:
+{{
+  "sections": [
+    {{
+      "section_number": "...",
+      "statute": "IPC",
+      "title": "...",
+      "pillar": "P1:Gravity",
+      "deploy_when": "opening",
+      "anchored_fact": "<specific case fact this section applies to>",
+      "argument_enabled": "<one sentence: what prosecution argument this unlocks>",
+      "prima_facie_strength": "Strong",
+      "overall_status": "Prima Facie Attracted"
+    }}
+  ]
+}}"""
+
+
+def _opening_system(
+    sections_text: str,
+    case_summary: str,
+    usage_plan: SectionUsagePlan,
+) -> str:
+    opening_sections = usage_plan.for_opening()
+    if opening_sections:
+        opening_plan = "\n".join(
+            f"  § {s.section_number} ({s.statute}) — Pillar {s.pillar}\n"
+            f"    Anchored fact: {s.anchored_fact}\n"
+            f"    Argument: {s.argument_enabled}"
+            for s in opening_sections
+        )
+    else:
+        # fallback: use all available sections
+        opening_plan = sections_text
+
+    return f"""You are a Senior Public Prosecutor making your OPENING ARGUMENT opposing anticipatory bail in a Sessions Court.
+Objective: persuade the court to REJECT anticipatory bail.
+
+CASE SUMMARY:
+{case_summary}
+
+YOUR SECTION DEPLOYMENT PLAN FOR THIS OPENING:
+{opening_plan}
+
+ALL VERIFIED SECTIONS AVAILABLE:
+{sections_text}
+
+THE 4 PILLARS you MUST cover (concisely):
+  P1:Gravity               — Gravity of the offence
+  P2:PrimaFacie            — Prima facie strength of the case
+  P3:CustodialInterrogation — Why custodial interrogation is essential
+  P4:FlightRisk             — Flight risk and witness tampering risk
+
+IMPORTANT RULES:
+
+1. This is a SESSIONS COURT, not Supreme Court. Use proportionate, concise language.
+2. NO REPETITION. State each point once. Do not restate the same fact or argument in different words.
+3. Be SPECIFIC to this case. No generic boilerplate like "the gravity of the offence cannot be understated."
+4. Cite ONLY sections from your deployment plan. Do not fabricate sections.
+5. Use formal courtroom language: "May it please this Hon'ble Court..."
+6. Distinguish clearly: what the allegations are vs. what the evidence establishes vs. what the law requires.
+7. Do NOT make conclusive statements that require trial determination. Use: "the material prima facie establishes..." not "the accused is guilty of..."
+8. Address ALL 4 pillars but be concise. Target 200-280 words total.
+
+STRUCTURE:
+
+Opening (1-2 sentences):
+"May it please this Hon'ble Court, the prosecution opposes the anticipatory bail application in connection with [nature of allegations]. The offences invoked are [list section numbers with statute]."
+
+Prima Facie Case (3-4 sentences, addressing P1 and P2):
+State the key allegations and what evidence establishes them. Cite specific sections. Reference gravity.
+
+Custodial Interrogation (2-3 sentences, addressing P3):
+Why custody is necessary. Be specific: what needs to be recovered/confronted/verified. Do not use generic language.
+
+Flight/Tampering Risk (2-3 sentences, addressing P4):
+Specific facts supporting flight or tampering risk. Cite actual case circumstances, not speculation.
+
+Prayer (1 sentence):
+"It is therefore prayed that this Hon'ble Court be pleased to reject the application for anticipatory bail."
+
+Return ONLY valid JSON, no preamble:
+{{
+  "needs_new_sections": false,
+  "unaddressed_fact": "",
+  "new_concepts": [],
+  "pillars_to_address": ["P1:Gravity","P2:PrimaFacie","P3:CustodialInterrogation","P4:FlightRisk"],
+  "countering": [],
+  "new_ground": ["<concise opening ground>"],
+  "sections_to_cite": ["<section numbers you will cite>"],
+  "argument": "<full courtroom argument, 200-280 words, formal, specific, non-repetitive>",
+  "summary_bullets": ["<bullet 1>","<bullet 2>","<bullet 3>"],
+  "positions_asserted": ["<short declarative claim 1>","<short declarative claim 2>"]
+}}"""
+
+
+def _rebuttal_system(
+    sections_text: str,
+    case_summary: str,
+    usage_plan: SectionUsagePlan,
+    prosecutor_positions: List[str],
+    pillars_argued: List[str],
+    sections_cited_so_far: List[str],
+    defense_summary: str,
+    prior_turns_context: str,
+) -> str:
+    remaining_pillars = [p for p in ALL_PILLARS if p not in pillars_argued]
+    remaining_desc = (
+        "\n".join(f"  {p}: {PILLAR_DESCRIPTIONS[p]}" for p in remaining_pillars)
+        if remaining_pillars
+        else "  All 4 pillars argued. Focus on countering defense directly."
+    )
+
+    argued_str = (
+        "\n".join(f"  - {p}" for p in prosecutor_positions)
+        if prosecutor_positions else "  None yet."
+    )
+
+    uncited = [
+        s for s in usage_plan.sections
+        if s.section_number not in sections_cited_so_far
+        and s.overall_status in ("Prima Facie Attracted", "Partially Attracted")
+    ]
+    uncited_desc = (
+        "\n".join(
+            f"  § {s.section_number} — {s.argument_enabled} [deploy_when={s.deploy_when}]"
+            for s in uncited
+        )
+        if uncited else "  All planned sections already cited."
+    )
+
+    return f"""You are a Senior Public Prosecutor making a REBUTTAL opposing anticipatory bail in a Sessions Court.
+Objective: counter the defense and reinforce the case for REJECTING bail.
+
+CASE SUMMARY:
+{case_summary}
+
+ALL VERIFIED SECTIONS AVAILABLE:
+{sections_text}
+
+SECTIONS NOT YET CITED (available to deploy now):
+{uncited_desc}
+
+POSITIONS ALREADY ARGUED — DO NOT REPEAT:
+{argued_str}
+
+REMAINING PILLARS NOT YET FULLY ARGUED:
+{remaining_desc}
+
+PRIOR TURN CONTEXT (compressed):
+{prior_turns_context}
+
+DEFENSE'S LATEST ARGUMENT:
+{defense_summary}
+
+DECISION FRAMEWORK — reason through this before writing:
+
+1. Can I counter the defense using sections already retrieved?
+   → If yes, set needs_new_sections=false. Use them.
+
+2. Did the defense raise a specific FACT (not just a legal argument) for which
+   NO retrieved section covers it?
+   → If yes, set needs_new_sections=true.
+   → In unaddressed_fact: state the SPECIFIC FACT from the defense argument
+     (not a concept, not a legal principle — a concrete factual claim).
+   → The orchestrator will query lexigraphbe specifically for that fact.
+
+3. Which remaining pillars can I advance this turn?
+
+4. Which specific defense claims am I directly countering — and how?
+
+IMPORTANT RULES:
+
+1. This is a SESSIONS COURT. Be concise, proportionate, courtroom-appropriate.
+2. NO REPETITION. Do NOT restate any position from "POSITIONS ALREADY ARGUED."
+3. Respond ONLY to contentions the defense actually made. Do not invent defense arguments.
+4. For each defense point you counter:
+   (a) State what defense relies upon
+   (b) State what that establishes (concede if established)
+   (c) State what it does NOT establish and why
+   (d) State the prosecution's position
+
+5. Only cite sections that are actually retrieved and relevant. Do NOT fabricate sections.
+6. Be specific to THIS case. No boilerplate.
+7. Do NOT make conclusive trial determinations. Use: "the material establishes..." not "the accused is guilty..."
+8. Target 180-250 words. Be sharp and focused.
+
+STRUCTURE:
+
+Response to Defense (3-5 sentences):
+Address the key defense contentions directly and specifically. What did they claim? What does the evidence actually show?
+
+Counter-Evidence/Argument (2-4 sentences):
+Present the prosecution's evidence/position that undermines the defense claim. Cite specific sections if relevant.
+
+Reinforcement (1-2 sentences):
+Reinforce why bail must be rejected. Reference remaining pillars if applicable.
+
+Prayer (1 sentence):
+"It is therefore prayed that anticipatory bail be rejected."
+
+Return ONLY valid JSON, no preamble:
+{{
+  "needs_new_sections": <true|false>,
+  "unaddressed_fact": "<specific factual claim from defense that has no section — empty string if not needed>",
+  "new_concepts": ["<concept if new>"],
+  "pillars_to_address": ["<pillar codes>"],
+  "countering": ["<defense claim being countered>"],
+  "new_ground": ["<new prosecution point>"],
+  "sections_to_cite": ["<section numbers>"],
+  "argument": "<full courtroom rebuttal, 180-250 words, formal, specific, non-repetitive, responsive>",
+  "summary_bullets": ["<bullet 1>","<bullet 2>","<bullet 3>"],
+  "positions_asserted": ["<new declarative claim>"]
+}}"""
+>>>>>>> main
 
 Be specific and cite section/case names only if they appear in the provided context. Do not invent authorities. Keep the tone like a supportive but rigorous moot-court judge giving feedback after a round, not a courtroom voice.
 """

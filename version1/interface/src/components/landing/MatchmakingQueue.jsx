@@ -11,8 +11,14 @@ export default function MatchmakingQueue({ preferredRole, onMatchFound, onCancel
   const [opponent, setOpponent] = useState(null);
   const [assignedRole, setAssignedRole] = useState(null);
   
-  // Directly use the auth context values (or fallback if somehow missing)
-  const actualUserId = currentUser?.uid || `user_${Math.random().toString(36).substring(2, 9)}`;
+  // Ensure consistent user ID across matchmaking and courtroom for guest users
+  const guestIdKey = "mootcourt_user_id";
+  let storedUserId = currentUser?.uid || sessionStorage.getItem(guestIdKey);
+  if (!storedUserId) {
+    storedUserId = `user_${Math.random().toString(36).substring(2, 9)}`;
+    sessionStorage.setItem(guestIdKey, storedUserId);
+  }
+  const actualUserId = storedUserId;
   const actualUsername = userProfile?.display_name || userProfile?.displayName || currentUser?.displayName || `Advocate_${Math.floor(Math.random() * 1000)}`;
   const actualRating = userProfile?.rating || 1200;
 
@@ -27,9 +33,16 @@ export default function MatchmakingQueue({ preferredRole, onMatchFound, onCancel
         
         // 2. Start polling
         pollIntervalRef.current = setInterval(async () => {
-          const res = await pollMatchmakingStatus(actualUserId);
-          if (res.status === "MATCH_FOUND") {
-            handleMatchFound(res);
+          try {
+            const res = await pollMatchmakingStatus(actualUserId);
+            if (res.status === "MATCH_FOUND") {
+              handleMatchFound(res);
+            } else if (res.status === "NOT_IN_QUEUE") {
+              // Re-join if backend reloaded or connection was dropped
+              await joinMatchmakingQueue(actualUserId, actualUsername, preferredRole, actualRating);
+            }
+          } catch (pollErr) {
+            console.warn("Poll failed, will retry...", pollErr);
           }
         }, 2000);
       } catch (err) {

@@ -1,0 +1,437 @@
+{
+  "case_id": "2003_INSC_588",
+  "doc_meta": {
+    "source_file": "2003 INSC 588.pdf",
+    "pdf_pages": 13,
+    "_sources": {
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment",
+      "author": "author:0"
+    },
+    "format_profile": "scr_reporter",
+    "decided_on": "2003-10-30",
+    "coram_raw": "DORAISWAMY RAJU AND ARIJIT PASAYAT, JJ.",
+    "coram_regex": [
+      "DORAISWAMY RAJU",
+      "ARIJIT PASAYAT"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "REGU MAHESH ·@ REGU MAHESW AR RAO",
+    "respondent_regex": "RAJENDRA PRATAP BHANJ DEV AND ANR.",
+    "court_regex": "Supreme Court of India",
+    "year": 2003,
+    "footnotes": [
+      {
+        "page": 19,
+        "text": "J"
+      }
+    ],
+    "reporter_trailer": "A.K.T. Appeal dismissed.",
+    "result_of_case": "Appeal dismissed.",
+    "pre_judgment_block": "CIVIL APPELLATE JURISDICTION: Civil Appeal No. 1833-1834 of 2003. From the Judgment and Order dated 27.12.2002 of the Andhra Pradesh High Court in Application No. 1007/2000 in E.P. No. 14 of 1999. B. Tarkam, S. Udaya Kumar Sagar, Prasanth P. and Mis. Lawyer's Knit & Co. for the Appellant. J.V. Suruanarayana, Venkatarangadas Kanauri and Venkateswara Rao Anumolu for the Respondents.",
+    "case_no": "Civil Appeal No. 1833-1834 of 2003",
+    "appeal_from_raw": "From the Judgment and Order dated 27.12.2002 of the Andhra Pradesh High Court in Application No. 1007/2000 in E.P. No. 14 of 1999",
+    "judgment_author_regex": "ARIJIT PASAYAT",
+    "layout": "unnumbered_page_anchored",
+    "ocr_noise_score": 0.0012
+  },
+  "flags": [
+    "citation_not_found"
+  ],
+  "case": {
+    "case_name": "Regu Mahesh v. Rajendra Pratap Bhanj Dev and Anr.",
+    "petitioner": "Regu Mahesh",
+    "respondent": "Rajendra Pratap Bhanj Dev and Anr.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "DORAISWAMY RAJU",
+      "ARIJIT PASAYAT"
+    ],
+    "judgment_author": "ARIJIT PASAYAT",
+    "procedural_stage": "other",
+    "offence_types": [
+      "election law"
+    ],
+    "dispute_nature": "political",
+    "abstract_facts": "This case involves an election petition challenging the election of the respondent from a reserved constituency for Scheduled Tribes on the grounds that the candidate does not belong to that category. The petitioner alleged corrupt practices related to false representation regarding his caste certificate.",
+    "lower_court_outcome": "The appeal was against a judgment of the Andhra Pradesh High Court that dismissed the election petition on procedural grounds.",
+    "disposition": "Appeal dismissed.",
+    "statutes": [
+      {
+        "act": "Representation of the People Act, 1951",
+        "section": "83",
+        "how_used": "interpreted",
+        "note": "The petition must be verified as per the Code of Civil Procedure regarding claims of corrupt practices."
+      },
+      {
+        "act": "Representation of the People Act, 1951",
+        "section": "86",
+        "how_used": "interpreted",
+        "note": "The High Court can dismiss an election petition not complying with specified provisions."
+      }
+    ],
+    "issues": [
+      {
+        "question": "Whether the allegations in the election petition amount to corrupt practice?",
+        "short_answer": "No.",
+        "anchors": [
+          "p11.1"
+        ]
+      },
+      {
+        "question": "Did the High Court err in dismissing the election petition due to verification defects?",
+        "short_answer": "No.",
+        "anchors": [
+          "p11.2"
+        ]
+      },
+      {
+        "question": "Can defects in verification be cured?",
+        "short_answer": "Yes.",
+        "anchors": [
+          "p17.1"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "Allegations of fraud in obtaining a false caste certificate do not per se constitute corrupt practice under the Representation of the People Act, 1951.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p15.1"
+        ],
+        "quote": "Though allegations of fraud etc. in obtaining false caste certificate have serious implications, under the Act and particularly as the language of Section 123(3) specifies and enumerates they do not per se constitute corrupt practice."
+      },
+      {
+        "id": "p2",
+        "text": "The election petition must be signed and verified in accordance with the Code of Civil Procedure, including specifying what is based on personal knowledge versus information received.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p15.3"
+        ],
+        "quote": "The petition shall be signed by the petitioner and verified in the manner laid down in CPC for verification of facts."
+      },
+      {
+        "id": "p3",
+        "text": "Defects in verification or affidavits accompanying election petitions are curable, but failure to rectify such defects may lead to dismissal of the petition.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p17.1"
+        ],
+        "quote": "It is, therefore, a settled position in law that defect in verification or an affidavit is curable."
+      },
+      {
+        "id": "p4",
+        "text": "An election petition plays a crucial role in upholding the integrity of the electoral process, and claims must be substantiated with weighty evidence; casual or negligent filings are not sufficient.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p19.2"
+        ],
+        "quote": "An election petition is intended to bring to focus any illegality attached to an election."
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The affidavit and verification defects are curable and the election petition had sufficient information.",
+        "outcome": "accepted",
+        "anchors": [
+          "p12.1"
+        ]
+      },
+      {
+        "side": "respondent",
+        "text": "The election petition is vague, lacks proper verification, and does not disclose a valid cause of action.",
+        "outcome": "rejected",
+        "anchors": [
+          "p12.3"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "Virendra Kumar Saklecha v. Jagjiwan",
+        "citation": null,
+        "treatment": "relied_on",
+        "used_for": "Defects in verification are curable.",
+        "where": "[[p18.1]]"
+      },
+      {
+        "name": "State of Bombay v. Purushotham",
+        "citation": null,
+        "treatment": "relied_on",
+        "used_for": "Importance of verification in affidavits.",
+        "where": "[[p18.2]]"
+      },
+      {
+        "name": "F.A. Sapa and Ors. v. Singora and Ors.",
+        "citation": null,
+        "treatment": "followed",
+        "used_for": "Defects in verification can be cured; verification should clarify sources of information.",
+        "where": "[[p16.4]]"
+      },
+      {
+        "name": "R.P. Moidutty v. P.T. Kunju Mohammad",
+        "citation": null,
+        "treatment": "relied_on",
+        "used_for": "Significance of verification in election petitions.",
+        "where": "[[p17.3]]"
+      }
+    ]
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": false,
+      "note": "The anchor text does support the proposition verbatim."
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "unsupported",
+      "favors_correct": true,
+      "note": "The anchor text is missing, so it cannot support the proposition as worded."
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p4": {
+      "id": "p4",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    }
+  },
+  "needs_review": [
+    "p2: unknown/missing anchors ['p15.3']",
+    "p3: quote not found in its anchors",
+    "p1: verifier says supported, favors_correct=False - The anchor text does support the proposition verbatim.",
+    "p2: verifier says unsupported, favors_correct=True - The anchor text is missing, so it cannot support the proposition as worded.",
+    "auto-coerced: procedural_stage: 'post_arrest' -> 'post_arrest_bail'",
+    "parser flag: citation_not_found"
+  ],
+  "paragraphs": {
+    "p10.1": {
+      "text": "ARIJIT PASAYAT, J. In these appeals under Section 116A of the Representation of the People Act, 1951 (for short 'the Act') challenge is made to judgment and order dated 27.12.2002 passed by the Andhra Pradesh High Court dismissing the election petition filed by the appellant, by accepting prayers made by the respondent no. I in that regard. As the issues involved are pristinely legal, reference to the factual scenario briefly_ would suffice. Election was held to Andhra Pradesh Legislative Assembly on 11.9.1999. The controversy in the present appeal relates to I 0 Saluru (ST) Legislative Assembly Constituency which is reserved for members of the Scheduled Tribe. Respondent no.I filed his nomination claiming to be a member of Scheduled Tribe. His nomination was accepted and objections to his • REGU MAHESH v. R.P.B. DEV [PASA YAT, .I.] candidature were rejected. Nominations of some candidates were also rejected. Respondent no. I after poll was declared elected in the election. The appellant filed election petition under Sections 5 and 100{1 )( c) and ( d)(i) of the Act before the ~ligh Court on 19.I 1.1999. Primary stand taken in the election petition appears to be that the claim of respondent no. I that he is a member of Scheduled Tribe is not correct. Application was filed by present respondent no. I under Order VI Rule 16 and Order VII Rule 11 read with Section 151 of the Code of Civil Procedure, 1908 (for short 'the CPC') and Section 86 of the Act praying for rejection of the election petition on the ground that locus of the petitioner was not established, no cause of action was disclosed and affidavit accompanying the petition was not in the prescribed form, verification done and the affidavit filed did not conform to the requirements as laid down in the statute in regard to alleged corrupt practice and, therefore, the same was misconceived and was liable to be rejected. Appellant filed his response to the application.",
+      "page_start": 10,
+      "page_end": 11
+    },
+    "p11.1": {
+      "text": "On consideration of the rival stands the High Court came to hold that > though essentially there was no definite allegation of corrupt practices, yet allegations that somebody played fraud and has approached the electorate claiming that he belongs to Scheduled Tribe and get selected are similar to, if not higher in gravity than allegations as to corrupt practices. The allegations are to be treated at par with those relating to corrupt practices. That being so it was held that the affidavit was not in the proper form and that election petition was not maintainable, as material facts were not pleaded, and merely some unreliable and improper averments were made and that required rejection of the petition. It was observed that the verification as required to be done in terms of Order VI Rule 15 CPC were not complied with. The verification was extremely vague and it was not stated as to what was the source of information on which pleadings were based and which part really was on the basis of personal knowledge and information was also not indicated. It was additionally noted that the petitioner was very casual in filing the election petition; even the district to which the election petitioner claimed to belong was described differently in the election petition. In conclusion it was noted by the High Court as follows:",
+      "page_start": 11,
+      "page_end": 11
+    },
+    "p11.2": {
+      "text": "(a) The Election Petition does not disclose a valid cause of action; (b) It contains several paragraphs which do not fit into an Election Petition filed under Sections 5 and IOO(l)(d)(i) of the Act; (c) There does not exist any valid verification of the pleadings; ,.",
+      "page_start": 11,
+      "page_end": 12
+    },
+    "p12.1": {
+      "text": "( d) The affidavit filed by the petitioner along with the Election Petition does not conform to the Form prescribed (Form No.25) under Rule 94-A of the Conduct of Election Rules, 1961 (in short 'the Rules'). In support of the appeals, learned senior counsel for the appellant submitted that the insistence on affidavit in a particular form is not correct as there was no allegation of corrupt practice and, therefore, an affidavit envisaged in relations to such allegations is not required. Since the respondent no. I committed fraud on the constituency and the constituents by claiming to be member of Schedule Tribe, and requisite information was given the election petition should not have been dismissed. Finally the deficiencies, if any, in the verification and affidavit are of curable nature and the High Court should have granted an opportunity to cure the defects.",
+      "page_start": 12,
+      "page_end": 12
+    },
+    "p12.2": {
+      "text": "The petition was not one which could be rejected in terms of Section 86(1) of the Act. The said provision empowers the High Court to dismiss the election petition which does not comply with the provisions of Section 81 or Section 82 or Section 117 of the Act. None of these provisions have application to the facts of the case.",
+      "page_start": 12,
+      "page_end": 12
+    },
+    "p12.3": {
+      "text": "In response, learned senior counsel for the respondent no. I submitted that the election petition is extremely vague, the appellant nowhere stated that he was an elector, it was not specifically indicated in the verification as to which part of the petition was based on personal knowledge and which part also based on information and the source of information if any. The petition which does not contain a proper verification is not an election petition in terms of Section 83( I) of the Act. There was no cause of action indicated. The pleadings clearly show allegations of corrupt practices in terms of Section 123 (3). Particular reference is made to paragraph 8 of the petition which according to him is definite allegation of appealing to the electorate on the ground of caste.",
+      "page_start": 12,
+      "page_end": 12
+    },
+    "p12.4": {
+      "text": "Respective stands need careful consideration. Before we deal with the basic issues, it would be appropriate to quote few provisions from the Act: \"Section 8 /- Presentation of Petitions- (I) An election petition calling in question any election may be presented on one or more of the grounds specified in sub-section(!) of Section 100 and Section IOI to the High Court by any candidate at such election or any elector within forty-five days from, but not earlier than the date of election of the returned candidate or if there are more than one returned REGU MAHESH v. R.P.B. DEV [PASAYAT, J.)",
+      "page_start": 12,
+      "page_end": 13
+    },
+    "p13.1": {
+      "text": "candidate at the election and dates of their election are different, the later of those two dates.",
+      "page_start": 13,
+      "page_end": 13
+    },
+    "p13.2": {
+      "text": "Explanation - In this sub-section, \"elector\" means a person who was entitled to vote at the election to which the election petition relates, whether he has voted at such election or not.",
+      "page_start": 13,
+      "page_end": 13
+    },
+    "p13.3": {
+      "text": "(2) xx x xx (3) Every election petition shall be accompanied by as many copies thereof as there are respondents mentioned in the petition and every such copy shall be attested by the petitioner under his own signature to be a true copy of the petition.",
+      "page_start": 13,
+      "page_end": 13
+    },
+    "p13.4": {
+      "text": "Section 83-Contents of petition - (I) An election petition- (a) shall contain a concise statement of the material facts on which the petitioner relies;",
+      "page_start": 13,
+      "page_end": 13
+    },
+    "p13.5": {
+      "text": "(b) shall set forth full particulars of any corrupt practice that the petitioner alleged including as full a statement as possible of the names of the parties alleged to have committed such corrupt practice and the date and place of the commission of each such practice; and ( c) shall be signed by the petitioner and verified in the manner laid down in the Code of Civil Procedure, 1908 (5 of 1908) for the verification of pleadings;",
+      "page_start": 13,
+      "page_end": 13
+    },
+    "p13.6": {
+      "text": "Provided that where the petitioner alleges any corrupt practice, the petition shall also be accompanied by an affidavit in the prescribed form in support of the allegation of such corrupt practice and the particulars thereof.",
+      "page_start": 13,
+      "page_end": 13
+    },
+    "p13.7": {
+      "text": "(2) Any schedule or annexure to the petition shall also be signed by the petitioner and verified in the same manner as the petition. Section 86 - Trial of election petitions - (I) The High Court shall dismiss an election petition which does not comply with the provisions of Section 81 or Section 82 or Section 117.",
+      "page_start": 13,
+      "page_end": 13
+    },
+    "p13.8": {
+      "text": "Explanation - An order of the High Court dismissing an election petition under this sub-section shall be deemed to be an order made under clause (a) of Section 98.",
+      "page_start": 13,
+      "page_end": 13
+    },
+    "p14.1": {
+      "text": "(2) As soon as may be after an election petition has been presented to the High Cnurt, it shall be referred to the Judge or one of the Judges who has or have been assigned by the Chief Justice for the trial of election petitions under sub-section (2) of Section 80A. (3) Where more election petitions than one are presented to the High Court in respect of the same election, all of them shall be referred for trial to the same Judge who may, in his discretion, try \\hem separately or in one or more groups.",
+      "page_start": 14,
+      "page_end": 14
+    },
+    "p14.2": {
+      "text": "( 4) Any candidate not already a respondent shall, upon application made by him to the High Court within fourteen days from the date c of commencement of the trial and subject to any order as to security for costs which may be made by the High Court, be entitled to be joined as a respondent.",
+      "page_start": 14,
+      "page_end": 14
+    },
+    "p14.3": {
+      "text": "Explanation:- For the purposes of this sub-section and of Section 97, the trial of a petition shall be deemed to commence on the date fixed for the respondents to appear before the High Court and answer the claim or claims made in the petition.",
+      "page_start": 14,
+      "page_end": 14
+    },
+    "p14.4": {
+      "text": "(5) The High Court may, upon such terms as to costs and otherwise as it may deem fit, allow the particulars of any corrupt practice alleged in the petition to be amended or amplified in such manner as may in its opinion be necessary for ensuring a fair and effective trial of the petition, but shall not allow any amendment of the petition which will have the effect of introducing particulars of a corrupt practice not previously alleged in the petition.",
+      "page_start": 14,
+      "page_end": 14
+    },
+    "p14.5": {
+      "text": "(6) The trial of an election petition shall, so far as is practicable consistently with the interests of justice in respect of the trial, be continued from day to day until its conclusion, unless the High Court finds the adjournment of the trial beyond the following day to be necessary for reasons to be recorded.",
+      "page_start": 14,
+      "page_end": 14
+    },
+    "p14.6": {
+      "text": "(7) Every election petition shall be tried as expeditiously as possible and endeavour shall be made to conclude the trial within six months from the date on which the election petition is presented to the High Court for trial. Section 123 (3) - The appeal by a candidate or his agent or by any other person with the consent of a candidate or his election agent to vote or refrain from voting for any person on the ground of his ., religion, race, caste, community or language or the use of, or appeal to religious symbols or the use of, or appeal to, national symbriis, such as the national flag or the national emblem, for the furtherance of the prospects of the election of that candidate or for prejudicially affecting the election of any candida!1:: ·•· Provided that no symbol allotted under this Act to a candidate shall be deemed to be a religious symbol or a national symbol for the purposes of this clause.\"",
+      "page_start": 14,
+      "page_end": 15
+    },
+    "p15.1": {
+      "text": "What is \"corrupt practice\" is set out in Section 123. In terms of Section 83(b) wherever corrupt practice is alleged, full particulars of such practice c alleged including a full statement as possible of names of the parties alleged to have committed corrupt practice and the. date and place of commission of ~.uch practice has to be indicated. Though allegation of fraud etc. in obtaining false caste certificate have serious implications, under the Act and particularly as the language of Section 123(3) specifies and enumerates they do not per Ir ' se constitute corrupt practice. The fact that a candidate obtains a certificate that he belonged to and is a member of the Scheduled Caste/Tribe to contest as one belonging to such caste/Tribe, essential and necessary for contesting as a candidate in a Reserved Constituency, at any rate, cannot amount to an appeal to vote or refrain from voting on ground of his caste/Tribe for the reason that what was obligated by the statute upon any one to be entitled to contest in such a· reserved constituency cannot become condemnable as , \"corrupt practice\". To attract the vice of the said provisions as amounting to \"corrupt practice\", independent appeal or canvassing for votes by the candidate J' or his agent or by another person with the consent of the candidate or the election agent for the furtherance of the prospects of the election of that candidate or for prejudicially affecting the election of any candidate is an essential ingredient Therefore, the provision requiring an 'affidavit in the prescribed form (Form-94) may not strictly have any application. But that is not the omega. As Section 83(c) itself indicates, the petition shall be signed by the petitioner and verified in the manner laid down in CPC for verification of facts. Order VI Rule 15 deals with verification of pleadings and reads as follows:",
+      "page_start": 15,
+      "page_end": 15
+    },
+    "p15.2": {
+      "text": "\"Verification of pleadings - ( 1) Save as otherwise provided by any law for the time being in force, every pleading shall be verified at the .> foot by the party or by one of the parties pleading or by some other person proved to the satisfaction of the court to be acquainted with the facts of the case.",
+      "page_start": 15,
+      "page_end": 15
+    },
+    "p16.1": {
+      "text": "(2) The person verifying shall specify, by reference to the numbered paragraphs of the pleadings, what he verifies of his own knowledge and what he verifies upon information received and believed to be true.",
+      "page_start": 16,
+      "page_end": 16
+    },
+    "p16.2": {
+      "text": "(3) The verification shall be signed by the person making it and shall state the date on which and the place at which it was signed.\" As sub-rule (2) of Rule 15 prescribes that a person making a verification is required to specify by reference to the numbers of paragraphs of the pleadings what he believes on his own knowledge, and what he reveals upon information received and believed to be true. This admittedly has not been done in the present case.",
+      "page_start": 16,
+      "page_end": 16
+    },
+    "p16.3": {
+      "text": "In F.A. Sapa and Ors. v. Singora and Ors., (1991) 3 SCC 375 a three- Judge Bench of this Court specifically dealt with an issue concerning defects in the verification of an election petition as well as of defects in the affidavit accompanying an election petition wherein allegations of corrupt practice are made. After considering the provisions of Sections 83 and 86 of the Act, as also the requirements of Form 25 prescribed by Rule 94-A of the Rules and relevant provisions of the CPC, it was held: (SCC pp.403-04, para 28) \"28. From the text of the relevant provisions of the R.P. Act, Rule 94-A and Form 25 as well as Order 6 Rule 15 and Order 19 Rule 3 of the Code and the resume of the case-law discussed above it clearly emerges (i) a defect in the verification, if any, can be cured (ii) it is not essential that the verification clause at the foot of the petition or the affidavit accompanying the same should disclose the grounds or sources of information in regard to the averments or allegations which are based on information believed to be true (iii) if the respondent desires better particulars in regard to such averments or allegations, he may call for the same in which case the petitioner may be required to supply the same and (iv) the defect in the affidavit in the prescribed Form 25 can be cured ... \"",
+      "page_start": 16,
+      "page_end": 16
+    },
+    "p16.4": {
+      "text": "This judgment was followed by a Division Bench of this Court in H.D. Revanna v. G. Puttaswamy Gowda, [ 1999) 2 SCC 217 and by a three-Judge Bench in Dr. Vijay Laxmi Sadho v. Jagdish, [2001 2 SCC 247 It is, therefore, a settled position in law that defect in verification or an affidavit is curable. But further question is what happens when the defect is not cured. There is gulf of difference between a curable defect and a defect continuing in the verification affidavit without any effort being made to cure the defect.",
+      "page_start": 16,
+      "page_end": 17
+    },
+    "p17.1": {
+      "text": "In F.A. Sapa 's case (supra) it was held that even though ordinarily a defective verification can be cured and the failure to disclose the grounds or sources of information may not be fatal, failure to place them on record with promptitude may lead the Court in a given case to doubt the veracity of the evidence ultimately tendered.",
+      "page_start": 17,
+      "page_end": 17
+    },
+    "p17.2": {
+      "text": "f In R.P. Moidutty v. P. T. Kunju Mohammad and Anr., [2000] 1 SCC 481) it was, inter alia, held as follows:",
+      "page_start": 17,
+      "page_end": 17
+    },
+    "p17.3": {
+      "text": "\"All the averments made in paras 1 to 17 of the petition have been stated to be true to the personal knowledge of the petitioner and in the next breath the very same averments have been stated to be based on the information of the petitioner and believed by him to be true. The source of information is not disclosed. As observed by this ·. ,.",
+      "page_start": 17,
+      "page_end": 17
+    },
+    "p17.4": {
+      "text": "Court in Singora 's case (supra) the object of requiring verification of an election petition is to clearly fix the responsibility for the averments and allegations in the petition on the person signing the verification and, at the same time, discouraging wild and irresponsible allegations unsupported by facts. However, the defect of verification is not fatal to the petition, it can be cured (See Murarka Radhey Shyam Ram Kumarv. Roop Singh Rathore, AIR (1964) SC 1545 andA.S. Subbaraj v. M Muthiah, (5 ELR 21 ). In the present case the defect in verification was pointed out by raising a plea in that regard in the written statement. The objection was pressed and pursued by arguing the same before the Court. However, the petitioner persisted in pursuing the petition without proper verification which the petitioner should not have been permitted to do. In our opinion, unless the defect in verification was rectified, the petition could not have been tried. \" (Underlined for emphasis)",
+      "page_start": 17,
+      "page_end": 17
+    },
+    "p17.5": {
+      "text": "The case at hand has great similarity with the decision in R.P. Moidutty 's case (supra). Not only defects in the verification/affidavit were pointed out, but they were pressed into service seeking dismissal of the election petition. The appellant stated in his reply that he .was filing separate petition with permission for leave of the High Court for amending the verification. But that was not done and the appellant continued to stick to his stand that since corrupt practice was not alleged, there is no need for making any amendment. The importance of verification has been noted by this Court in several decisions. In Virendra Kumar Saklecha v. Jagjiwan and Ors., [1972] I SCC 826) it was noted as under:",
+      "page_start": 17,
+      "page_end": 18
+    },
+    "p18.1": {
+      "text": "\"The importance of setting out the source of information in affidavits came up for consideration before this Court from time to time. One of the earliest decisions is State of Bombay v. Purushottam Jog Naik, . AIR (1952) SC 317 where this Court endorsed the decision of the Calcutta High Court in Padmadbati Dasi v. Rasik Lal Dhar, (!LR) 37 Cal. 259) anli held that the sources of information should be clearly disclosed. Again in BariunJ Chemicals Ltd. and Anr. v. Company Law c Board and Ors., AIR (1967) SC 295 this Court deprecated slip shod verifications in an affidavit and re-iterated the ruling of this Court in Bombay's case (supra) that verification should invariably be modelled on the lines of Order 19, Rule 3 of the Code 'Whether the Code applies in terms or not'. Again in A.K.K. Nambiar v. Union of India and Anr., [ 1969] 3 SCC 864, this Court said that the importance of verification is to test the genuineness and authenticity of allegations ' artd also to make the deponent responsible for allegations. The real importance of setting out the sources of information at the time of the presentation of the petition is to give the other side notice of the contemporaneous evidence on wh,ich the election petition is based. That will give an opportunity to the other side to test the genuineness and veracity of the source of information. The other point of view is that the election petition will not be able to make any departure from the sources or grounds, if there is any embellishment of the case it will be discovered\".",
+      "page_start": 18,
+      "page_end": 18
+    },
+    "p18.2": {
+      "text": "The Constitution Bench in St~te of Bombay v. Purushotham, AIR (1952) SC 317 noted as follows:",
+      "page_start": 18,
+      "page_end": 18
+    },
+    "p18.3": {
+      "text": "\"The verification however states that everything was true to the best of his information and belief. We point this out as slipshod verifications of this type might well in a given case lead to a rejection of the affidavit. Verification should invariably be modelled on the lines of Order 19, Rule 3 of the Civil Procedure Code, whether the Code applies in terms or not. And when the matter deposed to is not based on personal knowledge the source of information should be clearly disclosed.· We draw attention to the remarks of Jenkins C.J. and Woodroffe, J, in Padmabati Dasi v. Rasik Lal Dhar, (37 Cal. 259) and endorse the learned Judges' observations\".",
+      "page_start": 18,
+      "page_end": 19
+    },
+    "p19.1": {
+      "text": "An election petition has definite role in the law relating to election of representatives of the people.",
+      "page_start": 19,
+      "page_end": 19
+    },
+    "p19.2": {
+      "text": "The casual approach of the appellant is not only visible from the manner in which verification was done, but also from the fact that he has mentioned two different districts to which he claims to be belonging. The • explanation that the same was given by mistake is too shallow when considered in the background that he is stated to be a practicing advocate. An advocate is supposed to know the importance of verification and the desirability of making statement of correct facts in any petition and more in case of an election petition. An election petition is intended to bring to focus any illegality attached to an election. It essentially and basically puts a question mark on the purity of election, casts doubt on fairness thereof and seeks a declaration that mandate of people has been obtained by questionable means. In a democracy the mandate has sacrosanctity. It is to be respected and not lightly interfered with. When it is contended that the purity of electoral process has · been polluted, weighty reasons must be shown and established. The onus on the election petitioner is heavy as he has to substantiate his case by making out a clear case for interference both in the pleadings and in the trial. Any casual, negligent or cavalier approach in such serious and sensitive matter involving great public importance cannot be countenanced or glossed over too liberally as for fun.",
+      "page_start": 19,
+      "page_end": 19
+    },
+    "p19.3": {
+      "text": "Above being the position, we find no reason to interfere with the impugned judgment dismissing the election petition; though we have not approved or affirmed some of the reasons for conclusion arrived at by the High Court, as detailed above. The appeals fail and are dismissed. No costs.",
+      "page_start": 19,
+      "page_end": 19
+    }
+  },
+  "headnote_raw": " \nREGU MAHESH ·@ REGU MAHESW AR RAO\nv.\nRAJENDRA PRATAP BHANJ DEV AND ANR.\nOCTOBER 30, 2003\nRepresentation of the People Act, 1951.\nSections 5, 81, 83, 86, JOO(l)(c) and (d) (i), 116 and 123-Election\npetition challenging election to reserved constituency for Scheduled Tribe on\nthe ground that elected candidate does not belong to ST-Whether allegation\namounts to corrupt practice-Held, allegation of fraud, etc. in obtaining false\ncaste certificate does not per se constitute corrupt practice-Provision requiring\naffidavit in prescribed form not strictly applicable-Verification of election\n.J\npetition not proper-Effect of-Held, defects in verification/affidavit curable-\nDefects in verification/affidavit pointed out-Dismissal of petition sought on\nthose grounds-No steps taken to cure defect-Incorrect facts stated in\n\"\npetition-Casual, negligent or cavalier approach of petitioner-On facts, held\njudgment dismissing election petition does not call for inteiference---Code of\nCivil Procedure, 1908-0rder VI Rules 15and1.6---Conduct of Election Rules,\n1951-Rule 94-A.\nAppellant filed election petition under Sections 5 and IOO(l)(c) and\n(d)(i) of the Representation of People Act, 1951 challenging the election\nof respondent no. 1 from Saluru (ST) Legislative Assembly Constituency\nreserved for members of the Scheduled Tribe (ST) on the ground that\nrespondent no. 1 does not being to ST. Respondent no. 1 filed application\nunder Order VI Rule 16 and Order VII Rule 11 read with Section 151 of\nthe Code of Civil Procedure, 1908 and Section 86 of the 1951 Act for\nrejecting election petition. High Court held that allegations made in the\nelection petition were grave and had to be treated at par with those\nrelating to corrupt practices and rejected election petition on the ground\nthat affidavit accompanying election petition did not conform to Form\nprescribed (Form No. 25) under Rule 94-A of the Conduct of Election\n>\nRules, 1961; that election petition did not disclose valid cause of action as\nmaterial facts were not pleaded and contained averments which did not\n7\n \n8\n•\nfit into an election petition under Sections 5 and IOO(l)(d)(i) of the 1951\nAct; and that verification of the pleadings was not proper as the same did\nnot conform to requirements laid down in Statute in regard to alleged\ncorrupt practice. Hence these appeals under Section 116A of the 1951 Act.\nAppellant contended that insistence on affidavit envisaged in relation\nto corrupt practices is not correct as there was no allegation of corrupt\npractice in the election petition; that election petition contained requisite\ninformation and should not have been dismissed; that deficiencies in\nverification and affidavit are of curable nature .and High Court should\nhave granted an opportunity to cure the defects; and that Section 86(1)\nof the 1951 Act did not apply to the facts of the case.\nRespondent no. I contended that the election petition is extremely\nvague; that petitioner did state that he was an elector; that election petition\ndid not contain proper verfication; that election petition did not indicate\ncause of action; and that pleadings show allegations of corrupt practices\nin terms of Section 123(3) of the 1951 Act.\nDismissing the appeal, the Court\nHELD : 1. In- terms of Section 83(b) of the Representation of the\nPeople Act, 1951 wherever corrupt practice is alleged, full particulars of\nsuch practice alleged including a full statement as possible of names of\nthe parties alleged to have committed corrupt practice and the date and\nplace of commission of such practice has to be indicated. Though allegatio!I\nof fraud etc. in obtaining false caste certificate have serious implications,\nunder the Act and particularly as the language of Section 123(3) specifies\nand enumerates they do not per se constitute corrupt practice. The fact\nthat a candidate obtains a certificate that he belonged to and is a member\nof the Scheduled Caste/Tribe to contest as one belonging to such caste/\nTribe, essential and necessary for contesting as a candidate in a Reserved\nConstituency, at any rate, cannot amount to an appeal to vote or refrain\nfrom voting on ground of his caste/Tribe for the reason that what was\nobligated by the statute upon any one to be entitled to co.test in such a\nreserved constituency cannot become condemnable as \"corrupt practice\".\nTo attract the vice of the said provisions as amounting to \"corrupt\npractice\", independent appeal or canvassing for votes by the candidate\nor his agent or by another person with the consent of the candidate or\nthe election agent for the furtherance of the prospects of the election of\nessential ingredient. Therefore, the provision requiring an affidavit in the\n \n9\n...\nprescribed form (Form-94) may not strictly have any application.\n115-C-FI\n2. As Section 83(c) of the 1951 Act itself indicates, the petition shall\nbe signed by the petitioner and verified in the manner laid down in CPC\nfor verification of facts. Order VI Rule 15 deals with verification of\npleadings. Sub-rule (2) of Rule 15 prescribes that a person making a\nverification is required to specify by reference to the numbers of\nparagraphs of the pleadings what he believes on his own knowledge; and\nwhat he reveals upon information received and believed to be true. This\nadmittedly has not been done. It is settled position in law that defect in\nverification of an affidavit is curable. 115-G; 16-B, C; 16-H]\nVirendra Kumar Saklecha v. Jagjiwan and Ors., 1197211SCC826, State\nof Bombay v. Purushotham, AIR (1952) SC 317, F.A. Sapa and Ors. v.\nSingora and Ors., (19911 3 SCC 375, Dr. Vijay Laxmi Sadho v. Jagdish,\ni\n(20011 2 SCC 247 and H.D. Revanna v. G. Puttaswamy Gowda, 119991 2\nsec 211, relied on.\n3. There is gulf of difference between a curable defect and a defect\ncontinuing in the verification affidavit without any effort being made to\ncure the defect. Not only defects in the verification/affidavit were pointed\nout, but they were pressed into service seeking dismissal of the election\npetition. The appellant stated in his reply that he was filing separate\npetition with permission for leave of the High Court for amending the\nverification. But that was not done and the appellant continued to stick\nto his stand that since corrupt practice was not alleged, there is no need\nfor making any amendment. 116-H; 17-G-HI\nF.A. Sapa and Ors. v. Singora and Ors., 11991) 3 SCC 375 and R.P.\nMoidutty v. P.T. Kunju Mohammad and Anr., (200011 SCC 481, relied on.\n4.1. An election petition has definite role in the law relating to\nelection of representatives of the people. An election petition is intended\nto bring to focus any illegality attached to an election. It essentially and\nbasically puts a question mark on the purity of election, casts doubt on\nfairness thereof and seeks a declaration that mandate of people has been\nobtained by questionable means. In a democracy the mandate has\nsacrosanctity. It is to be respected and not lightly interfered with. When\nit is contended that the purity of electoral process has been polluted,\nweighty reasons must be shown and established. The onus on the election\n \npetitioner is heavy as he has to substai!tiate his case by making out a clear\ncase for interference both in the ple3dings and in the trial Any casual,\nnegligent or cavalier approach in such serious and sensitive matter\ninvolving great public importance cannot be countenanced or glossed over\ntoo liberally as for fun. (19-A, C-El\n4.2. The casual approach elf the appellant is not only visible from\nthe manner in which verification was done, but also from the fact that he\nhas mentioned two different districts to which he claims to be belonging.\nThe explanation that the same was given by mistake is too shallow when\nconsidered in the background that he is stated to be a practicin& advocate.\nAn advocate is supposed to know the importance of verification and the\ndesirability of making statement of correct facts in any petition and more\nin case of an election petition. There is no reason to interfere with the\nimpugned judgment dismissing the election petition. (19-B, C, El\n"
+}

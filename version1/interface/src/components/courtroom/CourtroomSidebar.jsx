@@ -25,7 +25,8 @@ export default function CourtroomSidebar({
   uploadProgress,
   uploadedFileName,
   latestMessage,
-  status
+  status,
+  onRaiseObjection
 }) {
   const [activeTab, setActiveTab] = useState("brief"); // "brief" | "facts" | "evidence" | "lexigraph"
   const [factFilter, setFactFilter] = useState("all"); // "all" | "allegation" | "procedural_event" | "court_finding"

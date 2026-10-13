@@ -599,14 +599,49 @@ def _normalise_facts(facts: Dict[str, Any]) -> Dict[str, Any]:
     if not isinstance(sections, list):
         sections = []
 
+    def _clean(v: Any) -> Optional[str]:
+        """Return None for Python None, the string 'null', or empty strings."""
+        if v is None:
+            return None
+        s = str(v).strip()
+        return None if s.lower() in ("null", "") else s
+
+    _PROCEDURAL_PREFIXES_LC = ("bnss", "crpc", "code of criminal procedure")
+
+    def _is_procedural(sec: str) -> bool:
+        return any(sec.strip().lower().startswith(p) for p in _PROCEDURAL_PREFIXES_LC)
+
+    clean_complainant = _clean(who.get("complainant"))
+    clean_accused = [str(a) for a in (who.get("accused") or [])
+                     if a is not None and _clean(str(a)) is not None]
+    clean_victims  = [str(v) for v in (who.get("victims") or [])
+                      if v is not None and _clean(str(v)) is not None]
+
+    all_sections = [str(x) for x in sections if x is not None and _clean(str(x))]
+    offence_secs    = [s for s in all_sections if not _is_procedural(s)]
+    procedural_secs = [s for s in all_sections if _is_procedural(s)]
+
+    # Build incident summary with source attribution if it's a plain string
+    raw_summary = incident.get("summary")
+    if isinstance(raw_summary, dict):
+        summary_field = raw_summary  # already attributed
+    elif raw_summary:
+        summary_field = {
+            "text": raw_summary,
+            "source": "prosecution_case",
+            "certainty": "alleged",
+        }
+    else:
+        summary_field = None
+
     return {
         "who": {
-            "complainant": who.get("complainant") or None,
-            "accused": list(who.get("accused") or []),
-            "victims": list(who.get("victims") or []),
+            "complainant": clean_complainant,
+            "accused": clean_accused,
+            "victims": clean_victims,
         },
         "incident": {
-            "summary": incident.get("summary") or None,
+            "summary": summary_field,
             "date": incident.get("date") or None,
             "time": incident.get("time") or None,
             "place": incident.get("place") or None,
@@ -616,10 +651,12 @@ def _normalise_facts(facts: Dict[str, Any]) -> Dict[str, Any]:
             "gold": prop.get("gold") or None,
             "documents": prop.get("documents") or None,
             "vehicles": vehicles,
-            "other_property": [str(x) for x in other_property if x is not None],
+            "other_property": [str(x) for x in other_property
+                               if x is not None and _clean(str(x))],
             "estimated_loss": prop.get("estimated_loss") or None,
         },
-        "sections": [str(x) for x in sections if x is not None],
+        "sections": offence_secs,
+        "procedural_provisions": procedural_secs,
     }
 
 
@@ -675,6 +712,132 @@ def _extract_single_call_from_text(
     return _normalise_facts_from_any(result or _empty_facts())
 
 
+def _build_accused_evolution(raw: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """
+    Reconstruct the accused-list changes across FIR → remand → chargesheet stages
+    from the procedural_history and defense_submissions in a bail order.
+
+    Issue #5: The investigation story (how the applicant came to be accused)
+    is critical for moot court and must be captured explicitly.
+    """
+    evolution: List[Dict[str, Any]] = []
+    co_accused: List[str] = raw.get("co_accused") or []
+    applicant: Optional[str] = raw.get("applicant")
+
+    # Stage 1 — FIR (co-accused only; applicant not yet named)
+    if co_accused:
+        evolution.append({
+            "stage": "FIR",
+            "persons": co_accused,
+            "status": "named_or_unknown",
+            "source": "fir",
+            "certainty": "recorded",
+        })
+
+    # Stage 2+ — procedural history may describe remand reports
+    for step in (raw.get("procedural_history") or []):
+        if not isinstance(step, dict):
+            continue
+        event_text = (step.get("event") or "").lower()
+        if "first remand" in event_text or "1st remand" in event_text:
+            evolution.append({
+                "stage": "first_remand",
+                "date": step.get("date"),
+                "persons": co_accused,
+                "source": "procedural_record",
+                "certainty": "recorded",
+            })
+        elif "second remand" in event_text or "2nd remand" in event_text:
+            evolution.append({
+                "stage": "second_remand",
+                "date": step.get("date"),
+                "persons": co_accused,
+                "source": "procedural_record",
+                "certainty": "recorded",
+            })
+
+    # Final stage — applicant added through subsequent investigation
+    if applicant:
+        defence_subs: List[str] = raw.get("defense_submissions") or []
+        basis = (
+            "co-accused statement"
+            if any("co-accused" in s.lower() for s in defence_subs)
+            else "investigation"
+        )
+        evolution.append({
+            "stage": "subsequent_investigation",
+            "added": [applicant],
+            "basis": basis,
+            "alleged_role": raw.get("applicant_role_in_crime"),
+            "source": "prosecution_case",
+            "certainty": "alleged",
+        })
+
+    return evolution
+
+
+def _build_disputed_facts(raw: Dict[str, Any]) -> List[Dict[str, Any]]:
+    """
+    Derive the principal disputed facts from prosecution and defence submissions.
+
+    Issue #8: Surfaces the actual moot-court issues automatically so
+    the Judge/Defense/Prosecution agents have explicit, structured controversy.
+    """
+    disputed: List[Dict[str, Any]] = []
+
+    defence_subs: List[str] = raw.get("defense_submissions") or []
+    prosecution_subs: List[str] = raw.get("prosecution_submissions") or []
+    applicant: Optional[str] = raw.get("applicant")
+
+    # Issue 1: applicant's involvement
+    if applicant:
+        d_pos = next(
+            (s for s in defence_subs if "not involved" in s.lower() or "denies" in s.lower()),
+            "Applicant denies involvement in the offence.",
+        )
+        p_pos = next(
+            (s for s in prosecution_subs if applicant.split()[0].lower() in s.lower()
+             or "involvement" in s.lower()),
+            raw.get("applicant_role_in_crime") or "Prosecution alleges applicant participated.",
+        )
+        disputed.append({
+            "issue": "Applicant's involvement in the offence",
+            "defence_position": d_pos,
+            "prosecution_position": p_pos,
+        })
+
+    # Issue 2: basis of implication
+    if any("co-accused" in s.lower() for s in defence_subs):
+        disputed.append({
+            "issue": "Basis of implication of applicant",
+            "defence_position": "Applicant implicated solely on the basis of a co-accused's statement.",
+            "prosecution_position": (
+                next(
+                    (s for s in (raw.get("investigation_findings") or [])
+                     if "sim" in s.lower() or "phone" in s.lower() or "vehicle" in s.lower()),
+                    "Investigation revealed connecting evidence (SIM card / vehicle).",
+                )
+            ),
+        })
+
+    # Issue 3: need for custodial interrogation
+    if raw.get("custodial_interrogation_sought") or raw.get("identification_parade_required"):
+        disputed.append({
+            "issue": "Necessity of custodial interrogation / identification parade",
+            "defence_position": (
+                next(
+                    (s for s in defence_subs if "antecedent" in s.lower() or "bail" in s.lower()),
+                    "No criminal antecedents; anticipatory bail should be granted.",
+                )
+            ),
+            "prosecution_position": (
+                "Identification parade is required; custodial interrogation is necessary."
+            ),
+        })
+
+    return disputed
+
+
 def _normalise_facts_from_any(raw: Dict[str, Any]) -> Dict[str, Any]:
     """
     Accept either the FIR schema (who/incident/property/sections)
@@ -706,14 +869,72 @@ def _normalise_facts_from_any(raw: Dict[str, Any]) -> Dict[str, Any]:
         if complainant and complainant not in victims:
             victims = [complainant] + victims
 
+        # ── Section classification: split offence sections from procedural ones ──
+        # BNSS/CrPC provisions (e.g. BNSS 482, CrPC 438) are procedural bail
+        # provisions, not substantive offence charges.  Keep them separate so
+        # LexiGraph / statutory agents are never confused.
+        _PROCEDURAL_PREFIXES = ("bnss", "crpc", "code of criminal procedure")
+        all_sections: List[str] = raw.get("sections_charged") or []
+        offence_sections: List[str] = []
+        procedural_sections: List[str] = []
+        for sec in all_sections:
+            sec_lower = (sec or "").lower()
+            if any(sec_lower.startswith(p) for p in _PROCEDURAL_PREFIXES):
+                procedural_sections.append(sec)
+            else:
+                offence_sections.append(sec)
+
+        # ── Bail application metadata ─────────────────────────────────────────
+        # Captures why the applicant is before this court (Issue #4 / #6).
+        bail_application = {
+            "type": raw.get("bail_type") or "anticipatory",
+            "applicant": applicant,
+            "provision": procedural_sections[0] if procedural_sections else None,
+            "relief_sought": "anticipatory bail" if (
+                raw.get("bail_type") or "anticipatory"
+            ) == "anticipatory" else "regular bail",
+        }
+
+        # ── Applicant's own position (defense submissions distilled) ──────────
+        defence_subs: List[str] = raw.get("defense_submissions") or []
+        applicant_position = {
+            "denies_involvement": any(
+                "not involved" in s.lower() or "denies" in s.lower()
+                for s in defence_subs
+            ),
+            "implication_basis": (
+                "statement of co-accused"
+                if any("co-accused" in s.lower() or "co accused" in s.lower() for s in defence_subs)
+                else None
+            ),
+            "criminal_antecedents": not any(
+                "no criminal antecedent" in s.lower() or "no antecedent" in s.lower()
+                for s in defence_subs
+            ),
+            "applicant_described_as_absconding": raw.get(
+                "applicant_described_as_absconding", False
+            ),
+        }
+
+        # ── Investigation story: accused evolution across stages ──────────────
+        accused_evolution = _build_accused_evolution(raw)
+
+        # ── Disputed facts for moot court ─────────────────────────────────────
+        disputed_facts = _build_disputed_facts(raw)
+
         canonical = {
             "who": {
-                "complainant": complainant,
-                "accused": [a for a in accused_list if a],
-                "victims": [v for v in victims if v],
+                # Never store the string "null" — use Python None.
+                "complainant": complainant if complainant and complainant.lower() != "null" else None,
+                "accused": [a for a in accused_list if a and str(a).lower() != "null"],
+                "victims": [v for v in victims if v and str(v).lower() != "null"],
             },
             "incident": {
-                "summary": raw.get("incident_summary") or None,
+                "summary": {
+                    "text": raw.get("incident_summary") or None,
+                    "source": "prosecution_case",
+                    "certainty": "alleged",
+                },
                 "date": raw.get("incident_date") or None,
                 "time": raw.get("incident_time") or None,
                 "place": raw.get("incident_place") or None,
@@ -723,11 +944,27 @@ def _normalise_facts_from_any(raw: Dict[str, Any]) -> Dict[str, Any]:
                 "gold": None,
                 "documents": None,
                 "vehicles": [],
-                "other_property": raw.get("property_stolen") or [],
+                "other_property": [
+                    p for p in (raw.get("property_stolen") or [])
+                    if p and str(p).lower() != "null"
+                ],
                 "estimated_loss": raw.get("total_loss") or None,
             },
-            "sections": raw.get("sections_charged") or [],
-            # Preserve all bail-specific data under a dedicated key
+            # Offence sections only — no procedural provisions mixed in.
+            "sections": offence_sections,
+            # Procedural bail provisions stored separately.
+            "procedural_provisions": procedural_sections,
+            # Bail-application details
+            "bail_application": bail_application,
+            # Applicant's litigation posture
+            "applicant_position": applicant_position,
+            # Full investigation story
+            "investigation": {
+                "accused_evolution": accused_evolution,
+            },
+            # Moot-court disputed facts layer
+            "disputed_facts": disputed_facts,
+            # All remaining bail-specific data
             "bail_details": {
                 "case_number": raw.get("case_number"),
                 "court": raw.get("court"),
@@ -746,16 +983,13 @@ def _normalise_facts_from_any(raw: Dict[str, Any]) -> Dict[str, Any]:
                 "key_evidence_items": raw.get("key_evidence_items") or [],
                 "investigation_findings": raw.get("investigation_findings") or [],
                 "chargesheet_filed": raw.get("chargesheet_filed", False),
-                "applicant_described_as_absconding": raw.get(
-                    "applicant_described_as_absconding", False
-                ),
                 "custodial_interrogation_sought": raw.get(
                     "custodial_interrogation_sought", False
                 ),
                 "identification_parade_required": raw.get(
                     "identification_parade_required", False
                 ),
-                "defense_submissions": raw.get("defense_submissions") or [],
+                "defense_submissions": defence_subs,
                 "prosecution_submissions": raw.get("prosecution_submissions") or [],
                 "procedural_history": raw.get("procedural_history") or [],
                 "prior_bail_orders": raw.get("prior_bail_orders") or [],
@@ -769,8 +1003,24 @@ def _normalise_facts_from_any(raw: Dict[str, Any]) -> Dict[str, Any]:
             },
         }
 
-        # Still normalise the canonical subset through the existing normaliser
-        return _normalise_facts(canonical)
+        # Normalise the core FIR-compatible subset through the existing normaliser,
+        # then re-attach the bail-specific enrichments that _normalise_facts doesn't know about.
+        normalised_core = _normalise_facts(canonical)
+
+        # Merge bail-enriched keys back (they are not touched by _normalise_facts).
+        for extra_key in (
+            "sections",              # offence sections only (already set in canonical)
+            "procedural_provisions",
+            "bail_application",
+            "applicant_position",
+            "investigation",
+            "disputed_facts",
+            "bail_details",
+        ):
+            if extra_key in canonical:
+                normalised_core[extra_key] = canonical[extra_key]
+
+        return normalised_core
 
     # Plain FIR schema — use existing normaliser as-is
     return _normalise_facts(raw)
@@ -916,12 +1166,16 @@ Rules:
   CONSOLIDATE related sub-actions into one event:
     e.g. "parked vehicle, went to market, returned, found vehicle missing" = ONE event
          ("Complainant parked vehicle and discovered it stolen upon return").
-- Typical event sequence for a theft FIR:
-    1. Offence occurrence (vehicle parked / theft took place)
-    2. Complainant searched area
-    3. Complainant filed complaint at police station
-    4. FIR registered
-    5. IO assigned
+- For bail orders, always capture: incident, FIR registration, each remand report,
+  subsequent implication of applicant, chargesheet filing, bail order.
+- Typical event sequence for a bail order:
+    1. Offence occurrence
+    2. FIR registered
+    3. First remand report
+    4. Second remand report (if any)
+    5. Applicant implicated / chargesheet filed
+    6. Lower court bail application (if any)
+    7. High Court bail hearing and order
 - date: "DD/MM/YYYY" if stated, else null.
 - time: "HH:MM" strictly in 24-hour format. CRITICAL 12h→24h rule:
     * Marathi/Hindi evening markers: सायंकाळी, संध्याकाळी, सायं, रात्री near a digit
@@ -937,8 +1191,17 @@ Rules:
   ["incident","transaction","communication","threat","promise","following",
    "blocking","harassment","contact_attempt","evidence_recovery","witness_observation",
    "complaint_filed","fir_registered","investigation_action","other"]
+<<<<<<< HEAD
 - actors: use KNOWN CANONICAL ENTITIES spellings. Include only people directly
   and meaningfully involved in this event.
+  CRITICAL for bail orders: Distinguish "alleged_perpetrators" from "applicant_role".
+  Do NOT list the bail applicant as a direct perpetrator of the underlying act unless
+  the order explicitly says so — only co-accused who were caught at the scene are
+  perpetrators. The applicant's role (e.g. getaway driver) is alleged and indirect.
+- witnesses: names of any persons who observed this specific event, if stated.
+- source: who is asserting this fact — one of [prosecution_case, defence_submission,
+  court_finding, procedural_record, fir].
+- certainty: one of [alleged, recorded, established].
 - amount: numeric string without currency symbol, or null.
 - location: string or null.
 - description: one clear, factual sentence in English.
@@ -954,7 +1217,9 @@ Return JSON schema:
     "actors": ["string"],
     "witnesses": ["string"],
     "location": "string or null",
-    "amount": "string or null"
+    "amount": "string or null",
+    "source": "fir or prosecution_case or defence_submission or court_finding or procedural_record",
+    "certainty": "alleged or recorded or established"
   }}
 ]
 
@@ -1031,6 +1296,9 @@ def _normalise_timeline_event(e: Dict[str, Any], fallback_id: str) -> Dict[str, 
         "witnesses": [str(w) for w in witnesses_raw if w is not None],
         "location": e.get("location") or None,
         "amount": e.get("amount") or None,
+        # Source attribution — who is asserting this fact (Issue #6).
+        "source": e.get("source") or "procedural_record",
+        "certainty": e.get("certainty") or "recorded",
     }
 
 
@@ -1354,16 +1622,28 @@ def build_case_graph(
     Node shape:   {"id", "label", "properties": {...}}
     Edge shape:   {"source", "target", "type", "properties": {...}}
 
-    Minimal, clean graph — only the essential case facts:
+    For bail orders the graph is enriched with applicant-specific relationships:
+
+      Applicant  → APPLICANT_IN          → BailApplication
+      Applicant  → ACCUSED_IN            → FIR (with alleged role)
+      Applicant  → ALLEGED_ROLE          → RoleNode
+      Applicant  → IMPLICATED_THROUGH    → CoAccusedPerson
+      Prosecution → ALLEGES              → Applicant
+      Defence     → DENIES_ON_BEHALF_OF  → Applicant
+
+    For FIRs / general cases:
       Person(complainant) → FILED       → Case
       Person(accused)    → ACCUSED_IN  → Case
       Person(victim)     → VICTIM_IN   → Case
       Case → OCCURRED_AT     → Location
-      Case → CHARGED_UNDER   → Section
+      Case → CHARGED_UNDER   → Section  (offence sections only)
       Case → INVOLVES_PROPERTY → Property
 
-    No event nodes, no NEXT chains, no per-event edges.
-    Node ids are deterministic slugs for idempotent Neo4j MERGE.
+    Rules:
+    - NEVER create a node for None / "null" — skip those entries.
+    - Sections in `facts["sections"]` are offence-only (procedural provisions
+      live in `facts["procedural_provisions"]` and are NOT graph-connected to Case).
+    - Node ids are deterministic slugs for idempotent Neo4j MERGE.
     """
     nodes: Dict[str, Dict[str, Any]] = {}
     edges: List[Dict[str, Any]] = []
@@ -1391,26 +1671,46 @@ def build_case_graph(
             "properties": properties or {},
         })
 
+    def _is_null(v: Any) -> bool:
+        return v is None or str(v).strip().lower() in ("null", "")
+
+    def get_person_node(name: str) -> Optional[str]:
+        """Return a Person node id, or None if name is null/empty."""
+        if _is_null(name):
+            return None
+        pid = f"person:{_slug(name)}"
+        add_node(pid, "Person", {"name": name})
+        return pid
+
     who = facts.get("who") or {}
     incident = facts.get("incident") or {}
     prop = facts.get("property") or {}
+    # Use offence sections only — procedural provisions are not charged offences.
     sections = facts.get("sections") or []
+    bail_details = facts.get("bail_details") or {}
+    bail_application = facts.get("bail_application") or {}
 
-    # ── Case node ─────────────────────────────────────────────────────
+    # ── Resolve summary text (may be a dict with source attribution) ──────
+    summary_raw = incident.get("summary")
+    summary_text = (
+        summary_raw.get("text") if isinstance(summary_raw, dict) else summary_raw
+    )
+
+    # ── Case node ─────────────────────────────────────────────────────────
     case_id = add_node(
         f"case:{session_id}",
         "Case",
         {
             "session_id": session_id,
-            "summary": incident.get("summary"),
+            "summary": summary_text,
             "date": incident.get("date"),
             "time": incident.get("time"),
             "place": incident.get("place"),
         },
     )
 
-    # ── Primary incident location ──────────────────────────────────────
-    if incident.get("place"):
+    # ── Primary incident location ──────────────────────────────────────────
+    if incident.get("place") and not _is_null(incident["place"]):
         loc_id = add_node(
             f"location:{_slug(incident['place'])}",
             "Location",
@@ -1418,31 +1718,95 @@ def build_case_graph(
         )
         add_edge(case_id, loc_id, "OCCURRED_AT")
 
-    # ── People (from facts only — canonical spelling guaranteed) ────────
-    def get_person_node(name: str) -> str:
-        pid = f"person:{_slug(name)}"
-        add_node(pid, "Person", {"name": name})
-        return pid
-
+    # ── People ────────────────────────────────────────────────────────────
     complainant = who.get("complainant")
-    if complainant:
-        add_edge(get_person_node(complainant), case_id, "FILED")
+    complainant_id = get_person_node(complainant) if not _is_null(complainant) else None
+    if complainant_id:
+        add_edge(complainant_id, case_id, "FILED")
+
+    # For bail orders, identify the applicant for richer graph treatment
+    applicant_name: Optional[str] = bail_application.get("applicant") or bail_details.get("applicant")
 
     for name in who.get("accused") or []:
-        if name:
-            add_edge(get_person_node(name), case_id, "ACCUSED_IN")
+        if _is_null(name):
+            continue
+        person_id = get_person_node(name)
+        if person_id is None:
+            continue
+        if name == applicant_name and bail_details:
+            # Richer relationships for the bail applicant (Issue #7)
+            add_edge(person_id, case_id, "ACCUSED_IN",
+                     {"basis": "prosecution_allegation", "certainty": "alleged"})
+
+            # APPLICANT_IN → bail application node
+            aba_number = bail_details.get("case_number") or session_id
+            aba_id = add_node(
+                f"bail_application:{_slug(aba_number)}",
+                "BailApplication",
+                {
+                    "case_number": aba_number,
+                    "court": bail_details.get("court"),
+                    "provision": bail_application.get("provision"),
+                    "relief_sought": bail_application.get("relief_sought"),
+                },
+            )
+            add_edge(person_id, aba_id, "APPLICANT_IN")
+
+            # Alleged role in the crime
+            role = bail_details.get("applicant_role_in_crime")
+            if role and not _is_null(role):
+                role_id = add_node(
+                    f"role:{_slug(role)}",
+                    "AllegedRole",
+                    {"description": role, "source": "prosecution_case", "certainty": "alleged"},
+                )
+                add_edge(person_id, role_id, "ALLEGED_ROLE")
+
+            # Implication through co-accused statement
+            appl_pos = facts.get("applicant_position") or {}
+            if appl_pos.get("implication_basis"):
+                # Find the co-accused whose statement triggered implication
+                co_acc_list = bail_details.get("defense_submissions") or []
+                # Use the first co-accused as the link source if available
+                co_accused_names = who.get("accused") or []
+                for co_name in co_accused_names:
+                    if co_name != applicant_name and not _is_null(co_name):
+                        co_id = get_person_node(co_name)
+                        if co_id:
+                            add_edge(
+                                person_id, co_id, "IMPLICATED_THROUGH",
+                                {"basis": appl_pos["implication_basis"]},
+                            )
+                        break  # only link to the primary implying co-accused
+        else:
+            add_edge(person_id, case_id, "ACCUSED_IN")
 
     for name in who.get("victims") or []:
-        if name:
-            add_edge(get_person_node(name), case_id, "VICTIM_IN")
+        if _is_null(name):
+            continue
+        pid = get_person_node(name)
+        if pid:
+            add_edge(pid, case_id, "VICTIM_IN")
 
-    # ── Legal sections ────────────────────────────────────────────────
+    # ── Prosecution and Defence party nodes (bail orders only) ────────────
+    if bail_details:
+        pros_id = add_node("party:prosecution", "Party", {"name": "Prosecution", "role": "state"})
+        def_id  = add_node("party:defence",     "Party", {"name": "Defence",     "role": "accused_counsel"})
+        if applicant_name and not _is_null(applicant_name):
+            appl_id = get_person_node(applicant_name)
+            if appl_id:
+                add_edge(pros_id, appl_id, "ALLEGES")
+                add_edge(def_id,  appl_id, "REPRESENTS")
+        add_edge(pros_id, case_id, "PARTY_IN")
+        add_edge(def_id,  case_id, "PARTY_IN")
+
+    # ── Legal sections (offence sections only) ────────────────────────────
     for sec in sections:
-        if sec:
+        if sec and not _is_null(sec):
             sec_id = add_node(f"section:{_slug(sec)}", "Section", {"name": sec})
             add_edge(case_id, sec_id, "CHARGED_UNDER")
 
-    # ── Property ──────────────────────────────────────────────────────
+    # ── Property ──────────────────────────────────────────────────────────
     prop_index = 0
     for veh in prop.get("vehicles") or []:
         prop_index += 1
@@ -1454,6 +1818,8 @@ def build_case_graph(
         add_edge(case_id, pid, "INVOLVES_PROPERTY")
 
     for other in prop.get("other_property") or []:
+        if _is_null(other):
+            continue
         prop_index += 1
         pid = add_node(
             f"property:other:{prop_index}",
@@ -1462,11 +1828,11 @@ def build_case_graph(
         )
         add_edge(case_id, pid, "INVOLVES_PROPERTY")
 
-    if prop.get("cash"):
+    if prop.get("cash") and not _is_null(prop["cash"]):
         pid = add_node("property:cash:1", "Property", {"kind": "cash", "value": prop["cash"]})
         add_edge(case_id, pid, "INVOLVES_PROPERTY")
 
-    if prop.get("gold"):
+    if prop.get("gold") and not _is_null(prop["gold"]):
         pid = add_node("property:gold:1", "Property", {"kind": "gold", "value": prop["gold"]})
         add_edge(case_id, pid, "INVOLVES_PROPERTY")
 

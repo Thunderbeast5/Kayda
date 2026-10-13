@@ -1,0 +1,870 @@
+{
+  "document": {
+    "title": "The Prohibition of Child Marriage Act, 2006",
+    "act_number": "Act No. 6 of 2007",
+    "enacted_date": "10th January, 2007",
+    "as_on_date": "20th May, 2025",
+    "amending_acts": [
+      {
+        "title": "The Jammu and Kashmir Reorganisation Act, 2019",
+        "citation": "34 of 2019"
+      }
+    ],
+    "abbreviations_used": [
+      {
+        "abbreviation": "Cl.,cls.",
+        "meaning": "Clause, clauses."
+      },
+      {
+        "abbreviation": "Ins.",
+        "meaning": "Inserted."
+      },
+      {
+        "abbreviation": "Notifn.",
+        "meaning": "Notification."
+      },
+      {
+        "abbreviation": "S., ss.",
+        "meaning": "Section, sections."
+      },
+      {
+        "abbreviation": "Sch.",
+        "meaning": "Schedule."
+      },
+      {
+        "abbreviation": "Subs.",
+        "meaning": "Substituted."
+      },
+      {
+        "abbreviation": "w.e.f.",
+        "meaning": "with effect from."
+      }
+    ],
+    "source_pages": "1–10",
+    "long_title": "An Act to provide for the prohibition of solemnisation of child marriages and for matters connected therewith or incidental thereto.",
+    "enacting_formula": "BE it enacted by Parliament in the Fifty-seventh Year of the Republic of India as follows:—",
+    "arrangement_of_sections": [
+      {
+        "section_number": "1",
+        "heading": "Short title, extent and commencement"
+      },
+      {
+        "section_number": "2",
+        "heading": "Definitions"
+      },
+      {
+        "section_number": "3",
+        "heading": "Child marriages to be voidable at the option of contracting party being a child"
+      },
+      {
+        "section_number": "4",
+        "heading": "Provision for maintenance and residence to female contracting party to child marriage"
+      },
+      {
+        "section_number": "5",
+        "heading": "Custody and maintenance of children of child marriages"
+      },
+      {
+        "section_number": "6",
+        "heading": "Legitimacy of children born of child marriages"
+      },
+      {
+        "section_number": "7",
+        "heading": "Power of district court to modify orders issued under section 4 or section 5"
+      },
+      {
+        "section_number": "8",
+        "heading": "Court to which petition should be made"
+      },
+      {
+        "section_number": "9",
+        "heading": "Punishment for male adult marrying a child"
+      },
+      {
+        "section_number": "10",
+        "heading": "Punishment for solemnising a child marriage"
+      },
+      {
+        "section_number": "11",
+        "heading": "Punishment for promoting or permitting solemnisation of child marriages"
+      },
+      {
+        "section_number": "12",
+        "heading": "Marriage of a minor child to be void in certain circumstances"
+      },
+      {
+        "section_number": "13",
+        "heading": "Power of court to issue injunction prohibiting child marriages"
+      },
+      {
+        "section_number": "14",
+        "heading": "Child marriages in contravention of injunction orders to be void"
+      },
+      {
+        "section_number": "15",
+        "heading": "Offences to be cognizable and non-bailable"
+      },
+      {
+        "section_number": "16",
+        "heading": "Child Marriage Prohibition Officers"
+      },
+      {
+        "section_number": "17",
+        "heading": "Child Marriage Prohibition Officers to be public servants"
+      },
+      {
+        "section_number": "18",
+        "heading": "Protection of action taken in good faith"
+      },
+      {
+        "section_number": "19",
+        "heading": "Power of State Government to make rules"
+      },
+      {
+        "section_number": "20",
+        "heading": "Amendment of Act No. 25 of 1955"
+      },
+      {
+        "section_number": "21",
+        "heading": "Repeal and savings"
+      }
+    ],
+    "footnotes": [],
+    "coverage": "Complete Act: sections 1–21 (Karnataka and Haryana state amendments kept under \"state_amendments\" on the section they follow) and the Statement of Objects and Reasons",
+    "notes": [
+      "Square-bracket amendment markers and footnote reference numbers are removed from the text; each section lists its amendment footnotes (marker, page, text, parsed action/act/effective date) under \"footnotes\". Spelling as printed in the source PDF is preserved.",
+      "The Act has no chapters; sections are held in a single container (chapter_number/title null) to keep the same shape as bnss_full.json."
+    ]
+  },
+  "chapters": [
+    {
+      "chapter_number": null,
+      "chapter_title": null,
+      "page_start": 4,
+      "page_end": 9,
+      "section_range": [
+        "1",
+        "21"
+      ],
+      "sub_headings": [],
+      "sections": [
+        {
+          "section_number": "1",
+          "section_type": "interpretive",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Short title, extent and commencement",
+          "sub_heading": null,
+          "text": "(1) This Act may be called the Prohibition of Child Marriage Act, 2006.\n(2) It extends to the whole of India ***; and it applies also to all citizens of India without and beyond India:\nProvided that nothing contained in this Act shall apply to the Renoncants of the Union territory of Pondicherry.\n(3) It shall come into force on such date as the Central Government may, by notification in the Official Gazette, appoint; and different dates may be appointed for different States and any reference in any provision to the commencement of this Act shall be construed in relation to any State as a reference to the coming into force of that provision in that State.",
+          "page": 4,
+          "page_end": 4,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "This Act may be called the Prohibition of Child Marriage Act, 2006."
+            },
+            {
+              "label": "(2)",
+              "text": "It extends to the whole of India ***; and it applies also to all citizens of India without and beyond India:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that nothing contained in this Act shall apply to the Renoncants of the Union territory of Pondicherry."
+                }
+              ]
+            },
+            {
+              "label": "(3)",
+              "text": "It shall come into force on such date as the Central Government may, by notification in the Official Gazette, appoint; and different dates may be appointed for different States and any reference in any provision to the commencement of this Act shall be construed in relation to any State as a reference to the coming into force of that provision in that State."
+            }
+          ],
+          "footnotes": [
+            {
+              "marker": 1,
+              "page": 4,
+              "text": "The words “except the State of Jammu and Kashmir” omitted by Act 34 of 2019, s. 95 and the Fifth Schedule (w.e.f. 31-10-2019).",
+              "action": "omitted",
+              "amending_act": "Act 34 of 2019",
+              "effective_from": "31-10-2019",
+              "amending_section": "95"
+            },
+            {
+              "marker": 2,
+              "page": 4,
+              "text": "1st November, 2007, vide notification No. S.O. 1850(E), dated 30th October, 2007, see Gazette of India, Extraordinary, Part II, sec. 3(ii)."
+            }
+          ]
+        },
+        {
+          "section_number": "2",
+          "section_type": "definitional",
+          "is_definition": true,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Definitions",
+          "sub_heading": null,
+          "text": "In this Act, unless the context otherwise requires,—\n(a) “child” means a person who, if a male, has not completed twenty-one years of age, and if a female, has not completed eighteen years of age;\n(b) “child marriage” means a marriage to which either of the contracting parties is a child;\n(c) “contracting party”, in relation to a marriage, means either of the parties whose marriage is or is about to be thereby solemnised;\n(d) “Child Marriage Prohibition Officer” includes the Child Marriage Prohibition Officer appointed under sub-section (1) of section 16;\n(e) “district court” means, in any area for which a Family Court established under section 3 of the Family Courts Act, 1984 (66 of 1984) exists, such Family Court, and in any area for which there is no Family Court but a city civil court exists, that court and in any other area, the principal civil court of original jurisdiction and includes any other civil court which may be specified by the State Government, by notification in the Official Gazette, as having jurisdiction in respect of the matters dealt with in this Act;\n(f) “minor” means a person who, under the provisions of the Majority Act, 1875 (9 of 1875), is to be deemed not to have attained his majority.",
+          "page": 4,
+          "page_end": 4,
+          "lead_text": "In this Act, unless the context otherwise requires,—",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "“child” means a person who, if a male, has not completed twenty-one years of age, and if a female, has not completed eighteen years of age;"
+            },
+            {
+              "label": "(b)",
+              "text": "“child marriage” means a marriage to which either of the contracting parties is a child;"
+            },
+            {
+              "label": "(c)",
+              "text": "“contracting party”, in relation to a marriage, means either of the parties whose marriage is or is about to be thereby solemnised;"
+            },
+            {
+              "label": "(d)",
+              "text": "“Child Marriage Prohibition Officer” includes the Child Marriage Prohibition Officer appointed under sub-section (1) of section 16;"
+            },
+            {
+              "label": "(e)",
+              "text": "“district court” means, in any area for which a Family Court established under section 3 of the Family Courts Act, 1984 (66 of 1984) exists, such Family Court, and in any area for which there is no Family Court but a city civil court exists, that court and in any other area, the principal civil court of original jurisdiction and includes any other civil court which may be specified by the State Government, by notification in the Official Gazette, as having jurisdiction in respect of the matters dealt with in this Act;"
+            },
+            {
+              "label": "(f)",
+              "text": "“minor” means a person who, under the provisions of the Majority Act, 1875 (9 of 1875), is to be deemed not to have attained his majority."
+            }
+          ],
+          "footnotes": [],
+          "definitions": [
+            {
+              "label": "(a)",
+              "terms": [
+                "child"
+              ],
+              "text": "“child” means a person who, if a male, has not completed twenty-one years of age, and if a female, has not completed eighteen years of age;"
+            },
+            {
+              "label": "(b)",
+              "terms": [
+                "child marriage"
+              ],
+              "text": "“child marriage” means a marriage to which either of the contracting parties is a child;"
+            },
+            {
+              "label": "(c)",
+              "terms": [
+                "contracting party"
+              ],
+              "text": "“contracting party”, in relation to a marriage, means either of the parties whose marriage is or is about to be thereby solemnised;"
+            },
+            {
+              "label": "(d)",
+              "terms": [
+                "Child Marriage Prohibition Officer"
+              ],
+              "text": "“Child Marriage Prohibition Officer” includes the Child Marriage Prohibition Officer appointed under sub-section (1) of section 16;"
+            },
+            {
+              "label": "(e)",
+              "terms": [
+                "district court"
+              ],
+              "text": "“district court” means, in any area for which a Family Court established under section 3 of the Family Courts Act, 1984 (66 of 1984) exists, such Family Court, and in any area for which there is no Family Court but a city civil court exists, that court and in any other area, the principal civil court of original jurisdiction and includes any other civil court which may be specified by the State Government, by notification in the Official Gazette, as having jurisdiction in respect of the matters dealt with in this Act;"
+            },
+            {
+              "label": "(f)",
+              "terms": [
+                "minor"
+              ],
+              "text": "“minor” means a person who, under the provisions of the Majority Act, 1875 (9 of 1875), is to be deemed not to have attained his majority."
+            }
+          ]
+        },
+        {
+          "section_number": "3",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Child marriages to be voidable at the option of contracting party being a child",
+          "sub_heading": null,
+          "text": "(1) Every child marriage, whether solemnised before or after the commencement of this Act, shall be voidable at the option of the contracting party who was a child at the time of the marriage:\nProvided that a petition for annulling a child marriage by a decree of nullity may be filed in the district court only by a contracting party to the marriage who was a child at the time of the marriage.\n(2) If at the time of filing a petition, the petitioner is a minor, the petition may be filed through his or her guardian or next friend along with the Child Marriage Prohibition Officer.\n(3) The petition under this section may be filed at any time but before the child filing the petition completes two years of attaining majority.\n(4) While granting a decree of nullity under this section, the district court shall make an order directing both the parties to the marriage and their parents or their guardians to return to the other party, his or her parents or guardian, as the case may be, the money, valuables, ornaments and other gifts received on the occasion of the marriage by them from the other side, or an amount equal to the value of such valuables, ornaments, other gifts and money:\nProvided that no order under this section shall be passed unless the concerned parties have been given notices to appear before the district court and show cause why such order should not be passed.",
+          "page": 4,
+          "page_end": 5,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Every child marriage, whether solemnised before or after the commencement of this Act, shall be voidable at the option of the contracting party who was a child at the time of the marriage:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that a petition for annulling a child marriage by a decree of nullity may be filed in the district court only by a contracting party to the marriage who was a child at the time of the marriage."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "If at the time of filing a petition, the petitioner is a minor, the petition may be filed through his or her guardian or next friend along with the Child Marriage Prohibition Officer."
+            },
+            {
+              "label": "(3)",
+              "text": "The petition under this section may be filed at any time but before the child filing the petition completes two years of attaining majority."
+            },
+            {
+              "label": "(4)",
+              "text": "While granting a decree of nullity under this section, the district court shall make an order directing both the parties to the marriage and their parents or their guardians to return to the other party, his or her parents or guardian, as the case may be, the money, valuables, ornaments and other gifts received on the occasion of the marriage by them from the other side, or an amount equal to the value of such valuables, ornaments, other gifts and money:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that no order under this section shall be passed unless the concerned parties have been given notices to appear before the district court and show cause why such order should not be passed."
+                }
+              ]
+            }
+          ],
+          "state_amendments": [
+            {
+              "state": "Karnataka",
+              "nature": "amendment",
+              "amends_section": "3",
+              "citation": "Karnataka Act 26 of 2017, s. 2",
+              "page": 5,
+              "page_end": 5,
+              "text": "Amendment of section 3.—In the Prohibition of Child Marriage Act, 2006 (Central Act 6 of 2007) (hereinafter referred to as the principal Act), In section 3, after sub-section (1) the following shall be inserted, namely;— “(1A) Notwithstanding anything contained in sub-section (1) every child marriage solemnized on or after the date of coming into force of the Prohibition of Child Marriage (Karnataka Amendment) Act, 2016 shall be void ab initio”."
+            },
+            {
+              "state": "Haryana",
+              "nature": "amendment",
+              "amends_section": "3",
+              "citation": "Haryana Act 23 of 2022, s. 2",
+              "page": 5,
+              "page_end": 5,
+              "text": "Amendment of section 3.—In the Prohibition of Child Marriage Act, 2006 (Central Act 6 of 2007) (hereinafter referred to as the principal Act), In section 3, after sub-section (1) the following shall be inserted, namely;— “(1A) Notwithstanding anything contained in sub-section (1) every child marriage solemnized on or after the date of commencement of the Prohibition of Child Marriage (Haryana Amendment) Act, 2020 shall be void ab initio”."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "4",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Provision for maintenance and residence to female contracting party to child marriage",
+          "sub_heading": null,
+          "text": "(1) While granting a decree under section 3, the district court may also make an interim or final order directing the male contracting party to the child marriage, and in case the male contracting party to such marriage is a minor, his parent or guardian to pay maintenance to the female contracting party to the marriage until her remarriage.\n(2) The quantum of maintenance payable shall be determined by the district court having regard to the needs of the child, the lifestyle enjoyed by such child during her marriage and the means of income of the paying party.\n(3) The amount of maintenance may be directed to be paid monthly or in lump sum.\n(4) In case the party making the petition under section 3 is the female contracting party, the district court may also make a suitable order as to her residence until her remarriage.",
+          "page": 5,
+          "page_end": 5,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "While granting a decree under section 3, the district court may also make an interim or final order directing the male contracting party to the child marriage, and in case the male contracting party to such marriage is a minor, his parent or guardian to pay maintenance to the female contracting party to the marriage until her remarriage."
+            },
+            {
+              "label": "(2)",
+              "text": "The quantum of maintenance payable shall be determined by the district court having regard to the needs of the child, the lifestyle enjoyed by such child during her marriage and the means of income of the paying party."
+            },
+            {
+              "label": "(3)",
+              "text": "The amount of maintenance may be directed to be paid monthly or in lump sum."
+            },
+            {
+              "label": "(4)",
+              "text": "In case the party making the petition under section 3 is the female contracting party, the district court may also make a suitable order as to her residence until her remarriage."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "5",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Custody and maintenance of children of child marriages",
+          "sub_heading": null,
+          "text": "(1) Where there are children born of the child marriage, the district court shall make an appropriate order for the custody of such children.\n(2) While making an order for the custody of a child under this section, the welfare and best interests of the child shall be the paramount consideration to be given by the district court.\n(3) An order for custody of a child may also include appropriate directions for giving to the other party access to the child in such a manner as may best serve the interests of the child, and such other orders as the district court may, in the interest of the child, deem proper.\n(4) The district court may also make an appropriate order for providing maintenance to the child by a party to the marriage or their parents or guardians.",
+          "page": 5,
+          "page_end": 5,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Where there are children born of the child marriage, the district court shall make an appropriate order for the custody of such children."
+            },
+            {
+              "label": "(2)",
+              "text": "While making an order for the custody of a child under this section, the welfare and best interests of the child shall be the paramount consideration to be given by the district court."
+            },
+            {
+              "label": "(3)",
+              "text": "An order for custody of a child may also include appropriate directions for giving to the other party access to the child in such a manner as may best serve the interests of the child, and such other orders as the district court may, in the interest of the child, deem proper."
+            },
+            {
+              "label": "(4)",
+              "text": "The district court may also make an appropriate order for providing maintenance to the child by a party to the marriage or their parents or guardians."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "6",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Legitimacy of children born of child marriages",
+          "sub_heading": null,
+          "text": "Notwithstanding that a child marriage has been annulled by a decree of nullity under section 3, every child begotten or conceived of such marriage before the decree is made, whether born before or after the commencement of this Act, shall be deemed to be a legitimate child for all purposes.",
+          "page": 5,
+          "page_end": 6,
+          "footnotes": []
+        },
+        {
+          "section_number": "7",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Power of district court to modify orders issued under section 4 or section 5",
+          "sub_heading": null,
+          "text": "The district court shall have the power to add to, modify or revoke any order made under section 4 or section 5 and if there is any change in the circumstances at any time during the pendency of the petition and even after the final disposal of the petition.",
+          "page": 6,
+          "page_end": 6,
+          "footnotes": []
+        },
+        {
+          "section_number": "8",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Court to which petition should be made",
+          "sub_heading": null,
+          "text": "For the purpose of grant of reliefs under sections 3, 4 and 5, the district court having jurisdiction shall include the district court having jurisdiction over the place where the defendant or the child resides, or where the marriage was solemnised or where the parties last resided together or the petitioner is residing on the date of presentation of the petition.",
+          "page": 6,
+          "page_end": 6,
+          "footnotes": []
+        },
+        {
+          "section_number": "9",
+          "section_type": "penal",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Punishment for male adult marrying a child",
+          "sub_heading": null,
+          "text": "Whoever, being a male adult above eighteen years of age, contracts a child marriage shall be punishable with rigorous imprisonment which may extend to two years or with fine which may extend to one lakh rupees or with both.",
+          "page": 6,
+          "page_end": 6,
+          "state_amendments": [
+            {
+              "state": "Karnataka",
+              "nature": "amendment",
+              "amends_section": "9",
+              "citation": "Karnataka Act 26 of 2017, s. 3",
+              "page": 6,
+              "page_end": 6,
+              "text": "Amendment of section 9.—In section 9 of the principal Act, for the words “be punishable with rigorous imprisonment which may extend to two years”, the words “be punishable with rigorous imprisonment of not less one year which may extend up to two years” shall be substituted."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "10",
+          "section_type": "penal",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Punishment for solemnising a child marriage",
+          "sub_heading": null,
+          "text": "Whoever performs, conducts, directs or abets any child marriage shall be punishable with rigorous imprisonment which may extend to two years and shall be liable to fine which may extend to one lakh rupees unless he proves that he had reasons to believe that the marriage was not a child marriage.",
+          "page": 6,
+          "page_end": 6,
+          "state_amendments": [
+            {
+              "state": "Karnataka",
+              "nature": "amendment",
+              "amends_section": "10",
+              "citation": "Karnataka Act 26 of 2017, s. 4",
+              "page": 6,
+              "page_end": 6,
+              "text": "Amendment of section 10.—In section 10 of the principal Act, for the words “be punishable with rigorous imprisonment which may extend to two years,” the words “be punishable with rigorous imprisonment of not less than one year which may extend up to two years” shall be substituted."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "11",
+          "section_type": "penal",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Punishment for promoting or permitting solemnisation of child marriages",
+          "sub_heading": null,
+          "text": "(1) Where a child contracts a child marriage, any person having charge of the child, whether as parent or guardian or any other person or in any other capacity, lawful or unlawful, including any member of an organisation or association of persons who does any act to promote the marriage or permits it to be solemnised, or negligently fails to prevent it from being solemnised, including attending or participating in a child marriage, shall be punishable with rigorous imprisonment which may extend to two years and shall also be liable to fine which may extend up to one lakh rupees:\nProvided that no woman shall be punishable with imprisonment.\n(2) For the purposes of this section, it shall be presumed, unless and until the contrary is proved, that where a minor child has contracted a marriage, the person having charge of such minor child has negligently failed to prevent the marriage from being solemnised.",
+          "page": 6,
+          "page_end": 6,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Where a child contracts a child marriage, any person having charge of the child, whether as parent or guardian or any other person or in any other capacity, lawful or unlawful, including any member of an organisation or association of persons who does any act to promote the marriage or permits it to be solemnised, or negligently fails to prevent it from being solemnised, including attending or participating in a child marriage, shall be punishable with rigorous imprisonment which may extend to two years and shall also be liable to fine which may extend up to one lakh rupees:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that no woman shall be punishable with imprisonment."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "For the purposes of this section, it shall be presumed, unless and until the contrary is proved, that where a minor child has contracted a marriage, the person having charge of such minor child has negligently failed to prevent the marriage from being solemnised."
+            }
+          ],
+          "state_amendments": [
+            {
+              "state": "Karnataka",
+              "nature": "amendment",
+              "amends_section": "11",
+              "citation": "Karnataka Act 26 of 2017, s. 5",
+              "page": 6,
+              "page_end": 7,
+              "text": "Amendment of section 11.—In section 11 of the principal Act, in sub-section (1),—\n(a) for the words “be punishable with rigorous imprisonment which may extend to two years”, the words “be punishable with a rigorous imprisonment of not less than one year which may extend up to two years” shall be substituted.\n(b) proviso shall be omitted."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "12",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Marriage of a minor child to be void in certain circumstances",
+          "sub_heading": null,
+          "text": "Where a child, being a minor—\n(a) is taken or enticed out of the keeping of the lawful guardian; or\n(b) by force compelled, or by any deceitful means induced to go from any place; or\n(c) is sold for the purpose of marriage; and made to go through a form of marriage or if the minor is married after which the minor is sold or trafficked or used for immoral purposes,\nsuch marriage shall be null and void.",
+          "page": 7,
+          "page_end": 7,
+          "lead_text": "Where a child, being a minor—",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "is taken or enticed out of the keeping of the lawful guardian; or"
+            },
+            {
+              "label": "(b)",
+              "text": "by force compelled, or by any deceitful means induced to go from any place; or"
+            },
+            {
+              "label": "(c)",
+              "text": "is sold for the purpose of marriage; and made to go through a form of marriage or if the minor is married after which the minor is sold or trafficked or used for immoral purposes,"
+            }
+          ],
+          "trailing_text": [
+            "such marriage shall be null and void."
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "13",
+          "section_type": "power_conferring",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Power of court to issue injunction prohibiting child marriages",
+          "sub_heading": null,
+          "text": "(1) Notwithstanding anything to the contrary contained in this Act, if, on an application of the Child Marriage Prohibition Officer or on receipt of information through a complaint or otherwise from any person, a Judicial Magistrate of the first class or a Metropolitan Magistrate is satisfied that a child marriage in contravention of this Act has been arranged or is about to be solemnised, such Magistrate shall issue an injunction against any person including a member of an organisation or an association of persons prohibiting such marriage.\n(2) A complaint under sub-section (1) may be made by any person having personal knowledge or reason to believe, and a non-governmental organisation having reasonable information, relating to the likelihood of taking place of solemnisation of a child marriage or child marriages.\n(3) The Court of the Judicial Magistrate of the first class or the Metropolitan Magistrate may also take suo motu cognizance on the basis of any reliable report or information.\n(4) For the purposes of preventing solemnisation of mass child marriages on certain days such as Akshaya Trutiya, the District Magistrate shall be deemed to be the Child Marriage Prohibition Officer with all powers as are conferred on a Child Marriage Prohibition Officer by or under this Act.\n(5) The District Magistrate shall also have additional powers to stop or prevent solemnisation of child marriages and for this purpose, he may take all appropriate measures and use the minimum force required.\n(6) No injunction under sub-section (1) shall be issued against any person or member of any organisation or association of persons unless the Court has previously given notice to such person, members of the organisation or association of persons, as the case may be, and has offered him or them an opportunity to show cause against the issue of the injunction:\nProvided that in the case of any urgency, the Court shall have the power to issue an interim injunction without giving any notice under this section.\n(7) An injunction issued under sub-section (1) may be confirmed or vacated after giving notice and hearing the party against whom the injunction was issued.\n(8) The Court may either on its own motion or on the application of any person aggrieved, rescind or alter an injunction issued under sub-section (1).\n(9) Where an application is received under sub-section (1), the Court shall afford the applicant an early opportunity of appearing before it either in person or by an advocate and if the Court, after hearing the applicant rejects the application wholly or in part, it shall record in writing its reasons for so doing.\n(10) Whoever knowing that an injunction has been issued under sub-section (1) against him disobeys such injunction shall be punishable with imprisonment of either description for a term which may extend to two years or with fine which may extend to one lakh rupees or with both:\nProvided that no woman shall be punishable with imprisonment.",
+          "page": 7,
+          "page_end": 7,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Notwithstanding anything to the contrary contained in this Act, if, on an application of the Child Marriage Prohibition Officer or on receipt of information through a complaint or otherwise from any person, a Judicial Magistrate of the first class or a Metropolitan Magistrate is satisfied that a child marriage in contravention of this Act has been arranged or is about to be solemnised, such Magistrate shall issue an injunction against any person including a member of an organisation or an association of persons prohibiting such marriage."
+            },
+            {
+              "label": "(2)",
+              "text": "A complaint under sub-section (1) may be made by any person having personal knowledge or reason to believe, and a non-governmental organisation having reasonable information, relating to the likelihood of taking place of solemnisation of a child marriage or child marriages."
+            },
+            {
+              "label": "(3)",
+              "text": "The Court of the Judicial Magistrate of the first class or the Metropolitan Magistrate may also take suo motu cognizance on the basis of any reliable report or information."
+            },
+            {
+              "label": "(4)",
+              "text": "For the purposes of preventing solemnisation of mass child marriages on certain days such as Akshaya Trutiya, the District Magistrate shall be deemed to be the Child Marriage Prohibition Officer with all powers as are conferred on a Child Marriage Prohibition Officer by or under this Act."
+            },
+            {
+              "label": "(5)",
+              "text": "The District Magistrate shall also have additional powers to stop or prevent solemnisation of child marriages and for this purpose, he may take all appropriate measures and use the minimum force required."
+            },
+            {
+              "label": "(6)",
+              "text": "No injunction under sub-section (1) shall be issued against any person or member of any organisation or association of persons unless the Court has previously given notice to such person, members of the organisation or association of persons, as the case may be, and has offered him or them an opportunity to show cause against the issue of the injunction:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that in the case of any urgency, the Court shall have the power to issue an interim injunction without giving any notice under this section."
+                }
+              ]
+            },
+            {
+              "label": "(7)",
+              "text": "An injunction issued under sub-section (1) may be confirmed or vacated after giving notice and hearing the party against whom the injunction was issued."
+            },
+            {
+              "label": "(8)",
+              "text": "The Court may either on its own motion or on the application of any person aggrieved, rescind or alter an injunction issued under sub-section (1)."
+            },
+            {
+              "label": "(9)",
+              "text": "Where an application is received under sub-section (1), the Court shall afford the applicant an early opportunity of appearing before it either in person or by an advocate and if the Court, after hearing the applicant rejects the application wholly or in part, it shall record in writing its reasons for so doing."
+            },
+            {
+              "label": "(10)",
+              "text": "Whoever knowing that an injunction has been issued under sub-section (1) against him disobeys such injunction shall be punishable with imprisonment of either description for a term which may extend to two years or with fine which may extend to one lakh rupees or with both:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that no woman shall be punishable with imprisonment."
+                }
+              ]
+            }
+          ],
+          "state_amendments": [
+            {
+              "state": "Karnataka",
+              "nature": "amendment",
+              "amends_section": "13",
+              "citation": "Karnataka Act 26 of 2017, s. 6",
+              "page": 8,
+              "page_end": 8,
+              "text": "Amendment of section 13.—In section 13 of the principal Act, in sub-section (10), —\n(a) for the words “of either description for a term which may extend to two years”, the words “with a minimum term of one year, which may extent up to two years” shall be substituted.\n(b) proviso shall be omitted."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "14",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Child marriages in contravention of injunction orders to be void",
+          "sub_heading": null,
+          "text": "Any child marriage solemnised in contravention of an injunction order issued under section 13, whether interim or final, shall be void ab initio.",
+          "page": 8,
+          "page_end": 8,
+          "footnotes": []
+        },
+        {
+          "section_number": "15",
+          "section_type": "penal",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Offences to be cognizable and non-bailable",
+          "sub_heading": null,
+          "text": "Notwithstanding anything contained in the Code of Criminal Procedure, 1973 (2 of 1974), an offence punishable under this Act shall be cognizable and non-bailable.",
+          "page": 8,
+          "page_end": 8,
+          "state_amendments": [
+            {
+              "state": "Karnataka",
+              "nature": "amendment",
+              "amends_section": "15A",
+              "citation": "Karnataka Act 26 of 2017, s. 7",
+              "page": 8,
+              "page_end": 8,
+              "text": "Amendment of section 15A.—In the principal Act, after section 15, the following shall be inserted, namely:— “15A. Police Officer to take cognizance of an offence suo-motto.—Every Police Officer shall take cognizance of an offence committed in his jurisdiction under this Act, suo motto.”"
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "16",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Child Marriage Prohibition Officers",
+          "sub_heading": null,
+          "text": "(1) The State Government shall, by notification in the Official Gazette, appoint for the whole State, or such part thereof as may be specified in that notification, an officer or officers to be known as the Child Marriage Prohibition Officer having jurisdiction over the area or areas specified in the notification.\n(2) The State Government may also request a respectable member of the locality with a record of social service or an officer of the Gram Panchayat or Municipality or an officer of the Government or any public sector undertaking or an office bearer of any non-governmental organisation to assist the Child Marriage Prohibition Officer and such member, officer or office bearer, as the case may be, shall be bound to act accordingly.\n(3) It shall be the duty of the Child Marriage Prohibition Officer—\n(a) to prevent solemnisation of child marriages by taking such action as he may deem fit;\n(b) to collect evidence for the effective prosecution of persons contravening the provisions of this Act;\n(c) to advise either individual cases or counsel the residents of the locality generally not to indulge in promoting, helping, aiding or allowing the solemnisation of child marriages;\n(d) to create awareness of the evil which results from child marriages;\n(e) to sensitize the community on the issue of child marriages;\n(f) to furnish such periodical returns and statistics as the State Government may direct; and\n(g) to discharge such other functions and duties as may be assigned to him by the State Government.\n(4) The State Government may, by notification in the Official Gazette, subject to such conditions and limitations, invest the Child Marriage Prohibition Officer with such powers of a police officer as may be specified in the notification and the Child Marriage Prohibition Officer shall exercise such powers subject to such conditions and limitations, as may be specified in the notification.\n(5) The Child Marriage Prohibition Officer shall have the power to move the Court for an order under sections 4, 5 and 13 and along with the child under section 3.",
+          "page": 8,
+          "page_end": 9,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The State Government shall, by notification in the Official Gazette, appoint for the whole State, or such part thereof as may be specified in that notification, an officer or officers to be known as the Child Marriage Prohibition Officer having jurisdiction over the area or areas specified in the notification."
+            },
+            {
+              "label": "(2)",
+              "text": "The State Government may also request a respectable member of the locality with a record of social service or an officer of the Gram Panchayat or Municipality or an officer of the Government or any public sector undertaking or an office bearer of any non-governmental organisation to assist the Child Marriage Prohibition Officer and such member, officer or office bearer, as the case may be, shall be bound to act accordingly."
+            },
+            {
+              "label": "(3)",
+              "text": "It shall be the duty of the Child Marriage Prohibition Officer—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "to prevent solemnisation of child marriages by taking such action as he may deem fit;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "to collect evidence for the effective prosecution of persons contravening the provisions of this Act;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "to advise either individual cases or counsel the residents of the locality generally not to indulge in promoting, helping, aiding or allowing the solemnisation of child marriages;"
+                },
+                {
+                  "label": "(d)",
+                  "text": "to create awareness of the evil which results from child marriages;"
+                },
+                {
+                  "label": "(e)",
+                  "text": "to sensitize the community on the issue of child marriages;"
+                },
+                {
+                  "label": "(f)",
+                  "text": "to furnish such periodical returns and statistics as the State Government may direct; and"
+                },
+                {
+                  "label": "(g)",
+                  "text": "to discharge such other functions and duties as may be assigned to him by the State Government."
+                }
+              ]
+            },
+            {
+              "label": "(4)",
+              "text": "The State Government may, by notification in the Official Gazette, subject to such conditions and limitations, invest the Child Marriage Prohibition Officer with such powers of a police officer as may be specified in the notification and the Child Marriage Prohibition Officer shall exercise such powers subject to such conditions and limitations, as may be specified in the notification."
+            },
+            {
+              "label": "(5)",
+              "text": "The Child Marriage Prohibition Officer shall have the power to move the Court for an order under sections 4, 5 and 13 and along with the child under section 3."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "17",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Child Marriage Prohibition Officers to be public servants",
+          "sub_heading": null,
+          "text": "The Child Marriage Prohibition Officers shall be deemed to be public servants within the meaning of section 21 of the Indian Penal Code (45 of 1860).",
+          "page": 9,
+          "page_end": 9,
+          "footnotes": []
+        },
+        {
+          "section_number": "18",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Protection of action taken in good faith",
+          "sub_heading": null,
+          "text": "No suit, prosecution or other legal proceedings shall lie against the Child Marriage Prohibition Officer in respect of anything in good faith done or intended to be done in pursuance of this Act or any rule or order made thereunder.",
+          "page": 9,
+          "page_end": 9,
+          "footnotes": []
+        },
+        {
+          "section_number": "19",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Power of State Government to make rules",
+          "sub_heading": null,
+          "text": "(1) The State Government may, by notification in the Official Gazette, make rules for carrying out the provisions of this Act.\n(2) Every rule made under this Act shall, as soon as may be after it is made, be laid before the State Legislature.",
+          "page": 9,
+          "page_end": 9,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The State Government may, by notification in the Official Gazette, make rules for carrying out the provisions of this Act."
+            },
+            {
+              "label": "(2)",
+              "text": "Every rule made under this Act shall, as soon as may be after it is made, be laid before the State Legislature."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "20",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Amendment of Act No. 25 of 1955",
+          "sub_heading": null,
+          "text": "In the Hindu Marriage Act, 1955, in section 18, for clause (a), the following clause shall be substituted, namely:— “(a) in the case of contravention of the condition specified in clause (iii) of section 5, with rigorous imprisonment which may extend to two years or with fine which may extend to one lakh rupees, or with both;”.",
+          "page": 9,
+          "page_end": 9,
+          "footnotes": []
+        },
+        {
+          "section_number": "21",
+          "section_type": "repeal_and_savings",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Repeal and savings",
+          "sub_heading": null,
+          "text": "(1) The Child Marriage Restraint Act, 1929 (19 of 1929) is hereby repealed.\n(2) Notwithstanding such repeal, all cases and other proceedings pending or continued under the said Act at the commencement of this Act shall be continued and disposed of in accordance with the provisions of the repealed Act, as if this Act had not been passed. ________",
+          "page": 9,
+          "page_end": 9,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The Child Marriage Restraint Act, 1929 (19 of 1929) is hereby repealed."
+            },
+            {
+              "label": "(2)",
+              "text": "Notwithstanding such repeal, all cases and other proceedings pending or continued under the said Act at the commencement of this Act shall be continued and disposed of in accordance with the provisions of the repealed Act, as if this Act had not been passed. ________"
+            }
+          ],
+          "footnotes": []
+        }
+      ]
+    }
+  ],
+  "schedules": [],
+  "end_matter": {
+    "statement_of_objects_and_reasons": {
+      "page": 10,
+      "paragraphs": [
+        "The Child Marriage Restraint Act, 1929 was enacted with a view to restraining solemnisation of child marriages. The Act was subsequently amended in 1949 and 1978 in order, inter alia, to raise the age limit of the male and female persons for the purpose of marriage. The Act, though restrains solemnisation of child marriages yet it does not declare them to be void or invalid. The solemnisation of child marriages is punishable under the Act.",
+        "2. There has been a growing demand for making the provisions of Act more effective and the punishment thereunder more stringent so as to eradicate or effectively prevent the evil practice of solemnisation of child marriages in the country. This will enhance the health of children and the status of women. The National Commission for Women in its Annnual Report for the year 1995-96 recommended that the Government should appoint Child Marriage Prevention Officers immediately. It further recommended that (i) the punishment provided under the Act should be made more stringent; (ii) marriages performed in contravention of the Act should be made void; and (iii) the offences under the Act should be made cognizable.",
+        "3. The National Human Rights Commission undertook a comprehensive review of the existing Act and made recommendations for comprehensive amendments therein vide its Annual Report 2001-2002. The Central Government, after consulting the State Governments and Union territory Administrations on the recommendations of the National Commission for Women and the National Human Rights Commission, has decided to accept almost all the recommendations and give effect to them by repealing and re-enacting the Child Marriage Restraint Act, 1929.",
+        "4. The salient features of the Bill are as follows:-(i) To make a provision to declare child marriage as voidable at the option of the contracting party to the marriage, who was a child. (ii) To provide a provision requiring the husband or, if he is a minor at the material time, his guardian to pay maintenance to the minor girl until her remarriage. (iii) To make a provision for the custody and maintenance of children born of child marriages. (iv) To provide that notwithstanding a child marriage has been annulled by a decree of nullity under the proposed section 3, every child born of such marriage, whether before or after the commencement of the proposed legislation, shall be legitimate for all purposes. (v) To empower the district court to add to, modify or revoke any order relating to maintenance of the female petitioner and her residence and custody or maintenance of children, etc. (vi) To make a provision for declaring the child marriage as void in certain circumstances. (vii) To empower the courts to issue injunctions prohibiting solemnisation of marriages in contravention of the provisions of the proposed legislation. (viii) To make the offences under the proposed legislation to be congnizable for the purposes of investigation and for other purposes. (ix) To provide for appointment of Child Marriage Prevention Officers by the State Governments. (x) To empower the State Governments to make rules for effectively administration of the legislation.",
+        "5. The Bill seeks to achieve the above objects."
+      ],
+      "signatory": null,
+      "place_and_date": ""
+    }
+  }
+}

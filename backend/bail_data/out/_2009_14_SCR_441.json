@@ -1,0 +1,729 @@
+{
+  "case_id": "_2009_14_SCR_441",
+  "doc_meta": {
+    "source_file": "2009 INSC 1132.pdf",
+    "pdf_pages": 23,
+    "_sources": {
+      "citation": "scr_running_header",
+      "decided_on": "page1:month_d_y",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "decided_on",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment"
+    },
+    "format_profile": "scr_reporter",
+    "citation_scr": "[2009] 14 SCR 441",
+    "scr_year": 2009,
+    "scr_volume": 14,
+    "scr_first_page": 441,
+    "decided_on": "2009-09-14",
+    "coram_raw": "R.V. RAVEENDRAN AND B. SUDERSHAN REDDY, JJ.",
+    "coram_regex": [
+      "R.V. RAVEENDRAN",
+      "B. SUDERSHAN REDDY"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "D. VENKATASUBRAMANIAM AND ORS. ~-+",
+    "respondent_regex": "M.K. MOHAN KRISHNAMACHARI AND ANR.",
+    "court_regex": "Supreme Court of India",
+    "year": 2009,
+    "footnotes": [
+      {
+        "page": 448,
+        "text": "Air 1945 PC 18."
+      },
+      {
+        "page": 450,
+        "text": "3."
+      },
+      {
+        "page": 451,
+        "text": "4."
+      }
+    ],
+    "reporter_trailer": "D.G. Appeals allowed.",
+    "result_of_case": "Appeals allowed.",
+    "pre_judgment_block": "CRIMINAL APPELLATE JURISDICTION: Criminal Appeal No. 1766 of 2009. .. ~ From the Judgment & Order dated 5.4.2007 of the High Court of Judicature at Madras in Crl. O.P. No. 6194 of 2007. WITH Crl. A.No. 1767 of 2009. Uday U. Lalit, A.T.M. Rangaramanujam, N.G. Govindarajalu, Avishek Kumar Lal, S. Mahendran, P.V. Yogeswaran, R.N. Upadya, K.V. Mohan, S. Thananjayan for the + appearing parties.",
+    "case_no": "Criminal Appeal No. 1766 of 2009",
+    "appeal_from_raw": "From the Judgment & Order dated 5.4.2007 of the High Court of Judicature at Madras in Crl. O.P. No. 6194 of 2007",
+    "layout": "unnumbered_page_anchored",
+    "ocr_noise_score": 0.0027
+  },
+  "flags": [
+    "author_not_found"
+  ],
+  "case": {
+    "case_name": "D. Venkatasubramaniam and Ors. v. M.K. Mohan Krishnamachari and Anr.",
+    "petitioner": "D. Venkatasubramaniam and Ors.",
+    "respondent": "M.K. Mohan Krishnamachari and Anr.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "R.V. Raveendran",
+      "B. Sudershan Reddy"
+    ],
+    "judgment_author": null,
+    "procedural_stage": "other",
+    "offence_types": [
+      "IPC"
+    ],
+    "dispute_nature": "other",
+    "abstract_facts": "This case involves an appeal against an order of the High Court directing the police to conduct a particular investigation in a case involving alleged offences under sections 406 and 420 of the IPC.",
+    "lower_court_outcome": "High Court directed police to expedite investigation.",
+    "disposition": "Appeals allowed.",
+    "statutes": [
+      {
+        "act": "CrPC 1973",
+        "section": "482",
+        "how_used": "interpreted",
+        "note": "High Court's inherent power may be exercised to prevent abuse of court process, but should be exercised sparingly."
+      }
+    ],
+    "issues": [
+      {
+        "question": "Can the High Court interfere with police investigation under Section 482 CrPC?",
+        "short_answer": "No, the High Court exceeded its jurisdiction.",
+        "anchors": [
+          "p447.1"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "It is the statutory obligation and duty of the police to investigate into crime, and courts should not interfere with how police conduct these investigations.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p456.1"
+        ],
+        "quote": "It is the statutory obligation and duty of the police to investigate into the crime and the Courts normally ought not to interfere and guide the investigating agency as to in what manner the investigation has to proceed."
+      },
+      {
+        "id": "p2",
+        "text": "The High Court must exercise its power under Section 482 of the CrPC sparingly and with caution, only to secure the ends of justice or prevent abuse of the court process.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p460.1"
+        ],
+        "quote": "The jurisdiction under Section 482 of the Code conferred on the High Court has to be exercised sparingly, carefully and with caution."
+      },
+      {
+        "id": "p3",
+        "text": "The High Court must not interfere with police investigations by issuing directions that bind them to conduct investigations in a specific manner or timeline.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p458.1"
+        ],
+        "quote": "In our view the High Court exceeded its jurisdiction in making this direction which deserves to be set aside."
+      },
+      {
+        "id": "p4",
+        "text": "Parties likely to be affected by a court's order should be provided an opportunity to be heard, particularly in cases that could have drastic consequences.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p461.1"
+        ],
+        "quote": "No judicial order can ever be passed by any court without providing a reasonable opportunity of being heard to the person likely to be affected."
+      },
+      {
+        "id": "p5",
+        "text": "When investigating officers submit a report post-investigation, the Magistrate cannot direct them to submit a report aligned with the Magistrate's views, respecting the independence of the investigation.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p458.1"
+        ],
+        "quote": "What the Magistrate cannot do is to direct the investigating agency to submit a report to the effect that the allegations have been supported by the material collected."
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The High Court exceeded its jurisdiction by issuing directions to the police to act in a particular manner.",
+        "outcome": "accepted",
+        "anchors": [
+          "p455.1"
+        ]
+      },
+      {
+        "side": "respondent",
+        "text": "The High Court rightfully interfered in the investigation in the interest of justice.",
+        "outcome": "rejected",
+        "anchors": [
+          "p456.2"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "State of West Bengal v. S.N. Basak",
+        "citation": "(1963) 2 SCR 52",
+        "treatment": "relied_on",
+        "used_for": "Propositions on police investigation and court powers.",
+        "where": "[p449.7]"
+      },
+      {
+        "name": "M.C. Mehta (Taj Corridor Scam) v. Union of India & Ors.",
+        "citation": "(2007) 1 SCC 110",
+        "treatment": "relied_on",
+        "used_for": "Public interest litigation context regarding police powers.",
+        "where": "[p451.2]"
+      },
+      {
+        "name": "Divine Retreat Centre v. State of Kerala & Ors.",
+        "citation": "(2008) 3 SCC 542",
+        "treatment": "relied_on",
+        "used_for": "Procedural fairness in judicial orders affecting parties.",
+        "where": "[p461.2]"
+      },
+      {
+        "name": "D.K. Basu v. State of West Bengal",
+        "citation": "(1997) 1 SCC 416",
+        "treatment": "distinguished",
+        "used_for": "Court power and responsibilities related to arrests and seizures.",
+        "where": "[p462.5]"
+      },
+      {
+        "name": "Inder Mohan Goswami & Anr. v. State of Uttaranchal & Ors.",
+        "citation": "(2007) 12 SCC 1",
+        "treatment": "distinguished",
+        "used_for": "Judicial directions regarding police conduct.",
+        "where": "[p462.6]"
+      },
+      {
+        "name": "Central Bureau of Investigation v. A. Ravishankar Prasad & Ors.",
+        "citation": "(2009) 6 SCC 351",
+        "treatment": "distinguished",
+        "used_for": "Issues of High Court direction and police investigation policy.",
+        "where": "[p462.9]"
+      }
+    ]
+  },
+  "authority_table": [
+    {
+      "name": "Central Bureau of Investigation v. A. Ravishankar Prasad & Ors",
+      "cite": "(2009) 6 SCC 351",
+      "treatment": "distinguished",
+      "para": null
+    },
+    {
+      "name": null,
+      "cite": "(1963) 2 SCR 52",
+      "treatment": "relied_on",
+      "para": "5"
+    }
+  ],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "unsupported",
+      "favors_correct": false,
+      "note": "The anchor text does not support the proposition regarding the statutory obligation of police and interference by courts."
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "unsupported",
+      "favors_correct": true,
+      "note": "The anchor text does not confirm the High Court's obligation to exercise power under Section 482 of the CrPC sparingly."
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": false,
+      "note": "The anchor text supports the idea that the High Court should not interfere with police investigations."
+    },
+    "p4": {
+      "id": "p4",
+      "verdict": "unsupported",
+      "favors_correct": true,
+      "note": "The anchor text does not explicitly state that parties affected should be heard as proposed."
+    },
+    "p5": {
+      "id": "p5",
+      "verdict": "supported",
+      "favors_correct": false,
+      "note": "The anchor text supports the notion that Magistrates cannot direct investigating officers regarding their reports."
+    }
+  },
+  "needs_review": [
+    "p1: quote not found in its anchors",
+    "p2: quote not found in its anchors",
+    "p3: quote not found in its anchors",
+    "p4: quote not found in its anchors",
+    "p1: verifier says unsupported, favors_correct=False - The anchor text does not support the proposition regarding the statutory obligation of police and interference by courts.",
+    "p2: verifier says unsupported, favors_correct=True - The anchor text does not confirm the High Court's obligation to exercise power under Section 482 of the CrPC sparingly.",
+    "p3: verifier says supported, favors_correct=False - The anchor text supports the idea that the High Court should not interfere with police investigations.",
+    "p4: verifier says unsupported, favors_correct=True - The anchor text does not explicitly state that parties affected should be heard as proposed.",
+    "p5: verifier says supported, favors_correct=False - The anchor text supports the notion that Magistrates cannot direct investigating officers regarding their reports.",
+    "parser flag: author_not_found"
+  ],
+  "paragraphs": {
+    "p447.1": {
+      "text": "8. SUDERSHAN REDDY, J. 1. A short question that arises for our consideration in these appeals is whether it is open to the High Court in exercise of its jurisdiction under t- Section 482 of the Code of Criminal Procedure to interfere with the statutory power of investigation by police into a cognizable offence? If such a power is available with the Court, what are the parameters for its interference?",
+      "page_start": 447,
+      "page_end": 448
+    },
+    "p448.1": {
+      "text": "2. It is well settled and this Court time and again, reiterated that the police authorities have the statutory right and duty to investigate into a cognizable offence under the scheme of Code of Criminal Procedure (for short 'the Code'). This Court, on more than one occasion, decried uncalled for interference c by the Courts into domain of investigation of crimes by police in discharge of their statutory functions. The principle has been succinctly stated way back in Emperor V. Khwaja Nazir Ahmad and the same has been repeatedly quoted with respect and approval. The Privy Council observed that \"just as it is essential that every one accused of a crime should have -.\\- free access to a Court of justice so that he may be duly, acquitted if found not guilty of the offence with which he is charged, so it is of the utmost importance that the judiciary should not interfere with the police in matters. which are within their province and into which the law imposes upon them the duty of enquiry\".",
+      "page_start": 448,
+      "page_end": 448
+    },
+    "p448.2": {
+      "text": ">- ...",
+      "page_start": 448,
+      "page_end": 448
+    },
+    "p448.3": {
+      "text": "3. The Privy Council further observed:",
+      "page_start": 448,
+      "page_end": 448
+    },
+    "p448.4": {
+      "text": "\"In India as has been shown there is a statutory right on the part of the police to investigate the circumstances of an alleged cognizable crime without requiring any authority from the judicial authorities, and it would, as their Lordships think, be an unfortunate result if it should be held possible to interfere with those statutory rights by an exercise of the inherent jurisdiction of the Courf. The functions of the judiciary and the police are complementary not overlapping and the combination of individual liberty with a due observance of law and order is only to be 1.",
+      "page_start": 448,
+      "page_end": 448
+    },
+    "p449.1": {
+      "text": "KRISHNAMACHARI [B. SUDERSHAN REDDY, J.] ':'\"' t obtained by leaving each to exercise its own function, always, of course, subject to the right of the Court to intervene in an appropriate case when moved under Section 491, Criminal P.C. to give directions in the nature of habeas corpus. In such a case as the present, however, the Court's functions begin when a charge is preferred before it and not until then. It has sometimes been thought ...",
+      "page_start": 449,
+      "page_end": 449
+    },
+    "p449.2": {
+      "text": "that Section 561A has given increased powers to the ·Court which it did not possess before that section was ~ enacted. But this is not so. The section gives no new powers, it only provides that those which the Court already c ....",
+      "page_start": 449,
+      "page_end": 449
+    },
+    "p449.3": {
+      "text": "inherently possess shall be preserved and is inserted, as their Lordships think, lest it should be considered that the only powers possessed by the Court are those expressly conferred by the Criminal Procedure Code, and that no ,,...",
+      "page_start": 449,
+      "page_end": 449
+    },
+    "p449.4": {
+      "text": "inherent power had survived the passing of that Act.\" -J..",
+      "page_start": 449,
+      "page_end": 449
+    },
+    "p449.5": {
+      "text": "(emphasis sup.plied)",
+      "page_start": 449,
+      "page_end": 449
+    },
+    "p449.6": {
+      "text": "4. In State of West Bengal V. S. N. Basak, 2 a Division Bench of three Judges of this Court, while referring to the '. ~ observations of the Privy Council referred to hereinabove, observed:",
+      "page_start": 449,
+      "page_end": 449
+    },
+    "p449.7": {
+      "text": "\"With this interpretation, which has been put on the statutory duties and powers of the police and of the powers of the Court, we are in accord.\"",
+      "page_start": 449,
+      "page_end": 449
+    },
+    "p449.8": {
+      "text": "and it was further held:",
+      "page_start": 449,
+      "page_end": 449
+    },
+    "p449.9": {
+      "text": "\"The powers of investigation into cognizable offences are contained in Chapter XIV of the Code. Section 154 which is in that Chapter deals with information in cognizable offences and Section 156 with investigation into such offences and under these sections the police has the statutory right to investigate into the circumstances of any alleged cognizable offence ... and this statutory power of 2.",
+      "page_start": 449,
+      "page_end": 449
+    },
+    "p449.10": {
+      "text": "(1963) 2 SCR 52.",
+      "page_start": 449,
+      "page_end": 449
+    },
+    "p450.1": {
+      "text": "the police to investigate cannot be interfered with by the exercise of power under Section 439 or under the inherent power of the court under Section 561A of Criminal Procedure Code\".",
+      "page_start": 450,
+      "page_end": 450
+    },
+    "p450.2": {
+      "text": "8 This Court, having found that the High Court had exceeded its jurisdiction in interfering with the investigation, interfered with the orders of the High Court by allowing the appeal preferred by the State.",
+      "page_start": 450,
+      "page_end": 450
+    },
+    "p450.3": {
+      "text": "5. In State of Bhihar & Anr. V. J.A.C. Saldanha & Ors3., a C. three Judge Bench, speaking through Desai, J., after referring the precedents including Khwaza Nazir Ahmad, held: \"There is a clear cut and well demarcated sphere of activity in the field of crime detection and crime punishment. Investigation of an offence is the field exclusively reserved for the executive through the police department, the superintendence over which vests in the State Government. The executive, which is charged with a duty to keep vigilance over law and order situation is obliged to prevent crime and if an offence is alleged to have been committed it is its bounden duty to investigate into the offe.nce and bring the offender to book. Once ·it investigates and finds an offence having been committed it is its duty to collect evidence for the purpose of proving the offence. Once that is completed and the investigating officer submits report to the Court requesting the Court.to take cognizance of the offence under Section 190 of the Code its duty comes to an end. On a cognizance of the offence being taken by the Court the police function of investigation comes to an end subject to the provision contained in Section 173(8), there commences the + adjudicatory function of the judiciary to determine whether an offence has been committed and if so, whether by the person or persons charged with the crime by the police in (1980) 2 SCR 16.",
+      "page_start": 450,
+      "page_end": 450
+    },
+    "p451.1": {
+      "text": "KRISHNAMACHARI [B. SUDERSHAN REDD)'.', J.] its report to the Court, and to award adequate punishment -- t according to law for the offence proved to the satisfaction of the Court. There is thus a well defined and well demarcated function in the field of crime detection and its subsequent adjudication between the police and the Magistrate. This has been recognised way back in King Emperor v. Khwaja Nazir Ahmad [1944] LR. 71 IA 203. -+ - This view of the Judicial Committee clearly demarcates the functions of the executive and the judiciary in the field of c detection of crime and its subsequent trial and it would appear that the power of the police to investigate into a cognizable offence is ordinarily not to be interfered with by ,,,..",
+      "page_start": 451,
+      "page_end": 451
+    },
+    "p451.2": {
+      "text": "the judiciary.\"",
+      "page_start": 451,
+      "page_end": 451
+    },
+    "p451.3": {
+      "text": "-/L 6. M. C. Mehta (Taj Corridor Scam) V. Union of India & Ors. was a public interest litigation in which this Court, after noticing the precedents, held that when a cognizable offence is reported to the police, they may after investigation take action under Section 169 or Section 170 of the Code. If the officer-in-charge of the police station forms an opinion that there is no .. -...\\ sufficient evidence against the accused, the officer-in-charge may, under Section 169 of the Code, release the accused from custody or, if the officer forms an opinion that there is sufficient evidence, he may, under Section 170 of the Code, forward the accused to a competent Magistrate. After analyzing the earlier judgments, this Court observed:",
+      "page_start": 451,
+      "page_end": 451
+    },
+    "p451.4": {
+      "text": "... that there is a clear-cut and well-demarcated sphere of activities in the field of crime detection and crime punishment. Investigation of an. offence is the field reserved for the executive through the police department, the superintendence over which vests in the State Government. The executive is charged with a duty to keep c2001) sec 110.",
+      "page_start": 451,
+      "page_end": 451
+    },
+    "p452.1": {
+      "text": "vigilance over law and order situation. It is obliged to t~ prevent crime. If an offence is committed allegedly, it is the State's duty to investigate into the offence and bring the offender to book. Once it investigates through the police department and finds an offence having been committed, it is its duty to collect evidence for the purposes of proving the offence. Once that is completed, the investigating officer submits report to the court requesting the court to take cognizance of the offence under Section 190 Cr.P.C and his duty comes to an end.\"",
+      "page_start": 452,
+      "page_end": 452
+    },
+    "p452.2": {
+      "text": "~ - c 7. Now, we shall revert to the facts of the case in order to consider whether the High Court properly applied the settled legal position to the facts of the case .",
+      "page_start": 452,
+      "page_end": 452
+    },
+    "p452.3": {
+      "text": ". On 18th September, 2006, M/s IVR Prime Urban ....",
+      "page_start": 452,
+      "page_end": 452
+    },
+    "p452.4": {
+      "text": "Developers Ltd. ('IVR' for short) entered into a Memorandum ~ of Understanding (MOU) with the respondent herein wherein it was agreed upon by the respondent that he would facilitate the sale of about 600 acres of land situated at Sandavellor village of Kancheepuram District, Tamilnadu in favour of IVR for a valuable consideration of Rs.28 lakhs per acre. It was mutually agreed upon between the parties that IVR would retain an amount of Rs.2 lakh per acre towards security for timely >-- , performance of respondent's obligation under the MOU. The completion of the sale of the said land was to be done in two phases. The first phase for an extent of 450 acres was required to be completed before 31st November, 2006 and the second phase of remaining 150 acres on or before 28th February, 2007. The respondent agreed to arrange and facilitate registration of sale deeds of a minimum of 75 acres per week in favour of IVR. The respondent had also undertaken the obligation to collect and deliver all the relevant documents and records concerning the said lands as required by IVR for ~ registration of the sale deeds. It was further agreed upon that the retention amount accumulated to be forfeited by IVR on failure to comply with the terms of the MOU by the respondent. KRISHNAMACHARI [B. SUDERSHAN REDDY, J.] ...",
+      "page_start": 452,
+      "page_end": 453
+    },
+    "p453.1": {
+      "text": "..",
+      "page_start": 453,
+      "page_end": 453
+    },
+    "p453.2": {
+      "text": "The MOU further provided that the same shall be cancelled by IVR if it was convinced that the respondent was unable to perform his part of the obligation under the MOU. 8. On realizing that the respondent could facilitate the transfer of only 64 acres of land in favour of IVR out of the huge chunk of the land, IVR got issued legal notice to the respondent on 15th November, 2006, calling upon him to facilitate and complete the sale of 450 acres of land within the agreed timeframe. Since there was no response to the legal notice, IVR terminated the MOU on 30th November, 2006 and also forfeited c the retention amount in terms of the MOU.",
+      "page_start": 453,
+      "page_end": 453
+    },
+    "p453.3": {
+      "text": ", 9. Thereafter, IVR entered into two MOUs with the owners of the land and Mis Altirven Steels Limited for purchase of 330 acres and 200 acres of land respectively. This is the same land .....",
+      "page_start": 453,
+      "page_end": 453
+    },
+    "p453.4": {
+      "text": "which the first respondent had undertaken to facil!tate the sale i in favour of IVR. It is stated that pursuant to the said MOUs, IVR has completed purchase of 346 acres of land by paying a total sale consideration of Rs.121.35 crores.",
+      "page_start": 453,
+      "page_end": 453
+    },
+    "p453.5": {
+      "text": "10. On 12th January, 2007, the respondent herein lodged first information with the Sub Inspector of Police, Central Crime Branch, Tamilnadu against the appellants alleging commission ~ -\"",
+      "page_start": 453,
+      "page_end": 453
+    },
+    "p453.6": {
+      "text": "of offences under Sections 406 and 420 of the Indian Penal Code (IPC) and the same was registered on 26th February, 2007 in FIR No. 93 of 2007. It is not necessary for the purpose of disposal of these appeals to notice the details of allegations leveled in the said First Information Report as we propose not to make any comment or observation which may hamper further pending proceedings. The police, having registered the case against the appellants had commenced its investigation. Even while the investigation was in progress, for some inexplicable reasons, the respondent moved the High Court under Section 482 of the Code, in Criminal Original Petition No. 6194 of 2007 seeking directions to the police to seize an amount of Rs.2,28,00,000/- from the appellants claiming that he was entitled for an amount of Rs.1,28,00,000/- for facilitating ...",
+      "page_start": 453,
+      "page_end": 454
+    },
+    "p454.1": {
+      "text": "i the registration of 64 acres of land under the MOU which amount· is alleged to have been withheld by the appellants together with a sum of Rs.1 crore which is stated to have been paid by him to the appellants. The petition filed in the High Court makes an interesting reading in which it was stated that the following questions arise for the consideration of the High Court: A.",
+      "page_start": 454,
+      "page_end": 454
+    },
+    "p454.2": {
+      "text": "Whether the accused have not committed serious cognizable offences?",
+      "page_start": 454,
+      "page_end": 454
+    },
+    "p454.3": {
+      "text": "+ c B.",
+      "page_start": 454,
+      "page_end": 454
+    },
+    "p454.4": {
+      "text": "Whether the termination of MOU is legally and morally correct?",
+      "page_start": 454,
+      "page_end": 454
+    },
+    "p454.5": {
+      "text": "C.",
+      "page_start": 454,
+      "page_end": 454
+    },
+    "p454.6": {
+      "text": "Whether the petitioner had not sustained a huge monetary loss of Rs.5 crores, which was invested in the said project?",
+      "page_start": 454,
+      "page_end": 454
+    },
+    "p454.7": {
+      "text": "\"' -\\- D.",
+      "page_start": 454,
+      "page_end": 454
+    },
+    "p454.8": {
+      "text": "Is it not the duty of the respondent police to seize the petitioner's money of Rs.1,28,00,000/- from accused Nos. 1 to 3?",
+      "page_start": 454,
+      "page_end": 454
+    },
+    "p454.9": {
+      "text": "E.",
+      "page_start": 454,
+      "page_end": 454
+    },
+    "p454.10": {
+      "text": "Is it not the duty of the respondent police to seize the petitioner's money of Rs.1,00,00,000/- from accused Nos. 4 to 6?",
+      "page_start": 454,
+      "page_end": 454
+    },
+    "p454.11": {
+      "text": "}- ., F.",
+      "page_start": 454,
+      "page_end": 454
+    },
+    "p454.12": {
+      "text": "Whether the claim of accused Nos. 1 to 3 that the petitioner has to pay a sum of Rs.2 crores as liquidated damages is justified?",
+      "page_start": 454,
+      "page_end": 454
+    },
+    "p454.13": {
+      "text": "11. Be it noted, that there is no allegation of dereliction of any duty on the part of the investigating agency. There is also no allegation of any collusion and deliberate delay on the part of the investigating agency in the matter of investigation into· the case that has been promptly registered on the information lodged by the respondent. The petition almost reads like a civil suit for recovery of the money. As· noted hereinabove, the petition has been filed within one week of registration of the crime by which time the police had already started serious KRISHNAMACHARI [B. SUDERSHAN REDDY, J.] investigation as is evident from the material available on record . ...",
+      "page_start": 454,
+      "page_end": 455
+    },
+    "p455.1": {
+      "text": "It is also required to notice that none of the appellants have ~ been impleaded as party respondents to the petition filed under Section 482 of the Code. The State represented by its Sub Inspector of Police, Central Crime Branch, Egmore, Chennai alone was impleaded as the respondent. The investigating agency in its counter filed in the High Court stated that after obtaining necessary legal opinion, a case was registered and 'commenced the investigation'. It is also stated in categorical -+ terms that the police had \"inquired all the connected witnesses, recorded their statements and also collected the material c documents and confirmed commission of cognizable offences by all the accused\". The High Court, within a period of one month from the date of filing of the petition, finally disposed of the same observing that \"it is obligatory on the part of the respondent police to conduct investigation in accordance with ~ / law, including recording of statements from witnesses, arrest, ~ seizure of property, perusal of various documents, filing of charge sheet. It is also needless to state that if any account is available with the accused persons, or any amount is in their possession and any account is maintained in Natinoalised Bank, it is obligatory on the part of the respondent police to take all necessary steps to safeguard the interest of the aggrieved persons in this case.\" The Court accordingly --!- .....",
+      "page_start": 455,
+      "page_end": 455
+    },
+    "p455.2": {
+      "text": "directed the police to expedite and complete the investigation within six months from the date of receipt of a copy of the order. The said order of the High Court is impugned in these appeals. 12. Shri Uday U. Lalit, learned senior advocate appearing for the appellants, submitted that the impugned order suffers from serious and incurable infirmities requiring interference of this Court. The respondent virtually sought to recover the G' amounts from the appellants in a proceeding filed under .t Section 482 of the Code which is impermissible in law. It was further submitted that the High Court exceeded its jurisdiction in issuing directions to the investigating agency to act in a particular manner which is unsustainable.",
+      "page_start": 455,
+      "page_end": 455
+    },
+    "p455.3": {
+      "text": "H' ..",
+      "page_start": 455,
+      "page_end": 455
+    },
+    "p456.1": {
+      "text": "13. Mr. K.V. Mohan, the learned counsel for the \"",
+      "page_start": 456,
+      "page_end": 456
+    },
+    "p456.2": {
+      "text": "respondent, on the other hand, supported the order and -.f submitted that the High Court rightly interfered in the matter in the interest of justice.",
+      "page_start": 456,
+      "page_end": 456
+    },
+    "p456.3": {
+      "text": "14. The question that arises for our consideration is whether the contents of the petition sub'!litted by the respondent reveal any cause for issuing directions guiding the Investigating Officer in the matter of exercise of statutory power and duty to investigate into crime that had already been registered and c investigation was actually in progress? Whether such a direction could have been issued by the High Court in exercise of its jurisdiction under Section 482 of the Code? 15. ltis too fairly well settled and needs no restatement at our hands that the saving of the High Court's inherent power is designed to achieve a salutary public purpose which is that a Court proceeding ought not to be permitted to degenerate into ~ a weapon of harassment or persecution. It is unfortunate that it is the exercise of the inherent power by thP, High Court in this case that had ultimately resulted in harassment of the appellants as is evident from the subsequent events. Pursuant to the impugned order, the investigating authorities have approached ,, the appellant No.1 (in S.L.P (Crl) No. 3269 of 2007), took him >- ;\\- into custody and exhibited him on television channel. The police have demanded to pay an amount of Rs.2,28,00,000/- and threatened that he would be arrested if he fails to comply with . their demand. Accordingly, the appellants have paid Rs.10 lakhs in cash in the police station itself and issued a cheque for an amount of Rs.2.18 coresdrawn on Tamilnadu Mercantile ,.",
+      "page_start": 456,
+      "page_end": 456
+    },
+    "p456.4": {
+      "text": "Bank. However, the. cheque was not encashed on account of the instructions to the bank to stop the payment in view of the interim order dated 4th May, 2007 of this Court. The police offered explanation stating that the matter was settled ~· voluntarily between the parties and therefore, the accused were not arrested and remanded to custody. It is difficult to buy this idea that there was a settlement between the parties in the KRISHNAMACHARI [B. SUDERSHAN REDDY, J.] police station. It is not difficult to discern as to how and under ' ...",
+      "page_start": 456,
+      "page_end": 457
+    },
+    "p457.1": {
+      "text": "~ what circumstances the appellants may have agreed to pay the f amounts and also issued a cheque. It is not known as to how and under what authority the police could intervene and settle any disputes between the parties. It is needless to observe that the police have no such authority or duty of settling disputes. '16. It is the statutory obligation and duty of the police to investigate into the crime and the Courts normally ought not to interfere and guide the investigating agency as to in what manner the investigation has to proceed. In M.C. Abraham & c Anr. V. State of Maharashtra & Ors5., this Court observe~: - \"Section 41 of the Code of Criminal Procedure provides for arrest by a police officer without an order from a Magistrate and without a warrant. The section gives discretion to the police officer who may, without an order ~ from a Magistrate and even without a warrant, arrest any person in the situations enumerated in that section. It is open to him, in the course of investigation, to arrest any person who has been concerned with any cognizable offence or against whom reasonable complaint has been made or credible information has been received, or a reasonable suspicion exists of his having been so # ,-1., concerned. Obviously, he is not expected to act in a mechanical manner and in all cases to arrest the accused as soon as the report is lodged. In appropriate cases, after some investigation, the investigating officer may make up his mind as to whether it is necessary to arrest the accused person. At that stage the court has no role to play. Since the power is discretionary, a police officer is not always bound to arrest an accused even if the allegation against him is of having committed a cognizable •\"'- offence. Since an arrest is in the nature of an encroachment on the liberty of the subject and does affect the reputation and status of the citizen, the power has to 2.",
+      "page_start": 457,
+      "page_end": 457
+    },
+    "p457.2": {
+      "text": "(2003) 2 sec 649.",
+      "page_start": 457,
+      "page_end": 457
+    },
+    "p457.3": {
+      "text": "--...;_ be cautiously exercised. It depends inter alia upon the --1 nature of the offence alleged and the type of persons who are accused of having committed the cognizable offence. Obviously, the power has to be exercised with caution and circumspection. n 17. It is further observed:",
+      "page_start": 457,
+      "page_end": 458
+    },
+    "p458.1": {
+      "text": "\"The principle, therefore, is well settled that it is for the / + investigating agency to submit a report to the Magistrate . after full and complete investigation. The investigating c agency may submit a report finding the allegations substantiated. It is also open to the inve~tigating agency - to submit a report finding no material to support the allegations made in the first information report. It is open to the Magistrate concerned to accept the report or to order further enquiry. But what is clear is that the Magistrate ,\\- cannot direct the investigating agency to submit a report that is in accord with his views. Even in a case where a report is submitted by the investigating agency finding that no case is made 0 1.1t for prosecution, it is open to the Magistrate to disagree with the report and to take cognizance, but what he cannot do is to direct the ., investigating agency to submit a report to the effect that >- - the allegations have been supported by the material collected during the course of investigation.\"",
+      "page_start": 458,
+      "page_end": 458
+    },
+    "p458.2": {
+      "text": "18. This Court while observing that it was not appropriate for the High Court to issue a direction that the case should not only be investigated but a charge sheet must be submitted, held:",
+      "page_start": 458,
+      "page_end": 458
+    },
+    "p458.3": {
+      "text": "\"In our view the High Court exceeded its jurisdiction in making this direction which deserves to be set aside. ~- While it is open to the High Court, in appropriate cases, to give directions for prompt investigation etc. the High Court cannot direct the investigating agency to submit a report that is in accord with its views as that would amount KRISHNAMACHARI [B. SUDERSHAN REDDY, J.] .. ¥ to unwarranted interference with the investigation of the case by inhibiting the exercise of statutory power by the investigating agency.\"",
+      "page_start": 458,
+      "page_end": 459
+    },
+    "p459.1": {
+      "text": "(emphasis is of ours)",
+      "page_start": 459,
+      "page_end": 459
+    },
+    "p459.2": {
+      "text": "19. It is worthwhile to notice that the directions in the said case were issued by the High Court of Bombay in writ petition ..",
+      "page_start": 459,
+      "page_end": 459
+    },
+    "p459.3": {
+      "text": "filed in public interest in which a grievance has been made that though the Provident Fund Commissioner has lodged a -+ complaint against several Directors, the investigation has made no progress on account of the fact that the Directors were c Government servants and enjoying considerable influence. The High Court issued series of directions which were challenged in this Court contending that the High Court was in error in exercising jurisdiction under Article 226 of the Constitution .lo.",
+      "page_start": 459,
+      "page_end": 459
+    },
+    "p459.4": {
+      "text": "resulting in unjustified interference of the investigation of the ~ case. It is, therefore, clear that if the High Court, in exercise of its power under Article 226 of the. Constitution of India, cannot direct the investigating agency to investigate the case in accord with its views as that would amount to unwarranted interference, equally no such directions could be issued in exercise of inherent jurisdiction under Section 482 of the Code. ,,., ....",
+      "page_start": 459,
+      "page_end": 459
+    },
+    "p459.5": {
+      "text": "20. Tested in the light of the principles aforesaid, the impugned order, in our considered opinion, must be held to be an order passed overstepping the limits of judicial interference. It was observed by this Court on more than one occasion, that even in Public Interest Litigation proceedings, appropriate directions may be issued and the purpose in issuing such directions is essentially to ensure performance of statutory duty by the investigating agency. The duty of the Court in such G' proceedings is to ensure that the agencies do their duties in compliance with law. The inherent power of the High Court is saved to interfere with the proceedings pending before a Criminal Court if such interference is required to secure the ends of justice or where the continuance of the proceedings before a Court amounts to abuse of the process of Court. Such ... _ a power under Section 482 of the Code is always available to --1 ~~ the High Court in relation to a matter pending before a criminal Court.",
+      "page_start": 459,
+      "page_end": 460
+    },
+    "p460.1": {
+      "text": "21. The High Court, in the instant case, did not even advert to the relevant facts. As stated in. the order itself, it was more guided by the arguments made across.the Bar that the police has not taken any steps to arrest the persons and seize the .., amounts involved in this case from the appellants though there is no such factual foundation as such laid in the petition. It has -+.",
+      "page_start": 460,
+      "page_end": 460
+    },
+    "p460.2": {
+      "text": "c altogether ignored the counter filed by the police that the police had already examined ten witnesses within a short span of time after the registration of crime and recorded their statements. The High Court, without recording any reason whatsoever, directed the police that it is obligatory on their part to record statements from witnesses, arrest, seizure of property and filing of charge sheet. It is difficult to discern as to how such directions ' ~ resulting in far reaching consequences could have been issued by the High Court in exercise of its jurisdiction under Section 482 of the Code. The High Court interfered with the investigation of crime which is within the exclusive domain of the police by virtually directing the police to investigate the case from a particular angle and take certain steps which the police depending upon the evidence collected and host of other >- '-- circumstances may or may not have attempted to take any such steps in its discretion. It is not necessary that every investigation should result in arrest, seizure of the property and ultimately in filing of the charge sheet. The police, in exercise of its statutory t-power coupled with duty, upon investigation of a case, may find that a case is made out requiring it to file charge sheet or may find that no case as such is made out. It needs no reiteration that the jurisdiction under Section 482 of the Code conferred on the High Court has to be exercised sparingly, carefully a_nd ~ with caution only where such exercise is justified by the test laid down in the provision itself.",
+      "page_start": 460,
+      "page_end": 460
+    },
+    "p460.3": {
+      "text": "•, 22. Yet another aspect of the matter, the appellants have KRISHNAMACHARI [B. SUDERSHAN REDDY, J.)",
+      "page_start": 460,
+      "page_end": 461
+    },
+    "p461.1": {
+      "text": "not been impleaded as party respondents in the criminal ~ t-petition in which the whole of the allegations are levelled against them. The High Court never thought it fit to put the appellants on notice before issuing appropriate directions to the police to arrest, seize the property and file charge sheet. This Court in Divine Retreat Centre V. State of Kera/a & Ors.6 observed: ....",
+      "page_start": 461,
+      "page_end": 461
+    },
+    "p461.2": {
+      "text": "\"We are concerned with the question as to whether the High Court could have passed a judicial order directing investigation against the appellant and its activities without providing an opportunity of being heard to it. The case on c hand is a case where the criminal law is directed to be set in motion on the basis of the allegations made in anonymous petition filed in the High Court. No judicial order can ever be passed by any court without providing a reasonable opportunity of being heard to the person '~ 1 i likely to be affected by such order and particularly when such' order results in drastic consequences of affecting one's own reputation. n (emphasis is of ours)",
+      "page_start": 461,
+      "page_end": 461
+    },
+    "p461.3": {
+      "text": "23. The High Court in the present case, without realizing the consequences, issued directions in a casual and •. i' ~ mechanical manner without hearing the appellants. The impugned order is a nullity and liable to be set aside only on that score.",
+      "page_start": 461,
+      "page_end": 461
+    },
+    "p461.4": {
+      "text": "24. We are not impressed by the submission made by the learned counsel for the respondent that the High Court did not issue any directions but merely disposed of the petition with the observations reminding the police of its duty. The question that arises for consideration is whether there was any occasion ' ,,_t or necessity to make those \"observations\" even if they are to be considered to be observations and not any directions. It is not even remotely suggested that there was any deliberate inaction or failure in the matter of discharge of duties by the c2ooa) 3 sec 542.",
+      "page_start": 461,
+      "page_end": 461
+    },
+    "p461.5": {
+      "text": "6.",
+      "page_start": 461,
+      "page_end": 461
+    },
+    "p462.1": {
+      "text": "police. There was no allegation of any subversion of processes i ~ of law facilitating the accused to go scot-free nor there is any finding as such recorded by the High Court in its order. The power under Section 482 of the Code can be exercised by the High Court either suo motu or on an application (i) to secure the ends of justice; (ii) the High Court may make such orders as may be necessary to give effect to any order under the ....",
+      "page_start": 462,
+      "page_end": 462
+    },
+    "p462.2": {
+      "text": "Code; (iii) to prevent abuse of the process of any Court. There is no other ground on which the High Court may exercise its l ~ inherent power. In the present case, the High Court did not c record any reasons whatsoever why and for what reasons, the matter required its interference. The High Court is not expected to make any casual o~servations without having any regard to the possible consequences that may ensue from such observations. Observations coming from the higher Courts may ·\"",
+      "page_start": 462,
+      "page_end": 462
+    },
+    "p462.3": {
+      "text": "have their own effect of influencing the course of events and ~ process of law. For that reason, no uncalled for observations are to be made while disposing of the matters and that too without hearing the persons likely to be affected. The case on hand is itself a classic illustration as to how such observations could result in drastic and consequences of far reaching in nature. We wish to say no more.",
+      "page_start": 462,
+      "page_end": 462
+    },
+    "p462.4": {
+      "text": ">- 25. Learned counsel for the respondent placed reliance on \\....",
+      "page_start": 462,
+      "page_end": 462
+    },
+    "p462.5": {
+      "text": "the decision of this Court in D.K. Basu v. State of West Bengaf in support of his submission that the police is entitled to arrest and seize property in exercise of their power under the Code. We fail to appreciate the relevancy of that decision to decide the case on hand. We are equally unable to appreciate the relevancy-of the decisions in lnder Mohan Goswami & Anr. v. State of Uttaranchal & Ors. 8 and Central Bureau of Investigation v. A. Ravishankar Prasad & Ors. 9 Those are not the cases where any directions were issued in exercise of (1997), 1 sec 416.",
+      "page_start": 462,
+      "page_end": 462
+    },
+    "p462.6": {
+      "text": "7.",
+      "page_start": 462,
+      "page_end": 462
+    },
+    "p462.7": {
+      "text": "(2001) 12 sec 1.",
+      "page_start": 462,
+      "page_end": 462
+    },
+    "p462.8": {
+      "text": "8.",
+      "page_start": 462,
+      "page_end": 462
+    },
+    "p462.9": {
+      "text": "(2009) s sec 351.",
+      "page_start": 462,
+      "page_end": 462
+    },
+    "p462.10": {
+      "text": "9.",
+      "page_start": 462,
+      "page_end": 462
+    },
+    "p463.1": {
+      "text": "KRISHNAMACHARI [B. SUDERSHAN REDDY, J.] jurisdiction under Section 482 of the Code to the police in the \"' )- manner in which the High Court did in this case. We find that none of the decisions upon which reliance has been placed by the learned counsel for the respondent has any bearing on the questions that had arisen for our consideration in these appeals.",
+      "page_start": 463,
+      "page_end": 463
+    },
+    "p463.2": {
+      "text": "26. Before parting with the case, we may, however, observe that the observations made in this order and the order \"",
+      "page_start": 463,
+      "page_end": 463
+    },
+    "p463.3": {
+      "text": "-+ passed by the High Court shall have no bearing whatsoever on the pending proceedings which shall go on in accordance with c law.",
+      "page_start": 463,
+      "page_end": 463
+    },
+    "p463.4": {
+      "text": "27. For the aforesaid reasons, we find it difficult to_ sustain ..",
+      "page_start": 463,
+      "page_end": 463
+    },
+    "p463.5": {
+      "text": "the impugned judgment of the High Court .",
+      "page_start": 463,
+      "page_end": 463
+    },
+    "p463.6": {
+      "text": "Leave granted. The appeals are accordingly allowed and ,.J.",
+      "page_start": 463,
+      "page_end": 463
+    },
+    "p463.7": {
+      "text": "the impugned order is set aside.",
+      "page_start": 463,
+      "page_end": 463
+    }
+  },
+  "headnote_raw": " \nD. VENKATASUBRAMANIAM AND ORS.\n~-+\nv.\nM.K. MOHAN KRISHNAMACHARI AND ANR.\n(Criminal Appeal No. 1766 of 2009)\nSEPTEMBER 14, 2009\nCode of Criminal Procedure, 1973:\n-+\ns.482 - Power of High Court under s.482 to interfere with c\nthe investigation - Scope of - Held: It is statutory obligation\nand duty of police to investigate into crime and courts normally\nought not to interfere and direct investigating agency to\ninvestigate in a particular manner - Inherent power of court\n~ ....\ncannot to be permitted to degenerate into a weapon of\n-j\nharassment or persecution - On facts, High Court, without\nrecording any reason directed police that it was obligatory on\ntheir part to record statements from witnesses, arrest, seize\nproperty and file charge sheet - Directions were issued in a\ncasual and mechanical manner without having any regard to\nthe possible consequences that may ensue from such\n.... ~\ndirections - Exercise of inherent power by High Court\nultimately resulted in harassment of appellants - Appellants\nwere also not given opportunity of hearing - There was as\nsuch no a/legation of dereliction of duty on the part of the\ninvestigating agency - Impugned order liable to be set aside\n- Investigation - Jurisdiction.\nOn 18.9.2006, IVR Ltd. entered into a Memorandum\nof Understanding (MOU) with the respondent whereby\nrespondent agreed to facilitate sale of 600 acres of land\nin favour of IVR Ltd. for valuable consideration of Rs.28\nlakhs per acre. It was agreed that IVR Ltd. would retain\nRs.2 lakhs per acre towards security for timely\nperformance of respondent's obligation under the MOU\n \nand in case respondent failed to comply with the terms\n+--\"\nof MOU, the retention amount accumulated would be\nforfeited by IVR.\nRespondent could facilitate the transfer of only 64\nacres of land in favour of IVR. IVR issued notice to\nrespondent on 15.11.2006, but did not receive any\nresponse. Thereafter IVR entered into two MOUs directly\nwith the owner~ of the land.\n+\nRespondent lodged FIR against the appellants\nc alleging commission of offences u/ss.406 and 420 IPC.\nPolice registered the case and commenced investigation.\nRespondent filed petition under section 482 Cr.P.C.\nbefore High Court seeking directions to the police to\nseiz~ . .r~rn amount of Rs.228 lakhs for facilitating\n•\nregistration of 64 acres of land. High Co1.1rt, within one\n~-\nmonth from the date of filing of petition, finally disposed\nof the same observing that it was obligatory on the part\nof police to conduct investigation in accordance with law,\nincluding recording of c:;~atements from witnesses, arrest,\nseizure of property, perusal of various documents, filing\nof charge sheet. The Court accordingly directed the··\npolice to expedite and complete the investigation within\nj.. ... ~\nsix months.\nIn appeals to this Court, appellant contended that the\nHigh Court exceeded its jurisdiction in issuing directions ·\nto the investigating agency to act in a particular manner\nwhich is unsustainable.\nAllowing the appeals, the Court\nHELD: 1. There was no allegation of dereliction of\nduty on the part of the investigating agency. There was\nalso no allegation of any collusion and deliberate delay\non the part of the investigating agency in the matter of\n \nKRISHNAMACHARI\ninvestigation into the case that was promptly registered\non the information lodged by the respondent The petition\nalmost reads like a civil suit for recovery of the money.\nThe petition was filed within one week of registration of\nthe crime by which time the police had already started\nserious investigation. None of the appellants were\nimpleaded as party respondents to the petition filed\nunder Section 482 Cr.P .C. The State represented by its\nSub Inspector of Police, Central Crime Branch, alone was\nimpleaded as the respondent. The investigating agency\nin its counter filed in the High Court stated that after c\nobtaining necessary legal opinion, a case was registered\nand 'commenced the investigation'. It is also stated in\ncategorical terms that the police had \"inquired all the\nconnected witnesses, recorded their statements and also\ncollected the material documents and confirmed 0\ncommission of cognizable offences by all the accused.\n[Para 11] [454-F-H; 455-A-D]\nEmperor v. Khwaja Nazir Ahmad AIR 1945 PC 18; State\nof West Bengal v. S. N. Basak (1963) 2 SCR 52; State of\nBhihar & Anr. v. J.A. C. Saldanha & Ors. (1980) 2 SCR 16;\nM. C. Mehta (Taj Corridor Scam) v. Union of India & Ors.\n(2007) 1 sec 11 o, relied on.\n2. The saving of the High Court's inherent power is\ndesigned to achieve a salutary public purpose which is _\nthat a Court proceeding ought not to be permitted to\ndegenerate into a weapon of harassment or persecution.\nIt is unfortunate that it is the exercise of the inherent\npower by the High Court in this case that had ultimately\nresulted in harassment of the appellants as is evident\nfrom the subsequent events. Pursuant to the impugned\norder, the investigating authorities approached the\nappellant No.1 took him into custody and exhibited him\non television channel. The police demanded to pay an\n \n•.·\n..\namount of Rs.2~2s crores and threatened that he would\n. A:\nt·\nbe arrested if he fails to comply with their demand.\nAccordingly, the appellants paid Rs.10 lakhs in cash in\nthe police station itself and issued a cheque for an\namount of Rs.2.18 cores. However, the cheque was. not\nencashed on account of the instructions to the bank to\nstop the payment in view of the interim order dated 4th\nMay, 2007 of this Court. The police offered explanation\n-··\nstating that the matter was settled voluntarily between\n+\nthe parties and therefore, the accused were not arrested\nc and remanded to custody. It is difficult to buy the idea\nthat there was a settlement between the parties in the\npolice station. It is not difficult to discern as to how and\nunder what circumstances the appellants agreed to pay\nthe amounts and also issued a cheque. It is not known\n...\nas to how and under what authority the police could\nintervene and settle any disputes between the parties. It\n-~\nis needless to observe that the police have no such\nauthority or duty of settling disputes. [Para 15] [456-D-H;\n457-A-B]\nM.C. Abraham & Anr. v. State of Maharashtra & Ors.\n(2003) 2 sec 649 relied on.\n).. ~-<\n3. The duty of t~e Court in such proceedings is to\nensure that the agencies do their duties in compliance\nwith law. The inherent power of the High Court is saved\nto interfere with the proceedings pending before a\nCriminal Court if such interference is required to secure\nthe ends of justice or where the continuance of the\nproceedings before a Court amounts to abuse of the\nprocess of Court. Such a power under .Section 482\nCr.P .C. is always avail~ble to the High Court in relation\nto a matter pending before a criminal Court. [Para 20]\n4\n[ 459-G-H; 460-A]\n4. The High Court, in the instant case, did not even\nadvert to the relevant facts. As stated in the order itself,\n \nKRISHNAMACHARI\nit was more guided by the arguments made across the\nBar that the police did not take any steps to arrest the\n~~\npersons and seize the amounts involved in this case\nfrom the appellants though there is no such factual\nfoundation as such laid in the petition. It altogether\nignored the counter filed by the police that the police had\n8\nalready examined ten witnesses within a short span of\ntime after the registration of crime and recorded their\nstatements. The High Court, without recording any\nreason whatsoever, directed the police that it was\nobligatory on their part to record statements from c\n-~\nwitnesses, arrest, seizure of property and filing of charge\n. sheet. It is difficult to discern as to how such directions\nresulting in far reaching consequences could have been\nissued by the High Court in exercise of its jurisdiction\nunder Section 482 Cr.P.C. The High Court interfered with\n,\"'\\\nthe investigation of crime which is within the exclusive\n+\ndomain of the police by virtually directing the police to\ninvestigate the case from a particular angle and take\ncertain steps which the police depending upon the\nevidence collected and host of other circumstances may E,\nor may not have attempted to take any such steps in its\ndiscretion. It is not necessary that every investigation\nshould result in arrest, seizure of the property and\n't ~\nultimately in filing of the charge sheet. The police, in\nexercise of its statutory power coupled with duty, upon\ninvestigation of a case, may find that a case is made out\nI\nrequiring it to file charge sheet or may find that no case\n. as such is made out. The jurisdiction under Section 482\nof the Code conferred on the High Court has to be\nexercised sparingly, carefully and with caution only\nwhere such exercise is justified by the test laid down in\nI\nthe provision itself. [Para 21] [460-B-G]\n5. Yet another aspect of the matter, the appellants\nwere not impleaded as party respondents in the criminal\n \n.446\nSUPREME COURT REP.ORTS [2009] 14 (ADDL.) S.C.R.\n\"\npetition in which the whole of the allegations are levelled\n-··\nagainst them. The High Court never thought it fit to put\nt\n':-\nthe appellants on notice before issuing appropriate\ndirections to the police to arrest, seize the property and\nfile charge sheet. [Para 22] [460-H; 461-A-B]\nDivine Retreat Centre v. State of Kera/a & Ors. (2008) 3\nsec 542, relied on.\n-\n6. The High Court in the present case, without\n4-\nrealizing the consequences, issued directions in a casual\n·]\nc and mechanical manner without hearing the appellants.\n...\nThe impugned order is a nullity and liable to be set aside\nonly on that score. The power under Section 482 Cr.P.C.\n)\ncan be exercised by the High Court either suo motu or\non an application (i) to secure the ends of justice; (ii) the\nHigh Court may make such orders as may be necessary\n/oo.\n•\nto give effect to any order Under the Code; (iii) to prevent\n,\\-\nabuse of the process of any Court. There is no other\nground on which th\"e High Court may exercise its inherent\npower. The High Court did not record any reasons\nwhatsoever why: and for what reasons, the matter\nrequired its interference. The High Court is not expected\nt-\nto make any casual observations without having any\n.., ,,,,_\n\\\nI\nregard to the possibl~ consequences that may ensue\n.\n}-\nfrom such observations. Observations coming from the\n\"-\nhigher Courts may· have their own effect of influencing\n~\nthe course.of events and process of law. For that reason,\nno uncalled for observations are to be made while\n,.+·.-._.. ... ,\ndisposing,,ofthe matters and that too without hearing the\npersons li~ely to be affected. The case on hand is itself\n,Ii.\na classic illustration as to how such observations could\n1'\n/ ..\nI-\nresult in drastic and consequences of far reaching in\n,.\n-+\nnature. [Paras 23 and 24] [461-E-F; 462-A-E]\n~\nD.K. Basu v .. State of West Bengal (1997) 1 SCC 416;\nlnder Mohan Goswami & Anr. v. State of Uttaranchal & Ors.\n \nKRISHNAMACHARI\n-+\n(2007) 12 SCC 1; Central Bureau of Investigation v. A.\nRavishankar Prasad & Ors. (2009) 6 SCC 351,\ndistinguished.\nCase Law Reference:\nPara 2\nAIR 1945 PC 18\nrelied on\nrelied on\nPara 4\n..\n(1963) 2 SCR 52\nrelied on\nPara 5\n(1980) 2 SCR 16\nc2001) 1 sec 11 o\nPara 6\nc\nrelied on\n(2003) 2 sec 649\nrelied on\nPara 16\nc2008) 3 sec 542\nPara 22\nrelied on\n(1997) 1 sec 416\nPara 25\ndistinguished\n+\nc2001) 12 sec 1\nPara 25\ndistinguished\n(2009) 6 sec 351\nPara 25\ndistinguished\n"
+}

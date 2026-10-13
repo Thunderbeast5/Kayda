@@ -17,9 +17,10 @@ export default function CourtroomInputBar({
 
   // In CASE_INTRO, the active player just clicks Send with any text to advance
   const isCaseIntro = trialPhase === "CASE_INTRO";
+  const isJudgment = trialPhase === "JUDGMENT";
 
   const placeholderText = !isMyTurn
-    ? "Opposing counsel is presenting..."
+    ? (isJudgment ? "Hon’ble Court is evaluating findings and dictating judgment..." : "Opposing counsel is presenting...")
     : isListening
       ? "Listening... speak clearly into your mic..."
       : isCaseIntro
@@ -31,7 +32,7 @@ export default function CourtroomInputBar({
             : "Present your legal argument...";
 
   const statusLabel = !isMyTurn
-    ? "⚖ Awaiting opposing counsel..."
+    ? (isJudgment ? "⚖ Court in deliberation — Hon’ble Judge dictating final verdict" : "⚖ Awaiting opposing counsel...")
     : isCaseIntro
       ? "🏛 Court is in session — begin when ready"
       : "🎤 You have the floor — present your argument";

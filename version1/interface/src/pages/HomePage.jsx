@@ -12,8 +12,9 @@ export default function HomePage() {
       <LandingPage 
         userRole={userRole} 
         setUserRole={setUserRole} 
-        onEnterCourt={(newGameId) => {
+        onEnterCourt={(newGameId, assignedRole) => {
           if (newGameId) setGameId(newGameId);
+          if (assignedRole) setUserRole(assignedRole);
           setActiveScreen("courtroom");
         }} 
       />
