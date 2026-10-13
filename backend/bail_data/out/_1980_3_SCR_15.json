@@ -1,0 +1,326 @@
+{
+  "case_id": "_1980_3_SCR_15",
+  "doc_meta": {
+    "source_file": "NIRANJAN SINGH & ANR.pdf",
+    "pdf_pages": 7,
+    "_sources": {
+      "citation": "scr_running_header",
+      "coram": "coram:hon_justice",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "scr_year",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment",
+      "author": "author:0"
+    },
+    "format_profile": "unknown",
+    "citation_scr": "[1980] 3 SCR 15",
+    "scr_year": 1980,
+    "scr_volume": 3,
+    "scr_first_page": 15,
+    "coram_raw": "justice was not thwarted.",
+    "coram_regex": [
+      "was not thwarted"
+    ],
+    "bench_strength_regex": 1,
+    "constitution_bench": false,
+    "petitioner_regex": "NIRANJAN SINGH & ANR.",
+    "respondent_regex": "PRABHAKAR RAJARAM KHAROTE.& ORS. Mqrch 10, 1980",
+    "court_regex": "Supreme Court of India",
+    "year": 1980,
+    "footnotes": [
+      {
+        "page": 16,
+        "text": "I"
+      },
+      {
+        "page": 21,
+        "text": "1"
+      }
+    ],
+    "pre_judgment_block": "CRIMINAL APPELLATE JURISDICTION Special Leave Petition (Criminal) No. 393 of 1980. From the Judgment and Order dated 25-9-1979 of the Bombay High Court in Cr!. Appln. No. 607 of 1979. Petitioner No. 1 in person. P. R. Mridul, S. V. Deshpande and N. M. Ghatate for Respondents l to 11. 0. P. Rana and M. N. Shroff for Respondent No. 13.",
+    "case_no": "Special Leave Petition (Criminal) No. 393 of 1980",
+    "appeal_from_raw": "From the Judgment and Order dated 25-9-1979 of the Bombay High Court in Cr!. Appln. No. 607 of 1979",
+    "judgment_author_regex": "KRISHNA IYER",
+    "layout": "unnumbered_page_anchored",
+    "ocr_noise_score": 0.002
+  },
+  "flags": [
+    "format_unrecognised_using_generic_patterns",
+    "decided_on_not_found"
+  ],
+  "case": {
+    "case_name": "NIRANJAN SINGH & ANR. v. PRABHAKAR RAJARAM KHAROTE & ORS.",
+    "petitioner": "NIRANJAN SINGH & ANR.",
+    "respondent": "PRABHAKAR RAJARAM KHAROTE & ORS.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "KRISHNA IYER",
+      "A.P. SEN"
+    ],
+    "judgment_author": "KRISHNA IYER",
+    "procedural_stage": "post_arrest_bail",
+    "offence_types": [
+      "murder",
+      "conspiracy"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "The case involves two sub-inspectors and eight police constables accused of conspiring to murder the brother of the complainant. It is alleged that the police dragged the victim out of a truck, tied him to a tree, and shot him. While the lower courts had granted bail, the complainant argued that the accused, not being in custody, were abusing their freedom by threatening him. The Supreme Court considered the points on custody, bail, and the responsibilities of the state in handling such serious charges against police officers.",
+    "lower_court_outcome": "Bail granted by the Sessions Court, with conditions added by the High Court.",
+    "disposition": "Supreme Court did not interfere with the bail decision but emphasized supervisory requirements for police officers on bail.",
+    "statutes": [
+      {
+        "act": "Criminal Procedure Code 1973",
+        "section": "439",
+        "how_used": "interpreted",
+        "note": "The court interpreted 'custody' under Section 439 to mean physical presence and submission to the court's jurisdiction for bail applications."
+      }
+    ],
+    "issues": [
+      {
+        "question": "When is a person considered to be in custody under Section 439 CrPC for the purpose of applying for bail?",
+        "short_answer": "A person is considered in custody when they submit to the jurisdiction and orders of the court by physical presence.",
+        "anchors": [
+          "p19.3",
+          "p19.4"
+        ]
+      },
+      {
+        "question": "Should serious charges against police officers lead to suspension during trial?",
+        "short_answer": "Police officers should generally be suspended when serious charges are framed against them, unless there are exceptional circumstances.",
+        "anchors": [
+          "p21.1",
+          "p21.3"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "Custody, in the context of Section 439 CrPC, requires physical control or presence of the accused in court coupled with submission to the jurisdiction and orders of the court.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "conditions": [],
+        "statutes": [
+          "Criminal Procedure Code 1973"
+        ],
+        "anchors": [
+          "p19.3",
+          "p19.4"
+        ],
+        "quote": "Custody, in the context of s. 439... is physical control or at least physical presence of the accused in court coupled with submission to the juris-diction and orders of the court."
+      },
+      {
+        "id": "p2",
+        "text": "A responsible government should suspend police officers against whom serious charges have been framed by a criminal court unless exceptional circumstances suggest otherwise.",
+        "speaker": "supreme_court",
+        "kind": "obiter",
+        "is_holding": false,
+        "favors": "neutral",
+        "conditions": [
+          "unless exceptional circumstances"
+        ],
+        "statutes": [],
+        "anchors": [
+          "p21.1"
+        ],
+        "quote": "A responsible Government, responsive to appearances of justice, would have placed police officers against whom serious charges had been framed by a criminal court under suspension unless exceptional cir-cumstances suggesting a contrary course exist."
+      },
+      {
+        "id": "p3",
+        "text": "Detailed examination of evidence should be avoided while passing orders on bail applications to prevent prejudice.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p18.2"
+        ],
+        "quote": "Detailed examination of the evidence and elaborate documentation of the merits should be avoided while passing orders on bail applications."
+      }
+    ],
+    "contentions": [
+      {
+        "side": "appellant",
+        "text": "The accused could not be released on bail as they were not in custody and being on bail they were abusing their freedom by threatening the complainant.",
+        "outcome": "rejected",
+        "anchors": [
+          "p19.8"
+        ]
+      }
+    ],
+    "authorities": []
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": false,
+      "note": "Court's view aligns with the proposition, but it states that the accused's physical presence is necessary without further support for the 'favors' aspect."
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "unsupported",
+      "favors_correct": true,
+      "note": "The anchor text does not support the proposition that suspension of police officers is mandatory, but does provide a general expectation."
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": "The anchor text directly supports the idea that detailed examination of evidence should be avoided in bail applications."
+    }
+  },
+  "needs_review": [
+    "p1: quote not found in its anchors",
+    "p2: quote not found in its anchors",
+    "p1: verifier says supported, favors_correct=False - Court's view aligns with the proposition, but it states that the accused's physical presence is necessary without further support for the 'favors' aspect.",
+    "p2: verifier says unsupported, favors_correct=True - The anchor text does not support the proposition that suspension of police officers is mandatory, but does provide a general expectation.",
+    "coram count differs between regex and LLM",
+    "parser flag: format_unrecognised_using_generic_patterns",
+    "parser flag: decided_on_not_found"
+  ],
+  "paragraphs": {
+    "p16.1": {
+      "text": "KRISHNA IYER, J. ''No one shall be subjected to torture or to ' cruel, inhuman or degrading treatment or punishment\" is a part of the Universal Declaration of Human Rights. The content of Art. 21 of our Constitution, read in the light of Art. 19, is similarly elevating. But romance about human rights and rhetoric about constitutional mandates lose credibility if, in practice, the protectors of law and minions of the State become engines of terror and panic people into fear. We are constrained to make these observations as our conscience 'G is in consternation when we read the facts of the case which have given rise to the order challenged before us in this petition for special leave. The petitioner, who has appeared in person is the complainant-in a criminal case where the accused are 2 Sub-Inspectors and 8 Constables • attached to the City Police Station, Ahmeanagar. The charges against them, as di,dosed in the private complaint, are of murder and allied offences under ss. 302, 341, 395, 404 read with ss. 34 and !20B of the Penal Code. The blood-curdling plot disclosed in the complaint is that ·pursuant to a conspiracy the brother of the complainant was way- ' laid· by the police party on August 27, 1978 as he was proceeding to Shirdi. He had with him some gold ornaments and cash. He was · ca'ught and removed from the truck in which he was travelling, tied ·with a rope to a neem tree nearby, thus rendering him a motionless ·target to a macabre shooting. One of the Sub-lnspectors fired two shots from bis revolver on the chest of the deceased at close range and killed him instantaneously. The policemen, having perpetrated this villainy, vanished from the scene. No action was taken by the State against the criminals. How could they, when the preservers of the peace and investigators of crime themselves become planned'executors c ·Of murders? The victim's brother was an advocate and he filed a pri-vate complaint. The learned m,;gistrate ordered an inquiry under s. 202 Cr. P.C., took oral evidence of witnesses \"t scme length and held: \"Thus taking au overall survey of evidence produced before me, I am .of the opinion that there are sufficient grounds to proceed against all the accused for the offences undet es. 302, 323, 342;read with s. 34 I.P.C.\" Non-bailable warrants were issued for production of the accused and the magistrate who refused bail, stayed the issuance of the warrants although we are unable to find any provision to enable him to do so. The police-accused moved the sessions (conrt for bail and, in an elaborate order the sessions court granted bail subject to certain directions and conditions. The High Court, which was moved by the complainant for reversal of the~ order enlarging,the accused on bail, declined to interfere in revision but added additional conditions to ensure that the bail was not abused and the course of justice was not thwarted.",
+      "page_start": 16,
+      "page_end": 17
+    },
+    "p17.1": {
+      "text": "It is fair to state that the case in the complaint, verified under s. ·202 Cr. P.C. to have some veracity, does not make us leap to a conclu-sion of guilt or refusal of bail. On the contrary, the accused policemen have a version that the victim was himself a criminal and was sought to be arrested. An encounter ensued, both sides sustained injuries and , the deceased succumbed to a firearm shot;even as some of the police party sustained revolver wounds but survived.",
+      "page_start": 17,
+      "page_end": 17
+    },
+    "p17.2": {
+      "text": "1 Maybe, the defence ·case, if reasonably true, may absolve them of the crime, although the story of encounters during arrest and unwitting injuries resulting in 'casualties, sometimes become a mask to hide easy liquidation of human .",
+      "page_start": 17,
+      "page_end": 17
+    },
+    "p17.3": {
+      "text": "life by heartless policemen when[some one allergic to Authority resists their vices. The police have the advantage that they prepared the preliminary record which may 'kill' the case against them. This dis- . .",
+      "page_start": 17,
+      "page_end": 17
+    },
+    "p17.4": {
+      "text": "·(]meting syndrome of policemen committing crimes of killing and ,m 1 king up perfect paperwork cases of innocent discharge of duty [1980] 3 S.C.R.- should not be ruled out when courts examine rival versions. Indeed, we must emphasise that the trial judge shall not be influenced by what we have said and shall confine himself to the evidence in the case· when adjudging the guilt of the accused. We were constrained to make· the observations above because the Sessions !Judge, quite un· warrantedly, discussed at prolix length the probabilities of police· party's exculpatory case and held :",
+      "page_start": 17,
+      "page_end": 18
+    },
+    "p18.1": {
+      "text": "\"So it is reasonable to hold that there was a scuflle and resistance offered by the victim AmarjeefSingh before shots were fired at his person by the accused No. !.\"",
+      "page_start": 18,
+      "page_end": 18
+    },
+    "p18.2": {
+      "text": "Detailed examination of the evidence and elaborate documenta- · + c tion of the merits should be avoided while passing orders on bail applications. No party should have the impression that his case has. been prejudiced. To be satisfied about a prima facie case is needed but it is not the same as an exhaustive exploration of the merits in, the order itself.",
+      "page_start": 18,
+      "page_end": 18
+    },
+    "p18.3": {
+      "text": "Grant of bail is within the jurisdiction of the Sessions Judge but the court must not, in grave cases, gullibly dismiss the possibility of· police-accused intimidating the witnesses with cavalier ease. In our· country, intimidation by policemen, when they are themselves accused . of offences, is not an unknown phenomenon and the judicial process· .,_.",
+      "page_start": 18,
+      "page_end": 18
+    },
+    "p18.4": {
+      "text": "will carry credibility with the community only if it views impartially and with commonsense the pros and cons, undeterred by the psychic· 'pressure of police pres~nce as indictees.",
+      "page_start": 18,
+      "page_end": 18
+    },
+    "p18.5": {
+      "text": "Let us now get to grips with the two legal submissions made by the petitioner. The first jurisdictional hurdle in the grant of bail,. argues the petitioner, is that the accused must fulfil the two conditions specified in s. 439 Cr. P.C. before they can seek bail justice. That: provision reads :",
+      "page_start": 18,
+      "page_end": 18
+    },
+    "p18.6": {
+      "text": "~ 439. (l) A High Court or Court of Session may direct- ( a) that any person accu>ed of an offence, and in custody be released on bail, and if the offence is of the nature , specified in rnb-section (3) of section 437, may impose any condition which it considers necessary for the purposes mentioned in that sub-section:",
+      "page_start": 18,
+      "page_end": 18
+    },
+    "p18.7": {
+      "text": "(b) that any condition imposed by a Magistrate when releasing any person on bail be set aside or modified.",
+      "page_start": 18,
+      "page_end": 18
+    },
+    "p18.8": {
+      "text": "R Here the respondents were accused of offences but were not in> custody, argues the petitioner. So no bail, since this basic condition. of being in jail is not fulfilled. This submission has been rightly rejected by the courts below. We agree that, in our view, an outlaw cannot ask for the benefit of law and he who flees justice cannot claim justice. But here the position is different. The accused were not absconding but had appeared and surrendered before the Session~ Judge. Judicial jurisdiction arises only when persons are already in custody and seek the precess of the court to be enlarged. We agree that no person accused of an offence can move the court for bail under s. 439 Cr. P.C. unless he is in custody.",
+      "page_start": 18,
+      "page_end": 19
+    },
+    "p19.1": {
+      "text": "When is a person in custody, within the meaning of s. 439 Cr. P.C. ? When he is in duress either because he is held by the investigating agency c:",
+      "page_start": 19,
+      "page_end": 19
+    },
+    "p19.2": {
+      "text": "or other police or allied authority or is under the control of the court having been nmanded by judicial order, or having offered himself to the court's jutisdiction and submitted to its orders by physical presence. No lexical dexterity nor precedential profusion is needed to come to the realistic conclusion that he who is under the control of the court or is in the physical hold of an officer with coercive power is in custody for the purpose of s. 439. This word is of elastic semantics but its core meaning is that the law has taken control of the person. The equivocatory quibblings and hide-and-seek niceties sometimes heard in court that the police have taken a man into informal custody but not arrested him, have detained him for interrogation but not taken him into foqnal custody and other like terminological dubieties are unfair evasions of the straightforwardness of the law. We need not dilate on this shady facet here because we are satisfied that the accused did physically submit before the Sessions Judge and the jurisdiction to grant bail thus arose.",
+      "page_start": 19,
+      "page_end": 19
+    },
+    "p19.3": {
+      "text": "Custody, in the context of s. 439, (we are not, be it noted, dealing with anticipatory bail under s. 438) is physical control or a1 least physical presence of the accused in court coupled with submission to the juris-diction and orders of the court.",
+      "page_start": 19,
+      "page_end": 19
+    },
+    "p19.4": {
+      "text": "He can be in custody not merely when the police arrests him, produces him before a Magistrate and gets a remand to judicial or other custody. He can be stated to be in judicial custody when he surrrndus before the ccmt and submits to its directions. In, the present case, the police offic¢rs applied for bail before a Magistrate who refused bail and still the accused, without surrendering before the Magistrate, obtained an order for stay to move the Sessions Court. This direction of the Magistrate was wholly irregular and maybe, l'nabled the accused persons lo circumvent the principle of s. 439 Cr.P.C. We might have taken a serious view cf such a course, indifferent to [J 980] 3 S.C.R.",
+      "page_start": 19,
+      "page_end": 20
+    },
+    "p20.1": {
+      "text": "mandatory provisions by the subordinate magistracy but for the fact that in the present case the accused made up for it by surrender before ,.",
+      "page_start": 20,
+      "page_end": 20
+    },
+    "p20.2": {
+      "text": "the Sessions Court. Thus, the Sessions Court acquired jurisdiction to consider the bail application. It could have refused bail and remanded the accused to custody, but, in the circumstances and for the reasons mentioned by it, exercised its jurisdiction in favour of grant of bail. The High Court added to the conditions subject to which bail was to be granted and mentioned that the accused bad submitted to the cus-tody of the court. We therefore, do not proceed to upset the order on this ground. Had the circumstances been different we would have demolished the order for bail. We may frankly state that had we been c left to ourselves we might not have granted bail but sitting under Art. 136-do not feel that we should interfere with a discretion exercised by the two courts below.",
+      "page_start": 20,
+      "page_end": 20
+    },
+    "p20.3": {
+      "text": "We are apprehensive that the accused being police officers should not abuse their freedom and emphasise that the Inspector General of Police of the State of Maharashtra will take particular care to take two steps. He should have a close watch on the functioning of the concerned police officers lest the rule of law be brought into discredit by officers of the law being allowed a larger liberty than other people especially because the allegations in the present case are grave and even if a fragment of it be true, does little credit to the police force. ·E It must be remembered that the allegations are that the deceased was dragged out of a truck to a secluded place later tied to a tree and shot and killed by the police officers concerned.",
+      "page_start": 20,
+      "page_end": 20
+    },
+    "p20.4": {
+      "text": "We hasten to make it clear that these are one-sided allegations and the accused have a counter-version of their own and we do not wish to make any implications for or against either version. The accused po-licemen are entitled to an unprejudiced trial without any bias against the 'uniformed' force which has difficult tasks to perform. We conclude this order on a note of anguish. The complainant has been protesting against the State's bias and police threats. We must remember that a democratic state is the custodian of people's interests and not only police interests. Then how come this that the team of ten policemen against whom a magistrate after due enquiry .",
+      "page_start": 20,
+      "page_end": 20
+    },
+    "p20.5": {
+      "text": "found a case to be proceeded with and grave charges including for murder were framed continue on duty without so much as being sus- I pended from service until disposal of the pending sessions trial? On whose side is the State? The rule of law is not a one-way traffic and the authority of the State is not for the police and against the people. responsible Government responsive to appearances of justice, would have placed police officers against whom serious charges had been A.",
+      "page_start": 20,
+      "page_end": 21
+    },
+    "p21.1": {
+      "text": "framed by a criminal court under suspension unless exceptional cir-cumstances suggesting a contrary course exist. After all-a gesture of justice to courts of justice is the least that a government owes to the governed. We are confident that this. inadvertance will be made good and the State of Maharashtra will disprove by deed( Henry Clay's Bo famous censure :",
+      "page_start": 21,
+      "page_end": 21
+    },
+    "p21.2": {
+      "text": "\"The arts of power and its minions are the same in all coun-tries and in all ages. It marks its victim denounces it; and excites the public odium and the public [hatred to conceal its own abuses and encroachments.\"",
+      "page_start": 21,
+      "page_end": 21
+    },
+    "p21.3": {
+      "text": "c The observations that we have made in the concluding portion of the order are of such moment, not merely to the State of Maha-rashtra but also to the other States in the country and to the Union of India, that we deem it necessary to direct that a copy of this judgment be sent to the Home Ministry in the Government of India for suitable sensitized measures to pre-empt recurrence of the error we have high-lighted.",
+      "page_start": 21,
+      "page_end": 21
+    },
+    "p21.4": {
+      "text": "N.V.K.",
+      "page_start": 21,
+      "page_end": 21
+    },
+    "p21.5": {
+      "text": "\\",
+      "page_start": 21,
+      "page_end": 21
+    }
+  },
+  "headnote_raw": " \nNIRANJAN SINGH & ANR.\nv.\nPRABHAKAR RAJARAM KHAROTE.& ORS.\nMqrch 10, 1980\n(V. R. KRISHNA IYER AND A.P. SEN, JJ.]\nCriminal Procedure Code 1973, Section 439(1) (ai)-Enlargement on bail-\nPerSOff to be accused of an offence and in custody-Wiren\nis\na\nperson in\ncustndy.\nBait.--Orders on bail application-Detailed examination of evidence, elabo-\nrate documentation to be avoided.\nSuspension-Police Officers-Serious charges framed by a criminal court-\nPlacing such officers under suspension-Necessity of.\nThe petitioner was the complainant in a criminal case where the accused\nwere two sub-inspeetorn and eight police constables (respondents l to 10). The\ncase of the complainant was that in pursuance to a conspiracy his brother\nwas way laid by a police party consisting of these respondent•. It was alleged\nthat he was caught and removed from the truck in which he was travelling,\ntied with a rope to a tree and one of the sub-inspectors fired two shots from\nhis revolver on the chest of the deceased at close range which killed him\ninstantaneously.\nHaving perpetrated this villainy the policemen vanished from\nthe scene. The respondents' version was that the victim was himself a criminal\nand was sought to be arrested.\nAn encounter ensued, both sides sustained\ninjuries and the deceased succumbed to a firearm shot.\nI\nThe State not having taken any action, the petitioner was constrained to\nfile the private complaint.. The Magistrate who ordered an\ninquiry\nunder\nsection 202 Cr.P.C. took oral evidence of the witnesses and found that there\nwas sufficient ground to proceed\nagainst all\nthe respondents under sections\n382, 341, 395 and 404 read with section 34 IPC.\nNon-bailable warrants were\nI'\nissued for production of the accused and the Magistr:ite who refused the bail\nlitayed the issuance of the warrants.\nThe respondents moved the Sessions\nCourt for bail which granted bail subject to certain directions and conditions.\nFeeling aggrieved, the petitioner moved the High Court but it declined to\ninterfere in revision but imposed additional conditions to ensure that the bail\nwas not abused and the course of justice was not thwarted.\nIn the special leave petition, the petitioner contended that the respondents\ncould not be released on bail asi they were not in custody and being on bail\nthey were abusing their freedom by threatening the· petitioner.\nlia.D : I. Cutody, in the context of section 439 Cr.P.C. is physical\ncontrol or at least physical presence of the accnsed in court coupled with sub-\nmission to the jurisdiction and orders of the court. He can be in cust<X1y not\nmerely when the police arrests him., produces hin1 before a Magistrate and\ngets a remand to judicial or other custody. He can be stated to be in juidic;ial\ncns.tody when he surrenders before the court and\nsubmits to its directions.\nHY F-GJ\n \nSUPREME COURT REP_ORTS\n[1980) 3 S.C.R.\n2. A responsible Government, responsive to appearances of justice, would\nhave placed police officers against whom serious charges had betn framed by a\ncriminal c0urt, under suspension unless exceptional circumstances suggesting a\nconaary course exist A gesIDre of justice to courts of jU.sticc is the least that\na government owes to the governed. [20 H-21 A]\n3. Detailed examination of the evidence and elaborate documentation of the\nmerits should be avoided while passing orders on bail applications.\nNo party\nshould have the impression that his case has been prejudiced.\nTo be satisfied\nabout a prin1a facie case is needed but it is not the same as an exhaustive\nexploration of the merits in the order itself. [18 CJ\n4. Grant of bail is within the jurisdiction of the Sessions Judge but the\ncourt must not, in grave cases, gullibly dismiss the possibility of police-accused\n.t\nintimidating the witnesses with cavalier\nease.\nIntimidation by\npolictmen,\nwhen they are themselves accused of offences, is not an unknown phenomenon.\n[18 D-El\n"
+}

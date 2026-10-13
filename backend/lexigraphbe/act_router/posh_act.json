@@ -1,0 +1,1686 @@
+{
+  "document": {
+    "title": "The Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013",
+    "act_number": "Act No. 14 of 2013",
+    "enacted_date": "22nd April, 2013",
+    "as_on_date": "31-8-2021",
+    "source_pages": "1–14",
+    "long_title": "An Act to provide protection against sexual harassment of women at workplace and for the prevention and redressal of complaints of sexual harassment and for matters connected therewith or incidental thereto.",
+    "preamble": [
+      "WHEREAS sexual harassment results in violation of the fundamental rights of a woman to equality under articles 14 and 15 of the Constitution of India and her right to life and to live with dignity under article 21 of the Constitution and right to practice any profession or to carry on any occupation, trade or business which includes a right to a safe environment free from sexual harassment;",
+      "AND WHEREAS the protection against sexual harassment and the right to work with dignity are universally recognised human rights by international conventions and instruments such as Convention on the Elimination of all Forms of Discrimination against Women, which has been ratified on the 25th June, 1993 by the Government of India;",
+      "AND WHEREAS it is expedient to make provisions for giving effect to the said Convention for protection of women against sexual harassment at workplace."
+    ],
+    "enacting_formula": "BE it enacted by Parliament in the Sixty-fourth Year of the Republic of India as follows: —",
+    "arrangement_of_sections": [
+      {
+        "section_number": "1",
+        "heading": "Short title, extent and commencement",
+        "chapter": "I"
+      },
+      {
+        "section_number": "2",
+        "heading": "Definitions",
+        "chapter": "I"
+      },
+      {
+        "section_number": "3",
+        "heading": "Prevention of sexual harassment",
+        "chapter": "I"
+      },
+      {
+        "section_number": "4",
+        "heading": "Constitution of Internal Complaints Committee",
+        "chapter": "II"
+      },
+      {
+        "section_number": "5",
+        "heading": "Notification of District Officer",
+        "chapter": "III"
+      },
+      {
+        "section_number": "6",
+        "heading": "Constitution and jurisdiction of Local Committee",
+        "chapter": "III"
+      },
+      {
+        "section_number": "7",
+        "heading": "Composition tenure and other terms and conditions of Local Committee",
+        "chapter": "III"
+      },
+      {
+        "section_number": "8",
+        "heading": "Grants and audit",
+        "chapter": "III"
+      },
+      {
+        "section_number": "9",
+        "heading": "Complaint of sexual harassment",
+        "chapter": "IV"
+      },
+      {
+        "section_number": "10",
+        "heading": "Conciliation",
+        "chapter": "IV"
+      },
+      {
+        "section_number": "11",
+        "heading": "Inquiry into complaint",
+        "chapter": "IV"
+      },
+      {
+        "section_number": "12",
+        "heading": "Action during pendency of inquiry",
+        "chapter": "V"
+      },
+      {
+        "section_number": "13",
+        "heading": "Inquiry report",
+        "chapter": "V"
+      },
+      {
+        "section_number": "14",
+        "heading": "Punishment for false or malicious complaint and false evidence",
+        "chapter": "V"
+      },
+      {
+        "section_number": "15",
+        "heading": "Determination of compensation",
+        "chapter": "V"
+      },
+      {
+        "section_number": "16",
+        "heading": "Prohibition of publication or making known contents of complaint and inquiry proceedings",
+        "chapter": "V"
+      },
+      {
+        "section_number": "17",
+        "heading": "Penalty for publication or making known contents of complaint and inquiry proceedings",
+        "chapter": "V"
+      },
+      {
+        "section_number": "18",
+        "heading": "Appeal",
+        "chapter": "V"
+      },
+      {
+        "section_number": "19",
+        "heading": "Duties of employer",
+        "chapter": "VI"
+      },
+      {
+        "section_number": "20",
+        "heading": "Duties and powers of District Officer",
+        "chapter": "VII"
+      },
+      {
+        "section_number": "21",
+        "heading": "Committee to submit annual report",
+        "chapter": "VIII"
+      },
+      {
+        "section_number": "22",
+        "heading": "Employer to include information in annual report",
+        "chapter": "VIII"
+      },
+      {
+        "section_number": "23",
+        "heading": "Appropriate Government to monitor implementation and maintain data",
+        "chapter": "VIII"
+      },
+      {
+        "section_number": "24",
+        "heading": "Appropriate Government to take measures to publicise the Act",
+        "chapter": "VIII"
+      },
+      {
+        "section_number": "25",
+        "heading": "Power to call for information and inspection of records",
+        "chapter": "VIII"
+      },
+      {
+        "section_number": "26",
+        "heading": "Penalty for non-compliance with provisions of Act",
+        "chapter": "VIII"
+      },
+      {
+        "section_number": "27",
+        "heading": "Cognizance of offence by courts",
+        "chapter": "VIII"
+      },
+      {
+        "section_number": "28",
+        "heading": "Act not in derogation of any other law",
+        "chapter": "VIII"
+      },
+      {
+        "section_number": "29",
+        "heading": "Power of appropriate Government to make rules",
+        "chapter": "VIII"
+      },
+      {
+        "section_number": "30",
+        "heading": "Power to remove difficulties",
+        "chapter": "VIII"
+      }
+    ],
+    "footnotes": [],
+    "coverage": "Complete Act: Chapters I–VIII with amendment footnotes",
+    "notes": [
+      "Square-bracket amendment markers and footnote reference numbers are removed from the text; each section lists its amendment footnotes (marker, page, text, parsed action/act/effective date) under \"footnotes\". Spelling as printed in the source PDF is preserved."
+    ]
+  },
+  "chapters": [
+    {
+      "chapter_number": "I",
+      "chapter_title": "Preliminary",
+      "page_start": 3,
+      "page_end": 5,
+      "section_range": [
+        "1",
+        "3"
+      ],
+      "sub_headings": [],
+      "sections": [
+        {
+          "section_number": "1",
+          "section_type": "interpretive",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Short title, extent and commencement",
+          "sub_heading": null,
+          "text": "(1) This Act may be called the Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013.\n(2) It extends to the whole of India.\n(3) It shall come into force on such date as the Central Government may, by notification in the Official Gazette, appoint.",
+          "page": 3,
+          "page_end": 3,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "This Act may be called the Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013."
+            },
+            {
+              "label": "(2)",
+              "text": "It extends to the whole of India."
+            },
+            {
+              "label": "(3)",
+              "text": "It shall come into force on such date as the Central Government may, by notification in the Official Gazette, appoint."
+            }
+          ],
+          "footnotes": [
+            {
+              "marker": 1,
+              "page": 3,
+              "text": "9th December, 2013, vide notification No. S.O. 3606(E), dated 9th December, 2013, see Gazette of India, Extraordinary, Part II, sec. 3(ii)."
+            }
+          ]
+        },
+        {
+          "section_number": "2",
+          "section_type": "definitional",
+          "is_definition": true,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Definitions",
+          "sub_heading": null,
+          "text": "In this Act, unless the context otherwise requires, —\n(a) “aggrieved woman” means—\n(i) in relation to a workplace, a woman, of any age whether employed or not, who alleges to have been subjected to any act of sexual harassment by the respondent;\n(ii) in relation to dwelling place or house, a woman of any age who is employed in such a dwelling place or house;\n(b) “appropriate Government” means—\n(i) in relation to a workplace which is established, owned, controlled or wholly or substantially financed by funds provided directly or indirectly— (A) by the Central Government or the Union territory administration, the Central Government; (B) by the State Government, the State Government;\n(ii) in relation to any workplace not covered under sub-clause (i) and falling within its territory, the State Government;\n(c) “Chairperson” means the Chairperson of the Local Complaints Committee nominated under sub-section (1) of section 7;\n(d) “District Officer” means on officer notified under section 5;\n(e) “domestic worker” means a woman who is employed to do the household work in any household for remuneration whether in cash or kind, either directly or through any agency on a temporary, permanent, part time or full time basis, but does not include any member of the family of the employer;\n(f) “employee” means a person employed at a workplace for any work on regular, temporary, ad hoc or daily wage basis, either directly or through an agent, including a contractor, with or, without the knowledge of the principal employer, whether for remuneration or not, or working on a voluntary basis or otherwise, whether the terms of employment are express or implied and includes a co-worker, a contract worker, probationer, trainee, apprentice or called by any other such name;\n(g) “employer” means—\n(i) in relation to any department, organisation, undertaking, establishment, enterprise, institution, office, branch or unit of the appropriate Government or a local authority, the head of that department, organisation, undertaking, establishment, enterprise, institution, office, branch or unit or such other officer as the appropriate Government or the local authority, as the case may be, may by an order specify in this behalf;\n(ii) in any workplace not covered under sub-clause (i), any person responsible for the management, supervision and control of the workplace.\nExplanation. —For the purposes of this sub-clause “management” includes the person or board or committee responsible for formulation and administration of polices for such organisation; (iii) in relation to workplace covered under sub-clauses (i) and (ii), the person discharging contractual obligations with respect to his or her employees; (iv) in relation to a dwelling place or house, a person or a household who employs or benefits from the employment of domestic worker, irrespective of the number, time period or type of such worker employed, or the nature of the employment or activities performed by the domestic worker;\n(h) “Internal Committee” means an Internal Complaints Committee constituted under section 4;\n(i) “Local Committee” means the Local Complaints Committee constituted under section 6;\n(j) “Member” means a Member of the Internal Committee or the Local Committee, as the case may be;\n(k) “prescribed” means prescribed by rules made under this Act;\n(l) “Presiding Officer” means the Presiding Officer of the Internal Complaints Committee nominated under sub-section (2) of section 4;\n(m) “respondent’ means a person against whom the aggrieved woman has made a complaint under section 9;\n(n) “sexual harassment” includes any one or more of the following unwelcome acts or behavior (whether directly or by implication) namely:—\n(i) physical contact and advances; or\n(ii) a demand or request for sexual favours; or\n(iii) making sexually coloured remarks; or\n(iv) showing pornography; or\n(v) any other unwelcome physical, verbal or non-verbal conduct of sexual nature;\n(o) “workplace” includes—\n(i) any department, organisation, undertaking, establishment, enterprise, institution, office, branch or unit which is established, owned, controlled or wholly or substantially financed by funds provided directly or indirectly by the appropriate Government or the local authority or a Government company or a corporation or a co-operative society;\n(ii) any private sector organisation or a private venture, undertaking, enterprise, institution, establishment, society, trust, non-governmental organisation, unit or service provider carrying on commercial, professional, vocational, educational, entertainmental, industrial, health services or financial activities including production, supply, sale, distribution or service;\n(iii) hospitals or nursing homes;\n(iv) any sports institute, stadium, sports complex or competition or games venue, whether residential or not used for training, sports or other activities relating thereto;\n(v) any place visited by the employee arising out of or during the course of employment including transportation by the employer for undertaking such journey;\n(vi) a dwelling place or a house;\n(p) “unorganised sector” in relation to a workplace means an enterprise owned by individuals or self-employed workers and engaged in the production or sale of goods or providing service of any kind whatsoever, and where the enterprise employs workers, the number of such workers is less than ten.",
+          "page": 3,
+          "page_end": 5,
+          "lead_text": "In this Act, unless the context otherwise requires, —",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "“aggrieved woman” means—",
+              "sub_clauses": [
+                {
+                  "label": "(i)",
+                  "text": "in relation to a workplace, a woman, of any age whether employed or not, who alleges to have been subjected to any act of sexual harassment by the respondent;"
+                },
+                {
+                  "label": "(ii)",
+                  "text": "in relation to dwelling place or house, a woman of any age who is employed in such a dwelling place or house;"
+                }
+              ]
+            },
+            {
+              "label": "(b)",
+              "text": "“appropriate Government” means—",
+              "sub_clauses": [
+                {
+                  "label": "(i)",
+                  "text": "in relation to a workplace which is established, owned, controlled or wholly or substantially financed by funds provided directly or indirectly— (A) by the Central Government or the Union territory administration, the Central Government; (B) by the State Government, the State Government;"
+                },
+                {
+                  "label": "(ii)",
+                  "text": "in relation to any workplace not covered under sub-clause (i) and falling within its territory, the State Government;"
+                }
+              ]
+            },
+            {
+              "label": "(c)",
+              "text": "“Chairperson” means the Chairperson of the Local Complaints Committee nominated under sub-section (1) of section 7;"
+            },
+            {
+              "label": "(d)",
+              "text": "“District Officer” means on officer notified under section 5;"
+            },
+            {
+              "label": "(e)",
+              "text": "“domestic worker” means a woman who is employed to do the household work in any household for remuneration whether in cash or kind, either directly or through any agency on a temporary, permanent, part time or full time basis, but does not include any member of the family of the employer;"
+            },
+            {
+              "label": "(f)",
+              "text": "“employee” means a person employed at a workplace for any work on regular, temporary, ad hoc or daily wage basis, either directly or through an agent, including a contractor, with or, without the knowledge of the principal employer, whether for remuneration or not, or working on a voluntary basis or otherwise, whether the terms of employment are express or implied and includes a co-worker, a contract worker, probationer, trainee, apprentice or called by any other such name;"
+            },
+            {
+              "label": "(g)",
+              "text": "“employer” means—",
+              "sub_clauses": [
+                {
+                  "label": "(i)",
+                  "text": "in relation to any department, organisation, undertaking, establishment, enterprise, institution, office, branch or unit of the appropriate Government or a local authority, the head of that department, organisation, undertaking, establishment, enterprise, institution, office, branch or unit or such other officer as the appropriate Government or the local authority, as the case may be, may by an order specify in this behalf;"
+                },
+                {
+                  "label": "(ii)",
+                  "text": "in any workplace not covered under sub-clause (i), any person responsible for the management, supervision and control of the workplace."
+                }
+              ]
+            },
+            {
+              "label": "(h)",
+              "text": "“Internal Committee” means an Internal Complaints Committee constituted under section 4;"
+            },
+            {
+              "label": "(i)",
+              "text": "“Local Committee” means the Local Complaints Committee constituted under section 6;"
+            },
+            {
+              "label": "(j)",
+              "text": "“Member” means a Member of the Internal Committee or the Local Committee, as the case may be;"
+            },
+            {
+              "label": "(k)",
+              "text": "“prescribed” means prescribed by rules made under this Act;"
+            },
+            {
+              "label": "(l)",
+              "text": "“Presiding Officer” means the Presiding Officer of the Internal Complaints Committee nominated under sub-section (2) of section 4;"
+            },
+            {
+              "label": "(m)",
+              "text": "“respondent’ means a person against whom the aggrieved woman has made a complaint under section 9;"
+            },
+            {
+              "label": "(n)",
+              "text": "“sexual harassment” includes any one or more of the following unwelcome acts or behavior (whether directly or by implication) namely:—",
+              "sub_clauses": [
+                {
+                  "label": "(i)",
+                  "text": "physical contact and advances; or"
+                },
+                {
+                  "label": "(ii)",
+                  "text": "a demand or request for sexual favours; or"
+                },
+                {
+                  "label": "(iii)",
+                  "text": "making sexually coloured remarks; or"
+                },
+                {
+                  "label": "(iv)",
+                  "text": "showing pornography; or"
+                },
+                {
+                  "label": "(v)",
+                  "text": "any other unwelcome physical, verbal or non-verbal conduct of sexual nature;"
+                }
+              ]
+            },
+            {
+              "label": "(o)",
+              "text": "“workplace” includes—",
+              "sub_clauses": [
+                {
+                  "label": "(i)",
+                  "text": "any department, organisation, undertaking, establishment, enterprise, institution, office, branch or unit which is established, owned, controlled or wholly or substantially financed by funds provided directly or indirectly by the appropriate Government or the local authority or a Government company or a corporation or a co-operative society;"
+                },
+                {
+                  "label": "(ii)",
+                  "text": "any private sector organisation or a private venture, undertaking, enterprise, institution, establishment, society, trust, non-governmental organisation, unit or service provider carrying on commercial, professional, vocational, educational, entertainmental, industrial, health services or financial activities including production, supply, sale, distribution or service;"
+                },
+                {
+                  "label": "(iii)",
+                  "text": "hospitals or nursing homes;"
+                },
+                {
+                  "label": "(iv)",
+                  "text": "any sports institute, stadium, sports complex or competition or games venue, whether residential or not used for training, sports or other activities relating thereto;"
+                },
+                {
+                  "label": "(v)",
+                  "text": "any place visited by the employee arising out of or during the course of employment including transportation by the employer for undertaking such journey;"
+                },
+                {
+                  "label": "(vi)",
+                  "text": "a dwelling place or a house;"
+                }
+              ]
+            },
+            {
+              "label": "(p)",
+              "text": "“unorganised sector” in relation to a workplace means an enterprise owned by individuals or self-employed workers and engaged in the production or sale of goods or providing service of any kind whatsoever, and where the enterprise employs workers, the number of such workers is less than ten."
+            }
+          ],
+          "explanations": [
+            {
+              "label": "Explanation",
+              "text": "Explanation. —For the purposes of this sub-clause “management” includes the person or board or committee responsible for formulation and administration of polices for such organisation; (iii) in relation to workplace covered under sub-clauses (i) and (ii), the person discharging contractual obligations with respect to his or her employees; (iv) in relation to a dwelling place or house, a person or a household who employs or benefits from the employment of domestic worker, irrespective of the number, time period or type of such worker employed, or the nature of the employment or activities performed by the domestic worker;"
+            }
+          ],
+          "footnotes": [],
+          "definitions": [
+            {
+              "label": "(a)",
+              "terms": [
+                "aggrieved woman"
+              ],
+              "text": "“aggrieved woman” means—"
+            },
+            {
+              "label": "(b)",
+              "terms": [
+                "appropriate Government"
+              ],
+              "text": "“appropriate Government” means—"
+            },
+            {
+              "label": "(c)",
+              "terms": [
+                "Chairperson"
+              ],
+              "text": "“Chairperson” means the Chairperson of the Local Complaints Committee nominated under sub-section (1) of section 7;"
+            },
+            {
+              "label": "(d)",
+              "terms": [
+                "District Officer"
+              ],
+              "text": "“District Officer” means on officer notified under section 5;"
+            },
+            {
+              "label": "(e)",
+              "terms": [
+                "domestic worker"
+              ],
+              "text": "“domestic worker” means a woman who is employed to do the household work in any household for remuneration whether in cash or kind, either directly or through any agency on a temporary, permanent, part time or full time basis, but does not include any member of the family of the employer;"
+            },
+            {
+              "label": "(f)",
+              "terms": [
+                "employee"
+              ],
+              "text": "“employee” means a person employed at a workplace for any work on regular, temporary, ad hoc or daily wage basis, either directly or through an agent, including a contractor, with or, without the knowledge of the principal employer, whether for remuneration or not, or working on a voluntary basis or otherwise, whether the terms of employment are express or implied and includes a co-worker, a contract worker, probationer, trainee, apprentice or called by any other such name;"
+            },
+            {
+              "label": "(g)",
+              "terms": [
+                "employer"
+              ],
+              "text": "“employer” means—"
+            },
+            {
+              "label": "(h)",
+              "terms": [
+                "Internal Committee"
+              ],
+              "text": "“Internal Committee” means an Internal Complaints Committee constituted under section 4;"
+            },
+            {
+              "label": "(i)",
+              "terms": [
+                "Local Committee"
+              ],
+              "text": "“Local Committee” means the Local Complaints Committee constituted under section 6;"
+            },
+            {
+              "label": "(j)",
+              "terms": [
+                "Member"
+              ],
+              "text": "“Member” means a Member of the Internal Committee or the Local Committee, as the case may be;"
+            },
+            {
+              "label": "(k)",
+              "terms": [
+                "prescribed"
+              ],
+              "text": "“prescribed” means prescribed by rules made under this Act;"
+            },
+            {
+              "label": "(l)",
+              "terms": [
+                "Presiding Officer"
+              ],
+              "text": "“Presiding Officer” means the Presiding Officer of the Internal Complaints Committee nominated under sub-section (2) of section 4;"
+            },
+            {
+              "label": "(n)",
+              "terms": [
+                "sexual harassment"
+              ],
+              "text": "“sexual harassment” includes any one or more of the following unwelcome acts or behavior (whether directly or by implication) namely:—"
+            },
+            {
+              "label": "(o)",
+              "terms": [
+                "workplace"
+              ],
+              "text": "“workplace” includes—"
+            },
+            {
+              "label": "(p)",
+              "terms": [
+                "unorganised sector"
+              ],
+              "text": "“unorganised sector” in relation to a workplace means an enterprise owned by individuals or self-employed workers and engaged in the production or sale of goods or providing service of any kind whatsoever, and where the enterprise employs workers, the number of such workers is less than ten."
+            }
+          ]
+        },
+        {
+          "section_number": "3",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Prevention of sexual harassment",
+          "sub_heading": null,
+          "text": "(1) No woman shall be subjected to sexual harassment at any workplace.\n(2) The following circumstances, among other circumstances, if it occurs, or is present in relation to or connected with any act or behavior of sexual harassment may amount to sexual harassment:—\n(i) implied or explicit promise of preferential treatment in her employment; or\n(ii) implied or explicit threat of detrimental treatment in her employment; or\n(iii) implied or explicit threat about her present or future employment status; or\n(iv) interference with her work or creating an intimidating or offensive or hostile work environment for her; or\n(v) humiliating treatment likely to affect her health or safety.",
+          "page": 5,
+          "page_end": 5,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "No woman shall be subjected to sexual harassment at any workplace."
+            },
+            {
+              "label": "(2)",
+              "text": "The following circumstances, among other circumstances, if it occurs, or is present in relation to or connected with any act or behavior of sexual harassment may amount to sexual harassment:—",
+              "clauses": [
+                {
+                  "label": "(i)",
+                  "text": "implied or explicit promise of preferential treatment in her employment; or"
+                },
+                {
+                  "label": "(ii)",
+                  "text": "implied or explicit threat of detrimental treatment in her employment; or"
+                },
+                {
+                  "label": "(iii)",
+                  "text": "implied or explicit threat about her present or future employment status; or"
+                },
+                {
+                  "label": "(iv)",
+                  "text": "interference with her work or creating an intimidating or offensive or hostile work environment for her; or"
+                },
+                {
+                  "label": "(v)",
+                  "text": "humiliating treatment likely to affect her health or safety."
+                }
+              ]
+            }
+          ],
+          "footnotes": []
+        }
+      ]
+    },
+    {
+      "chapter_number": "II",
+      "chapter_title": "Constitution of Internal Complaints Committee",
+      "page_start": 5,
+      "page_end": 6,
+      "section_range": [
+        "4",
+        "4"
+      ],
+      "sub_headings": [],
+      "sections": [
+        {
+          "section_number": "4",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Constitution of Internal Complaints Committee",
+          "sub_heading": null,
+          "text": "(1) Every employer of a workplace shall, by an order in writing, constitute a Committee to be known as the “Internal Complaints Committee”:\nProvided that where the offices or administrative units of the workplace are located at different places or divisional or sub-divisional level, the Internal Committee shall be constituted at all administrative units or offices.\n(2) The Internal Committees shall consist of the following members to be nominated by the employer, namely: —\n(a) a Presiding Officer who shall be a woman employed at a senior level at workplace from amongst the employees:\nProvided that in case a senior level woman employee is not available, the Presiding Officer shall be nominated from other offices or administrative units of the workplace referred to in sub-section(1):\nProvided further that in case the other offices or administrative units of the workplace do not have a senior level woman employee, the Presiding Officer shall be nominated from any other workplace of the same employer or other department or organisation;\n(b) not less than two Members from amongst employees preferably committed to the cause of women or who have had experience in social work or have legal knowledge;\n(c) one member from amongst non-governmental organisations or associations committed to the cause of women or a person familiar with the issues relating to sexual harassment:\nProvided that at least one-half of the total Members so nominated shall be women.\n(3) The Presiding Officer and every Member of the Internal Committee shall hold office for such period, not exceeding three years, from the date of their nomination as may be specified by the employer.\n(4) The Member appointed from amongst the non-governmental organisations or associations shall be paid such fees or allowances for holding the proceedings of the Internal Committee, by the employer, as may be prescribed.\n(5) Where the Presiding Officer or any Member of the Internal Committee, —\n(a) contravenes the provisions of section 16; or\n(b) has been convicted for an offence or an inquiry into an offence under any law for the time being in force is pending against him; or\n(c) he has been found guilty in any disciplinary proceedings or a disciplinary proceeding is pending against him; or\n(d) has so abused his position as to render his continuance in office prejudicial to the public interest,\nsuch Presiding Officer or Member, as the case may be, shall be removed from the Committee and the vacancy so created or any casual vacancy shall be filled by fresh nomination in accordance with the provisions of this section.",
+          "page": 5,
+          "page_end": 6,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Every employer of a workplace shall, by an order in writing, constitute a Committee to be known as the “Internal Complaints Committee”:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that where the offices or administrative units of the workplace are located at different places or divisional or sub-divisional level, the Internal Committee shall be constituted at all administrative units or offices."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "The Internal Committees shall consist of the following members to be nominated by the employer, namely: —",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "a Presiding Officer who shall be a woman employed at a senior level at workplace from amongst the employees:",
+                  "provisos": [
+                    {
+                      "label": "Proviso",
+                      "text": "Provided that in case a senior level woman employee is not available, the Presiding Officer shall be nominated from other offices or administrative units of the workplace referred to in sub-section(1):"
+                    },
+                    {
+                      "label": "Proviso",
+                      "text": "Provided further that in case the other offices or administrative units of the workplace do not have a senior level woman employee, the Presiding Officer shall be nominated from any other workplace of the same employer or other department or organisation;"
+                    }
+                  ]
+                },
+                {
+                  "label": "(b)",
+                  "text": "not less than two Members from amongst employees preferably committed to the cause of women or who have had experience in social work or have legal knowledge;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "one member from amongst non-governmental organisations or associations committed to the cause of women or a person familiar with the issues relating to sexual harassment:",
+                  "provisos": [
+                    {
+                      "label": "Proviso",
+                      "text": "Provided that at least one-half of the total Members so nominated shall be women."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "(3)",
+              "text": "The Presiding Officer and every Member of the Internal Committee shall hold office for such period, not exceeding three years, from the date of their nomination as may be specified by the employer."
+            },
+            {
+              "label": "(4)",
+              "text": "The Member appointed from amongst the non-governmental organisations or associations shall be paid such fees or allowances for holding the proceedings of the Internal Committee, by the employer, as may be prescribed."
+            },
+            {
+              "label": "(5)",
+              "text": "Where the Presiding Officer or any Member of the Internal Committee, —",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "contravenes the provisions of section 16; or"
+                },
+                {
+                  "label": "(b)",
+                  "text": "has been convicted for an offence or an inquiry into an offence under any law for the time being in force is pending against him; or"
+                },
+                {
+                  "label": "(c)",
+                  "text": "he has been found guilty in any disciplinary proceedings or a disciplinary proceeding is pending against him; or"
+                },
+                {
+                  "label": "(d)",
+                  "text": "has so abused his position as to render his continuance in office prejudicial to the public interest,"
+                }
+              ],
+              "trailing_text": [
+                "such Presiding Officer or Member, as the case may be, shall be removed from the Committee and the vacancy so created or any casual vacancy shall be filled by fresh nomination in accordance with the provisions of this section."
+              ]
+            }
+          ],
+          "footnotes": []
+        }
+      ]
+    },
+    {
+      "chapter_number": "III",
+      "chapter_title": "Constitution of Local Complaints Committee",
+      "page_start": 6,
+      "page_end": 8,
+      "section_range": [
+        "5",
+        "8"
+      ],
+      "sub_headings": [],
+      "sections": [
+        {
+          "section_number": "5",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Notification of District Officer",
+          "sub_heading": null,
+          "text": "The appropriate Government may notify a District Magistrate or Additional District Magistrate or the Collector or Deputy Collector as a District Officer for every District to exercise powers or discharge functions under this Act.",
+          "page": 6,
+          "page_end": 6,
+          "footnotes": []
+        },
+        {
+          "section_number": "6",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Constitution and jurisdiction of Local Committee",
+          "sub_heading": null,
+          "text": "(1) Every District Officer shall constitute in the district concerned, a committee to be known as the “ Local Committee ” to receive complaints of sexual harassment from establishments where the Internal Committee has not been constituted due to having less than ten workers or if the complaint is against the employer himself.\n(2) The District Officer shall designate one nodal officer in every block, taluka and tehsil in rural or tribal area and ward or municipality in the urban area, to receive complaints and forward the same to the concerned Local Committee within a period of seven days.\n(3) The jurisdiction of the Local Committee shall extend to the areas of the district where it is constituted.",
+          "page": 6,
+          "page_end": 7,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Every District Officer shall constitute in the district concerned, a committee to be known as the “ Local Committee ” to receive complaints of sexual harassment from establishments where the Internal Committee has not been constituted due to having less than ten workers or if the complaint is against the employer himself."
+            },
+            {
+              "label": "(2)",
+              "text": "The District Officer shall designate one nodal officer in every block, taluka and tehsil in rural or tribal area and ward or municipality in the urban area, to receive complaints and forward the same to the concerned Local Committee within a period of seven days."
+            },
+            {
+              "label": "(3)",
+              "text": "The jurisdiction of the Local Committee shall extend to the areas of the district where it is constituted."
+            }
+          ],
+          "footnotes": [
+            {
+              "marker": 1,
+              "page": 6,
+              "text": "Subs. by Act 23 of 2016, s. 3 and the Second Schedule, for “Local Complaints Committee” (w.e.f. 6-5-2016).",
+              "action": "substituted",
+              "amending_act": "Act 23 of 2016",
+              "effective_from": "6-5-2016",
+              "amending_section": "3"
+            },
+            {
+              "marker": 1,
+              "page": 7,
+              "text": "Subs. by Act 23 of 2016, s. 3 and the Second Schedule, for “Internal Complaints Committee” (w.e.f. 6-5-2016).",
+              "action": "substituted",
+              "amending_act": "Act 23 of 2016",
+              "effective_from": "6-5-2016",
+              "amending_section": "3"
+            },
+            {
+              "marker": 2,
+              "page": 7,
+              "text": "Subs. by s. 3 and the Second Schedule, ibid., for “Local Complaints Committee” (w.e.f. 6-5-2016).",
+              "action": "substituted",
+              "effective_from": "6-5-2016",
+              "amending_act": "Act 23 of 2016",
+              "amending_act_via_ibid": true,
+              "amending_section": "3"
+            }
+          ]
+        },
+        {
+          "section_number": "7",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Composition, tenure and other terms and conditions of Local Committee",
+          "sub_heading": null,
+          "text": "(1) The Local Committee shall consist of the following members to be nominated by the District Officer, namely: —\n(a) a Chairperson to be nominated from amongst the eminent women in the field of social work and committed to the cause of women;\n(b) one Member to be nominated from amongst the women working in block, taluka or tehsil or ward or municipality in the district;\n(c) two Members, of whom at least one shall be a woman, to be nominated from amongst such non-governmental organisations or associations committed to the cause of women or a person familiar with the issues relating to sexual harassment, which may be prescribed:\nProvided that at least one of the nominees should, preferably, have a background in law or legal knowledge:\nProvided further that at least one of the nominees shall be a woman belonging to the Scheduled Castes or the Scheduled Tribes or the Other Backward Classes or minority community notified by the Central Government, from time to time;\n(d) the concerned officer dealing with the social welfare or women and child development in the district, shall be a member ex officio.\n(2) The Chairperson and every Member of the Local Committee shall hold office for such period, not exceeding three years, form the date of their appointment as may be specified by the District Officer.\n(3) Where the Chairperson or any Member of the Local Committee —\n(a) contravenes the provisions of section 16; or\n(b) has been convicted for an offence or an inquiry into an offence under any law for the time being in force is pending against him; or\n(c) has been found guilty in any disciplinary proceedings or a disciplinary proceeding is pending against him; or\n(d) has so abused his position as to render his continuance in office prejudicial to the public interest,\nsuch Chairperson or Member, as the case may be, shall be removed from the Committee and the vacancy so created or any casual vacancy shall be filled by fresh nomination in accordance with the provisions of this section.\n(4) The Chairperson or Members of the Local Committee other than the Members nominated under clauses (b) and (d) of sub-section (1) shall be entitled to such fees or allowances for holding the proceedings of the Local Committee as may be prescribed.",
+          "page": 7,
+          "page_end": 7,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The Local Committee shall consist of the following members to be nominated by the District Officer, namely: —",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "a Chairperson to be nominated from amongst the eminent women in the field of social work and committed to the cause of women;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "one Member to be nominated from amongst the women working in block, taluka or tehsil or ward or municipality in the district;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "two Members, of whom at least one shall be a woman, to be nominated from amongst such non-governmental organisations or associations committed to the cause of women or a person familiar with the issues relating to sexual harassment, which may be prescribed:",
+                  "provisos": [
+                    {
+                      "label": "Proviso",
+                      "text": "Provided that at least one of the nominees should, preferably, have a background in law or legal knowledge:"
+                    },
+                    {
+                      "label": "Proviso",
+                      "text": "Provided further that at least one of the nominees shall be a woman belonging to the Scheduled Castes or the Scheduled Tribes or the Other Backward Classes or minority community notified by the Central Government, from time to time;"
+                    }
+                  ]
+                },
+                {
+                  "label": "(d)",
+                  "text": "the concerned officer dealing with the social welfare or women and child development in the district, shall be a member ex officio."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "The Chairperson and every Member of the Local Committee shall hold office for such period, not exceeding three years, form the date of their appointment as may be specified by the District Officer."
+            },
+            {
+              "label": "(3)",
+              "text": "Where the Chairperson or any Member of the Local Committee —",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "contravenes the provisions of section 16; or"
+                },
+                {
+                  "label": "(b)",
+                  "text": "has been convicted for an offence or an inquiry into an offence under any law for the time being in force is pending against him; or"
+                },
+                {
+                  "label": "(c)",
+                  "text": "has been found guilty in any disciplinary proceedings or a disciplinary proceeding is pending against him; or"
+                },
+                {
+                  "label": "(d)",
+                  "text": "has so abused his position as to render his continuance in office prejudicial to the public interest,"
+                }
+              ],
+              "trailing_text": [
+                "such Chairperson or Member, as the case may be, shall be removed from the Committee and the vacancy so created or any casual vacancy shall be filled by fresh nomination in accordance with the provisions of this section."
+              ]
+            },
+            {
+              "label": "(4)",
+              "text": "The Chairperson or Members of the Local Committee other than the Members nominated under clauses (b) and (d) of sub-section (1) shall be entitled to such fees or allowances for holding the proceedings of the Local Committee as may be prescribed."
+            }
+          ],
+          "footnotes": [
+            {
+              "marker": 2,
+              "page": 7,
+              "text": "Subs. by s. 3 and the Second Schedule, ibid., for “Local Complaints Committee” (w.e.f. 6-5-2016).",
+              "action": "substituted",
+              "effective_from": "6-5-2016",
+              "amending_act": "Act 23 of 2016",
+              "amending_act_via_ibid": true,
+              "amending_section": "3"
+            }
+          ]
+        },
+        {
+          "section_number": "8",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Grants and audit",
+          "sub_heading": null,
+          "text": "(1) The Central Government may, after due appropriation made by Parliament by law in this behalf, make to the State Government grants of such sums of money as the Central Government my think fit, for being utilised for the payment of fees or allowances referred to in sub-section (4) of section 7.\n(2) The State Government may set up an agency and transfer the grants made under sub-section (1) to that agency.\n(3) The agency shall pay to the District Officer, such sums as may be required for the payment of fees or allowances referred to in sub-section (4) of section 7.\n(4) The accounts of the agency referred to in sub-section (2) shall be maintained and audited in such manner as may, in consultation with the Accountant General of the State, be prescribed and the person holding the custody of the accounts of the agency shall furnish, to the State Government, before such date, as may be prescribed, its audited copy of accounts together with auditors’ report thereon.",
+          "page": 7,
+          "page_end": 8,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The Central Government may, after due appropriation made by Parliament by law in this behalf, make to the State Government grants of such sums of money as the Central Government my think fit, for being utilised for the payment of fees or allowances referred to in sub-section (4) of section 7."
+            },
+            {
+              "label": "(2)",
+              "text": "The State Government may set up an agency and transfer the grants made under sub-section (1) to that agency."
+            },
+            {
+              "label": "(3)",
+              "text": "The agency shall pay to the District Officer, such sums as may be required for the payment of fees or allowances referred to in sub-section (4) of section 7."
+            },
+            {
+              "label": "(4)",
+              "text": "The accounts of the agency referred to in sub-section (2) shall be maintained and audited in such manner as may, in consultation with the Accountant General of the State, be prescribed and the person holding the custody of the accounts of the agency shall furnish, to the State Government, before such date, as may be prescribed, its audited copy of accounts together with auditors’ report thereon."
+            }
+          ],
+          "footnotes": []
+        }
+      ]
+    },
+    {
+      "chapter_number": "IV",
+      "chapter_title": "Complaint",
+      "page_start": 8,
+      "page_end": 9,
+      "section_range": [
+        "9",
+        "11"
+      ],
+      "sub_headings": [],
+      "sections": [
+        {
+          "section_number": "9",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Complaint of sexual harassment",
+          "sub_heading": null,
+          "text": "(1) Any aggrieved woman may make, in writing, a complaint of sexual harassment at workplace to the Internal Committee if so constituted, or the Local Committee, in case it is not so constituted, within a period of three months from the date of incident and in case of a series of incidents, within a period of three months from the date of last incident:\nProvided that where such complaint cannot be made in writing, the Presiding Officer or any Member of the Internal Committee or the Chairperson or any Member of the Local Committee, as the case may be, shall render all reasonable assistance to the woman for making the complaint in writing:\nProvided further that the Internal Committee or, as the case may be, the Local Committee may, for the reasons to be recorded in writing, extend the time limit not exceeding three months, if it is satisfied that the circumstances were such which prevented the woman from filing a complaint within the said period.\n(2) Where the aggrieved woman is unable to make a complaint on account of her physical or mental incapacity or death or otherwise, her legal heir or such other person as may be prescribed may make a complaint under this section.",
+          "page": 8,
+          "page_end": 8,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Any aggrieved woman may make, in writing, a complaint of sexual harassment at workplace to the Internal Committee if so constituted, or the Local Committee, in case it is not so constituted, within a period of three months from the date of incident and in case of a series of incidents, within a period of three months from the date of last incident:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that where such complaint cannot be made in writing, the Presiding Officer or any Member of the Internal Committee or the Chairperson or any Member of the Local Committee, as the case may be, shall render all reasonable assistance to the woman for making the complaint in writing:"
+                },
+                {
+                  "label": "Proviso",
+                  "text": "Provided further that the Internal Committee or, as the case may be, the Local Committee may, for the reasons to be recorded in writing, extend the time limit not exceeding three months, if it is satisfied that the circumstances were such which prevented the woman from filing a complaint within the said period."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "Where the aggrieved woman is unable to make a complaint on account of her physical or mental incapacity or death or otherwise, her legal heir or such other person as may be prescribed may make a complaint under this section."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "10",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Conciliation",
+          "sub_heading": null,
+          "text": "(1) The Internal Committee or, as the case may be, the Local Committee, may, before initiating an inquiry under section 11 and at the request of the aggrieved woman take steps to settle the matter between her and the respondent through conciliation:\nProvided that no monetary settlement shall be made as a basis of conciliation.\n(2) Where settlement has been arrived at under sub-section (1), the Internal Committee or the Local Committee, as the case may be, shall record the settlement so arrived and forward the same to the employer or the District Officer to take action as specified in the recommendation.\n(3) The Internal Committee or the Local Committee, as the case may be, shall provide the copies of the settlement as recorded under sub-section (2) to the aggrieved woman and the respondent.\n(4) Where a settlement is arrived at under sub-section (1), no further inquiry shall be conducted by the Internal Committee or the Local Committee, as the case may be.",
+          "page": 8,
+          "page_end": 8,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The Internal Committee or, as the case may be, the Local Committee, may, before initiating an inquiry under section 11 and at the request of the aggrieved woman take steps to settle the matter between her and the respondent through conciliation:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that no monetary settlement shall be made as a basis of conciliation."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "Where settlement has been arrived at under sub-section (1), the Internal Committee or the Local Committee, as the case may be, shall record the settlement so arrived and forward the same to the employer or the District Officer to take action as specified in the recommendation."
+            },
+            {
+              "label": "(3)",
+              "text": "The Internal Committee or the Local Committee, as the case may be, shall provide the copies of the settlement as recorded under sub-section (2) to the aggrieved woman and the respondent."
+            },
+            {
+              "label": "(4)",
+              "text": "Where a settlement is arrived at under sub-section (1), no further inquiry shall be conducted by the Internal Committee or the Local Committee, as the case may be."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "11",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Inquiry into complaint",
+          "sub_heading": null,
+          "text": "(1) Subject to the provisions of section 10, the Internal Committee or the Local Committee, as the case may be, shall, where the respondent is an employee, proceed to make inquiry into the complaint in accordance with the provisions of the service rules applicable to the respondent and where no such rules exist, in such manner as may be prescribed or in case of a domestic worker, the Local Committee shall, if prima facie case exist, forward the complaint to the police, within a period of seven days for registering the case under section 509 of the Indian Penal Code (45 of 1860), and any other relevant provisions of the said Code where applicable:\nProvided that where the aggrieved woman informs the Internal Committee or the Local Committee, as the case may be, that any term or condition of the settlement arrived at under sub-section (2) of section 10 has not been complied with by the respondent, the Internal Committee or the Local Committee shall proceed to make an inquiry into the complaint or, as the case may be, forward the complaint to the police:\nProvided further that where both the parties are employees, the parties shall, during the course of inquiry, be given an opportunity of being heard and a copy of the findings shall be made available to both the parties enabling them to make representation against the findings before the Committee.\n(2) Notwithstanding anything contained in section 509 of the Indian Penal Code (45 of 1860), the court may, when the respondent is convicted of the offence, order payment of such sums as it may consider appropriate, to the aggrieved woman by the respondent, having regard to the provisions of section 15.\n(3) For the purpose of making an inquiry under sub-section (1), the Internal Committee or the Local Committee, as the case may be, shall have the same powers as are vested in a civil court the Code of Civil Procedure, 1908 (5 of 1908) when trying a suit in respect of the following matters, namely:—\n(a) summoning and enforcing the attendance of any person and examining him on oath;\n(b) requiring the discovery and production of documents; and\n(c) any other matter which may be prescribed.\n(4) The inquiry under sub-section (1) shall be completed within a period of ninety days.",
+          "page": 8,
+          "page_end": 9,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Subject to the provisions of section 10, the Internal Committee or the Local Committee, as the case may be, shall, where the respondent is an employee, proceed to make inquiry into the complaint in accordance with the provisions of the service rules applicable to the respondent and where no such rules exist, in such manner as may be prescribed or in case of a domestic worker, the Local Committee shall, if prima facie case exist, forward the complaint to the police, within a period of seven days for registering the case under section 509 of the Indian Penal Code (45 of 1860), and any other relevant provisions of the said Code where applicable:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that where the aggrieved woman informs the Internal Committee or the Local Committee, as the case may be, that any term or condition of the settlement arrived at under sub-section (2) of section 10 has not been complied with by the respondent, the Internal Committee or the Local Committee shall proceed to make an inquiry into the complaint or, as the case may be, forward the complaint to the police:"
+                },
+                {
+                  "label": "Proviso",
+                  "text": "Provided further that where both the parties are employees, the parties shall, during the course of inquiry, be given an opportunity of being heard and a copy of the findings shall be made available to both the parties enabling them to make representation against the findings before the Committee."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "Notwithstanding anything contained in section 509 of the Indian Penal Code (45 of 1860), the court may, when the respondent is convicted of the offence, order payment of such sums as it may consider appropriate, to the aggrieved woman by the respondent, having regard to the provisions of section 15."
+            },
+            {
+              "label": "(3)",
+              "text": "For the purpose of making an inquiry under sub-section (1), the Internal Committee or the Local Committee, as the case may be, shall have the same powers as are vested in a civil court the Code of Civil Procedure, 1908 (5 of 1908) when trying a suit in respect of the following matters, namely:—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "summoning and enforcing the attendance of any person and examining him on oath;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "requiring the discovery and production of documents; and"
+                },
+                {
+                  "label": "(c)",
+                  "text": "any other matter which may be prescribed."
+                }
+              ]
+            },
+            {
+              "label": "(4)",
+              "text": "The inquiry under sub-section (1) shall be completed within a period of ninety days."
+            }
+          ],
+          "footnotes": []
+        }
+      ]
+    },
+    {
+      "chapter_number": "V",
+      "chapter_title": "Inquiry into Complaint",
+      "page_start": 9,
+      "page_end": 11,
+      "section_range": [
+        "12",
+        "18"
+      ],
+      "sub_headings": [],
+      "sections": [
+        {
+          "section_number": "12",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Action during pendency of inquiry",
+          "sub_heading": null,
+          "text": "(1) During the pendency of an inquiry on a written request made by the aggrieved woman, the Internal Committee or the local Committee, as the case may be, may recommend to the employer to—\n(a) transfer the aggrieved woman or the respondent to any other workplace; or\n(b) grant leave to the aggrieved woman up to a period of three months; or\n(c) grant such other relief to the aggrieved woman a may be prescribed.\n(2) The leave granted to the aggrieved woman under this section shall be in addition to the leave she would be otherwise entitled.\n(3) On the recommendation of the Internal Committee or the Local Committee, as the case may be, under sub-section (1), the employer shall implement the recommendations made under sub-section (1) and send the report of such implementation to the Internal Committee or the Local Committee, as the case may be.",
+          "page": 9,
+          "page_end": 9,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "During the pendency of an inquiry on a written request made by the aggrieved woman, the Internal Committee or the local Committee, as the case may be, may recommend to the employer to—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "transfer the aggrieved woman or the respondent to any other workplace; or"
+                },
+                {
+                  "label": "(b)",
+                  "text": "grant leave to the aggrieved woman up to a period of three months; or"
+                },
+                {
+                  "label": "(c)",
+                  "text": "grant such other relief to the aggrieved woman a may be prescribed."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "The leave granted to the aggrieved woman under this section shall be in addition to the leave she would be otherwise entitled."
+            },
+            {
+              "label": "(3)",
+              "text": "On the recommendation of the Internal Committee or the Local Committee, as the case may be, under sub-section (1), the employer shall implement the recommendations made under sub-section (1) and send the report of such implementation to the Internal Committee or the Local Committee, as the case may be."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "13",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Inquiry report",
+          "sub_heading": null,
+          "text": "(1) On the completion of an inquiry under this Act, the Internal Committee or the Local Committee, as the case may be, shall provide a report of its findings to the employer, or as the case may be, the District Officer within a period of ten days from the date of completion of the inquiry and such report be made available to the concerned parties.\n(2) Where the Internal Committee or the Local Committee, as the case may be, arrives at the conclusion that the allegation against the respondent has not been proved, it shall recommend to the employer and the District Officer that no action is required to be taken in the matter.\n(3) Where the Internal Committee or the Local Committee, as the case may be, arrives at the conclusion that the allegation against the respondent has been proved, it shall recommend to the employer or the District Officer, as the case may be—\n(i) to take action for sexual harassment as a misconduct in accordance with the provisions of the service rules applicable to the respondent or where no such service rules have been made, in such manner as may be prescribed;\n(ii) to deduct, notwithstanding anything in the service rules applicable to the respondent, from the salary or wages of the respondent such sum as it may consider appropriate to be paid to the aggrieved woman or to her legal heirs, as it may determine, in accordance with the provisions of section 15: Provide that in case the employer is unable to make such deduction from the salary of the respondent due to his being absent from duty or cessation of employment it may direct to the respondent to pay such sum to the aggrieved woman:\nProvided further that in case the respondent fails to pay the sum referred to in clause (ii), the Internal Committee or as, the case may be, the Local Committee may forward the order for recovery of the sum as an arrear of land revenue to the concerned District Officer.\n(4) The employer or the District Officer shall act upon the recommendation within sixty days of its receipt by him.",
+          "page": 9,
+          "page_end": 10,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "On the completion of an inquiry under this Act, the Internal Committee or the Local Committee, as the case may be, shall provide a report of its findings to the employer, or as the case may be, the District Officer within a period of ten days from the date of completion of the inquiry and such report be made available to the concerned parties."
+            },
+            {
+              "label": "(2)",
+              "text": "Where the Internal Committee or the Local Committee, as the case may be, arrives at the conclusion that the allegation against the respondent has not been proved, it shall recommend to the employer and the District Officer that no action is required to be taken in the matter."
+            },
+            {
+              "label": "(3)",
+              "text": "Where the Internal Committee or the Local Committee, as the case may be, arrives at the conclusion that the allegation against the respondent has been proved, it shall recommend to the employer or the District Officer, as the case may be—",
+              "clauses": [
+                {
+                  "label": "(i)",
+                  "text": "to take action for sexual harassment as a misconduct in accordance with the provisions of the service rules applicable to the respondent or where no such service rules have been made, in such manner as may be prescribed;"
+                },
+                {
+                  "label": "(ii)",
+                  "text": "to deduct, notwithstanding anything in the service rules applicable to the respondent, from the salary or wages of the respondent such sum as it may consider appropriate to be paid to the aggrieved woman or to her legal heirs, as it may determine, in accordance with the provisions of section 15: Provide that in case the employer is unable to make such deduction from the salary of the respondent due to his being absent from duty or cessation of employment it may direct to the respondent to pay such sum to the aggrieved woman:",
+                  "provisos": [
+                    {
+                      "label": "Proviso",
+                      "text": "Provided further that in case the respondent fails to pay the sum referred to in clause (ii), the Internal Committee or as, the case may be, the Local Committee may forward the order for recovery of the sum as an arrear of land revenue to the concerned District Officer."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "label": "(4)",
+              "text": "The employer or the District Officer shall act upon the recommendation within sixty days of its receipt by him."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "14",
+          "section_type": "penal",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Punishment for false or malicious complaint and false evidence",
+          "sub_heading": null,
+          "text": "(1) Where the Internal Committee or the Local Committee, as the case may be, arrives at a conclusion that the allegation against the respondent is malicious or the aggrieved woman or any other person making the complaint has made the complaint knowing it to be false or the aggrieved woman or any other person making the complaint has produced any forged or misleading document, it may recommend to the employer or the District Officer, as the case may be, to take action against the woman or the person who has made the complaint under sub-section (1) or sub-section (2) of section 9, as the case may be, in accordance with the provisions of the service rules applicable to her or him or where no such service rules exist, in such manner as may be prescribed:\nProvided that a mere inability to substantiate a complaint or provide adequate proof need not attract action against the complainant under this section:\nProvided further that the malicious intent on part of the complainant shall be established after an inquiry in accordance with the procedure prescribed, before any action is recommended.\n(2) Where the Internal Committee or the Local Committee, as the case may be, arrives at a conclusion that during the inquiry any witness has given false evidence or produced any forged or misleading document, it may recommend to the employer of the witness or the District Officer, as the case may be, to take action in accordance with the provisions of the service rules applicable to the said witness or where no such service rules exist, in such manner as may be prescribed.",
+          "page": 10,
+          "page_end": 10,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Where the Internal Committee or the Local Committee, as the case may be, arrives at a conclusion that the allegation against the respondent is malicious or the aggrieved woman or any other person making the complaint has made the complaint knowing it to be false or the aggrieved woman or any other person making the complaint has produced any forged or misleading document, it may recommend to the employer or the District Officer, as the case may be, to take action against the woman or the person who has made the complaint under sub-section (1) or sub-section (2) of section 9, as the case may be, in accordance with the provisions of the service rules applicable to her or him or where no such service rules exist, in such manner as may be prescribed:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that a mere inability to substantiate a complaint or provide adequate proof need not attract action against the complainant under this section:"
+                },
+                {
+                  "label": "Proviso",
+                  "text": "Provided further that the malicious intent on part of the complainant shall be established after an inquiry in accordance with the procedure prescribed, before any action is recommended."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "Where the Internal Committee or the Local Committee, as the case may be, arrives at a conclusion that during the inquiry any witness has given false evidence or produced any forged or misleading document, it may recommend to the employer of the witness or the District Officer, as the case may be, to take action in accordance with the provisions of the service rules applicable to the said witness or where no such service rules exist, in such manner as may be prescribed."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "15",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Determination of compensation",
+          "sub_heading": null,
+          "text": "For the purpose of determining the sums to be paid to the aggrieved woman under clause (ii) of sub-section (3) of section 13, the Internal Committee or the Local Committee, as the case may be, shall have regard to—\n(a) the mental trauma, pain, suffering and emotional distress caused to the aggrieved woman;\n(b) the loss in the career opportunity due to the incident of sexual harassment;\n(c) medical expenses incurred by the victim for physical or psychiatric treatment;\n(d) the income and financial status of the respondent;\n(e) feasibility of such payment in lump sum or in instalments.",
+          "page": 10,
+          "page_end": 10,
+          "lead_text": "For the purpose of determining the sums to be paid to the aggrieved woman under clause (ii) of sub-section (3) of section 13, the Internal Committee or the Local Committee, as the case may be, shall have regard to—",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "the mental trauma, pain, suffering and emotional distress caused to the aggrieved woman;"
+            },
+            {
+              "label": "(b)",
+              "text": "the loss in the career opportunity due to the incident of sexual harassment;"
+            },
+            {
+              "label": "(c)",
+              "text": "medical expenses incurred by the victim for physical or psychiatric treatment;"
+            },
+            {
+              "label": "(d)",
+              "text": "the income and financial status of the respondent;"
+            },
+            {
+              "label": "(e)",
+              "text": "feasibility of such payment in lump sum or in instalments."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "16",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Prohibition of publication or making known contents of complaint and inquiry proceedings",
+          "sub_heading": null,
+          "text": "Notwithstanding anything contained in the Right to Information Act, 2005 (22 of 2005), the contents of the complaint made under section 9, the identity and addresses of the aggrieved woman, respondent and witnesses, any information relating to conciliation and inquiry proceedings, recommendations of the Internal Committee or the Local Committee, as the case may be, and the action taken by the employer or the District Officer under the provisions of this Act shall not be published, communicated or made known to the public, press and media in any manner:\nProvided that information may be disseminated regarding the justice secured to any vicitim of sexual harassment under this Act without disclosing the name, address, identity or any other particulars calculated to lead to the identification of the aggrieved woman and witnesses.",
+          "page": 11,
+          "page_end": 11,
+          "provisos": [
+            {
+              "label": "Proviso",
+              "text": "Provided that information may be disseminated regarding the justice secured to any vicitim of sexual harassment under this Act without disclosing the name, address, identity or any other particulars calculated to lead to the identification of the aggrieved woman and witnesses."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "17",
+          "section_type": "penal",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Penalty for publication or making known contents of complaint and inquiry proceedings",
+          "sub_heading": null,
+          "text": "Where any person entrusted with the duty to handle or deal with the complaint, inquiry or any recommendations or action to be taken under the provisions of this Act, contravenes the provisions of section 16, he shall be liable for penalty in accordance with the provisions of the service rules applicable to the said person or where no such service rules exist, in such manner as may be prescribed.",
+          "page": 11,
+          "page_end": 11,
+          "footnotes": []
+        },
+        {
+          "section_number": "18",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Appeal",
+          "sub_heading": null,
+          "text": "(1) Any person aggrieved from the recommendations made under sub-section (2) of section 13 or under clause (i) or clause (ii) of sub-section (3) of section 13 or sub-section (1) or sub-section (2) of section 14 or section 17 or non-implementation of such recommendations may prefer an appeal to the court or tribunal in accordance with the provisions of the service rules applicable to the said person or where no such service rules exist then, without prejudice to provisions contained in any other law for the time being in force, the person aggrieved may prefer an appeal in such manner as may be prescribed.\n(2) The appeal under sub-section (1) shall be preferred within a period of ninety days of the recommendations.",
+          "page": 11,
+          "page_end": 11,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Any person aggrieved from the recommendations made under sub-section (2) of section 13 or under clause (i) or clause (ii) of sub-section (3) of section 13 or sub-section (1) or sub-section (2) of section 14 or section 17 or non-implementation of such recommendations may prefer an appeal to the court or tribunal in accordance with the provisions of the service rules applicable to the said person or where no such service rules exist then, without prejudice to provisions contained in any other law for the time being in force, the person aggrieved may prefer an appeal in such manner as may be prescribed."
+            },
+            {
+              "label": "(2)",
+              "text": "The appeal under sub-section (1) shall be preferred within a period of ninety days of the recommendations."
+            }
+          ],
+          "footnotes": []
+        }
+      ]
+    },
+    {
+      "chapter_number": "VI",
+      "chapter_title": "Duties of Employer",
+      "page_start": 11,
+      "page_end": 12,
+      "section_range": [
+        "19",
+        "19"
+      ],
+      "sub_headings": [],
+      "sections": [
+        {
+          "section_number": "19",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Duties of employer",
+          "sub_heading": null,
+          "text": "Every employer shall—\n(a) provide a safe working environment at the workplace with shall include safety from the persons coming into contact at the workplace;\n(b) display at any conspicuous place in the workplace, the penal consequences of sexual harassments; and the order constituting, the Internal Committee under sub-section (1) of section 4;\n(c) organise workshops and awareness programmes at regular intervals for sensitising the employees with the provisions of the Act and orientation programmes for the members of the Internal Committee in the manner as may be prescribed;\n(d) provide necessary facilities to the Internal Committee or the Local Committee, as the case may be, for dealing with the complaint and conducting an inquiry;\n(e) assist in securing the attendance of respondent and witnesses before the Internal Committee or the Local Committee, as the case may be;\n(f) make available such information to the Internal Committee or the Local Committee, as the case be, as it may require having regard to the complaint made under sub-section (1) of section 9;\n(g) provide assistance to the woman if she so chooses to file a complaint in relation to the offence under the Indian Penal Code (45 of 1860) or any other law for the time being in force;\n(h) cause to initiate action, under the Indian Penal Code (45 of 1860) or any other law for the time being in force, against the perpetrator, or if the aggrieved woman so desires, where the perpetrator is not an employee, in the workplace at which the incident of sexual harassment took place;\n(i) treat sexual harassment as a misconduct under the service rules and initiate action for such misconduct;\n(j) monitor the timely submission of reports by the Internal Committee.",
+          "page": 11,
+          "page_end": 12,
+          "lead_text": "Every employer shall—",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "provide a safe working environment at the workplace with shall include safety from the persons coming into contact at the workplace;"
+            },
+            {
+              "label": "(b)",
+              "text": "display at any conspicuous place in the workplace, the penal consequences of sexual harassments; and the order constituting, the Internal Committee under sub-section (1) of section 4;"
+            },
+            {
+              "label": "(c)",
+              "text": "organise workshops and awareness programmes at regular intervals for sensitising the employees with the provisions of the Act and orientation programmes for the members of the Internal Committee in the manner as may be prescribed;"
+            },
+            {
+              "label": "(d)",
+              "text": "provide necessary facilities to the Internal Committee or the Local Committee, as the case may be, for dealing with the complaint and conducting an inquiry;"
+            },
+            {
+              "label": "(e)",
+              "text": "assist in securing the attendance of respondent and witnesses before the Internal Committee or the Local Committee, as the case may be;"
+            },
+            {
+              "label": "(f)",
+              "text": "make available such information to the Internal Committee or the Local Committee, as the case be, as it may require having regard to the complaint made under sub-section (1) of section 9;"
+            },
+            {
+              "label": "(g)",
+              "text": "provide assistance to the woman if she so chooses to file a complaint in relation to the offence under the Indian Penal Code (45 of 1860) or any other law for the time being in force;"
+            },
+            {
+              "label": "(h)",
+              "text": "cause to initiate action, under the Indian Penal Code (45 of 1860) or any other law for the time being in force, against the perpetrator, or if the aggrieved woman so desires, where the perpetrator is not an employee, in the workplace at which the incident of sexual harassment took place;"
+            },
+            {
+              "label": "(i)",
+              "text": "treat sexual harassment as a misconduct under the service rules and initiate action for such misconduct;"
+            },
+            {
+              "label": "(j)",
+              "text": "monitor the timely submission of reports by the Internal Committee."
+            }
+          ],
+          "footnotes": []
+        }
+      ]
+    },
+    {
+      "chapter_number": "VII",
+      "chapter_title": "Duties and Powers of District Officer",
+      "page_start": 12,
+      "page_end": 12,
+      "section_range": [
+        "20",
+        "20"
+      ],
+      "sub_headings": [],
+      "sections": [
+        {
+          "section_number": "20",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Duties and powers of District Officer",
+          "sub_heading": null,
+          "text": "The District Officer shall, —\n(a) monitor the timely submission of report furnished by the Local Committee;\n(b) take such measures as may be necessary for engaging non-governmental organisations for creation of awareness on sexual harassment and the rights of the women.",
+          "page": 12,
+          "page_end": 12,
+          "lead_text": "The District Officer shall, —",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "monitor the timely submission of report furnished by the Local Committee;"
+            },
+            {
+              "label": "(b)",
+              "text": "take such measures as may be necessary for engaging non-governmental organisations for creation of awareness on sexual harassment and the rights of the women."
+            }
+          ],
+          "footnotes": []
+        }
+      ]
+    },
+    {
+      "chapter_number": "VIII",
+      "chapter_title": "Miscellaneous",
+      "page_start": 12,
+      "page_end": 14,
+      "section_range": [
+        "21",
+        "30"
+      ],
+      "sub_headings": [],
+      "sections": [
+        {
+          "section_number": "21",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Committee to submit annual report",
+          "sub_heading": null,
+          "text": "(1) The Internal Committee or the Local Committee, as the case may be, shall in each calendar year prepare, in such form and at such time as may be prescribed, an annual report and submit the same to the employer and the District Officer.\n(2) The District Officer shall forward a brief report on the annual reports received under sub-section (1) to the State Government.",
+          "page": 12,
+          "page_end": 12,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The Internal Committee or the Local Committee, as the case may be, shall in each calendar year prepare, in such form and at such time as may be prescribed, an annual report and submit the same to the employer and the District Officer."
+            },
+            {
+              "label": "(2)",
+              "text": "The District Officer shall forward a brief report on the annual reports received under sub-section (1) to the State Government."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "22",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Employer to include information in annual report",
+          "sub_heading": null,
+          "text": "The employer shall include in its report the number of cases filed, if any, and their disposal under this Act in the annual report of his organisation or where no such report is required to be prepared, intimate such number of cases, if any, to the District Officer.",
+          "page": 12,
+          "page_end": 12,
+          "footnotes": []
+        },
+        {
+          "section_number": "23",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Appropriate Government to monitor implementation and maintain data",
+          "sub_heading": null,
+          "text": "The appropriate Government shall monitor the implementation of this Act and maintain date on the number of cases filed and disposed of in respect of all cases of sexual harassment at workplace.",
+          "page": 12,
+          "page_end": 12,
+          "footnotes": []
+        },
+        {
+          "section_number": "24",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Appropriate Government to take measures to publicise the Act",
+          "sub_heading": null,
+          "text": "The appropriate Government may, subject to the availability of financial and other resources, —\n(a) develop relevant information, education, communication and training materials, and organise awareness programmes, to advance the understanding of the public of the provisions of this Act providing for protection against sexual harassment of woman at workplace;\n(b) formulate orientation and training programmes for the members of the Local Committee.",
+          "page": 12,
+          "page_end": 12,
+          "lead_text": "The appropriate Government may, subject to the availability of financial and other resources, —",
+          "clauses": [
+            {
+              "label": "(a)",
+              "text": "develop relevant information, education, communication and training materials, and organise awareness programmes, to advance the understanding of the public of the provisions of this Act providing for protection against sexual harassment of woman at workplace;"
+            },
+            {
+              "label": "(b)",
+              "text": "formulate orientation and training programmes for the members of the Local Committee."
+            }
+          ],
+          "footnotes": [
+            {
+              "marker": 1,
+              "page": 12,
+              "text": "Subs. by Act 23 of 2016, s. 3 and the Second Schedule, for “Local Complaints Committee” (w.e.f. 6-5-2016).",
+              "action": "substituted",
+              "amending_act": "Act 23 of 2016",
+              "effective_from": "6-5-2016",
+              "amending_section": "3"
+            }
+          ]
+        },
+        {
+          "section_number": "25",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Power to call for information and inspection of records",
+          "sub_heading": null,
+          "text": "(1) The appropriate Government, on being satisfied that it is necessary in the public interest or in the interest of women employees at a workplace to do so, by order in writing,—\n(a) call upon any employer or District Officer to furnish in writing such information relating to sexual harassment as it may require;\n(b) authorise any officer to make inspection of the records and workplace in relation to sexual harassment, who shall submit a report of such inspection to it within such period as may be specified in the order.\n(2) Every employer and District Officer shall produce on demand before the officer making the inspection all information, records and other documents in his custody having a bearing on the subject matter of such inspection.",
+          "page": 12,
+          "page_end": 12,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The appropriate Government, on being satisfied that it is necessary in the public interest or in the interest of women employees at a workplace to do so, by order in writing,—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "call upon any employer or District Officer to furnish in writing such information relating to sexual harassment as it may require;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "authorise any officer to make inspection of the records and workplace in relation to sexual harassment, who shall submit a report of such inspection to it within such period as may be specified in the order."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "Every employer and District Officer shall produce on demand before the officer making the inspection all information, records and other documents in his custody having a bearing on the subject matter of such inspection."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "26",
+          "section_type": "penal",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Penalty for non-compliance with provisions of Act",
+          "sub_heading": null,
+          "text": "(1) Where the employer fails to—\n(a) constitute an Internal Committee under sub-section (1) of section 4;\n(b) take action under sections 13, 14 and 22; and\n(c) contravenes or attempts to contravene or abets contravention of other provisions of this Act or any rules made thereunder,\nhe shall be punishable with fine which may extend to fifty thousand rupees.\n(2) If any employer, after having been previously convicted of an offence punishable under this Act subsequently commits and is convicted of the same offence, he shall be liable to—\n(i) twice the punishment, which might have been imposed on a first conviction, subject to the punishment being maximum provided for the same offence:\nProvided that in case a higher punishment is prescribed under any other law for the time being in force, for the offence for which the accused is being prosecuted, the court shall take due cognizance of the same while awarding the punishment;\n(ii) cancellation, of his licence or withdrawal, or non-renewal, or approval, or cancellation of the registration, as the case may be, by the Government or local authority required for carrying on his business or activity.",
+          "page": 12,
+          "page_end": 13,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "Where the employer fails to—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "constitute an Internal Committee under sub-section (1) of section 4;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "take action under sections 13, 14 and 22; and"
+                },
+                {
+                  "label": "(c)",
+                  "text": "contravenes or attempts to contravene or abets contravention of other provisions of this Act or any rules made thereunder,"
+                }
+              ],
+              "trailing_text": [
+                "he shall be punishable with fine which may extend to fifty thousand rupees."
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "If any employer, after having been previously convicted of an offence punishable under this Act subsequently commits and is convicted of the same offence, he shall be liable to—",
+              "clauses": [
+                {
+                  "label": "(i)",
+                  "text": "twice the punishment, which might have been imposed on a first conviction, subject to the punishment being maximum provided for the same offence:",
+                  "provisos": [
+                    {
+                      "label": "Proviso",
+                      "text": "Provided that in case a higher punishment is prescribed under any other law for the time being in force, for the offence for which the accused is being prosecuted, the court shall take due cognizance of the same while awarding the punishment;"
+                    }
+                  ]
+                },
+                {
+                  "label": "(ii)",
+                  "text": "cancellation, of his licence or withdrawal, or non-renewal, or approval, or cancellation of the registration, as the case may be, by the Government or local authority required for carrying on his business or activity."
+                }
+              ]
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "27",
+          "section_type": "penal",
+          "is_definition": false,
+          "is_punishment": true,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Cognizance of offence by courts",
+          "sub_heading": null,
+          "text": "(1) No court shall take cognizance of any offence punishable under this Act or any rules made thereunder, save on a complaint made by the aggrieved woman or any person authorised by the Internal Committee or Local Committee in this behalf.\n(2) No court inferior to that of a Metropolitan Magistrate or a Judicial Magistrate of the first class shall try any offence punishable under this Act.\n(3) Every offence under this Act shall be non-cognizable.",
+          "page": 13,
+          "page_end": 13,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "No court shall take cognizance of any offence punishable under this Act or any rules made thereunder, save on a complaint made by the aggrieved woman or any person authorised by the Internal Committee or Local Committee in this behalf."
+            },
+            {
+              "label": "(2)",
+              "text": "No court inferior to that of a Metropolitan Magistrate or a Judicial Magistrate of the first class shall try any offence punishable under this Act."
+            },
+            {
+              "label": "(3)",
+              "text": "Every offence under this Act shall be non-cognizable."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "28",
+          "section_type": "saving_clause",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Act not in derogation of any other law",
+          "sub_heading": null,
+          "text": "The provisions of this Act shall be in addition to and not in derogation of the provisions of any other law for the time being in force.",
+          "page": 13,
+          "page_end": 13,
+          "footnotes": []
+        },
+        {
+          "section_number": "29",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Power of appropriate Government to make rules",
+          "sub_heading": null,
+          "text": "(1) The Central Government may, by notification in the Official Gazette, make rules for carrying out the provisions of this Act.\n(2) In particular and without prejudice to the generality of the foregoing power, such rules may provide for all or any of the following matters, namely:—\n(a) the fees or allowances to be paid to the Members under sub-section (4) of section 4;\n(b) nomination of members under clause (c) of sub-section (1) of section 7;\n(c) the fees or allowances to be paid to the Chairperson, and Members under sub-section (4) of section 7;\n(d) the person who may make complaint under sub-section (2) of section 9;\n(e) the manner of inquiry under sub-section (1) of section 11;\n(f) the powers for making an inquiry under clause (c) of sub-section (2) of section 11;\n(g) the relief to be recommended under clause (c) of sub-section (1) of section 12;\n(h) the manner of action to be taken under clause (i) of sub-section (3) of section 13;\n(i) the manner of action to be taken under sub-sections (1) and (2) of section 14;\n(j) the manner of action to be taken under section 17;\n(k) the manner of appeal under sub-section (1) of section 18;\n(l) the manner of organising workshops, awareness programmes for sensitising the employees and orientation programmes for the members of the Internal Committee under clause (c) of section 19; and\n(m) the form and time for preparation of annual report by Internal Committee and the Local Committee under sub-section (1) of section 21.\n(3) Every rule made by the Central Government under this Act shall be laid as soon as may be after it is made, before each House of Parliament, while it is in session, for a total period of thirty days which may be comprised in one session or in two or more successive sessions, and if, before the expiry of the session immediately following the session or the successive sessions aforesaid, both Houses agree in making any modification in the rule or both Houses agree that the rule should not be made, the rule shall thereafter have effect only in such modified form or be of no effect, as the case may be; so, however, that any such modification or annulment shall be without prejudice to the validity of anything previously done under that rule.\n(4) Any rule made under sub-section (4) of section 8 by the State Government shall be laid, as soon as may be after it is made, before each House of the State Legislature where it consists of two Houses, or where such Legislature consists of one House, before that House.",
+          "page": 13,
+          "page_end": 14,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "The Central Government may, by notification in the Official Gazette, make rules for carrying out the provisions of this Act."
+            },
+            {
+              "label": "(2)",
+              "text": "In particular and without prejudice to the generality of the foregoing power, such rules may provide for all or any of the following matters, namely:—",
+              "clauses": [
+                {
+                  "label": "(a)",
+                  "text": "the fees or allowances to be paid to the Members under sub-section (4) of section 4;"
+                },
+                {
+                  "label": "(b)",
+                  "text": "nomination of members under clause (c) of sub-section (1) of section 7;"
+                },
+                {
+                  "label": "(c)",
+                  "text": "the fees or allowances to be paid to the Chairperson, and Members under sub-section (4) of section 7;"
+                },
+                {
+                  "label": "(d)",
+                  "text": "the person who may make complaint under sub-section (2) of section 9;"
+                },
+                {
+                  "label": "(e)",
+                  "text": "the manner of inquiry under sub-section (1) of section 11;"
+                },
+                {
+                  "label": "(f)",
+                  "text": "the powers for making an inquiry under clause (c) of sub-section (2) of section 11;"
+                },
+                {
+                  "label": "(g)",
+                  "text": "the relief to be recommended under clause (c) of sub-section (1) of section 12;"
+                },
+                {
+                  "label": "(h)",
+                  "text": "the manner of action to be taken under clause (i) of sub-section (3) of section 13;"
+                },
+                {
+                  "label": "(i)",
+                  "text": "the manner of action to be taken under sub-sections (1) and (2) of section 14;"
+                },
+                {
+                  "label": "(j)",
+                  "text": "the manner of action to be taken under section 17;"
+                },
+                {
+                  "label": "(k)",
+                  "text": "the manner of appeal under sub-section (1) of section 18;"
+                },
+                {
+                  "label": "(l)",
+                  "text": "the manner of organising workshops, awareness programmes for sensitising the employees and orientation programmes for the members of the Internal Committee under clause (c) of section 19; and"
+                },
+                {
+                  "label": "(m)",
+                  "text": "the form and time for preparation of annual report by Internal Committee and the Local Committee under sub-section (1) of section 21."
+                }
+              ]
+            },
+            {
+              "label": "(3)",
+              "text": "Every rule made by the Central Government under this Act shall be laid as soon as may be after it is made, before each House of Parliament, while it is in session, for a total period of thirty days which may be comprised in one session or in two or more successive sessions, and if, before the expiry of the session immediately following the session or the successive sessions aforesaid, both Houses agree in making any modification in the rule or both Houses agree that the rule should not be made, the rule shall thereafter have effect only in such modified form or be of no effect, as the case may be; so, however, that any such modification or annulment shall be without prejudice to the validity of anything previously done under that rule."
+            },
+            {
+              "label": "(4)",
+              "text": "Any rule made under sub-section (4) of section 8 by the State Government shall be laid, as soon as may be after it is made, before each House of the State Legislature where it consists of two Houses, or where such Legislature consists of one House, before that House."
+            }
+          ],
+          "footnotes": []
+        },
+        {
+          "section_number": "30",
+          "section_type": "procedural",
+          "is_definition": false,
+          "is_punishment": false,
+          "is_omitted": false,
+          "is_repealed": false,
+          "heading": "Power to remove difficulties",
+          "sub_heading": null,
+          "text": "(1) If any difficulty arises in giving effect to the provisions of this Act, the Central Government may, by order published in the Official Gazette, make such provisions, not inconsistent with the provisions of this Act, as may appear to it to be necessary for removing the difficulty:\nProvided that no such order shall be made under this section after the expiry of a period of two years from the commencement of this Act.\n(2) Every order made under this section shall be laid, as soon as may be after it is made, before each House of Parliament.",
+          "page": 14,
+          "page_end": 14,
+          "sub_sections": [
+            {
+              "label": "(1)",
+              "text": "If any difficulty arises in giving effect to the provisions of this Act, the Central Government may, by order published in the Official Gazette, make such provisions, not inconsistent with the provisions of this Act, as may appear to it to be necessary for removing the difficulty:",
+              "provisos": [
+                {
+                  "label": "Proviso",
+                  "text": "Provided that no such order shall be made under this section after the expiry of a period of two years from the commencement of this Act."
+                }
+              ]
+            },
+            {
+              "label": "(2)",
+              "text": "Every order made under this section shall be laid, as soon as may be after it is made, before each House of Parliament."
+            }
+          ],
+          "footnotes": []
+        }
+      ]
+    }
+  ],
+  "schedules": [],
+  "end_matter": {}
+}

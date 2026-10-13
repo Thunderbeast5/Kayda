@@ -9,7 +9,15 @@ import os
 from pathlib import Path
 from typing import Optional
 from dotenv import load_dotenv
-from langchain_openai import ChatOpenAI
+try:
+    from langchain_openai import ChatOpenAI
+except ImportError:
+    ChatOpenAI = None
+
+try:
+    from langchain_groq import ChatGroq
+except ImportError:
+    ChatGroq = None
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 load_dotenv(BASE_DIR / ".env")
@@ -25,8 +33,6 @@ LLM_PROVIDER = os.getenv("LLM_PROVIDER", "ollama").lower()
 # Models that do NOT support the temperature parameter.
 # Passing temperature to these models causes empty API responses.
 _MODELS_WITHOUT_TEMPERATURE = {
-    "gpt-5.4-mini",
-    "gpt-5.4",
     "o1",
     "o1-mini",
     "o1-preview",
@@ -134,8 +140,18 @@ def get_llm(temperature: float = 0.2, model_name: Optional[str] = None):
 
     # Fallback to OpenAI if key exists
     if OPENAI_API_KEY:
-        from langchain_openai import ChatOpenAI
-        return ChatOpenAI(**_openai_kwargs(OPENAI_MODEL, temperature, OPENAI_API_KEY))
+        try:
+            return ChatOpenAI(**_openai_kwargs(OPENAI_MODEL, temperature, OPENAI_API_KEY))
+        except Exception as e:
+            print(f"[LLM] OpenAI fallback failed: {e}")
+
+    # Fallback to Groq if available
+    if GROQ_API_KEY and ChatGroq is not None:
+        return ChatGroq(
+            model="llama-3.1-8b-instant",
+            api_key=GROQ_API_KEY,
+            temperature=temperature,
+        )
 
     raise RuntimeError(
         f"Unable to initialize LLM provider '{provider}'. "

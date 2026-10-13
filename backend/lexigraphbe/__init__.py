@@ -1,5 +1,5 @@
 """
-LexiGraph Backend - Stage 0 (Intake), Stage 1 (Query Understanding), Stage 2 (Sub-Query Mapping), Stage 3 (Chapter Identification), Stage 4 (Statutory Verification), Stage 5 (Bail Reasoning), Stage 6 (Precedent Retrieval), Local Classifier Pre-filter, and Batched Pipeline Utilities.
+LexiGraph Backend - Stage 0 (Intake), Stage 1 (Query Understanding), Stage 2 (Sub-Query Mapping), Stage 3 (Chapter Identification), Stage 3b (BSA Evidence Law Retrieval), Stage 4 (Statutory Verification), Stage 5 (Bail Reasoning), Stage 6 (Precedent Retrieval), IPC ↔ BNS Mapper, Local Classifier Pre-filter, and Batched Pipeline Utilities.
 """
 
 from .schemas import (
@@ -69,10 +69,20 @@ from .statutory_verifier_agent import StatutoryVerificationAuditor
 from .stage4_pipeline import Stage4Pipeline
 from .bail_reasoning_agent import BailReasoningAgent
 from .bail_verifier_agent import BailReasoningVerifierAgent
-from .stage5_pipeline import Stage5Pipeline
+# OLD: from .stage5_pipeline import Stage5Pipeline  # Replaced with stage5_precedent_pipeline
 from .precedent_retrieval_agent import PrecedentRetrievalAgent
 from .precedent_verifier_agent import PrecedentVerificationAuditor
-from .stage6_pipeline import Stage6Pipeline
+# OLD: from .stage6_pipeline import Stage6Pipeline  # Merged into stage5_precedent_pipeline
+from .stage5_precedent_pipeline import Stage5PrecedentPipeline
+from .bsa_retrieval_agent import BSARetrievalAgent
+from .bsa_verifier_agent import BSAVerifierAgent
+from .schemas import BSASectionItem, BSAVerificationIssue, BSARetrievalObject
+from .bnss_retrieval_agent import BNSSRetrievalAgent
+from .bnss_verifier_agent import BNSSVerifierAgent
+from .schemas import BNSSSectionItem, BNSSVerificationIssue, BNSSRetrievalObject
+from .act_router import SpecialActRouterAgent, SpecialActRetrievalAgent, SpecialActRepository
+from .schemas import ActRoutingDecisionItem, SpecialActSectionItem, SpecialActRetrievalObject
+
 
 __all__ = [
     # Stage 0
@@ -143,6 +153,26 @@ __all__ = [
     "PrecedentRetrievalAgent",
     "PrecedentVerificationAuditor",
     "Stage6Pipeline",
+    # Stage 3b — BSA Evidence Law Retrieval
+    "BSASectionItem",
+    "BSAVerificationIssue",
+    "BSARetrievalObject",
+    "BSARetrievalAgent",
+    "BSAVerifierAgent",
+    # Stage 3c — BNSS Procedural Law Retrieval
+    "BNSSSectionItem",
+    "BNSSVerificationIssue",
+    "BNSSRetrievalObject",
+    "BNSSRetrievalAgent",
+    "BNSSVerifierAgent",
+    # Act Router Sub-Pipeline
+    "ActRoutingDecisionItem",
+    "SpecialActSectionItem",
+    "SpecialActRetrievalObject",
+    "SpecialActRouterAgent",
+    "SpecialActRetrievalAgent",
+    "SpecialActRepository",
+
     # Local Classifier Pre-filter & Evaluation
     "CandidateSectionMatch",
     "StatuteClassifierPrefilter",

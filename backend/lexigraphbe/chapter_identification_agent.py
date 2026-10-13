@@ -186,6 +186,7 @@ class ChapterIdentificationAgent:
         stage3_rejected: List[Dict[str, str]] = []  # sections from Stage 2 that were rejected by Stage 3
 
         # Deterministic verification & enrichment loop
+        repo = StatuteRepository.get_instance()
         dedup_offences: Dict[str, VerifiedOffenceItem] = {}
         facts_text = getattr(query_obj, "case_facts", "") or ""
         if not facts_text and hasattr(query_obj, "legal_concepts"):

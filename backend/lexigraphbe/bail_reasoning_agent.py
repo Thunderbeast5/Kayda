@@ -2,8 +2,8 @@
 Bail Reasoning Agent for Stage 5: Anticipatory Bail Reasoning Engine.
 Evaluates whether anticipatory bail should be granted or denied under Section 438 CrPC
 by applying judicial bail reasoning principles to verified outputs from previous stages.
-Statically injects exact statutory text and factors of Section 438 CrPC.
-Model: gpt-4.1-mini (MODEL_STAGE5) — deep judicial reasoning.
+Statically injects exact statutory text and factors of Section 438 CrPC / Section 482 BNSS based on regime.
+Model: gpt-4o-mini (MODEL_STAGE5) — deep judicial reasoning.
 """
 
 import json
@@ -35,7 +35,7 @@ class BailReasoningAgent:
     """
     Stage 5 Bail Reasoning Agent evaluating anticipatory bail under Sec 438 CrPC.
     Injects full statutory text and statutory factors of procedural bail provisions.
-    Model: gpt-4.1-mini (MODEL_STAGE5) — deep judicial reasoning.
+    Model: gpt-4o-mini (MODEL_STAGE5) — deep judicial reasoning.
     """
 
     def __init__(

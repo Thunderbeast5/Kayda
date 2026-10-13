@@ -97,7 +97,11 @@ class VerificationResult(BaseModel):
         from .stage0 import CaseContextObject, CaseProfile
         profile = self.verified_case_profile or CaseProfile()
         status, violations = profile.validate_stage1_contract()
-        accused_names = profile.get_accused_list()
+        accused_names = [
+            str(n).strip()
+            for n in profile.get_accused_list()
+            if n is not None and str(n).strip() and str(n).strip().lower() != "none"
+        ] or ["Accused"]
 
         return CaseContextObject(
             schema_version="1.0",

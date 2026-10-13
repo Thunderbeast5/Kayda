@@ -1075,6 +1075,25 @@ No markdown."""
 
         # Fix 4: Dedicated bail law retrieval — NOT inferred from punishment range alone
         bail_law = self._retrieve_bail_law()
+        
+        # Use orchestrator sections if available
+        orchestrator_sections_block = ""
+        if hasattr(self, "_orchestrator_sections") and self._orchestrator_sections:
+            print(f"[DefenseAgent] Using {len(self._orchestrator_sections)} sections from orchestrator")
+            sections_list = []
+            for vs in self._orchestrator_sections:
+                sections_list.append(
+                    f"§ {vs.section_number} {vs.statute}: {vs.title}\n"
+                    f"  Status: {vs.overall_status}\n"
+                    f"  Prima Facie Strength: {vs.overall_prima_facie_strength}\n"
+                    f"  Punishment: {vs.punishment_text}\n"
+                    f"  Legal Reasoning: {vs.legal_reasoning}"
+                )
+            orchestrator_sections_block = (
+                "STATUTORY SECTIONS IDENTIFIED BY LEXIGRAPHBE:\n"
+                + "\n\n".join(sections_list)
+                + "\n\n"
+            )
 
         # Serialise matrix for argument generator
         matrix_block_parts = []
@@ -1143,7 +1162,8 @@ No markdown."""
         ) if all_fallback else ""
 
         opening_prompt = f"""You are a Senior Defense Counsel making oral submissions before a Sessions Court seeking anticipatory bail under Section 438 CrPC / Section 482 BNSS.
-{fallback_warning}
+
+{orchestrator_sections_block}{fallback_warning}
 Your argument must be generated STRICTLY from the matrices below. Do not add facts, inferences, or conclusions not in the matrices.
 
 DEFENSE INGREDIENT MATRIX:
@@ -1199,60 +1219,46 @@ ARGUMENT RULES — STRICT:
 10. Do not argue that an offence fails merely because the maximum punishment is
     below seven years. Bail law governs only the arrest and custody question.
 
-11. Every factual proposition must be traceable to CASE FACTS or the matrix.
-    Every statutory proposition must be traceable to VERIFIED BAIL LAW
-    or the verified statutory ingredients.
+IMPORTANT — ARGUMENT GENERATION RULES:
 
-12. Prioritise precision over length. Do not repeat the same argument
-    in different wording. Do not add material merely to reach a word count.
+1. This argument is for a SESSIONS COURT, not the Supreme Court. Use proportionate, concise language.
+2. NO REPETITION. Do not restate the same allegation, fact, or ground multiple times in different words.
+3. DO NOT make conclusive statements like "the ingredients are not satisfied" or "the offence is not made out" unless verified statutory analysis confirms it. Instead use qualified language: "the material presently placed before the Court does not conclusively establish..."
+4. DO NOT automatically characterize every property/commercial dispute as a "civil dispute in criminal garb" if prosecution has also alleged criminal conduct. Be specific: if the case involves title dispute AND forgery allegations, state "the allegations arise in the context of a dispute concerning title/ownership" rather than labeling it purely civil.
+5. DO NOT say "custodial interrogation is unnecessary" as a blanket statement. Instead: "The prosecution has not demonstrated, on the material presently available, why custodial interrogation of the applicant is necessary."
+6. DO NOT invent facts, precedents, procedural events, or legal conclusions not supported by the case facts or verified analysis.
+7. DISTINGUISH clearly between: (a) what prosecution alleges, (b) what applicant submits/contends, (c) what is verified/unverified.
 
-13. If any ingredient has prosecution_status UNKNOWN, omit that ingredient
-    entirely — do not argue it in either direction.
+STRUCTURE — Single continuous paragraph, 180–250 words maximum, courtroom-style:
 
-14. EVIDENCE ACKNOWLEDGMENT RULE:
-    If CASE FACTS or the Defense Ingredient Matrix identifies evidence supporting
-    an ingredient, the argument MUST acknowledge that evidence by name.
-    The argument may challenge its reliability, interpretation, sufficiency,
-    or connection to the ingredient, but MUST NOT claim that no evidence exists
-    when the matrix or case facts show that evidence does exist.
+Opening (1–2 sentences):
+"May it please this Hon'ble Court, the present application seeks protection from arrest in connection with allegations of [nature of allegations]. The offences invoked are [list section numbers with statute]."
 
-15. LEGAL INGREDIENT RULE:
-    Use the exact verified statutory ingredients supplied by the matrix.
-    Do not create, expand, narrow, or paraphrase them into a new legal test.
-    Example of what is FORBIDDEN: the matrix supplies "repeatedly follows or
-    contacts despite clear indication of disinterest" and the argument writes
-    "intent to follow or monitor with a threatening purpose" — that is a new,
-    invented test and is not permitted.
+Prosecution Case (2–3 sentences):
+State briefly what the prosecution alleges. Do NOT repeat it multiple times. Use: "The prosecution has alleged that..."
 
-STRUCTURE — five paragraphs, single continuous prose (no headings, no bullets):
+Applicant's Position (2–3 sentences):
+State the applicant's specific defence based ONLY on case facts. Use: "The applicant respectfully submits that..." or "The applicant's case is that..."
+Examples: applicant disputes the allegation; applicant maintains documents are genuine; applicant states the dispute concerns title/ownership; applicant has cooperated throughout.
 
-Paragraph 1:
-State the applicant's principal case and the limited issue at the
-anticipatory-bail stage.
+Anticipatory Bail Grounds (3–4 sentences):
+Focus specifically on PRE-ARREST bail factors:
+- Evidence nature (documentary/testimonial)
+- Custodial interrogation necessity (use cautious language per Rule 5 above)
+- Absconding risk (only if case facts address this)
+- Tampering risk (only if case facts address this)
+- Cooperation/non-cooperation
+- Whether recovery/confrontation requiring custody is identified
 
-Paragraph 2:
-Attack the strongest prosecution charge ingredient-by-ingredient using the
-matrix. For each ingredient, apply Rules 5 and 6 above.
+Use evidence-grounded language:
+"The material presently placed before the Court does not conclusively establish..."
+"The prosecution material, as presently disclosed, raises a dispute concerning..."
+"The question whether [X] constitutes [Y] is a matter requiring examination during investigation/trial..."
 
-Paragraph 3:
-Attack the next charge, if any, in the same manner.
+Prayer (1 sentence):
+"It is therefore prayed that this Hon'ble Court be pleased to grant anticipatory bail to the applicant, subject to such conditions as this Hon'ble Court deems appropriate."
 
-Paragraph 4:
-Address evidence already recovered (from no_tampering_risk field) and why
-custodial interrogation is or is not necessary, using ONLY the verified bail
-law block. If Arnesh Kumar is applicable (arnesh_kumar_applicable: true AND
-notice_sufficient: true), cite Arnesh Kumar v. State of Bihar (2014) 8 SCC 273
-with its exact holding and name each completed investigation step. If not
-applicable, omit Arnesh Kumar entirely.
-
-Paragraph 5:
-State only verified bail considerations drawn from the bail law block.
-If no_flight_risk field contains verified facts, state them here and only here.
-
-Final sentence (exact):
-"It is therefore humbly prayed that this Hon'ble Court be pleased to grant anticipatory bail to the applicant."
-
-LENGTH: 300–450 words. Do not add material merely to reach the word count."""
+LENGTH: 180–250 words. Concise, argumentative, courtroom-style. NO filler, NO repetition."""
 
         response = self.llm.invoke(opening_prompt)
         opening_prose = response.content if hasattr(response, "content") else str(response)
@@ -1281,15 +1287,22 @@ LENGTH: 300–450 words. Do not add material merely to reach the word count."""
     # Step 5: Rebuttal to prosecution argument
     # -----------------------------------------------------------------------
 
-    def handle_rebuttal(self, prosecution_argument: str) -> Dict[str, Any]:
+    def handle_rebuttal(self, prosecution_argument: str, previous_defense_arguments: List[str] = None) -> Dict[str, Any]:
         """
-        Rebuttal to the prosecution's opening or counter-argument.
-        Uses the cached defense matrix to respond to each prosecution point.
+        Rebuttal to the prosecution's argument.
+        Uses the cached defense matrix to respond to SPECIFIC prosecution points raised THIS TURN.
+        
+        Args:
+            prosecution_argument: The prosecution's current argument to rebut
+            previous_defense_arguments: List of defense arguments already made (to avoid repetition)
         """
         print("\n[DefenseAgent] Preparing Rebuttal to Prosecution...")
 
         if not self.defense_analysis:
             raise ValueError("Must run analyze_case() first")
+        
+        if previous_defense_arguments is None:
+            previous_defense_arguments = []
 
         matrix = self._cached_defense_matrix or []
         matrix_block_parts = []
@@ -1321,71 +1334,123 @@ LENGTH: 300–450 words. Do not add material merely to reach the word count."""
         )
 
         case_facts = self.case_context.case_profile.case_facts if self.case_context else ""
+        
+        # Use orchestrator sections if available
+        orchestrator_sections_block = ""
+        if hasattr(self, "_orchestrator_sections") and self._orchestrator_sections:
+            print(f"[DefenseAgent] Using {len(self._orchestrator_sections)} sections from orchestrator in rebuttal")
+            sections_list = []
+            for vs in self._orchestrator_sections:
+                sections_list.append(
+                    f"§ {vs.section_number} {vs.statute}: {vs.title}\n"
+                    f"  Status: {vs.overall_status}\n"
+                    f"  Prima Facie Strength: {vs.overall_prima_facie_strength}\n"
+                    f"  Punishment: {vs.punishment_text}"
+                )
+            orchestrator_sections_block = (
+                "STATUTORY SECTIONS IDENTIFIED BY LEXIGRAPHBE:\n"
+                + "\n\n".join(sections_list)
+                + "\n\n"
+            )
+        
+        # Format previous defense arguments to avoid repetition
+        previous_args_block = ""
+        if previous_defense_arguments:
+            previous_args_block = (
+                "ARGUMENTS ALREADY MADE BY DEFENSE — DO NOT REPEAT:\n"
+                + "\n".join(f"  {i+1}. {arg[:200]}..." for i, arg in enumerate(previous_defense_arguments))
+                + "\n\n"
+            )
 
-        prompt = f"""You are a Senior Defense Counsel making sharp rebuttal submissions seeking anticipatory bail under Section 438 CrPC / Section 482 BNSS.
+        prompt = f"""You are a Senior Defense Counsel making a REBUTTAL to the prosecution's latest argument.
 
-DEFENSE INGREDIENT MATRIX:
+{orchestrator_sections_block}{previous_args_block}DEFENSE INGREDIENT MATRIX:
 {matrix_block}
 
 {arnesh_block}
 
-CASE FACTS:
+CASE FACTS (authoritative — the ONLY source of facts):
 {case_facts}
 
-PROSECUTION ARGUMENT TO REBUT:
+PROSECUTION'S LATEST ARGUMENT (respond to THIS specifically):
 {prosecution_argument}
 
-REBUTTAL RULES — STRICT:
+CRITICAL REBUTTAL RULES:
 
-0. SECTION CITATION RULE (mandatory, overrides all other formatting preferences):
-   Every time you name a charge — anywhere in the rebuttal — you MUST immediately
-   cite its section number and statute exactly as written in the DEFENSE INGREDIENT
-   MATRIX (e.g. "Section 498A IPC / Section 84 BNS").
-   Naming a charge without its section number is a violation of this rule.
+0. ANALYZE PROSECUTION'S ARGUMENT FIRST:
+   - What SPECIFIC facts did prosecution rely on in THIS argument?
+   - What SPECIFIC allegations did prosecution make in THIS argument?
+   - What NEW points did prosecution raise that weren't in previous arguments?
+   - Respond ONLY to what prosecution said THIS TURN, not what they might say.
 
-1. Respond only to contentions the prosecution actually made in the argument above.
-   Do not invent prosecution points that were not raised.
+1. NO REPETITION FROM PREVIOUS DEFENSE ARGUMENTS:
+   - Read "ARGUMENTS ALREADY MADE BY DEFENSE" carefully
+   - DO NOT restate any point, argument, or ground already made
+   - If prosecution raised a point you already addressed, briefly reference your previous position
+   - Focus on NEW prosecution contentions or NEW angles on existing contentions
 
+2. SECTION CITATION RULE — STRATEGIC USE:
+   - You have statutory sections from lexigraphbe - use them strategically to strengthen your argument
+   - Cite sections when: (a) directly countering a prosecution charge, (b) establishing an ingredient is not met, (c) showing no prima facie case
+   - DO cite sections to show why prosecution's allegations don't meet statutory requirements
+   - Use natural phrasing: "Section X requires..." or "the prosecution must establish under Section X that..."
+   - Select which sections to cite based on relevance to THIS prosecution argument
 
+3. RESPOND TO ACTUAL CONTENTIONS:
+   - For EACH specific prosecution point raised THIS TURN:
+     (a) What did prosecution claim?
+     (b) What case fact supports or contradicts it?
+     (c) What is the defense position on THIS specific point?
+   - Do NOT respond to points prosecution didn't make
 
-2. For each prosecution contention, in this order:
-   (a) State what the prosecution relies upon;
-   (b) State what that evidence establishes (concede it if true);
-   (c) State what it does NOT establish and why, by reference to the matrix;
-   (d) State the accused's counter-position if present in the matrix.
+4. GROUNDED IN CASE FACTS ONLY:
+   - Every factual claim must be traceable to CASE FACTS verbatim
+   - Do NOT generate, invent, or assume facts not stated in case facts
+   - Do NOT speculate about what "might have" happened
+   - If a fact isn't in the case facts, you cannot argue it
 
-3. Do not deny an act the accused has admitted.
+5. EVIDENCE ACKNOWLEDGMENT:
+   - If prosecution cited specific evidence from case facts, acknowledge it
+   - Then challenge its interpretation, sufficiency, or connection to the ingredient
+   - Do NOT deny evidence that exists in the case facts
 
-4. EVIDENCE ACKNOWLEDGMENT RULE:
-   If the matrix or case facts identify evidence for an ingredient, acknowledge
-   it by name. You may challenge its reliability, interpretation, sufficiency,
-   or inferential connection to the ingredient, but MUST NOT claim no evidence
-   exists when the matrix shows that it does.
+6. QUALIFIED LANGUAGE:
+   - Use: "the material does not establish..." not "the prosecution has failed..."
+   - Use: "the applicant submits that..." not "it is clear that..."
+   - Do NOT make conclusive legal determinations
 
-5. LEGAL INGREDIENT RULE:
-   Use the exact verified statutory ingredients from the matrix.
-   Do not create, expand, narrow, or paraphrase them into a new legal test.
+7. PROPORTIONALITY:
+   - Match the length and intensity to what prosecution actually argued
+   - If prosecution made 2 points, address those 2 points
+   - Do NOT make a generic speech; make a targeted response
 
-6. Do not repeat the opening argument unless directly needed to answer
-   a specific prosecution contention.
+8. NO BOILERPLATE:
+   - Do NOT use generic phrases like "the Hon'ble Court will appreciate that..."
+   - Be specific to the prosecution's actual argument and actual case facts
 
-7. Do not create a new defense ground during rebuttal.
+9. FORMAT: Single continuous prose. No headings. No bullet points. 150-250 words max.
 
-8. Do not use consequence-based reasoning ("no harm → no offence").
+10. End with: "It is therefore prayed that anticipatory bail be granted."
 
-9. Do not introduce any fact, section, case, or evidence not in the matrix
-   or the verified bail law block.
+STRUCTURE:
 
-10. If any ingredient has prosecution_status UNKNOWN, do not argue it.
+Identification (1 sentence):
+Identify the key prosecution contention(s) raised THIS TURN.
 
-11. Use bail law only for the arrest/custody question — not to argue that
-    an offence is not made out.
+Specific Response (3-5 sentences):
+Address each prosecution point specifically:
+- What case fact did they rely on?
+- What does it actually show vs. what doesn't it show?
+- What is the applicant's position on this specific fact/allegation?
 
-12. End with exactly: "It is therefore prayed that anticipatory bail be granted."
+Counter-Position (1-2 sentences):
+State why, despite prosecution's argument, bail should still be granted.
+Reference only NEW points or angles not previously covered.
 
-FORMAT: Single continuous prose. No headings. No bullet points. 200–350 words.
+Prayer (1 sentence):
+"It is therefore prayed that anticipatory bail be granted."
 
-Write only the rebuttal text."""
+Write ONLY the rebuttal text. Do NOT write meta-commentary about what you're doing."""
 
         response = self.llm.invoke(prompt)
         rebuttal_text = (response.content if hasattr(response, "content") else str(response)).strip()

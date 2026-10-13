@@ -1,0 +1,325 @@
+{
+  "case_id": "_2015_12_SCR_387",
+  "doc_meta": {
+    "source_file": "Sudhir v. State of Maharashtra.pdf",
+    "pdf_pages": 8,
+    "_sources": {
+      "citation": "scr_running_header",
+      "coram": "coram:bracket_jj",
+      "parties": "title_block",
+      "court": "supreme_court",
+      "year": "scr_year",
+      "case_no": "juris_line",
+      "appeal_from": "from_the_judgment",
+      "author": "author:0"
+    },
+    "format_profile": "scc_reporter",
+    "citation_scr": "[2015] 12 SCR 387",
+    "scr_year": 2015,
+    "scr_volume": 12,
+    "scr_first_page": 387,
+    "coram_raw": "DIPAK MISRA AND PRAFULLA C. PANT, JJ.",
+    "coram_regex": [
+      "DIPAK MISRA",
+      "PRAFULLA C. PANT"
+    ],
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "petitioner_regex": "SUDHIR",
+    "respondent_regex": "THE STATE OF MAHARASHTRAANDANOTHER",
+    "court_regex": "Supreme Court of India",
+    "year": 2015,
+    "footnotes": [
+      {
+        "page": 393,
+        "text": "2015 (9) SCALE 403"
+      },
+      {
+        "page": 394,
+        "text": "Appeals dismissed."
+      }
+    ],
+    "pre_judgment_block": "CRIMINAL APPELLATE JURISDICTION: Criminal Appeal Nos. 1286-1287 of 2015 From the Judgment and Order dated 29.01.2015 of the High Court of Ju9icature at Bombay, Bench atAurangabad in Criminal Applications No. 4527 and 4529 of 2013 WITH Crl. A. Nos. 1288 and 1289 of 2015 Venkita Subramoniam T. R., Sudhanshu S. Choudhari, Vatsalya Vigya for the Appellant. Siddesh Kotwal, Nishant Ramakantrao Katneshwarkar for the Respondents.",
+    "case_no": "Criminal Appeal Nos. 1286-1287 of 2015",
+    "appeal_from_raw": "From the Judgment and Order dated 29.01.2015 of the High Court of Ju9icature at Bombay, Bench atAurangabad in Criminal Applications No. 4527 and 4529 of 2013",
+    "judgment_author_regex": "PRAFULLA C. PANT",
+    "layout": "unnumbered_page_anchored",
+    "ocr_noise_score": 0.0009
+  },
+  "flags": [
+    "decided_on_not_found"
+  ],
+  "case": {
+    "case_name": "Sudhir v. State of Maharashtra",
+    "petitioner": "Sudhir",
+    "respondent": "The State of Maharashtra",
+    "court": "Supreme Court of India",
+    "coram": [
+      "DIPAK MISRA",
+      "PRAFULLA C. PANT"
+    ],
+    "judgment_author": "PRAFULLA C. PANT",
+    "procedural_stage": "post_arrest_bail",
+    "offence_types": [
+      "corruption",
+      "misappropriation"
+    ],
+    "dispute_nature": "serious_criminal",
+    "abstract_facts": "Two engineers from the Rural Water Supply Department were accused of misappropriating public funds meant for rural development, specifically relating to the construction of water facilities and public toilets in villages. Initial anticipatory bail was granted by a Sessions Judge but later cancelled by the High Court due to the serious nature of the allegations and the need for custodial interrogation.",
+    "lower_court_outcome": "Anticipatory bail granted by the Additional Sessions Judge.",
+    "disposition": "The Supreme Court upheld the High Court's decision to cancel anticipatory bail.",
+    "statutes": [
+      {
+        "act": "Indian Penal Code",
+        "section": "409",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "Indian Penal Code",
+        "section": "420",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "Indian Penal Code",
+        "section": "467",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "Indian Penal Code",
+        "section": "468",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "Prevention of Corruption Act, 1988",
+        "section": "13(1)(d)",
+        "how_used": "charged",
+        "note": null
+      },
+      {
+        "act": "Prevention of Corruption Act, 1988",
+        "section": "13(2)",
+        "how_used": "charged",
+        "note": null
+      }
+    ],
+    "issues": [
+      {
+        "question": "Whether the High Court was justified in cancelling the anticipatory bail granted by the Sessions Judge?",
+        "short_answer": "Yes",
+        "anchors": [
+          "p388.2",
+          "p394.3"
+        ]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "In cases involving serious allegations of misappropriation of public funds and corruption, anticipatory bail may be cancelled to allow for custodial interrogation if the investigation is being hindered.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "prosecution",
+        "conditions": [
+          "The investigation is impeded by the grant of bail"
+        ],
+        "statutes": [
+          "Indian Penal Code",
+          "Prevention of Corruption Act, 1988"
+        ],
+        "anchors": [
+          "p394.3"
+        ],
+        "quote": "the High Court has rightly cancelled the anticipatory bail granted to the appellants."
+      },
+      {
+        "id": "p2",
+        "text": "The grant of or refusal of anticipatory bail should depend on the facts and circumstances of each case without strict guidelines.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p394.2"
+        ],
+        "quote": "No inflexible guidelines or straitjacket formula can be provided for grant or refusal of anticipatory bail."
+      },
+      {
+        "id": "p3",
+        "text": "The court which grants bail also has the power to cancel it, which can be exercised at the instance of various parties if new material or circumstances arise.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "conditions": [
+          "New material or circumstances must be present"
+        ],
+        "statutes": [],
+        "anchors": [
+          "p394.1"
+        ],
+        "quote": "the court which grants the bail also has the power to cancel it."
+      },
+      {
+        "id": "p4",
+        "text": "Discretionary powers in granting anticipatory bail should be exercised judicially, taking into account each case's unique facts.",
+        "speaker": "quoted_authority",
+        "kind": "ratio",
+        "is_holding": false,
+        "favors": "neutral",
+        "conditions": [],
+        "statutes": [],
+        "anchors": [
+          "p391.1"
+        ],
+        "quote": "courts have to be allowed a little free play in the joints if the conferment of discretionary power is to be meaningful."
+      }
+    ],
+    "contentions": [
+      {
+        "side": "respondent",
+        "text": "The appellants need to be subjected to custodial interrogation for the investigation to progress, which is currently hindered by the anticipatory bail.",
+        "outcome": "accepted",
+        "anchors": [
+          "p391.1"
+        ]
+      },
+      {
+        "side": "appellant",
+        "text": "The High Court erred in cancelling the anticipatory bail granted to the appellants without sufficient reason, relying on precedents favoring granting of bail in similar circumstances.",
+        "outcome": "rejected",
+        "anchors": [
+          "p390.1",
+          "p391.1"
+        ]
+      }
+    ],
+    "authorities": [
+      {
+        "name": "Shri Gurbaksh Singh Sibbia and others v. State of Punjab",
+        "citation": "1980 (3) SCR 383",
+        "treatment": "referred_to",
+        "used_for": "Guidelines on anticipatory bail and discretion.",
+        "where": "p391.1"
+      },
+      {
+        "name": "Ravindra Saxena v. State of Rajasthan",
+        "citation": "2009 (16) SCR 433",
+        "treatment": "referred_to",
+        "used_for": "Comparison with civil nature case.",
+        "where": "p390.1"
+      },
+      {
+        "name": "State of A.P. v. Bimal Krishna Kundu",
+        "citation": "1997 (4) Suppl. SCR 412",
+        "treatment": "referred_to",
+        "used_for": "Anticipatory bail's impact on investigation.",
+        "where": "p392.1"
+      },
+      {
+        "name": "Siddharam Satlingappa Mhetre v. State of Maharashtra",
+        "citation": "2010 (15) SCR",
+        "treatment": "referred_to",
+        "used_for": "Balancing factors in anticipatory bail.",
+        "where": "p393.1"
+      },
+      {
+        "name": "Bhadresh Bipinbhai Sheth v. State of Gujarat",
+        "citation": "2015 (9) Scale 403",
+        "treatment": "referred_to",
+        "used_for": "Cancellation principles of anticipatory bail.",
+        "where": "p394.1"
+      }
+    ]
+  },
+  "authority_table": [],
+  "verdicts": {
+    "p1": {
+      "id": "p1",
+      "verdict": "supported",
+      "favors_correct": false,
+      "note": "The proposition is supported but 'favors' should be 'neutral'."
+    },
+    "p2": {
+      "id": "p2",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p3": {
+      "id": "p3",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    },
+    "p4": {
+      "id": "p4",
+      "verdict": "supported",
+      "favors_correct": true,
+      "note": ""
+    }
+  },
+  "needs_review": [
+    "p1: verifier says supported, favors_correct=False - The proposition is supported but 'favors' should be 'neutral'.",
+    "parser flag: decided_on_not_found"
+  ],
+  "paragraphs": {
+    "p388.1": {
+      "text": "PRAFULLA C. PANT, J. 1. Leave granted.",
+      "page_start": 388,
+      "page_end": 388
+    },
+    "p388.2": {
+      "text": "2. All these four appeals are directed against common order dated 29.1.2015, passed by the High Court of Judicature at Bombay, BenchAurangabad, in Criminal Application Nos. 4526 of 2013, 4527 of 2013, 4528 of 2013 and 4529 of 2013 whereby anticipatory bail granted by the Additional Sessions Judge, Jalgaon, to the appellants in connection with C.R. Nos. SUDHIR-v. STATE OF MAHARASHTRA 71 of 2013 and 73 of 2013, registered at Polica Station Dharangaon, relating to offences punishable under Sections 409, 420, 467, 468, 477 A read with Section 34 of Indian Penal Code (IPC) and under Section 13(1 )(d) read with Section 13(2) of Prevention of Corruption Act, 1988, is cancelled. s· 3. We have heard learned counsel for the parties and perused the papers on .ecord.",
+      "page_start": 388,
+      "page_end": 389
+    },
+    "p389.1": {
+      "text": "4. Brief facts of the case are that appellants Chandrkant Wagh and Sudhir Dahake are Executive Engineer and c . Sectional Engineer respectively in Rural Water Supply Department of Zilla Parishad, Jalgaon. Two First Information · Reports were registered against them with the serious allegations of criminal misappropriation of funds released for implementation of schemes of drinking water in the villages of Waghlud and Sonwad Khurd in Tehsil Dharangaon. C.R. No. 71 of2013 relates to Waghlud and C.R. No. 73 of2013 relates to village Sonwad Khurd. The FIRs in respect of these crimes appeared to have been registered only after enquiries were made under directions of Revenue Commissioner, by Deputy Commissioner (Development), Nasik Region, who found substance in the allegations against the c:ippellants. In C.R. No. 71 of 2013 there is allegation of misappropriation of Rs.28.35 lacs, and in C.R. No. 73 of2013 the allegations relate to misappropriation of Rs.13.75 lacs. In respect of village Waghlud one Mangal Ganpat Patil was shown as contractor, but no such contractor was found in existence. Vouchers shown regarding payment of Rs. 14.94 lacs were found false, which related to construction of overhead water tank in Waghlud village which was already in existence in said village under another scheme. The amount of first installment of Rs.1.43 lacs and second installment of Rs.1.44 lacs for construction of public toilet was found to have been made falsely, as no construction of public toilet was made in the village. The amount was shown to have been made to one RohitdasAawasu Keli. Two measurement books were kept to submit exaggerated revised estimates. Rs.1.30 lacs was shown to have been spent on erection of barbed wire in village Waghlud, but no work of fencing was done in the village. In the village Sonwad Khurd (C.R. No. 73 of 2013) work included relating to digging of bore well, fixing of pump and machinery, construction of pump house, and laying the pipeline. Barbed fence was also one of the works to be executed in village Sonwad Khu rd. Most of tbe payments in respect of these works · are shown to have been made in cash.",
+      "page_start": 389,
+      "page_end": 390
+    },
+    "p390.1": {
+      "text": "5. The High Court has taken note of the fact that initially Mr. V.S. Dikshit, learned Additional Sessions Judge, Jalgaon, declined to grant anticipatory bail to the accused-appellants, and appellant Chandrakant Wagh moved Criminal Application Nos. 2908 and 2909 of 2013 in connection with above two FIRs before the High Court praying pre arrest bail. The applications were withdrawn and the High Court, after recording statement of the counsel, disposed of the two applications as withdrawn. Thereafter, appellant Chandrakant Wagh moved fresh anticipatory bail application Nos. 867 and 868 of 2013 before Mr. D.P. Surana, learned Additional Sessions Judge, and succeeded in obtaining the order of anticipatory bail. The High Court took serious note of this fact in the impugned order passed on the applications moved by the complainant for cancellation of bail before it. Appellant Sudhir Dahake, Sectional Engineer, also appears to have obtained anticipatory bail from the Court of Additional Sessions Judge, Jalgaon. Allegations against him were specific as he was supervising the work under appellant Chandrakant, the Executive Engineer. Strangely, the State did not file any application for cancellation of bail, however, it supported such application for cancellation of bail moved by the complainant before the High Court.",
+      "page_start": 390,
+      "page_end": 390
+    },
+    "p391.1": {
+      "text": "6. Learned counsel for the State has submitted before us that there is requirement of the custodial interrogation of the appellants. It is further submitted that the investigation could not progress as the appellants could not be interrogated. 7. On the other hand, learned counsel for the appellants argued before us that the High Court has erred in law in cancelling the anticipatory bail granted to the appellants without there being any sufficient reason. They referred to the cases of Shri Gurbaksh Singh Sibbia and others v. State of Punjab and Ravindra Saxena v; State of Rajasthan. 8. In Ravindra Saxena (supra), the rejection of application for anticipatory bail by the High Court was set aside by this Court on the ground that the dispute between the complainant and the accused was in substance, civil in nature, o as it was a property dispute arising out of commercial transaction, and the alleged offences were punishable under Sections 448, 456, 457, 420, 467, 468, 471, 380, and 1208 IPC. In the present case before us,. there are serious allegations of misapprop_riation of public funds, and corruption and the offences include one punishable under Section 409 IPC and also under Section 13 of Prevention of Corruption Act, 1988. As such, the case of Ravindra Saxena (supra) is of little help in the present facts and circumstances of the case. 9. ln Gurbaksh Singh (supra), the Constitution Bench of this Court, while laying down the guidelines relating to grant of anticipatory bail, has observed in paragraph 14 as under: - \"14. Generalisations on matters which rest on discretion and the attempt to discover formulae of universal application when facts are bound to differ from case to (1980) sec (201 o) sec case frustrate the very purpose of conferring discretion. No two cases are alike on facts and therefore, courts have to be allowed a little free play in the joints if the conferment of discretionary power is to be meaningful. There is no risk involved in entrusting a wide discretion to the Court of Session and the High Court in granting anticipatory bail because, firstly, thf'se are higher courts manned by experienced persons, secondly, their orders are not final but are open to appellate or revisional scrutiny and above all because, discretion has always to c be exercised by courts judicially and not according to whim, caprice or fancy. On the other hand, there is a risk in foreclosing categories of cases in which anticipatory bail may be allowed because life throws up unforeseen possibilities and offers new challenges ....... \" The Constitution Bench in the above mentioned case, in paragraphs 16 and 17, while observing that the relief of anticipatory bail cannot be said to be barred merely for the reason that the allegations relate to economic offences or corruption, has clarified that where the allegations are malafide, the prayer for anticipatory bail can be accepted. In the present case, at this stage, there appears to be no malice on the part of Revenue Commissioner, who ordered enquiry, or Deputy . Commissioner, who conducted enquiry, before getting lodged the First Information Reports against the appellants. 10. In State of A.P. v. Bimal Krishna Kundu and anothef!, which relates to offences punishable under Sections 420, 468 and 406 IPC arisen out of leakage of question paper in respect ·of examination conducted by Public Service Commission, this Court has made following observations: - \"12. We are strongly of thf'l opinion that this is not a case for exercising the discretion under Section 438 in favour (1997) a sec of granting anticipatory bail to the respondents. It is disquieting that implications of arming the respondents, when they are pitted against this sort of allegations involving well-orchestrated conspiracy, with a pre-arrest bail order, though subject to some conditions, have not been taken into account by the learned Single Judge. We have absolutely no doubt that if the respondents are equipped with such an order before they are interrogated. by the police it would greatly harm the investigation and would impede the prospects of unearthing all the ramifications involved in the conspiracy. Public interest also would suffer as a consequence. Having apprised himself of the nature and seriousness of the criminal conspiracy and the adverse impact of it on \"the career of millions of students\", learned Single Judge should not 0 have persuaded himself to exercise the discretion which · Parliament had very thoughtfully conferred on the Sessions Judges and the High Courts through Section 438 of the Code, by favouring the respondents with such a pre-arrest bail order.\"",
+      "page_start": 391,
+      "page_end": 393
+    },
+    "p393.1": {
+      "text": "11. In Siddharam Satlingappa Mhetre v. State of Maharashtra and others\", in sub-para (viii) of para 112, this. Court has held as under: - \"(viii) While considering the prayer for grant of anticipatory bail, a balance has to be struck between two factors, namely, no prejudice should be caused to the free, fair and full investigation and there should be prevention of harassment, humiliation and unjustified detention of the accused;\" . 12. In Bhadresh Bipinbhai Sheth v. State of Gujarat and another6, laying down the principles regarding cancellation '(2011) sec [2015) 12 S.C.R.",
+      "page_start": 393,
+      "page_end": 394
+    },
+    "p394.1": {
+      "text": "of anticipatory bail in sub paras (vi) and (ix) of para 23, this Court has observed as under: - \"(vi) It is a settled legal position that the court which grants the bail also has the power to cancel it. The discretion of grant or cancellation of bail can be exercised either at the instance of the accused, the Public Prosecutor or the complainant, on finding new material or circumstances at any point of time.\"",
+      "page_start": 394,
+      "page_end": 394
+    },
+    "p394.2": {
+      "text": "xxx xxx xxx c (ix) No inflexible guidelines or straitjacket formula can be provided for grant or refusal of anticipatory bail because all circumstances and situations of future cannot be clearly visualized for the grant or refusal of anticipatory bail. In consonance with legislative intention, the grant or refusal of anticipatory bail should necessarily depend on the facts and circumstances of each case.\"",
+      "page_start": 394,
+      "page_end": 394
+    },
+    "p394.3": {
+      "text": "13. Having considered the submissions made by learned counsel for the parties, and after considering the gravity of the offence, circumstances of the case, particularly, the allegations of corruption and misappropriation of public funds released for rural development, and further considering the conduct of the appellants and the fact that the investigation is held up as the custodial interrogation of the appellants could not be done due to the anticipatory bail, we are of the opinion that the High Court has rightly cancelled the anticipatory bail granted to the appellants by the Additional Sessions Judge, Jalgaon. Therefore, we are not inclined to disturb the same. 14. Accordingly, we decline to interfere with the order of cancellation of anticipatory bail, passed by the High Court. All the four appeals are dismissed.",
+      "page_start": 394,
+      "page_end": 394
+    },
+    "p394.4": {
+      "text": "Nidhi Jain",
+      "page_start": 394,
+      "page_end": 394
+    }
+  },
+  "headnote_raw": " \nSUDHIR\nv.\n(Criminal Appeal Nos. 1286-1287of2015)\n8\n0CTOBER 01, 2015\nBail - Anticipatory bail - A/legations of criminal\nmisappropriation of public funds released for rural c\ndevelopment against the appellants - Registration of FIR -\nApplication for anticipatory bail by the appellants- Grant of,\nby the trial court - However, cancelled by the High Court -\nInterference with - Held: Not called for - Considering the\ngravity of the offence, circumstances of the case, particularly, .\nthe allegations levied against the appellants and the conduct\nof the appellants and the fact thatthe investigation is held up\nas the custodial interrogation of the appellants could not be\ndone due to the anticipatory bail, the High Court rightly\ncancelled the anticipatory bail granted to the appellants by\nthe Additional Sessions Judge.\nShri Gurbaksh Signh Sibbia and others v. State\nof Punjab 1980 (3) SCR 383: (1980) 2 SCC 565;\nRavindra Saxena v. State of Rajasthan 2009 (16)\nSCR 433: (2010) 1 SCC 684; State of A. P v.\nBimal Krishna Kundu and another 1997 (4) Suppl.\nSCR 412: (1997) 8 SCC 104; Siddharam\nSatlingappa Mhetre v. State of Maharashtra and\nothers 2010 (15) SCR: (2011) 1 SCC 694;\nBhadresh Bipinbhai Sheth v. State of Gujarat and\nanother 2015 (9) Scale 403- referred to.\n \nCase Law Reference\n1980 (3) SCR 383\nreferred to.\nPara 7, 9\n2009 (16) SCR 433\nreferred to.\nPara 7,8\n1997 (4) Suppl. SCR 412\nreferred to.\nPara 10\n•\n2010 (15) SCR 201\nreferred to.\nPara 11\n2015 (9) Scale 403\nreferred to.\nPara 12\nc\n"
+}
