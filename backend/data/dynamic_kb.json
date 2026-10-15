@@ -4170,5 +4170,110 @@
     "subject_matter_scope": null,
     "disqualifying_subject_matters": [],
     "requires_trigger_gate": false
+  },
+  {
+    "section": "331",
+    "statute": "IPC",
+    "bns_equivalent": "331",
+    "title": "Voluntarily causing grievous hurt to extort confession, or to compel restoration of property",
+    "mandatory_ingredients": [
+      "voluntarily_causing_grievous_hurt_to_extort_confession_or_to_compel_restoration_of_property"
+    ],
+    "factual_triggers": [
+      "demand",
+      "voluntarily",
+      "causing",
+      "grievous",
+      "hurt",
+      "extort",
+      "confession",
+      "compel",
+      "restoration",
+      "property"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Voluntarily causing grievous hurt to extort confession, or to compel restoration of property",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "354A",
+    "statute": "IPC",
+    "bns_equivalent": "354A",
+    "title": "Sexual harassment and punishment for sexual harassment",
+    "mandatory_ingredients": [
+      "sexual_harassment_and_punishment_for_sexual_harassment"
+    ],
+    "factual_triggers": [
+      "demand",
+      "sexual",
+      "harassment",
+      "punishment"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Sexual harassment and punishment for sexual harassment",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "364A",
+    "statute": "IPC",
+    "bns_equivalent": "364A",
+    "title": "Kidnapping for ransom, etc.",
+    "mandatory_ingredients": [
+      "kidnapping_for_ransom_etc"
+    ],
+    "factual_triggers": [
+      "demand",
+      "kidnapping",
+      "ransom"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Kidnapping for ransom, etc.",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "370A",
+    "statute": "IPC",
+    "bns_equivalent": "370A",
+    "title": "Exploitation of a trafficked person",
+    "mandatory_ingredients": [
+      "exploitation_of_a_trafficked_person"
+    ],
+    "factual_triggers": [
+      "demand",
+      "exploitation",
+      "trafficked",
+      "person"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Exploitation of a trafficked person",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
   }
 ]
