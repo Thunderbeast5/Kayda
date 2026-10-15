@@ -19,6 +19,9 @@ from .schemas.stage5_precedent import (
     RoleSpecificPrecedentRetrievalObject,
     PrecedentRetrievalResult,
     PrecedentRetrievalIssue,
+    PrecedentRoleRef,
+    PrecedentRoleEvaluation,
+    PrecedentCaseDetail,
 )
 from .schemas import CaseContextObject, StatutoryVerificationObject
 
@@ -40,9 +43,11 @@ class Stage5PrecedentPipeline:
         self,
         retriever: Optional[PrecedentRetriever] = None,
         evaluator: Optional[PrecedentRelevanceBatchEvaluator] = None,
-        max_candidates: int = 20,
-        max_prosecution_precedents: int = 10,
-        max_defense_precedents: int = 10,
+        max_candidates: int = 12,
+        max_prosecution_precedents: int = 5,
+        max_defense_precedents: int = 5,
+        min_relevance_score: float = 5.0,
+        debug_output_path: Optional[Union[str, Path]] = "stage5_precedent_debug.json",
         precedent_dir: Optional[Path] = None,
         tagged_dir: Optional[Path] = None
     ):
@@ -53,8 +58,10 @@ class Stage5PrecedentPipeline:
             retriever: PrecedentRetriever instance (or None to create default)
             evaluator: PrecedentRelevanceBatchEvaluator instance (or None to create default)
             max_candidates: Maximum candidates to retrieve from statutory matching
-            max_prosecution_precedents: Maximum precedents to return for prosecution
-            max_defense_precedents: Maximum precedents to return for defense
+            max_prosecution_precedents: Maximum precedents to return for prosecution (capped at 5-6)
+            max_defense_precedents: Maximum precedents to return for defense (capped at 5-6)
+            min_relevance_score: Minimum calibrated score threshold to retain a precedent
+            debug_output_path: Path to write full evaluation debug file
             precedent_dir: Directory containing extracted judgment JSON files (defaults to bail_data/out)
             tagged_dir: Legacy alias for precedent_dir
         """
@@ -65,6 +72,8 @@ class Stage5PrecedentPipeline:
         self.evaluator = evaluator or PrecedentRelevanceBatchEvaluator()
         self.max_prosecution_precedents = max_prosecution_precedents
         self.max_defense_precedents = max_defense_precedents
+        self.min_relevance_score = min_relevance_score
+        self.debug_output_path = Path(debug_output_path) if debug_output_path else None
     
     def _extract_case_summary(
         self,
@@ -297,10 +306,11 @@ class Stage5PrecedentPipeline:
         branched_pools = self.retriever.retrieve_by_role(
             stage4_result=statutory_dict,
             case_context=case_context_dict,
-            top_k=max(self.retriever.max_candidates, 10)
+            top_k=max(self.retriever.max_candidates, 8)
         )
-        prosecution_candidates = branched_pools.get("prosecution", [])
-        defense_candidates = branched_pools.get("defense", [])
+        # Cap candidates evaluated to top 5-6 per side to avoid weak outliers
+        prosecution_candidates = branched_pools.get("prosecution", [])[:6]
+        defense_candidates = branched_pools.get("defense", [])[:6]
         
         # Unique candidates across both pools for audit scanning
         all_candidates_map = {c.case_id: c for c in prosecution_candidates + defense_candidates}
@@ -318,11 +328,14 @@ class Stage5PrecedentPipeline:
                     case_retrieval_profile=case_retrieval_profile,
                     total_judgments_scanned=len(self.retriever.get_judgment_files()),
                     candidates_after_statutory_match=0,
+                    cases={},
+                    prosecution=[],
+                    defense=[],
+                    shared_precedents=[],
                     prosecution_precedents=[],
                     defense_precedents=[],
                     compact_prosecution_summaries=[],
                     compact_defense_summaries=[],
-                    shared_precedents=[],
                     verification_status="VERIFIED"
                 )
             )
@@ -343,55 +356,66 @@ class Stage5PrecedentPipeline:
             eval_res = self.evaluator.reasoner.evaluate_precedent_for_role(
                 "prosecution", cand, input_case_summary, input_statutes, stage4_summary
             )
-            v_res = self.evaluator.verifier.verify_evaluation("prosecution", cand, eval_res)
+            v_res = self.evaluator.verifier.verify_evaluation(
+                "prosecution", cand, eval_res,
+                input_case_summary=input_case_summary, input_statutes=input_statutes
+            )
             v_eval = v_res.get("evaluation", eval_res)
-            if v_eval.get("is_relevant", False) and v_eval.get("relevance_type") != "LOW_RELEVANCE":
+            score = self.evaluator._calculate_calibrated_score(cand, v_eval, "prosecution")
+            if v_eval.get("is_relevant", False) and v_eval.get("relevance_type") != "LOW_RELEVANCE" and score >= self.min_relevance_score:
                 prosecution_evaluated.append({"candidate": cand, "evaluation": v_eval, "verification": v_res})
-                print(f"  [{i}] {cand.case_name}: [+] {v_eval.get('relevance_type')}")
+                print(f"  [{i}] {cand.case_name}: [+] {v_eval.get('relevance_type')} (score={score:.2f})")
             else:
-                print(f"  [{i}] {cand.case_name}: [-] {v_eval.get('relevance_type')}")
+                print(f"  [{i}] {cand.case_name}: [-] {v_eval.get('relevance_type')} (score={score:.2f}) [dropped below threshold {self.min_relevance_score}]")
         
         print(f"[Stage5] Evaluating {len(defense_candidates)} candidates for DEFENSE...")
         for i, cand in enumerate(defense_candidates, 1):
             eval_res = self.evaluator.reasoner.evaluate_precedent_for_role(
                 "defense", cand, input_case_summary, input_statutes, stage4_summary
             )
-            v_res = self.evaluator.verifier.verify_evaluation("defense", cand, eval_res)
+            v_res = self.evaluator.verifier.verify_evaluation(
+                "defense", cand, eval_res,
+                input_case_summary=input_case_summary, input_statutes=input_statutes
+            )
             v_eval = v_res.get("evaluation", eval_res)
-            if v_eval.get("is_relevant", False) and v_eval.get("relevance_type") != "LOW_RELEVANCE":
+            score = self.evaluator._calculate_calibrated_score(cand, v_eval, "defense")
+            if v_eval.get("is_relevant", False) and v_eval.get("relevance_type") != "LOW_RELEVANCE" and score >= self.min_relevance_score:
                 defense_evaluated.append({"candidate": cand, "evaluation": v_eval, "verification": v_res})
-                print(f"  [{i}] {cand.case_name}: [+] {v_eval.get('relevance_type')}")
+                print(f"  [{i}] {cand.case_name}: [+] {v_eval.get('relevance_type')} (score={score:.2f})")
             else:
-                print(f"  [{i}] {cand.case_name}: [-] {v_eval.get('relevance_type')}")
+                print(f"  [{i}] {cand.case_name}: [-] {v_eval.get('relevance_type')} (score={score:.2f}) [dropped below threshold {self.min_relevance_score}]")
         
         role_evaluations = {"prosecution": prosecution_evaluated, "defense": defense_evaluated}
         
         # Step 3: Build RoleSpecificPrecedentItem objects & Compact summaries
         print("\n" + "-"*80)
-        print("STEP 3: BUILDING ROLE-SPECIFIC PRECEDENT LISTS & COMPACT SUMMARIES")
+        print("STEP 3: BUILDING ROLE-SPECIFIC PRECEDENT LISTS & DEDUPLICATED CASES")
         print("-"*80)
         
-        prosecution_items = self.evaluator.build_role_specific_precedent_items(
-            prosecution_evaluated, role="prosecution"
-        )[:self.max_prosecution_precedents]
+        prosecution_items = [
+            item for item in self.evaluator.build_role_specific_precedent_items(
+                prosecution_evaluated, role="prosecution"
+            ) if item.final_relevance_score >= self.min_relevance_score
+        ][:self.max_prosecution_precedents]
         
-        defense_items = self.evaluator.build_role_specific_precedent_items(
-            defense_evaluated, role="defense"
-        )[:self.max_defense_precedents]
+        defense_items = [
+            item for item in self.evaluator.build_role_specific_precedent_items(
+                defense_evaluated, role="defense"
+            ) if item.final_relevance_score >= self.min_relevance_score
+        ][:self.max_defense_precedents]
+        
+        cases_dict, prosecution_refs, defense_refs, shared_precedents, p_supporting, p_adverse, d_supporting, d_adverse = self.evaluator.build_deduplicated_cases_and_refs(
+            prosecution_items, defense_items, all_candidates_map
+        )
         
         compact_prosecution = [item.compact_summary for item in prosecution_items if item.compact_summary]
         compact_defense = [item.compact_summary for item in defense_items if item.compact_summary]
         
-        print(f"[Stage5] Top {len(prosecution_items)} Prosecution precedents selected")
-        print(f"[Stage5] Top {len(defense_items)} Defense precedents selected")
-        
-        # Identify shared precedents (cases independently useful to both sides with preserved conflicting propositions)
-        prosecution_case_ids = {item.case_id for item in prosecution_items}
-        defense_case_ids = {item.case_id for item in defense_items}
-        shared_precedents = list(prosecution_case_ids & defense_case_ids)
-        
+        print(f"[Stage5] Top {len(prosecution_items)} Prosecution precedents selected ({len(p_supporting)} supporting, {len(p_adverse)} adverse)")
+        print(f"[Stage5] Top {len(defense_items)} Defense precedents selected ({len(d_supporting)} supporting, {len(d_adverse)} adverse)")
+        print(f"[Stage5] Unique deduplicated cases: {len(cases_dict)}")
         if shared_precedents:
-            print(f"[Stage5] Shared precedents (relevant to both sides): {shared_precedents}")
+            print(f"[Stage5] Shared precedents: {shared_precedents}")
         
         # Step 4: Construct final output object
         print("\n" + "-"*80)
@@ -404,19 +428,32 @@ class Stage5PrecedentPipeline:
             case_retrieval_profile=case_retrieval_profile,
             total_judgments_scanned=len(self.retriever.get_judgment_files()),
             candidates_after_statutory_match=len(candidates),
+            cases=cases_dict,
+            prosecution=prosecution_refs,
+            defense=defense_refs,
+            prosecution_supporting=p_supporting,
+            prosecution_adverse=p_adverse,
+            defense_supporting=d_supporting,
+            defense_adverse=d_adverse,
+            shared_precedents=shared_precedents,
             prosecution_precedents=prosecution_items,
             defense_precedents=defense_items,
             compact_prosecution_summaries=compact_prosecution,
             compact_defense_summaries=compact_defense,
-            shared_precedents=shared_precedents,
             verification_status="VERIFIED",
             retrieval_metadata={
                 "max_candidates": self.retriever.max_candidates,
                 "max_prosecution_precedents": self.max_prosecution_precedents,
                 "max_defense_precedents": self.max_defense_precedents,
+                "min_relevance_score": self.min_relevance_score,
                 "correction_feedback": correction_feedback
             }
         )
+        
+        # Save full evaluation to separate debug file
+        if self.debug_output_path:
+            precedent_object.save_debug_file(self.debug_output_path)
+            print(f"[Stage5] Saved full evaluation to debug file: {self.debug_output_path}")
         
         # Step 5: Validation check
         issues = []

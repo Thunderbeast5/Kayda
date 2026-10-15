@@ -454,3 +454,75 @@ def export_transcript(state: Dict[str, Any], output_dir: Optional[str] = None) -
     return md_file, json_file
 
 
+def summarize_transcript_history(transcript: List[Any], keep_last: int = 2) -> str:
+    """
+    Summarizes prior debate transcript turns to conserve prompt tokens across rounds.
+    Keeps the last `keep_last` turns verbatim and replaces earlier ones with a concise
+    running summary that preserves argument IDs, statutory citations, evidence references,
+    and points conceded or contested.
+    """
+    if not transcript:
+        return "(No prior hearing transcript recorded.)"
+
+    if len(transcript) <= keep_last:
+        parts = []
+        for t in transcript:
+            spk = (getattr(t, "speaker", None) or (t.get("speaker") if isinstance(t, dict) else "unknown")).upper()
+            rnd = getattr(t, "round_no", None) or (t.get("round_no", 1) if isinstance(t, dict) else 1)
+            content = getattr(t, "content", None) or (t.get("content", "") if isinstance(t, dict) else str(t))
+            parts.append(f"### [{spk} — Round {rnd}]\n{content.strip()}")
+        return "\n\n".join(parts)
+
+    earlier = transcript[:-keep_last]
+    recent = transcript[-keep_last:]
+
+    summary_lines = [
+        "--- SUMMARY OF EARLIER PROCEEDINGS ---",
+        "Key points, argument IDs, citations, and points contested/conceded in earlier turns:",
+    ]
+
+    for t in earlier:
+        spk = (getattr(t, "speaker", None) or (t.get("speaker") if isinstance(t, dict) else "unknown")).title()
+        rnd = getattr(t, "round_no", None) or (t.get("round_no", 1) if isinstance(t, dict) else 1)
+        t_no = getattr(t, "turn_no", None) or (t.get("turn_no", "?") if isinstance(t, dict) else "?")
+        citations = getattr(t, "citations", None) or (t.get("citations", []) if isinstance(t, dict) else [])
+        evidence_refs = getattr(t, "evidence_refs", None) or (t.get("evidence_refs", []) if isinstance(t, dict) else [])
+        struct = getattr(t, "structured_argument", None) or (t.get("structured_argument", {}) if isinstance(t, dict) else {})
+        content = getattr(t, "content", None) or (t.get("content", "") if isinstance(t, dict) else str(t))
+
+        theory = struct.get("theory") if isinstance(struct, dict) else ""
+        if not theory and content:
+            first_line = content.strip().split("\n")[0]
+            theory = first_line[:120]
+
+        contested = []
+        conceded = []
+        args_list = struct.get("arguments", []) if isinstance(struct, dict) else []
+        for arg in args_list:
+            arg_str = str(arg).strip()
+            low = arg_str.lower()
+            if any(w in low for w in ("concede", "admit", "not dispute", "agree", "accepted")):
+                conceded.append(arg_str[:90])
+            else:
+                contested.append(arg_str[:90])
+
+        cits_str = f" [Citations: {', '.join(citations)}]" if citations else ""
+        evs_str = f" [Evidence: {', '.join(evidence_refs)}]" if evidence_refs else ""
+
+        bullet = f"• Turn {t_no} ({spk}, Round {rnd}): Theory: {theory}{cits_str}{evs_str}"
+        if contested:
+            bullet += f" | Contested: {'; '.join(contested[:2])}"
+        if conceded:
+            bullet += f" | Conceded: {'; '.join(conceded[:1])}"
+        summary_lines.append(bullet)
+
+    summary_lines.append("\n--- RECENT PROCEEDINGS (VERBATIM) ---")
+    for t in recent:
+        spk = (getattr(t, "speaker", None) or (t.get("speaker") if isinstance(t, dict) else "unknown")).upper()
+        rnd = getattr(t, "round_no", None) or (t.get("round_no", 1) if isinstance(t, dict) else 1)
+        content = getattr(t, "content", None) or (t.get("content", "") if isinstance(t, dict) else str(t))
+        summary_lines.append(f"### [{spk} — Round {rnd}]\n{content.strip()}")
+
+    return "\n\n".join(summary_lines)
+
+

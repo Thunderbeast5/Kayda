@@ -16,6 +16,9 @@
     },
     "format_profile": "scr_reporter",
     "citation_scr": "[2005] 2 SCR 188",
+    "canonical_citation": "Adri Dharan Das v. State of West Bengal, [2005] 2 SCR 188 : (2005) 4 SCC 303 : 2005 INSC 118",
+    "source_verified": true,
+    "source_url": "https://indiankanoon.org/doc/1183307/",
     "scr_year": 2005,
     "scr_volume": 2,
     "scr_first_page": 188,
@@ -60,6 +63,13 @@
     "abstract_facts": "A complaint was filed alleging various offences under Sections 406, 467, 468, 471, and 420 IPC against the appellant and five others. It was alleged that the appellant, a former president of a temple, and others committed the offences. An application for anticipatory bail was filed under Section 438 CrPC, which the Calcutta High Court rejected, leading to the present appeal.",
     "lower_court_outcome": "Anticipatory bail application rejected by Calcutta High Court",
     "disposition": "Appeal disposed of; no anticipatory bail granted",
+    "caveats": [
+      "Note caveat: The restrictive proposition that anticipatory bail is an 'exceptional power' was softened and clarified by the 5-judge Constitution Bench in Sushila Aggarwal (2020) and 2-judge bench in Siddharam Mhetre [2010] 15 SCR 201 : (2011) 1 SCC 694."
+    ],
+    "treatment": {
+      "prosecution": "Cite for the proposition that anticipatory bail is an extraordinary remedy and custodial interrogation is a valuable right of the investigating agency.",
+      "defense": "Adverse prosecution authority; counter using Constitution Bench in Sushila Aggarwal (2020) which disapproved the restrictive 'exceptional power' interpretation."
+    },
     "statutes": [
       {
         "act": "CrPC 1973",

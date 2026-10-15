@@ -46,7 +46,10 @@
     "appeal_from_raw": "From the Judgment and Order dated 18.12.2017 of the High Court of Bombay at Bombay in Anticipatory Bail Application No.85 of 2017",
     "judgment_author_regex": "DHANANJAYA Y CHANDRACHUD",
     "layout": "numbered_paras",
-    "ocr_noise_score": 0.0014
+    "ocr_noise_score": 0.0014,
+    "canonical_citation": "M/s Supreme Bhiwandi Wada Manor Infrastructure Pvt. Ltd. v. State of Maharashtra & Anr., [2021] 7 SCR 226 : (2021) 8 SCC 753 : 2021 INSC 355",
+    "source_verified": true,
+    "source_url": "https://indiankanoon.org/doc/81657608/"
   },
   "flags": [
     "numbers_inside_quotations_ignored: 3"
@@ -69,11 +72,42 @@
     "abstract_facts": "This is a criminal appeal concerning anticipatory bail where the appellant, a company involved in infrastructure projects, accused four of its employees of defrauding it of approximately Rs. 5.08 crores through fabricated documents related to land compensation. The Magistrate ordered an investigation, and the accused were granted anticipatory bail by the Sessions and High Courts. The Supreme Court set aside these bail orders emphasizing the serious nature of the alleged fraud.",
     "lower_court_outcome": "Grant of anticipatory bail to accused by High Court and Sessions Court",
     "disposition": "Appeal allowed; anticipatory bail orders set aside",
+    "caveats": [
+      "Bhiwandi involved systematic corporate fraud and large-scale fabrication of compensation documents defrauding company/public funds of Rs 5.08 crores, distinguishable from private civil title disputes between co-sharers or family members."
+    ],
+    "treatment": {
+      "prosecution": "Emphasize Supreme Court precedent setting aside anticipatory bail in serious cases of fraudulent land document fabrication and economic fraud.",
+      "defense": "Distinguish on facts: present case involves a bona fide title dispute over ancestral/agricultural land, not corporate/public compensation fraud with fake claimants."
+    },
     "statutes": [
+      {
+        "act": "IPC",
+        "section": "420",
+        "how_used": "charged",
+        "note": "Alleged offences in FIR following Magistrate order under Section 156(3)"
+      },
+      {
+        "act": "IPC",
+        "section": "467",
+        "how_used": "charged",
+        "note": "Alleged offences in FIR for fabricating land compensation documents"
+      },
+      {
+        "act": "IPC",
+        "section": "468",
+        "how_used": "charged",
+        "note": "Forgery for cheating in land compensation claims"
+      },
+      {
+        "act": "IPC",
+        "section": "471",
+        "how_used": "charged",
+        "note": "Using forged documents as genuine"
+      },
       {
         "act": "CrPC 1973",
         "section": "438",
-        "how_used": "interpreted",
+        "how_used": "procedure",
         "note": "Court emphasized gravity of allegations in anticipatory bail applications."
       }
     ],

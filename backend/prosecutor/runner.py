@@ -193,13 +193,13 @@ def run_session(
     source: str = None,
     student_role: str = None,
     api_key: str = None,
-    model: str = "gpt-4o-mini",
+    model: str = "gpt-5.4-mini",
 ) -> None:
     """
     Full terminal session loop.
     Can be called programmatically or via CLI.
     """
-    provider = os.environ.get("LLM_PROVIDER", "ollama").lower()
+    provider = os.environ.get("LLM_PROVIDER", "openai").lower()
     api_key = api_key or os.environ.get("OPENAI_API_KEY", "") or os.environ.get("OLLAMA_API_KEY", "")
     if provider == "openai" and not api_key:
         console.print(
@@ -281,8 +281,8 @@ def main():
     parser.add_argument("--role",    type=str,  default=None,
                         choices=["defense", "prosecutor"],
                         help="Your role (default: prompts you to choose)")
-    parser.add_argument("--model",   type=str,  default="gpt-4o-mini",
-                        help="OpenAI model (default: gpt-4o-mini)")
+    parser.add_argument("--model",   type=str,  default="gpt-5.4-mini",
+                        help="OpenAI model (default: gpt-5.4-mini)")
     parser.add_argument("--api-key", type=str,  default=None,
                         help="OpenAI API key (or set OPENAI_API_KEY)")
     args = parser.parse_args()

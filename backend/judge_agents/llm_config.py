@@ -1,93 +1,60 @@
 """
 LLM configuration for Judge Agents module.
-
-Provider priority (controlled by LLM_PROVIDER env var):
-  1. "ollama"  — local Ollama (default, development)  → llama3.2:3b
-  2. "openai"  — OpenAI API (production switch)        → gpt-4o-mini
-
-Set in judge_agents/.env:
-    LLM_PROVIDER=ollama          # or openai
-    OLLAMA_BASE_URL=http://localhost:11434   # optional, default shown
-    OPENAI_API_KEY=sk-...        # only needed when LLM_PROVIDER=openai
-
-To switch to OpenAI later, just change LLM_PROVIDER=openai in .env.
-No code changes required.
+Uses OpenAI gpt-5.4-mini consistently across all judge components.
 """
 
 import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Load .env from judge_agents folder first, then fall back to backend/.env
 _HERE = Path(__file__).resolve().parent
 load_dotenv(_HERE / ".env", override=False)
 load_dotenv(_HERE.parent / ".env", override=False)
 
-LLM_PROVIDER     = os.getenv("LLM_PROVIDER", "ollama").strip().lower()
-OLLAMA_BASE_URL  = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-OLLAMA_MODEL     = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
-OPENAI_API_KEY   = os.getenv("OPENAI_API_KEY", "")
-OPENAI_MODEL     = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+LLM_PROVIDER   = "openai"
+DEFAULT_MODEL  = "gpt-5.4-mini"
+OPENAI_MODEL   = DEFAULT_MODEL
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+
+_MODELS_WITHOUT_TEMPERATURE = {
+    "o1",
+    "o1-mini",
+    "o1-preview",
+    "o3",
+    "o3-mini",
+    "o4-mini",
+}
 
 
-def get_llm(temperature: float = 0.1):
+def _openai_kwargs(model: str, temperature: float, api_key: str) -> dict:
+    """Build ChatOpenAI kwargs, omitting temperature for models that don't support it."""
+    kwargs: dict = {"model": model, "api_key": api_key}
+    if not any(m in model.lower() for m in _MODELS_WITHOUT_TEMPERATURE):
+        kwargs["temperature"] = temperature
+    return kwargs
+
+
+def get_llm(temperature: float = 0.1, model_name: str = None):
     """
-    Return an LLM instance based on LLM_PROVIDER env var.
-
-    Ollama (default / development)
-    --------------------------------
-    - Requires Ollama running locally: https://ollama.com
-    - Pull model once: ollama pull llama3.2:3b
-    - Set LLM_PROVIDER=ollama in .env (or leave unset)
-
-    OpenAI (production)
-    --------------------------------
-    - Set LLM_PROVIDER=openai
-    - Set OPENAI_API_KEY=sk-...
-    - Set OPENAI_MODEL=gpt-4o-mini (or gpt-4o for higher quality)
+    Return ChatOpenAI instance locked to gpt-5.4-mini.
+    Fails explicitly if OPENAI_API_KEY is not set.
+    No silent fallback to other providers or models.
     """
-    if LLM_PROVIDER == "openai":
-        if not OPENAI_API_KEY:
-            raise EnvironmentError(
-                "LLM_PROVIDER=openai but OPENAI_API_KEY is not set. "
-                "Add it to judge_agents/.env"
-            )
-        from langchain_openai import ChatOpenAI
-        print(f"[LLM] Provider: OpenAI | Model: {OPENAI_MODEL}")
-        return ChatOpenAI(
-            model=OPENAI_MODEL,
-            api_key=OPENAI_API_KEY,
-            temperature=temperature,
+    api_key = os.getenv("OPENAI_API_KEY") or OPENAI_API_KEY
+    if not api_key:
+        raise RuntimeError(
+            "OPENAI_API_KEY is not set. OpenAI gpt-5.4-mini is required."
         )
-
-    # Default: Ollama
-    ollama_api_key = os.getenv("OLLAMA_API_KEY", "")
-    client_kwargs = {}
-    if ollama_api_key:
-        client_kwargs["headers"] = {"Authorization": f"Bearer {ollama_api_key}"}
 
     try:
-        from langchain_ollama import ChatOllama
-        print(f"[LLM] Provider: Ollama | Model: {OLLAMA_MODEL} | URL: {OLLAMA_BASE_URL}")
-        return ChatOllama(
-            model=OLLAMA_MODEL,
-            base_url=OLLAMA_BASE_URL,
-            temperature=temperature,
-            client_kwargs=client_kwargs,
-        )
+        from langchain_openai import ChatOpenAI
+    except ImportError as e:
+        raise RuntimeError(f"langchain_openai is not installed: {e}")
+
+    target_model = DEFAULT_MODEL
+    kwargs = _openai_kwargs(target_model, temperature, api_key)
+
+    try:
+        return ChatOpenAI(**kwargs)
     except Exception as e:
-        print(f"[LLM] Warning loading ChatOllama in judge_agents: {e}")
-        try:
-            from langchain_openai import ChatOpenAI
-            return ChatOpenAI(
-                model=OLLAMA_MODEL,
-                base_url=f"{OLLAMA_BASE_URL.rstrip('/')}/v1",
-                api_key=ollama_api_key or "ollama",
-                temperature=temperature,
-            )
-        except Exception as e2:
-            raise RuntimeError(
-                f"Ollama connection failed: {e}\n"
-                f"Make sure Ollama is running at {OLLAMA_BASE_URL}\n"
-                f"And model is pulled: ollama pull {OLLAMA_MODEL}"
-            )
+        raise RuntimeError(f"Failed to initialize OpenAI client with model '{target_model}': {e}")

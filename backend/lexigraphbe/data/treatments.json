@@ -1,0 +1,135 @@
+{
+  "_2005_2_SCR_188": {
+    "case_name": "Adri Dharan Das v. State of West Bengal",
+    "softened_by": ["_2020_2_SCR_1", "_2010_15_SCR_201"],
+    "softened_by_citations": ["Sushila Aggarwal (2020)", "Siddharam Mhetre (2011)"],
+    "caveats": [
+      "Note caveat: The restrictive proposition that anticipatory bail is an 'exceptional power' was softened and clarified by the 5-judge Constitution Bench in Sushila Aggarwal (2020) and 2-judge bench in Siddharam Mhetre [2010] 15 SCR 201 : (2011) 1 SCC 694."
+    ],
+    "treatment": {
+      "prosecution": "Cite for the proposition that anticipatory bail is an extraordinary remedy and custodial interrogation is a valuable right of the investigating agency.",
+      "defense": "Adverse prosecution authority; counter using Constitution Bench in Sushila Aggarwal (2020) which disapproved the restrictive 'exceptional power' interpretation."
+    }
+  },
+  "_2014_1_SCR_465": {
+    "case_name": "Km. Hema Mishra v. State of U.P.",
+    "limited_to": "Article 226 interim protection in U.P. prior to reinstatement of Section 438 CrPC in 2019",
+    "caveats": [
+      "Note caveat: Decision addressed extraordinary interim protection under Article 226 in Uttar Pradesh during the historical period when Section 438 CrPC was omitted from U.P. (reinstated in 2019); does not govern standard Section 438 CrPC / BNSS 482 applications."
+    ],
+    "treatment": {
+      "prosecution": "Use to argue that extraordinary writ jurisdiction should not be routinely invoked to grant pre-arrest protection bypassing ordinary criminal procedures.",
+      "defense": "Distinguish as an Article 226 proceeding decided when Section 438 CrPC was unavailable in U.P.; inapplicable to statutory anticipatory bail applications under Section 438 CrPC / BNSS 482."
+    }
+  },
+  "_2023_1_SCR_501": {
+    "case_name": "Bimla Tiwari v. State of Bihar & Ors.",
+    "caveats": [
+      "Short disposal order focusing specifically on the impermissibility of using bail proceedings as a recovery mechanism or coercive tool for financial settlements."
+    ],
+    "treatment": {
+      "defense": "Directly supports defense: criminal proceedings and bail cannot be used as an arm-twisting tool or recovery mechanism for monetary claims.",
+      "prosecution": "Distinguish if prosecution is not seeking monetary recovery but is demonstrating systematic criminal deception, forged instruments, and absence of bona fides."
+    }
+  },
+  "_2024_8_SCR_235": {
+    "case_name": "Tusharbhai Rajnikantbhai Shah v. Kamal Dayani & Ors.",
+    "caveats": [
+      "Arises in the context of contempt and breach of interim anticipatory bail orders by police officers who sought custodial remand despite protection."
+    ],
+    "treatment": {
+      "defense": "Police custody remand is impermissible while an interim anticipatory bail order subsists, and failure to confess during interrogation does not constitute 'non-cooperation' justifying custodial remand.",
+      "prosecution": "Distinguish by demonstrating active non-cooperation (absconding, withholding physical records/devices) rather than mere failure to make a confessional statement."
+    }
+  },
+  "_2021_7_SCR_226": {
+    "case_name": "Supreme Bhiwandi Wada Manor Infrastructure Pvt. Ltd. v. State of Maharashtra",
+    "caveats": [
+      "Bhiwandi involved systematic corporate fraud and large-scale fabrication of compensation documents defrauding company/public funds of Rs 5.08 crores, distinguishable from private civil title disputes between co-sharers or family members."
+    ],
+    "treatment": {
+      "prosecution": "Emphasize Supreme Court precedent setting aside anticipatory bail in serious cases of fraudulent land document fabrication and economic fraud.",
+      "defense": "Distinguish on facts: present case involves a bona fide title dispute over ancestral/agricultural land, not corporate/public compensation fraud with fake claimants."
+    }
+  },
+  "_2023_10_SCR_411": {
+    "case_name": "Pratibha Manchanda & Anr. v. State of Haryana & Anr.",
+    "caveats": [
+      "Involved fraudulent power of attorney and impersonation to usurp land of elderly NRIs; distinguishable where dispute is a bona fide title contest between known family members or co-sharers without impersonation."
+    ],
+    "treatment": {
+      "prosecution": "Primary prosecution authority: anticipatory bail should not be granted in serious land fraud involving forged deeds; civil remedies do not bar criminal prosecution.",
+      "defense": "Critical adverse authority; must distinguish by proving absence of impersonation or forged power of attorney, and establishing a genuine civil title dispute."
+    }
+  },
+  "_2025_9_SCR_982": {
+    "case_name": "Anna Waman Bhalerao v. State of Maharashtra",
+    "caveats": [
+      "Supreme Court affirmed rejection of anticipatory bail where accused public servants certified mutation entries on forged powers of attorney; custodial interrogation held essential even in documentary cases to trace transaction chains."
+    ],
+    "treatment": {
+      "prosecution": "Directly supports prosecution: anticipatory bail justifiably denied in serious land forgery cases, and custodial interrogation is necessary even where evidence is primarily documentary.",
+      "defense": "Critical adverse authority (must distinguish): involved official misconduct certifying forged mutations for transfer to third parties, where accused enjoyed interim protection for years without cooperating."
+    }
+  },
+  "_2024_8_SCR_1086": {
+    "case_name": "Shajan Skaria v. State of Kerala & Anr.",
+    "caveats": [
+      "Decision specifically addresses the statutory exclusion under Section 18 of the SC/ST (Prevention of Atrocities) Act 1989; general application to IPC property disputes is limited to the threshold proposition that statutory bars require a prima facie offence to be made out."
+    ],
+    "treatment": {
+      "defense": "Can be cited for the limited principle that judicial scrutiny of prima facie ingredients is essential before denying anticipatory bail based on statutory bars.",
+      "prosecution": "Distinguish as a special act case turning on Section 18 of the SC/ST Act, with minimal bearing on substantive IPC cheating and forgery offences."
+    }
+  },
+  "_2009_8_SCC_751": {
+    "case_name": "Mohammed Ibrahim & Ors. v. State of Bihar & Anr.",
+    "caveats": [
+      "Distinguishable if the accused is alleged to have forged another person's signature, impersonated the true owner, or altered an existing document under Section 464(1); Mohammed Ibrahim protects the executant who signs in his own name asserting ownership."
+    ],
+    "treatment": {
+      "defense": "Primary defense authority: executing a deed conveying land without title does not constitute a false document under Section 464, negating Sections 467/468/471; civil property dispute cannot be converted into criminal cheating under Section 420.",
+      "prosecution": "Adverse defense authority; distinguish by proving actual document fabrication, forged signature, or false impersonation under Section 464(1)."
+    }
+  },
+  "_2014_8_SCC_273": {
+    "case_name": "Arnesh Kumar v. State of Bihar & Anr.",
+    "caveats": [
+      "Mandatory Section 41A notice and arrest restrictions strictly govern offences punishable with imprisonment up to 7 years (Category A); does not automatically bar custodial arrest for offences carrying higher penalties such as life imprisonment (e.g., Section 467 IPC / BNS 338)."
+    ],
+    "treatment": {
+      "defense": "Leading authority prohibiting mechanical arrest and mandating Section 41A notice of appearance for offences punishable up to 7 years (IPC 420/468); accused's willingness to cooperate precludes custodial arrest.",
+      "prosecution": "Adverse to custodial arrest for <=7 yr offences; distinguish where aggravated offences carrying higher punishment (e.g. S.467 IPC / BNS 338) are prima facie attracted, or show specific grounds under S.41(1)(b) necessitating custody."
+    }
+  },
+  "_2022_10_SCC_51": {
+    "case_name": "Satender Kumar Antil v. Central Bureau of Investigation & Anr.",
+    "caveats": [
+      "Category B offences (punishable with death, imprisonment for life, e.g. Section 467 IPC) and Category D offences (economic offences) are not governed by automatic non-custodial release on summons; bail is decided strictly on merits."
+    ],
+    "treatment": {
+      "defense": "Core authority for non-custodial bail in Category A offences (IPC 420/468), strict enforcement of Section 41A, and expedition of anticipatory bail within 6-week timeline under Article 21.",
+      "prosecution": "Argue that if aggravated forgery of valuable security under Section 467 IPC is attracted, the matter falls under Category B where bail is strictly evaluated on merits, or under Category D (economic offences)."
+    }
+  },
+  "_2018_7_SCC_581": {
+    "case_name": "Sheila Sebastian v. R. Jawaharaj & Anr.",
+    "caveats": [
+      "Arises from an appeal against acquittal, requiring strict proof at trial; at the anticipatory bail stage, the prosecution requires a prima facie case and need for custodial investigation rather than proof beyond reasonable doubt."
+    ],
+    "treatment": {
+      "defense": "Decisive authority that charge of forgery under Section 468 cannot stand without proof that the accused himself authored or fabricated the false document under Section 464.",
+      "prosecution": "Adverse; distinguish by demonstrating prima facie material showing that accused actively participated in or procured the creation/execution of the forged document."
+    }
+  },
+  "_2023_5_SCC_360": {
+    "case_name": "Sarabjit Kaur v. State of Punjab & Anr.",
+    "caveats": [
+      "Distinguishable where allegations extend beyond mere contractual breach of an agreement-to-sell into affirmative fabrication of deeds, false identity, or fraudulent conveyance to third parties."
+    ],
+    "treatment": {
+      "defense": "Primary authority establishing that breach of property agreement or failure to execute conveyance is a civil matter; Section 420 requires dishonest intention right at the inception.",
+      "prosecution": "Adverse; distinguish by establishing fraudulent inducement, fake documentation, or dishonest intent at the very inception of the transaction."
+    }
+  }
+}

@@ -15,6 +15,11 @@
     },
     "format_profile": "scr_reporter",
     "citation_scr": "[2010] 15 SCR 201",
+    "citation_scc": "(2011) 1 SCC 694",
+    "citation_neutral": "2010 INSC 965",
+    "canonical_citation": "Siddharam Satlingappa Mhetre v. State of Maharashtra, [2010] 15 SCR 201 : (2011) 1 SCC 694 : 2010 INSC 965",
+    "source_verified": true,
+    "source_url": "https://indiankanoon.org/doc/1301825/",
     "scr_year": 2010,
     "scr_volume": 15,
     "scr_first_page": 201,
@@ -59,6 +64,13 @@
     "abstract_facts": "The case involves a member of a political party who, along with his brother, allegedly instigated their party workers to fire gunshots at workers of a rival political party, leading to the murder of one person. The murder occurred eight days after the alleged instigation. The High Court rejected an anticipatory bail application by the accused, resulting in this appeal to the Supreme Court.",
     "lower_court_outcome": "Anticipatory bail application rejected by the High Court.",
     "disposition": "Appeal allowed. Anticipatory bail granted with conditions.",
+    "caveats": [
+      "Certain observations regarding life-of-anticipatory-bail continuing until end of trial were clarified and nuanced by the 5-judge Constitution Bench in Sushila Aggarwal (2020), which affirmed that anticipatory bail need not invariably be limited in duration but courts can impose time limits if justified by special circumstances."
+    ],
+    "treatment": {
+      "defense": "Landmark authority enumerating comprehensive factors for granting anticipatory bail, emphasizing that personal liberty under Article 21 cannot be jeopardized by unnecessary arrest.",
+      "prosecution": "Points out that gravity of the offence, role of the accused, and possibility of tampering with evidence remain cardinal parameters governing refusal of anticipatory bail."
+    },
     "statutes": [
       {
         "act": "CrPC 1973",

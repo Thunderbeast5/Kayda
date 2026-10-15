@@ -88,6 +88,47 @@ class LegalReasoningService:
 
         ranked_candidates = self._apply_prosecutorial_reranking(ranked_candidates)
 
+        # ── Code-side citation gate (OPT_SKIP_REASONING_GATE, default OFF) ───────
+        # Put behind flag: skipping reasoning removes ingredient mapping and explanations.
+        # Default is False to preserve full legal reasoning output.
+        import os
+        opt_skip_reasoning = os.getenv("OPT_SKIP_REASONING_GATE", "false").lower() in ("true", "1", "yes")
+        if opt_skip_reasoning:
+            HIGH_CONF = 0.92
+            top = ranked_candidates[:5]
+            all_high = (
+                bool(top)
+                and all(
+                    float(c.get("confidence") or 0.0) >= HIGH_CONF and c.get("graph_verified")
+                    for c in top
+                )
+            )
+            if all_high and self.llm:
+                print("[LegalReasoningService] Code-gate PASS (OPT_SKIP_REASONING_GATE enabled) — all candidates high-confidence & graph-verified. Skipping LLM.")
+                recommended = []
+                for c in top:
+                    recommended.append({
+                        "act": c.get("act", "BNS"),
+                        "section": str(c.get("section_num") or c.get("section", "")),
+                        "title": c.get("title", ""),
+                        "confidence": float(c.get("confidence") or 0.0),
+                        "applicability": c.get("validation_reason") or "High-confidence statutory match.",
+                        "reason": c.get("validation_reason") or "Graph-verified, no LLM needed."
+                    })
+                return {
+                    "pipeline_confidence": round(sum(r["confidence"] for r in recommended) / max(1, len(recommended)), 4),
+                    "recommended_sections": recommended,
+                    "theory_of_case": "Prosecution opposes pre-arrest bail based on graph-verified high-confidence statutory sections.",
+                    "opening_argument": "May it please the Court, the prosecution opposes the grant of anticipatory bail based on the gravity of the established offence.",
+                    "supporting_cases": [],
+                    "similar_cases": similar_cases[:2],
+                    "supporting_articles": supporting_articles,
+                    "supporting_evidence": supporting_evidence,
+                    "supporting_principles": supporting_principles,
+                    "rejected_sections": []
+                }
+        # ── End code-side citation gate ───────────────────────────────────────────
+
         if not self.llm:
             recommended = []
             for c in ranked_candidates[:3]:
@@ -112,6 +153,8 @@ class LegalReasoningService:
                 "rejected_sections": []
             }
 
+        # Compact JSON — separators=(",",":") trims ~25-35% prompt tokens vs indent=2
+        _C = (",", ":")
         candidates_summary = []
         graph_precedents_set = set()
         for c in ranked_candidates:
@@ -120,7 +163,8 @@ class LegalReasoningService:
                 "section": str(c.get("section_num") or c.get("section", "")),
                 "title": c.get("title", ""),
                 "description": c.get("description", ""),
-                "confidence": c.get("confidence", 0.0),
+                # punishment omitted — not used by this prompt
+                "confidence": round(float(c.get("confidence") or 0.0), 3),
             })
             rel_cases = c.get("community", {}).get("related_cases") or []
             graph_precedents_set.update(rel_cases)
@@ -131,7 +175,7 @@ class LegalReasoningService:
                 "case_name": cs.get("case_name") or cs.get("title") or "",
                 "court": cs.get("court", "Supreme Court"),
                 "year": cs.get("year", ""),
-                "similarity": cs.get("similarity") or cs.get("vector_similarity", 0.0),
+                "similarity": round(float(cs.get("similarity") or cs.get("vector_similarity") or 0.0), 3),
                 "facts": cs.get("facts", "")[:300]
             }
             for cs in similar_cases
@@ -146,18 +190,18 @@ USER QUERY:
 "{user_query}"
 
 CANDIDATE LEGAL SECTIONS (ordered by relevance):
-{json.dumps(candidates_summary, indent=2)}
+{json.dumps(candidates_summary, separators=_C)}
 
 GRAPH-VERIFIED BINDING PRECEDENTS:
-{json.dumps(graph_precedents, indent=2)}
+{json.dumps(graph_precedents, separators=_C)}
 
 VECTOR-SIMILAR CASES:
-{json.dumps(vector_cases_summary, indent=2)}
+{json.dumps(vector_cases_summary, separators=_C)}
 
 SUPPORTING GRAPH ELEMENTS:
-Articles: {json.dumps(supporting_articles)}
-Evidence: {json.dumps(supporting_evidence)}
-Principles: {json.dumps(supporting_principles)}
+Articles: {json.dumps(supporting_articles, separators=_C)}
+Evidence: {json.dumps(supporting_evidence, separators=_C)}
+Principles: {json.dumps(supporting_principles, separators=_C)}
 
 Evaluate the case facts and return JSON with this EXACT structure:
 {{

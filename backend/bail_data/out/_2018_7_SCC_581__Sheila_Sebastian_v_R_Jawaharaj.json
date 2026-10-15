@@ -1,0 +1,110 @@
+{
+  "case_id": "_2018_7_SCC_581",
+  "doc_meta": {
+    "source_file": "Sheila Sebastian v. R. Jawaharaj.pdf",
+    "pdf_pages": 16,
+    "citation_scr": "[2018] 14 SCR 485",
+    "citation_scc": "(2018) 7 SCC 581",
+    "canonical_citation": "Sheila Sebastian v. R. Jawaharaj & Anr., (2018) 7 SCC 581 : [2018] 14 SCR 485 : 2018 INSC 468",
+    "source_verified": false,
+    "source_url": "https://indiankanoon.org/doc/87864803/",
+    "decided_on": "2018-05-11",
+    "coram_raw": "N.V. RAMANA AND S. ABDUL NAZEER, JJ.",
+    "coram_regex": [
+      "N.V. RAMANA",
+      "S. ABDUL NAZEER"
+    ],
+    "bench_strength": 2,
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "court_level": "supreme_court",
+    "disposal_type": "judgment",
+    "court_regex": "Supreme Court of India",
+    "year": 2018,
+    "result_of_case": "Appeals dismissed. Acquittal upheld."
+  },
+  "flags": [],
+  "case": {
+    "case_name": "Sheila Sebastian v. R. Jawaharaj & Anr.",
+    "petitioner": "Sheila Sebastian",
+    "respondent": "R. Jawaharaj & Anr.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "N.V. Ramana",
+      "S. Abdul Nazeer"
+    ],
+    "judgment_author": "N.V. Ramana",
+    "procedural_stage": "quashing",
+    "offence_types": [
+      "forgery",
+      "cheating",
+      "false_document"
+    ],
+    "dispute_nature": "criminal_forgery_ingredients",
+    "abstract_facts": "The appellant filed a private complaint alleging that the respondent, an advocate, created a forged Power of Attorney (GPA) in the name of the appellant's deceased father and attempted to transfer property. The Supreme Court examined the legal requirements for establishing the offence of forgery under Sections 463, 464, and 468 IPC, specifically holding that a charge of forgery cannot stand unless the accused is established to be the maker or author of the false document.",
+    "lower_court_outcome": "High Court set aside conviction and acquitted accused under Section 468 IPC.",
+    "disposition": "Appeals dismissed; acquittal of accused under Sections 465, 468, 471 IPC confirmed.",
+    "caveats": [
+      "Arises from an appeal against acquittal, requiring strict proof at trial; at the anticipatory bail stage, the prosecution requires a prima facie case and need for custodial investigation rather than proof beyond reasonable doubt."
+    ],
+    "treatment": {
+      "defense": "Decisive authority that charge of forgery under Section 468 cannot stand without proof that the accused himself authored or fabricated the false document under Section 464.",
+      "prosecution": "Adverse; distinguish by demonstrating prima facie material showing that accused actively participated in or procured the creation/execution of the forged document."
+    },
+    "statutes": [
+      {
+        "act": "IPC",
+        "section": "463",
+        "how_used": "interpreted",
+        "note": "Definition and basic ingredients of forgery"
+      },
+      {
+        "act": "IPC",
+        "section": "464",
+        "how_used": "interpreted",
+        "note": "Making a false document is the sine qua non for forgery"
+      },
+      {
+        "act": "IPC",
+        "section": "468",
+        "how_used": "charged",
+        "note": "Forgery for the purpose of cheating"
+      },
+      {
+        "act": "IPC",
+        "section": "471",
+        "how_used": "charged",
+        "note": "Using forged document as genuine"
+      }
+    ],
+    "issues": [
+      {
+        "question": "Can a person be convicted or charged for forgery under Section 468 IPC if he is not proved to be the maker of the false document under Section 464 IPC?",
+        "short_answer": "No. The accused must be proved to have made, signed, or executed the false document himself or caused it to be made.",
+        "anchors": ["P19", "P25", "P26"]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "Making of a false document under Section 464 IPC is the sine qua non for the offence of forgery under Section 463 and Section 468 IPC. Unless the prosecution establishes that the accused himself made or created the false document, a charge of forgery cannot be sustained.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "binding_level": "binding",
+        "quote": "The making of a false document is the sine qua non of the offence of forgery. Unless the prosecution proves that the accused forged the document or was the author of the forged document, a charge of forgery under Section 468 IPC cannot stand."
+      },
+      {
+        "id": "p2",
+        "text": "Suspicion, however grave, cannot take the place of proof in criminal law; in allegations of forged property documents, the essential statutory ingredients under Sections 464 and 465 must be strictly established.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "binding_level": "binding",
+        "quote": "It is a settled proposition of law that suspicion, however grave, cannot take the place of proof. To constitute an offence under Section 468, the essential ingredients of Section 463 must be established."
+      }
+    ]
+  }
+}

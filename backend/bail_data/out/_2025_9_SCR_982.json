@@ -18,6 +18,9 @@
     "citation_neutral": "2025 INSC 1114",
     "neutral_year": 2025,
     "citation_scr": "[2025] 9 SCR 982",
+    "canonical_citation": "Anna Waman Bhalerao v. State of Maharashtra, [2025] 9 SCR 982 : 2025 INSC 1114",
+    "source_verified": true,
+    "source_url": "https://indiankanoon.org/doc/192237837/",
     "scr_year": 2025,
     "scr_volume": 9,
     "scr_first_page": 982,
@@ -141,6 +144,13 @@
     "abstract_facts": "The case concerns anticipatory bail applications filed by appellants, former government officials, following allegations of facilitating fraudulent property mutations based on forged documents during their tenure. The events occurred between 1996-1998, but the FIR was not filed until 2019. Attempts for anticipatory bail were made at both session and High Court levels, with interim protection granted intermittently. The Supreme Court was approached after the High Court's final rejection of anticipatory bail, amid concerns of inordinate delays in the case.",
     "lower_court_outcome": "Anticipatory bail applications rejected by High Court.",
     "disposition": "Appeals dismissed.",
+    "caveats": [
+      "Supreme Court affirmed rejection of anticipatory bail where accused public servants certified mutation entries on forged powers of attorney; custodial interrogation held essential even in documentary cases to trace transaction chains."
+    ],
+    "treatment": {
+      "prosecution": "Directly supports prosecution: anticipatory bail justifiably denied in serious land forgery cases, and custodial interrogation is necessary even where evidence is primarily documentary.",
+      "defense": "Critical adverse authority (must distinguish): involved official misconduct certifying forged mutations for transfer to third parties, where accused enjoyed interim protection for years without cooperating."
+    },
     "statutes": [
       {
         "act": "Penal Code, 1860",

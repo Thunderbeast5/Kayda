@@ -14,6 +14,9 @@
     },
     "format_profile": "scr_reporter",
     "citation_scr": "[2014] 1 SCR 465",
+    "canonical_citation": "Km. Hema Mishra v. State of U.P. & Ors., [2014] 1 SCR 465 : (2014) 4 SCC 453 : 2014 INSC 57",
+    "source_verified": true,
+    "source_url": "https://indiankanoon.org/doc/157476839/",
     "scr_year": 2014,
     "scr_volume": 1,
     "scr_first_page": 465,
@@ -60,6 +63,13 @@
     "abstract_facts": "An FIR was lodged against the petitioner alleging fraud and forgery concerning the preparation of documents for appointment as an Assistant Teacher. The petitioner sought to quash the FIR and obtain pre-arrest bail through a writ petition under Article 226, after Section 438 CrPC was omitted in Uttar Pradesh. The High Court dismissed the writ petition, leading to this appeal on the jurisdiction to grant pre-arrest protection under extraordinary circumstances.",
     "lower_court_outcome": "Writ petition dismissed by High Court; interim relief declined",
     "disposition": "Appeal dismissed",
+    "caveats": [
+      "Note caveat: Decision addressed extraordinary interim protection under Article 226 in Uttar Pradesh during the historical period when Section 438 CrPC was omitted from U.P. (reinstated in 2019); does not govern standard Section 438 CrPC / BNSS 482 applications."
+    ],
+    "treatment": {
+      "prosecution": "Use to argue that extraordinary writ jurisdiction should not be routinely invoked to grant pre-arrest protection bypassing ordinary criminal procedures.",
+      "defense": "Distinguish as an Article 226 proceeding decided when Section 438 CrPC was unavailable in U.P.; inapplicable to statutory anticipatory bail applications under Section 438 CrPC / BNSS 482."
+    },
     "statutes": [
       {
         "act": "CrPC",

@@ -27,8 +27,10 @@ class DefenseAgent:
     defense_arguments (formatted in unified moot court schema)
     """
 
-    def __init__(self):
-        self.llm = get_llm(temperature=0.2)
+    def __init__(self, model: Optional[str] = None):
+        import os
+        model_name = model or os.getenv("MODEL_COURTROOM", os.getenv("MODEL_STRONG", "gpt-5.4-mini"))
+        self.llm = get_llm(temperature=0.2, model_name=model_name)
 
     def generate(
         self,
@@ -38,6 +40,7 @@ class DefenseAgent:
         evidence_inventory: list = None,
         case_facts: list = None,
         canonical_case_file: Optional[str] = None,
+        repair_instruction: Optional[str] = None,
     ) -> str:
         from agents.orchestrator.case_file import build_canonical_case_file, format_cached_messages
 
@@ -91,6 +94,13 @@ Return your response strictly as valid JSON matching this schema:
   "evidence_refs": ["fact_1", "fact_3"],
   "sections": ["IPC 324", "CrPC 438"]
 }}"""
+
+        if repair_instruction:
+            dynamic_turn_content += (
+                f"\n\nTARGETED REPAIR REQUIRED: {repair_instruction}\n"
+                "Do NOT regenerate from scratch. Keep your previous submissions and structure intact, "
+                "and repair ONLY the invalid citations flagged above."
+            )
 
         messages = format_cached_messages(case_file_block, role_instructions, dynamic_turn_content)
         response = self.llm.invoke(messages)

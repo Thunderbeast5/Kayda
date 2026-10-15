@@ -43,21 +43,56 @@ SPECIAL_ACT_WEIGHT = 1.0
 # Used ONLY if the BNSS corpus (with `replaces_CrPC`) is not loaded in StatuteRepository.
 # Each pair is confirmed by the Stage 3c output (e.g. BNSS 480 = bail in non-bailable offences).
 _FALLBACK_CRPC_TO_BNSS = {
-    "41": ["35"], "154": ["173"], "167": ["187"], "173": ["193"],
+    "41": ["35"], "41A": ["35(3)"], "82": ["84"], "83": ["85"],
+    "154": ["173"], "156": ["175"], "156(3)": ["175(3)"], "167": ["187"], "170": ["190"], "173": ["193"],
     "437": ["480"], "438": ["482"], "439": ["483"], "482": ["528"],
 }
 
-
 def detect_stage_mode(stage4_result: Optional[Dict], case_context: Optional[Dict] = None) -> str:
-    """Returns 'anticipatory', 'regular' or 'unknown' from the requested relief / procedural stage."""
-    blobs: List[str] = []
+    """
+    Returns 'anticipatory', 'regular' or 'unknown'.
+    Prioritizes structured requested_relief / relief / procedural_stage fields,
+    falling back to free-text inspection only when structured fields are absent.
+    """
+    # 1. Structured requested_relief / relief fields
     for src in (case_context or {}, stage4_result or {}):
         if not isinstance(src, dict):
             continue
-        for k in ("requested_relief", "procedural_stage", "relief", "case_type"):
+        for k in ("requested_relief", "relief"):
             v = src.get(k)
-            if isinstance(v, str):
-                blobs.append(v.lower())
+            if isinstance(v, str) and v.strip():
+                vl = v.lower()
+                if "anticipatory" in vl or "pre-arrest" in vl or "pre arrest" in vl:
+                    return "anticipatory"
+                if "regular" in vl or "post-arrest" in vl or "post arrest" in vl:
+                    return "regular"
+                if "bail" in vl:
+                    return "regular"
+
+    # 2. Structured procedural_stage or case_profile
+    for src in (case_context or {}, stage4_result or {}):
+        if not isinstance(src, dict):
+            continue
+        ps = src.get("procedural_stage")
+        if isinstance(ps, str) and ps.strip():
+            psl = ps.lower()
+            if psl in ("pre_arrest", "anticipatory", "anticipatory_cancel"):
+                return "anticipatory"
+            if psl in ("post_arrest_bail", "regular", "regular_bail"):
+                return "regular"
+        cp = src.get("case_profile")
+        if isinstance(cp, dict):
+            for k in ("requested_relief", "procedural_stage", "relief"):
+                v = cp.get(k)
+                if isinstance(v, str) and v.strip():
+                    vl = v.lower()
+                    if "anticipatory" in vl or "pre_arrest" in vl or "pre-arrest" in vl:
+                        return "anticipatory"
+                    if "regular" in vl or "post_arrest" in vl or "post-arrest" in vl:
+                        return "regular"
+
+    # 3. Fallback: free-text search in case facts / summary
+    blobs: List[str] = []
     facts = (case_context or {}).get("case_facts") if isinstance(case_context, dict) else None
     if isinstance(facts, str):
         blobs.append(facts[:600].lower())
@@ -67,6 +102,7 @@ def detect_stage_mode(stage4_result: Optional[Dict], case_context: Optional[Dict
     if "bail" in text:
         return "regular"
     return "unknown"
+
 
 
 class PrecedentStatuteMatcher:
@@ -329,13 +365,35 @@ class PrecedentStatuteMatcher:
 
             if hit_key is not None:
                 match_count += 1.0 if match_type == "exact" else 0.5
+                raw_how = str(js.get("how_used") or "").strip().lower()
+                j_sec_norm = self.normalize_section_number(j_section)
+                j_act_norm = self.normalize_act_name(j_act)
+
+                # Ensure procedural/process sections are NEVER tagged as substantive offences.
+                # Decided strictly by statute/act: if CRPC or BNSS, it is procedure.
+                if j_act_norm in ("CRPC", "BNSS") or "crpc" in j_act.lower() or "bnss" in j_act.lower():
+                    if raw_how in ("charged", ""):
+                        how_used = "procedure"
+                    else:
+                        how_used = raw_how
+                else:
+                    how_used = raw_how or "charged"
+
+                # Dual citation derived dynamically from StatuteRepository equivalents
+                eqs = [t for t in self.get_equivalent_sections(j_act_norm, j_sec_norm) if t[0] != j_act_norm]
+                if eqs:
+                    dual_cite = f"{j_act} {j_section} / {eqs[0][0]} {eqs[0][1]}"
+                else:
+                    dual_cite = f"{j_act} {j_section}"
+
                 matches.append({
                     "judgment_act": j_act,
                     "judgment_section": j_section,
                     "matched_via_act": hit_key[0],
                     "matched_via_section": hit_key[1],
                     "match_type": match_type,
-                    "how_used": js.get("how_used", ""),
+                    "how_used": how_used,
+                    "dual_citation": dual_cite,
                     "note": js.get("note", ""),
                 })
 
@@ -344,6 +402,36 @@ class PrecedentStatuteMatcher:
     # ------------------------------------------------------------------
     # Stage 4 extraction
     # ------------------------------------------------------------------
+
+    def _load_offence_inference_rules(self) -> List[Dict[str, Any]]:
+        """Load offence inference rules from external JSON data file."""
+        import os, json
+        data_path = os.path.join(os.path.dirname(__file__), "data", "offence_inference_rules.json")
+        if os.path.exists(data_path):
+            try:
+                with open(data_path, "r", encoding="utf-8") as f:
+                    return json.load(f)
+            except Exception:
+                pass
+        return [
+            {
+                "rule_id": "valuable_security_forgery_467",
+                "target_act": "IPC",
+                "target_section": "467",
+                "equivalent_section": "338",
+                "fact_trigger_all_of": [
+                    ["sale deed", "title deed", "valuable security", "conveyance", "will", "ownership document"],
+                    ["forg", "fabricat", "fraudulent", "spurious"]
+                ],
+                "negative_triggers": ["pure money recovery", "commercial contract", "goods supply", "cheque bounce"],
+                "kind": "possible_offence",
+                "source": "inferred",
+                "weight": 0.3,
+                "strength": "Possible",
+                "status": "Possible Additional Charge (Not in FIR - Inferred from Valuable Security)",
+                "note": "Inferred from allegations involving forged/fabricated sale deed or valuable security. Not an FIR charge."
+            }
+        ]
 
     def extract_statutes_from_stage4(
         self,
@@ -354,7 +442,7 @@ class PrecedentStatuteMatcher:
         Statute references for retrieval, from everything Stage 4 (and the case context) provides.
 
         Each item: {act, section, kind, weight, [source, strength, status]}
-          kind: offence | procedure | evidence | special
+          kind: offence | procedure | evidence | special | possible_offence
         """
         out: List[Dict[str, Any]] = []
         seen_equivalents: Set[Tuple[str, str]] = set()
@@ -381,6 +469,47 @@ class PrecedentStatuteMatcher:
             weight = round(weight * self.gravity(off.get("statute") or "IPC", sec_norm), 3)
             add(off.get("statute") or "IPC", sec, "offence", weight,
                 strength=off.get("overall_prima_facie_strength"), status=status)
+
+        # Check offence inference rules from external data file (e.g. valuable security / forged deed -> S.467)
+        # Note: Inferred offences carry low weight (~0.3) and kind "possible_offence" so they never appear as charged FIR offences.
+        facts_blobs = []
+        if isinstance(case_context, dict):
+            for k in ("case_facts", "factual_summary", "facts", "summary"):
+                if case_context.get(k):
+                    facts_blobs.append(str(case_context[k]))
+        if isinstance(stage4_result, dict):
+            for k in ("case_facts", "factual_summary"):
+                if stage4_result.get(k):
+                    facts_blobs.append(str(stage4_result[k]))
+        full_facts = " ".join(facts_blobs).lower()
+
+        inference_rules = self._load_offence_inference_rules()
+        for rule in inference_rules:
+            triggers_met = True
+            for kw_group in rule.get("fact_trigger_all_of", []):
+                if not any(w in full_facts for w in kw_group):
+                    triggers_met = False
+                    break
+            if triggers_met:
+                neg_triggers = rule.get("negative_triggers", [])
+                if any(neg in full_facts for neg in neg_triggers):
+                    continue
+                target_act = rule.get("target_act", "IPC")
+                target_sec = rule.get("target_section", "467")
+                eq_sec = rule.get("equivalent_section", "338")
+                if not any(s.get("section") in (target_sec, eq_sec) for s in out):
+                    add(
+                        target_act,
+                        target_sec,
+                        kind=rule.get("kind", "possible_offence"),
+                        weight=float(rule.get("weight", 0.3)),
+                        strength=rule.get("strength", "Possible"),
+                        status=rule.get("status", "Possible Additional Charge (Not in FIR - Inferred from Valuable Security)"),
+                        source=rule.get("source", "inferred"),
+                        is_inferred=True,
+                        note=rule.get("note", "")
+                    )
+
 
         # 2. Bail provision implied by the requested relief -- never depends on Stage 3c succeeding
         mode = detect_stage_mode(stage4_result, case_context)

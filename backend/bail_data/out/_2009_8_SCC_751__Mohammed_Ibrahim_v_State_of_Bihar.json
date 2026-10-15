@@ -1,0 +1,142 @@
+{
+  "case_id": "_2009_8_SCC_751",
+  "doc_meta": {
+    "source_file": "Mohammed Ibrahim v. State of Bihar.pdf",
+    "pdf_pages": 14,
+    "citation_scr": "[2009] 13 SCR 1098",
+    "citation_scc": "(2009) 8 SCC 751",
+    "canonical_citation": "Mohammed Ibrahim & Ors. v. State of Bihar & Anr., (2009) 8 SCC 751 : [2009] 13 SCR 1098 : 2009 INSC 1069",
+    "source_verified": false,
+    "source_url": "https://indiankanoon.org/doc/1500301/",
+    "decided_on": "2009-09-04",
+    "coram_raw": "R.V. RAVEENDRAN AND J.M. PANCHAL, JJ.",
+    "coram_regex": [
+      "R.V. RAVEENDRAN",
+      "J.M. PANCHAL"
+    ],
+    "bench_strength": 2,
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "court_level": "supreme_court",
+    "disposal_type": "judgment",
+    "court_regex": "Supreme Court of India",
+    "year": 2009,
+    "result_of_case": "Appeals allowed. Order taking cognizance set aside."
+  },
+  "flags": [],
+  "case": {
+    "case_name": "Mohammed Ibrahim & Ors. v. State of Bihar & Anr.",
+    "petitioner": "Mohammed Ibrahim & Ors.",
+    "respondent": "State of Bihar & Anr.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "R.V. Raveendran",
+      "J.M. Panchal"
+    ],
+    "judgment_author": "R.V. Raveendran",
+    "procedural_stage": "quashing",
+    "offence_types": [
+      "forgery",
+      "cheating",
+      "property_dispute"
+    ],
+    "dispute_nature": "civil_property_title",
+    "abstract_facts": "The first appellant executed two registered sale deeds in favor of second and third appellants in respect of a parcel of land. The complainant alleged that the land belonged to him and that the first appellant, having no title, executed fraudulent sale deeds asserting ownership. A complaint was filed for offences under Sections 420, 467, 471, and 504 IPC. The Supreme Court examined whether executing a sale deed conveying property not belonging to the executant constitutes making a false document under Section 464 IPC, cheating under Section 420 IPC, or forgery under Sections 467/471 IPC.",
+    "lower_court_outcome": "High Court dismissed petition under Section 482 CrPC seeking quashing of order taking cognizance.",
+    "disposition": "Appeals allowed. Order taking cognizance under Sections 420, 467, 471 IPC quashed.",
+    "caveats": [
+      "Distinguishable if the accused is alleged to have forged another person's signature, impersonated the true owner, or altered an existing document under Section 464(1); Mohammed Ibrahim protects the executant who signs in his own name asserting ownership."
+    ],
+    "treatment": {
+      "defense": "Primary defense authority: executing a deed conveying land without title does not constitute a false document under Section 464, negating Sections 467/468/471; civil property dispute cannot be converted into criminal cheating under Section 420.",
+      "prosecution": "Adverse defense authority; distinguish by proving actual document fabrication, forged signature, or false impersonation under Section 464(1)."
+    },
+    "statutes": [
+      {
+        "act": "IPC",
+        "section": "420",
+        "how_used": "charged",
+        "note": "Ingredients of cheating analyzed in property conveyance dispute"
+      },
+      {
+        "act": "IPC",
+        "section": "464",
+        "how_used": "interpreted",
+        "note": "Definition of making a false document interpreted strictly"
+      },
+      {
+        "act": "IPC",
+        "section": "467",
+        "how_used": "charged",
+        "note": "Forgery of valuable security (sale deed)"
+      },
+      {
+        "act": "IPC",
+        "section": "468",
+        "how_used": "charged",
+        "note": "Forgery for cheating"
+      },
+      {
+        "act": "IPC",
+        "section": "471",
+        "how_used": "charged",
+        "note": "Using forged document as genuine"
+      },
+      {
+        "act": "CrPC 1973",
+        "section": "482",
+        "how_used": "procedure",
+        "note": "Quashing of criminal proceedings in civil title dispute"
+      }
+    ],
+    "issues": [
+      {
+        "question": "Whether a person who executes a sale deed conveying property claiming to be the owner, knowing he is not the owner, makes a 'false document' under Section 464 IPC?",
+        "short_answer": "No. Unless he signs as someone else or impersonates another, he does not make a false document.",
+        "anchors": ["P13", "P14", "P15"]
+      },
+      {
+        "question": "Whether executing a sale deed over another person's land without title constitutes offences of forgery under Sections 467 and 471 IPC?",
+        "short_answer": "No. When no false document is made under Section 464, charges of forgery under Sections 467 and 471 cannot stand.",
+        "anchors": ["P16", "P17"]
+      },
+      {
+        "question": "Whether a dispute over ownership and title to immovable property can be converted into criminal cheating under Section 420 IPC?",
+        "short_answer": "No. A civil dispute regarding title cannot be converted into a criminal prosecution where ingredients of deception and fraudulent inducement are absent.",
+        "anchors": ["P18", "P19", "P20"]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "When a person executes a document conveying property asserting that he is the owner thereof, knowing that he is not, he does not make a false document under Section 464 IPC, as he does not impersonate another or sign in another's name. Selling property one does not own does not constitute forgery.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "binding_level": "binding",
+        "quote": "When a document is executed by a person claiming a property which is not his, he is not claiming that he is someone else nor is he claiming that he is authorised by someone else. Therefore, execution of such document (purporting to convey some property of which he is not the owner) is not execution of a false document as defined under section 464 of the Code."
+      },
+      {
+        "id": "p2",
+        "text": "Unless a false document is made as defined under Section 464 IPC, offences of forgery under Section 463 and aggravated forgery under Sections 467 and 471 IPC cannot be sustained.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "binding_level": "binding",
+        "quote": "If what is executed is not a false document, there is no forgery. If there is no forgery, then neither section 467 nor section 471 of the Code are attracted."
+      },
+      {
+        "id": "p3",
+        "text": "Where a dispute is fundamentally a civil dispute over title to immovable property, the complainant cannot invoke the criminal process under Section 420 IPC to exert pressure on the accused.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "binding_level": "binding",
+        "quote": "There is a growing tendency in business circles to convert purely civil disputes into criminal cases. This is obviously on account of a prevalent impression that civil law remedies are time consuming and do not adequately protect the interests of lenders/creditors."
+      }
+    ]
+  }
+}

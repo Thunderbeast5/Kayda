@@ -36,7 +36,7 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID || "",
 };
 
-const isConfigured = !!(firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.storageBucket);
+export const isConfigured = !!(firebaseConfig.apiKey && firebaseConfig.projectId && firebaseConfig.storageBucket);
 
 let app = null;
 let storage = null;
@@ -163,7 +163,11 @@ export async function getUserProfile(uid) {
  * Subscribe to auth state changes.
  */
 export function subscribeToAuth(callback) {
-  if (!auth) return () => {};
+  if (!auth) {
+    // Notify subscriber immediately that there is no authenticated user so authLoading resolves
+    setTimeout(() => callback(null), 0);
+    return () => {};
+  }
   return onAuthStateChanged(auth, callback);
 }
 

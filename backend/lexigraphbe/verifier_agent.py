@@ -8,7 +8,7 @@ import json
 from typing import Any, Dict, Optional, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm, MODEL_STAGE0
+from .config import extract_json_from_text, get_llm, MODEL_VERIFIER
 from .prompts import STAGE0_VERIFIER_SYSTEM_PROMPT, STAGE0_VERIFIER_USER_PROMPT_TEMPLATE
 from .schemas import CaseProfile, VerificationIssue, VerificationResult
 
@@ -16,7 +16,7 @@ from .schemas import CaseProfile, VerificationIssue, VerificationResult
 class CaseIntakeVerifierAgent:
     """
     Verifier Agent auditing CaseProfile against raw case document text.
-    Model: gpt-4o-mini (MODEL_STAGE0) — lightweight verification checks.
+    Model: MODEL_VERIFIER (cheaper model for schema / consistency checks).
     """
 
     def __init__(self, llm: Optional[Any] = None):
@@ -25,7 +25,7 @@ class CaseIntakeVerifierAgent:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm(temperature=0.0, model_name=MODEL_STAGE0)
+            self._llm = get_llm(temperature=0.0, model_name=MODEL_VERIFIER)
         return self._llm
 
     def verify(

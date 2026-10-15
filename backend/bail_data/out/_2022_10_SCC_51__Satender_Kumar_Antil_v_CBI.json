@@ -1,0 +1,131 @@
+{
+  "case_id": "_2022_10_SCC_51",
+  "doc_meta": {
+    "source_file": "Satender Kumar Antil v. CBI.pdf",
+    "pdf_pages": 45,
+    "citation_scr": "[2022] 10 SCR 351",
+    "citation_scc": "(2022) 10 SCC 51",
+    "canonical_citation": "Satender Kumar Antil v. Central Bureau of Investigation & Anr., (2022) 10 SCC 51 : [2022] 10 SCR 351 : 2022 INSC 690",
+    "source_verified": false,
+    "source_url": "https://indiankanoon.org/doc/81228542/",
+    "decided_on": "2022-07-11",
+    "coram_raw": "SANJAY KISHAN KAUL AND M.M. SUNDRESH, JJ.",
+    "coram_regex": [
+      "SANJAY KISHAN KAUL",
+      "M.M. SUNDRESH"
+    ],
+    "bench_strength": 2,
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "court_level": "supreme_court",
+    "disposal_type": "judgment",
+    "court_regex": "Supreme Court of India",
+    "year": 2022,
+    "result_of_case": "Directions and guidelines issued on bail categorization and non-custodial release."
+  },
+  "flags": [],
+  "case": {
+    "case_name": "Satender Kumar Antil v. Central Bureau of Investigation & Anr.",
+    "petitioner": "Satender Kumar Antil",
+    "respondent": "Central Bureau of Investigation & Anr.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "Sanjay Kishan Kaul",
+      "M.M. Sundresh"
+    ],
+    "judgment_author": "M.M. Sundresh",
+    "procedural_stage": "pre_arrest",
+    "offence_types": [
+      "bail_guidelines",
+      "anticipatory_bail",
+      "statutory_categorization"
+    ],
+    "dispute_nature": "constitutional_liberty_bail",
+    "abstract_facts": "The Supreme Court formulated comprehensive, binding guidelines categorizing criminal offences into four distinct categories (A, B, C, D) for the grant of regular and anticipatory bail. The judgment emphasized that arrest is a draconian power, personal liberty under Article 21 is paramount, and anticipatory bail applications must be decided expeditiously within six weeks.",
+    "lower_court_outcome": "Directions issued to High Courts, State Governments, and investigating agencies.",
+    "disposition": "Appeals disposed of with nationwide directions on bail and arrest guidelines.",
+    "caveats": [
+      "Category B offences (punishable with death, imprisonment for life, e.g. Section 467 IPC) and Category D offences (economic offences) are not governed by automatic non-custodial release on summons; bail is decided strictly on merits."
+    ],
+    "treatment": {
+      "defense": "Core authority for non-custodial bail in Category A offences (IPC 420/468), strict enforcement of Section 41A, and expedition of anticipatory bail within 6-week timeline under Article 21.",
+      "prosecution": "Argue that if aggravated forgery of valuable security under Section 467 IPC is attracted, the matter falls under Category B where bail is strictly evaluated on merits, or under Category D (economic offences)."
+    },
+    "statutes": [
+      {
+        "act": "CrPC 1973",
+        "section": "438",
+        "how_used": "procedure",
+        "note": "Anticipatory bail applications to be disposed of within six weeks"
+      },
+      {
+        "act": "CrPC 1973",
+        "section": "41A",
+        "how_used": "procedure",
+        "note": "Strict compliance with Section 41A mandated"
+      },
+      {
+        "act": "CrPC 1973",
+        "section": "170",
+        "how_used": "procedure",
+        "note": "Custody not necessary while presenting chargesheet if accused cooperated"
+      },
+      {
+        "act": "IPC",
+        "section": "420",
+        "how_used": "discussed",
+        "note": "Category A offence (punishable up to 7 years)"
+      },
+      {
+        "act": "IPC",
+        "section": "467",
+        "how_used": "discussed",
+        "note": "Category B offence (punishable with life imprisonment)"
+      }
+    ],
+    "issues": [
+      {
+        "question": "How are offences to be categorized for the purpose of granting bail and anticipatory bail?",
+        "short_answer": "Category A: <= 7 years; Category B: death/life imprisonment (e.g. S.467 IPC); Category C: Special Acts; Category D: Economic offences.",
+        "anchors": ["P25", "P65", "P100"]
+      },
+      {
+        "question": "What is the expected timeline for disposing of anticipatory bail applications?",
+        "short_answer": "Anticipatory bail applications are expected to be disposed of within a period of six weeks.",
+        "anchors": ["P100"]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "For Category A offences punishable with imprisonment up to 7 years, bail should ordinarily be granted without taking the accused into custody if the accused cooperated during investigation and appeared on summons.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "binding_level": "binding",
+        "quote": "Bail applications ought to be disposed of within a period of two weeks... Applications for anticipatory bail are expected to be disposed of within a period of six weeks."
+      },
+      {
+        "id": "p2",
+        "text": "For Category B offences carrying punishment of imprisonment for life (such as Section 467 IPC), applications for bail are to be dealt with on merits on appearance, balancing the gravity of the offence with personal liberty.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "binding_level": "binding",
+        "quote": "Category B: Offences punishable with death, imprisonment for life, or imprisonment for more than 7 years. On appearance of the accused in Court pursuant to process issued, bail applications to be dealt with on merits."
+      },
+      {
+        "id": "p3",
+        "text": "Arrest is a draconian measure which should not be used casually; courts must remember that personal liberty under Article 21 is a constitutional rule and incarceration is the exception.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "binding_level": "binding",
+        "quote": "The rate of conviction in our country is abysmally low. It appears to us that this factor weighs on the mind of the Court while deciding bail applications in a negative sense... Incarceration is an exception."
+      }
+    ]
+  }
+}

@@ -1,0 +1,84 @@
+[
+  {
+    "id": "case_1_srikant_absconding",
+    "name": "Case 1: Proclaimed Offender / Srikant Absconding",
+    "facts_text": "Non-bailable warrant (NBW) was issued against the applicants on 03.11.2022 in relation to FIR registered under Sections 302 and 120B IPC. The NBW could not be executed as the applicants evaded service and failed to appear before the learned Magistrate. Consequently, proclamation under Section 82 CrPC was issued on 15.12.2022. The applicants have not surrendered before the court nor joined the investigation. They now seek anticipatory bail.",
+    "expected_sections": ["302", "120B"],
+    "expected_bail_outcome": "DENIED",
+    "expected_bail_grounds": [
+      "Proclamation under Section 82 CrPC issued",
+      "Absconding accused / evaded execution of NBW",
+      "Gravity of heinous offence under Section 302 IPC",
+      "Failure to join investigation"
+    ],
+    "expected_precedents": [
+      "Srikant Upadhyay v. State of Bihar, 2024 INSC 202"
+    ],
+    "high_stakes": true
+  },
+  {
+    "id": "case_2_vague_fir_cooperating",
+    "name": "Case 2: Vague FIR with Cooperating Applicant",
+    "facts_text": "Applicant has cooperated fully with the investigating agency and appeared on every date of inquiry. The FIR alleges cheating under Section 420 IPC, but the complaint is vague and contains no specific role or overt act attributed to the applicant. No recovery of any incriminating material or property has been made from the applicant. The applicant has clean antecedents, fixed place of abode, and is gainfully employed.",
+    "expected_sections": ["420"],
+    "expected_bail_outcome": "GRANTED",
+    "expected_bail_grounds": [
+      "Cooperation with investigating agency",
+      "Vague and omnibus allegations in FIR without specific overt act",
+      "No recovery pending from the applicant",
+      "Clean criminal antecedents and no flight risk"
+    ],
+    "expected_precedents": [
+      "Gurbaksh Singh Sibbia v. State of Punjab, (1980) 2 SCC 565"
+    ],
+    "high_stakes": false
+  },
+  {
+    "id": "case_3_bare_application",
+    "name": "Case 3: Bare Application with No Facts",
+    "facts_text": "Application for anticipatory bail filed by applicant stating apprehension of arrest. No FIR number, police station, specific offence, dates, or allegations are provided in the petition.",
+    "expected_sections": [],
+    "expected_bail_outcome": "NO_OPINION",
+    "expected_bail_grounds": [
+      "Insufficient factual material on record",
+      "Absence of FIR details or specific apprehension"
+    ],
+    "expected_precedents": [],
+    "high_stakes": false
+  },
+  {
+    "id": "case_4_motorcycle_theft",
+    "name": "Case 4: Motorcycle Theft (IPC 379)",
+    "facts_text": "Accused is alleged to have broken the lock of a Hero Splendor motorcycle in a metro parking lot and ridden away with it, leading to registration of FIR under Section 379 IPC. The offence carries maximum imprisonment of up to 3 years. The vehicle has already been recovered by the police. The accused has clean antecedents, is ready to cooperate, and invokes statutory protection under Section 41A CrPC.",
+    "expected_sections": ["379"],
+    "expected_bail_outcome": "GRANTED",
+    "expected_bail_grounds": [
+      "Punishment is 3 years, strictly below 7-year threshold",
+      "Arnesh Kumar notice under Section 41A CrPC protection",
+      "Vehicle already recovered, eliminating need for custodial interrogation",
+      "Clean criminal record and deep roots in society"
+    ],
+    "expected_precedents": [
+      "Arnesh Kumar v. State of Bihar, (2014) 8 SCC 273"
+    ],
+    "high_stakes": false
+  },
+  {
+    "id": "case_5_corporate_cheating",
+    "name": "Case 5: Corporate Cheating / Forgery (IPC 420 & 468)",
+    "facts_text": "FIR lodged by employer company under Sections 420 and 468 IPC alleging that the accused submitted forged degree credentials and fake prior work experience letters to obtain an executive appointment and signing bonus. The alleged forged documents and electronic emails are already seized and in possession of the employer and police. Accused has no prior criminal history and undertakes to deposit passport.",
+    "expected_sections": ["420", "468"],
+    "expected_bail_outcome": "GRANTED",
+    "expected_bail_grounds": [
+      "Entire case rests on documentary evidence already seized",
+      "No custodial interrogation required to recover documents",
+      "Ready to surrender passport and cooperate fully with investigation",
+      "Sanjay Chandra principles on pre-trial incarceration applied"
+    ],
+    "expected_precedents": [
+      "Sanjay Chandra v. CBI, (2012) 1 SCC 40",
+      "Arnesh Kumar v. State of Bihar, (2014) 8 SCC 273"
+    ],
+    "high_stakes": true
+  }
+]

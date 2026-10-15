@@ -136,7 +136,7 @@ Return ONLY valid JSON matching:
 }}
 
 Input JSON:
-{json.dumps(qu_input, indent=2)}
+{json.dumps(qu_input, separators=(",", ":"))}
 """
 
         try:

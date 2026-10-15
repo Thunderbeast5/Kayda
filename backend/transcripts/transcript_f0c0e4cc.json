@@ -1,0 +1,318 @@
+{
+  "session_id": "f0c0e4cc",
+  "case_id": "C:\\proj\\MootCourt\\backend\\data\\2007 INSC 272.pdf",
+  "round_no": 1,
+  "max_rounds": 2,
+  "case_facts": [
+    {
+      "id": "fact_1",
+      "text": "The U.P. Road Transport Corporation is the appellant in the case and the respondent is the U.P. Rajya Sadak Parivahan Karamchari Union, a trade union of the Corporation's employees.",
+      "source": "paras 2-3",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_2",
+      "text": "The Union filed an application before the Labour Court, Dehradun under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.",
+      "source": "para 3",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_3",
+      "text": "The application sought a declaration that 15 persons appointed on contract basis as drivers and conductors be treated as regular and substantive workmen of the Corporation with consequential benefits.",
+      "source": "para 3",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_4",
+      "text": "The Labour Court, Dehradun allowed the application by order dated 19 September 2001.",
+      "source": "para 4",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_5",
+      "text": "The Labour Court directed that the concerned workmen be given the minimum wages admissible to regular employees in the pay scales of drivers and conductors.",
+      "source": "para 4",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_6",
+      "text": "The Labour Court held that the concerned workmen were employees of the Corporation.",
+      "source": "para 4",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_7",
+      "text": "It was not disputed that the concerned workmen were appointed on contract basis.",
+      "source": "para 5",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_8",
+      "text": "The Corporation contended before the Labour Court that Rule 2 of the U.P.S.R.T.C. Employees (Other than Officers) Service Regulations, 1981 does not apply to employees working on contract basis.",
+      "source": "para 5",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_9",
+      "text": "Persons working on contract basis had earlier filed Writ Petition No. 41349 of 1999, Kanchi Lal and Others v. U.P.S.R.T.C., before the Allahabad High Court seeking the same benefits as regular employees, but that writ petition was dismissed.",
+      "source": "para 5",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_10",
+      "text": "The Corporation's objection was rejected by the Labour Court, and its subsequent writ petition before the High Court was dismissed by the impugned judgment.",
+      "source": "para 5",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_11",
+      "text": "The Corporation argued that the workmen had not been selected through the process required for regular appointment and therefore could not be granted the minimum pay scales of regular employees.",
+      "source": "para 6",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_12",
+      "text": "The Corporation also argued that the Labour Court acted beyond its jurisdiction because Section 11-C permits only interpretation and application of a standing order and not grant of substantive relief.",
+      "source": "para 6",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_13",
+      "text": "The Supreme Court held that the scope of Section 11-C of the U.P. Industrial Disputes Act is much narrower than a regular reference under Section 10 of the Industrial Disputes Act or Section 4-K of the U.P. Industrial Disputes Act.",
+      "source": "paras 7, 10, 13",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_14",
+      "text": "The Supreme Court held that the Labour Court could not have granted the relief granted in the order dated 19 September 2001 because such relief could only be granted on a regular reference under Section 4-K of the U.P. Industrial Disputes Act or Section 10 of the Industrial Disputes Act.",
+      "source": "para 11",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_15",
+      "text": "The Supreme Court held that the Labour Court's order did not refer to any standing order of the appellant and instead referred to Rule 2 of the 1981 Regulations, which states that the Regulations do not apply to employees engaged on contract basis.",
+      "source": "para 12",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_16",
+      "text": "The Supreme Court held that the Labour Court cannot amend the Regulations while hearing an application under Section 11-C.",
+      "source": "para 12",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_17",
+      "text": "The Supreme Court allowed the appeals, set aside the High Court judgment and the Labour Court order dated 19 September 2001, and left it open to the workmen to raise their grievances under Section 4-K of the U.P. Industrial Disputes Act or Section 10 of the Industrial Disputes Act.",
+      "source": "para 14",
+      "type": "court_finding"
+    }
+  ],
+  "evidence_inventory": [
+    {
+      "item": "labour_court_application",
+      "status": "present",
+      "details": "The Union's application under Section 11-C of the U.P. Industrial Disputes Act and Section 13-A of the Standing Orders Act is part of the record."
+    },
+    {
+      "item": "labour_court_order_19_09_2001",
+      "status": "present",
+      "details": "The Labour Court, Dehradun passed an order dated 19 September 2001 allowing the Union's application."
+    },
+    {
+      "item": "high_court_judgment_06_09_2005",
+      "status": "present",
+      "details": "The Uttaranchal High Court judgment dated 6 September 2005 dismissing the Corporation's writ petition is on record."
+    },
+    {
+      "item": "supreme_court_judgment",
+      "status": "present",
+      "details": "The Supreme Court's appellate judgment allowing the appeals and setting aside the lower orders is on record."
+    },
+    {
+      "item": "service_regulations_1981",
+      "status": "present",
+      "details": "The U.P.S.R.T.C. Employees (Other than Officers) Service Regulations, 1981 are discussed, including Rule 2 excluding contract workers."
+    },
+    {
+      "item": "standing_order_or_service_rule_text",
+      "status": "not_on_record",
+      "details": "No certified standing order text is reproduced in full in the record."
+    },
+    {
+      "item": "contract_appointment_records",
+      "status": "not_on_record",
+      "details": "The record states that the 15 workers were appointed on contract basis, but the individual appointment orders are not produced."
+    },
+    {
+      "item": "annexed_chart_of_15_workers",
+      "status": "not_on_record",
+      "details": "The judgment refers to an annexed chart of 15 drivers and conductors, but the chart itself is not reproduced."
+    },
+    {
+      "item": "selection_process_documents",
+      "status": "not_on_record",
+      "details": "No documents showing selection for regular appointment are produced in the record."
+    },
+    {
+      "item": "writ_petition_no_41349_1999",
+      "status": "present",
+      "details": "The judgment notes an earlier writ petition, Kanchi Lal and Others v. U.P.S.R.T.C., which was dismissed by the Allahabad High Court."
+    },
+    {
+      "item": "medical_report",
+      "status": "not_on_record",
+      "details": "This is a labour-law dispute and no medical or injury report appears in the record."
+    },
+    {
+      "item": "eyewitness_statements",
+      "status": "not_on_record",
+      "details": "No eyewitness testimony or witness statements are described in the record."
+    }
+  ],
+  "transcript": [
+    {
+      "turn_no": 1,
+      "speaker": "prosecutor",
+      "round_no": 1,
+      "content": "### Legal Theory\nMay it please the Court. I appear for the prosecution.\n\n### Submissions\n1. That is a substantive service-rights adjudication, not a narrow interpretative exercise. The Corporation specifically objected that Section 11-C permits only interpretation and application of a standing order, not grant of substantive relief [fact_12]. That objection was wrongly rejected.\n2. The employees concerned were appointed on contract basis, not through the process required for regular appointment [fact_11]. If they were not selected in the manner prescribed for regular recruitment, the Labour Court could not confer regular status or minimum pay scales equivalent to regular employees merely by declaration.\n3. The present proceeding is therefore an indirect attempt to achieve through the Labour Court what could not be obtained in writ jurisdiction.\n4. A court cannot confer regularization where the legal framework does not permit it, especially when the claim is founded on contract engagement and not lawful regular recruitment.\n5. - Section 11-C proceedings are limited in scope [fact_12];\n- contractual appointees do not acquire regular status by default [fact_8];\n- absence of regular selection is fatal to the claim for regular pay and substantive appointment [fact_11];\n- prior rejection of identical claims reinforces the Corporation’s stand [fact_9].\n6. If you want, I can now convert this into a **short oral submission for court**, or a **written memo with issues, arguments, and prayer**.\n\n### Evidence References\n- **[fact_2]**: The Union filed an application before the Labour Court, Dehradun under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n- **[fact_3]**: The application sought a declaration that 15 persons appointed on contract basis as drivers and conductors be treated as regular and substantive workmen of the Corporation with consequential benefits.\n- **[fact_12]**: The Corporation also argued that the Labour Court acted beyond its jurisdiction because Section 11-C permits only interpretation and application of a standing order and not grant of substantive relief.\n- **[fact_8]**: The Corporation contended before the Labour Court that Rule 2 of the U.P.S.R.T.C. Employees (Other than Officers) Service Regulations, 1981 does not apply to employees working on contract basis.\n- **[fact_11]**: The Corporation argued that the workmen had not been selected through the process required for regular appointment and therefore could not be granted the minimum pay scales of regular employees.\n- **[fact_9]**: Persons working on contract basis had earlier filed Writ Petition No. 41349 of 1999, Kanchi Lal and Others v. U.P.S.R.T.C., before the Allahabad High Court seeking the same benefits as regular employees, but that writ petition was dismissed.\n- **[fact_4]**: The Labour Court, Dehradun allowed the application by order dated 19 September 2001.\n- **[fact_10]**: The Corporation's objection was rejected by the Labour Court, and its subsequent writ petition before the High Court was dismissed by the impugned judgment.\n- **[fact_1]**: The U.P. Road Transport Corporation is the appellant in the case and the respondent is the U.P. Rajya Sadak Parivahan Karamchari Union, a trade union of the Corporation's employees.\n\n### Statutory Provisions\n- IPC 11\n- IPC 13",
+      "citations": [
+        "IPC 11",
+        "IPC 13"
+      ],
+      "evidence_refs": [
+        "fact_12",
+        "fact_11",
+        "fact_8",
+        "fact_9",
+        "fact_2",
+        "fact_3",
+        "fact_4",
+        "fact_10",
+        "fact_1"
+      ],
+      "structured_argument": {
+        "theory": "May it please the Court. I appear for the prosecution.",
+        "arguments": [
+          "That is a substantive service-rights adjudication, not a narrow interpretative exercise. The Corporation specifically objected that Section 11-C permits only interpretation and application of a standing order, not grant of substantive relief [fact_12]. That objection was wrongly rejected.",
+          "The employees concerned were appointed on contract basis, not through the process required for regular appointment [fact_11]. If they were not selected in the manner prescribed for regular recruitment, the Labour Court could not confer regular status or minimum pay scales equivalent to regular employees merely by declaration.",
+          "The present proceeding is therefore an indirect attempt to achieve through the Labour Court what could not be obtained in writ jurisdiction.",
+          "A court cannot confer regularization where the legal framework does not permit it, especially when the claim is founded on contract engagement and not lawful regular recruitment.",
+          "- Section 11-C proceedings are limited in scope [fact_12];",
+          "- contractual appointees do not acquire regular status by default [fact_8];",
+          "- absence of regular selection is fatal to the claim for regular pay and substantive appointment [fact_11];",
+          "- prior rejection of identical claims reinforces the Corporation’s stand [fact_9].",
+          "If you want, I can now convert this into a **short oral submission for court**, or a **written memo with issues, arguments, and prayer**."
+        ],
+        "evidence_refs": [
+          "fact_12",
+          "fact_11",
+          "fact_8",
+          "fact_9",
+          "fact_2",
+          "fact_3",
+          "fact_4",
+          "fact_10",
+          "fact_1"
+        ],
+        "sections": [
+          "IPC 11",
+          "IPC 13"
+        ]
+      },
+      "grounded": false,
+      "unverified": []
+    },
+    {
+      "turn_no": 2,
+      "speaker": "defense",
+      "round_no": 1,
+      "content": "### Legal Theory\nThe Labour Court and High Court travelled beyond the limited scope of Section 11-C proceedings; the claim for regular status and consequential pay requires a proper reference under the Industrial Disputes framework, not an indirect grant through interpretation proceedings.\n\n### Submissions\n1. The Corporation’s core objection was jurisdictional: it specifically pleaded that Section 11-C permits only interpretation and application of a standing order, not grant of substantive relief [fact_12]. The Supreme Court ultimately accepted this limitation and held that the Labour Court could not grant the relief of regular status and minimum pay scales in such proceedings [fact_13] [fact_14].\n2. The record before the court does not contain the underlying standing order text or any complete material showing how a specific standing order was being interpreted; instead, the Labour Court relied on Rule 2 of the 1981 Regulations, which itself excludes contract employees [fact_15] [fact_16]. On this record, the Labour Court’s approach was not a true Section 11-C exercise but an impermissible modification of service conditions.\n3. The workmen were admittedly appointed on contract basis [fact_7], and the Corporation’s case was that they were not selected through the process required for regular appointment [fact_11]. Even taking the Union’s case at its highest [fact_2] [fact_3], the absence of regular recruitment cannot, by itself, establish entitlement to substantive status or regular pay scales; the Supreme Court held that such relief, if at all, could only be pursued through a regular reference under Section 4-K of the U.P. Industrial Disputes Act or Section 10 of the Industrial Disputes Act [fact_14] [fact_17].\n\n### Evidence References\n- **[fact_1]**: The U.P. Road Transport Corporation is the appellant in the case and the respondent is the U.P. Rajya Sadak Parivahan Karamchari Union, a trade union of the Corporation's employees.\n- **[fact_2]**: The Union filed an application before the Labour Court, Dehradun under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n- **[fact_3]**: The application sought a declaration that 15 persons appointed on contract basis as drivers and conductors be treated as regular and substantive workmen of the Corporation with consequential benefits.\n- **[fact_7]**\n- **[fact_11]**: The Corporation argued that the workmen had not been selected through the process required for regular appointment and therefore could not be granted the minimum pay scales of regular employees.\n- **[fact_12]**: The Corporation also argued that the Labour Court acted beyond its jurisdiction because Section 11-C permits only interpretation and application of a standing order and not grant of substantive relief.\n- **[fact_13]**\n- **[fact_14]**\n- **[fact_15]**\n- **[fact_16]**\n- **[fact_17]**\n\n### Statutory Provisions\n- U.P. Industrial Disputes Act, 1947 11-C\n- Industrial Employment (Standing Orders) Act, 1946 13-A\n- U.P. Industrial Disputes Act, 1947 4-K\n- Industrial Disputes Act, 1947 10",
+      "citations": [
+        "IPC 11",
+        "IPC 4",
+        "IPC 10",
+        "IPC 13"
+      ],
+      "evidence_refs": [
+        "fact_12",
+        "fact_13",
+        "fact_14",
+        "fact_15",
+        "fact_16",
+        "fact_7",
+        "fact_11",
+        "fact_2",
+        "fact_3",
+        "fact_17",
+        "fact_1"
+      ],
+      "structured_argument": {
+        "theory": "The Labour Court and High Court travelled beyond the limited scope of Section 11-C proceedings; the claim for regular status and consequential pay requires a proper reference under the Industrial Disputes framework, not an indirect grant through interpretation proceedings.",
+        "arguments": [
+          "The Corporation’s core objection was jurisdictional: it specifically pleaded that Section 11-C permits only interpretation and application of a standing order, not grant of substantive relief [fact_12]. The Supreme Court ultimately accepted this limitation and held that the Labour Court could not grant the relief of regular status and minimum pay scales in such proceedings [fact_13] [fact_14].",
+          "The record before the court does not contain the underlying standing order text or any complete material showing how a specific standing order was being interpreted; instead, the Labour Court relied on Rule 2 of the 1981 Regulations, which itself excludes contract employees [fact_15] [fact_16]. On this record, the Labour Court’s approach was not a true Section 11-C exercise but an impermissible modification of service conditions.",
+          "The workmen were admittedly appointed on contract basis [fact_7], and the Corporation’s case was that they were not selected through the process required for regular appointment [fact_11]. Even taking the Union’s case at its highest [fact_2] [fact_3], the absence of regular recruitment cannot, by itself, establish entitlement to substantive status or regular pay scales; the Supreme Court held that such relief, if at all, could only be pursued through a regular reference under Section 4-K of the U.P. Industrial Disputes Act or Section 10 of the Industrial Disputes Act [fact_14] [fact_17]."
+        ],
+        "evidence_refs": [
+          "fact_12",
+          "fact_13",
+          "fact_14",
+          "fact_15",
+          "fact_16",
+          "fact_7",
+          "fact_11",
+          "fact_2",
+          "fact_3",
+          "fact_17",
+          "fact_1"
+        ],
+        "sections": [
+          "IPC 11",
+          "IPC 4",
+          "IPC 10",
+          "IPC 13"
+        ]
+      },
+      "grounded": true,
+      "unverified": []
+    }
+  ],
+  "judge_scores": {
+    "prosecution": {
+      "legal_validity": 6,
+      "evidence_linkage": 8,
+      "logic_coherence": 7,
+      "total": 21.0,
+      "average": 7.0
+    },
+    "defense": {
+      "legal_validity": 9,
+      "evidence_linkage": 9,
+      "logic_coherence": 8,
+      "total": 26.0,
+      "average": 8.67
+    },
+    "overall": 7.83
+  },
+  "verdict": {
+    "decision": "NO_OPINION",
+    "confidence": "low",
+    "confidence_label": "low",
+    "agreement_rate": 0.5,
+    "valid_votes": 4,
+    "total_votes": 5,
+    "agree_count": 2,
+    "laws_applied": [],
+    "statutes": [],
+    "precedents": [],
+    "holdings_relied": [],
+    "reasoning": "Judge split: {'GRANTED': 2, 'DENIED': 2}. No majority outcome (< 60% agreement).",
+    "factors": [],
+    "open_questions": [],
+    "vote_tally": {
+      "GRANTED": 2,
+      "DENIED": 2
+    }
+  },
+  "errors": []
+}

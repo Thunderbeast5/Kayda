@@ -10,7 +10,7 @@ import json
 from typing import Any, Dict, Optional, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm, MODEL_STAGE1
+from .config import extract_json_from_text, get_llm, MODEL_VERIFIER
 from .prompts import STAGE1_QUERY_VERIFICATION_SYSTEM_PROMPT, STAGE1_QUERY_VERIFICATION_USER_PROMPT_TEMPLATE
 from .schemas import CaseContextObject, CaseProfile, LegalQueryObject, QueryVerificationIssue, QueryVerificationResult
 from .section_matcher import ClosedSetSectionAuditor
@@ -21,17 +21,19 @@ class QueryVerificationAgent:
     Verifier Agent auditing LegalQueryObject against source facts before passing to Stage 2.
     Uses closed-set section matching to accurately detect section leaks while preventing false-positives.
     Short-circuits on programmatic violations to eliminate unnecessary LLM calls.
-    Model: gpt-4o-mini (MODEL_STAGE1) — inherits primary stage model.
+    Model: MODEL_VERIFIER (cheaper model for schema / consistency checks).
     """
 
-    def __init__(self, llm: Optional[Any] = None):
+    def __init__(self, llm: Optional[Any] = None, force_llm_verifier: bool = False):
+        import os
         self._llm = llm
         self.section_auditor = ClosedSetSectionAuditor()
+        self.force_llm_verifier = force_llm_verifier or (os.getenv("FORCE_STAGE1_LLM_VERIFIER", "false").lower() == "true")
 
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm(temperature=0.0, model_name=MODEL_STAGE1)
+            self._llm = get_llm(temperature=0.0, model_name=MODEL_VERIFIER)
         return self._llm
 
     def verify(
@@ -95,7 +97,32 @@ class QueryVerificationAgent:
                 verified_query_object=None,
             )
 
-        # Step 2: Fall back to LLM Verifier only when programmatic checks pass clean
+        # ----------------------------------------------------------------------
+        # PROGRAMMATIC CHECK 2: Hard Contract schema & completeness audit (Item 10)
+        # ----------------------------------------------------------------------
+        programmatic_flags = []
+        if len(query_obj.sub_queries) == 0:
+            programmatic_flags.append(QueryVerificationIssue(target="sub_queries", issue="No sub-queries generated", feedback="Generate at least 1 sub-query."))
+        if len(query_obj.legal_concepts) == 0:
+            programmatic_flags.append(QueryVerificationIssue(target="legal_concepts", issue="No legal concepts extracted", feedback="Extract at least 1 legal concept."))
+        if not (getattr(query_obj, "case_type", None) and str(query_obj.case_type).strip()):
+            programmatic_flags.append(QueryVerificationIssue(target="case_type", issue="Case type is empty", feedback="Formulate case type."))
+        if getattr(query_obj, "flag_for_confirmation", False):
+            programmatic_flags.append(QueryVerificationIssue(target="flag_for_confirmation", issue="Query flagged for confirmation", feedback="Review flagged legal query."))
+        if len(getattr(query_obj, "manual_review", [])) > 0:
+            programmatic_flags.append(QueryVerificationIssue(target="manual_review", issue="Query contains manual review items", feedback="Resolve manual review items."))
+
+        # If programmatic contract passes clean and not forced, bypass LLM Verifier (Item 10)
+        if not programmatic_flags and not self.force_llm_verifier:
+            query_obj.verification_status = "VERIFIED"
+            return QueryVerificationResult(
+                status="VERIFIED",
+                issues=[],
+                feedback="Stage 1 Programmatic query contract passed cleanly; LLM verifier bypassed.",
+                verified_query_object=query_obj,
+            )
+
+        # Step 2: Fall back to LLM Verifier only when contract flagged something or forced
         user_prompt = STAGE1_QUERY_VERIFICATION_USER_PROMPT_TEMPLATE.format(
             case_context_json=case_context_str,
             legal_query_json=query_json_str,

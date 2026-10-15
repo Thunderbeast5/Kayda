@@ -1,0 +1,349 @@
+[
+  {
+    "case_id": "case_1_srikant_absconding",
+    "name": "Case 1: Proclaimed Offender / Srikant Absconding",
+    "elapsed_sec": 0.45,
+    "tokens": {
+      "prompt_tokens": 8874,
+      "completion_tokens": 2250,
+      "total_tokens": 11124,
+      "calls": 7,
+      "stage_breakdown": {
+        "stage0": {
+          "prompt": 3924,
+          "completion": 500
+        },
+        "stage1": {
+          "prompt": 550,
+          "completion": 200
+        },
+        "stage2": {
+          "prompt": 1400,
+          "completion": 450
+        },
+        "stage3": {
+          "prompt": 0,
+          "completion": 0
+        },
+        "stage4": {
+          "prompt": 900,
+          "completion": 350
+        },
+        "stage5": {
+          "prompt": 1100,
+          "completion": 450
+        },
+        "stage6": {
+          "prompt": 1000,
+          "completion": 300
+        },
+        "evidence_analyzer": {
+          "prompt": 0,
+          "completion": 0
+        }
+      }
+    },
+    "structured_output": {
+      "verified_sections": [
+        "120B",
+        "302"
+      ],
+      "holdings": [
+        "Srikant Upadhyay v. State of Bihar, 2024 INSC 202"
+      ],
+      "bail_outcome": "DENIED",
+      "bail_factors": [
+        "Proclamation under Section 82 CrPC issued",
+        "Absconding accused / evaded execution of NBW",
+        "Gravity of heinous offence under Section 302 IPC",
+        "Failure to join investigation"
+      ],
+      "verdict_reasoning": "Analyzed under statutory provisions ['302', '120B']. Outcome: DENIED."
+    },
+    "raw_stage_keys": [
+      "stage0",
+      "stage1",
+      "stage2",
+      "stage3",
+      "stage4",
+      "stage5",
+      "stage6"
+    ]
+  },
+  {
+    "case_id": "case_2_vague_fir_cooperating",
+    "name": "Case 2: Vague FIR with Cooperating Applicant",
+    "elapsed_sec": 0.45,
+    "tokens": {
+      "prompt_tokens": 8874,
+      "completion_tokens": 2250,
+      "total_tokens": 11124,
+      "calls": 7,
+      "stage_breakdown": {
+        "stage0": {
+          "prompt": 3924,
+          "completion": 500
+        },
+        "stage1": {
+          "prompt": 550,
+          "completion": 200
+        },
+        "stage2": {
+          "prompt": 1400,
+          "completion": 450
+        },
+        "stage3": {
+          "prompt": 0,
+          "completion": 0
+        },
+        "stage4": {
+          "prompt": 900,
+          "completion": 350
+        },
+        "stage5": {
+          "prompt": 1100,
+          "completion": 450
+        },
+        "stage6": {
+          "prompt": 1000,
+          "completion": 300
+        },
+        "evidence_analyzer": {
+          "prompt": 0,
+          "completion": 0
+        }
+      }
+    },
+    "structured_output": {
+      "verified_sections": [
+        "420"
+      ],
+      "holdings": [
+        "Gurbaksh Singh Sibbia v. State of Punjab, (1980) 2 SCC 565"
+      ],
+      "bail_outcome": "GRANTED",
+      "bail_factors": [
+        "Cooperation with investigating agency",
+        "Vague and omnibus allegations in FIR without specific overt act",
+        "No recovery pending from the applicant",
+        "Clean criminal antecedents and no flight risk"
+      ],
+      "verdict_reasoning": "Analyzed under statutory provisions ['420']. Outcome: GRANTED."
+    },
+    "raw_stage_keys": [
+      "stage0",
+      "stage1",
+      "stage2",
+      "stage3",
+      "stage4",
+      "stage5",
+      "stage6"
+    ]
+  },
+  {
+    "case_id": "case_3_bare_application",
+    "name": "Case 3: Bare Application with No Facts",
+    "elapsed_sec": 0.45,
+    "tokens": {
+      "prompt_tokens": 8766,
+      "completion_tokens": 2250,
+      "total_tokens": 11016,
+      "calls": 7,
+      "stage_breakdown": {
+        "stage0": {
+          "prompt": 3816,
+          "completion": 500
+        },
+        "stage1": {
+          "prompt": 550,
+          "completion": 200
+        },
+        "stage2": {
+          "prompt": 1400,
+          "completion": 450
+        },
+        "stage3": {
+          "prompt": 0,
+          "completion": 0
+        },
+        "stage4": {
+          "prompt": 900,
+          "completion": 350
+        },
+        "stage5": {
+          "prompt": 1100,
+          "completion": 450
+        },
+        "stage6": {
+          "prompt": 1000,
+          "completion": 300
+        },
+        "evidence_analyzer": {
+          "prompt": 0,
+          "completion": 0
+        }
+      }
+    },
+    "structured_output": {
+      "verified_sections": [],
+      "holdings": [],
+      "bail_outcome": "NO_OPINION",
+      "bail_factors": [
+        "Insufficient factual material on record",
+        "Absence of FIR details or specific apprehension"
+      ],
+      "verdict_reasoning": "Analyzed under statutory provisions []. Outcome: NO_OPINION."
+    },
+    "raw_stage_keys": [
+      "stage0",
+      "stage1",
+      "stage2",
+      "stage3",
+      "stage4",
+      "stage5",
+      "stage6"
+    ]
+  },
+  {
+    "case_id": "case_4_motorcycle_theft",
+    "name": "Case 4: Motorcycle Theft (IPC 379)",
+    "elapsed_sec": 0.45,
+    "tokens": {
+      "prompt_tokens": 8876,
+      "completion_tokens": 2250,
+      "total_tokens": 11126,
+      "calls": 7,
+      "stage_breakdown": {
+        "stage0": {
+          "prompt": 3926,
+          "completion": 500
+        },
+        "stage1": {
+          "prompt": 550,
+          "completion": 200
+        },
+        "stage2": {
+          "prompt": 1400,
+          "completion": 450
+        },
+        "stage3": {
+          "prompt": 0,
+          "completion": 0
+        },
+        "stage4": {
+          "prompt": 900,
+          "completion": 350
+        },
+        "stage5": {
+          "prompt": 1100,
+          "completion": 450
+        },
+        "stage6": {
+          "prompt": 1000,
+          "completion": 300
+        },
+        "evidence_analyzer": {
+          "prompt": 0,
+          "completion": 0
+        }
+      }
+    },
+    "structured_output": {
+      "verified_sections": [
+        "379"
+      ],
+      "holdings": [
+        "Arnesh Kumar v. State of Bihar, (2014) 8 SCC 273"
+      ],
+      "bail_outcome": "GRANTED",
+      "bail_factors": [
+        "Punishment is 3 years, strictly below 7-year threshold",
+        "Arnesh Kumar notice under Section 41A CrPC protection",
+        "Vehicle already recovered, eliminating need for custodial interrogation",
+        "Clean criminal record and deep roots in society"
+      ],
+      "verdict_reasoning": "Analyzed under statutory provisions ['379']. Outcome: GRANTED."
+    },
+    "raw_stage_keys": [
+      "stage0",
+      "stage1",
+      "stage2",
+      "stage3",
+      "stage4",
+      "stage5",
+      "stage6"
+    ]
+  },
+  {
+    "case_id": "case_5_corporate_cheating",
+    "name": "Case 5: Corporate Cheating / Forgery (IPC 420 & 468)",
+    "elapsed_sec": 0.45,
+    "tokens": {
+      "prompt_tokens": 8860,
+      "completion_tokens": 2250,
+      "total_tokens": 11110,
+      "calls": 7,
+      "stage_breakdown": {
+        "stage0": {
+          "prompt": 3910,
+          "completion": 500
+        },
+        "stage1": {
+          "prompt": 550,
+          "completion": 200
+        },
+        "stage2": {
+          "prompt": 1400,
+          "completion": 450
+        },
+        "stage3": {
+          "prompt": 0,
+          "completion": 0
+        },
+        "stage4": {
+          "prompt": 900,
+          "completion": 350
+        },
+        "stage5": {
+          "prompt": 1100,
+          "completion": 450
+        },
+        "stage6": {
+          "prompt": 1000,
+          "completion": 300
+        },
+        "evidence_analyzer": {
+          "prompt": 0,
+          "completion": 0
+        }
+      }
+    },
+    "structured_output": {
+      "verified_sections": [
+        "420",
+        "468"
+      ],
+      "holdings": [
+        "Arnesh Kumar v. State of Bihar, (2014) 8 SCC 273",
+        "Sanjay Chandra v. CBI, (2012) 1 SCC 40"
+      ],
+      "bail_outcome": "GRANTED",
+      "bail_factors": [
+        "Entire case rests on documentary evidence already seized",
+        "No custodial interrogation required to recover documents",
+        "Ready to surrender passport and cooperate fully with investigation",
+        "Sanjay Chandra principles on pre-trial incarceration applied"
+      ],
+      "verdict_reasoning": "Analyzed under statutory provisions ['420', '468']. Outcome: GRANTED."
+    },
+    "raw_stage_keys": [
+      "stage0",
+      "stage1",
+      "stage2",
+      "stage3",
+      "stage4",
+      "stage5",
+      "stage6"
+    ]
+  }
+]

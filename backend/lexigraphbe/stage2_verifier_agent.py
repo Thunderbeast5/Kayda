@@ -9,10 +9,11 @@ new hardcoded rules — the database is the source of truth.
 """
 
 import json
+import os
 from typing import Any, Dict, List, Optional, Set, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm, MODEL_STAGE2
+from .config import extract_json_from_text, get_llm, MODEL_VERIFIER
 from .prompts import STAGE2_VERIFIER_SYSTEM_PROMPT, STAGE2_VERIFIER_USER_PROMPT_TEMPLATE
 from .batch_utils import Stage2BatchedMappingResponse
 from .schemas import LegalQueryObject, Stage2VerificationIssue, Stage2VerificationResult
@@ -113,13 +114,15 @@ class Stage2MappingVerifierAgent:
        mismatches and tier inconsistencies that the LLM may miss.
     """
 
-    def __init__(self, llm: Optional[Any] = None):
+    def __init__(self, llm: Optional[Any] = None, force_llm_verifier: bool = False):
+        import os
         self._llm = llm
+        self.force_llm_verifier = force_llm_verifier or (os.getenv("FORCE_STAGE2_LLM_VERIFIER", "false").lower() == "true")
 
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm(temperature=0.0, model_name=MODEL_STAGE2)
+            self._llm = get_llm(temperature=0.0, model_name=MODEL_VERIFIER)
         return self._llm
 
     def _programmatic_scope_audit(
@@ -270,7 +273,48 @@ class Stage2MappingVerifierAgent:
 
         resp_json_str = json.dumps(resp_dict, indent=2)
 
-        # Layer 1: LLM structural/coverage audit
+        # Layer 1: Definition-grounded programmatic scope audit FIRST (0 LLM calls)
+        facts_summary = query_json_str or ""
+        regime = "IPC + CrPC"
+        if isinstance(legal_query, LegalQueryObject):
+            regime = legal_query.legal_regime or "IPC + CrPC"
+        elif isinstance(legal_query, dict):
+            regime = legal_query.get("legal_regime") or "IPC + CrPC"
+
+        programmatic_issues = self._programmatic_scope_audit(target_resp, facts_summary, regime=regime)
+
+        # Check for unmapped subqueries
+        for m in target_resp.mappings:
+            cand_count = len(getattr(m, "primary_candidate_sections", [])) + len(getattr(m, "secondary_candidate_sections", []))
+            if cand_count == 0:
+                programmatic_issues.append(
+                    Stage2VerificationIssue(
+                        target=m.sub_query_id,
+                        issue=f"Sub-query '{m.sub_query_id}' mapped to 0 candidate sections.",
+                        feedback=f"Provide at least 1 candidate statutory section for '{m.sub_query_id}'."
+                    )
+                )
+
+        # If programmatic check failed, short-circuit immediately with 0 LLM API calls
+        if programmatic_issues:
+            return Stage2VerificationResult(
+                status="RETRY",
+                issues=programmatic_issues,
+                feedback=f"Programmatic audit detected {len(programmatic_issues)} scope issues.",
+                batched_mapping_response=None,
+            )
+
+        # If programmatic check passed cleanly and OPT_VERIFIER_BYPASS_STAGE2 is enabled, bypass LLM verifier
+        opt_verifier_bypass_stage2 = os.getenv("OPT_VERIFIER_BYPASS_STAGE2", "false").lower() in ("true", "1", "yes")
+        if opt_verifier_bypass_stage2 and not self.force_llm_verifier:
+            return Stage2VerificationResult(
+                status="VERIFIED",
+                issues=[],
+                feedback="Stage 2 Programmatic scope audit passed cleanly; LLM verifier bypassed.",
+                batched_mapping_response=target_resp,
+            )
+
+        # Layer 2: LLM structural/coverage & grounding audit (default path)
         user_prompt = STAGE2_VERIFIER_USER_PROMPT_TEMPLATE.format(
             legal_query_json=query_json_str,
             mapping_response_json=resp_json_str,
@@ -298,21 +342,6 @@ class Stage2MappingVerifierAgent:
                 issues.append(
                     Stage2VerificationIssue(target="general", issue=issue_item, feedback=issue_item)
                 )
-
-        # Layer 2: Definition-grounded programmatic scope audit
-        # This catches categorical scope mismatches and tier inconsistencies.
-        facts_summary = query_json_str or ""
-        regime = "IPC + CrPC"
-        if isinstance(legal_query, LegalQueryObject):
-            regime = legal_query.legal_regime or "IPC + CrPC"
-        elif isinstance(legal_query, dict):
-            regime = legal_query.get("legal_regime") or "IPC + CrPC"
-
-        programmatic_issues = self._programmatic_scope_audit(target_resp, facts_summary, regime=regime)
-
-        if programmatic_issues:
-            status = "RETRY"
-            issues.extend(programmatic_issues)
 
         feedback_summary = parsed_dict.get("feedback", "Stage 2 sub-query mapping audit complete.")
 

@@ -313,6 +313,37 @@ PARTIALS:
 {partial_jsons}
 """
 
+UNIFIED_FACTS_AND_INVENTORY_PROMPT = BASE_RULES + """\
+Task: In a SINGLE extraction pass, extract BOTH (1) open material facts and (2) evidence inventory from the case text.
+
+1. FACTS:
+Extract each distinct factual assertion as an item in a list with:
+- "id": "fact_1", "fact_2", etc.
+- "text": factual claim description
+- "source": paragraph or record source (e.g. "para 14", "FIR")
+- "type": "allegation" | "procedural_event" | "court_finding"
+
+2. EVIDENCE INVENTORY:
+Identify core material evidentiary items (aim for at most 10-15 key items, e.g. fir, summons, non_bailable_warrant, proclamation_sec_82, weapon, medical_report, eyewitnesses, cctv_footage):
+- "item": standardized item name
+- "status": "present" (in record) OR "not_on_record" (absent, missing, or unproduced)
+- "details": concise 1-sentence note strictly based on record
+
+Return ONLY valid JSON matching this schema:
+{{
+  "facts": [
+    {{"id": "fact_1", "text": "...", "source": "para 14", "type": "allegation"}}
+  ],
+  "evidence_inventory": [
+    {{"item": "fir", "status": "present", "details": "FIR No 123 registered on 10.01.2025"}},
+    {{"item": "medical_report", "status": "not_on_record", "details": "No MLC or medical certificate produced"}}
+  ]
+}}
+
+TEXT:
+{text}
+"""
+
 
 # ====================================================================
 # Step 3 logic helpers
@@ -514,6 +545,93 @@ def extract_facts(raw_text: str) -> Dict[str, Any]:
     return _extract_chunked_with_reconciliation(raw_text)
 
 
+def extract_facts_and_inventory(
+    raw_text: str,
+    stage0_data: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
+    """
+    Extracts facts and evidence inventory in a single structured pass,
+    or reuses cached Stage 0 data directly without re-reading the document.
+    """
+    opt_stage0_reuse = os.getenv("OPT_EVIDENCE_STAGE0_REUSE", "true").lower() not in ("false", "0", "no")
+    if opt_stage0_reuse and stage0_data is None and raw_text:
+        import hashlib
+        doc_hash = hashlib.sha256(raw_text.encode("utf-8", errors="replace")).hexdigest()
+        try:
+            from agents.lexigraph import lexigraph_cache
+            s0_key = lexigraph_cache.make_stage0_key(raw_text)
+            cached_s0 = lexigraph_cache.get(s0_key)
+            if cached_s0:
+                print(f"[evidence_analyzer] Found cached Stage 0 data keyed on sha256 ({doc_hash[:16]}...).")
+                stage0_data = cached_s0
+            else:
+                doc_key = lexigraph_cache.make_doc_key(raw_text)
+                cached_full = lexigraph_cache.get(doc_key)
+                if cached_full and cached_full.get("stage0_case_context"):
+                    print(f"[evidence_analyzer] Found cached pipeline Stage 0 data keyed on sha256 ({doc_hash[:16]}...).")
+                    stage0_data = cached_full.get("stage0_case_context")
+        except Exception:
+            pass
+
+    # ── Path 1: Reuse Stage 0 data directly (0 extra LLM calls) ──────────────
+    if opt_stage0_reuse and stage0_data:
+        prof = stage0_data.get("case_profile") or stage0_data
+        case_facts_val = prof.get("case_facts")
+        if case_facts_val:
+            print("[evidence_analyzer] Reusing Stage 0 facts and document inventory (0 LLM calls).")
+            if isinstance(case_facts_val, list):
+                facts = _normalise_facts(case_facts_val)
+            elif isinstance(case_facts_val, dict):
+                facts = _normalise_facts(case_facts_val)
+            else:
+                raw_sents = [s.strip() for s in str(case_facts_val).replace("\n", ". ").split(". ") if len(s.strip()) > 5]
+                facts = [
+                    {"id": f"fact_{i+1}", "text": sent, "source": "stage0_record", "type": "allegation"}
+                    for i, sent in enumerate(raw_sents)
+                ]
+            inventory: List[Dict[str, Any]] = []
+            docs = prof.get("documents") or []
+            for d in docs:
+                if isinstance(d, dict):
+                    name = str(d.get("document_name") or d.get("name") or "document").strip()
+                    avail = bool(d.get("is_available", True))
+                    inventory.append({
+                        "item": name.lower().replace(" ", "_"),
+                        "status": "present" if avail else "not_on_record",
+                        "details": str(d.get("description") or f"{name} on record").strip(),
+                    })
+            fir_no = prof.get("case_metadata", {}).get("fir_number") if isinstance(prof.get("case_metadata"), dict) else None
+            if fir_no and not any(item.get("item") == "fir" for item in inventory):
+                inventory.insert(0, {
+                    "item": "fir",
+                    "status": "present",
+                    "details": f"FIR No. {fir_no} registered on record.",
+                })
+            return {"facts": facts, "evidence_inventory": inventory}
+
+    # ── Path 2: Single structured LLM call for both facts & inventory ───────
+    text_to_analyze = raw_text[:MAX_DIRECT_CHARS] if len(raw_text) > MAX_DIRECT_CHARS else raw_text
+    prompt = UNIFIED_FACTS_AND_INVENTORY_PROMPT.format(text=text_to_analyze)
+    result = _llm_json(prompt)
+    if isinstance(result, dict) and ("facts" in result or "evidence_inventory" in result):
+        facts = _normalise_facts(result.get("facts", []))
+        raw_inv = result.get("evidence_inventory", [])
+        norm_inv = []
+        if isinstance(raw_inv, list):
+            for item in raw_inv:
+                if isinstance(item, dict):
+                    norm_inv.append({
+                        "item": str(item.get("item", "")).strip().lower().replace(" ", "_"),
+                        "status": "present" if "present" in str(item.get("status", "")).lower() else "not_on_record",
+                        "details": str(item.get("details", "")).strip(),
+                    })
+        return {"facts": facts, "evidence_inventory": norm_inv}
+
+    # Fallback to standard extract_facts
+    fallback_facts = extract_facts(raw_text)
+    return {"facts": fallback_facts, "evidence_inventory": []}
+
+
 # ====================================================================
 # Step 4: Store to Firestore
 # ====================================================================
@@ -594,9 +712,14 @@ def build_session_id(file_path: str) -> str:
 # ====================================================================
 # Orchestrator
 # ====================================================================
-def analyze_evidence(session_id: str, file_path: str) -> Dict[str, Any]:
+def analyze_evidence(
+    session_id: str,
+    file_path: str,
+    stage0_data: Optional[Dict[str, Any]] = None,
+) -> Dict[str, Any]:
     raw_text = extract_text(file_path)
-    facts = extract_facts(raw_text)
+    res = extract_facts_and_inventory(raw_text, stage0_data=stage0_data)
+    facts = res.get("facts", res) if isinstance(res, dict) else res
     try:
         store_to_firestore(session_id, raw_text, facts)
     except Exception as e:
@@ -605,7 +728,7 @@ def analyze_evidence(session_id: str, file_path: str) -> Dict[str, Any]:
         store_to_pinecone(session_id, facts)
     except Exception as e:
         print(f"[EvidenceAnalyzer] Skipping Pinecone storage: {e}")
-    return facts
+    return res
 
 
 

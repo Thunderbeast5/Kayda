@@ -73,34 +73,13 @@ class BailReasoningAgent:
         Returns:
             BailReasoningObject instance containing side-specific argument packages.
         """
-        # Standardize inputs
-        if isinstance(case_context, CaseContextObject):
-            cco_json_str = case_context.to_downstream_json()
-            regime = getattr(case_context, "legal_regime", "IPC + CrPC")
-        elif isinstance(case_context, dict):
-            cco_json_str = json.dumps(case_context, indent=2)
-            regime = case_context.get("legal_regime") or case_context.get("case_profile", {}).get("legal_regime") or "IPC + CrPC"
-        else:
-            cco_json_str = str(case_context)
-            try:
-                parsed = json.loads(str(case_context))
-                regime = parsed.get("legal_regime") or parsed.get("case_profile", {}).get("legal_regime") or "IPC + CrPC"
-            except Exception:
-                regime = "IPC + CrPC"
-
-        if isinstance(legal_query, LegalQueryObject):
-            qo_json_str = legal_query.to_downstream_json()
-        elif isinstance(legal_query, dict):
-            qo_json_str = json.dumps(legal_query, indent=2)
-        else:
-            qo_json_str = str(legal_query)
-
-        if isinstance(statutory_object, StatutoryVerificationObject):
-            svo_json_str = statutory_object.to_downstream_json()
-        elif isinstance(statutory_object, dict):
-            svo_json_str = json.dumps(statutory_object, indent=2)
-        else:
-            svo_json_str = str(statutory_object)
+        # Standardize inputs using typed Stage 5 slices (dropping raw text and debug/verifier notes)
+        from .stage_slices import get_stage5_slices, compact_json
+        s0_slice, s1_slice, s4_slice = get_stage5_slices(case_context, legal_query, statutory_object)
+        cco_json_str = compact_json(s0_slice)
+        qo_json_str = compact_json(s1_slice)
+        svo_json_str = compact_json(s4_slice)
+        regime = s0_slice.get("legal_regime", "IPC + CrPC")
 
         # Determine statutory bail provision (IPC-only pipeline)
         legal_regime_clean = "IPC + CrPC"

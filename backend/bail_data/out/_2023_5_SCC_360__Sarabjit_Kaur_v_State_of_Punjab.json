@@ -1,0 +1,104 @@
+{
+  "case_id": "_2023_5_SCC_360",
+  "doc_meta": {
+    "source_file": "Sarabjit Kaur v. State of Punjab.pdf",
+    "pdf_pages": 11,
+    "citation_scr": "[2023] 3 SCR 565",
+    "citation_scc": "(2023) 5 SCC 360",
+    "canonical_citation": "Sarabjit Kaur v. State of Punjab & Anr., (2023) 5 SCC 360 : [2023] 3 SCR 565 : 2023 INSC 182",
+    "source_verified": false,
+    "source_url": "https://indiankanoon.org/doc/171501170/",
+    "decided_on": "2023-03-01",
+    "coram_raw": "ABHAY S. OKA AND RAJESH BINDAL, JJ.",
+    "coram_regex": [
+      "ABHAY S. OKA",
+      "RAJESH BINDAL"
+    ],
+    "bench_strength": 2,
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "court_level": "supreme_court",
+    "disposal_type": "judgment",
+    "court_regex": "Supreme Court of India",
+    "year": 2023,
+    "result_of_case": "Appeal allowed. FIR quashed."
+  },
+  "flags": [],
+  "case": {
+    "case_name": "Sarabjit Kaur v. State of Punjab & Anr.",
+    "petitioner": "Sarabjit Kaur",
+    "respondent": "State of Punjab & Anr.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "Abhay S. Oka",
+      "Rajesh Bindal"
+    ],
+    "judgment_author": "Abhay S. Oka",
+    "procedural_stage": "quashing",
+    "offence_types": [
+      "cheating",
+      "breach_of_contract",
+      "property_dispute"
+    ],
+    "dispute_nature": "civil_agreement_to_sell",
+    "abstract_facts": "The appellant entered into an agreement to sell a plot of land and received earnest money. The sale deed could not be executed because an NOC was not obtained from local development authorities. The purchaser filed an FIR under Section 420 IPC alleging cheating. The Supreme Court held that mere failure to perform a contractual promise or execute a sale deed gives rise to a civil remedy for breach of contract, and does not constitute criminal cheating under Section 420 IPC unless dishonest intention existed at the inception of the contract.",
+    "lower_court_outcome": "High Court dismissed petition under Section 482 CrPC seeking quashing of FIR under Section 420 IPC.",
+    "disposition": "Appeal allowed. FIR No. 248 of 2017 under Section 420 IPC and consequential proceedings quashed.",
+    "caveats": [
+      "Distinguishable where allegations extend beyond mere contractual breach of an agreement-to-sell into affirmative fabrication of deeds, false identity, or fraudulent conveyance to third parties."
+    ],
+    "treatment": {
+      "defense": "Primary authority establishing that breach of property agreement or failure to execute conveyance is a civil matter; Section 420 requires dishonest intention right at the inception.",
+      "prosecution": "Adverse; distinguish by establishing fraudulent inducement, fake documentation, or dishonest intent at the very inception of the transaction."
+    },
+    "statutes": [
+      {
+        "act": "IPC",
+        "section": "420",
+        "how_used": "charged",
+        "note": "Cheating in property sale agreement dispute"
+      },
+      {
+        "act": "IPC",
+        "section": "415",
+        "how_used": "interpreted",
+        "note": "Ingredients of cheating require dishonest intention at inception"
+      },
+      {
+        "act": "CrPC 1973",
+        "section": "482",
+        "how_used": "procedure",
+        "note": "Inherent powers to quash criminal proceedings converting civil breach into crime"
+      }
+    ],
+    "issues": [
+      {
+        "question": "Whether mere failure to perform an agreement to sell property constitutes the criminal offence of cheating under Section 420 IPC?",
+        "short_answer": "No. Mere breach of contract without proof of dishonest intention at the inception is purely a civil dispute.",
+        "anchors": ["P12", "P13", "P14"]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "A breach of contract or failure to execute a sale deed does not give rise to criminal prosecution under Section 420 IPC unless fraudulent or dishonest intention is shown to have existed at the inception of the transaction.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "binding_level": "binding",
+        "quote": "A breach of contract does not give rise to criminal prosecution for cheating unless fraudulent or dishonest intention is shown right at the beginning of the transaction. Merely because the agreement to sell could not be materialized, criminal proceedings under Section 420 cannot be initiated."
+      },
+      {
+        "id": "p2",
+        "text": "Courts must prevent the abuse of criminal process where parties seek to short-circuit civil remedies for recovery of money or specific performance of land agreements by filing criminal complaints of cheating.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "binding_level": "binding",
+        "quote": "Criminal proceedings are not shortcuts for other remedies. Purely civil disputes arising out of contracts cannot be permitted to be converted into criminal prosecution."
+      }
+    ]
+  }
+}

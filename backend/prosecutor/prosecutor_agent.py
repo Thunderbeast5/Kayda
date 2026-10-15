@@ -1,3 +1,4 @@
+import os
 import re
 import sys
 from pathlib import Path
@@ -28,7 +29,7 @@ except ModuleNotFoundError:
 
 Phase = Literal["opening", "rebuttal", "closing"]
 
-MAX_CORRECTION_ATTEMPTS = 2  # generation retries when verify_claims flags something
+MAX_CORRECTION_ATTEMPTS = 1  # 1 targeted repair retry max (cap at 2 total attempts per turn)
 
 
 @dataclass
@@ -195,7 +196,7 @@ def _save_session(session: SessionState) -> None:
 # ─────────────────────────────────────────────────────────────
 
 def _call_llm(client: OpenAI, system: str, user: str,
-              model: str = "gpt-4o-mini", temperature: float = 0.1) -> str:
+              model: str = "gpt-5.4-mini", temperature: float = 0.1) -> str:
     resp = client.chat.completions.create(
         model=model, temperature=temperature,
         messages=[
@@ -573,7 +574,8 @@ class ProsecutorAgent:
 
     def __init__(self, lexigraph_agent: LexiGraphAgent, model: Optional[str] = None, temperature: float = 0.2):
         self.lexigraph = lexigraph_agent
-        self.llm = get_llm(temperature=temperature, model_name=model)
+        model_name = model or os.getenv("MODEL_COURTROOM", os.getenv("MODEL_STRONG", "gpt-5.4-mini"))
+        self.llm = get_llm(temperature=temperature, model_name=model_name)
         self.citation_formatter = get_citation_formatter()
         # Running record of the hearing so far, so later phases (rebuttal,
         # closing) have real continuity instead of relying on the caller to
@@ -700,12 +702,12 @@ class ProsecutorAgent:
                 + ", ".join(verification["unverified_cases"])
             )
         return (
-            "CORRECTION REQUIRED: your previous draft is not fully grounded in the verified CONTEXT.\n"
+            "TARGETED REPAIR REQUIRED: your previous draft contains citations not grounded in the verified CONTEXT.\n"
             + "\n".join(f"- {p}" for p in problems)
-            + "\n\nRewrite the FULL response from scratch, in the exact same ###HEADING### format, using ONLY "
-            "citations that appear in the verified CONTEXT provided earlier. If removing an ungrounded citation "
-            "weakens a point, argue that point more generally from principle instead, or drop it - do not "
-            "substitute a different unverified citation."
+            + "\n\nDo NOT regenerate the response from scratch. Preserve your existing argument structure and "
+            "reasoning, and fix ONLY the invalid citations flagged above: either replace them with citations from "
+            "the verified CONTEXT provided earlier, or remove them and argue that point from general principle. "
+            "Do NOT introduce any other unverified citations."
         )
 
     def _sanitize(self, text: str, verification: Dict[str, Any]) -> (str, List[str]):

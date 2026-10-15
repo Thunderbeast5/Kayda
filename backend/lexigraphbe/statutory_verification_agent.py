@@ -13,7 +13,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm, MODEL_STAGE2
+from .config import extract_json_from_text, get_llm, MODEL_STAGE4
 from .prompts import STAGE4_STATUTORY_VERIFICATION_SYSTEM_PROMPT, STAGE4_STATUTORY_VERIFICATION_USER_PROMPT_TEMPLATE
 from .schemas import ChapterIdentificationObject, LegalQueryObject, StatutoryVerificationObject
 from .statute_repository import StatuteRepository
@@ -153,7 +153,7 @@ class StatutoryVerificationAgent:
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm(temperature=0.0, model_name=MODEL_STAGE2)
+            self._llm = get_llm(temperature=0.0, model_name=MODEL_STAGE4)
         return self._llm
 
     def _load_statutory_text_db(self):

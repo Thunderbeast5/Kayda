@@ -18,6 +18,9 @@
     "citation_neutral": "2024 INSC 625",
     "neutral_year": 2024,
     "citation_scr": "[2024] 8 SCR 1086",
+    "canonical_citation": "Shajan Skaria v. State of Kerala & Anr., [2024] 8 SCR 1086 : 2024 INSC 625",
+    "source_verified": true,
+    "source_url": "https://indiankanoon.org/doc/174987178/",
     "scr_year": 2024,
     "scr_volume": 8,
     "scr_first_page": 1086,
@@ -121,6 +124,13 @@
     "abstract_facts": "The appellant, an editor of an online news channel, published a video on YouTube making derogatory statements against the complainant, a Member of the Kerala Legislative Assembly from a scheduled caste constituency. The video allegedly intended to ridicule the complainant on account of his scheduled caste status. The appellant sought anticipatory bail, which was denied by the Special Judge and the High Court. The Supreme Court had to consider whether a prima facie case was made under Section 3(1)(r) and Section 3(1)(u) of the Scheduled Castes and Scheduled Tribes (Prevention of Atrocities) Act, 1989, and whether Section 18 of the Act imposes an absolute bar on anticipatory bail in such cases.",
     "lower_court_outcome": "Anticipatory bail denied by Special Judge and High Court.",
     "disposition": "Appeal allowed.",
+    "caveats": [
+      "Decision specifically addresses the statutory exclusion under Section 18 of the SC/ST (Prevention of Atrocities) Act 1989; general application to IPC property disputes is limited to the threshold proposition that statutory bars require a prima facie offence to be made out."
+    ],
+    "treatment": {
+      "defense": "Can be cited for the limited principle that judicial scrutiny of prima facie ingredients is essential before denying anticipatory bail based on statutory bars.",
+      "prosecution": "Distinguish as a special act case turning on Section 18 of the SC/ST Act, with minimal bearing on substantive IPC cheating and forgery offences."
+    },
     "statutes": [
       {
         "act": "Scheduled Castes and Scheduled Tribes (Prevention of Atrocities) Act, 1989",

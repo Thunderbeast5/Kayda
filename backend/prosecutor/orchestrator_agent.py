@@ -172,7 +172,7 @@ class OrchestratorAgent:
 
     def __init__(self, api_key: Optional[str] = None, model: Optional[str] = None):
         self.api_key = api_key or os.environ.get("OPENAI_API_KEY", "") or os.environ.get("OLLAMA_API_KEY", "")
-        default_model = os.getenv("OLLAMA_MODEL", "llama3.2:3b") if os.getenv("LLM_PROVIDER", "ollama").lower() == "ollama" else "gpt-4o-mini"
+        default_model = "gpt-5.4-mini"
         self.model   = model or default_model
         self._run_full_pipeline = _try_import_lexigraphbe_runner()
         

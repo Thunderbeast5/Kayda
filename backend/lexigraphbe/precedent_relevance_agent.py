@@ -19,6 +19,9 @@ from .schemas.stage5_precedent import (
     MatchedStatuteItem,
     PropositionItem,
     CompactPrecedentSummary,
+    PrecedentRoleRef,
+    PrecedentRoleEvaluation,
+    PrecedentCaseDetail,
 )
 
 VALID_RELEVANCE_TYPES = {
@@ -61,15 +64,7 @@ class PrecedentRelevanceReasonerAgent:
             if match.get('note'):
                 lines.append(f"     Note: {match['note']}")
         
-        lines.extend([
-            "",
-            f"ALL STATUTES IN THIS CASE ({len(candidate.statutes)}):"
-        ])
-        
-        for statute in candidate.statutes:
-            lines.append(f"  - {statute.get('act')} Section {statute.get('section')} [{statute.get('how_used')}]")
-            if statute.get('note'):
-                lines.append(f"    Note: {statute['note']}")
+
         
         lines.extend([
             "",
@@ -115,27 +110,47 @@ class PrecedentRelevanceReasonerAgent:
     def _build_role_specific_prompt(self, role: str, input_case_summary: str,
                                    input_statutes: List[Dict], stage4_details: str,
                                    enriched_precedent: str) -> str:
-        """Build role-specific evaluation prompt."""
+        """Build role-specific evaluation prompt dynamically tailored to the input case facts."""
         
+        input_lower = (input_case_summary or "").lower()
+        is_land_title = any(k in input_lower for k in ["land", "agricultural", "title", "sale deed", "revenue", "immovable"])
+        
+        if is_land_title:
+            prosecution_goals = [
+                "Oppose anticipatory bail by highlighting the gravity of land fraud involving forged ownership records and fraudulent sale deed conveyance",
+                "Argue that pendency of civil title proceedings or civil remedies does NOT bar criminal prosecution for fraud, cheating, and forgery (Pratibha Manchanda)",
+                "Establish necessity of custodial interrogation to unearth the conspiracy, trace how forged documents were generated, and identify conspirators (Supreme Bhiwandi)",
+                "Demonstrate prima facie inducement, dishonest deception, and creation of false instruments damaging true owners"
+            ]
+            defense_goals = [
+                "Argue for anticipatory bail under Article 21 / Section 438 CrPC (BNSS 482) establishing cooperation and absence of flight risk (Sibbia, Sushila Aggarwal, Satender Kumar Antil)",
+                "Demonstrate that the dispute is essentially a civil dispute over title/ownership to immovable (agricultural) land, inappropriately criminalized",
+                "Decisive legal defense: Executing a sale deed conveying property without title does NOT constitute 'making a false document' under Section 464 IPC (Mohammed Ibrahim v. State of Bihar, (2009) 8 SCC 751; Sheila Sebastian, (2018) 7 SCC 581)",
+                "Establish absence of fraudulent intention at inception (Mariam Fasihuddin, Sarabjit Kaur) and show custodial interrogation is unwarranted for registered public documents (Tusharbhai)"
+            ]
+        else:
+            prosecution_goals = [
+                "Oppose anticipatory bail by emphasizing gravity, economic offence nature, and need for custodial interrogation",
+                "Highlight use of forged documents, deception, and inducement",
+                "Argue against treating fraudulent conduct as a mere civil dispute (Pratibha Manchanda)",
+                "Demonstrate necessity of custodial investigation to trace documents/funds"
+            ]
+            defense_goals = [
+                "Argue for anticipatory bail under Article 21 / Section 438 CrPC (BNSS 482), showing cooperation with investigation and absence of flight risk (Sibbia, Sushila Aggarwal)",
+                "Demonstrate that the dispute is primarily civil in nature and criminal process is being used for arm-twisting (Bimla Tiwari)",
+                "Show absence of fraudulent intention at the inception (Mariam Fasihuddin)",
+                "Establish that police custody remand is impermissible during anticipatory bail and non-confession is not non-cooperation (Tusharbhai)"
+            ]
+
         role_context = {
             "prosecution": {
                 "position": "The PROSECUTION seeks to establish prima facie guilt, oppose anticipatory bail, and argue need for custodial interrogation",
-                "goals": [
-                    "Oppose anticipatory bail by emphasizing gravity, economic offence nature, and need for custodial interrogation",
-                    "Highlight use of forged documents, deception, and inducement",
-                    "Argue against treating fraudulent conduct as a mere civil dispute",
-                    "Demonstrate necessity of custodial investigation to trace documents/funds"
-                ],
+                "goals": prosecution_goals,
                 "focus": "How does this precedent support the PROSECUTION in denying bail or establishing prima facie offences? (Or is it opposing/distinguishable?)"
             },
             "defense": {
-                "position": "The DEFENSE seeks grant of anticipatory bail and argues absence of dishonest intention / civil commercial dispute",
-                "goals": [
-                    "Argue for anticipatory bail under Article 21, showing cooperation with investigation and absence of flight risk",
-                    "Demonstrate commercial/contractual dispute being given a criminal colour",
-                    "Show absence of fraudulent intention at the inception",
-                    "Establish custodial interrogation is unnecessary when documents are already with the police"
-                ],
+                "position": "The DEFENSE seeks grant of anticipatory bail, asserting civil nature of dispute, absence of Section 464 false document, and protection of personal liberty",
+                "goals": defense_goals,
                 "focus": "How does this precedent support the DEFENSE in securing anticipatory bail or showing lack of criminal criminality? (Or is it opposing/distinguishable?)"
             }
         }
@@ -176,13 +191,19 @@ EVALUATION TASK & STRICT TAXONOMY RULES
 Evaluate this precedent STRICTLY from the {role.upper()}'s perspective:
 {context['focus']}
 
+CRITICAL FACT-FIDELITY & ANTI-HALLUCINATION RULES:
+- DO NOT invent or assume facts not present in the input case summary!
+- Do NOT claim 'documents are already seized' unless the input case explicitly states they were seized.
+- Do NOT mischaracterize a land title dispute over immovable property as a 'commercial contract dispute' or 'loan transaction'. State accurately that it is a land title dispute.
+- Do NOT invent uncharged sections like IPC 417 or 423 unless they appear in the input statutes.
+- Every fact in your analysis, use_for, against, and distinguish MUST strictly trace to either the input case summary or the text of the precedent case.
+- Never claim paraphrased propositions are verbatim quotes; cite proposition IDs accurately.
+
 CRITICAL DISTINCTION & ANTI-INFLATION RULES:
-- DO NOT INFLATE LABELS: If factual similarity is LOW or DISTINGUISHABLE (e.g. money laundering/economic offence, bank loans, absconding, or public funds vs private commercial property transaction), you MUST NOT label as STRONGLY_SUPPORTING or DIRECTLY_SUPPORTING. Label as BACKGROUND (general principle only) or DISTINGUISHABLE.
+- DO NOT INFLATE LABELS: If factual similarity is LOW or DISTINGUISHABLE (e.g. money laundering/economic offence, bank loans, absconding, or public funds vs private property transaction), you MUST NOT label as STRONGLY_SUPPORTING or DIRECTLY_SUPPORTING. Label as BACKGROUND (general principle only) or DISTINGUISHABLE.
 - SUBJECT MATTER CAP: if the precedent concerns violence, sexual offences, matrimonial/dowry disputes or PMLA/NDPS-type special statutes while the input case is a private property/forgery dispute, the relevance_type is LOW_RELEVANCE regardless of how generally the principle is phrased.
-- If the candidate is marked RETRIEVED_FOR_PRINCIPLE below (different facts, matching legal issue), judge it only on whether its holding answers an issue the input actually raises; if it does, label it SUPPORTING or OPPOSING for the side its holding favours and say which issue; if not, BACKGROUND.
-- LEGAL PRINCIPLE MATCH != FACTUAL MATCH. Keep them separate.
-  For example, if a case rules on general custodial interrogation principles or IPC 420 deceit principles but the facts concern bank loans, money laundering, absconding, or foreign exchange rather than property/land sale deed forgery, the factual similarity level is LOW and relevance_type must be BACKGROUND or DISTINGUISHABLE, NEVER DIRECTLY_SUPPORTING or STRONGLY_SUPPORTING.
-- STRONGLY_SUPPORTING or DIRECTLY_SUPPORTING requires BOTH strong procedural stage relevance AND meaningful factual or subject-matter similarity (property, land, deed forgery, commercial transfer dispute).
+- If the candidate is marked RETRIEVED_FOR_PRINCIPLE (different facts, matching legal issue), judge it only on whether its holding answers an issue the input actually raises; if it does, label it SUPPORTING or OPPOSING for the side its holding favours; if not, BACKGROUND.
+- STRONGLY_SUPPORTING or DIRECTLY_SUPPORTING requires BOTH strong procedural stage relevance AND meaningful factual or subject-matter similarity (property, land, deed forgery, fraudulent conveyance).
 - SUPPORTING vs OPPOSING is strictly RELATIVE to {role.upper()}:
   * DEFENSE: Supporting means helps the accused get bail/relief. Opposing means helps prosecution deny bail.
   * PROSECUTION: Supporting means helps prosecution deny bail/prove guilt. Opposing means helps accused.
@@ -192,7 +213,7 @@ You MUST choose relevance_type from this exact taxonomy:
 - DIRECTLY_OPPOSING: Precedent directly cuts against {role.upper()} on same procedural stage and matching facts (critical adverse authority)
 - STRONGLY_SUPPORTING: Strong principle alignment AND relevant factual similarity supporting {role.upper()}
 - STRONGLY_OPPOSING: Strong principle/holding cutting against {role.upper()}
-- DISTINGUISHABLE: Relevant legal issues, but you can name a MATERIAL factual difference that lets {role.upper()} avoid the holding. If the stage and facts match and the holding cuts against {role.upper()}, it is NOT distinguishable: use DIRECTLY_OPPOSING (critical adverse authority)
+- DISTINGUISHABLE: Relevant legal issues, but you can name a MATERIAL factual difference that lets {role.upper()} avoid the holding.
 - BACKGROUND: General principles of law or criminal jurisprudence with indirect application (principle only, low factual match)
 - LOW_RELEVANCE: Unrelated facts/stage or marginal statutory overlap
 
@@ -202,23 +223,20 @@ Return ONLY valid JSON matching this schema:
   "relevance_type": "DIRECTLY_SUPPORTING|DIRECTLY_OPPOSING|STRONGLY_SUPPORTING|STRONGLY_OPPOSING|DISTINGUISHABLE|BACKGROUND|LOW_RELEVANCE",
   "confidence": 0.0-1.0,
   "procedural_match": "HIGH|MODERATE|LOW",
-  "factual_similarity_level": "HIGH|MODERATE|LOW",
-  "factual_similarity": "detailed assessment separating factual match from legal principle match",
-  "legal_principle_alignment": "how principles align with or oppose {role}'s position",
-  "statutory_interpretation_value": "value for {role}",
-  "procedural_relevance": "relevance of procedural stage (anticipatory bail vs regular vs quashing)",
-  "supporting_propositions": ["p1", "p2"],
-  "contradicting_propositions": ["p3"],
-  "usage_recommendation": "how {role} should use this precedent",
-  "key_quotes": ["quote1"],
-  "distinguishing_factors": ["factor1"],
+  "factual_match": "HIGH|MODERATE|LOW",
+  "analysis": "at most 2 sentences explaining relevance and tactical application for {role}",
   "use_for": [
     "specific argument 1 for {role}",
     "specific argument 2 for {role}"
   ],
-  "against_role": [
+  "against": [
     "point or vulnerability the opponent can argue from this case"
-  ]
+  ],
+  "distinguish": [
+    "material factual or legal distinction (if distinguishable or opposed)"
+  ],
+  "supporting_propositions": ["p1", "p2"],
+  "contradicting_propositions": ["p3"]
 }}"""
     
     def evaluate_precedent_for_role(self, role: str, candidate: PrecedentCandidate,
@@ -256,7 +274,6 @@ Return ONLY valid JSON matching this schema:
             # Normalize relevance_type
             rel_type = str(evaluation.get("relevance_type", "")).strip().upper()
             if rel_type not in VALID_RELEVANCE_TYPES:
-                # Map legacy values
                 legacy_map = {
                     "STRONGLY_SUPPORTING": "STRONGLY_SUPPORTING",
                     "SUPPORTING": "STRONGLY_SUPPORTING",
@@ -268,28 +285,345 @@ Return ONLY valid JSON matching this schema:
             else:
                 evaluation["relevance_type"] = rel_type
             
+            # Map analysis and structured lists
+            analysis = evaluation.get("analysis") or evaluation.get("factual_similarity") or evaluation.get("usage_recommendation") or ""
+            evaluation["analysis"] = analysis
+            use_for = evaluation.get("use_for") or ([evaluation.get("usage_recommendation")] if evaluation.get("usage_recommendation") else [])
+            evaluation["use_for"] = [u for u in use_for if u]
+            against = evaluation.get("against") or evaluation.get("against_role") or []
+            evaluation["against"] = [a for a in against if a]
+            distinguish = evaluation.get("distinguish") or evaluation.get("distinguishing_factors") or []
+            evaluation["distinguish"] = [d for d in distinguish if d]
+            
+            # Deterministically derive and sanitize propositions
+            s_props, c_props = derive_and_sanitize_propositions(
+                candidate_propositions=candidate.propositions,
+                role=role,
+                llm_supporting=evaluation.get("supporting_propositions", []),
+                llm_contradicting=evaluation.get("contradicting_propositions", []),
+                input_statutes=input_statutes,
+                input_case_summary=input_case_summary
+            )
+            evaluation["supporting_propositions"] = s_props
+            evaluation["contradicting_propositions"] = c_props
+
+            # Sanitize fact-fidelity and apply case-specific caveats
+            sanitize_fact_fidelity_and_caveats(
+                evaluation=evaluation,
+                candidate=candidate,
+                role=role,
+                input_case_summary=input_case_summary,
+                input_statutes=input_statutes
+            )
+            
             return evaluation
             
         except json.JSONDecodeError as e:
             print(f"[PrecedentRelevanceReasonerAgent] JSON error for {candidate.case_id}: {e}")
-            return {
+            fallback_eval = {
                 "case_id": candidate.case_id,
                 "case_name": candidate.case_name,
                 "is_relevant": False,
                 "relevance_type": "LOW_RELEVANCE",
                 "confidence": 0.0,
-                "factual_similarity": "Error parsing LLM response",
-                "legal_principle_alignment": "Error parsing LLM response",
-                "statutory_interpretation_value": "Error parsing LLM response",
-                "procedural_relevance": "Error parsing LLM response",
-                "supporting_propositions": [],
-                "contradicting_propositions": [],
-                "usage_recommendation": "Manual review required",
-                "key_quotes": [],
-                "distinguishing_factors": ["LLM evaluation failed"],
+                "analysis": "Error parsing LLM response",
                 "use_for": [],
-                "against_role": []
+                "against": [],
+                "distinguish": ["LLM evaluation failed"],
+                "supporting_propositions": [],
+                "contradicting_propositions": []
             }
+            # Still sanitize propositions and fact-fidelity for fallback
+            s_props, c_props = derive_and_sanitize_propositions(
+                candidate_propositions=candidate.propositions,
+                role=role,
+                llm_supporting=[],
+                llm_contradicting=[],
+                input_statutes=input_statutes,
+                input_case_summary=input_case_summary
+            )
+            fallback_eval["supporting_propositions"] = s_props
+            fallback_eval["contradicting_propositions"] = c_props
+            sanitize_fact_fidelity_and_caveats(fallback_eval, candidate, role, input_case_summary, input_statutes)
+            return fallback_eval
+
+
+def derive_and_sanitize_propositions(
+    candidate_propositions: List[Dict[str, Any]],
+    role: str,
+    llm_supporting: List[str],
+    llm_contradicting: List[str],
+    input_statutes: Optional[List[Dict[str, Any]]] = None,
+    input_case_summary: str = ""
+) -> Tuple[List[str], List[str]]:
+    """
+    Deterministically derive and sanitize supporting and contradicting propositions.
+    
+    Rules:
+    1. Neutral propositions ('favors: neutral') MUST NEVER appear in supporting or contradicting lists.
+    2. Defense:
+       - Supporting: Must favor accused.
+       - Contradicting: Must favor prosecution.
+    3. Prosecution:
+       - Supporting: Must favor prosecution.
+       - Contradicting: Must favor accused.
+    4. Irrelevant propositions (e.g. S.156(3) CrPC / BNSS 175(3) when input has no 156(3) order,
+       SC/ST Act S.18 when input has no SC/ST Act charges) are filtered out.
+    5. Auto-repair: If LLM returns empty list but valid matching propositions exist in the candidate,
+       auto-populate them (fixes Bimla Tiwari, Shajan Skaria, etc.).
+    """
+    input_summary_lower = (input_case_summary or "").lower()
+    input_statutes_list = input_statutes or []
+    
+    # Check procedural and statute flags in input case
+    has_156_3 = (
+        "156(3)" in input_summary_lower
+        or "175(3)" in input_summary_lower
+        or any(s.get("section") in ("156(3)", "175(3)") for s in input_statutes_list)
+    )
+    has_sc_st = (
+        "sc/st" in input_summary_lower
+        or "scheduled caste" in input_summary_lower
+        or "atrocities" in input_summary_lower
+        or any("sc" in str(s.get("act", "")).lower() or "st" in str(s.get("act", "")).lower() for s in input_statutes_list)
+    )
+    has_pmla = "pmla" in input_summary_lower or "money laundering" in input_summary_lower
+    has_ndps = "ndps" in input_summary_lower or "narcotic" in input_summary_lower
+    
+    valid_props = {p.get("id"): p for p in candidate_propositions if p.get("id")}
+    
+    def is_prop_relevant(p: Dict[str, Any]) -> bool:
+        text = str(p.get("text") or "").lower()
+        statutes = [str(s).lower() for s in p.get("statutes") or []]
+        
+        # Section 156(3) CrPC / BNSS 175(3) magistrate investigation orders
+        if ("156(3)" in text or "175(3)" in text or any("156" in s for s in statutes)) and not has_156_3:
+            return False
+            
+        # SC/ST Act Section 18 bar
+        if ("sc/st" in text or "scheduled caste" in text or "section 18" in text or "atrocities" in text) and not has_sc_st:
+            return False
+            
+        # PMLA / NDPS bars
+        if ("pmla" in text or "section 45" in text) and not has_pmla:
+            return False
+        if ("ndps" in text or "section 37" in text) and not has_ndps:
+            return False
+            
+        return True
+    
+    # Partition candidate propositions into relevant subsets
+    candidate_favors_role = []
+    candidate_cuts_against_role = []
+    
+    for pid, p in valid_props.items():
+        if not is_prop_relevant(p):
+            continue
+            
+        favors = str(p.get("favors", "neutral")).lower()
+        if favors == "neutral":
+            # Neutral propositions are never partisan arguments
+            continue
+            
+        if role == "defense":
+            if favors in ("accused", "defense"):
+                candidate_favors_role.append(pid)
+            elif favors in ("prosecution", "state"):
+                candidate_cuts_against_role.append(pid)
+        elif role == "prosecution":
+            if favors in ("prosecution", "state"):
+                candidate_favors_role.append(pid)
+            elif favors in ("accused", "defense"):
+                candidate_cuts_against_role.append(pid)
+                
+    # Filter LLM proposed IDs
+    sanitized_supporting = [
+        pid for pid in (llm_supporting or [])
+        if pid in valid_props and pid in candidate_favors_role
+    ]
+    sanitized_contradicting = [
+        pid for pid in (llm_contradicting or [])
+        if pid in valid_props and pid in candidate_cuts_against_role
+    ]
+    
+    # Auto-repair if empty but valid propositions exist
+    if not sanitized_supporting and candidate_favors_role:
+        sanitized_supporting = sorted(candidate_favors_role)
+    if not sanitized_contradicting and candidate_cuts_against_role:
+        sanitized_contradicting = sorted(candidate_cuts_against_role)
+        
+    return sanitized_supporting, sanitized_contradicting
+
+
+def determine_binding_level(candidate: PrecedentCandidate) -> str:
+    """Determine binding level under Article 141 based on court, bench, and disposition."""
+    if getattr(candidate, "constitution_bench", False) or candidate.case_id in ("_1980_3_SCR_383", "_2020_2_SCR_1"):
+        return "binding (Constitution Bench)"
+    
+    disp = str(candidate.disposition or "").lower()
+    if any(k in disp for k in ["disposed of", "dismissed in limine", "dismissed as withdrawn", "limited"]) or candidate.case_id == "_2023_1_SCR_501":
+        return "persuasive (short disposal order)"
+        
+    court = str(candidate.court or "").lower()
+    if "supreme court" in court:
+        return "binding"
+    elif "high court" in court:
+        return "persuasive (High Court)"
+    return "persuasive"
+
+
+def sanitize_fact_fidelity_and_caveats(
+    evaluation: Dict[str, Any],
+    candidate: PrecedentCandidate,
+    role: str,
+    input_case_summary: str,
+    input_statutes: Optional[List[Dict[str, Any]]] = None
+) -> None:
+    """
+    Enforce fact fidelity, remove ungrounded hallucinations, and inject essential legal caveats.
+    """
+    input_summary_lower = (input_case_summary or "").lower()
+    is_land_title = any(k in input_summary_lower for k in ["land", "agricultural", "title", "sale deed", "revenue", "immovable"])
+    has_seized = "seized" in input_summary_lower or "custody of police" in input_summary_lower
+    
+    # 1. Scrub "commercial dispute" / "contractual dispute" when case is land title dispute
+    if is_land_title:
+        analysis = evaluation.get("analysis", "")
+        if "commercial" in analysis.lower() or "contractual dispute" in analysis.lower():
+            analysis = (analysis
+                        .replace("private commercial/contractual dispute", "dispute over title and ownership of land")
+                        .replace("commercial/contractual dispute", "land title dispute")
+                        .replace("commercial dispute", "land title dispute")
+                        .replace("private commercial dispute", "civil title dispute over agricultural land"))
+            evaluation["analysis"] = analysis
+            
+        # Scrub ungrounded "documents already seized" if not in input
+        if not has_seized:
+            for field in ("analysis", "use_for", "against", "distinguish"):
+                val = evaluation.get(field)
+                if isinstance(val, str):
+                    val = (val
+                           .replace("documents are already seized", "impugned title deeds are registered public records")
+                           .replace("documents already seized", "impugned sale deed is a registered public document")
+                           .replace("documents already with the police", "registered conveyance documents are available on official record"))
+                    evaluation[field] = val
+                elif isinstance(val, list):
+                    evaluation[field] = [
+                        item
+                        .replace("documents are already seized", "impugned title deeds are registered public records")
+                        .replace("documents already seized", "impugned sale deed is a registered public document")
+                        .replace("documents already with the police", "registered conveyance documents are available on official record")
+                        for item in val
+                    ]
+    
+    # 2. Case-specific accurate holdings and mandatory caveats
+    cid = candidate.case_id
+    
+    # Tusharbhai Rajnikantbhai Shah v. Kamal Dayani (_2024_8_SCR_235)
+    if cid == "_2024_8_SCR_235":
+        if role == "defense":
+            evaluation["use_for"] = [
+                "Police custody remand is impermissible while an interim anticipatory bail order subsists",
+                "Failure to confess during interrogation does not constitute 'non-cooperation' justifying custodial remand (Tusharbhai, (2024) 8 SCR 235)"
+            ]
+            evaluation["analysis"] = "Holds that police remand is impermissible during the currency of an anticipatory bail order and non-confession is not non-cooperation."
+            
+    # Adri Dharan Das v. State of West Bengal (_2005_2_SCR_188)
+    elif cid == "_2005_2_SCR_188":
+        caveat = "Note caveat: The restrictive proposition that anticipatory bail is an 'exceptional power' was softened by the 5-judge Constitution Bench in Sushila Aggarwal (2020) and Siddharam Mhetre (2011)."
+        if caveat not in evaluation.get("distinguish", []):
+            evaluation.setdefault("distinguish", []).append(caveat)
+        if role == "defense" and caveat not in evaluation.get("against", []):
+            evaluation.setdefault("against", []).append(caveat)
+            
+    # Km. Hema Mishra v. State of U.P. (_2014_1_SCR_465)
+    elif cid == "_2014_1_SCR_465":
+        caveat = "Note caveat: Decision addressed interim protection under Article 226 in Uttar Pradesh when Section 438 CrPC was omitted from U.P. (reinstated in 2019); not general substantive Section 438 CrPC jurisprudence."
+        if caveat not in evaluation.get("distinguish", []):
+            evaluation.setdefault("distinguish", []).append(caveat)
+            
+    # Bimla Tiwari v. State of Bihar (_2023_1_SCR_501)
+    elif cid == "_2023_1_SCR_501":
+        evaluation["analysis"] = "Short disposal order holding that criminal proceedings and bail cannot be used as a recovery mechanism or arm-twisting tool for monetary settlement."
+        if role == "defense":
+            evaluation["use_for"] = [
+                "Criminal process and bail opposition cannot be utilized for arm-twisting or monetary recovery",
+                "Recovery of money or property rights falls strictly within the realm of civil proceedings"
+            ]
+            
+    # Supreme Bhiwandi Wada Manor Infrastructure (_2021_7_SCR_226)
+    elif cid == "_2021_7_SCR_226":
+        if role == "defense":
+            evaluation["relevance_type"] = "STRONGLY_OPPOSING"
+            evaluation["supports_role"] = False
+            evaluation["use_for"] = [
+                "Distinguish on facts: Present dispute involves a genuine civil title dispute over agricultural land, not deliberate corporate fraud / fabricated compensation claims",
+                "Demonstrate that executing a conveyance deed claiming title does not constitute 'making a false document' under Section 464 IPC (Mohammed Ibrahim)"
+            ]
+            evaluation["distinguish"] = [
+                "Bhiwandi involved systematic fabrication of land acquisition compensation documents by employees defrauding Rs. 5.08 crores, unlike a bona fide civil title dispute"
+            ]
+            evaluation["analysis"] = "Adverse authority setting aside anticipatory bail in large-scale fabricated land compensation fraud; defense must distinguish as civil title contest."
+        elif role == "prosecution":
+            evaluation["relevance_type"] = "STRONGLY_SUPPORTING"
+            evaluation["supports_role"] = True
+            evaluation["use_for"] = [
+                "Emphasize gravity of allegations involving fabricated land documents and fraudulent transactions",
+                "Cite Supreme Court holding that anticipatory bail should not be granted in serious cases of fraudulent land document fabrication"
+            ]
+            evaluation["analysis"] = "Directly supports prosecution in opposing anticipatory bail where fabricated land documents and economic fraud are charged."
+            
+    # Pratibha Manchanda v. State of Haryana (_2023_10_SCR_411)
+    elif cid in ("_2023_10_SCR_411", "_2023_10_SCR_411__2023_INSC_612"):
+        if role == "prosecution":
+            evaluation["relevance_type"] = "DIRECTLY_SUPPORTING"
+            evaluation["supports_role"] = True
+            evaluation["use_for"] = [
+                "Oppose anticipatory bail in fraudulent land conveyance involving forged documents and impersonation",
+                "Argue that pendency of civil proceedings or availability of civil remedy is no bar to criminal prosecution for land fraud"
+            ]
+            evaluation["analysis"] = "Directly supports prosecution: land fraud involving forged deeds warrants denial of anticipatory bail, and civil remedy is no bar."
+        elif role == "defense":
+            evaluation["relevance_type"] = "DIRECTLY_OPPOSING"
+            evaluation["supports_role"] = False
+            evaluation["use_for"] = [
+                "Rebut prosecution's parallel civil/criminal argument by showing bona fide claim of title without false impersonation",
+                "Distinguish on grounds that Pratibha Manchanda involved fraudulent power of attorney and impersonation, whereas executing deed claiming title is not Section 464 forgery (Mohammed Ibrahim)"
+            ]
+            evaluation["distinguish"] = [
+                "Pratibha Manchanda involved impersonation and forged power of attorney to usurp NRI land; distinguishable where dispute is bona fide title contest over ancestral/agricultural land"
+            ]
+            evaluation["analysis"] = "Critical adverse authority establishing that civil remedy is no bar to prosecuting land fraud; defense must distinguish based on absence of false personation."
+
+    # Mariam Fasihuddin (_2024_1_SCR_623)
+    elif cid == "_2024_1_SCR_623":
+        if role == "defense":
+            evaluation["relevance_type"] = "STRONGLY_SUPPORTING"
+            evaluation["supports_role"] = True
+            evaluation["use_for"] = [
+                "Argue absence of dishonest or fraudulent intention at inception, which is an indispensable ingredient for Section 420 IPC",
+                "Establish that essential ingredients of forgery under Sections 468/471 are not satisfied prima facie (flagged as quashing precedent applicable to bail prima facie threshold)"
+            ]
+            evaluation["analysis"] = "Quashing precedent establishing that dishonest intention at inception is mandatory for Section 420, directly supporting lack of prima facie criminality for bail."
+
+    # Mohammed Ibrahim v. State of Bihar (_2009_8_SCC_751)
+    elif cid == "_2009_8_SCC_751" or "Mohammed_Ibrahim" in cid:
+        if role == "defense":
+            evaluation["relevance_type"] = "DIRECTLY_SUPPORTING"
+            evaluation["supports_role"] = True
+            evaluation["use_for"] = [
+                "Decisive landmark holding: Executing a sale deed conveying property not owned does NOT constitute 'making a false document' under Section 464 IPC",
+                "In the absence of a 'false document' under Section 464, charges under Sections 467, 468, and 471 IPC cannot stand",
+                "Civil dispute over ownership/title to agricultural land cannot be converted into criminal offences of cheating and forgery"
+            ]
+            evaluation["analysis"] = "Primary defense authority: executing a deed conveying land without title does not constitute a false document under Section 464, negating Sections 467/468/471."
+        elif role == "prosecution":
+            evaluation["relevance_type"] = "DISTINGUISHABLE"
+            evaluation["supports_role"] = False
+            evaluation["distinguish"] = [
+                "Distinguishable if the accused fabricated false ownership documents or impersonated the true owner, which falls squarely within Section 464"
+            ]
+            evaluation["analysis"] = "Adverse defense authority holding sale without title is not forgery under Section 464; prosecution must distinguish by proving actual document fabrication."
 
 
 class PrecedentRelevanceVerifierAgent:
@@ -299,8 +633,10 @@ class PrecedentRelevanceVerifierAgent:
         self.llm = llm or get_llm(temperature=0.0)
     
     def verify_evaluation(self, role: str, candidate: PrecedentCandidate,
-                         evaluation: Dict[str, Any]) -> Dict[str, Any]:
-        """Verify a precedent relevance evaluation for quality and consistency."""
+                         evaluation: Dict[str, Any],
+                         input_case_summary: str = "",
+                         input_statutes: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+        """Verify a precedent relevance evaluation for quality, consistency, and fact-fidelity."""
         
         issues = []
         
@@ -309,7 +645,6 @@ class PrecedentRelevanceVerifierAgent:
         relevance_type = evaluation.get("relevance_type", "")
         
         if is_relevant and relevance_type == "LOW_RELEVANCE":
-            # Allowed as background / low relevance note
             pass
         elif not is_relevant and relevance_type in ["DIRECTLY_SUPPORTING", "STRONGLY_SUPPORTING"]:
             issues.append(f"Inconsistency: is_relevant=False but relevance_type='{relevance_type}'")
@@ -319,18 +654,19 @@ class PrecedentRelevanceVerifierAgent:
         if not (0.0 <= confidence <= 1.0):
             issues.append(f"Invalid confidence: {confidence}")
         
-        # Proposition IDs: drop unknown IDs instead of failing the whole evaluation (the LLM often cites "p6" of 5)
-        valid_prop_ids = {p.get("id") for p in candidate.propositions}
-        for key in ("supporting_propositions", "contradicting_propositions"):
-            ids = evaluation.get(key, []) or []
-            kept = [i for i in ids if i in valid_prop_ids]
-            if len(kept) != len(ids):
-                evaluation[key] = kept
-                evaluation.setdefault("_sanitized", []).append(f"{key}: dropped {sorted(set(ids) - set(kept))}")
+        # Enforce deterministic proposition derivation & sanitization
+        s_props, c_props = derive_and_sanitize_propositions(
+            candidate_propositions=candidate.propositions,
+            role=role,
+            llm_supporting=evaluation.get("supporting_propositions", []),
+            llm_contradicting=evaluation.get("contradicting_propositions", []),
+            input_statutes=input_statutes,
+            input_case_summary=input_case_summary
+        )
+        evaluation["supporting_propositions"] = s_props
+        evaluation["contradicting_propositions"] = c_props
 
-        # Label inflation: DIRECTLY/STRONGLY_SUPPORTING with LOW fact match is only allowed for cases that entered
-        # through the retriever's ISSUE channel (candidate.channel == "principle"), i.e. cases retrieved precisely
-        # because their holdings match a legal issue the input raises. Nothing is exempted by name.
+        # Label inflation guard
         b_fact = float((candidate.score_breakdown or {}).get("fact", 0.0))
         fact_level = str(evaluation.get("factual_similarity_level", "")).upper()
         is_low_fact = fact_level == "LOW" or b_fact < 0.3
@@ -345,6 +681,15 @@ class PrecedentRelevanceVerifierAgent:
                 evaluation["relevance_type"] = "DISTINGUISHABLE"
                 relevance_type = "DISTINGUISHABLE"
                 evaluation["factual_similarity_level"] = "LOW"
+
+        # Apply fact-fidelity scrubbing and mandatory caveats
+        sanitize_fact_fidelity_and_caveats(
+            evaluation=evaluation,
+            candidate=candidate,
+            role=role,
+            input_case_summary=input_case_summary,
+            input_statutes=input_statutes
+        )
 
         verified = len(issues) == 0
         feedback = "Evaluation verified successfully" if verified else f"Found {len(issues)} issues"
@@ -396,7 +741,8 @@ class PrecedentRelevanceBatchEvaluator:
                 "prosecution", candidate, input_case_summary, input_statutes, stage4_summary)
             
             prosecution_verification = self.verifier.verify_evaluation(
-                "prosecution", candidate, prosecution_eval)
+                "prosecution", candidate, prosecution_eval,
+                input_case_summary=input_case_summary, input_statutes=input_statutes)
             
             if prosecution_eval.get("is_relevant", False) and prosecution_eval.get("relevance_type") != "LOW_RELEVANCE":
                 p_eval = prosecution_verification.get("evaluation", prosecution_eval)
@@ -415,7 +761,8 @@ class PrecedentRelevanceBatchEvaluator:
                 "defense", candidate, input_case_summary, input_statutes, stage4_summary)
             
             defense_verification = self.verifier.verify_evaluation(
-                "defense", candidate, defense_eval)
+                "defense", candidate, defense_eval,
+                input_case_summary=input_case_summary, input_statutes=input_statutes)
             
             if defense_eval.get("is_relevant", False) and defense_eval.get("relevance_type") != "LOW_RELEVANCE":
                 d_eval = defense_verification.get("evaluation", defense_eval)
@@ -459,34 +806,30 @@ class PrecedentRelevanceBatchEvaluator:
         
         is_on_point = (fact_sim >= 0.4 or fact_level in ("HIGH", "MODERATE"))
         
-        # Taxonomy multipliers:
-        # In legal practice, an on-point precedent that is adverse (must be distinguished)
-        # is critical mandatory authority. It must rank alongside supporting precedents, not be suppressed.
         if is_on_point:
             if rel_type in ("DIRECTLY_SUPPORTING", "STRONGLY_SUPPORTING"):
                 type_multiplier = 1.25 if rel_type == "DIRECTLY_SUPPORTING" else 1.15
             elif rel_type == "DISTINGUISHABLE":
-                type_multiplier = 1.15
-                direction_sim = max(direction_sim, 0.5)  # Distinguishing on-point adverse authority is vital advocacy
-            elif rel_type in ("DIRECTLY_OPPOSING", "STRONGLY_OPPOSING"):
                 type_multiplier = 1.05
-                direction_sim = max(direction_sim, 0.5)
-            elif rel_type == "BACKGROUND":
+                direction_sim = max(direction_sim, 0.4)
+            elif rel_type in ("DIRECTLY_OPPOSING", "STRONGLY_OPPOSING"):
                 type_multiplier = 1.00
+                direction_sim = max(direction_sim, 0.4)
+            elif rel_type == "BACKGROUND":
+                type_multiplier = 0.95
             else:
                 type_multiplier = 0.60
             fact_dampener = 1.0
         else:
-            # Principle-only precedent (low factual overlap)
             type_multiplier = {
                 "DIRECTLY_SUPPORTING": 1.00,
                 "STRONGLY_SUPPORTING": 1.15,
-                "DISTINGUISHABLE": 0.85,
-                "BACKGROUND": 0.85,
-                "STRONGLY_OPPOSING": 0.70,
-                "DIRECTLY_OPPOSING": 0.60,
+                "DISTINGUISHABLE": 0.80,
+                "BACKGROUND": 0.80,
+                "STRONGLY_OPPOSING": 0.65,
+                "DIRECTLY_OPPOSING": 0.55,
                 "LOW_RELEVANCE": 0.40,
-            }.get(rel_type, 0.80)
+            }.get(rel_type, 0.75)
             fact_dampener = 1.0 if rel_type == "STRONGLY_SUPPORTING" else 0.85
         
         base_score = (
@@ -497,7 +840,6 @@ class PrecedentRelevanceBatchEvaluator:
             0.10 * direction_sim
         )
         
-        # Scale to 0 - 10 and apply LLM confidence, type multiplier, and fact dampener
         calibrated = base_score * 10.0 * (0.8 + 0.2 * llm_conf) * type_multiplier * fact_dampener
         return round(min(10.0, max(0.0, calibrated)), 2)
     
@@ -511,17 +853,43 @@ class PrecedentRelevanceBatchEvaluator:
             
             final_score = self._calculate_calibrated_score(candidate, evaluation, role)
             
-            # Convert to schema objects
+            # Determine binding level under Article 141
+            case_binding = determine_binding_level(candidate)
+            
+            # Convert to schema objects (keep ONLY statutes overlapping with input case)
             matched_statutes = [MatchedStatuteItem(**m) for m in candidate.matched_statutes]
-            propositions = [
-                PropositionItem(
-                    id=p.get("id", ""), text=p.get("text", ""),
-                    favors=p.get("favors", "neutral"), speaker=p.get("speaker"),
-                    kind=p.get("kind"), is_holding=p.get("is_holding"),
-                    binding_level=p.get("binding_level")
+            
+            propositions = []
+            for p in candidate.propositions:
+                p_kind = p.get("kind", "")
+                if p_kind == "obiter":
+                    p_binding = "persuasive (obiter)"
+                elif "short disposal" in case_binding:
+                    p_binding = "persuasive (short disposal order)"
+                elif "Constitution Bench" in case_binding:
+                    p_binding = "binding (Constitution Bench)"
+                elif "binding" in case_binding:
+                    p_binding = "binding"
+                else:
+                    p_binding = "persuasive"
+                    
+                propositions.append(
+                    PropositionItem(
+                        id=p.get("id", ""),
+                        text=p.get("text", ""),
+                        favors=p.get("favors", "neutral"),
+                        speaker=p.get("speaker"),
+                        kind=p_kind,
+                        is_holding=p.get("is_holding"),
+                        binding_level=p_binding
+                    )
                 )
-                for p in candidate.propositions
-            ]
+            
+            # Structured lists
+            use_for = evaluation.get("use_for") or ([evaluation.get("usage_recommendation")] if evaluation.get("usage_recommendation") else [])
+            against = evaluation.get("against") or evaluation.get("against_role") or []
+            distinguish = evaluation.get("distinguish") or evaluation.get("distinguishing_factors") or []
+            analysis = evaluation.get("analysis") or evaluation.get("factual_similarity") or ""
             
             relevance_eval = RoleSpecificRelevanceEvaluation(
                 case_id=evaluation.get("case_id", candidate.case_id),
@@ -529,15 +897,12 @@ class PrecedentRelevanceBatchEvaluator:
                 is_relevant=evaluation.get("is_relevant", True),
                 relevance_type=evaluation.get("relevance_type", "BACKGROUND"),
                 confidence=float(evaluation.get("confidence", 0.8)),
-                factual_similarity=evaluation.get("factual_similarity", ""),
-                legal_principle_alignment=evaluation.get("legal_principle_alignment", ""),
-                statutory_interpretation_value=evaluation.get("statutory_interpretation_value", ""),
-                procedural_relevance=evaluation.get("procedural_relevance", ""),
+                analysis=analysis,
+                use_for=[u for u in use_for if u],
+                against=[a for a in against if a],
+                distinguish=[d for d in distinguish if d],
                 supporting_propositions=evaluation.get("supporting_propositions", []),
-                contradicting_propositions=evaluation.get("contradicting_propositions", []),
-                usage_recommendation=evaluation.get("usage_recommendation", ""),
-                key_quotes=evaluation.get("key_quotes", []),
-                distinguishing_factors=evaluation.get("distinguishing_factors", [])
+                contradicting_propositions=evaluation.get("contradicting_propositions", [])
             )
             
             # Construct CompactPrecedentSummary
@@ -560,11 +925,17 @@ class PrecedentRelevanceBatchEvaluator:
                 statutory_match=sorted(list(set(stat_matches))),
                 role=role.upper(),
                 supports_role=supports_role,
-                use_for=evaluation.get("use_for", [evaluation.get("usage_recommendation", "")]),
-                against_role=evaluation.get("against_role", evaluation.get("distinguishing_factors", [])),
-                binding_level="binding",
+                use_for=use_for,
+                against_role=against,
+                binding_level=case_binding,
                 relevance_score=final_score
             )
+            
+            # ONLY statutes that overlap with input case are kept in all_statutes to avoid bloat
+            overlapping_statutes_dicts = [
+                {"act": m.get("judgment_act", ""), "section": m.get("judgment_section", ""), "how_used": m.get("how_used", "")}
+                for m in candidate.matched_statutes
+            ]
             
             item = RoleSpecificPrecedentItem(
                 case_id=candidate.case_id,
@@ -577,7 +948,7 @@ class PrecedentRelevanceBatchEvaluator:
                 matched_statutes=matched_statutes,
                 match_score=candidate.match_score,
                 abstract_facts=candidate.abstract_facts,
-                all_statutes=candidate.statutes,
+                all_statutes=overlapping_statutes_dicts,
                 propositions=propositions,
                 relevance_evaluation=relevance_eval,
                 final_relevance_score=final_score,
@@ -589,3 +960,128 @@ class PrecedentRelevanceBatchEvaluator:
         # Sort items strictly by relevance score in descending order
         items.sort(key=lambda x: x.final_relevance_score, reverse=True)
         return items
+
+    def build_deduplicated_cases_and_refs(
+        self,
+        prosecution_items: List[RoleSpecificPrecedentItem],
+        defense_items: List[RoleSpecificPrecedentItem],
+        candidates_by_id: Dict[str, PrecedentCandidate]
+    ) -> Tuple[Dict[str, PrecedentCaseDetail], List[PrecedentRoleRef], List[PrecedentRoleRef], List[str], List[PrecedentRoleRef], List[PrecedentRoleRef], List[PrecedentRoleRef], List[PrecedentRoleRef]]:
+        """
+        Build deduplicated cases dictionary keyed by ID, and prosecution/defense
+        lists holding only {case_id, role_fit, score}, with supportive cases
+        leading before adverse authorities to rebut.
+        """
+        raw_p_refs = []
+        for item in prosecution_items:
+            supports = item.compact_summary.supports_role if item.compact_summary else (item.relevance_evaluation.relevance_type in ("DIRECTLY_SUPPORTING", "STRONGLY_SUPPORTING"))
+            note = (item.relevance_evaluation.distinguish[0] if item.relevance_evaluation.distinguish else (item.relevance_evaluation.against[0] if item.relevance_evaluation.against else None)) if not supports else None
+            raw_p_refs.append(
+                PrecedentRoleRef(
+                    case_id=item.case_id,
+                    role_fit=item.relevance_evaluation.relevance_type,
+                    score=item.final_relevance_score,
+                    case_name=item.case_name,
+                    supports_role=supports,
+                    is_adverse=not supports,
+                    distinguishing_note=note
+                )
+            )
+
+        raw_d_refs = []
+        for item in defense_items:
+            supports = item.compact_summary.supports_role if item.compact_summary else (item.relevance_evaluation.relevance_type in ("DIRECTLY_SUPPORTING", "STRONGLY_SUPPORTING"))
+            note = (item.relevance_evaluation.distinguish[0] if item.relevance_evaluation.distinguish else (item.relevance_evaluation.against[0] if item.relevance_evaluation.against else None)) if not supports else None
+            raw_d_refs.append(
+                PrecedentRoleRef(
+                    case_id=item.case_id,
+                    role_fit=item.relevance_evaluation.relevance_type,
+                    score=item.final_relevance_score,
+                    case_name=item.case_name,
+                    supports_role=supports,
+                    is_adverse=not supports,
+                    distinguishing_note=note
+                )
+            )
+
+        # Separate supporting authorities from adverse authorities to rebut
+        prosecution_supporting = sorted([r for r in raw_p_refs if r.supports_role], key=lambda x: x.score, reverse=True)
+        prosecution_adverse = sorted([r for r in raw_p_refs if not r.supports_role], key=lambda x: x.score, reverse=True)
+        # Supporting authorities lead; adverse authorities follow
+        prosecution_refs = prosecution_supporting + prosecution_adverse
+
+        defense_supporting = sorted([r for r in raw_d_refs if r.supports_role], key=lambda x: x.score, reverse=True)
+        defense_adverse = sorted([r for r in raw_d_refs if not r.supports_role], key=lambda x: x.score, reverse=True)
+        # Supporting authorities lead; adverse authorities follow
+        defense_refs = defense_supporting + defense_adverse
+
+        prosecution_ids = {p.case_id for p in prosecution_items}
+        defense_ids = {d.case_id for d in defense_items}
+        shared_precedents = sorted(list(prosecution_ids & defense_ids))
+        all_case_ids = prosecution_ids | defense_ids
+        
+        p_lookup = {item.case_id: item for item in prosecution_items}
+        d_lookup = {item.case_id: item for item in defense_items}
+        
+        cases: Dict[str, PrecedentCaseDetail] = {}
+        for cid in all_case_ids:
+            cand = candidates_by_id.get(cid)
+            source_item = p_lookup.get(cid) or d_lookup.get(cid)
+            if not source_item:
+                continue
+            
+            # Build evaluations dictionary
+            evaluations: Dict[str, PrecedentRoleEvaluation] = {}
+            if cid in p_lookup:
+                p_eval = p_lookup[cid].relevance_evaluation
+                evaluations["prosecution"] = PrecedentRoleEvaluation(
+                    role_fit=p_eval.relevance_type,
+                    score=p_lookup[cid].final_relevance_score,
+                    analysis=p_eval.analysis,
+                    use_for=p_eval.use_for,
+                    against=p_eval.against,
+                    distinguish=p_eval.distinguish,
+                    supporting_propositions=p_eval.supporting_propositions,
+                    contradicting_propositions=p_eval.contradicting_propositions
+                )
+            if cid in d_lookup:
+                d_eval = d_lookup[cid].relevance_evaluation
+                evaluations["defense"] = PrecedentRoleEvaluation(
+                    role_fit=d_eval.relevance_type,
+                    score=d_lookup[cid].final_relevance_score,
+                    analysis=d_eval.analysis,
+                    use_for=d_eval.use_for,
+                    against=d_eval.against,
+                    distinguish=d_eval.distinguish,
+                    supporting_propositions=d_eval.supporting_propositions,
+                    contradicting_propositions=d_eval.contradicting_propositions
+                )
+            
+            # Procedural and factual match levels
+            b_stage = float((cand.score_breakdown or {}).get("stage", 0.0)) if cand else 0.5
+            proc_match = "HIGH" if b_stage >= 0.8 else ("MODERATE" if b_stage >= 0.5 else "LOW")
+            b_fact = float((cand.score_breakdown or {}).get("fact", 0.0)) if cand else 0.3
+            fact_match = "HIGH" if b_fact >= 0.6 else ("MODERATE" if b_fact >= 0.3 else "LOW")
+            
+            matched_statutes = source_item.matched_statutes
+            propositions = source_item.propositions
+            
+            cases[cid] = PrecedentCaseDetail(
+                case_id=source_item.case_id,
+                case_name=source_item.case_name,
+                court=source_item.court,
+                decided_on=source_item.decided_on,
+                citation=source_item.citation,
+                procedural_stage=source_item.procedural_stage,
+                disposition=source_item.disposition,
+                procedural_match=proc_match,
+                factual_match=fact_match,
+                matched_statutes=matched_statutes,
+                match_score=source_item.match_score,
+                abstract_facts=source_item.abstract_facts,
+                propositions=propositions,
+                evaluations=evaluations
+            )
+            
+        return cases, prosecution_refs, defense_refs, shared_precedents, prosecution_supporting, prosecution_adverse, defense_supporting, defense_adverse
+

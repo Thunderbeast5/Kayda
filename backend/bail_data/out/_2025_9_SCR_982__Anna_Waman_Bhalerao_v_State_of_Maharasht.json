@@ -18,6 +18,9 @@
     "citation_neutral": "2025 INSC 1114",
     "neutral_year": 2025,
     "citation_scr": "[2025] 9 SCR 982",
+    "canonical_citation": "Anna Waman Bhalerao v. State of Maharashtra, [2025] 9 SCR 982 : 2025 INSC 1114",
+    "source_verified": true,
+    "source_url": "https://indiankanoon.org/doc/192237837/",
     "scr_year": 2025,
     "scr_volume": 9,
     "scr_first_page": 982,
@@ -143,6 +146,13 @@
     "abstract_facts": "The case involves the rejection of anticipatory bail applications filed by former government officials who certified mutation entries on the basis of forged documents, allegedly facilitating illegal property transfer. Although their actions were executed nearly 20 years ago, they were subsequently implicated as accused Nos. 5 and 6. Initially, they were not named in the FIR, and they served in an official capacity with no evidence of personal gain. Despite the extended interim protection, the applications were eventually dismissed due to the gravity of allegations and the necessity of custodial interrogation.",
     "lower_court_outcome": "Anticipatory bail applications were rejected by the Sessions Court and later by the High Court.",
     "disposition": "Appeals dismissed.",
+    "caveats": [
+      "Supreme Court affirmed rejection of anticipatory bail where accused public servants certified mutation entries on forged powers of attorney; custodial interrogation held essential even in documentary cases to trace transaction chains."
+    ],
+    "treatment": {
+      "prosecution": "Directly supports prosecution: anticipatory bail justifiably denied in serious land forgery cases, and custodial interrogation is necessary even where evidence is primarily documentary.",
+      "defense": "Critical adverse authority (must distinguish): involved official misconduct certifying forged mutations for transfer to third parties, where accused enjoyed interim protection for years without cooperating."
+    },
     "statutes": [
       {
         "act": "Code of Criminal Procedure, 1973",

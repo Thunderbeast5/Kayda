@@ -17,6 +17,9 @@
     "citation_neutral": "2024 INSC 588",
     "neutral_year": 2024,
     "citation_scr": "[2024] 8 SCR 235",
+    "canonical_citation": "Tusharbhai Rajnikantbhai Shah v. Kamal Dayani & Ors., [2024] 8 SCR 235 : 2024 INSC 588",
+    "source_verified": true,
+    "source_url": "https://indiankanoon.org/doc/106362831/",
     "scr_year": 2024,
     "scr_volume": 8,
     "scr_first_page": 235,
@@ -139,6 +142,13 @@
     "abstract_facts": "The petitioner was apprehended and sought anticipatory bail, after being accused of fraud related to a real estate transaction involving Rs. 1.65 crores. The Supreme Court initially granted him interim protection from arrest. Despite this protection, the petitioner was remanded to police custody, leading to a contempt petition against the remand order.",
     "lower_court_outcome": "The High Court denied anticipatory bail to the petitioner, which was also refused by the Sessions Court. The petitioner then obtained interim anticipatory bail from the Supreme Court. However, the Additional Chief Judicial Magistrate remanded the petitioner to police custody, disregarding the Supreme Court order.",
     "disposition": "Contempt petition listed for next date, SLPs disposed of.",
+    "caveats": [
+      "Arises in the context of contempt and breach of interim anticipatory bail orders by police officers who sought custodial remand despite protection."
+    ],
+    "treatment": {
+      "defense": "Police custody remand is impermissible while an interim anticipatory bail order subsists, and failure to confess during interrogation does not constitute 'non-cooperation' justifying custodial remand.",
+      "prosecution": "Distinguish by demonstrating active non-cooperation (absconding, withholding physical records/devices) rather than mere failure to make a confessional statement."
+    },
     "statutes": [
       {
         "act": "Contempt of Courts Act, 1971",

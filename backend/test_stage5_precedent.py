@@ -235,6 +235,29 @@ def test_stage5_with_real_case():
             for case_id in obj.shared_precedents:
                 print(f"  - {case_id}")
         
+        # Compact view & deduplication statistics
+        compact_dict = obj.to_compact_dict()
+        print(f"\n" + "-"*100)
+        print("COMPACT VIEW SUMMARY (PASSED TO STAGE 8 & DOWNSTREAM ARGUMENT STAGE):")
+        print("-"*100)
+        print(f"Total Unique Precedent Cases Stored: {len(compact_dict['cases'])}")
+        print(f"Prosecution Precedents Count: {len(compact_dict['prosecution'])}")
+        for p in compact_dict['prosecution']:
+            print(f"  • {p['case_id']} | Fit: {p['role_fit']} | Score: {p['score']}")
+        print(f"Defense Precedents Count: {len(compact_dict['defense'])}")
+        for d in compact_dict['defense']:
+            print(f"  • {d['case_id']} | Fit: {d['role_fit']} | Score: {d['score']}")
+        print(f"Shared Precedents: {compact_dict['shared_precedents']}")
+        
+        # Test serialization size
+        compact_json_str = json.dumps(compact_dict)
+        full_json_str = json.dumps(obj.model_dump())
+        print(f"\nPayload Size Reduction:")
+        print(f"  Full Object JSON:    {len(full_json_str):,} bytes")
+        print(f"  Compact Output JSON: {len(compact_json_str):,} bytes")
+        reduction_pct = (1.0 - (len(compact_json_str) / max(len(full_json_str), 1))) * 100
+        print(f"  Reduction:           {reduction_pct:.1f}% reduction in size!")
+        
         print("\n" + "="*100)
         print("TEST COMPLETED SUCCESSFULLY")
         print("="*100)

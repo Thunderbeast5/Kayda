@@ -121,37 +121,16 @@ class PrecedentRetrievalAgent:
         Returns:
             PrecedentRetrievalObject instance.
         """
-        # Standardize inputs
-        if isinstance(case_context, CaseContextObject):
-            cco_json_str = case_context.to_downstream_json()
-        elif isinstance(case_context, dict):
-            cco_json_str = json.dumps(case_context, indent=2)
-        else:
-            cco_json_str = str(case_context)
-
-        if isinstance(legal_query, LegalQueryObject):
-            qo_json_str = legal_query.to_downstream_json()
-        elif isinstance(legal_query, dict):
-            qo_json_str = json.dumps(legal_query, indent=2)
-        else:
-            qo_json_str = str(legal_query)
-
-        if isinstance(statutory_object, StatutoryVerificationObject):
-            svo_json_str = statutory_object.to_downstream_json()
-        elif isinstance(statutory_object, dict):
-            svo_json_str = json.dumps(statutory_object, indent=2)
-        else:
-            svo_json_str = str(statutory_object)
-
-        if isinstance(bail_object, BailReasoningObject):
-            bro_json_str = bail_object.to_downstream_json()
-        elif isinstance(bail_object, dict):
-            bro_json_str = json.dumps(bail_object, indent=2)
-        else:
-            bro_json_str = str(bail_object)
-
-        # Grounded precedent dataset passed to prompt
-        corpus_json_str = json.dumps(self.corpus, indent=2)
+        # Standardize inputs using typed Stage 6 slices (dropping raw text and bulky debug objects)
+        from .stage_slices import get_stage6_slices, compact_json
+        s0_slice, s1_slice, s4_slice, s5_slice, compact_corpus = get_stage6_slices(
+            case_context, legal_query, statutory_object, bail_object, self.corpus
+        )
+        cco_json_str = compact_json(s0_slice)
+        qo_json_str = compact_json(s1_slice)
+        svo_json_str = compact_json(s4_slice)
+        bro_json_str = compact_json(s5_slice)
+        corpus_json_str = compact_json(compact_corpus)
 
         feedback_section = ""
         if correction_feedback:

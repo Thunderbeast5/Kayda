@@ -593,15 +593,14 @@ def run_act_router(
 
 def run_stage5(case_context_input: dict, statutory_input: dict) -> dict:
     """
-    Executes NEW Stage 5 precedent retrieval pipeline on CaseContextObject and StatutoryVerificationObject dicts.
-    Returns RoleSpecificPrecedentRetrievalObject with separate prosecution and defense precedent lists.
-    
-    NOTE: This replaces the old Stage 5 (Bail Reasoning) and Stage 6 (Precedent Retrieval).
+    Executes Stage 5 precedent retrieval pipeline on CaseContextObject and StatutoryVerificationObject dicts.
+    Returns compact view with deduplicated cases dict and {case_id, role_fit, score} lists for prosecution & defense.
+    Full evaluation is stored in stage5_precedent_debug.json.
     """
     pipeline = Stage5PrecedentPipeline()
     res = pipeline.run(case_context_input, statutory_input)
     if res.verified_precedent_object:
-        return res.verified_precedent_object.model_dump()
+        return res.verified_precedent_object.to_compact_dict()
     return {"status": res.status, "feedback": res.feedback, "issues": [issue.model_dump() for issue in res.issues]}
 
 

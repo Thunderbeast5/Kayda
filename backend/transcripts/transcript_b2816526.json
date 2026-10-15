@@ -1,0 +1,419 @@
+{
+  "session_id": "b2816526",
+  "case_id": "C:\\proj\\MootCourt\\backend\\data\\2007 INSC 272.pdf",
+  "round_no": 1,
+  "max_rounds": 2,
+  "case_facts": [
+    {
+      "id": "fact_1",
+      "text": "The Uttar Pradesh State Road Transport Corporation was constituted under the Road Transport Corporation Act, 1950.",
+      "source": "para 3",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_2",
+      "text": "The respondent Union filed an application before the Labour Court, Dehradun under Section 11-C of the Uttar Pradesh Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.",
+      "source": "para 3",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_3",
+      "text": "The application sought a declaration that 15 persons appointed on contract basis as drivers and conductors be declared regular and substantive workmen of the Corporation with consequential benefits.",
+      "source": "para 3",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_4",
+      "text": "The Labour Court, Dehradun allowed the application by order dated 19 September 2001.",
+      "source": "para 4",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_5",
+      "text": "The Labour Court directed that the concerned workmen be given the minimum wages admissible to regular employees in the pay scales of drivers and conductors.",
+      "source": "para 4",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_6",
+      "text": "The Labour Court held that the concerned workmen were employees of the Corporation.",
+      "source": "para 4",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_7",
+      "text": "It was not disputed that the concerned workmen had been appointed on contract basis.",
+      "source": "para 5",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_8",
+      "text": "The Corporation contended before the Labour Court that Rule 2 of the Uttar Pradesh State Road Transport Corporation Employees (Other than Officers) Service Regulations, 1981 did not apply to employees working on contract basis.",
+      "source": "para 5",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_9",
+      "text": "Persons working on contract basis had earlier filed Writ Petition No. 41349 of 1999, Kanchi Lal and Others v. U.P.S.R.T.C., before the Allahabad High Court seeking the same benefits as regular employees, but that writ petition was dismissed.",
+      "source": "para 5",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_10",
+      "text": "The Corporation challenged the Labour Court's order in a writ petition before the High Court, but the writ petition was dismissed by the impugned judgment.",
+      "source": "para 5",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_11",
+      "text": "The Corporation argued that the workmen had not been selected through the process required for appointment of regular employees and therefore could not be granted the minimum pay scales of regular employees.",
+      "source": "para 6",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_12",
+      "text": "The Corporation argued that the Labour Court acted beyond its jurisdiction because Section 11-C permits only interpretation and application of a standing order, not grant of substantive relief.",
+      "source": "para 6",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_13",
+      "text": "The Supreme Court held that the power of the Labour Court under Section 11-C of the Uttar Pradesh Industrial Disputes Act and Section 13-A of the Industrial Employment (Standing Orders) Act is much narrower than the power on a reference under Section 10 of the Industrial Disputes Act or Section 4-K of the Uttar Pradesh Industrial Disputes Act.",
+      "source": "paras 7, 10",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_14",
+      "text": "The Supreme Court held that the Labour Court could not have granted the relief given in the order dated 19 September 2001 because such relief could only have been granted on a regular reference under Section 4-K of the Uttar Pradesh Industrial Disputes Act or Section 10 of the Industrial Disputes Act.",
+      "source": "para 11",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_15",
+      "text": "The Supreme Court noted that the Labour Court's order did not refer to any standing order of the Corporation and instead referred to Rule 2 of the 1981 Regulations, which says the Regulations do not apply to employees engaged on contract basis.",
+      "source": "para 12",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_16",
+      "text": "The Supreme Court held that the Labour Court could not amend the Regulations while hearing an application under Section 11-C.",
+      "source": "para 12",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_17",
+      "text": "The Supreme Court set aside the High Court judgment and the Labour Court order dated 19 September 2001.",
+      "source": "para 14",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_18",
+      "text": "The Supreme Court left it open to the concerned workmen to raise their grievances before the concerned authority under Section 4-K of the Uttar Pradesh Industrial Disputes Act or under Section 10 of the Industrial Disputes Act, and directed that any referred dispute should be decided expeditiously.",
+      "source": "para 14",
+      "type": "court_finding"
+    }
+  ],
+  "evidence_inventory": [
+    {
+      "item": "application_before_labour_court",
+      "status": "present",
+      "details": "The respondent Union's application under Section 11-C of the Uttar Pradesh Industrial Disputes Act read with Section 13-A of the Industrial Employment (Standing Orders) Act sought regularization of 15 contract workers."
+    },
+    {
+      "item": "labour_court_order",
+      "status": "present",
+      "details": "The Labour Court, Dehradun passed order dated 19 September 2001 allowing the application and granting minimum wages and employee status."
+    },
+    {
+      "item": "high_court_writ_judgment",
+      "status": "present",
+      "details": "The Uttaranchal High Court judgment dated 6 September 2005 dismissed the Corporation's writ petition."
+    },
+    {
+      "item": "supreme_court_judgment",
+      "status": "present",
+      "details": "The Supreme Court allowed the appeals and set aside the High Court and Labour Court orders."
+    },
+    {
+      "item": "employment_contracts_or_appointment_orders",
+      "status": "not_on_record",
+      "details": "The text states the workers were appointed on contract basis, but the actual appointment letters or contracts are not produced."
+    },
+    {
+      "item": "standing_orders",
+      "status": "not_on_record",
+      "details": "No certified standing order of the Corporation is reproduced in the record."
+    },
+    {
+      "item": "1981_service_regulations",
+      "status": "present",
+      "details": "Rule 2 of the Uttar Pradesh State Road Transport Corporation Employees (Other than Officers) Service Regulations, 1981 is discussed as excluding contract employees."
+    },
+    {
+      "item": "writ_petition_41349_1999",
+      "status": "present",
+      "details": "A prior writ petition by contract workers, Kanchi Lal and Others v. U.P.S.R.T.C., is mentioned as having been dismissed."
+    },
+    {
+      "item": "selected_workmen_list_or_annexed_chart",
+      "status": "not_on_record",
+      "details": "The text mentions an annexed chart listing 15 drivers and conductors, but the chart itself is not reproduced."
+    },
+    {
+      "item": "medical_report",
+      "status": "not_on_record",
+      "details": "No medical evidence is involved or produced in the record."
+    },
+    {
+      "item": "eyewitness_statements",
+      "status": "not_on_record",
+      "details": "No eyewitness statements are mentioned or produced in the record."
+    },
+    {
+      "item": "cctv_footage",
+      "status": "not_on_record",
+      "details": "No CCTV or similar electronic evidence is mentioned in the record."
+    }
+  ],
+  "transcript": [
+    {
+      "turn_no": 1,
+      "speaker": "prosecutor",
+      "round_no": 1,
+      "content": "### Legal Theory\nMuch obliged, My Lord. I appear for the **Corporation/Prosecution side**.\n\n### Submissions\n1. - The respondents’ application was not a mere request for interpretation of a standing order.\n- It sought a **declaration that 15 contract appointees be treated as regular and substantive workmen with consequential benefits** [fact_3].\n- Such relief is in the nature of **substantive service regularization**, not interpretation of a standing order.\n- The Corporation specifically objected that **Section 11-C permits only interpretation and application of a standing order, not grant of substantive relief** [fact_12].\n2. Therefore, the Labour Court acted **beyond the scope of its statutory power**.\n3. ---\n4. - **Rule 2 of the U.P. State Road Transport Corporation Employees (Other than Officers) Service Regulations, 1981** does not apply to contract employees [fact_8].\n- Persons on contract cannot automatically acquire the status of regular workmen merely by claiming parity.\n- They were **never selected through the process required for appointment of regular employees** [fact_11].\n5. Thus, the claim for regularization and minimum pay scales of regular employees is legally untenable.\n6. ---\n7. This shows:\n8. - the issue was not new;\n- the claim had already been rejected in substance;\n- the present application was an attempt to obtain indirectly what had earlier been denied directly.\n9. ---\n10. - interpretation of standing orders; and\n- conferral of substantive service benefits.\n11. A court cannot, under the guise of interpretation, create a right to regular appointment.\n12. ---\n13. ---\n14. the Labour Court lacked jurisdiction to regularize the contract workers [fact_12];\n2. contract appointees could not be treated as regular employees under the 1981 Regulations [fact_8];\n3. the respondents had no legal right to minimum pay scales of regular employees without lawful selection [fact_11];\n4. the prior dismissal of the same claim supports denial [fact_9]; and\n5. the Labour Court’s order dated **19 September 2001** was illegal and deserved to be set aside [fact_4].\n15. **Prayer:** The impugned judgment should be reversed and the Labour Court’s order should be quashed.\n\n### Evidence References\n- **[fact_3]**: The application sought a declaration that 15 persons appointed on contract basis as drivers and conductors be declared regular and substantive workmen of the Corporation with consequential benefits.\n- **[fact_12]**: The Corporation argued that the Labour Court acted beyond its jurisdiction because Section 11-C permits only interpretation and application of a standing order, not grant of substantive relief.\n- **[fact_8]**: The Corporation contended before the Labour Court that Rule 2 of the Uttar Pradesh State Road Transport Corporation Employees (Other than Officers) Service Regulations, 1981 did not apply to employees working on contract basis.\n- **[fact_11]**: The Corporation argued that the workmen had not been selected through the process required for appointment of regular employees and therefore could not be granted the minimum pay scales of regular employees.\n- **[fact_9]**: Persons working on contract basis had earlier filed Writ Petition No. 41349 of 1999, Kanchi Lal and Others v. U.P.S.R.T.C., before the Allahabad High Court seeking the same benefits as regular employees, but that writ petition was dismissed.\n- **[fact_10]**: The Corporation challenged the Labour Court's order in a writ petition before the High Court, but the writ petition was dismissed by the impugned judgment.\n- **[fact_4]**: The Labour Court, Dehradun allowed the application by order dated 19 September 2001.\n- **[fact_2]**: The respondent Union filed an application before the Labour Court, Dehradun under Section 11-C of the Uttar Pradesh Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n\n### Statutory Provisions\n- IPC 174\n- IPC 174A\n- IPC 11\n- IPC 13",
+      "citations": [
+        "IPC 174",
+        "IPC 174A",
+        "IPC 11",
+        "IPC 13"
+      ],
+      "evidence_refs": [
+        "fact_3",
+        "fact_12",
+        "fact_8",
+        "fact_11",
+        "fact_9",
+        "fact_4",
+        "fact_10",
+        "fact_2"
+      ],
+      "structured_argument": {
+        "theory": "Much obliged, My Lord. I appear for the **Corporation/Prosecution side**.",
+        "arguments": [
+          "- The respondents’ application was not a mere request for interpretation of a standing order.",
+          "- It sought a **declaration that 15 contract appointees be treated as regular and substantive workmen with consequential benefits** [fact_3].",
+          "- Such relief is in the nature of **substantive service regularization**, not interpretation of a standing order.",
+          "- The Corporation specifically objected that **Section 11-C permits only interpretation and application of a standing order, not grant of substantive relief** [fact_12].",
+          "Therefore, the Labour Court acted **beyond the scope of its statutory power**.",
+          "---",
+          "- **Rule 2 of the U.P. State Road Transport Corporation Employees (Other than Officers) Service Regulations, 1981** does not apply to contract employees [fact_8].",
+          "- Persons on contract cannot automatically acquire the status of regular workmen merely by claiming parity.",
+          "- They were **never selected through the process required for appointment of regular employees** [fact_11].",
+          "Thus, the claim for regularization and minimum pay scales of regular employees is legally untenable.",
+          "---",
+          "This shows:",
+          "- the issue was not new;",
+          "- the claim had already been rejected in substance;",
+          "- the present application was an attempt to obtain indirectly what had earlier been denied directly.",
+          "---",
+          "- interpretation of standing orders; and",
+          "- conferral of substantive service benefits.",
+          "A court cannot, under the guise of interpretation, create a right to regular appointment.",
+          "---",
+          "---",
+          "the Labour Court lacked jurisdiction to regularize the contract workers [fact_12];",
+          "contract appointees could not be treated as regular employees under the 1981 Regulations [fact_8];",
+          "the respondents had no legal right to minimum pay scales of regular employees without lawful selection [fact_11];",
+          "the prior dismissal of the same claim supports denial [fact_9]; and",
+          "the Labour Court’s order dated **19 September 2001** was illegal and deserved to be set aside [fact_4].",
+          "**Prayer:** The impugned judgment should be reversed and the Labour Court’s order should be quashed."
+        ],
+        "evidence_refs": [
+          "fact_3",
+          "fact_12",
+          "fact_8",
+          "fact_11",
+          "fact_9",
+          "fact_4",
+          "fact_10",
+          "fact_2"
+        ],
+        "sections": [
+          "IPC 174",
+          "IPC 174A",
+          "IPC 11",
+          "IPC 13"
+        ]
+      },
+      "grounded": false,
+      "unverified": []
+    },
+    {
+      "turn_no": 2,
+      "speaker": "defense",
+      "round_no": 1,
+      "content": "### Legal Theory\nThe prosecution’s own record shows that the dispute is essentially one of statutory jurisdiction and service law interpretation, not any offence under IPC 174 or IPC 174A. No material on record establishes summons, warrant, proclamation, or any legally required non-appearance; at most, the case reflects a challenge to the Labour Court’s overreach, which the Supreme Court ultimately corrected.\n\n### Submissions\n1. The core grievance in [fact_3] was a claim for regularization and consequential service benefits, and the Corporation’s objection in [fact_12] was that Section 11-C permits only interpretation/application of a standing order, not substantive relief. The Supreme Court accepted this jurisdictional objection in [fact_13], [fact_14], [fact_16], and set aside the orders in [fact_17]. This shows the matter turned on ultra vires exercise of power, not on any criminal conduct attracting IPC 174 or IPC 174A.\n2. The record before the court does not contain any summons, warrant, proclamation under CrPC 82, or any allegation of deliberate failure to appear in response to such process. Without those foundational facts, the ingredients of IPC 174 or IPC 174A cannot even arise. The prosecution cannot bypass these missing jurisdictional facts and convert a service dispute into a penal matter.\n3. On mens rea, there is no material showing the kind of knowing disobedience required for IPC 174A or any intentional obstruction of lawful process. The only established facts are that the workers were on contract [fact_7], the Corporation disputed their entitlement to regular scale [fact_8], [fact_11], and the Labour Court exceeded its power [fact_12], [fact_14]. The absence of the necessary procedural predicates, together with the Supreme Court’s direction that any grievance be pursued through proper reference under Section 4-K of the Uttar Pradesh Industrial Disputes Act or Section 10 of the Industrial Disputes Act [fact_18], creates at least reasonable doubt against any penal inference.\n\n### Evidence References\n- **[fact_2]**: The respondent Union filed an application before the Labour Court, Dehradun under Section 11-C of the Uttar Pradesh Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n- **[fact_3]**: The application sought a declaration that 15 persons appointed on contract basis as drivers and conductors be declared regular and substantive workmen of the Corporation with consequential benefits.\n- **[fact_7]**\n- **[fact_12]**: The Corporation argued that the Labour Court acted beyond its jurisdiction because Section 11-C permits only interpretation and application of a standing order, not grant of substantive relief.\n- **[fact_13]**\n- **[fact_14]**\n- **[fact_16]**\n- **[fact_17]**\n- **[fact_18]**\n\n### Statutory Provisions\n- IPC 174\n- IPC 174A\n- CrPC 82\n- Uttar Pradesh Industrial Disputes Act 1947 11-C\n- Industrial Employment (Standing Orders) Act 1946 13-A",
+      "citations": [
+        "IPC 174",
+        "IPC 174A",
+        "CrPC 82",
+        "IPC 11",
+        "IPC 4",
+        "IPC 10",
+        "IPC 13"
+      ],
+      "evidence_refs": [
+        "fact_3",
+        "fact_12",
+        "fact_13",
+        "fact_14",
+        "fact_16",
+        "fact_17",
+        "fact_7",
+        "fact_8",
+        "fact_11",
+        "fact_18",
+        "fact_2"
+      ],
+      "structured_argument": {
+        "theory": "The prosecution’s own record shows that the dispute is essentially one of statutory jurisdiction and service law interpretation, not any offence under IPC 174 or IPC 174A. No material on record establishes summons, warrant, proclamation, or any legally required non-appearance; at most, the case reflects a challenge to the Labour Court’s overreach, which the Supreme Court ultimately corrected.",
+        "arguments": [
+          "The core grievance in [fact_3] was a claim for regularization and consequential service benefits, and the Corporation’s objection in [fact_12] was that Section 11-C permits only interpretation/application of a standing order, not substantive relief. The Supreme Court accepted this jurisdictional objection in [fact_13], [fact_14], [fact_16], and set aside the orders in [fact_17]. This shows the matter turned on ultra vires exercise of power, not on any criminal conduct attracting IPC 174 or IPC 174A.",
+          "The record before the court does not contain any summons, warrant, proclamation under CrPC 82, or any allegation of deliberate failure to appear in response to such process. Without those foundational facts, the ingredients of IPC 174 or IPC 174A cannot even arise. The prosecution cannot bypass these missing jurisdictional facts and convert a service dispute into a penal matter.",
+          "On mens rea, there is no material showing the kind of knowing disobedience required for IPC 174A or any intentional obstruction of lawful process. The only established facts are that the workers were on contract [fact_7], the Corporation disputed their entitlement to regular scale [fact_8], [fact_11], and the Labour Court exceeded its power [fact_12], [fact_14]. The absence of the necessary procedural predicates, together with the Supreme Court’s direction that any grievance be pursued through proper reference under Section 4-K of the Uttar Pradesh Industrial Disputes Act or Section 10 of the Industrial Disputes Act [fact_18], creates at least reasonable doubt against any penal inference."
+        ],
+        "evidence_refs": [
+          "fact_3",
+          "fact_12",
+          "fact_13",
+          "fact_14",
+          "fact_16",
+          "fact_17",
+          "fact_7",
+          "fact_8",
+          "fact_11",
+          "fact_18",
+          "fact_2"
+        ],
+        "sections": [
+          "IPC 174",
+          "IPC 174A",
+          "CrPC 82",
+          "IPC 11",
+          "IPC 4",
+          "IPC 10",
+          "IPC 13"
+        ]
+      },
+      "grounded": true,
+      "unverified": []
+    }
+  ],
+  "judge_scores": {
+    "prosecution": {
+      "legal_validity": 2,
+      "evidence_linkage": 8,
+      "logic_coherence": 5,
+      "total": 15.0,
+      "average": 5.0
+    },
+    "defense": {
+      "legal_validity": 7,
+      "evidence_linkage": 8,
+      "logic_coherence": 8,
+      "total": 23.0,
+      "average": 7.67
+    },
+    "overall": 6.33
+  },
+  "verdict": {
+    "decision": "NO_OPINION",
+    "confidence": "high",
+    "confidence_label": "high",
+    "agreement_rate": 1.0,
+    "valid_votes": 5,
+    "total_votes": 5,
+    "agree_count": 5,
+    "laws_applied": [
+      "CrPC 438",
+      "CrPC 82",
+      "IPC 174",
+      "2024 INSC 202"
+    ],
+    "statutes": [
+      "CrPC 438",
+      "CrPC 82",
+      "IPC 174"
+    ],
+    "precedents": [
+      "2024 INSC 202"
+    ],
+    "holdings_relied": [
+      "srikant_para12-13",
+      "srikant_para19-20",
+      "srikant_para21-18",
+      "srikant_para8-9"
+    ],
+    "reasoning": "The record shows a labor/service dispute about whether 15 contract drivers and conductors could be treated as regular employees, and the Supreme Court held the Labour Court exceeded its jurisdiction in granting substantive regularization relief. However, for anticipatory bail purposes, the file contains no summons, warrant, proclamation, or specific allegation of non-appearance by any individual applicant, which are foundational facts for CrPC 82, IPC 174, or IPC 174A. Because the paragraph 24 exception for jurisdictionless or malicious process cannot be evaluated without any process record at all, the materials are insufficient to decide refusal or grant on a bail standard. The proper course is therefore NO_OPINION.\n\n[Record Basis: Facts relied on: fact_10, fact_12, fact_13, fact_14, fact_17, fact_18, fact_2, fact_3, fact_7; Holdings relied on: srikant_para12-13, srikant_para19-20, srikant_para21-18, srikant_para8-9; Open Questions: Were any summons, warrant, or proclamation under CrPC 82 issued against these specific applicants?, Did any individual applicant fail to appear after lawful service of such process?, Is there any material suggesting the paragraph 24 exception applies because process was issued without jurisdiction or as malicious abuse of process?, Were any of the 15 applicants ever served with summons, warrant, or a CrPC 82 proclamation in the present proceeding?, What specific individual role, if any, is attributed to each applicant in relation to any alleged non-appearance or obstruction of process?, Is the present anticipatory bail request actually connected to an IPC 174/174A prosecution, or is it only a service-law challenge to the Labour Court proceedings?, Were summons, warrants, or a proclamation under CrPC 82 ever issued against any specific applicant, and if so, what was each applicant's response?, Are the present applicants the same 15 contract workmen referred to in the service dispute, and what is the individual role of each applicant in the alleged non-appearance or defiance?, Is there any material showing that a Section 82 proclamation, if issued, was without jurisdiction or a malicious abuse of process so as to attract the Paragraph 24 exception?, Were any summons, warrants, or a proclamation under CrPC 82 issued against the present applicants, and if so, what were the dates and compliance status?, What are the individual roles and allegations, if any, against each specific bail applicant as distinct from the general service dispute involving 15 contract workers?, Is there any material suggesting that any process under CrPC 82 was issued without jurisdiction or as malicious abuse of process so as to attract the narrow paragraph 24 exception?, Were any summons, warrants, or a proclamation under Section 82 CrPC ever issued against any of the specific applicants?, If process was issued, did any individual applicant fail to appear in response, and what was each applicant's distinct role?, Was there any allegation or material suggesting the issuance of process was without jurisdiction or a malicious abuse of process within the Paragraph 24 exception?]",
+    "factors": [
+      {
+        "finding": "The record establishes only a service-law dispute over contract drivers and conductors seeking regularization, and it does not identify any individual applicant's specific conduct amounting to disobedience of summons, warrant, or proclamation.",
+        "fact_ids": [
+          "fact_3",
+          "fact_7",
+          "fact_12",
+          "fact_13",
+          "fact_14",
+          "fact_18"
+        ],
+        "holding_ids": [
+          "srikant_para12-13",
+          "srikant_para19-20"
+        ]
+      },
+      {
+        "finding": "No fact on record shows issuance of process under CrPC 82 or any absconding, so the denial logic tied to Section 82 and IPC 174A cannot be applied on the present materials.",
+        "fact_ids": [
+          "fact_2",
+          "fact_7",
+          "fact_18"
+        ],
+        "holding_ids": [
+          "srikant_para21-18"
+        ]
+      },
+      {
+        "finding": "The paragraph 24 narrow exception for warrants or proclamation issued without jurisdiction or as malicious abuse of process cannot be assessed because the record contains no warrant, proclamation, or related jurisdictional facts at all.",
+        "fact_ids": [
+          "fact_2",
+          "fact_10",
+          "fact_17"
+        ],
+        "holding_ids": [
+          "srikant_para8-9"
+        ]
+      }
+    ],
+    "open_questions": [
+      "Were any summons, warrant, or proclamation under CrPC 82 issued against these specific applicants?",
+      "Did any individual applicant fail to appear after lawful service of such process?",
+      "Is there any material suggesting the paragraph 24 exception applies because process was issued without jurisdiction or as malicious abuse of process?",
+      "Were any of the 15 applicants ever served with summons, warrant, or a CrPC 82 proclamation in the present proceeding?",
+      "What specific individual role, if any, is attributed to each applicant in relation to any alleged non-appearance or obstruction of process?",
+      "Is the present anticipatory bail request actually connected to an IPC 174/174A prosecution, or is it only a service-law challenge to the Labour Court proceedings?",
+      "Were summons, warrants, or a proclamation under CrPC 82 ever issued against any specific applicant, and if so, what was each applicant's response?",
+      "Are the present applicants the same 15 contract workmen referred to in the service dispute, and what is the individual role of each applicant in the alleged non-appearance or defiance?",
+      "Is there any material showing that a Section 82 proclamation, if issued, was without jurisdiction or a malicious abuse of process so as to attract the Paragraph 24 exception?",
+      "Were any summons, warrants, or a proclamation under CrPC 82 issued against the present applicants, and if so, what were the dates and compliance status?",
+      "What are the individual roles and allegations, if any, against each specific bail applicant as distinct from the general service dispute involving 15 contract workers?",
+      "Is there any material suggesting that any process under CrPC 82 was issued without jurisdiction or as malicious abuse of process so as to attract the narrow paragraph 24 exception?",
+      "Were any summons, warrants, or a proclamation under Section 82 CrPC ever issued against any of the specific applicants?",
+      "If process was issued, did any individual applicant fail to appear in response, and what was each applicant's distinct role?",
+      "Was there any allegation or material suggesting the issuance of process was without jurisdiction or a malicious abuse of process within the Paragraph 24 exception?"
+    ],
+    "vote_tally": {
+      "NO_OPINION": 5
+    }
+  },
+  "errors": []
+}

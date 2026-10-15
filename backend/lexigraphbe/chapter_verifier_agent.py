@@ -43,15 +43,10 @@ class ChapterVerificationAgent:
         Returns:
             ChapterVerificationResult instance (status 'VERIFIED' or 'RETRY').
         """
-        # Format source query JSON
-        if isinstance(legal_query, LegalQueryObject):
-            query_json_str = legal_query.to_downstream_json()
-        elif isinstance(legal_query, dict):
-            query_json_str = json.dumps(legal_query, indent=2)
-        elif isinstance(legal_query, str):
-            query_json_str = legal_query
-        else:
-            query_json_str = str(legal_query)
+        # Format source query JSON using Stage 3 typed slice (concepts & sub-queries only)
+        from .stage_slices import get_stage3_slice, compact_json
+        s3_slice = get_stage3_slice(legal_query)
+        query_json_str = compact_json(s3_slice.model_dump())
 
         # Format chapter object JSON
         if isinstance(chapter_object, ChapterIdentificationObject):
@@ -61,7 +56,7 @@ class ChapterVerificationAgent:
             chapter_dict = chapter_object
             target_obj = ChapterIdentificationObject.model_validate(chapter_object)
 
-        chapter_json_str = json.dumps(chapter_dict, indent=2)
+        chapter_json_str = compact_json(chapter_dict)
 
         # Programmatic Check: Check duplicate section candidates in verified_offences and section_candidates
         dup_issues = []

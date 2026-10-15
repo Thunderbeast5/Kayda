@@ -14,6 +14,9 @@
     },
     "format_profile": "unknown",
     "citation_scr": "[2023] 1 SCR 501",
+    "canonical_citation": "Bimla Tiwari v. State of Bihar & Ors., [2023] 1 SCR 501 : (2023) 11 SCC 607 : 2023 INSC 35",
+    "source_verified": true,
+    "source_url": "https://indiankanoon.org/doc/123307205/",
     "scr_year": 2023,
     "scr_volume": 1,
     "scr_first_page": 501,
@@ -25,6 +28,9 @@
     ],
     "bench_strength_regex": 2,
     "constitution_bench": false,
+    "bench_strength": 2,
+    "court_level": "supreme_court",
+    "disposal_type": "short_order",
     "petitioner_regex": "BIMLA TIWARI",
     "respondent_regex": "STATE OF BIHAR & ORS.",
     "court_regex": "Supreme Court of India",
@@ -42,7 +48,7 @@
     "author_not_found"
   ],
   "case": {
-    "case_name": "BIMLA TIWARI",
+    "case_name": "Bimla Tiwari v. State of Bihar & Ors.",
     "petitioner": "Bimla Tiwari",
     "respondent": "State of Bihar & Ors.",
     "court": "Supreme Court of India",
@@ -60,6 +66,13 @@
     "abstract_facts": "The case involves allegations against the respondents of taking money and articles under the pretext of an engagement arrangement for the informant's daughter, which was later called off. The informant accused the respondents of demanding additional money and a vehicle, and failing to return the money after the engagement was canceled. The High Court had granted pre-arrest bail to the accused-respondents, on the condition of payment, which the informant challenged at the Supreme Court.",
     "lower_court_outcome": "Pre-arrest bail granted with payment condition.",
     "disposition": "Petitions disposed of.",
+    "caveats": [
+      "Short disposal order focusing specifically on the impermissibility of using bail proceedings as a recovery mechanism or coercive tool for financial settlements."
+    ],
+    "treatment": {
+      "defense": "Directly supports defense: criminal proceedings and bail cannot be used as an arm-twisting tool or recovery mechanism for monetary claims.",
+      "prosecution": "Distinguish if prosecution is not seeking monetary recovery but is demonstrating systematic criminal deception, forged instruments, and absence of bona fides."
+    },
     "statutes": [
       {
         "act": "IPC",
@@ -94,14 +107,14 @@
       {
         "act": "CrPC 1973",
         "section": "82",
-        "how_used": "charged",
-        "note": null
+        "how_used": "process",
+        "note": "Proclamation process noted"
       },
       {
         "act": "CrPC 1973",
         "section": "83",
-        "how_used": "charged",
-        "note": null
+        "how_used": "process",
+        "note": "Attachment process noted"
       }
     ],
     "issues": [

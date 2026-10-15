@@ -77,17 +77,10 @@ class QueryUnderstandingAgent:
             except Exception:
                 pass
 
-        # Standardize input to JSON string
-        if isinstance(case_context, CaseContextObject):
-            case_context_str = case_context.to_downstream_json()
-        elif isinstance(case_context, CaseProfile):
-            case_context_str = json.dumps(case_context.model_dump(), indent=2)
-        elif isinstance(case_context, dict):
-            case_context_str = json.dumps(case_context, indent=2)
-        elif isinstance(case_context, str):
-            case_context_str = case_context
-        else:
-            raise ValueError(f"Invalid case_context type: {type(case_context)}")
+        # Use typed Stage 1 slice containing only extracted fields (no raw docs/debug notes)
+        from .stage_slices import get_stage1_slice, compact_json
+        s1_slice = get_stage1_slice(case_context)
+        case_context_str = compact_json(s1_slice.model_dump())
 
         feedback_section = ""
         if correction_feedback:

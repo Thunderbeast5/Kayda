@@ -1,0 +1,23 @@
+[
+  {
+    "rule_id": "valuable_security_forgery_467",
+    "target_act": "IPC",
+    "target_section": "467",
+    "equivalent_act": "BNS",
+    "equivalent_section": "338",
+    "description": "Inference of potential aggravated forgery of valuable security / will",
+    "fact_trigger_all_of": [
+      ["sale deed", "title deed", "valuable security", "conveyance", "will", "ownership document", "registered deed"],
+      ["forg", "fabricat", "fraudulent", "spurious"]
+    ],
+    "negative_triggers": [
+      "pure money recovery", "commercial contract", "goods supply", "cheque bounce", "section 138"
+    ],
+    "kind": "possible_offence",
+    "source": "inferred",
+    "weight": 0.3,
+    "strength": "Possible",
+    "status": "Possible Additional Charge (Not in FIR - Inferred from Valuable Security)",
+    "note": "Inferred from allegations involving forged/fabricated sale deed or valuable security. Not an FIR charge."
+  }
+]

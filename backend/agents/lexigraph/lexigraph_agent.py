@@ -2,6 +2,8 @@ import json
 import re
 from typing import Dict, Any, List
 
+from . import lexigraph_cache
+
 from .services.query_understanding_service import QueryUnderstandingService
 from .services.query_expansion_service import QueryExpansionService
 from .services.embedding_service import EmbeddingService
@@ -134,6 +136,18 @@ class LexiGraphAgent:
                    Will be wired into prompt-tuning in a future pass.
         """
         print(f"\n[LexiGraphAgent] called by role='{role}' for query: '{query[:80]}{'...' if len(query)>80 else ''}'")
+
+        # ── Cache look-up ────────────────────────────────────────────────────────
+        _cache_key = lexigraph_cache.make_key(query)
+        _cached = lexigraph_cache.get(_cache_key)
+        if _cached is not None:
+            print(f"[LexiGraphAgent] Cache HIT  key={_cache_key}  (0 tokens consumed)")
+            _cached["_cache_hit"] = True
+            _cached["_caller_role"] = role   # role may differ between hits
+            return _cached
+        print(f"[LexiGraphAgent] Cache MISS key={_cache_key}  — running full pipeline")
+        # ── End cache look-up ────────────────────────────────────────────────────
+
         user_asked_ipc = any(word in query.lower() for word in ["ipc", "indian penal code", "historical", "before bns"])
 
         # ── STEP 1: Query Understanding, Expansion & Citation Grounding Gate ──
@@ -647,6 +661,14 @@ class LexiGraphAgent:
             production_output["prediction_id"] = prediction_id
         except Exception as fb_err:
             print(f"[FeedbackLoop] Non-fatal error logging prediction: {fb_err}")
+
+        # ── Cache store (always after feedback logger so prediction_id is captured) ──
+        production_output["_cache_hit"] = False
+        stored = lexigraph_cache.set(_cache_key, production_output)
+        if stored:
+            print(f"[LexiGraphAgent] Cache STORED key={_cache_key}")
+        else:
+            print(f"[LexiGraphAgent] Cache store skipped/failed (backend={lexigraph_cache._BACKEND})")
 
         return production_output
 

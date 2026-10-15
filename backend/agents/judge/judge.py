@@ -195,8 +195,10 @@ class JudgeAgent:
                             accused_history)
     """
 
-    def __init__(self):
-        self.llm = get_llm(temperature=0.1)   # low temp for consistent scoring
+    def __init__(self, model: Optional[str] = None):
+        import os
+        model_name = model or os.getenv("MODEL_COURTROOM", os.getenv("MODEL_STRONG", "gpt-5.4-mini"))
+        self.llm = get_llm(temperature=0.1, model_name=model_name)   # low temp for consistent scoring
 
     # ── pass 1: score ─────────────────────────────────────────────────────────
 

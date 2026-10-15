@@ -1,0 +1,125 @@
+{
+  "case_id": "_2014_8_SCC_273",
+  "doc_meta": {
+    "source_file": "Arnesh Kumar v. State of Bihar.pdf",
+    "pdf_pages": 12,
+    "citation_scr": "[2014] 8 SCR 1122",
+    "citation_scc": "(2014) 8 SCC 273",
+    "canonical_citation": "Arnesh Kumar v. State of Bihar & Anr., (2014) 8 SCC 273 : [2014] 8 SCR 1122 : 2014 INSC 479",
+    "source_verified": false,
+    "source_url": "https://indiankanoon.org/doc/298347/",
+    "decided_on": "2014-07-02",
+    "coram_raw": "CHANDRAMAULI KR. PRASAD AND PINAKI CHANDRA GHOSE, JJ.",
+    "coram_regex": [
+      "CHANDRAMAULI KR. PRASAD",
+      "PINAKI CHANDRA GHOSE"
+    ],
+    "bench_strength": 2,
+    "bench_strength_regex": 2,
+    "constitution_bench": false,
+    "court_level": "supreme_court",
+    "disposal_type": "judgment",
+    "court_regex": "Supreme Court of India",
+    "year": 2014,
+    "result_of_case": "Appeals allowed; provisional bail granted with guidelines on arrest."
+  },
+  "flags": [],
+  "case": {
+    "case_name": "Arnesh Kumar v. State of Bihar & Anr.",
+    "petitioner": "Arnesh Kumar",
+    "respondent": "State of Bihar & Anr.",
+    "court": "Supreme Court of India",
+    "coram": [
+      "Chandramauli Kr. Prasad",
+      "Pinaki Chandra Ghose"
+    ],
+    "judgment_author": "Chandramauli Kr. Prasad",
+    "procedural_stage": "pre_arrest",
+    "offence_types": [
+      "arrest_guidelines",
+      "anticipatory_bail",
+      "procedural_safeguards"
+    ],
+    "dispute_nature": "custody_and_arrest_procedure",
+    "abstract_facts": "The appellant apprehending arrest in a criminal case moved the Supreme Court for anticipatory bail. Taking notice of widespread mechanical arrests without justifiable necessity, the Supreme Court laid down mandatory guidelines governing police arrest and judicial remand under Sections 41, 41A, and 57 of the CrPC for offences punishable with imprisonment up to 7 years.",
+    "lower_court_outcome": "High Court rejected anticipatory bail application.",
+    "disposition": "Anticipatory bail granted; comprehensive arrest and Section 41A compliance guidelines issued.",
+    "caveats": [
+      "Mandatory Section 41A notice and arrest restrictions strictly govern offences punishable with imprisonment up to 7 years (Category A); does not automatically bar custodial arrest for offences carrying higher penalties such as life imprisonment (e.g., Section 467 IPC / BNS 338)."
+    ],
+    "treatment": {
+      "defense": "Leading authority prohibiting mechanical arrest and mandating Section 41A notice of appearance for offences punishable up to 7 years (IPC 420/468); accused's willingness to cooperate precludes custodial arrest.",
+      "prosecution": "Adverse to custodial arrest for <=7 yr offences; distinguish where aggravated offences carrying higher punishment (e.g. S.467 IPC / BNS 338) are prima facie attracted, or show specific grounds under S.41(1)(b) necessitating custody."
+    },
+    "statutes": [
+      {
+        "act": "CrPC 1973",
+        "section": "438",
+        "how_used": "procedure",
+        "note": "Anticipatory bail granted to prevent unnecessary arrest"
+      },
+      {
+        "act": "CrPC 1973",
+        "section": "41",
+        "how_used": "procedure",
+        "note": "Parameters governing when police may arrest without warrant"
+      },
+      {
+        "act": "CrPC 1973",
+        "section": "41A",
+        "how_used": "procedure",
+        "note": "Mandatory notice of appearance before police officer in offences <= 7 years"
+      },
+      {
+        "act": "CrPC 1973",
+        "section": "167",
+        "how_used": "procedure",
+        "note": "Magistrate must apply judicial mind before authorising detention"
+      }
+    ],
+    "issues": [
+      {
+        "question": "Whether police officers can make routine or mechanical arrests without demonstrating specific necessity under Section 41 CrPC?",
+        "short_answer": "No. Arrest must be based on objective necessity and cannot be made merely because it is lawful to do so.",
+        "anchors": ["P5", "P6", "P7"]
+      },
+      {
+        "question": "What is the scope of Section 41A CrPC notice of appearance and its impact on anticipatory bail for offences punishable with up to 7 years imprisonment?",
+        "short_answer": "Notice of appearance under Section 41A is mandatory; if the accused complies, arrest is prohibited unless reasons in writing are recorded.",
+        "anchors": ["P8", "P9", "P11"]
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "text": "Arrest brings humiliation, curtails freedom, and casts scars forever; police officers must not arrest accused persons mechanically or on mere allegation in offences punishable with imprisonment up to seven years without recording specific satisfaction under Section 41(1)(b) CrPC.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "binding_level": "binding",
+        "quote": "Arrest brings humiliation, curtails freedom and cast scars forever. No arrest can be made in a routine manner on a mere allegation of commission of an offence made against a person."
+      },
+      {
+        "id": "p2",
+        "text": "In all cases where the offence is punishable with imprisonment for a term which may be less than seven years or which may extend to seven years, notice of appearance under Section 41A CrPC must be served, and so long as the accused cooperates and appears, he shall not be arrested.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "accused",
+        "binding_level": "binding",
+        "quote": "All police officers be provided with a check list containing specified sub-clauses under Section 41(1)(b)(ii); notice of appearance in terms of Section 41A Cr.P.C. be served on the accused within two weeks from the date of institution of the case."
+      },
+      {
+        "id": "p3",
+        "text": "The statutory protection of Section 41A CrPC strictly governs offences punishable up to 7 years imprisonment; for offences carrying higher penalties such as life imprisonment under Section 467 IPC, necessity of custody is subjected to elevated judicial scrutiny on merits.",
+        "speaker": "supreme_court",
+        "kind": "ratio",
+        "is_holding": true,
+        "favors": "neutral",
+        "binding_level": "binding",
+        "quote": "Our endeavor in this judgment is to ensure that police officers do not arrest accused unnecessarily and Magistrate do not authorise detention casually and mechanically."
+      }
+    ]
+  }
+}

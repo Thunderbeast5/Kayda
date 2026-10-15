@@ -66,6 +66,8 @@ load_dotenv(_backend_dir / ".env")
 
 from langgraph.graph import StateGraph, START, END
 
+from agents.orchestrator.usage_logger import UsageLogger, track_stage
+
 from agents.orchestrator.state import SimulationState, Turn, Question, Fact
 from agents.orchestrator.formatting import (
     extract_citations_with_act,
@@ -75,6 +77,7 @@ from agents.orchestrator.formatting import (
     parse_argument_structure,
     structure_prosecution_turn,
     export_transcript,
+    summarize_transcript_history,
 )
 from agents.judge.judge       import JudgeAgent
 from agents.accused.accused   import AccusedAgent
@@ -85,8 +88,7 @@ from agents.orchestrator.case_file import get_or_build_case_file
 # ── Constants ────────────────────────────────────────────────────────────────
 MAX_EVIDENCE_RETRIES  = 2
 MAX_LEXIGRAPH_RETRIES = 2
-MAX_CITATION_RETRIES  = 2
-NODE_TIMEOUT_SECS     = 120          # per-node hard timeout
+MAX_CITATION_RETRIES  = int(os.getenv("MAX_CITATION_RETRIES", "1"))  # capped at 1 targeted repair retry (max 2 attempts per turn)
 JUDGE_THRESHOLD       = float(os.getenv("JUDGE_THRESHOLD", os.getenv("JUDGE_SUFFICIENCY_THRESHOLD", "6.0")))  # overall judge score threshold (0–10)
 DEFAULT_MAX_ROUNDS    = int(os.getenv("ORCHESTRATOR_MAX_ROUNDS", "2"))
 
@@ -573,6 +575,7 @@ def _prosecutor_context(state: SimulationState) -> dict:
             break
     debate_facts = _get_debate_facts(state.get("case_facts", []))
     canonical_case_file = get_or_build_case_file(state)
+    transcript_summary = summarize_transcript_history(state.get("transcript", []), keep_last=2)
     return {
         "canonical_case_file": canonical_case_file,
         "case_facts":      debate_facts,
@@ -581,6 +584,7 @@ def _prosecutor_context(state: SimulationState) -> dict:
         "lexigraph_output": state.get("lexigraph_output", {}),
         "holdings":        state.get("holdings") or state.get("lexigraph_output", {}).get("holdings", []),
         "last_defense_argument": last_defense,
+        "hearing_transcript": transcript_summary,
         "round_no": state.get("round_no", 1),
     }
 
@@ -592,6 +596,7 @@ def _defense_context(state: SimulationState) -> dict:
             last_prosecution = t["content"]
             break
     canonical_case_file = get_or_build_case_file(state)
+    transcript_summary = summarize_transcript_history(state.get("transcript", []), keep_last=2)
     return {
         "canonical_case_file": canonical_case_file,
         "case_facts":      _get_debate_facts(state.get("case_facts", [])),
@@ -599,12 +604,14 @@ def _defense_context(state: SimulationState) -> dict:
         "lexigraph_output": state.get("lexigraph_output", {}),
         "holdings":        state.get("holdings") or state.get("lexigraph_output", {}).get("holdings", []),
         "last_prosecution_argument": last_prosecution,
+        "hearing_transcript": transcript_summary,
         "round_no": state.get("round_no", 1),
     }
 
 
 def _judge_context(state: SimulationState) -> dict:
     canonical_case_file = get_or_build_case_file(state)
+    transcript_summary = summarize_transcript_history(state.get("transcript", []), keep_last=2)
     return {
         "canonical_case_file": canonical_case_file,
         "case_facts":      state.get("case_facts", []),
@@ -612,6 +619,7 @@ def _judge_context(state: SimulationState) -> dict:
         "lexigraph_output": state.get("lexigraph_output", {}),
         "holdings":        state.get("holdings") or state.get("lexigraph_output", {}).get("holdings", []),
         "transcript":      state.get("transcript", []),
+        "hearing_transcript": transcript_summary,
         "judge_scores":    state.get("judge_scores", {}),
         "pending_questions": state.get("pending_questions", []),
     }
@@ -672,8 +680,8 @@ def _prosecutor():
                 from agents.lexigraph.lexigraph_agent import LexiGraphAgent
             _prosecutor_agent = ProsecutorAgent(lexigraph_agent=LexiGraphAgent())
         except Exception as exc:
-            print(f"[Orchestrator] ProsecutorAgent init failed: {exc}. Will use LLM fallback each call.")
-            _prosecutor_agent = None
+            print(f"[Orchestrator][FATAL] ProsecutorAgent init failed: {exc}")
+            raise RuntimeError(f"ProsecutorAgent initialization failed: {exc}") from exc
     return _prosecutor_agent
 
 
@@ -744,6 +752,45 @@ def node_init_session(state: SimulationState, *, emit: Optional[Callable] = None
     }
 
 
+def is_anticipatory_bail_matter(text: str, facts: Optional[List[Any]] = None) -> bool:
+    """
+    Scope gate check: Determine whether the case document or facts involve an
+    anticipatory bail matter under Section 438 CrPC or Section 482 BNSS.
+    """
+    facts_text = " ".join(
+        getattr(f, "text", str(f.get("text", f.get("value", ""))) if isinstance(f, dict) else str(f))
+        for f in (facts or [])
+    )
+    combined = f"{text} {facts_text}".lower()
+
+    # Direct bail relief terms
+    if any(term in combined for term in (
+        "anticipatory bail",
+        "pre-arrest bail",
+        "pre arrest bail",
+        "pre-arrest protection",
+        "apprehending arrest",
+    )):
+        return True
+
+    # Section 438 CrPC (explicit or contextual)
+    if re.search(r'(?:section\s*438|s\.\s*438|sec\.\s*438|438\s*cr\.?p\.?c)', combined):
+        return True
+
+    # Section 482 BNSS (Bharatiya Nagarik Suraksha Sanhita, 2023)
+    if (
+        re.search(r'(?:section\s*482|s\.\s*482|sec\.\s*482).*?(?:bnss|bharatiya\s+nagarik\s+suraksha)', combined) or
+        re.search(r'(?:bnss|bharatiya\s+nagarik\s+suraksha).*?(?:section\s*482|s\.\s*482|sec\.\s*482)', combined)
+    ):
+        return True
+
+    # Built-in demo case
+    if "ramesh kumar" in combined and "kitchen knife" in combined:
+        return True
+
+    return False
+
+
 # ─────────────────────────────────────────────────────────────────────────────
 
 def node_evidence_analyzer(state: SimulationState, *, emit: Optional[Callable] = None) -> dict:
@@ -760,44 +807,51 @@ def node_evidence_analyzer(state: SimulationState, *, emit: Optional[Callable] =
             case_id   = state.get("case_id", "")
             case_path = Path(case_id)
 
+            # ── Check if Stage 0 data is available to reuse directly (0 tokens) ──
+            stage0_data = state.get("case_context") or state.get("lexigraph_output", {}).get("stage0_case_context")
+            if not stage0_data:
+                cached_lexi = _redis_get(f"session:{sid}:lexicache")
+                if cached_lexi and cached_lexi.get("stage0_case_context"):
+                    stage0_data = cached_lexi.get("stage0_case_context")
+
+            # Check persistent cache by sha256(doc_text)
+            doc_text = ""
+            if case_path.exists() and case_path.is_file():
+                try:
+                    doc_text = case_path.read_text(encoding="utf-8", errors="ignore")
+                except Exception:
+                    pass
+            elif len(case_id) > 20:
+                doc_text = case_id
+
+            if not stage0_data and doc_text:
+                try:
+                    from agents.lexigraph import lexigraph_cache
+                    s0_key = lexigraph_cache.make_stage0_key(doc_text)
+                    stage0_data = lexigraph_cache.get(s0_key)
+                    if not stage0_data:
+                        doc_key = lexigraph_cache.make_doc_key(doc_text)
+                        cached_full = lexigraph_cache.get(doc_key)
+                        if cached_full and cached_full.get("stage0_case_context"):
+                            stage0_data = cached_full.get("stage0_case_context")
+                except Exception:
+                    pass
+
             if case_path.exists():
                 # ── File path (PDF/image) — needs full OCR pipeline ─────────────────
                 from agents.evidence.evidence_analyzer import analyze_evidence
-                return analyze_evidence(sid, str(case_path))
+                return analyze_evidence(sid, str(case_path), stage0_data=stage0_data)
 
-            # ── Raw text — LLM-only extraction, no OCR / pytesseract needed ──────
-            try:
-                # Try the proper extractor first (works when pytesseract IS installed)
-                from agents.evidence.evidence_analyzer import extract_facts
-                return extract_facts(case_id)
-            except (ImportError, ModuleNotFoundError):
-                pass
+            # ── Single structured-output extraction (merging facts + inventory) ──
+            from agents.evidence.evidence_analyzer import extract_facts_and_inventory
+            return extract_facts_and_inventory(case_id, stage0_data=stage0_data)
 
-            # Inline fallback: plain LLM call, zero OCR deps
-            import re as _re, json as _json
-            from config.llm_config import get_llm
-            llm = get_llm(temperature=0)
-            prompt = (
-                "You are a legal document analyst.\n"
-                "Extract an open, comprehensive list of facts from the following case text.\n"
-                "Extract each distinct factual assertion as an item in a list, tied to its source, and classify its type.\n"
-                "Classify each fact with type:\n"
-                "- 'allegation': claims/allegations made by complainant, informant, FIR, prosecution, or defense\n"
-                "- 'procedural_event': official process steps (FIR date, summons, bailable/non-bailable warrants, Sec 82 proclamation, attachment)\n"
-                "- 'court_finding': judge's reasoning, findings, conclusions, or legal observations in the judgment\n\n"
-                "Return ONLY valid JSON as a list of objects (no markdown, no commentary):\n"
-                '[\n'
-                '  {"id": "fact_1", "text": "NBW issued on 03.11.2022; applicants did not appear", "source": "para 14", "type": "procedural_event"},\n'
-                '  {"id": "fact_2", "text": "...", "source": "...", "type": "allegation"}\n'
-                ']\n\n'
-                f"Case text:\n{case_id}"
-            )
-            resp    = llm.invoke(prompt)
-            cleaned = _re.sub(r"^```(?:json)?|```$", "", resp.content.strip(),
-                               flags=_re.MULTILINE).strip()
-            return _json.loads(cleaned)
+        with track_stage("evidence analyzer"):
+            raw_result = _with_retry(_run, max_retries=2, label="evidence_analyzer")
 
-        raw_facts = _with_retry(_run, max_retries=2, label="evidence_analyzer")
+        # Parse extracted result (which may be a dict with 'facts' and 'evidence_inventory', or a list of facts)
+        raw_facts = raw_result.get("facts", raw_result) if isinstance(raw_result, dict) else raw_result
+        evidence_inventory = raw_result.get("evidence_inventory", []) if isinstance(raw_result, dict) else []
 
         # Normalize to List[Fact] with explicit Fact IDs (fact_1, fact_2, ...)
         facts: List[Fact] = []
@@ -817,7 +871,6 @@ def node_evidence_analyzer(state: SimulationState, *, emit: Optional[Callable] =
                 elif isinstance(f, str) and f.strip():
                     facts.append(Fact(id=f"fact_{i + 1}", text=f.strip(), source="record", type="allegation"))
         elif isinstance(raw_facts, dict):
-            # Backward-compat fallback if a dict was returned
             for k, v in raw_facts.items():
                 if isinstance(v, dict):
                     for sub_k, sub_v in v.items():
@@ -839,9 +892,10 @@ def node_evidence_analyzer(state: SimulationState, *, emit: Optional[Callable] =
         # Build a basic evidence_map: each fact ID → fact text
         evidence_map = {f.id: f.text for f in facts}
 
-        # Extract evidence inventory (what is present vs not on record)
-        case_id_text = state.get("case_id", "")
-        evidence_inventory = extract_evidence_inventory(case_id_text, facts)
+        # If evidence_inventory was not extracted in the single pass, fallback to extract_evidence_inventory
+        if not evidence_inventory:
+            case_id_text = state.get("case_id", "")
+            evidence_inventory = extract_evidence_inventory(case_id_text, facts)
 
         emit and emit(_event("agent_message", agent="evidence_analyzer",
                              round=0,
@@ -853,6 +907,76 @@ def node_evidence_analyzer(state: SimulationState, *, emit: Optional[Callable] =
             "facts_count": len(facts),
             "evidence_inventory_count": len(evidence_inventory),
         })
+
+        # ── Scope gate after Stage 0: anticipatory bail matter check ─────────
+        case_id = state.get("case_id", "")
+        case_path = Path(case_id)
+        doc_text_for_gate = ""
+        if case_path.exists() and case_path.is_file():
+            try:
+                if case_path.suffix.lower() == ".pdf":
+                    import pypdf
+                    reader = pypdf.PdfReader(str(case_path))
+                    doc_text_for_gate = " ".join([page.extract_text() or "" for page in reader.pages[:10]])
+                else:
+                    doc_text_for_gate = case_path.read_text(encoding="utf-8", errors="ignore")
+            except Exception:
+                pass
+        if not doc_text_for_gate and len(case_id) > 20:
+            doc_text_for_gate = case_id
+
+        if not is_anticipatory_bail_matter(doc_text_for_gate, facts):
+            print(
+                "[Orchestrator] Scope gate: Document is not an anticipatory bail matter "
+                "(s.438 CrPC / s.482 BNSS). Returning NO_OPINION and skipping remaining stages."
+            )
+            verdict = {
+                "decision": "NO_OPINION",
+                "confidence": "high",
+                "confidence_label": "high",
+                "agreement_rate": 1.0,
+                "valid_votes": 1,
+                "total_votes": 1,
+                "agree_count": 1,
+                "laws_applied": [],
+                "statutes": [],
+                "precedents": [],
+                "holdings_relied": [],
+                "reasoning": "Not an anticipatory bail matter",
+                "factors": [],
+                "open_questions": [],
+                "vote_tally": {"NO_OPINION": 1},
+            }
+            emit and emit(_event("verdict",
+                                  result="NO_OPINION",
+                                  confidence="high",
+                                  confidence_label="high",
+                                  agreement_rate=1.0,
+                                  valid_votes=1,
+                                  total_votes=1,
+                                  agree_count=1,
+                                  statutes=[],
+                                  precedents=[],
+                                  holdings_relied=[],
+                                  vote_tally={"NO_OPINION": 1},
+                                  explanation="Not an anticipatory bail matter",
+                                  factors=[],
+                                  open_questions=[]))
+            _redis_set(f"session:{sid}:state", {
+                "phase": "VERDICT",
+                "verdict": verdict,
+                "facts_count": len(facts),
+                "evidence_inventory_count": len(evidence_inventory),
+            })
+            return {
+                "phase": "FINALIZE",
+                "verdict": verdict,
+                "case_facts": facts,
+                "evidence_inventory": evidence_inventory,
+                "evidence_map": evidence_map,
+                "verified": {**state.get("verified", {}), "evidence": True},
+                "_evidence_retries": 0,
+            }
 
         return {
             "phase": "LEXIGRAPH",
@@ -895,7 +1019,27 @@ def node_lexigraph(state: SimulationState, *, emit: Optional[Callable] = None) -
     print("[Orchestrator] ▶ LEXIGRAPH (Statutes & Precedent Holdings)")
 
     # Check cache first
+    # Build comprehensive query from case text and extracted facts
+    case_id = state.get("case_id", "")
+    case_doc_text = ""
+    if Path(case_id).exists() and Path(case_id).is_file():
+        try:
+            case_doc_text = Path(case_id).read_text(encoding="utf-8", errors="ignore")
+        except Exception:
+            pass
+    elif len(case_id) > 20:
+        case_doc_text = case_id
+
+    # Check session cache first, then persistent cache keyed on sha256(case_doc_text)
     cached = _redis_get(f"session:{sid}:lexicache")
+    if not cached and case_doc_text:
+        try:
+            from agents.lexigraph import lexigraph_cache
+            doc_key = lexigraph_cache.make_doc_key(case_doc_text)
+            cached = lexigraph_cache.get(doc_key)
+        except Exception:
+            pass
+
     if cached and (cached.get("ipc_sections") or cached.get("holdings")):
         print("[Orchestrator] LexiGraph: using cached result.")
         return {
@@ -909,17 +1053,6 @@ def node_lexigraph(state: SimulationState, *, emit: Optional[Callable] = None) -
 
     try:
         def _run():
-            # Build comprehensive query from case text and extracted facts
-            case_id = state.get("case_id", "")
-            case_doc_text = ""
-            if Path(case_id).exists() and Path(case_id).is_file():
-                try:
-                    case_doc_text = Path(case_id).read_text(encoding="utf-8", errors="ignore")
-                except Exception:
-                    pass
-            elif len(case_id) > 20:
-                case_doc_text = case_id
-
             facts = state.get("case_facts", [])
             facts_text = " ".join([f"[{getattr(f, 'id', f.get('id', ''))}] {getattr(f, 'text', f.get('text', f.get('value', '')))}" for f in facts])
             query = case_doc_text or facts_text or "legal case analysis"
@@ -958,8 +1091,15 @@ def node_lexigraph(state: SimulationState, *, emit: Optional[Callable] = None) -
         if not output.get("ipc_sections") and not output.get("stage4_statutory_verification") and not output.get("holdings"):
             raise ValueError("LexiGraph returned no sections or holdings — verification failed.")
 
-        # Cache result
+        # Cache result in session and persistently by doc hash
         _redis_set(f"session:{sid}:lexicache", output)
+        if case_doc_text:
+            try:
+                from agents.lexigraph import lexigraph_cache
+                doc_key = lexigraph_cache.make_doc_key(case_doc_text)
+                lexigraph_cache.set(doc_key, output)
+            except Exception:
+                pass
 
         sections_count = len(output.get("ipc_sections", []))
         holdings_count = len(output.get("holdings", []))
@@ -1017,15 +1157,14 @@ def node_lexigraph(state: SimulationState, *, emit: Optional[Callable] = None) -
 # ─────────────────────────────────────────────────────────────────────────────
 
 def _generate_with_citation_check(
-    agent_fn: Callable[[], str],
+    agent_fn: Callable[..., str],
     state: SimulationState,
     speaker: str,
     emit: Optional[Callable],
 ) -> tuple[str, List[str], bool, List[str]]:
     """
-    Call agent_fn(), check citations, retry up to MAX_CITATION_RETRIES.
-    Returns (content, verified_citations, grounded, unverified_citations).
-    `grounded` is True only when agent_fn() succeeded and citations were verified.
+    Call agent_fn(), check citations, retry at most 1 time with targeted repair.
+    Total attempts per turn is strictly capped at 1–2 attempts.
     """
     lexigraph_output = state.get("lexigraph_output", {})
     case_facts       = state.get("case_facts", [])
@@ -1035,9 +1174,23 @@ def _generate_with_citation_check(
     content, cited = "", []
     unverified_citations: List[str] = []
     grounded = True
-    for attempt in range(1, MAX_CITATION_RETRIES + 2):
+    # For prosecutor, ProsecutorAgent already handles its own internal 1-attempt targeted repair.
+    # We do NOT run a duplicate outer retry loop over it (cap = 0 retries here, max 1 outer attempt).
+    # For defense, we run at most 1 targeted repair retry (max 2 attempts total).
+    max_retries = 0 if speaker == "prosecutor" else MAX_CITATION_RETRIES
+    repair_instruction = None
+
+    for attempt in range(1, max_retries + 2):
+        attempt_stage = speaker if (attempt == 1 and repair_instruction is None) else "retries/repairs"
         try:
-            content  = agent_fn()
+            with track_stage(attempt_stage):
+                if attempt == 1 or repair_instruction is None:
+                    content = agent_fn()
+                else:
+                    try:
+                        content = agent_fn(repair_instruction=repair_instruction)
+                    except TypeError:
+                        content = agent_fn()
         except Exception as agent_exc:
             grounded = False
             err_msg = f"[Orchestrator] {speaker} agent raised on attempt {attempt}: {agent_exc}"
@@ -1045,7 +1198,7 @@ def _generate_with_citation_check(
             traceback.print_exc()
             emit and emit(_event("error", message=err_msg, recoverable=True, grounded=False))
             content = ""
-            if attempt > MAX_CITATION_RETRIES:
+            if attempt > max_retries:
                 break
             continue
 
@@ -1054,20 +1207,69 @@ def _generate_with_citation_check(
         fact_ok  = _verify_fact_references(content, case_facts, evidence_inv)
 
         if (ok or not cited) and fact_ok:
+            repair_metrics = state.setdefault("_citation_repair_metrics", {"attempts_total": 0, "redacted_total": 0})
+            repair_metrics["attempts_total"] = repair_metrics.get("attempts_total", 0) + (attempt - 1)
             return content, cited, True, []
 
         unverified_citations = list(bad) if isinstance(bad, (list, set, tuple)) else ([bad] if bad else [])
         warn = (
             f"[Orchestrator] {speaker} attempt {attempt}: "
-            f"unverified citations {unverified_citations}. Regenerating…"
+            f"unverified citations {unverified_citations}. Sending targeted repair…"
         )
         print(warn)
         emit and emit(_event("error", message=warn, recoverable=True))
+        for c in unverified_citations:
+            UsageLogger.get_instance().record_sanitizer_event(
+                action="repair", agent=speaker, citation=str(c), reason="unverified citation"
+            )
 
-        if attempt > MAX_CITATION_RETRIES:
-            print(f"[Orchestrator] {speaker}: using last output despite unverified citations.")
+        if attempt > max_retries:
+            # If about to redact citations and we haven't reached the hard cap of 2 retries,
+            # allow an adaptive 2nd targeted repair to resolve citations rather than ship redacted arguments.
+            if max_retries < 2 and unverified_citations and speaker != "prosecutor":
+                max_retries = 2
+                print(f"[Orchestrator][ADAPTIVE RETRY] Escalating retry cap to 2 for {speaker} to resolve citations {unverified_citations} without redaction.")
+                repair_instruction = (
+                    f"Citations {', '.join(unverified_citations)} are invalid. "
+                    "Fix or remove ONLY those citations without regenerating the entire argument from scratch. "
+                    "Do NOT rely on these unverified provisions in your reasoning."
+                )
+                continue
+
+            print(f"[Orchestrator] {speaker}: targeted repair limit reached with unverified citations: {unverified_citations}.")
             grounded = False
+            # Deterministic fallback: sanitize ungrounded citations from content
+            sanitized_content = content
+            redacted: List[str] = []
+            for bad_cite in unverified_citations:
+                if bad_cite and isinstance(bad_cite, str) and len(bad_cite.strip()) > 1:
+                    if bad_cite in sanitized_content:
+                        sanitized_content = sanitized_content.replace(bad_cite, "[citation removed - unverified]")
+                        redacted.append(bad_cite)
+                        UsageLogger.get_instance().record_sanitizer_event(
+                            action="redact", agent=speaker, citation=str(bad_cite), reason="unverified citation sanitized"
+                        )
+            # Clean up duplicate replacement artifacts
+            sanitized_content = re.sub(r'(\[citation removed - unverified\]\s*){2,}', '[citation removed - unverified] ', sanitized_content)
+            content = sanitized_content
+
+            repair_metrics = state.setdefault("_citation_repair_metrics", {"attempts_total": 0, "redacted_total": 0, "sanitizer_fires": 0})
+            repair_metrics["attempts_total"] = repair_metrics.get("attempts_total", 0) + attempt
+            repair_metrics["redacted_total"] = repair_metrics.get("redacted_total", 0) + len(redacted)
+            repair_metrics["sanitizer_fires"] = repair_metrics.get("sanitizer_fires", 0) + (1 if redacted else 0)
+
+            turns_so_far = len(state.get("transcript", [])) + 1
+            fires = repair_metrics["sanitizer_fires"]
+            fire_rate = fires / max(1, turns_so_far)
+            print(f"[Orchestrator] Sanitized {len(redacted)} ungrounded citations from {speaker} output. Metrics: {repair_metrics}")
+            if fires >= 2 and fire_rate > 0.25:
+                print(f"[Orchestrator][NOTICE] Sanitizer fire rate is {fire_rate:.0%} ({fires}/{turns_so_far} turns). Consider raising MAX_CITATION_RETRIES=2 to resolve citations without redaction.")
             break
+
+        repair_instruction = (
+            f"Citations {', '.join(unverified_citations)} are invalid. "
+            "Fix or remove ONLY those citations without regenerating the entire argument from scratch."
+        )
 
     return content, cited, grounded, unverified_citations
 
@@ -1119,38 +1321,13 @@ def node_prosecutor(state: SimulationState, *, emit: Optional[Callable] = None) 
     content, citations, grounded, unverified = _generate_with_citation_check(_call, state, "prosecutor", emit)
 
     if not content:
-        # Loud fallback: still produce output so the run doesn't break, but
-        # flag it clearly in logs AND in the WebSocket event.
-        print(f"[Orchestrator][WARN] PROSECUTOR round {ctx['round_no']}: grounded=False — "
-              "ProsecutorAgent failed to produce output; using plain LLM fallback.")
-        try:
-            from config.llm_config import get_llm
-            llm       = get_llm()
-            laws_str  = format_for_prompt(ctx["lexigraph_output"])
-            facts_lines = [
-                f"[{getattr(f, 'id', f.get('id', f'fact_{i+1}'))}] {getattr(f, 'text', f.get('text', f.get('value', '')))} (Source: {getattr(f, 'source', f.get('source', 'record'))})"
-                for i, f in enumerate(ctx["case_facts"])
-            ]
-            facts_str = "\n".join(facts_lines)
-            resp = llm.invoke(
-                f"You are a prosecution lawyer. Round {ctx['round_no']}.\n"
-                f"Facts:\n{facts_str}\n"
-                f"Verified laws:\n{laws_str}\n"
-                f"Defense (last round): {ctx.get('last_defense_argument','(none)')}\n"
-                f"Deliver a structured courtroom argument citing verified IPC sections with Act names (e.g. IPC 324) and referencing fact IDs (e.g. [fact_1])."
-            )
-            raw_fallback = resp.content
-            content, citations, _, _ = structure_prosecution_turn(
-                raw_fallback, ctx["case_facts"], ctx["lexigraph_output"]
-            )
-        except Exception as fb_exc:
-            print(f"[Orchestrator][ERROR] Prosecutor plain-LLM fallback also failed: {fb_exc}")
-            content = "[Prosecutor argument unavailable — retrieval and fallback both failed.]"
-            citations = []
-        emit and emit(_event("warn",
-                             message="Prosecutor used plain-LLM fallback (no LexiGraph grounding).",
-                             grounded=False,
-                             unverified=unverified))
+        err_msg = (
+            f"Courtroom agent 'prosecutor' failed to produce output in round {ctx['round_no']}. "
+            "Courtroom agent fallback is disabled; failing loudly."
+        )
+        print(f"[Orchestrator][FATAL] {err_msg}")
+        emit and emit(_event("error", message=err_msg, recoverable=False))
+        raise RuntimeError(err_msg)
     elif not grounded:
         print(f"[Orchestrator][WARN] PROSECUTOR round {ctx['round_no']}: grounded=False — "
               f"unverified citations remain: {unverified}")
@@ -1191,7 +1368,7 @@ def node_defense(state: SimulationState, *, emit: Optional[Callable] = None) -> 
     ctx = _defense_context(state)
     sid = state["session_id"]
 
-    def _call():
+    def _call(repair_instruction: Optional[str] = None):
         agent = _defense()
         return agent.generate(
             structured_facts={},
@@ -1200,17 +1377,19 @@ def node_defense(state: SimulationState, *, emit: Optional[Callable] = None) -> 
             evidence_inventory=ctx.get("evidence_inventory", []),
             case_facts=ctx["case_facts"],
             canonical_case_file=ctx.get("canonical_case_file"),
+            repair_instruction=repair_instruction,
         )
 
     content, citations, grounded, unverified = _generate_with_citation_check(_call, state, "defense", emit)
 
     if not content:
-        print(f"[Orchestrator][WARN] DEFENSE round {ctx['round_no']}: grounded=False — "
-              "DefenseAgent failed; output was NOT produced.")
-        emit and emit(_event("warn",
-                             message="Defense failed to produce output.",
-                             grounded=False,
-                             unverified=unverified))
+        err_msg = (
+            f"Courtroom agent 'defense' failed to produce output in round {ctx['round_no']}. "
+            "Courtroom agent fallback is disabled; failing loudly."
+        )
+        print(f"[Orchestrator][FATAL] {err_msg}")
+        emit and emit(_event("error", message=err_msg, recoverable=False))
+        raise RuntimeError(err_msg)
     elif not grounded:
         print(f"[Orchestrator][WARN] DEFENSE round {ctx['round_no']}: grounded=False — "
               f"unverified citations remain: {unverified}")
@@ -1265,15 +1444,16 @@ def node_judge_evaluate(state: SimulationState, *, emit: Optional[Callable] = No
     inventory = state.get("evidence_inventory", [])
     holdings = state.get("holdings") or state.get("lexigraph_output", {}).get("holdings", [])
 
-    scores_raw, question = _judge().score(
-        facts_list,
-        p_arg,
-        d_arg,
-        relevant_laws,
-        evidence_inventory=inventory,
-        holdings=holdings,
-        canonical_case_file=ctx.get("canonical_case_file"),
-    )
+    with track_stage("judge evaluation"):
+        scores_raw, question = _judge().score(
+            facts_list,
+            p_arg,
+            d_arg,
+            relevant_laws,
+            evidence_inventory=inventory,
+            holdings=holdings,
+            canonical_case_file=ctx.get("canonical_case_file"),
+        )
 
     # Normalize scores to 0–10 overall for each side
     p_scores = scores_raw.get("prosecution", {})
@@ -1372,12 +1552,13 @@ def node_accused(state: SimulationState, *, emit: Optional[Callable] = None) -> 
         t["content"] for t in state.get("transcript", []) if t["speaker"] == "accused"
     ]
 
-    testimony = _accused().respond(
-        session_id=sid,
-        question=question,
-        structured_facts=facts_list,
-        prior_history=history_in_state,
-    )
+    with track_stage("judge question"):
+        testimony = _accused().respond(
+            session_id=sid,
+            question=question,
+            structured_facts=facts_list,
+            prior_history=history_in_state,
+        )
 
     # Mark question answered
     updated_pending = []
@@ -1428,17 +1609,18 @@ def node_judge_verdict(state: SimulationState, *, emit: Optional[Callable] = Non
     holdings = state.get("holdings") or state.get("lexigraph_output", {}).get("holdings", [])
 
     # verdict() delegates to voting.decide() and returns VerdictResult.to_dict()
-    raw_verdict = _judge().verdict(
-        structured_facts=facts_list,
-        prosecution_args=p_arg,
-        defense_args=d_arg,
-        accused_history=accused_history,
-        judge_scores=state.get("judge_scores", {}),
-        relevant_laws=relevant_laws,
-        evidence_inventory=inventory,
-        holdings=holdings,
-        canonical_case_file=get_or_build_case_file(state),
-    )
+    with track_stage("voting"):
+        raw_verdict = _judge().verdict(
+            structured_facts=facts_list,
+            prosecution_args=p_arg,
+            defense_args=d_arg,
+            accused_history=accused_history,
+            judge_scores=state.get("judge_scores", {}),
+            relevant_laws=relevant_laws,
+            evidence_inventory=inventory,
+            holdings=holdings,
+            canonical_case_file=get_or_build_case_file(state),
+        )
 
     decision   = str(raw_verdict.get("decision", "NO_OPINION")).upper()
     conf_label = str(raw_verdict.get("confidence_label") or raw_verdict.get("confidence") or "medium").lower()
@@ -1534,6 +1716,8 @@ def route_after_evidence(state: SimulationState) -> str:
     phase = state.get("phase", "")
     if phase == "FAILED":
         return "failed"
+    if phase in ("FINALIZE", "VERDICT", "DONE"):
+        return "finalize"
     verified = state.get("verified", {})
     if not verified.get("evidence", False):
         return "evidence_analyzer"   # retry
@@ -1651,7 +1835,12 @@ def build_graph(emit: Optional[Callable] = None):
     g.add_conditional_edges(
         "evidence_analyzer",
         route_after_evidence,
-        {"evidence_analyzer": "evidence_analyzer", "lexigraph": "lexigraph", "failed": "failed"},
+        {
+            "evidence_analyzer": "evidence_analyzer",
+            "lexigraph": "lexigraph",
+            "finalize": "finalize",
+            "failed": "failed",
+        },
     )
     g.add_conditional_edges(
         "lexigraph",
@@ -1705,6 +1894,9 @@ def run_orchestrator(
 
     sid = (session_id[:8] if session_id else str(uuid.uuid4())[:8])
     emit = on_event  # can be None
+
+    # Ensure UsageLogger is hooked
+    UsageLogger.get_instance().install()
 
     initial: SimulationState = {
         "session_id":          sid,

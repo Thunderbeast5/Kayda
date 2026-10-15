@@ -18,6 +18,9 @@
     "citation_neutral": "2023 INSC 612",
     "neutral_year": 2023,
     "citation_scr": "[2023] 10 SCR 411",
+    "canonical_citation": "Pratibha Manchanda & Anr. v. State of Haryana & Anr., [2023] 10 SCR 411 : (2023) 8 SCC 181 : 2023 INSC 612",
+    "source_verified": true,
+    "source_url": "https://indiankanoon.org/doc/137681335/",
     "scr_year": 2023,
     "scr_volume": 10,
     "scr_first_page": 411,
@@ -61,6 +64,13 @@
     "abstract_facts": "This appeal arises from an anticipatory bail granted by the High Court to a respondent accused of fabricating documents to transfer ownership of a valuable land belonging to the appellants. The appellants, elderly NRIs, claim they were victims of a fraud involving a forged power of attorney and sale deed. The Supreme Court set aside the High Court's bail order and emphasized the necessity for custodial interrogation to investigate the alleged conspiracy.",
     "lower_court_outcome": "Anticipatory bail granted by the High Court of Punjab & Haryana.",
     "disposition": "Appeal allowed; anticipatory bail set aside.",
+    "caveats": [
+      "Involved fraudulent power of attorney and impersonation to usurp land of elderly NRIs; distinguishable where dispute is a bona fide title contest between known family members or co-sharers without impersonation."
+    ],
+    "treatment": {
+      "prosecution": "Primary prosecution authority: anticipatory bail should not be granted in serious land fraud involving forged deeds; civil remedies do not bar criminal prosecution.",
+      "defense": "Critical adverse authority; must distinguish by proving absence of impersonation or forged power of attorney, and establishing a genuine civil title dispute (Mohammed Ibrahim)."
+    },
     "statutes": [
       {
         "act": "CrPC 1973",

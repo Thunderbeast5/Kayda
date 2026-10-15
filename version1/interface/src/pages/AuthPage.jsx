@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerWithEmail, loginWithEmail, loginWithGoogle } from "../firebase";
+import { registerWithEmail, loginWithEmail, loginWithGoogle, isConfigured } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 
 // ─── Inline SVG Icons ────────────────────────────────────────────────────────
@@ -71,7 +71,7 @@ function Field({ label, id, type = "text", value, onChange, placeholder, error, 
 
 // ─── Main AuthPage ────────────────────────────────────────────────────────────
 export default function AuthPage() {
-  const { currentUser, loading: authLoading } = useAuth();
+  const { currentUser, loading: authLoading, loginAsDemo } = useAuth();
   const navigate = useNavigate();
   const [tab, setTab] = useState("signin"); 
   const [loading, setLoading] = useState(false);
@@ -101,6 +101,11 @@ export default function AuthPage() {
   }, []);
 
   if (authLoading) return null;
+
+  const handleDemoSignIn = () => {
+    loginAsDemo();
+    navigate("/", { replace: true });
+  };
 
   const setRegField = (key) => (e) => {
     setReg((r) => ({ ...r, [key]: e.target.value }));
@@ -138,6 +143,10 @@ export default function AuthPage() {
   const handleSignIn = async (e) => {
     e.preventDefault();
     if (!validateSignIn()) return;
+    if (!isConfigured) {
+      setGlobalError("Firebase Web API key is not configured in .env. Click 'Continue as Demo Advocate' above to test immediately.");
+      return;
+    }
     setLoading(true);
     setGlobalError("");
     try {
@@ -153,6 +162,10 @@ export default function AuthPage() {
   const handleRegister = async (e) => {
     e.preventDefault();
     if (!validateRegister()) return;
+    if (!isConfigured) {
+      setGlobalError("Firebase Web API key is not configured in .env. Click 'Continue as Demo Advocate' above to test immediately.");
+      return;
+    }
     setLoading(true);
     setGlobalError("");
     try {
@@ -166,6 +179,10 @@ export default function AuthPage() {
   };
 
   const handleGoogle = async () => {
+    if (!isConfigured) {
+      setGlobalError("Google sign-in requires Firebase Web keys in .env. Click 'Continue as Demo Advocate' above to test immediately.");
+      return;
+    }
     setLoading(true);
     setGlobalError("");
     try {
@@ -222,6 +239,27 @@ export default function AuthPage() {
             className={`w-full max-w-[400px] flex flex-col justify-center h-full transition-all duration-500 ease-out 
               ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
           >
+            {/* Demo Mode Bypass Card when Firebase is not configured */}
+            {!isConfigured && (
+              <div className="bg-[#FAF0E6] border border-[#D4AF37]/50 rounded-[10px] p-3 mb-3 text-center shadow-sm">
+                <div className="flex items-center justify-center gap-1.5 text-[#8C5A3C] text-[11px] font-semibold mb-1">
+                  <span>✦</span>
+                  <span>Demo Mode Active</span>
+                </div>
+                <p className="text-[11px] text-[#6B4C3B] m-0 mb-2 leading-tight">
+                  Firebase web keys are not configured in <code className="bg-white/80 px-1 py-0.5 rounded text-[10px]">.env</code>. You can explore the full courtroom right now in Demo Mode:
+                </p>
+                <button
+                  id="auth-demo-mode-btn"
+                  type="button"
+                  onClick={handleDemoSignIn}
+                  className="w-full py-2 px-3 bg-[#2C1810] text-[#FAF9F7] text-xs font-bold rounded-lg hover:bg-[#4A2818] transition-all duration-200 cursor-pointer shadow-sm hover:shadow"
+                >
+                  Continue as Demo Advocate ➔
+                </button>
+              </div>
+            )}
+
             {/* Tabs */}
             <div className="flex bg-[#2C1810]/5 rounded-[10px] p-[3px] mb-4" role="tablist">
               <button
