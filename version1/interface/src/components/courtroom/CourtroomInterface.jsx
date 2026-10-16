@@ -546,6 +546,12 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
   // WebSocket Reference
   const wsRef = useRef(null);
 
+  // ── Orchestrator SSE state ──────────────────────────────────────────────────
+  const [caseQuery, setCaseQuery] = useState("");
+  const [showCasePrompt, setShowCasePrompt] = useState(false);
+  const [orchestratorRunning, setOrchestratorRunning] = useState(false);
+  const sseAbortRef = useRef(null);
+
   // Case Selection & Observer Mode state
   const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
   const [selectedCaseId, setSelectedCaseId] = useState("1");
@@ -924,13 +930,23 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
         if (window.speechSynthesis) window.speechSynthesis.cancel();
       };
     } else {
-      // Automatically trigger single-player courtroom proceedings on mount
-      startCasePractice();
+      // Single-player mode
+      if (userRole === "observer") {
+        startCasePractice();
+      } else {
+        // Prosecutor/Defense: show case prompt to kick off the orchestrator
+        setShowCasePrompt(true);
+      }
 
       return () => {
         document.body.style.overflow = '';
         if (window.speechSynthesis) {
           window.speechSynthesis.cancel();
+        }
+        // Abort any in-flight SSE stream
+        if (sseAbortRef.current) {
+          sseAbortRef.current.abort();
+          sseAbortRef.current = null;
         }
       };
     }
@@ -1092,6 +1108,77 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
     setStatus("running");
     setSidebarOpen(false);
     loadObserverEvents(selectedCaseId);
+  };
+
+  // ── Orchestrator SSE Stream ─────────────────────────────────────────────────
+  const startOrchestratorStream = async (query) => {
+    if (!query || query.trim().length < 10) {
+      alert("Please provide a case description (at least 10 characters).");
+      return;
+    }
+
+    setShowCasePrompt(false);
+    setOrchestratorRunning(true);
+    setMessages([]);
+    setActiveSpeaker(null);
+    setTrialPhase("INITIALIZING PIPELINE");
+    setStatus("running");
+
+    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5001";
+    const abortCtrl = new AbortController();
+    sseAbortRef.current = abortCtrl;
+
+    try {
+      const response = await fetch(`${apiUrl}/api/orchestrator/stream`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: query.trim(), role: userRole, max_rounds: 2 }),
+        signal: abortCtrl.signal,
+      });
+
+      if (!response.ok) {
+        throw new Error(`Server error: ${response.status}`);
+      }
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop(); // keep incomplete line in buffer
+
+        for (const line of lines) {
+          if (line.startsWith("data: ")) {
+            const jsonStr = line.slice(6).trim();
+            if (!jsonStr || jsonStr === "{}") continue;
+            try {
+              const evt = JSON.parse(jsonStr);
+              handleEvent(evt);
+            } catch (parseErr) {
+              console.warn("SSE parse error:", parseErr, jsonStr);
+            }
+          } else if (line.startsWith("event: done")) {
+            // Stream finished
+            setOrchestratorRunning(false);
+            setTrialPhase("PROCEEDINGS CONCLUDED");
+            setActiveSpeaker(null);
+          }
+        }
+      }
+    } catch (err) {
+      if (err.name !== "AbortError") {
+        console.error("Orchestrator SSE error:", err);
+        setTrialPhase("CONNECTION ERROR");
+      }
+    } finally {
+      setOrchestratorRunning(false);
+      sseAbortRef.current = null;
+    }
   };
 
   const submitUserInput = (e) => {
@@ -1290,7 +1377,49 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
         
         <ChatPanel messages={messages} userRole={userRole} speakText={speakText} />
 
-        {(!gameId || userRole === "observer" || observerEvents.length > 0) ? (
+        {/* Case Prompt Modal for Prosecutor/Defense */}
+        {showCasePrompt && (userRole === "prosecutor" || userRole === "defense") && (
+          <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+            <div className="bg-white rounded-2xl shadow-2xl border border-[#D4AF37]/30 p-8 max-w-xl w-full mx-4 animate-in fade-in">
+              <div className="text-center mb-6">
+                <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#C5A059] font-bold block mb-2">
+                  {userRole === "prosecutor" ? "Public Prosecutor" : "Defense Counsel"}
+                </span>
+                <h2 className="font-heading text-2xl font-bold text-[#2C1810] mb-1">
+                  Enter Case Description
+                </h2>
+                <p className="text-xs text-[#5D4037]/70">
+                  Provide the FIR, case facts, or a brief description to initiate the court session.
+                </p>
+              </div>
+              <textarea
+                value={caseQuery}
+                onChange={(e) => setCaseQuery(e.target.value)}
+                placeholder="e.g. The accused, Ramesh Kumar, allegedly stabbed the victim Suresh Gupta with a kitchen knife outside a restaurant on 12 March 2026. Two eyewitnesses were present..."
+                className="w-full h-36 p-4 border border-[#D4AF37]/30 rounded-xl text-sm font-body text-[#2C1810] placeholder:text-[#5D4037]/40 focus:outline-none focus:ring-2 focus:ring-[#D4AF37]/50 resize-none bg-[#FAF9F7]"
+                autoFocus
+              />
+              <div className="flex gap-3 mt-5">
+                <button
+                  onClick={onExit}
+                  className="flex-1 py-3 rounded-xl border border-[#D4AF37]/30 text-sm font-semibold text-[#5D4037] hover:bg-[#FAF9F7] transition-colors cursor-pointer"
+                >
+                  Back to Role Selection
+                </button>
+                <button
+                  onClick={() => startOrchestratorStream(caseQuery)}
+                  disabled={caseQuery.trim().length < 10}
+                  className="flex-1 py-3 rounded-xl bg-[#2C1810] text-white text-sm font-semibold hover:bg-[#1a0f0a] transition-colors cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  Begin Court Session
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Bottom bar: Observer controls OR Input bar OR Pipeline status */}
+        {userRole === "observer" ? (
           <ObserverControlBar
             currentIndex={observerIndex}
             totalTurns={observerEvents.length}
@@ -1299,13 +1428,11 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
             isAutoPlaying={isAutoPlaying}
             onToggleAutoPlay={() => setIsAutoPlaying(!isAutoPlaying)}
           />
-        ) : (
+        ) : gameId ? (
           <CourtroomInputBar
             status={status}
             isMyTurn={
-              gameId 
-                ? (activeSpeaker === userRole || (trialPhase === "CASE_INTRO" && userRole === "prosecutor") || (trialPhase === "DEFENSE REBUTTAL" && userRole === "defense")) 
-                : (activeSpeaker === null || activeSpeaker === userRole)
+              activeSpeaker === userRole || (trialPhase === "CASE_INTRO" && userRole === "prosecutor") || (trialPhase === "DEFENSE REBUTTAL" && userRole === "defense")
             }
             inputText={inputText}
             setInputText={setInputText}
@@ -1315,6 +1442,38 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
             ttsEnabled={ttsEnabled}
             setTtsEnabled={setTtsEnabled}
           />
+        ) : orchestratorRunning ? (
+          <div className="shrink-0 border-t border-surface-border bg-[#FAF9F7] px-6 py-4">
+            <div className="flex items-center gap-3">
+              <div className="flex gap-1">
+                <span className="w-2 h-2 bg-[#D4AF37] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                <span className="w-2 h-2 bg-[#D4AF37] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                <span className="w-2 h-2 bg-[#D4AF37] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+              </div>
+              <span className="text-xs font-mono uppercase tracking-widest text-[#5D4037]/70">
+                {trialPhase} — AI pipeline processing…
+              </span>
+            </div>
+          </div>
+        ) : !showCasePrompt && (
+          <div className="shrink-0 border-t border-surface-border bg-[#FAF9F7] px-6 py-4">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-mono uppercase tracking-widest text-[#5D4037]/70">
+                {trialPhase}
+              </span>
+              <button
+                onClick={() => {
+                  setCaseQuery("");
+                  setShowCasePrompt(true);
+                  setMessages([]);
+                  setActiveSpeaker(null);
+                }}
+                className="text-xs font-semibold text-[#8C2D19] hover:text-[#2C1810] transition-colors cursor-pointer"
+              >
+                New Case
+              </button>
+            </div>
+          </div>
         )}
       </div>
     </div>

@@ -20,7 +20,7 @@ Max debate rounds: configurable via ORCHESTRATOR_MAX_ROUNDS (default 2)
 import os
 import json
 import re
-from typing import Any, List
+from typing import Any, Optional
 
 from config.llm_config import get_llm
 

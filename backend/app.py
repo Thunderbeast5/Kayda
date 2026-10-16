@@ -1200,6 +1200,87 @@ class OrchestratorRunRequest(BaseModel):
     query: str
 
 
+# ── SSE Streaming Orchestrator Endpoint ────────────────────────────────────────
+import queue as _queue_mod
+
+class OrchestratorStreamRequest(BaseModel):
+    query: str
+    role: str = "prosecutor"   # user's chosen role (prosecutor | defense)
+    max_rounds: int = 2
+
+
+@app.post("/api/orchestrator/stream", tags=["Orchestrator"])
+async def orchestrator_stream(req: OrchestratorStreamRequest):
+    """
+    Stream the full orchestrator pipeline via Server-Sent Events (SSE).
+
+    The pipeline runs in a background thread.  Each on_event callback pushes
+    to a thread-safe queue, and this async generator yields SSE frames.
+
+    Frontend connects with:
+        const es = new EventSource(url)   // or fetch() + ReadableStream
+    """
+    query = (req.query or "").strip()
+    role  = (req.role or "prosecutor").strip().lower()
+    if not query:
+        return JSONResponse(
+            status_code=400,
+            content={"success": False, "message": "Field 'query' must not be empty."},
+        )
+
+    event_queue: _queue_mod.Queue = _queue_mod.Queue()
+
+    def on_event(evt: dict):
+        """Called synchronously from the orchestrator thread."""
+        event_queue.put(evt)
+
+    def _run():
+        try:
+            from backend.agents.orchestrator.orchestrator_graph import run_orchestrator
+            run_orchestrator(
+                case_id=query,
+                max_rounds=req.max_rounds,
+                on_event=on_event,
+            )
+        except Exception as exc:
+            import traceback
+            traceback.print_exc()
+            event_queue.put({"type": "error", "message": str(exc), "recoverable": False})
+        finally:
+            event_queue.put(None)   # sentinel: stream is done
+
+    # Fire the blocking orchestrator in a background thread
+    import threading
+    t = threading.Thread(target=_run, daemon=True)
+    t.start()
+
+    async def sse_generator():
+        """Yield SSE frames until the sentinel (None) is received."""
+        while True:
+            try:
+                evt = await asyncio.get_event_loop().run_in_executor(
+                    None, event_queue.get, True, 180   # block up to 180s
+                )
+            except _queue_mod.Empty:
+                # Heartbeat so the connection stays alive
+                yield "event: heartbeat\ndata: {}\n\n"
+                continue
+            if evt is None:
+                yield "event: done\ndata: {}\n\n"
+                break
+            yield f"data: {json.dumps(evt)}\n\n"
+
+    return StreamingResponse(
+        sse_generator(),
+        media_type="text/event-stream",
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+        },
+    )
+
+
 @app.post("/api/orchestrator/run", tags=["Orchestrator"])
 async def orchestrator_run(req: OrchestratorRunRequest):
     """

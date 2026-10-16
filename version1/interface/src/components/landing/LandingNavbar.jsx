@@ -82,10 +82,10 @@ export default function LandingNavbar({ scrollToSection }) {
         {/* Navigation Links */}
         <div className="hidden md:flex items-center gap-8 text-[13px] font-semibold tracking-[0.08em] uppercase text-[#2C1810]/80">
           <button onClick={() => navigate("/mootcourt-modes")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1.5 cursor-pointer">
-            Moot Court <span className="text-[10px] text-[#D4AF37]">✦</span>
+            Moot Court
           </button>
           <button onClick={() => navigate("/evidence-analyzer")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1 cursor-pointer">
-            Document Suite <span className="text-[10px] text-[#2C1810]/40">▾</span>
+            Document Suite
           </button>
           <button onClick={() => navigate("/lexigraph-agent")} className="hover:text-[#8C5A3C] transition-colors cursor-pointer">
             LexiGraph

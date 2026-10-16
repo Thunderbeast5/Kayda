@@ -1,5 +1,6 @@
 import json
 import re
+from typing import Optional
 
 from config.llm_config import get_llm
 from agents.lexigraph import format_for_prompt
