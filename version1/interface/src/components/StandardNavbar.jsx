@@ -75,7 +75,7 @@ export default function StandardNavbar({ scrollToSection }) {
             Multiplayer
           </button>
           <button
-            onClick={() => { if (scrollToSection) scrollToSection("pricing"); else navigate("/"); }}
+            onClick={() => { if (scrollToSection) scrollToSection("pricing"); else navigate("/pricing"); }}
             className="hover:text-[#8C5A3C] transition-colors cursor-pointer"
           >
             Pricing

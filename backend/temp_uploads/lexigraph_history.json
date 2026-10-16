@@ -1,5 +1,929 @@
 [
   {
+    "query_id": "lexi_657e8839e0ae",
+    "query": "hi bro",
+    "created_at": "2026-10-16T17:33:51.590055+00:00",
+    "pipeline_confidence": 0.85,
+    "primary_intent": "general_offences",
+    "recommended_count": 1,
+    "precedents_count": 0,
+    "result": {
+      "stage0_case_context": {
+        "schema_version": "1.0",
+        "case_profile": {
+          "case_metadata": {
+            "case_id": null,
+            "court": "Sessions Court",
+            "police_station": null,
+            "fir_number": null,
+            "fir_date": null,
+            "offence_date": null,
+            "state": null,
+            "district": null
+          },
+          "parties": {
+            "complainant": null,
+            "victim": null,
+            "accused": [],
+            "relationship": null
+          },
+          "procedural_stage": null,
+          "requested_relief": null,
+          "legal_regime": "IPC + CrPC",
+          "flag_for_confirmation": true,
+          "regime_notes": "Statute regime: Indian Penal Code (IPC) + Code of Criminal Procedure (CrPC).",
+          "min_confidence_threshold": 0.7,
+          "low_confidence_fields": [
+            {
+              "field_name": "procedural_stage",
+              "confidence_score": 0.0,
+              "cutoff_threshold": 0.7,
+              "extracted_value": null,
+              "action_required": "Field 'procedural_stage' score 0.0 < cutoff 0.7. Requires manual confirmation before downstream reasoning."
+            }
+          ],
+          "overall_confidence": 0.45,
+          "contract_status": "CONTRACT_BLOCKED",
+          "contract_violations": [
+            "MANDATORY FIELD MISSING: 'requested_relief' (requested_relief is UNKNOWN or unstated)",
+            "MANDATORY FIELD MISSING: 'procedural_stage' (procedural_stage is UNKNOWN or unstated)"
+          ],
+          "documents": [],
+          "case_facts": "hi bro",
+          "primary_participants": {
+            "victim": [],
+            "accused": [],
+            "witnesses": [],
+            "investigating_officer": null,
+            "advocate": null
+          },
+          "missing_information": [
+            "Procedural Document Missing: FIR / Complaint Copy",
+            "Procedural Document Missing: Bail Application Copy",
+            "Manual confirmation required for 'procedural_stage' (low confidence: 0.0 < cutoff 0.7)"
+          ],
+          "confidence": {
+            "procedural_stage": 0.0,
+            "legal_regime": 0.9
+          }
+        },
+        "contract_status": "CONTRACT_BLOCKED",
+        "contract_violations": [
+          "MANDATORY FIELD MISSING: 'requested_relief' (requested_relief is UNKNOWN or unstated)",
+          "MANDATORY FIELD MISSING: 'procedural_stage' (procedural_stage is UNKNOWN or unstated)"
+        ],
+        "verification_status": "NEEDS_CORRECTION",
+        "active_parties": [
+          "Accused"
+        ],
+        "system_metadata": {
+          "intake_timestamp": "2026-10-16T17:32:43.171144+00:00",
+          "overall_confidence": 0.45,
+          "low_confidence_count": 1,
+          "flag_for_confirmation": true
+        },
+        "case_facts": "{'schema_version': '1.0', 'case_profile': {'case_metadata': {'case_id': None, 'court': 'Sessions Court', 'police_station': None, 'fir_number': None, 'fir_date': None, 'offence_date': None, 'state': None, 'district': None}, 'parties': {'complainant': None, 'victim': None, 'accused': [], 'relationship': None}, 'procedural_stage': None, 'requested_relief': None, 'legal_regime': 'IPC + CrPC', 'flag_for_confirmation': True, 'regime_notes': 'Statute regime: Indian Penal Code (IPC) + Code of Criminal Procedure (CrPC).', 'min_confidence_threshold': 0.7, 'low_confidence_fields': [{'field_name': 'procedural_stage', 'confidence_score': 0.0, 'cutoff_threshold': 0.7, 'extracted_value': None, 'action_required': \"Field 'procedural_stage' score 0.0 < cutoff 0.7. Requires manual confirmation before downstream reasoning.\"}], 'overall_confidence': 0.45, 'contract_status': 'CONTRACT_BLOCKED', 'contract_violations': [\"MANDATORY FIELD MISSING: 'requested_relief' (requested_relief is UNKNOWN or unstated)\", \"MANDATORY FIELD MISSING: 'procedural_stage' (procedural_stage is UNKNOWN or unstated)\"], 'documents': [], 'case_facts': 'hi bro', 'primary_participants': {'victim': [], 'accused': [], 'witnesses': [], 'investigating_officer': None, 'advocate': None}, 'missing_information': ['Procedural Document Missing: FIR / Complaint Copy', 'Procedural Document Missing: Bail Application Copy', \"Manual confirmation required for 'procedural_stage' (low confidence: 0.0 < cutoff 0.7)\"], 'confidence': {'procedural_stage': 0.0, 'legal_regime': 0.9}}, 'contract_status': 'CONTRACT_BLOCKED', 'contract_violations': [\"MANDATORY FIELD MISSING: 'requested_relief' (requested_relief is UNKNOWN or unstated)\", \"MANDATORY FIELD MISSING: 'procedural_stage' (procedural_stage is UNKNOWN or unstated)\"], 'verification_status': 'NEEDS_CORRECTION', 'active_parties': ['Accused'], 'system_metadata': {'intake_timestamp': '2026-10-16T17:32:43.171144+00:00', 'overall_confidence': 0.45, 'low_confidence_count': 1, 'flag_for_confirmation': True}}"
+      },
+      "stage1_legal_query": {
+        "manual_review": [
+          "Procedural Document Missing: FIR / Complaint Copy",
+          "Procedural Document Missing: Bail Application Copy",
+          "Manual confirmation required for 'procedural_stage' (low confidence: 0.0 < cutoff 0.7)",
+          "Unresolved verification issue (MISSING): No sub-queries present for any distinct acts.",
+          "Unresolved verification issue (MISSING): Missing sub-query for ROBBERY due to lack of sub-queries for theft and hurt.",
+          "Unresolved verification issue (MISSING): Missing sub-query for House-breaking by Night if entry into a building at night by breaking is described.",
+          "Unresolved verification issue (MISSING): Missing sub-query for Mischief if any lock/property/goods were broken or damaged.",
+          "Unresolved verification issue (MISSING): Missing sub-query for Common Intention if multiple accused acted with common intention."
+        ],
+        "schema_version": "1.0",
+        "case_type": "Trial",
+        "entities": {
+          "victim": [],
+          "accused": []
+        },
+        "relationship": [],
+        "legal_concepts": [],
+        "sub_queries": [],
+        "procedural_events": [],
+        "important_facts": {
+          "money": null,
+          "location": null,
+          "dates": [],
+          "weapon": null,
+          "medical_injury": null,
+          "electronic_evidence": null,
+          "documents": [],
+          "witnesses": []
+        },
+        "legal_regime": "IPC + CrPC",
+        "flag_for_confirmation": true,
+        "regime_notes": "Statute regime: Indian Penal Code (IPC) + Code of Criminal Procedure (CrPC).",
+        "verification_status": "PENDING"
+      },
+      "stage2_subquery_mapping": {
+        "schema_version": "1.0",
+        "mappings": [
+          {
+            "sub_query_id": "SQ1",
+            "sub_query_text": "Robbery and house-breaking by night.",
+            "target_parties": [
+              "Accused"
+            ],
+            "facts_extracted": [
+              "Entry into a building at night",
+              "Breaking open locks or doors",
+              "Taking property without consent"
+            ],
+            "ingredients_matched": [
+              "Entry into a building at night",
+              "Breaking open locks or doors",
+              "Taking movable property without consent"
+            ],
+            "candidate_chapters": [
+              "Of Robbery",
+              "Of House-breaking"
+            ],
+            "primary_candidate_sections": [
+              {
+                "section_number": "392",
+                "section_title": "Robbery",
+                "statute": "IPC",
+                "candidate_type": "PRIMARY",
+                "score": 0.95,
+                "score_breakdown": {
+                  "ingredient_match": 1.0,
+                  "classifier_score": 0.9,
+                  "keyword_match": 0.95,
+                  "semantic_similarity": 0.92
+                },
+                "ingredients_matched": [
+                  "Robbery defined as taking property by force or threat",
+                  "Entry into a building at night"
+                ],
+                "missing_facts": [],
+                "relevance_reasoning": "Direct legal nexus: Entry at night and taking property without consent satisfies robbery definition."
+              },
+              {
+                "section_number": "454",
+                "section_title": "House-breaking",
+                "statute": "IPC",
+                "candidate_type": "PRIMARY",
+                "score": 0.93,
+                "score_breakdown": {
+                  "ingredient_match": 0.95,
+                  "classifier_score": 0.88,
+                  "keyword_match": 0.9,
+                  "semantic_similarity": 0.89
+                },
+                "ingredients_matched": [
+                  "Breaking open any door or lock",
+                  "Entering a building with intent to commit an offence"
+                ],
+                "missing_facts": [],
+                "relevance_reasoning": "Direct legal nexus: Breaking open locks and entering a building at night satisfies house-breaking definition."
+              }
+            ],
+            "secondary_candidate_sections": [],
+            "conditional_candidate_sections": [],
+            "not_triggered_sections": [],
+            "candidate_sections": [
+              "392",
+              "454"
+            ],
+            "relevance_reasoning": "Mapped facts to primary robbery and house-breaking offences based on the definitions satisfied by the case facts."
+          }
+        ]
+      },
+      "stage3_chapter_identification": {
+        "manual_review": [],
+        "schema_version": "3.0",
+        "verified_offences": [
+          {
+            "section_number": "392",
+            "statute": "IPC",
+            "ipc_equivalent": "392",
+            "bns_equivalent": null,
+            "title": "Robbery",
+            "chapter_number": "Of Offences Against Property",
+            "chapter_title": "Punishment for robbery",
+            "punishment": {
+              "minimum": null,
+              "maximum": "As specified under statute",
+              "fine": true
+            },
+            "classification": "PRIMARY",
+            "cognizable": false,
+            "bailable": true,
+            "verification_status": "VERIFIED",
+            "verification_notes": [
+              "Statutory existence verified against Knowledge Base registry.",
+              "Canonical chapter (Of Offences Against Property) and punishment metadata verified."
+            ]
+          }
+        ],
+        "chapter_candidates": [
+          {
+            "concept": "Robbery",
+            "chapter_number": "Of Offences Against Property",
+            "chapter_name": "Punishment for robbery",
+            "confidence": 0.95
+          }
+        ],
+        "section_candidates": [
+          {
+            "concept": "Robbery",
+            "section_number": "392",
+            "section_title": "Robbery",
+            "confidence": 0.95
+          }
+        ],
+        "legal_regime": "IPC + CrPC",
+        "verification_status": "VERIFIED",
+        "pipeline_transition": {
+          "stage": "STAGE_2_TO_STAGE_3",
+          "source": "Stage 2 Batched Sub-Query Mapping",
+          "stage2_input_sections": [
+            "392",
+            "454"
+          ],
+          "stage3_accepted_sections": [
+            "392"
+          ],
+          "stage3_rejected_sections": [
+            {
+              "section_number": "454",
+              "reason": "Stage 3 Screening Rejection: No facts indicate lurking house-trespass or house-breaking; thus, Section 454 is inapplicable.",
+              "rejection_type": "LLM_SCREENING_REJECTION"
+            }
+          ],
+          "passing_to_stage4": [
+            "392"
+          ]
+        }
+      },
+      "stage3b_bsa_retrieval": {
+        "schema_version": "3b.1",
+        "relevant_sections": [
+          {
+            "section_number": "56",
+            "heading": "Proof of contents of documents",
+            "chapter_number": "V",
+            "chapter_title": "Of Documentary Evidence",
+            "relevance_category": "PRIMARY_SECONDARY_EVIDENCE",
+            "relevance_reason": "Applies because proving the contents and genuineness of disputed documents is central to the allegations.",
+            "replaces_IEA": "61",
+            "statutory_text": "The contents of documents may be proved either by primary or by secondary evidence.",
+            "verification_status": "VERIFIED",
+            "verification_reason": "Grounded as it addresses the need to prove the contents and genuineness of disputed documents.",
+            "confidence_score": 0.95
+          },
+          {
+            "section_number": "57",
+            "heading": "Primary evidence",
+            "chapter_number": "V",
+            "chapter_title": "Of Documentary Evidence",
+            "relevance_category": "PRIMARY_SECONDARY_EVIDENCE",
+            "relevance_reason": "Relevant as it defines the necessity of producing the original document for inspection, which is crucial in disputes over document authenticity.",
+            "replaces_IEA": "62",
+            "statutory_text": "Primary evidence means the document itself produced for the inspection of the Court.",
+            "verification_status": "VERIFIED",
+            "verification_reason": "Relevant as it emphasizes the necessity of producing original documents for inspection in disputes over authenticity.",
+            "confidence_score": 0.95
+          },
+          {
+            "section_number": "58",
+            "heading": "Secondary evidence",
+            "chapter_number": "V",
+            "chapter_title": "Of Documentary Evidence",
+            "relevance_category": "PRIMARY_SECONDARY_EVIDENCE",
+            "relevance_reason": "Applicable as it outlines the types of secondary evidence that may be used when the original document is not available, which is pertinent to the case.",
+            "replaces_IEA": "63",
+            "statutory_text": "Secondary evidence includes\u2014 (i) certified copies given under the provisions hereinafter contained; (ii) copies made from the original by mechanical processes which in themselves ensure the accuracy of the copy, and copies compared with such copies; (iii) copies made from or compared with the original; (iv) counterparts of documents as against the parties who did not execute them; (v) oral account",
+            "verification_status": "VERIFIED",
+            "verification_reason": "Applicable as it outlines the types of secondary evidence that may be used when original documents are unavailable.",
+            "confidence_score": 0.95
+          },
+          {
+            "section_number": "60",
+            "heading": "Cases in which secondary evidence relating to documents may be given",
+            "chapter_number": "V",
+            "chapter_title": "Of Documentary Evidence",
+            "relevance_category": "PRIMARY_SECONDARY_EVIDENCE",
+            "relevance_reason": "This section is relevant as it specifies circumstances under which secondary evidence can be admitted, which may be applicable if the original documents are not accessible.",
+            "replaces_IEA": "65",
+            "statutory_text": "Secondary evidence may be given of the existence, condition, or contents of a document in the following cases, namely: \u2014 (a) when the original is shown or appears to be in the possession or power\u2014 (i) of the person against whom the document is sought to be proved; or (ii) of any person out of reach of, or not subject to, the process of the Court; or (iii) of any person legally bound to produce it,",
+            "verification_status": "VERIFIED",
+            "verification_reason": "Relevant as it specifies circumstances under which secondary evidence can be admitted.",
+            "confidence_score": 0.95
+          },
+          {
+            "section_number": "94",
+            "heading": "Evidence of terms of contracts, grants and other dispositions of property reduced to form of document",
+            "chapter_number": "VI",
+            "chapter_title": "Of the Exclusion of Oral Evidence by Documentary Evidence",
+            "relevance_category": "DOCUMENTS_DISPOSITIONS",
+            "relevance_reason": "Relevant as it emphasizes that the terms of any contract or disposition must be proven through the document itself or secondary evidence, which is crucial in this case.",
+            "replaces_IEA": "91",
+            "statutory_text": "When the terms of a contract, or of a grant, or of any other disposition of property, have been reduced to the form of a document, and in all cases in which any matter is required by law to be reduced to the form of a document, no evidence shall be given in proof of the terms of such contract, grant or other disposition of property, or of such matter, except the document itself, or secondary evide",
+            "verification_status": "VERIFIED",
+            "verification_reason": "Grounded as it emphasizes the necessity of proving contract terms through documents or secondary evidence.",
+            "confidence_score": 0.95
+          }
+        ],
+        "rejected_sections": [
+          {
+            "section_number": "104",
+            "heading": "Burden of proof",
+            "chapter_number": "VII",
+            "chapter_title": "Of the Burden of Proof",
+            "relevance_category": "BURDEN_OF_PROOF",
+            "relevance_reason": "Applicable as it establishes who bears the burden of proof regarding the existence of facts, which is essential in determining the outcome of the case.",
+            "replaces_IEA": "101",
+            "statutory_text": "Whoever desires any Court to give judgment as to any legal right or liability dependent on the existence of facts which he asserts must prove that those facts exist, and when a person is bound to prove the existence of any fact, it is said that the burden of proof lies on that person.",
+            "verification_status": "REJECTED",
+            "verification_reason": "Rejected: The burden of proof sections are not directly relevant to the evidentiary issues concerning document authenticity.",
+            "confidence_score": 1.0
+          },
+          {
+            "section_number": "105",
+            "heading": "On whom burden of proof lies",
+            "chapter_number": "VII",
+            "chapter_title": "Of the Burden of Proof",
+            "relevance_category": "BURDEN_OF_PROOF",
+            "relevance_reason": "Relevant as it clarifies the allocation of the burden of proof in the proceedings, which is critical for the parties involved.",
+            "replaces_IEA": "102",
+            "statutory_text": "The burden of proof in a suit or proceeding lies on that person who would fail if no evidence at all were given on either side.",
+            "verification_status": "REJECTED",
+            "verification_reason": "Rejected: Similar to section 104, this section does not pertain to the evidentiary matters at hand.",
+            "confidence_score": 1.0
+          }
+        ],
+        "ipc_to_bns_map": {
+          "392": "309(2)"
+        },
+        "retrieval_notes": [
+          "LLM Verifier rejected BSA 104: Rejected: The burden of proof sections are not directly relevant to the evidentiary issues concerning document authenticity.",
+          "LLM Verifier rejected BSA 105: Rejected: Similar to section 104, this section does not pertain to the evidentiary matters at hand."
+        ],
+        "legal_regime": "IPC + CrPC"
+      },
+      "stage3c_bnss_retrieval": {
+        "schema_version": "3c.0",
+        "relevant_sections": [
+          {
+            "section_number": "482",
+            "heading": "Direction for grant of bail to person apprehending arrest",
+            "chapter_number": "XXXV",
+            "chapter_title": "Provisions as to Bail and Bonds",
+            "relevance_category": "ANTICIPATORY_BAIL",
+            "relevance_reason": "Directly applies because the applicant seeks pre-arrest protection and apprehends arrest in a non-bailable matter.",
+            "replaces_CrPC": "438",
+            "statutory_text": "(1) When any person has reason to believe that he may be arrested on an accusation of having committed a non-bailable offence, he may apply to the High Court or the Court of Session for a direction under this section; and that Court may, if it thinks fit, direct that in the event of such arrest, he shall be released on bail.\n(2) When the High Court or the Court of Session makes a direction under sub-section (1), it may include such conditions in such directions in the light of the facts of the p",
+            "verification_status": "VERIFIED",
+            "verification_reason": "Directly applies because the applicant seeks anticipatory bail and apprehends arrest in a non-bailable matter.",
+            "confidence_score": 0.95
+          },
+          {
+            "section_number": "36",
+            "heading": "Procedure of arrest and duties of officer making arrest",
+            "chapter_number": "V",
+            "chapter_title": "Arrest of Persons",
+            "relevance_category": "ARREST_PROCEDURE",
+            "relevance_reason": "Applies because the procedures and safeguards regarding the arrest process are relevant to the applicant's concerns about the necessity of arrest and the rights during arrest.",
+            "replaces_CrPC": "41B",
+            "statutory_text": "Every police officer while making an arrest shall\u2014\n(a) bear an accurate, visible and clear identification of his name which will facilitate easy identification;\n(b) prepare a memorandum of arrest which shall be\u2014\n(i) attested by at least one witness, who is a member of the family of the person arrested or a respectable member of the locality where the arrest is made;\n(ii) countersigned by the person arrested; and\n(c) inform the person arrested, unless the memorandum is attested by a member of his",
+            "verification_status": "VERIFIED",
+            "verification_reason": "Applies because police power of arrest in cognizable offences and necessity of arrest or custodial interrogation are at issue.",
+            "confidence_score": 0.95
+          }
+        ],
+        "rejected_sections": [
+          {
+            "section_number": "480",
+            "heading": "When bail may be taken in case of non-bailable offence",
+            "chapter_number": "XXXV",
+            "chapter_title": "Provisions as to Bail and Bonds",
+            "relevance_category": "REGULAR_BAIL",
+            "relevance_reason": "Not applicable as the applicant is seeking anticipatory bail before any arrest occurs, rather than regular bail after arrest.",
+            "replaces_CrPC": "437",
+            "statutory_text": "(1) When any person accused of, or suspected of, the commission of any non-bailable offence is arrested or detained without warrant by an officer in charge of a police station or appears or is brought before a Court other than the High Court or Court of Session, he may be released on bail, but\u2014\n(i) such person shall not be so released if there appear reasonable grounds for believing that he has been guilty of an offence punishable with death or imprisonment for life;\n(ii) such person shall not b",
+            "verification_status": "REJECTED",
+            "verification_reason": "Not applicable as the applicant is seeking anticipatory bail before any arrest occurs, rather than regular bail after arrest.",
+            "confidence_score": 0.2
+          },
+          {
+            "section_number": "362",
+            "heading": "Procedure when after commencement of inquiry or trial, Magistrate finds case should be committed",
+            "chapter_number": "XXVI",
+            "chapter_title": "General Provisions as to Inquiries and Trials",
+            "relevance_category": "GENERAL_PROCEDURE",
+            "relevance_reason": "Not applicable as this section pertains to the commitment of cases to a higher court, which is not relevant at the pre-arrest stage.",
+            "replaces_CrPC": "323",
+            "statutory_text": "If, in any inquiry into an offence or a trial before a Magistrate, it appears to him at any stage of the proceedings before signing the judgment that the case is one which ought to be tried by the Court of Session, he shall commit it to that Court under the provisions hereinbefore contained and thereupon the provisions of Chapter XIX shall apply to the commitment so made.",
+            "verification_status": "REJECTED",
+            "verification_reason": "Not applicable as this section pertains to the commitment of cases to a higher court, which is not relevant at the pre-arrest stage.",
+            "confidence_score": 0.2
+          },
+          {
+            "section_number": "187",
+            "heading": "Procedure when investigation cannot be completed in twenty-four hours",
+            "chapter_number": "XIII",
+            "chapter_title": "Information to the Police and Their Powers to Investigate",
+            "relevance_category": "CUSTODY_REMAND",
+            "relevance_reason": "Not applicable as the focus is on the procedure after arrest and detention, while the current issue is about apprehension of arrest.",
+            "replaces_CrPC": "167",
+            "statutory_text": "(1) Whenever any person is arrested and detained in custody, and it appears that the investigation cannot be completed within the period of twenty-four hours fixed by section 58, and there are grounds for believing that the accusation or information is well-founded, the officer in charge of the police station or the police officer making the investigation, if he is not below the rank of sub-inspector, shall forthwith transmit to the nearest Magistrate a copy of the entries in the diary hereinaft",
+            "verification_status": "REJECTED",
+            "verification_reason": "Not applicable as the focus is on the procedure after arrest and detention, while the current issue is about apprehension of arrest.",
+            "confidence_score": 0.2
+          },
+          {
+            "section_number": "483",
+            "heading": "Special powers of High Court or Court of Session regarding bail",
+            "chapter_number": "XXXV",
+            "chapter_title": "Provisions as to Bail and Bonds",
+            "relevance_category": "BAIL_CONDITIONS",
+            "relevance_reason": "Not applicable as the applicant is seeking anticipatory bail, and this section deals with bail conditions post-arrest.",
+            "replaces_CrPC": "439",
+            "statutory_text": "(1) A High Court or Court of Session may direct,\u2014\n(a) that any person accused of an offence and in custody be released on bail, and if the offence is of the nature specified in sub-section (3) of section 480, may impose any condition which it considers necessary for the purposes mentioned in that sub-section;\n(b) that any condition imposed by a Magistrate when releasing any person on bail be set aside or modified:\nProvided that the High Court or the Court of Session shall, before granting bail t",
+            "verification_status": "REJECTED",
+            "verification_reason": "Not applicable as the applicant is seeking anticipatory bail, and this section deals with bail conditions post-arrest.",
+            "confidence_score": 0.2
+          },
+          {
+            "section_number": "484",
+            "heading": "Amount of bond and reduction thereof",
+            "chapter_number": "XXXV",
+            "chapter_title": "Provisions as to Bail and Bonds",
+            "relevance_category": "BAIL_CONDITIONS",
+            "relevance_reason": "Not applicable as this section pertains to the conditions of bail after arrest, which is not relevant to anticipatory bail.",
+            "replaces_CrPC": "440",
+            "statutory_text": "(1) The amount of every bond executed under this Chapter shall be fixed with due regard to the circumstances of the case and shall not be excessive.\n(2) The High Court or the Court of Session may direct that the bail required by a police officer or Magistrate be reduced.",
+            "verification_status": "REJECTED",
+            "verification_reason": "Not applicable as this section pertains to the conditions of bail after arrest, which is not relevant to anticipatory bail.",
+            "confidence_score": 0.2
+          },
+          {
+            "section_number": "485",
+            "heading": "Bond of accused and sureties",
+            "chapter_number": "XXXV",
+            "chapter_title": "Provisions as to Bail and Bonds",
+            "relevance_category": "BAIL_CONDITIONS",
+            "relevance_reason": "Not applicable as this section relates to the execution of bonds post-arrest, while the current matter concerns pre-arrest bail.",
+            "replaces_CrPC": "441",
+            "statutory_text": "(1) Before any person is released on bond or bail bond, a bond for such sum of money as the police officer or Court, as the case may be, thinks sufficient shall be executed by such person, and, when he is released on bond or bail bond, by one or more sufficient sureties conditioned that such person shall attend at the time and place mentioned in the bond, and shall continue so to attend until otherwise directed by the police officer or Court, as the case may be.\n(2) Where any condition is impose",
+            "verification_status": "REJECTED",
+            "verification_reason": "Not applicable as this section relates to the execution of bonds post-arrest, while the current matter concerns pre-arrest bail.",
+            "confidence_score": 0.2
+          },
+          {
+            "section_number": "493",
+            "heading": "Procedure in case of insolvency or death of surety or when a bond is forfeited",
+            "chapter_number": "XXXV",
+            "chapter_title": "Provisions as to Bail and Bonds",
+            "relevance_category": "GENERAL_PROCEDURE",
+            "relevance_reason": "Not applicable as this section deals with issues arising after bail has been granted, which is not relevant at this stage.",
+            "replaces_CrPC": "447",
+            "statutory_text": "When any surety to a bail bond under this Sanhita becomes insolvent or dies, or when any bond is forfeited under the provisions of section 491, the Court by whose order such bond was taken, or a Magistrate of the first class may order the person from whom such security was demanded to furnish fresh security in accordance with the directions of the original order, and if such security is not furnished, such Court or Magistrate may proceed as if there had been a default in complying with such orig",
+            "verification_status": "REJECTED",
+            "verification_reason": "Not applicable as this section deals with issues arising after bail has been granted, which is not relevant at this stage.",
+            "confidence_score": 0.2
+          },
+          {
+            "section_number": "201",
+            "heading": "Place of trial in case of certain offences",
+            "chapter_number": "XIV",
+            "chapter_title": "Jurisdiction of the Criminal Courts in Inquiries and Trials",
+            "relevance_category": "GENERAL_PROCEDURE",
+            "relevance_reason": "Not applicable as this section pertains to the jurisdiction of trial courts, which is not relevant to the current procedural issues.",
+            "replaces_CrPC": "181",
+            "statutory_text": "(1) Any offence of dacoity, or of dacoity with murder, of belonging to a gang of dacoits, or of escaping from custody, may be inquired into or tried by a Court within whose local jurisdiction the offence was committed or the accused person is found.\n(2) Any offence of kidnapping or abduction of a person may be inquired into or tried by a Court within whose local jurisdiction the person was kidnapped or abducted or was conveyed or concealed or detained.\n(3) Any offence of theft, extortion or robb",
+            "verification_status": "REJECTED",
+            "verification_reason": "Not applicable as this section pertains to the jurisdiction of trial courts, which is not relevant to the current procedural issues.",
+            "confidence_score": 0.2
+          },
+          {
+            "section_number": "206",
+            "heading": "High Court to decide, in case of doubt, district where inquiry or trial shall take place",
+            "chapter_number": "XIV",
+            "chapter_title": "Jurisdiction of the Criminal Courts in Inquiries and Trials",
+            "relevance_category": "GENERAL_PROCEDURE",
+            "relevance_reason": "Not applicable as this section addresses jurisdictional issues post-cognizance, which is not relevant to the anticipatory bail context.",
+            "replaces_CrPC": "186",
+            "statutory_text": "Where two or more Courts have taken cognizance of the same offence and a question arises as to which of them ought to inquire into or try that offence, the question shall be decided\u2014\n(a) if the Courts are subordinate to the same High Court, by that High Court;\n(b) if the Courts are not subordinate to the same High Court, by the High Court within the local limits of whose appellate criminal jurisdiction the proceedings were first commenced,\nand thereupon all other proceedings in respect of that o",
+            "verification_status": "REJECTED",
+            "verification_reason": "Not applicable as this section addresses jurisdictional issues post-cognizance, which is not relevant to the anticipatory bail context.",
+            "confidence_score": 0.2
+          },
+          {
+            "section_number": "216",
+            "heading": "Procedure for witnesses in case of threatening, etc.",
+            "chapter_number": "XV",
+            "chapter_title": "Conditions Requisite for Initiation of Proceedings",
+            "relevance_category": "GENERAL_PROCEDURE",
+            "relevance_reason": "Not applicable as this section deals with witness protection and complaints, which is not relevant to the current anticipatory bail application.",
+            "replaces_CrPC": "195A",
+            "statutory_text": "A witness or any other person may file a complaint in relation to an offence under section 232 of the Bharatiya Nyaya Sanhita, 2023.",
+            "verification_status": "REJECTED",
+            "verification_reason": "Not applicable as this section deals with witness protection and complaints, which is not relevant to the current anticipatory bail application.",
+            "confidence_score": 0.2
+          }
+        ],
+        "bnss_to_crpc_map": {
+          "482": "438",
+          "36": "41B"
+        },
+        "retrieval_notes": [
+          "Verifier ACCEPTED BNSS 482 (Direction for grant of bail to person apprehending arrest): Directly applies because the applicant seeks anticipatory bail and apprehends arrest in a non-bailable matter.",
+          "Verifier ACCEPTED BNSS 36 (Procedure of arrest and duties of officer making arrest): Applies because police power of arrest in cognizable offences and necessity of arrest or custodial interrogation are at issue.",
+          "Verifier REJECTED BNSS 480: Not applicable as the applicant is seeking anticipatory bail before any arrest occurs, rather than regular bail after arrest.",
+          "Verifier REJECTED BNSS 362: Not applicable as this section pertains to the commitment of cases to a higher court, which is not relevant at the pre-arrest stage.",
+          "Verifier REJECTED BNSS 187: Not applicable as the focus is on the procedure after arrest and detention, while the current issue is about apprehension of arrest.",
+          "Verifier REJECTED BNSS 483: Not applicable as the applicant is seeking anticipatory bail, and this section deals with bail conditions post-arrest.",
+          "Verifier REJECTED BNSS 484: Not applicable as this section pertains to the conditions of bail after arrest, which is not relevant to anticipatory bail.",
+          "Verifier REJECTED BNSS 485: Not applicable as this section relates to the execution of bonds post-arrest, while the current matter concerns pre-arrest bail.",
+          "Verifier REJECTED BNSS 493: Not applicable as this section deals with issues arising after bail has been granted, which is not relevant at this stage.",
+          "Verifier REJECTED BNSS 201: Not applicable as this section pertains to the jurisdiction of trial courts, which is not relevant to the current procedural issues.",
+          "Verifier REJECTED BNSS 206: Not applicable as this section addresses jurisdictional issues post-cognizance, which is not relevant to the anticipatory bail context.",
+          "Verifier REJECTED BNSS 216: Not applicable as this section deals with witness protection and complaints, which is not relevant to the current anticipatory bail application."
+        ],
+        "legal_regime": "IPC + CrPC"
+      },
+      "stage4_statutory_verification": {
+        "manual_review": [],
+        "schema_version": "4.0",
+        "verified_offences": [
+          {
+            "section_number": "392",
+            "statute": "IPC",
+            "title": "Robbery",
+            "irac_reasoning": {
+              "issue": "Does the accused's conduct of committing robbery satisfy all essential elements of Section 392 IPC?",
+              "rule": "Section 392 requires: (1) Theft committed, (2) Hurt caused or threatened imminently.",
+              "application": {
+                "prosecution_version": "The prosecution alleges that the accused committed theft by taking property from the victim and caused hurt during the act, satisfying both elements of robbery.",
+                "defence_version": "The accused denies the theft and claims that no hurt was caused, creating a factual dispute regarding the theft and the presence of hurt.",
+                "net_evaluation": "The prosecution's narrative suggests that theft and hurt occurred, but the defence's denial raises a genuine dispute over these elements."
+              },
+              "conclusion": "Section 392 prima facie attracted \u2014 Moderate strength (core ingredients satisfied; defence raises factual disputes requiring trial)."
+            },
+            "ingredient_evaluation": [
+              {
+                "ingredient": "Theft committed",
+                "matched_fact": null,
+                "status": "Missing",
+                "reason": "No specific facts provided indicating that theft occurred.",
+                "confidence": 0.85
+              },
+              {
+                "ingredient": "Hurt caused or threatened imminently",
+                "matched_fact": null,
+                "status": "Missing",
+                "reason": "No specific facts provided indicating that hurt was caused or threatened.",
+                "confidence": 0.85
+              }
+            ],
+            "overall_prima_facie_strength": "Moderate",
+            "missing_mandatory_facts": [
+              "Specific facts indicating theft occurred",
+              "Specific facts indicating hurt was caused or threatened"
+            ],
+            "missing_supporting_facts": [
+              "Witness statements",
+              "Evidence of property taken",
+              "Medical reports if any injury occurred"
+            ],
+            "investigation_requirements": [
+              "Collect evidence of theft (e.g., property records)",
+              "Gather witness statements regarding the incident",
+              "Obtain medical reports if applicable"
+            ],
+            "legal_reasoning": "The prosecution's narrative suggests robbery occurred, but missing facts regarding theft and hurt create a moderate prima facie strength due to the defence's factual disputes.",
+            "overall_status": "Partially Attracted",
+            "confidence": null
+          }
+        ],
+        "verified_sections": [
+          {
+            "section_number": "392",
+            "section_title": "Robbery",
+            "punishment_text": "Punishment up to As specified under statute",
+            "max_imprisonment_years": 3.0,
+            "arnesh_kumar_threshold_exceeded": false,
+            "ingredients": [
+              {
+                "ingredient": "Theft committed",
+                "logical_operator": "MANDATORY",
+                "condition_group": "default",
+                "status": "Not Satisfied",
+                "reason": "No specific facts provided indicating that theft occurred."
+              },
+              {
+                "ingredient": "Hurt caused or threatened imminently",
+                "logical_operator": "MANDATORY",
+                "condition_group": "default",
+                "status": "Not Satisfied",
+                "reason": "No specific facts provided indicating that hurt was caused or threatened."
+              }
+            ],
+            "disjunctive_clause_applied": null,
+            "overall_confidence": 0.8
+          }
+        ],
+        "legal_regime": "IPC + CrPC",
+        "verification_status": "VERIFIED",
+        "pipeline_transition": {
+          "stage": "STAGE_3_TO_STAGE_4",
+          "source": "Stage 3 Chapter Identification",
+          "stage3_input_sections": [
+            "392"
+          ],
+          "stage4_accepted_sections": [
+            "392"
+          ],
+          "stage4_rejected_sections": [],
+          "passing_to_stage5": [
+            "392"
+          ]
+        },
+        "ipc_to_bns_equivalents": [
+          {
+            "ipc_section": "392",
+            "title": "",
+            "bns_equivalent": "309(2)"
+          }
+        ],
+        "bnss_to_crpc_equivalents": [
+          {
+            "bnss_section": "482",
+            "heading": "Direction for grant of bail to person apprehending arrest",
+            "category": "ANTICIPATORY_BAIL",
+            "crpc_equivalent": "438"
+          },
+          {
+            "bnss_section": "36",
+            "heading": "Procedure of arrest and duties of officer making arrest",
+            "category": "ARREST_PROCEDURE",
+            "crpc_equivalent": "41B"
+          }
+        ],
+        "bsa_to_iea_equivalents": [
+          {
+            "bsa_section": "56",
+            "heading": "Proof of contents of documents",
+            "category": "PRIMARY_SECONDARY_EVIDENCE",
+            "iea_equivalent": "61"
+          },
+          {
+            "bsa_section": "57",
+            "heading": "Primary evidence",
+            "category": "PRIMARY_SECONDARY_EVIDENCE",
+            "iea_equivalent": "62"
+          },
+          {
+            "bsa_section": "58",
+            "heading": "Secondary evidence",
+            "category": "PRIMARY_SECONDARY_EVIDENCE",
+            "iea_equivalent": "63"
+          },
+          {
+            "bsa_section": "60",
+            "heading": "Cases in which secondary evidence relating to documents may be given",
+            "category": "PRIMARY_SECONDARY_EVIDENCE",
+            "iea_equivalent": "65"
+          },
+          {
+            "bsa_section": "94",
+            "heading": "Evidence of terms of contracts, grants and other dispositions of property reduced to form of document",
+            "category": "DOCUMENTS_DISPOSITIONS",
+            "iea_equivalent": "91"
+          }
+        ],
+        "act_router_output": {
+          "act_routing": [
+            {
+              "document": "dowry_prohibition_act.json",
+              "act_title": "The Dowry Prohibition Act, 1961",
+              "decision": "SKIP",
+              "confidence": 0.98,
+              "matched_facts": [],
+              "reason": "No facts indicate a demand or transaction involving property related to marriage."
+            },
+            {
+              "document": "indian_institutes_of_information_technology_act.json",
+              "act_title": "The Indian Institutes of Information Technology Act, 2014",
+              "decision": "SKIP",
+              "confidence": 0.99,
+              "matched_facts": [],
+              "reason": "No facts relate to an Indian Institute of Information Technology or its governance."
+            },
+            {
+              "document": "itpa.json",
+              "act_title": "The Immoral Traffic (Prevention) Act, 1956",
+              "decision": "SKIP",
+              "confidence": 0.99,
+              "matched_facts": [],
+              "reason": "No facts indicate commercial sexual exploitation or trafficking."
+            },
+            {
+              "document": "juvenile_justice_act.json",
+              "act_title": "The Juvenile Justice (Care and Protection of Children) Act, 2015",
+              "decision": "SKIP",
+              "confidence": 0.99,
+              "matched_facts": [],
+              "reason": "No facts indicate a child in conflict with law or a juvenile justice issue."
+            },
+            {
+              "document": "pocso_act.json",
+              "act_title": "The Protection of Children from Sexual Offences Act, 2012",
+              "decision": "SKIP",
+              "confidence": 0.99,
+              "matched_facts": [],
+              "reason": "No facts indicate a person below 18 years as a victim of a sexual offence."
+            },
+            {
+              "document": "posh_act.json",
+              "act_title": "The Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013",
+              "decision": "SKIP",
+              "confidence": 0.99,
+              "matched_facts": [],
+              "reason": "No facts indicate sexual harassment in a workplace context."
+            },
+            {
+              "document": "prohibition_of_child_marriage_act.json",
+              "act_title": "The Prohibition of Child Marriage Act, 2006",
+              "decision": "SKIP",
+              "confidence": 0.99,
+              "matched_facts": [],
+              "reason": "No facts indicate a marriage involving a person below the legally prescribed marriage age."
+            },
+            {
+              "document": "sc_st_prevention_of_atrocities_act.json",
+              "act_title": "The Scheduled Castes and the Scheduled Tribes (Prevention of Atrocities) Act, 1989",
+              "decision": "SKIP",
+              "confidence": 0.99,
+              "matched_facts": [],
+              "reason": "No facts indicate a caste-based atrocity or connection to SC/ST status."
+            }
+          ],
+          "selected_acts": [],
+          "relevant_sections": [],
+          "rejected_sections": [],
+          "retrieval_notes": [
+            "Act router evaluated 8 special acts. Selected 0: None"
+          ]
+        }
+      },
+      "stage4b_act_router": {
+        "act_routing": [
+          {
+            "document": "dowry_prohibition_act.json",
+            "act_title": "The Dowry Prohibition Act, 1961",
+            "decision": "SKIP",
+            "confidence": 0.98,
+            "matched_facts": [],
+            "reason": "No facts indicate a demand or transaction involving property related to marriage."
+          },
+          {
+            "document": "indian_institutes_of_information_technology_act.json",
+            "act_title": "The Indian Institutes of Information Technology Act, 2014",
+            "decision": "SKIP",
+            "confidence": 0.99,
+            "matched_facts": [],
+            "reason": "No facts relate to an Indian Institute of Information Technology or its governance."
+          },
+          {
+            "document": "itpa.json",
+            "act_title": "The Immoral Traffic (Prevention) Act, 1956",
+            "decision": "SKIP",
+            "confidence": 0.99,
+            "matched_facts": [],
+            "reason": "No facts indicate commercial sexual exploitation or trafficking."
+          },
+          {
+            "document": "juvenile_justice_act.json",
+            "act_title": "The Juvenile Justice (Care and Protection of Children) Act, 2015",
+            "decision": "SKIP",
+            "confidence": 0.99,
+            "matched_facts": [],
+            "reason": "No facts indicate a child in conflict with law or a juvenile justice issue."
+          },
+          {
+            "document": "pocso_act.json",
+            "act_title": "The Protection of Children from Sexual Offences Act, 2012",
+            "decision": "SKIP",
+            "confidence": 0.99,
+            "matched_facts": [],
+            "reason": "No facts indicate a person below 18 years as a victim of a sexual offence."
+          },
+          {
+            "document": "posh_act.json",
+            "act_title": "The Sexual Harassment of Women at Workplace (Prevention, Prohibition and Redressal) Act, 2013",
+            "decision": "SKIP",
+            "confidence": 0.99,
+            "matched_facts": [],
+            "reason": "No facts indicate sexual harassment in a workplace context."
+          },
+          {
+            "document": "prohibition_of_child_marriage_act.json",
+            "act_title": "The Prohibition of Child Marriage Act, 2006",
+            "decision": "SKIP",
+            "confidence": 0.99,
+            "matched_facts": [],
+            "reason": "No facts indicate a marriage involving a person below the legally prescribed marriage age."
+          },
+          {
+            "document": "sc_st_prevention_of_atrocities_act.json",
+            "act_title": "The Scheduled Castes and the Scheduled Tribes (Prevention of Atrocities) Act, 1989",
+            "decision": "SKIP",
+            "confidence": 0.99,
+            "matched_facts": [],
+            "reason": "No facts indicate a caste-based atrocity or connection to SC/ST status."
+          }
+        ],
+        "selected_acts": [],
+        "relevant_sections": [],
+        "rejected_sections": [],
+        "retrieval_notes": [
+          "Act router evaluated 8 special acts. Selected 0: None"
+        ]
+      },
+      "stage5_precedent_retrieval": {
+        "manual_review": [],
+        "schema_version": "5.0-precedent",
+        "input_case_summary": "{'schema_version': '1.0', 'case_profile': {'case_metadata': {'case_id': None, 'court': 'Sessions Court', 'police_station': None, 'fir_number': None, 'fir_date': None, 'offence_date': None, 'state': None, 'district': None}, 'parties': {'complainant': None, 'victim': None, 'accused': [], 'relationship': None}, 'procedural_stage': None, 'requested_relief': None, 'legal_regime': 'IPC + CrPC', 'flag_for_confirmation': True, 'regime_notes': 'Statute regime: Indian Penal Code (IPC) + Code of Criminal Procedure (CrPC).', 'min_confidence_threshold': 0.7, 'low_confidence_fields': [{'field_name': 'procedural_stage', 'confidence_score': 0.0, 'cutoff_threshold': 0.7, 'extracted_value': None, 'action_required': \"Field 'procedural_stage' score 0.0 < cutoff 0.7. Requires manual confirmation before downstream reasoning.\"}], 'overall_confidence': 0.45, 'contract_status': 'CONTRACT_BLOCKED', 'contract_violations': [\"MANDATORY FIELD MISSING: 'requested_relief' (requested_relief is UNKNOWN or unstated)\", \"MANDATORY FIELD MISSING: 'procedural_stage' (procedural_stage is UNKNOWN or unstated)\"], 'documents': [], 'case_facts': 'hi bro', 'primary_participants': {'victim': [], 'accused': [], 'witnesses': [], 'investigating_officer': None, 'advocate': None}, 'missing_information': ['Procedural Document Missing: FIR / Complaint Copy', 'Procedural Document Missing: Bail Application Copy', \"Manual confirmation required for 'procedural_stage' (low confidence: 0.0 < cutoff 0.7)\"], 'confidence': {'procedural_stage': 0.0, 'legal_regime': 0.9}}, 'contract_status': 'CONTRACT_BLOCKED', 'contract_violations': [\"MANDATORY FIELD MISSING: 'requested_relief' (requested_relief is UNKNOWN or unstated)\", \"MANDATORY FIELD MISSING: 'procedural_stage' (procedural_stage is UNKNOWN or unstated)\"], 'verification_status': 'NEEDS_CORRECTION', 'active_parties': ['Accused'], 'system_metadata': {'intake_timestamp': '2026-10-16T17:32:43.171144+00:00', 'overall_confidence': 0.45, 'low_confidence_count': 1, 'flag_for_confirmation': True}}",
+        "input_statutes": [
+          {
+            "act": "IPC",
+            "section": "392"
+          }
+        ],
+        "case_retrieval_profile": {
+          "procedural_stage": "bail_or_quashing",
+          "legal_regime": "IPC + CrPC",
+          "offences": [
+            "392"
+          ],
+          "fact_patterns": [
+            "immovable property / agricultural land",
+            "accused claims documents are genuine / commercial dispute"
+          ],
+          "defence_themes": [
+            "civil dispute dressed as criminal case",
+            "absence of fraudulent or dishonest intention",
+            "genuineness of documents and commercial nature",
+            "cooperation with investigation and no flight risk",
+            "custodial interrogation unnecessary"
+          ],
+          "prosecution_themes": [
+            "forgery and fabrication of documents",
+            "use of forged document for fraudulent transfer",
+            "fraudulent inducement to deliver property",
+            "need for investigation into money trail and authenticity",
+            "necessity of custodial interrogation"
+          ]
+        },
+        "total_judgments_scanned": 88,
+        "candidates_after_statutory_match": 0,
+        "prosecution_precedents": [],
+        "defense_precedents": [],
+        "compact_prosecution_summaries": [],
+        "compact_defense_summaries": [],
+        "shared_precedents": [],
+        "verification_status": "VERIFIED",
+        "retrieval_metadata": null
+      }
+    },
+    "summary": {
+      "legal_regime": "BNS + BNSS",
+      "jurisdiction": "Maharashtra",
+      "legal_concepts": [],
+      "verified_sections": [
+        {
+          "section_number": "392",
+          "section": "392",
+          "statute": "IPC",
+          "act": "IPC",
+          "title": "Section 392",
+          "ipc_equivalent": "392",
+          "bns_equivalent": "",
+          "overall_status": "Prima Facie Attracted",
+          "overall_prima_facie_strength": "Moderate",
+          "punishment_text": "Punishment up to As specified under statute",
+          "cognizable": true,
+          "bailable": false,
+          "ingredient_evaluation": [],
+          "legal_reasoning": "",
+          "missing_supporting_facts": []
+        }
+      ],
+      "bail_recommendation": "Custodial Interrogation Recommended (Oppose Anticipatory Bail)",
+      "risk_level": "Moderate - Prima Facie Charges",
+      "precedents": [],
+      "total_sections_count": 1
+    }
+  },
+  {
     "query_id": "lexi_cd7ed15cd37b",
     "query": "The applicant seeks anticipatory bail in connection with FIR No. 204/2024 registered at Pune Police Station. The complainant, Kavya, married the applicant Rohan in December 2021. The FIR alleges that shortly after marriage, the applicant and his parents commenced persistent demands for an additional \u20b95,00,000 cash dowry and a vehicle. Complainant alleges verbal abuse, mental cruelty, financial restrictions, and that on 14th June 2024, she was physically assaulted and forced out of the house. The applicant submits that allegations are exaggerated arising from matrimonial discord, no MLC injury certificate exists, and he is a respected software professional willing to cooperate with investigation.",
     "created_at": "2026-10-16T17:13:34.893803+00:00",

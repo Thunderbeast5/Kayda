@@ -93,7 +93,13 @@ export default function LandingNavbar({ scrollToSection }) {
           <button onClick={() => navigate("/multiplayer")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1 cursor-pointer">
             Multiplayer
           </button>
-          <button onClick={() => scrollToSection("pricing")} className="hover:text-[#8C5A3C] transition-colors cursor-pointer">
+          <button
+            onClick={() => {
+              if (window.location.pathname === "/pricing") scrollToSection("pricing");
+              else navigate("/pricing");
+            }}
+            className="hover:text-[#8C5A3C] transition-colors cursor-pointer"
+          >
             Pricing
           </button>
         </div>

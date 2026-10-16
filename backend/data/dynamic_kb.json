@@ -3590,5 +3590,36 @@
     "subject_matter_scope": null,
     "disqualifying_subject_matters": [],
     "requires_trigger_gate": false
+  },
+  {
+    "section": "392",
+    "statute": "IPC",
+    "bns_equivalent": "392",
+    "title": "Punishment for robbery",
+    "mandatory_ingredients": [
+      "theft_committed",
+      "hurt_caused_or_threatened_imminently"
+    ],
+    "factual_triggers": [
+      "caused",
+      "committed",
+      "hurt",
+      "imminently",
+      "punishment",
+      "punishment for robbery",
+      "robbery",
+      "theft",
+      "threatened"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Of Offences Against Property",
+    "punishment_minimum": null,
+    "punishment_maximum": "Whoever commits robbery shall be punished with rigorous imprisonment for a term which may extend to ten years, and shall also be liable to fine; and, if the robbery be committed on the highway between",
+    "fine": true,
+    "cognizable": true,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
   }
 ]

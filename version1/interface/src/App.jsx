@@ -8,6 +8,7 @@ import LexiGraphCypherPage from "./pages/LexiGraphCypherPage";
 import LexiGraphAgentPage from "./pages/LexiGraphAgentPage";
 import ProfilePage from "./pages/ProfilePage";
 import MultiplayerMode from "./pages/MultiplayerMode";
+import KaydaPricingPage from "./pages/PricingPage";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
 
           {/* Public landing page */}
           <Route path="/" element={<HomePage />} />
+          <Route path="/pricing" element={<KaydaPricingPage />} />
 
           {/* Protected routes */}
           <Route
