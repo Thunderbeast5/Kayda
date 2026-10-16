@@ -130,6 +130,11 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
     ollama_model = os.getenv("OLLAMA_MODEL", "llama3.2:3b")
     ollama_api_key = os.getenv("OLLAMA_API_KEY", "")
     openai_api_key = os.getenv("OPENAI_API_KEY")
+    if not openai_api_key:
+        load_dotenv(BASE_DIR / ".env", override=True)
+        load_dotenv(BASE_DIR.parent / ".env", override=False)
+        openai_api_key = os.getenv("OPENAI_API_KEY")
+
     groq_api_key = os.getenv("GROQ_API_KEY")
 
     # OpenAI first (default)
@@ -137,12 +142,8 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
         try:
             from langchain_openai import ChatOpenAI
             target_model = model_name or os.getenv("STAGE0_MODEL", "gpt-4o-mini")
-            return ChatOpenAI(
-                model=target_model,
-                api_key=openai_api_key,
-                temperature=temperature,
-                client_kwargs=client_kwargs,
-            )
+            kwargs = _openai_kwargs(target_model, temperature, openai_api_key)
+            return ChatOpenAI(**kwargs)
         except Exception as e:
             print(f"[LexiGraph Config] Warning loading ChatOpenAI: {e}")
             print(f"[LexiGraph Config] Falling back to Groq/Ollama...")
