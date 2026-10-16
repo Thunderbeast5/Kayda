@@ -32,50 +32,10 @@ import {
   Activity,
   Award,
   History,
-  Cloud,
   Quote,
   Filter,
 } from "lucide-react";
 import StandardNavbar from "../components/StandardNavbar";
-
-const SAMPLE_BENCHMARK_CASES = [
-  {
-    id: "dowry_cruelty",
-    title: "Matrimonial Cruelty & Dowry Demand",
-    sections: "IPC 498A ⇄ BNS 85",
-    regime: "IPC + CrPC",
-    court: "Sessions Court",
-    summary: "Demand for ₹5L dowry and vehicle, verbal cruelty, physical eviction.",
-    text: "The applicant seeks anticipatory bail in connection with FIR No. 204/2024 registered at Pune Police Station. The complainant, Kavya, married the applicant Rohan in December 2021. The FIR alleges that shortly after marriage, the applicant and his parents commenced persistent demands for an additional ₹5,00,000 cash dowry and a vehicle. Complainant alleges verbal abuse, mental cruelty, financial restrictions, and that on 14th June 2024, she was physically assaulted and forced out of the house. The applicant submits that allegations are exaggerated arising from matrimonial discord, no MLC injury certificate exists, and he is a respected software professional willing to cooperate with investigation.",
-  },
-  {
-    id: "property_assault",
-    title: "House Trespass & Simple Hurt with Threat",
-    sections: "BNS 332, 115, 351 (IPC 452, 323, 506)",
-    regime: "BNS + BNSS",
-    court: "Sessions Court",
-    summary: "Boundary dispute assault with stick, minor injury, threat to life.",
-    text: "The applicant seeks anticipatory bail after an FIR was registered at Nashik Road Police Station on 15-08-2024 alleging offences under Sections 332, 115, and 351(2) BNS. Complainant alleges applicant unlawfully entered his courtyard during an argument regarding a boundary fence, pushed him, and brandished a wooden stick causing simple contusions. Complainant also alleges applicant threatened dire consequences if civil suit was not withdrawn. The applicant submits this is a counterblast to an ongoing civil title injunction, cross-complaints were lodged, injuries are minor abrasions, and custodial interrogation is wholly unnecessary.",
-  },
-  {
-    id: "extortion_threat",
-    title: "Extortion & Cyber Blackmail",
-    sections: "BNS 308, 351 (IPC 384, 506)",
-    regime: "BNS + BNSS",
-    court: "High Court",
-    summary: "Demands for ₹10L under threat of leaking confidential trade secrets.",
-    text: "Anticipatory bail application under Section 482 BNSS before the High Court of Bombay. FIR lodged at Cyber Police Station Bandra alleging that former business consultant demanded ₹10,00,000 under threat of publishing confidential trade records and filing defamatory criminal petitions against the complainant company directors. Complainant transferred ₹2,00,000 into a bank account. Applicant contends that the sum requested was legitimate outstanding consultancy fee as per signed MoA, emails demonstrate contractual settlement negotiations, and no criminal extortion was ever intended.",
-  },
-  {
-    id: "culpable_homicide_negligence",
-    title: "Rash & Negligent Driving Collision",
-    sections: "BNS 106 (IPC 304A)",
-    regime: "BNS + BNSS",
-    court: "Sessions Court",
-    summary: "Motor vehicle junction collision resulting in fatal head trauma.",
-    text: "FIR No. 88/2024 registered under Section 106(1) BNS at Thane City Police Station. Accused driver of commercial truck was involved in a collision with a motorcyclist at a dimly lit junction. Motorcyclist succumbed to head injuries at Civil Hospital. Accused remained at the scene, called ambulance, and submitted to breathalyzer test indicating zero blood alcohol content. Applicant seeks anticipatory bail citing mechanical brake failure, absence of rash intention, complete cooperation with police, and availability of dashcam telemetry.",
-  },
-];
 
 const PIPELINE_STAGES = [
   { id: 0, label: "Stage 0: Case Intake & Regime", desc: "Metadata, parties, IPC vs BNS legal regime" },
@@ -87,11 +47,9 @@ const PIPELINE_STAGES = [
   { id: 6, label: "Stage 6: Precedent Synthesis", desc: "Ratio decidendi extraction & citation validation" },
 ];
 
-export default function LexiGraphAgentPage({ onSwitchToCypher }) {
-  const [caseText, setCaseText] = useState(SAMPLE_BENCHMARK_CASES[0].text);
-  const [selectedCaseId, setSelectedCaseId] = useState(SAMPLE_BENCHMARK_CASES[0].id);
+export default function LexiGraphAgentPage() {
+  const [caseText, setCaseText] = useState("");
   const [courtType, setCourtType] = useState("Sessions Court");
-  const [legalRegime, setLegalRegime] = useState("auto");
   const [loading, setLoading] = useState(false);
   const [currentStageIndex, setCurrentStageIndex] = useState(-1);
   const [stageProgress, setStageProgress] = useState({});
@@ -106,13 +64,7 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
   const [precedentRoleFilter, setPrecedentRoleFilter] = useState("all"); // "all" | "prosecution" | "defense" | "binding"
   const [citeSuccessMessage, setCiteSuccessMessage] = useState(null);
 
-  // Quick Statute Lookup
-  const [statuteQuery, setStatuteQuery] = useState("");
-  const [statuteResult, setStatuteResult] = useState(null);
-  const [loadingStatute, setLoadingStatute] = useState(false);
-  const [showStatuteModal, setShowStatuteModal] = useState(false);
-
-  // History State (Firebase Firestore + Local Fallback)
+  // History State
   const [showHistory, setShowHistory] = useState(false);
   const [historyItems, setHistoryItems] = useState([]);
   const [loadingHistory, setLoadingHistory] = useState(false);
@@ -121,7 +73,6 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
 
   const eventSourceRef = useRef(null);
   const resultsRef = useRef(null);
-  const historyRef = useRef(null);
 
   const fetchHistory = async () => {
     setLoadingHistory(true);
@@ -148,15 +99,6 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
     };
   }, []);
 
-  const handleSelectBenchmarkCase = (benchCase) => {
-    setSelectedCaseId(benchCase.id);
-    setCaseText(benchCase.text);
-    if (benchCase.court) setCourtType(benchCase.court);
-    if (benchCase.regime) {
-      setLegalRegime(benchCase.regime.includes("IPC") ? "IPC + CrPC" : "BNS + BNSS");
-    }
-  };
-
   const openHistorySession = async (queryId) => {
     setSelectedHistoryId(queryId);
     setError(null);
@@ -170,7 +112,6 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
       const session = resData.data;
       if (session.query) {
         setCaseText(session.query);
-        setSelectedCaseId(null);
       }
       setResult(session.result || session.data || {});
       setSummary(session.summary || session.result?.summary || null);
@@ -216,7 +157,7 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
         body: JSON.stringify({
           text: caseText.trim(),
           court_type: courtType,
-          legal_regime_override: legalRegime === "auto" ? null : legalRegime,
+          legal_regime_override: null,
           stage: 7,
         }),
       });
@@ -232,7 +173,7 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
       setCurrentStageIndex(7);
       setActiveTab("sections");
 
-      // Auto-refresh history so Firestore entry immediately appears
+      // Auto-refresh history so entry immediately appears
       fetchHistory();
 
       setTimeout(() => {
@@ -244,29 +185,6 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
       setCurrentStageIndex(-1);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleQuickStatuteLookup = async (sec) => {
-    const targetSec = sec || statuteQuery;
-    if (!targetSec || !targetSec.trim()) return;
-
-    setLoadingStatute(true);
-    setStatuteResult(null);
-    const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5001";
-
-    try {
-      const response = await fetch(`${apiUrl}/api/lexigraph/statute/${encodeURIComponent(targetSec.trim())}`);
-      const data = await response.json();
-      if (response.ok && data.success) {
-        setStatuteResult(data.data);
-      } else {
-        setStatuteResult({ error: data.message || `Section ${targetSec} not found in repository.` });
-      }
-    } catch (err) {
-      setStatuteResult({ error: `Lookup error: ${err.message}` });
-    } finally {
-      setLoadingStatute(false);
     }
   };
 
@@ -414,49 +332,7 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
 
       {/* Main Container */}
       <main className="max-w-7xl mx-auto px-6 py-8">
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-          <div className="flex items-center gap-2">
-            <span className="font-heading font-bold text-lg text-[#2C1810]">
-              LexiGraph Agent Engine
-            </span>
-            <span className="px-2.5 py-0.5 text-[10px] uppercase tracking-wider font-semibold bg-[#D4AF37]/20 text-[#8C5A3C] border border-[#D4AF37]/40 rounded-full flex items-center gap-1">
-              <Cloud className="w-3 h-3 text-[#D4AF37]" />
-              Firebase Synchronized
-            </span>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-2.5">
-            <button
-              onClick={() => {
-                setShowHistory(true);
-                fetchHistory();
-              }}
-              className="px-3.5 py-2 text-xs font-mono font-bold uppercase tracking-wider text-[#2C1810] bg-white border border-[#2C1810]/20 rounded-lg hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
-            >
-              <History className="w-3.5 h-3.5 text-[#D4AF37]" />
-              <span>Query History ({historyItems.length})</span>
-            </button>
-            <button
-              onClick={() => {
-                setShowStatuteModal(true);
-                if (!statuteResult) handleQuickStatuteLookup("498A");
-              }}
-              className="px-3.5 py-2 text-xs font-mono font-bold uppercase tracking-wider text-[#2C1810] bg-white border border-[#2C1810]/20 rounded-lg hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
-            >
-              <BookOpen className="w-3.5 h-3.5 text-[#8C5A3C]" />
-              Statute Inspector
-            </button>
-            <button
-              onClick={onSwitchToCypher || (() => { window.location.hash = "#/text2cypher"; })}
-              className="px-3.5 py-2 text-xs font-mono font-bold uppercase tracking-wider text-[#2C1810] bg-white border border-[#2C1810]/20 rounded-lg hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
-            >
-              <Terminal className="w-3.5 h-3.5 text-[#8C5A3C]" />
-              Cypher Query
-            </button>
-          </div>
-        </div>
-
-        {/* Hero Banner with Benchmarks */}
+        {/* Hero Banner with Case Input & Query History */}
         <div className="bg-white border border-[#D4AF37]/40 rounded-2xl p-6 md:p-8 mb-8 shadow-[0_4px_25px_rgba(44,24,16,0.04)] relative overflow-hidden">
           <div className="absolute -top-12 -right-12 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -471,67 +347,17 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
               </h1>
             </div>
 
-            <div className="flex items-center gap-2 bg-[#FAF9F7] p-1.5 rounded-xl border border-[#2C1810]/15">
-              <span className="text-[11px] font-mono text-[#5D4037] font-semibold px-2">Regime:</span>
+            <div>
               <button
-                onClick={() => setLegalRegime("auto")}
-                className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all ${legalRegime === "auto" ? "bg-[#2C1810] text-[#FAF9F7]" : "text-[#5D4037] hover:bg-[#2C1810]/5"}`}
+                onClick={() => {
+                  setShowHistory(true);
+                  fetchHistory();
+                }}
+                className="px-4 py-2.5 text-xs font-mono font-bold uppercase tracking-wider text-[#2C1810] bg-[#FAF9F7] border border-[#2C1810]/20 rounded-xl hover:border-[#D4AF37] hover:bg-white hover:text-[#8C5A3C] transition-all flex items-center gap-2 cursor-pointer shadow-xs"
               >
-                Auto-Detect
+                <History className="w-4 h-4 text-[#D4AF37]" />
+                <span>Query History ({historyItems.length})</span>
               </button>
-              <button
-                onClick={() => setLegalRegime("IPC + CrPC")}
-                className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all ${legalRegime === "IPC + CrPC" ? "bg-[#8C5A3C] text-[#FAF9F7]" : "text-[#5D4037] hover:bg-[#2C1810]/5"}`}
-              >
-                IPC + CrPC
-              </button>
-              <button
-                onClick={() => setLegalRegime("BNS + BNSS")}
-                className={`px-3 py-1 rounded-lg text-xs font-mono font-bold transition-all ${legalRegime === "BNS + BNSS" ? "bg-[#C5A059] text-[#2C1810]" : "text-[#5D4037] hover:bg-[#2C1810]/5"}`}
-              >
-                BNS + BNSS
-              </button>
-            </div>
-          </div>
-
-          {/* Benchmark Case Selectors */}
-          <div className="mb-5">
-            <span className="text-[11px] font-mono uppercase tracking-wider font-bold text-[#8C5A3C] block mb-2.5">
-              1-Click Benchmark Scenarios:
-            </span>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-              {SAMPLE_BENCHMARK_CASES.map((bc) => (
-                <div
-                  key={bc.id}
-                  onClick={() => handleSelectBenchmarkCase(bc)}
-                  className={`p-3.5 rounded-xl border transition-all cursor-pointer text-left flex flex-col justify-between ${
-                    selectedCaseId === bc.id
-                      ? "bg-[#D4AF37]/15 border-[#D4AF37] shadow-sm"
-                      : "bg-[#FAF9F7] border-[#2C1810]/15 hover:border-[#D4AF37]/50 hover:bg-white"
-                  }`}
-                >
-                  <div>
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-[9px] font-mono font-bold uppercase px-2 py-0.5 rounded-full bg-[#2C1810]/10 text-[#2C1810]">
-                        {bc.court}
-                      </span>
-                      <span className="text-[10px] font-mono text-[#8C5A3C] font-bold">
-                        {bc.sections}
-                      </span>
-                    </div>
-                    <h3 className="font-heading text-sm font-bold text-[#2C1810] line-clamp-1 mb-1">
-                      {bc.title}
-                    </h3>
-                    <p className="text-[11px] text-[#5D4037]/80 line-clamp-2 leading-relaxed">
-                      {bc.summary}
-                    </p>
-                  </div>
-                  <div className="mt-2.5 pt-2 border-t border-[#2C1810]/10 flex items-center justify-between text-[10px] font-mono text-[#8C5A3C]">
-                    <span>Load Case</span>
-                    <ChevronRight className="w-3 h-3" />
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
 
@@ -548,12 +374,9 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
             </div>
 
             <textarea
-              rows={4}
+              rows={5}
               value={caseText}
-              onChange={(e) => {
-                setCaseText(e.target.value);
-                setSelectedCaseId(null);
-              }}
+              onChange={(e) => setCaseText(e.target.value)}
               placeholder="Paste FIR description, allegations, applicant statements, or dates..."
               className="w-full p-4 bg-[#FAF9F7] border border-[#2C1810]/20 rounded-xl font-body text-sm text-[#2C1810] placeholder-[#5D4037]/50 focus:outline-none focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition-all shadow-inner"
               disabled={loading}
@@ -561,7 +384,7 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
 
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-1.5">
+                {/* <div className="flex items-center gap-1.5">
                   <span className="text-xs font-mono text-[#5D4037] font-semibold">Forum:</span>
                   <select
                     value={courtType}
@@ -572,7 +395,7 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
                     <option value="Sessions Court">Sessions Court</option>
                     <option value="High Court">High Court</option>
                   </select>
-                </div>
+                </div> */}
               </div>
 
               <button
@@ -593,116 +416,6 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
                 )}
               </button>
             </div>
-          </div>
-        </div>
-
-        {/* Firestore Case Analysis & Precedent History Panel (Like Evidence Analyzer) */}
-        <div ref={historyRef} className="mb-8 bg-white border border-[#D4AF37]/35 rounded-2xl p-6 shadow-xs">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-[#2C1810]/10">
-            <div>
-              <div className="flex items-center gap-2">
-                <History className="text-[#D4AF37] w-4 h-4" />
-                <h3 className="font-heading font-bold text-base text-[#2C1810]">
-                  Firestore Analysis History & Precedent Sessions
-                </h3>
-                <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-[10px] font-mono border border-emerald-200 flex items-center gap-1">
-                  <Cloud className="w-2.5 h-2.5" />
-                  Live Sync
-                </span>
-              </div>
-              <p className="text-xs text-[#5D4037] mt-0.5">
-                Open any previously analyzed FIR query to immediately review verified statutory offences, Supreme Court precedents, and bail telemetry.
-              </p>
-            </div>
-
-            <div className="flex items-center gap-2">
-              <div className="relative">
-                <Search className="w-3.5 h-3.5 text-[#5D4037]/60 absolute left-2.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  value={historySearch}
-                  onChange={(e) => setHistorySearch(e.target.value)}
-                  placeholder="Filter past queries..."
-                  className="pl-8 pr-3 py-1.5 bg-[#FAF9F7] border border-[#2C1810]/15 rounded-lg text-xs font-mono text-[#2C1810] placeholder-[#5D4037]/50 focus:outline-none focus:border-[#D4AF37] w-44"
-                />
-              </div>
-              <button
-                onClick={fetchHistory}
-                disabled={loadingHistory}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#2C1810]/15 text-xs font-mono font-bold uppercase tracking-wider text-[#2C1810] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-colors cursor-pointer"
-              >
-                <RefreshCw className={loadingHistory ? "w-3 h-3 animate-spin text-[#D4AF37]" : "w-3 h-3 text-[#D4AF37]"} />
-                Refresh
-              </button>
-            </div>
-          </div>
-
-          {/* History list */}
-          <div className="space-y-2.5 max-h-[300px] overflow-y-auto pr-1">
-            {loadingHistory && historyItems.length === 0 && (
-              <div className="text-center py-6 text-xs font-mono text-[#5D4037]">
-                <RefreshCw className="w-4 h-4 animate-spin inline-block text-[#D4AF37] mb-1.5" />
-                <p>Loading historical sessions from Firebase Firestore...</p>
-              </div>
-            )}
-            {!loadingHistory && historyItems.length === 0 && (
-              <div className="text-center py-6 text-xs font-mono text-[#5D4037]/70">
-                No past queries saved in Firestore yet. Run your first LexiGraph case analysis above!
-              </div>
-            )}
-            {filteredHistory.map((item) => (
-              <div
-                key={item.query_id}
-                onClick={() => openHistorySession(item.query_id)}
-                className={`p-3.5 rounded-xl border transition-all text-left cursor-pointer flex flex-col md:flex-row md:items-center justify-between gap-3 ${
-                  selectedHistoryId === item.query_id
-                    ? "bg-[#D4AF37]/15 border-[#D4AF37] shadow-sm"
-                    : "bg-[#FAF9F7] border-[#2C1810]/10 hover:border-[#D4AF37]/60 hover:bg-white"
-                }`}
-              >
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center gap-2 flex-wrap mb-1">
-                    <span className="font-mono text-[10px] font-bold text-[#8C5A3C]">
-                      {item.query_id}
-                    </span>
-                    <span className="px-2 py-0.5 rounded-md bg-[#2C1810] text-[#FAF9F7] font-mono text-[9px] font-bold uppercase">
-                      {item.recommended_count || 0} Sections
-                    </span>
-                    <span className="px-2 py-0.5 rounded-md bg-[#D4AF37]/20 text-[#8C5A3C] border border-[#D4AF37]/40 font-mono text-[9px] font-bold uppercase">
-                      {item.precedents_count || 0} Precedents
-                    </span>
-                    <span className="px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 font-mono text-[9px] font-bold uppercase">
-                      {Math.round((item.pipeline_confidence || 0.85) * 100)}% Confidence
-                    </span>
-                  </div>
-                  <p className="text-xs font-semibold text-[#2C1810] line-clamp-1">
-                    {item.query || "Legal Query Scenario"}
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-3 shrink-0">
-                  <span className="text-[10px] font-mono text-[#5D4037]/80">
-                    {item.created_at ? new Date(item.created_at).toLocaleString() : ""}
-                  </span>
-                  <button
-                    disabled={selectedHistoryId === item.query_id}
-                    className="px-3 py-1 rounded-lg bg-[#2C1810] text-[#FAF9F7] text-[10px] font-mono uppercase font-bold hover:bg-[#8C5A3C] transition-colors flex items-center gap-1 shadow-xs"
-                  >
-                    {selectedHistoryId === item.query_id ? (
-                      <>
-                        <RefreshCw className="w-3 h-3 animate-spin text-[#D4AF37]" />
-                        <span>Loading...</span>
-                      </>
-                    ) : (
-                      <>
-                        <span>Load</span>
-                        <ChevronRight className="w-3 h-3" />
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
 
@@ -1413,125 +1126,7 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
         )}
       </main>
 
-      {/* QUICK STATUTE INSPECTOR MODAL */}
-      {showStatuteModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2C1810]/60 backdrop-blur-md animate-fadeIn">
-          <div
-            className="relative w-full max-w-2xl bg-[#FAF9F7] border border-[#D4AF37] rounded-2xl shadow-2xl p-6 md:p-8 overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setShowStatuteModal(false)}
-              className="absolute top-5 right-5 p-2 text-[#5D4037] hover:text-[#2C1810] rounded-full hover:bg-[#2C1810]/5 transition-colors cursor-pointer"
-            >
-              <X className="w-5 h-5" />
-            </button>
-
-            <div className="flex items-center gap-2 mb-4">
-              <BookOpen className="w-5 h-5 text-[#8C5A3C]" />
-              <h3 className="font-heading text-xl font-bold text-[#2C1810]">
-                Statute & Schedule Inspector
-              </h3>
-            </div>
-
-            <p className="text-xs text-[#5D4037]/80 mb-5">
-              Inspect official IPC / BNS section text, First Schedule cognizability, bailability, and cross-code equivalents with zero latency.
-            </p>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleQuickStatuteLookup();
-              }}
-              className="flex items-center gap-2 mb-5"
-            >
-              <input
-                type="text"
-                value={statuteQuery}
-                onChange={(e) => setStatuteQuery(e.target.value)}
-                placeholder="Enter Section Number (e.g. 498A, 85, 302, 103, 304B, 384, 308)..."
-                className="flex-1 px-4 py-2.5 bg-white border border-[#2C1810]/20 rounded-xl text-xs font-mono text-[#2C1810] focus:outline-none focus:border-[#D4AF37]"
-              />
-              <button
-                type="submit"
-                disabled={loadingStatute}
-                className="px-5 py-2.5 bg-[#2C1810] text-[#FAF9F7] rounded-xl font-mono text-xs uppercase font-bold hover:bg-[#8C5A3C] transition-all cursor-pointer"
-              >
-                {loadingStatute ? "Fetching..." : "Lookup"}
-              </button>
-            </form>
-
-            {/* Quick Pills */}
-            <div className="flex flex-wrap items-center gap-1.5 mb-5 text-[11px] font-mono">
-              <span className="text-[#5D4037]">Quick:</span>
-              {["498A", "85", "302", "103", "304B", "80", "384", "308", "452", "332"].map((s) => (
-                <button
-                  key={s}
-                  onClick={() => {
-                    setStatuteQuery(s);
-                    handleQuickStatuteLookup(s);
-                  }}
-                  className="px-2 py-0.5 bg-white border border-[#2C1810]/15 hover:border-[#D4AF37] rounded-md text-[#8C5A3C] font-bold cursor-pointer"
-                >
-                  §{s}
-                </button>
-              ))}
-            </div>
-
-            {/* Results Display */}
-            {statuteResult && (
-              <div className="p-4 bg-white border border-[#2C1810]/15 rounded-xl max-h-80 overflow-y-auto">
-                {statuteResult.error ? (
-                  <p className="text-xs text-red-700 font-mono">{statuteResult.error}</p>
-                ) : (
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between">
-                      <span className="font-heading text-base font-bold text-[#2C1810]">
-                        Section {statuteResult.section}
-                      </span>
-                      {statuteResult.metadata?.punishment_maximum && (
-                        <span className="text-xs font-mono text-[#8C5A3C] font-bold">
-                          Max Punishment: {statuteResult.metadata.punishment_maximum}
-                        </span>
-                      )}
-                    </div>
-
-                    {statuteResult.metadata && Object.keys(statuteResult.metadata).length > 0 && (
-                      <div className="flex flex-wrap gap-2 text-[10px] font-mono">
-                        <span className={`px-2 py-0.5 rounded-full ${statuteResult.metadata.bailable ? "bg-emerald-100 text-emerald-800" : "bg-red-100 text-red-800"}`}>
-                          {statuteResult.metadata.bailable ? "Bailable" : "Non-Bailable"}
-                        </span>
-                        <span className="px-2 py-0.5 rounded-full bg-amber-50 text-amber-900 border border-amber-200">
-                          {statuteResult.metadata.cognizable ? "Cognizable" : "Non-Cognizable"}
-                        </span>
-                        {statuteResult.metadata.chapter_number && (
-                          <span className="px-2 py-0.5 rounded-full bg-gray-100 text-gray-800">
-                            Chapter {statuteResult.metadata.chapter_number}
-                          </span>
-                        )}
-                      </div>
-                    )}
-
-                    {statuteResult.statute_text?.section_title && (
-                      <h4 className="font-heading text-sm font-bold text-[#2C1810]">
-                        {statuteResult.statute_text.section_title}
-                      </h4>
-                    )}
-
-                    {statuteResult.statute_text?.full_text && (
-                      <p className="text-xs text-[#5D4037] leading-relaxed whitespace-pre-line border-t border-black/5 pt-2">
-                        {statuteResult.statute_text.full_text}
-                      </p>
-                    )}
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* SLIDE-OVER QUERY HISTORY DRAWER (FIRESTORE) */}
+      {/* SLIDE-OVER QUERY HISTORY DRAWER */}
       {showHistory && (
         <div className="fixed inset-0 z-50 flex justify-end bg-[#2C1810]/60 backdrop-blur-sm animate-fadeIn">
           <div
@@ -1548,12 +1143,8 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
                   </h3>
                 </div>
                 <div className="flex items-center gap-2 mt-1">
-                  <span className="px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-[10px] font-mono border border-emerald-200 flex items-center gap-1">
-                    <Cloud className="w-2.5 h-2.5" />
-                    Firebase Firestore Live Sync
-                  </span>
-                  <span className="text-xs font-mono text-[#5D4037]/70">
-                    {historyItems.length} total saved runs
+                  <span className="text-xs font-mono text-[#8C5A3C] font-semibold">
+                    {historyItems.length} saved analysis sessions
                   </span>
                 </div>
               </div>
@@ -1583,7 +1174,7 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
                 onClick={fetchHistory}
                 disabled={loadingHistory}
                 className="px-3 py-2 bg-white border border-[#2C1810]/15 hover:border-[#D4AF37] rounded-xl text-xs font-mono font-bold text-[#2C1810] flex items-center gap-1.5 cursor-pointer transition-colors"
-                title="Refresh History from Firestore"
+                title="Refresh History"
               >
                 <RefreshCw className={loadingHistory ? "w-3.5 h-3.5 animate-spin text-[#D4AF37]" : "w-3.5 h-3.5 text-[#D4AF37]"} />
                 <span>Refresh</span>
@@ -1595,7 +1186,7 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
               {loadingHistory && historyItems.length === 0 && (
                 <div className="text-center py-12 text-xs font-mono text-[#5D4037]">
                   <RefreshCw className="w-5 h-5 animate-spin inline-block text-[#D4AF37] mb-2" />
-                  <p>Fetching analysis history from Firebase Firestore...</p>
+                  <p>Fetching analysis history...</p>
                 </div>
               )}
 
@@ -1604,7 +1195,7 @@ export default function LexiGraphAgentPage({ onSwitchToCypher }) {
                   {historySearch ? (
                     <p>No historical runs matching "{historySearch}".</p>
                   ) : (
-                    <p>No past query sessions found in Firestore. Execute your first case analysis above!</p>
+                    <p>No past query sessions found. Execute your first case analysis above!</p>
                   )}
                 </div>
               )}
