@@ -1527,7 +1527,6 @@
 // }
 
 import { useState, useEffect, useRef, useMemo } from "react";
-import { sampleCases } from "../data/mockEvidenceData";
 import {
   FileText,
   Upload,
@@ -1544,6 +1543,7 @@ import {
   ArrowLeft,
   History,
   RefreshCw,
+  X,
 } from "lucide-react";
 import ForceGraph2D from "react-force-graph-2d";
 import StandardNavbar from "../components/StandardNavbar";
@@ -1567,6 +1567,7 @@ export default function EvidenceAnalyzerPage({ onBack }) {
   const [historyLoading, setHistoryLoading] = useState(false);
   const [historyError, setHistoryError] = useState(null);
   const [selectedHistoryId, setSelectedHistoryId] = useState(null);
+  const [showHistory, setShowHistory] = useState(false);
 
   const [error, setError] = useState(null);
   const fileInputRef = useRef(null);
@@ -1654,6 +1655,7 @@ export default function EvidenceAnalyzerPage({ onBack }) {
       setAnalysisProgress(100);
       setCurrentStep(3);
       setShowFacts(true);
+      setShowHistory(false);
       await fetchHistory();
     } catch (err) {
       setHistoryError(err.message || "Failed to load session.");
@@ -1767,50 +1769,6 @@ export default function EvidenceAnalyzerPage({ onBack }) {
     xhr.send(formData);
   };
 
-  const startAnalysis = (caseData) => {
-    setSelectedCase(caseData);
-    setCurrentStep(1);
-    setOcrProgress(0);
-    setAnalysisProgress(0);
-    setDisplayedText("");
-    setShowFacts(false);
-    setSelectedHistoryId(null);
-
-    let charIdx = 0;
-    const rawText = caseData.rawText || "";
-    const charsPerTick = 12;
-
-    const ocrInterval = setInterval(() => {
-      charIdx += charsPerTick;
-      if (charIdx >= rawText.length) {
-        charIdx = rawText.length;
-        clearInterval(ocrInterval);
-        setOcrProgress(100);
-        setDisplayedText(rawText);
-
-        setTimeout(() => {
-          setCurrentStep(2);
-          let prog = 0;
-          const analysisInterval = setInterval(() => {
-            prog += Math.random() * 8 + 2;
-            if (prog >= 100) {
-              prog = 100;
-              clearInterval(analysisInterval);
-              setAnalysisProgress(100);
-              setTimeout(() => {
-                setCurrentStep(3);
-                setShowFacts(true);
-              }, 600);
-            }
-            setAnalysisProgress(Math.min(prog, 100));
-          }, 120);
-        }, 800);
-      }
-      setDisplayedText(rawText.slice(0, charIdx));
-      setOcrProgress(Math.round((charIdx / rawText.length) * 100));
-    }, 18);
-  };
-
   const facts = selectedCase?.facts;
   const timeline = selectedCase?.timeline || [];
   const graph = selectedCase?.graph || { nodes: [], edges: [] };
@@ -1818,6 +1776,19 @@ export default function EvidenceAnalyzerPage({ onBack }) {
   return (
     <div className="min-h-screen bg-[#FAF8F5] font-body text-[#2C1810]">
       <StandardNavbar onBack={onBack} subtitle="Demo Mode" title="Evidence Analyzer" />
+
+      <div className="max-w-[1400px] mx-auto px-6 pt-4 flex justify-end">
+        <button
+          onClick={() => {
+            setShowHistory(true);
+            fetchHistory();
+          }}
+          className="flex items-center gap-2 px-4 py-2.5 text-xs font-mono font-bold uppercase tracking-wider text-[#2C1810] bg-white border border-[#2C1810]/15 rounded-xl hover:border-[#D4AF37] hover:bg-[#D4AF37]/5 transition-colors shadow-sm"
+        >
+          <History className="w-4 h-4 text-[#D4AF37]" />
+          History ({historyItems.length})
+        </button>
+      </div>
 
       <div className="pt-6 max-w-[1400px] mx-auto px-6 pb-24">
         {/* ─── Progress Steps Bar ────────────────────────────────── */}
@@ -1900,111 +1871,6 @@ export default function EvidenceAnalyzerPage({ onBack }) {
               </p>
             </div>
 
-            <div className="mb-8 bg-white border border-[#2C1810]/10 rounded-xl p-5 shadow-sm">
-              <div className="flex items-center justify-between gap-3 mb-4">
-                <div>
-                  <div className="flex items-center gap-2">
-                    <History className="text-[#D4AF37]" size={14} />
-                    <p className="font-heading font-bold text-sm text-[#2C1810]">OCR History</p>
-                  </div>
-                  <p className="text-[11px] text-[#5D4037] mt-1">
-                    Open any previously analyzed document to review OCR text, timeline, and graph.
-                  </p>
-                </div>
-                <button
-                  onClick={fetchHistory}
-                  className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-[#2C1810]/10 text-[11px] font-bold uppercase tracking-wider text-[#2C1810] hover:border-[#D4AF37] hover:text-[#D4AF37] transition-colors"
-                >
-                  <RefreshCw className={historyLoading ? "animate-spin" : ""} size={12} />
-                  Refresh
-                </button>
-              </div>
-
-              {historyError && (
-                <div className="mb-4 p-3 rounded-lg bg-red-50 border border-red-200 text-red-700 text-xs">
-                  {historyError}
-                </div>
-              )}
-
-              <div className="space-y-3 max-h-[320px] overflow-y-auto pr-1">
-                {historyLoading && historyItems.length === 0 && (
-                  <div className="text-xs text-[#5D4037]">Loading history...</div>
-                )}
-                {!historyLoading && historyItems.length === 0 && !historyError && (
-                  <div className="text-xs text-[#5D4037]">No saved OCR sessions yet.</div>
-                )}
-                {historyItems.map((item) => (
-                  <button
-                    key={item.session_id}
-                    onClick={() => openHistorySession(item.session_id)}
-                    disabled={selectedHistoryId === item.session_id}
-                    className={`w-full text-left rounded-lg border p-4 transition-all ${
-                      selectedCase?.id === item.session_id
-                        ? "border-[#D4AF37] bg-[#FFF8E1]"
-                        : "border-[#2C1810]/10 bg-[#FAF8F5] hover:border-[#D4AF37] hover:bg-white"
-                    }`}
-                  >
-                    <div className="flex items-start justify-between gap-3">
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#8C5A3C]">
-                            {item.session_id}
-                          </span>
-                          <span className="px-2 py-1 rounded-md bg-[#2C1810] text-[#FAF8F5] font-mono text-[9px] font-bold uppercase tracking-wider">
-                            {item.timeline_count || 0} events
-                          </span>
-                        </div>
-                        <p className="mt-2 text-[12px] font-semibold text-[#2C1810] truncate">
-                          {item.incident_summary || "No incident summary available"}
-                        </p>
-                        <p className="mt-1 text-[11px] text-[#5D4037]">
-                          {item.incident_date || "No date"}
-                          {item.incident_time ? ` • ${item.incident_time}` : ""}
-                          {item.incident_place ? ` • ${item.incident_place}` : ""}
-                        </p>
-                        {(item.vehicle_count || item.vehicle_summary) && (
-                          <p className="mt-1 text-[10px] text-[#8C5A3C]">
-                            {item.vehicle_count ? `${item.vehicle_count} vehicle${item.vehicle_count === 1 ? "" : "s"}` : "Vehicle details"}
-                            {item.vehicle_summary ? ` • ${item.vehicle_summary}` : ""}
-                          </p>
-                        )}
-                      </div>
-                      <span className="text-[10px] text-[#8C5A3C] font-mono whitespace-nowrap">
-                        {item.created_at ? new Date(item.created_at).toLocaleString() : "Unknown time"}
-                      </span>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="space-y-4">
-              <p className="text-xs font-bold uppercase tracking-widest text-[#8C5A3C] mb-2">
-                Sample Case Files
-              </p>
-              {sampleCases.map((c) => (
-                <button
-                  key={c.id}
-                  onClick={() => startAnalysis(c)}
-                  className="w-full text-left bg-white border border-[#2C1810]/10 p-5 rounded-lg hover:border-[#D4AF37] hover:shadow-md hover:-translate-y-[1px] transition-all group"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="w-10 h-10 rounded-lg bg-[#FAF8F5] border border-[#D4AF37]/30 flex items-center justify-center text-[#D4AF37] shrink-0 group-hover:bg-[#D4AF37]/10 transition-colors">
-                      <FileText size={18} strokeWidth={1.5} />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-heading font-bold text-sm text-[#2C1810] mb-1">
-                        {c.label}
-                      </h3>
-                      <p className="text-xs text-[#5D4037] leading-relaxed">
-                        {c.description}
-                      </p>
-                    </div>
-                    <ArrowLeft className="rotate-180 text-[#D4AF37] opacity-0 group-hover:opacity-100 transition-opacity mt-3" size={14} />
-                  </div>
-                </button>
-              ))}
-            </div>
           </div>
         )}
 
@@ -2170,6 +2036,136 @@ export default function EvidenceAnalyzerPage({ onBack }) {
           </div>
         )}
       </div>
+
+      {showHistory && (
+        <div
+          className="fixed inset-0 z-50 flex justify-end bg-[#2C1810]/60 backdrop-blur-sm"
+          onClick={() => setShowHistory(false)}
+        >
+          <aside
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="evidence-history-title"
+            className="flex h-full w-full max-w-xl flex-col overflow-hidden border-l border-[#D4AF37]/50 bg-[#FAF9F7] p-6 shadow-2xl"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4 border-b border-[#2C1810]/10 pb-4">
+              <div>
+                <div className="flex items-center gap-2">
+                  <History className="h-5 w-5 text-[#D4AF37]" />
+                  <h2 id="evidence-history-title" className="font-heading text-lg font-bold text-[#2C1810]">
+                    OCR History
+                  </h2>
+                </div>
+                <p className="mt-1 text-xs font-mono font-semibold text-[#8C5A3C]">
+                  {historyItems.length} saved analysis sessions
+                </p>
+              </div>
+              <button
+                onClick={() => setShowHistory(false)}
+                aria-label="Close history"
+                className="rounded-full p-2 text-[#5D4037] transition-colors hover:bg-[#2C1810]/5 hover:text-[#2C1810]"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </div>
+
+            <div className="my-4 flex items-center justify-between gap-3">
+              <p className="text-xs text-[#5D4037]">
+                Open an analyzed document to review its OCR text, timeline, and graph.
+              </p>
+              <button
+                onClick={fetchHistory}
+                disabled={historyLoading}
+                className="flex shrink-0 items-center gap-1.5 rounded-xl border border-[#2C1810]/15 bg-white px-3 py-2 text-xs font-mono font-bold text-[#2C1810] transition-colors hover:border-[#D4AF37] disabled:opacity-60"
+              >
+                <RefreshCw className={`h-3.5 w-3.5 text-[#D4AF37] ${historyLoading ? "animate-spin" : ""}`} />
+                Refresh
+              </button>
+            </div>
+
+            {historyError && (
+              <div className="mb-4 rounded-lg border border-red-200 bg-red-50 p-3 text-xs text-red-700">
+                {historyError}
+              </div>
+            )}
+
+            <div className="flex-1 space-y-3 overflow-y-auto pr-1">
+              {historyLoading && historyItems.length === 0 && (
+                <div className="py-12 text-center text-xs font-mono text-[#5D4037]">
+                  <RefreshCw className="mb-2 inline-block h-5 w-5 animate-spin text-[#D4AF37]" />
+                  <p>Loading OCR history...</p>
+                </div>
+              )}
+              {!historyLoading && historyItems.length === 0 && !historyError && (
+                <div className="rounded-xl border border-dashed border-[#2C1810]/15 bg-white p-6 py-12 text-center text-xs text-[#5D4037]">
+                  No saved OCR sessions yet.
+                </div>
+              )}
+              {historyItems.map((item) => (
+                <button
+                  key={item.session_id}
+                  onClick={() => openHistorySession(item.session_id)}
+                  disabled={selectedHistoryId === item.session_id}
+                  className={`w-full rounded-xl border p-4 text-left transition-all disabled:cursor-wait disabled:opacity-70 ${
+                    selectedCase?.id === item.session_id
+                      ? "border-[#D4AF37] bg-[#FFF8E1]"
+                      : "border-[#2C1810]/10 bg-white hover:border-[#D4AF37]"
+                  }`}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#8C5A3C]">
+                          {item.session_id}
+                        </span>
+                        <span className="rounded-md bg-[#2C1810] px-2 py-1 font-mono text-[9px] font-bold uppercase tracking-wider text-[#FAF8F5]">
+                          {item.timeline_count || 0} events
+                        </span>
+                      </div>
+                      <p className="mt-2 truncate text-[12px] font-semibold text-[#2C1810]">
+                        {item.incident_summary || "No incident summary available"}
+                      </p>
+                      <p className="mt-1 text-[11px] text-[#5D4037]">
+                        {item.incident_date || "No date"}
+                        {item.incident_time ? ` • ${item.incident_time}` : ""}
+                        {item.incident_place ? ` • ${item.incident_place}` : ""}
+                      </p>
+                      {(item.vehicle_count || item.vehicle_summary) && (
+                        <p className="mt-1 text-[10px] text-[#8C5A3C]">
+                          {item.vehicle_count ? `${item.vehicle_count} vehicle${item.vehicle_count === 1 ? "" : "s"}` : "Vehicle details"}
+                          {item.vehicle_summary ? ` • ${item.vehicle_summary}` : ""}
+                        </p>
+                      )}
+                    </div>
+                    <span className="whitespace-nowrap font-mono text-[10px] text-[#8C5A3C]">
+                      {item.created_at ? new Date(item.created_at).toLocaleString() : "Unknown time"}
+                    </span>
+                  </div>
+                  {selectedHistoryId === item.session_id && (
+                    <span className="mt-3 inline-flex items-center gap-2 text-[10px] font-mono font-bold uppercase text-[#8C5A3C]">
+                      <RefreshCw className="h-3 w-3 animate-spin" />
+                      Loading session...
+                    </span>
+                  )}
+                </button>
+              ))}
+            </div>
+
+            <div className="mt-4 flex items-center justify-between gap-3 border-t border-[#2C1810]/10 pt-4">
+              <span className="text-[11px] font-mono text-[#5D4037]">
+                Select a session to reopen its analysis.
+              </span>
+              <button
+                onClick={() => setShowHistory(false)}
+                className="rounded-lg bg-[#2C1810]/5 px-4 py-1.5 text-xs font-mono font-bold uppercase text-[#2C1810] transition-colors hover:bg-[#2C1810]/10"
+              >
+                Close
+              </button>
+            </div>
+          </aside>
+        </div>
+      )}
     </div>
   );
 }
