@@ -851,10 +851,11 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
             handleEvent({
               agent_id: isMe ? userRole : (userRole === "prosecutor" ? "defense" : "prosecutor"),
               display_name: isMe
-                ? roleNameMap[userRole]
+                ? `[YOU] ${roleNameMap[userRole]}`
                 : roleNameMap[userRole === "prosecutor" ? "defense" : "prosecutor"],
               full_text: data.payload?.content || "",
               verified_citations: [],
+              isUser: isMe,
             });
             setTrialPhase(data.phase);
             if (data.next_turn === userId) {
@@ -1096,6 +1097,7 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
         holdings: holdings,
         precedents: precedents,
         round: round,
+        isUser: Boolean(event.isUser),
       },
     ]);
 
@@ -1219,6 +1221,21 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
       return;
     }
     
+    // In single-player mode, immediately display user's message in the feed
+    const userRoleName = roleNameMap[userRole] || (userRole === "prosecutor" ? "Public Prosecutor" : "Defense Counsel");
+    setMessages((prev) => [
+      ...prev,
+      {
+        agentId: userRole,
+        speaker: `[YOU] ${userRoleName}`,
+        text: query,
+        content: query,
+        citations: [],
+        evidence_refs: [],
+        isUser: true,
+      },
+    ]);
+
     // Call single-player backend API
     fetch(`${import.meta.env.VITE_API_URL || 'http://localhost:5001'}/api/query`, {
       method: "POST",

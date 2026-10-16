@@ -19,7 +19,7 @@ import {
 import { useEffect, useRef, useState } from "react";
 
 // Lightweight legal markdown renderer for clean paragraph & bullet formatting
-function FormattedLegalText({ text }) {
+function FormattedLegalText({ text, isDark = false }) {
   if (!text) return null;
 
   // Split into lines
@@ -37,7 +37,11 @@ function FormattedLegalText({ text }) {
     if (rawLine.startsWith("### ") || rawLine.startsWith("#### ")) {
       const headingText = rawLine.replace(/^#{3,4}\s+/, "");
       elements.push(
-        <h4 key={i} className="font-heading font-bold text-[13px] md:text-[14px] uppercase tracking-wider text-[#2C1810] mt-3 mb-1 border-b border-[#2C1810]/10 pb-1">
+        <h4 key={i} className={`font-heading font-bold text-[13px] md:text-[14px] uppercase tracking-wider mt-3 mb-1 border-b pb-1 ${
+          isDark 
+            ? "text-[#D4AF37] border-white/15" 
+            : "text-[#2C1810] border-[#2C1810]/10"
+        }`}>
           {headingText}
         </h4>
       );
@@ -49,11 +53,17 @@ function FormattedLegalText({ text }) {
     if (numMatch) {
       elements.push(
         <div key={i} className="flex items-start gap-2.5 my-1.5 pl-1">
-          <span className="font-mono text-xs font-bold text-[#8C5A3C] shrink-0 bg-[#8C5A3C]/10 px-1.5 py-0.5 rounded">
+          <span className={`font-mono text-xs font-bold shrink-0 px-1.5 py-0.5 rounded ${
+            isDark 
+              ? "text-[#D4AF37] bg-white/10 border border-white/15" 
+              : "text-[#8C5A3C] bg-[#8C5A3C]/10"
+          }`}>
             {numMatch[1]}
           </span>
-          <p className="text-[13px] md:text-[14.5px] leading-relaxed text-[#2C1810]">
-            <RenderInlineBold text={numMatch[2]} />
+          <p className={`text-[13px] md:text-[14.5px] leading-relaxed ${
+            isDark ? "text-white/95" : "text-[#2C1810]"
+          }`}>
+            <RenderInlineBold text={numMatch[2]} isDark={isDark} />
           </p>
         </div>
       );
@@ -65,9 +75,11 @@ function FormattedLegalText({ text }) {
       const bulletText = rawLine.substring(2);
       elements.push(
         <div key={i} className="flex items-start gap-2 my-1 pl-1">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#D4AF37] mt-2 shrink-0" />
-          <p className="text-[13px] md:text-[14.5px] leading-relaxed text-[#2C1810]">
-            <RenderInlineBold text={bulletText} />
+          <span className={`w-1.5 h-1.5 rounded-full mt-2 shrink-0 ${isDark ? "bg-[#D4AF37]" : "bg-[#D4AF37]"}`} />
+          <p className={`text-[13px] md:text-[14.5px] leading-relaxed ${
+            isDark ? "text-white/95" : "text-[#2C1810]"
+          }`}>
+            <RenderInlineBold text={bulletText} isDark={isDark} />
           </p>
         </div>
       );
@@ -76,8 +88,10 @@ function FormattedLegalText({ text }) {
 
     // Normal paragraph
     elements.push(
-      <p key={i} className="text-[13px] md:text-[14.5px] leading-relaxed text-[#2C1810] my-1">
-        <RenderInlineBold text={rawLine} />
+      <p key={i} className={`text-[13px] md:text-[14.5px] leading-relaxed my-1 ${
+        isDark ? "text-white/95" : "text-[#2C1810]"
+      }`}>
+        <RenderInlineBold text={rawLine} isDark={isDark} />
       </p>
     );
   }
@@ -86,14 +100,14 @@ function FormattedLegalText({ text }) {
 }
 
 // Parses **bold text**
-function RenderInlineBold({ text }) {
+function RenderInlineBold({ text, isDark = false }) {
   const parts = text.split(/(\*\*.*?\*\*)/g);
   return (
     <>
       {parts.map((part, index) => {
         if (part.startsWith("**") && part.endsWith("**")) {
           return (
-            <strong key={index} className="font-bold text-[#1C120C]">
+            <strong key={index} className={`font-bold ${isDark ? "text-[#D4AF37]" : "text-[#1C120C]"}`}>
               {part.slice(2, -2)}
             </strong>
           );
@@ -519,7 +533,11 @@ export default function ChatPanel({ messages, userRole, speakText }) {
 
           // Counsel Turns
           const agentId = msg.agentId || msg.agent || "";
-          const isUser = agentId === userRole;
+          const isUser = Boolean(
+            msg.isUser === true ||
+            agentId === "user" ||
+            (userRole && agentId === userRole && (msg.speaker?.includes("[YOU]") || msg.speaker?.includes("(You)") || msg.isUser))
+          );
           const isProsecutor = agentId === "prosecutor";
           const isJudge = agentId === "judge";
           const isDefense = agentId === "defense";
@@ -532,29 +550,54 @@ export default function ChatPanel({ messages, userRole, speakText }) {
           else if (isDefense) Icon = Shield;
           else if (isAccused) Icon = User;
 
-          // Alignment logic
+          // Alignment determination:
+          // 1. Judge: always center
+          // 2. When user is prosecutor: prosecutor / mine is on RIGHT, defense on LEFT
+          // 3. When user is defense: defense / mine is on RIGHT, prosecutor on LEFT
+          // 4. When observer / other: prosecutor on RIGHT, defense on LEFT
+          let isCenter = isJudge;
+          let isRightSide = false;
+
+          if (!isJudge) {
+            if (userRole === "defense") {
+              isRightSide = isDefense || isUser;
+            } else if (userRole === "prosecutor") {
+              isRightSide = isProsecutor || isUser;
+            } else {
+              isRightSide = isProsecutor;
+            }
+          }
+
           let alignContainer = "justify-start";
-          let alignBubbleContainer = "items-start";
-          if (isJudge) {
+          let alignBubbleContainer = "items-start text-left";
+          if (isCenter) {
             alignContainer = "justify-center";
             alignBubbleContainer = "items-center text-center";
-          } else if (isProsecutor || isUser) {
+          } else if (isRightSide) {
             alignContainer = "justify-end";
-            alignBubbleContainer = "items-end";
+            alignBubbleContainer = "items-end text-left";
           }
 
           // Dynamic Bubble Styling
           let bubbleStyle = "bg-white text-[#2C1810] border border-[#2C1810]/15 rounded-tl-sm";
+          let isDarkBubble = false;
+
           if (isUser) {
-            bubbleStyle = "bg-[#2C1810] text-[#FAF9F7] rounded-tr-sm";
-          } else if (isProsecutor) {
-            bubbleStyle = "bg-blue-50/90 text-[#2C1810] border border-blue-200/90 rounded-tr-sm shadow-2xs";
+            // User message: sleek deep chocolate box with gold border and bright, high-contrast readable text
+            bubbleStyle = "bg-[#24140D] text-white border border-[#D4AF37]/50 shadow-md " + 
+              (isRightSide ? "rounded-2xl rounded-tr-sm" : "rounded-2xl rounded-tl-sm");
+            isDarkBubble = true;
           } else if (isJudge) {
-            bubbleStyle = "bg-amber-50 text-[#2C1810] border border-amber-300/80 rounded-2xl shadow-sm";
+            bubbleStyle = "bg-amber-50 text-[#2C1810] border border-amber-300/80 rounded-2xl shadow-sm text-center";
+          } else if (isProsecutor) {
+            bubbleStyle = "bg-blue-50/90 text-[#2C1810] border border-blue-200/90 shadow-2xs " + 
+              (isRightSide ? "rounded-2xl rounded-tr-sm" : "rounded-2xl rounded-tl-sm");
           } else if (isDefense) {
-            bubbleStyle = "bg-rose-50/90 text-[#2C1810] border border-rose-200/90 rounded-tl-sm shadow-2xs";
+            bubbleStyle = "bg-rose-50/90 text-[#2C1810] border border-rose-200/90 shadow-2xs " + 
+              (isRightSide ? "rounded-2xl rounded-tr-sm" : "rounded-2xl rounded-tl-sm");
           } else if (isAccused) {
-            bubbleStyle = "bg-slate-50 text-[#2C1810] border border-slate-200 rounded-tl-sm shadow-2xs";
+            bubbleStyle = "bg-slate-50 text-[#2C1810] border border-slate-200 shadow-2xs " + 
+              (isRightSide ? "rounded-2xl rounded-tr-sm" : "rounded-2xl rounded-tl-sm");
           }
 
           const rawText = msg.text || msg.content || "";
@@ -565,17 +608,17 @@ export default function ChatPanel({ messages, userRole, speakText }) {
           return (
             <div key={i} className={`flex w-full gap-3 md:gap-4 ${alignContainer} animate-fadeIn`}>
               
-              {/* Left Avatar (Defense / Accused) */}
-              {!isJudge && !isProsecutor && !isUser && (
+              {/* Left Avatar (Opponent / Third-party) */}
+              {!isCenter && !isRightSide && (
                 <div className="w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full bg-white border border-[#D4AF37]/30 flex items-center justify-center shadow-sm mt-1">
-                  <Icon size={18} className={isDefense ? "text-red-700" : "text-slate-700"} />
+                  <Icon size={18} className={isDefense ? "text-red-700" : isProsecutor ? "text-blue-700" : "text-slate-700"} />
                 </div>
               )}
 
               {/* Center Avatar (Judge) */}
-              {isJudge && (
+              {isCenter && (
                 <div className="w-9 h-9 md:w-11 md:h-11 shrink-0 rounded-full bg-amber-100 border-2 border-[#D4AF37] flex items-center justify-center shadow-md mt-1">
-                  <Icon size={20} className="text-amber-700" />
+                  <Gavel size={20} className="text-amber-700" />
                 </div>
               )}
 
@@ -583,9 +626,9 @@ export default function ChatPanel({ messages, userRole, speakText }) {
               <div className={`flex flex-col gap-1.5 max-w-[88%] md:max-w-[75%] ${alignBubbleContainer}`}>
                 
                 {/* Header (Speaker Name & Citations badge) */}
-                <div className="flex items-center gap-2 px-1.5">
+                <div className={`flex items-center gap-2 px-1.5 ${isRightSide ? "flex-row-reverse" : isCenter ? "justify-center" : "flex-row"}`}>
                   <span className="text-xs font-semibold text-[#5D4037] capitalize flex items-center gap-1.5">
-                    {msg.speaker || agentId} {isUser ? "(You)" : ""}
+                    {msg.speaker || agentId} {isUser && !msg.speaker?.includes("YOU") ? "(You)" : ""}
                     {msg.round ? (
                       <span className="text-[9px] font-mono text-[#8C5A3C] bg-[#8C5A3C]/10 px-1.5 py-0.2 rounded font-bold">
                         R{msg.round}
@@ -607,12 +650,12 @@ export default function ChatPanel({ messages, userRole, speakText }) {
                 </div>
 
                 {/* Chat Bubble with formatted legal text */}
-                <div className={`relative px-5 py-3.5 md:py-4 md:px-6 rounded-3xl shadow-2xs leading-relaxed ${bubbleStyle}`}>
-                  <FormattedLegalText text={rawText} />
+                <div className={`relative px-5 py-3.5 md:py-4 md:px-6 shadow-2xs leading-relaxed ${bubbleStyle}`}>
+                  <FormattedLegalText text={rawText} isDark={isDarkBubble} />
                 </div>
 
                 {/* Bottom Actions Bar (TTS, Citations, Evidence Tags) */}
-                <div className={`flex flex-wrap items-center gap-1.5 mt-1 px-1.5 ${isProsecutor || isUser ? "flex-row-reverse" : "flex-row"}`}>
+                <div className={`flex flex-wrap items-center gap-1.5 mt-1 px-1.5 ${isRightSide ? "flex-row-reverse" : isCenter ? "justify-center" : "flex-row"}`}>
                   
                   {speakText && (
                     <button
@@ -649,17 +692,19 @@ export default function ChatPanel({ messages, userRole, speakText }) {
 
               </div>
 
-              {/* Right Avatar (Prosecutor / User) */}
-              {(isProsecutor || isUser) && (
+              {/* Right Avatar (User / Own side) */}
+              {!isCenter && isRightSide && (
                 <div className={`w-8 h-8 md:w-10 md:h-10 shrink-0 rounded-full flex items-center justify-center mt-1 shadow-sm ${
                   isUser 
                     ? "bg-gradient-to-br from-[#D4AF37] to-[#8C5A3C]" 
-                    : "bg-white border border-blue-300"
+                    : isProsecutor
+                      ? "bg-white border border-blue-300"
+                      : "bg-white border border-rose-300"
                 }`}>
                   {isUser ? (
                     <User size={18} className="text-white" />
                   ) : (
-                    <Icon size={18} className="text-blue-700" />
+                    <Icon size={18} className={isProsecutor ? "text-blue-700" : "text-red-700"} />
                   )}
                 </div>
               )}
