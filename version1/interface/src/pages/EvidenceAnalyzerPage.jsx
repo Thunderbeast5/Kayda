@@ -1986,7 +1986,10 @@ export default function EvidenceAnalyzerPage({ onBack }) {
                             {facts.raw_facts.map((rf, idx) => (
                               <div key={rf.id || idx} className="p-3 bg-white rounded-lg border border-[#2C1810]/10 text-xs">
                                 <span className="font-mono font-bold text-[#8C5A3C] mr-2">[{rf.id || idx + 1}]</span>
-                                {rf.text || (typeof rf === "string" ? rf : JSON.stringify(rf))}
+                                {formatFactValue(rf?.text ?? rf)}
+                                {rf?.source && (
+                                  <span className="ml-2 text-[#8C5A3C]">Source: {formatFactValue(rf.source)}</span>
+                                )}
                               </div>
                             ))}
                           </div>
@@ -2372,8 +2375,21 @@ function FactRow({ label, value, highlight, compact = false }) {
         {label}
       </span>
       <span className={`leading-relaxed ${compact ? "text-[11px]" : "text-[12px]"} ${highlight ? "text-[#991B1B] font-semibold" : "text-[#2C1810]"}`}>
-        {value}
+        {formatFactValue(value)}
       </span>
     </div>
   );
+}
+
+function formatFactValue(value) {
+  if (value == null) return "";
+  if (typeof value === "string" || typeof value === "number") return String(value);
+  if (Array.isArray(value)) return value.map(formatFactValue).filter(Boolean).join(", ");
+  if (typeof value === "object") {
+    if (value.text != null) return formatFactValue(value.text);
+    return Object.entries(value)
+      .map(([key, entry]) => `${key}: ${formatFactValue(entry)}`)
+      .join(" • ");
+  }
+  return String(value);
 }
