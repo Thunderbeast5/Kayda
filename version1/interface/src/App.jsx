@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/auth/ProtectedRoute";
 import AuthPage from "./pages/AuthPage";
@@ -7,6 +7,7 @@ import EvidenceAnalyzerPage from "./pages/EvidenceAnalyzerPage";
 import LexiGraphCypherPage from "./pages/LexiGraphCypherPage";
 import LexiGraphAgentPage from "./pages/LexiGraphAgentPage";
 import ProfilePage from "./pages/ProfilePage";
+import MultiplayerMode from "./pages/MultiplayerMode";
 
 export default function App() {
   return (
@@ -38,10 +39,26 @@ export default function App() {
             }
           />
           <Route
+            path="/lexigraph"
+            element={
+              <ProtectedRoute>
+                <LexiGraphAgentPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/text2cypher"
             element={
               <ProtectedRoute>
                 <LexiGraphCypherPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/multiplayer"
+            element={
+              <ProtectedRoute>
+                <MultiplayerMode />
               </ProtectedRoute>
             }
           />

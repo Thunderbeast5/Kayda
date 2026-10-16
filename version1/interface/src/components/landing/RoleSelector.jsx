@@ -36,7 +36,7 @@ export default function RoleSelector({ setUserRole, onEnterCourt }) {
     {
       id: "lexigraph",
       title: "LexiGraph Agent",
-      badge: "AI GRAPH",
+      
       icon: <Network className="text-[#5D4037] group-hover:text-[#D4AF37] transition-colors duration-500 w-7 h-7" strokeWidth={1.5} />,
       desc: "Legal graph engine featuring Cypher query generation and GraphRAG legal retrieval.",
       action: () => navigate("/lexigraph-agent"),

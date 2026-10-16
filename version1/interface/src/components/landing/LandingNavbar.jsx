@@ -87,8 +87,11 @@ export default function LandingNavbar({ scrollToSection }) {
           <button onClick={() => navigate("/evidence-analyzer")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1 cursor-pointer">
             Document Suite <span className="text-[10px] text-[#2C1810]/40">▾</span>
           </button>
-          <button onClick={() => scrollToSection("drafting")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1 cursor-pointer">
-            Drafting &amp; Templates <span className="text-[10px] text-[#2C1810]/40">▾</span>
+          <button onClick={() => navigate("/lexigraph-agent")} className="hover:text-[#8C5A3C] transition-colors cursor-pointer">
+            LexiGraph
+          </button>
+          <button onClick={() => navigate("/multiplayer")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1 cursor-pointer">
+            Multiplayer
           </button>
           <button onClick={() => scrollToSection("pricing")} className="hover:text-[#8C5A3C] transition-colors cursor-pointer">
             Pricing

@@ -63,10 +63,16 @@ export default function StandardNavbar({ scrollToSection }) {
             Document Suite <span className="text-[10px] text-[#2C1810]/40">▾</span>
           </button>
           <button
-            onClick={() => { if (scrollToSection) scrollToSection("drafting"); else navigate("/"); }}
+            onClick={() => navigate("/lexigraph-agent")}
+            className="hover:text-[#8C5A3C] transition-colors cursor-pointer"
+          >
+            LexiGraph
+          </button>
+          <button
+            onClick={() => navigate("/multiplayer")}
             className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1 cursor-pointer"
           >
-            Drafting &amp; Templates <span className="text-[10px] text-[#2C1810]/40">▾</span>
+            Multiplayer
           </button>
           <button
             onClick={() => { if (scrollToSection) scrollToSection("pricing"); else navigate("/"); }}

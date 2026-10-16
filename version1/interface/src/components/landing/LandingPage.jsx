@@ -95,7 +95,7 @@ export default function LandingPage({ userRole, setUserRole, onEnterCourt }) {
     <div className="min-h-screen bg-white font-body text-textPrimary selection:bg-gold/30">
       <LandingNavbar scrollToSection={scrollToSection} />
       <LandingHero scrollToSection={scrollToSection} />
-      <RoleSelector setUserRole={setUserRole} onEnterCourt={onEnterCourt} />
+      {/* <RoleSelector setUserRole={setUserRole} onEnterCourt={onEnterCourt} /> */}
       <SimulationCenterpiece 
         simMessages={simMessages}
         setSimMessages={setSimMessages}
