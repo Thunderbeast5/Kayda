@@ -2127,17 +2127,19 @@ export default function EvidenceAnalyzerPage({ onBack }) {
                         </span>
                       </div>
                       <p className="mt-2 truncate text-[12px] font-semibold text-[#2C1810]">
-                        {item.incident_summary || "No incident summary available"}
+                        {item.incident_summary
+                          ? formatFactValue(item.incident_summary)
+                          : "No incident summary available"}
                       </p>
                       <p className="mt-1 text-[11px] text-[#5D4037]">
-                        {item.incident_date || "No date"}
-                        {item.incident_time ? ` • ${item.incident_time}` : ""}
-                        {item.incident_place ? ` • ${item.incident_place}` : ""}
+                        {item.incident_date ? formatFactValue(item.incident_date) : "No date"}
+                        {item.incident_time ? ` • ${formatFactValue(item.incident_time)}` : ""}
+                        {item.incident_place ? ` • ${formatFactValue(item.incident_place)}` : ""}
                       </p>
                       {(item.vehicle_count || item.vehicle_summary) && (
                         <p className="mt-1 text-[10px] text-[#8C5A3C]">
                           {item.vehicle_count ? `${item.vehicle_count} vehicle${item.vehicle_count === 1 ? "" : "s"}` : "Vehicle details"}
-                          {item.vehicle_summary ? ` • ${item.vehicle_summary}` : ""}
+                          {item.vehicle_summary ? ` • ${formatFactValue(item.vehicle_summary)}` : ""}
                         </p>
                       )}
                     </div>
@@ -2187,27 +2189,27 @@ function VisualTimeline({ timeline }) {
           <div className="bg-white border border-[#2C1810]/10 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex flex-wrap items-center gap-3 mb-2">
               <span className="px-2 py-1 bg-[#FAF8F5] text-[#8C5A3C] font-mono text-[10px] font-bold border border-[#2C1810]/5 rounded">
-                {event.date} {event.time && `• ${event.time}`}
+                {formatFactValue(event.date)} {event.time && `• ${formatFactValue(event.time)}`}
               </span>
               <span className="px-2 py-1 rounded-md bg-[#FFF8E1] text-[#8C5A3C] font-mono text-[9px] font-bold uppercase tracking-wider">
-                {event.event_type.replace(/_/g, ' ')}
+                {formatFactValue(event.event_type).replace(/_/g, " ")}
               </span>
             </div>
             
             <p className="text-[13px] text-[#2C1810] leading-relaxed mb-3">
-              {event.description}
+              {formatFactValue(event.description)}
             </p>
             
             {/* Metadata Tags */}
             <div className="flex flex-wrap gap-2">
               {event.actors?.length > 0 && (
                 <div className="flex items-center gap-1 text-[11px] text-gray-600 bg-gray-100 px-2 py-1 rounded">
-                  <Users size={10} /> {event.actors.join(", ")}
+                  <Users size={10} /> {formatFactValue(event.actors)}
                 </div>
               )}
               {event.location && (
                 <div className="flex items-center gap-1 text-[11px] text-gray-600 bg-gray-100 px-2 py-1 rounded">
-                  <MapPin size={10} /> {event.location}
+                  <MapPin size={10} /> {formatFactValue(event.location)}
                 </div>
               )}
             </div>
