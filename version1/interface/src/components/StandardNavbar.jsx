@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 
 export default function StandardNavbar({ scrollToSection }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [failedAvatarUrl, setFailedAvatarUrl] = useState(null);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
@@ -85,8 +86,8 @@ export default function StandardNavbar({ scrollToSection }) {
                 style={{ display: "flex", alignItems: "center", gap: "8px", background: "none", border: "1.5px solid rgba(212,175,55,0.4)", borderRadius: "100px", padding: "4px 14px 4px 4px", cursor: "pointer", transition: "all 0.2s" }}
                 className="hover:border-[#D4AF37] hover:shadow-[0_4px_16px_rgba(212,175,55,0.2)]"
               >
-                {currentUser.photoURL ? (
-                  <img src={currentUser.photoURL} alt="avatar" style={{ width: "30px", height: "30px", borderRadius: "50%", objectFit: "cover" }} />
+                {currentUser.photoURL && failedAvatarUrl !== currentUser.photoURL ? (
+                  <img src={currentUser.photoURL} alt="avatar" onError={() => setFailedAvatarUrl(currentUser.photoURL)} style={{ width: "30px", height: "30px", borderRadius: "50%", objectFit: "cover" }} />
                 ) : (
                   <div style={{ width: "30px", height: "30px", borderRadius: "50%", background: "linear-gradient(135deg, #2C1810, #8C5A3C)", display: "flex", alignItems: "center", justifyContent: "center", color: "#D4AF37", fontSize: "11px", fontWeight: 700 }}>
                     {getInitials()}
