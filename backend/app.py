@@ -882,44 +882,84 @@ def list_evidence_history(limit: int = 25) -> list:
 
     try:
         db = _get_firestore_client()
-        docs = (
-            db.collection("document_store")
-            .order_by("created_at", direction="DESCENDING")
-            .limit(limit)
-            .stream()
-        )
+        if not db:
+            return sessions
+
+        try:
+            docs = (
+                db.collection("document_store")
+                .order_by("created_at", direction="DESCENDING")
+                .limit(limit)
+                .stream()
+            )
+        except Exception as order_err:
+            print(f"[Firebase] Order-by query fallback: {order_err}", file=sys.stderr)
+            docs = db.collection("document_store").limit(limit).stream()
+
         for doc in docs:
-            data = doc.to_dict() or {}
-            facts = data.get("facts") or {}
-            incident = facts.get("incident") or {}
-            prop = facts.get("property") or {}
-            timeline = data.get("timeline") or []
-            graph = data.get("graph") or {}
-            vehicles = prop.get("vehicles") if isinstance(prop, dict) else []
-            if not isinstance(vehicles, list):
+            try:
+                data = doc.to_dict() or {}
+                facts = data.get("facts")
+                incident_summary = ""
+                incident_date = ""
+                incident_time = ""
+                incident_place = ""
                 vehicles = []
-            vehicle_summaries = [
-                _format_vehicle(vehicle)
-                for vehicle in vehicles
-                if isinstance(vehicle, dict)
-            ]
-            vehicle_summaries = [summary for summary in vehicle_summaries if summary]
-            sessions.append({
-                "session_id": data.get("session_id") or doc.id,
-                "created_at": data.get("created_at", ""),
-                "schema_version": data.get("schema_version", ""),
-                "context_schema_version": data.get("context_schema_version", ""),
-                "filename": data.get("filename") or data.get("source_filename") or "",
-                "incident_summary": incident.get("summary") or "",
-                "incident_date": incident.get("date") or "",
-                "incident_time": incident.get("time") or "",
-                "incident_place": incident.get("place") or "",
-                "vehicle_count": len(vehicles),
-                "vehicle_summary": ", ".join(vehicle_summaries[:3]),
-                "timeline_count": len(timeline) if isinstance(timeline, list) else 0,
-                "node_count": len(graph.get("nodes") or []) if isinstance(graph, dict) else 0,
-                "edge_count": len(graph.get("edges") or []) if isinstance(graph, dict) else 0,
-            })
+
+                if isinstance(facts, dict):
+                    incident = facts.get("incident")
+                    if isinstance(incident, dict):
+                        incident_summary = incident.get("summary") or ""
+                        incident_date = incident.get("date") or ""
+                        incident_time = incident.get("time") or ""
+                        incident_place = incident.get("place") or ""
+                    elif isinstance(incident, str):
+                        incident_summary = incident
+
+                    prop = facts.get("property")
+                    if isinstance(prop, dict):
+                        vehicles = prop.get("vehicles") or []
+                elif isinstance(facts, list):
+                    for f in facts:
+                        if isinstance(f, dict) and f.get("text"):
+                            incident_summary = f.get("text")[:180]
+                            break
+                        elif isinstance(f, str) and f.strip():
+                            incident_summary = f.strip()[:180]
+                            break
+
+                if not isinstance(vehicles, list):
+                    vehicles = []
+
+                vehicle_summaries = [
+                    _format_vehicle(vehicle)
+                    for vehicle in vehicles
+                    if isinstance(vehicle, dict)
+                ]
+                vehicle_summaries = [summary for summary in vehicle_summaries if summary]
+
+                timeline = data.get("timeline") or []
+                graph = data.get("graph") or {}
+
+                sessions.append({
+                    "session_id": data.get("session_id") or doc.id,
+                    "created_at": str(data.get("created_at") or ""),
+                    "schema_version": str(data.get("schema_version") or ""),
+                    "context_schema_version": str(data.get("context_schema_version") or ""),
+                    "filename": data.get("filename") or data.get("source_filename") or "",
+                    "incident_summary": incident_summary,
+                    "incident_date": incident_date,
+                    "incident_time": incident_time,
+                    "incident_place": incident_place,
+                    "vehicle_count": len(vehicles),
+                    "vehicle_summary": ", ".join(vehicle_summaries[:3]),
+                    "timeline_count": len(timeline) if isinstance(timeline, list) else 0,
+                    "node_count": len(graph.get("nodes") or []) if isinstance(graph, dict) else (len(graph) if isinstance(graph, list) else 0),
+                    "edge_count": len(graph.get("edges") or []) if isinstance(graph, dict) else 0,
+                })
+            except Exception as doc_err:
+                print(f"[Firebase] Error parsing evidence doc '{doc.id}': {doc_err}", file=sys.stderr)
+                continue
     except Exception as e:
         print(f"[Firebase] Could not fetch evidence history: {e}", file=sys.stderr)
     return sessions

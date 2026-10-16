@@ -1575,15 +1575,46 @@ export default function EvidenceAnalyzerPage({ onBack }) {
 
   const normalizeSessionPayload = (payload, fallbackSessionId = null) => {
     const rawText = payload?.rawText || payload?.raw_text || "";
-    const facts = payload?.facts || null;
+    let facts = payload?.facts || null;
     const timeline = payload?.timeline || [];
     const graph = payload?.graph || { nodes: [], edges: [] };
+
+    let description = "Stored evidence analysis session";
+    if (Array.isArray(facts)) {
+      const summaryText = facts.map(f => (typeof f === "object" ? f.text : f)).filter(Boolean).join(" ");
+      description = facts[0]?.text || summaryText.slice(0, 150) || description;
+      facts = {
+        incident: {
+          summary: summaryText.slice(0, 500) || "Extracted fact statements from document.",
+          date: facts.find(f => f.date)?.date || "",
+          time: "",
+          place: ""
+        },
+        who: {
+          complainant: "Extracted from record",
+          accused: [],
+          victims: []
+        },
+        property: {
+          vehicles: [],
+          cash: null,
+          gold: null,
+          documents: null,
+          other_property: [],
+          estimated_loss: null
+        },
+        sections: [],
+        raw_facts: facts
+      };
+    } else if (facts?.incident?.summary) {
+      description = facts.incident.summary;
+    }
 
     return {
       id: payload?.session_id || payload?.sessionId || fallbackSessionId || `session_${Date.now()}`,
       filename: payload?.filename || payload?.source_filename || payload?.session_id || fallbackSessionId || "Evidence Session",
       label: payload?.filename || payload?.source_filename || payload?.session_id || fallbackSessionId || "Evidence Session",
-      description: payload?.facts?.incident?.summary || "Stored evidence analysis session",
+      description,
       rawText,
       facts,
       timeline,
@@ -2078,6 +2109,23 @@ export default function EvidenceAnalyzerPage({ onBack }) {
                           <FactRow highlight label="Applicable IPC" value={facts.sections?.join(", ")} />
                         </FactCard>
                       </div>
+
+                      {/* Extracted Facts List if present */}
+                      {facts?.raw_facts && facts.raw_facts.length > 0 && (
+                        <div>
+                          <h3 className="font-heading font-bold text-lg text-[#2C1810] border-b border-[#2C1810]/10 pb-2 mb-4 flex items-center gap-2">
+                            <FileText className="text-[#D4AF37]" size={18} /> Extracted Fact Statements ({facts.raw_facts.length})
+                          </h3>
+                          <div className="space-y-2 max-h-60 overflow-y-auto pr-2">
+                            {facts.raw_facts.map((rf, idx) => (
+                              <div key={rf.id || idx} className="p-3 bg-white rounded-lg border border-[#2C1810]/10 text-xs">
+                                <span className="font-mono font-bold text-[#8C5A3C] mr-2">[{rf.id || idx + 1}]</span>
+                                {rf.text || (typeof rf === "string" ? rf : JSON.stringify(rf))}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
 
                       {/* Visual Timeline Section */}
                       <div>
