@@ -548,12 +548,12 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
 
   // Case Selection & Observer Mode state
   const [isCaseModalOpen, setIsCaseModalOpen] = useState(false);
-  const [selectedCaseId, setSelectedCaseId] = useState("8efffec1");
+  const [selectedCaseId, setSelectedCaseId] = useState("1");
   const [caseData, setCaseData] = useState({
-    fileId: "8efffec1",
-    title: "Srikant Upadhyay and Others vs. State of Bihar and Another",
-    firNo: "FIR No. 79/2020 (Patna)",
-    charge: "CrPC 438 / IPC 354B, 379, 149",
+    fileId: "1",
+    title: "Sasikala Pushpa vs. State of Tamil Nadu",
+    firNo: "LAWS(SC)-2019-5-25",
+    charge: "Code of Criminal Procedure, 1973 - S.438, S.340",
     evidenceLinked: true,
     case_facts: [],
     evidence_inventory: [],
@@ -579,6 +579,7 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
   // Loads the full transcript for a case once — no SSE, no pacing.
   // The user clicks "Next" to reveal each turn or uses "Auto-Play".
   const loadObserverEvents = async (caseId) => {
+    let targetCaseId = caseId || "1";
     setMessages([]);
     setActiveSpeaker(null);
     setObserverIndex(0);
@@ -587,13 +588,19 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
 
     try {
       const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5001";
-      const res = await fetch(`${apiUrl}/api/simulate/${caseId}/events`);
+      let res = await fetch(`${apiUrl}/api/simulate/${targetCaseId}/events`);
+      if (!res.ok && targetCaseId !== "1") {
+        console.warn(`Case ${targetCaseId} failed, falling back to case 1`);
+        targetCaseId = "1";
+        setSelectedCaseId("1");
+        res = await fetch(`${apiUrl}/api/simulate/1/events`);
+      }
       if (!res.ok) throw new Error(`Server status ${res.status}`);
       const data = await res.json();
       setObserverEvents(data.events || []);
 
       // Also refresh caseData details
-      const cRes = await fetch(`${apiUrl}/api/cases/${caseId}`);
+      const cRes = await fetch(`${apiUrl}/api/cases/${targetCaseId}`);
       if (cRes.ok) {
         const cData = await cRes.json();
         if (cData.caseData) {
