@@ -47,12 +47,198 @@ const PIPELINE_STAGES = [
   { id: 6, label: "Stage 6: Precedent Synthesis", desc: "Ratio decidendi extraction & citation validation" },
 ];
 
+const STAGE_ICONS = [FileText, Layers, Network, Scale, ShieldCheck, Search, BookOpen];
+
+// Estimated pacing per stage (ms). The final stage has no fixed duration:
+// it holds until the API actually responds. Tune these to your backend.
+const STAGE_MS = [1500, 3500, 4000, 2500, 8000, 7000];
+const STAGE_STARTS = (() => {
+  const s = [0];
+  for (let i = 0; i < 6; i++) s.push(s[i] + STAGE_MS[i]);
+  return s; // length 7
+})();
+const stageFromElapsed = (e) => {
+  let i = 0;
+  while (i < 6 && e >= STAGE_STARTS[i + 1]) i++;
+  return i;
+};
+
+const STAGE_MESSAGES = [
+  ["Reading FIR narrative", "Detecting IPC vs BNS regime", "Extracting parties & dates"],
+  ["Splitting facts into legal concepts", "Isolating independent allegations", "Tagging actus reus / mens rea"],
+  ["Scoring candidate chapters", "Running hybrid pre-filter", "Mapping sub-queries to sections"],
+  ["Cross-mapping IPC ⇄ BNS", "Applying schedule penalties", "Normalizing section numbers"],
+  ["Checking statutory ingredients", "Matching facts to elements", "Flagging missing ingredients"],
+  ["Retrieving prosecution authorities", "Retrieving defense authorities", "Ranking Supreme Court precedents"],
+  ["Extracting ratio decidendi", "Validating citations", "Synthesizing bail recommendation"],
+];
+
+function PipelineProgress({ currentIndex, elapsed, loading, finishing, stages }) {
+  const done = !loading && currentIndex >= 7;
+  const idx = Math.min(Math.max(currentIndex, 0), 6);
+  const stageElapsed = Math.max(0, elapsed - STAGE_STARTS[idx]);
+  const frac = finishing
+    ? 0
+    : idx < 6
+    ? Math.min(stageElapsed / STAGE_MS[idx], 0.95)
+    : 0.9 * (1 - Math.exp(-stageElapsed / 7000)); // asymptotic: never "finishes" on its own
+  const pct = done ? 100 : Math.min(97, ((idx + (loading ? frac : 0)) / 7) * 100);
+  const msgs = STAGE_MESSAGES[idx];
+  const msg = msgs[Math.floor(stageElapsed / 1600) % msgs.length];
+  const slow = loading && !finishing && idx === 6 && stageElapsed > 12000;
+
+  return (
+    <div className="bg-white border border-[#D4AF37]/40 rounded-2xl p-6 md:p-7 mb-8 shadow-[0_4px_25px_rgba(44,24,16,0.05)] relative overflow-hidden">
+      <style>{`
+        @keyframes lgShimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(250%)} }
+        @keyframes lgBlink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
+        @keyframes lgFadeUp { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes lgBars { 0%,100%{height:20%} 50%{height:100%} }
+        @keyframes lgScan { 0%{left:-30%} 100%{left:130%} }
+      `}</style>
+
+      {/* moving scan glow while running */}
+      {loading && (
+        <div
+          className="absolute top-0 h-[2px] w-1/3 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent"
+          style={{ animation: "lgScan 1.8s linear infinite" }}
+        />
+      )}
+
+      {/* Header */}
+      <div className="flex items-end justify-between mb-4">
+        <div>
+          <div className="text-[10px] font-mono font-bold uppercase tracking-widest text-[#8C5A3C] flex items-center gap-1.5">
+            <Activity className="w-3.5 h-3.5 text-[#D4AF37]" />
+            {done ? "Pipeline complete" : finishing ? "Finalizing results" : "LexiGraph pipeline running"}
+          </div>
+          <div className="font-heading text-xl font-bold text-[#2C1810] mt-1">
+            {done ? "All 7 stages verified" : `Stage ${idx} of 6 — ${stages[idx].label.split(":")[1]?.trim()}`}
+          </div>
+        </div>
+        <div className="text-right">
+          <div className="font-heading text-3xl font-bold text-[#2C1810] tabular-nums leading-none">
+            {Math.round(pct)}
+            <span className="text-base text-[#8C5A3C]">%</span>
+          </div>
+          {loading && elapsed > 0 && (
+            <div className="text-[11px] font-mono text-[#5D4037]/70 mt-1 tabular-nums">
+              {(elapsed / 1000).toFixed(1)}s elapsed
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Overall bar */}
+      <div className="h-2 rounded-full bg-[#2C1810]/10 overflow-hidden mb-7 relative">
+        <div
+          className="h-full rounded-full bg-gradient-to-r from-[#8C5A3C] via-[#D4AF37] to-[#8C5A3C] relative overflow-hidden transition-all duration-300 ease-out"
+          style={{ width: `${pct}%` }}
+        >
+          {loading && (
+            <div
+              className="absolute inset-y-0 w-1/3 bg-white/50 blur-sm"
+              style={{ animation: "lgShimmer 1.4s ease-in-out infinite" }}
+            />
+          )}
+        </div>
+      </div>
+
+      {/* Stepper */}
+      <div className="overflow-x-auto pb-2">
+        <div className="flex min-w-[720px]">
+          {stages.map((st, i) => {
+            const Icon = STAGE_ICONS[i];
+            const isDone = done || currentIndex > i;
+            const isCurrent = loading && currentIndex === i;
+            const lineFill = isDone ? 100 : isCurrent ? frac * 100 : 0;
+            return (
+              <div key={st.id} className="flex-1 flex flex-col items-center relative">
+                {i < stages.length - 1 && (
+                  <div className="absolute top-5 left-1/2 w-full h-[3px] bg-[#2C1810]/10 rounded-full overflow-hidden">
+                    <div
+                      className="h-full bg-gradient-to-r from-[#D4AF37] to-[#8C5A3C] transition-all duration-300 ease-out"
+                      style={{ width: `${lineFill}%` }}
+                    />
+                  </div>
+                )}
+
+                <div className="relative z-10">
+                  {isCurrent && <span className="absolute inset-0 rounded-full bg-[#D4AF37]/50 animate-ping" />}
+                  <div
+                    className={`relative w-10 h-10 rounded-full flex items-center justify-center border-2 transition-all duration-500 ${
+                      isDone
+                        ? "bg-[#D4AF37] border-[#D4AF37] text-[#2C1810] scale-100"
+                        : isCurrent
+                        ? "bg-[#2C1810] border-[#D4AF37] text-[#D4AF37] scale-110 shadow-[0_0_18px_rgba(212,175,55,0.55)]"
+                        : "bg-[#FAF9F7] border-[#2C1810]/15 text-[#5D4037]/40"
+                    }`}
+                  >
+                    {isDone ? <Check className="w-4 h-4" strokeWidth={3} /> : <Icon className="w-4 h-4" />}
+                    {isCurrent && (
+                      <div className="absolute -inset-1 rounded-full border-2 border-transparent border-t-[#D4AF37] animate-spin" />
+                    )}
+                  </div>
+                </div>
+
+                <div
+                  className={`mt-2.5 text-center px-1 transition-opacity duration-500 ${
+                    isDone || isCurrent ? "opacity-100" : "opacity-45"
+                  }`}
+                >
+                  <div className="text-[9px] font-mono font-bold uppercase text-[#8C5A3C]">S{i}</div>
+                  <div className="font-heading text-[11px] font-bold leading-tight text-[#2C1810]">
+                    {st.label.split(":")[1]?.trim()}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Live activity panel */}
+      {loading && (
+        <div className="mt-5 p-4 rounded-xl bg-[#2C1810] text-[#FAF9F7] flex items-center gap-4">
+          <div className="flex items-end gap-[3px] h-6 shrink-0">
+            {[0, 1, 2, 3, 4].map((b) => (
+              <span
+                key={b}
+                className="w-[3px] rounded-full bg-[#D4AF37]"
+                style={{ height: "40%", animation: `lgBars 0.9s ease-in-out ${b * 0.12}s infinite` }}
+              />
+            ))}
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="text-[10px] font-mono uppercase tracking-wider text-[#D4AF37]/80">
+              {stages[idx].desc}
+            </div>
+            <div key={msg} className="text-sm font-mono mt-0.5 truncate" style={{ animation: "lgFadeUp 0.35s ease-out" }}>
+              {msg}
+              <span className="text-[#D4AF37] ml-0.5" style={{ animation: "lgBlink 1s steps(1) infinite" }}>
+                ▍
+              </span>
+            </div>
+          </div>
+          {slow && (
+            <div className="hidden sm:block text-[10px] font-mono text-[#D4AF37] text-right max-w-[180px] leading-snug">
+              Still synthesizing — larger cases take longer
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function LexiGraphAgentPage() {
   const [caseText, setCaseText] = useState("");
   const [courtType, setCourtType] = useState("Sessions Court");
   const [loading, setLoading] = useState(false);
   const [currentStageIndex, setCurrentStageIndex] = useState(-1);
-  const [stageProgress, setStageProgress] = useState({});
+  const [elapsed, setElapsed] = useState(0);
+  const [finishing, setFinishing] = useState(false);
+  const stageRef = useRef(0);
   const [result, setResult] = useState(null);
   const [summary, setSummary] = useState(null);
   const [error, setError] = useState(null);
@@ -99,6 +285,20 @@ export default function LexiGraphAgentPage() {
     };
   }, []);
 
+  // Drives the time-paced stage animation while the real request is in flight
+  useEffect(() => {
+    if (!loading || finishing) return;
+    const t0 = Date.now();
+    const id = setInterval(() => {
+      const e = Date.now() - t0;
+      const s = stageFromElapsed(e);
+      stageRef.current = s;
+      setElapsed(e);
+      setCurrentStageIndex(s);
+    }, 100);
+    return () => clearInterval(id);
+  }, [loading, finishing]);
+
   const openHistorySession = async (queryId) => {
     setSelectedHistoryId(queryId);
     setError(null);
@@ -134,23 +334,18 @@ export default function LexiGraphAgentPage() {
     if (!caseText.trim()) return;
 
     setLoading(true);
+    setFinishing(false);
     setError(null);
     setResult(null);
     setSummary(null);
+    setElapsed(0);
+    stageRef.current = 0;
     setCurrentStageIndex(0);
-    setStageProgress({});
 
     const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5001";
 
     try {
-      // Step simulation for visual feedback across the 7 stages
-      for (let i = 0; i <= 6; i++) {
-        setCurrentStageIndex(i);
-        setStageProgress((prev) => ({ ...prev, [i]: "running" }));
-        await new Promise((r) => setTimeout(r, 380));
-        setStageProgress((prev) => ({ ...prev, [i]: "complete" }));
-      }
-
+      // Real request starts immediately; the animation runs alongside it
       const response = await fetch(`${apiUrl}/api/lexigraph/pipeline`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -168,9 +363,17 @@ export default function LexiGraphAgentPage() {
         throw new Error(resData.message || "Failed to execute LexiGraph 7-stage pipeline.");
       }
 
+      // Response arrived: sweep through any remaining stages quickly
+      setFinishing(true);
+      for (let i = stageRef.current + 1; i <= 6; i++) {
+        setCurrentStageIndex(i);
+        await new Promise((r) => setTimeout(r, 160));
+      }
+      setCurrentStageIndex(7);
+      await new Promise((r) => setTimeout(r, 450)); // let the "all complete" state breathe
+
       setResult(resData.data);
       setSummary(resData.summary);
-      setCurrentStageIndex(7);
       setActiveTab("sections");
 
       // Auto-refresh history so entry immediately appears
@@ -185,6 +388,7 @@ export default function LexiGraphAgentPage() {
       setCurrentStageIndex(-1);
     } finally {
       setLoading(false);
+      setFinishing(false);
     }
   };
 
@@ -419,59 +623,15 @@ export default function LexiGraphAgentPage() {
           </div>
         </div>
 
-        {/* 7-Stage Execution Tracker */}
+        {/* 7-Stage Animated Progress */}
         {(loading || result) && (
-          <div className="bg-white border border-[#D4AF37]/30 rounded-2xl p-6 mb-8 shadow-xs">
-            <div className="flex items-center justify-between mb-4">
-              <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#8C5A3C] flex items-center gap-1.5">
-                <Activity className="w-3.5 h-3.5 text-[#D4AF37]" />
-                7-Stage Pipeline Execution Flow
-              </span>
-              <span className="text-[11px] font-mono text-[#5D4037]/70">
-                Deterministic Grounding • Self-Learning Promotion
-              </span>
-            </div>
-
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-2.5">
-              {PIPELINE_STAGES.map((st, i) => {
-                const isCurrent = loading && currentStageIndex === i;
-                const isDone = (!loading && result) || (loading && currentStageIndex > i);
-                return (
-                  <div
-                    key={st.id}
-                    className={`p-3 rounded-xl border transition-all text-left flex flex-col justify-between ${
-                      isDone
-                        ? "bg-[#D4AF37]/10 border-[#D4AF37]/60 text-[#2C1810]"
-                        : isCurrent
-                        ? "bg-[#2C1810]/5 border-[#D4AF37] animate-pulse text-[#2C1810]"
-                        : "bg-[#FAF9F7] border-[#2C1810]/10 text-[#5D4037]/60 opacity-60"
-                    }`}
-                  >
-                    <div>
-                      <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-[9px] font-mono font-bold uppercase">
-                          S{i}
-                        </span>
-                        {isDone ? (
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-700" />
-                        ) : isCurrent ? (
-                          <RefreshCw className="w-3 h-3 text-[#D4AF37] animate-spin" />
-                        ) : (
-                          <div className="w-2 h-2 rounded-full bg-[#2C1810]/20" />
-                        )}
-                      </div>
-                      <h4 className="font-heading text-xs font-bold leading-tight mb-1">
-                        {st.label.split(":")[1]?.trim() || st.label}
-                      </h4>
-                    </div>
-                    <p className="text-[9px] font-mono line-clamp-2 opacity-80 mt-1">
-                      {st.desc}
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+          <PipelineProgress
+            stages={PIPELINE_STAGES}
+            currentIndex={currentStageIndex}
+            elapsed={elapsed}
+            loading={loading}
+            finishing={finishing}
+          />
         )}
 
         {/* Error Alert */}
