@@ -9,6 +9,7 @@ import LexiGraphAgentPage from "./pages/LexiGraphAgentPage";
 import ProfilePage from "./pages/ProfilePage";
 import MultiplayerMode from "./pages/MultiplayerMode";
 import KaydaPricingPage from "./pages/PricingPage";
+import RoleSelectionPage from "./pages/MootcourtModes";
 
 export default function App() {
   return (
@@ -24,6 +25,14 @@ export default function App() {
           <Route path="/pricing" element={<KaydaPricingPage />} />
 
           {/* Protected routes */}
+          <Route
+            path="/mootcourt-modes"
+            element={
+              <ProtectedRoute>
+                <RoleSelectionPage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/evidence-analyzer"
             element={

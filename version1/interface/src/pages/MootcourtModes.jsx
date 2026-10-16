@@ -1,5 +1,6 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import StandardNavbar from "../components/StandardNavbar";
+import CourtroomInterface from "../components/courtroom/CourtroomInterface";
 
 // Precision Judicial Vectors (No Emojis)
 const Icons = {
@@ -27,11 +28,20 @@ const Icons = {
 };
 
 export default function RoleSelectionPage() {
-  const navigate = useNavigate();
+  const [selectedRole, setSelectedRole] = useState(null);
 
   const handleSelectRole = (role) => {
-    navigate("/courtroom", { state: { role } });
+    setSelectedRole(role);
   };
+
+  if (selectedRole) {
+    return (
+      <CourtroomInterface
+        userRole={selectedRole}
+        onExit={() => setSelectedRole(null)}
+      />
+    );
+  }
 
   return (
     <div className="h-screen w-screen bg-gradient-to-b from-[#FAF9F7] via-[#F6F2EC] to-[#EFEAE2] font-body text-[#2C1810] flex flex-col overflow-hidden">
