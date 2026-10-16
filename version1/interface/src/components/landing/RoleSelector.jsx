@@ -1,10 +1,10 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Scale, Shield, Gavel, Eye, Network } from "lucide-react";
-import LexiGraphChoiceModal from "./LexiGraphChoiceModal";
 import MatchmakingQueue from "./MatchmakingQueue";
 
 export default function RoleSelector({ setUserRole, onEnterCourt }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
   const [isQueuing, setIsQueuing] = useState(false);
   const [queuedRole, setQueuedRole] = useState(null);
 
@@ -39,7 +39,7 @@ export default function RoleSelector({ setUserRole, onEnterCourt }) {
       badge: "AI GRAPH",
       icon: <Network className="text-[#5D4037] group-hover:text-[#D4AF37] transition-colors duration-500 w-7 h-7" strokeWidth={1.5} />,
       desc: "Legal graph engine featuring Cypher query generation and GraphRAG legal retrieval.",
-      action: () => setIsModalOpen(true)
+      action: () => navigate("/lexigraph-agent"),
     }
   ];
 
@@ -70,7 +70,7 @@ export default function RoleSelector({ setUserRole, onEnterCourt }) {
             </p>
           </div>
 
-          {/* Roles Grid (Converted to flex-wrap for better centering of 5 items) */}
+          {/* Roles Grid */}
           <div className="flex flex-wrap justify-center gap-6 md:gap-8 max-w-6xl w-full">
             {roles.map((role) => (
               <div 
@@ -119,11 +119,6 @@ export default function RoleSelector({ setUserRole, onEnterCourt }) {
           </div>
         </div>
       </section>
-
-      <LexiGraphChoiceModal 
-        isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
-      />
 
       {isQueuing && (
         <MatchmakingQueue
