@@ -1,0 +1,211 @@
+{
+  "session_id": "dca28275",
+  "case_id": "C:\\proj\\MootCourt\\backend\\data\\2007 INSC 272.pdf",
+  "round_no": 1,
+  "max_rounds": 2,
+  "case_facts": [
+    {
+      "id": "fact_1",
+      "text": "The respondent trade union filed an application before the Labour Court, Dehradun under Section 11-C of the Uttar Pradesh Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.",
+      "source": "para 3",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_2",
+      "text": "The application sought a declaration that 15 persons appointed on contract basis as drivers and conductors should be declared regular and substantive workmen of the U.P. Road Transport Corporation.",
+      "source": "para 3",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_3",
+      "text": "The application also sought all benefits and facilities of regular employees for the concerned workmen.",
+      "source": "para 3",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_4",
+      "text": "The Labour Court, Dehradun allowed the application by order dated 19 September 2001.",
+      "source": "para 4",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_5",
+      "text": "The Labour Court directed that the concerned workmen be given minimum wages admissible to regular employees in the pay scales of drivers and conductors.",
+      "source": "para 4",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_6",
+      "text": "The Labour Court held that the said workmen were employees of the Corporation.",
+      "source": "para 4",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_7",
+      "text": "It was not disputed that the concerned workmen were appointed on contract basis.",
+      "source": "para 5",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_8",
+      "text": "The Corporation contended before the Labour Court that Rule 2 of the U.P.S.R.T.C. Employees (Other than Officers) Service Regulations, 1981 does not apply to employees working on contract basis.",
+      "source": "para 5",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_9",
+      "text": "A writ petition filed by persons working on contract basis in Kanchi Lal and Others v. U.P.S.R.T.C. seeking the same benefits as regular employees had been dismissed by the Allahabad High Court.",
+      "source": "para 5",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_10",
+      "text": "The Corporation's objection was rejected by the Labour Court, and its writ petition challenging that order was dismissed by the High Court.",
+      "source": "para 5",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_11",
+      "text": "The appellant contended that the concerned workmen had not been selected through the process required for appointment of regular employees.",
+      "source": "para 6",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_12",
+      "text": "The appellant contended that the Labour Court acted beyond its jurisdiction in granting relief because Section 11-C allows only interpretation and application of a standing order.",
+      "source": "para 6",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_13",
+      "text": "The Supreme Court held that the power of the Labour Court under Section 11-C of the Uttar Pradesh Industrial Disputes Act and Section 13-A of the Industrial Employment (Standing Orders) Act is narrower than its power on a reference under Section 10 of the Industrial Disputes Act or Section 4-K of the Uttar Pradesh Industrial Disputes Act.",
+      "source": "paras 10-11",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_14",
+      "text": "The Supreme Court held that the Labour Court could not have granted the relief awarded in the order dated 19 September 2001 because such relief could only be granted on a regular reference under Section 4-K or Section 10.",
+      "source": "para 11",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_15",
+      "text": "The Supreme Court noted that the Labour Court's order did not refer to any standing order of the appellant and instead referred to Rule 2 of the 1981 Regulations.",
+      "source": "para 12",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_16",
+      "text": "The Supreme Court held that the Labour Court could not amend the Regulations while hearing an application under Section 11-C.",
+      "source": "para 12",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_17",
+      "text": "The Supreme Court set aside the judgment of the High Court and the order of the Labour Court dated 19 September 2001.",
+      "source": "para 14",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_18",
+      "text": "The Supreme Court observed that the concerned workmen were free to raise their grievances before the competent authority under Section 4-K of the Uttar Pradesh Industrial Disputes Act or Section 10 of the Industrial Disputes Act.",
+      "source": "para 14",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_19",
+      "text": "The Supreme Court stated that if the State Government refers such a dispute to the Labour Court or Tribunal, it should be decided expeditiously.",
+      "source": "para 14",
+      "type": "court_finding"
+    }
+  ],
+  "evidence_inventory": [
+    {
+      "item": "application_before_labour_court",
+      "status": "present",
+      "details": "Application filed under Section 11-C of the Uttar Pradesh Industrial Disputes Act and Section 13-A of the Industrial Employment (Standing Orders) Act seeking regularization of 15 contract workers."
+    },
+    {
+      "item": "labour_court_order",
+      "status": "present",
+      "details": "Labour Court, Dehradun order dated 19 September 2001 allowed the application and directed minimum wages in regular pay scales."
+    },
+    {
+      "item": "high_court_judgment",
+      "status": "present",
+      "details": "Uttaranchal High Court judgment dated 6 September 2005 dismissed the Corporation's writ petition."
+    },
+    {
+      "item": "supreme_court_judgment",
+      "status": "present",
+      "details": "Supreme Court allowed the appeals and set aside the High Court and Labour Court orders."
+    },
+    {
+      "item": "service_regulations_1981",
+      "status": "present",
+      "details": "U.P.S.R.T.C. Employees (Other than Officers) Service Regulations, 1981 were relied upon, especially Rule 2 excluding contract employees."
+    },
+    {
+      "item": "standing_order",
+      "status": "not_on_record",
+      "details": "No specific standing order of the appellant was identified in the Labour Court order."
+    },
+    {
+      "item": "selection_process_record",
+      "status": "not_on_record",
+      "details": "No record showing selection of the 15 workers through the regular recruitment process is produced in the text."
+    },
+    {
+      "item": "medical_report",
+      "status": "not_on_record",
+      "details": "No medical report or injury document is involved in this civil labour dispute."
+    },
+    {
+      "item": "eyewitness_statement",
+      "status": "not_on_record",
+      "details": "No eyewitness evidence is described in the record."
+    },
+    {
+      "item": "cctv_footage",
+      "status": "not_on_record",
+      "details": "No CCTV or electronic footage is mentioned in the record."
+    },
+    {
+      "item": "fir",
+      "status": "not_on_record",
+      "details": "No FIR is involved in this labour law appeal."
+    },
+    {
+      "item": "writ_petition_record",
+      "status": "present",
+      "details": "Writ Petition No. 774 of 2002 before the High Court is expressly mentioned."
+    },
+    {
+      "item": "prior_writ_petition_kanchi_lal",
+      "status": "present",
+      "details": "Writ Petition No. 41349 of 1999, Kanchi Lal and Others v. U.P.S.R.T.C., is mentioned as having been dismissed by the Allahabad High Court."
+    }
+  ],
+  "transcript": [],
+  "judge_scores": {},
+  "verdict": {
+    "decision": "NO_OPINION",
+    "confidence": "high",
+    "confidence_label": "high",
+    "agreement_rate": 1.0,
+    "valid_votes": 1,
+    "total_votes": 1,
+    "agree_count": 1,
+    "laws_applied": [],
+    "statutes": [],
+    "precedents": [],
+    "holdings_relied": [],
+    "reasoning": "Not an anticipatory bail matter",
+    "factors": [],
+    "open_questions": [],
+    "vote_tally": {
+      "NO_OPINION": 1
+    }
+  },
+  "errors": []
+}

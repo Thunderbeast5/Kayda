@@ -1,6 +1,6 @@
 export default function SummonsCtaSection({ scrollToSection }) {
   return (
-    <section className="py-24 px-6 md:px-12 bg-white border-b border-surface-border flex items-center justify-center">
+    <section id="pricing" className="py-24 px-6 md:px-12 bg-white border-b border-surface-border flex items-center justify-center">
       <div className="max-w-4xl w-full border border-surface-border bg-[#FAF8F5] p-8 md:p-16 text-center shadow-xl relative overflow-hidden">
         <div className="absolute inset-0 opacity-[0.015] bg-[radial-gradient(#5D4037_1px,transparent_1px)] [background-size:16px_16px]"></div>
         

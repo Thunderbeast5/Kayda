@@ -1,0 +1,234 @@
+============================================================
+  STAGE 3b: BSA EVIDENCE LAW SECTION RETRIEVAL & VERIFICATION
+============================================================
+
+  [VERIFIED / ACCEPTED BSA SECTIONS (0)]:
+
+  [AUDITED & REJECTED CANDIDATES (7)]:
+    ✗ [BSA  56] Proof of contents of documents                -> Rejected: although the case mentions an FIR and absence of medical documents, no specific dispute is shown regarding proving the contents of any document. The controversy is about allegations of dowry demand, cruelty, assault, and intimidation, not about how the contents of a document must be proved.
+    ✗ [BSA  57] Primary evidence                              -> Rejected: there is no live issue that the original of any document is unavailable or that the Court must decide between original and substituted proof. The facts do not indicate a challenge based on production of originals.
+    ✗ [BSA  58] Secondary evidence                            -> Rejected: no photocopy, certified copy, duplicate, or oral proof of a document's contents is specifically in dispute. The case facts do not raise a secondary-evidence controversy.
+    ✗ [BSA  60] Cases in which secondary evidence relating to -> Rejected: this provision becomes relevant only if a party seeks to rely on secondary evidence after laying a foundational case for loss, possession by opponent, or similar grounds. No such foundational document-production dispute is pleaded in the facts.
+    ✗ [BSA  94] Evidence of terms of contracts, grants and ot -> Rejected: the allegations concern matrimonial cruelty, dowry demand, assault, and intimidation, not proof of contractual terms, property disposition, or a document required by law to embody those terms. This section is therefore tangential.
+
+  [IPC → BNS EQUIVALENTS (via Neo4j REPLACED_BY) (4)]:
+    IPC 323 → BNS 115
+    IPC   4 → BNS 1(5)
+    IPC 498A → BNS 85
+    IPC 506 → BNS 351(2)
+  NOTE: LLM Verifier rejected BSA 104: Rejected as a generic burden-of-proof provision. The factual record alleges dowry demand, cruelty, assault, criminal force, and intimidation, but does not present a specific evidentiary issue about burden allocation. This is tangential/noisy under the audit criteria.
+  NOTE: LLM Verifier rejected BSA 105: Rejected as a general burden-of-proof rule. Although the prosecution must prove the allegations, the case facts do not specifically place burden allocation in dispute. Generic burden provisions are not accepted unless directly grounded in the record.
+============================================================
+
+============================================================
+  STAGE 3c: BNSS PROCEDURAL LAW SECTION RETRIEVAL & VERIFICATION
+============================================================
+
+  [VERIFIED / ACCEPTED BNSS SECTIONS (7)]:
+    ✓ [BNSS 482] Direction for grant of bail to person apprehending | CrPC: 438        | [ANTICIPATORY_BAIL]     
+      Grounding: Directly governs pre-arrest protection sought by the applicant in a non-bailable FIR.
+    ✓ [BNSS  36] Procedure of arrest and duties of officer making a | CrPC: 41B        | [ARREST_PROCEDURE]      
+      Grounding: Relevant as an arrest-safeguard provision if arrest is made; part of the procedural framework in a pre-arrest dispute.
+    ✓ [BNSS  35] When police may arrest without warrant             | CrPC: 41, 41A    | [NOTICE_OF_APPEARANCE]  
+      Grounding: Arrest necessity, cooperation, and notice-of-appearance considerations are directly implicated in an anticipatory bail matter.
+    ✓ [BNSS 484] Amount of bond and reduction thereof               | CrPC: 440        | [BAIL_CONDITIONS]       
+      Grounding: Bond amount and related conditions are integral to any bail protection that may be granted.     
+    ✓ [BNSS 485] Bond of accused and sureties                       | CrPC: 441        | [BAIL_CONDITIONS]       
+      Grounding: Execution of bond, sureties, and attendant release obligations are part of the bail framework.  
+    ✓ [BNSS 483] Special powers of High Court or Court of Session r | CrPC: 439        | [REGULAR_BAIL]
+      Grounding: Incorrectly rejected; High Court/Sessions Court bail powers are relevant to the court's discretion in granting or shaping pre-arrest bail relief.
+    ✓ [BNSS 480] When bail may be taken in case of non-bailable off | CrPC: 437        | [REGULAR_BAIL]
+      Grounding: Incorrectly rejected; while not the primary pre-arrest provision, it is the governing regular-bail section if arrest occurs and the bail framework is being assessed.
+
+  [AUDITED & REJECTED BNSS CANDIDATES (5)]:
+    ✗ [BNSS 233] Procedure to be followed when there is a comp -> Complaint-case procedure has no bearing on this FIR-based anticipatory bail proceeding.
+    ✗ [BNSS 113] Letter of request from a country or place out -> Foreign-request investigation provision is wholly unrelated to this domestic matrimonial FIR.
+    ✗ [BNSS 493] Procedure in case of insolvency or death of s -> Post-bond forfeiture/surety contingency is not in issue at the anticipatory bail stage.
+    ✗ [BNSS 112] Letter of request to competent authority for  -> No cross-border evidence or foreign authority request issue arises on these facts.
+    ✗ [BNSS  57] Person arrested to be taken before Magistrate -> Post-arrest production before Magistrate/police station is only indirectly related and not specifically in controversy in this anticipatory bail application.   
+
+  [BNSS → CrPC EQUIVALENTS (via Neo4j REPLACES) (7)]:
+    BNSS  35 → CrPC 41, 41A
+    BNSS  36 → CrPC 41B
+    BNSS 480 → CrPC 437
+    BNSS 482 → CrPC 438
+    BNSS 483 → CrPC 439
+    BNSS 484 → CrPC 440
+    BNSS 485 → CrPC 441
+  NOTE: Verifier ACCEPTED BNSS 482 (Direction for grant of bail to person apprehending arrest): Directly governs pre-arrest protection sought by the applicant in a non-bailable FIR.
+  NOTE: Verifier ACCEPTED BNSS 36 (Procedure of arrest and duties of officer making arrest): Relevant as an arrest-safeguard provision if arrest is made; part of the procedural framework in a pre-arrest dispute.
+  NOTE: Verifier ACCEPTED BNSS 35 (When police may arrest without warrant): Arrest necessity, cooperation, and notice-of-appearance considerations are directly implicated in an anticipatory bail matter.
+  NOTE: Verifier ACCEPTED BNSS 484 (Amount of bond and reduction thereof): Bond amount and related conditions are integral to any bail protection that may be granted.
+  NOTE: Verifier ACCEPTED BNSS 485 (Bond of accused and sureties): Execution of bond, sureties, and attendant release obligations are part of the bail framework.
+  NOTE: Verifier ACCEPTED BNSS 483 (Special powers of High Court or Court of Session regarding bail): Incorrectly rejected; High Court/Sessions Court bail powers are relevant to the court's discretion in granting or shaping pre-arrest bail relief.
+  NOTE: Verifier REJECTED BNSS 233: Complaint-case procedure has no bearing on this FIR-based anticipatory bail proceeding.
+  NOTE: Verifier REJECTED BNSS 113: Foreign-request investigation provision is wholly unrelated to this domestic matrimonial FIR.
+  NOTE: Verifier REJECTED BNSS 493: Post-bond forfeiture/surety contingency is not in issue at the anticipatory bail stage.
+  NOTE: Verifier REJECTED BNSS 112: No cross-border evidence or foreign authority request issue arises on these facts.
+  NOTE: Verifier ACCEPTED BNSS 480 (When bail may be taken in case of non-bailable offence): Incorrectly rejected; while not the primary pre-arrest provision, it is the governing regular-bail section if arrest occurs and the bail framework is being assessed.
+  NOTE: Verifier REJECTED BNSS 57: Post-arrest production before Magistrate/police station is only indirectly related and not specifically in controversy in this anticipatory bail application.
+============================================================
+[StatutoryVerificationAgent] Before fallback: verified_offences=4, verified_sections=4
+[StatutoryVerificationAgent] After fallback: verified_offences=4, verified_sections=4
+[Stage4 Learning] Promoted IPC 498A 'Husband or relative of husband of a woman subjecting her to cruelty' with concept 'Husband or relative of husband of a woman subjecting her to cruelty'
+[Stage4 Learning] Promoted Dowry Prohibition Act Section 4 'Penalty for demanding dowry' with concept 'Penalty for demanding dowry'
+[Stage4 Learning] Promoted IPC 323 'Punishment for voluntarily causing hurt' with concept 'Voluntarily Causing Hurt'
+[Stage4 Learning] Promoted IPC 506 'Punishment for criminal intimidation' with concept 'Criminal Intimidation'   
+
+================================================================================
+  STAGE 4 COMPREHENSIVE STATUTE EQUIVALENCE SUMMARY
+================================================================================
+  [1] VERIFIED SUBSTANTIVE OFFENCES (IPC → BNS via Neo4j REPLACED_BY):
+      • IPC 498A                                             ──► BNS 85
+      • IPC 4                                                ──► BNS 1(5)
+      • IPC 323                                              ──► BNS 115
+      • IPC 506                                              ──► BNS 351(2)
+
+  [2] VERIFIED PROCEDURAL LAW PROVISIONS (BNSS → CrPC via Neo4j REPLACES):
+      • BNSS 482   (Direction for grant of bail to person ap) ──► CrPC 438        [ANTICIPATORY_BAIL]
+      • BNSS 36    (Procedure of arrest and duties of office) ──► CrPC 41B        [ARREST_PROCEDURE]
+      • BNSS 35    (When police may arrest without warrant)   ──► CrPC 41, 41A    [NOTICE_OF_APPEARANCE]
+      • BNSS 484   (Amount of bond and reduction thereof)     ──► CrPC 440        [BAIL_CONDITIONS]
+      • BNSS 485   (Bond of accused and sureties)             ──► CrPC 441        [BAIL_CONDITIONS]
+      • BNSS 483   (Special powers of High Court or Court of) ──► CrPC 439        [REGULAR_BAIL]
+      • BNSS 480   (When bail may be taken in case of non-ba) ──► CrPC 437        [REGULAR_BAIL]
+
+  [3] VERIFIED EVIDENCE LAW PROVISIONS (BSA → IEA via Neo4j REPLACES):
+      • (No evidentiary provisions mapped)
+================================================================================
+
+
+============================================================
+  ACT ROUTER SUB-PIPELINE: SPECIAL ACT APPLICABILITY & RETRIEVAL
+============================================================
+
+  [SPECIAL ACT ROUTING DECISIONS (8 ACTS)]:
+    ? [CANDIDATE] The Dowry Prohibition Act, 1961                  -> A large sum and a matrimonial cruelty provision are present, which could in
+    ✗ [SKIP     ] The Indian Institutes of Information Technology  -> No fact concerns an Indian Institute of Information Technology or its statu
+    ✗ [SKIP     ] The Immoral Traffic (Prevention) Act, 1956       -> There are no facts suggesting prostitution, trafficking for sexual exploita
+    ✗ [SKIP     ] The Juvenile Justice (Care and Protection of Chi -> No fact indicates a child in need of care and protection, a child in confli
+    ✗ [SKIP     ] The Protection of Children from Sexual Offences  -> The facts do not state that the victim is below 18 or that the case involve
+    ✗ [SKIP     ] The Sexual Harassment of Women at Workplace (Pre -> There is no workplace or employment context suggesting sexual harassment un
+    ✗ [SKIP     ] The Prohibition of Child Marriage Act, 2006      -> No fact indicates a marriage involving a person below the legally prescribe
+    ✗ [SKIP     ] The Scheduled Castes and the Scheduled Tribes (P -> The facts do not mention SC/ST status or any caste-based abuse, targeting,
+
+  [VERIFIED SPECIAL ACT SECTIONS (2)]:
+    ✓ [dowry_prohibition_act.json] Sec    3: Penalty for giving or taking dowry            | [SPECIAL_OFFENCE]   
+      Grounding: Potentially relevant because the facts mention a monetary amount of ₹5,00,000 and a dowry-related context ('December 2021'), which may indicate giving/taking of dowry. However, the facts do not clearly state that dowry was actually given or taken, so relevance is only tentative but still connected to the core allegation suggested by the record.
+    ✓ [dowry_prohibition_act.json] Sec    4: Penalty for demanding dowry                   | [SPECIAL_OFFENCE]   
+      Grounding: Directly relevant if the alleged ₹5,00,000 pertains to a dowry demand. Section 4 covers a direct or indirect demand for dowry from the parents or relatives of a bride or bridegroom, and the facts specifically mention a monetary figure that may represent such a demand.
+
+  [AUDITED & REJECTED SPECIAL ACT CANDIDATES (4)]:
+    ✗ [dowry_prohibition_act.json] Sec    6 -> No facts indicate that any dowry was actually received by someone othe
+    ✗ [dowry_prohibition_act.json] Sec    2 -> This is only a definition of 'dowry' and there is no specific factual
+    ✗ [dowry_prohibition_act.json] Sec   8B -> This provision concerns appointment and functions of Dowry Prohibition
+    ✗ [dowry_prohibition_act.json] Sec   4A -> No fact suggests any advertisement offering property, money, or other
+============================================================
+
+================================================================================
+STAGE 5: ROLE-SPECIFIC PRECEDENT RETRIEVAL PIPELINE
+================================================================================
+
+[Stage5] Input case summary: Procedural Stage: Anticipatory Bail...
+[Stage5] Input statutes: [{'act': 'IPC', 'section': '498A'}, {'act': 'Dowry Prohibition Act', 'section': 'Section 4'}, {'act': 'IPC', 'section': '323'}, {'act': 'IPC', 'section': '506'}]
+
+--------------------------------------------------------------------------------
+STEP 0: CONSTRUCTING CASE RETRIEVAL PROFILE
+--------------------------------------------------------------------------------
+[Stage5] Profile procedural_stage: anticipatory_bail
+[Stage5] Profile offences: ['498A', 'Section 4', '323', '506']
+[Stage5] Profile fact_patterns: ['immovable property / agricultural land', 'cooperation with investigation', 'accused claims documents are genuine / commercial dispute']
+[Stage5] Defence themes: ['civil dispute dressed as criminal case', 'absence of fraudulent or dishonest intention', 'genuineness of documents and commercial nature', 'cooperation with investigation and no flight risk', 'custodial interrogation unnecessary']
+[Stage5] Prosecution themes: ['forgery and fabrication of documents', 'use of forged document for fraudulent transfer', 'fraudulent inducement to deliver property', 'need for investigation into money trail and authenticity', 'necessity of custodial interrogation']
+
+--------------------------------------------------------------------------------
+STEP 1: SEPARATE PROSECUTION AND DEFENSE CANDIDATE RETRIEVAL
+--------------------------------------------------------------------------------
+[PrecedentRetriever] Profile: stage=anticipatory, facets=[]
+  - IPC 498A  [offence, weight 0.52]
+  - Dowry Prohibition Act Section 4  [offence, weight 0.4]
+  - IPC 323  [offence, weight 0.4]
+  - IPC 506  [offence, weight 0.4]
+  - CrPC 438  [procedure, weight 0.8]
+  - BNSS 36  [procedure, weight 0.8]
+  - BNSS 35  [procedure, weight 0.8]
+  - BNSS 484  [procedure, weight 0.8]
+  - BNSS 485  [procedure, weight 0.8]
+  - BNSS 483  [procedure, weight 0.8]
+  - BNSS 480  [procedure, weight 0.8]
+  - DPA 3  [special, weight 1.0]
+  - DPA 4  [special, weight 1.0]
+[PrecedentRetriever] Scanned 93 judgments, 22 passed gate, 69 rejected/unmatched
+[PrecedentRetriever] Sample gate-filtered cases (5/69): ['JASBIR SINGH v. VIPIN KUMAR JAGGI AND ORS. (2001_INSC_371)', 'Rajendra Shant Aram Todankar v. State of Maharashtra and Ors. (2003_INSC_2)', 'Regu Mahesh v. Rajendra Pratap Bhanj Dev and Anr. (2003_INSC_588)', 'RAJASTHAN FINANCIAL CORPORATION AND ANR. v. THE OFFICIAL LIQUIDATOR AND ANR. (2005_INSC_481)', 'A·MIS. ASHOKA SMOKELESS COAL INDUSTRIES PVT. LTD. AND ORS. v. UNION OF INDIA AND ORS. (2005_INSC_612)']
+[PrecedentRetriever] Top 5 for prosecution:
+  1. Satender Kumar Antil v. Central Bureau of Investigation & Anr. score=0.702 (stage 1.0/pre_arrest, fact 0.5, stat 0.8)
+  2. GURBAKSH SINGH SIBBIA ETC. v. STATE OF PUNJAB score=0.682 (stage 1.0/pre_arrest, fact 0.65, stat 0.85)      
+  3. Sushila Aggarwal and Others v. State (NCT of Delhi) and Another score=0.657 (stage 1.0/pre_arrest, fact 0.65, stat 0.85)
+  4. Adri Dharan Das v. State of West Bengal score=0.622 (stage 1.0/pre_arrest, fact 0.3, stat 0.172)
+  5. Arnesh Kumar v. State of Bihar & Anr. score=0.602 (stage 1.0/pre_arrest, fact 0.5, stat 0.8)
+[PrecedentRetriever] Top 5 for defense:
+  1. GURBAKSH SINGH SIBBIA ETC. v. STATE OF PUNJAB score=0.845 (stage 1.0/pre_arrest, fact 0.65, stat 0.85)      
+  2. Sushila Aggarwal and Others v. State (NCT of Delhi) and Another score=0.845 (stage 1.0/pre_arrest, fact 0.65, stat 0.85)
+  3. Satender Kumar Antil v. Central Bureau of Investigation & Anr. score=0.820 (stage 1.0/pre_arrest, fact 0.5, stat 0.8)
+  4. Arnesh Kumar v. State of Bihar & Anr. score=0.797 (stage 1.0/pre_arrest, fact 0.5, stat 0.8)
+  5. Siddharam Satlingappa Mhetre v. State of Maharashtra score=0.767 (stage 1.0/pre_arrest, fact 0.4, stat 0.7) 
+[Stage5] Found 6 prosecution candidates and 6 defense candidates
+
+--------------------------------------------------------------------------------
+STEP 2: ROLE-SPECIFIC LLM EVALUATION
+--------------------------------------------------------------------------------
+[Stage5] Evaluating 6 candidates for PROSECUTION...
+  [1] Satender Kumar Antil v. Central Bureau of Investigation & Anr.: [+] STRONGLY_OPPOSING (score=7.19)
+  [2] GURBAKSH SINGH SIBBIA ETC. v. STATE OF PUNJAB: [+] BACKGROUND (score=6.32)
+  [3] Sushila Aggarwal and Others v. State (NCT of Delhi) and Another: [+] BACKGROUND (score=6.16)
+  [4] Adri Dharan Das v. State of West Bengal: [-] BACKGROUND (score=4.05) [dropped below threshold 5.0]
+  [5] Arnesh Kumar v. State of Bihar & Anr.: [+] STRONGLY_OPPOSING (score=6.20)
+  [6] Nikita Jagganath Shetty @ Nikita Vishwajeet Jadhav v. State of Maharashtra & Anr.: [-] BACKGROUND (score=3.80) [dropped below threshold 5.0]
+[Stage5] Evaluating 6 candidates for DEFENSE...
+  [1] GURBAKSH SINGH SIBBIA ETC. v. STATE OF PUNJAB: [+] BACKGROUND (score=7.90)
+  [2] Sushila Aggarwal and Others v. State (NCT of Delhi) and Another: [+] BACKGROUND (score=7.90)
+  [3] Satender Kumar Antil v. Central Bureau of Investigation & Anr.: [+] BACKGROUND (score=7.65)
+  [4] Arnesh Kumar v. State of Bihar & Anr.: [+] BACKGROUND (score=7.53)
+  [5] Siddharam Satlingappa Mhetre v. State of Maharashtra: [+] BACKGROUND (score=7.19)
+  [6] Bimla Tiwari v. State of Bihar & Ors.: [-] BACKGROUND (score=4.54) [dropped below threshold 5.0]
+
+--------------------------------------------------------------------------------
+STEP 3: BUILDING ROLE-SPECIFIC PRECEDENT LISTS & DEDUPLICATED CASES
+--------------------------------------------------------------------------------
+[Stage5] Top 4 Prosecution precedents selected (0 supporting, 4 adverse)
+--------------------------------------------------------------------------------
+STEP 3: BUILDING ROLE-SPECIFIC PRECEDENT LISTS & DEDUPLICATED CASES
+--------------------------------------------------------------------------------
+[Stage5] Top 4 Prosecution precedents selected (0 supporting, 4 adverse)
+[Stage5] Top 5 Defense precedents selected (0 supporting, 5 adverse)
+[Stage5] Unique deduplicated cases: 5
+[Stage5] Shared precedents: ['_1980_3_SCR_383', '_2014_8_SCC_273', '_2020_2_SCR_1', '_2022_10_SCC_51']
+
+--------------------------------------------------------------------------------
+STEP 4: CONSTRUCTING OUTPUT
+--------------------------------------------------------------------------------
+[Stage5] Saved full evaluation to debug file: stage5_precedent_debug.json
+
+[Stage5] Pipeline status: VERIFIED
+[Stage5] Feedback: Precedent retrieval completed successfully
+================================================================================
+
+INFO:     127.0.0.1:60020 - "POST /api/lexigraph/pipeline HTTP/1.1" 200 OK
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
