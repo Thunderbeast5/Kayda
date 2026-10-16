@@ -4,7 +4,6 @@ import {
   Network,
   Cpu,
   Layers,
-  ArrowLeft,
   BookOpen,
   CheckCircle2,
   AlertCircle,
@@ -33,7 +32,7 @@ import {
   Activity,
   Award,
 } from "lucide-react";
-import logo from "../assets/logo1.svg";
+import StandardNavbar from "../components/StandardNavbar";
 
 const SAMPLE_BENCHMARK_CASES = [
   {
@@ -84,7 +83,7 @@ const PIPELINE_STAGES = [
   { id: 6, label: "Stage 6: Precedent Retrieval", desc: "Supreme Court citations & ratio decidendi grounding" },
 ];
 
-export default function LexiGraphAgentPage({ onBack, onSwitchToCypher }) {
+export default function LexiGraphAgentPage({ onSwitchToCypher }) {
   const [caseText, setCaseText] = useState(SAMPLE_BENCHMARK_CASES[0].text);
   const [selectedCaseId, setSelectedCaseId] = useState(SAMPLE_BENCHMARK_CASES[0].id);
   const [courtType, setCourtType] = useState("Sessions Court");
@@ -246,62 +245,30 @@ export default function LexiGraphAgentPage({ onBack, onSwitchToCypher }) {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-[#2C1810] font-body selection:bg-gold/30 relative">
-      {/* Top Header Nav */}
-      <header className="sticky top-0 z-40 bg-[#FAF9F7]/95 backdrop-blur-md border-b border-[#D4AF37]/30 px-6 py-3.5 shadow-sm">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <button
-              onClick={onBack || (() => { navigate("/"); })}
-              className="p-2 rounded-full hover:bg-[#2C1810]/5 text-[#2C1810] transition-colors cursor-pointer"
-              title="Return to Home"
-            >
-              <ArrowLeft className="w-5 h-5" />
-            </button>
-            <div className="flex items-center gap-3">
-              <img src={logo} alt="Kayda Logo" className="w-11 h-auto" />
-              <div>
-                <div className="flex items-center gap-2">
-                  <span className="font-heading text-xl font-bold tracking-tight text-[#2C1810]">
-                    LexiGraph Intelligence
-                  </span>
-                  <span className="px-2.5 py-0.5 text-[9px] uppercase tracking-wider font-mono font-bold bg-[#8C5A3C]/15 text-[#8C5A3C] border border-[#8C5A3C]/30 rounded-full">
-                    7-Stage Hybrid GraphRAG
-                  </span>
-                </div>
-                <p className="text-[11px] font-mono text-[#5D4037]/75">
-                  Statute Normalization • Ingredient Verification • Bail Reasoning
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-3">
-            {/* Quick Statute Modal Trigger */}
-            <button
-              onClick={() => {
-                setShowStatuteModal(true);
-                if (!statuteResult) handleQuickStatuteLookup("498A");
-              }}
-              className="px-3.5 py-2 text-xs font-mono font-bold uppercase tracking-wider text-[#2C1810] bg-white border border-[#2C1810]/20 rounded-lg hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
-            >
-              <BookOpen className="w-3.5 h-3.5 text-[#8C5A3C]" />
-              Statute Inspector
-            </button>
-
-            {/* Switch to Cypher Engine */}
-            <button
-              onClick={onSwitchToCypher || (() => { window.location.hash = "#/text2cypher"; })}
-              className="px-3.5 py-2 text-xs font-mono font-bold uppercase tracking-wider text-[#2C1810] bg-white border border-[#2C1810]/20 rounded-lg hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
-            >
-              <Terminal className="w-3.5 h-3.5 text-[#8C5A3C]" />
-              Cypher Query
-            </button>
-          </div>
-        </div>
-      </header>
+      <StandardNavbar />
 
       {/* Main Container */}
       <main className="max-w-7xl mx-auto px-6 py-8">
+        {/* <div className="flex flex-wrap justify-end gap-3 mb-4">
+          <button
+            onClick={() => {
+              setShowStatuteModal(true);
+              if (!statuteResult) handleQuickStatuteLookup("498A");
+            }}
+            className="px-3.5 py-2 text-xs font-mono font-bold uppercase tracking-wider text-[#2C1810] bg-white border border-[#2C1810]/20 rounded-lg hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+          >
+            <BookOpen className="w-3.5 h-3.5 text-[#8C5A3C]" />
+            Statute Inspector
+          </button>
+          <button
+            onClick={onSwitchToCypher || (() => { window.location.hash = "#/text2cypher"; })}
+            className="px-3.5 py-2 text-xs font-mono font-bold uppercase tracking-wider text-[#2C1810] bg-white border border-[#2C1810]/20 rounded-lg hover:border-[#D4AF37] hover:bg-[#D4AF37]/10 transition-all flex items-center gap-1.5 cursor-pointer shadow-xs"
+          >
+            <Terminal className="w-3.5 h-3.5 text-[#8C5A3C]" />
+            Cypher Query
+          </button>
+        </div> */}
+
         {/* Hero Banner with Benchmarks */}
         <div className="bg-white border border-[#D4AF37]/40 rounded-2xl p-6 md:p-8 mb-8 shadow-[0_4px_25px_rgba(44,24,16,0.04)] relative overflow-hidden">
           <div className="absolute -top-12 -right-12 w-64 h-64 bg-[#D4AF37]/10 rounded-full blur-3xl pointer-events-none" />
