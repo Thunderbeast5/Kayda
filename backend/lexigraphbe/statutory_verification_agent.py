@@ -524,6 +524,29 @@ class StatutoryVerificationAgent:
                 "rejection_type": "LLM_OMITTED_RECOVERED"
             })
 
+        # Preserve Stage 3 classification; CONDITIONAL sections are not established offences,
+        # so they are split out of verified_offences instead of being promoted.
+        def _norm(s: str) -> str:
+            return s.strip().upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "")
+
+        tier_by_sec = {_norm(vo.section_number): (vo.classification or "PRIMARY").upper() for vo in chap_obj.verified_offences}
+        primary_offences = []
+        for vo in statutory_obj.verified_offences:
+            vo.classification = tier_by_sec.get(_norm(vo.section_number), "PRIMARY")
+            if vo.classification == "CONDITIONAL":
+                gaps = vo.missing_mandatory_facts or ["predicate offence / statutory element not established on current facts"]
+                vo.overall_status = "Not Attracted"
+                vo.overall_prima_facie_strength = "Weak"
+                if isinstance(vo.irac_reasoning, dict):
+                    vo.irac_reasoning["conclusion"] = (
+                        f"Section {vo.section_number} not attracted on current facts - " + "; ".join(gaps)
+                    )
+                # Kept in verified_offences (still flows to Stage 5) but tagged CONDITIONAL,
+                # and mirrored in conditional_offences for consumers that want the split.
+                statutory_obj.conditional_offences.append(vo)
+            primary_offences.append(vo)
+        statutory_obj.verified_offences = primary_offences
+
         # Pass all evaluated sections forward to Stage 5 with their full strength evaluation
         stage4_accepted_secs = [vo.section_number for vo in statutory_obj.verified_offences]
 

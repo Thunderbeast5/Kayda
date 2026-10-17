@@ -1,12 +1,12 @@
 """
-CLI and Python runner for Stage 0 (Intake), Stage 1 (Query Understanding), Stage 2 (Batched Sub-Query Mapping), Stage 3 (Chapter Identification), Stage 4 (Statutory Verification), Stage 5 (Bail Reasoning), and Stage 6 (Precedent Retrieval).
+CLI and Python runner for Stage 0 (Intake), Stage 1 (Query Understanding), Stage 2 (Batched Sub-Query Mapping), Stage 3 (Chapter Identification), Stage 3b (BSA Retrieval), Stage 3c (BNSS Retrieval), Stage 4 (Statutory Verification), and Special Act Routing.
 """
 
 import argparse
 import json
 import sys
 from pathlib import Path
-from typing import Optional
+from typing import List, Optional
 
 if hasattr(sys.stdout, "reconfigure"):
     try:
@@ -20,9 +20,6 @@ from .stage1_pipeline import Stage1Pipeline
 from .stage2_pipeline import Stage2Pipeline
 from .stage3_pipeline import Stage3Pipeline
 from .stage4_pipeline import Stage4Pipeline
-# OLD: from .stage5_pipeline import Stage5Pipeline  # Replaced with stage5_precedent_pipeline
-# OLD: from .stage6_pipeline import Stage6Pipeline  # Merged into stage5_precedent_pipeline
-from .stage5_precedent_pipeline import Stage5PrecedentPipeline
 from .bsa_retrieval_agent import BSARetrievalAgent
 from .bnss_retrieval_agent import BNSSRetrievalAgent
 from .act_router import SpecialActRetrievalAgent
@@ -98,16 +95,16 @@ def _print_pipeline_transition(stage_num: int, res: dict) -> None:
         if not pt:
             accepted = [vs.get("section_number") for vs in res.get("verified_sections", [])]
             print(f"\n{sep}", flush=True)
-            print(f"  STAGE 4 -> STAGE 5 PIPELINE HANDOFF", flush=True)
+            print(f"  STAGE 4 STATUTORY VERIFICATION COMPLETE", flush=True)
             print(sep, flush=True)
-            print(f"  Sections confirmed for bail analysis: {accepted}", flush=True)
+            print(f"  Sections confirmed: {accepted}", flush=True)
             print(sep, flush=True)
             return
         received = pt.get("stage3_input_sections", [])
         accepted = pt.get("stage4_accepted_sections", [])
         rejected = pt.get("stage4_rejected_sections", [])
         print(f"\n{sep}", flush=True)
-        print(f"  STAGE 4 -> STAGE 5 PIPELINE HANDOFF", flush=True)
+        print(f"  STAGE 4 STATUTORY VERIFICATION COMPLETE", flush=True)
         print(sep, flush=True)
         print(f"  Received from Stage 3 ({len(received)}): {received}", flush=True)
         print(f"  Confirmed by Stage 4  ({len(accepted)}): {accepted}", flush=True)
@@ -117,7 +114,7 @@ def _print_pipeline_transition(stage_num: int, res: dict) -> None:
                 print(f"    [!!] Section {r.get('section_number'):>6}  -- {r.get('reason', '')}", flush=True)
         else:
             print(f"  Dropped by Stage 4    (0): None", flush=True)
-        print(f"  Passing to Stage 5: {pt.get('passing_to_stage5', accepted)}", flush=True)
+        print(f"  Verified Stage 4 sections: {pt.get('passing_to_stage5', accepted)}", flush=True)
         print(sep, flush=True)
 
 
@@ -131,6 +128,9 @@ def run_stage0(
     """
     Executes Stage 0 pipeline and returns dict representation of CaseContextObject.
     """
+    print("\n" + "=" * 60, flush=True)
+    print("  STAGE 0: CASE INTAKE & CONTEXT INITIALIZATION", flush=True)
+    print("=" * 60, flush=True)
     if file_path:
         p = Path(file_path)
         if not p.exists():
@@ -165,17 +165,42 @@ def run_stage0(
     pipeline = Stage0Pipeline()
     result = pipeline.run(inp)
     cco = result.export_case_context_object()
-    return cco.model_dump()
+    cco_dict = cco.model_dump()
+    _cp = cco_dict.get("case_profile") or {}
+    regime = _cp.get("legal_regime") or "Unknown"
+    jurisdiction = (_cp.get("case_metadata") or {}).get("state") or "Unknown"
+    contract = cco_dict.get("contract_status") or "Unknown"
+    parties = cco_dict.get("active_parties") or []
+    print(f"  [OK] Legal Regime     : {regime}", flush=True)
+    print(f"  [OK] Jurisdiction     : {jurisdiction}", flush=True)
+    print(f"  [OK] Contract Status  : {contract}", flush=True)
+    print(f"  [OK] Active Parties   : {', '.join(parties) if parties else 'None identified'}", flush=True)
+    print("=" * 60, flush=True)
+    return cco_dict
 
 
 def run_stage1(case_context_input: dict) -> dict:
     """
     Executes Stage 1 pipeline on CaseContextObject dict and returns LegalQueryObject dict.
     """
+    print("\n" + "=" * 60, flush=True)
+    print("  STAGE 1: LEGAL QUERY DECONSTRUCTION", flush=True)
+    print("=" * 60, flush=True)
     pipeline = Stage1Pipeline()
     res = pipeline.run(case_context_input)
-    if res.verified_query_object:
-        return res.verified_query_object.model_dump()
+    query_obj = res.verified_query_object or res.candidate_query_object
+    if query_obj:
+        result = query_obj.model_dump()
+        result["verification_status"] = res.status
+        result["verification_feedback"] = res.feedback
+        sub_queries = result.get("sub_queries") or []
+        concepts = result.get("legal_concepts") or []
+        status_tag = "[OK]" if res.verified_query_object else f"[{res.status}]"
+        print(f"  {status_tag} Sub-queries identified : {len(sub_queries)}", flush=True)
+        print(f"  {status_tag} Legal concepts          : {len(concepts)}", flush=True)
+        print("=" * 60, flush=True)
+        return result
+    print("=" * 60, flush=True)
     return {"status": res.status, "feedback": res.feedback}
 
 
@@ -183,10 +208,29 @@ def run_stage2(legal_query_input: dict) -> dict:
     """
     Executes Stage 2 pipeline on LegalQueryObject dict and returns Stage2BatchedMappingResponse dict.
     """
+    verification_status = str(legal_query_input.get("verification_status", "")).upper()
+    if verification_status and verification_status != "VERIFIED":
+        print(f"  [NOTICE] Proceeding with Stage 1 status: {verification_status}", flush=True)
+
+    print("\n" + "=" * 60, flush=True)
+    print("  STAGE 2: BATCHED SUB-QUERY PRE-FILTER MAPPING", flush=True)
+    print("=" * 60, flush=True)
     pipeline = Stage2Pipeline()
     res = pipeline.run(legal_query_input)
     if res.batched_mapping_response:
-        return res.batched_mapping_response.model_dump()
+        result = res.batched_mapping_response.model_dump()
+        mappings = result.get("mappings") or []
+        total_candidates = sum(
+            len(m.get("primary_candidate_sections", []))
+            + len(m.get("secondary_candidate_sections", []))
+            + len(m.get("conditional_candidate_sections", []))
+            for m in mappings
+        )
+        print(f"  [OK] Sub-query mappings : {len(mappings)}", flush=True)
+        print(f"  [OK] Candidate sections : {total_candidates}", flush=True)
+        print("=" * 60, flush=True)
+        return result
+    print("=" * 60, flush=True)
     return {"status": res.status, "feedback": res.feedback}
 
 
@@ -194,10 +238,23 @@ def run_stage3(legal_query_input: dict, stage2_input: Optional[dict] = None) -> 
     """
     Executes Stage 3 pipeline on LegalQueryObject and Stage 2 verified mapping dicts.
     """
+    print("\n" + "=" * 60, flush=True)
+    print("  STAGE 3: CHAPTER IDENTIFICATION & IPC ⇄ BNS NORMALIZATION", flush=True)
+    print("=" * 60, flush=True)
     pipeline = Stage3Pipeline()
     res = pipeline.run(legal_query_input, stage2_mapping=stage2_input)
     if res.verified_chapter_object:
-        return res.verified_chapter_object.model_dump()
+        result = res.verified_chapter_object.model_dump()
+        verified = result.get("verified_offences") or []
+        print(f"  [OK] Verified offences : {len(verified)}", flush=True)
+        for vo in verified:
+            sec = vo.get("section_number", "?")
+            title = (vo.get("section_title") or vo.get("offence_title") or "")[:50]
+            bns_eq = vo.get("bns_equivalent") or ""
+            print(f"    ✓ Section {sec:<6} {title:<50} BNS: {bns_eq}", flush=True)
+        print("=" * 60, flush=True)
+        return result
+    print("=" * 60, flush=True)
     return {"status": res.status, "feedback": res.feedback}
 
 
@@ -591,45 +648,34 @@ def run_act_router(
 
 
 
-def run_stage5(case_context_input: dict, statutory_input: dict) -> dict:
-    """
-    Executes NEW Stage 5 precedent retrieval pipeline on CaseContextObject and StatutoryVerificationObject dicts.
-    Returns RoleSpecificPrecedentRetrievalObject with separate prosecution and defense precedent lists.
-    
-    NOTE: This replaces the old Stage 5 (Bail Reasoning) and Stage 6 (Precedent Retrieval).
-    """
-    pipeline = Stage5PrecedentPipeline()
-    res = pipeline.run(case_context_input, statutory_input)
-    if res.verified_precedent_object:
-        return res.verified_precedent_object.model_dump()
-    return {"status": res.status, "feedback": res.feedback, "issues": [issue.model_dump() for issue in res.issues]}
-
-
-def run_stage6(case_context_input: dict, legal_query_input: dict, statutory_input: dict, bail_input: dict) -> dict:
-    """
-    OLD Stage 6 - DEPRECATED and merged into new Stage 5.
-    This function is kept for backward compatibility but returns a deprecation notice.
-    Use run_stage5() instead which returns role-specific precedents.
-    """
-    return {
-        "status": "DEPRECATED",
-        "feedback": "Stage 6 has been merged into Stage 5. Use run_stage5() which returns role-specific precedent lists for prosecution and defense.",
-        "note": "Old Stage 5 (Bail Reasoning) and Stage 6 (Precedent Retrieval) have been replaced with a unified Stage 5 precedent retrieval pipeline."
-    }
-
-
 def run_full_pipeline(
     text: Optional[str] = None,
     file_path: Optional[str] = None,
     user_query: Optional[str] = None,
     court_type: Optional[str] = None,
     legal_regime_override: Optional[str] = None,
+    run_precedent_retrieval: bool = True,
+    max_precedent_candidates: int = 20,
 ) -> dict:
     """
-    Chains Stage 0 -> Stage 1 -> Stage 2 -> Stage 3 -> Stage 3b -> Stage 3c -> Stage 4 -> Stage 5 -> Stage 6
+    Chains Stage 0 -> Stage 1 -> Stage 2 -> Stage 3 -> Stage 3b -> Stage 3c -> Stage 4 -> Stage 5 (Precedent Retrieval)
     and returns combined outputs.
     Stage 3b: BSA Evidence Law Section Retrieval.
     Stage 3c: BNSS Procedural Law Section Retrieval.
+    Stage 4: Offence verification + Act Router (special statutes).
+    Stage 5: Precedent Retrieval (optional, enabled by default).
+    
+    Args:
+        text: Raw case text input
+        file_path: Path to input file
+        user_query: User instructions/query
+        court_type: Court type (Sessions Court / High Court)
+        legal_regime_override: Legal regime override (default: IPC + CrPC)
+        run_precedent_retrieval: Whether to run Stage 5 precedent retrieval (default: True)
+        max_precedent_candidates: Maximum precedent candidates to retrieve (default: 20)
+    
+    Returns:
+        Combined dictionary with all stage outputs including precedent retrieval
     """
     stage0_out = run_stage0(
         text=text,
@@ -645,27 +691,79 @@ def run_full_pipeline(
     stage3b_out = run_stage3b(stage1_out, stage3_out)  # BSA retrieval & verification
     stage3c_out = run_stage3c(stage1_out, stage0_out)  # BNSS retrieval & verification
     stage4_out = run_stage4(stage1_out, stage3_out, bsa_input=stage3b_out, bnss_input=stage3c_out)
-    stage5_out = run_stage5(stage0_out, stage4_out)  # NEW: Role-specific precedent retrieval
-    # OLD stage6 is now merged into stage5
 
-
-    return {
+    result = {
+        "status": "VERIFIED",
+        "stage0_result": stage0_out,
         "stage0_case_context": stage0_out,
+        "stage1_result": stage1_out,
         "stage1_legal_query": stage1_out,
+        "stage2_result": stage2_out,
         "stage2_subquery_mapping": stage2_out,
+        "stage3_result": stage3_out,
         "stage3_chapter_identification": stage3_out,
+        "stage3b_result": stage3b_out,
         "stage3b_bsa_retrieval": stage3b_out,
+        "stage3c_result": stage3c_out,
         "stage3c_bnss_retrieval": stage3c_out,
+        "stage4_result": stage4_out,
         "stage4_statutory_verification": stage4_out,
         "stage4b_act_router": stage4_out.get("act_router_output", {}),
-        "stage5_precedent_retrieval": stage5_out,  # NEW: Role-specific precedents for prosecution & defense
-        # OLD: "stage5_bail_reasoning": removed
-        # OLD: "stage6_precedent_retrieval": merged into stage5
     }
+
+    # Stage 5: Precedent Retrieval (optional)
+    if run_precedent_retrieval:
+        try:
+            from precedent_retrieval.pipeline import PrecedentPipeline
+            
+            print("\n" + "="*80)
+            print("STAGE 5: PRECEDENT RETRIEVAL")
+            print("="*80)
+            
+            # Extract legal issues from Stage 1
+            legal_issues = []
+            if stage1_out and isinstance(stage1_out, dict):
+                sub_queries = stage1_out.get('sub_queries', [])
+                legal_issues = [sq.get('query', '') for sq in sub_queries if sq.get('query')]
+            
+            print(f"\n[Stage 5] Extracted {len(legal_issues)} legal issues from Stage 1")
+            print(f"[Stage 5] Running precedent retrieval with max {max_precedent_candidates} candidates...")
+            
+            # Run precedent retrieval
+            prec_pipeline = PrecedentPipeline(max_candidates=max_precedent_candidates)
+            prec_result = prec_pipeline.run(
+                case_context=stage0_out,
+                statutory_object=stage4_out,
+                legal_issues=legal_issues
+            )
+            
+            # Add to result
+            result["stage5_result"] = prec_result.model_dump() if hasattr(prec_result, 'model_dump') else prec_result
+            result["stage5_precedent_retrieval"] = result["stage5_result"]
+            
+            prec_obj = prec_result.verified_precedent_object
+            print(f"\n[Stage 5] ✅ Precedent Retrieval Complete")
+            print(f"  - Judgments Scanned: {prec_obj.total_judgments_scanned}")
+            print(f"  - Candidates Matched: {prec_obj.candidates_after_statutory_match}")
+            print(f"  - Prosecution Precedents: {len(prec_obj.prosecution_precedents)}")
+            print(f"  - Defense Precedents: {len(prec_obj.defense_precedents)}")
+            
+        except Exception as e:
+            print(f"\n[Stage 5] ⚠️  Precedent Retrieval Failed: {e}")
+            import traceback
+            traceback.print_exc()
+            result["stage5_result"] = {
+                "status": "FAILED",
+                "error": str(e),
+                "error_type": type(e).__name__
+            }
+            result["stage5_precedent_retrieval"] = result["stage5_result"]
+
+    return result
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Run Stage 0, Stage 1, Stage 2, Stage 3, Stage 3b (BSA), Stage 3c (BNSS), Stage 4, Act Router, Stage 5, Stage 6 & Full LexiGraph Backend Pipelines")
+    parser = argparse.ArgumentParser(description="Run Stage 0-5 LexiGraph Backend Pipeline (with optional Precedent Retrieval)")
     parser.add_argument("--file", "-f", type=str, help="Path to input raw document text file")
     parser.add_argument("--text", "-t", type=str, help="Raw document text input string")
     parser.add_argument("--query", "-q", type=str, help="User instructions / query")
@@ -674,9 +772,27 @@ def main():
     parser.add_argument(
         "--stage",
         type=str,
-        choices=["0", "1", "2", "3", "3b", "3c", "4", "act_router", "5", "7"],
-        default="7",
-        help="Target stage to run (0=Intake, 1=Query Understanding, 2=SubQuery Mapping, 3=Chapter Identification, 3b=BSA Retrieval, 3c=BNSS Retrieval, 4=Statutory Verification + Act Router, act_router=Special Act Routing & Retrieval, 5=Precedent Retrieval (role-specific for prosecution & defense), 7=Full Chain). NOTE: Old Stage 5 (Bail Reasoning) and Stage 6 (Precedent Retrieval) have been merged into new Stage 5.",
+        choices=["0", "1", "2", "3", "3b", "3c", "4", "act_router", "all"],
+        default="all",
+        help="Target stage to run (0=Intake, 1=Query Understanding, 2=SubQuery Mapping, 3=Chapter Identification, 3b=BSA Retrieval, 3c=BNSS Retrieval, 4=Statutory Verification + Act Router, all=Full Stages 0-5 Pipeline with Precedent Retrieval)",
+    )
+    parser.add_argument(
+        "--precedents",
+        action="store_true",
+        default=True,
+        help="Run Stage 5 precedent retrieval after Stage 4 (default: True when stage=all)"
+    )
+    parser.add_argument(
+        "--no-precedents",
+        dest="precedents",
+        action="store_false",
+        help="Skip Stage 5 precedent retrieval"
+    )
+    parser.add_argument(
+        "--max-precedents",
+        type=int,
+        default=20,
+        help="Maximum precedent candidates to retrieve (default: 20)"
     )
 
     args = parser.parse_args()
@@ -748,21 +864,115 @@ def main():
             )
             print("\n=== ACT ROUTER SUB-PIPELINE RESULT ===", flush=True)
             print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
-        elif args.stage == "5":
-            stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
-            stage1_res = run_stage1(stage0_res)
-            stage2_res = run_stage2(stage1_res)
-            stage3_res = run_stage3(stage1_res, stage2_res)
-            stage3b_res = run_stage3b(stage1_res, stage3_res)
-            stage3c_res = run_stage3c(stage1_res, stage0_res)
-            stage4_res = run_stage4(stage1_res, stage3_res, bsa_input=stage3b_res, bnss_input=stage3c_res)
-            res = run_stage5(stage0_res, stage4_res)
-            print("\n=== STAGE 5 PRECEDENT RETRIEVAL RESULT (Role-Specific: Prosecution & Defense) ===", flush=True)
-            print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
         else:
-            res = run_full_pipeline(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
-            print("\n=== FULL END-TO-END STAGE 0+1+2+3+3b+3c+4+5 PIPELINE CHAIN RESULT ===", flush=True)
-            print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
+            # Full Stages 0-4 pipeline — each stage printed immediately as it completes
+            stage0_res = run_stage0(
+                text=args.text, file_path=args.file,
+                user_query=args.query, court_type=args.court,
+                legal_regime_override=args.regime,
+            )
+            print("\n=== STAGE 0 CASE CONTEXT RESULT ===", flush=True)
+            print(json.dumps(stage0_res, indent=2, ensure_ascii=False), flush=True)
+
+            stage1_res = run_stage1(stage0_res)
+            print("\n=== STAGE 1 LEGAL QUERY RESULT ===", flush=True)
+            print(json.dumps(stage1_res, indent=2, ensure_ascii=False), flush=True)
+
+            stage2_res = run_stage2(stage1_res)
+            print("\n=== STAGE 2 BATCHED SUB-QUERY MAPPING RESULT ===", flush=True)
+            print(json.dumps(stage2_res, indent=2, ensure_ascii=False), flush=True)
+            _print_pipeline_transition(2, stage2_res)
+
+            stage3_res = run_stage3(stage1_res, stage2_res)
+            print("\n=== STAGE 3 CHAPTER IDENTIFICATION RESULT ===", flush=True)
+            print(json.dumps(stage3_res, indent=2, ensure_ascii=False), flush=True)
+            _print_pipeline_transition(3, stage3_res)
+
+            stage3b_res = run_stage3b(stage1_res, stage3_res)
+            print("\n=== STAGE 3b BSA RETRIEVAL RESULT ===", flush=True)
+            print(json.dumps(stage3b_res, indent=2, ensure_ascii=False), flush=True)
+
+            stage3c_res = run_stage3c(stage1_res, stage0_res)
+            print("\n=== STAGE 3c BNSS RETRIEVAL RESULT ===", flush=True)
+            print(json.dumps(stage3c_res, indent=2, ensure_ascii=False), flush=True)
+
+            stage4_res = run_stage4(stage1_res, stage3_res, bsa_input=stage3b_res, bnss_input=stage3c_res)
+            print("\n=== STAGE 4 STATUTORY VERIFICATION RESULT ===", flush=True)
+            print(json.dumps(stage4_res, indent=2, ensure_ascii=False), flush=True)
+            _print_pipeline_transition(4, stage4_res)
+
+            res = {
+                "status": "VERIFIED",
+                "stage0_result": stage0_res,
+                "stage0_case_context": stage0_res,
+                "stage1_result": stage1_res,
+                "stage1_legal_query": stage1_res,
+                "stage2_result": stage2_res,
+                "stage2_subquery_mapping": stage2_res,
+                "stage3_result": stage3_res,
+                "stage3_chapter_identification": stage3_res,
+                "stage3b_result": stage3b_res,
+                "stage3b_bsa_retrieval": stage3b_res,
+                "stage3c_result": stage3c_res,
+                "stage3c_bnss_retrieval": stage3c_res,
+                "stage4_result": stage4_res,
+                "stage4_statutory_verification": stage4_res,
+                "stage4b_act_router": stage4_res.get("act_router_output", {}),
+            }
+            
+            # Stage 5: Precedent Retrieval (if enabled)
+            if args.precedents:
+                try:
+                    from precedent_retrieval.pipeline import PrecedentPipeline
+                    
+                    print("\n" + "="*80)
+                    print("STAGE 5: PRECEDENT RETRIEVAL")
+                    print("="*80)
+                    
+                    # Extract legal issues from Stage 1
+                    legal_issues = []
+                    if stage1_res and isinstance(stage1_res, dict):
+                        sub_queries = stage1_res.get('sub_queries', [])
+                        legal_issues = [sq.get('query', '') for sq in sub_queries if sq.get('query')]
+                    
+                    print(f"\n[Stage 5] Extracted {len(legal_issues)} legal issues from Stage 1")
+                    print(f"[Stage 5] Running precedent retrieval with max {args.max_precedents} candidates...")
+                    
+                    # Run precedent retrieval
+                    prec_pipeline = PrecedentPipeline(max_candidates=args.max_precedents)
+                    prec_result = prec_pipeline.run(
+                        case_context=stage0_res,
+                        statutory_object=stage4_res,
+                        legal_issues=legal_issues
+                    )
+                    
+                    # Add to result
+                    prec_result_dict = prec_result.model_dump() if hasattr(prec_result, 'model_dump') else prec_result
+                    res["stage5_result"] = prec_result_dict
+                    res["stage5_precedent_retrieval"] = prec_result_dict
+                    
+                    print("\n=== STAGE 5 PRECEDENT RETRIEVAL RESULT ===", flush=True)
+                    print(json.dumps(prec_result_dict, indent=2, ensure_ascii=False, default=str), flush=True)
+                    
+                    prec_obj = prec_result.verified_precedent_object
+                    print(f"\n[Stage 5] ✅ Precedent Retrieval Complete")
+                    print(f"  - Judgments Scanned: {prec_obj.total_judgments_scanned}")
+                    print(f"  - Candidates Matched: {prec_obj.candidates_after_statutory_match}")
+                    print(f"  - Prosecution Precedents: {len(prec_obj.prosecution_precedents)}")
+                    print(f"  - Defense Precedents: {len(prec_obj.defense_precedents)}")
+                    
+                except Exception as e:
+                    print(f"\n[Stage 5] ⚠️  Precedent Retrieval Failed: {e}", file=sys.stderr)
+                    import traceback
+                    traceback.print_exc()
+                    res["stage5_result"] = {
+                        "status": "FAILED",
+                        "error": str(e),
+                        "error_type": type(e).__name__
+                    }
+                    res["stage5_precedent_retrieval"] = res["stage5_result"]
+            
+            print("\n=== LEXIGRAPH STAGES 0-5 PIPELINE CHAIN COMPLETE ===", flush=True)
     except Exception as e:
         print(f"Error running pipeline: {e}", file=sys.stderr)
         sys.exit(1)

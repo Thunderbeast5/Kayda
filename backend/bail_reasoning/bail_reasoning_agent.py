@@ -1,18 +1,16 @@
 """
-Bail Reasoning Agent for Stage 5: Anticipatory Bail Reasoning Engine.
+Bail Reasoning Agent for Anticipatory Bail Reasoning Engine.
 Evaluates whether anticipatory bail should be granted or denied under Section 438 CrPC
 by applying judicial bail reasoning principles to verified outputs from previous stages.
-Statically injects exact statutory text and factors of Section 438 CrPC / Section 482 BNSS based on regime.
-Model: gpt-4o-mini (MODEL_STAGE5) — deep judicial reasoning.
 """
 
 import json
 from typing import Any, Dict, Optional, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
-from .config import extract_json_from_text, get_llm, MODEL_STAGE5
-from .prompts import STAGE5_BAIL_REASONING_SYSTEM_PROMPT, STAGE5_BAIL_REASONING_USER_PROMPT_TEMPLATE
-from .schemas import BailReasoningObject, CaseContextObject, LegalQueryObject, SideArgumentPackage, StatutoryVerificationObject
+from lexigraphbe.config import extract_json_from_text, get_llm, MODEL_STAGE5
+from lexigraphbe.prompts import STAGE5_BAIL_REASONING_SYSTEM_PROMPT, STAGE5_BAIL_REASONING_USER_PROMPT_TEMPLATE
+from .schemas import BailReasoningObject, SideArgumentPackage
 
 
 PROCEDURAL_BAIL_PROVISIONS: Dict[str, Dict[str, Any]] = {
@@ -33,9 +31,8 @@ PROCEDURAL_BAIL_PROVISIONS: Dict[str, Dict[str, Any]] = {
 
 class BailReasoningAgent:
     """
-    Stage 5 Bail Reasoning Agent evaluating anticipatory bail under Sec 438 CrPC.
+    Bail Reasoning Agent evaluating anticipatory bail under Sec 438 CrPC.
     Injects full statutory text and statutory factors of procedural bail provisions.
-    Model: gpt-4o-mini (MODEL_STAGE5) — deep judicial reasoning.
     """
 
     def __init__(
@@ -54,27 +51,16 @@ class BailReasoningAgent:
 
     def run(
         self,
-        case_context: Union[CaseContextObject, Dict[str, Any], str],
-        legal_query: Union[LegalQueryObject, Dict[str, Any], str],
-        statutory_object: Union[StatutoryVerificationObject, Dict[str, Any], str],
+        case_context: Any,
+        legal_query: Any,
+        statutory_object: Any,
         side: Optional[str] = "BOTH",
         correction_feedback: Optional[str] = None,
     ) -> BailReasoningObject:
         """
-        Runs Stage 5 Bail Reasoning on CaseContextObject, LegalQueryObject, and StatutoryVerificationObject.
-
-        Args:
-            case_context: Verified CaseContextObject from Stage 0.
-            legal_query: Verified LegalQueryObject from Stage 1.
-            statutory_object: Verified StatutoryVerificationObject from Stage 4.
-            side: Target role side ('PROSECUTION', 'DEFENSE', or 'BOTH').
-            correction_feedback: Feedback from BailReasoningVerifierAgent if retrying.
-
-        Returns:
-            BailReasoningObject instance containing side-specific argument packages.
+        Runs Bail Reasoning on CaseContextObject, LegalQueryObject, and StatutoryVerificationObject.
         """
-        # Standardize inputs
-        if isinstance(case_context, CaseContextObject):
+        if hasattr(case_context, "to_downstream_json"):
             cco_json_str = case_context.to_downstream_json()
             regime = getattr(case_context, "legal_regime", "IPC + CrPC")
         elif isinstance(case_context, dict):
@@ -82,27 +68,22 @@ class BailReasoningAgent:
             regime = case_context.get("legal_regime") or case_context.get("case_profile", {}).get("legal_regime") or "IPC + CrPC"
         else:
             cco_json_str = str(case_context)
-            try:
-                parsed = json.loads(str(case_context))
-                regime = parsed.get("legal_regime") or parsed.get("case_profile", {}).get("legal_regime") or "IPC + CrPC"
-            except Exception:
-                regime = "IPC + CrPC"
+            regime = "IPC + CrPC"
 
-        if isinstance(legal_query, LegalQueryObject):
+        if hasattr(legal_query, "to_downstream_json"):
             qo_json_str = legal_query.to_downstream_json()
         elif isinstance(legal_query, dict):
             qo_json_str = json.dumps(legal_query, indent=2)
         else:
             qo_json_str = str(legal_query)
 
-        if isinstance(statutory_object, StatutoryVerificationObject):
+        if hasattr(statutory_object, "to_downstream_json"):
             svo_json_str = statutory_object.to_downstream_json()
         elif isinstance(statutory_object, dict):
             svo_json_str = json.dumps(statutory_object, indent=2)
         else:
             svo_json_str = str(statutory_object)
 
-        # Determine statutory bail provision (IPC-only pipeline)
         legal_regime_clean = "IPC + CrPC"
         bail_provision = "Section 438 CrPC"
 
@@ -132,17 +113,13 @@ class BailReasoningAgent:
         response_text = response.content if hasattr(response, "content") else str(response)
 
         extracted_dict = extract_json_from_text(response_text)
-
-        # Validate with BailReasoningObject Pydantic schema
         bail_obj = BailReasoningObject.model_validate(extracted_dict)
 
-        # Enforce exact passthrough fields
         target_side_clean = (side or "BOTH").strip().upper()
         bail_obj.target_side = target_side_clean
         bail_obj.bail_provision_applied = bail_provision
         bail_obj.legal_regime = legal_regime_clean
 
-        # Ensure SideArgumentPackage for Prosecution (advocating BAIL REJECTION)
         if not bail_obj.prosecution_arguments:
             pros_factors = []
             pros_points = []
@@ -173,7 +150,6 @@ class BailReasoningAgent:
                 ]
             )
 
-        # Ensure SideArgumentPackage for Defense (advocating BAIL GRANT)
         if not bail_obj.defense_arguments:
             def_factors = []
             def_points = []
@@ -203,11 +179,5 @@ class BailReasoningAgent:
                     "Applicant shall report to police station as and when directed."
                 ]
             )
-
-        # Check confidence cutoff (< 0.70 threshold)
-        if bail_obj.overall_recommendation.confidence < self.min_confidence_threshold:
-            note = f"Overall bail recommendation confidence {bail_obj.overall_recommendation.confidence:.2f} < cutoff {self.min_confidence_threshold}."
-            if note not in bail_obj.manual_review:
-                bail_obj.manual_review.append(note)
 
         return bail_obj

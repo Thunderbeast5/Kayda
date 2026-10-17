@@ -142,14 +142,22 @@ class ChapterIdentificationAgent:
         # is structurally incorrect for many sections (e.g. 378-382 Theft sections appear under
         # the Kidnapping sub_heading), so sub_heading cannot be trusted.
         statute_db = StatuteRepository.get_instance().get_statute_db()
+        # Record all raw Stage 2 input section numbers BEFORE any filtering/deduplication
+        stage2_input_sections = []
+        _seen_s2 = set()
+        for c in candidates_to_verify:
+            s_num = str(c.get("section_number", "")).strip().upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "")
+            if s_num and s_num not in _seen_s2:
+                _seen_s2.add(s_num)
+                stage2_input_sections.append(s_num)
+
+        stage3_rejected: List[Dict[str, str]] = []  # sections from Stage 2 that were rejected by Stage 3
+
         seen_input_keys: set = set()
         normalized_candidates: List[Dict[str, Any]] = []
 
         # Pre-scan: build a map of chapter_number -> set of penal section numbers already present
-        all_raw_secs = {
-            str(c["section_number"]).strip().upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "")
-            for c in candidates_to_verify
-        }
+        all_raw_secs = set(stage2_input_sections)
         active_penal_chapters: set = set()
         for sec in all_raw_secs:
             rec = statute_db.get(f"IPC_{sec}") or {}
@@ -170,6 +178,11 @@ class ChapterIdentificationAgent:
             if is_def and not is_pun and sec_type == "definitional":
                 ch_num = rec.get("chapter_number")
                 if ch_num and ch_num in active_penal_chapters:
+                    stage3_rejected.append({
+                        "section_number": sec_clean,
+                        "reason": f"Definitional section {sec_clean} excluded in favor of substantive penal counterpart in Chapter {ch_num}.",
+                        "rejection_type": "DEFINITIONAL_SUPERSEDED"
+                    })
                     continue
 
             if sec_clean not in seen_input_keys:
@@ -177,13 +190,6 @@ class ChapterIdentificationAgent:
                 normalized_candidates.append(c)
 
         candidates_to_verify = normalized_candidates
-
-        # Record all Stage 2 input section numbers for transition tracking
-        stage2_input_sections = [
-            str(c["section_number"]).strip().upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "")
-            for c in candidates_to_verify
-        ]
-        stage3_rejected: List[Dict[str, str]] = []  # sections from Stage 2 that were rejected by Stage 3
 
         # Deterministic verification & enrichment loop
         repo = StatuteRepository.get_instance()

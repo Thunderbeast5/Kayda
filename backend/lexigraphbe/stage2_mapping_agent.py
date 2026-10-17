@@ -237,33 +237,16 @@ Respond ONLY with this JSON (no other text):
         else:
             statute_type = "IPC"
 
-        # Step 2: Run local StatuteClassifierPrefilter (0 API calls)
-        prefiltered_matches = []
-        for concept_item in query_obj.legal_concepts:
-            if concept_item.concept:
-                matches = self.prefilter.prefilter_candidates(
-                    query_text=concept_item.concept,
-                    statute_type=statute_type,
-                    top_k=10,
-                )
-                prefiltered_matches.extend(matches)
-
-        # Run prefilter for each sub-query text and concept so every sub-query gets relevant candidate sections
-        for sq in query_obj.sub_queries:
-            if sq.query:
-                matches = self.prefilter.prefilter_candidates(
-                    query_text=sq.query,
-                    statute_type=statute_type,
-                    top_k=10,
-                )
-                prefiltered_matches.extend(matches)
-            if sq.concept:
-                matches = self.prefilter.prefilter_candidates(
-                    query_text=sq.concept,
-                    statute_type=statute_type,
-                    top_k=10,
-                )
-                prefiltered_matches.extend(matches)
+        # Step 2: Run local StatuteClassifierPrefilter (0 API calls).
+        # One fused retrieval over the whole LegalQueryObject: a group per legal concept
+        # (concept label + its linked sub-query, party names removed), BM25 over
+        # title/key_principle/ingredients/full_text, coverage floor, reciprocal-rank fusion.
+        prefiltered_matches = self.prefilter.retrieve_for_legal_query(
+            query_obj,
+            statute_type=statute_type,
+            top_k=20,
+            per_concept=4,
+        )
 
         # Step 3: Detect factual triggers
         trigger_suggestions = self.prefilter.detect_factual_triggers(
@@ -482,4 +465,4 @@ Respond ONLY with this JSON (no other text):
                         target_mapping.candidate_sections.append(ts_sec)
                     all_mapped_sections.add(ts_sec)
 
-        return mapping_response
+        return mapping_response

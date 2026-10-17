@@ -63,6 +63,7 @@ class Stage1Pipeline:
 
             if verification_result.status == "VERIFIED":
                 verification_result.verified_query_object = last_query_obj
+                verification_result.candidate_query_object = None
                 return verification_result
 
             # Step 3: Prepare feedback for single reflection retry
@@ -84,13 +85,17 @@ class Stage1Pipeline:
                         last_query_obj.manual_review.append(flag_note)
 
             if verification_result:
-                verification_result.verified_query_object = last_query_obj
-                verification_result.feedback += " (Exhausted retries -> Flagged for human review)."
+                # Preserve the draft for inspection, but never expose it as verified Stage 2 input.
+                verification_result.verified_query_object = None
+                verification_result.candidate_query_object = last_query_obj
+                verification_result.status = "MANUAL_REVIEW"
+                verification_result.feedback = (verification_result.feedback or "") + " (Retries exhausted: candidate retained for human review; Stage 2 must remain blocked.)"
                 return verification_result
 
         return QueryVerificationResult(
-            status="RETRY",
+            status="MANUAL_REVIEW",
             issues=[],
-            feedback="Pipeline execution completed without verification (Flagged for human review).",
-            verified_query_object=last_query_obj,
+            feedback="Pipeline execution completed without verification. Stage 2 must remain blocked.",
+            verified_query_object=None,
+            candidate_query_object=last_query_obj,
         )

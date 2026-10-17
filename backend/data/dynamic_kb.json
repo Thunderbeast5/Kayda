@@ -1632,7 +1632,8 @@
     "factual_triggers": [
       "intention",
       "culpable",
-      "homicide"
+      "homicide",
+      "culpable homicide"
     ],
     "chapter_number": "Of Offences Affecting the Human Body",
     "chapter_title": "Culpable homicide",
@@ -3021,7 +3022,8 @@
       "abetment",
       "falsification",
       "accounts",
-      "falsification of accounts"
+      "falsification of accounts",
+      "falsification of accounts — falsification of entries in medical records"
     ],
     "chapter_number": "Of Offences Relating to Documents and to Property Marks",
     "chapter_title": "Falsification of accounts",
@@ -3363,7 +3365,9 @@
       "death",
       "homicide",
       "negligence",
-      "causing death by negligence"
+      "causing death by negligence",
+      "causing death by negligence — failure to arrange timely specialist intervention",
+      "causing death by negligence — failure to provide adequate medical care leading to patient death"
     ],
     "chapter_number": "Of Offences Affecting the Human Body",
     "chapter_title": "Causing death by negligence",
@@ -3587,6 +3591,896 @@
     "fine": true,
     "cognizable": false,
     "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "495",
+    "statute": "IPC",
+    "bns_equivalent": "495",
+    "title": "Same offence with concealment of former marriage from person with whom subsequent marriage is contracted",
+    "mandatory_ingredients": [
+      "same_offence_with_concealment_of_former_marriage_from_person_with_whom_subsequent_marriage_is_contracted"
+    ],
+    "factual_triggers": [
+      "concealment",
+      "same",
+      "offence",
+      "former",
+      "marriage",
+      "from",
+      "person",
+      "whom",
+      "subsequent",
+      "contracted"
+    ],
+    "chapter_number": "Of Offences Relating to Marriage",
+    "chapter_title": "Same offence with concealment of former marriage from person with whom subsequent marriage is contracted",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "365",
+    "statute": "IPC",
+    "bns_equivalent": "365",
+    "title": "Kidnapping or abducting with intent secretly and wrongfully to confine person",
+    "mandatory_ingredients": [
+      "kidnapping_or_abducting_with_intent_secretly_and_wrongfully_to_confine_person"
+    ],
+    "factual_triggers": [
+      "concealment",
+      "kidnapping",
+      "abducting",
+      "intent",
+      "secretly",
+      "wrongfully",
+      "confine",
+      "person"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Kidnapping or abducting with intent secretly and wrongfully to confine person",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "415",
+    "statute": "IPC",
+    "bns_equivalent": "415",
+    "title": "Cheating",
+    "mandatory_ingredients": [
+      "cheating"
+    ],
+    "factual_triggers": [
+      "concealment",
+      "cheating"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Cheating",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "422",
+    "statute": "IPC",
+    "bns_equivalent": "422",
+    "title": "Dishonestly or fraudulently preventing debt being available for creditors",
+    "mandatory_ingredients": [
+      "dishonestly_or_fraudulently_preventing_debt_being_available_for_creditors"
+    ],
+    "factual_triggers": [
+      "concealment",
+      "dishonestly",
+      "fraudulently",
+      "preventing",
+      "debt",
+      "being",
+      "available",
+      "creditors"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Dishonestly or fraudulently preventing debt being available for creditors",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "377",
+    "statute": "IPC",
+    "bns_equivalent": "377",
+    "title": "Unnatural offences",
+    "mandatory_ingredients": [
+      "unnatural_offences"
+    ],
+    "factual_triggers": [
+      "offence",
+      "unnatural",
+      "offences"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Unnatural offences",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "388",
+    "statute": "IPC",
+    "bns_equivalent": "388",
+    "title": "Extortion by threat of accusation of an offence punishable with death or imprisonment for life, etc.",
+    "mandatory_ingredients": [
+      "extortion_by_threat_of_accusation_of_an_offence_punishable_with_death_or_imprisonment_for_life_etc"
+    ],
+    "factual_triggers": [
+      "offence",
+      "extortion",
+      "threat",
+      "accusation",
+      "punishable",
+      "death",
+      "imprisonment",
+      "life"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Extortion by threat of accusation of an offence punishable with death or imprisonment for life, etc.",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "389",
+    "statute": "IPC",
+    "bns_equivalent": "389",
+    "title": "Putting person in fear or accusation of offence, in order to commit extortion",
+    "mandatory_ingredients": [
+      "putting_person_in_fear_or_accusation_of_offence_in_order_to_commit_extortion"
+    ],
+    "factual_triggers": [
+      "offence",
+      "putting",
+      "person",
+      "fear",
+      "accusation",
+      "order",
+      "commit",
+      "extortion"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Putting person in fear or accusation of offence, in order to commit extortion",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "204",
+    "statute": "IPC",
+    "bns_equivalent": "204",
+    "title": "Destruction of document to prevent its production as evidence",
+    "mandatory_ingredients": [
+      "destruction_of_document_to_prevent_its_production_as_evidence"
+    ],
+    "factual_triggers": [
+      "destruction",
+      "evidence",
+      "document",
+      "prevent",
+      "production",
+      "destruction of document to prevent its production as evidence — destruction of internal monitoring records"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "2 Years or Fine or Both",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "191",
+    "statute": "IPC",
+    "bns_equivalent": "191",
+    "title": "Giving false evidence",
+    "mandatory_ingredients": [
+      "giving_false_evidence"
+    ],
+    "factual_triggers": [
+      "evidence",
+      "giving",
+      "false"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "192",
+    "statute": "IPC",
+    "bns_equivalent": "192",
+    "title": "Fabricating false evidence",
+    "mandatory_ingredients": [
+      "fabricating_false_evidence"
+    ],
+    "factual_triggers": [
+      "evidence",
+      "fabricating",
+      "false"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "193",
+    "statute": "IPC",
+    "bns_equivalent": "193",
+    "title": "Punishment for false evidence",
+    "mandatory_ingredients": [
+      "punishment_for_false_evidence"
+    ],
+    "factual_triggers": [
+      "evidence",
+      "punishment",
+      "false"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "7 Years + Fine",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "194",
+    "statute": "IPC",
+    "bns_equivalent": "194",
+    "title": "Giving or fabricating false evidence with intent to procure conviction of capital offence",
+    "mandatory_ingredients": [
+      "giving_or_fabricating_false_evidence_with_intent_to_procure_conviction_of_capital_offence"
+    ],
+    "factual_triggers": [
+      "evidence",
+      "giving",
+      "fabricating",
+      "false",
+      "intent",
+      "procure",
+      "conviction",
+      "capital",
+      "offence"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "Imprisonment for Life or Rigorous Imprisonment for 10 Years + Fine",
+    "fine": true,
+    "cognizable": false,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "195",
+    "statute": "IPC",
+    "bns_equivalent": "195",
+    "title": "Giving or fabricating false evidence with intent to procure conviction of offence punishable with imprisonment for life or imprisonment",
+    "mandatory_ingredients": [
+      "giving_or_fabricating_false_evidence_with_intent_to_procure_conviction_of_offence_punishable_with_imprisonment_for_life_or_imprisonment"
+    ],
+    "factual_triggers": [
+      "evidence",
+      "giving",
+      "fabricating",
+      "false",
+      "intent",
+      "procure",
+      "conviction",
+      "offence",
+      "punishable",
+      "imprisonment",
+      "life"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "Same As Offence",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "34",
+    "statute": "IPC",
+    "bns_equivalent": "34",
+    "title": "Acts done by several persons in furtherance of common intention",
+    "mandatory_ingredients": [
+      "acts_done_by_several_persons_in_furtherance_of_common_intention"
+    ],
+    "factual_triggers": [
+      "common",
+      "intention",
+      "acts",
+      "done",
+      "several",
+      "persons",
+      "furtherance"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "-",
+    "fine": true,
+    "cognizable": false,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "149",
+    "statute": "IPC",
+    "bns_equivalent": "149",
+    "title": "Every member of unlawful assembly guilty of offence committed in prosecution of common object",
+    "mandatory_ingredients": [
+      "every_member_of_unlawful_assembly_guilty_of_offence_committed_in_prosecution_of_common_object"
+    ],
+    "factual_triggers": [
+      "common",
+      "intention",
+      "every",
+      "member",
+      "unlawful",
+      "assembly",
+      "guilty",
+      "offence",
+      "committed",
+      "prosecution",
+      "object"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "Same As Offence",
+    "fine": true,
+    "cognizable": false,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "88",
+    "statute": "IPC",
+    "bns_equivalent": "88",
+    "title": "Act not intended to cause death, done by consent in good faith for person's benefit",
+    "mandatory_ingredients": [
+      "act_not_intended_to_cause_death_done_by_consent_in_good_faith_for_person_s_benefit"
+    ],
+    "factual_triggers": [
+      "death",
+      "medical",
+      "patient",
+      "intended",
+      "cause",
+      "done",
+      "consent",
+      "good",
+      "faith",
+      "person",
+      "benefit"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "-",
+    "fine": true,
+    "cognizable": false,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "92",
+    "statute": "IPC",
+    "bns_equivalent": "92",
+    "title": "Act done in good faith for benefit of a person without consent",
+    "mandatory_ingredients": [
+      "act_done_in_good_faith_for_benefit_of_a_person_without_consent"
+    ],
+    "factual_triggers": [
+      "death",
+      "medical",
+      "patient",
+      "done",
+      "good",
+      "faith",
+      "benefit",
+      "person",
+      "without",
+      "consent"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "-",
+    "fine": true,
+    "cognizable": false,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "118",
+    "statute": "IPC",
+    "bns_equivalent": "118",
+    "title": "Concealing design to commit offence punishable with death or imprisonment for life",
+    "mandatory_ingredients": [
+      "concealing_design_to_commit_offence_punishable_with_death_or_imprisonment_for_life"
+    ],
+    "factual_triggers": [
+      "death",
+      "leading",
+      "concealing",
+      "design",
+      "commit",
+      "offence",
+      "punishable",
+      "imprisonment",
+      "life"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "7 Years + Fine",
+    "fine": true,
+    "cognizable": false,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "137",
+    "statute": "IPC",
+    "bns_equivalent": "137",
+    "title": "Deserter concealed on board merchant vessel through negligence of master",
+    "mandatory_ingredients": [
+      "deserter_concealed_on_board_merchant_vessel_through_negligence_of_master"
+    ],
+    "factual_triggers": [
+      "conceal",
+      "negligence",
+      "deserter",
+      "concealed",
+      "board",
+      "merchant",
+      "vessel",
+      "through",
+      "master"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "Fine",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "153",
+    "statute": "IPC",
+    "bns_equivalent": "153",
+    "title": "Wantonly giving provocation with intent to cause riot — if rioting be committed; if not committed",
+    "mandatory_ingredients": [
+      "wantonly_giving_provocation_with_intent_to_cause_riot_if_rioting_be_committed_if_not_committed"
+    ],
+    "factual_triggers": [
+      "actual",
+      "sequence",
+      "wantonly",
+      "giving",
+      "provocation",
+      "intent",
+      "cause",
+      "riot",
+      "rioting",
+      "committed"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "1 Year or Fine or Both",
+    "fine": true,
+    "cognizable": true,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "21",
+    "statute": "IPC",
+    "bns_equivalent": "21",
+    "title": "\"Public servant\"",
+    "mandatory_ingredients": [
+      "public_servant"
+    ],
+    "factual_triggers": [
+      "actual",
+      "members",
+      "public",
+      "servant"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "-",
+    "fine": true,
+    "cognizable": false,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "83",
+    "statute": "IPC",
+    "bns_equivalent": "83",
+    "title": "Act of a child above seven and under twelve of immature understanding",
+    "mandatory_ingredients": [
+      "act_of_a_child_above_seven_and_under_twelve_of_immature_understanding"
+    ],
+    "factual_triggers": [
+      "actual",
+      "sequence",
+      "child",
+      "above",
+      "seven",
+      "under",
+      "twelve",
+      "immature",
+      "understanding"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "-",
+    "fine": true,
+    "cognizable": false,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "107",
+    "statute": "IPC",
+    "bns_equivalent": "107",
+    "title": "Abetment of a thing",
+    "mandatory_ingredients": [
+      "abetment_of_a_thing"
+    ],
+    "factual_triggers": [
+      "actual",
+      "disclose",
+      "abetment",
+      "thing",
+      "abetment of a thing — instruction to junior staff not to disclose sequence of events",
+      "abetment of a thing"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "-",
+    "fine": true,
+    "cognizable": false,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "111",
+    "statute": "IPC",
+    "bns_equivalent": "111",
+    "title": "Liability of abettor when one act abetted and different act done",
+    "mandatory_ingredients": [
+      "liability_of_abettor_when_one_act_abetted_and_different_act_done"
+    ],
+    "factual_triggers": [
+      "actual",
+      "sequence",
+      "liability",
+      "abettor",
+      "when",
+      "abetted",
+      "different",
+      "done"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "Same as for the offence committed.",
+    "fine": true,
+    "cognizable": false,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "174",
+    "statute": "IPC",
+    "bns_equivalent": "174",
+    "title": "Non-attendance in obedience to an order from public servant",
+    "mandatory_ingredients": [
+      "non_attendance_in_obedience_to_an_order_from_public_servant"
+    ],
+    "factual_triggers": [
+      "witness",
+      "attendance",
+      "obedience",
+      "order",
+      "from",
+      "public",
+      "servant"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "Simple Imprisonment for 1 Month or Fine or Both",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "195A",
+    "statute": "IPC",
+    "bns_equivalent": "195A",
+    "title": "Threatening any person to give false evidence",
+    "mandatory_ingredients": [
+      "threatening_any_person_to_give_false_evidence"
+    ],
+    "factual_triggers": [
+      "witness",
+      "threatening",
+      "person",
+      "give",
+      "false",
+      "evidence"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "7 Years or Fine or Both",
+    "fine": true,
+    "cognizable": true,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "32",
+    "statute": "IPC",
+    "bns_equivalent": "32",
+    "title": "Words referring to acts include illegal omissions",
+    "mandatory_ingredients": [
+      "words_referring_to_acts_include_illegal_omissions"
+    ],
+    "factual_triggers": [
+      "legal",
+      "what",
+      "words",
+      "referring",
+      "acts",
+      "include",
+      "illegal",
+      "omissions"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "-",
+    "fine": true,
+    "cognizable": false,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "171H",
+    "statute": "IPC",
+    "bns_equivalent": "171H",
+    "title": "Illegal payments in connection with an election",
+    "mandatory_ingredients": [
+      "illegal_payments_in_connection_with_an_election"
+    ],
+    "factual_triggers": [
+      "legal",
+      "what",
+      "illegal",
+      "payments",
+      "connection",
+      "election"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "Fine",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "43",
+    "statute": "IPC",
+    "bns_equivalent": "43",
+    "title": "\"Illegal\". \"Legally bound to do\".",
+    "mandatory_ingredients": [
+      "illegal_legally_bound_to_do"
+    ],
+    "factual_triggers": [
+      "legal",
+      "what",
+      "illegal",
+      "legally",
+      "bound"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "-",
+    "fine": true,
+    "cognizable": false,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "84",
+    "statute": "IPC",
+    "bns_equivalent": "84",
+    "title": "Act of a person of unsound mind",
+    "mandatory_ingredients": [
+      "act_of_a_person_of_unsound_mind"
+    ],
+    "factual_triggers": [
+      "legal",
+      "medical",
+      "what",
+      "person",
+      "unsound",
+      "mind"
+    ],
+    "chapter_number": "",
+    "chapter_title": "",
+    "punishment_minimum": null,
+    "punishment_maximum": "-",
+    "fine": true,
+    "cognizable": false,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "269",
+    "statute": "IPC",
+    "bns_equivalent": "269",
+    "title": "Negligent act likely to spread infection of disease dangerous to life",
+    "mandatory_ingredients": [
+      "unlawfully_or_negligently_does_an_act",
+      "likely_to_spread_infection_of_a_disease_dangerous_to_life",
+      "knows_or_has_reason_to_believe_so"
+    ],
+    "factual_triggers": [
+      "arrange",
+      "believe",
+      "condition",
+      "dangerous",
+      "death",
+      "disease",
+      "does",
+      "failure",
+      "infection",
+      "intervention",
+      "knows",
+      "leading",
+      "life",
+      "likely",
+      "monitor",
+      "negligent",
+      "negligent act likely to spread infection of disease dangerous to life — failure to monitor patient's condition and arrange timely intervention leading to death",
+      "negligently",
+      "patient",
+      "reason",
+      "spread",
+      "timely",
+      "unlawfully"
+    ],
+    "chapter_number": "Of Offences Affecting the Public Health, Safety, Convenience, Decency and Morals",
+    "chapter_title": "Of Offences Affecting the Public Health, Safety, Convenience, Decency and Morals",
+    "punishment_minimum": null,
+    "punishment_maximum": "Whoever unlawfully or negligently does any act which is, and which he knows or has reason to believe to be, likely to spread the infection of any disease dangerous to life, shall be punished with impr",
+    "fine": true,
+    "cognizable": true,
+    "bailable": false,
     "subject_matter_scope": null,
     "disqualifying_subject_matters": [],
     "requires_trigger_gate": false

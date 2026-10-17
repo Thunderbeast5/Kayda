@@ -67,6 +67,10 @@ class VerifiedOffenceItemStage4(BaseModel):
         default=None,
         description="Explicit numerical confidence score (0.0 to 1.0) if provided"
     )
+    classification: str = Field(
+        default="PRIMARY",
+        description="Candidate tier preserved from Stage 2/3: 'PRIMARY', 'SECONDARY' or 'CONDITIONAL'"
+    )
 
     @property
     def section_title(self) -> str:
@@ -148,6 +152,10 @@ class StatutoryVerificationObject(ManualReviewMixin):
     verified_offences: List[VerifiedOffenceItemStage4] = Field(
         default_factory=list,
         description="List of verified offences with ingredient evaluation and prima facie strength"
+    )
+    conditional_offences: List[VerifiedOffenceItemStage4] = Field(
+        default_factory=list,
+        description="CONDITIONAL sections (statutory gap or unproven predicate); not treated as established offences"
     )
     verified_sections: List[VerifiedSectionItem] = Field(
         default_factory=list,

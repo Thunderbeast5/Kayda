@@ -25,10 +25,9 @@ from lexigraphbe.runner import (
     run_stage2,
     run_stage3,
     run_stage4,
-    run_stage5,
-    run_stage6,
     run_full_pipeline,
 )
+from precedent_retrieval.runner import run_precedent_pipeline
 from lexigraphbe.statute_repository import StatuteRepository
 
 router = APIRouter(prefix="/api/lexigraph", tags=["LexiGraph"])
@@ -218,15 +217,11 @@ async def stream_pipeline_endpoint(
             stage4_out = await asyncio.to_thread(run_stage4, stage1_out, stage3_out)
             yield f"data: {json.dumps({'stage': 4, 'status': 'complete', 'title': 'Stage 4 Complete', 'data': stage4_out})}\n\n"
 
-            # Stage 5: Anticipatory Bail Reasoning
-            yield f"data: {json.dumps({'stage': 5, 'status': 'running', 'title': 'Stage 5: Anticipatory Bail Reasoning & Risk Assessment'})}\n\n"
-            stage5_out = await asyncio.to_thread(run_stage5, stage0_out, stage1_out, stage4_out)
-            yield f"data: {json.dumps({'stage': 5, 'status': 'complete', 'title': 'Stage 5 Complete', 'data': stage5_out})}\n\n"
-
-            # Stage 6: Precedent Retrieval
-            yield f"data: {json.dumps({'stage': 6, 'status': 'running', 'title': 'Stage 6: Supreme Court Precedent Grounding'})}\n\n"
-            stage6_out = await asyncio.to_thread(run_stage6, stage0_out, stage1_out, stage4_out, stage5_out)
-            yield f"data: {json.dumps({'stage': 6, 'status': 'complete', 'title': 'Stage 6 Complete', 'data': stage6_out})}\n\n"
+            # Precedent Retrieval (Role-Specific Grounding)
+            yield f"data: {json.dumps({'stage': 5, 'status': 'running', 'title': 'Precedent Retrieval: Case Law Grounding'})}\n\n"
+            stage5_res = await asyncio.to_thread(run_precedent_pipeline, stage0_out, stage4_out, stage1_out)
+            stage5_out = stage5_res if isinstance(stage5_res, dict) else (stage5_res.model_dump() if hasattr(stage5_res, "model_dump") else {})
+            yield f"data: {json.dumps({'stage': 5, 'status': 'complete', 'title': 'Precedent Retrieval Complete', 'data': stage5_out})}\n\n"
 
             # Final combined payload
             full_out = {
@@ -235,8 +230,7 @@ async def stream_pipeline_endpoint(
                 "stage2_subquery_mapping": stage2_out,
                 "stage3_chapter_identification": stage3_out,
                 "stage4_statutory_verification": stage4_out,
-                "stage5_bail_reasoning": stage5_out,
-                "stage6_precedent_retrieval": stage6_out,
+                "stage5_precedent_retrieval": stage5_out,
             }
             summary = _extract_summary(full_out)
 

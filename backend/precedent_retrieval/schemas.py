@@ -1,15 +1,11 @@
 """
-Stage 5 Precedent Retrieval Pydantic Schemas: Role-Specific Precedent Analysis
-
-This replaces the old Stage 5 (Bail Reasoning) and Stage 6 (Precedent Retrieval)
-with a unified precedent retrieval system that produces separate prosecution and
-defense precedent lists based on role-specific relevance evaluation.
+Precedent Retrieval Pydantic Schemas: Role-Specific and General Precedent Analysis.
 """
 
 from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
 
-from .common import ManualReviewMixin
+from lexigraphbe.schemas.common import ManualReviewMixin
 
 
 class MatchedStatuteItem(BaseModel):
@@ -132,20 +128,17 @@ class RoleSpecificPrecedentItem(BaseModel):
     A precedent case with role-specific relevance evaluation.
     Contains full case details plus prosecution or defense specific analysis.
     """
-    # Case identification
     case_id: str = Field(description="Unique case identifier")
     case_name: str = Field(description="Full case name")
     court: str = Field(description="Court name (e.g., 'Supreme Court of India')")
     decided_on: str = Field(description="Decision date (ISO format)")
     citation: Optional[str] = Field(default=None, description="Case citation if available")
     
-    # Case metadata
     procedural_stage: str = Field(
         description="Procedural stage: 'pre_arrest', 'post_arrest_bail', 'quashing', 'appeal', etc."
     )
     disposition: str = Field(description="Final disposition/outcome of the case")
     
-    # Statutory matching (from deterministic retrieval)
     matched_statutes: List[MatchedStatuteItem] = Field(
         description="Statutes that matched between input case and this precedent"
     )
@@ -153,7 +146,6 @@ class RoleSpecificPrecedentItem(BaseModel):
         description="Statutory match score from deterministic retrieval"
     )
     
-    # Case content
     abstract_facts: str = Field(description="Abstract summary of case facts")
     all_statutes: List[Dict[str, Any]] = Field(
         default_factory=list,
@@ -164,19 +156,16 @@ class RoleSpecificPrecedentItem(BaseModel):
         description="Legal propositions extracted from the judgment"
     )
     
-    # Role-specific evaluation (from LLM)
     relevance_evaluation: RoleSpecificRelevanceEvaluation = Field(
         description="Role-specific relevance evaluation by LLM"
     )
     
-    # Ranking (calibrated to 0.0 - 10.0 scale)
     final_relevance_score: float = Field(
         ge=0.0,
         le=10.0,
         description="Final relevance score combining stage, facts, statutory match, principle, and LLM evaluation (0.0 to 10.0)"
     )
 
-    # Compact "why this case matters" summary
     compact_summary: Optional[CompactPrecedentSummary] = Field(
         default=None,
         description="Compact summary for quick role-agent consumption"
@@ -185,20 +174,13 @@ class RoleSpecificPrecedentItem(BaseModel):
 
 class RoleSpecificPrecedentRetrievalObject(ManualReviewMixin):
     """
-    Complete Stage 5 output with separate prosecution and defense precedent lists.
-    
-    Each role gets its own ranked list of precedents based on:
-    1. Case Retrieval Profile construction
-    2. Deterministic statutory + fact + procedural stage matching
-    3. LLM-based role-relative relevance evaluation
-    4. Compact summaries and shared conflict-preserving precedents
+    Complete Precedent Retrieval output with separate prosecution and defense precedent lists.
     """
     schema_version: str = Field(
         default="5.0-precedent",
         description="Schema version for precedent retrieval object"
     )
     
-    # Input context
     input_case_summary: str = Field(
         description="Brief summary of input case for audit trail"
     )
@@ -210,7 +192,6 @@ class RoleSpecificPrecedentRetrievalObject(ManualReviewMixin):
         description="Structured profile used to drive retrieval"
     )
     
-    # Retrieval statistics
     total_judgments_scanned: int = Field(
         description="Total number of judgments scanned"
     )
@@ -218,7 +199,6 @@ class RoleSpecificPrecedentRetrievalObject(ManualReviewMixin):
         description="Number of candidates after deterministic statutory matching"
     )
     
-    # Role-specific precedent lists (Top 5 each)
     prosecution_precedents: List[RoleSpecificPrecedentItem] = Field(
         default_factory=list,
         description="Top precedents relevant to prosecution's position, ranked by relevance"
@@ -228,7 +208,6 @@ class RoleSpecificPrecedentRetrievalObject(ManualReviewMixin):
         description="Top precedents relevant to defense's position, ranked by relevance"
     )
     
-    # Compact summaries for fast agent access
     compact_prosecution_summaries: List[CompactPrecedentSummary] = Field(
         default_factory=list,
         description="Compact summaries for prosecution precedents"
@@ -238,19 +217,16 @@ class RoleSpecificPrecedentRetrievalObject(ManualReviewMixin):
         description="Compact summaries for defense precedents"
     )
     
-    # Shared precedents (relevant to both sides with preserved conflicting propositions)
     shared_precedents: List[str] = Field(
         default_factory=list,
         description="Case IDs of precedents that appear in both prosecution and defense lists"
     )
     
-    # Verification status
     verification_status: str = Field(
         default="VERIFIED",
         description="Verification status: PENDING, VERIFIED, or RETRY"
     )
     
-    # Audit trail
     retrieval_metadata: Optional[Dict[str, Any]] = Field(
         default=None,
         description="Metadata about retrieval process (timing, model used, etc.)"
@@ -283,15 +259,35 @@ class PrecedentRetrievalResult(BaseModel):
     )
 
 
-# Export schemas
-__all__ = [
-    "MatchedStatuteItem",
-    "PropositionItem",
-    "CaseRetrievalProfile",
-    "CompactPrecedentSummary",
-    "RoleSpecificRelevanceEvaluation",
-    "RoleSpecificPrecedentItem",
-    "RoleSpecificPrecedentRetrievalObject",
-    "PrecedentRetrievalIssue",
-    "PrecedentRetrievalResult",
-]
+# Legacy schemas for backward compatibility
+class PrecedentItem(BaseModel):
+    case_name: str = Field(description="Name of precedent case")
+    court: str = Field(description="Court issuing judgment")
+    citation: str = Field(description="Official legal citation")
+    facts: str = Field(description="Factual summary of precedent case")
+    verified_offences: List[str] = Field(default_factory=list, description="Offences cited or evaluated")
+    bail_outcome: str = Field(description="Bail outcome granted in precedent")
+    ratio_decidendi: str = Field(description="Binding ratio decidendi / legal principle established by court")
+    similarity_score: float = Field(description="Relevance similarity score (0.0 to 1.0)")
+
+
+class PrecedentRetrievalObject(ManualReviewMixin):
+    schema_version: str = Field(default="1.0", description="Schema version of PrecedentRetrievalObject contract")
+    precedents: List[PrecedentItem] = Field(default_factory=list, description="List of retrieved judicial precedents")
+    verification_status: str = Field(default="PENDING", description="Verification status: PENDING, VERIFIED, or RETRY")
+
+    def to_downstream_json(self) -> str:
+        return self.model_dump_json(indent=2)
+
+
+class PrecedentVerificationIssue(BaseModel):
+    target: str = Field(description="Target precedent case name or property with audit issue")
+    issue: str = Field(description="Detailed description of precedent retrieval verification issue")
+    feedback: str = Field(description="Actionable instructions for Precedent Retrieval Agent correction")
+
+
+class PrecedentVerificationResult(BaseModel):
+    status: str = Field(description="Status: 'VERIFIED' or 'RETRY'")
+    issues: List[PrecedentVerificationIssue] = Field(default_factory=list, description="List of audit issues identified")
+    feedback: str = Field(default="Precedent verification audit complete.", description="Overall summary feedback")
+    verified_precedent_object: Optional[PrecedentRetrievalObject] = Field(default=None, description="Verified PrecedentRetrievalObject")

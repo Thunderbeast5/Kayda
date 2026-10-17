@@ -124,23 +124,11 @@ def main():
         for act in special_acts:
             if act.get('decision') == 'PROCESS':
                 print(f"    • {act.get('act_title', 'N/A')}: {act.get('decision')}")
-        
-        # Stage 5 Summary (Precedent Retrieval)
-        stage5 = result.get("stage5_precedent_retrieval", {})
-        prosecution_precedents = stage5.get("prosecution_precedents", [])
-        defense_precedents = stage5.get("defense_precedents", [])
-        print(f"\n[Stage 5] Precedent Retrieval:")
-        print(f"  - Prosecution Precedents: {len(prosecution_precedents)}")
-        for prec in prosecution_precedents[:3]:
-            print(f"    • {prec.get('case_name', 'N/A')[:60]}")
-        print(f"  - Defense Precedents: {len(defense_precedents)}")
-        for prec in defense_precedents[:3]:
-            print(f"    • {prec.get('case_name', 'N/A')[:60]}")
-        
+
         print("\n" + "=" * 80)
-        print("TEST COMPLETED SUCCESSFULLY!")
+        print("LEXIGRAPHBE STAGES 0-4 TEST COMPLETED SUCCESSFULLY!")
         print("=" * 80)
-        
+
         return 0
         
     except Exception as e:

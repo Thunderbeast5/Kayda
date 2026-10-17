@@ -71,20 +71,66 @@ class QueryVerificationAgent:
 
         query_json_str = json.dumps(query_dict, indent=2)
 
+        # PROGRAMMATIC CHECK 0: schema relationships and traceability.
+        structural_issues = []
+        fact_ids = {fact.fact_id for fact in query_obj.factual_allegations}
+        concept_ids = {concept.concept_id for concept in query_obj.legal_concepts}
+        if query_obj.sub_queries and not query_obj.factual_allegations:
+            structural_issues.append(QueryVerificationIssue(
+                target="factual_allegations", issue="Sub-queries exist but no factual allegation inventory was produced.",
+                feedback="Extract source-grounded factual allegations first, assign F IDs, and link each retrieval query to supporting facts."
+            ))
+        if len(fact_ids) != len(query_obj.factual_allegations):
+            structural_issues.append(QueryVerificationIssue(
+                target="factual_allegations", issue="Duplicate factual allegation IDs were found.",
+                feedback="Assign a unique stable fact_id to every factual allegation."
+            ))
+        for concept in query_obj.legal_concepts:
+            if not concept.supporting_fact_ids:
+                structural_issues.append(QueryVerificationIssue(
+                    target=concept.concept_id or concept.concept,
+                    issue="Legal concept has no supporting fact IDs.",
+                    feedback="Link the concept to one or more source-grounded factual allegation IDs, or remove it if unsupported."
+                ))
+            elif fact_ids and not set(concept.supporting_fact_ids).issubset(fact_ids):
+                structural_issues.append(QueryVerificationIssue(
+                    target=concept.concept_id or concept.concept,
+                    issue="Legal concept references unknown fact IDs.",
+                    feedback="Correct the fact_ids to reference factual_allegations actually present in this object."
+                ))
+        for sq in query_obj.sub_queries:
+            if not sq.concept_id or sq.concept_id not in concept_ids:
+                structural_issues.append(QueryVerificationIssue(
+                    target=sq.id, issue="Sub-query does not reference a valid legal concept.",
+                    feedback="Set concept_id to an existing legal_concepts entry and ensure concept text matches it exactly."
+                ))
+            if not sq.fact_ids or (fact_ids and not set(sq.fact_ids).issubset(fact_ids)):
+                structural_issues.append(QueryVerificationIssue(
+                    target=sq.id, issue="Sub-query has missing or invalid supporting fact IDs.",
+                    feedback="Link the sub-query to valid factual_allegations IDs; do not invent IDs."
+                ))
+        if structural_issues:
+            return QueryVerificationResult(
+                status="RETRY", issues=structural_issues,
+                feedback="Programmatic traceability audit failed before LLM review.",
+                verified_query_object=None, candidate_query_object=query_obj
+            )
+
         # ----------------------------------------------------------------------
         # PROGRAMMATIC CHECK 1: Closed-set statutory section leak audit
         # ----------------------------------------------------------------------
         section_leak_issues = []
         for sq in query_obj.sub_queries:
-            leaks = self.section_auditor.audit_text_for_leaks(sq.query)
-            for leak in leaks:
-                section_leak_issues.append(
-                    QueryVerificationIssue(
-                        target=sq.id,
-                        issue=f"Statutory section leak detected in sub-query '{sq.id}': '{leak['matched_text']}' (section {leak['section']})",
-                        feedback=f"Remove all statutory section numbers from sub-query '{sq.id}'. Express purely as factual legal concept.",
+            for field_name, text_value in (("query", sq.query), ("concept", sq.concept)):
+                leaks = self.section_auditor.audit_text_for_leaks(text_value)
+                for leak in leaks:
+                    section_leak_issues.append(
+                        QueryVerificationIssue(
+                            target=sq.id,
+                            issue=f"Statutory section leak detected in sub-query {sq.id} {field_name}: '{leak['matched_text']}' (section {leak['section']})",
+                            feedback=f"Remove statutory section numbers from sub-query {sq.id} {field_name}; retain a factual legal-issue description.",
+                        )
                     )
-                )
 
         # SHORT-CIRCUIT: If programmatic section leak detected, return RETRY immediately with 0 LLM API calls
         if section_leak_issues:
@@ -93,6 +139,7 @@ class QueryVerificationAgent:
                 issues=section_leak_issues,
                 feedback=f"Programmatic audit blocked statutory section leak: {len(section_leak_issues)} section leaks detected.",
                 verified_query_object=None,
+                candidate_query_object=query_obj,
             )
 
         # Step 2: Fall back to LLM Verifier only when programmatic checks pass clean
@@ -111,8 +158,18 @@ class QueryVerificationAgent:
 
         parsed_dict = extract_json_from_text(response_text)
 
-        raw_status = str(parsed_dict.get("status", "")).upper()
-        status = "VERIFIED" if "VERIFIED" in raw_status else "RETRY"
+        raw_status = str(parsed_dict.get("status", "")).strip().upper()
+        if raw_status == "VERIFIED":
+            status = "VERIFIED"
+        elif raw_status == "RETRY":
+            status = "RETRY"
+        else:
+            status = "RETRY"
+            parsed_dict.setdefault("issues", []).append({
+                "target": "verification_status",
+                "issue": f"Verifier returned invalid status: {raw_status!r}",
+                "feedback": "Return exactly VERIFIED or RETRY."
+            })
 
         raw_issues = parsed_dict.get("issues", [])
         issues = []
@@ -123,6 +180,9 @@ class QueryVerificationAgent:
                 issues.append(QueryVerificationIssue(target="general", issue=issue_item, feedback=issue_item))
 
         feedback_summary = parsed_dict.get("feedback", "Query verification complete.")
+        if status == "VERIFIED" and issues:
+            status = "RETRY"
+            feedback_summary = str(feedback_summary) + " Verifier returned issues; verification cannot pass with unresolved issues."
 
         if status == "VERIFIED":
             query_obj.verification_status = "VERIFIED"
@@ -131,5 +191,6 @@ class QueryVerificationAgent:
             status=status,
             issues=issues,
             feedback=feedback_summary,
-            verified_query_object=query_obj if status == "VERIFIED" else None,
+            verified_query_object=query_obj if status == "VERIFIED" and not issues else None,
+            candidate_query_object=query_obj if status != "VERIFIED" or issues else None,
         )

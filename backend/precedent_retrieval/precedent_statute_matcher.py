@@ -1,5 +1,5 @@
 """
-Precedent Statute Matcher for LexiGraphBE Precedent Retrieval Pipeline.
+Precedent Statute Matcher for Precedent Retrieval Pipeline.
 
 Provides robust statute matching with support for:
 - IPC <-> BNS bidirectional equivalents      (StatuteRepository / Neo4j REPLACED_BY)
@@ -9,26 +9,13 @@ Provides robust statute matching with support for:
 - Formatting normalization (406-B, 406B, 406 B -> 406B)
 - Parenthetical subsection handling (439(2) -> 439)
 - Act name normalization (IPC 1860, Indian Penal Code -> IPC; "Dowry Prohibition Act, 1961" -> DPA)
-
-CHANGES vs. previous version
-- No hand-written equivalence dicts. The old CRPC_TO_BNSS / IEA_TO_BSA dicts disagreed with the
-  Neo4j-backed maps used by Stage 3b/3c/4 (e.g. IEA 45 -> BSA 43 vs. the real BSA 39; CrPC 437 -> BNSS 479
-  vs. the real BNSS 480). Everything is now derived from StatuteRepository.
-- extract_statutes_from_stage4() reads the keys Stage 4 ACTUALLY emits
-  (bnss_to_crpc_equivalents, bsa_to_iea_equivalents, act_router_output.act_routing/relevant_sections)
-  and adds the bail provision implied by the requested relief (anticipatory bail -> CrPC 438 / BNSS 482)
-  even when Stage 3c fails to return it.
-- Every extracted statute carries `kind` (offence / procedure / evidence / special) and `weight`.
-- match_statutes() records which INPUT statute each judgment statute satisfied (matched_via_*),
-  so the retriever can weight matches instead of counting them.
-- normalize_act_name() no longer leaves a trailing comma ("... ACT, 1961").
 """
 
 import re
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-from .statute_repository import StatuteRepository
-from .offence_taxonomy import gravity_factor, max_years_from_text
+from lexigraphbe.statute_repository import StatuteRepository
+from lexigraphbe.offence_taxonomy import gravity_factor, max_years_from_text
 
 
 # Stage-4 prima facie strength -> weight of that offence in retrieval.
@@ -248,7 +235,6 @@ class PrecedentStatuteMatcher:
             add("BSA", self._lookup(self.iea_to_bsa, sec) or [])
         elif act_norm == "BSA":
             add("IEA", self._lookup(self.bsa_to_iea, sec) or [])
-        # Special acts have no equivalents.
         return eq
 
     def gravity(self, act: str, section: str) -> float:
@@ -426,15 +412,3 @@ class PrecedentStatuteMatcher:
                 add(s.get("statute") or s.get("act") or "IPC", s.get("section_number"), "offence", 0.7, source="legacy")
 
         return out
-
-
-def test_statute_matcher():
-    """Smoke test (needs a loaded StatuteRepository)."""
-    m = PrecedentStatuteMatcher()
-    for a, s in [("IPC", "420"), ("BNS", "318"), ("CrPC", "438"), ("BNSS", "482"), ("BSA", "39"), ("IEA", "45A"), ("POCSO", "3")]:
-        print(f"{a} {s:6} -> {m.get_equivalent_sections(a, s)}")
-    print(m.normalize_act_name("The Dowry Prohibition Act, 1961"), m.normalize_act_name("CrPC 1973"))
-
-
-if __name__ == "__main__":
-    test_statute_matcher()

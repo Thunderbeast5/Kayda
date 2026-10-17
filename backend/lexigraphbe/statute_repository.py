@@ -931,10 +931,98 @@ class StatuteRepository:
                 return record
         return None
 
+    def _get_section_metadata_from_neo4j(self, section_number: str, statute: str = "IPC") -> Optional[Dict[str, Any]]:
+        """
+        Retrieves section metadata directly from Neo4j LawSection node.
+        Returns None if Neo4j is unavailable or section not found.
+        """
+        import os
+        from dotenv import load_dotenv
+        
+        env_candidates = [
+            Path(__file__).parent.parent / ".env",
+            Path("backend/.env"),
+            Path(".env"),
+        ]
+        for ep in env_candidates:
+            if ep.exists():
+                load_dotenv(ep)
+                break
+
+        uri = os.getenv("NEO4J_URI")
+        user = os.getenv("NEO4J_USER") or os.getenv("NEO4J_USERNAME")
+        pwd = os.getenv("NEO4J_PASSWORD")
+        db = os.getenv("NEO4J_DATABASE", "neo4j")
+
+        if not (uri and user and pwd):
+            return None
+
+        try:
+            from neo4j import GraphDatabase
+            driver = GraphDatabase.driver(uri, auth=(user, pwd))
+            
+            # Normalize section number
+            clean_sec = str(section_number).upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "").strip()
+            statute_upper = statute.upper()
+            
+            query = """
+                MATCH (n:LawSection {act: $statute, section: $section_number})
+                RETURN n.section AS section,
+                       n.title AS title,
+                       n.chapter AS chapter_title,
+                       n.punishment AS punishment,
+                       n.cognizable AS cognizable,
+                       n.bailable AS bailable
+            """
+            
+            with driver.session(database=db) as session:
+                result = session.run(query, statute=statute_upper, section_number=clean_sec).single()
+            
+            driver.close()
+            
+            if not result:
+                return None
+            
+            # Convert Neo4j string values to Python booleans
+            cognizable_val = result.get("cognizable")
+            bailable_val = result.get("bailable")
+            
+            # Handle string representations from Neo4j
+            if isinstance(cognizable_val, str):
+                cognizable = cognizable_val.strip().lower() in ["cognizable", "true", "yes", "1"]
+            elif isinstance(cognizable_val, bool):
+                cognizable = cognizable_val
+            else:
+                cognizable = False
+            
+            if isinstance(bailable_val, str):
+                bailable = bailable_val.strip().lower() in ["bailable", "true", "yes", "1"]
+            elif isinstance(bailable_val, bool):
+                bailable = bailable_val
+            else:
+                bailable = True
+            
+            punishment_str = result.get("punishment") or "As specified under statute"
+            
+            return {
+                "chapter_number": "",  # Neo4j doesn't have chapter_number
+                "chapter_title": result.get("chapter_title") or "",
+                "punishment_minimum": None,
+                "punishment_maximum": punishment_str,
+                "fine": True,  # Default assumption
+                "cognizable": cognizable,
+                "bailable": bailable,
+                "source": "neo4j"
+            }
+            
+        except Exception as e:
+            # Silently fail and fall back to other methods
+            return None
+
     def get_first_schedule_metadata(self, section_number: str, statute: str = "IPC") -> Optional[Dict[str, Any]]:
         """
         Retrieves ground-truth statutory metadata validated against the First Schedule of CrPC / BNSS
-        and Special Acts. Avoids hardcoded fallback constants by falling back to CSV text parsing.
+        and Special Acts. Checks in order: hardcoded registry, Neo4j, CSV text parsing fallback.
         """
         clean_sec = section_number.upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "").strip()
 
@@ -1213,6 +1301,15 @@ class StatuteRepository:
                 "cognizable": False,
                 "bailable": True,
             },
+            "304A": {  # IPC 304A: Causing death by negligence
+                "chapter_number": "XVI",
+                "chapter_title": "Of Offences Affecting the Human Body",
+                "punishment_minimum": None,
+                "punishment_maximum": "2 Years or Fine or Both",
+                "fine": True,
+                "cognizable": True,
+                "bailable": True,
+            },
         }
 
         stat_key = (statute or "IPC").upper().replace(".", "").strip()
@@ -1229,7 +1326,12 @@ class StatuteRepository:
             if k in registry:
                 return registry[k]
 
-        # 2. Dynamic CSV Row Text Fallback Parsing
+        # 2. Query Neo4j for section metadata
+        neo4j_metadata = self._get_section_metadata_from_neo4j(clean_sec, statute)
+        if neo4j_metadata:
+            return neo4j_metadata
+
+        # 3. Dynamic CSV Row Text Fallback Parsing
         for rec in self.sections_db:
             rec_sec = rec["section_number"].upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "").strip()
             if rec_sec == clean_sec:

@@ -1,5 +1,5 @@
 """
-LexiGraph Backend - Stage 0 (Intake), Stage 1 (Query Understanding), Stage 2 (Sub-Query Mapping), Stage 3 (Chapter Identification), Stage 3b (BSA Evidence Law Retrieval), Stage 4 (Statutory Verification), Stage 5 (Bail Reasoning), Stage 6 (Precedent Retrieval), IPC ↔ BNS Mapper, Local Classifier Pre-filter, and Batched Pipeline Utilities.
+LexiGraph Backend - Stage 0 (Intake), Stage 1 (Query Understanding), Stage 2 (Sub-Query Mapping), Stage 3 (Chapter Identification), Stage 3b (BSA Evidence Law Retrieval), Stage 3c (BNSS Procedural Law Retrieval), Stage 4 (Statutory Verification + Act Router), IPC ↔ BNS Mapper, Local Classifier Pre-filter, and Batched Pipeline Utilities.
 """
 
 from .schemas import (
@@ -31,16 +31,6 @@ from .schemas import (
     StatutoryVerificationObject,
     StatutoryVerificationIssue,
     StatutoryVerificationResult,
-    BailFactorEvaluationItem,
-    BailEvaluationMap,
-    OverallBailRecommendation,
-    BailReasoningObject,
-    BailVerificationIssue,
-    BailVerificationResult,
-    PrecedentItem,
-    PrecedentRetrievalObject,
-    PrecedentVerificationIssue,
-    PrecedentVerificationResult,
 )
 from .batch_utils import (
     SubQueryChapterMapping,
@@ -67,13 +57,6 @@ from .stage3_pipeline import Stage3Pipeline
 from .statutory_verification_agent import StatutoryVerificationAgent
 from .statutory_verifier_agent import StatutoryVerificationAuditor
 from .stage4_pipeline import Stage4Pipeline
-from .bail_reasoning_agent import BailReasoningAgent
-from .bail_verifier_agent import BailReasoningVerifierAgent
-# OLD: from .stage5_pipeline import Stage5Pipeline  # Replaced with stage5_precedent_pipeline
-from .precedent_retrieval_agent import PrecedentRetrievalAgent
-from .precedent_verifier_agent import PrecedentVerificationAuditor
-# OLD: from .stage6_pipeline import Stage6Pipeline  # Merged into stage5_precedent_pipeline
-from .stage5_precedent_pipeline import Stage5PrecedentPipeline
 from .bsa_retrieval_agent import BSARetrievalAgent
 from .bsa_verifier_agent import BSAVerifierAgent
 from .schemas import BSASectionItem, BSAVerificationIssue, BSARetrievalObject
@@ -135,24 +118,6 @@ __all__ = [
     "StatutoryVerificationAgent",
     "StatutoryVerificationAuditor",
     "Stage4Pipeline",
-    # Stage 5
-    "BailFactorEvaluationItem",
-    "BailEvaluationMap",
-    "OverallBailRecommendation",
-    "BailReasoningObject",
-    "BailVerificationIssue",
-    "BailVerificationResult",
-    "BailReasoningAgent",
-    "BailReasoningVerifierAgent",
-    "Stage5Pipeline",
-    # Stage 6
-    "PrecedentItem",
-    "PrecedentRetrievalObject",
-    "PrecedentVerificationIssue",
-    "PrecedentVerificationResult",
-    "PrecedentRetrievalAgent",
-    "PrecedentVerificationAuditor",
-    "Stage6Pipeline",
     # Stage 3b — BSA Evidence Law Retrieval
     "BSASectionItem",
     "BSAVerificationIssue",

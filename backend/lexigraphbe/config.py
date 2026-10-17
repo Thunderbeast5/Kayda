@@ -137,12 +137,7 @@ def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
         try:
             from langchain_openai import ChatOpenAI
             target_model = model_name or os.getenv("STAGE0_MODEL", "gpt-4o-mini")
-            return ChatOpenAI(
-                model=target_model,
-                api_key=openai_api_key,
-                temperature=temperature,
-                client_kwargs=client_kwargs,
-            )
+            return ChatOpenAI(**_openai_kwargs(target_model, temperature, openai_api_key))
         except Exception as e:
             print(f"[LexiGraph Config] Warning loading ChatOpenAI: {e}")
             print(f"[LexiGraph Config] Falling back to Groq/Ollama...")
@@ -379,7 +374,7 @@ def extract_json_from_text(text: Any) -> Dict[str, Any]:
 
     # Attempt 4: Try to salvage partial JSON
     try:
-        parsed = json.loads(cleaned_escaped)
+        parsed = json.loads(cleaned)
         if isinstance(parsed, dict):
             return parsed
     except Exception:

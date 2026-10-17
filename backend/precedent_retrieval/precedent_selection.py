@@ -1,5 +1,5 @@
 """
-Final selection of role-specific precedents for Stage 5.
+Final selection of role-specific precedents for Precedent Retrieval Pipeline.
 
 WHY THIS EXISTS
 The calibrated score measures how relevant a precedent is, not which side it helps. Ranking supporting and
@@ -28,8 +28,6 @@ ON_POINT_FACT = {"HIGH", "MODERATE"}
 MAX_RELY = 6
 MAX_ADVERSE = 4
 MAX_PRINCIPLE = 3
-# No absolute score cut-offs: scores depend on corpus size. A case is shown on the evaluator's label and fact
-# match; the caps bound the length. Pass min scores explicitly if you calibrate them on a gold set.
 MIN_RELY_SCORE = 0.0
 MIN_ADVERSE_SCORE = 0.0
 

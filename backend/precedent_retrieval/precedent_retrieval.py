@@ -1,32 +1,17 @@
 """
-Precedent Retrieval Engine for LexiGraphBE Stage 5.
+Precedent Retrieval Engine.
 
 Deterministic, role-aware candidate retrieval followed (elsewhere) by role-specific LLM evaluation.
-
-WHAT CHANGED
-- Old ranking: match_score = (#section hits) + small bonuses. Every judgment sharing IPC 420/467/468/471
-  scored 4.63, and procedural_stage / facts were never read.
-- New ranking (no LLM, no role needed to get a first-pass order):
-
-    retrieval_score = 0.30 * stage      procedural stage affinity (anticipatory bail vs. the case's inferred stage)
-                    + 0.25 * fact       fact-facet overlap (immovable property, deed, forgery, cheating, title dispute)
-                    + 0.20 * statutory  weighted by Stage 4 strength; bail provision from the relief counts
-                    + 0.15 * principle  role themes found in the binding ratio propositions
-                    + 0.10 * direction  share of holding propositions that favour the role
-
-  principle/direction are computed per role, so prosecution and defense get separate pools.
-- procedural_stage is INFERRED, because the corpus tags are unreliable (a Supreme Court judgment setting aside
-  anticipatory bail is tagged post_arrest_bail).
-- A judgment must match at least one offence/special-act statute OR have strong factual overlap; matching only
-  the bail provision (CrPC 438) is not enough, otherwise every anticipatory-bail case in the corpus qualifies.
 """
 
 import json
+import re as _re
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Set, Tuple
 
 from .precedent_statute_matcher import PrecedentStatuteMatcher, detect_stage_mode
+from .schemas import CaseRetrievalProfile
 
 
 # ----------------------------------------------------------------------------
@@ -41,32 +26,133 @@ STAGE_AFFINITY = {
     "unknown":      {"pre_arrest": 0.6, "post_arrest_bail": 0.6, "anticipatory_cancel": 0.5, "quashing": 0.4, "other": 0.3},
 }
 
+# Finer-grained stage compatibility keyed by (input_inferred_stage, candidate_corpus_stage).
+# Used in _score() to override STAGE_AFFINITY where the semantic gap between stages matters.
+#
+# Key design choices:
+#  - pre_arrest ↔ anticipatory_cancel = 0.55 (not 0.8): initial AB grant and AB revocation are
+#    different legal questions — useful by analogy but NOT on-point for the grant question.
+#  - anticipatory_cancel ↔ pre_arrest = 0.70: a revocation case CAN use grant-stage precedents
+#    on the underlying merits, so it is somewhat closer the other way.
+#  - Omitted pairs fall back to STAGE_AFFINITY (the broader stage_mode table).
+STAGE_COMPATIBILITY: Dict[Tuple[str, str], float] = {
+    # Input is an initial anticipatory bail application (pre_arrest)
+    ("pre_arrest", "pre_arrest"):          1.00,
+    ("pre_arrest", "anticipatory_cancel"): 0.55,  # different question: revoke != grant
+    ("pre_arrest", "post_arrest_bail"):    0.30,
+    ("pre_arrest", "quashing"):            0.50,
+    ("pre_arrest", "other"):               0.20,
+    # Input is an anticipatory bail cancellation (anticipatory_cancel)
+    ("anticipatory_cancel", "pre_arrest"):          0.70,
+    ("anticipatory_cancel", "anticipatory_cancel"): 1.00,
+    ("anticipatory_cancel", "post_arrest_bail"):    0.35,
+    ("anticipatory_cancel", "quashing"):            0.45,
+    ("anticipatory_cancel", "other"):               0.25,
+    # Input is regular / post-arrest bail
+    ("post_arrest_bail", "post_arrest_bail"): 1.00,
+    ("post_arrest_bail", "pre_arrest"):       0.40,
+    ("post_arrest_bail", "anticipatory_cancel"): 0.30,
+    ("post_arrest_bail", "quashing"):         0.35,
+    ("post_arrest_bail", "other"):            0.20,
+    # Input stage is unknown
+    ("unknown", "pre_arrest"):          0.60,
+    ("unknown", "post_arrest_bail"):    0.60,
+    ("unknown", "anticipatory_cancel"): 0.50,
+    ("unknown", "quashing"):            0.40,
+    ("unknown", "other"):               0.30,
+}
+
 ANTICIPATORY_MARKERS = ("anticipatory bail", "pre-arrest bail", "section 438", "bnss 482", "s. 438")
 CANCEL_MARKERS = ("cancel", "set aside", "setting aside", "quash the order granting")
 
-FACET_KEYWORDS: Dict[str, Tuple[str, ...]] = {
+# ----------------------------------------------------------------------------
+# Facet detection — statute-anchored (primary) + keyword fallback (secondary)
+# ----------------------------------------------------------------------------
+# Each entry: (tuple of lowercase act-name fragments to match, regex for section, facet name)
+# Extend this table when adding new domains; never add domain logic elsewhere.
+STATUTE_FACET_MAP: List[Tuple[Tuple[str, ...], str, str]] = [
+    # Violence / homicide
+    (("ipc", "bns"),            r"^302$",       "violence"),
+    (("ipc", "bns"),            r"^304$",       "violence"),        # culpable homicide
+    (("ipc", "bns"),            r"^307$",       "violence"),
+    (("ipc", "bns"),            r"^323$",       "violence"),
+    (("ipc", "bns"),            r"^324$",       "violence"),
+    # Negligent death / professional negligence — kept separate so medical cases are NOT disqualified
+    (("ipc", "bns"),            r"^304[Aa]$",   "negligent_death"),
+    (("ipc", "bns"),            r"^338$",       "grievous_negligence"),
+    (("ipc", "bns"),            r"^336$",       "negligence"),
+    (("ipc", "bns"),            r"^269$",       "negligence"),
+    # Evidence / record tampering (common in medical negligence / corruption)
+    (("ipc", "bns"),            r"^201$",       "evidence_tampering"),
+    (("ipc", "bns"),            r"^202$",       "evidence_tampering"),
+    (("ipc", "bns"),            r"^204$",       "evidence_tampering"),
+    (("ipc", "bns"),            r"^197$",       "evidence_tampering"),
+    # Sexual offences
+    (("ipc", "bns"),            r"^376",        "sexual_offence"),
+    (("ipc", "bns"),            r"^354",        "sexual_offence"),
+    (("ipc", "bns"),            r"^493$",       "sexual_offence"),
+    (("pocso",),                r".*",          "sexual_offence"),
+    # Matrimonial / dowry
+    (("ipc", "bns"),            r"^498[Aa]$",   "matrimonial"),
+    (("ipc", "bns"),            r"^304[Bb]$",   "matrimonial"),
+    (("dowry",),                r".*",          "matrimonial"),
+    (("domestic violence",),    r".*",          "matrimonial"),
+    # Documents / property fraud
+    (("ipc", "bns"),            r"^420$",       "cheating"),
+    (("ipc", "bns"),            r"^415$",       "cheating"),
+    (("ipc", "bns"),            r"^406$",       "cheating"),
+    (("ipc", "bns"),            r"^409$",       "cheating"),
+    (("ipc", "bns"),            r"^467$",       "forgery"),
+    (("ipc", "bns"),            r"^468$",       "forgery"),
+    (("ipc", "bns"),            r"^471$",       "forgery"),
+    (("ipc", "bns"),            r"^465$",       "forgery"),
+    (("ipc", "bns"),            r"^463$",       "forgery"),
+    (("ipc", "bns"),            r"^447$",       "immovable_property"),
+    (("ipc", "bns"),            r"^448$",       "immovable_property"),
+    # Abetment / conspiracy (not a standalone domain; combined with underlying offence facets)
+    # Economic / special statutes — treated as disqualifying for ordinary IPC matters
+    (("pmla", "prevention of money laundering"), r".*", "special_statute"),
+    (("fema",),                 r".*",          "special_statute"),
+    (("ndps",),                 r".*",          "special_statute"),
+    (("uapa",),                 r".*",          "special_statute"),
+    (("companies act",),        r".*",          "special_statute"),
+    (("prevention of corruption", "pc act"),    r".*", "corruption"),
+]
+
+# Facets whose presence in a CANDIDATE disqualifies it unless the INPUT also has that facet.
+# "violence" and "negligent_death" are intentionally NOT here — a death case can be relevant
+# to another death case regardless of whether it was negligent or intentional, and the
+# fact-score penalty handles the attenuation.
+DISQUALIFYING_FACETS: Set[str] = {"sexual_offence", "matrimonial", "special_statute"}
+
+# Groups of facets that are mutually relevant — a candidate from one group is not disqualified
+# when the input has a facet from the same group.
+DEATH_FACETS: Set[str] = {"violence", "negligent_death", "grievous_negligence", "negligence"}
+
+# Keyword fallback — used ONLY when no statutes are tagged on the case.
+_KW_FACET_KEYWORDS: Dict[str, Tuple[str, ...]] = {
     "immovable_property": ("land", "plot", "immovable", "agricultural", "property dispute", "possession of a property",
                            "premises", "hotel", "tenan", "inherit", "flat", "apartment", "revenue"),
-    "deed": ("sale deed", "deed", "power of attorney", "gpa", "mutation", "agreement to sell", "registered document",
-             "ownership document", "title document", "conveyance"),
-    "forgery": ("forged", "forgery", "fabricated", "counterfeit", "false document", "spurious"),
-    "cheating": ("cheat", "fraud", "deceiv", "dishonest", "misrepresent"),
-    "title_dispute": ("title", "ownership", "owner", "civil dispute", "civil nature", "commercial dispute"),
-    # facets that make a precedent factually DIFFERENT from a private land/forgery dispute
-    "public_economic": ("public fund", "money laundering", "foreign investment", "corruption", "disproportionate assets",
-                        "public servant", "bank fraud", "ponzi", "fipb"),
-    "matrimonial": ("dowry", "matrimonial", "cruelty", "498a", "in-laws", "marriage dispute", "domestic violence", "stridhan"),
-    "sexual_offence": ("rape", "sexual", "376", "modesty", "354", "promise of marriage", "pretext of marriage", "pocso", "intercourse"),
-    "violence": ("murder", "homicide", "culpable homicide", "grievous hurt", "302", "307", "304", "assault", "killing", "dead body"),
+    "forgery":            ("forged", "forgery", "fabricated", "counterfeit", "false document", "spurious"),
+    "cheating":           ("cheat", "fraud", "deceiv", "dishonest", "misrepresent"),
+    "negligent_death":    ("negligence", "negligent", "304a", "causing death by negligence", "medical negligence",
+                           "standard of care", "duty of care", "reckless"),
+    "evidence_tampering": ("destroy", "conceal", "tamper", "falsif", "alteration of record"),
+    "matrimonial":        ("dowry", "matrimonial", "cruelty", "498a", "in-laws", "marriage dispute",
+                           "domestic violence", "stridhan"),
+    "sexual_offence":     ("rape", "sexual", "376", "modesty", "354", "promise of marriage",
+                           "pretext of marriage", "pocso", "intercourse"),
+    "violence":           ("murder", "homicide", "culpable homicide", "grievous hurt", "302", "307", "304",
+                           "assault", "killing", "dead body"),
 }
-DISQUALIFYING_FACETS = {"matrimonial", "sexual_offence", "violence"}
 
 ROLE_THEMES: Dict[str, Tuple[str, ...]] = {
-    "prosecution": ("custodial interrogation", "custodial", "gravity", "grave", "forgery", "fraud", "investigation",
-                    "antecedent", "tamper", "economic offence", "recovery", "exceptional", "cancel", "suppress", "conceal"),
-    "defense": ("civil", "fraudulent or dishonest intention", "dishonest intention", "prima facie", "personal liberty",
-                "cooperat", "harass", "not contingent", "repayment", "quash", "bona fide", "vendetta", "malicious",
-                "arrest is not", "not a right", "discretion", "distinct"),
+    "prosecution": ("custodial interrogation", "custodial", "gravity", "grave", "investigation",
+                    "antecedent", "tamper", "recovery", "exceptional", "cancel", "suppress", "conceal",
+                    "negligent", "reckless", "duty of care", "prima facie", "flight risk"),
+    "defense":     ("civil", "prima facie", "personal liberty", "cooperat", "harass", "quash",
+                    "bona fide", "vendetta", "malicious", "arrest is not", "not a right", "discretion",
+                    "distinct", "bail", "liberty", "right to bail", "no prior"),
 }
 SIDE_OF_FAVORS = {"prosecution": "prosecution", "accused": "defense", "defense": "defense", "defence": "defense"}
 ROLES = ("prosecution", "defense")
@@ -77,12 +163,7 @@ ROLES = ("prosecution", "defense")
 # ----------------------------------------------------------------------------
 
 def infer_case_stage(case: Dict[str, Any]) -> str:
-    """
-    pre_arrest | anticipatory_cancel | quashing | post_arrest_bail | other
-
-    Uses the corpus tag only as a fallback: abstract/disposition decide whether anticipatory bail is involved,
-    and the propositions decide whether it was cancelled / set aside.
-    """
+    """pre_arrest | anticipatory_cancel | quashing | post_arrest_bail | other"""
     tag = str(case.get("procedural_stage") or "other").strip().lower()
     if tag in ("pre_arrest", "quashing"):
         return tag
@@ -113,34 +194,55 @@ def _collect_text(obj: Any, limit: int = 20000) -> str:
     return " ".join(out)[:limit]
 
 
+def _statute_facets(statutes: List[Dict[str, Any]]) -> Set[str]:
+    """Derive facets from charged/interpreted statutes — authoritative, no keyword guessing."""
+    result: Set[str] = set()
+    for st in statutes:
+        act = str(st.get("act") or "").lower()
+        sec = str(st.get("section") or "").strip()
+        for act_frags, sec_pat, facet in STATUTE_FACET_MAP:
+            if any(frag in act for frag in act_frags) and _re.match(sec_pat, sec, _re.I):
+                result.add(facet)
+    return result
+
+
 def extract_facets(text: str) -> Set[str]:
+    """Keyword-only facet extraction (fallback path — prefer _statute_facets when statutes are available)."""
     t = (text or "").lower()
-    return {facet for facet, kws in FACET_KEYWORDS.items() if any(k in t for k in kws)}
+    return {facet for facet, kws in _KW_FACET_KEYWORDS.items() if any(k in t for k in kws)}
 
 
 def extract_case_facets(case: Dict[str, Any], doc_meta: Optional[Dict[str, Any]] = None) -> Set[str]:
-    """Extracts facets from case text, keywords, offence types, and charged statutes."""
-    text_blobs = [
-        str(case.get("abstract_facts") or ""),
-        str(case.get("disposition") or ""),
-        " ".join(str(i.get("question") or "") for i in case.get("issues", []) or []),
-        " ".join(str(ot) for ot in case.get("offence_types", []) or []),
-        " ".join(str(kw) for kw in (doc_meta or {}).get("keywords", []) or []),
-    ]
-    full_text = " ".join(text_blobs).lower()
-    facets = {facet for facet, kws in FACET_KEYWORDS.items() if any(k in full_text for k in kws)}
+    """
+    Statute-anchored facets (primary, authoritative) with keyword fallback.
 
-    # Check statutes directly for substantive offence categories
-    for st in case.get("statutes", []) or []:
-        sec = str(st.get("section") or "").strip().upper()
-        act = str(st.get("act") or "").strip().upper()
-        if any(v in sec for v in ("302", "307", "304")):
-            facets.add("violence")
-        elif any(s in sec for s in ("376", "354", "493")) or "POCSO" in act:
-            facets.add("sexual_offence")
-        elif "498A" in sec or "304B" in sec or "DOWRY" in act or "DPA" in act:
-            facets.add("matrimonial")
-
+    Primary path: parse the case's charged statutes through STATUTE_FACET_MAP — this is
+    unambiguous and covers the important domains.  Keyword scanning is used only when the
+    case has no tagged statutes (e.g. an older corpus entry).
+    """
+    statutes = case.get("statutes") or []
+    if statutes:
+        facets = _statute_facets(statutes)
+        # Also pull in any keyword facets for domains not covered by statute map
+        # (e.g. "immovable_property" from abstract_facts when no property-trespass section was charged)
+        if not facets:
+            # No statute matched the map — fall back to keywords
+            text_blob = " ".join([
+                str(case.get("abstract_facts") or ""),
+                str(case.get("disposition") or ""),
+                " ".join(str(ot) for ot in (case.get("offence_types") or [])),
+                " ".join(str(kw) for kw in (doc_meta or {}).get("keywords") or []),
+            ])
+            facets = extract_facets(text_blob)
+    else:
+        # No statute list at all — pure keyword fallback
+        text_blob = " ".join([
+            str(case.get("abstract_facts") or ""),
+            str(case.get("disposition") or ""),
+            " ".join(str(ot) for ot in (case.get("offence_types") or [])),
+            " ".join(str(kw) for kw in (doc_meta or {}).get("keywords") or []),
+        ])
+        facets = extract_facets(text_blob)
     return facets
 
 
@@ -153,16 +255,18 @@ class RetrievalProfile:
     facets: Set[str]
     stage_mode: str          # anticipatory | regular | unknown
     total_weight: float
+    # Inferred corpus-level stage tag for the INPUT case — used for STAGE_COMPATIBILITY lookup.
+    # Examples: "pre_arrest", "post_arrest_bail", "anticipatory_cancel", "quashing", "unknown"
+    # Falls back to stage_mode if not set (for backward compatibility with old call sites).
+    input_stage: str = "unknown"
 
     def summary(self) -> Dict[str, Any]:
         return {
             "stage_mode": self.stage_mode,
+            "input_stage": self.input_stage,
             "facets": sorted(self.facets),
             "statutes": [f"{s['act']} {s['section']} ({s['kind']}, w={s['weight']})" for s in self.statutes],
         }
-
-
-from .schemas.stage5_precedent import CaseRetrievalProfile
 
 
 def build_case_retrieval_profile(
@@ -171,58 +275,104 @@ def build_case_retrieval_profile(
     matcher: Optional[PrecedentStatuteMatcher] = None,
 ) -> CaseRetrievalProfile:
     """
-    Constructs a structured CaseRetrievalProfile from Stage 4 and CaseContext.
-    Includes procedural_stage, legal_regime, offences, fact_patterns, defence_themes, prosecution_themes.
+    Construct a CaseRetrievalProfile from Stage 4 output and optional case context.
+
+    fact_patterns, prosecution_themes and defence_themes are derived from
+    stage4_result["verified_offences"] — from offence titles, ingredient satisfaction
+    status, and role-specific arguments — so the profile describes the actual case
+    regardless of domain (medical negligence, property fraud, corruption, etc.).
     """
     if matcher is None:
         matcher = PrecedentStatuteMatcher()
     stage_mode = detect_stage_mode(stage4_result, case_context)
-    procedural_stage = "anticipatory_bail" if stage_mode == "anticipatory" else ("regular_bail" if stage_mode == "regular" else "bail_or_quashing")
-    
+    procedural_stage = (
+        "anticipatory_bail" if stage_mode == "anticipatory"
+        else ("regular_bail" if stage_mode == "regular" else "bail_or_quashing")
+    )
     legal_regime = stage4_result.get("legal_regime", "IPC + CrPC")
-    
-    # Extract offence section numbers
+
     offences: List[str] = []
-    for off in stage4_result.get("verified_offences", []):
-        sec = str(off.get("section_number", "")).strip()
+    fact_patterns: List[str] = []
+    prosecution_themes: List[str] = []
+    defence_themes: List[str] = []
+
+    for off in stage4_result.get("verified_offences", []) or []:
+        # Offence section numbers
+        sec = str(off.get("section_number") or "").strip()
         if sec and sec not in offences:
             offences.append(sec)
-    
-    # Collect context text to extract fact patterns
+
+        # Fact patterns from offence title and a short description of what is alleged
+        title = str(off.get("title") or off.get("offence_title") or "").strip()
+        if title:
+            fact_patterns.append(title)
+        short_desc = str(off.get("short_description") or off.get("description") or "").strip()
+        if short_desc and short_desc != title:
+            fact_patterns.append(short_desc)
+
+        # Prosecution themes: ingredients satisfied + explicit prosecution arguments
+        for ing in off.get("ingredients", []) or []:
+            satisfied = ing.get("satisfied")
+            # Accept various truthy representations
+            if satisfied in (True, "yes", "likely", "satisfied", "established"):
+                desc = str(ing.get("description") or ing.get("ingredient") or "").strip()
+                if desc:
+                    prosecution_themes.append(desc)
+        for arg in off.get("prosecution_arguments", []) or []:
+            txt = str(arg).strip()
+            if txt:
+                prosecution_themes.append(txt)
+
+        # Defence themes: disputed / unsatisfied ingredients + explicit defence arguments
+        for ing in off.get("ingredients", []) or []:
+            satisfied = ing.get("satisfied")
+            if satisfied in (False, "no", "unlikely", "disputed", "not established", "absent"):
+                desc = str(ing.get("description") or ing.get("ingredient") or "").strip()
+                if desc:
+                    defence_themes.append(f"disputed: {desc}")
+        for arg in off.get("defence_arguments", []) or []:
+            txt = str(arg).strip()
+            if txt:
+                defence_themes.append(txt)
+
+    # Deduplicate while preserving order, cap length
+    def _dedup(lst: List[str], cap: int = 8) -> List[str]:
+        seen: Set[str] = set()
+        out: List[str] = []
+        for x in lst:
+            if x not in seen:
+                seen.add(x)
+                out.append(x)
+            if len(out) >= cap:
+                break
+        return out
+
+    fact_patterns      = _dedup(fact_patterns)
+    prosecution_themes = _dedup(prosecution_themes)
+    defence_themes     = _dedup(defence_themes)
+
+    # Fallbacks when Stage 4 didn't populate arguments (older pipeline versions)
     ctx = case_context if isinstance(case_context, dict) else {}
-    full_text = " ".join([_collect_text(ctx), _collect_text(stage4_result.get("verified_offences", []))]).lower()
-    
-    fact_patterns: List[str] = []
-    if any(k in full_text for k in ("forged", "forgery", "fabricated", "false document")):
-        fact_patterns.append("forged ownership documents")
-    if any(k in full_text for k in ("sale deed", "agreement to sell", "power of attorney", "gpa")):
-        fact_patterns.append("fraudulent sale deed / commercial transaction")
-    if any(k in full_text for k in ("land", "agricultural", "plot", "property")):
-        fact_patterns.append("immovable property / agricultural land")
-    if any(k in full_text for k in ("title", "ownership", "civil nature", "commercial dispute")):
-        fact_patterns.append("property / title / commercial dispute")
-    if any(k in full_text for k in ("dishonest", "cheat", "deceiv")):
-        fact_patterns.append("alleged dishonest inducement / cheating")
-    if any(k in full_text for k in ("cooperat", "appeared", "voluntary")):
-        fact_patterns.append("cooperation with investigation")
-    if any(k in full_text for k in ("genuine", "bona fide", "denies")):
-        fact_patterns.append("accused claims documents are genuine / commercial dispute")
-    
-    defence_themes = [
-        "civil dispute dressed as criminal case",
-        "absence of fraudulent or dishonest intention",
-        "genuineness of documents and commercial nature",
-        "cooperation with investigation and no flight risk",
-        "custodial interrogation unnecessary"
-    ]
-    prosecution_themes = [
-        "forgery and fabrication of documents",
-        "use of forged document for fraudulent transfer",
-        "fraudulent inducement to deliver property",
-        "need for investigation into money trail and authenticity",
-        "necessity of custodial interrogation"
-    ]
-    
+    if not prosecution_themes:
+        facts = str(ctx.get("abstract_facts") or "")
+        if facts:
+            prosecution_themes = [f"prima facie case based on facts: {facts[:200]}"]
+        else:
+            prosecution_themes = [
+                "gravity of the alleged offence",
+                "necessity of custodial interrogation",
+                "risk of evidence tampering",
+            ]
+    if not defence_themes:
+        defence_themes = [
+            "cooperation with investigation",
+            "no flight risk",
+            "custodial interrogation not required when documents already seized",
+            "right to personal liberty under Article 21",
+        ]
+    if not fact_patterns and offences:
+        fact_patterns = [f"offence under section {s}" for s in offences[:4]]
+
     return CaseRetrievalProfile(
         procedural_stage=procedural_stage,
         legal_regime=legal_regime,
@@ -246,18 +396,53 @@ def build_profile(
         weights[key] = float(s.get("weight", 0.5))
         kinds[key] = s.get("kind", "offence")
 
+    # Build input-case facets from the actual charged statutes (statute-anchored, not keyword)
     ctx = case_context if isinstance(case_context, dict) else {}
-    # Facets come from every free-text field we can find (key names differ between stages), not one fixed key.
-    text_parts = [_collect_text(ctx), _collect_text(stage4_result.get("verified_offences", []))]
-    facets = extract_facets(" ".join(text_parts)) - DISQUALIFYING_FACETS
+    input_statutes_raw = []
+    for off in stage4_result.get("verified_offences", []) or []:
+        sec = str(off.get("section_number") or "").strip()
+        statute = str(off.get("statute") or off.get("act") or "IPC")
+        if sec:
+            input_statutes_raw.append({"act": statute, "section": sec})
+    # Also include statutes from case_context if available
+    for st in ctx.get("statutes", []) or []:
+        input_statutes_raw.append(st)
+
+    facets = _statute_facets(input_statutes_raw) if input_statutes_raw else extract_facets(
+        " ".join([_collect_text(ctx), _collect_text(stage4_result.get("verified_offences", []))])
+    )
+    # Remove disqualifying facets from the INPUT profile
+    # (they are only used to gate candidates, not to describe the input itself)
+    facets = facets - DISQUALIFYING_FACETS
+
+    stage_mode = detect_stage_mode(stage4_result, case_context)
+    # Derive a finer-grained input_stage corpus tag from case_context when available.
+    # detect_stage_mode returns "anticipatory" | "regular" | "unknown" (broad buckets);
+    # we map these to corpus-level tags so STAGE_COMPATIBILITY can apply.
+    ctx_stage = str((case_context or {}).get("procedural_stage") or "").lower().strip() if case_context else ""
+    if ctx_stage in ("pre_arrest", "anticipatory_cancel", "post_arrest_bail", "quashing", "other"):
+        input_stage = ctx_stage
+    elif stage_mode == "anticipatory":
+        # Without a finer tag, assume the common case: an initial application (pre_arrest),
+        # but keep anticipatory_cancel as-is if the context text signals it.
+        ctx_text = " ".join([
+            str((case_context or {}).get("case_summary", "")),
+            str((case_context or {}).get("abstract_facts", "")),
+        ]).lower()
+        input_stage = "anticipatory_cancel" if any(m in ctx_text for m in CANCEL_MARKERS) else "pre_arrest"
+    elif stage_mode == "regular":
+        input_stage = "post_arrest_bail"
+    else:
+        input_stage = "unknown"
 
     return RetrievalProfile(
         statutes=statutes,
         weights=weights,
         kinds=kinds,
         facets=facets,
-        stage_mode=detect_stage_mode(stage4_result, case_context),
+        stage_mode=stage_mode,
         total_weight=sum(weights.values()) or 1.0,
+        input_stage=input_stage,
     )
 
 
@@ -288,12 +473,11 @@ class PrecedentCandidate:
     source_file: str = ""
     citation: Optional[str] = None
 
-    # --- new: deterministic scoring output ---
     inferred_stage: str = ""
     case_facets: List[str] = field(default_factory=list)
     score_breakdown: Dict[str, Any] = field(default_factory=dict)
-    role_scores: Dict[str, float] = field(default_factory=dict)   # prosecution / defense / neutral
-    retrieval_score: float = 0.0                                  # neutral score
+    role_scores: Dict[str, float] = field(default_factory=dict)
+    retrieval_score: float = 0.0
 
     def to_dict(self) -> Dict:
         return {
@@ -340,8 +524,7 @@ class PrecedentRetriever:
 
         chosen_dir = precedent_dir or tagged_dir
         if chosen_dir is None:
-            bail_data_dir = Path(__file__).parent.parent / "bail_data"
-            # Prioritize 'out' or '.out' directory over legacy 'tagged'
+            bail_data_dir = Path(__file__).resolve().parent.parent / "bail_data"
             if (bail_data_dir / "out").exists():
                 chosen_dir = bail_data_dir / "out"
             elif (bail_data_dir / ".out").exists():
@@ -352,13 +535,11 @@ class PrecedentRetriever:
                 chosen_dir = bail_data_dir / "out"
 
         self.precedent_dir = Path(chosen_dir)
-        self.tagged_dir = self.precedent_dir  # Backwards compatibility alias
+        self.tagged_dir = self.precedent_dir
         if not self.precedent_dir.exists():
             raise FileNotFoundError(f"Precedent directory not found: {self.precedent_dir}")
 
         self._cache: Dict[str, Dict] = {}
-
-    # -- loading ------------------------------------------------------------
 
     def get_judgment_files(self) -> List[Path]:
         """Returns all valid judgment JSON files from the precedent directory."""
@@ -387,11 +568,8 @@ class PrecedentRetriever:
     def extract_input_statutes(self, stage4_result: Dict, case_context: Optional[Dict] = None) -> List[Dict[str, Any]]:
         return self.matcher.extract_statutes_from_stage4(stage4_result, case_context)
 
-    # -- scoring ------------------------------------------------------------
-
     @staticmethod
     def _principle_and_direction(propositions: List[Dict[str, Any]], role: str) -> Tuple[float, float]:
-        """principle: role themes in binding ratio propositions; direction: share of holdings favouring the role."""
         holdings = [p for p in propositions if p.get("is_holding") or p.get("kind") == "ratio"]
         if not holdings:
             return 0.0, 0.5
@@ -418,14 +596,24 @@ class PrecedentRetriever:
         doc_meta: Optional[Dict[str, Any]] = None,
     ) -> Dict[str, Any]:
         inferred = infer_case_stage(case)
-        stage = STAGE_AFFINITY[profile.stage_mode].get(inferred, 0.2)
+        # Use fine-grained STAGE_COMPATIBILITY when we know the exact input stage;
+        # fall back to the broader STAGE_AFFINITY keyed by stage_mode otherwise.
+        input_stage = getattr(profile, "input_stage", None) or profile.stage_mode
+        if (input_stage, inferred) in STAGE_COMPATIBILITY:
+            stage = STAGE_COMPATIBILITY[(input_stage, inferred)]
+        else:
+            stage = STAGE_AFFINITY[profile.stage_mode].get(inferred, 0.2)
 
         case_facets = extract_case_facets(case, doc_meta)
-        penalty = 0.4 * len(case_facets & DISQUALIFYING_FACETS)
+        # Penalty is only applied for disqualifying facets that appear in the candidate
+        # but not in the input — "violence" and death-related facets do NOT disqualify.
+        disq_penalty = 0.4 * len((case_facets & DISQUALIFYING_FACETS) - profile.facets)
         if profile.facets:
-            fact = max(0.0, len(profile.facets & case_facets) / len(profile.facets) - penalty)
+            fact = max(0.0, len(profile.facets & case_facets) / len(profile.facets) - disq_penalty)
         else:
-            fact = max(0.0, 0.3 - penalty)   # no facts known: neutral-low, never enough to pass the gate alone
+            # Input has no domain facets (e.g. pure procedural query) — use a neutral baseline
+            # minus any disqualifying-facet mismatch penalty.
+            fact = max(0.0, 0.3 - disq_penalty)
 
         origins: Set[Tuple[str, str]] = {(m["matched_via_act"], m["matched_via_section"]) for m in matched}
         stat_weight = sum(profile.weights.get(o, 0.5) for o in origins)
@@ -453,8 +641,6 @@ class PrecedentRetriever:
             "role_scores": {"prosecution": per_role["prosecution"]["score"], "defense": per_role["defense"]["score"], "neutral": neutral},
         }
 
-    # -- matching -----------------------------------------------------------
-
     def match_judgment(
         self,
         input_statutes: List[Dict[str, Any]],
@@ -470,7 +656,6 @@ class PrecedentRetriever:
         if match_count == 0:
             return None
 
-        # legacy score, kept for backwards compatibility with anything that still reads it
         n_in = len(input_statutes)
         n_unique = len(matched)
         exact_ratio = (sum(1 for m in matched if m.get("match_type") == "exact") / n_unique) if n_unique else 0
@@ -489,26 +674,31 @@ class PrecedentRetriever:
             scored = self._score(profile, case, matched, doc_meta=meta)
             cand_facets = set(scored.get("case_facets", []))
 
-            # 1. Subject-matter gate: Exclude cases with violent or sexual offences,
-            # or matrimonial disputes unless substantive property/fraud offences (420/467/468/471) are charged.
-            has_substantive_fraud = scored.get("substantive_match", False)
-            if "violence" in cand_facets and "violence" not in profile.facets:
-                return None
-            if "sexual_offence" in cand_facets and "sexual_offence" not in profile.facets:
-                return None
-            if "matrimonial" in cand_facets and "matrimonial" not in profile.facets and not has_substantive_fraud:
+            # --- Gate filter: disqualify candidates whose domain is alien to the input ---
+            # Hard disqualifying facets (sexual_offence, matrimonial, special_statute):
+            # reject if candidate has them and input does not.
+            disq_in_cand = cand_facets & DISQUALIFYING_FACETS
+            if disq_in_cand and not (disq_in_cand & profile.facets):
                 return None
 
-            # 2. Procedure-only matches (e.g. just CrPC 438 without any substantive offence overlap):
+            # Death facets (violence, negligent_death, grievous_negligence, negligence):
+            # reject only if the candidate involves death/violence AND the input has NO death
+            # facet at all — a murder case should not match a pure property fraud input.
+            cand_death = cand_facets & DEATH_FACETS
+            if cand_death and not (profile.facets & DEATH_FACETS):
+                return None
+
+            # Low-quality non-substantive candidates: drop if fact score is very low
+            # AND stage score is not high with rich holdings.
             if not scored["substantive_match"]:
-                # Exclude cases that turn on restrictive special act bail conditions (Companies Act 212(6), NDPS, PMLA, etc.)
                 j_acts = {str(s.get("act", "")).lower() for s in judgment_statutes}
-                special_acts_restrictive = ("companies act", "ndps", "prevention of money laundering", "pmla", "uapa", "pocso")
+                special_acts_restrictive = ("companies act", "ndps", "prevention of money laundering",
+                                            "pmla", "uapa", "pocso")
                 if any(sa in a for a in j_acts for sa in special_acts_restrictive):
                     return None
 
-                # Allow if factual match is high OR if it is a landmark anticipatory bail authority with rich propositions (e.g. Sibbia)
-                has_rich_holdings = len([p for p in case.get("propositions", []) if p.get("is_holding") or p.get("kind") == "ratio"]) >= 4
+                has_rich_holdings = len([p for p in case.get("propositions", [])
+                                         if p.get("is_holding") or p.get("kind") == "ratio"]) >= 4
                 if scored["breakdown"]["fact"] < 0.4 and not (scored["breakdown"]["stage"] >= 0.8 and has_rich_holdings):
                     return None
 
@@ -535,8 +725,6 @@ class PrecedentRetriever:
             role_scores=scored.get("role_scores", {}),
             retrieval_score=scored.get("role_scores", {}).get("neutral", legacy_score),
         )
-
-    # -- retrieval ----------------------------------------------------------
 
     def _scan(self, stage4_result: Dict, case_context: Optional[Dict]) -> Tuple[RetrievalProfile, List[PrecedentCandidate]]:
         profile = build_profile(self.matcher, stage4_result, case_context)
@@ -584,7 +772,6 @@ class PrecedentRetriever:
         case_context: Optional[Dict] = None,
         role: Optional[str] = None,
     ) -> List[PrecedentCandidate]:
-        """Role-neutral (default) or role-specific ranked shortlist, best first."""
         _, candidates = self._scan(stage4_result, case_context)
         key = role if role in ROLES else "neutral"
         candidates.sort(key=lambda c: c.role_scores.get(key, 0.0), reverse=True)
@@ -598,12 +785,6 @@ class PrecedentRetriever:
         case_context: Optional[Dict] = None,
         top_k: int = 8,
     ) -> Dict[str, Any]:
-        """
-        {"prosecution": [...], "defense": [...], "shared_ids": [...], "profile": {...}}
-
-        shared_ids = precedents ranked in BOTH top_k lists, i.e. useful to both sides (the LLM step should keep
-        their conflicting propositions rather than assigning them to one side).
-        """
         profile, candidates = self._scan(stage4_result, case_context)
         pools: Dict[str, List[PrecedentCandidate]] = {}
         for role in ROLES:
@@ -619,8 +800,6 @@ class PrecedentRetriever:
             b = c.score_breakdown
             print(f"  {i}. {c.case_name} score={c.role_scores.get(key, 0):.3f} "
                   f"(stage {b.get('stage')}/{c.inferred_stage}, fact {b.get('fact')}, stat {b.get('statutory')})")
-
-    # -- LLM formatting -----------------------------------------------------
 
     def format_candidates_for_llm(self, candidates: List[PrecedentCandidate], include_full_text: bool = False,
                                   role: Optional[str] = None) -> str:
@@ -668,21 +847,3 @@ class PrecedentRetriever:
                     parts.append(f"  Q: {issue.get('question', '')[:150]}...")
                     parts.append(f"  A: {issue.get('short_answer', '')}")
         return "\n".join(parts)
-
-
-def test_precedent_retrieval():
-    """Smoke test with a minimal Stage 4 dict."""
-    stage4 = {
-        "verified_offences": [
-            {"statute": "IPC", "section_number": "420", "overall_prima_facie_strength": "Strong", "overall_status": "Prima Facie Attracted"},
-            {"statute": "IPC", "section_number": "468", "overall_prima_facie_strength": "Moderate", "overall_status": "Partially Attracted"},
-        ],
-    }
-    ctx = {"requested_relief": "Anticipatory Bail", "case_facts": "Forged sale deed of agricultural land."}
-    retriever = PrecedentRetriever(max_candidates=10)
-    result = retriever.retrieve_by_role(stage4, ctx, top_k=5)
-    print(json.dumps(result["profile"], indent=2))
-
-
-if __name__ == "__main__":
-    test_precedent_retrieval()

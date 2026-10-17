@@ -10,8 +10,9 @@ from pathlib import Path
 # Add backend to path
 sys.path.insert(0, str(Path(__file__).parent))
 
-from lexigraphbe.stage5_precedent_pipeline import Stage5PrecedentPipeline
-from lexigraphbe.schemas import StatutoryVerificationObject, CaseContextObject
+from precedent_retrieval.pipeline import Stage5PrecedentPipeline
+from lexigraphbe.schemas.stage0 import CaseContextObject
+from lexigraphbe.schemas.stage4 import StatutoryVerificationObject
 
 
 def test_stage5_with_real_case():

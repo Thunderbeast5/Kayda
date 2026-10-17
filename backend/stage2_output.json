@@ -1,0 +1,202 @@
+{
+  "schema_version": "1.0",
+  "mappings": [
+    {
+      "sub_query_id": "SQ1",
+      "sub_query_text": "What evidence supports the allegation that the senior medical officer's failure to arrange timely specialist intervention caused the patient's death?",
+      "target_parties": [
+        "senior medical officer"
+      ],
+      "facts_extracted": [
+        "Senior medical officer ignored warnings about patient's deteriorating condition",
+        "Senior medical officer failed to arrange timely specialist intervention"
+      ],
+      "ingredients_matched": [
+        "Rash or negligent act leading to death",
+        "Failure to provide adequate care"
+      ],
+      "candidate_chapters": [],
+      "primary_candidate_sections": [
+        {
+          "section_number": "304A",
+          "section_title": "Causing death by negligence",
+          "statute": "IPC",
+          "candidate_type": "PRIMARY",
+          "score": 0.8,
+          "score_breakdown": {
+            "ingredient_match": 1.0,
+            "classifier_score": 0.85,
+            "keyword_match": 0.75,
+            "semantic_similarity": 0.8
+          },
+          "ingredients_matched": [],
+          "missing_facts": [],
+          "relevance_reasoning": "Direct legal nexus: Allegations of negligence leading to death satisfy the definition of Section 304A."
+        }
+      ],
+      "secondary_candidate_sections": [],
+      "conditional_candidate_sections": [],
+      "not_triggered_sections": [],
+      "candidate_sections": [
+        "304A"
+      ],
+      "relevance_reasoning": "Mapped facts to primary negligence offence while screening out non-triggered sections."
+    },
+    {
+      "sub_query_id": "SQ2",
+      "sub_query_text": "What evidence supports the allegation of falsification of entries in the medical records by the senior medical officer?",
+      "target_parties": [
+        "senior medical officer"
+      ],
+      "facts_extracted": [
+        "Senior medical officer falsified entries in medical records"
+      ],
+      "ingredients_matched": [
+        "Deliberate alteration of medical documentation"
+      ],
+      "candidate_chapters": [],
+      "primary_candidate_sections": [],
+      "secondary_candidate_sections": [],
+      "conditional_candidate_sections": [
+        {
+          "section_number": "477A",
+          "section_title": "Falsification of accounts",
+          "statute": "IPC",
+          "candidate_type": "CONDITIONAL",
+          "score": 0.8,
+          "score_breakdown": {
+            "ingredient_match": 0.75,
+            "classifier_score": 0.8,
+            "keyword_match": 0.7,
+            "semantic_similarity": 0.75
+          },
+          "ingredients_matched": [],
+          "missing_facts": [
+            "No allegation that the falsified documents are books of account or legally required accounting records."
+          ],
+          "relevance_reasoning": "Conditional legal nexus: Section 477A requires the document to be a book of account or legally mandated record, which is not established."
+        }
+      ],
+      "not_triggered_sections": [],
+      "candidate_sections": [
+        "477A"
+      ],
+      "relevance_reasoning": "Mapped facts to primary forgery offence and conditional falsification of accounts while screening out non-triggered sections."
+    },
+    {
+      "sub_query_id": "SQ3",
+      "sub_query_text": "What evidence supports the allegation of destruction of internal monitoring records by the senior medical officer and hospital administrator?",
+      "target_parties": [
+        "senior medical officer",
+        "hospital administrator"
+      ],
+      "facts_extracted": [
+        "Senior medical officer and hospital administrator destroyed internal monitoring records"
+      ],
+      "ingredients_matched": [
+        "Destruction of documents to prevent evidence production"
+      ],
+      "candidate_chapters": [],
+      "primary_candidate_sections": [
+        {
+          "section_number": "204",
+          "section_title": "Destruction of document to prevent its production as evidence",
+          "statute": "IPC",
+          "candidate_type": "PRIMARY",
+          "score": 0.889,
+          "score_breakdown": {
+            "ingredient_match": 1.0,
+            "classifier_score": 0.85,
+            "keyword_match": 0.8,
+            "semantic_similarity": 0.85
+          },
+          "ingredients_matched": [],
+          "missing_facts": [],
+          "relevance_reasoning": "Direct legal nexus: Allegations of destruction of documents to prevent evidence satisfy the definition of Section 204."
+        }
+      ],
+      "secondary_candidate_sections": [],
+      "conditional_candidate_sections": [
+        {
+          "section_number": "201",
+          "section_title": "Causing disappearance of evidence of offence",
+          "statute": "IPC",
+          "candidate_type": "CONDITIONAL",
+          "score": 0.426,
+          "score_breakdown": {
+            "ingredient_match": 0.7,
+            "classifier_score": 0.65,
+            "keyword_match": 0.6,
+            "semantic_similarity": 0.65
+          },
+          "ingredients_matched": [],
+          "missing_facts": [
+            "Primary offence (e.g., culpable homicide under Section 299/304) not yet established; Section 201 is contingent on proof of the predicate offence."
+          ],
+          "relevance_reasoning": "Conditional legal nexus: Section 201 requires proof of a primary offence, which is not established at this stage."
+        }
+      ],
+      "not_triggered_sections": [],
+      "candidate_sections": [
+        "204",
+        "201"
+      ],
+      "relevance_reasoning": "Mapped facts to primary destruction of documents offence and conditional disappearance of evidence while screening out non-triggered sections."
+    },
+    {
+      "sub_query_id": "SQ4",
+      "sub_query_text": "What evidence supports the allegation of instruction to junior staff not to disclose the sequence of events?",
+      "target_parties": [
+        "senior medical officer"
+      ],
+      "facts_extracted": [
+        "Senior medical officer instructed junior staff not to disclose actual sequence of events"
+      ],
+      "ingredients_matched": [
+        "Instigation to conceal facts"
+      ],
+      "candidate_chapters": [],
+      "primary_candidate_sections": [],
+      "secondary_candidate_sections": [
+        {
+          "section_number": "107",
+          "section_title": "Abetment of a thing",
+          "statute": "IPC",
+          "candidate_type": "SECONDARY",
+          "score": 0.5,
+          "score_breakdown": {
+            "ingredient_match": 0.6,
+            "classifier_score": 0.55,
+            "keyword_match": 0.5,
+            "semantic_similarity": 0.55
+          },
+          "ingredients_matched": [],
+          "missing_facts": [],
+          "relevance_reasoning": "Direct legal nexus: Allegations of instigation to conceal facts satisfy the definition of Section 107."
+        }
+      ],
+      "conditional_candidate_sections": [],
+      "not_triggered_sections": [],
+      "candidate_sections": [
+        "107"
+      ],
+      "relevance_reasoning": "Mapped facts to secondary abetment offence while screening out non-triggered sections."
+    },
+    {
+      "sub_query_id": "SQ5",
+      "sub_query_text": "What are the grounds for opposing anticipatory bail based on the risk of influencing witnesses?",
+      "target_parties": [
+        "prosecution"
+      ],
+      "facts_extracted": [],
+      "ingredients_matched": [],
+      "candidate_chapters": [],
+      "primary_candidate_sections": [],
+      "secondary_candidate_sections": [],
+      "conditional_candidate_sections": [],
+      "not_triggered_sections": [],
+      "candidate_sections": [],
+      "relevance_reasoning": "Procedural query regarding anticipatory bail based on potential witness tampering."
+    }
+  ]
+}

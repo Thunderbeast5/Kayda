@@ -98,6 +98,28 @@ def clean(v: Any) -> str:
     return re.sub(r"\s+", " ", s)
 
 
+def to_bool(v: Any, default: bool = False) -> bool:
+    """
+    Convert string cognizable/bailable values to boolean.
+    Cognizable/Bailable -> True
+    Non-Cognizable/Non-Bailable -> False
+    """
+    if isinstance(v, bool):
+        return v
+    if v is None:
+        return default
+    s = str(v).strip().lower()
+    if not s or s in {"nan", "none", "n/a", "null", ""}:
+        return default
+    # Check for positive values
+    if any(x in s for x in ["cognizable", "bailable", "yes", "true", "1"]):
+        # But exclude negative forms
+        if any(x in s for x in ["non-cognizable", "non-bailable", "not cognizable", "not bailable"]):
+            return False
+        return True
+    return default
+
+
 def stable_id(*parts: str) -> str:
     raw = "|".join(parts)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()[:16]
@@ -244,8 +266,8 @@ def load_ipc(csv_dir: Path) -> dict[str, dict]:
             "title": title,
             "description": desc,
             "punishment": punishment,
-            "cognizable": clean(r.get("Cognizable")),
-            "bailable": clean(r.get("Bailable")),
+            "cognizable": to_bool(r.get("Cognizable"), default=False),
+            "bailable": to_bool(r.get("Bailable"), default=True),
             "court": clean(r.get("Court")),
             "source_url": clean(r.get("URL")),
             "data_complete": bool(title or desc or punishment),

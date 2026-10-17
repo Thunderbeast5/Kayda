@@ -102,7 +102,7 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
         bns_equivalent="85",
         title="Cruelty by Husband or Relatives",
         mandatory_ingredients=["marriage_relationship", "cruelty_or_dowry_harassment"],
-        factual_triggers=["dowry", "cruelty", "harass", "demand", "torture", "in-laws", "matrimonial"],
+        factual_triggers=["dowry", "cruelty", "harass", "torture", "in-laws", "matrimonial"],
         chapter_number="XXA",
         chapter_title="Of Cruelty by Husband or Relatives of Husband",
         punishment_minimum=None,
@@ -262,7 +262,7 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
         bns_equivalent="351",
         title="Criminal Intimidation",
         mandatory_ingredients=["threat_of_injury_to_person_or_property"],
-        factual_triggers=["threat", "threatened", "intimidat", "warning", "abuse", "scared", "terrorised"],
+        factual_triggers=["threat", "threatened", "intimidat", "scared", "terrorised"],
         chapter_number="XXII",
         chapter_title="Criminal Intimidation, Insult and Annoyance",
         punishment_minimum=None,
@@ -331,6 +331,236 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
         cognizable=True,
         bailable=False,
     ),
+
+    # Medical negligence causing death: death + negligent/rash medical treatment.
+    # Candidate retrieval only; statutory ingredients and causation are verified downstream.
+    SectionRule(
+        section="304A", statute="IPC", bns_equivalent="106(1)",
+        title="Causing Death by Negligence",
+        mandatory_ingredients=["death", "rash_or_negligent_act", "causal_connection"],
+        factual_triggers=[
+            "death", "patient died", "death of patient", "medical negligence",
+            "negligent treatment", "negligent medical act", "failure to provide timely treatment",
+            "failure to arrange specialist", "failed to arrange timely specialist intervention", "ignored medical warnings", "ignored repeated warnings", "medical practitioner",
+        ],
+        chapter_number="XVI", chapter_title="Offences Affecting Life",
+        punishment_minimum=None, punishment_maximum="2 Years",
+        fine=True, cognizable=True, bailable=True, requires_trigger_gate=True,
+    ),
+    # Disappearance/destruction of evidence to screen an offender.
+    # requires_trigger_gate=False: the concept label "Causing disappearance of evidence" or
+    # "Destruction of document to prevent its production as evidence" already carries statutory
+    # vocabulary; the BM25 index matches it. Gating on factual trigger phrases would block
+    # retrieval because Stage-1 sub-queries describe the legal concept, not the raw act.
+    SectionRule(
+        section="201", statute="IPC", bns_equivalent="238",
+        title="Causing Disappearance of Evidence of Offence",
+        mandatory_ingredients=["knowledge_or_reason_to_believe_offence_committed", "causing_evidence_to_disappear_or_false_information", "intent_to_screen_offender"],
+        factual_triggers=[
+            "disappear", "disappearance", "destroyed evidence", "destroyed records",
+            "destroyed monitoring records", "concealed evidence", "made evidence disappear",
+            "tampered with evidence", "removed records", "suppressed records",
+            "screen offender", "screen the offender", "screen accused",
+            "destruction of document", "destroy document",
+        ],
+        chapter_number="XI", chapter_title="Of False Evidence and Offences Against Public Justice",
+        punishment_minimum=None, punishment_maximum="As provided by IPC section 201",
+        fine=True, cognizable=True, bailable=False, requires_trigger_gate=False,
+    ),
+    # Destruction of a document/electronic record to prevent production as evidence.
+    # requires_trigger_gate=False: same reasoning as IPC 201 above.
+    SectionRule(
+        section="204", statute="IPC", bns_equivalent="241",
+        title="Destruction of Document or Electronic Record to Prevent Its Production as Evidence",
+        mandatory_ingredients=["document_or_electronic_record", "destruction_or_rendering_illegible", "intent_to_prevent_production_as_evidence"],
+        factual_triggers=[
+            "destruction of document", "destroyed document", "destroyed records",
+            "destroyed monitoring records", "destroyed medical records",
+            "destroyed hospital records", "concealed records",
+            "prevent production", "prevented production", "withheld records",
+            "prevent its production", "prevent production as evidence",
+        ],
+        chapter_number="XI", chapter_title="Of False Evidence and Offences Against Public Justice",
+        punishment_minimum=None, punishment_maximum="2 Years",
+        fine=True, cognizable=False, bailable=True, requires_trigger_gate=False,
+    ),
+    # Section 195A requires a threat; an instruction or request alone is insufficient.
+    SectionRule(
+        section="195A", statute="IPC", bns_equivalent="232",
+        title="Threatening Any Person to Give False Evidence",
+        mandatory_ingredients=["threat", "person_to_give_false_evidence"],
+        factual_triggers=[
+            "threatened witness", "threat to witness", "threatened staff",
+            "threatened junior staff", "threat to give false evidence",
+            "threatened to give false evidence",
+        ],
+        chapter_number="XI", chapter_title="Of False Evidence and Offences Against Public Justice",
+        punishment_minimum=None, punishment_maximum="7 Years",
+        fine=True, cognizable=True, bailable=False, requires_trigger_gate=True,
+    ),
+
+
+    # Driving-related offences must not be retrieved from medical-care negligence vocabulary.
+    SectionRule(
+        section="279", statute="IPC", bns_equivalent="281",
+        title="Rash Driving or Riding on a Public Way",
+        mandatory_ingredients=["driving_or_riding", "public_way", "rash_or_negligent_manner"],
+        factual_triggers=["rash driving", "driving on a public way", "vehicle on public way", "riding on a public way"],
+        chapter_number="XIII", chapter_title="Offences Relating to Public Safety",
+        punishment_minimum=None, punishment_maximum="6 Months",
+        fine=True, cognizable=True, bailable=True, requires_trigger_gate=True,
+    ),
+    # Rape provisions must not enter the shortlist from generic words such as manipulation.
+    SectionRule(
+        section="375", statute="IPC", bns_equivalent="63",
+        title="Rape — Definition",
+        mandatory_ingredients=["sexual_act_within_statutory_definition", "absence_of_valid_consent_or_other_statutory_condition"],
+        factual_triggers=["rape", "sexual assault", "sexual intercourse", "penetration", "non-consensual intercourse"],
+        chapter_number="XVI", chapter_title="Sexual Offences",
+        punishment_minimum=None, punishment_maximum=None,
+        fine=False, cognizable=True, bailable=False, requires_trigger_gate=True,
+    ),
+    # Section 466 is limited to specified public/court records and certificates.
+    SectionRule(
+        section="466", statute="IPC", bns_equivalent="337",
+        title="Forgery of Record of Court or Public Register",
+        mandatory_ingredients=["false_document", "record_of_court_or_public_register", "forgery"],
+        factual_triggers=["court record", "record of a court", "public register", "register kept by public servant", "judicial record"],
+        chapter_number="XVIII", chapter_title="Offences Relating to Documents",
+        punishment_minimum=None, punishment_maximum="7 Years",
+        fine=True, cognizable=True, bailable=False, requires_trigger_gate=True,
+    ),
+
+    # -----------------------------------------------------------------------
+    # Noise-blocking entries — sections that BM25 retrieves from coincidental
+    # term overlap but which require a domain-specific factual event absent in
+    # a medical-negligence / hospital context. requires_trigger_gate=True means
+    # the section is disqualified unless at least one trigger appears in gate_text.
+    # -----------------------------------------------------------------------
+
+    # IPC 169 — "Public servant unlawfully buying or bidding for property"
+    # Retrieved because "officer" matches; requires an illegal property-purchase act.
+    SectionRule(
+        section="169", statute="IPC", bns_equivalent="169",
+        title="Public Servant Unlawfully Buying or Bidding for Property",
+        mandatory_ingredients=["public_servant", "purchasing_or_bidding_for_property", "prohibited_by_law_or_rules_of_conduct"],
+        factual_triggers=["bought property", "purchased property", "bid for property", "public servant bought", "property purchased by officer"],
+        chapter_number="IX", chapter_title="Of Offences by or Relating to Public Servants",
+        punishment_minimum=None, punishment_maximum="2 Years",
+        fine=True, cognizable=False, bailable=True, requires_trigger_gate=True,
+    ),
+
+    # IPC 376A — "Punishment for causing death or persistent vegetative state"
+    # Retrieved from "death" + "medical"; requires a rape/sexual assault predicate.
+    SectionRule(
+        section="376A", statute="IPC", bns_equivalent="66",
+        title="Punishment for Causing Death or Resulting in Persistent Vegetative State of Victim",
+        mandatory_ingredients=["rape_or_sexual_assault_predicate", "causing_death_or_persistent_vegetative_state"],
+        factual_triggers=["rape", "sexual assault", "sexually assaulted", "section 376", "gang rape", "penetration"],
+        chapter_number="XVI", chapter_title="Sexual Offences",
+        punishment_minimum="20 Years", punishment_maximum="Life or Death",
+        fine=False, cognizable=True, bailable=False, requires_trigger_gate=True,
+    ),
+
+    # IPC 284 — "Negligent conduct with respect to poisonous substance"
+    # Retrieved from "negligence" + "death"; requires a poison/toxic substance.
+    SectionRule(
+        section="284", statute="IPC", bns_equivalent="287",
+        title="Negligent Conduct with Respect to Poisonous Substance",
+        mandatory_ingredients=["poisonous_or_corrosive_substance", "negligent_handling_or_keeping"],
+        factual_triggers=["poison", "poisonous substance", "toxic substance", "corrosive", "venom", "chemical hazard", "acid"],
+        chapter_number="XIV", chapter_title="Of Offences Affecting the Public Health, Safety, Convenience, Decency and Morals",
+        punishment_minimum=None, punishment_maximum="6 Months",
+        fine=True, cognizable=False, bailable=True, requires_trigger_gate=True,
+    ),
+
+    # IPC 338 — "Causing grievous hurt by act endangering life"
+    # Retrieved from "negligence" + "cause"; requires grievous hurt (not death).
+    # When the patient DIED, 304A applies — not 338. Gate it on grievous hurt vocabulary.
+    SectionRule(
+        section="338", statute="IPC", bns_equivalent="125(b)",
+        title="Causing Grievous Hurt by Act Endangering Life or Personal Safety of Others",
+        mandatory_ingredients=["grievous_hurt_as_defined_in_s320", "act_endangering_life_or_personal_safety"],
+        factual_triggers=["grievous hurt", "grievous injury", "permanent disability", "severe bodily injury",
+                          "lost limb", "fracture", "seriously injured", "disfigured", "hospitalized for injury"],
+        chapter_number="XVI", chapter_title="Of Offences Affecting the Human Body",
+        punishment_minimum=None, punishment_maximum="2 Years",
+        fine=True, cognizable=True, bailable=True, requires_trigger_gate=True,
+    ),
+
+    # IPC 223 — "Escape from confinement negligently suffered by public servant"
+    # Retrieved from "negligence" + "evidence" (both appear in its text); requires
+    # an escaped prisoner and a negligent public servant custodian — never a hospital case.
+    SectionRule(
+        section="223", statute="IPC", bns_equivalent="260",
+        title="Escape from Confinement or Custody Negligently Suffered by Public Servant",
+        mandatory_ingredients=["public_servant_legally_authorized_to_confine", "escape_of_confined_person", "negligent_sufferance_of_escape"],
+        factual_triggers=["escaped from custody", "escaped from confinement", "prisoner escaped", "detainee escaped", "fled from custody"],
+        chapter_number="XI", chapter_title="Of False Evidence and Offences Against Public Justice",
+        punishment_minimum=None, punishment_maximum="2 Years",
+        fine=True, cognizable=False, bailable=True, requires_trigger_gate=True,
+    ),
+
+    # IPC 119 — "Public servant concealing design to commit offence"
+    # Retrieved from "officer" + "disclose"; but requires the concealing person to be
+    # a PUBLIC SERVANT. Private hospital doctors/administrators are NOT public servants.
+    SectionRule(
+        section="119", statute="IPC", bns_equivalent="48",
+        title="Public Servant Concealing Design to Commit Offence Which It Is His Duty to Prevent",
+        mandatory_ingredients=["public_servant_status", "concealing_design", "it_is_their_legal_duty_to_prevent_the_offence"],
+        factual_triggers=["public servant concealing", "government officer concealing", "public servant instructed",
+                          "duty as public servant", "public servant facilitating", "government official"],
+        chapter_number="V-A", chapter_title="Of Abetment",
+        punishment_minimum=None, punishment_maximum="As for abetment of the offence",
+        fine=True, cognizable=True, bailable=False, requires_trigger_gate=True,
+    ),
+
+    # IPC 218 — "Public servant framing incorrect record with intent to save person from punishment"
+    # Requires both (a) a public servant and (b) framing a record. Gate on public servant.
+    SectionRule(
+        section="218", statute="IPC", bns_equivalent="255",
+        title="Public Servant Framing Incorrect Record or Writing with Intent to Save Person from Punishment",
+        mandatory_ingredients=["public_servant_status", "frames_incorrect_record_or_writing", "intent_to_save_person_from_punishment_or_property_from_forfeiture"],
+        factual_triggers=["public servant framing", "government doctor", "government hospital", "government officer falsifying",
+                          "public servant altered record", "government servant framed record"],
+        chapter_number="XI", chapter_title="Of False Evidence and Offences Against Public Justice",
+        punishment_minimum=None, punishment_maximum="3 Years",
+        fine=True, cognizable=False, bailable=True, requires_trigger_gate=True,
+    ),
+
+    # IPC 203 — "Giving false information respecting an offence committed"
+    # May be relevant when junior staff give a false account of events to investigators.
+    SectionRule(
+        section="203", statute="IPC", bns_equivalent="240",
+        title="Giving False Information Respecting an Offence Committed",
+        mandatory_ingredients=["false_information", "respecting_an_offence_actually_committed", "intent_to_screen_offender"],
+        factual_triggers=[
+            "false information", "gave false information", "false account",
+            "misinformed police", "misinformed investigating officer",
+            "giving false statement", "fabricated version of events",
+            "instructed to give false account",
+        ],
+        chapter_number="XI", chapter_title="Of False Evidence and Offences Against Public Justice",
+        punishment_minimum=None, punishment_maximum="2 Years",
+        fine=True, cognizable=False, bailable=True, requires_trigger_gate=False,
+    ),
+
+    # IPC 34 — "Acts done by several persons in furtherance of common intention"
+    # An enabling/vicarious liability provision — gate is very light (needs multiple actors).
+    SectionRule(
+        section="34", statute="IPC", bns_equivalent="3(5)",
+        title="Acts Done by Several Persons in Furtherance of Common Intention",
+        mandatory_ingredients=["criminal_act_by_multiple_persons", "common_intention", "participation_by_each_accused"],
+        factual_triggers=[
+            "common intention", "in furtherance of", "acted together",
+            "jointly", "joint act", "both accused", "two accused",
+            "administrator and officer", "hospital administrator", "multiple accused",
+        ],
+        chapter_number="II", chapter_title="General Explanations",
+        punishment_minimum=None, punishment_maximum="As for the offence committed",
+        fine=False, cognizable=True, bailable=False, requires_trigger_gate=False,
+    ),
+
 ]
 
 
@@ -660,6 +890,644 @@ def get_effective_knowledge_base() -> List[SectionRule]:
     return STATUTE_KNOWLEDGE_BASE + DYNAMIC_KNOWLEDGE_BASE
 
 
+# ---------------------------------------------------------------------------
+# Chapter-domain coherence system
+# ---------------------------------------------------------------------------
+# Each IPC chapter is tagged with one or more domain strings.
+# A query's domains are derived from its concept labels at retrieval time.
+# Sections whose chapter domains share NO overlap with the query domains are
+# eliminated — structurally, without any per-section hardcoding.
+#
+# Domain tags (stable strings — add new ones freely as new case types arise):
+#   HOMICIDE              death caused by any means
+#   BODILY_HARM           non-fatal injury, hurt, grievous hurt
+#   MEDICAL_NEGLIGENCE    rash/negligent medical act causing death or harm
+#   TRAFFIC               rash driving, vehicular offences
+#   SEXUAL_OFFENCE        rape, sexual assault, outraging modesty
+#   DOMESTIC_VIOLENCE     dowry, matrimonial cruelty, harassment
+#   PROPERTY_OFFENCE      theft, robbery, cheating, criminal breach of trust
+#   DOCUMENT_OFFENCE      forgery, falsification, destruction of records
+#   PUBLIC_SERVANT        offences by / relating to public servants
+#   PUBLIC_ORDER          unlawful assembly, rioting, affray
+#   FALSE_EVIDENCE        perjury, fabricating/destroying evidence, screening
+#   DEFAMATION            defamation, insult
+#   GENERAL               ancillary / enabling provisions (abetment, conspiracy)
+#                         — always compatible with every query domain
+
+# Chapter-title substring → frozenset of domain tags.
+# Keys are lowercased substrings; first match wins (most-specific first).
+_CHAPTER_DOMAIN_MAP: List[Tuple[str, frozenset]] = [
+    # Life / homicide
+    ("offences affecting life",              frozenset({"HOMICIDE", "BODILY_HARM", "MEDICAL_NEGLIGENCE", "TRAFFIC"})),
+    # Hurt / bodily injury (non-fatal)
+    ("hurt",                                  frozenset({"BODILY_HARM"})),
+    ("wrongful restraint",                    frozenset({"BODILY_HARM"})),
+    ("wrongful confinement",                  frozenset({"BODILY_HARM"})),
+    ("criminal force",                        frozenset({"BODILY_HARM"})),
+    ("assault",                               frozenset({"BODILY_HARM"})),
+    # Sexual offences
+    ("sexual offence",                        frozenset({"SEXUAL_OFFENCE"})),
+    ("rape",                                  frozenset({"SEXUAL_OFFENCE"})),
+    ("outraging",                             frozenset({"SEXUAL_OFFENCE"})),
+    # Domestic / matrimonial
+    ("dowry",                                 frozenset({"DOMESTIC_VIOLENCE"})),
+    ("cruelty by husband",                    frozenset({"DOMESTIC_VIOLENCE"})),
+    ("matrimonial",                           frozenset({"DOMESTIC_VIOLENCE"})),
+    # Property offences
+    ("offences against property",             frozenset({"PROPERTY_OFFENCE"})),
+    ("theft",                                 frozenset({"PROPERTY_OFFENCE"})),
+    ("robbery",                               frozenset({"PROPERTY_OFFENCE"})),
+    ("extortion",                             frozenset({"PROPERTY_OFFENCE"})),
+    ("cheating",                              frozenset({"PROPERTY_OFFENCE", "DOCUMENT_OFFENCE"})),
+    ("criminal breach of trust",              frozenset({"PROPERTY_OFFENCE"})),
+    ("mischief",                              frozenset({"PROPERTY_OFFENCE"})),
+    ("criminal trespass",                     frozenset({"PROPERTY_OFFENCE"})),
+    # Documents / forgery / records
+    ("offences relating to documents",        frozenset({"DOCUMENT_OFFENCE"})),
+    ("property marks",                        frozenset({"DOCUMENT_OFFENCE", "PROPERTY_OFFENCE"})),
+    # False evidence / screening / perjury
+    ("false evidence",                        frozenset({"FALSE_EVIDENCE", "DOCUMENT_OFFENCE"})),
+    ("offences against public justice",       frozenset({"FALSE_EVIDENCE", "DOCUMENT_OFFENCE"})),
+    # Public servants
+    ("offences by or relating to public servants", frozenset({"PUBLIC_SERVANT"})),
+    ("contempt of lawful authority",          frozenset({"PUBLIC_SERVANT", "PUBLIC_ORDER"})),
+    # Public order / assembly / state security
+    ("unlawful assembly",                     frozenset({"PUBLIC_ORDER"})),
+    ("offences against the state",            frozenset({"PUBLIC_ORDER"})),
+    ("against the state",                     frozenset({"PUBLIC_ORDER"})),  # shorter variant
+    ("waging war",                            frozenset({"PUBLIC_ORDER"})),
+    ("seditious",                             frozenset({"PUBLIC_ORDER"})),
+    ("offences relating to the army",         frozenset({"PUBLIC_ORDER"})),
+    ("offences relating to navy",             frozenset({"PUBLIC_ORDER"})),
+    ("relating to the army",                  frozenset({"PUBLIC_ORDER"})),
+    ("deserter",                              frozenset({"PUBLIC_ORDER"})),
+    ("merchant vessel",                       frozenset({"PUBLIC_ORDER"})),
+    ("offences relating to elections",        frozenset({"PUBLIC_ORDER"})),
+    ("coin",                                  frozenset({"PUBLIC_ORDER"})),      # IPC 230-263A (coinage)
+    ("currency",                              frozenset({"PUBLIC_ORDER"})),
+    ("weights and measures",                  frozenset({"PUBLIC_ORDER"})),
+    # Public health / safety (catch-all for environmental/nuisance offences)
+    ("public health",                         frozenset({"PUBLIC_ORDER"})),
+    ("public safety",                         frozenset({"PUBLIC_ORDER"})),
+    ("public nuisance",                       frozenset({"PUBLIC_ORDER"})),
+    ("nuisance",                              frozenset({"PUBLIC_ORDER"})),
+    # Defamation / reputation
+    ("criminal intimidation",                 frozenset({"DEFAMATION", "BODILY_HARM"})),
+    ("defamation",                            frozenset({"DEFAMATION"})),
+    # Abetment / conspiracy — domain-agnostic: covered by _ENABLING_SECTION_ALLOWLIST
+    ("of abetment",                           frozenset({"GENERAL"})),
+    ("criminal conspiracy",                   frozenset({"GENERAL"})),
+    # General exceptions / explanations — always domain-agnostic
+    ("general exceptions",                    frozenset({"GENERAL"})),
+    ("general explanations",                  frozenset({"GENERAL"})),
+]
+
+
+def _chapter_domains(chapter_title: str) -> frozenset:
+    """
+    Returns the domain set for a chapter title by substring matching.
+    Falls back to frozenset({"GENERAL"}) if no chapter matches — ensures
+    unknown chapters are never silently eliminated.
+    """
+    ct = (chapter_title or "").strip().lower()
+    for substring, domains in _CHAPTER_DOMAIN_MAP:
+        if substring in ct:
+            return domains
+    return frozenset({"GENERAL"})
+
+
+# Concept-label keyword → query domain.
+# Applied to EACH concept label word-by-word; all matched domains are unioned.
+# Keys are lowercase stemmed tokens (Porter stem applied at match time).
+# Add new rows as new concept vocabularies emerge — no per-section rules needed.
+_CONCEPT_DOMAIN_SIGNALS: Dict[str, str] = {
+    # Homicide / death
+    "death":          "HOMICIDE",
+    "kill":           "HOMICIDE",
+    "murder":         "HOMICIDE",
+    "homicid":        "HOMICIDE",
+    "die":            "HOMICIDE",
+    "dead":           "HOMICIDE",
+    "deceas":         "HOMICIDE",
+    # Medical negligence — death caused by rash/negligent medical act
+    "negligen":       "MEDICAL_NEGLIGENCE",
+    "negligent":      "MEDICAL_NEGLIGENCE",
+    "rash":           "MEDICAL_NEGLIGENCE",
+    "medic":          "MEDICAL_NEGLIGENCE",
+    "patient":        "MEDICAL_NEGLIGENCE",
+    "hospital":       "MEDICAL_NEGLIGENCE",
+    "treatment":      "MEDICAL_NEGLIGENCE",   # stopped in BM25 but used for domain only
+    "specialist":     "MEDICAL_NEGLIGENCE",
+    "surgeri":        "MEDICAL_NEGLIGENCE",
+    "surgeon":        "MEDICAL_NEGLIGENCE",
+    "physican":       "MEDICAL_NEGLIGENCE",
+    "doctor":         "MEDICAL_NEGLIGENCE",
+    "clinic":         "MEDICAL_NEGLIGENCE",
+    # Traffic
+    "drive":          "TRAFFIC",
+    "driven":         "TRAFFIC",
+    "driving":        "TRAFFIC",
+    "vehicl":         "TRAFFIC",
+    "road":           "TRAFFIC",
+    # Bodily harm (non-fatal)
+    "hurt":           "BODILY_HARM",
+    "injuri":         "BODILY_HARM",
+    "wound":          "BODILY_HARM",
+    "grievous":       "BODILY_HARM",
+    "assault":        "BODILY_HARM",
+    "beat":           "BODILY_HARM",
+    "stab":           "BODILY_HARM",
+    "fractur":        "BODILY_HARM",
+    # Sexual offences
+    "rape":           "SEXUAL_OFFENCE",
+    "sexual":         "SEXUAL_OFFENCE",
+    "molestat":       "SEXUAL_OFFENCE",
+    "penetrat":       "SEXUAL_OFFENCE",
+    "outraging":      "SEXUAL_OFFENCE",
+    # Domestic / matrimonial
+    "dowri":          "DOMESTIC_VIOLENCE",
+    "cruelti":        "DOMESTIC_VIOLENCE",
+    "matrimoni":      "DOMESTIC_VIOLENCE",
+    "husband":        "DOMESTIC_VIOLENCE",
+    "wife":           "DOMESTIC_VIOLENCE",
+    "in-law":         "DOMESTIC_VIOLENCE",
+    # Property
+    "theft":          "PROPERTY_OFFENCE",
+    "steal":          "PROPERTY_OFFENCE",
+    "stolen":         "PROPERTY_OFFENCE",
+    "robbery":        "PROPERTY_OFFENCE",
+    "extort":         "PROPERTY_OFFENCE",
+    "cheat":          "PROPERTY_OFFENCE",
+    "fraud":          "PROPERTY_OFFENCE",
+    "misappropri":    "PROPERTY_OFFENCE",
+    "breach of trust": "PROPERTY_OFFENCE",
+    "embezzl":        "PROPERTY_OFFENCE",
+    "land":           "PROPERTY_OFFENCE",
+    "propert":        "PROPERTY_OFFENCE",
+    # Document / record offences
+    "falsif":         "DOCUMENT_OFFENCE",
+    "forgeri":        "DOCUMENT_OFFENCE",
+    "forged":         "DOCUMENT_OFFENCE",
+    "document":       "DOCUMENT_OFFENCE",
+    "record":         "DOCUMENT_OFFENCE",
+    "destruct":       "DOCUMENT_OFFENCE",
+    "destroy":        "DOCUMENT_OFFENCE",
+    "tamper":         "DOCUMENT_OFFENCE",
+    "account":        "DOCUMENT_OFFENCE",
+    # False evidence / screening
+    "evidenc":        "FALSE_EVIDENCE",
+    "disappear":      "FALSE_EVIDENCE",
+    "screen":         "FALSE_EVIDENCE",
+    "conceal":        "FALSE_EVIDENCE",
+    "abscond":        "FALSE_EVIDENCE",
+    # Defamation
+    "defam":          "DEFAMATION",
+    "reputat":        "DEFAMATION",
+    "slander":        "DEFAMATION",
+    # Public servant
+    "public servant": "PUBLIC_SERVANT",
+    "government":     "PUBLIC_SERVANT",
+    # Public order
+    "assembl":        "PUBLIC_ORDER",
+    "riot":           "PUBLIC_ORDER",
+    "sedition":       "PUBLIC_ORDER",
+}
+
+
+def _derive_query_domains(concept_labels: List[str], sub_query_texts: List[str]) -> frozenset:
+    """
+    Derives a set of query domain strings from Stage 1 concept labels and sub-query text.
+    Uses the _CONCEPT_DOMAIN_SIGNALS lookup (stemmed keywords → domain).
+    Always includes GENERAL so enabling/ancillary provisions always pass the gate.
+
+    The derived domain set is intentionally BROAD — it includes every domain hinted at
+    by any concept label. For a medical negligence + document destruction case it returns:
+      {HOMICIDE, MEDICAL_NEGLIGENCE, DOCUMENT_OFFENCE, FALSE_EVIDENCE, GENERAL}
+    This means sections from those chapters are eligible; all others are eliminated.
+    """
+    domains: Set[str] = {"GENERAL"}  # always permit ancillary provisions
+    combined = " ".join(concept_labels + sub_query_texts).lower()
+    # Multi-word signals first (checked as substrings before stemming)
+    for signal, domain in _CONCEPT_DOMAIN_SIGNALS.items():
+        if " " in signal:  # multi-word: substring match
+            if signal in combined:
+                domains.add(domain)
+    # Single-word signals: stem each token and match
+    for tok in re.findall(r"[a-z]+", combined):
+        if len(tok) < 3:
+            continue
+        stemmed = _PorterStemmer.stem(tok)
+        # Try stemmed form first, then raw token
+        domain = _CONCEPT_DOMAIN_SIGNALS.get(stemmed) or _CONCEPT_DOMAIN_SIGNALS.get(tok)
+        if domain:
+            domains.add(domain)
+    return frozenset(domains)
+
+
+# ---------------------------------------------------------------------------
+# Retrieval helpers (word-boundary matching, tokenisation, BM25)
+# ---------------------------------------------------------------------------
+
+class _WordText(str):
+    """
+    str subclass whose `term in text` check matches on a LEADING word boundary
+    instead of raw substring. 'hit' no longer matches 'white'/'exhibit', while
+    stems such as 'intimidat' or 'harass' still match 'intimidation'/'harassed'.
+    Lets every existing `any(t in lower_facts for t in [...])` trigger check
+    become boundary-aware without rewriting each one.
+    """
+
+    def __contains__(self, term: object) -> bool:  # type: ignore[override]
+        t = str(term).strip().lower()
+        if not t:
+            return False
+        return re.search(r"(?<![a-z0-9])" + re.escape(t), str(self).lower()) is not None
+
+
+# Fix 5/6: expanded stop list. Question boilerplate and generic case-narrative
+# words carry no statutory signal but matched almost every long section.
+_RETRIEVAL_STOP_WORDS: Set[str] = {
+    "the", "a", "an", "and", "or", "of", "to", "in", "for", "on", "by", "with", "is", "was",
+    "are", "were", "be", "been", "being", "as", "at", "from", "that", "this", "these", "those",
+    "it", "its", "his", "her", "their", "them", "he", "she", "they", "who", "whom", "which",
+    "what", "when", "where", "how", "why", "any", "such", "not", "no", "nor", "if", "than",
+    "then", "also", "may", "shall", "will", "would", "could", "should", "has", "have", "had",
+    "do", "does", "did", "into", "out", "up", "about", "against", "between", "after", "before",
+    "during", "other", "another", "same", "own", "per", "via",
+    # question / legal-framing boilerplate produced by Stage 1 sub-queries
+    "legal", "law", "implications", "implication", "consequences", "consequence",
+    "ramifications", "ramification", "potential", "possible", "regarding", "relating",
+    "related", "concerning", "respect", "alleged", "allegedly", "allegation", "allegations",
+    "accused", "applicant", "complainant", "person", "persons", "case", "matter",
+    "actual", "certain", "timely", "sequence", "events", "event", "instruction", "instructed",
+    "staff", "members", "member", "junior", "senior", "section", "offence", "offences",
+    "liability", "liable", "punishment", "punishable", "whoever", "act", "acts", "done",
+    # Medical / case-narrative context words that are not statutory crime keywords.
+    # "treatment" / "treat" dominates sections like IPC 36, 88, 92 which are about consent
+    # to medical procedures — they should not rank above 304A for a negligence query.
+    "treat", "treatment",
+    # FIX 1 – "fact" was leaking through from "FACT:F1" label tokens and matching
+    # every IPC section that contains the word "fact" in its statutory text.
+    "fact", "facts",
+    # FIX 2 – IPC boilerplate that appears in virtually every section and carries
+    # zero discriminative signal for charge identification.
+    "court", "judge", "proceeding", "proceedings", "justice",
+    "regard", "hold", "holds", "held", "consider", "shows", "herein",
+    "aforesaid", "thereby", "thereof", "therein", "thereto", "whereas",
+    "nothing", "extent", "purpose", "means", "manner", "nature", "kind",
+    "reason", "ground", "general", "special", "lawful", "unlawful",
+    "right", "power", "authority", "order", "place", "time", "day",
+    "year", "state", "office", "public",
+}
+
+# -------------------------------------------------------------------------
+# FIX 8 — Query-side domain-generic filter.
+#
+# These stemmed tokens appear in the plain_language / full_text of *hundreds*
+# of IPC sections for completely unrelated reasons:
+#   - "medic" → doctor examines rape victim, treats grievous hurt patient
+#   - "hospit" → victim taken to hospital after acid attack / miscarriage
+#   - "patient" → consent-to-surgery provisions (IPC 88, 92)
+#   - "offic" → "officer" as actor in virtually every public-servant section
+#   - "report" → FIR, medical report, post-mortem report — all procedural
+#   - "victim" → any section involving harm to a person
+#   - "complaint" → any cognizable offence
+#   - "polic" → any section mentioning police investigation
+#
+# When these tokens arrive FROM THE QUERY (e.g. "senior medical officer
+# instructed junior staff") they carry zero discriminative power for
+# identifying *which* IPC section applies. Removing them only from the
+# query side means they remain in document indices (IPC 201/204 still
+# has "record", "evidence" in its BM25 doc) while they no longer cause
+# false-positive matches against unrelated sections.
+#
+# Do NOT add these to _RETRIEVAL_STOP_WORDS (which applies to both sides).
+# Instead strip them from query term_weights before calling _rank().
+_QUERY_ONLY_STOP_STEMS: Set[str] = {
+    # Role / institution labels (not statutory ingredients)
+    "medic",    # "medical" → doctor as context word, not as crime element
+    "hospit",   # "hospital"
+    "patient",
+    "offic",    # "officer", "official"
+    "polic",    # "police" — standalone; "custody" pair handled by procedural gate
+    # Procedural / narrative nouns (not statutory ingredients)
+    "report",   # FIR / medical report / post-mortem report
+    "victim",
+    "complaint",
+    "witness",
+    "conduct",
+    # Extremely common verbs / nouns with zero IPC discriminative value
+    "person",
+    "inform",   # "information to police" → FIR boilerplate
+    "allege",   # allegations are the framing, not the ingredient
+}
+
+# Boilerplate lead-ins removed before tokenising a sub-query sentence.
+_QUERY_BOILERPLATE_RE = re.compile(
+    r"^\s*(what|which)\s+(are|is|would be|could be)\s+(the\s+)?"
+    r"((potential|possible|likely)\s+)?"
+    r"(legal\s+)?(implications?|consequences?|ramifications?|issues?|offences?|provisions?)\s+"
+    r"(of|for|arising from|relating to|regarding)\s+(the\s+)?",
+    re.IGNORECASE,
+)
+
+# General Explanations / General Exceptions are never charge candidates on their own.
+_NON_OFFENCE_CHAPTER_MARKERS = ("general explanations", "general exceptions")
+# Enabling / ancillary-liability provisions that must stay retrievable.
+# IPC 34 is in "General Explanations" chapter which is normally filtered as non-offence;
+# allowlist it so it can be retrieved when multiple accused are alleged.
+_ENABLING_SECTION_ALLOWLIST: Set[str] = {"34", "107", "108", "109", "114", "120A", "120B", "149"}
+
+# ---------------------------------------------------------------------------
+# Procedural concept detection
+# ---------------------------------------------------------------------------
+# Legal concepts that belong to CrPC/BNSS (procedural law), not IPC/BNS (substantive).
+# These must NOT be fed to the IPC BM25 index — they produce false positives there.
+# Instead they are passed through as-is so the caller can route them to a
+# CrPC retrieval track or bail-argument generator.
+#
+# Detection is via stemmed keyword matching on the concept label.
+# Add new procedural keywords here as new concept vocabularies emerge.
+_PROCEDURAL_CONCEPT_STEMS: Set[str] = {
+    # Bail provisions
+    "bail",          # anticipatory bail, regular bail
+    "antici",        # anticipatory
+    "remand",
+    "custody",
+    # Trial procedure
+    "charg",         # framing of charges (not the offence itself)
+    "cogniz",        # cognizance
+    "summon",
+    "warrant",
+    "commit",        # committal proceedings
+    # Appellate / revision
+    "appeal",
+    "revis",
+    "stay",
+}
+
+_PROCEDURAL_CONCEPT_PHRASES: Set[str] = {
+    # Full phrases that unambiguously signal procedural relief
+    "anticipatory bail",
+    "regular bail",
+    "bail application",
+    "default bail",
+    "statutory bail",
+    "remand extension",
+    "police custody",
+    "judicial custody",
+    "framing of charges",
+    "discharge application",
+    "quashing of fir",
+    "section 438",
+    "section 439",
+    "section 167",
+}
+
+
+def is_procedural_concept(concept_label: str) -> bool:
+    """
+    Returns True if the concept label describes procedural CrPC/BNSS relief
+    rather than an IPC/BNS substantive offence.
+
+    Uses phrase matching first (faster, more precise), then stemmed-token matching.
+    """
+    label_lower = (concept_label or "").strip().lower()
+    # Phrase check — exact substring
+    for phrase in _PROCEDURAL_CONCEPT_PHRASES:
+        if phrase in label_lower:
+            return True
+    # Token stem check
+    for tok in re.findall(r"[a-z]+", label_lower):
+        if len(tok) < 3:
+            continue
+        if tok in _PROCEDURAL_CONCEPT_STEMS:
+            return True
+        stemmed = _PorterStemmer.stem(tok)
+        if stemmed in _PROCEDURAL_CONCEPT_STEMS:
+            return True
+    return False
+
+# Relative-score floor (score is normalised to the best hit for the query).
+# FIX 5 – raised from 0.30 → 0.45 to cut low-signal noise sections.
+_MIN_RELATIVE_SCORE = 0.45
+_BM25_K1 = 1.5
+_BM25_B = 0.75
+# FIX 3 – new field weights: title x5, key_principle x4, ingredients/plain_language/chapter x3,
+# illustrations x2, full_text x1.  Heavier signal on the descriptive fields reduces the
+# dominance of raw statutory text which is full of common IPC boilerplate.
+_TITLE_WEIGHT = 5           # section heading – most discriminative
+_KEY_PRINCIPLE_WEIGHT = 4   # plain-language summary (ipc.json "key_principle")
+_INGREDIENT_WEIGHT = 3      # ingredients, plain_language, chapter_title, kb triggers
+# Absolute floor: a section must cover at least this share of the query's total IDF mass
+# (rare-word weight). Unlike the relative floor, a query with nothing relevant returns nothing.
+# FIX 6 – was 0.25, raised to 0.30. Note: we also enforce _MIN_MATCHED_TERMS (see below)
+# which independently prevents single-common-word matches from passing even at 0.30.
+_MIN_COVERAGE = 0.30
+# A section must match at least this many DISTINCT query token types.
+# This replaces the blunt 0.40 coverage floor: 304A matches 'neglig' (one strong token,
+# coverage 0.175) which is genuine signal; IPC 36/88/92 also matched only one token
+# ('treat' / 'omiss') which are now stopped. After stopping 'treat', legitimate
+# single-token matches like 304A must still pass — hence min_terms=1 but coverage>=0.30.
+_MIN_MATCHED_TERMS = 1
+_RRF_K = 60
+
+
+class _PorterStemmer:
+    """
+    Pure-Python Porter stemmer (no external dependencies).
+    Correctly conflates morphological variants:
+      negligence / negligent → neglig
+      falsification / falsify / falsified → falsif
+      destruction / destroy / destroyed → destruct / destroi
+      concealment / conceal / concealing → conceal / conc
+      omission / omit / omitted → omiss / omit
+    The old hand-rolled suffix stripper left negligence ≠ negligent as different
+    tokens, preventing 304A from ranking for a negligence-concept query.
+    """
+    @staticmethod
+    def _cons(w: str, i: int) -> bool:
+        c = w[i]
+        if c in "aeiou":
+            return False
+        if c == "y":
+            return i == 0 or not _PorterStemmer._cons(w, i - 1)
+        return True
+
+    @classmethod
+    def _m(cls, w: str) -> int:
+        n = 0; i = 0; l = len(w)
+        while i < l and cls._cons(w, i): i += 1
+        while i < l:
+            while i < l and not cls._cons(w, i): i += 1
+            n += 1
+            while i < l and cls._cons(w, i): i += 1
+        return n
+
+    @classmethod
+    def _vowel_in(cls, w: str) -> bool:
+        return any(not cls._cons(w, i) for i in range(len(w)))
+
+    @classmethod
+    def _double_c(cls, w: str) -> bool:
+        return len(w) >= 2 and w[-1] == w[-2] and cls._cons(w, len(w) - 1)
+
+    @classmethod
+    def _cvc(cls, w: str) -> bool:
+        l = len(w)
+        return (l >= 3 and cls._cons(w, l - 1) and not cls._cons(w, l - 2)
+                and cls._cons(w, l - 3) and w[-1] not in "wxy")
+
+    @classmethod
+    def stem(cls, word: str) -> str:
+        w = word.lower()
+        if len(w) <= 2:
+            return w
+        # Step 1a
+        if w.endswith("sses"):
+            w = w[:-2]
+        elif w.endswith("ies"):
+            w = w[:-2]
+        elif not w.endswith("ss") and w.endswith("s"):
+            w = w[:-1]
+        # Step 1b
+        if w.endswith("eed"):
+            s = w[:-3]
+            if cls._m(s) > 0:
+                w = w[:-1]
+        elif w.endswith("ed"):
+            s = w[:-2]
+            if cls._vowel_in(s):
+                w = s
+                if w.endswith(("at", "bl", "iz")):
+                    w += "e"
+                elif cls._double_c(w) and w[-1] not in "lsz":
+                    w = w[:-1]
+                elif cls._m(w) == 1 and cls._cvc(w):
+                    w += "e"
+        elif w.endswith("ing"):
+            s = w[:-3]
+            if cls._vowel_in(s):
+                w = s
+                if w.endswith(("at", "bl", "iz")):
+                    w += "e"
+                elif cls._double_c(w) and w[-1] not in "lsz":
+                    w = w[:-1]
+                elif cls._m(w) == 1 and cls._cvc(w):
+                    w += "e"
+        # Step 1c
+        if w.endswith("y") and cls._vowel_in(w[:-1]):
+            w = w[:-1] + "i"
+        # Step 2
+        for suf, rep in [
+            ("ational","ate"),("tional","tion"),("enci","ence"),("anci","ance"),
+            ("izer","ize"),("abli","able"),("alli","al"),("entli","ent"),("eli","e"),
+            ("ousli","ous"),("ization","ize"),("ation","ate"),("ator","ate"),
+            ("alism","al"),("iveness","ive"),("fulness","ful"),("ousness","ous"),
+            ("aliti","al"),("iviti","ive"),("biliti","ble"),
+        ]:
+            if w.endswith(suf):
+                s = w[:-len(suf)]
+                if cls._m(s) > 0:
+                    w = s + rep
+                break
+        # Step 3
+        for suf, rep in [
+            ("icate","ic"),("ative",""),("alize","al"),("iciti","ic"),
+            ("ical","ic"),("ful",""),("ness",""),
+        ]:
+            if w.endswith(suf):
+                s = w[:-len(suf)]
+                if cls._m(s) > 0:
+                    w = s + rep
+                break
+        # Step 4
+        for suf in ["al","ance","ence","er","ic","able","ible","ant","ement",
+                    "ment","ent","ion","ou","ism","ate","iti","ous","ive","ize"]:
+            if w.endswith(suf):
+                s = w[:-len(suf)]
+                if suf == "ion":
+                    if cls._m(s) > 1 and s.endswith(("s", "t")):
+                        w = s
+                elif cls._m(s) > 1:
+                    w = s
+                break
+        # Step 5a
+        if w.endswith("e"):
+            s = w[:-1]
+            if cls._m(s) > 1:
+                w = s
+            elif cls._m(s) == 1 and not cls._cvc(s):
+                w = s
+        # Step 5b
+        if cls._m(w) > 1 and cls._double_c(w) and w.endswith("l"):
+            w = w[:-1]
+        return w
+
+
+def _stem(tok: str) -> str:
+    """Porter stemmer: negligence/negligent → neglig, falsify/falsification → falsif, etc."""
+    return _PorterStemmer.stem(tok)
+
+
+def _tokenize(text: str) -> List[str]:
+    """Lowercase word tokens (word-boundary based), stop words removed, Porter-stemmed."""
+    return [
+        _stem(t)
+        for t in re.findall(r"[a-z]+", (text or "").lower())
+        if len(t) > 2 and t not in _RETRIEVAL_STOP_WORDS
+    ]
+
+
+def strip_query_boilerplate(query_text: str) -> str:
+    """Turns 'What are the legal consequences of the alleged destruction of X ...?' into a short conduct phrase."""
+    q = (query_text or "").strip().rstrip("?")
+    return _QUERY_BOILERPLATE_RE.sub("", q).strip()
+
+
+class _BM25Index:
+    """Tiny in-memory BM25 over pre-tokenised documents. No external dependency."""
+
+    def __init__(self, docs_tokens: List[List[str]]):
+        self.doc_tf: List[Dict[str, int]] = []
+        self.doc_len: List[int] = []
+        df: Dict[str, int] = {}
+        for toks in docs_tokens:
+            tf: Dict[str, int] = {}
+            for t in toks:
+                tf[t] = tf.get(t, 0) + 1
+            self.doc_tf.append(tf)
+            self.doc_len.append(len(toks))
+            for t in tf:
+                df[t] = df.get(t, 0) + 1
+        self.n = max(len(docs_tokens), 1)
+        self.avgdl = (sum(self.doc_len) / self.n) or 1.0
+        self.idf = {
+            t: math.log(1.0 + (self.n - d + 0.5) / (d + 0.5)) for t, d in df.items()
+        }
+
+    def total_mass(self, term_weights: Dict[str, float]) -> float:
+        return sum(w * self.idf[t] for t, w in term_weights.items() if t in self.idf)
+
+    def score(self, idx: int, term_weights: Dict[str, float]) -> Tuple[float, List[str], float]:
+        """Returns (bm25 score, matched terms, matched IDF mass)."""
+        tf = self.doc_tf[idx]
+        dl = self.doc_len[idx]
+        total = 0.0
+        mass = 0.0
+        matched: List[str] = []
+        for t, w in term_weights.items():
+            f = tf.get(t)
+            if not f:
+                continue
+            idf = self.idf.get(t, 0.0)
+            denom = f + _BM25_K1 * (1.0 - _BM25_B + _BM25_B * dl / self.avgdl)
+            total += w * idf * f * (_BM25_K1 + 1.0) / denom
+            mass += w * idf
+            matched.append(t)
+        return total, matched, mass
+
+
 class CandidateSectionMatch(BaseModel):
     section_identifier: str = Field(description="Normalized section identifier e.g. IPC 498A, BNS 85")
     statute: str = Field(description="Statute name: 'IPC' or 'BNS'")
@@ -668,6 +1536,7 @@ class CandidateSectionMatch(BaseModel):
     chapter: Optional[str] = Field(default=None, description="Chapter title if available")
     score: float = Field(description="Local pre-filter relevance score (0.0 to 1.0)")
     matched_terms: List[str] = Field(default_factory=list, description="Keywords/terms matched locally")
+    matched_concepts: List[str] = Field(default_factory=list, description="Stage 1 legal concepts that retrieved this section")
 
     @property
     def statute_type(self) -> str:
@@ -692,11 +1561,236 @@ class StatuteClassifierPrefilter:
     def __init__(self):
         repo = StatuteRepository.get_instance()
         self.sections_db: List[Dict[str, Any]] = repo.get_sections_db()
+        self._bm25: Optional[_BM25Index] = None
 
     def _load_datasets(self):
         """Loads dataset records exclusively from ipc.json via StatuteRepository."""
         repo = StatuteRepository.get_instance()
         self.sections_db = repo.get_sections_db()
+        self._bm25 = None
+
+    def _get_bm25(self) -> _BM25Index:
+        """
+        FIX 3 – fully rewritten field-weighted index using all rich ipc.json fields.
+
+        Weight scheme (descending discriminative power):
+          title          × 5  – section heading; most specific signal
+          key_principle  × 4  – concise plain-language summary of the offence
+          plain_language × 3  – layman wording, close to fact vocabulary
+          chapter_title  × 3  – chapter context strongly disambiguates
+          ingredients    × 3  – legal elements / key_elements list
+          kb_triggers    × 3  – domain knowledge-base factual triggers
+          illustrations  × 2  – scenario descriptions in the statute itself
+          full_text      × 1  – raw statutory text; very noisy, used as catch-all
+
+        All fields sourced from ipc.json via StatuteRepository.get_statute_db().
+        """
+        if self._bm25 is None:
+            try:
+                statute_db = StatuteRepository.get_instance().get_statute_db() or {}
+            except Exception:
+                statute_db = {}
+            docs: List[List[str]] = []
+            kb_by_key = {
+                (rule.statute.upper(), rule.section.upper()): rule
+                for rule in get_effective_knowledge_base()
+            }
+            for rec in self.sections_db:
+                statute = str(rec.get("statute", "IPC")).upper()
+                section_number = str(rec.get("section_number", "")).upper()
+                ext = statute_db.get(
+                    f"{rec.get('statute', 'IPC')}_{rec.get('section_number', '')}"
+                ) or {}
+
+                # 1. Title / heading — most discriminative signal (weight ×5)
+                title_tokens = _tokenize(
+                    rec.get("title", "") or str(ext.get("section_title") or "")
+                )
+
+                # 2. key_principle — plain-language summary (weight ×4)
+                kp_tokens = _tokenize(str(ext.get("key_principle") or ""))
+
+                # 3. plain_language — layman wording (weight ×3)
+                pl_tokens = _tokenize(str(ext.get("plain_language") or ""))
+
+                # 4. chapter_title — chapter context is strong disambiguating signal (weight ×3)
+                # sections_db stores chapter_title under "chapter"; statute_db also has it.
+                chapter_tokens = _tokenize(
+                    rec.get("chapter", "") or str(ext.get("chapter_title") or "")
+                )
+
+                # 5. ingredients + key_elements — legal elements list (weight ×3)
+                ings = ext.get("ingredients") or []
+                key_elems = ext.get("key_elements") or []
+                all_ings = list(ings) + list(key_elems)
+                ing_text = " ".join(str(i) for i in all_ings) if all_ings else ""
+                ing_tokens = _tokenize(ing_text)
+
+                # 6. Knowledge-base factual triggers — domain-specific (weight ×3)
+                kb_rule = kb_by_key.get((statute, section_number))
+                kb_tokens = (
+                    _tokenize(
+                        " ".join(kb_rule.factual_triggers + kb_rule.mandatory_ingredients)
+                    )
+                    if kb_rule
+                    else []
+                )
+
+                # 7. Illustration key_principles — concrete case-scenario vocabulary (weight ×2)
+                illustrations = ext.get("illustrations") or []
+                illus_parts: List[str] = []
+                if isinstance(illustrations, list):
+                    for il in illustrations:
+                        if isinstance(il, dict):
+                            kp = il.get("key_principle") or il.get("text") or ""
+                            if kp:
+                                illus_parts.append(str(kp))
+                        elif isinstance(il, str) and il.strip():
+                            illus_parts.append(il)
+                illus_tokens = _tokenize(" ".join(illus_parts))
+
+                # 8. Full statutory text — last resort, very noisy (weight ×1)
+                # statute_db "full_text" is the raw statute text only (not lowercased concat);
+                # fall back to sections_db "full_text" which is the lowercased concatenation of
+                # all fields built by StatuteRepository._load_ipc_json().
+                full_tokens = _tokenize(
+                    str(ext.get("full_text") or rec.get("full_text", ""))
+                )
+
+                docs.append(
+                    title_tokens * _TITLE_WEIGHT              # ×5
+                    + kp_tokens * _KEY_PRINCIPLE_WEIGHT       # ×4
+                    + pl_tokens * _INGREDIENT_WEIGHT          # ×3
+                    + chapter_tokens * _INGREDIENT_WEIGHT     # ×3
+                    + ing_tokens * _INGREDIENT_WEIGHT         # ×3
+                    + kb_tokens * _INGREDIENT_WEIGHT          # ×3
+                    + illus_tokens * 2                        # ×2
+                    + full_tokens                             # ×1
+                )
+            self._bm25 = _BM25Index(docs)
+        return self._bm25
+
+    def _rank(
+        self,
+        term_weights: Dict[str, float],
+        regime_filter: Optional[str],
+        gate_text: str,
+        query_domains: Optional[frozenset] = None,
+    ) -> List[Tuple[Dict[str, Any], float, List[str], float]]:
+        """
+        Core retrieval for one conduct query. Returns [(record, relative_score, matched_terms,
+        coverage)] sorted best-first. Applies: regime filter, non-offence chapter filter,
+        chapter-domain coherence gate, fatal-disqualification gate, IDF-mass coverage floor,
+        and a relative-score floor.
+
+        query_domains: frozenset of domain strings derived from concept labels (see
+        _derive_query_domains). When provided, any section whose chapter domains share no
+        overlap with query_domains is eliminated — structurally, without per-section rules.
+        Enabling/ancillary provisions (GENERAL domain) always pass regardless of query domain.
+        """
+        bm25 = self._get_bm25()
+        total_mass = bm25.total_mass(term_weights)
+        if total_mass <= 0.0:
+            return []
+        scored: List[Tuple[Dict[str, Any], float, List[str], float]] = []
+        for idx, record in enumerate(self.sections_db):
+            if regime_filter and record["statute"] != regime_filter:
+                continue
+            if self._is_non_offence_section(record):
+                continue
+
+            # ----------------------------------------------------------------
+            # Chapter-domain coherence gate (structural, not per-section)
+            # A section passes if ANY of its chapter's domains appears in the
+            # query domains. GENERAL always passes (enabling provisions).
+            # Skipped when query_domains is None (e.g. legacy callers).
+            # ----------------------------------------------------------------
+            if query_domains:
+                sec_num_upper = str(record.get("section_number", "")).strip().upper()
+                if sec_num_upper not in _ENABLING_SECTION_ALLOWLIST:
+                    chapter = str(record.get("chapter") or "")
+                    sec_chapter_domains = _chapter_domains(chapter)
+                    if not sec_chapter_domains.intersection(query_domains):
+                        continue  # chapter domain incompatible — eliminate
+
+            disqualified, _, _ = self.evaluate_fatal_disqualification(
+                record["section_number"].upper(), record["statute"].upper(), gate_text
+            )
+            if disqualified:
+                continue
+            raw, matched, mass = bm25.score(idx, term_weights)
+            if raw <= 0.0:
+                continue
+            coverage = mass / total_mass
+            # Dual gate: must cover ≥ MIN_COVERAGE of query IDF mass AND match
+            # ≥ MIN_MATCHED_TERMS distinct token types.  Coverage alone was too
+            # blunt (cut 304A which has coverage 0.175 on a valid single-token match
+            # after stopping "treat").  The term-count gate blocks true zero-signal
+            # sections that somehow pass coverage via one ultra-rare query token.
+            if coverage < _MIN_COVERAGE or len(matched) < _MIN_MATCHED_TERMS:
+                continue
+            scored.append((record, raw, matched, coverage))
+        if not scored:
+            return []
+        max_raw = max(x[1] for x in scored) or 1.0
+        n_query_tokens = len(term_weights)  # distinct token types in this group's query
+
+        results = []
+        for rec, raw, matched, cov in scored:
+            rel = raw / max_raw
+            if rel < _MIN_RELATIVE_SCORE:
+                continue
+
+            # ----------------------------------------------------------------
+            # Term-breadth penalty: a single matched token should never produce
+            # a high score regardless of its IDF. Scale the score by the fraction
+            # of query tokens matched, with a floor so a strong single-match
+            # (like 304A on "negligen") still passes at a reasonable score.
+            #
+            # breadth_factor = matched_tokens / query_tokens, floored at 0.35.
+            # A 1-of-1 token query gets factor=1.0 (no penalty — single-token
+            # groups arise from narrow concept labels like "Abetment").
+            # A 1-of-4 token query gets factor=max(0.35, 0.25)=0.35 — strong penalty.
+            # A 3-of-4 token query gets factor=0.75 — modest penalty.
+            # ----------------------------------------------------------------
+            if n_query_tokens > 1:
+                breadth_factor = max(0.35, len(matched) / n_query_tokens)
+            else:
+                breadth_factor = 1.0  # single-token query: no penalty
+
+            score = round(rel * min(1.0, 0.4 + cov) * breadth_factor, 3)
+
+            # After applying breadth penalty, re-apply the relative floor so
+            # penalized sections don't sneak through at a reduced score.
+            if score < _MIN_RELATIVE_SCORE * 0.5:
+                continue
+
+            results.append((rec, score, matched, round(cov, 3)))
+
+        results.sort(key=lambda x: x[1], reverse=True)
+        return results
+
+    @staticmethod
+    def _to_match(rec: Dict[str, Any], score: float, matched: List[str], concepts: Optional[List[str]] = None) -> "CandidateSectionMatch":
+        return CandidateSectionMatch(
+            section_identifier=rec["identifier"],
+            statute=rec["statute"],
+            section_number=rec["section_number"],
+            title=rec["title"],
+            chapter=rec["chapter"],
+            score=score,
+            matched_terms=matched[:5],
+            matched_concepts=concepts or [],
+        )
+
+    @staticmethod
+    def _is_non_offence_section(record: Dict[str, Any]) -> bool:
+        """General Explanations / General Exceptions are excluded unless explicitly enabling."""
+        sec = str(record.get("section_number", "")).strip().upper()
+        if sec in _ENABLING_SECTION_ALLOWLIST:
+            return False
+        chapter = str(record.get("chapter") or "").lower()
+        return any(marker in chapter for marker in _NON_OFFENCE_CHAPTER_MARKERS)
 
     def shortlist_candidates_for_query(
         self,
@@ -717,126 +1811,24 @@ class StatuteClassifierPrefilter:
             List of CandidateSectionMatch objects sorted by relevance score descending.
         """
         # Collect concept terms and sub-query terms
+        # Fix 6: strip question boilerplate ("What are the legal consequences of ...") so only
+        # the conduct phrase is matched. Concept labels are already short phrases.
         concept_phrases = [c.concept.lower() for c in legal_query_obj.legal_concepts if c.concept]
-        query_terms = []
+        query_terms: List[str] = []
         for phrase in concept_phrases:
-            query_terms.extend(re.findall(r"\w+", phrase))
+            query_terms.extend(re.findall(r"[a-z]+", phrase))
 
         for sq in legal_query_obj.sub_queries:
-            query_terms.extend(re.findall(r"\w+", sq.query.lower()))
+            query_terms.extend(re.findall(r"[a-z]+", strip_query_boilerplate(sq.query).lower()))
             if sq.concept:
                 concept_phrases.append(sq.concept.lower())
-                query_terms.extend(re.findall(r"\w+", sq.concept.lower()))
+                query_terms.extend(re.findall(r"[a-z]+", sq.concept.lower()))
 
-        # Filter out common stop words
-        stop_words = {"the", "a", "an", "and", "or", "of", "to", "in", "for", "on", "by", "with", "is", "was", "are", "were"}
-        filtered_terms = [t for t in query_terms if t not in stop_words and len(t) > 2]
+        # Fix 2/6: expanded stop list + word-level tokens (kept as raw words here so that the
+        # KB trigger / bridge logic below still sees readable text; BM25 stems them later).
+        filtered_terms = [t for t in query_terms if t not in _RETRIEVAL_STOP_WORDS and len(t) > 2]
         unique_query_terms = set(filtered_terms)
 
-        # Concept-to-keyword vocabulary bridge:
-        # Legal concept phrases from Stage 1 use formal language that doesn't match
-        # section titles directly. Expand known concept phrases into trigger keywords.
-        _CONCEPT_KEYWORD_BRIDGE = {
-            # ── Existing entries (violence / property offences) ─────────────────────────
-            "dishonest inducement to deliver property": ["extortion", "extorted", "blackmail", "threatened", "induced delivery"],
-            "dishonestly inducing delivery": ["extortion", "blackmail", "threatened", "induced delivery"],
-            "criminal intimidation": ["threat", "threatened", "intimidat", "warning"],
-            "physical assault": ["assault", "beaten", "hurt", "pushed", "shoved", "slapped",
-                               "physical violence", "physical abuse", "physical incident",
-                               "kicked", "punched", "struck", "bodily harm", "manhandled"],
-            "voluntarily causing hurt": ["assault", "hurt", "beaten", "physical violence",
-                                        "pushed", "shoved", "slapped", "manhandled"],
-            "theft": ["theft", "stolen", "stole", "took away"],
-            "criminal breach of trust": ["stridhan", "ornaments", "property not returned", "entrustment"],
-            "extortion": ["extortion", "extorted", "blackmail", "threatened", "demanded money"],
-            "cheating": ["cheated", "defrauded", "deceived", "fraud"],
-            "robbery": ["robbery", "robbed", "looted", "snatched by force"],
-            "house trespass": ["trespass", "entered illegally", "barged in", "godown", "building", "dwelling", "theft", "receptacle"],
-            "criminal trespass": ["trespass", "entered illegally", "encroached", "godown", "storage", "building", "theft", "stole", "removed", "receptacle"],
-            "breaking open": ["theft", "property", "receptacle", "godown", "padlock", "lock", "trespass", "stole", "removed"],
-            "removing property": ["theft", "stolen", "property", "movable", "misappropriation", "dishonest misappropriation"],
-            "taking raw materials": ["theft", "stolen", "property", "movable", "raw materials", "inventory"],
-            "mischief": ["damaged", "destroyed property", "mischief"],
-            "abetment of suicide": ["abetment of suicide", "instigated suicide", "harassment led to suicide"],
-
-            # ── Homicide / death offences ───────────────────────────────────────────────
-            # Map death-related concept phrases to ensure proper section matching.
-            # Critical: "sudden quarrel" + "death" should trigger Section 300 (Murder with Exception 4)
-            # and Section 304 (Culpable homicide not amounting to murder), NOT Section 301 (transferred malice).
-            "causing death": ["death", "killed", "murder", "culpable homicide", "homicide"],
-            "causing death during quarrel": ["death", "killed", "murder", "culpable homicide", "sudden quarrel", "sudden fight", "heat of passion"],
-            "causing death during sudden quarrel": ["death", "killed", "murder", "culpable homicide", "sudden quarrel", "sudden fight", "heat of passion", "provocation"],
-            "death in sudden fight": ["death", "killed", "murder", "culpable homicide", "sudden quarrel", "sudden fight", "heat of passion"],
-            "culpable homicide": ["death", "killed", "murder", "culpable homicide"],
-
-            # ── Forgery / document fraud ────────────────────────────────────────────────
-            # Maps Stage 1 concept labels for document-fraud cases to trigger keywords that
-            # match 463/465/467/468/471/423 entries in the KB and CSV.
-            "forgery": ["forgery", "forged document", "fake signature", "fabricated", "false document"],
-            "forgery of document": ["forgery", "forged document", "fabricated document", "false document"],
-            "forgery of valuable security": [
-                "forged document", "forgery", "sale deed", "title deed", "ownership document",
-                "forged deed", "fake deed", "valuable security",
-            ],
-            "fraudulent document": ["forged document", "forgery", "false document", "fabricated", "fake deed"],
-            "forged ownership documents": [
-                "forged document", "forgery", "ownership document", "title deed", "sale deed",
-                "fake ownership", "fabricated deed", "forged deed",
-            ],
-            "fraudulent deed": [
-                "fraudulent deed", "false deed", "forged deed", "sale deed",
-                "false consideration", "fake sale deed", "fraudulent sale deed",
-            ],
-            "fraudulent sale deed": [
-                "fraudulent deed", "false deed", "forged deed", "sale deed",
-                "false consideration", "fraudulent transfer",
-            ],
-            "making false document": ["forgery", "forged document", "false document", "fabricated"],
-            "using forged document": ["forged document", "used forged document", "submitted fake document"],
-
-            # ── Dishonest property transfer (Stage 1 concept labels for land-fraud) ─────
-            # Stage 1 uses "Dishonest Transfer", "Fraudulent Sale", "Property Fraud" as
-            # concept labels.  Map these to vocabulary that triggers 420 and 423.
-            "dishonest transfer": [
-                "dishonest transfer", "fraudulent transfer", "cheated", "defrauded",
-                "fraudulent sale", "dishonestly transferred", "fraudulently transferred",
-            ],
-            "dishonest transfer of property": [
-                "dishonest transfer", "fraudulent transfer", "cheated", "defrauded",
-                "fraudulent sale", "property fraud", "false representation",
-            ],
-            "dishonest transfer of immovable property": [
-                "dishonest transfer", "fraudulent transfer", "cheated", "defrauded",
-                "fraudulent sale", "false representation", "dishonestly transferred",
-            ],
-            "fraudulent transfer": [
-                "fraudulent transfer", "fraudulent sale", "cheated", "defrauded",
-                "dishonest transfer", "fraudulently transferred",
-            ],
-            "fraudulent property transfer": [
-                "fraudulent transfer", "cheated", "defrauded", "fraudulent sale",
-                "false representation", "property fraud",
-            ],
-            "property fraud": [
-                "cheated", "defrauded", "deceived", "fraud", "fraudulent transfer",
-                "dishonest transfer", "property fraud",
-            ],
-            "fraudulent sale": [
-                "fraudulent sale", "cheated", "defrauded", "fraudulent transfer",
-                "sale deed", "fraudulent deed",
-            ],
-
-            # ── Anticipatory bail / bail procedural context ─────────────────────────────
-            # Ensure the procedural enabling section is matched when Stage 1 identifies
-            # the legal proceeding context as "Anticipatory Bail Application".
-            "anticipatory bail": ["anticipatory bail", "pre-arrest bail", "apprehension of arrest"],
-            "anticipatory bail application": ["anticipatory bail", "pre-arrest bail", "seeking anticipatory"],
-            "bail application": ["anticipatory bail", "bail", "pre-arrest bail"],
-        }
-        full_concepts_lower = " ".join(concept_phrases).lower()
-        for concept_key, extra_keywords in _CONCEPT_KEYWORD_BRIDGE.items():
-            if concept_key in full_concepts_lower:
-                unique_query_terms.update(extra_keywords)
 
         if not unique_query_terms or not self.sections_db:
             return []
@@ -849,126 +1841,28 @@ class StatuteClassifierPrefilter:
         elif "IPC" in regime_str.upper():
             regime_filter = "IPC"
 
-        matches: List[Tuple[Dict[str, Any], float, List[str]]] = []
-
         query_full_text = " ".join(concept_phrases) + " " + " ".join(unique_query_terms)
 
-        for record in self.sections_db:
-            if regime_filter and record["statute"] != regime_filter:
+        # Derive query domains for chapter-domain coherence gate.
+        sq_texts = [strip_query_boilerplate(sq.query) for sq in legal_query_obj.sub_queries if sq.query]
+        query_domains = _derive_query_domains(concept_phrases, sq_texts)
+
+        # BM25 over word tokens with coverage floor (see _rank). Single flat query: all terms weight 1.
+        # Apply query-only stop stems to suppress domain-generic context words that appear across
+        # hundreds of sections (medic, hospit, offic, etc.) and cause false-positive matches.
+        term_weights = {t: 1.0 for t in set(_tokenize(" ".join(unique_query_terms))) - _QUERY_ONLY_STOP_STEMS}
+        if not term_weights:
+            return []
+        ranked = self._rank(term_weights, regime_filter, query_full_text, query_domains)
+        results: List[CandidateSectionMatch] = []
+        seen: Set[str] = set()
+        for rec, score, matched, _cov in ranked:
+            if rec["identifier"] in seen:
                 continue
-
-            sec_num = record["section_number"].upper()
-            sec_statute = record["statute"].upper()
-
-            # 1. Fatal Disqualification Check (reject 304B/307/376 if mandatory triggers missing)
-            disqualified, _, _ = self.evaluate_fatal_disqualification(sec_num, sec_statute, query_full_text)
-            if disqualified:
-                continue
-
-            record_text = record["full_text"]
-            record_title = record["title"].lower()
-
-            matched = [term for term in unique_query_terms if term in record_text]
-
-            # 2. Knowledge Base Factual Trigger Matching (static + dynamic KB)
-            kb_boost = 0.0
-            for rule in get_effective_knowledge_base():
-                rule_sec = rule.bns_equivalent if sec_statute == "BNS" else rule.section
-                if sec_num == rule_sec.upper() or sec_num == rule.section.upper():
-                    if rule.factual_triggers:
-                        if any(trig in query_full_text.lower() for trig in rule.factual_triggers):
-                            kb_boost += 2.5
-                    break
-
-            if not matched and kb_boost == 0.0:
-                continue
-
-            # Calculate base term score
-            term_score = len(matched) / (len(unique_query_terms) ** 0.5) if matched else 0.5
-
-            # Boost exact concept phrase matches, title matches, and KB triggers
-            phrase_boost = 1.0 + kb_boost
-            for phrase in concept_phrases:
-                if len(phrase) > 3:
-                    if phrase in record_text:
-                        phrase_boost += 1.5
-                    if phrase in record_title:
-                        phrase_boost += 2.0
-                    words = [w for w in re.findall(r"\w+", phrase) if w not in stop_words]
-                    title_matches = [w for w in words if w in record_title]
-                    if title_matches:
-                        phrase_boost += (len(title_matches) * 0.5)
-
-            final_score = min(1.0, round((term_score * phrase_boost) / 4.0, 2))
-            matches.append((record, final_score, matched))
-
-        # Sort matches by score descending
-        matches.sort(key=lambda x: x[1], reverse=True)
-
-        results = []
-        seen_identifiers = set()
-        existing_kb_keys = _kb_section_keys()
-
-        for rec, score, matched_list in matches[:top_k]:
-            if rec["identifier"] not in seen_identifiers:
-                seen_identifiers.add(rec["identifier"])
-
-                # --- Dynamic KB promotion ------------------------------------------
-                # If this CSV record has no SectionRule yet, auto-promote it so that
-                # future queries get full KB-quality verification for this section.
-                candidate_key = f"{rec['statute'].upper()}_{rec['section_number'].upper()}"
-                if candidate_key not in existing_kb_keys:
-                    try:
-                        from .statute_repository import StatuteRepository
-                        fs_meta = StatuteRepository.get_instance().get_first_schedule_metadata(
-                            rec["section_number"], rec["statute"]
-                        )
-                    except Exception:
-                        fs_meta = None
-                    promoted = promote_csv_record_to_kb(
-                        csv_record=rec,
-                        matched_query_terms=matched_list,
-                        first_schedule_meta=fs_meta,
-                    )
-                    if promoted:
-                        # Refresh key set so subsequent hits in the same loop see it
-                        existing_kb_keys.add(candidate_key)
-                # -------------------------------------------------------------------
-
-                results.append(
-                    CandidateSectionMatch(
-                        section_identifier=rec["identifier"],
-                        statute=rec["statute"],
-                        section_number=rec["section_number"],
-                        title=rec["title"],
-                        chapter=rec["chapter"],
-                        score=score,
-                        matched_terms=matched_list[:5],
-                    )
-                )
-
-        # 3. Detect factual triggers and append any missing suggestions
-        raw_facts = getattr(legal_query_obj, "case_facts", "") or ""
-        trigger_text = raw_facts + " " + query_full_text
-        detected = self.detect_factual_triggers(trigger_text, statute_type=regime_filter or "IPC")
-        for trig in detected:
-            trig_sec = trig["section_number"]
-            trig_stat = trig["statute"]
-            candidate_key = f"{trig_stat}_{trig_sec}"
-            if candidate_key not in seen_identifiers:
-                seen_identifiers.add(candidate_key)
-                results.append(
-                    CandidateSectionMatch(
-                        section_identifier=f"{trig_stat} {trig_sec}",
-                        statute=trig_stat,
-                        section_number=trig_sec,
-                        title=trig["section_title"],
-                        chapter="Statutory Chapter",
-                        score=0.92,
-                        matched_terms=["factual_trigger"],
-                    )
-                )
-
+            seen.add(rec["identifier"])
+            results.append(self._to_match(rec, score, matched))
+            if len(results) >= top_k:
+                break
         return results
 
     @staticmethod
@@ -977,7 +1871,7 @@ class StatuteClassifierPrefilter:
         Evaluates mandatory ingredient rules from STATUTE_KNOWLEDGE_BASE to screen sections.
         Returns Tuple of (is_not_triggered, not_triggered_reason, missing_mandatory_ingredients).
         """
-        lower_facts = (facts_text or "").lower()
+        lower_facts = _WordText((facts_text or "").lower())
         sec_num_clean = (section_number or "").strip().upper().replace("SECTION ", "").replace("IPC_", "")
 
         for rule in get_effective_knowledge_base():
@@ -1033,633 +1927,12 @@ class StatuteClassifierPrefilter:
     @staticmethod
     def detect_factual_triggers(facts_text: str, statute_type: str = "IPC") -> List[Dict[str, Any]]:
         """
-        Detects factual triggers in facts_text and automatically suggests candidate sections.
-        Combines hardcoded triggers with live KB rules (static + dynamic) so auto-promoted
-        sections are matched on future queries without any code changes.
+        Hardcoded keyword->section triggers were REMOVED: they injected sections (stalking,
+        intimidation, ...) from substring coincidences, bypassing retrieval. Kept as a no-op
+        so existing callers (Stage 2, Stage 3 fallback) keep working. Candidate sections now
+        come only from BM25 retrieval over ipc.json.
         """
-        lower_facts = (facts_text or "").lower()
-        is_bns = "BNS" in (statute_type or "").upper()
-        suggestions = []
-        seen_keys: set = set()
-        repo = StatuteRepository.get_instance()
-
-        def _add(sec_num: str, title: str, statute: str, ctype: str, trigger_note: str) -> None:
-            # Strictly filter against ipc.json if statute is IPC
-            if statute.upper() == "IPC" and not repo.is_in_ipc_json(sec_num):
-                return
-            _PENAL_STATUTES = {"BNS", "BNSS"}
-            if not is_bns and statute in _PENAL_STATUTES:
-                return
-            if is_bns and statute in {"IPC", "CrPC"}:
-                return
-            k = f"{statute}_{sec_num}"
-            if k not in seen_keys:
-                seen_keys.add(k)
-                suggestions.append({
-                    "section_number": sec_num,
-                    "section_title": title,
-                    "statute": statute,
-                    "candidate_type": ctype,
-                    "trigger": trigger_note,
-                })
-
-        # --- Trigger 0: Procedural context triggers (run before KB and factual triggers) ---
-        # These fire on the legal proceeding type, not on offence facts.  They must always
-        # appear in the output when the corresponding procedural stage is present.
-
-        # Trigger 0A: Anticipatory bail -> CrPC 438 / BNSS 482
-        # The enabling provision for anticipatory bail must always be in the candidate list.
-        # Fires on procedural vocabulary — not on any specific offence or party name.
-        if any(term in lower_facts for term in [
-            "anticipatory bail", "pre-arrest bail", "section 438", "crpc 438",
-            "bnss 482", "apprehension of arrest", "seeking anticipatory",
-            "application for anticipatory", "anticipatory bail application",
-        ]):
-            if is_bns:
-                _add(
-                    sec_num="482",
-                    title="Direction for Grant of Bail to Person Apprehending Arrest",
-                    statute="BNSS",
-                    ctype="PRIMARY",
-                    trigger_note="Anticipatory bail application — BNSS 482 is the enabling provision",
-                )
-            else:
-                _add(
-                    sec_num="438",
-                    title="Direction for Grant of Bail to Person Apprehending Arrest",
-                    statute="CrPC",
-                    ctype="PRIMARY",
-                    trigger_note="Anticipatory bail application — CrPC 438 is the enabling provision",
-                )
-
-        # --- KB-driven triggers (static + dynamic) ---
-        # This runs first so promoted rules are matched before the hardcoded list.
-        for rule in get_effective_knowledge_base():
-            if not rule.factual_triggers:
-                continue
-            target_statute = "BNS" if is_bns else "IPC"
-            rule_statute = "BNS" if (rule.bns_equivalent and rule.bns_equivalent not in ("", "NONE")) else rule.statute
-            if rule_statute.upper() != target_statute:
-                continue
-            sec = rule.bns_equivalent if (is_bns and rule.bns_equivalent not in ("", "NONE")) else rule.section
-            matched_triggers = [t for t in rule.factual_triggers if t in lower_facts]
-            if matched_triggers:
-                _add(
-                    sec_num=sec,
-                    title=rule.title,
-                    statute=target_statute,
-                    ctype="PRIMARY" if not rule.bailable else "SECONDARY",
-                    trigger_note=f"KB trigger matched: {matched_triggers[0]}",
-                )
-
-        # --- Hardcoded triggers (supplement KB-driven triggers above) ---
-        # Use _add() so these don't duplicate what the KB already matched.
-
-        # Trigger 1: Dowry harassment / cruelty -> 498A IPC (Primary) + Sec 4 DP Act (Primary)
-        if any(term in lower_facts for term in ["dowry", "cruelty", "harass", "demand", "torture", "in-laws"]):
-            _add(
-                sec_num="498A",
-                title="Cruelty by Husband or Relatives",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Dowry harassment / cruelty alleged",
-            )
-            _add(
-                sec_num="Section 4",
-                title="Penalty for demanding dowry",
-                statute="Dowry Prohibition Act",
-                ctype="PRIMARY",
-                trigger_note="Unlawful dowry demand alleged",
-            )
-
-        # Trigger 2: Giving or taking dowry -> Sec 3 DP Act
-        if any(term in lower_facts for term in ["give dowry", "given dowry", "take dowry", "took dowry", "received dowry", "paid cash", "cash demanded"]):
-            _add(
-                sec_num="Section 3",
-                title="Penalty for giving or taking dowry",
-                statute="Dowry Prohibition Act",
-                ctype="SECONDARY",
-                trigger_note="Giving or taking of dowry indicated",
-            )
-
-        # Trigger 3: Stridhan / ornaments / property retained -> 406 IPC (Secondary)
-        if any(term in lower_facts for term in ["stridhan", "ornaments", "jewelry", "jewellery", "gold", "articles retained", "property not returned"]):
-            _add(
-                sec_num="406",
-                title="Criminal Breach of Trust",
-                statute="IPC",
-                ctype="SECONDARY",
-                trigger_note="Entrustment and non-return of stridhan / property alleged",
-            )
-
-        # Trigger 4: Threats / intimidation -> 506 IPC (Secondary)
-        if any(term in lower_facts for term in ["threat", "threatened", "intimidat", "warning", "abuse", "scared"]):
-            _add(
-                sec_num="506",
-                title="Criminal Intimidation",
-                statute="IPC",
-                ctype="SECONDARY",
-                trigger_note="Threats / criminal intimidation alleged",
-            )
-
-        # Trigger 5: Physical assault / hurt -> 323 IPC (Secondary)
-        if any(term in lower_facts for term in [
-            "assault", "beaten", "slapped", "physical violence", "hurt", "injured", "hit",
-            "pushed", "shoved", "kicked", "punched", "struck", "physical abuse",
-            "physical harm", "bodily harm", "physically abused", "physical incident",
-            "physical force", "forced her", "forced him", "manhandled",
-        ]):
-            _add(
-                sec_num="323",
-                title="Voluntarily Causing Hurt",
-                statute="IPC",
-                ctype="SECONDARY",
-                trigger_note="Physical assault / bodily hurt alleged",
-            )
-
-        # Trigger 6: Murder / killing -> 302 IPC (Primary)
-        if any(term in lower_facts for term in ["murdered", "killed", "homicide", "shot dead", "stabbed to death",
-                                                 "beaten to death", "strangulated", "poisoned", "burnt alive", "lynched"]):
-            _add(
-                sec_num="302",
-                title="Murder",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Murder / killing of a person alleged",
-            )
-
-        # Trigger 7: Attempt to murder -> 307 IPC (Primary)
-        if any(term in lower_facts for term in ["attempt to murder", "attempted to kill", "tried to kill",
-                                                 "stabbed in chest", "shot at", "life-threatening attack"]):
-            _add(
-                sec_num="307",
-                title="Attempt to Murder",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Attempt to murder indicated",
-            )
-            # Also suggest 120B (conspiracy) if multiple accused
-            if any(t in lower_facts for t in ["conspiracy", "conspired", "hatched plan", "planned"]):
-                _add(
-                    sec_num="120B",
-                    title="Criminal Conspiracy",
-                    statute="IPC",
-                    ctype="SECONDARY",
-                    trigger_note="Criminal conspiracy to commit murder alleged",
-                )
-
-        # Trigger 8: Abetment of suicide -> 306 IPC (Primary)
-        if any(term in lower_facts for term in ["abetment of suicide", "instigated suicide", "drove to suicide",
-                                                 "suicide note", "harassment led to suicide", "forced to commit suicide"]):
-            _add(
-                sec_num="306",
-                title="Abetment of Suicide",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Abetment of suicide alleged",
-            )
-
-        # Trigger 9: Rape / sexual assault -> 376 IPC (Primary)
-        if any(term in lower_facts for term in ["rape", "sexual assault", "sexually assaulted", "intercourse",
-                                                 "penetration", "gang rape", "ravished", "violated"]):
-            _add(
-                sec_num="376",
-                title="Rape / Sexual Assault",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Rape / sexual assault alleged",
-            )
-            if any(t in lower_facts for t in ["gang rape", "multiple accused rape", "raped by several"]):
-                _add(
-                    sec_num="376D",
-                    title="Gang Rape",
-                    statute="IPC",
-                    ctype="PRIMARY",
-                    trigger_note="Gang rape alleged",
-                )
-
-        # Trigger 10: Kidnapping / abduction -> 363 IPC (Primary)
-        if any(term in lower_facts for term in ["kidnapped", "kidnapping", "abducted", "abduction", "missing child",
-                                                 "taken away", "minor taken", "enticed away"]):
-            _add(
-                sec_num="363",
-                title="Kidnapping",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Kidnapping / abduction alleged",
-            )
-            if any(t in lower_facts for t in ["ransom", "paid ransom", "demand ransom", "hostage"]):
-                _add(
-                    sec_num="364A",
-                    title="Kidnapping for Ransom",
-                    statute="IPC",
-                    ctype="PRIMARY",
-                    trigger_note="Kidnapping for ransom alleged",
-                )
-
-        # Trigger 11: Theft -> 379 IPC (Primary)
-        if any(term in lower_facts for term in [
-            "theft", "stolen", "stole", "snatched", "pickpocket",
-            "property stolen", "cash stolen", "vehicle stolen",
-            "took away", "took the", "took her", "took his",
-            "took laptop", "took mobile", "took phone", "took bag",
-            "took from", "removed from", "carried away", "loaded", "raw materials",
-            "broke open", "padlock", "godown", "inventory", "bags of",
-        ]):
-            _add(
-                sec_num="379",
-                title="Punishment for Theft",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Theft / taking of movable property alleged",
-            )
-            _add(
-                sec_num="378",
-                title="Theft",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Theft — dishonest taking of movable property without consent",
-            )
-            _add(
-                sec_num="380",
-                title="Theft in Dwelling House, Godown, or Building",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Theft from building / storage godown alleged",
-            )
-            if any(t in lower_facts for t in ["house theft", "broke into house", "burglary", "entered house and stole"]):
-                _add(
-                    sec_num="380",
-                    title="Theft in Dwelling House",
-                    statute="IPC",
-                    ctype="PRIMARY",
-                    trigger_note="Theft from dwelling house alleged",
-                )
-
-        # Trigger 12: Robbery / dacoity -> 392 IPC (Primary)
-        if any(term in lower_facts for term in ["robbery", "robbed", "looted", "snatched by force",
-                                                 "mugged", "chain snatching", "armed robbery"]):
-            _add(
-                sec_num="392",
-                title="Punishment for Robbery",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Robbery alleged",
-            )
-            if any(t in lower_facts for t in ["dacoity", "dacoits", "group robbery", "five persons robbed"]):
-                _add(
-                    sec_num="395",
-                    title="Dacoity",
-                    statute="IPC",
-                    ctype="PRIMARY",
-                    trigger_note="Dacoity by group of five or more alleged",
-                )
-
-        # Trigger 13: Cheating / fraud / dishonest inducement to deliver property -> 420 IPC (Conditional)
-        if any(term in lower_facts for term in [
-            "cheated", "defrauded", "deceived", "fraud", "fake promise",
-            "scam", "misrepresentation", "duped", "swindled",
-            # Property-fraud vocabulary from Stage 1 concept labels and case narratives
-            "dishonest transfer", "dishonestly transferred", "fraudulent transfer",
-            "fraudulent sale", "fraudulent sale deed", "false representation of title",
-            "induced to sell", "induced to transfer", "dishonestly induced",
-            "pretended to be owner", "false title claim", "fraudulently obtained property",
-            "property fraud", "fraudulently induced",
-        ]):
-            _add(
-                sec_num="420",
-                title="Cheating and Dishonestly Inducing Delivery of Property",
-                statute="IPC",
-                ctype="CONDITIONAL",
-                trigger_note="Cheating / dishonest inducement to deliver property alleged — conditional upon proof of deceptive inducement causing delivery",
-            )
-
-        # Trigger 14: Extortion / blackmail -> 384 IPC (Primary)
-        if any(term in lower_facts for term in [
-            "extortion", "extorted", "blackmail", "blackmailed",
-            "demanded money under threat", "coerced to pay",
-            "threatened to accuse", "threatened to file", "threatened to expose",
-            "accuse of fraud", "accuse her of fraud", "accuse him of fraud",
-            "threatened to publicly", "threatened publicly",
-            "transfer money", "transfer the money",
-            "dishonest inducement", "dishonestly induced",
-            "inducement to deliver", "inducing delivery",
-            "pay or else", "pay otherwise", "money or else",
-            "demanded transfer", "demanded payment under",
-        ]):
-            _add(
-                sec_num="384",
-                title="Punishment for Extortion",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Extortion / blackmail / threat to accuse alleged",
-            )
-            _add(
-                sec_num="383",
-                title="Extortion",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Extortion — putting in fear to dishonestly induce delivery of property",
-            )
-
-        # Trigger 15: Rioting / mob violence -> 147, 148 IPC (Primary)
-        if any(term in lower_facts for term in ["rioting", "riot", "mob violence", "communal riot",
-                                                 "rioters", "violent mob", "public disturbance"]):
-            _add(
-                sec_num="147",
-                title="Rioting",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Rioting / mob violence alleged",
-            )
-            _add(
-                sec_num="149",
-                title="Common Object Liability (Unlawful Assembly)",
-                statute="IPC",
-                ctype="SECONDARY",
-                trigger_note="Common object of unlawful assembly alleged",
-            )
-            if any(t in lower_facts for t in ["weapon", "armed", "guns", "firing", "arson"]):
-                _add(
-                    sec_num="148",
-                    title="Rioting Armed with Deadly Weapon",
-                    statute="IPC",
-                    ctype="PRIMARY",
-                    trigger_note="Armed rioting alleged",
-                )
-
-        # Trigger 16: Criminal conspiracy -> 120B IPC (Secondary)
-        if any(term in lower_facts for term in ["criminal conspiracy", "conspired", "hatched conspiracy",
-                                                 "planned together", "co-conspirators", "joint plan"]):
-            _add(
-                sec_num="120B",
-                title="Criminal Conspiracy",
-                statute="IPC",
-                ctype="SECONDARY",
-                trigger_note="Criminal conspiracy alleged",
-            )
-
-        # Trigger 17: Abetment -> 109 IPC (Secondary)
-        if any(term in lower_facts for term in ["abetment", "instigated", "aided", "abetted", "facilitated crime",
-                                                 "helped commit", "gave shelter to accused"]):
-            _add(
-                sec_num="109",
-                title="Abetment",
-                statute="IPC",
-                ctype="SECONDARY",
-                trigger_note="Abetment of offence alleged",
-            )
-
-        # Trigger 18: Grievous hurt -> 325 IPC (Secondary)
-        if any(term in lower_facts for term in ["grievous hurt", "grievous injury", "fracture", "bone broken",
-                                                 "permanent disability", "disfigured", "loss of limb"]):
-            _add(
-                sec_num="325",
-                title="Voluntarily Causing Grievous Hurt",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Grievous bodily hurt alleged",
-            )
-
-        # Trigger 19: Acid attack -> 326A IPC (Primary)
-        if any(term in lower_facts for term in ["acid attack", "acid thrown", "acid poured", "burnt with acid",
-                                                 "face disfigured by acid", "chemical attack"]):
-            _add(
-                sec_num="326A",
-                title="Voluntarily Causing Grievous Hurt by Use of Acid",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Acid attack alleged",
-            )
-
-        # Trigger 20: Forgery / forged documents -> 463/465/467/468/471 IPC
-        # Base offence 465 is PRIMARY (creation of false document).
-        # Compound/aggravated offences 468, 471, 467, 423 are CONDITIONAL because they require
-        # unproven gating prerequisites (purpose of cheating, use as genuine, valuable security status, false statement).
-        _forgery_base_terms = [
-            "forged document", "fake signature", "fabricated paper",
-            "forgery", "falsified record", "counterfeit", "forged will",
-            "fake will", "forged cheque", "fabricated document",
-            # Vocabulary that appears in land-fraud FIRs
-            "forged ownership", "forged deed", "fake deed", "fraudulent deed",
-            "ownership document", "title deed", "sale deed", "ownership papers",
-            "forged documents", "fabricated ownership",
-        ]
-        if any(term in lower_facts for term in _forgery_base_terms):
-            # 465: Base forgery — PRIMARY when false document creation is alleged
-            _add(
-                sec_num="465",
-                title="Forgery",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Forgery alleged — making a false document",
-            )
-            # 468: Forgery with cheating intent — CONDITIONAL (requires specific cheating purpose)
-            _add(
-                sec_num="468",
-                title="Forgery for Purpose of Cheating",
-                statute="IPC",
-                ctype="CONDITIONAL",
-                trigger_note="Forgery for cheating alleged — conditional upon purpose of forgery being cheating under Section 415",
-            )
-            # 471: Using forged document as genuine — CONDITIONAL (requires proof of use/presentation)
-            _add(
-                sec_num="471",
-                title="Using Forged Document as Genuine",
-                statute="IPC",
-                ctype="CONDITIONAL",
-                trigger_note="Use of forged document as genuine alleged — conditional upon proof of presentation or use in transaction",
-            )
-
-            # Sub-check for 467: The forged instrument is a "valuable security" or "will"
-            _valuable_security_terms = [
-                "sale deed", "title deed", "ownership document", "registered document",
-                "conveyance deed", "gift deed", "transfer deed", "lease deed",
-                "power of attorney", "ownership papers", "land document", "property document",
-                "land title", "forged deed", "fake deed", "fraudulent deed",
-                "forged will", "fake will", "forged cheque", "promissory note",
-                "bond", "stamp paper", "registered deed", "forged ownership",
-                "ownership papers", "title document",
-            ]
-            if any(term in lower_facts for term in _valuable_security_terms):
-                _add(
-                    sec_num="467",
-                    title="Forgery of Valuable Security / Will",
-                    statute="IPC",
-                    ctype="CONDITIONAL",
-                    trigger_note="Forgery of valuable security / title deed alleged — conditional upon document qualifying under Section 467",
-                )
-
-            # Sub-check for 423: Executing a deed containing a false statement of consideration/beneficiary
-            _deed_execution_terms = [
-                "executed deed", "executed sale deed", "sale deed", "executed a deed",
-                "registered deed", "fraudulent deed", "dishonest deed", "false deed",
-                "fraudulent execution", "fraudulent sale deed", "dishonest transfer",
-                "dishonestly transferred", "fraudulently transferred",
-            ]
-            if any(term in lower_facts for term in _deed_execution_terms):
-                _add(
-                    sec_num="423",
-                    title="Dishonest or Fraudulent Execution of Deed Containing a False Statement",
-                    statute="IPC",
-                    ctype="CONDITIONAL",
-                    trigger_note="Fraudulent deed execution alleged — conditional upon deed containing false statement of consideration or beneficiary",
-                )
-
-            # Sub-check for 423: Executing a deed that contains a false statement
-            # (the characteristic act in sale-deed fraud — registering a deed with false
-            # consideration, false seller identity, or false title representation).
-            _deed_execution_terms = [
-                "executed deed", "executed sale deed", "sale deed", "executed a deed",
-                "registered deed", "fraudulent deed", "dishonest deed", "false deed",
-                "fraudulent execution", "fraudulent sale deed", "dishonest transfer",
-                "dishonestly transferred", "fraudulently transferred",
-            ]
-            if any(term in lower_facts for term in _deed_execution_terms):
-                _add(
-                    sec_num="423",
-                    title="Dishonest or Fraudulent Execution of Deed Containing a False Statement",
-                    statute="IPC",
-                    ctype="PRIMARY",
-                    trigger_note="Fraudulent execution of deed with false statement alleged",
-                )
-
-        # Trigger 21: Cyber crime / IT Act -> Section 66 IT Act (Primary)
-        if any(term in lower_facts for term in ["hacking", "cyber fraud", "phishing", "online fraud",
-                                                 "account hacked", "OTP fraud", "UPI fraud", "cyber crime"]):
-            _add(
-                sec_num="66",
-                title="Computer Related Offences (IT Act)",
-                statute="IT Act 2000",
-                ctype="PRIMARY",
-                trigger_note="Cyber / computer offence alleged",
-            )
-            if any(t in lower_facts for t in ["identity theft", "stole identity", "used someone's password",
-                                               "fake identity", "stolen credentials"]):
-                _add(
-                sec_num="66C",
-                title="Identity Theft (IT Act)",
-                statute="IT Act 2000",
-                ctype="SECONDARY",
-                trigger_note="Identity theft alleged",
-            )
-
-        # Trigger 22: Drugs / NDPS -> Section 20 / 21 NDPS Act
-        if any(term in lower_facts for term in ["drugs", "narcotics", "ganja", "cannabis", "heroin", "cocaine",
-                                                 "opium", "brown sugar", "drug peddling", "smack", "mephedrone"]):
-            if any(t in lower_facts for t in ["ganja", "cannabis", "marijuana", "charas", "weed"]):
-                _add(
-                sec_num="20",
-                title="Contravention re Cannabis (NDPS Act)",
-                statute="NDPS Act 1985",
-                ctype="PRIMARY",
-                trigger_note="Cannabis drug offence alleged",
-            )
-            else:
-                _add(
-                sec_num="21",
-                title="Contravention re Manufactured Drugs (NDPS Act)",
-                statute="NDPS Act 1985",
-                ctype="PRIMARY",
-                trigger_note="Manufactured narcotic drug offence alleged",
-            )
-
-        # Trigger 23: Illegal arms / weapons -> Section 25 Arms Act
-        if any(term in lower_facts for term in ["illegal weapon", "unlicensed gun", "country made pistol",
-                                                 "katta", "desi katta", "illegal firearm", "arms without licence"]):
-            _add(
-                sec_num="25",
-                title="Illegal Possession of Arms (Arms Act)",
-                statute="Arms Act 1959",
-                ctype="SECONDARY",
-                trigger_note="Illegal arms / weapon possession alleged",
-            )
-
-        # Trigger 24: SC/ST atrocity -> Section 3(1)(r) SC/ST POA Act
-        if any(term in lower_facts for term in ["sc st atrocity", "caste abuse", "caste slur", "dalit",
-                                                 "scheduled caste", "scheduled tribe", "casteist"]):
-            _add(
-                sec_num="3(1)(r)",
-                title="Intentional Insult to SC/ST Member (SC/ST POA Act)",
-                statute="SC/ST (POA) Act",
-                ctype="PRIMARY",
-                trigger_note="SC/ST atrocity / caste abuse alleged",
-            )
-
-        # Trigger 25: Negligent death (road accident) -> 304A IPC (Primary)
-        if any(term in lower_facts for term in ["rash driving", "road accident", "vehicle hit", "knocked down",
-                                                 "ran over", "medical negligence", "negligent act caused death"]):
-            _add(
-                sec_num="304A",
-                title="Causing Death by Negligence",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Death caused by rash / negligent act alleged",
-            )
-
-        # Trigger 26: Bigamy -> 494 IPC (Primary)
-        if any(term in lower_facts for term in ["bigamy", "second marriage", "married again", "married while first spouse alive",
-                                                 "second wife", "second husband", "double marriage"]):
-            _add(
-                sec_num="494",
-                title="Bigamy",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Bigamy / second marriage alleged",
-            )
-
-        # Trigger 27: Molestation / outraging modesty -> 354 IPC (Primary)
-        if any(term in lower_facts for term in ["molestation", "groped", "touched inappropriately", "outrage modesty",
-                                                 "indecent assault", "sexual harassment"]):
-            _add(
-                sec_num="354",
-                title="Assault or Criminal Force to Outrage Modesty of Woman",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Molestation / outraging modesty of woman alleged",
-            )
-
-        # Trigger 28: Stalking -> 354D IPC (Primary)
-        if any(term in lower_facts for term in ["stalking", "following", "monitoring", "watching repeatedly",
-                                                 "cyberstalking", "online stalking", "tracking location"]):
-            _add(
-                sec_num="354D",
-                title="Stalking",
-                statute="IPC",
-                ctype="PRIMARY",
-                trigger_note="Stalking of woman alleged",
-            )
-
-        # Trigger 29: Destroying / tampering evidence -> 201 IPC (Secondary)
-        if any(term in lower_facts for term in ["destroyed evidence", "tampered evidence", "concealed evidence",
-                                                 "hidden body", "disposed of body", "burnt body", "washed crime scene"]):
-            _add(
-                sec_num="201",
-                title="Causing Disappearance of Evidence",
-                statute="IPC",
-                ctype="SECONDARY",
-                trigger_note="Destruction / concealment of evidence alleged",
-            )
-
-        # Trigger 30: False complaint / perjury -> 182 / 211 IPC (Secondary)
-        if any(term in lower_facts for term in ["false complaint", "false FIR", "fake FIR", "malicious prosecution",
-                                                 "false case filed", "fabricated complaint"]):
-            _add(
-                sec_num="211",
-                title="False Charge of Offence Made with Intent to Injure",
-                statute="IPC",
-                ctype="SECONDARY",
-                trigger_note="False / malicious criminal complaint alleged",
-            )
-            _add(
-                sec_num="182",
-                title="False Information to Public Servant",
-                statute="IPC",
-                ctype="SECONDARY",
-                trigger_note="False information to police / public servant alleged",
-            )
-
-        return suggestions
+        return []
 
     def prefilter_candidates(
         self,
@@ -1675,3 +1948,286 @@ class StatuteClassifierPrefilter:
             legal_concepts=[LegalConceptItem(concept=query_text, confidence=0.95)]
         )
         return self.shortlist_candidates_for_query(dummy_query, top_k=top_k, target_regime=statute_type)
+
+    # ------------------------------------------------------------------
+    # Fused retrieval over a whole LegalQueryObject (preferred entry point)
+    # ------------------------------------------------------------------
+
+    @staticmethod
+    def _collect_strings(obj: Any) -> List[str]:
+        """Recursively collects string values from str / list / dict / pydantic objects."""
+        if obj is None:
+            return []
+        if isinstance(obj, str):
+            return [obj]
+        if hasattr(obj, "model_dump"):
+            obj = obj.model_dump()
+        if isinstance(obj, dict):
+            out: List[str] = []
+            for v in obj.values():
+                out.extend(StatuteClassifierPrefilter._collect_strings(v))
+            return out
+        if isinstance(obj, (list, tuple, set)):
+            out = []
+            for v in obj:
+                out.extend(StatuteClassifierPrefilter._collect_strings(v))
+            return out
+        return []
+
+    @staticmethod
+    def _obj_value(obj: Any, name: str, default: Any = None) -> Any:
+        """Read a field from a Pydantic object or mapping without assuming one representation."""
+        if isinstance(obj, dict):
+            return obj.get(name, default)
+        return getattr(obj, name, default)
+
+    @staticmethod
+    def _is_charge_bearing_fact(fact: Any) -> bool:
+        """
+        Include alleged/admitted conduct and material results/conditions.
+        Exclude defence/prosecution submissions (STATEMENT) from offence-term generation:
+        those belong in bail/procedural analysis, not IPC charge retrieval.
+        """
+        conduct = str(StatuteClassifierPrefilter._obj_value(fact, "conduct_type", "")).upper()
+        status = str(StatuteClassifierPrefilter._obj_value(fact, "factual_status", "ALLEGED")).upper()
+        return conduct in {"ACT", "OMISSION", "RESULT", "CONDITION"} and status in {
+            "ALLEGED", "ADMITTED", "DISPUTED", "UNKNOWN"
+        }
+
+    def retrieve_for_legal_query(
+        self,
+        legal_query_obj: LegalQueryObject,
+        statute_type: str = "IPC",
+        top_k: int = 20,
+        per_concept: int = 4,
+        return_procedural: bool = False,
+    ):
+        """
+        Factual-first fused retrieval:
+        - one group per legal concept with only its linked sub-query text;
+        - one group per charge-bearing factual allegation;
+        - statement-only facts (denials, submissions, bail arguments) are not treated as offence conduct;
+        - actor/party names are removed from query terms;
+        - BM25/coverage gates and fatal factual-event gates remain in force.
+        - procedural concepts (bail, remand, CrPC provisions) are skipped from IPC BM25 and
+          collected separately; the caller can route them to a CrPC/bail-argument pipeline.
+
+        Returns:
+            List[CandidateSectionMatch]  when return_procedural=False (default, backward-compatible)
+            Tuple[List[CandidateSectionMatch], List[Dict[str,str]]]  when return_procedural=True
+                where the second element is a list of dicts:
+                  {"concept": <label>, "sub_query": <linked sub-query text>}
+                one entry per procedural concept group that was skipped from IPC retrieval.
+        This is a candidate pre-filter, not a statutory-ingredient finding.
+        """
+        regime_filter = "BNS" if "BNS" in (statute_type or "").upper() else "IPC"
+
+        # Derive query domains from all concept labels and sub-query texts once.
+        # These drive the chapter-domain coherence gate in every _rank() call below.
+        all_concept_labels: List[str] = [
+            str(self._obj_value(c, "concept", "") or "")
+            for c in (getattr(legal_query_obj, "legal_concepts", []) or [])
+        ]
+        all_sq_texts: List[str] = [
+            strip_query_boilerplate(str(self._obj_value(sq, "query", "") or ""))
+            for sq in (getattr(legal_query_obj, "sub_queries", []) or [])
+        ]
+        case_summary_text = str(getattr(legal_query_obj, "case_summary", "") or "")
+        if case_summary_text:
+            all_sq_texts.append(case_summary_text)
+        query_domains: frozenset = _derive_query_domains(all_concept_labels, all_sq_texts)
+        logger.debug("ChapterDomainGate: query_domains=%s", sorted(query_domains))
+
+        actor_text: List[str] = []
+        for attr in ("entities", "relationship"):
+            actor_text.extend(self._collect_strings(getattr(legal_query_obj, attr, None)))
+        factual_items = list(getattr(legal_query_obj, "factual_allegations", []) or [])
+        for fact in factual_items:
+            actor_text.extend(self._collect_strings(self._obj_value(fact, "actor")))
+        for sq in getattr(legal_query_obj, "sub_queries", []) or []:
+            actor_text.extend(self._collect_strings(self._obj_value(sq, "target_parties")))
+            actor_text.extend(self._collect_strings(self._obj_value(sq, "role_alleged")))
+        actor_tokens = set(_tokenize(" ".join(actor_text)))
+
+        groups: List[Tuple[str, str]] = []
+        procedural_groups: List[Dict[str, str]] = []  # procedural concepts skipped from IPC BM25
+        used_sq: Set[int] = set()
+        for concept in getattr(legal_query_obj, "legal_concepts", []) or []:
+            label = str(self._obj_value(concept, "concept", "") or "").strip()
+            if not label:
+                continue
+            concept_id = self._obj_value(concept, "concept_id")
+            linked_queries = []
+            for index, sq in enumerate(getattr(legal_query_obj, "sub_queries", []) or []):
+                sq_concept_id = self._obj_value(sq, "concept_id")
+                sq_concept = str(self._obj_value(sq, "concept", "") or "")
+                if (concept_id and sq_concept_id == concept_id) or (sq_concept and sq_concept.lower() == label.lower()):
+                    linked_queries.append(strip_query_boilerplate(str(self._obj_value(sq, "query", ""))))
+                    used_sq.add(index)
+            sq_text = " ".join(linked_queries)
+            # Route procedural concepts (bail, remand, CrPC) to a separate track instead of
+            # feeding them into the IPC BM25 index, where they cause false positives.
+            if is_procedural_concept(label):
+                logger.debug("ProceduralGate: skipping IPC BM25 for concept %r", label)
+                procedural_groups.append({"concept": label, "sub_query": sq_text})
+                continue
+            groups.append((label, sq_text))
+
+        for index, sq in enumerate(getattr(legal_query_obj, "sub_queries", []) or []):
+            if index not in used_sq:
+                label = str(self._obj_value(sq, "concept", "") or "")
+                query = strip_query_boilerplate(str(self._obj_value(sq, "query", "") or ""))
+                # Orphan sub-queries that are procedural also go to the procedural track.
+                if is_procedural_concept(label) or is_procedural_concept(query):
+                    logger.debug("ProceduralGate: skipping orphan sub-query concept %r", label or query[:40])
+                    procedural_groups.append({"concept": label, "sub_query": query})
+                    continue
+                if label or query:
+                    groups.append((label, query))
+
+        # Critical addition: retrieve from individual source facts as well as concept summaries.
+        # This prevents a broad concept label from diluting distinctive conduct such as
+        # destruction of monitoring records or failure to arrange specialist intervention.
+        for fact in factual_items:
+            if not self._is_charge_bearing_fact(fact):
+                continue
+            description = str(self._obj_value(fact, "description", "") or "")
+            if description.strip():
+                # FIX 4 – was `(f"FACT:{fact_id}", description)`.
+                # "FACT:F1" tokenises to ["fact"] → weight-2.0 label token → matched every
+                # section whose statutory text contained the word "fact" (e.g. IPC 495, 142,
+                # 171G …).  Using the first 60 chars of the description as the label means the
+                # label tokens are the same conduct words as the body, which is correct.
+                groups.append((description[:60], description))
+
+        # FIX 7 – Also add the raw case_summary as a retrieval group so outcome words
+        # such as "death", "negligence" (which appear in the case narrative but are often
+        # absent from Stage-1 sub-queries) can still surface sections like IPC 304A.
+        # The summary is split at the mid-sentence boundary to avoid diluting a long text
+        # into a vector where every token has near-zero IDF mass.
+        case_summary = str(getattr(legal_query_obj, "case_summary", "") or "").strip()
+        if case_summary:
+            # Split roughly in half on a sentence boundary so each chunk is focused.
+            mid = len(case_summary) // 2
+            split_at = case_summary.rfind(".", 0, mid + 100)
+            if split_at < mid // 2:
+                split_at = mid
+            chunk1 = case_summary[: split_at + 1].strip()
+            chunk2 = case_summary[split_at + 1 :].strip()
+            for chunk in [chunk1, chunk2]:
+                if len(chunk) > 20:
+                    groups.append((chunk[:60], chunk))
+
+        # Pre-build title lookup: {normalised_title: identifier} for every section in sections_db.
+        # Used below to guarantee KB-title-matched sections are always included even if BM25
+        # score falls below the relative floor due to competition in a broad retrieval group.
+        title_to_identifier: Dict[str, str] = {}
+        for rec in self.sections_db:
+            t = (rec.get("title") or "").strip().lower()
+            if t:
+                title_to_identifier[t] = rec["identifier"]
+
+        group_ranked: List[Tuple[str, List[Tuple[Dict[str, Any], float, List[str], float]]]] = []
+        # Track which section identifiers are directly pinned by title-match so we can
+        # guarantee their inclusion in fused results even if _rank drops them.
+        title_pinned_identifiers: Set[str] = set()
+        title_pinned_records: Dict[str, Dict[str, Any]] = {}  # identifier -> record
+
+        for label, text in groups:
+            label_tokens = set(_tokenize(label)) - _QUERY_ONLY_STOP_STEMS
+            text_tokens = set(_tokenize(text)) - actor_tokens - label_tokens - _QUERY_ONLY_STOP_STEMS
+            weights: Dict[str, float] = {token: 2.0 for token in label_tokens}
+            weights.update({token: 1.0 for token in text_tokens})
+            if not weights:
+                continue
+            # Do not use actor names or neutral party labels as retrieval evidence.
+            gate_text = f"{label} {text}"
+            ranked = self._rank(weights, regime_filter, gate_text, query_domains)
+
+            # Title-pin: if the concept label is (or starts with) a section title verbatim,
+            # force that section into results at a high synthetic score, bypassing the
+            # _MIN_RELATIVE_SCORE floor that can drop it when competing with a stronger signal.
+            label_norm = label.strip().lower()
+            for title_norm, ident in title_to_identifier.items():
+                # Accept if label starts with the section title (handles "Title — extra context").
+                if label_norm == title_norm or label_norm.startswith(title_norm):
+                    title_pinned_identifiers.add(ident)
+                    # Find the full record so we can inject it into best/fused later.
+                    for r in self.sections_db:
+                        if r["identifier"] == ident:
+                            title_pinned_records[ident] = r
+                            break
+
+            if ranked:
+                group_ranked.append((label or text[:40], ranked[:10]))
+
+        fused: Dict[str, float] = {}
+        best: Dict[str, Tuple[Dict[str, Any], float, List[str]]] = {}
+        concepts_for: Dict[str, List[str]] = {}
+        for label, ranked in group_ranked:
+            for rank, (record, relative_score, matched, _coverage) in enumerate(ranked):
+                key = record["identifier"]
+                fused[key] = fused.get(key, 0.0) + 1.0 / (_RRF_K + rank + 1)
+                if key not in best or relative_score > best[key][1]:
+                    best[key] = (record, relative_score, matched)
+                concepts_for.setdefault(key, [])
+                if label not in concepts_for[key]:
+                    concepts_for[key].append(label)
+
+        # Title-pin injection: for any section whose title exactly matched a concept label,
+        # ensure it appears in fused results with a synthetic score equivalent to rank-1.
+        # This guarantees IPC 201/204 etc. are never silently dropped by the relative-score
+        # floor when a noisier section happens to top the retrieval group.
+        for pinned_id, pinned_rec in title_pinned_records.items():
+            gate_text_for_pin = f"{pinned_rec.get('title', '')} {pinned_rec.get('chapter', '')}"
+            disqualified, _, _ = self.evaluate_fatal_disqualification(
+                pinned_rec["section_number"].upper(), pinned_rec["statute"].upper(), gate_text_for_pin
+            )
+            if disqualified:
+                continue
+            if pinned_id not in fused:
+                # Insert as a top-2 synthetic hit (slightly below rank-0 to avoid always topping)
+                fused[pinned_id] = 1.0 / (_RRF_K + 1)
+                best[pinned_id] = (pinned_rec, 0.85, ["title_pin"])
+                concepts_for[pinned_id] = ["title-matched concept"]
+            else:
+                # Already retrieved — boost its RRF score so it ranks higher
+                fused[pinned_id] += 1.0 / (_RRF_K + 1)
+
+        if not fused:
+            if return_procedural:
+                return [], procedural_groups
+            return []
+
+        # Preserve per-issue recall without blindly padding from unrelated global matches.
+        selected: List[str] = []
+        for rank_index in range(max(1, per_concept)):
+            for _label, ranked in group_ranked:
+                if rank_index < len(ranked):
+                    key = ranked[rank_index][0]["identifier"]
+                    if key not in selected:
+                        selected.append(key)
+                    if len(selected) >= top_k:
+                        break
+            if len(selected) >= top_k:
+                break
+        for key in sorted(fused, key=fused.get, reverse=True):
+            if len(selected) >= top_k:
+                break
+            if key not in selected:
+                selected.append(key)
+
+        selected.sort(key=lambda key: fused[key], reverse=True)
+        ipc_matches = [
+            self._to_match(best[key][0], best[key][1], best[key][2], concepts_for[key])
+            for key in selected
+        ]
+        if procedural_groups:
+            logger.info(
+                "ProceduralGate: %d procedural concept(s) separated from IPC retrieval: %s",
+                len(procedural_groups),
+                [pg["concept"] for pg in procedural_groups],
+            )
+        if return_procedural:
+            return ipc_matches, procedural_groups
+        return ipc_matches

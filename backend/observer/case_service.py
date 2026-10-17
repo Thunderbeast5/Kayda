@@ -6,6 +6,7 @@ and normalizes them into the shapes the frontend already expects
 No LLM calls here on purpose: this is the "replay a real case" path for
 observer mode, not the live orchestrator path.
 """
+from __future__ import annotations
 
 import json
 import os

@@ -1,6 +1,6 @@
 """
 LexiGraph Backend Pydantic Schemas Package.
-Re-exports all stage-specific schemas and common models for 100% backward compatibility.
+Re-exports stage-specific schemas for Stages 0 through 4 (and statutory extensions).
 """
 
 from .common import (
@@ -27,6 +27,7 @@ from .stage0 import (
 
 from .stage1 import (
     EntityItem,
+    FactualAllegation,
     ImportantFacts,
     LegalConceptItem,
     LegalQueryObject,
@@ -58,33 +59,6 @@ from .stage4 import (
     StatutoryVerificationResult,
     VerifiedOffenceItemStage4,
     VerifiedSectionItem,
-)
-
-from .stage5 import (
-    BailEvaluationMap,
-    BailFactorEvaluationItem,
-    BailReasoningObject,
-    BailVerificationIssue,
-    BailVerificationResult,
-    OverallBailRecommendation,
-    SideArgumentPackage,
-)
-
-from .stage6 import (
-    PrecedentItem,
-    PrecedentRetrievalObject,
-    PrecedentVerificationIssue,
-    PrecedentVerificationResult,
-)
-
-from .stage5_precedent import (
-    MatchedStatuteItem,
-    PropositionItem,
-    RoleSpecificRelevanceEvaluation,
-    RoleSpecificPrecedentItem,
-    RoleSpecificPrecedentRetrievalObject,
-    PrecedentRetrievalIssue,
-    PrecedentRetrievalResult,
 )
 
 from .stage_bsa import (
@@ -124,6 +98,7 @@ __all__ = [
     "Parties",
     "PrimaryParticipants",
     "EntityItem",
+    "FactualAllegation",
     "ImportantFacts",
     "LegalConceptItem",
     "LegalQueryObject",
@@ -146,24 +121,6 @@ __all__ = [
     "StatutoryVerificationResult",
     "VerifiedOffenceItemStage4",
     "VerifiedSectionItem",
-    "BailEvaluationMap",
-    "BailFactorEvaluationItem",
-    "BailReasoningObject",
-    "BailVerificationIssue",
-    "BailVerificationResult",
-    "OverallBailRecommendation",
-    "SideArgumentPackage",
-    "PrecedentItem",
-    "PrecedentRetrievalObject",
-    "PrecedentVerificationIssue",
-    "PrecedentVerificationResult",
-    "MatchedStatuteItem",
-    "PropositionItem",
-    "RoleSpecificRelevanceEvaluation",
-    "RoleSpecificPrecedentItem",
-    "RoleSpecificPrecedentRetrievalObject",
-    "PrecedentRetrievalIssue",
-    "PrecedentRetrievalResult",
     "BSASectionItem",
     "BSAVerificationIssue",
     "BSARetrievalObject",
@@ -174,5 +131,3 @@ __all__ = [
     "SpecialActSectionItem",
     "SpecialActRetrievalObject",
 ]
-
-

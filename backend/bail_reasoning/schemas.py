@@ -1,11 +1,9 @@
 """
-Stage 5 Pydantic Schemas: Anticipatory Bail Reasoning Engine -> BailReasoningObject
+Bail Reasoning Schemas: Anticipatory Bail Reasoning Engine -> BailReasoningObject
 """
 
 from typing import Any, Dict, List, Optional
-from pydantic import BaseModel, Field, field_validator
-
-from .common import ManualReviewMixin, _sanitize_manual_review
+from pydantic import BaseModel, Field
 
 
 class BailFactorEvaluationItem(BaseModel):
@@ -38,7 +36,7 @@ class SideArgumentPackage(BaseModel):
     suggested_conditions_or_objections: List[str] = Field(default_factory=list, description="Prosecution objections or Defense proposed bail conditions")
 
 
-class BailReasoningObject(ManualReviewMixin):
+class BailReasoningObject(BaseModel):
     schema_version: str = Field(default="5.0", description="Schema version of BailReasoningObject contract")
     target_side: str = Field(default="BOTH", description="Target role side: 'PROSECUTION', 'DEFENSE', or 'BOTH'")
     bail_provision_applied: str = Field(default="Section 438 CrPC", description="Statutory bail provision applied ('Section 438 CrPC')")

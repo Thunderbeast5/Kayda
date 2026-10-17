@@ -1,22 +1,5 @@
 """
 Persistent, incremental index over the tagged judgment corpus (built for 20K+ judgments).
-
-Why: the old retriever opened and scored every tagged_*.json on every query. This module parses each judgment once,
-keeps only compact per-case records in memory, and answers queries from three structures:
-
-  statute postings   canonical statute key (old-regime, e.g. "IPC:420", "CRPC:438") -> case indices
-  fact space         sparse TF-IDF over abstract_facts          (cosine similarity to the input's facts)
-  issue space        sparse TF-IDF over issues + holdings text  (cosine similarity to the input's legal issues)
-
-plus a citation graph (who cites whom inside the corpus) used as an authority signal, and per-case offence
-categories from offence_taxonomy. Full judgment JSON is loaded lazily, only for the few cases that are returned.
-
-Everything is data-driven: no case names, no section lists, no keyword lists tied to any fact pattern. Similarity
-scales are calibrated from the corpus itself (calibrate()), so thresholds follow the corpus as it grows.
-
-The TF-IDF spaces can be supplemented with dense embeddings by passing an `embedder` (any object with
-`encode(list[str]) -> list[list[float]]`); the score then takes max(tfidf, dense) per space. Without one the index
-is pure python with no extra dependencies.
 """
 
 import json
@@ -28,7 +11,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Optional, Set, Tuple
 
-from .offence_taxonomy import categories_for, category_vector
+from lexigraphbe.offence_taxonomy import categories_for, category_vector
 
 # ----------------------------------------------------------------------------
 # Text processing
@@ -158,7 +141,7 @@ class PrecedentIndex:
     ):
         chosen_dir = precedent_dir or tagged_dir
         if chosen_dir is None:
-            bail_data_dir = Path(__file__).parent.parent / "bail_data"
+            bail_data_dir = Path(__file__).resolve().parent.parent / "bail_data"
             if (bail_data_dir / "out").exists():
                 chosen_dir = bail_data_dir / "out"
             elif (bail_data_dir / ".out").exists():
@@ -180,15 +163,12 @@ class PrecedentIndex:
         self.issue_idf: Dict[str, float] = {}
         self.fact_post: Dict[str, List[Tuple[int, float]]] = {}
         self.issue_post: Dict[str, List[Tuple[int, float]]] = {}
-        self.fact_scale = 0.3     # cosine regarded as a "very close" fact match; calibrated from the corpus
+        self.fact_scale = 0.3
         self.issue_scale = 0.3
         self.max_indegree = 1.0
         self.refresh()
 
-    # -- canonicalisation --------------------------------------------------
-
     def canonical_keys(self, act: str, section: str) -> Tuple[Optional[str], Optional[str]]:
-        """(main key, parent key) in old-regime terms, e.g. BNS 318(4) -> ('IPC:420', None); CrPC 439(2) -> ('CRPC:439(2)', 'CRPC:439')."""
         m = self.matcher
         eqs = m.get_equivalent_sections(act, section)
         pick = None
@@ -201,8 +181,6 @@ class PrecedentIndex:
         main = f"{pick[0]}:{pick[1]}"
         parent = m.get_parent_section(pick[1])
         return main, (f"{pick[0]}:{parent}" if parent else None)
-
-    # -- ingestion ---------------------------------------------------------
 
     def _parse_file(self, path: Path) -> Optional[Record]:
         try:
@@ -246,7 +224,6 @@ class PrecedentIndex:
         return r
 
     def refresh(self) -> None:
-        """Parse new/changed files only, drop deleted ones, rebuild derived structures."""
         if self.cache_path.exists() and not self._base:
             try:
                 saved = pickle.loads(self.cache_path.read_bytes())
@@ -276,11 +253,9 @@ class PrecedentIndex:
             self._build_derived(list(self._base.values()))
             try:
                 self.cache_path.write_bytes(pickle.dumps({"stamps": self._stamps, "base": self._base}))
-            except Exception as e:  # read-only deployments still work
+            except Exception as e:
                 print(f"[PrecedentIndex] could not write cache: {e}")
         print(f"[PrecedentIndex] {len(self.records)} judgments indexed ({changed} parsed/changed this run)")
-
-    # -- derived structures -------------------------------------------------
 
     @staticmethod
     def _build_space(tfs: List[Dict[str, int]]) -> Tuple[Dict[str, float], Dict[str, List[Tuple[int, float]]]]:
@@ -350,8 +325,6 @@ class PrecedentIndex:
         r = self.records[idx]
         return round(r.court_weight * math.log1p(r.indegree) / math.log1p(self.max_indegree), 4)
 
-    # -- similarity ---------------------------------------------------------
-
     def _query_vec(self, text: str, idf: Dict[str, float]) -> Dict[str, float]:
         tf = Counter(t for t in tokenize(text) if t in idf)
         w = {t: (1.0 + math.log(c)) * idf[t] for t, c in tf.items()}
@@ -359,7 +332,6 @@ class PrecedentIndex:
         return {t: x / norm for t, x in w.items()}
 
     def similarity(self, text: str, space: str = "fact") -> Dict[int, float]:
-        """Cosine similarity of `text` to every judgment that shares at least one term (sparse)."""
         idf, post = (self.fact_idf, self.fact_post) if space == "fact" else (self.issue_idf, self.issue_post)
         qv = self._query_vec(text, idf)
         acc: Dict[int, float] = defaultdict(float)
@@ -369,7 +341,6 @@ class PrecedentIndex:
         return dict(acc)
 
     def calibrate(self, sample: int = 100) -> None:
-        """Scale = median best-neighbour cosine of corpus judgments against each other (leave-one-out)."""
         n = len(self.records)
         if n < 5:
             return
@@ -385,7 +356,7 @@ class PrecedentIndex:
                 acc: Dict[int, float] = defaultdict(float)
                 for t, x in w.items():
                     plist = post.get(t, ())
-                    if len(plist) > max_df:       # near-stopwords: negligible idf, expensive to scan
+                    if len(plist) > max_df:
                         continue
                     for i, dw in plist:
                         if i != r.idx:
@@ -395,8 +366,6 @@ class PrecedentIndex:
             if bests:
                 bests.sort()
                 setattr(self, attr, max(0.05, bests[len(bests) // 2]))
-
-    # -- lookup --------------------------------------------------------------
 
     def candidates_by_keys(self, keys: Iterable[str]) -> Set[int]:
         out: Set[int] = set()
