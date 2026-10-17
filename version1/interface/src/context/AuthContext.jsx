@@ -53,16 +53,17 @@ export function AuthProvider({ children }) {
   }, []);
 
   useEffect(() => {
-    const unsubscribe = subscribeToAuth(async (user) => {
+    const unsubscribe = subscribeToAuth((user) => {
       setCurrentUser(user);
+      setLoading(false);
       if (user) {
-        await fetchProfile(user.uid, user);
+        setUserProfile(null);
+        fetchProfile(user.uid, user);
         // Auto-seed/verify cases collection in Firestore
         listCases().catch((err) => console.error("Initial listCases check error:", err));
       } else {
         setUserProfile(null);
       }
-      setLoading(false);
     });
     return unsubscribe;
   }, [fetchProfile]);

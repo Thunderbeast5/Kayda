@@ -163,7 +163,10 @@ export async function getUserProfile(uid) {
  * Subscribe to auth state changes.
  */
 export function subscribeToAuth(callback) {
-  if (!auth) return () => {};
+  if (!auth) {
+    callback(null);
+    return () => {};
+  }
   return onAuthStateChanged(auth, callback);
 }
 
