@@ -1,0 +1,183 @@
+classDiagram
+    %% Inheritance
+    BaseLegalAgent <|-- ProsecutorAgent
+    BaseLegalAgent <|-- DefenseAgent
+    BaseLegalAgent <|-- JudgeAgent
+    BaseLegalAgent <|-- AccusedAgent
+
+    %% Composition & Aggregation
+    CourtroomOrchestrator *-- SimulationState
+    CourtroomOrchestrator o-- BaseLegalAgent
+    SimulationState *-- Fact
+    SimulationState *-- EvidenceItem
+    SimulationState *-- Turn
+    SimulationState *-- JudgeScores
+    SimulationState o-- Verdict
+
+    GameEngine o-- GameState
+    GameEngine --> ConnectionManager
+    GameState *-- Turn
+    GameState "1" o-- "2" User : players
+    MatchmakingWorker ..> GameState : creates
+
+    CourtroomOrchestrator ..> EvidenceAnalyzer : calls
+    CourtroomOrchestrator ..> LexiGraphPipeline : calls
+
+    class User {
+        +String user_id
+        +String email
+        +String display_name
+        +int rating
+        +String role_preference
+        +update_rating(delta)
+        +get_profile()
+    }
+
+    class GameState {
+        +String game_id
+        +String case_id
+        +String phase
+        +int round
+        +String current_turn
+        +Map players
+        +List~Turn~ transcript
+        +String status
+    }
+
+    class GameEngine {
+        -Map active_games
+        +process_action(game_id, user_id, payload)
+        +handle_judge_objection_ruling(game_id, case_id, role, reason)
+        +advance_turn(game_id)
+        +evaluate_round(game_id)
+    }
+
+    class ConnectionManager {
+        -Map active_connections
+        +connect(websocket, game_id)
+        +disconnect(websocket, game_id)
+        +broadcast(game_id, message)
+    }
+
+    class MatchmakingWorker {
+        -RedisClient redis_client
+        +enqueue_player(user_id, role, rating)
+        +dequeue_player(user_id)
+        +match_players()
+    }
+
+    class BaseLegalAgent {
+        <<abstract>>
+        #BaseChatModel llm
+        #float temperature
+        #String role_name
+        +invoke_prompt(messages)
+        +format_case_file(facts, evidence)
+    }
+
+    class ProsecutorAgent {
+        -String burden_of_proof
+        +generate_opening(case_file)
+        +submit_argument(case_file, round_no, opposing_args)
+        +verify_citations(citations, valid_sections)
+    }
+
+    class DefenseAgent {
+        -String defense_theory
+        +generate_defense_plea(case_file)
+        +rebut_arguments(case_file, pros_args)
+        +plead_bail_grounds(case_file)
+    }
+
+    class JudgeAgent {
+        -float sufficiency_threshold
+        -int vote_count
+        +score(facts, pros_args, def_args)
+        +rule_on_objection(case_id, role, reason)
+        +ask_clarification(accused_history)
+        +verdict(facts, pros_args, def_args, history)
+    }
+
+    class AccusedAgent {
+        -AccusedParty profile
+        +answer_judge_question(question, context)
+    }
+
+    class CourtroomOrchestrator {
+        -SimulationState state
+        -int max_rounds
+        +init_session(case_description)
+        +run_evidence_gate(state)
+        +run_lexigraph_gate(state)
+        +execute_turn(speaker, state)
+        +finalize_session(state)
+    }
+
+    class SimulationState {
+        +String session_id
+        +String case_id
+        +String phase
+        +int round_no
+        +List~Fact~ case_facts
+        +List~EvidenceItem~ evidence_inventory
+        +List~Turn~ transcript
+        +JudgeScores judge_scores
+        +Verdict verdict
+    }
+
+    class Fact {
+        +String id
+        +String text
+        +String source
+        +String type
+        +to_dict()
+    }
+
+    class EvidenceItem {
+        +String item
+        +String status
+        +String details
+        +is_available()
+    }
+
+    class Turn {
+        +int turn_no
+        +int round_no
+        +String speaker
+        +String content
+        +List citations
+        +List evidence_refs
+        +bool grounded
+    }
+
+    class JudgeScores {
+        +float legal_validity
+        +float evidence_linkage
+        +float logic_coherence
+        +float total
+    }
+
+    class Verdict {
+        +String decision
+        +float confidence
+        +List laws_applied
+        +String reasoning
+    }
+
+    class EvidenceAnalyzer {
+        -String ocr_provider
+        +extract_text(file_path)
+        +chunk_document_aware(raw_text)
+        +extract_facts(raw_text)
+        +build_force_graph(facts)
+        +store_to_firestore(session_id, facts)
+    }
+
+    class LexiGraphPipeline {
+        -List stages
+        +run_stage0_intake(raw_facts)
+        +run_stage3_ipc_to_bns(sections)
+        +run_stage4_ingredient_matching(facts, sections)
+        +run_stage5_precedent_retrieval(role, query)
+        +execute_text2cypher(natural_query)
+    }
