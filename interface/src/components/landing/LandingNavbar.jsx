@@ -172,16 +172,16 @@ export default function LandingNavbar({ scrollToSection }) {
               <button
                 id="navbar-signin-btn"
                 onClick={() => navigate("/auth")}
-                className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#2C1810] hover:underline cursor-pointer"
+                className="px-6 py-1.5 text-[13px] font-semibold text-[#2C1810] bg-transparent border border-[#2C1810] rounded-full hover:bg-[#2C1810]/5 transition-all duration-300 cursor-pointer"
               >
-                Sign In
+                Sign in
               </button>
               <button
                 id="navbar-launch-btn"
                 onClick={() => navigate("/auth")}
-                className="px-6 py-1.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-[#FAF9F7] bg-[#2C1810] border border-[#D4AF37] rounded-full hover:bg-[#8C5A3C] hover:-translate-y-[1px] hover:shadow-[0_4px_20px_rgba(212,175,55,0.35)] transition-all duration-300 cursor-pointer"
+                className="px-6 py-1.5 text-[13px] font-semibold text-[#FAF9F7] bg-[#2C1810] border border-[#D4AF37] rounded-full hover:bg-[#8C5A3C] hover:-translate-y-[1px] hover:shadow-[0_4px_20px_rgba(212,175,55,0.35)] transition-all duration-300 cursor-pointer"
               >
-                Get Started
+                Get started
               </button>
             </>
           )}
