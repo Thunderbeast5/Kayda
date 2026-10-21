@@ -1,93 +1,169 @@
-import Avatar from "./Avatar";
+import room from "../assets/courtroom/room4.png";
+import judgeDesk from "../assets/courtroom/judge-table.png";
+import prosecutorDesk from "../assets/courtroom/prosecutor-table.png";
+import defenseDesk from "../assets/courtroom/defense-table.png";
+import gallery from "../assets/courtroom/public.png";
+import judge from "../assets/courtroom/judge.png";
+import prosecutor from "../assets/courtroom/pro.png";
+import defense from "../assets/courtroom/def.png";
+import audience from "../assets/courtroom/audience.png";
+
+const A = {
+  room,
+  judgeDesk,
+  prosecutorDesk,
+  defenseDesk,
+  gallery,
+  judge,
+  prosecutor,
+  defense,
+  audience,
+};
+
+// All positions are % of the 1846x852 reference scene, so everything scales together.
+const LAYOUT = {
+  judge:      { avatar: { left: 46.4, top: 32.0, width: 7.2 },  desk: { left: 27.1, top: 37.8, width: 45.7 } },
+  prosecutor: { avatar: { left: 15.7, top: 38.0, width: 6.8 },  desk: { left: 7.3,  top: 47.8, width: 23.8 } },
+  defense:    { avatar: { left: 77.8, top: 38.0, width: 6.8 },  desk: { left: 68.9, top: 47.8, width: 24.5 } },
+};
+
+function Figure({ role, src, activeSpeaker, message, isUser, bubbleSide = "top" }) {
+  const { avatar } = LAYOUT[role];
+  const isActive = activeSpeaker === role;
+
+  return (
+    <div
+      className="absolute z-[20] flex flex-col items-center"
+      style={{ left: `${avatar.left}%`, top: `${avatar.top}%`, width: `${avatar.width}%` }}
+    >
+      {!isUser && (
+        <img
+          src={src}
+          alt={role}
+          draggable={false}
+          className={`w-full select-none origin-bottom transition-all duration-500 ${
+            isActive
+              ? "scale-[1.08] brightness-110 drop-shadow-[0_0_10px_rgba(255,200,100,0.7)]"
+              : ""
+          }`}
+        />
+      )}
+
+      {isUser && (
+        <div className="w-full aspect-square flex items-center justify-center">
+          <span className="px-1.5 py-0.5 rounded bg-black/60 text-gold text-[7px] md:text-[9px] font-bold tracking-[0.2em] uppercase">
+            You
+          </span>
+        </div>
+      )}
+
+      {isActive && message && (
+        <div
+          className={`absolute z-50 w-[220%] max-w-[190px] rounded-md bg-surface-paperMain text-black/80 shadow-lg border border-wood-dark px-2 py-1 text-[8px] md:text-[10px] leading-snug line-clamp-3 ${
+            bubbleSide === "side" ? "left-full ml-2 top-0" : "bottom-full mb-1 left-1/2 -translate-x-1/2"
+          }`}
+        >
+          {message}
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function CourtroomStage({ activeSpeaker, lastMessage, userRole }) {
-  const isJudgeView = userRole === "judge";
+  const msgFor = (role) => (lastMessage?.agentId === role ? lastMessage.text : "");
 
-  const getAgentStyle = (role) => {
-    const isActive = activeSpeaker === role;
-    return `relative transition-all duration-500 flex flex-col items-center ${
-      isActive ? "scale-110 md:scale-110 drop-shadow-2xl z-30" : "opacity-60 grayscale-[30%] scale-90 md:scale-95 z-10"
-    }`;
+  const Desk = ({ role, src, z }) => {
+    const { desk } = LAYOUT[role];
+    return (
+      <img
+        src={src}
+        alt=""
+        draggable={false}
+        className="absolute select-none pointer-events-none"
+        style={{ left: `${desk.left}%`, top: `${desk.top}%`, width: `${desk.width}%`, zIndex: z }}
+      />
+    );
   };
 
   return (
-    <div className="h-[220px] relative overflow-hidden bg-surface-court flex flex-col border-b-4 border-wood-dark shrink-0">
-      
-      {/* 1. THE WALL & BENCH */}
-      <div className="absolute top-0 w-full h-[35%] bg-wood-dark shadow-md z-0">
-        <div className="w-full h-full opacity-20 bg-[url('https://www.transparenttextures.com/patterns/wood-pattern.png')]"></div>
-        <div className="absolute bottom-0 w-full h-2 bg-wood-deep border-t border-white/10"></div>
-      </div>
+    <div
+      className="relative w-full overflow-hidden shrink-0 border-b-4 border-wood-dark bg-surface-court"
+      style={{
+        height: "min(46.15vw, 360px)", // keeps the 1846:852 ratio, capped on desktop
+        backgroundImage: `url(${A.room})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      {/* Scene: fixed aspect ratio, centered */}
+      <div className="absolute inset-y-0 left-1/2 -translate-x-1/2 h-full aspect-[1846/852]">
+        {/* 1. ROOM BACKGROUND */}
+        <img
+          src={A.room}
+          alt=""
+          draggable={false}
+          className="absolute inset-0 w-full h-full select-none pointer-events-none z-0"
+        />
 
-      {/* 2. THE JUDGE */}
-      {!isJudgeView && (
-        <div className="absolute top-[4%] left-1/2 -translate-x-1/2 z-10 flex flex-col items-center">
-          <div className={getAgentStyle('judge')}>
-            <Avatar role="judge" name="HON’BLE JUDGE" active={activeSpeaker === "judge"} message={lastMessage?.agentId === "judge" ? lastMessage.text : ""} />
+        {/* 2. JUDGE (in front of his desk) */}
+        <div style={{ zIndex: 20 }} className="absolute inset-0 pointer-events-none">
+          <div className="relative w-full h-full pointer-events-auto">
+            <Figure
+              role="judge"
+              src={A.judge}
+              activeSpeaker={activeSpeaker}
+              message={msgFor("judge")}
+              isUser={userRole === "judge"}
+              bubbleSide="side"
+            />
           </div>
         </div>
-      )}
+        <Desk role="judge" src={A.judgeDesk} z={15} />
 
-      {/* 3. THE FLOOR */}
-      <div className="absolute bottom-0 w-full h-[65%] bg-surface-border origin-bottom [transform:perspective(600px)_rotateX(15deg)] z-0 shadow-inner">
-         <div className="w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/dark-matter.png')]"></div>
-      </div>
+        {/* 3. PROSECUTOR + DEFENSE (avatars sit in front of their desks) */}
+        <Figure
+          role="prosecutor"
+          src={A.prosecutor}
+          activeSpeaker={activeSpeaker}
+          message={msgFor("prosecutor")}
+          isUser={userRole === "prosecutor"}
+        />
+        <Desk role="prosecutor" src={A.prosecutorDesk} z={15} />
 
-      {/* 4. THE COUNSELS & EVIDENCE */}
-      <div className="relative w-full h-full z-20">
-        <div className="max-w-5xl mx-auto h-full flex justify-between items-end px-4 md:px-10 pb-1.5 md:pb-2.5 transition-all duration-[350ms] ease-in-out">
-          
-          {/* PROSECUTOR SIDE */}
-          <div className="w-[80px] md:w-[120px] flex flex-col items-center">
-            {userRole !== 'prosecutor' && (
-              <div className={getAgentStyle('prosecutor')}>
-                <Avatar role="prosecutor" name="PUBLIC PROSECUTOR" active={activeSpeaker === "prosecutor"} message={lastMessage?.agentId === "prosecutor" ? lastMessage.text : ""} />
-              </div>
-            )}
-            <div className="w-full h-12 md:h-14 bg-primaryBrown rounded-t-mg border-x-4 border-t-[4px] md:border-t-6 border-wood-dark shadow-[0_10px_20px_rgba(0,0,0,0.4)]"></div>
-          </div>
+        <Figure
+          role="defense"
+          src={A.defense}
+          activeSpeaker={activeSpeaker}
+          message={msgFor("defense")}
+          isUser={userRole === "defense"}
+        />
+        <Desk role="defense" src={A.defenseDesk} z={15} />
 
-          {/* EVIDENCE DESK */}
-          <div className="mb-1.5 opacity-80 scale-75 md:scale-90 flex-shrink-0">
-             <div className="w-24 md:w-32 h-10 md:h-12 bg-wood-light border-t-[4px] border-wood-light shadow-lg flex items-center justify-center relative">
-                <div className="absolute top-[-4px] right-1 md:right-2 w-6 md:w-10 h-1 bg-white rotate-[-5deg] rounded-sm shadow-sm border border-surface-border"></div>
-                <div className="absolute top-[-5px] left-1 md:left-2 w-8 md:w-12 h-1 bg-surface-paperMain rotate-[3deg] rounded-sm shadow border border-surface-border"></div>
-                <span className="text-[6px] md:text-[8px] text-white/40 font-bold tracking-[0.2em] uppercase mt-1">Evidence Desk</span>
-             </div>
-          </div>
+        {/* 4. AUDIENCE (in front of the public gallery) */}
+        <img
+          src={A.audience}
+          alt=""
+          draggable={false}
+          className="absolute select-none pointer-events-none z-[50]"
+          style={{ left: "5%", top: "66%", width: "22%" }}
+        />
+        <img
+          src={A.audience}
+          alt=""
+          draggable={false}
+          className="absolute select-none pointer-events-none z-[50] -scale-x-100"
+          style={{ left: "74%", top: "66.5%", width: "22%" }}
+        />
 
-          {/* DEFENSE SIDE */}
-          <div className="w-[80px] md:w-[120px] flex flex-col items-center">
-            {userRole !== 'defense' && (
-              <div className={getAgentStyle('defense')}>
-                <Avatar role="defense" name="DEFENSE COUNSEL" active={activeSpeaker === "defense"} message={lastMessage?.agentId === "defense" ? lastMessage.text : ""} />
-              </div>
-            )}
-            <div className="w-full h-12 md:h-14 bg-primaryBrown rounded-t-lg border-x-4 border-t-[4px] md:border-t-6 border-wood-dark shadow-[0_10px_20px_rgba(0,0,0,0.4)]"></div>
-          </div>
-        </div>
-      </div>
-
-      {/* 5. USER'S POV PODIUM */}
-      {!isJudgeView && (
-        <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-[90%] md:w-[70%] max-w-[600px] h-20 md:h-24 bg-wood-deep rounded-t-[50px] border-t-[4px] md:border-t-6 border-primaryBrown z-50 shadow-[0_-15px_40px_rgba(0,0,0,0.5)]">
-           <div className="flex justify-center pt-1.5 md:pt-2.5">
-              <span className="text-gold/50 text-[8px] tracking-[0.4em] font-bold uppercase drop-shadow">Your Podium</span>
-           </div>
-        </div>
-      )}
-
-      {/* JUDGE'S POV CORRECTION */}
-      {isJudgeView && (
-        <div className="absolute top-[-15px] left-1/2 -translate-x-1/2 w-[95%] md:w-[90%] max-w-[800px] h-16 bg-wood-deep rounded-b-[20px] border-b-[4px] md:border-b-6 border-primaryBrown z-50 shadow-[0_20px_50px_rgba(0,0,0,0.8)]">
-        </div>
-      )}
-
-      {/* COURT IN SESSION DIVIDER - BOTTOM */}
-      <div className="absolute bottom-0 w-full flex items-center justify-center opacity-70 select-none z-40 pt-2 pb-1.5">
-        <div className="h-px bg-primaryBrown flex-1"></div>
-        <div className="px-6 font-serif text-[10px] font-black tracking-[0.4em] uppercase text-primaryBrown">Court In Session</div>
-        <div className="h-px bg-primaryBrown flex-1"></div>
+        {/* 5. PUBLIC GALLERY (front rail + benches, covers audience bodies) */}
+        <img
+          src={A.gallery}
+          alt=""
+          draggable={false}
+          className="absolute left-0 w-full select-none pointer-events-none z-[40]"
+          style={{ top: "48%" }}
+        />
       </div>
     </div>
   );
