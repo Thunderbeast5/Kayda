@@ -74,7 +74,7 @@ export default function LandingNavbar({ scrollToSection }) {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
           <img src={logo} alt="Kayda Logo" className="w-14 h-auto" />
-          <span className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-[#2C1810] -ml-[16px] mt-0.5">
+          <span className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-[#2C1810] -ml-[16px] mt-1.5">
             ayda
           </span>
         </div>
