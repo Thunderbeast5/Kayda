@@ -17,9 +17,9 @@ export default function LandingHero({ scrollToSection }) {
       />
 
       <main className="relative z-10 pt-32 px-6 md:px-14 max-w-[1400px] mx-auto min-h-screen flex flex-col justify-center pb-24">
-        <h1 className="font-heading text-[46px] md:text-[58px] lg:text-[64px] font-bold leading-[1.05] tracking-[-0.02em] text-[#2C1810] mb-6">
+        <h1 className="font-heading text-[46px] md:text-[58px] lg:text-[64px] font-bold leading-[1.05] tracking-wide text-[#2C1810] mb-6">
           Step Into the Courtroom. <br/>
-          <span className="italic font-normal">Master the Art of Legal Practice.</span>
+          <span className="italic font-normal tracking-[-0.02em]">Master the Art of Legal Practice.</span>
         </h1>
         <p className="text-[15px] md:text-[16px] text-[#5D4037] max-w-[500px] mb-10 leading-[1.7]">
           The all-in-one conversational AI platform built for legal advocacy and document intelligence. Practice real-time arguments before specialized AI judges, analyze complex contracts in seconds, and draft bulletproof affidavits effortlessly.

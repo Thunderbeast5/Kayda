@@ -1,15 +1,31 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/12.svg";
-import { useAuth } from "../context/AuthContext";
+import logo from "../../assets/12.svg";
+import { useAuth } from "../../context/AuthContext";
 
-export default function StandardNavbar({ scrollToSection }) {
+export default function LandingNavbar({ scrollToSection }) {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [failedAvatarUrl, setFailedAvatarUrl] = useState(null);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
   const { currentUser, userProfile, signOut } = useAuth();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > 50) setIsScrolled(true);
+      else setIsScrolled(false);
+      if (currentScrollY > lastScrollY && currentScrollY > 100) setIsVisible(false);
+      else setIsVisible(true);
+      setLastScrollY(currentScrollY);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
 
   useEffect(() => {
     const handler = (e) => {
@@ -40,11 +56,23 @@ export default function StandardNavbar({ scrollToSection }) {
     : currentUser?.displayName || currentUser?.email || "User";
 
   return (
-    <header className="sticky top-0 inset-x-0 z-50 w-full bg-[#FAF9F7]/90 backdrop-blur-md border-b border-[#D4AF37]/30 shadow-[0_4px_20px_rgba(44,24,16,0.05)]">
-      <nav className="flex items-center justify-between w-full max-w-7xl mx-auto px-6 md:px-8 py-3.5">
-
+    <div
+      className={`fixed inset-x-0 z-50 flex justify-center pointer-events-none transition-all duration-500 ease-in-out ${
+        isVisible ? "translate-y-0" : "-translate-y-[150px]"
+      } ${isScrolled ? "top-5 px-6" : "top-0 px-0"}`}
+    >
+      <nav
+        className={`pointer-events-auto flex items-center justify-between w-full transition-all duration-500 ease-in-out ${
+          isScrolled
+            ? "max-w-6xl px-7 py-2 rounded-full bg-[#FAF9F7]/80 backdrop-blur-md border border-[#D4AF37]/30 shadow-[0_10px_30px_rgba(44,24,16,0.08)]"
+            : "max-w-full px-8 md:px-16 py-4 bg-transparent border-transparent shadow-none"
+        }`}
+      >
         {/* Logo */}
-        <div className="flex items-center cursor-pointer select-none" onClick={() => navigate("/")}>
+        <div
+          className="flex items-center cursor-pointer select-none"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
           <img src={logo} alt="Kayda Logo" className="w-14 h-auto" />
           <span className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-[#2C1810] -ml-[16px] mt-0.5">
             ayda
@@ -53,29 +81,23 @@ export default function StandardNavbar({ scrollToSection }) {
 
         {/* Navigation Links */}
         <div className="hidden md:flex items-center gap-8 text-[13px] font-semibold tracking-[0.08em] uppercase text-[#2C1810]/80">
-          <button
-            onClick={() => navigate("/mootcourt-modes")}
-            className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1.5 cursor-pointer"
-          >
+          <button onClick={() => navigate("/mootcourt-modes")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1.5 cursor-pointer">
             Moot Court
           </button>
           <button onClick={() => navigate("/evidence-analyzer")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1 cursor-pointer">
             Document Suite
           </button>
-          <button
-            onClick={() => navigate("/lexigraph-agent")}
-            className="hover:text-[#8C5A3C] transition-colors cursor-pointer"
-          >
+          <button onClick={() => navigate("/lexigraph-agent")} className="hover:text-[#8C5A3C] transition-colors cursor-pointer">
             LexiGraph
           </button>
-          <button
-            onClick={() => navigate("/multiplayer")}
-            className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1 cursor-pointer"
-          >
+          <button onClick={() => navigate("/multiplayer")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1 cursor-pointer">
             Multiplayer
           </button>
           <button
-            onClick={() => { if (scrollToSection) scrollToSection("pricing"); else navigate("/pricing"); }}
+            onClick={() => {
+              if (window.location.pathname === "/pricing") scrollToSection("pricing");
+              else navigate("/pricing");
+            }}
             className="hover:text-[#8C5A3C] transition-colors cursor-pointer"
           >
             Pricing
@@ -87,9 +109,14 @@ export default function StandardNavbar({ scrollToSection }) {
           {currentUser ? (
             <div ref={dropdownRef} style={{ position: "relative" }}>
               <button
-                id="std-user-avatar-btn"
+                id="user-avatar-btn"
                 onClick={() => setDropdownOpen((o) => !o)}
-                style={{ display: "flex", alignItems: "center", gap: "8px", background: "none", border: "1.5px solid rgba(212,175,55,0.4)", borderRadius: "100px", padding: "4px 14px 4px 4px", cursor: "pointer", transition: "all 0.2s" }}
+                style={{
+                  display: "flex", alignItems: "center", gap: "8px",
+                  background: "none", border: "1.5px solid rgba(212,175,55,0.4)",
+                  borderRadius: "100px", padding: "4px 14px 4px 4px",
+                  cursor: "pointer", transition: "all 0.2s",
+                }}
                 className="hover:border-[#D4AF37] hover:shadow-[0_4px_16px_rgba(212,175,55,0.2)]"
               >
                 {currentUser.photoURL && failedAvatarUrl !== currentUser.photoURL ? (
@@ -110,13 +137,13 @@ export default function StandardNavbar({ scrollToSection }) {
               {dropdownOpen && (
                 <div style={{ position: "absolute", right: 0, top: "calc(100% + 10px)", background: "rgba(255,255,255,0.95)", backdropFilter: "blur(20px)", border: "1px solid rgba(212,175,55,0.25)", borderRadius: "14px", boxShadow: "0 20px 60px rgba(44,24,16,0.12)", minWidth: "200px", padding: "8px", zIndex: 100, animation: "fadeDown 0.2s ease" }}>
                   <div style={{ padding: "10px 12px 12px", borderBottom: "1px solid rgba(212,175,55,0.15)", marginBottom: "6px" }}>
-                    <p style={{ margin: 0, fontSize: "13px", fontWeight: 700, color: "#2C1810", fontFamily: "'Poppins', sans-serif" }}>{displayName}</p>
-                    <p style={{ margin: "2px 0 0", fontSize: "11px", color: "#8C5A3C", fontFamily: "'Poppins', sans-serif" }}>{currentUser.email}</p>
+                    <p style={{ margin: 0, fontSize: "13px", fontWeight: 700, color: "#2C1810", fontFamily: "'Manrope', sans-serif" }}>{displayName}</p>
+                    <p style={{ margin: "2px 0 0", fontSize: "11px", color: "#8C5A3C", fontFamily: "'Manrope', sans-serif" }}>{currentUser.email}</p>
                   </div>
                   <button
-                    id="std-profile-btn"
+                    id="landing-profile-btn"
                     onClick={() => { setDropdownOpen(false); navigate("/profile"); }}
-                    style={{ width: "100%", textAlign: "left", padding: "9px 12px", borderRadius: "8px", background: "none", border: "none", fontFamily: "'Poppins', sans-serif", fontSize: "13px", fontWeight: 600, color: "#2C1810", cursor: "pointer", display: "flex", alignItems: "center", gap: "8px", transition: "background 0.15s" }}
+                    style={{ width: "100%", textAlign: "left", padding: "9px 12px", borderRadius: "8px", background: "none", border: "none", fontFamily: "'Manrope', sans-serif", fontSize: "13px", fontWeight: 600, color: "#2C1810", cursor: "pointer", display: "flex", alignItems: "center", gap: "8px", transition: "background 0.15s" }}
                     onMouseEnter={e => e.currentTarget.style.background = "rgba(212,175,55,0.08)"}
                     onMouseLeave={e => e.currentTarget.style.background = "none"}
                   >
@@ -126,9 +153,9 @@ export default function StandardNavbar({ scrollToSection }) {
                     My Profile
                   </button>
                   <button
-                    id="std-signout-btn"
+                    id="signout-btn"
                     onClick={handleSignOut}
-                    style={{ width: "100%", textAlign: "left", padding: "9px 12px", borderRadius: "8px", background: "none", border: "none", fontFamily: "'Poppins', sans-serif", fontSize: "13px", fontWeight: 600, color: "#C62828", cursor: "pointer", display: "flex", alignItems: "center", gap: "8px", transition: "background 0.15s" }}
+                    style={{ width: "100%", textAlign: "left", padding: "9px 12px", borderRadius: "8px", background: "none", border: "none", fontFamily: "'Manrope', sans-serif", fontSize: "13px", fontWeight: 600, color: "#C62828", cursor: "pointer", display: "flex", alignItems: "center", gap: "8px", transition: "background 0.15s" }}
                     onMouseEnter={e => e.currentTarget.style.background = "rgba(211,47,47,0.07)"}
                     onMouseLeave={e => e.currentTarget.style.background = "none"}
                   >
@@ -143,18 +170,18 @@ export default function StandardNavbar({ scrollToSection }) {
           ) : (
             <>
               <button
-                id="std-signin-btn"
+                id="navbar-signin-btn"
                 onClick={() => navigate("/auth")}
                 className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#2C1810] hover:underline cursor-pointer"
               >
                 Sign In
               </button>
               <button
-                id="std-launch-btn"
+                id="navbar-launch-btn"
                 onClick={() => navigate("/auth")}
                 className="px-6 py-1.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-[#FAF9F7] bg-[#2C1810] border border-[#D4AF37] rounded-full hover:bg-[#8C5A3C] hover:-translate-y-[1px] hover:shadow-[0_4px_20px_rgba(212,175,55,0.35)] transition-all duration-300 cursor-pointer"
               >
-                Launch App
+                Get Started
               </button>
             </>
           )}
@@ -162,6 +189,6 @@ export default function StandardNavbar({ scrollToSection }) {
       </nav>
 
       <style>{`@keyframes fadeDown { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: translateY(0); } }`}</style>
-    </header>
+    </div>
   );
 }
