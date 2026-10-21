@@ -112,7 +112,12 @@ _MODELS_WITHOUT_TEMPERATURE = {
 
 def _openai_kwargs(model: str, temperature: float, api_key: str) -> dict:
     """Build ChatOpenAI kwargs, omitting temperature for models that don't support it."""
-    kwargs: dict = {"model": model, "api_key": api_key}
+    kwargs: dict = {
+        "model": model,
+        "api_key": api_key,
+        "request_timeout": float(os.getenv("OPENAI_TIMEOUT", "4.0")),
+        "max_retries": 1,
+    }
     if not any(m in model.lower() for m in _MODELS_WITHOUT_TEMPERATURE):
         kwargs["temperature"] = temperature
     return kwargs

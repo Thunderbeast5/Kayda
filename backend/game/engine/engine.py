@@ -4,6 +4,92 @@ from .turn_manager import advance_turn
 from .judge import game_judge
 from backend.game.manager import manager
 import asyncio
+import os
+
+# ── AI Counsel Generation ──────────────────────────────────────────────────────
+
+async def _generate_ai_argument(
+    case_id: str,
+    ai_role: str,
+    phase: str,
+    transcript: list,
+    last_human_argument: str
+) -> str:
+    """
+    Generates an AI legal argument using OpenAI gpt-5.4-mini.
+    Falls back to a deterministic heuristic if the API call fails.
+    """
+    ctx = game_judge.get_case_context(case_id)
+
+    role_label = "Defense Counsel" if ai_role == "defense" else "Public Prosecutor"
+    opposing_label = "Public Prosecutor" if ai_role == "defense" else "Defense Counsel"
+    phase_instruction = {
+        "OPENING":  f"Deliver your opening statement as {role_label}.",
+        "ARGUMENT": f"Counter the {opposing_label}'s argument and advance your own submission as {role_label}.",
+        "REBUTTAL": f"Rebut the {opposing_label}'s position and strengthen your case as {role_label}.",
+    }.get(phase, f"Present your legal submission as {role_label}.")
+
+    # Build transcript context (last 4 turns)
+    transcript_lines = []
+    for t in transcript[-4:]:
+        r = "Prosecution" if t.get("role") in ["prosecutor", "prosecution"] else "Defense"
+        transcript_lines.append(f"{r}: {t.get('text', '')[:200]}")
+    transcript_ctx = "\n".join(transcript_lines) if transcript_lines else "No prior submissions."
+
+    system_prompt = (
+        f"You are the {role_label} in an Indian criminal court hearing. "
+        f"Case: {ctx['title']}. Applicable law: {ctx['charges']}. "
+        f"Reason strictly from Indian statutory law (IPC, CrPC, BNSS, BNS, Constitution). "
+        f"Cite specific sections. Be formal, concise, and persuasive. "
+        f"Write 3-5 sentences maximum."
+    )
+
+    user_prompt = (
+        f"Trial Phase: {phase}\n"
+        f"Opposing Counsel's Last Argument: \"{last_human_argument}\"\n"
+        f"Prior Transcript:\n{transcript_ctx}\n\n"
+        f"{phase_instruction} Respond directly to the opposing submission. "
+        f"Cite at least one specific statutory provision or precedent."
+    )
+
+    # Try OpenAI API
+    try:
+        import openai
+        client = openai.AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"), timeout=3.0)
+        model = os.getenv("OPENAI_MODEL", "gpt-5.4-mini")
+        response = await client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user",   "content": user_prompt},
+            ],
+            max_tokens=300,
+            temperature=0.7,
+        )
+        text = response.choices[0].message.content.strip()
+        if text:
+            return text
+    except Exception as e:
+        print(f"[AIOpponent] OpenAI call failed ({type(e).__name__}: {e}). Using heuristic fallback.")
+
+    # Deterministic fallback
+    if ai_role == "defense":
+        return (
+            f"May it please the Hon'ble Court. The {opposing_label}'s submissions are, with respect, legally unsound. "
+            f"Under Section 438 CrPC, anticipatory bail is a right grounded in Article 21 of the Constitution. "
+            f"There exists no credible prima facie evidence establishing a statutory ingredient of the offence charged under {ctx['charges']}. "
+            f"We respectfully submit that custodial interrogation is wholly unwarranted and the petitioner cooperates fully with investigation. "
+            f"The relief sought may therefore be graciously granted subject to appropriate conditions."
+        )
+    else:
+        return (
+            f"May it please this Hon'ble Court. The defense's submission must fail on first principles. "
+            f"The State has established a credible prima facie nexus with the offences charged under {ctx['charges']}. "
+            f"The accused's conduct discloses deliberate intent and the recovery of material evidence corroborates the FIR. "
+            f"In the interest of unhindered investigation and public justice under Section 437 CrPC, anticipatory bail ought to be denied. "
+            f"We respectfully pray this Court refuse the relief sought."
+        )
+
 
 class GameEngine:
     async def process_action(self, game_id: str, user_id: str, action_payload: Dict[str, Any]) -> Tuple[bool, str, Optional[Dict[str, Any]], Optional[Dict[str, Any]]]:
@@ -36,7 +122,6 @@ class GameEngine:
             reason = action_payload.get("text") or action_payload.get("reason") or "Counsel raises formal objection."
             case_id = state.get("case_id", "1")
             
-            # Broadcast the objection immediately
             objection_event = {
                 "type": "OBJECTION_RAISED",
                 "player_id": user_id,
@@ -45,12 +130,10 @@ class GameEngine:
                 "timestamp": str(asyncio.get_event_loop().time())
             }
             
-            # Record in Firestore
             asyncio.create_task(asyncio.to_thread(
                 record_action_event_sync, game_id, user_id, "RAISE_OBJECTION", {"content": reason}, state.get("round", 1), state.get("phase", "ARGUMENT")
             ))
             
-            # Schedule Judge's immediate ruling after 1 second
             asyncio.create_task(self._handle_judge_objection_ruling(game_id, case_id, player_role, reason, state.get("current_turn")))
             
             return True, "", state, objection_event
@@ -78,7 +161,6 @@ class GameEngine:
                     "current_turn": state["current_turn"],
                     "phase": state["phase"]
                 }
-                # If advancing from CASE_INTRO to OPENING, have Judge announce
                 if current_phase == "CASE_INTRO" and state["phase"] == "OPENING":
                     asyncio.create_task(self._announce_opening_phase(game_id, state))
                 
@@ -94,7 +176,6 @@ class GameEngine:
             text = action_payload.get("text", "")
             case_id = state.get("case_id", "1")
             
-            # Save Event to Firestore
             asyncio.create_task(asyncio.to_thread(
                 record_action_event_sync, game_id, user_id, action_type, {"content": text}, state["round"], current_phase
             ))
@@ -105,11 +186,9 @@ class GameEngine:
                 case_id, player_role, current_phase, text, history
             )
             
-            # Update cumulative scores
             state.setdefault("scores", {"prosecution": 0, "defense": 0})
             state["scores"][player_role] = state["scores"].get(player_role, 0) + score_delta
             
-            # Append to transcript in state
             state.setdefault("transcript", []).append({
                 "role": player_role,
                 "text": text,
@@ -125,41 +204,121 @@ class GameEngine:
                 "type": "ACTION_SUBMITTED",
                 "action": action_type,
                 "player_id": user_id,
-                "payload": {"content": text},
+                "player_role": player_role,
+                "payload": {"content": text, "text": text},
                 "next_turn": state["current_turn"],
                 "phase": state["phase"],
                 "scores": state["scores"]
             }
             
-            # ── 4. Check Phase & Schedule Judge Reaction ──
+            # ── 4. Check Phase & Schedule Judge Reaction / AI Opponent ──
             if state["phase"] == "JUDGMENT":
-                # All arguments complete! Trigger final judgment and verdict
                 asyncio.create_task(self.trigger_verdict(game_id, state))
             else:
-                # Active trial: trigger judicial observation, question or interruption
                 asyncio.create_task(self.trigger_judge_intervention(
                     game_id, case_id, player_role, current_phase, text, score_breakdown, state["current_turn"]
                 ))
+                
+                # ── 5. If next turn is the AI opponent, generate its argument ──
+                ai_id = state.get("ai_opponent_id")
+                if ai_id and state["current_turn"] == ai_id:
+                    ai_role = state.get("ai_role", "defense")
+                    asyncio.create_task(self.trigger_ai_opponent_turn(
+                        game_id, case_id, ai_id, ai_role, state["phase"], text, state
+                    ))
         else:
             return False, f"Unknown action: {action_type}", None, None
             
-        # 5. Save state to Redis
+        # Save state to Redis
         await update_game_state(game_id, state)
-        
-        # 6. Sync to Firestore (fire and forget)
         asyncio.create_task(asyncio.to_thread(sync_to_firestore_sync, game_id, state))
         
         return True, "", state, event_to_broadcast
+
+    # ──────────────────────────────────────────────────────────────────────────
+    # AI Opponent Turn
+    # ──────────────────────────────────────────────────────────────────────────
+
+    async def trigger_ai_opponent_turn(
+        self,
+        game_id: str,
+        case_id: str,
+        ai_user_id: str,
+        ai_role: str,
+        phase: str,
+        last_human_text: str,
+        state: Dict[str, Any]
+    ):
+        """
+        Generates and broadcasts the AI opposing counsel's argument after
+        the human player submits. Waits 2.5s so the Judge's remark appears first.
+        """
+        await asyncio.sleep(2.5)
+
+        current_state = await get_game_state(game_id)
+        if not current_state or current_state.get("status") != "ACTIVE":
+            return
+        if current_state.get("current_turn") != ai_user_id:
+            return
+
+        ai_text = await _generate_ai_argument(
+            case_id=case_id,
+            ai_role=ai_role,
+            phase=phase,
+            transcript=current_state.get("transcript", []),
+            last_human_argument=last_human_text
+        )
+
+        score_breakdown, score_delta, citations = await game_judge.evaluate_argument(
+            case_id, ai_role, phase, ai_text, current_state.get("transcript", [])
+        )
+
+        current_state.setdefault("scores", {"prosecution": 0, "defense": 0})
+        current_state["scores"][ai_role] = current_state["scores"].get(ai_role, 0) + score_delta
+        current_state.setdefault("transcript", []).append({
+            "role": ai_role,
+            "text": ai_text,
+            "phase": phase,
+            "citations": citations,
+            "score_delta": score_delta
+        })
+
+        current_state = advance_turn(current_state)
+
+        await update_game_state(game_id, current_state)
+        asyncio.create_task(asyncio.to_thread(sync_to_firestore_sync, game_id, current_state))
+
+        action_map = {"OPENING": "SUBMIT_OPENING", "REBUTTAL": "SUBMIT_REBUTTAL"}
+        ai_action = action_map.get(phase, "SUBMIT_ARGUMENT")
+        asyncio.create_task(asyncio.to_thread(
+            record_action_event_sync, game_id, ai_user_id, ai_action,
+            {"content": ai_text}, current_state.get("round", 1), phase
+        ))
+
+        ai_event = {
+            "type": "ACTION_SUBMITTED",
+            "action": ai_action,
+            "player_id": ai_user_id,
+            "player_role": ai_role,
+            "payload": {"content": ai_text, "text": ai_text},
+            "next_turn": current_state["current_turn"],
+            "phase": current_state["phase"],
+            "scores": current_state["scores"]
+        }
+        await manager.broadcast(game_id, ai_event)
+
+        if current_state["phase"] != "JUDGMENT":
+            asyncio.create_task(self.trigger_judge_intervention(
+                game_id, case_id, ai_role, phase, ai_text, score_breakdown, current_state["current_turn"]
+            ))
+        else:
+            asyncio.create_task(self.trigger_verdict(game_id, current_state))
 
     # ──────────────────────────────────────────────────────────────────────────
     # Asynchronous Judge Broadcast Routines
     # ──────────────────────────────────────────────────────────────────────────
 
     async def trigger_court_opening(self, game_id: str, live_state: Dict[str, Any]):
-        """
-        Called when all players connect and game starts.
-        The Judge formally welcomes the court and invites counsel to proceed.
-        """
         await asyncio.sleep(1.2)
         case_id = live_state.get("case_id", "1")
         opening_text = await game_judge.generate_opening_address(case_id)
@@ -167,7 +326,7 @@ class GameEngine:
         judge_event = {
             "type": "JUDGE_MESSAGE",
             "agent_id": "judge",
-            "display_name": "Hon’ble Judge",
+            "display_name": "Hon'ble Judge",
             "content": opening_text,
             "citations": ["Court Initiation"],
             "interruption_type": "ANNOUNCEMENT",
@@ -177,12 +336,11 @@ class GameEngine:
         await manager.broadcast(game_id, judge_event)
 
     async def _announce_opening_phase(self, game_id: str, state: Dict[str, Any]):
-        """Announces commencement of opening statements."""
         await asyncio.sleep(1.0)
         judge_event = {
             "type": "JUDGE_MESSAGE",
             "agent_id": "judge",
-            "display_name": "Hon’ble Judge",
+            "display_name": "Hon'ble Judge",
             "content": "The bench is prepared to hear opening submissions. Public Prosecutor, present your opening framing.",
             "citations": [],
             "interruption_type": "PROCEED",
@@ -190,6 +348,15 @@ class GameEngine:
             "phase": "OPENING"
         }
         await manager.broadcast(game_id, judge_event)
+
+        # If AI opponent is prosecution, auto-trigger their opening submission
+        ai_id = state.get("ai_opponent_id")
+        if ai_id and state.get("current_turn") == ai_id:
+            case_id = state.get("case_id", "1")
+            ai_role = state.get("ai_role", "prosecution")
+            asyncio.create_task(self.trigger_ai_opponent_turn(
+                game_id, case_id, ai_id, ai_role, "OPENING", "", state
+            ))
 
     async def trigger_judge_intervention(
         self,
@@ -201,10 +368,6 @@ class GameEngine:
         scores: Dict[str, int],
         next_turn: Optional[str]
     ):
-        """
-        Evaluates whether the Judge should interrupt, ask a question, or make an observation.
-        """
-        # Natural pause so it feels like the judge is reflecting on counsel's argument
         await asyncio.sleep(1.5)
         
         state = await get_game_state(game_id)
@@ -218,7 +381,7 @@ class GameEngine:
             judge_event = {
                 "type": "JUDGE_MESSAGE",
                 "agent_id": "judge",
-                "display_name": "Hon’ble Judge",
+                "display_name": "Hon'ble Judge",
                 "content": reaction["content"],
                 "citations": reaction.get("citations", []),
                 "interruption_type": reaction.get("interruption_type", "OBSERVATION"),
@@ -228,7 +391,6 @@ class GameEngine:
             }
             await manager.broadcast(game_id, judge_event)
             
-            # Record in Firestore events
             asyncio.create_task(asyncio.to_thread(
                 record_action_event_sync, game_id, "ai_judge", "JUDGE_INTERVENTION",
                 {"content": reaction["content"], "type": reaction.get("interruption_type")},
@@ -243,7 +405,6 @@ class GameEngine:
         reason: str,
         active_turn: Optional[str]
     ):
-        """Processes and broadcasts an immediate judicial ruling on an objection."""
         await asyncio.sleep(1.0)
         state = await get_game_state(game_id)
         last_arg = None
@@ -254,7 +415,7 @@ class GameEngine:
         judge_event = {
             "type": "JUDGE_MESSAGE",
             "agent_id": "judge",
-            "display_name": "Hon’ble Judge",
+            "display_name": "Hon'ble Judge",
             "content": ruling["content"],
             "citations": ruling.get("citations", []),
             "interruption_type": "RULING",
@@ -263,7 +424,6 @@ class GameEngine:
         }
         await manager.broadcast(game_id, judge_event)
         
-        # Record in Firestore events
         asyncio.create_task(asyncio.to_thread(
             record_action_event_sync, game_id, "ai_judge", "OBJECTION_RULING",
             {"ruling": ruling["ruling"], "content": ruling["content"]},
@@ -271,10 +431,6 @@ class GameEngine:
         ))
 
     async def trigger_verdict(self, game_id: str, state: Dict[str, Any]):
-        """
-        Executes the JUDGMENT phase: delivers judicial findings and final verdict,
-        completing the trial.
-        """
         await asyncio.sleep(2.0)
         case_id = state.get("case_id", "1")
         scores = state.get("scores", {"prosecution": 0, "defense": 0})
@@ -282,11 +438,10 @@ class GameEngine:
         
         verdict = await game_judge.render_final_verdict(case_id, scores, transcript)
         
-        # 1. Broadcast the Judge's spoken final order
         verdict_event = {
             "type": "JUDGE_MESSAGE",
             "agent_id": "judge",
-            "display_name": "Hon’ble Judge — Final Order",
+            "display_name": "Hon'ble Judge — Final Order",
             "content": verdict["summary"],
             "citations": verdict.get("citations", []),
             "interruption_type": "VERDICT",

@@ -244,6 +244,24 @@ def main() -> None:
         help="Maximum courtroom argument rounds (default: 2).",
     )
     parser.add_argument(
+        "--role",
+        choices=["prosecutor", "prosecution", "defense", "defence", "auto"],
+        default=None,
+        help="Human role in AI vs Human mode ('prosecutor' or 'defense'). 'auto' runs AI vs AI simulation.",
+    )
+    parser.add_argument(
+        "--mode",
+        choices=["ai_vs_human", "ai_vs_ai"],
+        default=None,
+        help="Courtroom mode: 'ai_vs_human' (default) or 'ai_vs_ai'.",
+    )
+    parser.add_argument(
+        "--argument",
+        type=str,
+        default=None,
+        help="Optional initial argument text for the human turn.",
+    )
+    parser.add_argument(
         "--verbose",
         action="store_true",
         help="Enable detailed diagnostic and graph node mapping dumps.",
@@ -253,6 +271,66 @@ def main() -> None:
     import os
     if args.verbose:
         os.environ["VERBOSE"] = "1"
+
+    # ── Role selection for AI vs Human ───────────────────────────────────────
+    chosen_role = args.role
+    chosen_mode = args.mode
+
+    if chosen_role == "auto":
+        chosen_role = None
+        chosen_mode = "ai_vs_ai"
+    elif not chosen_role and not chosen_mode and sys.stdin and hasattr(sys.stdin, "isatty") and sys.stdin.isatty():
+        console.print()
+        console.print(
+            Panel(
+                "[bold cyan]SELECT PROCEDURAL CAPACITY (AI vs Human)[/bold cyan]\n"
+                "[bold yellow][1][/bold yellow] Public Prosecutor  [dim]— You vs AI Defense Counsel[/dim]\n"
+                "[bold yellow][2][/bold yellow] Defense Counsel    [dim]— You vs AI Public Prosecutor[/dim]\n"
+                "[bold yellow][3][/bold yellow] Auto Simulation   [dim]— Full AI vs AI courtroom debate[/dim]",
+                title="⚖️  MOOT COURT ROLE SELECTION",
+                border_style="bright_blue",
+                box=box.ROUNDED,
+            )
+        )
+        try:
+            from rich.prompt import Prompt
+            choice = Prompt.ask("Choose your standing", choices=["1", "2", "3"], default="1")
+            if choice == "1":
+                chosen_role = "prosecutor"
+                chosen_mode = "ai_vs_human"
+            elif choice == "2":
+                chosen_role = "defense"
+                chosen_mode = "ai_vs_human"
+            else:
+                chosen_role = None
+                chosen_mode = "ai_vs_ai"
+        except Exception:
+            chosen_role = "prosecutor"
+            chosen_mode = "ai_vs_human"
+
+    def cli_human_input(speaker: str, round_no: int, state: dict) -> str:
+        role_label = "PUBLIC PROSECUTOR" if speaker == "prosecutor" else "DEFENSE COUNSEL"
+        console.print()
+        console.print(
+            Panel(
+                f"[bold yellow]Turn: YOUR {role_label} SUBMISSION (Round {round_no})[/bold yellow]\n"
+                f"[dim]Deliver your legal submissions on record. Reference applicable facts and laws.[/dim]\n"
+                f"[dim](Type your submission and press Enter. End with an empty line or press Ctrl+D/Z)[/dim]",
+                title="⚖️  COUNSEL SUBMISSION",
+                border_style="yellow",
+                box=box.ROUNDED,
+            )
+        )
+        lines = []
+        try:
+            while True:
+                line = input()
+                if not line and lines:
+                    break
+                lines.append(line)
+        except EOFError:
+            pass
+        return "\n".join(lines).strip()
 
     # ── Resolve case text or file path ────────────────────────────────────────
     if args.case_file:
@@ -279,6 +357,10 @@ def main() -> None:
         case_id=case_input,
         max_rounds=args.rounds,
         on_event=_print_event,
+        user_role=chosen_role,
+        mode=chosen_mode,
+        human_argument=args.argument,
+        human_input_fn=cli_human_input,
     )
 
 

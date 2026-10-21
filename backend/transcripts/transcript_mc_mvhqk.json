@@ -1,0 +1,241 @@
+{
+  "session_id": "mc_mvhqk",
+  "case_id": "My Lord, the prosecution opposes anticipatory bail because the circumstances of the case warrant a thorough investigation. The State requests the Court to consider the specific evidence, the risk of interference with witnesses, and any demonstrated need for custodial interrogation. Therefore, I respectfully pray that the application be rejected in the interest of justice.",
+  "round_no": 1,
+  "max_rounds": 2,
+  "case_facts": [
+    {
+      "id": "fact_1",
+      "text": "The prosecution opposed the anticipatory bail application.",
+      "source": "text",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_2",
+      "text": "The prosecution stated that the circumstances of the case require a thorough investigation.",
+      "source": "text",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_3",
+      "text": "The State requested the Court to consider specific evidence in the case.",
+      "source": "text",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_4",
+      "text": "The State asserted that there is a risk of interference with witnesses.",
+      "source": "text",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_5",
+      "text": "The State claimed that custodial interrogation is needed.",
+      "source": "text",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_6",
+      "text": "The State prayed that the anticipatory bail application be rejected in the interest of justice.",
+      "source": "text",
+      "type": "procedural_event"
+    }
+  ],
+  "evidence_inventory": [
+    {
+      "item": "evidence",
+      "status": "not_on_record",
+      "details": "The text only refers generally to 'specific evidence' without identifying any concrete evidentiary material in the record."
+    },
+    {
+      "item": "eyewitnesses",
+      "status": "not_on_record",
+      "details": "The prosecution alleges a risk of interference with witnesses, but no witness statements or witness identities are produced in the record."
+    },
+    {
+      "item": "custodial_interrogation_justification",
+      "status": "not_on_record",
+      "details": "The State asserts custodial interrogation is needed, but no supporting investigative material or case documents are disclosed."
+    }
+  ],
+  "transcript": [
+    {
+      "turn_no": 1,
+      "speaker": "prosecutor",
+      "round_no": 1,
+      "content": "My Lord, the prosecution respectfully opposes the accused’s anticipatory bail application under Section 438 CrPC. The seriousness of the allegations and the need to investigate the available evidence must be carefully considered, particularly if there is a substantiated risk of witness intimidation or evidence tampering. Therefore, the State prays that this Hon’ble Court reject the application in the interest of justice.",
+      "citations": [
+        "CrPC 438"
+      ],
+      "evidence_refs": [
+        "fact_1",
+        "fact_2",
+        "fact_3",
+        "fact_4",
+        "fact_5",
+        "fact_6"
+      ],
+      "structured_argument": {
+        "theory": "My Lord, the prosecution respectfully opposes the accused’s anticipatory bail application under Section 438 CrPC. The seriousness of the allegations and the need to investigate the available evidence must be carefully considered, particularly if there is a substantiated risk of witness intimidation or evidence tampering. Therefore, the State prays that this Hon’ble Court reject the application in the interest of justice.",
+        "arguments": [
+          "My Lord, the prosecution respectfully opposes the accused’s anticipatory bail application under Section 438 CrPC. The seriousness of the allegations and the need to investigate the available evidence must be carefully considered, particularly if there is a substantiated risk of witness intimidation or evidence tampering. Therefore, the State prays that this Hon’ble Court reject the application in the interest of justice."
+        ],
+        "evidence_refs": [],
+        "sections": [
+          "CrPC 438"
+        ]
+      },
+      "grounded": true,
+      "unverified": [],
+      "is_human": true,
+      "display_name": "[YOU] Public Prosecutor"
+    },
+    {
+      "turn_no": 2,
+      "speaker": "defense",
+      "round_no": 1,
+      "content": "### Legal Theory\nThe prosecution’s opposition to anticipatory bail rests on broad assertions, but the record does not disclose concrete material showing custodial necessity, identifiable evidence, or a real risk of witness interference sufficient to justify denial of protection under CrPC 438.\n\n### Submissions\n1. The prosecution has only made general allegations of seriousness and has opposed bail under CrPC 438, but it has not placed any concrete material on record to show why custodial interrogation is indispensable; this weakness is reinforced by [fact_5] and [fact_6].\n2. The record before the court does not contain any identified evidence, witness statements, or witness identities to substantiate the claim of interference with witnesses; the prosecution’s assertion in [fact_4] therefore remains unparticularised and incapable of being tested.\n3. On the statutory ingredients, mere assertion of need for investigation does not establish the prerequisites for denying anticipatory bail under CrPC 438. The State’s position in [fact_2] and [fact_3] does not demonstrate specific, case-linked material showing that the accused’s liberty would frustrate investigation, nor does it disclose facts establishing any requisite mens rea for a substantive offence; the opposition is therefore founded on suspicion rather than demonstrated necessity.\n\n### Evidence References\n- **[fact_2]**: The prosecution stated that the circumstances of the case require a thorough investigation.\n- **[fact_3]**: The State requested the Court to consider specific evidence in the case.\n- **[fact_4]**: The State asserted that there is a risk of interference with witnesses.\n- **[fact_5]**: The State claimed that custodial interrogation is needed.\n- **[fact_6]**: The State prayed that the anticipatory bail application be rejected in the interest of justice.\n\n### Statutory Provisions\n- CrPC 438\n- IPC 193",
+      "citations": [
+        "CrPC 438",
+        "IPC 193"
+      ],
+      "evidence_refs": [
+        "fact_5",
+        "fact_6",
+        "fact_4",
+        "fact_2",
+        "fact_3"
+      ],
+      "structured_argument": {
+        "theory": "The prosecution’s opposition to anticipatory bail rests on broad assertions, but the record does not disclose concrete material showing custodial necessity, identifiable evidence, or a real risk of witness interference sufficient to justify denial of protection under CrPC 438.",
+        "arguments": [
+          "The prosecution has only made general allegations of seriousness and has opposed bail under CrPC 438, but it has not placed any concrete material on record to show why custodial interrogation is indispensable; this weakness is reinforced by [fact_5] and [fact_6].",
+          "The record before the court does not contain any identified evidence, witness statements, or witness identities to substantiate the claim of interference with witnesses; the prosecution’s assertion in [fact_4] therefore remains unparticularised and incapable of being tested.",
+          "On the statutory ingredients, mere assertion of need for investigation does not establish the prerequisites for denying anticipatory bail under CrPC 438. The State’s position in [fact_2] and [fact_3] does not demonstrate specific, case-linked material showing that the accused’s liberty would frustrate investigation, nor does it disclose facts establishing any requisite mens rea for a substantive offence; the opposition is therefore founded on suspicion rather than demonstrated necessity."
+        ],
+        "evidence_refs": [
+          "fact_5",
+          "fact_6",
+          "fact_4",
+          "fact_2",
+          "fact_3"
+        ],
+        "sections": [
+          "CrPC 438",
+          "IPC 193"
+        ]
+      },
+      "grounded": true,
+      "unverified": [],
+      "is_human": false,
+      "display_name": "Defense Counsel (AI)"
+    },
+    {
+      "turn_no": 3,
+      "speaker": "accused",
+      "round_no": 1,
+      "content": "I do not have any specific material on record to point to beyond the State’s general submission that custodial interrogation is needed. The State has opposed the anticipatory bail and asked the Court to consider the evidence and the need for thorough investigation. I leave it to the Court to decide whether that material is sufficient.",
+      "citations": [],
+      "evidence_refs": [],
+      "structured_argument": {
+        "theory": "I do not have any specific material on record to point to beyond the State’s general submission that custodial interrogation is needed. The State has opposed the anticipatory bail and asked the Court to consider the evidence and the need for thorough investigation. I leave it to the Court to decide whether that material is sufficient.",
+        "arguments": [
+          "I do not have any specific material on record to point to beyond the State’s general submission that custodial interrogation is needed. The State has opposed the anticipatory bail and asked the Court to consider the evidence and the need for thorough investigation. I leave it to the Court to decide whether that material is sufficient."
+        ],
+        "evidence_refs": [],
+        "sections": []
+      },
+      "grounded": true,
+      "unverified": [],
+      "is_human": false,
+      "display_name": null
+    }
+  ],
+  "judge_scores": {
+    "prosecution": {
+      "legal_validity": 7,
+      "evidence_linkage": 6,
+      "logic_coherence": 7,
+      "total": 20.0,
+      "average": 6.67
+    },
+    "defense": {
+      "legal_validity": 6,
+      "evidence_linkage": 8,
+      "logic_coherence": 7,
+      "total": 21.0,
+      "average": 7.0
+    },
+    "overall": 6.83
+  },
+  "verdict": {
+    "decision": "GRANTED",
+    "confidence": "high",
+    "confidence_label": "high",
+    "agreement_rate": 0.8,
+    "valid_votes": 5,
+    "total_votes": 5,
+    "agree_count": 4,
+    "laws_applied": [
+      "CrPC 438",
+      "CrPC 82",
+      "IPC 193",
+      "2024 INSC 202"
+    ],
+    "statutes": [
+      "CrPC 438",
+      "CrPC 82",
+      "IPC 193"
+    ],
+    "precedents": [
+      "2024 INSC 202"
+    ],
+    "holdings_relied": [
+      "holding_438"
+    ],
+    "reasoning": "The prosecution has opposed bail and invoked the need for investigation, but the record does not disclose concrete evidence, witness identities, or case-specific material demonstrating that custodial interrogation is indispensable. The applicant’s individual role is not supported by any verified overt act in the record, so the opposition remains general rather than fact-particularized. There is also no showing of absconding or a Section 82 proclamation scenario, and therefore the narrow Paragraph 24 exception for jurisdictional abuse or malicious process does not arise. On this record, the Court would grant anticipatory bail with appropriate conditions.\n\n[Record Basis: Facts relied on: fact_1, fact_2, fact_3, fact_4, fact_5, fact_6; Holdings relied on: holding_438; Open Questions: None (factual record complete)]",
+    "factors": [
+      {
+        "finding": "As to the present accused, the record contains only generalized opposition and no disclosed concrete evidence, witness material, or case-specific basis showing that custodial interrogation is indispensable or that this applicant would tamper with witnesses.",
+        "fact_ids": [
+          "fact_2",
+          "fact_3",
+          "fact_4",
+          "fact_5",
+          "fact_6"
+        ],
+        "holding_ids": [
+          "holding_438"
+        ]
+      },
+      {
+        "finding": "The prosecution's apprehension of witness interference remains unparticularised on the record, and there is no identified witness or specific overt act attributed to this applicant that would justify refusal of anticipatory bail on that ground.",
+        "fact_ids": [
+          "fact_4",
+          "fact_3"
+        ],
+        "holding_ids": [
+          "holding_438"
+        ]
+      },
+      {
+        "finding": "No material shows that the case has crossed into the narrow Section 82 / absconding category, so the Paragraph 24 exception for jurisdictional abuse or malicious proclamation is not engaged against this applicant.",
+        "fact_ids": [
+          "fact_1",
+          "fact_2",
+          "fact_4",
+          "fact_5"
+        ],
+        "holding_ids": [
+          "holding_438"
+        ]
+      }
+    ],
+    "open_questions": [],
+    "vote_tally": {
+      "GRANTED": 4,
+      "INTERIM": 1
+    }
+  },
+  "errors": []
+}

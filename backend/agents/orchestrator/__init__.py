@@ -23,6 +23,10 @@ __all__ = [
     "Turn",
     "Question",
     "Verdict",
+    "session_input_manager",
+    "normalize_role",
+    "normalize_mode",
+    "get_ai_role",
 ]
 
 
@@ -31,6 +35,14 @@ def __getattr__(name: str):
     PEP 562 lazy attribute access for this package.
     Triggered only when a name from __all__ is first accessed.
     """
+    if name in ("session_input_manager", "normalize_role", "normalize_mode", "get_ai_role"):
+        from .session_input import session_input_manager, normalize_role, normalize_mode, get_ai_role
+        globals()["session_input_manager"] = session_input_manager
+        globals()["normalize_role"]        = normalize_role
+        globals()["normalize_mode"]        = normalize_mode
+        globals()["get_ai_role"]           = get_ai_role
+        return globals()[name]
+
     if name in ("run_orchestrator", "build_graph"):
         from .orchestrator_graph import run_orchestrator, build_graph  # noqa: F401
         globals()["run_orchestrator"] = run_orchestrator

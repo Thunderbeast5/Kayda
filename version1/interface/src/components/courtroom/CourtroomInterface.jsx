@@ -550,6 +550,7 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
   const [caseQuery, setCaseQuery] = useState("");
   const [showCasePrompt, setShowCasePrompt] = useState(false);
   const [orchestratorRunning, setOrchestratorRunning] = useState(false);
+  const [activeSessionId, setActiveSessionId] = useState(null);
   const sseAbortRef = useRef(null);
 
   // Case Selection & Observer Mode state
@@ -848,15 +849,18 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
             }
           } else if (data.type === "ACTION_SUBMITTED") {
             const isMe = data.player_id === userId;
-            handleEvent({
-              agent_id: isMe ? userRole : (userRole === "prosecutor" ? "defense" : "prosecutor"),
-              display_name: isMe
-                ? `[YOU] ${roleNameMap[userRole]}`
-                : roleNameMap[userRole === "prosecutor" ? "defense" : "prosecutor"],
-              full_text: data.payload?.content || "",
-              verified_citations: [],
-              isUser: isMe,
-            });
+            const fullContent = data.payload?.content || data.payload?.text || data.content || data.text || "";
+            if (fullContent) {
+              handleEvent({
+                agent_id: isMe ? userRole : (userRole === "prosecutor" ? "defense" : "prosecutor"),
+                display_name: isMe
+                  ? `[YOU] ${roleNameMap[userRole]}`
+                  : roleNameMap[userRole === "prosecutor" ? "defense" : "prosecutor"],
+                full_text: fullContent,
+                verified_citations: [],
+                isUser: isMe,
+              });
+            }
             setTrialPhase(data.phase);
             if (data.next_turn === userId) {
               setActiveSpeaker(userRole);
@@ -990,6 +994,59 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
   const handleEvent = (event) => {
     if (!event) return;
 
+    if (event.session_id && !activeSessionId) {
+      setActiveSessionId(event.session_id);
+    }
+
+    // 0. Role Assignment from Orchestrator
+    if (event.type === "role_assignment") {
+      setMessages((prev) => [
+        ...prev,
+        {
+          type: "system",
+          agentId: "system",
+          speaker: "Court Registrar",
+          text: `⚖️ ${event.message || `Session initialized: Mode=${event.mode}, You=${event.user_role}, AI=${event.ai_role}`}`,
+          content: event.message,
+        }
+      ]);
+      return;
+    }
+
+    // 0b. Awaiting Human Input Turn
+    if (event.type === "awaiting_human_input") {
+      const isMyTurn = !userRole || event.role === userRole || (event.role === "prosecutor" && userRole === "prosecutor") || (event.role === "defense" && userRole === "defense");
+      if (isMyTurn) {
+        setActiveSpeaker(event.role);
+        setTrialPhase(`YOUR TURN: ${event.display_name?.toUpperCase() || "COUNSEL"}`);
+        setMessages((prev) => [
+          ...prev,
+          {
+            type: "prompt",
+            agentId: event.role,
+            speaker: "Court Protocol",
+            text: `⚖️ ${event.prompt || `Your turn to present legal submissions as ${event.display_name}.`}`,
+            content: event.prompt,
+            isUser: true,
+          }
+        ]);
+      }
+      return;
+    }
+
+    // 0c. Turn Start (for both Human and AI)
+    if (event.type === "turn_start") {
+      const spk = event.speaker || event.role || "prosecutor";
+      setActiveSpeaker(spk);
+      const isMyTurn = Boolean(event.is_human || (userRole && spk === userRole));
+      if (isMyTurn) {
+        setTrialPhase(`YOUR TURN: ${event.display_name?.toUpperCase() || roleNameMap[spk]?.toUpperCase() || "COUNSEL"}`);
+      } else {
+        setTrialPhase(`OPPOSING COUNSEL PRESENTING: ${event.display_name || roleNameMap[spk] || "DEFENSE COUNSEL"}`);
+      }
+      return;
+    }
+
     // 1. Phase change
     if (event.type === "phase_change") {
       const phaseNames = {
@@ -1071,7 +1128,8 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
 
     // 5. Agent message (prosecutor, defense, accused, evidence_analyzer, lexigraph)
     const agent = event.agent || event.agent_id || "prosecutor";
-    const displayName = event.display_name || roleNameMap[agent] || agent.toUpperCase();
+    const isUser = Boolean(event.isUser || event.is_human || (userRole && agent === userRole));
+    const displayName = event.display_name || (isUser ? `[YOU] ${roleNameMap[agent] || agent}` : (roleNameMap[agent] || agent.toUpperCase()));
     const content = event.content || event.full_text || event.text || "";
     const citations = event.citations || event.verified_citations || [];
     const evidenceRefs = event.evidence_refs || [];
@@ -1097,7 +1155,7 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
         holdings: holdings,
         precedents: precedents,
         round: round,
-        isUser: Boolean(event.isUser),
+        isUser: isUser,
       },
     ]);
 
@@ -1129,12 +1187,20 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
     const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5001";
     const abortCtrl = new AbortController();
     sseAbortRef.current = abortCtrl;
+    const sid = `mc_${Date.now().toString(36)}`;
+    setActiveSessionId(sid);
 
     try {
       const response = await fetch(`${apiUrl}/api/orchestrator/stream`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query: query.trim(), role: userRole, max_rounds: 2 }),
+        body: JSON.stringify({
+          query: query.trim(),
+          session_id: sid,
+          role: userRole || "prosecutor",
+          mode: "ai_vs_human",
+          max_rounds: 2,
+        }),
         signal: abortCtrl.signal,
       });
 
@@ -1220,8 +1286,40 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
       // from the server will add it for BOTH players uniformly.
       return;
     }
+
+    // In orchestrator AI vs Human mode, send argument to active orchestrator session
+    if (orchestratorRunning) {
+      const userRoleName = roleNameMap[userRole] || (userRole === "prosecutor" ? "Public Prosecutor" : "Defense Counsel");
+      setMessages((prev) => [
+        ...prev,
+        {
+          agentId: userRole,
+          speaker: `[YOU] ${userRoleName}`,
+          text: query,
+          content: query,
+          citations: [],
+          evidence_refs: [],
+          isUser: true,
+        },
+      ]);
+      const opponentRole = userRole === "prosecutor" ? "defense" : "prosecutor";
+      setActiveSpeaker(opponentRole);
+      setTrialPhase(`OPPOSING COUNSEL PRESENTING: ${roleNameMap[opponentRole] || "DEFENSE COUNSEL"}`);
+
+      const apiUrl = import.meta.env.VITE_API_URL || "http://localhost:5001";
+      fetch(`${apiUrl}/api/orchestrator/submit-argument`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          session_id: activeSessionId || "",
+          argument: query,
+          role: userRole || "prosecutor",
+        }),
+      }).catch((err) => console.error("Error submitting argument to orchestrator:", err));
+      return;
+    }
     
-    // In single-player mode, immediately display user's message in the feed
+    // In legacy single-player mode, immediately display user's message in the feed
     const userRoleName = roleNameMap[userRole] || (userRole === "prosecutor" ? "Public Prosecutor" : "Defense Counsel");
     setMessages((prev) => [
       ...prev,
@@ -1409,6 +1507,22 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
                   Provide the FIR, case facts, or a brief description to initiate the court session.
                 </p>
               </div>
+              <div className="flex flex-wrap gap-2 mb-3">
+                <button
+                  type="button"
+                  onClick={() => setCaseQuery("The accused, Ramesh Kumar, allegedly stabbed the victim Suresh Gupta with a kitchen knife outside a restaurant on 12 March 2026. Two eyewitnesses were present. The victim was hospitalized and survived. A blood-stained kitchen knife was recovered from the accused's bag.")}
+                  className="text-[10px] font-mono bg-[#D4AF37]/10 hover:bg-[#D4AF37]/25 text-[#8C6D1F] border border-[#D4AF37]/30 px-2.5 py-1 rounded-md transition-colors cursor-pointer"
+                >
+                  ⚡ Load Demo Assault Case (S.324 IPC)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setCaseQuery("Anticipatory bail petition under Section 438 CrPC. Allegations of fabricated affidavit under Section 193 IPC. Petitioner Sasikala Pushpa seeks pre-arrest protection claiming political vendetta and non-service of summons.")}
+                  className="text-[10px] font-mono bg-[#8C2D19]/10 hover:bg-[#8C2D19]/25 text-[#8C2D19] border border-[#8C2D19]/30 px-2.5 py-1 rounded-md transition-colors cursor-pointer"
+                >
+                  ⚡ Load Sasikala Bail Case (S.438 CrPC)
+                </button>
+              </div>
               <textarea
                 value={caseQuery}
                 onChange={(e) => setCaseQuery(e.target.value)}
@@ -1445,51 +1559,50 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
             isAutoPlaying={isAutoPlaying}
             onToggleAutoPlay={() => setIsAutoPlaying(!isAutoPlaying)}
           />
-        ) : gameId ? (
-          <CourtroomInputBar
-            status={status}
-            isMyTurn={
-              activeSpeaker === userRole || (trialPhase === "CASE_INTRO" && userRole === "prosecutor") || (trialPhase === "DEFENSE REBUTTAL" && userRole === "defense")
-            }
-            inputText={inputText}
-            setInputText={setInputText}
-            submitUserInput={submitUserInput}
-            isListening={isListening}
-            toggleListening={toggleListening}
-            ttsEnabled={ttsEnabled}
-            setTtsEnabled={setTtsEnabled}
-          />
-        ) : orchestratorRunning ? (
-          <div className="shrink-0 border-t border-surface-border bg-[#FAF9F7] px-6 py-4">
-            <div className="flex items-center gap-3">
-              <div className="flex gap-1">
-                <span className="w-2 h-2 bg-[#D4AF37] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                <span className="w-2 h-2 bg-[#D4AF37] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                <span className="w-2 h-2 bg-[#D4AF37] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+        ) : (
+          <div className="w-full flex flex-col">
+            {orchestratorRunning && (
+              <div className="shrink-0 border-t border-surface-border bg-[#FAF9F7]/90 backdrop-blur-xs px-6 py-2 flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="flex gap-1">
+                    <span className="w-2 h-2 bg-[#D4AF37] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                    <span className="w-2 h-2 bg-[#D4AF37] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                    <span className="w-2 h-2 bg-[#D4AF37] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                  </div>
+                  <span className="text-xs font-mono uppercase tracking-widest text-[#5D4037]/80">
+                    {trialPhase}
+                  </span>
+                </div>
+                <button
+                  onClick={() => {
+                    if (sseAbortRef.current) sseAbortRef.current.abort();
+                    setOrchestratorRunning(false);
+                    setShowCasePrompt(true);
+                  }}
+                  className="text-[11px] font-mono text-[#8C2D19] hover:underline cursor-pointer"
+                >
+                  Reset / New Case
+                </button>
               </div>
-              <span className="text-xs font-mono uppercase tracking-widest text-[#5D4037]/70">
-                {trialPhase} — AI pipeline processing…
-              </span>
-            </div>
-          </div>
-        ) : !showCasePrompt && (
-          <div className="shrink-0 border-t border-surface-border bg-[#FAF9F7] px-6 py-4">
-            <div className="flex items-center justify-between">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#5D4037]/70">
-                {trialPhase}
-              </span>
-              <button
-                onClick={() => {
-                  setCaseQuery("");
-                  setShowCasePrompt(true);
-                  setMessages([]);
-                  setActiveSpeaker(null);
-                }}
-                className="text-xs font-semibold text-[#8C2D19] hover:text-[#2C1810] transition-colors cursor-pointer"
-              >
-                New Case
-              </button>
-            </div>
+            )}
+            <CourtroomInputBar
+              status={status}
+              activeSpeaker={activeSpeaker}
+              isMyTurn={
+                activeSpeaker === userRole ||
+                (trialPhase && trialPhase.toUpperCase().includes("YOUR TURN")) ||
+                (trialPhase === "CASE_INTRO" && userRole === "prosecutor") ||
+                (trialPhase === "DEFENSE REBUTTAL" && userRole === "defense")
+              }
+              trialPhase={trialPhase}
+              inputText={inputText}
+              setInputText={setInputText}
+              submitUserInput={submitUserInput}
+              isListening={isListening}
+              toggleListening={toggleListening}
+              ttsEnabled={ttsEnabled}
+              setTtsEnabled={setTtsEnabled}
+            />
           </div>
         )}
       </div>

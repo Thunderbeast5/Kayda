@@ -1,0 +1,206 @@
+{
+  "session_id": "test_fas",
+  "case_id": "Anticipatory bail petition under Section 438 CrPC. Allegations of fabricated affidavit under Section 193 IPC. Petitioner Sasikala Pushpa seeks pre-arrest protection claiming political vendetta.",
+  "round_no": 1,
+  "max_rounds": 1,
+  "case_facts": [
+    {
+      "id": "fact_1",
+      "text": "Anticipatory bail petition under Section 438 CrPC",
+      "source": "case_record",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_2",
+      "text": "Allegations of fabricated affidavit under Section 193 IPC",
+      "source": "case_record",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_3",
+      "text": "Petitioner Sasikala Pushpa seeks pre-arrest protection claiming political vendetta",
+      "source": "case_record",
+      "type": "procedural_event"
+    }
+  ],
+  "evidence_inventory": [
+    {
+      "item": "anticipatory_bail_petition",
+      "status": "present",
+      "details": "Petition under Section 438 CrPC seeking pre-arrest protection is expressly recorded."
+    },
+    {
+      "item": "alleged_offence",
+      "status": "present",
+      "details": "The record alleges fabrication of an affidavit attracting Section 193 IPC."
+    },
+    {
+      "item": "accused_identity",
+      "status": "present",
+      "details": "The petitioner is identified as Sasikala Pushpa."
+    },
+    {
+      "item": "defence_version",
+      "status": "present",
+      "details": "The petitioner claims the prosecution is motivated by political vendetta."
+    }
+  ],
+  "transcript": [
+    {
+      "turn_no": 1,
+      "speaker": "prosecutor",
+      "round_no": 1,
+      "content": "May it please the Court, the State submits that Section 193 IPC and Section 438 CrPC require custodial presence.",
+      "citations": [
+        "IPC 193",
+        "CrPC 438"
+      ],
+      "evidence_refs": [
+        "fact_1",
+        "fact_2"
+      ],
+      "structured_argument": {
+        "theory": "May it please the Court, the State submits that Section 193 IPC and Section 438 CrPC require custodial presence.",
+        "arguments": [
+          "May it please the Court, the State submits that Section 193 IPC and Section 438 CrPC require custodial presence."
+        ],
+        "evidence_refs": [],
+        "sections": [
+          "IPC 193",
+          "CrPC 438"
+        ]
+      },
+      "grounded": true,
+      "unverified": [],
+      "is_human": true,
+      "display_name": "[YOU] Public Prosecutor"
+    },
+    {
+      "turn_no": 2,
+      "speaker": "defense",
+      "round_no": 1,
+      "content": "### Legal Theory\nThe prosecution has not shown that custodial interrogation is necessary, and the materials presently on record do not establish the deliberate mens rea required for IPC 193; the petitioner’s case is that the prosecution is politically motivated, warranting protection under CrPC 438.\n\n### Submissions\n1. The petition is expressly one for anticipatory bail under CrPC 438, and the petitioner Sasikala Pushpa has asserted political vendetta as the motive for prosecution [fact_1], [fact_3]. That defence version requires the Court to scrutinize the accusation with caution, especially before denying pre-arrest protection.\n2. The record before the court does not contain any material showing why custodial presence is indispensable for investigating the alleged fabrication under IPC 193. A bare assertion that Section 193 IPC and CrPC 438 require custodial presence does not, by itself, satisfy the threshold for arrest or defeat pre-arrest protection.\n3. For IPC 193, the prosecution must at least show a deliberate false statement or fabrication with the requisite intention. On the present record, the allegation of a fabricated affidavit is noted [fact_2], but the prosecution has not demonstrated the specific mens rea, the exact role attributed to the petitioner, or any independent corroboration beyond the accusation itself; therefore, the ingredients are not established to the standard needed to deny anticipatory bail under CrPC 438.\n\n### Evidence References\n- **[fact_1]**: Anticipatory bail petition under Section 438 CrPC\n- **[fact_2]**: Allegations of fabricated affidavit under Section 193 IPC\n- **[fact_3]**: Petitioner Sasikala Pushpa seeks pre-arrest protection claiming political vendetta\n\n### Statutory Provisions\n- IPC 193\n- CrPC 438",
+      "citations": [
+        "IPC 193",
+        "CrPC 438"
+      ],
+      "evidence_refs": [
+        "fact_1",
+        "fact_3",
+        "fact_2"
+      ],
+      "structured_argument": {
+        "theory": "The prosecution has not shown that custodial interrogation is necessary, and the materials presently on record do not establish the deliberate mens rea required for IPC 193; the petitioner’s case is that the prosecution is politically motivated, warranting protection under CrPC 438.",
+        "arguments": [
+          "The petition is expressly one for anticipatory bail under CrPC 438, and the petitioner Sasikala Pushpa has asserted political vendetta as the motive for prosecution [fact_1], [fact_3]. That defence version requires the Court to scrutinize the accusation with caution, especially before denying pre-arrest protection.",
+          "The record before the court does not contain any material showing why custodial presence is indispensable for investigating the alleged fabrication under IPC 193. A bare assertion that Section 193 IPC and CrPC 438 require custodial presence does not, by itself, satisfy the threshold for arrest or defeat pre-arrest protection.",
+          "For IPC 193, the prosecution must at least show a deliberate false statement or fabrication with the requisite intention. On the present record, the allegation of a fabricated affidavit is noted [fact_2], but the prosecution has not demonstrated the specific mens rea, the exact role attributed to the petitioner, or any independent corroboration beyond the accusation itself; therefore, the ingredients are not established to the standard needed to deny anticipatory bail under CrPC 438."
+        ],
+        "evidence_refs": [
+          "fact_1",
+          "fact_3",
+          "fact_2"
+        ],
+        "sections": [
+          "IPC 193",
+          "CrPC 438"
+        ]
+      },
+      "grounded": true,
+      "unverified": [],
+      "is_human": false,
+      "display_name": "Defense Counsel (AI)"
+    },
+    {
+      "turn_no": 3,
+      "speaker": "accused",
+      "round_no": 1,
+      "content": "My Lord, I did not personally draft that affidavit. I also did not knowingly make any false affidavit as alleged. I am seeking anticipatory bail because I believe these allegations are politically motivated.",
+      "citations": [],
+      "evidence_refs": [],
+      "structured_argument": {
+        "theory": "My Lord, I did not personally draft that affidavit. I also did not knowingly make any false affidavit as alleged. I am seeking anticipatory bail because I believe these allegations are politically motivated.",
+        "arguments": [
+          "My Lord, I did not personally draft that affidavit. I also did not knowingly make any false affidavit as alleged. I am seeking anticipatory bail because I believe these allegations are politically motivated."
+        ],
+        "evidence_refs": [],
+        "sections": []
+      },
+      "grounded": true,
+      "unverified": [],
+      "is_human": false,
+      "display_name": null
+    }
+  ],
+  "judge_scores": {
+    "prosecution": {
+      "legal_validity": 2,
+      "evidence_linkage": 4,
+      "logic_coherence": 3,
+      "total": 9.0,
+      "average": 3.0
+    },
+    "defense": {
+      "legal_validity": 5,
+      "evidence_linkage": 8,
+      "logic_coherence": 7,
+      "total": 20.0,
+      "average": 6.67
+    },
+    "overall": 4.83
+  },
+  "verdict": {
+    "decision": "GRANTED",
+    "confidence": "high",
+    "confidence_label": "high",
+    "agreement_rate": 1.0,
+    "valid_votes": 4,
+    "total_votes": 5,
+    "agree_count": 4,
+    "laws_applied": [
+      "CrPC 438",
+      "IPC 193",
+      "CrPC 82",
+      "2024 INSC 202"
+    ],
+    "statutes": [
+      "CrPC 438",
+      "IPC 193",
+      "CrPC 82"
+    ],
+    "precedents": [
+      "2024 INSC 202"
+    ],
+    "holdings_relied": [
+      "holding_438"
+    ],
+    "reasoning": "The application is for anticipatory bail by the named petitioner, Sasikala Pushpa, and the only accusation recorded is an alleged fabricated affidavit under Section 193 IPC. The record does not identify any specific individual overt act by this applicant, nor does it show that custodial interrogation is indispensable. There is also no material indicating absconding, a Section 82 proclamation, or any process-defiance that would justify refusal; the narrow Paragraph 24 exception is therefore not engaged. On this limited record, the proper course is to grant pre-arrest protection with appropriate conditions.\n\n[Record Basis: Facts relied on: fact_1, fact_2, fact_3; Holdings relied on: holding_438; Open Questions: None (factual record complete)]",
+    "factors": [
+      {
+        "finding": "The record shows only that Sasikala Pushpa is the named petitioner seeking pre-arrest protection and that the accusation is a fabricated affidavit under Section 193 IPC, but it does not disclose any specific overt act, custodial necessity, or concrete material showing that arrest is indispensable against this individual applicant.",
+        "fact_ids": [
+          "fact_1",
+          "fact_2",
+          "fact_3"
+        ],
+        "holding_ids": [
+          "holding_438"
+        ]
+      },
+      {
+        "finding": "The petitioner’s plea of political vendetta remains a defence version, but on this record it does not supply a ground to refuse anticipatory bail because there is no verified circumstance of absconding, Section 82 proclamation, or other process-defiance that would trigger the narrow exception contemplated in Srikant Upadhyay.",
+        "fact_ids": [
+          "fact_3"
+        ],
+        "holding_ids": [
+          "holding_438"
+        ]
+      }
+    ],
+    "open_questions": [],
+    "vote_tally": {
+      "GRANTED": 4
+    }
+  },
+  "errors": []
+}

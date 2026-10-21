@@ -456,11 +456,11 @@ Given case facts, identify the correct IPC sections and return ONLY valid JSON:
             
             return {"agent": agent, "session": None, "sections": self.sections.verified_sections, "previous_arguments": []}
 
-    def run_moot_court_session(self):
+    def run_moot_court_session(self, role: Optional[str] = None):
         """
         Main entry point: orchestrate complete moot court session.
         1. Get case input
-        2. Get role choice  
+        2. Get role choice (or use passed role)
         3. Run lexigraphbe
         4. Initialize agents
         5. Run argument rounds
@@ -472,8 +472,15 @@ Given case facts, identify the correct IPC sections and return ONLY valid JSON:
             return
         
         # Step 2: Get role choice
-        self.student_role = self.get_role_choice()
-        self.llm_role = "defense" if self.student_role == "prosecution" else "prosecution"
+        if role:
+            r_str = str(role).strip().lower()
+            self.student_role = "defense" if r_str in ("defense", "defence", "def") else "prosecution"
+            self.llm_role = "defense" if self.student_role == "prosecution" else "prosecution"
+            console.print(f"\n[bold green]✓ Procedural Role (AI vs Human): {self.student_role.upper()}[/bold green]")
+            console.print(f"[dim]The AI will play: {self.llm_role.upper()}[/dim]")
+        else:
+            self.student_role = self.get_role_choice()
+            self.llm_role = "defense" if self.student_role == "prosecution" else "prosecution"
         
         # Step 3: Run lexigraphbe
         self.sections = self.run_lexigraphbe_pipeline(self.case_text)

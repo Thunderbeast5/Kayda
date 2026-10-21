@@ -3621,5 +3621,351 @@
     "subject_matter_scope": null,
     "disqualifying_subject_matters": [],
     "requires_trigger_gate": false
+  },
+  {
+    "section": "467",
+    "statute": "IPC",
+    "bns_equivalent": "467",
+    "title": "Forgery of valuable security, will, etc.",
+    "mandatory_ingredients": [
+      "forgery_of_valuable_security_will_etc"
+    ],
+    "factual_triggers": [
+      "forged document",
+      "forgery",
+      "valuable",
+      "security",
+      "will"
+    ],
+    "chapter_number": "XVIII",
+    "chapter_title": "Offences Relating to Documents",
+    "punishment_minimum": null,
+    "punishment_maximum": "Life Imprisonment (or up to 10 Years)",
+    "fine": true,
+    "cognizable": true,
+    "bailable": false,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "471",
+    "statute": "IPC",
+    "bns_equivalent": "471",
+    "title": "Using as genuine a forged document or electronic record",
+    "mandatory_ingredients": [
+      "using_as_genuine_a_forged_document_or_electronic_record"
+    ],
+    "factual_triggers": [
+      "false document",
+      "forged document",
+      "forgery",
+      "using",
+      "genuine",
+      "forged",
+      "document",
+      "electronic",
+      "record",
+      "using as genuine a forged document"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Using as genuine a forged document or electronic record",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "341",
+    "statute": "IPC",
+    "bns_equivalent": "341",
+    "title": "Punishment for wrongful restraint",
+    "mandatory_ingredients": [
+      "punishment_for_wrongful_restraint"
+    ],
+    "factual_triggers": [
+      "bail",
+      "punishment",
+      "wrongful",
+      "restraint"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Punishment for wrongful restraint",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "379",
+    "statute": "IPC",
+    "bns_equivalent": "379",
+    "title": "Punishment for theft",
+    "mandatory_ingredients": [
+      "punishment_for_theft"
+    ],
+    "factual_triggers": [
+      "bail",
+      "punishment",
+      "theft"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Punishment for theft",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": true,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "415",
+    "statute": "IPC",
+    "bns_equivalent": "415",
+    "title": "Cheating",
+    "mandatory_ingredients": [
+      "cheating"
+    ],
+    "factual_triggers": [
+      "facts",
+      "present",
+      "cheating"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Cheating",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "480",
+    "statute": "IPC",
+    "bns_equivalent": "480",
+    "title": "Using a false trade mark",
+    "mandatory_ingredients": [
+      "using_a_false_trade_mark"
+    ],
+    "factual_triggers": [
+      "false",
+      "using",
+      "trade",
+      "mark"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Using a false trade mark",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "482",
+    "statute": "IPC",
+    "bns_equivalent": "482",
+    "title": "Punishment for using a false property mark",
+    "mandatory_ingredients": [
+      "punishment_for_using_a_false_property_mark"
+    ],
+    "factual_triggers": [
+      "false",
+      "punishment",
+      "using",
+      "property",
+      "mark"
+    ],
+    "chapter_number": "Of Offences Relating to Documents and to Property Marks",
+    "chapter_title": "Punishment for using a false property mark",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "388",
+    "statute": "IPC",
+    "bns_equivalent": "388",
+    "title": "Extortion by threat of accusation of an offence punishable with death or imprisonment for life, etc.",
+    "mandatory_ingredients": [
+      "extortion_by_threat_of_accusation_of_an_offence_punishable_with_death_or_imprisonment_for_life_etc"
+    ],
+    "factual_triggers": [
+      "false",
+      "extortion",
+      "threat",
+      "accusation",
+      "offence",
+      "punishable",
+      "death",
+      "imprisonment",
+      "life"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Extortion by threat of accusation of an offence punishable with death or imprisonment for life, etc.",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "417",
+    "statute": "IPC",
+    "bns_equivalent": "417",
+    "title": "Punishment for cheating",
+    "mandatory_ingredients": [
+      "punishment_for_cheating"
+    ],
+    "factual_triggers": [
+      "cheating",
+      "punishment"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Punishment for cheating",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "409",
+    "statute": "IPC",
+    "bns_equivalent": "409",
+    "title": "Criminal breach of trust by public servant, or by banker, merchant or agent",
+    "mandatory_ingredients": [
+      "criminal_breach_of_trust_by_public_servant_or_by_banker_merchant_or_agent"
+    ],
+    "factual_triggers": [
+      "breach",
+      "criminal",
+      "trust",
+      "public",
+      "servant",
+      "banker",
+      "merchant",
+      "agent"
+    ],
+    "chapter_number": "Of Offences Against Property",
+    "chapter_title": "Criminal breach of trust by public servant, or by banker, merchant or agent",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "503",
+    "statute": "IPC",
+    "bns_equivalent": "503",
+    "title": "Criminal intimidation",
+    "mandatory_ingredients": [
+      "criminal_intimidation"
+    ],
+    "factual_triggers": [
+      "criminal",
+      "intimidat",
+      "intimidation",
+      "threat",
+      "threatened"
+    ],
+    "chapter_number": "Of Criminal Intimidation, Insult and Annoyance",
+    "chapter_title": "Criminal intimidation",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "507",
+    "statute": "IPC",
+    "bns_equivalent": "507",
+    "title": "Criminal intimidation by an anonymous communication",
+    "mandatory_ingredients": [
+      "criminal_intimidation_by_an_anonymous_communication"
+    ],
+    "factual_triggers": [
+      "criminal",
+      "intimidat",
+      "intimidation",
+      "threat",
+      "anonymous",
+      "communication"
+    ],
+    "chapter_number": "Of Criminal Intimidation, Insult and Annoyance",
+    "chapter_title": "Criminal intimidation by an anonymous communication",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": false,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
+  },
+  {
+    "section": "366",
+    "statute": "IPC",
+    "bns_equivalent": "366",
+    "title": "Kidnapping, abducting or inducing woman to compel her marriage, etc.",
+    "mandatory_ingredients": [
+      "kidnapping_abducting_or_inducing_woman_to_compel_her_marriage_etc"
+    ],
+    "factual_triggers": [
+      "criminal",
+      "intimidat",
+      "intimidation",
+      "kidnapping",
+      "abducting",
+      "inducing",
+      "woman",
+      "compel",
+      "marriage"
+    ],
+    "chapter_number": "Of Offences Affecting the Human Body",
+    "chapter_title": "Kidnapping, abducting or inducing woman to compel her marriage, etc.",
+    "punishment_minimum": null,
+    "punishment_maximum": "As specified under statute",
+    "fine": true,
+    "cognizable": false,
+    "bailable": true,
+    "subject_matter_scope": null,
+    "disqualifying_subject_matters": [],
+    "requires_trigger_gate": false
   }
 ]
