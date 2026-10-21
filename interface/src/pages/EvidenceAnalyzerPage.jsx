@@ -255,10 +255,10 @@ export default function EvidenceAnalyzerPage({ onBack }) {
             setShowHistory(true);
             fetchHistory();
           }}
-          className="flex items-center gap-2 px-4 py-2.5 text-xs font-mono font-bold uppercase tracking-wider text-[#2C1810] bg-white border border-[#2C1810]/15 rounded-xl hover:border-[#D4AF37] hover:bg-[#D4AF37]/5 transition-colors shadow-sm"
+          className="flex items-center gap-2 px-4 py-2.5 text-xs font-mono font-bold  tracking-wider text-[#2C1810] bg-white border border-[#2C1810]/15 rounded-xl hover:border-[#D4AF37] hover:bg-[#D4AF37]/5 transition-colors shadow-sm"
         >
           <History className="w-4 h-4 text-[#D4AF37]" />
-          History ({historyItems.length})
+          History 
         </button>
       </div>
 

@@ -542,10 +542,7 @@ export default function LexiGraphAgentPage() {
 
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
             <div>
-              <div className="flex items-center gap-2 text-xs font-mono font-bold text-[#8C5A3C] uppercase tracking-widest mb-1.5">
-                <Sparkles className="w-4 h-4 text-[#D4AF37]" />
-                Deterministic Legal Knowledge Base + LLM Ingredient Verifier
-              </div>
+              
               <h1 className="font-heading text-2xl md:text-3xl font-bold text-[#2C1810] tracking-tight">
                 Case Analysis & Anticipatory Bail Intelligence
               </h1>
@@ -557,10 +554,10 @@ export default function LexiGraphAgentPage() {
                   setShowHistory(true);
                   fetchHistory();
                 }}
-                className="px-4 py-2.5 text-xs font-mono font-bold uppercase tracking-wider text-[#2C1810] bg-[#FAF9F7] border border-[#2C1810]/20 rounded-xl hover:border-[#D4AF37] hover:bg-white hover:text-[#8C5A3C] transition-all flex items-center gap-2 cursor-pointer shadow-xs"
+                className="px-4 py-2.5 text-xs font-mono font-bold  tracking-wider text-[#2C1810] bg-[#FAF9F7] border border-[#2C1810]/20 rounded-xl hover:border-[#D4AF37] hover:bg-white hover:text-[#8C5A3C] transition-all flex items-center gap-2 cursor-pointer shadow-xs"
               >
                 <History className="w-4 h-4 text-[#D4AF37]" />
-                <span>Query History ({historyItems.length})</span>
+                <span>History</span>
               </button>
             </div>
           </div>
@@ -605,7 +602,7 @@ export default function LexiGraphAgentPage() {
               <button
                 onClick={runLexigraphPipeline}
                 disabled={loading || !caseText.trim()}
-                className="px-6 py-3 bg-[#2C1810] text-[#FAF9F7] border border-[#D4AF37] rounded-xl font-mono text-xs uppercase tracking-wider font-bold hover:bg-[#8C5A3C] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                className="px-6 py-3 bg-[#2C1810] text-[#FAF9F7] border border-[#D4AF37] rounded-xl font-mono text-xs tracking-wider font-bold hover:bg-[#8C5A3C] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-2 cursor-pointer shadow-md"
               >
                 {loading ? (
                   <>
@@ -614,7 +611,7 @@ export default function LexiGraphAgentPage() {
                   </>
                 ) : (
                   <>
-                    <Zap className="w-4 h-4 text-[#D4AF37]" />
+                    
                     <span>Run Full LexiGraph Pipeline</span>
                   </>
                 )}
