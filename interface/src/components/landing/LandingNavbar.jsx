@@ -80,7 +80,7 @@ export default function LandingNavbar({ scrollToSection }) {
         </div>
 
         {/* Navigation Links */}
-        <div className="hidden md:flex items-center gap-8 text-[13px] font-semibold tracking-[0.08em] uppercase text-[#2C1810]/80">
+        <div className="hidden md:flex items-center gap-8 text-[13px] font-bold tracking-[0.08em] uppercase text-[#2C1810]/80">
           <button onClick={() => navigate("/mootcourt-modes")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1.5 cursor-pointer">
             Moot Court
           </button>

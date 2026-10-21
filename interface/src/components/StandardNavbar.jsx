@@ -41,7 +41,7 @@ export default function StandardNavbar({ scrollToSection }) {
 
   return (
     <header className="sticky top-0 inset-x-0 z-50 w-full bg-[#FAF9F7]/90 backdrop-blur-md border-b border-[#D4AF37]/30 shadow-[0_4px_20px_rgba(44,24,16,0.05)]">
-      <nav className="flex items-center justify-between w-full max-w-7xl mx-auto px-6 md:px-8 py-3.5">
+      <nav className="flex items-center justify-between w-full max-w-full mx-auto px-8 md:px-16 py-4">
 
         {/* Logo */}
         <div className="flex items-center cursor-pointer select-none" onClick={() => navigate("/")}>
@@ -52,7 +52,7 @@ export default function StandardNavbar({ scrollToSection }) {
         </div>
 
         {/* Navigation Links */}
-        <div className="hidden md:flex items-center gap-8 text-[13px] font-semibold tracking-[0.08em] uppercase text-[#2C1810]/80">
+        <div className="hidden md:flex items-center gap-8 text-[13px] font-bold tracking-[0.08em] uppercase text-[#2C1810]/80">
           <button
             onClick={() => navigate("/mootcourt-modes")}
             className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1.5 cursor-pointer"
