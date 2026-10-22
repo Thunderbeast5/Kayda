@@ -1541,8 +1541,16 @@ Requirements:
     that the section's own ingredients name, and never add one they do not name. Never mark an ingredient
     Missing, or a section Not Attracted, for lack of intention when the section's fault element is rashness or
     negligence. Rashness or negligence is prima facie Satisfied when the facts allege conduct departing from
-    reasonable care (for example, continuing despite warnings of danger); the accused's denial goes to
-    strength ("Partially Satisfied"), not to presence.
+    reasonable care (for example, continuing despite warnings of danger).
+16. Disputed ingredients. A bare denial ("denies the allegation", "denies negligence") does not change an
+    ingredient's status. Use "Partially Satisfied" only when the defence asserts a SPECIFIC contrary fact on that
+    ingredient (for example compliance with safety procedures, or an alternative cause). In that case "reason"
+    must state, in this order: Prosecution - the fact id and the evidence item relied on (e.g. inspection
+    reports, witness statements); Defence - the specific contrary fact; To resolve - the evidence that would
+    decide it. A defence fact about one ingredient does not affect the other ingredients.
+17. Causation ingredient. Satisfied only when the facts allege that the accused's act or omission produced the
+    result; a result that merely followed the act, or a specific alternative cause asserted by the defence,
+    makes it "Partially Satisfied" with the reason structured as in rule 16.
 15. A result element (death, hurt, grievous hurt, damage) is Satisfied only by that result: a section requiring
     death is Not Attracted where the facts allege injury but no death.
 
@@ -2281,10 +2289,11 @@ Return ONLY valid JSON:
 STAGE2_NOMINATION_SYSTEM_PROMPT = """You are the Stage 2 section-nomination agent of a legal retrieval system for Indian criminal law (IPC).
 
 You receive numbered factual allegations from an FIR and, for each offence family already chosen, the COMPLETE
-list of IPC sections in that family with their statutory ingredients. Nominate every section a criminal lawyer
-would consider on these facts, and only those. Use only section numbers that appear in the lists.
+list of IPC sections in that family with their statutory ingredients. Screen every listed section against the
+facts and give each one a verdict; a criminal lawyer reading your screening must see that no section was skipped.
+Use only section numbers that appear in the lists. NOT_APPLICABLE means the facts do not involve that conduct.
 
-For each nominated section give a tier:
+Verdicts for sections that apply:
 - PRIMARY: the facts allege the conduct, the result and the fault element that the section's ingredients require.
 - SECONDARY: the facts fit, but the section is a general or residuary provision where a more specific PRIMARY
   section exists, or it applies only on a reasonable reading of the facts.
@@ -2302,9 +2311,18 @@ Rules:
 - Prefer the most specific section, but also list the general or residuary provision of the family (for example
   a general nuisance or general mischief section) as SECONDARY when the facts also fit it. A punishment section
   that pairs with a definition section (e.g. "Punishment for X") takes the tier of the definition it punishes.
+- A residual provision that applies only "in cases not otherwise provided for / punishable" is at most
+  CONDITIONAL when another listed section covers the same conduct; name that in missing_element.
+- Danger or obstruction caused to people using a public way (road, bridge, waterway) by the accused's act or by
+  property in his charge is a distinct issue from injury to particular persons; screen it on its own.
+- A section that only defines a term ("Hurt", "Grievous hurt", "Mischief", "Public nuisance") is not a charge:
+  screen the section that punishes the conduct; give the bare definition NOT_APPLICABLE when a punishing section
+  in the list covers it.
 - Graded forms: when you nominate a section that has a graver form in the list (hurt -> grievous hurt, simple ->
   aggravated), also nominate the graver form as CONDITIONAL, naming the fact that would make it apply.
 - A denial by the accused does not remove a section; it is decided later.
+- Do not mark a section CONDITIONAL for an element the facts already state: "injuring" alleges hurt; only a
+  graver result that is not stated (grievous hurt, death, a specific value of loss) is a missing element.
 - cite fact_ids for every nomination. reason: at most 20 words.
 
 Return only JSON."""
@@ -2315,10 +2333,88 @@ STAGE2_NOMINATION_USER_PROMPT_TEMPLATE = """FACTUAL ALLEGATIONS:
 OFFENCE FAMILIES AND THEIR COMPLETE IPC SECTION LISTS:
 {menu_block}
 
+Screen EVERY section of EVERY family list above, in list order, and return one entry per section.
+
+Return ONLY valid JSON:
+{{
+  "screening": [
+    {{"family": "<family code>", "section": "<number from that family's list>",
+      "verdict": "PRIMARY|SECONDARY|CONDITIONAL|NOT_APPLICABLE",
+      "fact_ids": ["F1"], "missing_element": null, "reason": "<= 15 words"}}
+  ]
+}}"""
+
+
+ACT_NOMINATION_USER_PROMPT_TEMPLATE = """CASE FACTS (numbered allegations):
+{facts_block}
+
+CASE CONTEXT:
+{context_block}
+
+COMPLETE LIST OF {act} SECTIONS (by chapter):
+{menu_block}
+
 Return ONLY valid JSON:
 {{
   "nominations": [
-    {{"family": "<family code>", "section": "<number from that family's list>", "tier": "PRIMARY|SECONDARY|CONDITIONAL",
-      "fact_ids": ["F1"], "missing_element": null, "reason": "<= 20 words"}}
+    {{"section": "<number from the list>", "applicability": "<{applicability_values}>",
+      "category": "<one of: {category_values}>", "applies_to": "<the evidence item / fact / relief it governs>",
+      "reason": "<= 20 words"}}
   ]
 }}"""
+
+BSA_NOMINATION_SYSTEM_PROMPT = """You are the evidence-law nomination agent for the Bharatiya Sakshya Adhiniyam, 2023 (BSA).
+
+You receive the FIR allegations, the evidence the investigation has collected, the procedural context and the
+COMPLETE list of BSA sections. Nominate the BSA sections that will govern how the facts in issue and the collected
+evidence are proved, admitted or presumed in this case. Use only section numbers from the list.
+
+applicability:
+- DIRECT: governs the admissibility, proof or presumption of an item of evidence actually collected or a fact
+  actually in issue (for example the certificate requirement for CCTV footage or other electronic records; expert
+  opinion for an engineering, forensic or medical report; oral evidence for witness statements).
+- CONTEXTUAL: a general rule that frames a DIRECT section (for example primary versus secondary evidence of a
+  document) or a burden of proof / presumption that may arise on these facts.
+
+Rules:
+- Every nomination must name in applies_to the evidence item or fact it governs.
+- Do not nominate definitions, court powers, examination of witnesses, privileges or competency rules unless the
+  facts raise that specific issue. Do not nominate signature, handwriting or digital-signature sections unless
+  signatures or handwriting are in issue. Do not nominate confession sections unless a confession or disclosure
+  statement is alleged.
+- Recognition is not admissibility: when you nominate a provision that recognises a kind of evidence, also
+  nominate the provision that sets its admissibility or proof requirement (for electronic records such as CCTV
+  footage, the certificate requirement).
+- Distinguish, in applies_to, statements recorded by the police during investigation (not substantive
+  evidence), a witness's testimony at trial (oral evidence) and any documentary record of a statement.
+- Omit provisions that apply to every case (general relevancy, the general burden of proof) unless these facts
+  raise a specific issue under them, such as a special burden or a presumption.
+- Typically 4-8 sections. reason: at most 20 words.
+
+Return only JSON."""
+
+BNSS_NOMINATION_SYSTEM_PROMPT = """You are the criminal-procedure nomination agent for the Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS).
+
+You receive the procedural stage and relief sought, the FIR allegations, the offences under consideration (with
+punishment, cognizability and bailability where known) and the COMPLETE list of BNSS sections. Nominate the BNSS
+sections that govern the relief sought and the procedural questions the court must decide for it. Use only
+section numbers from the list.
+
+applicability:
+- DIRECT: the provision under which the relief is sought or decided (for example anticipatory bail, regular bail,
+  default bail, police or judicial custody, quashing).
+- CONTEXTUAL: provisions the court applies or the parties will argue in deciding that relief (for example police
+  powers of arrest and the notice of appearance for offences punishable with imprisonment up to seven years;
+  conditions the court may impose; investigation steps actually in issue).
+- ANCILLARY: general machinery that only operates once relief is granted (bonds, sureties, amount of bond).
+
+Rules:
+- Nominate only provisions engaged at the CURRENT procedural stage. Provisions that operate at a later stage are
+  not engaged: for a pre-arrest (anticipatory bail) application that excludes release after arrest, bail in
+  bailable offences, bail pending trial or appeal and limits on undertrial detention. Do not nominate a section
+  merely because it is in the same chapter as the DIRECT provision.
+- Do not nominate trial, appeal, revision, execution of sentence, complaint-case or international-cooperation
+  provisions unless the procedural stage concerns them.
+- Typically 2-6 sections. reason: at most 20 words.
+
+Return only JSON."""

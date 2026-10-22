@@ -335,6 +335,11 @@ def _apply_family_decomposition(query_obj: LegalQueryObject, narrative: str) -> 
     for extra in clause_backstop(narrative, query_obj.factual_allegations):
         query_obj.factual_allegations.append(FactualAllegation.model_validate(extra))
         query_obj.manual_review.append(f"[retrieval] Clause fact {extra['fact_id']} added: \"{extra['verbatim_quote']}\"")
+    from .family_retrieval import defence_backstop
+    accused = ", ".join((query_obj.entities or {}).get("accused") or []) if isinstance(query_obj.entities, dict) else None
+    for extra in defence_backstop(narrative, query_obj.factual_allegations, accused=accused or None):
+        query_obj.factual_allegations.append(FactualAllegation.model_validate(extra))
+        query_obj.manual_review.append(f"[defence] Statement fact {extra['fact_id']} added ({extra['description']}): \"{extra['verbatim_quote']}\"")
     # Deterministic top-up: families signalled by retrieval on the quoted facts, and joint-liability
     # families when a fact names two or more actors. Added families are SECONDARY / CONDITIONAL.
     augmented, notes = augment_families(query_obj.factual_allegations, query_obj.offence_families)

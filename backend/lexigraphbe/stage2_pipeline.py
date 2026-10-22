@@ -56,7 +56,8 @@ class Stage2Pipeline:
         if getattr(query_obj, "offence_families", None):
             from .family_retrieval import build_family_mapping
             nominations = self.nominator.run(query_obj) if self.nominator else None
-            mapping = build_family_mapping(query_obj, nominations=nominations)
+            mapping = build_family_mapping(query_obj, nominations=nominations,
+                                           excluded=getattr(self.nominator, "last_excluded", None) if nominations else None)
             if mapping.get("retrieval_only_not_nominated"):
                 print(f"  [Stage 2] BM25 hits not nominated (dropped): {mapping['retrieval_only_not_nominated']}", flush=True)
             resp = Stage2BatchedMappingResponse.model_validate(mapping)

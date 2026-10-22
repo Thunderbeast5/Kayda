@@ -35,6 +35,9 @@ def _print_pipeline_transition(stage_num: int, res: dict) -> None:
         all_sections: dict = {}
         for m in mappings:
             sq_id = m.get("sub_query_id", "?")
+            for bucket in ("primary_candidate_sections", "secondary_candidate_sections", "conditional_candidate_sections"):
+                for c_item in m.get(bucket, []):
+                    all_sections.setdefault(c_item.get("section_number", "?"), {"classifications": [], "sub_queries": []})                         .setdefault("sources", set()).update(c_item.get("retrieval_sources") or [])
             for p in m.get("primary_candidate_sections", []):
                 s = p.get("section_number", "?")
                 all_sections.setdefault(s, {"classifications": [], "sub_queries": []})
@@ -62,7 +65,11 @@ def _print_pipeline_transition(stage_num: int, res: dict) -> None:
         for sec, info in sorted(all_sections.items()):
             types = "/".join(sorted(set(info["classifications"])))
             sqs = ", ".join(sorted(set(info["sub_queries"])))
-            print(f"    [OK] Section {sec:>6}  [{types}]  (from {sqs})", flush=True)
+            srcs = ", ".join(sorted(info.get("sources") or [])) or "n/a"
+            print(f"    [OK] Section {sec:>6}  [{types}]  (from {sqs}; found by: {srcs})", flush=True)
+        excluded = [(n.get("section_number"), n.get("not_triggered_reason", "")) for m in mappings for n in m.get("not_triggered_sections", [])]
+        if excluded:
+            print(f"  Screened and excluded ({len(excluded)}): " + ", ".join(x for x, _ in excluded), flush=True)
         print(sep, flush=True)
     elif stage_num == 3:
         pt = res.get("pipeline_transition")
@@ -282,12 +289,33 @@ def run_stage3(legal_query_input: dict, stage2_input: Optional[dict] = None) -> 
         for vo in verified:
             sec = vo.get("section_number", "?")
             title = (vo.get("section_title") or vo.get("offence_title") or "")[:50]
-            bns_eq = vo.get("bns_equivalent") or ""
-            print(f"    ✓ Section {sec:<6} {title:<50} BNS: {bns_eq}", flush=True)
+            print(f"    ✓ Section {sec:<6} {title:<50} [{vo.get('classification') or ''}]", flush=True)
         print("=" * 60, flush=True)
         return result
     print("=" * 60, flush=True)
     return {"status": res.status, "feedback": res.feedback}
+
+
+def _print_act_sections(act: str, result_dict: dict) -> None:
+    sections = result_dict.get("relevant_sections", [])
+    rejected = result_dict.get("rejected_sections", [])
+    print(f"\n  [{act} SECTIONS ({len(sections)})]:", flush=True)
+    for sec in sections:
+        print(
+            f"    ✓ [{act} {sec['section_number']:>3}] {sec['heading'][:55]:<55} "
+            f"| {sec.get('applicability', ''):<10} | {sec.get('relevance_category') or ''}",
+            flush=True,
+        )
+        reason = sec.get("relevance_reason") or sec.get("verification_reason") or ""
+        if reason:
+            print(f"      {reason}", flush=True)
+    if rejected:
+        print(f"\n  [REJECTED {act} CANDIDATES ({len(rejected)})]:", flush=True)
+        for sec in rejected[:5]:
+            print(f"    ✗ [{act} {sec['section_number']:>3}] {sec['heading'][:45]:<45} -> {sec.get('verification_reason') or ''}", flush=True)
+    for note in result_dict.get("retrieval_notes", []):
+        if not note.startswith(("Verifier ACCEPTED", "Verifier REJECTED")):
+            print(f"  NOTE: {note}", flush=True)
 
 
 def run_stage3b(
@@ -295,71 +323,18 @@ def run_stage3b(
     stage3_input: Optional[dict] = None,
 ) -> dict:
     """
-    Executes Stage 3b: BSA Evidence Law Section Retrieval.
-
-    Runs deterministically (0 LLM calls) and returns a BSARetrievalObject dict
-    containing relevant Bharatiya Sakshya Adhiniyam sections with IEA equivalents
-    and IPC → BNS equivalents for offences identified in Stage 3.
-
-    Args:
-        legal_query_input: LegalQueryObject dict from Stage 1.
-        stage3_input: Optional ChapterIdentificationObject dict from Stage 3
-                      (used to resolve IPC → BNS equivalents for identified offences).
-
-    Returns:
-        BSARetrievalObject as dict.
+    Stage 3b: BSA evidence-law section retrieval. The complete Adhiniyam is shown to one nomination call
+    (act_nominator); evidence-cluster retrieval is the fallback. IEA equivalents are resolved after Stage 4.
     """
     blocked = _blocked(legal_query_input, "Stage 3b")
     if blocked:
         return blocked
-    agent = BSARetrievalAgent()
-    verified_offences = None
-    if stage3_input:
-        verified_offences = stage3_input.get("verified_offences", [])
-
     print("\n" + "=" * 60, flush=True)
-    print("  STAGE 3b: BSA EVIDENCE LAW SECTION RETRIEVAL & VERIFICATION", flush=True)
+    print("  STAGE 3b: BSA EVIDENCE LAW SECTION RETRIEVAL", flush=True)
     print("=" * 60, flush=True)
-
-    result = agent.run(
-        legal_query=legal_query_input,
-        verified_offences=verified_offences,
-    )
-
-    result_dict = result.model_dump()
-    sections = result_dict.get("relevant_sections", [])
-    rejected = result_dict.get("rejected_sections", [])
-    ipc_bns_map = result_dict.get("ipc_to_bns_map", {})
-
-    print(f"\n  [VERIFIED / ACCEPTED BSA SECTIONS ({len(sections)})]:", flush=True)
-    for sec in sections:
-        iea = sec.get("replaces_IEA") or "—"
-        cat = sec.get("relevance_category") or "DOCUMENTS"
-        v_reason = sec.get("verification_reason") or sec.get("relevance_reason") or ""
-        print(
-            f"    ✓ [BSA {sec['section_number']:>3}] "
-            f"{sec['heading'][:50]:<50} "
-            f"| IEA: {iea:<10} "
-            f"| [{cat}]",
-            flush=True,
-        )
-        if v_reason:
-            print(f"      Grounding: {v_reason}", flush=True)
-
-    if rejected:
-        print(f"\n  [AUDITED & REJECTED CANDIDATES ({len(rejected)})]:", flush=True)
-        for sec in rejected[:5]:
-            rej_reason = sec.get("verification_reason") or "Tangential / generic noise"
-            print(f"    ✗ [BSA {sec['section_number']:>3}] {sec['heading'][:45]:<45} -> {rej_reason}", flush=True)
-
-    if ipc_bns_map:
-        print(f"\n  [IPC → BNS EQUIVALENTS (via Neo4j REPLACED_BY) ({len(ipc_bns_map)})]:", flush=True)
-        for ipc_sec, bns_sec in sorted(ipc_bns_map.items()):
-            print(f"    IPC {ipc_sec:>3} → BNS {bns_sec}", flush=True)
-
-    for note in result_dict.get("retrieval_notes", []):
-        print(f"  NOTE: {note}", flush=True)
-
+    verified_offences = (stage3_input or {}).get("verified_offences", []) if stage3_input else None
+    result_dict = BSARetrievalAgent().run(legal_query=legal_query_input, verified_offences=verified_offences).model_dump()
+    _print_act_sections("BSA", result_dict)
     print("=" * 60, flush=True)
     return result_dict
 
@@ -367,67 +342,24 @@ def run_stage3b(
 def run_stage3c(
     legal_query_input: dict,
     case_context: Optional[dict] = None,
+    stage3_input: Optional[dict] = None,
 ) -> dict:
     """
-    Executes Stage 3c: BNSS Procedural Law Section Retrieval.
-
-    Identifies and reasons over Bharatiya Nagarik Suraksha Sanhita, 2023 (BNSS) procedural
-    sections (bail, anticipatory bail, arrest safeguards, custody/remand) using zero-API-call
-    prefiltering, definition-grounded LLM reasoning, and BNSSVerifierAgent auditing.
-    Maps BNSS sections to CrPC equivalents using Neo4j REPLACES edge.
-    BNSS sections have NO statutory ingredients evaluation.
-
-    Args:
-        legal_query_input: LegalQueryObject dict from Stage 1.
-        case_context: Optional CaseContextObject dict from Stage 0.
-
-    Returns:
-        BNSSRetrievalObject as dict.
+    Stage 3c: BNSS procedural-law section retrieval. The complete Sanhita is shown to one nomination call with
+    the procedural stage, relief and the Stage 3 offences (punishment, bailability); the prefilter is the
+    fallback. CrPC equivalents are resolved after Stage 4.
     """
-    agent = BNSSRetrievalAgent()
     print("\n" + "=" * 60, flush=True)
-    print("  STAGE 3c: BNSS PROCEDURAL LAW SECTION RETRIEVAL & VERIFICATION", flush=True)
+    print("  STAGE 3c: BNSS PROCEDURAL LAW SECTION RETRIEVAL", flush=True)
     print("=" * 60, flush=True)
-
-    result = agent.run(
-        legal_query=legal_query_input,
-        case_context=case_context,
-    )
-
-    result_dict = result.model_dump()
-    sections = result_dict.get("relevant_sections", [])
-    rejected = result_dict.get("rejected_sections", [])
-    bnss_crpc_map = result_dict.get("bnss_to_crpc_map", {})
-
-    print(f"\n  [VERIFIED / ACCEPTED BNSS SECTIONS ({len(sections)})]:", flush=True)
-    for sec in sections:
-        crpc = sec.get("replaces_CrPC") or "—"
-        cat = sec.get("relevance_category") or "PROCEDURE"
-        v_reason = sec.get("verification_reason") or sec.get("relevance_reason") or ""
-        print(
-            f"    ✓ [BNSS {sec['section_number']:>3}] "
-            f"{sec['heading'][:50]:<50} "
-            f"| CrPC: {crpc:<10} "
-            f"| [{cat}] {sec.get('applicability', '')}",
-            flush=True,
-        )
-        if v_reason:
-            print(f"      Grounding: {v_reason}", flush=True)
-
-    if rejected:
-        print(f"\n  [AUDITED & REJECTED BNSS CANDIDATES ({len(rejected)})]:", flush=True)
-        for sec in rejected[:5]:
-            rej_reason = sec.get("verification_reason") or "Tangential / generic noise"
-            print(f"    ✗ [BNSS {sec['section_number']:>3}] {sec['heading'][:45]:<45} -> {rej_reason}", flush=True)
-
-    if bnss_crpc_map:
-        print(f"\n  [BNSS → CrPC EQUIVALENTS (via Neo4j REPLACES) ({len(bnss_crpc_map)})]:", flush=True)
-        for bnss_sec, crpc_sec in sorted(bnss_crpc_map.items()):
-            print(f"    BNSS {bnss_sec:>3} → CrPC {crpc_sec}", flush=True)
-
-    for note in result_dict.get("retrieval_notes", []):
-        print(f"  NOTE: {note}", flush=True)
-
+    query = legal_query_input
+    if isinstance(query, dict) and query.get("status") == "BLOCKED":
+        query = query.get("candidate_query_object") or {}
+    verified_offences = (stage3_input or {}).get("verified_offences", []) if stage3_input else None
+    result_dict = BNSSRetrievalAgent().run(
+        legal_query=query, case_context=case_context, verified_offences=verified_offences,
+    ).model_dump()
+    _print_act_sections("BNSS", result_dict)
     print("=" * 60, flush=True)
     return result_dict
 
@@ -437,124 +369,134 @@ def run_stage4(
     chapter_input: dict,
     bsa_input: Optional[dict] = None,
     bnss_input: Optional[dict] = None,
+    print_summary: bool = True,
 ) -> dict:
     """
-    Executes Stage 4 pipeline on LegalQueryObject and ChapterIdentificationObject dicts.
-    At the conclusion of Stage 4, displays:
-      1. Verified IPC sections mapped to BNS equivalents (via Neo4j REPLACED_BY)
-      2. Verified BNSS procedural sections mapped to CrPC equivalents (via Neo4j REPLACES)
-      3. Verified BSA evidence sections mapped to IEA equivalents (via Neo4j REPLACES)
+    Stage 4: ingredient-level verification of the Stage 3 offences, then the Act Router, then one statute
+    equivalence step (IPC->BNS, BNSS->CrPC, BSA->IEA) over everything the pipeline retrieved.
     """
     blocked = _blocked(legal_query_input, "Stage 4")
     if blocked:
         return blocked
     pipeline = Stage4Pipeline()
     res = pipeline.run(legal_query_input, chapter_input)
-    
+
     stage4_dict = (
         res.verified_statutory_object.model_dump()
         if res.verified_statutory_object
         else {"status": res.status, "feedback": res.feedback}
     )
+    if print_summary:
+        _print_stage4_outcome(stage4_dict)
 
-    bsa_input = bsa_input or {}
-    bnss_input = bnss_input or {}
-
-    # Extract IPC -> BNS mappings
-    repo = StatuteRepository.get_instance()
-    ipc_bns_mappings = []
-    verified_offences = stage4_dict.get("verified_offences", [])
-    if not verified_offences and chapter_input:
-        verified_offences = chapter_input.get("verified_offences", [])
-
-    for off in verified_offences:
-        raw_sec = str(off.get("ipc_equivalent") or off.get("section_number") or "").strip()
-        clean_sec = raw_sec.upper().replace("IPC_", "").replace("SECTION ", "").strip()
-        title = off.get("section_title") or off.get("offence_title") or ""
-        bns_eq = repo.get_ipc_bns_equivalent(clean_sec) or off.get("bns_equivalent") or "N/A"
-        ipc_bns_mappings.append({
-            "ipc_section": clean_sec,
-            "title": title,
-            "bns_equivalent": bns_eq,
-        })
-
-    # Extract BNSS -> CrPC mappings
-    bnss_crpc_mappings = []
-    if bnss_input and "relevant_sections" in bnss_input:
-        for bn_sec in bnss_input["relevant_sections"]:
-            bnss_num = str(bn_sec.get("section_number", "")).strip()
-            heading = bn_sec.get("heading", "")
-            cat = bn_sec.get("relevance_category", "PROCEDURE")
-            crpc_eq = bn_sec.get("replaces_CrPC") or repo.get_bnss_crpc_equivalent(bnss_num) or "None"
-            bnss_crpc_mappings.append({
-                "bnss_section": bnss_num,
-                "heading": heading,
-                "category": cat,
-                "crpc_equivalent": crpc_eq,
-            })
-
-    # Extract BSA -> IEA mappings
-    bsa_iea_mappings = []
-    if bsa_input and "relevant_sections" in bsa_input:
-        for b_sec in bsa_input["relevant_sections"]:
-            bsa_num = str(b_sec.get("section_number", "")).strip()
-            heading = b_sec.get("heading", "")
-            cat = b_sec.get("relevance_category", "DOCUMENTS")
-            iea_eq = b_sec.get("replaces_IEA") or "None"
-            bsa_iea_mappings.append({
-                "bsa_section": bsa_num,
-                "heading": heading,
-                "category": cat,
-                "iea_equivalent": iea_eq,
-            })
-
-    # Terminal summary of all three mappings at the end of Stage 4
-    print("\n" + "=" * 80, flush=True)
-    print("  STAGE 4 COMPREHENSIVE STATUTE EQUIVALENCE SUMMARY", flush=True)
-    print("=" * 80, flush=True)
-    print("  [1] VERIFIED SUBSTANTIVE OFFENCES (IPC → BNS via Neo4j REPLACED_BY):", flush=True)
-    if ipc_bns_mappings:
-        for m in ipc_bns_mappings:
-            title_snippet = f"({m['title'][:40]})" if m['title'] else ""
-            print(f"      • IPC {m['ipc_section']:<5} {title_snippet:<42} ──► BNS {m['bns_equivalent']}", flush=True)
-    else:
-        print("      • (No substantive offences to map)", flush=True)
-
-    print("\n  [2] VERIFIED PROCEDURAL LAW PROVISIONS (BNSS → CrPC via Neo4j REPLACES):", flush=True)
-    if bnss_crpc_mappings:
-        for bn in bnss_crpc_mappings:
-            head_snippet = f"({bn['heading'][:40]})" if bn['heading'] else ""
-            print(f"      • BNSS {bn['bnss_section']:<5} {head_snippet:<42} ──► CrPC {bn['crpc_equivalent']:<10} [{bn['category']}]", flush=True)
-    else:
-        print("      • (No procedural provisions mapped)", flush=True)
-
-    print("\n  [3] VERIFIED EVIDENCE LAW PROVISIONS (BSA → IEA via Neo4j REPLACES):", flush=True)
-    if bsa_iea_mappings:
-        for b in bsa_iea_mappings:
-            head_snippet = f"({b['heading'][:40]})" if b['heading'] else ""
-            print(f"      • BSA {b['bsa_section']:<5} {head_snippet:<42} ──► IEA {b['iea_equivalent']:<10} [{b['category']}]", flush=True)
-    else:
-        print("      • (No evidentiary provisions mapped)", flush=True)
-    print("=" * 80 + "\n", flush=True)
-
-    stage4_dict["ipc_to_bns_equivalents"] = ipc_bns_mappings
-    stage4_dict["bnss_to_crpc_equivalents"] = bnss_crpc_mappings
-    stage4_dict["bsa_to_iea_equivalents"] = bsa_iea_mappings
-
-    # Run the Act Router sub-pipeline right after Stage 4 statute equivalence
     try:
-        act_router_output = run_act_router(
+        stage4_dict["act_router_output"] = run_act_router(
             legal_query_input=legal_query_input,
             stage4_input=stage4_dict,
-            bsa_input=bsa_input,
-            bnss_input=bnss_input,
+            bsa_input=bsa_input or {},
+            bnss_input=bnss_input or {},
         )
-        stage4_dict["act_router_output"] = act_router_output
     except Exception as e:
         print(f"  [Act Router] Note: {e}", flush=True)
         stage4_dict["act_router_output"] = {}
 
+    run_equivalence_mapping(stage4_dict, bsa_input or {}, bnss_input or {}, print_table=print_summary)
     return stage4_dict
+
+
+def _print_stage4_outcome(stage4_dict: dict) -> None:
+    sep = "=" * 80
+    print(f"\n{sep}\n  STAGE 4 OUTCOME (ingredient verification)\n{sep}", flush=True)
+    groups = [
+        ("ATTRACTED", stage4_dict.get("attracted_offences") or []),
+        ("CONDITIONAL (depends on a fact not yet alleged)", stage4_dict.get("conditional_offences") or []),
+        ("NOT ATTRACTED", stage4_dict.get("rejected_offences") or []),
+    ]
+    for label, items in groups:
+        print(f"  {label} ({len(items)}):", flush=True)
+        if not items:
+            print("      • none", flush=True)
+        for o in items:
+            gaps = [e.get("ingredient") for e in (o.get("ingredient_evaluation") or [])
+                    if str(e.get("status", "")).upper() in ("MISSING", "NOT SATISFIED", "CONTRADICTED", "UNKNOWN")]
+            line = f"      • IPC {o.get('section_number'):<5} {(o.get('title') or '')[:55]:<55} {o.get('overall_status') or ''}"
+            print(line, flush=True)
+            if gaps and label != "ATTRACTED":
+                print(f"          missing: {'; '.join(str(g)[:70] for g in gaps[:3])}", flush=True)
+    print(f"  Status: {stage4_dict.get('verification_status')}", flush=True)
+    print(sep, flush=True)
+
+
+def run_equivalence_mapping(stage4_dict: dict, bsa_input: dict, bnss_input: dict, print_table: bool = True) -> dict:
+    """
+    Resolves new-code / old-code equivalents once, for everything retrieved: attracted and conditional IPC
+    offences -> BNS, BNSS -> CrPC, BSA -> IEA, all from the Neo4j crosswalk (CrosswalkService). Stores the
+    lists on stage4_dict (keys read by precedent retrieval) and prints one table.
+    """
+    from .crosswalk_service import CrosswalkService
+    cw = CrosswalkService.get_instance()
+
+    ipc_rows = []
+    for status, key in (("ATTRACTED", "attracted_offences"), ("CONDITIONAL", "conditional_offences")):
+        for o in stage4_dict.get(key) or []:
+            sec = str(o.get("section_number") or "").strip().upper()
+            targets = list(cw.ipc_to_bns.get(sec, []))
+            ipc_rows.append({
+                "ipc_section": sec, "title": o.get("title") or "", "status": status,
+                "bns_equivalent": cw.get_bns_for_ipc(sec) or "N/A", "bns_all_targets": targets,
+            })
+    bnss_rows = [{
+        "bnss_section": s.get("section_number"), "heading": s.get("heading", ""),
+        "category": s.get("relevance_category", ""), "applicability": s.get("applicability", ""),
+        "crpc_equivalent": cw.get_crpc_for_bnss(str(s.get("section_number"))) or s.get("replaces_CrPC") or "None",
+    } for s in (bnss_input.get("relevant_sections") or [])]
+    bsa_rows = [{
+        "bsa_section": s.get("section_number"), "heading": s.get("heading", ""),
+        "category": s.get("relevance_category", ""), "applicability": s.get("applicability", ""),
+        "iea_equivalent": cw.get_iea_for_bsa(str(s.get("section_number"))) or s.get("replaces_IEA") or "None",
+    } for s in (bsa_input.get("relevant_sections") or [])]
+
+    stage4_dict["ipc_to_bns_equivalents"] = ipc_rows
+    stage4_dict["bnss_to_crpc_equivalents"] = bnss_rows
+    stage4_dict["bsa_to_iea_equivalents"] = bsa_rows
+    if print_table:
+        _print_equivalence_table(stage4_dict)
+    return {"ipc_to_bns": ipc_rows, "bnss_to_crpc": bnss_rows, "bsa_to_iea": bsa_rows}
+
+
+def _print_equivalence_table(stage4_dict: dict) -> None:
+    ipc_rows = stage4_dict.get("ipc_to_bns_equivalents") or []
+    bnss_rows = stage4_dict.get("bnss_to_crpc_equivalents") or []
+    bsa_rows = stage4_dict.get("bsa_to_iea_equivalents") or []
+    sep = "=" * 80
+    print(f"\n{sep}\n  STATUTE EQUIVALENCE MAPPING (Neo4j crosswalk)\n{sep}", flush=True)
+    regime = str(stage4_dict.get("legal_regime") or "").upper()
+    if "IPC" in regime or "CRPC" in regime:
+        print(f"  Selected regime (Stage 0): {stage4_dict.get('legal_regime')} - the IPC / CrPC / IEA sections apply;", flush=True)
+        print("  BNS / BNSS / BSA are their equivalents under the 2023 codes (BNSS / BSA retrieval runs on the new text).", flush=True)
+    elif regime:
+        print(f"  Selected regime (Stage 0): {stage4_dict.get('legal_regime')} - the BNS / BNSS / BSA sections apply;", flush=True)
+        print("  IPC / CrPC / IEA are the repealed-code equivalents.", flush=True)
+    print("  [1] IPC → BNS (substantive offences):", flush=True)
+    for r in ipc_rows or [{}]:
+        if not r:
+            print("      • none", flush=True)
+            break
+        extra = f"  (all targets: {', '.join(r['bns_all_targets'])})" if len(r["bns_all_targets"]) > 1 else ""
+        print(f"      • IPC {r['ipc_section']:<5} ──► BNS {r['bns_equivalent']:<8} [{r['status']}] {r['title'][:45]}{extra}", flush=True)
+    print("  [2] BNSS → CrPC (procedure):", flush=True)
+    for r in bnss_rows or [{}]:
+        if not r:
+            print("      • none", flush=True)
+            break
+        print(f"      • BNSS {r['bnss_section']:<5} ──► CrPC {r['crpc_equivalent']:<10} [{r['applicability']}] {r['heading'][:45]}", flush=True)
+    print("  [3] BSA → IEA (evidence):", flush=True)
+    for r in bsa_rows or [{}]:
+        if not r:
+            print("      • none", flush=True)
+            break
+        print(f"      • BSA {r['bsa_section']:<5} ──► IEA {r['iea_equivalent']:<10} [{r['applicability']}] {r['heading'][:45]}", flush=True)
+    print(sep, flush=True)
 
 
 def run_act_router(
@@ -762,7 +704,7 @@ def run_full_pipeline(
     t_parallel = time.perf_counter()
     with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
         f_3b = executor.submit(run_stage3b, stage1_out, stage3_out)
-        f_3c = executor.submit(run_stage3c, stage1_out, stage0_out)
+        f_3c = executor.submit(run_stage3c, stage1_out, stage0_out, stage3_out)
         stage3b_out = f_3b.result()
         stage3c_out = f_3c.result()
     stage_timings["stage3b_3c_concurrent_ms"] = int((time.perf_counter() - t_parallel) * 1000)
@@ -922,18 +864,17 @@ def main():
             stage2_res = run_stage2(stage1_res)
             stage3_res = run_stage3(stage1_res, stage2_res)
             stage3b_res = run_stage3b(stage1_res, stage3_res)
-            stage3c_res = run_stage3c(stage1_res, stage0_res)
+            stage3c_res = run_stage3c(stage1_res, stage0_res, stage3_res)
             res = run_stage4(stage1_res, stage3_res, bsa_input=stage3b_res, bnss_input=stage3c_res)
             print("\n=== STAGE 4 STATUTORY VERIFICATION RESULT ===", flush=True)
             print(json.dumps(res, indent=2, ensure_ascii=False), flush=True)
-            _print_pipeline_transition(4, res)
         elif args.stage == "act_router":
             stage0_res = run_stage0(text=args.text, file_path=args.file, user_query=args.query, court_type=args.court, legal_regime_override=args.regime)
             stage1_res = run_stage1(stage0_res)
             stage2_res = run_stage2(stage1_res)
             stage3_res = run_stage3(stage1_res, stage2_res)
             stage3b_res = run_stage3b(stage1_res, stage3_res)
-            stage3c_res = run_stage3c(stage1_res, stage0_res)
+            stage3c_res = run_stage3c(stage1_res, stage0_res, stage3_res)
             stage4_res = run_stage4(stage1_res, stage3_res, bsa_input=stage3b_res, bnss_input=stage3c_res)
             res = stage4_res.get("act_router_output") or run_act_router(
                 case_context_input=stage0_res,
@@ -979,7 +920,6 @@ def main():
             stage4_res = run_stage4(stage1_res, stage3_res, bsa_input=stage3b_res, bnss_input=stage3c_res)
             print("\n=== STAGE 4 STATUTORY VERIFICATION RESULT ===", flush=True)
             print(json.dumps(stage4_res, indent=2, ensure_ascii=False), flush=True)
-            _print_pipeline_transition(4, stage4_res)
 
             res = {
                 "status": "VERIFIED",

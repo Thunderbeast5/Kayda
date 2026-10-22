@@ -102,10 +102,16 @@ def parse_punishment_and_severity(text: str, section_number: str = "", statute: 
         if p_max and re.search(r"\b(death|life)\b", p_max, re.I):
             return (p_text, 20.0, True)
         
-        matches = re.findall(r"(\d+)\s*(?:years?|yrs?)", p_max.lower())
+        p_low = (p_max or "").lower()
+        matches = re.findall(r"(\d+)\s*(?:years?|yrs?)", p_low)
         if matches:
             max_yrs = max(float(m) for m in matches)
             return (p_text, max_yrs, max_yrs > 7.0)
+        month_matches = re.findall(r"(\d+)\s*(?:months?|mths?)", p_low)
+        if month_matches:  # e.g. 336 "3 Months or Fine or Both"
+            return (p_text, round(max(float(m) for m in month_matches) / 12.0, 2), False)
+        if re.search(r"\bfine\b", p_low):  # e.g. 283 "Fine": no imprisonment
+            return (p_text, 0.0, False)
 
     if not text:
         return ("Punishment as prescribed by law.", 3.0, False)
@@ -176,6 +182,21 @@ def _aggregate_ingredient_status(evaluations, classification: str = "PRIMARY"):
 
 
 
+_RESULT_INGREDIENT_RE = re.compile(
+    r"\bcaus\w*\b[^.;]{0,40}\b(hurt|grievous|death|injury|damage|loss|miscarriage)\b", re.IGNORECASE)
+CAUSATION_INGREDIENT = ("Causation: the result was caused by the accused's own act or omission "
+                        "(not merely followed it, and not by an independent intervening cause)")
+_MENTAL_CONDITION_RE = re.compile(r"\b(intention|intent|knowledge)\b", re.IGNORECASE)
+_RESIDUAL_RE = re.compile(r"\bnot otherwise (?:punishable|provided)", re.IGNORECASE)
+
+
+def _is_residual_provision(section: str, statute_db: Dict[str, Any]) -> bool:
+    """Residual provisions apply only 'in cases not otherwise punishable / provided for' (e.g. 290)."""
+    ings = (statute_db.get(f"IPC_{section}") or {}).get("ingredients") or []
+    title = (statute_db.get(f"IPC_{section}") or {}).get("section_title") or ""
+    return bool(_RESIDUAL_RE.search(" ".join(map(str, ings)) + " " + title))
+
+
 _MENTAL_ELEMENT_RE = re.compile(
     r"\b(intent\w*|intend\w*|knowing\w*|knowledge|knows|reason to believe|dishonest\w*|fraudulent\w*|"
     r"wilful\w*|purpose|deliberate\w*|likely to)\b", re.IGNORECASE)
@@ -225,6 +246,48 @@ def _infer_mental_elements(vo) -> List[str]:
             e.reason = (e.reason or "") + f" [Prima facie: {kind} element not expressly alleged verbatim but inferable from alleged conduct at FIR/bail stage; to be established at trial.]"
             notes.append(f"Section {vo.section_number}: {kind} element '{str(e.ingredient)[:60]}' treated as inferable at the prima facie stage.")
     return notes
+
+
+def _structure_disputed_reasons(vo, facts: List[Any], important_facts: Any) -> None:
+    """
+    Rewrites the reason of every "Partially Satisfied" ingredient as Prosecution / Defence / To resolve, from the
+    structured facts: the allegation it rests on, the specific defence statement that answers it (an alternative
+    cause for causation, compliance or denial for fault), and the evidence that would decide it.
+    """
+    def g(o, k):
+        return o.get(k) if isinstance(o, dict) else getattr(o, k, None)
+
+    stmts = [f for f in facts if str(g(f, "conduct_type") or "").upper() == "STATEMENT"]
+    if not stmts:
+        return
+    acts = [f for f in facts if str(g(f, "conduct_type") or "").upper() in ("ACT", "OMISSION")]
+    imp = important_facts if isinstance(important_facts, dict) else (important_facts.model_dump() if hasattr(important_facts, "model_dump") else {})
+    evidence = [str(x) for x in (imp.get("documents") or []) + (imp.get("witnesses") or []) if x]
+
+    def quote(f):
+        return f"{g(f, 'fact_id')} \"{g(f, 'verbatim_quote') or g(f, 'description') or ''}\""
+
+    for e in getattr(vo, "ingredient_evaluation", []) or []:
+        if _norm_status(e.status) != "PARTIALLY SATISFIED" or str(e.reason or "").startswith("Prosecution:"):
+            continue
+        ing = str(e.ingredient or "").lower()
+        if ing.startswith("causation"):
+            wanted = ("alternative causal",)
+        elif re.search(r"rash|negligen|intent|knowledge", ing):  # fault element: answered by compliance / denial
+            wanted = ("compliance", "denial")
+        elif "endanger" in ing:
+            wanted = ("alternative causal",)
+        else:
+            wanted = ()
+        defence = [f for f in stmts if any(w in str(g(f, "description") or "").lower() for w in wanted)] or stmts
+        prosecution = e.matched_fact or (quote(acts[0]) if acts else "the FIR allegation")
+        e.reason = (
+            f"Prosecution: {prosecution}"
+            + (f"; evidence: {', '.join(evidence)}" if evidence else "")
+            + f" | Defence: {'; '.join(quote(f) for f in defence)}"
+            + f" | To resolve: {', '.join(evidence) if evidence else 'evidence on this element'}"
+            + (f" | Assessment: {e.reason}" if e.reason else "")
+        )
 
 
 def _fact_coverage_recheck(vo, facts: List[Any], llm=None) -> List[str]:
@@ -482,6 +545,10 @@ class StatutoryVerificationAgent:
                 if not has_expanded:
                     expanded_ings.append(ing)
 
+            if expanded_ings and _RESULT_INGREDIENT_RE.search(" ".join(expanded_ings)) and not any(
+                    "caus" in i.lower() and "accused" in i.lower() for i in expanded_ings):
+                # A result offence needs the result to be caused by the accused's act, not merely to follow it.
+                expanded_ings.append(CAUSATION_INGREDIENT)
             if expanded_ings:
                 ings_formatted = "\n".join([f"      * Statutory Ingredient: {ing}" for ing in expanded_ings])
             elif clean_sec in STATUTORY_INGREDIENTS:
@@ -489,8 +556,17 @@ class StatutoryVerificationAgent:
             else:
                 ings_formatted = f"      * Statutory definition elements of Section {clean_sec} {vo.title}"
 
+            condition = next((n[len("CONDITION:"):].strip() for n in (getattr(vo, "verification_notes", None) or [])
+                              if str(n).startswith("CONDITION:")), "")
+            condition_line = (
+                f"    CONDITIONAL - this section was retrieved only on the condition: {condition}. Mark the ingredient "
+                f"that needs it 'Satisfied' only if a fact expressly alleges it (a general word such as 'injured' "
+                f"alleges hurt, not grievous hurt); otherwise mark it 'Missing'.\n"
+                if str(getattr(vo, "classification", "")).upper() == "CONDITIONAL" else ""
+            )
             stage3_sections.append(
                 f"  - Section {vo.section_number} IPC ({vo.title}):\n"
+                f"{condition_line}"
                 f"    Statutory Ingredients (evaluate EACH; copy its text verbatim into 'ingredient', including a "
                 f"trailing 'OR' that marks alternatives - only one alternative in such a run needs to be met; "
                 f"cite the supporting fact in 'matched_fact' or null if none):\n"
@@ -689,6 +765,11 @@ class StatutoryVerificationAgent:
             return s.strip().upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "")
 
         tier_by_sec = {_norm(vo.section_number): (vo.classification or "PRIMARY").upper() for vo in chap_obj.verified_offences}
+        condition_by_sec = {
+            _norm(vo.section_number): next((str(n)[len("CONDITION:"):].strip() for n in (vo.verification_notes or [])
+                                            if str(n).startswith("CONDITION:")), "")
+            for vo in chap_obj.verified_offences
+        }
         attracted_offences = []
         conditional_offences = []
         rejected_offences = []
@@ -699,9 +780,12 @@ class StatutoryVerificationAgent:
             for note in _fact_coverage_recheck(vo, facts_list, llm=self.llm):
                 if note not in statutory_obj.manual_review:
                     statutory_obj.manual_review.append(note)
-            for note in _infer_mental_elements(vo):
-                if note not in statutory_obj.manual_review:
-                    statutory_obj.manual_review.append(note)
+            mental_condition = bool(_MENTAL_CONDITION_RE.search(condition_by_sec.get(_norm(vo.section_number), "")))
+            if not mental_condition:
+                for note in _infer_mental_elements(vo):
+                    if note not in statutory_obj.manual_review:
+                        statutory_obj.manual_review.append(note)
+            _structure_disputed_reasons(vo, facts_list, getattr(query_obj, "important_facts", None))
             status, strength = _aggregate_ingredient_status(vo.ingredient_evaluation, vo.classification)
             if status != vo.overall_status:
                 note = f"Section {vo.section_number}: overall status set to '{status}' from ingredient statuses (LLM said '{vo.overall_status}')."
@@ -720,12 +804,37 @@ class StatutoryVerificationAgent:
                 if note not in statutory_obj.manual_review:
                     statutory_obj.manual_review.append(note)
                 conditional_offences.append(vo)
+            elif (vo.classification == "CONDITIONAL" and status in ("Prima Facie Attracted", "Partially Attracted")
+                  and not _MENTAL_CONDITION_RE.search(condition_by_sec.get(_norm(vo.section_number), ""))):
+                # A condition on intention / knowledge was set because Stage 1 found only rash or negligent conduct;
+                # no Stage 4 inference or "disputed" rating can meet it, so such sections never reach this branch.
+                # Every ingredient, including the one the condition was about, is met on the alleged facts.
+                note = f"Section {vo.section_number}: retrieved as CONDITIONAL; the facts meet the condition, so it is attracted."
+                if note not in statutory_obj.manual_review:
+                    statutory_obj.manual_review.append(note)
+                attracted_offences.append(vo)
             elif vo.classification == "CONDITIONAL":
                 conditional_offences.append(vo)
             elif status in ("Prima Facie Attracted", "Partially Attracted"):
                 attracted_offences.append(vo)
             else:
                 rejected_offences.append(vo)
+
+        # A residual provision ("not otherwise punishable") cannot be attracted alongside a specific provision
+        # that already punishes the same conduct; it is held as conditional on that being shown otherwise.
+        statute_db_all = StatuteRepository.get_instance().get_statute_db() or {}
+        specific = [vo.section_number for vo in attracted_offences if not _is_residual_provision(_norm(vo.section_number), statute_db_all)]
+        for vo in list(attracted_offences):
+            if specific and _is_residual_provision(_norm(vo.section_number), statute_db_all):
+                attracted_offences.remove(vo)
+                vo.overall_status = "Conditional (residual provision)"
+                vo.missing_mandatory_facts = list(vo.missing_mandatory_facts or []) + [
+                    f"Residual provision: applies only if no other provision punishes the conduct; "
+                    f"specific provisions already attracted: {', '.join(specific)}"]
+                note = f"Section {vo.section_number}: residual provision held CONDITIONAL because {', '.join(specific)} already attracted."
+                if note not in statutory_obj.manual_review:
+                    statutory_obj.manual_review.append(note)
+                conditional_offences.append(vo)
 
         statutory_obj.attracted_offences = attracted_offences
         statutory_obj.conditional_offences = conditional_offences
@@ -740,18 +849,20 @@ class StatutoryVerificationAgent:
         # Synchronize backward-compatible verified_sections from verified_offences
         if statutory_obj.verified_offences:
             from .schemas import VerifiedSectionItem
-            statutory_obj.verified_sections = [
-                VerifiedSectionItem(
+            synced = []
+            for vo in statutory_obj.verified_offences:
+                # Punishment from the First Schedule metadata, not a fixed "3 years" placeholder.
+                p_text, p_years, p_arnesh = parse_punishment_and_severity("", vo.section_number, "IPC")
+                synced.append(VerifiedSectionItem(
                     section_number=vo.section_number,
                     section_title=vo.title,
-                    punishment_text="Imprisonment as prescribed by law.",
-                    max_imprisonment_years=3.0,
-                    arnesh_kumar_threshold_exceeded=False,
+                    punishment_text=p_text,
+                    max_imprisonment_years=p_years,
+                    arnesh_kumar_threshold_exceeded=p_arnesh,
                     ingredients=vo.ingredients,
                     overall_confidence=vo.overall_confidence,
-                )
-                for vo in statutory_obj.verified_offences
-            ]
+                ))
+            statutory_obj.verified_sections = synced
 
         for v_sec in statutory_obj.verified_sections:
             if v_sec.overall_confidence < self.min_confidence_threshold:
@@ -762,12 +873,23 @@ class StatutoryVerificationAgent:
         statutory_obj.verified_sections.sort(key=lambda x: x.overall_confidence, reverse=True)
 
         # Attach pipeline_transition audit
+        def _gaps(vo) -> str:
+            g = [str(e.ingredient) for e in (vo.ingredient_evaluation or [])
+                 if _norm_status(e.status) in ("MISSING", "NOT SATISFIED", "CONTRADICTED", "UNKNOWN")]
+            return "; ".join(g) or (vo.overall_status or "")
+
         statutory_obj.pipeline_transition = {
             "stage": "STAGE_3_TO_STAGE_4",
             "source": "Stage 3 Chapter Identification",
             "stage3_input_sections": stage3_input_sections,
             "stage4_accepted_sections": stage4_accepted_secs,
-            "stage4_rejected_sections": stage4_dropped,
+            "stage4_conditional_sections": [
+                {"section_number": vo.section_number, "reason": f"Depends on: {_gaps(vo)}"} for vo in conditional_offences
+            ],
+            "stage4_rejected_sections": stage4_dropped + [
+                {"section_number": vo.section_number, "reason": f"Not attracted - missing: {_gaps(vo)}",
+                 "rejection_type": "NOT_ATTRACTED"} for vo in rejected_offences
+            ],
             "passing_to_stage5": stage4_accepted_secs,
         }
 

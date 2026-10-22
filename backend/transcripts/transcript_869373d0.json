@@ -1,0 +1,634 @@
+{
+  "session_id": "869373d0",
+  "case_id": "C:\\Users\\Ajinkya\\Desktop\\MootCourt\\backend\\data\\2007 INSC 272.pdf",
+  "round_no": 2,
+  "max_rounds": 2,
+  "case_facts": [
+    {
+      "id": "fact_1",
+      "text": "The case concerns the U.P. State Road Transport Corporation and the U.P. Rajya Sadak Pariyahan Karamchari Union.",
+      "source": "title page",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_2",
+      "text": "The Supreme Court decision was delivered on March 9, 2007, by Justice S. B. Sinha and Justice Markandey Katju.",
+      "source": "title page",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_3",
+      "text": "The matter arose under the U.P. Industrial Disputes Act, 1947 and the Industrial Employment (Standing Orders) Act, 1946.",
+      "source": "title page",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_4",
+      "text": "The respondent union filed an application before the Labour Court under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.",
+      "source": "paragraph 3",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_5",
+      "text": "The application sought a declaration that 15 persons appointed on contract basis as drivers and conductors be declared regular and substantive workmen of the U.P. State Road Transport Corporation, with consequential benefits.",
+      "source": "paragraph 3",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_6",
+      "text": "The Labour Court, Dehradun allowed the application by order dated September 19, 2001.",
+      "source": "paragraph 4",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_7",
+      "text": "The Labour Court directed that the concerned workmen be given minimum wages admissible to regular employees in the pay scales of drivers and conductors.",
+      "source": "paragraph 4",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_8",
+      "text": "The Labour Court held that the concerned workmen were employees of the Corporation.",
+      "source": "paragraph 4",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_9",
+      "text": "It was not disputed that the concerned workmen had been appointed on contract basis.",
+      "source": "paragraph 5",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_10",
+      "text": "The Corporation contended before the Labour Court that Rule 2 of the U.P.S.R.T.C. Employees (Other than Officers) Service Regulations, 1981 provides that the regulations do not apply to employees working on contract basis.",
+      "source": "paragraph 5",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_11",
+      "text": "Persons working on contract basis had earlier filed Writ Petition No. 41349 of 1999, Kanchi Lal and Others v. U.P.S.R.T.C., before the Allahabad High Court seeking the same benefits as regular employees, but that writ petition was dismissed.",
+      "source": "paragraph 5",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_12",
+      "text": "The Corporation's objection was rejected by the Labour Court, after which it filed a writ petition before the High Court.",
+      "source": "paragraph 5",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_13",
+      "text": "In the writ petition, the Corporation argued that the workmen had not been selected through the process required for appointment of regular employees and therefore could not be directed to receive the minimum pay scales of regular employees.",
+      "source": "paragraph 6",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_14",
+      "text": "The Corporation also argued that the Labour Court acted beyond its jurisdiction by granting relief under Section 11-C, because that provision permits only interpretation and application of a standing order and not the grant of substantive relief available only under the Industrial Disputes Act, 1947.",
+      "source": "paragraph 6",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_15",
+      "text": "The Court noted that the scope of Section 11-C is much narrower than the scope of a regular reference under Section 10 of the Industrial Disputes Act or Section 4-K of the U.P. Industrial Disputes Act.",
+      "source": "paragraph 7",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_16",
+      "text": "Section 11-C of the U.P. Industrial Disputes Act allows an employer or workman to refer a question regarding application or interpretation of a certified standing order to a Labour Court, whose decision is final and binding.",
+      "source": "paragraph 8",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_17",
+      "text": "Section 13-A of the Industrial Employment (Standing Orders) Act, 1946 similarly allows reference of questions regarding application or interpretation of a certified standing order to a Labour Court constituted under the Industrial Disputes Act, 1947.",
+      "source": "paragraph 9",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_18",
+      "text": "The Court held that the power of the Labour Court under Section 11-C of the U.P. Industrial Disputes Act and under Section 13-A of the Industrial Employment (Standing Orders) Act is much narrower than the power of the Labour Court on a reference under Section 10 of the Industrial Disputes Act, corresponding to Section 4-K of the U.P. Industrial Disputes Act.",
+      "source": "paragraph 10",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_19",
+      "text": "The Court held that the Labour Court could not have granted the relief given by its order dated September 19, 2001, because such relief could only have been granted on a regular reference under Section 4-K of the U.P. Industrial Disputes Act or under Section 10 of the Industrial Disputes Act.",
+      "source": "paragraph 11",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_20",
+      "text": "The Court observed that the Labour Court's order did not refer to any standing order of the appellant Corporation and instead referred to Rule 2 of the 1981 Regulations.",
+      "source": "paragraph 12",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_21",
+      "text": "Rule 2 of the 1981 Regulations clearly provides that the Regulations do not apply to employees engaged on contract basis.",
+      "source": "paragraph 12",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_22",
+      "text": "The Court held that the Labour Court cannot amend the Regulations while hearing an application under Section 11-C.",
+      "source": "paragraph 12",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_23",
+      "text": "The Court stated that the scope of Section 11-C is limited to deciding questions arising out of the application or interpretation of a standing order and that the Labour Court cannot go beyond that scope.",
+      "source": "paragraph 13",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_24",
+      "text": "The Supreme Court allowed the appeals.",
+      "source": "paragraph 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_25",
+      "text": "The Supreme Court set aside the High Court judgment and the Labour Court order dated September 19, 2001.",
+      "source": "paragraph 14",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_26",
+      "text": "The Court held that the concerned workmen may raise their grievances before the competent authority under Section 4-K of the U.P. Industrial Disputes Act or under Section 10 of the Industrial Disputes Act, as applicable.",
+      "source": "paragraph 14",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_27",
+      "text": "The Court expressed the hope that if the State Government refers such a dispute to the Labour Court or Tribunal, it will be decided expeditiously.",
+      "source": "paragraph 14",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_28",
+      "text": "The Supreme Court made no order as to costs.",
+      "source": "paragraph 14",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_29",
+      "text": "The civil appeal number was Civil Appeal No. 1235 of 2007, with connected Civil Appeal Nos. 1236, 1237, and 1238 of 2007.",
+      "source": "caption",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_30",
+      "text": "The impugned High Court judgment and order were dated September 6, 2005, passed by the High Court of Uttaranchal at Nainital in Writ Petition No. 774 of 2002 (M/S).",
+      "source": "caption",
+      "type": "procedural_event"
+    }
+  ],
+  "evidence_inventory": [
+    {
+      "item": "labour_court_application",
+      "status": "present",
+      "details": "The union filed an application under Section 11-C of the U.P. Industrial Disputes Act read with Section 13-A of the Industrial Employment (Standing Orders) Act seeking declaration of 15 contract drivers and conductors as regular workmen with consequential benefits."
+    },
+    {
+      "item": "labour_court_order",
+      "status": "present",
+      "details": "By order dated 19 September 2001, the Labour Court, Dehradun allowed the application and held the concerned workmen to be employees of the Corporation."
+    },
+    {
+      "item": "writ_petition",
+      "status": "present",
+      "details": "The Corporation challenged the Labour Court order before the High Court by filing Writ Petition No. 774 of 2002 (M/S)."
+    },
+    {
+      "item": "high_court_judgment",
+      "status": "present",
+      "details": "The High Court of Uttaranchal at Nainital dismissed or affirmed the Labour Court relief by judgment dated 6 September 2005, which was later set aside by the Supreme Court."
+    },
+    {
+      "item": "supreme_court_judgment",
+      "status": "present",
+      "details": "The Supreme Court in Civil Appeal Nos. 1235 to 1238 of 2007 allowed the appeals on 9 March 2007 and set aside both the High Court and Labour Court orders."
+    },
+    {
+      "item": "contract_appointment_status",
+      "status": "present",
+      "details": "It was not disputed that the concerned workmen had been appointed on contract basis as drivers and conductors."
+    },
+    {
+      "item": "rule_2_1981_regulations",
+      "status": "present",
+      "details": "The Corporation relied on Rule 2 of the U.P.S.R.T.C. Employees (Other than Officers) Service Regulations, 1981, which excludes employees engaged on contract basis from the Regulations."
+    },
+    {
+      "item": "previous_high_court_writ",
+      "status": "present",
+      "details": "The Corporation referred to earlier Writ Petition No. 41349 of 1999, Kanchi Lal and Others v. U.P.S.R.T.C., which had sought similar benefits and was dismissed."
+    },
+    {
+      "item": "section_11c_section_13a_scope_issue",
+      "status": "present",
+      "details": "The core legal issue was whether the Labour Court, acting under Section 11-C and Section 13-A, could grant substantive relief such as regularization and minimum pay scales."
+    },
+    {
+      "item": "standing_order_or_certified_standing_order",
+      "status": "not_on_record",
+      "details": "No certified standing order of the Corporation was identified in the record; the Court noted the Labour Court relied on Rule 2 of the 1981 Regulations instead."
+    },
+    {
+      "item": "medical_report",
+      "status": "not_on_record",
+      "details": "No medical or injury-related evidence is involved in this industrial dispute record."
+    },
+    {
+      "item": "cctv_footage",
+      "status": "not_on_record",
+      "details": "No CCTV, electronic surveillance, or similar factual evidence is mentioned in the record."
+    }
+  ],
+  "transcript": [
+    {
+      "turn_no": 1,
+      "speaker": "prosecutor",
+      "round_no": 1,
+      "content": "### Legal Theory\nMay it please the Court, I strongly oppose this application for anticipatory bail. Section 438 CrPC is an extraordinary and discretionary remedy, to be granted only in exceptional cases, and the verified record before this Court discloses no such exceptional circumstance.\n\n### Submissions\n1. The material here is clear. The respondent union filed an application under **Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946**, seeking a declaration that **15 persons appointed on contract basis as drivers and conductors** should be treated as regular and substantive workmen with consequential benefits. The Labour Court allowed that application and even directed minimum wages admissible to regular employees. But the Supreme Court has already held in this very matter that the scope of **Section 11-C** is much narrower than a regular reference under **Section 10 of the Industrial Disputes Act** or **Section 4-K of the U.P. Industrial Disputes Act**. It also held that the Labour Court could not grant the relief it did, because the order was based on **Rule 2 of the 1981 Regulations**, which clearly excludes contract employees, and the Labour Court had no power to amend those Regulations in a Section 11-C proceeding.\n2. So the core point is this: the underlying order was beyond the limited statutory jurisdiction invoked. A party cannot seek to convert that narrow interpretative jurisdiction into a route for substantive regularization, and then ask this Court to extend the extraordinary protection of anticipatory bail as if the statutory limits did not exist.\n3. I fairly state that the record does not disclose arrest, proclamation, recovery, or other facts warranting a custodial-interrogation submission, and I do not overstate that ground. But even without that, the applicant has shown no exceptional circumstance to justify pre-arrest protection.\n4. In view of the gravity of the statutory overreach, the binding holdings already recorded in this very matter, and the absence of any exceptional circumstance, the prosecution humbly prays that this Anticipatory Bail application be rejected.\n- **Section 438 CrPC** — anticipatory bail; extraordinary discretionary relief.\n- **Section 11-C, U.P. Industrial Disputes Act, 1947** — reference confined to questions regarding application or interpretation of a standing order; decision final and binding.\n- **Section 13-A, Industrial Employment (Standing Orders) Act, 1946** — similar limited reference on application or interpretation of a certified standing order.\n- **Section 10, Industrial Disputes Act, 1947** — regular reference mechanism, broader than Section 11-C / 13-A.\n- **Section 4-K, U.P. Industrial Disputes Act, 1947** — corresponding regular reference provision under the U.P. Act, broader than Section 11-C.\n- **Rule 2, U.P.S.R.T.C. Employees (Other than Officers) Service Regulations, 1981** — expressly excludes employees engaged on contract basis.\n- **Section 11-C / Section 13-A scope limit** — only application/interpretation of a standing order; not substantive regularization or amendment of service rules.\n- No verified POCSO, Dowry Prohibition Act, IPC, or IEA presumptive provisions arise on this record.\nThe verified facts show that the union sought a declaration treating **15 contract drivers and conductors** as regular and substantive workmen with consequential benefits. It is undisputed that they were **appointed on contract basis**, and the Corporation had specifically relied on **Rule 2 of the 1981 Regulations**, which excludes contract employees. The Labour Court nevertheless granted relief on **19 September 2001**, but the Supreme Court has already held in this very matter that such relief was beyond the scope of **Section 11-C** and **Section 13-A**.\n5. That matters for anticipatory bail because the applicant is asking this Court to extend pre-arrest protection despite a record showing a **jurisdictional transgression** by the very forum whose order was challenged. The Supreme Court’s own findings establish that the Labour Court was not dealing with a certified standing order at all; it relied on the Regulations and could not amend them in Section 11-C proceedings. Therefore, the applicant cannot invoke equity as though the underlying action was legally regular.\n6. I must fairly note that the present record does **not** contain facts of arrest, warrant evasion, proclamation, recovery, or any other material to support a custodial-interrogation submission. So the prosecution does **not** overclaim that ground. Even so, the absence of any exceptional circumstance, coupled with the Supreme Court’s findings that the impugned relief was beyond jurisdiction, makes this a poor case for Section 438 protection.\n\n### Evidence References\n- **[fact_1]**: The case concerns the U.P. State Road Transport Corporation and the U.P. Rajya Sadak Pariyahan Karamchari Union.\n- **[fact_2]**: The Supreme Court decision was delivered on March 9, 2007, by Justice S. B. Sinha and Justice Markandey Katju.\n- **[fact_3]**: The matter arose under the U.P. Industrial Disputes Act, 1947 and the Industrial Employment (Standing Orders) Act, 1946.\n- **[fact_4]**: The respondent union filed an application before the Labour Court under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n- **[fact_5]**: The application sought a declaration that 15 persons appointed on contract basis as drivers and conductors be declared regular and substantive workmen of the U.P. State Road Transport Corporation, with consequential benefits.\n- **[fact_6]**: The Labour Court, Dehradun allowed the application by order dated September 19, 2001.\n- **[fact_7]**: The Labour Court directed that the concerned workmen be given minimum wages admissible to regular employees in the pay scales of drivers and conductors.\n- **[fact_9]**: It was not disputed that the concerned workmen had been appointed on contract basis.\n- **[fact_10]**: The Corporation contended before the Labour Court that Rule 2 of the U.P.S.R.T.C. Employees (Other than Officers) Service Regulations, 1981 provides that the regulations do not apply to employees working on contract basis.\n- **[fact_11]**: Persons working on contract basis had earlier filed Writ Petition No. 41349 of 1999, Kanchi Lal and Others v. U.P.S.R.T.C., before the Allahabad High Court seeking the same benefits as regular employees, but that writ petition was dismissed.\n- **[fact_12]**: The Corporation's objection was rejected by the Labour Court, after which it filed a writ petition before the High Court.\n- **[fact_13]**: In the writ petition, the Corporation argued that the workmen had not been selected through the process required for appointment of regular employees and therefore could not be directed to receive the minimum pay scales of regular employees.\n- **[fact_14]**: The Corporation also argued that the Labour Court acted beyond its jurisdiction by granting relief under Section 11-C, because that provision permits only interpretation and application of a standing order and not the grant of substantive relief available only under the Industrial Disputes Act, 1947.\n- **[fact_24]**: The Supreme Court allowed the appeals.\n- **[fact_28]**: The Supreme Court made no order as to costs.\n- **[fact_30]**: The impugned High Court judgment and order were dated September 6, 2005, passed by the High Court of Uttaranchal at Nainital in Writ Petition No. 774 of 2002 (M/S).\n\n### Statutory Provisions\n- CrPC 438\n- IPC 11\n- IPC 13\n- IPC 10",
+      "citations": [
+        "CrPC 438",
+        "IPC 11",
+        "IPC 13",
+        "IPC 10"
+      ],
+      "evidence_refs": [
+        "fact_1",
+        "fact_2",
+        "fact_3",
+        "fact_4",
+        "fact_5",
+        "fact_6",
+        "fact_7",
+        "fact_9",
+        "fact_10",
+        "fact_11",
+        "fact_12",
+        "fact_13",
+        "fact_14",
+        "fact_24",
+        "fact_28",
+        "fact_30"
+      ],
+      "structured_argument": {
+        "theory": "May it please the Court, I strongly oppose this application for anticipatory bail. Section 438 CrPC is an extraordinary and discretionary remedy, to be granted only in exceptional cases, and the verified record before this Court discloses no such exceptional circumstance.",
+        "arguments": [
+          "The material here is clear. The respondent union filed an application under **Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946**, seeking a declaration that **15 persons appointed on contract basis as drivers and conductors** should be treated as regular and substantive workmen with consequential benefits. The Labour Court allowed that application and even directed minimum wages admissible to regular employees. But the Supreme Court has already held in this very matter that the scope of **Section 11-C** is much narrower than a regular reference under **Section 10 of the Industrial Disputes Act** or **Section 4-K of the U.P. Industrial Disputes Act**. It also held that the Labour Court could not grant the relief it did, because the order was based on **Rule 2 of the 1981 Regulations**, which clearly excludes contract employees, and the Labour Court had no power to amend those Regulations in a Section 11-C proceeding.",
+          "So the core point is this: the underlying order was beyond the limited statutory jurisdiction invoked. A party cannot seek to convert that narrow interpretative jurisdiction into a route for substantive regularization, and then ask this Court to extend the extraordinary protection of anticipatory bail as if the statutory limits did not exist.",
+          "I fairly state that the record does not disclose arrest, proclamation, recovery, or other facts warranting a custodial-interrogation submission, and I do not overstate that ground. But even without that, the applicant has shown no exceptional circumstance to justify pre-arrest protection.",
+          "In view of the gravity of the statutory overreach, the binding holdings already recorded in this very matter, and the absence of any exceptional circumstance, the prosecution humbly prays that this Anticipatory Bail application be rejected.",
+          "- **Section 438 CrPC** — anticipatory bail; extraordinary discretionary relief.",
+          "- **Section 11-C, U.P. Industrial Disputes Act, 1947** — reference confined to questions regarding application or interpretation of a standing order; decision final and binding.",
+          "- **Section 13-A, Industrial Employment (Standing Orders) Act, 1946** — similar limited reference on application or interpretation of a certified standing order.",
+          "- **Section 10, Industrial Disputes Act, 1947** — regular reference mechanism, broader than Section 11-C / 13-A.",
+          "- **Section 4-K, U.P. Industrial Disputes Act, 1947** — corresponding regular reference provision under the U.P. Act, broader than Section 11-C.",
+          "- **Rule 2, U.P.S.R.T.C. Employees (Other than Officers) Service Regulations, 1981** — expressly excludes employees engaged on contract basis.",
+          "- **Section 11-C / Section 13-A scope limit** — only application/interpretation of a standing order; not substantive regularization or amendment of service rules.",
+          "- No verified POCSO, Dowry Prohibition Act, IPC, or IEA presumptive provisions arise on this record.",
+          "The verified facts show that the union sought a declaration treating **15 contract drivers and conductors** as regular and substantive workmen with consequential benefits. It is undisputed that they were **appointed on contract basis**, and the Corporation had specifically relied on **Rule 2 of the 1981 Regulations**, which excludes contract employees. The Labour Court nevertheless granted relief on **19 September 2001**, but the Supreme Court has already held in this very matter that such relief was beyond the scope of **Section 11-C** and **Section 13-A**.",
+          "That matters for anticipatory bail because the applicant is asking this Court to extend pre-arrest protection despite a record showing a **jurisdictional transgression** by the very forum whose order was challenged. The Supreme Court’s own findings establish that the Labour Court was not dealing with a certified standing order at all; it relied on the Regulations and could not amend them in Section 11-C proceedings. Therefore, the applicant cannot invoke equity as though the underlying action was legally regular.",
+          "I must fairly note that the present record does **not** contain facts of arrest, warrant evasion, proclamation, recovery, or any other material to support a custodial-interrogation submission. So the prosecution does **not** overclaim that ground. Even so, the absence of any exceptional circumstance, coupled with the Supreme Court’s findings that the impugned relief was beyond jurisdiction, makes this a poor case for Section 438 protection."
+        ],
+        "evidence_refs": [
+          "fact_1",
+          "fact_2",
+          "fact_3",
+          "fact_4",
+          "fact_5",
+          "fact_6",
+          "fact_7",
+          "fact_9",
+          "fact_10",
+          "fact_11",
+          "fact_12",
+          "fact_13",
+          "fact_14",
+          "fact_24",
+          "fact_28",
+          "fact_30"
+        ],
+        "sections": [
+          "CrPC 438",
+          "IPC 11",
+          "IPC 13",
+          "IPC 10"
+        ]
+      },
+      "grounded": true,
+      "unverified": []
+    },
+    {
+      "turn_no": 2,
+      "speaker": "defense",
+      "round_no": 1,
+      "content": "### Legal Theory\nNo exceptional ground exists for pre-arrest protection under CrPC 438; the underlying dispute is civil-industrial in nature, and the Supreme Court has already held that the Labour Court’s relief was beyond the limited jurisdiction under Section 11-C / Section 13-A, so the prosecution cannot rely on any custodial necessity or criminal mens rea.\n\n### Submissions\n1. The applicant is entitled to resist the prosecution’s overstatement because the record shows only an industrial dispute concerning 15 contract drivers and conductors, not any arrest-worthy criminal conduct: the union invoked Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946, sought regularization and consequential benefits, and the Labour Court granted that relief; however, the Supreme Court later held that this jurisdiction was much narrower and could not be used to grant substantive relief or amend the Regulations ([fact_4], [fact_5], [fact_6], [fact_14], [fact_24]).\n2. The record before the court does not contain any material showing arrest, warrant evasion, proclamation, recovery, or any custodial-interrogation necessity; the prosecution itself fairly concedes that point, and therefore its case for anticipatory bail must stand or fall only on the existence of some exceptional circumstance, which is absent on this record ([fact_24], [fact_28]).\n3. Even on the prosecution’s own legal theory, no criminal mens rea is established: the materials concern appointment status, pay scale, and the scope of Section 11-C / Section 13-A, while it is undisputed that the workmen were appointed on contract basis and Rule 2 of the 1981 Regulations excluded such employees. That may raise a jurisdictional or service-law dispute, but it does not disclose the ingredients of any IPC offence or any intention to commit a penal wrong, and the Supreme Court’s decision only set aside the relief as ultra vires the limited statutory route ([fact_9], [fact_10], [fact_13], [fact_14], [fact_24]).\n\n### Evidence References\n- **[fact_4]**: The respondent union filed an application before the Labour Court under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n- **[fact_5]**: The application sought a declaration that 15 persons appointed on contract basis as drivers and conductors be declared regular and substantive workmen of the U.P. State Road Transport Corporation, with consequential benefits.\n- **[fact_6]**: The Labour Court, Dehradun allowed the application by order dated September 19, 2001.\n- **[fact_9]**: It was not disputed that the concerned workmen had been appointed on contract basis.\n- **[fact_10]**: The Corporation contended before the Labour Court that Rule 2 of the U.P.S.R.T.C. Employees (Other than Officers) Service Regulations, 1981 provides that the regulations do not apply to employees working on contract basis.\n- **[fact_14]**: The Corporation also argued that the Labour Court acted beyond its jurisdiction by granting relief under Section 11-C, because that provision permits only interpretation and application of a standing order and not the grant of substantive relief available only under the Industrial Disputes Act, 1947.\n- **[fact_24]**: The Supreme Court allowed the appeals.\n- **[fact_28]**: The Supreme Court made no order as to costs.\n\n### Statutory Provisions\n- CrPC 438\n- U.P. Industrial Disputes Act, 1947 Section 11-C\n- Industrial Employment (Standing Orders) Act, 1946 Section 13-A",
+      "citations": [
+        "CrPC 438",
+        "IPC 11",
+        "IPC 13"
+      ],
+      "evidence_refs": [
+        "fact_4",
+        "fact_5",
+        "fact_6",
+        "fact_14",
+        "fact_24",
+        "fact_28",
+        "fact_9",
+        "fact_10",
+        "fact_13"
+      ],
+      "structured_argument": {
+        "theory": "No exceptional ground exists for pre-arrest protection under CrPC 438; the underlying dispute is civil-industrial in nature, and the Supreme Court has already held that the Labour Court’s relief was beyond the limited jurisdiction under Section 11-C / Section 13-A, so the prosecution cannot rely on any custodial necessity or criminal mens rea.",
+        "arguments": [
+          "The applicant is entitled to resist the prosecution’s overstatement because the record shows only an industrial dispute concerning 15 contract drivers and conductors, not any arrest-worthy criminal conduct: the union invoked Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946, sought regularization and consequential benefits, and the Labour Court granted that relief; however, the Supreme Court later held that this jurisdiction was much narrower and could not be used to grant substantive relief or amend the Regulations ([fact_4], [fact_5], [fact_6], [fact_14], [fact_24]).",
+          "The record before the court does not contain any material showing arrest, warrant evasion, proclamation, recovery, or any custodial-interrogation necessity; the prosecution itself fairly concedes that point, and therefore its case for anticipatory bail must stand or fall only on the existence of some exceptional circumstance, which is absent on this record ([fact_24], [fact_28]).",
+          "Even on the prosecution’s own legal theory, no criminal mens rea is established: the materials concern appointment status, pay scale, and the scope of Section 11-C / Section 13-A, while it is undisputed that the workmen were appointed on contract basis and Rule 2 of the 1981 Regulations excluded such employees. That may raise a jurisdictional or service-law dispute, but it does not disclose the ingredients of any IPC offence or any intention to commit a penal wrong, and the Supreme Court’s decision only set aside the relief as ultra vires the limited statutory route ([fact_9], [fact_10], [fact_13], [fact_14], [fact_24])."
+        ],
+        "evidence_refs": [
+          "fact_4",
+          "fact_5",
+          "fact_6",
+          "fact_14",
+          "fact_24",
+          "fact_28",
+          "fact_9",
+          "fact_10",
+          "fact_13"
+        ],
+        "sections": [
+          "CrPC 438",
+          "IPC 11",
+          "IPC 13"
+        ]
+      },
+      "grounded": true,
+      "unverified": []
+    },
+    {
+      "turn_no": 3,
+      "speaker": "accused",
+      "round_no": 1,
+      "content": "No, there is no verified material on record showing any arrest, warrant evasion, proclamation under Section 82 CrPC, or any other custodial necessity. This case concerns service and labour disputes about contract drivers and conductors, and the record only deals with the Labour Court and High Court orders.",
+      "citations": [],
+      "evidence_refs": [],
+      "structured_argument": {
+        "theory": "No, there is no verified material on record showing any arrest, warrant evasion, proclamation under Section 82 CrPC, or any other custodial necessity. This case concerns service and labour disputes about contract drivers and conductors, and the record only deals with the Labour Court and High Court orders.",
+        "arguments": [
+          "No, there is no verified material on record showing any arrest, warrant evasion, proclamation under Section 82 CrPC, or any other custodial necessity. This case concerns service and labour disputes about contract drivers and conductors, and the record only deals with the Labour Court and High Court orders."
+        ],
+        "evidence_refs": [],
+        "sections": [
+          "CrPC 82"
+        ]
+      },
+      "grounded": true,
+      "unverified": []
+    },
+    {
+      "turn_no": 4,
+      "speaker": "prosecutor",
+      "round_no": 2,
+      "content": "### Legal Theory\nMay it please the Court, the submissions of my learned friend for the defense do not survive scrutiny.\n\n### Submissions\n1. First, the attempt to recast this as a purely benign service dispute ignores the controlling point already decided in this very matter: the Supreme Court held that the Labour Court’s power under Section 11-C and Section 13-A is much narrower than a regular industrial reference, and that the relief actually granted could only have come through Section 4-K or Section 10. So the defense cannot use the very statutory overreach that was condemned by the Supreme Court as a reason to seek the extraordinary shield of Section 438 CrPC.\n2. Second, I do not dispute that the present record does not show warrant evasion or proclamation; but that concession cuts against the defense, not in its favour. If there is no custody issue, no recovery issue, and no exceptional factual circumstance, then the applicant has not crossed the high threshold for pre-arrest bail. Section 438 is not an entitlement.\n3. Third, the argument that there is “no mens rea” simply misses the legal question. The problem here is not a penal ingredient analysis; it is that the forum invoked was misused to obtain substantive relief beyond its authority, despite Rule 2 of the 1981 Regulations excluding contract employees. That is precisely why the Supreme Court set aside the orders below.\n4. The prayer for anticipatory bail must therefore be rejected.\n- **Section 438 CrPC** — anticipatory bail; an extraordinary discretionary remedy.\n- **Section 11-C, U.P. Industrial Disputes Act, 1947** — reference limited to questions regarding application/interpretation of a standing order; final and binding decision of Labour Court.\n- **Section 13-A, Industrial Employment (Standing Orders) Act, 1946** — similar limited reference on application/interpretation of a certified standing order to the Labour Court.\n- **Section 10, Industrial Disputes Act, 1947** — regular industrial reference, materially wider than Section 11-C / Section 13-A.\n- **Section 4-K, U.P. Industrial Disputes Act, 1947** — corresponding regular reference provision, wider than Section 11-C.\n- **Rule 2 of the U.P.S.R.T.C. Employees (Other than Officers) Service Regulations, 1981** — regulations do not apply to employees engaged on contract basis.\nThe facts show a dispute of a very limited character: 15 contract drivers and conductors sought declaration as regular workmen with consequential benefits through Section 11-C read with Section 13-A. The Labour Court granted that relief, but the Supreme Court has already held in this very matter that the Labour Court exceeded the narrow remit of those provisions, since such relief could only be granted on a regular reference under Section 4-K of the U.P. Industrial Disputes Act or Section 10 of the Industrial Disputes Act.\n5. That finding is important for two reasons. First, it shows that the underlying order was jurisdictionally unsound; this is not the kind of exceptional factual matrix that attracts Section 438 CrPC. Second, the verified record does not contain any arrest-related facts, any warrant evasion, any proclamation, or any specific recovery issue. So the defense cannot credibly invoke custody-based necessity, because there is no case-specific material showing why interrogation requires detention. The prosecution therefore stands on the stronger ground: the applicant is seeking extraordinary pre-arrest protection in a matter where the Supreme Court has already said the Labour Court could not grant the relief at all under the limited procedure invoked.\n6. The record also shows that Rule 2 of the 1981 Regulations excludes contract employees. The Labour Court nevertheless granted relief as though it could override that exclusion, and the Supreme Court expressly held that it could not amend the Regulations in a Section 11-C proceeding. That statutory boundary, not any criminal urgency, defines the case.\n\n### Evidence References\n- **[fact_1]**: The case concerns the U.P. State Road Transport Corporation and the U.P. Rajya Sadak Pariyahan Karamchari Union.\n- **[fact_2]**: The Supreme Court decision was delivered on March 9, 2007, by Justice S. B. Sinha and Justice Markandey Katju.\n- **[fact_3]**: The matter arose under the U.P. Industrial Disputes Act, 1947 and the Industrial Employment (Standing Orders) Act, 1946.\n- **[fact_4]**: The respondent union filed an application before the Labour Court under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n- **[fact_5]**: The application sought a declaration that 15 persons appointed on contract basis as drivers and conductors be declared regular and substantive workmen of the U.P. State Road Transport Corporation, with consequential benefits.\n- **[fact_6]**: The Labour Court, Dehradun allowed the application by order dated September 19, 2001.\n- **[fact_7]**: The Labour Court directed that the concerned workmen be given minimum wages admissible to regular employees in the pay scales of drivers and conductors.\n- **[fact_9]**: It was not disputed that the concerned workmen had been appointed on contract basis.\n- **[fact_10]**: The Corporation contended before the Labour Court that Rule 2 of the U.P.S.R.T.C. Employees (Other than Officers) Service Regulations, 1981 provides that the regulations do not apply to employees working on contract basis.\n- **[fact_11]**: Persons working on contract basis had earlier filed Writ Petition No. 41349 of 1999, Kanchi Lal and Others v. U.P.S.R.T.C., before the Allahabad High Court seeking the same benefits as regular employees, but that writ petition was dismissed.\n- **[fact_12]**: The Corporation's objection was rejected by the Labour Court, after which it filed a writ petition before the High Court.\n- **[fact_13]**: In the writ petition, the Corporation argued that the workmen had not been selected through the process required for appointment of regular employees and therefore could not be directed to receive the minimum pay scales of regular employees.\n- **[fact_14]**: The Corporation also argued that the Labour Court acted beyond its jurisdiction by granting relief under Section 11-C, because that provision permits only interpretation and application of a standing order and not the grant of substantive relief available only under the Industrial Disputes Act, 1947.\n- **[fact_24]**: The Supreme Court allowed the appeals.\n- **[fact_28]**: The Supreme Court made no order as to costs.\n- **[fact_30]**: The impugned High Court judgment and order were dated September 6, 2005, passed by the High Court of Uttaranchal at Nainital in Writ Petition No. 774 of 2002 (M/S).\n\n### Statutory Provisions\n- CrPC 438\n- IPC 11\n- IPC 13\n- IPC 10",
+      "citations": [
+        "CrPC 438",
+        "IPC 11",
+        "IPC 13",
+        "IPC 10"
+      ],
+      "evidence_refs": [
+        "fact_1",
+        "fact_2",
+        "fact_3",
+        "fact_4",
+        "fact_5",
+        "fact_6",
+        "fact_7",
+        "fact_9",
+        "fact_10",
+        "fact_11",
+        "fact_12",
+        "fact_13",
+        "fact_14",
+        "fact_24",
+        "fact_28",
+        "fact_30"
+      ],
+      "structured_argument": {
+        "theory": "May it please the Court, the submissions of my learned friend for the defense do not survive scrutiny.",
+        "arguments": [
+          "First, the attempt to recast this as a purely benign service dispute ignores the controlling point already decided in this very matter: the Supreme Court held that the Labour Court’s power under Section 11-C and Section 13-A is much narrower than a regular industrial reference, and that the relief actually granted could only have come through Section 4-K or Section 10. So the defense cannot use the very statutory overreach that was condemned by the Supreme Court as a reason to seek the extraordinary shield of Section 438 CrPC.",
+          "Second, I do not dispute that the present record does not show warrant evasion or proclamation; but that concession cuts against the defense, not in its favour. If there is no custody issue, no recovery issue, and no exceptional factual circumstance, then the applicant has not crossed the high threshold for pre-arrest bail. Section 438 is not an entitlement.",
+          "Third, the argument that there is “no mens rea” simply misses the legal question. The problem here is not a penal ingredient analysis; it is that the forum invoked was misused to obtain substantive relief beyond its authority, despite Rule 2 of the 1981 Regulations excluding contract employees. That is precisely why the Supreme Court set aside the orders below.",
+          "The prayer for anticipatory bail must therefore be rejected.",
+          "- **Section 438 CrPC** — anticipatory bail; an extraordinary discretionary remedy.",
+          "- **Section 11-C, U.P. Industrial Disputes Act, 1947** — reference limited to questions regarding application/interpretation of a standing order; final and binding decision of Labour Court.",
+          "- **Section 13-A, Industrial Employment (Standing Orders) Act, 1946** — similar limited reference on application/interpretation of a certified standing order to the Labour Court.",
+          "- **Section 10, Industrial Disputes Act, 1947** — regular industrial reference, materially wider than Section 11-C / Section 13-A.",
+          "- **Section 4-K, U.P. Industrial Disputes Act, 1947** — corresponding regular reference provision, wider than Section 11-C.",
+          "- **Rule 2 of the U.P.S.R.T.C. Employees (Other than Officers) Service Regulations, 1981** — regulations do not apply to employees engaged on contract basis.",
+          "The facts show a dispute of a very limited character: 15 contract drivers and conductors sought declaration as regular workmen with consequential benefits through Section 11-C read with Section 13-A. The Labour Court granted that relief, but the Supreme Court has already held in this very matter that the Labour Court exceeded the narrow remit of those provisions, since such relief could only be granted on a regular reference under Section 4-K of the U.P. Industrial Disputes Act or Section 10 of the Industrial Disputes Act.",
+          "That finding is important for two reasons. First, it shows that the underlying order was jurisdictionally unsound; this is not the kind of exceptional factual matrix that attracts Section 438 CrPC. Second, the verified record does not contain any arrest-related facts, any warrant evasion, any proclamation, or any specific recovery issue. So the defense cannot credibly invoke custody-based necessity, because there is no case-specific material showing why interrogation requires detention. The prosecution therefore stands on the stronger ground: the applicant is seeking extraordinary pre-arrest protection in a matter where the Supreme Court has already said the Labour Court could not grant the relief at all under the limited procedure invoked.",
+          "The record also shows that Rule 2 of the 1981 Regulations excludes contract employees. The Labour Court nevertheless granted relief as though it could override that exclusion, and the Supreme Court expressly held that it could not amend the Regulations in a Section 11-C proceeding. That statutory boundary, not any criminal urgency, defines the case."
+        ],
+        "evidence_refs": [
+          "fact_1",
+          "fact_2",
+          "fact_3",
+          "fact_4",
+          "fact_5",
+          "fact_6",
+          "fact_7",
+          "fact_9",
+          "fact_10",
+          "fact_11",
+          "fact_12",
+          "fact_13",
+          "fact_14",
+          "fact_24",
+          "fact_28",
+          "fact_30"
+        ],
+        "sections": [
+          "CrPC 438",
+          "IPC 11",
+          "IPC 13",
+          "IPC 10"
+        ]
+      },
+      "grounded": true,
+      "unverified": []
+    },
+    {
+      "turn_no": 5,
+      "speaker": "defense",
+      "round_no": 2,
+      "content": "### Legal Theory\nThe present record discloses a service-law jurisdictional dispute, not a case showing any custody necessity or exceptional grounds for pre-arrest protection; the prosecution’s own reliance on the Supreme Court judgment actually confirms that the Labour Court’s order was set aside for want of jurisdiction under the limited proceedings invoked.\n\n### Submissions\n1. The prosecution’s core point cuts both ways: the Supreme Court in this very matter held that the Labour Court’s power under Section 11-C of the U.P. Industrial Disputes Act, 1947 and Section 13-A of the Industrial Employment (Standing Orders) Act, 1946 was narrower than a regular reference under Section 4-K of the U.P. Industrial Disputes Act, 1947 or Section 10 of the Industrial Disputes Act, 1947, and that the relief granted could not validly be issued in those proceedings [fact_14], [fact_18], [fact_19], [fact_25]. That jurisdictional defect, however, is not the same as material showing any criminal necessity for custodial interrogation or any exceptional ground under CrPC 438.\n2. The record before the court does not contain any arrest-related facts, any warrant evasion, any proclamation, any recovery issue, or any other circumstance showing why pre-arrest custody is necessary; the prosecution itself concedes the absence of such material. On the evidence inventory, cctv_footage is not on record and no medical or injury-related evidence is involved [fact_1], [fact_24]. In that situation, the applicant’s request under CrPC 438 must be tested on the strict threshold for anticipatory bail, and the prosecution has not pointed to any case-specific material satisfying that threshold.\n3. Even on the service dispute as pleaded, the record shows that the workmen were admittedly contract employees [fact_9], and the Corporation relied on Rule 2 of the 1981 Regulations excluding contract basis employees [fact_10], [fact_21]. The Labour Court nevertheless granted substantive relief beyond the limited remit of Section 11-C / Section 13-A [fact_6], [fact_7], [fact_14]. That supports the Supreme Court’s jurisdictional correction, but it does not establish any mens rea or ingredient relevant to CrPC 438; instead, it confirms that the controversy is about the proper forum and statutory route, not any conduct justifying denial of pre-arrest protection on criminal principles.\n\n### Evidence References\n- **[fact_9]**: It was not disputed that the concerned workmen had been appointed on contract basis.\n- **[fact_10]**: The Corporation contended before the Labour Court that Rule 2 of the U.P.S.R.T.C. Employees (Other than Officers) Service Regulations, 1981 provides that the regulations do not apply to employees working on contract basis.\n- **[fact_14]**: The Corporation also argued that the Labour Court acted beyond its jurisdiction by granting relief under Section 11-C, because that provision permits only interpretation and application of a standing order and not the grant of substantive relief available only under the Industrial Disputes Act, 1947.\n- **[fact_18]**\n- **[fact_19]**\n- **[fact_21]**\n- **[fact_24]**: The Supreme Court allowed the appeals.\n- **[fact_25]**\n\n### Statutory Provisions\n- CrPC 438",
+      "citations": [
+        "CrPC 438",
+        "IPC 11",
+        "IPC 13",
+        "IPC 10"
+      ],
+      "evidence_refs": [
+        "fact_14",
+        "fact_18",
+        "fact_19",
+        "fact_25",
+        "fact_1",
+        "fact_24",
+        "fact_9",
+        "fact_10",
+        "fact_21",
+        "fact_6",
+        "fact_7"
+      ],
+      "structured_argument": {
+        "theory": "The present record discloses a service-law jurisdictional dispute, not a case showing any custody necessity or exceptional grounds for pre-arrest protection; the prosecution’s own reliance on the Supreme Court judgment actually confirms that the Labour Court’s order was set aside for want of jurisdiction under the limited proceedings invoked.",
+        "arguments": [
+          "The prosecution’s core point cuts both ways: the Supreme Court in this very matter held that the Labour Court’s power under Section 11-C of the U.P. Industrial Disputes Act, 1947 and Section 13-A of the Industrial Employment (Standing Orders) Act, 1946 was narrower than a regular reference under Section 4-K of the U.P. Industrial Disputes Act, 1947 or Section 10 of the Industrial Disputes Act, 1947, and that the relief granted could not validly be issued in those proceedings [fact_14], [fact_18], [fact_19], [fact_25]. That jurisdictional defect, however, is not the same as material showing any criminal necessity for custodial interrogation or any exceptional ground under CrPC 438.",
+          "The record before the court does not contain any arrest-related facts, any warrant evasion, any proclamation, any recovery issue, or any other circumstance showing why pre-arrest custody is necessary; the prosecution itself concedes the absence of such material. On the evidence inventory, cctv_footage is not on record and no medical or injury-related evidence is involved [fact_1], [fact_24]. In that situation, the applicant’s request under CrPC 438 must be tested on the strict threshold for anticipatory bail, and the prosecution has not pointed to any case-specific material satisfying that threshold.",
+          "Even on the service dispute as pleaded, the record shows that the workmen were admittedly contract employees [fact_9], and the Corporation relied on Rule 2 of the 1981 Regulations excluding contract basis employees [fact_10], [fact_21]. The Labour Court nevertheless granted substantive relief beyond the limited remit of Section 11-C / Section 13-A [fact_6], [fact_7], [fact_14]. That supports the Supreme Court’s jurisdictional correction, but it does not establish any mens rea or ingredient relevant to CrPC 438; instead, it confirms that the controversy is about the proper forum and statutory route, not any conduct justifying denial of pre-arrest protection on criminal principles."
+        ],
+        "evidence_refs": [
+          "fact_14",
+          "fact_18",
+          "fact_19",
+          "fact_25",
+          "fact_1",
+          "fact_24",
+          "fact_9",
+          "fact_10",
+          "fact_21",
+          "fact_6",
+          "fact_7"
+        ],
+        "sections": [
+          "CrPC 438",
+          "IPC 11",
+          "IPC 13",
+          "IPC 10"
+        ]
+      },
+      "grounded": true,
+      "unverified": []
+    },
+    {
+      "turn_no": 6,
+      "speaker": "accused",
+      "round_no": 2,
+      "content": "No, there is no such arrest-related incident, warrant, proclamation, or custodial necessity in this case. This matter is only about a labour and service dispute concerning contract drivers and conductors, and the record deals with the Labour Court and High Court orders.",
+      "citations": [],
+      "evidence_refs": [],
+      "structured_argument": {
+        "theory": "No, there is no such arrest-related incident, warrant, proclamation, or custodial necessity in this case. This matter is only about a labour and service dispute concerning contract drivers and conductors, and the record deals with the Labour Court and High Court orders.",
+        "arguments": [
+          "No, there is no such arrest-related incident, warrant, proclamation, or custodial necessity in this case. This matter is only about a labour and service dispute concerning contract drivers and conductors, and the record deals with the Labour Court and High Court orders."
+        ],
+        "evidence_refs": [],
+        "sections": []
+      },
+      "grounded": true,
+      "unverified": []
+    }
+  ],
+  "judge_scores": {
+    "prosecution": {
+      "legal_validity": 2,
+      "evidence_linkage": 1,
+      "logic_coherence": 4,
+      "total": 7.0,
+      "average": 2.33
+    },
+    "defense": {
+      "legal_validity": 3,
+      "evidence_linkage": 2,
+      "logic_coherence": 5,
+      "total": 10.0,
+      "average": 3.33
+    },
+    "overall": 2.83
+  },
+  "verdict": {
+    "decision": "GRANTED",
+    "confidence": "medium",
+    "confidence_label": "medium",
+    "agreement_rate": 0.6,
+    "valid_votes": 5,
+    "total_votes": 5,
+    "agree_count": 3,
+    "laws_applied": [
+      "CrPC 438",
+      "CrPC 82",
+      "IPC 174",
+      "2024 INSC 202"
+    ],
+    "statutes": [
+      "CrPC 438",
+      "CrPC 82",
+      "IPC 174"
+    ],
+    "precedents": [
+      "2024 INSC 202"
+    ],
+    "holdings_relied": [
+      "srikant_para2-3",
+      "srikant_para4-5_2",
+      "srikant_paraintro-1"
+    ],
+    "reasoning": "This application is allowed because the verified record shows only a labour/service dispute about contract employees, not any case-specific material of arrest necessity, flight risk, or tampering by the applicants. The Supreme Court’s earlier ruling that the Labour Court acted beyond Sections 11-C/13-A confirms a jurisdictional error in the civil/service proceedings, but it does not convert this matter into one warranting denial of anticipatory bail. The Paragraph 24 exception to the absconding/proclamation line of cases is not engaged: there is no warrant, no proclamation, and no material of malicious or jurisdictionless coercive process. No individual overt acts are alleged against any particular applicant, so pre-arrest protection is appropriate on this record.\n\n[Record Basis: Facts relied on: fact_1, fact_12, fact_15, fact_18, fact_19, fact_22, fact_24, fact_25, fact_27, fact_4, fact_5, fact_9; Holdings relied on: srikant_para2-3, srikant_para4-5_2, srikant_paraintro-1; Open Questions: None (factual record complete)]",
+    "factors": [
+      {
+        "finding": "The record concerns a service-law jurisdictional dispute over contract drivers and conductors, not any verified arrest-related conduct by the applicants, and no individual overt act, warrant evasion, or proclamation is shown against any applicant.",
+        "fact_ids": [
+          "fact_4",
+          "fact_5",
+          "fact_9",
+          "fact_12",
+          "fact_24"
+        ],
+        "holding_ids": [
+          "srikant_paraintro-1",
+          "srikant_para4-5_2"
+        ]
+      },
+      {
+        "finding": "The Supreme Court’s earlier finding that the Labour Court exceeded the narrow scope of Section 11-C/Section 13-A and could not grant the relief does not supply a custodial necessity for pre-arrest detention, nor does it bring the case within any Section 82-style absconding situation.",
+        "fact_ids": [
+          "fact_15",
+          "fact_18",
+          "fact_19",
+          "fact_22",
+          "fact_25"
+        ],
+        "holding_ids": [
+          "srikant_para4-5_2"
+        ]
+      },
+      {
+        "finding": "The Paragraph 24 exception to refusal for proclamation/absconding is inapplicable because the record contains no warrant, no proclamation, and no material suggesting any jurisdictional abuse of process in issuing coercive process.",
+        "fact_ids": [
+          "fact_1",
+          "fact_24",
+          "fact_27"
+        ],
+        "holding_ids": [
+          "srikant_para2-3"
+        ]
+      }
+    ],
+    "open_questions": [],
+    "vote_tally": {
+      "GRANTED": 3,
+      "NO_OPINION": 2
+    }
+  },
+  "errors": []
+}

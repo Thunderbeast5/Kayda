@@ -1,0 +1,9 @@
+# Additional requirements for Human vs AI Moot Court Mode
+
+# Rich CLI library for beautiful terminal output
+rich>=13.0.0
+
+# PDF processing (if not already installed)
+PyPDF2>=3.0.0
+
+# All other dependencies should already be in your main requirements.txt

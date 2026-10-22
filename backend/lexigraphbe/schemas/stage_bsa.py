@@ -57,6 +57,10 @@ class BSASectionItem(BaseModel):
         default="",
         description="Statutory text of the BSA section (truncated for prompt context)",
     )
+    applicability: str = Field(
+        default="CONTEXTUAL",
+        description="'DIRECT' (governs proof of evidence actually collected / a fact in issue) or 'CONTEXTUAL'",
+    )
     verification_status: str = Field(
         default="VERIFIED",
         description="Verification verdict: 'VERIFIED' or 'REJECTED'",

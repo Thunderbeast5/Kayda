@@ -932,14 +932,19 @@ def node_lexigraph(state: SimulationState, *, emit: Optional[Callable] = None) -
                 raw = run_full_pipeline(text=query)
                 # Merge with standard format
                 ipc_sections = []
+                _strength_score = {"Strong": 0.95, "Moderate": 0.8, "Weak": 0.6}
                 for vo in raw.get("stage4_statutory_verification", {}).get("verified_offences", []):
+                    # Sections Stage 4 found not attracted are not law the courtroom should argue from.
+                    if str(vo.get("overall_status", "")).strip().lower() == "not attracted":
+                        continue
                     ipc_sections.append({
                         "section":     str(vo.get("section_number", "")),
                         "description": str(vo.get("title", "")),
-                        "punishment":  str(vo.get("punishment_text", "N/A")),
+                        "punishment":  str(vo.get("punishment_text") or (vo.get("punishment") or {}).get("maximum") or "N/A"),
                         "offense":     str(vo.get("title", "")),
                         "source":      "lexigraphbe",
-                        "score":       1.0,
+                        "score":       _strength_score.get(vo.get("overall_prima_facie_strength"), 0.6),
+                        "status":      vo.get("overall_status", ""),
                     })
                 raw["ipc_sections"] = ipc_sections
                 from agents.lexigraph.holding_retrieval import retrieve_holdings

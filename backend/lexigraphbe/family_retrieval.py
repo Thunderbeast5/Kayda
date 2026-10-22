@@ -535,6 +535,7 @@ def build_family_mapping(
     query_obj: Any,
     retriever: Optional["FamilyRetriever"] = None,
     nominations: Optional[Dict[str, List[Dict[str, Any]]]] = None,
+    excluded: Optional[Dict[str, List[Dict[str, str]]]] = None,
 ) -> Dict[str, Any]:
     """
     Builds a Stage2BatchedMappingResponse-shaped dict from family retrieval:
@@ -636,16 +637,23 @@ def build_family_mapping(
             sid, tier, unresolved, nom = target
             placed[m.section_number] = (sid, tier)
             key = {"PRIMARY": "primary_candidate_sections", "SECONDARY": "secondary_candidate_sections"}.get(tier, "conditional_candidate_sections")
+            sources: List[str] = []
+            if m.score > 0 and any(v.partition(":")[0] in ("family", "fact") for v in m.matched_concepts):
+                sources.append("bm25")
             if nom:
-                why = f"Nominated ({tier}) from the family's full section list: {nom.get('reason', '')}"
-                if m.score:
-                    why += f" [also BM25-retrieved, score {m.score}]"
+                sources.append(f"family_screening:{tier}")
+            sources += [f"graph_link:{v.partition(':')[2]}" for v in m.matched_concepts if v.startswith("linked:")]
+            sources += ["fact_safety_net" for v in m.matched_concepts if v.startswith("fact:")][:1]
+            if nom:
+                why = f"Family screening verdict {tier}: {nom.get('reason', '')}"
             else:
                 why = "Retrieved via " + ", ".join(m.matched_concepts) + (f"; matched terms: {', '.join(m.matched_terms)}" if m.matched_terms else "")
             mappings[sid][key].append({
                 "section_number": m.section_number, "section_title": m.title, "statute": m.statute,
                 "candidate_type": tier, "score": float(m.score),
-                "score_breakdown": {"retrieval_score": float(m.score)},
+                # The score is the lexical (BM25) score only; 0.0 means "not found lexically", not "irrelevant".
+                "score_breakdown": {"bm25": float(m.score)},
+                "retrieval_sources": sources,
                 "ingredients_matched": list(nom.get("fact_ids", [])) if nom else [], "missing_facts": unresolved,
                 "relevance_reasoning": why,
             })
@@ -653,6 +661,19 @@ def build_family_mapping(
         pending = rest
         if not pending:
             break
+    # Sections the family screening judged NOT_APPLICABLE are listed, so the exclusion is visible.
+    for code, items in (excluded or {}).items():
+        if code not in sq_by_family:
+            continue
+        sid = _obj(sq_by_family[code][1], "id", "")
+        for it in items:
+            if it["section"] in placed or it["section"] not in r.idx_by_sec:
+                continue
+            mappings[sid]["not_triggered_sections"].append({
+                "section_number": it["section"], "section_title": r.records[r.idx_by_sec[it["section"]]]["title"],
+                "statute": "IPC", "not_triggered_reason": f"Family screening: not applicable - {it.get('reason', '')}",
+                "missing_mandatory_ingredients": [],
+            })
     result = {"schema_version": "1.0", "mappings": list(mappings.values())}
     if nom_by_family:
         result["retrieval_only_not_nominated"] = sorted(set(dropped))
@@ -725,3 +746,70 @@ def clause_backstop(narrative: str, facts: Iterable[Any], min_words: int = 2) ->
             existing_tokens.append(ctoks)
             quotes.append((None, _norm_ws(clause)))
     return new
+
+
+# ---------------------------------------------------------------------------
+# Defence backstop: the accused's denial / alternative explanation as structured STATEMENT facts
+# ---------------------------------------------------------------------------
+_DEFENCE_VERB = re.compile(r"\b(denie[sd]|deny|contends?|contended|submits?|submitted|claims?|claimed|asserts?|"
+                           r"pleads?|pleaded|maintains?|argues?)\b", re.IGNORECASE)
+_DEFENCE_SPLIT = re.compile(r"\s+and\s+(?=(?:denie|deny|contend|submit|claim|assert|plead|maintain|argue)\w*\b)"
+                            r"|;\s*|,\s*(?:and\s+)?(?=(?:denie|deny|contend|submit|claim|assert|plead|maintain|argue)\w*\b)",
+                            re.IGNORECASE)
+_ALT_CAUSE = re.compile(r"\b(caused by|due to|because of|result(?:ed)? from|attributable to|owing to)\b", re.IGNORECASE)
+_COMPLIANCE = re.compile(r"\b(compl(?:y|ied|iance)|followed|adhered|in accordance with|as per|precautions?|"
+                         r"procedures?|standards?)\b", re.IGNORECASE)
+
+
+def defence_backstop(narrative: str, facts: Iterable[Any], accused: Optional[str] = None) -> List[Dict[str, Any]]:
+    """
+    Sentences in which the accused denies, contends, submits or claims something become STATEMENT facts
+    (factual_status DISPUTED), one per clause, unless an existing fact already quotes them. Each is labelled as a
+    denial, an alternative causal explanation or an assertion of compliance, so Stage 4 can weigh a specific
+    defence fact against the allegation it answers instead of treating every denial alike.
+    """
+    facts = list(facts or [])
+    existing = [_norm_ws(_obj(f, "verbatim_quote") or "") for f in facts if _obj(f, "verbatim_quote")]
+    ids = {str(_obj(f, "fact_id", "")) for f in facts}
+    out: List[Dict[str, Any]] = []
+    n = 0
+    for sent in _SENTENCE_SPLIT.split(narrative or ""):
+        if not _DEFENCE_VERB.search(sent):
+            continue
+        clauses: List[str] = []
+        for clause in _DEFENCE_SPLIT.split(re.sub(r"\s+", " ", sent).strip()):
+            clause = clause.strip(" .")
+            if len(clause.split()) < 3 or not _DEFENCE_VERB.search(clause):
+                continue
+            # "caused by X despite compliance with Y" holds two defence facts: an alternative cause and compliance.
+            parts = re.split(r"\s+(?=(?:despite|notwithstanding|in spite of)\b)", clause, flags=re.IGNORECASE)
+            if len(parts) > 1 and _ALT_CAUSE.search(parts[0]) and _COMPLIANCE.search(" ".join(parts[1:])):
+                clauses += [p.strip(" ,.") for p in parts]
+            else:
+                clauses.append(clause)
+        for clause in clauses:
+            nc = _norm_ws(clause)
+            if len(clause.split()) < 3:
+                continue
+            if any(q and (q in nc or nc in q) for q in existing):
+                continue
+            kinds = []
+            if re.search(r"\bden(?:ie[sd]|y)\b", clause, re.IGNORECASE):
+                kinds.append("denial")
+            if _ALT_CAUSE.search(clause):
+                kinds.append("alternative causal explanation")
+            if _COMPLIANCE.search(clause):
+                kinds.append("assertion of compliance")
+            n += 1
+            fid = f"D{n}"
+            while fid in ids:
+                n += 1
+                fid = f"D{n}"
+            ids.add(fid)
+            out.append({
+                "fact_id": fid, "verbatim_quote": clause, "conduct_type": "STATEMENT", "factual_status": "DISPUTED",
+                "description": "Defence " + (" / ".join(kinds) or "assertion"),
+                "actor": accused, "affected_party_or_object": None,
+            })
+            existing.append(nc)
+    return out

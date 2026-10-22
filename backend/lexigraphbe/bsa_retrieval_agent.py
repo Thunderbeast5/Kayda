@@ -101,10 +101,49 @@ class BSARetrievalAgent:
         llm: Optional[Any] = None,
         verifier: Optional[BSAVerifierAgent] = None,
         top_k: int = 10,
+        use_nomination: bool = True,
+        nominator: Optional[Any] = None,
     ):
         self._llm = llm
         self.verifier = verifier or BSAVerifierAgent(llm=self._llm)
         self.top_k = top_k
+        self.use_nomination = use_nomination
+        self._nominator = nominator
+
+    def _nominate(self, query_obj: Dict[str, Any], imp: Dict[str, Any],
+                  verified_offences: Optional[List[Dict[str, Any]]]) -> Optional[List[BSASectionItem]]:
+        from .act_nominator import ActSectionNominator, facts_block_from, offences_block_from
+        nominator = self._nominator or ActSectionNominator("BSA", llm=self._llm)
+        imp = imp if isinstance(imp, dict) else {}
+        evidence = [str(x) for k in ("documents", "electronic_evidence", "medical_injury", "weapon")
+                    for x in (imp.get(k) if isinstance(imp.get(k), list) else [imp.get(k)]) if x]
+        context = "\n".join([
+            f"  Procedural stage: {query_obj.get('case_type') or 'not stated'}",
+            "  Evidence collected: " + ("; ".join(evidence) if evidence else "not stated"),
+            "  Witnesses: " + ("; ".join(map(str, imp.get("witnesses") or [])) or "not stated"),
+            "  Offences under consideration:\n" + offences_block_from(verified_offences),
+        ])
+        noms = nominator.run(facts_block_from(query_obj), context)
+        if not noms:
+            return None
+        repo = StatuteRepository.get_instance()
+        items = []
+        for n in noms[: self.top_k]:
+            rec = n["record"]
+            items.append(BSASectionItem(
+                section_number=n["section"],
+                heading=rec.get("title") or "",
+                chapter_number=rec.get("chapter_number") or "",
+                chapter_title=rec.get("chapter_title") or "",
+                relevance_category=n["category"],
+                relevance_reason=f"{n['applies_to']}: {n['reason']}".strip(": "),
+                replaces_IEA=rec.get("replaces_IEA") or repo.get_bsa_iea_equivalent(n["section"]),
+                statutory_text=(rec.get("raw_section") or {}).get("text", "")[:500],
+                applicability=n["applicability"],
+                verification_status="VERIFIED",
+                verification_reason=f"Nominated from the complete BSA list ({n['applicability']}); applies to {n['applies_to'] or 'the facts'}.",
+            ))
+        return items
 
     @property
     def llm(self):
@@ -168,6 +207,17 @@ class BSARetrievalAgent:
 
         facts_text = " ".join(facts_parts)
         facts_lower = facts_text.lower()
+
+        # ── 2a. Nomination over the complete BSA (1 LLM call); keyword clusters below are the fallback ──
+        if self.use_nomination:
+            nominated = self._nominate(query_obj, imp, verified_offences)
+            if nominated is not None:
+                return BSARetrievalObject(
+                    relevant_sections=nominated,
+                    retrieval_notes=[f"{len(nominated)} BSA sections nominated from the complete Adhiniyam (validated against bsa.json)."],
+                    legal_regime=legal_regime,
+                )
+            notes.append("BSA nomination unavailable; used evidence-cluster retrieval.")
 
         # ── 2. Select Candidates via Evidentiary Clusters ──────────────
         active_clusters: List[str] = []
@@ -308,32 +358,11 @@ class BSARetrievalAgent:
         # Limit to top_k accepted sections
         final_accepted = verified_accepted[: self.top_k]
 
-        # ── 5. Resolve Stage 3 IPC offences to BNS via Neo4j ───────────
-        ipc_to_bns: Dict[str, str] = {}
-        if verified_offences:
-            for offence in verified_offences:
-                raw_sec = str(
-                    offence.get("ipc_equivalent")
-                    or offence.get("section_number")
-                    or ""
-                ).strip()
-                clean_sec = raw_sec.upper().replace("IPC_", "").replace("SECTION ", "").strip()
-                if not clean_sec:
-                    continue
-
-                bns_eq = repo.get_ipc_bns_equivalent(clean_sec)
-                if bns_eq:
-                    ipc_to_bns[clean_sec] = bns_eq
-                    continue
-
-                bns_from_dict = str(offence.get("bns_equivalent") or "").strip()
-                if bns_from_dict and bns_from_dict.upper() not in ("NONE", "N/A", ""):
-                    ipc_to_bns[clean_sec] = bns_from_dict
-
+        # Statute equivalences (IPC->BNS, BSA->IEA, BNSS->CrPC) are resolved once, after Stage 4
+        # (runner.run_equivalence_mapping), not inside the evidence stage.
         return BSARetrievalObject(
             relevant_sections=final_accepted,
             rejected_sections=all_rejected,
-            ipc_to_bns_map=ipc_to_bns,
             retrieval_notes=notes,
             legal_regime=legal_regime,
         )

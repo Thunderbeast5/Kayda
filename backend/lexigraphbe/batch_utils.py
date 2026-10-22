@@ -29,6 +29,10 @@ class SectionMappingCandidate(BaseModel):
         description="Unproven or missing factual elements required for full statutory satisfaction (used by downstream Prosecutor/Defense/Judge agents)"
     )
     relevance_reasoning: str = Field(default="", description="Explicit reasoning breakdown")
+    retrieval_sources: List[str] = Field(
+        default_factory=list,
+        description="How the candidate was found: 'bm25', 'family_screening:<TIER>', 'graph_link:<section>', 'fact_safety_net'",
+    )
 
 
 class NotTriggeredSectionItem(BaseModel):

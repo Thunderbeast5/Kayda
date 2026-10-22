@@ -10,6 +10,7 @@ with its own tier. BM25 retrieval remains the fallback when this call fails.
 
 from __future__ import annotations
 
+import os
 import re
 from typing import Any, Dict, List, Optional
 
@@ -72,11 +73,13 @@ def referenced_offences(text: str, retriever: Any) -> List[str]:
 class SectionNominator:
     def __init__(self, llm: Optional[Any] = None):
         self._llm = llm
+        self.last_excluded: Dict[str, List[Dict[str, str]]] = {}  # sections screened NOT_APPLICABLE, per family
 
     @property
     def llm(self):
         if self._llm is None:
-            self._llm = get_llm(temperature=0.0, model_name=MODEL_STAGE2)
+            # MODEL_NOMINATION lets these small, high-leverage calls use a stronger model than the rest of Stage 2.
+            self._llm = get_llm(temperature=0.0, model_name=os.getenv("MODEL_NOMINATION") or MODEL_STAGE2)
         return self._llm
 
     def build_prompt(self, query_obj: Any) -> Optional[str]:
@@ -118,10 +121,11 @@ class SectionNominator:
         except Exception as e:
             print(f"[SectionNominator] nomination failed, using BM25 retrieval only: {e}", flush=True)
             return None
-        items = parsed.get("nominations") if isinstance(parsed, dict) else None
+        items = (parsed.get("screening") or parsed.get("nominations")) if isinstance(parsed, dict) else None
         if not isinstance(items, list):
-            print("[SectionNominator] no 'nominations' list in output, using BM25 retrieval only", flush=True)
+            print("[SectionNominator] no 'screening' list in output, using BM25 retrieval only", flush=True)
             return None
+        self.last_excluded = {}
         fact_ids = {str(_obj(f, "fact_id", "")) for f in (_obj(query_obj, "factual_allegations", []) or [])}
         faults = {str(_obj(f, "fault_mode", "") or "").upper() for f in (_obj(query_obj, "offence_families", []) or [])}
         negligence_only = "RASH_OR_NEGLIGENT" in faults and not faults & {"INTENTIONAL", "KNOWING"}
@@ -135,7 +139,10 @@ class SectionNominator:
             members = {r.records[i]["section_number"] for i in r.family_members.get(code, [])}
             if sec not in members:
                 continue  # only sections from the family list shown; never an invented number
-            tier = str(it.get("tier", "")).upper()
+            tier = str(it.get("verdict") or it.get("tier") or "").upper()
+            if tier in {"NOT_APPLICABLE", "NOT APPLICABLE", "NONE", "EXCLUDE"}:
+                self.last_excluded.setdefault(code, []).append({"section": sec, "reason": str(it.get("reason") or "")[:200]})
+                continue
             tier = tier if tier in _TIERS else "CONDITIONAL"
             missing = it.get("missing_element")
             if negligence_only and tier != "CONDITIONAL" and _requires_intent_or_knowledge(sec, statute_db, r):

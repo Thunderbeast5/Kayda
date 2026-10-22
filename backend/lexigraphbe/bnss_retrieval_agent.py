@@ -134,10 +134,45 @@ class BNSSRetrievalAgent:
         llm: Optional[Any] = None,
         verifier: Optional[BNSSVerifierAgent] = None,
         top_k: int = 8,
+        use_nomination: bool = True,
+        nominator: Optional[Any] = None,
     ):
         self._llm = llm
         self.verifier = verifier or BNSSVerifierAgent(llm=self._llm)
         self.top_k = top_k
+        self.use_nomination = use_nomination
+        self._nominator = nominator
+
+    def _nominate(self, query_obj: Dict[str, Any], procedural_meta: Dict[str, Any],
+                  verified_offences: Optional[List[Dict[str, Any]]]) -> Optional[List[BNSSSectionItem]]:
+        from .act_nominator import ActSectionNominator, facts_block_from, offences_block_from
+        nominator = self._nominator or ActSectionNominator("BNSS", llm=self._llm)
+        context = "\n".join([
+            f"  Procedural stage: {procedural_meta.get('procedural_stage') or query_obj.get('case_type') or 'not stated'}",
+            f"  Relief sought: {procedural_meta.get('requested_relief') or 'not stated'}",
+            "  Offences under consideration:\n" + offences_block_from(verified_offences),
+        ])
+        noms = nominator.run(facts_block_from(query_obj), context)
+        if not noms:
+            return None
+        repo = StatuteRepository.get_instance()
+        items = []
+        for n in noms[: self.top_k]:
+            rec = n["record"]
+            items.append(BNSSSectionItem(
+                section_number=n["section"],
+                heading=rec.get("title") or "",
+                chapter_number=rec.get("chapter_number") or "",
+                chapter_title=rec.get("chapter_title") or "",
+                relevance_category=n["category"],
+                relevance_reason=f"{n['applies_to']}: {n['reason']}".strip(": "),
+                replaces_CrPC=rec.get("replaces_CrPC") or repo.get_bnss_crpc_equivalent(n["section"]),
+                statutory_text=(rec.get("raw_section") or {}).get("text", "")[:500],
+                applicability=n["applicability"],
+                verification_status="VERIFIED",
+                verification_reason=f"Nominated from the complete BNSS list ({n['applicability']}); governs {n['applies_to'] or 'the relief sought'}.",
+            ))
+        return items
 
     @property
     def llm(self):
@@ -341,6 +376,7 @@ class BNSSRetrievalAgent:
         self,
         legal_query: Union[Dict[str, Any], Any],
         case_context: Optional[Dict[str, Any]] = None,
+        verified_offences: Optional[List[Dict[str, Any]]] = None,
     ) -> BNSSRetrievalObject:
         """
         Executes definition-grounded BNSS procedural retrieval and verification.
@@ -354,6 +390,17 @@ class BNSSRetrievalAgent:
             legal_query.model_dump() if hasattr(legal_query, "model_dump") else {}
         )
         legal_regime: Optional[str] = query_obj.get("legal_regime")
+
+        # ── 1a. Nomination over the complete BNSS (1 LLM call); the prefilter below is the fallback ──
+        if self.use_nomination:
+            nominated = self._nominate(query_obj, procedural_meta, verified_offences)
+            if nominated is not None:
+                return BNSSRetrievalObject(
+                    relevant_sections=nominated,
+                    retrieval_notes=[f"{len(nominated)} BNSS sections nominated from the complete Sanhita (validated against bnss.json)."],
+                    legal_regime=legal_regime,
+                )
+            notes.append("BNSS nomination unavailable; used prefilter retrieval.")
 
         # ── 2. Corpus Candidate Prefilter & Definition Enrichment ──────
         candidates_info = self._prefilter_bnss_candidates(facts_text, procedural_meta)
@@ -480,16 +527,10 @@ class BNSSRetrievalAgent:
 
         final_accepted = verified_accepted[: self.top_k]
 
-        # ── 5. Build BNSS → CrPC Mapping ──────────────────────────────
-        bnss_to_crpc: Dict[str, str] = {}
-        for s in final_accepted:
-            if s.replaces_CrPC:
-                bnss_to_crpc[s.section_number] = s.replaces_CrPC
-
+        # BNSS -> CrPC equivalents are resolved once, after Stage 4 (runner.run_equivalence_mapping).
         return BNSSRetrievalObject(
             relevant_sections=final_accepted,
             rejected_sections=verifier_rejected,
-            bnss_to_crpc_map=bnss_to_crpc,
             retrieval_notes=notes,
             legal_regime=legal_regime,
         )

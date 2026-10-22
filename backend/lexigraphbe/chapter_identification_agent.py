@@ -111,6 +111,7 @@ class ChapterIdentificationAgent:
                         "title": c.section_title,
                         "classification": "CONDITIONAL",
                         "sub_query_id": mapping.sub_query_id,
+                        "condition": "; ".join(getattr(c, "missing_facts", []) or []),
                     })
                 if not mapping.primary_candidate_sections and not mapping.secondary_candidate_sections and not getattr(mapping, "conditional_candidate_sections", []):
                     for sec_str in mapping.candidate_sections:
@@ -180,6 +181,24 @@ class ChapterIdentificationAgent:
                         "rejection_type": "DEFINITIONAL_SUPERSEDED"
                     })
                     continue
+                # A definition is never a charge. Evaluate the section that punishes it instead (300 -> 302,
+                # 378 -> 379); with no punishing section of its own (319 Hurt, 320 Grievous hurt) it only explains
+                # terms used by the charging sections.
+                stage3_rejected.append({
+                    "section_number": sec_clean,
+                    "reason": (f"Definition, not a charge; evaluated through its punishing section(s) {', '.join(sorted(paired_punishments))}."
+                               if paired_punishments else
+                               f"Definition, not a charge (defines a term used by the charging sections; it has no punishment section of its own)."),
+                    "rejection_type": "DEFINITION_NOT_A_CHARGE",
+                })
+                for pun in sorted(paired_punishments):
+                    if pun not in all_raw_secs:
+                        sub = dict(c)
+                        sub["section_number"] = pun
+                        sub["title"] = (statute_db.get(f"IPC_{pun}") or {}).get("section_title") or pun
+                        candidates_to_verify.append(sub)  # visited later in this same loop
+                        all_raw_secs.add(pun)
+                continue
 
             # Deduplication: preserve strongest tier (PRIMARY > SECONDARY > CONDITIONAL) and union sub-query IDs
             if sec_clean not in cand_by_sec:
@@ -328,6 +347,9 @@ class ChapterIdentificationAgent:
                 ]
                 if not found_rule and not first_sched_meta:
                     notes.append(f"WARNING: Section {sec_num} metadata unverified against First Schedule CrPC ground truth.")
+                if tier == "CONDITIONAL":
+                    # Stage 4 reads this to decide whether the facts meet the condition.
+                    notes.append(f"CONDITION: {cand.get('condition') or disq_reason or 'a required fact is not yet alleged'}")
 
                 verified_item = VerifiedOffenceItem(
                     section_number=sec_num,
