@@ -58,6 +58,8 @@ def get_llm(temperature: float = 0.1):
             model=OPENAI_MODEL,
             api_key=OPENAI_API_KEY,
             temperature=temperature,
+            request_timeout=float(os.getenv("OPENAI_TIMEOUT", "4.0")),
+            max_retries=1,
         )
 
     # Default: Ollama

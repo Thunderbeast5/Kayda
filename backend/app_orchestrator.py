@@ -46,6 +46,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 
+from agents.orchestrator.orchestrator_graph import run_orchestrator
+from agents.orchestrator.session_input import session_input_manager, normalize_role, normalize_mode, get_ai_role
+
 # ── App ───────────────────────────────────────────────────────────────────────
 
 app = FastAPI(
@@ -115,7 +118,17 @@ def _redis_lrange(key: str):
 class SimulateRequest(BaseModel):
     case_id: str                      # path to PDF/TXT or raw text
     session_id: Optional[str] = None
-    max_rounds: int = 3
+    max_rounds: int = 2
+    role: Optional[str] = "prosecutor"  # 'prosecutor' | 'defense'
+    mode: Optional[str] = "ai_vs_human" # 'ai_vs_human' | 'ai_vs_ai'
+    human_argument: Optional[str] = None
+
+
+class SubmitArgumentRequest(BaseModel):
+    session_id: str
+    argument: str
+    role: Optional[str] = None
+    round_no: Optional[int] = None
 
 
 # ── Endpoints ─────────────────────────────────────────────────────────────────
@@ -127,6 +140,41 @@ async def health():
         "status": "online",
         "redis": "connected" if r else "unavailable",
         "version": "2.0.0",
+        "supported_roles": ["prosecutor", "defense"],
+        "supported_modes": ["ai_vs_human", "ai_vs_ai"],
+    }
+
+
+@app.get("/api/roles")
+async def list_roles():
+    """Returns available modes and roles for frontend selection."""
+    return {
+        "modes": [
+            {
+                "id": "ai_vs_human",
+                "name": "AI vs Human",
+                "description": "Interactive courtroom debate: You play one role, AI plays the opposing counsel, AI Judge adjudicates.",
+            },
+            {
+                "id": "ai_vs_ai",
+                "name": "AI vs AI Simulation",
+                "description": "Fully automated simulation: Public Prosecutor (AI) vs Defense Counsel (AI), evaluated by AI Judge.",
+            },
+        ],
+        "roles": [
+            {
+                "id": "prosecutor",
+                "name": "Public Prosecutor",
+                "description": "Represent the State: Establish statutory ingredients, prima facie guilt, and oppose bail/discharge.",
+                "ai_opponent": "Defense Counsel",
+            },
+            {
+                "id": "defense",
+                "name": "Defense Counsel",
+                "description": "Represent the Accused: Challenge evidence, establish procedural compliance, argue for bail/discharge.",
+                "ai_opponent": "Public Prosecutor",
+            },
+        ],
     }
 
 
@@ -136,7 +184,9 @@ async def start_simulation(req: SimulateRequest, background_tasks: BackgroundTas
     Start a simulation. Returns session_id immediately.
     Connect to /ws/simulate/{session_id} to receive real-time events.
     """
-    sid = req.session_id or str(uuid.uuid4())
+    sid = req.session_id or str(uuid.uuid4())[:8]
+    norm_role = normalize_role(req.role)
+    norm_mode = normalize_mode(req.mode, norm_role)
 
     async def _run():
         """Run orchestrator in background, forwarding events to the WebSocket."""
@@ -159,17 +209,51 @@ async def start_simulation(req: SimulateRequest, background_tasks: BackgroundTas
             session_id=sid,
             max_rounds=req.max_rounds,
             on_event=emit,
+            user_role=norm_role,
+            mode=norm_mode,
+            human_argument=req.human_argument,
         )
 
     background_tasks.add_task(_run)
-    return {"session_id": sid, "status": "started"}
+    return {
+        "session_id": sid,
+        "status": "started",
+        "user_role": norm_role,
+        "mode": norm_mode,
+        "ai_role": get_ai_role(norm_role, norm_mode),
+    }
+
+
+@app.post("/api/simulate/argument")
+@app.post("/api/session/{session_id}/argument")
+async def submit_argument_endpoint(req: SubmitArgumentRequest, session_id: Optional[str] = None):
+    """
+    REST endpoint for frontend to submit human argument when it's the user's turn.
+    """
+    sid = session_id or req.session_id
+    text = (req.argument or "").strip()
+    if not text:
+        return JSONResponse(status_code=400, content={"success": False, "message": "Argument cannot be empty."})
+
+    accepted = session_input_manager.submit_argument(
+        session_id=sid,
+        argument=text,
+        role=req.role,
+        round_no=req.round_no,
+    )
+    return {
+        "success": True,
+        "session_id": sid,
+        "accepted": accepted,
+        "message": "Argument submitted to orchestrator pipeline.",
+    }
 
 
 @app.websocket("/ws/simulate/{session_id}")
 async def ws_simulate(websocket: WebSocket, session_id: str):
     """
     WebSocket endpoint. Client connects here to receive real-time events.
-    Also accepts control messages: pause, resume, upload_document.
+    Also accepts control messages: pause, resume, submit_argument, upload_document.
     """
     await websocket.accept()
     _active_ws[session_id] = websocket
@@ -183,14 +267,30 @@ async def ws_simulate(websocket: WebSocket, session_id: str):
                 msg_type = msg.get("type", "")
 
                 if msg_type == "pause":
-                    # Signal is noted; orchestrator checks this flag on next node boundary
                     print(f"[WS] Pause requested for session {session_id[:16]}…")
 
                 elif msg_type == "resume":
                     print(f"[WS] Resume requested for session {session_id[:16]}…")
 
+                elif msg_type in ("submit_argument", "argument", "human_argument"):
+                    # Human user submitted an argument turn from frontend
+                    arg_text = msg.get("content", "") or msg.get("argument", "") or msg.get("text", "")
+                    role = msg.get("role")
+                    round_no = msg.get("round") or msg.get("round_no")
+                    accepted = session_input_manager.submit_argument(
+                        session_id=session_id,
+                        argument=arg_text,
+                        role=role,
+                        round_no=round_no,
+                    )
+                    await websocket.send_text(json.dumps({
+                        "type": "ack",
+                        "action": "argument_received",
+                        "accepted": accepted,
+                        "message": "Argument submitted to active courtroom session.",
+                    }))
+
                 elif msg_type == "upload_document":
-                    # Client uploads additional context mid-session
                     content = msg.get("content", "")
                     if content:
                         await websocket.send_text(json.dumps({

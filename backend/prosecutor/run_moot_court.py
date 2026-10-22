@@ -20,16 +20,24 @@ load_dotenv(Path(__file__).parent.parent / ".env")
 from orchestrator_agent import OrchestratorAgent
 
 
+import argparse
+
 def main():
     """Run the moot court session."""
-    api_key = os.environ.get("OPENAI_API_KEY", "")
-    if not api_key:
-        print("Error: OPENAI_API_KEY not set!")
-        sys.exit(1)
-    
+    parser = argparse.ArgumentParser(description="Run Virtual Moot Court Session (AI vs Human)")
+    parser.add_argument(
+        "--role",
+        choices=["prosecution", "defense", "prosecutor", "defence"],
+        default=None,
+        help="Choose role for human counsel ('prosecution'/'prosecutor' or 'defense'/'defence').",
+    )
+    args = parser.parse_args()
+
+    api_key = os.environ.get("OPENAI_API_KEY", "") or os.environ.get("GROQ_API_KEY", "")
     orchestrator = OrchestratorAgent(api_key=api_key)
-    orchestrator.run_moot_court_session()
+    orchestrator.run_moot_court_session(role=args.role)
 
 
 if __name__ == "__main__":
     main()
+

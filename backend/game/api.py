@@ -1,7 +1,7 @@
 import asyncio
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, HTTPException, Query
 from typing import Dict, Any
-from agents.evidence.evidence_analyzer import _get_firestore_client
+from backend.agents.evidence.evidence_analyzer import _get_firestore_client
 from backend.game.manager import manager
 from backend.game.engine.state import init_game_state
 from backend.game.engine.engine import engine

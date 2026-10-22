@@ -605,6 +605,10 @@ export default function ChatPanel({ messages, userRole, speakText }) {
           const evidenceRefs = msg.evidence_refs || [];
           const unverified = msg.unverified || [];
 
+          if (!rawText.trim() && !citations.length && !evidenceRefs.length) {
+            return null;
+          }
+
           return (
             <div key={i} className={`flex w-full gap-3 md:gap-4 ${alignContainer} animate-fadeIn`}>
               

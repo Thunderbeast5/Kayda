@@ -53,13 +53,13 @@ export default function RoleSelectionPage() {
           {/* Header */}
           <div className="mb-10">
             <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#C5A059] font-bold block mb-2">
-              Procedural Capacity
+              AI vs Human · Procedural Standing
             </span>
             <h1 className="font-heading text-3xl md:text-4xl font-bold tracking-tight text-[#2C1810]">
-              Designate Your Standing
+              Select Your Role
             </h1>
             <p className="font-body text-xs md:text-sm text-[#5D4037]/80 max-w-lg mx-auto mt-2 leading-relaxed">
-              Select an authorized capacity to enter the court session directly.
+              Engage in an AI vs Human trial before the bench. Choose your procedural standing to face the AI opposing counsel.
             </p>
           </div>
 
@@ -71,7 +71,10 @@ export default function RoleSelectionPage() {
               onClick={() => handleSelectRole("prosecutor")}
               className="group cursor-pointer bg-white/80 backdrop-blur-md border border-[#D4AF37]/30 hover:border-[#8C2D19] rounded-2xl p-8 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(140,45,25,0.12)] relative overflow-hidden"
             >
-              <div className="w-16 h-16 rounded-full bg-[#FAF8F5] border border-[#D4AF37]/30 text-[#8C2D19] group-hover:bg-[#8C2D19] group-hover:text-[#FAF9F7] flex items-center justify-center mb-6 transition-all duration-300 shadow-sm">
+              <div className="absolute top-3 right-3 px-2 py-0.5 rounded text-[8px] font-mono font-bold uppercase tracking-wider bg-[#8C2D19]/10 text-[#8C2D19] border border-[#8C2D19]/20">
+                You vs AI Defense
+              </div>
+              <div className="w-16 h-16 rounded-full bg-[#FAF8F5] border border-[#D4AF37]/30 text-[#8C2D19] group-hover:bg-[#8C2D19] group-hover:text-[#FAF9F7] flex items-center justify-center mb-6 mt-2 transition-all duration-300 shadow-sm">
                 <Icons.Prosecution />
               </div>
               <span className="font-mono text-[9px] uppercase tracking-widest text-[#8C2D19] font-bold mb-1">
@@ -81,7 +84,7 @@ export default function RoleSelectionPage() {
                 Public Prosecutor
               </h2>
               <p className="font-body text-xs text-[#5D4037]/75 leading-relaxed">
-                Establish liability, tender discovery briefs, and pursue judicial conviction.
+                Establish liability, tender discovery briefs, and pursue judicial conviction against the AI Defense Counsel.
               </p>
             </div>
 
@@ -90,7 +93,10 @@ export default function RoleSelectionPage() {
               onClick={() => handleSelectRole("defense")}
               className="group cursor-pointer bg-white/80 backdrop-blur-md border border-[#D4AF37]/30 hover:border-[#D4AF37] rounded-2xl p-8 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(212,175,55,0.16)] relative overflow-hidden"
             >
-              <div className="w-16 h-16 rounded-full bg-[#FAF8F5] border border-[#D4AF37]/30 text-[#2C1810] group-hover:bg-[#2C1810] group-hover:text-[#D4AF37] flex items-center justify-center mb-6 transition-all duration-300 shadow-sm">
+              <div className="absolute top-3 right-3 px-2 py-0.5 rounded text-[8px] font-mono font-bold uppercase tracking-wider bg-[#C5A059]/15 text-[#8C6D1F] border border-[#C5A059]/30">
+                You vs AI Prosecutor
+              </div>
+              <div className="w-16 h-16 rounded-full bg-[#FAF8F5] border border-[#D4AF37]/30 text-[#2C1810] group-hover:bg-[#2C1810] group-hover:text-[#D4AF37] flex items-center justify-center mb-6 mt-2 transition-all duration-300 shadow-sm">
                 <Icons.Defense />
               </div>
               <span className="font-mono text-[9px] uppercase tracking-widest text-[#8C6D1F] font-bold mb-1">
@@ -100,7 +106,7 @@ export default function RoleSelectionPage() {
                 Defense Counsel
               </h2>
               <p className="font-body text-xs text-[#5D4037]/75 leading-relaxed">
-                Challenge evidentiary integrity, raise objections, and advocate for dismissal.
+                Challenge evidentiary integrity, raise procedural objections, and counter the AI Prosecutor's charges.
               </p>
             </div>
 
@@ -109,7 +115,10 @@ export default function RoleSelectionPage() {
               onClick={() => handleSelectRole("observer")}
               className="group cursor-pointer bg-white/80 backdrop-blur-md border border-[#D4AF37]/30 hover:border-[#5D4037] rounded-2xl p-8 flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_16px_36px_rgba(44,24,16,0.12)] relative overflow-hidden"
             >
-              <div className="w-16 h-16 rounded-full bg-[#FAF8F5] border border-[#D4AF37]/30 text-[#5D4037] group-hover:bg-[#2C1810] group-hover:text-[#D4AF37] flex items-center justify-center mb-6 transition-all duration-300 shadow-sm">
+              <div className="absolute top-3 right-3 px-2 py-0.5 rounded text-[8px] font-mono font-bold uppercase tracking-wider bg-gray-100 text-gray-600 border border-gray-200">
+                AI vs AI Simulation
+              </div>
+              <div className="w-16 h-16 rounded-full bg-[#FAF8F5] border border-[#D4AF37]/30 text-[#5D4037] group-hover:bg-[#2C1810] group-hover:text-[#D4AF37] flex items-center justify-center mb-6 mt-2 transition-all duration-300 shadow-sm">
                 <Icons.Observer />
               </div>
               <span className="font-mono text-[9px] uppercase tracking-widest text-[#5D4037] font-bold mb-1">
@@ -119,7 +128,7 @@ export default function RoleSelectionPage() {
                 Court Observer
               </h2>
               <p className="font-body text-xs text-[#5D4037]/75 leading-relaxed">
-                Monitor open proceedings, audit evidence logs, and review legal argumentation.
+                Monitor open proceedings, audit evidence logs, and review automated AI vs AI legal argumentation.
               </p>
             </div>
 

@@ -65,6 +65,8 @@ class Turn(TypedDict, total=False):
     structured_argument: Optional[ArgumentStructure]
     grounded: bool
     unverified: List[str]
+    is_human: Optional[bool]
+    display_name: Optional[str]
 
 
 class Question(TypedDict):
@@ -108,6 +110,12 @@ class SimulationState(TypedDict):
     session_id: str
     case_id: str
 
+    # AI vs Human mode & roles
+    mode: Literal["ai_vs_human", "ai_vs_ai"]
+    user_role: Optional[Literal["prosecutor", "defense"]]
+    ai_role: Optional[Literal["prosecutor", "defense"]]
+    human_argument: Optional[str]
+
     # Phase — drives routing
     phase: Literal["INIT", "EVIDENCE", "LEXIGRAPH", "COURTROOM", "VERDICT", "DONE", "FAILED"]
 
@@ -140,3 +148,4 @@ class SimulationState(TypedDict):
     # Retry counters (internal — not sent to frontend)
     _evidence_retries: int
     _lexigraph_retries: int
+

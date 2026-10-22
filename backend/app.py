@@ -1173,12 +1173,6 @@ async def lexigraph_analyze_endpoint(req: LexiGraphAgentQueryRequest):
             }
         )
 
-# Import and include new Game API & WebSocket routers
-from backend.game.api import game_router, ws_router
-app.include_router(game_router)
-app.include_router(ws_router)
-
-
 # ── Orchestrator Endpoint ──────────────────────────────────────────────────────
 
 # Lazy-init singleton for the compiled LangGraph graph.
@@ -1198,15 +1192,89 @@ def _get_orchestrator_graph():
 
 class OrchestratorRunRequest(BaseModel):
     query: str
+    session_id: Optional[str] = None
+    role: Optional[str] = "prosecutor"
+    mode: Optional[str] = "ai_vs_human"
+    max_rounds: Optional[int] = 2
+    human_argument: Optional[str] = None
+
+
+class OrchestratorStreamRequest(BaseModel):
+    query: str
+    session_id: Optional[str] = None
+    role: Optional[str] = "prosecutor"   # user's chosen role (prosecutor | defense)
+    mode: Optional[str] = "ai_vs_human"  # ai_vs_human | ai_vs_ai
+    max_rounds: Optional[int] = 2
+    human_argument: Optional[str] = None
+
+
+class OrchestratorSubmitArgumentRequest(BaseModel):
+    session_id: str
+    argument: str
+    role: Optional[str] = None
+    round_no: Optional[int] = None
 
 
 # ── SSE Streaming Orchestrator Endpoint ────────────────────────────────────────
 import queue as _queue_mod
 
-class OrchestratorStreamRequest(BaseModel):
-    query: str
-    role: str = "prosecutor"   # user's chosen role (prosecutor | defense)
-    max_rounds: int = 2
+
+@app.get("/api/orchestrator/roles", tags=["Orchestrator"])
+async def orchestrator_roles():
+    """Returns available modes and roles for frontend selection."""
+    return {
+        "modes": [
+            {
+                "id": "ai_vs_human",
+                "name": "AI vs Human",
+                "description": "Interactive moot court: You select a role (Prosecutor or Defense), AI takes opposing counsel, AI Judge presides.",
+            },
+            {
+                "id": "ai_vs_ai",
+                "name": "AI vs AI",
+                "description": "Automated simulation between AI Public Prosecutor and AI Defense Counsel.",
+            },
+        ],
+        "roles": [
+            {
+                "id": "prosecutor",
+                "name": "Public Prosecutor",
+                "description": "Represent the State: Establish statutory ingredients and prima facie guilt, oppose bail.",
+                "ai_opponent": "Defense Counsel",
+            },
+            {
+                "id": "defense",
+                "name": "Defense Counsel",
+                "description": "Represent the Accused: Challenge evidence, establish lack of ingredients, argue for bail/discharge.",
+                "ai_opponent": "Public Prosecutor",
+            },
+        ],
+    }
+
+
+@app.post("/api/orchestrator/submit-argument", tags=["Orchestrator"])
+async def orchestrator_submit_argument(req: OrchestratorSubmitArgumentRequest):
+    """
+    Submit a human legal argument from frontend to the active orchestrator pipeline.
+    """
+    sid = req.session_id.strip()
+    text = (req.argument or "").strip()
+    if not text:
+        return JSONResponse(status_code=400, content={"success": False, "message": "Argument cannot be empty."})
+
+    from backend.agents.orchestrator.session_input import session_input_manager, normalize_role
+    accepted = session_input_manager.submit_argument(
+        session_id=sid,
+        argument=text,
+        role=normalize_role(req.role),
+        round_no=req.round_no,
+    )
+    return {
+        "success": True,
+        "session_id": sid,
+        "accepted": accepted,
+        "message": "Argument submitted to orchestrator session.",
+    }
 
 
 @app.post("/api/orchestrator/stream", tags=["Orchestrator"])
@@ -1214,14 +1282,19 @@ async def orchestrator_stream(req: OrchestratorStreamRequest):
     """
     Stream the full orchestrator pipeline via Server-Sent Events (SSE).
 
-    The pipeline runs in a background thread.  Each on_event callback pushes
-    to a thread-safe queue, and this async generator yields SSE frames.
+    Supports AI vs Human role selection:
+      - role="prosecutor": Human is Prosecutor, AI is Defense Counsel
+      - role="defense": Human is Defense Counsel, AI is Public Prosecutor
 
-    Frontend connects with:
-        const es = new EventSource(url)   // or fetch() + ReadableStream
+    The pipeline runs in a background thread. Each on_event callback pushes
+    to a thread-safe queue, and this async generator yields SSE frames.
     """
     query = (req.query or "").strip()
-    role  = (req.role or "prosecutor").strip().lower()
+    from backend.agents.orchestrator.session_input import normalize_role, normalize_mode
+    role = normalize_role(req.role) or "prosecutor"
+    mode = normalize_mode(req.mode, role)
+    sid = req.session_id or str(uuid.uuid4())[:8]
+
     if not query:
         return JSONResponse(
             status_code=400,
@@ -1239,8 +1312,12 @@ async def orchestrator_stream(req: OrchestratorStreamRequest):
             from backend.agents.orchestrator.orchestrator_graph import run_orchestrator
             run_orchestrator(
                 case_id=query,
-                max_rounds=req.max_rounds,
+                session_id=sid,
+                max_rounds=req.max_rounds or 2,
                 on_event=on_event,
+                user_role=role,
+                mode=mode,
+                human_argument=req.human_argument,
             )
         except Exception as exc:
             import traceback
@@ -1285,10 +1362,7 @@ async def orchestrator_stream(req: OrchestratorStreamRequest):
 async def orchestrator_run(req: OrchestratorRunRequest):
     """
     Run the full LangGraph Court Orchestrator for a given case query / FIR text synchronously.
-
-    The pipeline executes:
-        evidence_analyzer → lexigraph → prosecutor + defense (parallel)
-        → judge_score → [accused?] → judge_verdict
+    Supports AI vs Human role selection ('prosecutor' | 'defense').
     """
     query = (req.query or "").strip()
     if not query:
@@ -1297,12 +1371,24 @@ async def orchestrator_run(req: OrchestratorRunRequest):
             content={"success": False, "message": "Field 'query' must not be empty."},
         )
 
+    from backend.agents.orchestrator.session_input import normalize_role, normalize_mode
+    role = normalize_role(req.role) or "prosecutor"
+    mode = normalize_mode(req.mode, role)
+
     from backend.agents.evidence.evidence_analyzer import build_session_id
-    session_id = build_session_id(query)
+    session_id = req.session_id or build_session_id(query)
 
     try:
         from backend.agents.orchestrator.orchestrator_graph import run_orchestrator
-        result: dict = await asyncio.to_thread(run_orchestrator, query, session_id)
+        result: dict = await asyncio.to_thread(
+            run_orchestrator,
+            case_id=query,
+            session_id=session_id,
+            max_rounds=req.max_rounds or 2,
+            user_role=role,
+            mode=mode,
+            human_argument=req.human_argument,
+        )
     except Exception as e:
         import traceback
         traceback.print_exc()

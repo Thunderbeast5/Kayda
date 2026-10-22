@@ -38,7 +38,7 @@ async def matchmaking_loop():
 async def match_players():
     # Get all users currently in the queue, sorted by join time (oldest first)
     queue = await redis_client.zrange("matchmaking:queue", 0, -1, withscores=False)
-    if len(queue) < 2:
+    if not queue:
         return
         
     # We will fetch their data to see who is compatible
@@ -52,9 +52,22 @@ async def match_players():
         data["joined_at"] = float(data.get("joined_at", time.time()))
         users_data.append(data)
             
+    now = time.time()
+    
+    # Human vs AI support: if a single player has been waiting > 5s, match with AI opponent
+    if len(users_data) == 1:
+        p1 = users_data[0]
+        wait_time = now - p1.get("joined_at", now)
+        if wait_time >= 5.0:
+            await match_with_ai(p1)
+            return
+        return
+
+    if len(users_data) < 2:
+        return
+
     # Try to find a valid pair
     matched_pair = None
-    now = time.time()
     
     for i in range(len(users_data)):
         for j in range(i + 1, len(users_data)):
@@ -184,6 +197,96 @@ async def match_players():
             "your_role": p2_role,
             "opponent": json.dumps(p2_opponent)
         })
+
+async def match_with_ai(p1: dict):
+    """
+    Pairs a waiting human player with an AI opponent when no human opponent is available.
+    """
+    # 1. Remove from queue
+    await redis_client.zrem("matchmaking:queue", p1["user_id"])
+    
+    # 2. Assign role
+    pref = p1.get("preferred_role", "ANY").upper()
+    if pref == "DEFENSE":
+        p1_role = "DEFENSE"
+        ai_role = "PROSECUTION"
+    elif pref == "PROSECUTION":
+        p1_role = "PROSECUTION"
+        ai_role = "DEFENSE"
+    else:
+        # Default to human prosecution vs AI defense
+        p1_role = "PROSECUTION"
+        ai_role = "DEFENSE"
+
+    print(f"[Matchmaking] Pairing single player with AI opponent: {p1['user_id']} ({p1_role}) vs AI ({ai_role})")
+
+    # 3. Pick random case
+    cases = list_cases()
+    case_id = cases[0]["id"] if cases else "1"
+    if cases:
+        case_id = random.choice(cases)["id"]
+
+    game_id = f"G_{int(time.time())}_{random.randint(100, 999)}"
+    ai_user_id = f"ai_{ai_role.lower()}_{game_id}"
+
+    game_doc = {
+        "mode": "SINGLE_PLAYER",
+        "case_id": case_id,
+        "status": "WAITING_FOR_PLAYERS",
+        "phase": "CASE_INTRO",
+        "current_turn": None,
+        "round": 0,
+        "created_by": "matchmaker_ai",
+        "created_at": datetime.now(timezone.utc).isoformat(),
+        "updated_at": datetime.now(timezone.utc).isoformat(),
+        "players": [
+            {
+                "user_id": p1["user_id"],
+                "role": p1_role,
+                "type": "HUMAN",
+                "display_name": p1.get("username", "Counsel"),
+                "status": "WAITING"
+            },
+            {
+                "user_id": ai_user_id,
+                "role": ai_role,
+                "type": "AI",
+                "display_name": f"AI {ai_role.title()} Counsel",
+                "status": "READY"
+            },
+            {
+                "role": "JUDGE",
+                "type": "AI",
+                "display_name": "AI Judge",
+                "status": "READY"
+            }
+        ]
+    }
+
+    # Persist in Redis
+    await redis_client.set(f"game_doc:{game_id}", json.dumps(game_doc))
+
+    try:
+        db = _get_firestore_client()
+        if db:
+            game_ref = db.collection("games").document(game_id)
+            await asyncio.to_thread(game_ref.set, game_doc)
+            print(f"[Matchmaking] Synced AI game {game_id} to Firestore.")
+    except Exception as e:
+        print(f"[Matchmaking] Firestore sync bypassed ({e}). Using Redis game.")
+
+    ai_opponent = {
+        "username": f"AI {ai_role.title()} Counsel",
+        "rating": 1300,
+        "is_ai": True
+    }
+
+    await hset_mapping(f"matchmaking:user:{p1['user_id']}", {
+        "status": "MATCH_FOUND",
+        "game_id": game_id,
+        "your_role": p1_role,
+        "opponent": json.dumps(ai_opponent)
+    })
 
 def start_matchmaking_worker():
     """

@@ -82,7 +82,7 @@ class GameJudgeAgent:
         self.gap_detector = GapDetector() if GapDetector else None
         self._last_observation_cache: Dict[str, str] = {}
 
-    async def _call_ollama(self, prompt: str, system: Optional[str] = None, max_tokens: int = 150, timeout: float = 6.0) -> Optional[str]:
+    async def _call_ollama(self, prompt: str, system: Optional[str] = None, max_tokens: int = 150, timeout: float = 1.5) -> Optional[str]:
         """
         Asynchronously calls local Ollama server with a tight timeout for real-time response.
         """
