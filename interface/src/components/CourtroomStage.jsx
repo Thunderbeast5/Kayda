@@ -43,7 +43,7 @@ function Figure({ role, src, activeSpeaker, message, isUser, bubbleSide = "top" 
           draggable={false}
           className={`w-full select-none origin-bottom transition-all duration-500 ${
             isActive
-              ? "scale-[1.08] brightness-110 drop-shadow-[0_0_10px_rgba(255,200,100,0.7)]"
+              ? "scale-[1.08] brightness-100 drop-shadow-[0_0_10px_rgba(255,200,100,0.7)]"
               : ""
           }`}
         />
