@@ -74,13 +74,13 @@ export default function LandingNavbar({ scrollToSection }) {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
         >
           <img src={logo} alt="Kayda Logo" className="w-14 h-auto" />
-          <span className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-[#2C1810] -ml-[16px] mt-0.5">
+          <span className="font-heading text-2xl md:text-3xl font-bold tracking-tight text-[#2C1810] -ml-[16px] mt-1.5">
             ayda
           </span>
         </div>
 
         {/* Navigation Links */}
-        <div className="hidden md:flex items-center gap-8 text-[13px] font-semibold tracking-[0.08em] uppercase text-[#2C1810]/80">
+        <div className="hidden md:flex items-center gap-8 text-[13px] font-bold tracking-[0.08em] uppercase text-[#2C1810]/80">
           <button onClick={() => navigate("/mootcourt-modes")} className="hover:text-[#8C5A3C] transition-colors flex items-center gap-1.5 cursor-pointer">
             Moot Court
           </button>
@@ -137,13 +137,13 @@ export default function LandingNavbar({ scrollToSection }) {
               {dropdownOpen && (
                 <div style={{ position: "absolute", right: 0, top: "calc(100% + 10px)", background: "rgba(255,255,255,0.95)", backdropFilter: "blur(20px)", border: "1px solid rgba(212,175,55,0.25)", borderRadius: "14px", boxShadow: "0 20px 60px rgba(44,24,16,0.12)", minWidth: "200px", padding: "8px", zIndex: 100, animation: "fadeDown 0.2s ease" }}>
                   <div style={{ padding: "10px 12px 12px", borderBottom: "1px solid rgba(212,175,55,0.15)", marginBottom: "6px" }}>
-                    <p style={{ margin: 0, fontSize: "13px", fontWeight: 700, color: "#2C1810", fontFamily: "'Poppins', sans-serif" }}>{displayName}</p>
-                    <p style={{ margin: "2px 0 0", fontSize: "11px", color: "#8C5A3C", fontFamily: "'Poppins', sans-serif" }}>{currentUser.email}</p>
+                    <p style={{ margin: 0, fontSize: "13px", fontWeight: 700, color: "#2C1810", fontFamily: "'Manrope', sans-serif" }}>{displayName}</p>
+                    <p style={{ margin: "2px 0 0", fontSize: "11px", color: "#8C5A3C", fontFamily: "'Manrope', sans-serif" }}>{currentUser.email}</p>
                   </div>
                   <button
                     id="landing-profile-btn"
                     onClick={() => { setDropdownOpen(false); navigate("/profile"); }}
-                    style={{ width: "100%", textAlign: "left", padding: "9px 12px", borderRadius: "8px", background: "none", border: "none", fontFamily: "'Poppins', sans-serif", fontSize: "13px", fontWeight: 600, color: "#2C1810", cursor: "pointer", display: "flex", alignItems: "center", gap: "8px", transition: "background 0.15s" }}
+                    style={{ width: "100%", textAlign: "left", padding: "9px 12px", borderRadius: "8px", background: "none", border: "none", fontFamily: "'Manrope', sans-serif", fontSize: "13px", fontWeight: 600, color: "#2C1810", cursor: "pointer", display: "flex", alignItems: "center", gap: "8px", transition: "background 0.15s" }}
                     onMouseEnter={e => e.currentTarget.style.background = "rgba(212,175,55,0.08)"}
                     onMouseLeave={e => e.currentTarget.style.background = "none"}
                   >
@@ -155,7 +155,7 @@ export default function LandingNavbar({ scrollToSection }) {
                   <button
                     id="signout-btn"
                     onClick={handleSignOut}
-                    style={{ width: "100%", textAlign: "left", padding: "9px 12px", borderRadius: "8px", background: "none", border: "none", fontFamily: "'Poppins', sans-serif", fontSize: "13px", fontWeight: 600, color: "#C62828", cursor: "pointer", display: "flex", alignItems: "center", gap: "8px", transition: "background 0.15s" }}
+                    style={{ width: "100%", textAlign: "left", padding: "9px 12px", borderRadius: "8px", background: "none", border: "none", fontFamily: "'Manrope', sans-serif", fontSize: "13px", fontWeight: 600, color: "#C62828", cursor: "pointer", display: "flex", alignItems: "center", gap: "8px", transition: "background 0.15s" }}
                     onMouseEnter={e => e.currentTarget.style.background = "rgba(211,47,47,0.07)"}
                     onMouseLeave={e => e.currentTarget.style.background = "none"}
                   >
@@ -172,16 +172,16 @@ export default function LandingNavbar({ scrollToSection }) {
               <button
                 id="navbar-signin-btn"
                 onClick={() => navigate("/auth")}
-                className="text-[13px] font-semibold uppercase tracking-[0.08em] text-[#2C1810] hover:underline cursor-pointer"
+                className="px-6 py-1.5 text-[13px] font-semibold text-[#2C1810] bg-transparent border border-[#2C1810] rounded-full hover:bg-[#2C1810]/5 transition-all duration-300 cursor-pointer"
               >
-                Sign In
+                Sign in
               </button>
               <button
                 id="navbar-launch-btn"
                 onClick={() => navigate("/auth")}
-                className="px-6 py-1.5 text-[13px] font-semibold uppercase tracking-[0.08em] text-[#FAF9F7] bg-[#2C1810] border border-[#D4AF37] rounded-full hover:bg-[#8C5A3C] hover:-translate-y-[1px] hover:shadow-[0_4px_20px_rgba(212,175,55,0.35)] transition-all duration-300 cursor-pointer"
+                className="px-6 py-1.5 text-[13px] font-semibold text-[#FAF9F7] bg-[#2C1810] border border-[#D4AF37] rounded-full hover:bg-[#8C5A3C] hover:-translate-y-[1px] hover:shadow-[0_4px_20px_rgba(212,175,55,0.35)] transition-all duration-300 cursor-pointer"
               >
-                Get Started
+                Get started
               </button>
             </>
           )}

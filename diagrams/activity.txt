@@ -1,0 +1,63 @@
+---
+config:
+  flowchart:
+    nodeSpacing: 35
+    rankSpacing: 25
+    padding: 10
+---
+flowchart TD
+    Start(["● Start"]) --> SelectMode["Select Practice Mode & Case Dossier"]
+    SelectMode --> CheckMode{"Mode?"}
+
+    CheckMode -- "Multiplayer" --> QueueRedis["Redis Match Queue"]
+    QueueRedis --> MatchFound["Pair Opponent & Room"]
+    CheckMode -- "Single Player AI" --> RoleSelect["Pick Role: Pros / Def"]
+
+    MatchFound --> UploadCase["Submit FIR / Upload PDF Evidence"]
+    RoleSelect --> UploadCase
+
+    subgraph PreTrial ["Pre-Trial Grounding Verification Gate"]
+        UploadCase --> ForkPreTrial{"Fork"}
+
+        ForkPreTrial --> RunOCR["OCR: Vision / Tesseract"]
+        RunOCR --> ExtractFacts["Deconstruct Facts & Entities"]
+        ExtractFacts --> BuildGraph["Force Graph & Firestore"]
+
+        ForkPreTrial --> RegimeDetect["Regime: IPC vs BNS"]
+        RegimeDetect --> MapSections["Statutory & Ingredient Match"]
+        MapSections --> FetchPrecedents["Supreme Court Precedents"]
+
+        BuildGraph --> JoinPreTrial{"Join"}
+        FetchPrecedents --> JoinPreTrial
+        JoinPreTrial --> GateCheck{"Verified?"}
+    end
+
+    GateCheck -- "No" --> TerminateFailed["Log Error / Abort"] --> EndFail(["● Terminate"])
+    GateCheck -- "Yes" --> InitCourt["Initialize Court: Gavel Strike"]
+
+    subgraph CourtroomLoop ["Adversarial Courtroom Proceedings"]
+        InitCourt --> ProsTurn["Prosecution Submits Argument"]
+
+        ProsTurn --> CheckCiteP{"Cited?"}
+        CheckCiteP -- "No" --> PenalizeP["Penalize & Retry"] --> ProsTurn
+        CheckCiteP -- "Yes" --> PlayTTS_P["Stream SSE & Audio TTS"]
+
+        PlayTTS_P --> DefTurn["Defense Rebuttal / Bail Plea"]
+
+        DefTurn --> CheckCiteD{"Cited?"}
+        CheckCiteD -- "No" --> PenalizeD["Penalize & Retry"] --> DefTurn
+        CheckCiteD -- "Yes" --> PlayTTS_D["Stream SSE & Audio TTS"]
+
+        PlayTTS_D --> ObjCheck{"Objection?"}
+        ObjCheck -- "Yes" --> PauseTimer["Pause & Rule"] --> JudgeRule["Sustain / Overrule"] --> ScoreRound["Judge 3-Axis Scoring"]
+        ObjCheck -- "No" --> ScoreRound
+    end
+
+    ScoreRound --> SufficientCheck{"Linkage ≥ 15.0?"}
+    SufficientCheck -- "No" --> ClarifyAccused["Interrogate Accused"] --> AccusedReply["Accused Testifies"] --> RoundsCheck{"All Rounds Finished?"}
+    SufficientCheck -- "Yes" --> RoundsCheck
+
+    RoundsCheck -- "No" --> ProsTurn
+    RoundsCheck -- "Yes" --> DeliverVerdict["Judge Verdict: Granted / Denied"]
+
+    DeliverVerdict --> ShowScorecard["Display Scores, Rating & Transcript"] --> EndNode(["● End"])

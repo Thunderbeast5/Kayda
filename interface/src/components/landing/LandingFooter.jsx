@@ -1,31 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { 
-  ShieldCheck, 
-  Lock, 
-  Scale, 
-  Award, 
-  CheckCircle2, 
-  ArrowRight, 
-  Send, 
-  Check, 
-  X, 
-  ExternalLink, 
-  Activity, 
-  Server, 
-  FileText 
-} from "lucide-react";
+import { Send, Check, X, Lock } from "lucide-react";
+import logo from "../../assets/12.svg";
 
 export default function LandingFooter({ scrollToSection }) {
   const navigate = useNavigate();
-  
+
   // Newsletter state
   const [email, setEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [subscriptionError, setSubscriptionError] = useState("");
 
-  // Modal dialog states
-  const [activeModal, setActiveModal] = useState(null); // 'pricing' | 'privacy' | 'terms' | 'security' | null
+  // Modal dialog states (retained for Terms & Privacy links)
+  const [activeModal, setActiveModal] = useState(null); // 'privacy' | 'terms' | null
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -56,9 +43,8 @@ export default function LandingFooter({ scrollToSection }) {
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[radial-gradient(#C5A059_1px,transparent_1px)] [background-size:20px_20px]" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        
         {/* =========================================================================
-            NEWSLETTER / COMPLIANCE UPDATE SUBSCRIPTION BANNER
+            NEWSLETTER / COMPLIANCE UPDATE SUBSCRIPTION BANNER (UNTOUCHED)
            ========================================================================= */}
         <div className="bg-[#2E1A17]/85 border border-[#C5A059]/30 p-6 md:p-8 rounded-sm mb-16 shadow-2xl relative backdrop-blur-sm">
           <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
@@ -125,41 +111,24 @@ export default function LandingFooter({ scrollToSection }) {
         </div>
 
         {/* =========================================================================
-            STRUCTURED MULTI-COLUMN SITEMAP
+            STRUCTURED SITEMAP
            ========================================================================= */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 lg:gap-8 mb-14 text-left">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 mb-12 text-left">
           
-          {/* Column 1: Platform / Brand Identity */}
-          <div className="lg:col-span-2 pr-0 lg:pr-6">
-            <div className="flex items-center gap-2.5 mb-3">
-              <span className="w-7 h-7 rounded-sm bg-[#2E1A17] border border-[#C5A059]/50 flex items-center justify-center text-[#C5A059] shadow-sm">
-                <Scale className="w-4 h-4" />
-              </span>
-              <span className="font-heading font-black text-2xl text-[#FAF8F5] tracking-tight">
-                Kayda
+          {/* Column 1: Brand Identity */}
+          <div className="pr-0 lg:pr-4">
+            <div className="flex items-center mb-3">
+              <img src={logo} alt="Kayda Logo" className="w-14 h-auto" />
+              <span className="font-heading text-2xl font-bold tracking-tight text-[#FAF8F5] -ml-[16px] mt-0.5">
+                ayda
               </span>
             </div>
             <span className="font-mono text-[9px] tracking-[0.2em] text-[#C5A059] uppercase block mb-3 font-semibold">
               CONVERSATIONAL TRIAL REALITY // COGNITIVE LAW SYSTEM
             </span>
-            <p className="font-body text-xs text-[#D7CCC8]/85 leading-relaxed mb-5 max-w-md">
+            <p className="font-body text-xs text-[#D7CCC8]/85 leading-relaxed max-w-sm">
               A high-precision cognitive litigation simulator for advocates, institutions, and judicial researchers. Test arguments against reactive multi-agent benches anchored in Indian Penal Code, BNS, and Supreme Court precedent graphs.
             </p>
-            <div className="flex flex-wrap items-center gap-2">
-              <button
-                onClick={() => handleNav("choose-role")}
-                className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-mono bg-[#2E1A17] hover:bg-[#5D4037] border border-[#C5A059]/40 text-[#FAF8F5] px-3 py-1.5 rounded-sm transition-colors cursor-pointer"
-              >
-                <span>Launch Court Chambers</span>
-                <ArrowRight className="w-3 h-3 text-[#C5A059]" />
-              </button>
-              <button
-                onClick={() => setActiveModal("pricing")}
-                className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-mono bg-transparent hover:bg-[#2E1A17] border border-[#757575]/50 text-[#D7CCC8] hover:text-[#FAF8F5] px-3 py-1.5 rounded-sm transition-colors cursor-pointer"
-              >
-                <span>Pricing Plans</span>
-              </button>
-            </div>
           </div>
 
           {/* Column 2: Moot Court Simulation */}
@@ -270,10 +239,10 @@ export default function LandingFooter({ scrollToSection }) {
             </ul>
           </div>
 
-          {/* Column 4: Agent Directory & Institutional Plans */}
+          {/* Column 4: Agent Directory */}
           <div>
             <h4 className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#C5A059] font-bold mb-4 pb-1.5 border-b border-[#5D4037]/60">
-              Agent Directory & Plans
+              Agent Directory
             </h4>
             <ul className="space-y-2.5 font-body text-xs text-[#D7CCC8]">
               <li>
@@ -294,238 +263,51 @@ export default function LandingFooter({ scrollToSection }) {
                   <span>Senior Defense Advocates</span>
                 </button>
               </li>
-              <li>
-                <button 
-                  onClick={() => setActiveModal("pricing")}
-                  className="hover:text-[#C5A059] transition-colors cursor-pointer flex items-center gap-1.5 group text-[#C5A059] font-semibold"
-                >
-                  <span className="text-[#C5A059] opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">›</span>
-                  <span>Pricing Plans & Tiers</span>
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => setActiveModal("pricing")}
-                  className="hover:text-[#C5A059] transition-colors cursor-pointer flex items-center gap-1.5 group"
-                >
-                  <span className="text-[#C5A059] opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">›</span>
-                  <span>Chambers Enterprise License</span>
-                </button>
-              </li>
-              <li>
-                <button 
-                  onClick={() => setActiveModal("security")}
-                  className="hover:text-[#C5A059] transition-colors cursor-pointer flex items-center gap-1.5 group"
-                >
-                  <span className="text-[#C5A059] opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">›</span>
-                  <span>Data Governance & SLA</span>
-                </button>
-              </li>
             </ul>
           </div>
 
         </div>
 
-        {/* =========================================================================
-            ENHANCED TRUST & SECURITY BADGES & PRIVACY ROW
-           ========================================================================= */}
-        <div className="bg-[#2E1A17]/50 border border-[#5D4037]/70 px-5 py-4 rounded-sm flex flex-col lg:flex-row items-center justify-between gap-4 mb-10">
-          <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-[11px] font-body text-[#D7CCC8]">
-            <span className="font-mono text-[9px] uppercase tracking-wider text-[#C5A059] font-bold">
-              SECURITY STANDARDS:
-            </span>
-            <div className="flex items-center gap-1.5 bg-[#1D110F] px-2.5 py-1 rounded-sm border border-[#5D4037]">
-              <ShieldCheck className="w-3.5 h-3.5 text-[#C5A059]" />
-              <span className="font-mono text-[10px]">SOC-2 TYPE II AUDITED</span>
-            </div>
-            <div className="flex items-center gap-1.5 bg-[#1D110F] px-2.5 py-1 rounded-sm border border-[#5D4037]">
-              <Lock className="w-3.5 h-3.5 text-[#C5A059]" />
-              <span className="font-mono text-[10px]">AES-256 ENCRYPTED ISOLATION</span>
-            </div>
-            <div className="flex items-center gap-1.5 bg-[#1D110F] px-2.5 py-1 rounded-sm border border-[#5D4037]">
-              <Scale className="w-3.5 h-3.5 text-[#C5A059]" />
-              <span className="font-mono text-[10px]">ATTORNEY PRIVILEGE VAULT</span>
-            </div>
-            <div className="flex items-center gap-1.5 bg-[#1D110F] px-2.5 py-1 rounded-sm border border-[#5D4037]">
-              <Award className="w-3.5 h-3.5 text-[#C5A059]" />
-              <span className="font-mono text-[10px]">ISO 27001 ALIGNED</span>
-            </div>
-          </div>
+        {/* Minimal clean divider */}
+        <div className="h-px w-full bg-[#5D4037]/50 my-8" />
 
-          <div className="flex items-center gap-4 text-[10px] font-mono uppercase tracking-wider text-[#A1887F]">
+        {/* =========================================================================
+            BOTTOM BAR: COPYRIGHT & LEGAL LINKS
+           ========================================================================= */}
+        <div className="flex flex-col sm:flex-row justify-between items-center text-[#D7CCC8]/70 font-mono text-[9px] uppercase tracking-wider gap-4">
+          <p>© 2026 KAYDA INC. ALL COURT TRANSCRIPTS SECURED UNDER PRIVACY ACT &amp; ADVOCATES PROTOCOL.</p>
+          <div className="flex items-center gap-4 text-[10px] text-[#A1887F]">
             <button 
               onClick={() => setActiveModal("terms")} 
-              className="hover:text-[#C5A059] transition-colors cursor-pointer underline decoration-[#5D4037] underline-offset-4"
+              className="hover:text-[#C5A059] transition-colors cursor-pointer"
             >
               Terms of Protocol
             </button>
             <span>•</span>
             <button 
               onClick={() => setActiveModal("privacy")} 
-              className="hover:text-[#C5A059] transition-colors cursor-pointer underline decoration-[#5D4037] underline-offset-4"
+              className="hover:text-[#C5A059] transition-colors cursor-pointer"
             >
               Privacy Ledger
             </button>
           </div>
         </div>
 
-        {/* =========================================================================
-            FINE GOLD-ACCENTED HORIZONTAL DIVIDER RULE
-           ========================================================================= */}
-        <div className="relative my-10">
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-[#C5A059] to-transparent opacity-60" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#3E2723] px-4">
-            <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rotate-45 bg-[#C5A059]" />
-              <span className="font-mono text-[8px] md:text-[9px] uppercase tracking-[0.25em] text-[#C5A059] font-bold">
-                SOVEREIGN TRIAL PROTOCOL // ADMINISTRATIVE METADATA
-              </span>
-              <span className="w-1.5 h-1.5 rotate-45 bg-[#C5A059]" />
-            </div>
-          </div>
-        </div>
-
-        {/* =========================================================================
-            ADMINISTRATIVE METADATA, CERTIFICATION & LIVE SYSTEM STATUS INDICATOR
-           ========================================================================= */}
-        <div className="pt-4 flex flex-col md:flex-row justify-between items-center text-[#D7CCC8]/80 font-mono text-[9px] uppercase tracking-wider gap-4">
-          
-          <div className="text-center md:text-left">
-            <span>© 2026 KAYDA INC. ALL COURT TRANSCRIPTS SECURED UNDER PRIVACY ACT &amp; ADVOCATES PROTOCOL.</span>
-          </div>
-
-          <div className="flex flex-wrap items-center justify-center md:justify-end gap-3.5">
-            {/* Live System Status Indicator Pill */}
-            <div 
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#2E1A17] border border-emerald-500/40 shadow-[0_0_12px_rgba(16,185,129,0.2)]"
-              title="Real-time Node Status: IPC/BNS Knowledge Mesh Operational, Cognitive Latency 24ms"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </span>
-              <span className="font-mono text-[9px] tracking-wider text-emerald-300 font-bold">
-                All Cognitive Nodes Operational
-              </span>
-            </div>
-
-            {/* System Certification Code */}
-            <span className="bg-[#2E1A17] px-2.5 py-1 rounded-sm border border-[#5D4037] text-[#C5A059] font-bold">
-              RECORDED LOG SYSTEM INDEX CERTIFICATION #94-B
-            </span>
-          </div>
-
-        </div>
-
       </div>
 
       {/* =========================================================================
-          INTERACTIVE MODALS: PRICING PLANS, PRIVACY LEDGER, TERMS, SECURITY
+          LEGAL MODALS (TERMS & PRIVACY)
          ========================================================================= */}
       {activeModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-          <div className="bg-[#FAF8F5] border-2 border-[#C5A059] text-[#212121] max-w-2xl w-full p-6 md:p-8 rounded-sm shadow-2xl relative max-h-[90vh] overflow-y-auto">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+          <div className="bg-[#FAF8F5] border-2 border-[#C5A059] text-[#212121] max-w-xl w-full p-6 md:p-8 rounded-sm shadow-2xl relative max-h-[90vh] overflow-y-auto">
             
-            {/* Close Button */}
             <button 
               onClick={() => setActiveModal(null)}
               className="absolute top-4 right-4 p-2 text-[#757575] hover:text-[#212121] transition-colors cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
-
-            {/* Modal: Pricing Plans */}
-            {activeModal === "pricing" && (
-              <div>
-                <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#C5A059] font-bold block mb-1">
-                  OFFICIAL INSTITUTIONAL SCHEDULE // LICENSURE
-                </span>
-                <h3 className="font-heading text-2xl text-[#3E2723] mb-2 font-bold">
-                  Kayda Licensure &amp; Pricing Plans
-                </h3>
-                <p className="font-body text-xs text-[#5D4037] mb-6">
-                  Transparent courtroom simulator tier access for independent advocates, litigation chambers, and law schools.
-                </p>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                  {/* Tier 1 */}
-                  <div className="border border-[#D7CCC8] p-4 bg-white flex flex-col justify-between">
-                    <div>
-                      <span className="font-mono text-[9px] text-[#757575] uppercase">Advocate Solo</span>
-                      <h4 className="font-heading text-lg font-bold text-[#3E2723] mt-1">₹1,999<span className="text-xs font-normal text-[#757575]">/mo</span></h4>
-                      <p className="font-body text-[11px] text-[#5D4037] mt-2 mb-4">
-                        Full trial simulations with standard AI Bench. 50 cross-examinations per month.
-                      </p>
-                      <ul className="space-y-1.5 font-body text-[10px] text-[#212121]">
-                        <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#C5A059]" /> BNS &amp; IPC Statues</li>
-                        <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#C5A059]" /> Voice &amp; Text Argument</li>
-                        <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#C5A059]" /> Evidence Analyzer</li>
-                      </ul>
-                    </div>
-                    <button 
-                      onClick={() => { setActiveModal(null); handleNav("choose-role"); }}
-                      className="mt-4 w-full bg-[#3E2723] hover:bg-[#5D4037] text-white font-body text-[10px] uppercase tracking-wider py-2 font-bold cursor-pointer transition-colors"
-                    >
-                      Start Free Trial
-                    </button>
-                  </div>
-
-                  {/* Tier 2 */}
-                  <div className="border-2 border-[#C5A059] p-4 bg-white relative flex flex-col justify-between shadow-md">
-                    <span className="absolute -top-2.5 right-3 bg-[#C5A059] text-[#2E1A17] font-mono text-[8px] uppercase tracking-widest font-black px-2 py-0.5">
-                      Recommended
-                    </span>
-                    <div>
-                      <span className="font-mono text-[9px] text-[#C5A059] uppercase font-bold">Chambers Suite</span>
-                      <h4 className="font-heading text-lg font-bold text-[#3E2723] mt-1">₹9,999<span className="text-xs font-normal text-[#757575]">/mo</span></h4>
-                      <p className="font-body text-[11px] text-[#5D4037] mt-2 mb-4">
-                        Multi-seat chambers licensing, custom evidentiary briefing, and live Cypher graph queries.
-                      </p>
-                      <ul className="space-y-1.5 font-body text-[10px] text-[#212121]">
-                        <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#C5A059]" /> 5 Counsel Seats</li>
-                        <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#C5A059]" /> Unlimited Simulations</li>
-                        <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#C5A059]" /> Custom Precedent Mesh</li>
-                        <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#C5A059]" /> Dedicated Latency Node</li>
-                      </ul>
-                    </div>
-                    <button 
-                      onClick={() => { setActiveModal(null); handleNav("choose-role"); }}
-                      className="mt-4 w-full bg-[#C5A059] hover:bg-[#D4AF37] text-[#2E1A17] font-body text-[10px] uppercase tracking-wider py-2 font-bold cursor-pointer transition-colors"
-                    >
-                      Select Chambers
-                    </button>
-                  </div>
-
-                  {/* Tier 3 */}
-                  <div className="border border-[#D7CCC8] p-4 bg-white flex flex-col justify-between">
-                    <div>
-                      <span className="font-mono text-[9px] text-[#757575] uppercase">Institutional &amp; Univ</span>
-                      <h4 className="font-heading text-lg font-bold text-[#3E2723] mt-1">Custom</h4>
-                      <p className="font-body text-[11px] text-[#5D4037] mt-2 mb-4">
-                        Law faculty bulk student licensing, moot court competition scoring, on-premise data isolation.
-                      </p>
-                      <ul className="space-y-1.5 font-body text-[10px] text-[#212121]">
-                        <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#C5A059]" /> Unlimited Law Students</li>
-                        <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#C5A059]" /> Moot Court Tournament Mode</li>
-                        <li className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#C5A059]" /> Custom Jurist Agents</li>
-                      </ul>
-                    </div>
-                    <button 
-                      onClick={() => { setActiveModal(null); handleNav("pricing"); }}
-                      className="mt-4 w-full bg-[#5D4037] hover:bg-[#3E2723] text-white font-body text-[10px] uppercase tracking-wider py-2 font-bold cursor-pointer transition-colors"
-                    >
-                      Consult Registry
-                    </button>
-                  </div>
-                </div>
-
-                <div className="bg-[#FAF8F5] border border-[#D7CCC8] p-3 text-center">
-                  <span className="font-mono text-[9px] uppercase tracking-wider text-[#757575]">
-                    All plans include encrypted counsel workspace isolation and zero-training client confidentiality.
-                  </span>
-                </div>
-              </div>
-            )}
 
             {/* Modal: Privacy Ledger */}
             {activeModal === "privacy" && (
@@ -589,41 +371,9 @@ export default function LandingFooter({ scrollToSection }) {
               </div>
             )}
 
-            {/* Modal: Security Standards */}
-            {activeModal === "security" && (
-              <div>
-                <span className="font-mono text-[9px] uppercase tracking-[0.25em] text-[#C5A059] font-bold block mb-1">
-                  INSTITUTIONAL AUDIT // SECURITY COMPLIANCE
-                </span>
-                <h3 className="font-heading text-2xl text-[#3E2723] mb-4 font-bold">
-                  Security Standards &amp; SLA Controls
-                </h3>
-                <div className="space-y-3 font-body text-xs text-[#5D4037] leading-relaxed">
-                  <p>
-                    <strong>• SOC-2 Type II Certified:</strong> Third-party verified controls for security, availability, and procedural confidentiality.
-                  </p>
-                  <p>
-                    <strong>• 99.98% Service Uptime SLA:</strong> High-availability deployment across distributed neural inference nodes guaranteeing uninterrupted courtroom simulation.
-                  </p>
-                  <p>
-                    <strong>• ISO 27001 Information Security Management:</strong> Robust data handling controls mapped to rigorous international safety standards.
-                  </p>
-                </div>
-                <div className="mt-6 flex justify-end">
-                  <button 
-                    onClick={() => setActiveModal(null)}
-                    className="bg-[#3E2723] text-white px-5 py-2 font-body text-xs uppercase tracking-wider font-bold cursor-pointer"
-                  >
-                    Close Specifications
-                  </button>
-                </div>
-              </div>
-            )}
-
           </div>
         </div>
       )}
-
     </footer>
   );
 }

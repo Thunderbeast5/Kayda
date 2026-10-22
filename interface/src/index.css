@@ -28,9 +28,17 @@
   --color-textPrimary: #212121;
   --color-textMuted: #757575;
 
-  --font-heading: "Playfair Display", serif;
-  --font-body: "Poppins", sans-serif;
+  --font-heading: "DM Serif Display", serif;
+  --font-heading-italic: "Playfair Display", serif;
+  --font-body: "Manrope", sans-serif;
   --font-mono: "Roboto Mono", monospace;
+}
+
+@layer utilities {
+  .font-heading:is(.italic, i, em),
+  .font-heading :is(.italic, i, em) {
+    font-family: var(--font-heading-italic);
+  }
 }
 
 @layer base {

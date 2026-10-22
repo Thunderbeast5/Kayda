@@ -1,0 +1,45 @@
+sequenceDiagram
+    autonumber
+    actor Pros as User A (Prosecutor)
+    actor Def as User B (Defense)
+    participant MM as Matchmaking (Redis)
+    participant WS as WebSocket Manager
+    participant Engine as GameEngine
+    participant DB as Firestore DB
+
+    %% Matchmaking
+    Pros->>MM: Enqueue (role: PROSECUTION, rating: 1250)
+    Def->>MM: Enqueue (role: DEFENSE, rating: 1230)
+    MM->>MM: match_players() -> Pair Found
+    MM->>DB: create_game(game_id, case_id)
+    MM-->>Pros: MATCH_FOUND (game_id)
+    MM-->>Def: MATCH_FOUND (game_id)
+
+    %% WebSocket Handshake
+    Pros->>WS: Connect WebSocket (game_id, uid_A)
+    Def->>WS: Connect WebSocket (game_id, uid_B)
+    WS->>Engine: init_game_state(game_id)
+    Engine-->>WS: Broadcast "GAME_ACTIVE" (Turn: Prosecution)
+
+    %% Turn Execution
+    Pros->>WS: Send Action "SUBMIT_ARGUMENT" (text)
+    WS->>Engine: process_action(game_id, uid_A, action)
+    Engine->>Engine: validate_turn() & update_state()
+    Engine-->>WS: Broadcast "ARGUMENT_SUBMITTED"
+    WS-->>Def: Display Opponent's Argument
+
+    %% Objection Interruption
+    Def->>WS: Send Action "RAISE_OBJECTION" ("Hearsay evidence")
+    WS->>Engine: process_action(game_id, uid_B, objection)
+    Engine->>Engine: pause_timer()
+    Engine-->>WS: Broadcast "OBJECTION_RAISED"
+    WS-->>Pros: Alert: Defense Raised Objection
+
+    Note over Engine: Automatic AI Judge Intervention
+    Engine->>Engine: handle_judge_objection_ruling()
+    Engine-->>WS: Broadcast "JUDGE_RULING" ("Overruled. Counsel may proceed.")
+    WS-->>Pros: Resume Argument
+    WS-->>Def: Objection Overruled Notice
+
+    %% Persistence
+    Engine-)DB: sync_to_firestore_sync(game_id, transcript)

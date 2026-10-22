@@ -47,7 +47,7 @@ function Field({ label, id, type = "text", value, onChange, placeholder, error, 
           value={value}
           onChange={onChange}
           placeholder={placeholder}
-          className={`w-full text-[13px] text-[#2C1810] font-['Poppins'] outline-none rounded-lg transition-all duration-200 placeholder:text-[#6B4C3B]/45
+          className={`w-full text-[13px] text-[#2C1810] font-['Manrope'] outline-none rounded-lg transition-all duration-200 placeholder:text-[#6B4C3B]/45
             ${rightEl ? "py-2 pl-3 pr-9" : "py-2 px-3"}
             ${error 
               ? "bg-[#D32F2F]/[0.04] border-[1.5px] border-[#D32F2F] focus:border-[#D32F2F] focus:ring-2 focus:ring-[#D32F2F]/20" 
@@ -61,7 +61,7 @@ function Field({ label, id, type = "text", value, onChange, placeholder, error, 
         )}
       </div>
       {error && (
-        <p className="text-[10px] text-[#D32F2F] m-0 mt-0.5 font-['Poppins']">
+        <p className="text-[10px] text-[#D32F2F] m-0 mt-0.5 font-['Manrope']">
           {error}
         </p>
       )}
@@ -195,12 +195,11 @@ export default function AuthPage() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600;700&display=swap');
         input[type=number]::-webkit-inner-spin-button,
         input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
       `}</style>
 
-      <div className="flex w-full h-screen font-['Poppins'] bg-[#FAF9F7] overflow-hidden m-0 p-0">
+      <div className="flex w-full h-screen font-['Manrope'] bg-[#FAF9F7] overflow-hidden m-0 p-0">
         
         {/* ─── LEFT SIDE: IMAGE ─── */}
         <div 
@@ -209,7 +208,7 @@ export default function AuthPage() {
         >
           <div className="absolute inset-0 bg-gradient-to-b from-[#2C1810]/20 to-[#2C1810]/80 z-10"></div>
           <div className="relative z-20">
-            <h2 className="font-['Playfair_Display'] text-4xl mb-2 font-bold m-0">Precision in Law.</h2>
+            <h2 className="font-heading text-4xl mb-2 font-bold m-0">Precision in Law.</h2>
             <p className="text-sm opacity-85 max-w-[80%] m-0">
               Empowering legal professionals with next-generation intelligence and data-driven insights.
             </p>
@@ -228,7 +227,7 @@ export default function AuthPage() {
                 id="tab-signin"
                 role="tab"
                 aria-selected={tab === "signin"}
-                className={`flex-1 py-2 rounded-lg border-none font-['Poppins'] text-xs font-semibold tracking-[0.04em] cursor-pointer transition-all duration-200 
+                className={`flex-1 py-2 rounded-lg border-none font-['Manrope'] text-xs font-semibold tracking-[0.04em] cursor-pointer transition-all duration-200
                   ${tab === "signin" ? "bg-[#2C1810] text-[#FAF9F7] shadow-[0_2px_8px_rgba(44,24,16,0.15)]" : "bg-transparent text-[#6B4C3B]"}`}
                 onClick={() => { setTab("signin"); setGlobalError(""); }}
               >
@@ -238,7 +237,7 @@ export default function AuthPage() {
                 id="tab-register"
                 role="tab"
                 aria-selected={tab === "register"}
-                className={`flex-1 py-2 rounded-lg border-none font-['Poppins'] text-xs font-semibold tracking-[0.04em] cursor-pointer transition-all duration-200 
+                className={`flex-1 py-2 rounded-lg border-none font-['Manrope'] text-xs font-semibold tracking-[0.04em] cursor-pointer transition-all duration-200
                   ${tab === "register" ? "bg-[#2C1810] text-[#FAF9F7] shadow-[0_2px_8px_rgba(44,24,16,0.15)]" : "bg-transparent text-[#6B4C3B]"}`}
                 onClick={() => { setTab("register"); setGlobalError(""); }}
               >
@@ -248,7 +247,7 @@ export default function AuthPage() {
 
             {/* Global Error */}
             {globalError && (
-              <div className="bg-[#D32F2F]/[0.07] border border-[#D32F2F]/25 rounded-lg py-2 px-3 text-xs text-[#C62828] font-['Poppins'] mb-2.5">
+              <div className="bg-[#D32F2F]/[0.07] border border-[#D32F2F]/25 rounded-lg py-2 px-3 text-xs text-[#C62828] font-['Manrope'] mb-2.5">
                 {globalError}
               </div>
             )}
@@ -293,7 +292,7 @@ export default function AuthPage() {
                     id="signin-submit-btn"
                     type="submit"
                     disabled={loading}
-                    className="w-full py-3 bg-gradient-to-br from-[#2C1810] to-[#4A2818] border border-[#D4AF37]/50 rounded-[10px] font-['Poppins'] text-[13px] font-bold tracking-[0.06em] uppercase text-[#FAF9F7] cursor-pointer transition-all duration-200 flex items-center justify-center gap-1.5 mt-0.5 hover:from-[#4A2818] hover:to-[#6B3A20] hover:-translate-y-[1px] disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="w-full py-3 bg-gradient-to-br from-[#2C1810] to-[#4A2818] border border-[#D4AF37]/50 rounded-[10px] font-['Manrope'] text-[13px] font-bold tracking-[0.06em] uppercase text-[#FAF9F7] cursor-pointer transition-all duration-200 flex items-center justify-center gap-1.5 mt-0.5 hover:from-[#4A2818] hover:to-[#6B3A20] hover:-translate-y-[1px] disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {loading ? "Signing in..." : "Sign In"}
                   </button>
@@ -309,7 +308,7 @@ export default function AuthPage() {
                     type="button"
                     onClick={handleGoogle}
                     disabled={loading}
-                    className="w-full py-2.5 bg-white border border-[#D4AF37]/40 rounded-[10px] font-['Poppins'] text-[13px] font-semibold text-[#2C1810] cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 hover:bg-gray-50 hover:-translate-y-[1px]"
+                    className="w-full py-2.5 bg-white border border-[#D4AF37]/40 rounded-[10px] font-['Manrope'] text-[13px] font-semibold text-[#2C1810] cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 hover:bg-gray-50 hover:-translate-y-[1px]"
                   >
                     <GoogleIcon />
                     Continue with Google
@@ -317,7 +316,7 @@ export default function AuthPage() {
 
                   <p className="text-center text-xs text-[#6B4C3B] m-0 mt-1">
                     Don't have an account?{" "}
-                    <button type="button" className="text-[#8C5A3C] font-bold cursor-pointer underline bg-none border-none font-['Poppins'] text-xs p-0" onClick={() => { setTab("register"); setGlobalError(""); }}>
+                    <button type="button" className="text-[#8C5A3C] font-bold cursor-pointer underline bg-none border-none font-['Manrope'] text-xs p-0" onClick={() => { setTab("register"); setGlobalError(""); }}>
                       Register now
                     </button>
                   </p>
@@ -419,7 +418,7 @@ export default function AuthPage() {
                     id="register-submit-btn"
                     type="submit"
                     disabled={loading}
-                    className="w-full py-3 bg-gradient-to-br from-[#2C1810] to-[#4A2818] border border-[#D4AF37]/50 rounded-[10px] font-['Poppins'] text-[13px] font-bold tracking-[0.06em] uppercase text-[#FAF9F7] cursor-pointer transition-all duration-200 flex items-center justify-center gap-1.5 mt-0.5 hover:from-[#4A2818] hover:to-[#6B3A20] hover:-translate-y-[1px] disabled:opacity-70 disabled:cursor-not-allowed"
+                    className="w-full py-3 bg-gradient-to-br from-[#2C1810] to-[#4A2818] border border-[#D4AF37]/50 rounded-[10px] font-['Manrope'] text-[13px] font-bold tracking-[0.06em] uppercase text-[#FAF9F7] cursor-pointer transition-all duration-200 flex items-center justify-center gap-1.5 mt-0.5 hover:from-[#4A2818] hover:to-[#6B3A20] hover:-translate-y-[1px] disabled:opacity-70 disabled:cursor-not-allowed"
                   >
                     {loading ? "Creating account..." : "Create Account"}
                   </button>
@@ -435,7 +434,7 @@ export default function AuthPage() {
                     type="button"
                     onClick={handleGoogle}
                     disabled={loading}
-                    className="w-full py-2.5 bg-white border border-[#D4AF37]/40 rounded-[10px] font-['Poppins'] text-[13px] font-semibold text-[#2C1810] cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 hover:bg-gray-50 hover:-translate-y-[1px]"
+                    className="w-full py-2.5 bg-white border border-[#D4AF37]/40 rounded-[10px] font-['Manrope'] text-[13px] font-semibold text-[#2C1810] cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 hover:bg-gray-50 hover:-translate-y-[1px]"
                   >
                     <GoogleIcon />
                     Sign up with Google
@@ -443,7 +442,7 @@ export default function AuthPage() {
 
                   <p className="text-center text-xs text-[#6B4C3B] m-0 mt-1">
                     Already have an account?{" "}
-                    <button type="button" className="text-[#8C5A3C] font-bold cursor-pointer underline bg-none border-none font-['Poppins'] text-xs p-0" onClick={() => { setTab("signin"); setGlobalError(""); }}>
+                    <button type="button" className="text-[#8C5A3C] font-bold cursor-pointer underline bg-none border-none font-['Manrope'] text-xs p-0" onClick={() => { setTab("signin"); setGlobalError(""); }}>
                       Sign in
                     </button>
                   </p>

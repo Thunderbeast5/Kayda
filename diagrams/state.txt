@@ -1,0 +1,94 @@
+stateDiagram-v2
+    [*] --> INIT : POST /api/orchestrator/start
+
+    state INIT {
+        [*] --> ValidatePayload
+        ValidatePayload --> Ready : Valid FIR / Brief
+    }
+
+    INIT --> EVIDENCE_ANALYSIS : Start Verification Pipeline
+
+    state EVIDENCE_ANALYSIS {
+        [*] --> OCR_Processing
+        OCR_Processing --> Fact_Deconstruction
+        Fact_Deconstruction --> Inventory_Check
+    }
+
+    EVIDENCE_ANALYSIS --> EVIDENCE_ANALYSIS : Retry [retries < 2]
+    EVIDENCE_ANALYSIS --> FAILED : Error [retries >= 2]
+    EVIDENCE_ANALYSIS --> LEXIGRAPH_GROUNDING : Evidence Verified
+
+    state LEXIGRAPH_GROUNDING {
+        [*] --> Regime_Identification
+        Regime_Identification --> Section_Mapping
+        Section_Mapping --> Ingredient_Verification
+        Ingredient_Verification --> Precedent_Retrieval
+    }
+
+    LEXIGRAPH_GROUNDING --> LEXIGRAPH_GROUNDING : Retry [retries < 2]
+    LEXIGRAPH_GROUNDING --> FAILED : Error [retries >= 2]
+    LEXIGRAPH_GROUNDING --> COURTROOM_ACTIVE : Both Gates Verified
+
+    %% Courtroom Composite State
+    state COURTROOM_ACTIVE {
+        [*] --> PROCEEDINGS_INIT
+        PROCEEDINGS_INIT --> PROSECUTION_TURN : Gavel Strike
+
+        state PROSECUTION_TURN {
+            [*] --> Pros_Drafting
+            Pros_Drafting --> Pros_Citation_Check
+            Pros_Citation_Check --> Pros_TTS_Playback : Valid Citation
+            Pros_Citation_Check --> Pros_Drafting : Invalid [Penalty / Retry]
+        }
+
+        PROSECUTION_TURN --> DEFENSE_TURN : Turn Complete
+
+        state DEFENSE_TURN {
+            [*] --> Def_Drafting
+            Def_Drafting --> Def_Citation_Check
+            Def_Citation_Check --> Def_TTS_Playback : Valid Citation
+            Def_Citation_Check --> Def_Drafting : Invalid [Penalty / Retry]
+        }
+
+        %% Objection Handling
+        PROSECUTION_TURN --> OBJECTION_PENDING : Opponent Raises Objection
+        DEFENSE_TURN --> OBJECTION_PENDING : Opponent Raises Objection
+        
+        state OBJECTION_PENDING {
+            [*] --> Pause_Timer
+            Pause_Timer --> Judge_Evaluation
+            Judge_Evaluation --> Issue_Ruling : Sustained / Overruled
+        }
+
+        OBJECTION_PENDING --> DEFENSE_TURN : Resume Turn (If Pros objected)
+        OBJECTION_PENDING --> PROSECUTION_TURN : Resume Turn (If Def objected)
+
+        DEFENSE_TURN --> JUDICIAL_SCORING : End of Round Turns
+
+        state JUDICIAL_SCORING {
+            [*] --> Calculate_Axes : Validity, Linkage, Logic
+        }
+
+        JUDICIAL_SCORING --> ACCUSED_EXAMINATION : Linkage < 15.0 [Insufficient]
+        
+        state ACCUSED_EXAMINATION {
+            [*] --> Judge_Interrogates
+            Judge_Interrogates --> Accused_Testifies
+        }
+
+        ACCUSED_EXAMINATION --> JUDICIAL_SCORING : Testimony Submitted
+
+        JUDICIAL_SCORING --> PROSECUTION_TURN : Next Round [round < max_rounds]
+    }
+
+    COURTROOM_ACTIVE --> VERDICT_DELIVERY : Trials Finished [round >= max_rounds]
+
+    state VERDICT_DELIVERY {
+        [*] --> MultiVote_Synthesis
+        MultiVote_Synthesis --> Ratio_Decidendi
+        Ratio_Decidendi --> Issue_Decree : Granted / Denied
+    }
+
+    VERDICT_DELIVERY --> SESSION_CONCLUDED : Save Transcript & Update Ratings
+    SESSION_CONCLUDED --> [*]
+    FAILED --> [*]
