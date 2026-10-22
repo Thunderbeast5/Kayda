@@ -1,0 +1,152 @@
+{
+  "overall": 0.934,
+  "cases": [
+    {
+      "ipc": {
+        "found": [
+          "304A",
+          "465"
+        ],
+        "recall": 0.5,
+        "precision": 1.0,
+        "forbidden_hits": [],
+        "accuracy": 0.667,
+        "missed_groups": [
+          [
+            "201"
+          ],
+          [
+            "204"
+          ]
+        ],
+        "unexpected": []
+      },
+      "bnss": {
+        "found": [
+          "35",
+          "482",
+          "484",
+          "485"
+        ],
+        "recall": 1.0,
+        "precision": 1.0,
+        "forbidden_hits": [],
+        "accuracy": 1.0,
+        "missed_groups": [],
+        "unexpected": []
+      },
+      "bsa": {
+        "found": [
+          "39",
+          "40",
+          "41",
+          "56",
+          "57",
+          "58",
+          "59",
+          "60",
+          "61",
+          "62"
+        ],
+        "recall": 1.0,
+        "precision": 1.0,
+        "forbidden_hits": [],
+        "accuracy": 1.0,
+        "missed_groups": [],
+        "unexpected": []
+      },
+      "retrieval_recall_at_candidates": {
+        "candidate_count": 16,
+        "recall": 1.0,
+        "missed_groups": []
+      },
+      "bns_mapping": {
+        "checked": 7,
+        "correct": 7,
+        "errors": [],
+        "accuracy": 1.0
+      },
+      "precedents": {
+        "prosecution": 0,
+        "defense": 0,
+        "in_both_lists": [],
+        "not_supporting_in_own_list": [],
+        "offence_matched": 0,
+        "total_listed": 0,
+        "consistent": true
+      },
+      "overall_accuracy": 0.917,
+      "case": "medical_negligence_records",
+      "seconds": null
+    },
+    {
+      "ipc": {
+        "found": [
+          "323",
+          "324",
+          "447",
+          "448",
+          "452",
+          "506"
+        ],
+        "recall": 0.75,
+        "precision": 1.0,
+        "forbidden_hits": [],
+        "accuracy": 0.857,
+        "missed_groups": [
+          [
+            "504"
+          ]
+        ],
+        "unexpected": []
+      },
+      "bnss": {
+        "found": [
+          "35",
+          "482",
+          "484",
+          "485"
+        ],
+        "recall": 1.0,
+        "precision": 1.0,
+        "forbidden_hits": [],
+        "accuracy": 1.0,
+        "missed_groups": [],
+        "unexpected": []
+      },
+      "bsa": {
+        "found": [],
+        "recall": null,
+        "precision": null,
+        "forbidden_hits": [],
+        "accuracy": null,
+        "missed_groups": [],
+        "unexpected": [],
+        "status": "N/A (empty layer)"
+      },
+      "retrieval_recall_at_candidates": {
+        "candidate_count": 18,
+        "recall": 1.0,
+        "missed_groups": []
+      },
+      "bns_mapping": {
+        "checked": 5,
+        "correct": 5,
+        "errors": [],
+        "accuracy": 1.0
+      },
+      "precedents": {
+        "prosecution": 8,
+        "defense": 3,
+        "in_both_lists": [],
+        "not_supporting_in_own_list": [],
+        "offence_matched": 2,
+        "total_listed": 11,
+        "consistent": true
+      },
+      "overall_accuracy": 0.952,
+      "case": "trespass_hurt_intimidation",
+      "seconds": null
+    }
+  ]
+}

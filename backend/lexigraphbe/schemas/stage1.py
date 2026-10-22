@@ -21,8 +21,10 @@ class FactualAllegation(BaseModel):
     affected_party_or_object: Optional[str] = None
     conduct_type: str = Field(description="ACT, OMISSION, RESULT, STATEMENT, or CONDITION")
     chronology: Optional[str] = None
-    source_reference: Optional[str] = None
     factual_status: str = Field(default="ALLEGED", description="ALLEGED, ADMITTED, DISPUTED, or UNKNOWN")
+    verbatim_quote: Optional[str] = Field(default=None, description="Exact span quote from source narrative")
+    start_char: Optional[int] = Field(default=None, description="Character start offset in narrative")
+    end_char: Optional[int] = Field(default=None, description="Character end offset in narrative")
 
     @field_validator("actor", "affected_party_or_object", mode="before")
     @classmethod
@@ -176,9 +178,42 @@ class ImportantFacts(BaseModel):
         return v
 
 
+class OffenceFamilyItem(BaseModel):
+    """A closed-list offence family (lexigraphbe.family_retrieval.OFFENCE_FAMILIES) tagged on quoted facts."""
+    family: str = Field(description="Family code from the closed list, e.g. HOMICIDE, FORGERY")
+    fact_ids: List[str] = Field(default_factory=list, description="Fact IDs whose quotes support this family")
+    tier: str = Field(default="PRIMARY", description="PRIMARY, SECONDARY or CONDITIONAL")
+    conduct_phrase: str = Field(default="", description="Short statutory-language description of the conduct; used only to rank sections within the family")
+    fault_mode: str = Field(default="UNSTATED", description="Alleged fault element: INTENTIONAL, KNOWING, RASH_OR_NEGLIGENT or UNSTATED")
+    unresolved_elements: List[str] = Field(default_factory=list, description="Elements not yet established on the facts")
+
+    @field_validator("family", mode="before")
+    @classmethod
+    def _upper(cls, v):
+        return str(v or "").strip().upper()
+
+    @field_validator("fact_ids", mode="before")
+    @classmethod
+    def _coerce_ids(cls, v):
+        if v is None:
+            return []
+        if isinstance(v, str):
+            return [x.strip() for x in v.split(",") if x.strip()]
+        return v
+
+    @field_validator("tier", mode="before")
+    @classmethod
+    def _tier(cls, v):
+        t = str(v or "PRIMARY").strip().upper()
+        return t if t in {"PRIMARY", "SECONDARY", "CONDITIONAL"} else "PRIMARY"
+
+
 class LegalQueryObject(ManualReviewMixin):
     schema_version: str = Field(default="2.0", description="Schema version of LegalQueryObject contract")
     case_type: str = Field(default="Anticipatory Bail", description="Case procedural type or requested relief")
+    case_facts: str = Field(default="", description="The complete factual narrative of the case (Issue S-3)")
+    case_summary: Optional[str] = Field(default=None, description="Concise summary of the factual narrative")
+    legal_regime: Optional[str] = Field(default=None, description="Applicable legal regime (e.g. IPC + CrPC or BNS + BNSS)")
     entities: Dict[str, List[Union[str, Dict[str, Any]]]] = Field(
         default_factory=dict,
         description="Categorized entities identified (e.g. victim: ['Wife'], accused: ['Husband', 'Father-in-law'])"
@@ -195,6 +230,10 @@ class LegalQueryObject(ManualReviewMixin):
     sub_queries: List[SubQueryItem] = Field(
         default_factory=list,
         description="List of single-issue legal sub-queries"
+    )
+    offence_families: List[OffenceFamilyItem] = Field(
+        default_factory=list,
+        description="Closed-list offence families tagged on quoted facts; drives family-constrained retrieval in Stage 2"
     )
     procedural_events: List[Union[str, Dict[str, Any]]] = Field(
         default_factory=list,

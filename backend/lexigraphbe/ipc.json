@@ -1,4 +1,4 @@
-﻿{
+{
   "document": {
     "title": "The Indian Penal Code",
     "act_number": "Act No. 45 of 1860",
@@ -66,6 +66,10 @@
               "note_number": 2,
               "note_text": "Subs. successively by the A.O. 1937, A.O. 1948, A.O. 1950 and Act 3 of 1951, s. 3 and the Sch., for 'British India'."
             }
+          ],
+          "ingredients": [
+            "Enactment of a general Penal Code for India",
+            "Declaratory/introductory provision — no offence created; no operative elements"
           ]
         },
         {
@@ -12793,7 +12797,15 @@
               ]
             }
           ],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Culpable homicide (Section 299) — death caused by an act done with intention or knowledge",
+            "Clause 1: act done with intention of causing death",
+            "OR Clause 2: act done with intention of causing bodily injury that the offender knows is likely to cause the death of the person harmed",
+            "OR Clause 3: act done with intention of causing bodily injury sufficient in the ordinary course of nature to cause death",
+            "OR Clause 4: act so imminently dangerous that it must in all probability cause death or such bodily injury as is likely to cause death, done without excuse for incurring the risk",
+            "AND the case does not fall within any of the five Exceptions (grave and sudden provocation; private defence exceeded; public servant exceeding powers; sudden fight; consent)"
+          ]
         },
         {
           "section_number": "301",
@@ -12808,7 +12820,13 @@
           "key_principle": "Doctrine of transfer of malice — the mens rea intended against the target person transfers to the unintended victim. The offence is classified as if the intended victim had died.",
           "plain_language": "If A intends to kill B but accidentally kills C instead, A's liability is assessed as if C were B — the guilty intent 'transfers' to the actual victim.",
           "illustrations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Act done with intention or knowledge that it is likely to cause death",
+            "Death of a person other than the person whose death was intended or known to be likely",
+            "The offender neither intended nor knew himself to be likely to cause the death of the person actually killed",
+            "Liability is of the same description (culpable homicide/murder) as if the intended victim had been killed (transfer of malice)"
+          ]
         },
         {
           "section_number": "302",
@@ -12841,6 +12859,11 @@
               "note_number": 1,
               "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
             }
+          ],
+          "ingredients": [
+            "Commission of murder (Section 300)",
+            "Culpable homicide with intention of causing death or other mens rea in Section 300 clauses 1–4",
+            "No Exception to Section 300 applies"
           ]
         },
         {
@@ -12865,6 +12888,11 @@
               "note_number": 1,
               "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
             }
+          ],
+          "ingredients": [
+            "Offender is under sentence of imprisonment for life at the time",
+            "Commission of murder (Section 300)",
+            "Mandatory death penalty — held unconstitutional in Mithu v. State of Punjab (1983)"
           ]
         },
         {
@@ -12905,6 +12933,11 @@
               "note_number": 1,
               "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
             }
+          ],
+          "ingredients": [
+            "Commission of culpable homicide (Section 299) not amounting to murder",
+            "Part I: act done with intention of causing death or bodily injury likely to cause death, but within an Exception to Section 300 (or lacking Section 300 mens rea)",
+            "OR Part II: act done with knowledge that it is likely to cause death, but without intention to cause death or such bodily injury"
           ]
         },
         {
@@ -12935,6 +12968,13 @@
               "note_number": 2,
               "note_text": "Inserted by Act 27 of 1870, s. 12."
             }
+          ],
+          "ingredients": [
+            "Death of a person caused",
+            "Death caused by the accused's act",
+            "Act was rash or negligent",
+            "Act did not amount to culpable homicide (no intention or knowledge of likely death)",
+            "Direct, proximate causal link between the rash/negligent act and death"
           ]
         },
         {
@@ -12983,6 +13023,13 @@
               "note_number": 3,
               "note_text": "Inserted by Act 43 of 1986, s. 10 (w.e.f. 19-11-1986)."
             }
+          ],
+          "ingredients": [
+            "Death of a woman caused by burns or bodily injury, or occurring otherwise than under normal circumstances",
+            "Death occurs within seven years of her marriage",
+            "Soon before her death she was subjected to cruelty or harassment by her husband or any relative of her husband",
+            "Cruelty or harassment was for, or in connection with, any demand for dowry",
+            "Such death is called 'dowry death' and the husband/relative is deemed to have caused it (presumption under Evidence Act s.113B)"
           ]
         },
         {
@@ -13018,6 +13065,12 @@
               "note_number": 1,
               "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
             }
+          ],
+          "ingredients": [
+            "Commission of suicide by the victim",
+            "Victim is under eighteen years of age, OR insane, OR delirious, OR an idiot, OR in a state of intoxication",
+            "Abetment of the suicide by the accused (instigation, conspiracy or intentional aid — Section 107)",
+            "Accused abets the commission of such suicide"
           ]
         },
         {
@@ -13036,7 +13089,13 @@
             "fine": "Also liable"
           },
           "illustrations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Commission of suicide by a person",
+            "Abetment of the suicide by the accused (instigation, conspiracy or intentional aid — Section 107)",
+            "Mens rea: intention to instigate or aid the suicide",
+            "Victim is not within a protected category of Section 305"
+          ]
         },
         {
           "section_number": "307",
@@ -13070,6 +13129,13 @@
               "note_number": 1,
               "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
             }
+          ],
+          "ingredients": [
+            "Intention to cause death, or knowledge that the act is likely to cause death, such that if death were caused the offender would be guilty of murder",
+            "Act done towards commission of the offence (beyond mere preparation — Section 511)",
+            "Circumstances such that death would amount to murder",
+            "Death not actually caused",
+            "Aggravated limb: hurt caused to any person by the act (life imprisonment)"
           ]
         }
       ],
@@ -13190,6 +13256,12 @@
               "note_number": 1,
               "note_text": "Substituted by Act 8 of 1882, s. 7, for 'and shall also be liable to fine'."
             }
+          ],
+          "ingredients": [
+            "Attempt to commit suicide",
+            "Overt act done towards committing suicide",
+            "Intention to take one's own life",
+            "Note: Section 309 is held unconstitutional/limited by Mental Healthcare Act, 2017 s.115"
           ]
         },
         {
@@ -13241,6 +13313,10 @@
               "note_number": 1,
               "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
             }
+          ],
+          "ingredients": [
+            "Person is a thug (habitually associated with others for the purpose of committing robbery or child-stealing by murder — Section 310)",
+            "Habitual association with others for committing such offences by means of murder"
           ]
         }
       ]
@@ -13728,7 +13804,14 @@
           "key_principle": "Base punishment for voluntarily causing simple hurt. Excludes cases falling under Section 334 (provocation — lesser punishment). Cognizable but bailable.",
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Voluntarily causing hurt (Sections 319 and 321)",
+            "Causing bodily pain, disease or infirmity to any person",
+            "Act done with intention or knowledge that hurt is likely to be caused",
+            "Hurt is not grievous hurt",
+            "Case is not within Section 334 (provocation)"
+          ]
         },
         {
           "section_number": "324",
@@ -13786,7 +13869,13 @@
           "key_principle": "Base punishment for voluntarily causing grievous hurt. Excludes provocation cases under Section 335. Cognizable and non-bailable.",
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Voluntarily causing grievous hurt (Sections 320 and 322)",
+            "Causing grievous hurt (emasculation; permanent loss of sight/hearing; loss of a member or joint; permanent disfiguration of head or face; fracture or dislocation of bone or tooth; hurt endangering life or causing severe pain for 20 days)",
+            "Act done with intention or knowledge that grievous hurt is likely to be caused",
+            "Case is not within Section 335 (provocation)"
+          ]
         },
         {
           "section_number": "326",
@@ -14562,7 +14651,13 @@
           "key_principle": "Punishment for base wrongful restraint (Section 339). Note simple imprisonment only — not rigorous. Bailable and compoundable.",
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Wrongful restraint (Section 339)",
+            "Voluntary obstruction of a person",
+            "Obstruction prevents that person from proceeding in a direction in which he has a right to proceed",
+            "Absence of lawful justification"
+          ]
         },
         {
           "section_number": "342",
@@ -14591,7 +14686,13 @@
           "key_principle": "Base punishment for wrongful confinement (Section 340). Sections 343–348 provide aggravated punishments based on duration, secrecy, or purpose of confinement.",
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Wrongful confinement (Section 340)",
+            "Wrongful restraint of a person in such a way as to prevent him from proceeding beyond certain circumscribing limits",
+            "Voluntary act by the accused",
+            "Absence of lawful justification"
+          ]
         },
         {
           "section_number": "343",
@@ -15391,6 +15492,12 @@
               "note_number": 1,
               "note_text": "The words 'British India' have successively been substituted by the A.O. 1948, the A.O. 1950 and Act 3 of 1951, s. 3 and the Sch., to read 'India'."
             }
+          ],
+          "ingredients": [
+            "Kidnapping from India (Section 360) — conveying a person beyond the limits of India without his consent (or that of a person legally authorised to consent)",
+            "OR Kidnapping from lawful guardianship (Section 361) — taking or enticing a minor or person of unsound mind out of the keeping of the lawful guardian, without guardian's consent",
+            "Minor: male under sixteen or female under eighteen",
+            "Act of taking or enticing"
           ]
         },
         {
@@ -16899,7 +17006,12 @@
           "key_principle": "Robbery on a highway at night attracts an enhanced maximum — fourteen years instead of ten — reflecting the heightened danger to travellers.",
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Commission of robbery (Section 390)",
+            "Theft or extortion, accompanied by wrongful restraint, hurt or fear of instant death, hurt or wrongful restraint",
+            "Aggravating factor: robbery committed on the highway between sunset and sunrise (longer imprisonment)"
+          ]
         },
         {
           "section_number": "393",
@@ -16924,7 +17036,13 @@
           "key_principle": "Attempt to commit robbery is a standalone offence; the maximum of seven years is lower than the ten-year ceiling for completed robbery under Section 392.",
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Attempt to commit robbery (Section 390)",
+            "Intention to commit robbery",
+            "Act done towards the commission of robbery beyond mere preparation",
+            "Robbery not completed"
+          ]
         },
         {
           "section_number": "394",
@@ -16958,6 +17076,11 @@
               "note_number": 1,
               "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
             }
+          ],
+          "ingredients": [
+            "Commission or attempt to commit robbery (Section 390)",
+            "Voluntarily causing hurt (Section 321) by the offender in committing or attempting robbery",
+            "Any other person jointly concerned in the robbery or attempt is also liable"
           ]
         },
         {
@@ -16991,6 +17114,12 @@
               "note_number": 1,
               "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
             }
+          ],
+          "ingredients": [
+            "Commission of dacoity (Section 391)",
+            "Five or more persons conjointly committing or attempting to commit robbery",
+            "OR persons present and aiding such commission or attempt",
+            "Joint criminal involvement of the group"
           ]
         },
         {
@@ -17029,6 +17158,12 @@
               "note_number": 1,
               "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
             }
+          ],
+          "ingredients": [
+            "Five or more persons conjointly committing dacoity (Section 391)",
+            "Any one of them commits murder (Section 300)",
+            "Murder committed in the course of committing dacoity",
+            "Every member of the gang is liable"
           ]
         },
         {
@@ -17050,7 +17185,13 @@
           "key_principle": "Section 397 imposes a mandatory minimum sentence of seven years — the court has no discretion to award less — where deadly weapons are used or grievous hurt caused during robbery or dacoity.",
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Commission of robbery or dacoity",
+            "At the time of committing it, the offender: uses any deadly weapon, OR causes grievous hurt, OR attempts to cause death or grievous hurt",
+            "Minimum imprisonment of seven years",
+            "Applies only to the offender who uses the weapon or causes the harm (Ashfaq v. State (NCT of Delhi), 2004)"
+          ]
         },
         {
           "section_number": "398",
@@ -17071,7 +17212,12 @@
           "key_principle": "Unlike Section 397 (which requires actual use of weapon or causing of grievous hurt), Section 398 is triggered merely by being armed at the time of attempt — mere possession of a deadly weapon during the attempt suffices for the mandatory minimum.",
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Attempt to commit robbery or dacoity",
+            "Offender is armed with a deadly weapon at the time of the attempt",
+            "Minimum imprisonment of seven years"
+          ]
         },
         {
           "section_number": "399",
@@ -17096,7 +17242,12 @@
           "key_principle": "Uniquely, Section 399 punishes the preparatory stage itself — unlike most offences where preparation is not separately punishable — reflecting the legislature's intent to nip dacoity conspiracies at an early stage.",
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Making preparation to commit dacoity (Section 391)",
+            "Preparation falling short of attempt",
+            "Intention to commit dacoity"
+          ]
         },
         {
           "section_number": "400",
@@ -17424,7 +17575,13 @@
           "key_principle": "Section 406 is the general punishment for criminal breach of trust (Section 405). Aggravated versions — by carriers (407), clerks/servants (408), and public servants/bankers (409) — carry higher punishments.",
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Commission of criminal breach of trust (Section 405)",
+            "Entrustment of property, or dominion over property",
+            "Dishonest misappropriation or conversion to own use, or dishonest use or disposal in violation of law or contract",
+            "Dishonest intention"
+          ]
         },
         {
           "section_number": "407",
@@ -17454,7 +17611,12 @@
           "key_principle": "The enhanced punishment (seven years vs. three under Section 406) reflects the public's dependence on carriers and custodians for safe transit and storage of goods.",
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Entrustment of property to the offender as a carrier, wharfinger or warehouse-keeper",
+            "Criminal breach of trust (Section 405) committed in respect of that property",
+            "Dishonest misappropriation or conversion"
+          ]
         },
         {
           "section_number": "408",
@@ -17484,7 +17646,13 @@
           "key_principle": "The employment relationship creates a heightened duty of fidelity. Breach by a clerk or servant is aggravated because the employer places special confidence in such employees for day-to-day handling of property.",
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Offender is a clerk or servant, or employed as a clerk or servant",
+            "Entrusted in that capacity with property or dominion over property",
+            "Criminal breach of trust (Section 405) committed in respect of that property",
+            "Dishonest misappropriation or conversion"
+          ]
         },
         {
           "section_number": "409",
@@ -17527,6 +17695,12 @@
               "note_number": 1,
               "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation for life' (w.e.f. 1-1-1956)."
             }
+          ],
+          "ingredients": [
+            "Entrustment of property or dominion over property to the offender",
+            "Entrustment in the capacity of a public servant, OR in the way of business as banker, merchant, factor, broker, attorney or agent",
+            "Criminal breach of trust (Section 405) committed in respect of that property",
+            "Dishonest misappropriation or conversion"
           ]
         },
         {
@@ -17557,6 +17731,13 @@
               "note_number": 1,
               "note_text": "The words 'British India' have successively been substituted by the A.O. 1948, the A.O. 1950 and Act 3 of 1951, s. 3 and the Sch., to read 'India'."
             }
+          ],
+          "ingredients": [
+            "Property whose possession has been transferred by theft, extortion or robbery",
+            "OR property criminally misappropriated",
+            "OR property in respect of which criminal breach of trust has been committed",
+            "Applies whether the act occurred within or outside India",
+            "Property ceases to be stolen property once it comes into the possession of a person legally entitled to it"
           ]
         },
         {
@@ -17784,7 +17965,13 @@
             }
           ],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Cheating (Section 415)",
+            "Pretending to be some other person, OR knowingly substituting one person for another, OR representing that oneself or another is a person other than he really is",
+            "Deception of a person",
+            "Fraudulently or dishonestly inducing delivery of property or consent, OR inducing a person to do or omit to do something he would not otherwise do"
+          ]
         },
         {
           "section_number": "417",
@@ -17813,7 +18000,14 @@
           "key_principle": "Section 417 is the general punishment for basic cheating under Section 415. Aggravated forms — with property delivery (420), against a person the accused was duty-bound to protect (418), and by personation (419) — attract higher punishments.",
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Commission of cheating (Section 415)",
+            "Deceiving any person",
+            "Fraudulently or dishonestly inducing the person to deliver property, or consent to its retention, OR intentionally inducing him to do or omit something he would not otherwise do",
+            "The act causes or is likely to cause damage or harm to that person in body, mind, reputation or property",
+            "Dishonest intention at the time of inducement"
+          ]
         },
         {
           "section_number": "418",
@@ -17876,7 +18070,12 @@
           "key_principle": "Cheating by personation (Section 416) is punished more severely than ordinary cheating (one year under Section 417) because the impersonation adds a distinct layer of identity deception and may have wider social consequences.",
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Commission of cheating by personation (Section 416)",
+            "Pretending to be another person, OR knowingly substituting one person for another, OR representing oneself or another as a different person",
+            "Dishonest or fraudulent inducement resulting from the deception"
+          ]
         },
         {
           "section_number": "420",
@@ -20414,6 +20613,11 @@
               "note_number": 3,
               "note_text": "The words 'any false trade mark or' omitted by Act 43 of 1958, s. 135 and the Sch. (w.e.f. 25-11-1959)."
             }
+          ],
+          "ingredients": [
+            "Use of a false property mark (Section 479)",
+            "Mark used on goods, containers or other things to denote they are the property of a person to whom they do not belong",
+            "Burden shifts to the accused to prove absence of intent to defraud"
           ]
         },
         {
@@ -20448,6 +20652,11 @@
               "note_number": 4,
               "note_text": "The words 'trade mark or' omitted by Act 43 of 1958, s. 135 and the Sch. (w.e.f. 25-11-1959)."
             }
+          ],
+          "ingredients": [
+            "Counterfeiting a property mark used by another person (Section 481)",
+            "Marking goods or containers, or using a counterfeit mark, so as to cause belief that they belong to a person they do not belong to",
+            "Intent to cause damage or harm / to deceive"
           ]
         },
         {
@@ -20615,7 +20824,12 @@
           ],
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Use of a false mark in a manner prohibited by Section 487 (making a false mark on a receptacle containing goods)",
+            "Burden is on the accused to prove he acted without intent to defraud",
+            "Punished as if guilty of the offence under Section 487"
+          ]
         },
         {
           "section_number": "489",
@@ -20893,6 +21107,11 @@
               "note_number": 4,
               "note_text": "Inserted by Act 6 of 1943, s. 2."
             }
+          ],
+          "ingredients": [
+            "Making, or causing to be made, OR using for any purpose, OR delivering to any person",
+            "A document purporting to be, or resembling (or so nearly resembling as to be calculated to deceive), any currency-note or bank-note",
+            "Sub-section (2): person who has such a document and uses or delivers it is required to disclose the maker's name and address on demand"
           ]
         }
       ]
@@ -21384,7 +21603,14 @@
           ],
           "illustrations": [],
           "explanations": [],
-          "footnotes": []
+          "footnotes": [],
+          "ingredients": [
+            "Defamation (Section 499)",
+            "Making or publishing an imputation concerning any person",
+            "Imputation made by words (spoken or intended to be read), signs or visible representations",
+            "Intention to harm, or knowledge/reason to believe the imputation will harm, the reputation of the person",
+            "Not within any of the Ten Exceptions to Section 499"
+          ]
         },
         {
           "section_number": "501",
@@ -21611,6 +21837,14 @@
               "note_number": 7,
               "note_text": "Sub-sections (2) and (3) inserted by Act 35 of 1969, s. 3."
             }
+          ],
+          "ingredients": [
+            "Making, publishing or circulating any statement, rumour or report",
+            "Clause (a): with intent to cause, or likely to cause, mutiny or disregard/failure of duty by any officer, soldier, sailor or airman of the Armed Forces",
+            "OR Clause (b): with intent to cause, or likely to cause, fear or alarm to the public whereby a person may be induced to commit an offence against the State or public tranquillity",
+            "OR Clause (c): with intent to incite, or likely to incite, any class or community to commit an offence against another class or community",
+            "Clause (2): same acts, promoting enmity, hatred or ill-will between classes, in a place of worship or assembly (aggravated)",
+            "Exception: no offence where the person has reasonable grounds for believing the statement to be true and acts in good faith without the intent of Clauses (a)–(c)"
           ]
         },
         {
@@ -21644,6 +21878,12 @@
               "note_number": 8,
               "note_text": "Substituted by Act 26 of 1955, s. 117 and the Sch., for 'transportation' (w.e.f. 1-1-1956)."
             }
+          ],
+          "ingredients": [
+            "Commission of criminal intimidation (Section 503)",
+            "Threatening any person with injury to his person, reputation or property, or to the person or reputation of anyone in whom he is interested",
+            "Intent to cause alarm to that person, OR to cause him to do an act he is not legally bound to do, OR to omit an act he is legally entitled to do",
+            "Aggravated limb: threat to cause death or grievous hurt, destruction of property by fire, an offence punishable with death, life or seven years' imprisonment, or to impute unchastity to a woman"
           ]
         },
         {

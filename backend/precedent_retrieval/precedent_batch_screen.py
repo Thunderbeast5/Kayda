@@ -451,6 +451,8 @@ class BatchPrecedentScreen:
     def _to_evaluations(self, candidates: List[Any], decisions: Dict[str, Dict[str, Any]],
                         flags: Dict[str, List[Dict[str, str]]], calls: int) -> Dict[str, Any]:
         res: Dict[str, List[Dict[str, Any]]] = {"prosecution": [], "defense": []}
+        adverse: Dict[str, List[Dict[str, Any]]] = {"prosecution": [], "defense": []}
+        doctrine: List[Dict[str, Any]] = []
         rejected: List[Dict[str, str]] = []
         penalised: List[Dict[str, Any]] = []
         for c in candidates:
@@ -469,69 +471,46 @@ class BatchPrecedentScreen:
 
             holding_favors = d.get("holding_favors", "neutral")
             added_to_any = False
+            channel = d.get("channel", "facts")
 
             for role, key in (("prosecution", "pros"), ("defense", "def")):
                 stance = d[key]
+                # A judgment enters a side's list only when the screen's stance for that side is SUPPORTS.
+                # (The former proposition-level override let a judgment into both lists whenever any
+                # holding favoured a side, which duplicated cases and mislabelled their use.)
+                if stance == "SUPPORTS":
+                    rel = self._type(stance, d["fact"], True, channel)
+                    ev = {
+                        "case_id": c.case_id, "case_name": c.case_name, "is_relevant": True,
+                        "relevance_type": rel, "channel": channel, "confidence": round(conf, 2),
+                        "factual_similarity_level": d["fact"], "holding": d.get("holding", ""),
+                        "holding_favors": holding_favors, "supports_role": True,
+                        "supporting_propositions": d["props"], "contradicting_propositions": [],
+                        "use_for": [d["use"]] if d["use"] else [], "against_role": [],
+                        "screen_reason": d["reason"], "screen_flags": [f["kind"] for f in fl],
+                    }
+                    res[role].append({"candidate": c, "evaluation": ev,
+                                      "verification": {"verified": not fl, "issues": [f["note"] for f in fl], "evaluation": ev}})
+                    added_to_any = True
+                elif stance in ("OPPOSES", "DISTINGUISHABLE"):
+                    # Authority the other side will rely on: this side must meet or distinguish it.
+                    adverse[role].append({"case_id": c.case_id, "case_name": c.case_name, "stance": stance,
+                                          "holding": d.get("holding", ""), "holding_favors": holding_favors,
+                                          "fact": d["fact"], "reason": d["reason"], "props": d["props"]})
+                    added_to_any = True
 
-                # Role-eligibility gate: a case that cuts against this role does NOT
-                # appear in that role's affirmative list. It is already present in the
-                # other role's list as a SUPPORTS case (via that role's own key).
-                # This fixes the symptom: defence list containing "Supports Role: False".
-                # Proposition-level override: a case whose single "holding_favors" label
-                # points at the other side can still contain holdings that favour this
-                # role (e.g. custodial interrogation holdings in a bail case the screen
-                # labelled pro-accused). Those holdings make it citable for this role.
-                favour_tag = "prosecution" if role == "prosecution" else "accused"
-                role_props = [
-                    p.get("id") for p in (getattr(c, "propositions", None) or [])
-                    if isinstance(p, dict) and p.get("favors") == favour_tag and p.get("is_holding") and p.get("id")
-                ]
-                prop_backed = bool(role_props) and stance not in self._ROLE_ELIGIBLE_STANCES
-
-                if stance not in self._ROLE_ELIGIBLE_STANCES and not prop_backed:
-                    continue
-
-                channel = d.get("channel", "facts")
-                rel = self._type("SUPPORTS" if prop_backed else stance, "LOW" if prop_backed else d["fact"], True, channel)
-                supports = stance == "SUPPORTS" or bool(role_props)
-                shown_props = d["props"] if stance == "SUPPORTS" and d["props"] else role_props
-                ev = {
-                    "case_id": c.case_id,
-                    "case_name": c.case_name,
-                    "is_relevant": True,
-                    "relevance_type": rel,
-                    "channel": channel,
-                    "confidence": round(conf, 2),
-                    "factual_similarity_level": d["fact"],
-                    # Holding metadata — what the court actually decided
-                    "holding": d.get("holding", ""),
-                    "holding_favors": holding_favors,
-                    "supports_role": supports,
-                    "supporting_propositions": shown_props if supports else [],
-                    "contradicting_propositions": [],
-                    "use_for": [d["use"]] if d["use"] and supports else [],
-                    "against_role": [],
-                    "screen_reason": d["reason"],
-                    "screen_flags": [f["kind"] for f in fl],
-                }
-                res[role].append({
-                    "candidate": c,
-                    "evaluation": ev,
-                    "verification": {"verified": not fl, "issues": [f["note"] for f in fl], "evaluation": ev},
-                })
-                added_to_any = True
-
-            # If the case was kept but qualifies for neither role's affirmative list
-            # (e.g. OPPOSES prosecution AND OPPOSES defence — unusual but possible for
-            # purely procedural cases both sides treat as adverse), log it as rejected.
+            if not added_to_any or (d["pros"] == "NEUTRAL" and d["def"] == "NEUTRAL"):
+                if d["pros"] == "NEUTRAL" or d["def"] == "NEUTRAL":
+                    doctrine.append({"case_id": c.case_id, "case_name": c.case_name, "holding": d.get("holding", ""),
+                                     "channel": channel, "fact": d["fact"], "reason": d["reason"], "props": d["props"]})
+                    added_to_any = True
             if not added_to_any:
-                rejected.append({
-                    "case_id": c.case_id,
-                    "case_name": c.case_name,
-                    "reason": f"kept by screen but OPPOSES/DISTINGUISHABLE for both roles — not included in either list",
-                })
+                rejected.append({"case_id": c.case_id, "case_name": c.case_name,
+                                 "reason": "kept by screen but no usable stance for either side"})
         return {
             **res,
+            "adverse": adverse,
+            "doctrine": doctrine,
             "rejected": rejected,
             "report": {
                 "llm_calls": calls,

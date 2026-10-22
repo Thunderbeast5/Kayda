@@ -5,6 +5,7 @@ Enforces strict Legal Regime Precedence, Universal Procedural Document Checklist
 Model: gpt-4o-mini (MODEL_STAGE0) — lightweight extraction only.
 """
 
+import re
 from typing import Any, Dict, Optional, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
@@ -90,15 +91,46 @@ class CaseIntakeAgent:
         # Parse extracted JSON
         extracted_dict = extract_json_from_text(response_text)
 
-        # Handle legal regime (always default to IPC + CrPC)
+        # Handle legal regime deterministically via RegimeResolver (Issue S-1)
+        meta_dict = extracted_dict.get("case_metadata") or {}
+        offence_date = meta_dict.get("offence_date")
+        fir_date = meta_dict.get("fir_date")
+
+        # Helper to check if date is on or after 1 July 2024
+        def _is_post_july_2024(d_str: Optional[str]) -> Optional[bool]:
+            if not d_str:
+                return None
+            d = str(d_str).strip().lower()
+            m = re.search(r"\b(19\d\d|20\d\d)\b", d)
+            if m:
+                yr = int(m.group(1))
+                if yr >= 2025:
+                    return True
+                if yr < 2024:
+                    return False
+                iso_m = re.search(r"2024-(\d{1,2})", d)
+                if iso_m:
+                    return int(iso_m.group(1)) >= 7
+                for post_m in ["july", "august", "september", "october", "november", "december", "jul", "aug", "sep", "oct", "nov", "dec"]:
+                    if post_m in d:
+                        return True
+                for pre_m in ["january", "february", "march", "april", "may", "june", "jan", "feb", "mar", "apr", "jun"]:
+                    if pre_m in d:
+                        return False
+            return None
+
         if inp.legal_regime_override:
             extracted_dict["legal_regime"] = inp.legal_regime_override
             extracted_dict["flag_for_confirmation"] = False
             extracted_dict["regime_notes"] = f"User explicit override applied: {inp.legal_regime_override}"
         else:
-            extracted_dict["legal_regime"] = "IPC + CrPC"
-            extracted_dict["flag_for_confirmation"] = False
-            extracted_dict["regime_notes"] = "Statute regime: Indian Penal Code (IPC) + Code of Criminal Procedure (CrPC)."
+            post_offence = _is_post_july_2024(offence_date)
+            post_fir = _is_post_july_2024(fir_date)
+            sub = "BNS" if post_offence is True else ("IPC" if post_offence is False else ("BNS" if post_fir is True else "IPC"))
+            proc = "BNSS" if post_fir is True else ("CrPC" if post_fir is False else ("BNSS" if post_offence is True else "CrPC"))
+            extracted_dict["legal_regime"] = f"{sub} + {proc}"
+            extracted_dict["flag_for_confirmation"] = (post_offence is None)
+            extracted_dict["regime_notes"] = f"Deterministic regime: {sub} substantive, {proc} procedural (offence_date={offence_date}, fir_date={fir_date})."
 
         # Normalize case_facts from common LLM synonym keys if needed
         if not extracted_dict.get("case_facts"):
@@ -128,18 +160,10 @@ class CaseIntakeAgent:
         case_profile = CaseProfile.model_validate(extracted_dict)
         case_profile.min_confidence_threshold = inp.min_confidence_threshold
 
-        # Enforce IPC-only pipeline: normalize any BNS regime
-        if "BNS" in (case_profile.legal_regime or "").upper():
-            case_profile.legal_regime = "IPC + CrPC"
-
         # Post-validation sanity check on regime precedence flags
         meta = case_profile.case_metadata
         if not inp.legal_regime_override:
             if not meta.offence_date and not meta.fir_date:
-                case_profile.legal_regime = "IPC + CrPC"
-                if not case_profile.regime_notes:
-                    case_profile.regime_notes = "Defaulted to IPC + CrPC representation."
-            elif not meta.offence_date and meta.fir_date:
                 case_profile.flag_for_confirmation = True
                 if not case_profile.regime_notes:
                     case_profile.regime_notes = f"Regime determined using FIR date fallback ({meta.fir_date}) because Offence Date is unstated."

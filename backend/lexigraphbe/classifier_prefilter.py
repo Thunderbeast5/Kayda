@@ -12,7 +12,7 @@ import re
 import threading
 from pathlib import Path
 from dataclasses import dataclass, field, asdict
-from typing import Dict, List, Optional, Set, Tuple, Any
+from typing import Dict, List, Optional, Set, Tuple, Any, Union
 from pydantic import BaseModel, Field
 
 logger = logging.getLogger(__name__)
@@ -54,7 +54,7 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
         bns_equivalent="80",
         title="Dowry Death",
         mandatory_ingredients=["death_of_woman", "within_7_years_of_marriage", "dowry_harassment_soon_before_death"],
-        factual_triggers=["death", "deceased", "dead", "died", "suicide", "killed", "body", "post-mortem", "autopsy", "murdered"],
+        factual_triggers=["dowry", "stridhan", "in-laws", "husband's house", "harassed for dowry", "dowry death", "death within 7 years", "unnatural death of wife", "burn injuries wife"],
         chapter_number="XVI",
         chapter_title="Offences Affecting Life / Offences Against Woman",
         punishment_minimum="7 Years",
@@ -203,7 +203,7 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
     SectionRule(
         section="468",
         statute="IPC",
-        bns_equivalent="338",
+        bns_equivalent="336(3)",
         title="Forgery for Purpose of Cheating",
         mandatory_ingredients=["forgery_of_document", "intent_to_cheat"],
         factual_triggers=["forged document", "fake signature", "fabricated paper", "forgery", "falsified record"],
@@ -233,15 +233,12 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
     SectionRule(
         section="423",
         statute="IPC",
-        bns_equivalent="305",
+        bns_equivalent="322",
         title="Dishonest or Fraudulent Execution of Deed Containing a False Statement",
         mandatory_ingredients=["execution_of_deed_or_transfer", "false_statement_of_consideration"],
-        # IPC 423 targets the specific act of executing a deed that contains a false
-        # statement — the characteristic act in land-fraud / sale-deed fraud cases.
         factual_triggers=[
             "false deed", "fraudulent deed", "fabricated transfer", "false consideration",
             "bogus document", "fictitious transfer",
-            # Sale-deed fraud vocabulary
             "sale deed", "fraudulent sale deed", "fake sale deed", "forged sale deed",
             "executed deed", "executed sale deed", "fraudulent execution",
             "false statement in deed", "executed a false deed", "sham deed",
@@ -326,7 +323,7 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
         chapter_number="XVI",
         chapter_title="Offences Affecting Life / Hurt",
         punishment_minimum=None,
-        punishment_maximum="10 Years",
+        punishment_maximum="Life Imprisonment or 10 Years",
         fine=True,
         cognizable=True,
         bailable=False,
@@ -441,7 +438,7 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
     # IPC 169 — "Public servant unlawfully buying or bidding for property"
     # Retrieved because "officer" matches; requires an illegal property-purchase act.
     SectionRule(
-        section="169", statute="IPC", bns_equivalent="169",
+        section="169", statute="IPC", bns_equivalent="203",
         title="Public Servant Unlawfully Buying or Bidding for Property",
         mandatory_ingredients=["public_servant", "purchasing_or_bidding_for_property", "prohibited_by_law_or_rules_of_conduct"],
         factual_triggers=["bought property", "purchased property", "bid for property", "public servant bought", "property purchased by officer"],
@@ -465,7 +462,7 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
     # IPC 284 — "Negligent conduct with respect to poisonous substance"
     # Retrieved from "negligence" + "death"; requires a poison/toxic substance.
     SectionRule(
-        section="284", statute="IPC", bns_equivalent="287",
+        section="284", statute="IPC", bns_equivalent="286",
         title="Negligent Conduct with Respect to Poisonous Substance",
         mandatory_ingredients=["poisonous_or_corrosive_substance", "negligent_handling_or_keeping"],
         factual_triggers=["poison", "poisonous substance", "toxic substance", "corrosive", "venom", "chemical hazard", "acid"],
@@ -492,7 +489,7 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
     # Retrieved from "negligence" + "evidence" (both appear in its text); requires
     # an escaped prisoner and a negligent public servant custodian — never a hospital case.
     SectionRule(
-        section="223", statute="IPC", bns_equivalent="260",
+        section="223", statute="IPC", bns_equivalent="261",
         title="Escape from Confinement or Custody Negligently Suffered by Public Servant",
         mandatory_ingredients=["public_servant_legally_authorized_to_confine", "escape_of_confined_person", "negligent_sufferance_of_escape"],
         factual_triggers=["escaped from custody", "escaped from confinement", "prisoner escaped", "detainee escaped", "fled from custody"],
@@ -505,7 +502,7 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
     # Retrieved from "officer" + "disclose"; but requires the concealing person to be
     # a PUBLIC SERVANT. Private hospital doctors/administrators are NOT public servants.
     SectionRule(
-        section="119", statute="IPC", bns_equivalent="48",
+        section="119", statute="IPC", bns_equivalent="59",
         title="Public Servant Concealing Design to Commit Offence Which It Is His Duty to Prevent",
         mandatory_ingredients=["public_servant_status", "concealing_design", "it_is_their_legal_duty_to_prevent_the_offence"],
         factual_triggers=["public servant concealing", "government officer concealing", "public servant instructed",
@@ -518,7 +515,7 @@ STATUTE_KNOWLEDGE_BASE: List[SectionRule] = [
     # IPC 218 — "Public servant framing incorrect record with intent to save person from punishment"
     # Requires both (a) a public servant and (b) framing a record. Gate on public servant.
     SectionRule(
-        section="218", statute="IPC", bns_equivalent="255",
+        section="218", statute="IPC", bns_equivalent="256",
         title="Public Servant Framing Incorrect Record or Writing with Intent to Save Person from Punishment",
         mandatory_ingredients=["public_servant_status", "frames_incorrect_record_or_writing", "intent_to_save_person_from_punishment_or_property_from_forfeiture"],
         factual_triggers=["public servant framing", "government doctor", "government hospital", "government officer falsifying",
@@ -604,50 +601,19 @@ def _resolve_dynamic_kb_path() -> Optional[Path]:
 
 def _load_dynamic_kb() -> List[SectionRule]:
     """
-    Loads previously auto-promoted SectionRules from the persistent JSON store.
-    Returns an empty list if the file does not exist or is unreadable.
+    Dynamic KB writer is disabled per audit (Issue S-9) to prevent legal metadata corruption.
+    The legal data package is strictly read-only and version-controlled.
     """
-    kb_path = _resolve_dynamic_kb_path()
-    if not kb_path or not kb_path.exists():
-        return []
-    try:
-        with open(kb_path, "r", encoding="utf-8") as f:
-            raw: List[Dict[str, Any]] = json.load(f)
-        rules = []
-        for entry in raw:
-            try:
-                rules.append(SectionRule(**entry))
-            except Exception as exc:
-                logger.warning("DynamicKB: skipping malformed entry %s — %s", entry.get("section"), exc)
-        logger.info("DynamicKB: loaded %d auto-promoted rules from %s", len(rules), kb_path)
-        return rules
-    except Exception as exc:
-        logger.warning("DynamicKB: could not load %s — %s", kb_path, exc)
-        return []
+    return []
 
 
 def _save_dynamic_kb(rules: List[SectionRule]) -> None:
-    """
-    Persists the current dynamic KB rules list to JSON.
-    Called inside _dynamic_kb_lock — safe for concurrent processes only if you
-    run a single worker; for multi-worker deployments swap this for a DB upsert.
-    """
-    kb_path = _resolve_dynamic_kb_path()
-    if not kb_path:
-        logger.warning("DynamicKB: no writable path found — auto-promoted rule will be in-memory only this session.")
-        return
-    try:
-        kb_path.parent.mkdir(parents=True, exist_ok=True)
-        serialisable = [asdict(r) for r in rules]
-        with open(kb_path, "w", encoding="utf-8") as f:
-            json.dump(serialisable, f, indent=2, ensure_ascii=False)
-        logger.info("DynamicKB: persisted %d rules to %s", len(rules), kb_path)
-    except Exception as exc:
-        logger.warning("DynamicKB: write failed for %s — %s", kb_path, exc)
+    """Disabled per audit (Issue S-9): Dynamic KB write is a no-op."""
+    return
 
 
-# In-process dynamic KB — populated from disk at import time, extended at runtime
-DYNAMIC_KNOWLEDGE_BASE: List[SectionRule] = _load_dynamic_kb()
+# In-process dynamic KB — permanently empty to ensure deterministic, read-only legal metadata
+DYNAMIC_KNOWLEDGE_BASE: List[SectionRule] = []
 
 
 def _kb_section_keys() -> Set[str]:
@@ -1175,9 +1141,7 @@ _RETRIEVAL_STOP_WORDS: Set[str] = {
     "regard", "hold", "holds", "held", "consider", "shows", "herein",
     "aforesaid", "thereby", "thereof", "therein", "thereto", "whereas",
     "nothing", "extent", "purpose", "means", "manner", "nature", "kind",
-    "reason", "ground", "general", "special", "lawful", "unlawful",
-    "right", "power", "authority", "order", "place", "time", "day",
-    "year", "state", "office", "public",
+    "reason", "ground", "general", "special",
 }
 
 # -------------------------------------------------------------------------
@@ -1220,6 +1184,8 @@ _QUERY_ONLY_STOP_STEMS: Set[str] = {
     "person",
     "inform",   # "information to police" → FIR boilerplate
     "allege",   # allegations are the framing, not the ingredient
+    # Number words: "injuring two pedestrians" matched IPC 209/211/223 on "two" and pulled in a wrong family
+    "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten",
 }
 
 # Boilerplate lead-ins removed before tokenising a sub-query sentence.
@@ -1485,47 +1451,122 @@ def strip_query_boilerplate(query_text: str) -> str:
     return _QUERY_BOILERPLATE_RE.sub("", q).strip()
 
 
-class _BM25Index:
-    """Tiny in-memory BM25 over pre-tokenised documents. No external dependency."""
+class _BM25FIndex:
+    """
+    In-memory BM25F ranking engine over pre-tokenised, multi-field documents.
+    Implements Robertson et al. BM25F:
+      - Term frequencies and document lengths tracked per field
+      - Non-linear TF saturation applied ONCE to the aggregated, length-normalized term frequency
+      - No artificial document length distortion from repeated string concatenation
+    """
+    DEFAULT_FIELD_WEIGHTS: Dict[str, float] = {
+        "title": 3.0,
+        "lexicon": 2.5,
+        "key_principle": 2.0,
+        "ingredients": 1.5,
+        "illustrations": 1.0,
+        "full_text": 0.6,
+    }
+    DEFAULT_FIELD_B: Dict[str, float] = {
+        "title": 0.3,
+        "lexicon": 0.3,
+        "key_principle": 0.5,
+        "ingredients": 0.5,
+        "illustrations": 0.75,
+        "full_text": 0.75,
+    }
 
-    def __init__(self, docs_tokens: List[List[str]]):
-        self.doc_tf: List[Dict[str, int]] = []
-        self.doc_len: List[int] = []
+    def __init__(
+        self,
+        docs: Union[List[Dict[str, List[str]]], List[List[str]]],
+        field_weights: Optional[Dict[str, float]] = None,
+        field_b: Optional[Dict[str, float]] = None,
+        k1: float = 1.5,
+    ):
+        self.k1 = k1
+        self.field_weights = dict(field_weights or self.DEFAULT_FIELD_WEIGHTS)
+        self.field_b = dict(field_b or self.DEFAULT_FIELD_B)
+
+        self.n = max(len(docs), 1)
+        self.doc_field_tf: List[Dict[str, Dict[str, int]]] = []
+        self.doc_field_len: List[Dict[str, int]] = []
         df: Dict[str, int] = {}
-        for toks in docs_tokens:
-            tf: Dict[str, int] = {}
-            for t in toks:
-                tf[t] = tf.get(t, 0) + 1
-            self.doc_tf.append(tf)
-            self.doc_len.append(len(toks))
-            for t in tf:
+        total_field_len: Dict[str, int] = {f: 0 for f in self.field_weights}
+
+        for item in docs:
+            # Backward-compatibility: if a flat list of tokens is passed, treat as full_text
+            if isinstance(item, list):
+                fields_dict = {"full_text": item}
+            else:
+                fields_dict = item
+
+            d_tf: Dict[str, Dict[str, int]] = {}
+            d_len: Dict[str, int] = {}
+            doc_seen_terms: Set[str] = set()
+
+            for f_name, f_toks in fields_dict.items():
+                t_count: Dict[str, int] = {}
+                for t in f_toks:
+                    t_count[t] = t_count.get(t, 0) + 1
+                    doc_seen_terms.add(t)
+                d_tf[f_name] = t_count
+                flen = len(f_toks)
+                d_len[f_name] = flen
+                total_field_len[f_name] = total_field_len.get(f_name, 0) + flen
+
+            self.doc_field_tf.append(d_tf)
+            self.doc_field_len.append(d_len)
+            for t in doc_seen_terms:
                 df[t] = df.get(t, 0) + 1
-        self.n = max(len(docs_tokens), 1)
-        self.avgdl = (sum(self.doc_len) / self.n) or 1.0
-        self.idf = {
-            t: math.log(1.0 + (self.n - d + 0.5) / (d + 0.5)) for t, d in df.items()
+
+        self.avg_field_len: Dict[str, float] = {
+            f: (total_field_len.get(f, 0) / self.n) or 1.0
+            for f in self.field_weights
+        }
+        self.idf: Dict[str, float] = {
+            t: math.log(1.0 + (self.n - d + 0.5) / (d + 0.5))
+            for t, d in df.items()
         }
 
     def total_mass(self, term_weights: Dict[str, float]) -> float:
-        return sum(w * self.idf[t] for t, w in term_weights.items() if t in self.idf)
+        return sum(w * self.idf.get(t, 0.0) for t, w in term_weights.items() if t in self.idf)
 
     def score(self, idx: int, term_weights: Dict[str, float]) -> Tuple[float, List[str], float]:
-        """Returns (bm25 score, matched terms, matched IDF mass)."""
-        tf = self.doc_tf[idx]
-        dl = self.doc_len[idx]
+        """Returns (bm25f score, matched terms, matched IDF mass)."""
+        d_tf = self.doc_field_tf[idx]
+        d_len = self.doc_field_len[idx]
         total = 0.0
         mass = 0.0
         matched: List[str] = []
+
         for t, w in term_weights.items():
-            f = tf.get(t)
-            if not f:
+            idf = self.idf.get(t)
+            if not idf:
                 continue
-            idf = self.idf.get(t, 0.0)
-            denom = f + _BM25_K1 * (1.0 - _BM25_B + _BM25_B * dl / self.avgdl)
-            total += w * idf * f * (_BM25_K1 + 1.0) / denom
+
+            # Compute length-normalized weighted term frequency across all fields
+            tf_tilde = 0.0
+            for f_name, f_weight in self.field_weights.items():
+                c_tf = d_tf.get(f_name, {}).get(t, 0)
+                if c_tf > 0:
+                    c_len = d_len.get(f_name, 0)
+                    c_avg = self.avg_field_len.get(f_name, 1.0) or 1.0
+                    c_b = self.field_b.get(f_name, 0.75)
+                    tf_tilde += f_weight * (c_tf / (1.0 - c_b + c_b * (c_len / c_avg)))
+
+            if tf_tilde <= 0.0:
+                continue
+
+            denom = tf_tilde + self.k1
+            total += w * idf * (tf_tilde * (self.k1 + 1.0)) / denom
             mass += w * idf
             matched.append(t)
+
         return total, matched, mass
+
+
+# Alias for backward-compatibility
+_BM25Index = _BM25FIndex
 
 
 class CandidateSectionMatch(BaseModel):
@@ -1537,6 +1578,7 @@ class CandidateSectionMatch(BaseModel):
     score: float = Field(description="Local pre-filter relevance score (0.0 to 1.0)")
     matched_terms: List[str] = Field(default_factory=list, description="Keywords/terms matched locally")
     matched_concepts: List[str] = Field(default_factory=list, description="Stage 1 legal concepts that retrieved this section")
+    classification: str = Field(default="PRIMARY", description="Candidate status: PRIMARY, AUGMENTED, CONDITIONAL, or REJECTED")
 
     @property
     def statute_type(self) -> str:
@@ -1549,6 +1591,68 @@ class CandidateSectionMatch(BaseModel):
     @property
     def chapter_name(self) -> Optional[str]:
         return self.chapter
+
+
+# Curated lay-term lexicon per offence unit (Issue S-4).
+# Bridges everyday lay phrases into statutory sections deterministically with 0 LLM calls.
+_OFFENCE_LAY_LEXICON: Dict[str, List[str]] = {
+    # House-trespass & Criminal trespass
+    "441": ["entered land", "entered property", "trespassed", "unlawfully entered", "encroached"],
+    "442": ["entered house", "entered residence", "barged in", "forced entry", "entered dwelling", "unlawfully entered residence"],
+    "447": ["trespass", "criminal trespass", "entered land", "encroached", "unlawfully entered", "trespassed"],
+    "448": ["house trespass", "entered house", "barged into house", "entered residence", "forced entry into home", "unlawfully entered"],
+    "451": ["house trespass to commit offence", "entered house to commit crime", "entered home"],
+    "452": ["house trespass with preparation for hurt", "house trespass after preparation to cause hurt", "barged in with weapons", "entered house with weapons", "barged into house to assault", "entered with stick"],
+    # Insult & Criminal Intimidation
+    "504": ["abused", "hurled abuses", "foul language", "insulted", "provoked", "verbal abuse", "humiliated", "hurled filthy language", "filthy abuses", "intentionally insulted"],
+    "506": ["threatened", "threatened to kill", "life threat", "intimidated", "coerced", "dire consequences", "threatened with dire consequences", "criminal intimidation"],
+    "507": ["anonymous threat", "anonymous call", "unidentified caller", "nameless threat letter"],
+    # Hurt & Grievous hurt
+    "323": ["assaulted", "beaten", "hit", "punched", "kicked", "slapped", "physical violence", "inflicted pain", "beaten up", "caused hurt"],
+    "324": ["knife", "blade", "iron rod", "lathi", "stick", "danda", "rod", "sharp weapon", "acid", "dangerous weapon", "stabbed with knife", "hit with stick", "hit with rod"],
+    "325": ["fracture", "broken bone", "dislocation", "permanent injury", "grievous hurt", "severe bodily injury", "loss of tooth"],
+    "326": ["sword", "knife", "iron rod", "acid attack", "stabbed", "cut", "dangerous weapon grievous hurt", "grievous hurt by sharp weapon"],
+    # Negligence
+    "304A": ["medical negligence", "rash act", "negligent act", "negligence", "rash driving", "died of negligence", "patient died", "doctor negligence", "failed to monitor"],
+    # Homicide
+    "299": ["culpable homicide", "caused death", "bodily injury likely to cause death"],
+    "300": ["murder", "intentional killing", "intention to cause death"],
+    "302": ["murdered", "killed", "caused death", "fatal assault", "death"],
+    "304": ["culpable homicide not amounting to murder", "death caused by bodily injury"],
+    "307": ["attempt to murder", "tried to kill", "attempted to murder", "stabbed in chest", "slit throat"],
+    # Theft, extortion, robbery
+    "378": ["theft", "stole", "took away movable property", "stolen"],
+    "379": ["stolen", "theft", "stole", "theft of vehicle", "theft of money"],
+    "380": ["theft in dwelling", "stolen from house", "theft in house", "stole from residence"],
+    "383": ["extortion", "extorted money", "threatened for money", "ransom demand"],
+    "384": ["extorted", "extortion", "demanded ransom", "forced to pay money"],
+    # Breach of trust & Cheating
+    "403": ["misappropriated", "dishonestly misappropriated", "converted money"],
+    "405": ["criminal breach of trust", "entrusted property", "misappropriated funds"],
+    "406": ["entrusted", "breach of trust", "stridhan", "refused to return money", "ornaments retained", "funds misappropriated"],
+    "415": ["cheated", "deceived", "fraudulently induced"],
+    "420": ["cheated", "defrauded", "duped", "swindled", "fake promise", "false representation", "induced to pay money", "property fraud"],
+    # Forgery & Documents
+    "463": ["forgery", "making false document", "forged"],
+    "464": ["false document", "fake signature", "tampered document", "falsified entries", "falsified records", "altered entries", "false entries"],
+    "465": ["forgery", "forged document", "fake paper", "fabricated", "falsified records", "falsified entries"],
+    "468": ["forgery for cheating", "forged signature to cheat", "fabricated document to cheat"],
+    "471": ["used forged document", "submitted forged papers", "used fake document as genuine"],
+    "477A": ["falsified accounts", "books of account", "account books", "ledger", "cash book", "fraudulent entries in books"],
+    # Evidence & Justice
+    "193": ["false evidence", "fabricated evidence", "perjury", "lied under oath"],
+    "201": ["destroyed evidence", "disappearance of evidence", "concealed evidence", "screened offender", "wiped records", "hid body", "tampered with evidence"],
+    "204": ["destroyed document", "destroyed records", "torn register", "destroyed monitoring records", "deleted files", "prevent production of document as evidence", "torn document"],
+    # Cruelty & Dowry
+    "498A": ["dowry harassment", "cruelty by husband", "tortured for dowry", "in-laws harassment", "matrimonial cruelty", "harassed for dowry"],
+    "304B": ["dowry death", "death within 7 years of marriage", "unnatural death of bride", "killed for dowry", "died under abnormal circumstances"],
+    # Unlawful assembly & Rioting
+    "141": ["unlawful assembly", "common object"],
+    "143": ["member of unlawful assembly", "mob violence"],
+    "147": ["rioting", "rioters", "mob riot"],
+    "148": ["rioting armed with deadly weapon"],
+    "149": ["every member of unlawful assembly guilty", "in prosecution of common object"],
+}
 
 
 from .statute_repository import StatuteRepository
@@ -1657,17 +1761,21 @@ class StatuteClassifierPrefilter:
                     str(ext.get("full_text") or rec.get("full_text", ""))
                 )
 
-                docs.append(
-                    title_tokens * _TITLE_WEIGHT              # ×5
-                    + kp_tokens * _KEY_PRINCIPLE_WEIGHT       # ×4
-                    + pl_tokens * _INGREDIENT_WEIGHT          # ×3
-                    + chapter_tokens * _INGREDIENT_WEIGHT     # ×3
-                    + ing_tokens * _INGREDIENT_WEIGHT         # ×3
-                    + kb_tokens * _INGREDIENT_WEIGHT          # ×3
-                    + illus_tokens * 2                        # ×2
-                    + full_tokens                             # ×1
-                )
-            self._bm25 = _BM25Index(docs)
+                # 9. Curated lay-term lexicon per offence unit (Issue S-4, weight ×5)
+                # Bridges everyday vernacular to statutory sections with zero LLM cost
+                clean_sec = section_number.replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "").strip()
+                lex_phrases = _OFFENCE_LAY_LEXICON.get(clean_sec, [])
+                lex_tokens = _tokenize(" ".join(lex_phrases))
+
+                docs.append({
+                    "title": title_tokens,
+                    "lexicon": lex_tokens,
+                    "key_principle": kp_tokens,
+                    "ingredients": pl_tokens + chapter_tokens + ing_tokens + kb_tokens,
+                    "illustrations": illus_tokens,
+                    "full_text": full_tokens,
+                })
+            self._bm25 = _BM25FIndex(docs)
         return self._bm25
 
     def _rank(
@@ -1680,13 +1788,8 @@ class StatuteClassifierPrefilter:
         """
         Core retrieval for one conduct query. Returns [(record, relative_score, matched_terms,
         coverage)] sorted best-first. Applies: regime filter, non-offence chapter filter,
-        chapter-domain coherence gate, fatal-disqualification gate, IDF-mass coverage floor,
+        soft chapter-domain prior (Issue S-2), fatal-disqualification gate, IDF-mass coverage floor,
         and a relative-score floor.
-
-        query_domains: frozenset of domain strings derived from concept labels (see
-        _derive_query_domains). When provided, any section whose chapter domains share no
-        overlap with query_domains is eliminated — structurally, without per-section rules.
-        Enabling/ancillary provisions (GENERAL domain) always pass regardless of query domain.
         """
         bm25 = self._get_bm25()
         total_mass = bm25.total_mass(term_weights)
@@ -1700,18 +1803,19 @@ class StatuteClassifierPrefilter:
                 continue
 
             # ----------------------------------------------------------------
-            # Chapter-domain coherence gate (structural, not per-section)
-            # A section passes if ANY of its chapter's domains appears in the
-            # query domains. GENERAL always passes (enabling provisions).
-            # Skipped when query_domains is None (e.g. legacy callers).
+            # Soft Chapter-domain prior (Issue S-2)
+            # NEVER eliminate candidate chapters (e.g. Chapter XVII trespass).
+            # If the chapter domain shares overlap with query domains, apply multiplier 1.0,
+            # otherwise apply soft multiplier 0.85 (>= 0.7 per audit requirement).
             # ----------------------------------------------------------------
+            domain_multiplier = 1.0
             if query_domains:
                 sec_num_upper = str(record.get("section_number", "")).strip().upper()
                 if sec_num_upper not in _ENABLING_SECTION_ALLOWLIST:
                     chapter = str(record.get("chapter") or "")
                     sec_chapter_domains = _chapter_domains(chapter)
                     if not sec_chapter_domains.intersection(query_domains):
-                        continue  # chapter domain incompatible — eliminate
+                        domain_multiplier = 0.85  # Soft prior, never hard elimination
 
             disqualified, _, _ = self.evaluate_fatal_disqualification(
                 record["section_number"].upper(), record["statute"].upper(), gate_text
@@ -1719,6 +1823,7 @@ class StatuteClassifierPrefilter:
             if disqualified:
                 continue
             raw, matched, mass = bm25.score(idx, term_weights)
+            raw = raw * domain_multiplier
             if raw <= 0.0:
                 continue
             coverage = mass / total_mass
@@ -2046,7 +2151,6 @@ class StatuteClassifierPrefilter:
             actor_text.extend(self._collect_strings(self._obj_value(fact, "actor")))
         for sq in getattr(legal_query_obj, "sub_queries", []) or []:
             actor_text.extend(self._collect_strings(self._obj_value(sq, "target_parties")))
-            actor_text.extend(self._collect_strings(self._obj_value(sq, "role_alleged")))
         actor_tokens = set(_tokenize(" ".join(actor_text)))
 
         groups: List[Tuple[str, str]] = []

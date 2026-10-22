@@ -12,6 +12,7 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 
 from .precedent_statute_matcher import PrecedentStatuteMatcher, detect_stage_mode
 from .schemas import CaseRetrievalProfile
+from lexigraphbe.offence_taxonomy import ANCILLARY, categories_for
 
 
 # ----------------------------------------------------------------------------
@@ -616,7 +617,9 @@ class PrecedentRetriever:
             fact = max(0.0, 0.3 - disq_penalty)
 
         origins: Set[Tuple[str, str]] = {(m["matched_via_act"], m["matched_via_section"]) for m in matched}
-        stat_weight = sum(profile.weights.get(o, 0.5) for o in origins)
+        exact_origins = {(m["matched_via_act"], m["matched_via_section"]) for m in matched if m.get("match_type") != "family"}
+        # A same-family match counts half of an exact/parent section match.
+        stat_weight = sum(profile.weights.get(o, 0.5) * (1.0 if o in exact_origins else 0.5) for o in origins)
         statutory = min(1.0, stat_weight / profile.total_weight)
         substantive = any(profile.kinds.get(o) in ("offence", "special") for o in origins)
 
@@ -653,6 +656,35 @@ class PrecedentRetriever:
             return None
 
         match_count, matched = self.matcher.match_statutes(input_statutes, judgment_statutes, allow_parent_match=True)
+
+        # Offence-family match: a judgment charged under a different section of the same IPC offence
+        # family (e.g. input 465, judgment 467/468/471 -> FORGERY) is a candidate even without an exact
+        # section match. Families come from offence_taxonomy (IPC chapter structure); ancillary
+        # families (abetment, conspiracy, common intention, attempt) never qualify on their own.
+        matched_keys = {(m["judgment_act"], m["judgment_section"]) for m in matched}
+        input_cats = []
+        for st in input_statutes:
+            if st.get("kind", "offence") != "offence":
+                continue
+            a = self.matcher.normalize_act_name(st.get("act", ""))
+            s = self.matcher.normalize_section_number(str(st.get("section", "")))
+            cats = categories_for(a, s) - set(ANCILLARY)
+            if cats:
+                input_cats.append(((a, s), cats))
+        for js in judgment_statutes:
+            if (js.get("act", ""), js.get("section", "")) in matched_keys:
+                continue
+            jcats = categories_for(self.matcher.normalize_act_name(js.get("act", "")),
+                                   self.matcher.normalize_section_number(str(js.get("section", ""))))
+            for (a, s), cats in input_cats:
+                if cats & jcats:
+                    matched.append({
+                        "judgment_act": js.get("act", ""), "judgment_section": js.get("section", ""),
+                        "matched_via_act": a, "matched_via_section": s, "match_type": "family",
+                        "how_used": js.get("how_used", ""), "note": f"same offence family: {sorted(cats & jcats)}",
+                    })
+                    match_count += 0.5
+                    break
         if match_count == 0:
             return None
 

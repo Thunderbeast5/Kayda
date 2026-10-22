@@ -99,7 +99,7 @@ def parse_punishment_and_severity(text: str, section_number: str = "", statute: 
         p_min = first_sched["punishment_minimum"]
         p_text = f"Punishment: {p_min + ' to ' if p_min else ''}{p_max}"
         
-        if p_max in ("Death", "Life Imprisonment"):
+        if p_max and re.search(r"\b(death|life)\b", p_max, re.I):
             return (p_text, 20.0, True)
         
         matches = re.findall(r"(\d+)\s*(?:years?|yrs?)", p_max.lower())
@@ -134,6 +134,162 @@ def parse_punishment_and_severity(text: str, section_number: str = "", statute: 
 
     return (punishment_snippet, 3.0, False)
 
+
+
+def _norm_status(status: str) -> str:
+    return str(status or "").strip().upper()
+
+
+def _aggregate_ingredient_status(evaluations, classification: str = "PRIMARY"):
+    """
+    Deterministic aggregation of per-ingredient statuses (the reasoner's judgements) into the
+    section's overall status:
+      any mandatory ingredient Missing / Contradicted / Not Satisfied -> Not Attracted (Weak)
+      any Unknown (not evaluated)                                       -> Partially Attracted (Weak)
+      any Partially Satisfied                                           -> Partially Attracted (Moderate)
+      all Satisfied                                                     -> Prima Facie Attracted (Strong)
+    A CONDITIONAL section (depends on a fact not yet alleged) is capped at Partially Attracted.
+    """
+    # Alternatives: ipc.json marks disjunctive ingredients with a trailing "OR" (e.g. 107: instigation; OR
+    # conspiracy; OR intentional aid). A run of alternatives is one requirement, met if any member is met.
+    rank = {"SATISFIED": 0, "PARTIALLY SATISFIED": 1, "UNKNOWN": 2, "": 2,
+            "MISSING": 3, "NOT SATISFIED": 3, "CONTRADICTED": 3}
+    statuses, group = [], []
+    for e in (evaluations or []):
+        group.append(_norm_status(e.status))
+        text = re.sub(r"\s*\[per section [^\]]*\]\s*$", "", str(e.ingredient or ""), flags=re.I).rstrip(" ;,.")
+        if not re.search(r"(?:^|[\s;,])OR$", text):
+            statuses.append(min(group, key=lambda x: rank.get(x, 2)))
+            group = []
+    if group:
+        statuses.append(min(group, key=lambda x: rank.get(x, 2)))
+    if not statuses:
+        # No ingredients were available to evaluate: nothing supports attraction.
+        return "Not Evaluated", "Weak"
+    if any(s in ("MISSING", "CONTRADICTED", "NOT SATISFIED") for s in statuses):
+        return "Not Attracted", "Weak"
+    if any(s in ("UNKNOWN", "") for s in statuses):
+        return "Partially Attracted", "Weak"
+    if any(s == "PARTIALLY SATISFIED" for s in statuses) or classification == "CONDITIONAL":
+        return "Partially Attracted", "Moderate"
+    return "Prima Facie Attracted", "Strong"
+
+
+
+_MENTAL_ELEMENT_RE = re.compile(
+    r"\b(intent\w*|intend\w*|knowing\w*|knowledge|knows|reason to believe|dishonest\w*|fraudulent\w*|"
+    r"wilful\w*|purpose|deliberate\w*|likely to)\b", re.IGNORECASE)
+
+
+def classify_ingredient_kind(ingredient_text: str) -> str:
+    """
+    Classifies a statutory ingredient into:
+      'factual_circumstance' - extrinsic factual condition (must be specifically alleged)
+      'conduct' - overt actus reus action or immediate result
+      'legal_characterisation' - legal duty, legal compulsion, or admissibility
+      'mental' - mens rea / knowledge / intention / state of mind
+    """
+    text = str(ingredient_text or "").strip().lower()
+    if re.search(r"\b(woman|marriage|husband|relative of husband|within 7 years|seven years|minor|child|below \d+ years|dwelling house|at night|sunset|sunrise)\b", text):
+        return "factual_circumstance"
+    if re.search(r"\b(insult\w*|assault\w*|destroys?|secretes?|causes? (?:any )?evidence to disappear|gives? false information|causes? death|strikes?|enters?|falsif\w*|takes? property)\b", text):
+        return "conduct"
+    if re.search(r"\b(lawfully compelled|due course of law|legally bound|as evidence|public servant|valuable security|breach of (?:the )?peace|screen\w* (?:the )?offender|legal punishment)\b", text):
+        return "legal_characterisation"
+    if re.search(r"\b(intent\w*|intend\w*|knowing\w*|knowledge|knows|reason to believe|dishonest\w*|fraudulent\w*|wilful\w*|purpose|deliberate\w*|likely to|malicious\w*|corrupt\w*|voluntarily)\b", text):
+        return "mental"
+    return "conduct"
+
+
+INFERABLE_KINDS = {"mental", "legal_characterisation"}
+
+
+def _infer_mental_elements(vo) -> List[str]:
+    """
+    Prima facie standard: at the FIR / bail stage allegations are taken at face value.
+    Mental elements and legal characterisations are inferred from alleged overt conduct.
+    Factual circumstances (e.g. marriage, woman) must be alleged and are never inferred.
+    """
+    evals = list(getattr(vo, "ingredient_evaluation", []) or [])
+    inferable = [e for e in evals if classify_ingredient_kind(e.ingredient) in INFERABLE_KINDS]
+    conduct = [e for e in evals if e not in inferable]
+    if not inferable or not conduct:
+        return []
+    if not all(_norm_status(e.status) in ("SATISFIED", "PARTIALLY SATISFIED") for e in conduct):
+        return []
+    notes = []
+    for e in inferable:
+        if _norm_status(e.status) in ("MISSING", "UNKNOWN", "NOT SATISFIED"):
+            kind = classify_ingredient_kind(e.ingredient)
+            e.status = "Partially Satisfied"
+            e.reason = (e.reason or "") + f" [Prima facie: {kind} element not expressly alleged verbatim but inferable from alleged conduct at FIR/bail stage; to be established at trial.]"
+            notes.append(f"Section {vo.section_number}: {kind} element '{str(e.ingredient)[:60]}' treated as inferable at the prima facie stage.")
+    return notes
+
+
+def _fact_coverage_recheck(vo, facts: List[Any], llm=None) -> List[str]:
+    """
+    Deterministic fact-coverage re-check (§10.1 Item 3 & §4.4).
+    Flags conduct ingredients marked Missing where an alleged ACT fact describes related conduct.
+    Sends only the specific missing ingredient and candidate fact for targeted verification.
+    """
+    evals = list(getattr(vo, "ingredient_evaluation", []) or [])
+    notes = []
+    for e in evals:
+        if classify_ingredient_kind(e.ingredient) == "conduct" and _norm_status(e.status) in ("MISSING", "NOT SATISFIED"):
+            ing_text = str(e.ingredient).lower()
+            for f in facts:
+                c_type = str(getattr(f, "conduct_type", "") if hasattr(f, "conduct_type") else (f.get("conduct_type", "") if isinstance(f, dict) else "")).upper()
+                if c_type and c_type not in ("ACT", "OMISSION"):
+                    continue
+                quote = str(getattr(f, "verbatim_quote", "") if hasattr(f, "verbatim_quote") else (f.get("verbatim_quote", "") if isinstance(f, dict) else "")).strip()
+                if not quote:
+                    quote = str(getattr(f, "description", "") if hasattr(f, "description") else (f.get("description", "") if isinstance(f, dict) else "")).strip()
+                if not quote:
+                    continue
+                q_lower = quote.lower()
+                has_overlap = False
+                if any(w in q_lower for w in ("destroy", "record", "tamper", "falsif", "delet", "wipe", "hide", "disclos")) and \
+                   any(w in ing_text for w in ("disappear", "evidence", "document", "record", "false information")):
+                    has_overlap = True
+                elif any(w in q_lower for w in ("assault", "beat", "hit", "strike", "wound", "knife", "weapon")) and \
+                     any(w in ing_text for w in ("hurt", "force", "assault", "weapon", "injury")):
+                    has_overlap = True
+
+                if has_overlap and llm:
+                    try:
+                        from langchain_core.messages import HumanMessage
+                        from .config import extract_json_from_text
+                        msg = HumanMessage(
+                            content=f"Does the allegation '{quote}' prima facie satisfy the conduct ingredient '{e.ingredient}' of Section {vo.section_number} ({vo.title})? Return JSON: {{\"status\": \"Satisfied\" or \"Not Satisfied\", \"reason\": \"...\"}}"
+                        )
+                        resp = llm.invoke([msg])
+                        parsed = extract_json_from_text(resp)
+                        if str(parsed.get("status", "")).strip().lower() == "satisfied":
+                            e.status = "Satisfied"
+                            e.matched_fact = quote
+                            e.reason = str(parsed.get("reason", "Targeted fact grounding verified."))
+                            notes.append(f"Section {vo.section_number}: grounded ingredient '{e.ingredient[:40]}' in fact '{quote[:40]}'.")
+                            break
+                    except Exception as err:
+                        pass
+    return notes
+
+
+def _linked_definition_ingredients(section: str, statute_db) -> List[str]:
+    """Ingredients of the definition section(s) linked to a punishment section, tagged with their source."""
+    try:
+        from .family_retrieval import get_family_retriever
+        links = get_family_retriever().punishment_links.get(section, set())
+    except Exception:
+        return []
+    out: List[str] = []
+    for d in sorted(links):
+        for ing in (statute_db.get(f"IPC_{d}") or {}).get("ingredients") or []:
+            item = f"{ing} [per Section {d}]"
+            if item not in out:
+                out.append(item)
+    return out
 
 class StatutoryVerificationAgent:
     """
@@ -214,7 +370,15 @@ class StatutoryVerificationAgent:
             if record:
                 p_source = record.get("punishment") or record.get("full_text") or ""
                 p_text, max_yrs, exceeded = parse_punishment_and_severity(p_source, section_number=clean_sec, statute=statute_prefix)
-                rec_copy = dict(record)
+                ings = list(record.get("ingredients") or []) or _linked_definition_ingredients(clean_sec, self.statute_db)
+                # Compact context: only what ingredient evaluation needs (keeps the prompt small).
+                rec_copy = {
+                    "statute": record.get("statute", statute_prefix),
+                    "section_number": clean_sec,
+                    "section_title": record.get("section_title", ""),
+                    "statutory_text": str(record.get("full_text") or ""),
+                    "ingredients": ings,
+                }
                 rec_copy["parsed_punishment_text"] = p_text
                 rec_copy["parsed_max_imprisonment_years"] = max_yrs
                 rec_copy["parsed_arnesh_kumar_threshold_exceeded"] = exceeded
@@ -295,7 +459,11 @@ class StatutoryVerificationAgent:
         for vo in target_offences:
             clean_sec = str(vo.section_number).strip().upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "")
             rec = statute_db.get(f"IPC_{clean_sec}") or {}
-            raw_ings = rec.get("ingredients") or []
+            raw_ings = list(rec.get("ingredients") or [])
+            if not raw_ings:
+                # Punishment sections (e.g. 323, 465, 109, 120B) carry no ingredients in ipc.json;
+                # use the definition section linked by their "Punishment for/of ..." heading.
+                raw_ings = _linked_definition_ingredients(clean_sec, statute_db)
             
             # Dynamic constituent expansion: if an ingredient references a predicate definition section (e.g. "Section 378", "Sections 463–464"), expand its constituent ingredients
             expanded_ings = []
@@ -315,15 +483,17 @@ class StatutoryVerificationAgent:
                     expanded_ings.append(ing)
 
             if expanded_ings:
-                ings_formatted = "\n".join([f"      * Mandatory Statutory Ingredient: {ing}" for ing in expanded_ings])
+                ings_formatted = "\n".join([f"      * Statutory Ingredient: {ing}" for ing in expanded_ings])
             elif clean_sec in STATUTORY_INGREDIENTS:
-                ings_formatted = "\n".join([f"      * Mandatory Statutory Ingredient: {name}" for name, _ in STATUTORY_INGREDIENTS[clean_sec]])
+                ings_formatted = "\n".join([f"      * Statutory Ingredient: {name}" for name, _ in STATUTORY_INGREDIENTS[clean_sec]])
             else:
                 ings_formatted = f"      * Statutory definition elements of Section {clean_sec} {vo.title}"
 
             stage3_sections.append(
                 f"  - Section {vo.section_number} IPC ({vo.title}):\n"
-                f"    Authoritative Statutory Ingredients from Statute (MANDATORY TO EVALUATE):\n"
+                f"    Statutory Ingredients (evaluate EACH; copy its text verbatim into 'ingredient', including a "
+                f"trailing 'OR' that marks alternatives - only one alternative in such a run needs to be met; "
+                f"cite the supporting fact in 'matched_fact' or null if none):\n"
                 f"{ings_formatted}"
             )
 
@@ -473,19 +643,8 @@ class StatutoryVerificationAgent:
             }
 
             def _heuristic_status(ingredient_name: str) -> tuple:
-                ing_lower = ingredient_name.lower()
-                hint_matched = False
-                for hint_key, keywords in INGREDIENT_HINT_WORDS.items():
-                    if hint_key in ing_lower or any(k in ing_lower for k in ["transfer", "deed", "document", "fraud", "intent", "dishonest"]):
-                        if any(kw in facts_text_lower for kw in keywords):
-                            hint_matched = True
-                            break
-                # Also do a direct word overlap check
-                ing_words = set(w for w in ing_lower.split() if len(w) > 4)
-                direct_match = any(w in facts_text_lower for w in ing_words)
-                if hint_matched or direct_match:
-                    return "Satisfied", "Auto-inferred from case facts by programmatic fallback (LLM omitted this section).", 0.65
-                return "Unknown", "Programmatic fallback could not confirm from available facts — manual review required.", 0.40
+                # No keyword guessing: an ingredient the reasoner did not evaluate is unknown.
+                return "Unknown", "Not evaluated by the Stage 4 reasoner - manual review required.", 0.0
 
             from .schemas import IngredientEvaluationItem, VerifiedOffenceItemStage4
             fallback_ingredients = []
@@ -530,25 +689,53 @@ class StatutoryVerificationAgent:
             return s.strip().upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "")
 
         tier_by_sec = {_norm(vo.section_number): (vo.classification or "PRIMARY").upper() for vo in chap_obj.verified_offences}
-        primary_offences = []
+        attracted_offences = []
+        conditional_offences = []
+        rejected_offences = []
+
+        facts_list = list(getattr(query_obj, "factual_allegations", []) or [])
         for vo in statutory_obj.verified_offences:
             vo.classification = tier_by_sec.get(_norm(vo.section_number), "PRIMARY")
-            if vo.classification == "CONDITIONAL":
-                gaps = vo.missing_mandatory_facts or ["predicate offence / statutory element not established on current facts"]
-                vo.overall_status = "Not Attracted"
-                vo.overall_prima_facie_strength = "Weak"
-                if isinstance(vo.irac_reasoning, dict):
-                    vo.irac_reasoning["conclusion"] = (
-                        f"Section {vo.section_number} not attracted on current facts - " + "; ".join(gaps)
-                    )
-                # Kept in verified_offences (still flows to Stage 5) but tagged CONDITIONAL,
-                # and mirrored in conditional_offences for consumers that want the split.
-                statutory_obj.conditional_offences.append(vo)
-            primary_offences.append(vo)
-        statutory_obj.verified_offences = primary_offences
+            for note in _fact_coverage_recheck(vo, facts_list, llm=self.llm):
+                if note not in statutory_obj.manual_review:
+                    statutory_obj.manual_review.append(note)
+            for note in _infer_mental_elements(vo):
+                if note not in statutory_obj.manual_review:
+                    statutory_obj.manual_review.append(note)
+            status, strength = _aggregate_ingredient_status(vo.ingredient_evaluation, vo.classification)
+            if status != vo.overall_status:
+                note = f"Section {vo.section_number}: overall status set to '{status}' from ingredient statuses (LLM said '{vo.overall_status}')."
+                if note not in statutory_obj.manual_review:
+                    statutory_obj.manual_review.append(note)
+            vo.overall_status, vo.overall_prima_facie_strength = status, strength
+            if isinstance(vo.irac_reasoning, dict) and status == "Not Attracted":
+                gaps = [e.ingredient for e in vo.ingredient_evaluation
+                        if _norm_status(e.status) in ("MISSING", "CONTRADICTED", "NOT SATISFIED")]
+                vo.irac_reasoning["conclusion"] = (
+                    f"Section {vo.section_number} not attracted on current facts - missing: " + "; ".join(gaps or vo.missing_mandatory_facts or ["mandatory element"])
+                )
 
-        # Pass all evaluated sections forward to Stage 5 with their full strength evaluation
-        stage4_accepted_secs = [vo.section_number for vo in statutory_obj.verified_offences]
+            if status == "Not Evaluated":
+                note = f"Section {vo.section_number}: no statutory ingredients available to evaluate; held for manual review."
+                if note not in statutory_obj.manual_review:
+                    statutory_obj.manual_review.append(note)
+                conditional_offences.append(vo)
+            elif vo.classification == "CONDITIONAL":
+                conditional_offences.append(vo)
+            elif status in ("Prima Facie Attracted", "Partially Attracted"):
+                attracted_offences.append(vo)
+            else:
+                rejected_offences.append(vo)
+
+        statutory_obj.attracted_offences = attracted_offences
+        statutory_obj.conditional_offences = conditional_offences
+        statutory_obj.rejected_offences = rejected_offences
+        # Downstream consumers (bail, precedent, etc.) receive only attracted offences
+        statutory_obj.verified_offences = attracted_offences
+
+        # Pass only attracted sections forward to Stage 5
+        stage4_accepted_secs = [vo.section_number for vo in attracted_offences]
+        stage4_dropped = [vo.section_number for vo in rejected_offences]
 
         # Synchronize backward-compatible verified_sections from verified_offences
         if statutory_obj.verified_offences:

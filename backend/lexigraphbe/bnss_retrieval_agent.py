@@ -280,23 +280,36 @@ class BNSSRetrievalAgent:
             if overlap:
                 score += len(overlap) * 2.0
 
-            # Relief & procedural stage match
-            relief = (procedural_meta.get("requested_relief") or "").lower()
-            if "anticipatory" in relief or "anticipatory" in facts_lower or "apprehend" in facts_lower:
+            # Procedural stage & relief routing table (Issue Section 7.4)
+            # Route using Stage 0 procedural_stage and requested_relief, not ad-hoc substring scanning
+            relief_str = str(procedural_meta.get("requested_relief") or "").upper()
+            stage_str = str(procedural_meta.get("procedural_stage") or "").upper()
+
+            # Identify primary procedural route
+            if "ANTICIPATORY" in relief_str or "ANTICIPATORY" in stage_str or re.search(r"\b(anticipatory\s+bail|apprehend(?:ing)?\s+arrest)\b", facts_lower):
                 if sec_num in ["482", "483"]:
                     score += 15.0
                 if sec_num in ["35", "36"]:
                     score += 8.0
                 if sec_num in ["484", "485"]:
                     score += 6.0
-            elif "bail" in relief or "bail" in facts_lower:
+            elif "REGULAR" in relief_str or "REGULAR" in stage_str or (("BAIL" in relief_str or "BAIL" in stage_str) and re.search(r"\b(custody|arrested|in\s+jail)\b", facts_lower)):
                 if sec_num in ["480", "483"]:
-                    score += 12.0
+                    score += 15.0
                 if sec_num in ["484", "485", "487"]:
+                    score += 8.0
+            elif "BAIL" in relief_str or "BAIL" in stage_str or re.search(r"\bbail\b", facts_lower):
+                if sec_num in ["482", "480", "483"]:
+                    score += 12.0
+                if sec_num in ["484", "485"]:
                     score += 6.0
 
-            if "custod" in facts_lower or "interrogat" in facts_lower or "remand" in facts_lower:
+            if re.search(r"\b(custodial\s+interrogation|police\s+remand|judicial\s+remand|remand)\b", facts_lower):
                 if sec_num in ["35", "187"]:
+                    score += 10.0
+
+            if re.search(r"\b(search|seizure|seized|recovery\s+memo|raid)\b", facts_lower):
+                if sec_num in ["94", "105", "185"]:
                     score += 10.0
 
             if sec_num in anchor_sections:
@@ -442,6 +455,28 @@ class BNSSRetrievalAgent:
             rejected_candidates=proposed_rejected,
         )
         notes.extend(verifier_notes)
+
+        # Distinguish the provision governing the relief sought from general procedural machinery
+        # (e.g. bond sections 484/485 are not provisions "governing" anticipatory bail).
+        relief = f"{procedural_meta.get('requested_relief', '')} {procedural_meta.get('procedural_stage', '')}".lower()
+        if "anticipatory" in relief:
+            direct = {"ANTICIPATORY_BAIL"}
+        elif "bail" in relief:
+            direct = {"REGULAR_BAIL", "DEFAULT_BAIL"}
+        elif "remand" in relief or "custody" in relief:
+            direct = {"CUSTODY_REMAND"}
+        else:
+            direct = set()
+        for s in verified_accepted:
+            cat = (s.relevance_category or "").upper()
+            if cat in direct:
+                s.applicability = "DIRECT"
+            elif cat in {"BAIL_CONDITIONS", "GENERAL_PROCEDURE"}:
+                s.applicability = "ANCILLARY"
+            else:
+                s.applicability = "CONTEXTUAL"
+        tier_rank = {"DIRECT": 0, "CONTEXTUAL": 1, "ANCILLARY": 2}
+        verified_accepted.sort(key=lambda s: tier_rank.get(s.applicability, 1))
 
         final_accepted = verified_accepted[: self.top_k]
 

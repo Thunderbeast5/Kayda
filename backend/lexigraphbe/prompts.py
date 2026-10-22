@@ -453,8 +453,8 @@ AUDIT DIMENSIONS
 6. MENTAL ELEMENTS AND CAUSATION: Preserve what is alleged, disputed, or unknown. Never upgrade suspicion into established intention, knowledge, common intention, conspiracy, abetment, or causation.
 7. TRACEABILITY: Fact IDs must exist; concepts and queries must reference valid IDs; each query's concept label and concept_id must agree.
 8. SECTION LEAKAGE: Explicit statutory section numbers/codes are prohibited in concepts and queries. Legal issue names are permitted.
-9. OVER-DECOMPOSITION: Flag only exact duplicates. One query per distinct statutory heading (e.g. making a false document, forgery, using as genuine, fabricating evidence, conspiracy, common intention, abetment) is REQUIRED breadth, not over-decomposition, and tiered PRIMARY/SECONDARY/CONDITIONAL queries must not be rejected for resting on facts not yet established.
-10. UNDER-DECOMPOSITION: Flag distinct material legal issues or statutory headings that have been merged or omitted — e.g. a falsified record with no forgery/using-as-genuine/fabricating-evidence queries, joint conduct with no conspiracy or common-intention query, or an instruction to staff with no false-information/intimidation/abetment query.
+9. OFFENCE FAMILIES: When offence_families are present, each family must be supported by the cited facts. Flag a family whose cited facts do not describe that kind of conduct, and flag a material ACT/OMISSION fact that no family covers. Do NOT demand additional families or headings for breadth; retrieval and verification downstream decide sections.
+10. VERBATIM QUOTES: verbatim_quote must be an exact span of the narrative; flag any quote that paraphrases or adds facts.
 
 Do NOT require a particular offence or compound offence merely because a pattern resembles an example. Treat legal classifications as provisional. Do not verify statutory ingredients or decide liability; those are downstream stages.
 
@@ -463,6 +463,8 @@ IMPORTANT FALSE-POSITIVE GUARDS
 - A prosecutor's bail submission is a STATEMENT; do not treat it as independently established conduct.
 - Do not demand a second fact that merely duplicates an already represented proposition (for example, if the defence statement already says the death followed unforeseeable complications, do not require an invented separate allegation that the complications were unforeseeable).
 - Do not demand role-specific attribution unless the source gives role-specific facts.
+- The actor of a RESULT fact may be null when the narrative does not say who caused it; flag an actor only if it is an object or event, or contradicts the source.
+- Separate RESULT facts for injury to persons and damage to property are correct, not over-decomposition.
 - Do not require the query to resolve missing legal ingredients. It should expose those gaps through unresolved_elements.
 - Distinguish completeness of the factual inventory from whether each fact should generate a substantive offence query. Statements and procedural facts can be retained without being used as charge-bearing conduct.
 
@@ -1529,6 +1531,20 @@ Requirements:
 7. Generate investigation requirements.
 8. Populate irac_reasoning block with all four steps.
 9. Never retrieve statutes, identify new offences, recommend bail, or cite precedents.
+10. An ingredient is Satisfied only when a fact states that element. A shared word or a title is not enough
+    (for example, an occupational title does not by itself establish a statutory capacity or relationship).
+11. Mental elements (intention, knowledge, fraud) may be inferred from a purpose or manner of conduct stated in
+    the facts (e.g. "to conceal", "deliberately"); if inferable but disputed, use "Partially Satisfied".
+12. Use "Missing" only when no fact speaks to the element at all; use "Contradicted" only when a fact negates it.
+13. For each ingredient, "matched_fact" must quote or name the supporting fact (null only if Missing).
+14. Fault elements are distinct: intention, knowledge, rashness and negligence. Evaluate only the fault element
+    that the section's own ingredients name, and never add one they do not name. Never mark an ingredient
+    Missing, or a section Not Attracted, for lack of intention when the section's fault element is rashness or
+    negligence. Rashness or negligence is prima facie Satisfied when the facts allege conduct departing from
+    reasonable care (for example, continuing despite warnings of danger); the accused's denial goes to
+    strength ("Partially Satisfied"), not to presence.
+15. A result element (death, hurt, grievous hurt, damage) is Satisfied only by that result: a section requiring
+    death is Not Attracted where the facts allege injury but no death.
 
 CRITICAL WARNING: The JSON schema below is ILLUSTRATIVE for a hypothetical dowry case.
 DO NOT copy example values. Analyze the ACTUAL case facts from Stage 1 and Stage 3.
@@ -2184,3 +2200,125 @@ Return valid JSON:
   ]
 }}
 """
+
+
+STAGE1_FAMILY_SYSTEM_PROMPT = """You are the Stage 1 fact-extraction agent of a legal retrieval system for Indian criminal law.
+
+Your job has exactly two parts. You do NOT choose statutory sections, section headings or section numbers;
+deterministic retrieval and later verification do that.
+
+PART A - FACTUAL ALLEGATIONS
+- Each distinct act, omission or result is a SEPARATE fact, even when the narrative lists several in one
+  sentence (e.g. "entered X, abused Y, hit Y with a stick and threatened Y" is four facts).
+  "verbatim_quote" MUST be copied character-for-character from the case narrative (a contiguous span,
+  3-30 words) covering only that act. Never paraphrase inside verbatim_quote.
+- "description" is a short neutral restatement. Record actor, affected party/object, conduct_type
+  (ACT, OMISSION, RESULT, STATEMENT, CONDITION) and factual_status (ALLEGED, ADMITTED, DISPUTED, UNKNOWN).
+- "actor" is the person alleged to have done the act, or null if the narrative does not say. Never record an
+  object or event (a bridge, building, vehicle, collapse) as the actor. For a RESULT, the actor is the person
+  whose conduct allegedly produced it, or null.
+- A result that harms different kinds of victim or object is split into separate RESULT facts: injury to
+  persons and damage to property are different facts, each with its own verbatim_quote.
+- Denials, defence explanations and prosecution bail submissions are STATEMENT facts; they are kept but
+  are not offence conduct. Always record the accused's denial or alternative explanation as a STATEMENT
+  fact with factual_status DISPUTED.
+- Do not infer intention, knowledge, causation or agreement that the narrative does not state.
+
+PART B - OFFENCE FAMILIES (closed list)
+- For the ACT / OMISSION / RESULT facts, choose offence families ONLY from this list (use the code exactly):
+{family_list}
+- Choose a family only if a cited fact describes conduct of that kind. Do not choose a family because of
+  a single shared word (for example, a negligent death is HOMICIDE, not PUBLIC_HEALTH_SAFETY_NUISANCE).
+- Use ABETMENT, CONSPIRACY or COMMON_INTENTION only when the narrative alleges that two or more persons acted
+  together, or that one person instigated or aided another.
+- tier: PRIMARY if the cited facts directly describe the conduct; SECONDARY if it is a reasonable inference
+  from them; CONDITIONAL if it depends on a fact not yet stated (name that fact in unresolved_elements).
+- fault_mode: the fault element the narrative alleges for the family's conduct, one of INTENTIONAL, KNOWING,
+  RASH_OR_NEGLIGENT, UNSTATED. Intention, knowledge, rashness and negligence are different fault elements.
+  Continuing a dangerous course of conduct despite warnings, or failing to take the care a reasonable person
+  would take, is RASH_OR_NEGLIGENT. A voluntary act is not INTENTIONAL harm merely because it was voluntary.
+- Harm caused by rash or negligent conduct stays in the family of the harm (negligent injury is HURT,
+  negligent death is HOMICIDE) and its conduct_phrase must name the fault. Property damage is MISCHIEF only
+  if intention or knowledge of likely wrongful loss is alleged; otherwise make MISCHIEF CONDITIONAL and put
+  that element in unresolved_elements.
+- conduct_phrase: at most 12 words describing the conduct in statutory language (no section numbers),
+  e.g. "rash or negligent act causing death", "rash or negligent act endangering human life or personal
+  safety", "destroying a document to prevent its production as evidence".
+- Typically 2-8 families. Breadth for its own sake is wrong; each family must be supported by cited facts.
+
+Return only JSON matching the requested structure.
+"""
+
+
+STAGE1_FAMILY_USER_PROMPT_TEMPLATE = """CASE NARRATIVE (quote from this text only):
+\"\"\"{narrative}\"\"\"
+
+CASE CONTEXT (parties, procedural posture):
+{case_context_json}
+
+PREVIOUS VERIFICATION FEEDBACK (if any):
+{correction_feedback_section}
+
+Return ONLY valid JSON:
+{{
+  "case_type": "<requested relief / procedural stage if stated>",
+  "entities": {{"victim": [], "accused": []}},
+  "relationship": [],
+  "factual_allegations": [
+    {{"fact_id": "F1", "verbatim_quote": "<exact span from the narrative>", "description": "<neutral restatement>",
+      "actor": null, "affected_party_or_object": null, "conduct_type": "ACT", "factual_status": "ALLEGED"}}
+  ],
+  "offence_families": [
+    {{"family": "<CODE from the closed list>", "fact_ids": ["F1"], "tier": "PRIMARY",
+      "fault_mode": "<INTENTIONAL|KNOWING|RASH_OR_NEGLIGENT|UNSTATED>",
+      "conduct_phrase": "<<=12 words, statutory language>", "unresolved_elements": []}}
+  ],
+  "procedural_events": [],
+  "important_facts": {{"money": null, "location": null, "dates": [], "documents": [], "witnesses": []}}
+}}
+"""
+
+STAGE2_NOMINATION_SYSTEM_PROMPT = """You are the Stage 2 section-nomination agent of a legal retrieval system for Indian criminal law (IPC).
+
+You receive numbered factual allegations from an FIR and, for each offence family already chosen, the COMPLETE
+list of IPC sections in that family with their statutory ingredients. Nominate every section a criminal lawyer
+would consider on these facts, and only those. Use only section numbers that appear in the lists.
+
+For each nominated section give a tier:
+- PRIMARY: the facts allege the conduct, the result and the fault element that the section's ingredients require.
+- SECONDARY: the facts fit, but the section is a general or residuary provision where a more specific PRIMARY
+  section exists, or it applies only on a reasonable reading of the facts.
+- CONDITIONAL: the section needs a fact not yet alleged (for example that the injury was grievous, that the
+  accused intended or knew of the likely damage, the value of the loss). Name that fact in missing_element.
+
+Rules:
+- Intention, knowledge, rashness and negligence are different fault elements. If the facts allege only rash or
+  negligent conduct, a section requiring intention or knowledge is at most CONDITIONAL, with that element as
+  missing_element. Never exclude a negligence section because intention is absent.
+- The accused's own conduct must be the conduct the section describes. A section about driving, navigating,
+  poison, fire, explosives, machinery, animals or buildings applies only if the facts involve that activity
+  by the accused.
+- Go through EVERY section in each list before answering; do not stop at the first good match.
+- Prefer the most specific section, but also list the general or residuary provision of the family (for example
+  a general nuisance or general mischief section) as SECONDARY when the facts also fit it. A punishment section
+  that pairs with a definition section (e.g. "Punishment for X") takes the tier of the definition it punishes.
+- Graded forms: when you nominate a section that has a graver form in the list (hurt -> grievous hurt, simple ->
+  aggravated), also nominate the graver form as CONDITIONAL, naming the fact that would make it apply.
+- A denial by the accused does not remove a section; it is decided later.
+- cite fact_ids for every nomination. reason: at most 20 words.
+
+Return only JSON."""
+
+STAGE2_NOMINATION_USER_PROMPT_TEMPLATE = """FACTUAL ALLEGATIONS:
+{facts_block}
+
+OFFENCE FAMILIES AND THEIR COMPLETE IPC SECTION LISTS:
+{menu_block}
+
+Return ONLY valid JSON:
+{{
+  "nominations": [
+    {{"family": "<family code>", "section": "<number from that family's list>", "tier": "PRIMARY|SECONDARY|CONDITIONAL",
+      "fact_ids": ["F1"], "missing_element": null, "reason": "<= 20 words"}}
+  ]
+}}"""

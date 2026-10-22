@@ -112,11 +112,15 @@ class BSAVerifierAgent:
                     audit_notes.append(f"Rejected noise section BSA {sec_num} ({sec.heading})")
                     continue
 
-            # Check categorical grounding
+            # Check categorical grounding. The retrieval cluster's own keywords are the single source of what
+            # grounds a category, so the verifier cannot reject what retrieval matched (e.g. "engineer" -> expert).
+            from .bsa_retrieval_agent import _EVIDENCE_CLUSTERS, _matches_keyword
             failed_rule = False
             for categories, req_words, reason in _GROUNDING_RULES:
                 if any(c in cat for c in categories):
-                    if not any(w in facts_lower for w in req_words):
+                    cluster_words = [kw for c in categories for kw in (_EVIDENCE_CLUSTERS.get(c) or {}).get("keywords", [])]
+                    grounded = any(w in facts_lower for w in req_words) or any(_matches_keyword(kw, facts_lower) for kw in cluster_words)
+                    if not grounded:
                         sec.verification_status = "REJECTED"
                         sec.verification_reason = reason
                         rejected.append(sec)

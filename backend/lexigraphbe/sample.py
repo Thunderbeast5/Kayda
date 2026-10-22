@@ -1,3 +1,30 @@
+import csv
+import re
+from pathlib import Path
+from typing import Any, Dict, List, Optional, Set, Tuple
+
+try:
+    from .classifier_prefilter import (
+        CandidateSectionMatch,
+        StatuteClassifierPrefilter,
+        _kb_section_keys,
+        get_effective_knowledge_base,
+        promote_csv_record_to_kb,
+    )
+    from .schemas.stage1 import LegalQueryObject, LegalConceptItem as LegalConcept, SubQueryItem as SubQuery
+except ImportError:
+    from lexigraphbe.classifier_prefilter import (
+        CandidateSectionMatch,
+        StatuteClassifierPrefilter,
+        _kb_section_keys,
+        get_effective_knowledge_base,
+        promote_csv_record_to_kb,
+    )
+    from lexigraphbe.schemas.stage1 import LegalQueryObject, LegalConceptItem as LegalConcept, SubQueryItem as SubQuery
+
+sections_db: List[Dict[str, Any]] = []
+
+
 def _load_datasets():
     """Loads IPC and BNS dataset records into local in-memory index."""
     candidate_ipc = [
@@ -28,7 +55,7 @@ def _load_datasets():
                         if sec_id:
                             clean_num = sec_id.replace("IPC_", "").strip()
                             full_text = f"{offense} {desc} {clean_num}".lower()
-                            self.sections_db.append({
+                            sections_db.append({
                                 "identifier": f"IPC {clean_num}",
                                 "statute": "IPC",
                                 "section_number": clean_num,
@@ -55,7 +82,7 @@ def _load_datasets():
                         keywords = (row.get("Keywords") or "").strip()
                         if sec_num:
                             full_text = f"{title} {desc} {chap} {keywords} {sec_num}".lower()
-                            self.sections_db.append({
+                            sections_db.append({
                                 "identifier": f"BNS {sec_num}",
                                 "statute": "BNS",
                                 "section_number": sec_num,
@@ -207,7 +234,7 @@ def shortlist_candidates_for_query(
         if concept_key in full_concepts_lower:
             unique_query_terms.update(extra_keywords)
 
-    if not unique_query_terms or not self.sections_db:
+    if not unique_query_terms or not sections_db:
         return []
 
     # Filter database by legal regime if requested
@@ -222,7 +249,7 @@ def shortlist_candidates_for_query(
 
     query_full_text = " ".join(concept_phrases) + " " + " ".join(unique_query_terms)
 
-    for record in self.sections_db:
+    for record in sections_db:
         if regime_filter and record["statute"] != regime_filter:
             continue
 
@@ -230,7 +257,7 @@ def shortlist_candidates_for_query(
         sec_statute = record["statute"].upper()
 
         # 1. Fatal Disqualification Check (reject 304B/307/376 if mandatory triggers missing)
-        disqualified, _, _ = self.evaluate_fatal_disqualification(sec_num, sec_statute, query_full_text)
+        disqualified, _, _ = StatuteClassifierPrefilter.evaluate_fatal_disqualification(sec_num, sec_statute, query_full_text)
         if disqualified:
             continue
 
@@ -318,4 +345,12 @@ def shortlist_candidates_for_query(
 
     return results
 
-shortlist_candidates_for_query(legal_query_obj=LegalQueryObject)
+if __name__ == "__main__":
+    _load_datasets()
+    dummy_query = LegalQueryObject(
+        legal_concepts=[LegalConcept(concept="medical negligence", confidence=0.9)],
+        sub_queries=[SubQuery(id="SQ1", concept="medical negligence", query="senior medical officer anticipatory bail death of patient")],
+        legal_regime="BNS + BNSS",
+    )
+    res = shortlist_candidates_for_query(legal_query_obj=dummy_query)
+    print(f"Shortlisted {len(res)} candidates.")

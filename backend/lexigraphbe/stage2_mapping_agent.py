@@ -241,12 +241,22 @@ Respond ONLY with this JSON (no other text):
         # One fused retrieval over the whole LegalQueryObject: a group per legal concept
         # (concept label + its linked sub-query, party names removed), BM25 over
         # title/key_principle/ingredients/full_text, coverage floor, reciprocal-rank fusion.
-        prefiltered_matches = self.prefilter.retrieve_for_legal_query(
-            query_obj,
-            statute_type=statute_type,
-            top_k=20,
-            per_concept=4,
-        )
+        if getattr(query_obj, "offence_families", None):
+            # Family-constrained retrieval: sections ranked inside the closed-list families chosen in
+            # Stage 1, plus a fact-level safety net and definition<->punishment links (0 LLM calls).
+            from .family_retrieval import FamilyRetriever
+            if not hasattr(self, "_family_retriever"):
+                self._family_retriever = FamilyRetriever(self.prefilter)
+            prefiltered_matches, _family_diag = self._family_retriever.retrieve(
+                query_obj.factual_allegations, query_obj.offence_families
+            )
+        else:
+            prefiltered_matches = self.prefilter.retrieve_for_legal_query(
+                query_obj,
+                statute_type=statute_type,
+                top_k=20,
+                per_concept=4,
+            )
 
         # Step 3: Detect factual triggers
         trigger_suggestions = self.prefilter.detect_factual_triggers(

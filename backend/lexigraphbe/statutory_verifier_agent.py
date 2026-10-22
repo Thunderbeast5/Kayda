@@ -101,8 +101,8 @@ class StatutoryVerificationAuditor:
             first_sched = repo.get_first_schedule_metadata(v_sec.section_number, stat_name)
             if first_sched:
                 p_max = first_sched["punishment_maximum"]
-                v_sec.punishment_text = f"Punishment up to {p_max}"
-                if p_max in ("Death", "Life Imprisonment"):
+                import re
+                if p_max and re.search(r"\b(death|life)\b", p_max, re.I):
                     v_sec.max_imprisonment_years = 20.0
                     v_sec.arnesh_kumar_threshold_exceeded = True
                 else:
@@ -118,8 +118,9 @@ class StatutoryVerificationAuditor:
                     ing.status = "Not Satisfied"
                     ing.reason = f"Mandatory ingredient '{ing.ingredient}' lacks factual evidence in case facts."
                     has_missing = True
-                elif ing.status not in ("Satisfied", "Not Satisfied"):
-                    ing.status = "Satisfied" if "matched" in ing.reason.lower() else "Not Satisfied"
+                elif ing.status not in ("Satisfied", "Partially Satisfied", "Not Satisfied", "Missing", "Contradicted"):
+                    # Unknown labels are not evidence either way; keep them visible as unresolved.
+                    ing.status = "Partially Satisfied"
 
             if has_missing:
                 v_sec.overall_confidence = min(v_sec.overall_confidence, 0.40)
@@ -130,7 +131,13 @@ class StatutoryVerificationAuditor:
             if "audit issue" not in note.lower() and "unresolved statutory verification" not in note.lower():
                 cleaned_mr.append(note)
         target_stat.manual_review = cleaned_mr
-        target_stat.verification_status = "VERIFIED"
+        # "VERIFIED" with nothing in it hides an upstream failure; say what actually happened.
+        if target_stat.verified_offences or getattr(target_stat, "conditional_offences", None):
+            target_stat.verification_status = "VERIFIED"
+        elif getattr(target_stat, "rejected_offences", None):
+            target_stat.verification_status = "NO_OFFENCE_ATTRACTED"
+        else:
+            target_stat.verification_status = "NO_CANDIDATES"
 
         return StatutoryVerificationResult(
             status="VERIFIED",

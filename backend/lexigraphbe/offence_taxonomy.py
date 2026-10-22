@@ -63,6 +63,9 @@ _IPC_OVERRIDES: Dict[str, Set[str]] = {
     "493": {"MARRIAGE_RELATED"}, "494": {"MARRIAGE_RELATED"}, "496": {"MARRIAGE_RELATED"}, "497": {"MARRIAGE_RELATED"},
     "468": {"FORGERY", "CHEATING"},          # forgery *for the purpose of cheating*
     "471": {"FORGERY"}, "420": {"CHEATING"},
+    # Rash / negligent endangerment is both an offence against the body and a public-safety offence.
+    "336": {"HURT", "PUBLIC_HEALTH_SAFETY_NUISANCE"}, "337": {"HURT", "PUBLIC_HEALTH_SAFETY_NUISANCE"},
+    "338": {"HURT", "PUBLIC_HEALTH_SAFETY_NUISANCE"},
 }
 
 # Special Acts, keyed by the normalised short name produced by PrecedentStatuteMatcher.normalize_act_name().

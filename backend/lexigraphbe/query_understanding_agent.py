@@ -10,8 +10,15 @@ from typing import Any, Dict, List, Optional, Union
 from langchain_core.messages import HumanMessage, SystemMessage
 
 from .config import extract_json_from_text, get_llm, MODEL_STAGE1
-from .prompts import STAGE1_QUERY_UNDERSTANDING_SYSTEM_PROMPT, STAGE1_QUERY_UNDERSTANDING_USER_PROMPT_TEMPLATE
+from .prompts import (
+    STAGE1_QUERY_UNDERSTANDING_SYSTEM_PROMPT,
+    STAGE1_QUERY_UNDERSTANDING_USER_PROMPT_TEMPLATE,
+    STAGE1_FAMILY_SYSTEM_PROMPT,
+    STAGE1_FAMILY_USER_PROMPT_TEMPLATE,
+)
 from .schemas import CaseContextObject, CaseProfile, LegalQueryObject
+from .schemas.stage1 import LegalConceptItem, OffenceFamilyItem, SubQueryItem
+from .family_retrieval import OFFENCE_FAMILIES, augment_families, family_prompt_block, validate_decomposition
 
 
 # ---------------------------------------------------------------------------
@@ -290,7 +297,72 @@ def _build_ipc_heading_reference(statute_db: Optional[Dict] = None) -> str:
     return "\n".join(_annotate(sec, title) for sec, title in _FALLBACK_SECTIONS)
 
 
-from .subquery_expander import expand_sub_queries
+
+
+
+def _extract_narrative(case_context: Any) -> str:
+    """Stage 0 narrative (case_profile.case_facts), whatever shape the context arrives in."""
+    ctx = case_context
+    if isinstance(ctx, str):
+        try:
+            ctx = json.loads(ctx)
+        except Exception:
+            return ctx
+    if isinstance(ctx, CaseContextObject):
+        return ctx.case_profile.case_facts or ""
+    if isinstance(ctx, CaseProfile):
+        return ctx.case_facts or ""
+    if isinstance(ctx, dict):
+        prof = ctx.get("case_profile", ctx)
+        return str(prof.get("case_facts") or ctx.get("case_facts") or "")
+    return ""
+
+
+def _apply_family_decomposition(query_obj: LegalQueryObject, narrative: str) -> None:
+    """
+    Validates the family decomposition deterministically and derives the legacy
+    legal_concepts / sub_queries from it so downstream stages keep their contract.
+    """
+    check = validate_decomposition(narrative, query_obj.factual_allegations, query_obj.offence_families)
+    for issue in check.issues:
+        if issue not in query_obj.manual_review:
+            query_obj.manual_review.append(issue)
+    # Families outside the closed list are dropped, never guessed at.
+    query_obj.offence_families = [f for f in query_obj.offence_families if f.family in OFFENCE_FAMILIES]
+    # Clause backstop: acts the LLM merged into one fact become their own verbatim facts.
+    from .family_retrieval import clause_backstop
+    from .schemas.stage1 import FactualAllegation
+    for extra in clause_backstop(narrative, query_obj.factual_allegations):
+        query_obj.factual_allegations.append(FactualAllegation.model_validate(extra))
+        query_obj.manual_review.append(f"[retrieval] Clause fact {extra['fact_id']} added: \"{extra['verbatim_quote']}\"")
+    # Deterministic top-up: families signalled by retrieval on the quoted facts, and joint-liability
+    # families when a fact names two or more actors. Added families are SECONDARY / CONDITIONAL.
+    augmented, notes = augment_families(query_obj.factual_allegations, query_obj.offence_families)
+    query_obj.offence_families = [OffenceFamilyItem.model_validate(d) for d in augmented]
+    for note in notes:
+        query_obj.manual_review.append(f"[retrieval] {note}")
+
+    quotes = {f.fact_id: (f.verbatim_quote or f.description) for f in query_obj.factual_allegations}
+    concepts, sub_queries = [], []
+    for n, fam in enumerate(query_obj.offence_families, start=1):
+        label = fam.conduct_phrase.strip() or OFFENCE_FAMILIES[fam.family].split(",")[0]
+        cid = f"LC{n}"
+        concepts.append(LegalConceptItem(
+            concept_id=cid, concept=label,
+            description=f"{fam.family}: {OFFENCE_FAMILIES[fam.family]}",
+            supporting_fact_ids=list(fam.fact_ids),
+            classification_status="PROVISIONAL" if fam.tier != "CONDITIONAL" else "UNCERTAIN",
+            confidence=0.8 if fam.tier == "PRIMARY" else 0.7,
+        ))
+        sub_queries.append(SubQueryItem(
+            id=f"SQ{n}", concept=label, concept_id=cid, tier=fam.tier,
+            query=" ".join(quotes.get(fid, "") for fid in fam.fact_ids).strip() or label,
+            fact_ids=list(fam.fact_ids), unresolved_elements=list(fam.unresolved_elements),
+            conduct_type="ACT",
+        ))
+    if concepts:
+        query_obj.legal_concepts = concepts
+        query_obj.sub_queries = sub_queries
 
 
 class QueryUnderstandingAgent:
@@ -311,12 +383,9 @@ class QueryUnderstandingAgent:
     ):
         self._llm = llm
         self.min_confidence_threshold = min_confidence_threshold
-        # Pre-build heading reference once; updated if statute_db provided later.
-        self._ipc_heading_reference: str = _build_ipc_heading_reference(statute_db)
-        # Build the system prompt with the heading reference injected.
-        self._system_prompt: str = STAGE1_QUERY_UNDERSTANDING_SYSTEM_PROMPT.format(
-            ipc_heading_reference=self._ipc_heading_reference
-        )
+        # Family-constrained decomposition: the LLM picks offence families from a closed list
+        # (lexigraphbe.family_retrieval.OFFENCE_FAMILIES) and never sees section headings.
+        self._system_prompt: str = STAGE1_FAMILY_SYSTEM_PROMPT.format(family_list=family_prompt_block())
 
     @property
     def llm(self):
@@ -385,7 +454,9 @@ class QueryUnderstandingAgent:
         if correction_feedback:
             feedback_section = f"\nATTENTION - PREVIOUS QUERY VERIFICATION FEEDBACK FOR CORRECTION:\n{correction_feedback}\n"
 
-        user_prompt = STAGE1_QUERY_UNDERSTANDING_USER_PROMPT_TEMPLATE.format(
+        narrative = _extract_narrative(case_context)
+        user_prompt = STAGE1_FAMILY_USER_PROMPT_TEMPLATE.format(
+            narrative=narrative,
             case_context_json=case_context_str,
             correction_feedback_section=feedback_section,
         )
@@ -403,7 +474,8 @@ class QueryUnderstandingAgent:
         # Validate with LegalQueryObject Pydantic schema
         query_obj = LegalQueryObject.model_validate(extracted_dict)
 
-        query_obj = expand_sub_queries(query_obj)
+        query_obj.case_facts = narrative
+        _apply_family_decomposition(query_obj, narrative)
 
         # Explicit passthrough of Stage 0 legal regime fields (never re-derived)
         query_obj.legal_regime = stage0_regime

@@ -92,6 +92,44 @@ class CallBudgetGuardrail:
         self.call_count = 0
 
 
+from contextvars import ContextVar
+from typing import Any, Dict, List, Literal, Optional
+from pydantic import BaseModel, Field
+
+_REQUEST_BUDGET: ContextVar[int] = ContextVar("llm_request_budget", default=0)
+MAX_CALLS_PER_REQUEST = int(os.getenv("MAX_CALLS_PER_REQUEST", "60"))
+
+
+def reset_request_budget():
+    """Reset the per-request LLM call budget and process guardrail."""
+    _REQUEST_BUDGET.set(0)
+    GLOBAL_CALL_GUARDRAIL.reset()
+
+
+def record_llm_invocation():
+    """Enforce per-request and process-level call ceilings."""
+    n = _REQUEST_BUDGET.get() + 1
+    if n > MAX_CALLS_PER_REQUEST:
+        raise RuntimeError(
+            f"[SAFETY GUARDRAIL BREACHED] Per-request call ceiling limit ({MAX_CALLS_PER_REQUEST} calls) reached. "
+            "Execution halted to protect API credits."
+        )
+    _REQUEST_BUDGET.set(n)
+    GLOBAL_CALL_GUARDRAIL.check_and_increment()
+
+
+class VerifierIssue(BaseModel):
+    target: str = Field(default="general")
+    issue: str = Field(default="")
+    feedback: str = Field(default="")
+
+
+class VerificationResult(BaseModel):
+    status: Literal["VERIFIED", "NEEDS_CORRECTION"]
+    issues: List[VerifierIssue] = Field(default_factory=list)
+    feedback: str = Field(default="")
+
+
 # Global process safety guardrail instance
 GLOBAL_CALL_GUARDRAIL = CallBudgetGuardrail(max_calls=60)
 
@@ -121,9 +159,9 @@ def _openai_kwargs(model: str, temperature: float, api_key: str) -> dict:
 def get_llm(temperature: float = 0.1, model_name: Optional[str] = None):
     """
     Get configured LLM client. Uses OpenAI by default, falls back to Groq/Ollama if configured.
-    Does not hardcode keys. Enforces process call ceiling check.
+    Does not hardcode keys. Enforces per-request and process call ceiling check.
     """
-    GLOBAL_CALL_GUARDRAIL.check_and_increment()
+    record_llm_invocation()
 
     provider = os.getenv("LLM_PROVIDER", "openai").lower()  # Changed default to "openai"
     ollama_base_url = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
@@ -237,7 +275,11 @@ def extract_json_from_text(text: Any) -> Dict[str, Any]:
     Guarantees returning a dictionary without crashing with unhandled exceptions.
     """
     if text is None:
-        return {"status": "VERIFIED", "issues": [], "feedback": "Auto-verified: empty input."}
+        return {
+            "status": "NEEDS_CORRECTION",
+            "issues": [{"target": "general", "issue": "Empty LLM input (None)", "feedback": "Provide valid response"}],
+            "feedback": "Empty input received from model."
+        }
 
     # If an AIMessage / BaseMessage object was passed
     if hasattr(text, "content") and text.content:
@@ -250,17 +292,31 @@ def extract_json_from_text(text: Any) -> Dict[str, Any]:
         cleaned_text = str(text).strip()
 
     if not cleaned_text:
-        return {"status": "VERIFIED", "issues": [], "feedback": "Auto-verified: empty output text."}
+        return {
+            "status": "NEEDS_CORRECTION",
+            "issues": [{"target": "general", "issue": "Empty LLM output string", "feedback": "Provide valid response"}],
+            "feedback": "Empty response received from model."
+        }
 
-    # Check for direct plain text verification status
-    upper_text = cleaned_text.upper()
-    if (
-        "STATUS = VERIFIED" in upper_text
-        or "STATUS: VERIFIED" in upper_text
-        or upper_text == "VERIFIED"
-        or upper_text.startswith("VERIFIED.")
-    ):
+    # Check for direct plain text verification status (exact enum match only)
+    upper_text = cleaned_text.upper().strip()
+    if upper_text in ("STATUS = VERIFIED", "STATUS: VERIFIED", "VERIFIED", "VERIFIED."):
         return {"status": "VERIFIED", "issues": [], "feedback": "Status verified without issues."}
+    if upper_text in (
+        "STATUS = NEEDS_CORRECTION",
+        "STATUS: NEEDS_CORRECTION",
+        "NEEDS_CORRECTION",
+        "NEEDS_CORRECTION.",
+        "NOT_VERIFIED",
+        "UNVERIFIED",
+        "STATUS: NOT VERIFIED",
+        "STATUS: NOT_VERIFIED",
+    ):
+        return {
+            "status": "NEEDS_CORRECTION",
+            "issues": [{"target": "status", "issue": "Verification rejected by model.", "feedback": "Correct identified issues."}],
+            "feedback": "Verification rejected.",
+        }
 
     cleaned = cleaned_text
 
@@ -380,10 +436,12 @@ def extract_json_from_text(text: Any) -> Dict[str, Any]:
     except Exception:
         pass
 
-    # Fallback: Gracefully return dictionary with extracted status rather than crashing
-    status_fallback = "VERIFIED" if "VERIFIED" in upper_text and "NEEDS_CORRECTION" not in upper_text else "NEEDS_CORRECTION"
+    # Fallback: Gracefully return dictionary with fail-closed status rather than crashing
+    # Never auto-verify unparseable free text or substring matches
+    exact_verified = upper_text == "VERIFIED" or upper_text == '{"STATUS": "VERIFIED"}'
+    status_fallback = "VERIFIED" if exact_verified else "NEEDS_CORRECTION"
     return {
         "status": status_fallback,
-        "issues": [],
-        "feedback": cleaned[:300] if len(cleaned) > 0 else "Auto-parsed verification response.",
+        "issues": [] if exact_verified else [{"target": "parsing", "issue": "Unparseable LLM output", "feedback": "Provide valid JSON."}],
+        "feedback": cleaned[:300] if len(cleaned) > 0 else "Unparseable verification response.",
     }

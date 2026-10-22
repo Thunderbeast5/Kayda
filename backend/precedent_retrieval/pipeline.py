@@ -123,7 +123,8 @@ class PrecedentPipeline:
 
         if isinstance(case_context, dict):
             parts: List[str] = []
-            facts = case_context.get("case_facts") or {}
+            # Stage 0 nests the narrative under case_profile.case_facts
+            facts = case_context.get("case_facts") or (case_context.get("case_profile") or {}).get("case_facts") or {}
             if isinstance(facts, str) and facts.strip():
                 parts.append(facts.strip())
             elif isinstance(facts, dict):
@@ -444,6 +445,10 @@ class PrecedentPipeline:
                 },
                 "screen_report": screen_report_safe,
                 "screen_rejected": rejected_list,
+                # Authority each side must meet or distinguish, and neutral doctrine, kept separate
+                # from the sides' own lists so no judgment is presented as supporting both sides.
+                "adverse": screen_result.get("adverse", {"prosecution": [], "defense": []}),
+                "doctrine": screen_result.get("doctrine", []),
                 "principle_ids": principle_ids,
                 "background_ids": background_ids,
                 "max_candidates": self.max_candidates,

@@ -91,7 +91,7 @@ class VerifiedOffenceItemStage4(BaseModel):
                 StatutoryIngredientItem(
                     ingredient=e.ingredient,
                     logical_operator="MANDATORY",
-                    status="Satisfied" if e.status in ("Satisfied", "Partially Satisfied") else "Not Satisfied",
+                    status=e.status if e.status in ("Satisfied", "Partially Satisfied") else "Not Satisfied",
                     reason=e.reason,
                 )
             )
@@ -149,9 +149,17 @@ class VerifiedSectionItem(BaseModel):
 
 class StatutoryVerificationObject(ManualReviewMixin):
     schema_version: str = Field(default="4.0", description="Schema version of StatutoryVerificationObject contract")
+    attracted_offences: List[VerifiedOffenceItemStage4] = Field(
+        default_factory=list,
+        description="List of prima facie or partially attracted substantive offences"
+    )
+    rejected_offences: List[VerifiedOffenceItemStage4] = Field(
+        default_factory=list,
+        description="Sections evaluated as Not Attracted or failed statutory thresholds"
+    )
     verified_offences: List[VerifiedOffenceItemStage4] = Field(
         default_factory=list,
-        description="List of verified offences with ingredient evaluation and prima facie strength"
+        description="List of verified offences with ingredient evaluation and prima facie strength (attracted only)"
     )
     conditional_offences: List[VerifiedOffenceItemStage4] = Field(
         default_factory=list,
@@ -159,7 +167,7 @@ class StatutoryVerificationObject(ManualReviewMixin):
     )
     verified_sections: List[VerifiedSectionItem] = Field(
         default_factory=list,
-        description="List of verified statutory sections (maintained for backward compatibility)"
+        description="List of verified statutory sections (maintained for backward compatibility, attracted only)"
     )
     legal_regime: Optional[str] = Field(
         default="IPC + CrPC",

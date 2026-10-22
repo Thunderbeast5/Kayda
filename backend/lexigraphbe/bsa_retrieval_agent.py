@@ -31,39 +31,54 @@ from .bsa_verifier_agent import BSAVerifierAgent
 # Evidentiary Clusters & Target BSA Section Candidates
 # ──────────────────────────────────────────────────────────────
 
+import re
+
+def _matches_keyword(kw: str, text: str) -> bool:
+    """Token-aware word-boundary matching so words like 'sign' do not match 'assigned'."""
+    pattern = r"\b" + re.escape(kw) + r"(?:s|es)?\b"  # tolerate plurals ("reports", "witnesses")
+    return bool(re.search(pattern, text, re.IGNORECASE))
+
+
 _EVIDENCE_CLUSTERS: Dict[str, Dict[str, Any]] = {
     "HANDWRITING_SIGNATURE": {
-        "keywords": ["signature", "handwriting", "forg", "sign", "false signature", "thumb impression", "examiner"],
+        "keywords": ["signature", "handwriting", "forged", "forgery", "signed", "false signature", "thumb impression", "examiner", "specimen writing"],
         "target_sections": ["41", "65", "72", "39"],
         "description": "Proof of handwriting and signatures, comparison with admitted writing, and expert opinion on forged documents.",
     },
     "PRIMARY_SECONDARY_EVIDENCE": {
-        "keywords": ["original", "photocopy", "copy", "secondary", "fabricated", "record", "deed", "possession of", "missing original"],
+        "keywords": ["original", "photocopy", "xerox", "copy", "secondary evidence", "fabricated", "record", "deed", "missing original", "loss of document", "photograph", "register", "report"],
         "target_sections": ["56", "57", "58", "59", "60"],
         "description": "Proof of document contents by primary evidence (original document) vs. secondary evidence (photocopies/copies).",
     },
     "ELECTRONIC_RECORDS": {
-        "keywords": ["electronic", "digital", "scan", "email", "whatsapp", "phone", "computer", "server", "cctv", "sms", "hash"],
+        "keywords": ["electronic", "digital", "scan", "scanned", "email", "whatsapp", "phone", "computer", "server", "cctv", "sms", "hash", "electronic record", "digital evidence", "footage", "video", "audio", "recording", "call record", "cdr"],
         "target_sections": ["61", "62", "63", "66", "73", "90"],
         "description": "Admissibility and special provisions relating to electronic/digital records, electronic scans, and messages.",
     },
     "EXPERT_OPINION": {
-        "keywords": ["expert", "forensic", "fsl", "handwriting expert", "fingerprint", "ballistic", "dna", "medical"],
-        "target_sections": ["39", "40", "41"],
-        "description": "Admissibility of expert opinion and facts bearing on expert conclusions.",
+        "keywords": ["expert", "forensic", "fsl", "handwriting expert", "fingerprint", "ballistic", "dna", "medical expert", "doctor opinion",
+                     "engineer", "inspection report", "technical report", "analysis report", "examination report", "structural",
+                     "post-mortem", "autopsy", "medical report", "valuation report", "surveyor"],
+        "target_sections": ["39", "40", "45"],
+        "description": "Admissibility of expert opinion (science, art, engineering, medicine), facts bearing on it, and the grounds of opinion.",
+    },
+    "ORAL_EVIDENCE": {
+        "keywords": ["witness", "eyewitness", "eye-witness", "testimony", "deposition", "witness statement", "statements from"],
+        "target_sections": ["54", "55"],
+        "description": "Proof of facts by oral evidence and the rule that oral evidence must be direct.",
     },
     "CONTRACTS_DISPOSITIONS": {
-        "keywords": ["sale deed", "deed", "contract", "agreement", "disposition", "registered document", "title"],
+        "keywords": ["sale deed", "deed", "contract", "agreement", "disposition", "registered document", "title deed"],
         "target_sections": ["94", "95", "96", "102"],
         "description": "Evidence of terms of contracts, grants, and dispositions of property reduced to documentary form.",
     },
     "ADMISSIONS_CONFESSIONS": {
-        "keywords": ["confession", "confess", "police officer", "police custody", "custodial", "recovery", "disclosure"],
+        "keywords": ["confession", "confess", "confessed", "police officer", "police custody", "custodial", "recovery", "disclosure"],
         "target_sections": ["22", "23", "24"],
         "description": "Admissibility of statements, confessions made to police, and recovery under police custody.",
     },
     "BURDEN_OF_PROOF": {
-        "keywords": ["burden", "prove", "presume", "presumption", "onus", "knowledge", "innocent", "fraud"],
+        "keywords": ["burden of proof", "burden", "presume", "presumption", "onus", "special knowledge", "innocent", "fraud"],
         "target_sections": ["104", "105", "106", "113", "114", "119"],
         "description": "Allocation of burden of proof, special knowledge, and judicial presumptions.",
     },
@@ -156,10 +171,12 @@ class BSARetrievalAgent:
 
         # ── 2. Select Candidates via Evidentiary Clusters ──────────────
         active_clusters: List[str] = []
-        candidate_sec_nums: Set[str] = set(_BASELINE_CANDIDATE_SECTIONS)
+        # Candidates come only from evidentiary categories the facts actually raise; no sections are
+        # added to every case regardless of facts.
+        candidate_sec_nums: Set[str] = set()
 
         for cluster_name, cluster_data in _EVIDENCE_CLUSTERS.items():
-            if any(kw in facts_lower for kw in cluster_data["keywords"]):
+            if any(_matches_keyword(kw, facts_lower) for kw in cluster_data["keywords"]):
                 active_clusters.append(cluster_name)
                 candidate_sec_nums.update(cluster_data["target_sections"])
 

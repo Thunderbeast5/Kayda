@@ -4,9 +4,14 @@ Prevents redundant CSV file reads and re-parsing across agent/pipeline execution
 """
 
 import csv
+import json
+import logging
+import re
 import threading
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
+
+logger = logging.getLogger(__name__)
 
 
 class StatuteRepository:
@@ -185,6 +190,12 @@ class StatuteRepository:
                     clean_parts = [p for p in searchable_parts if isinstance(p, str) and p.strip()]
                     full_text_lower = " ".join(clean_parts).lower()
                     
+                    # Correct chapter misfiling in ipc.json for sections 378-462 (Issue S-12: Theft/Extortion/Robbery belong to Chapter XVII)
+                    sec_clean_digits = re.sub(r"\D", "", sec_num)
+                    if sec_clean_digits and 378 <= int(sec_clean_digits) <= 462:
+                        chapter_number = "XVII"
+                        chapter_title = "Of Offences Against Property"
+
                     # Add to sections_db (used by prefilter for keyword matching)
                     self.sections_db.append({
                         "identifier": f"IPC {sec_num}",
@@ -196,7 +207,7 @@ class StatuteRepository:
                         "raw_row": section,
                     })
                     
-                    # Normalize punishment
+                    # Normalize punishment (including punishment_options check per S-12)
                     punishment_field = section.get("punishment")
                     if isinstance(punishment_field, dict):
                         punishment_str = punishment_field.get("imprisonment", "")
@@ -205,13 +216,14 @@ class StatuteRepository:
                     elif isinstance(punishment_field, str):
                         punishment_str = punishment_field
                     else:
-                        punishment_str = text[:200] if text else ""
+                        p_opts = section.get("punishment_options") or []
+                        if p_opts and isinstance(p_opts, list):
+                            opt_texts = [o.get("imprisonment", "") for o in p_opts if isinstance(o, dict) and o.get("imprisonment")]
+                            punishment_str = "; ".join(opt_texts) if opt_texts else (text[:200] if text else "")
+                        else:
+                            punishment_str = text[:200] if text else ""
 
                     # Add to statute_db (used for LLM enrichment)
-                    # NOTE: We do NOT use chapter.get("sub_heading") here because ipc.json chapter
-                    # groupings are structurally incorrect for many sections (e.g. 378-382 Theft sections
-                    # are nested under a Kidnapping sub_heading). The section's own `heading` is always
-                    # authoritative and is stored as section_title.
                     self.statute_db[f"IPC_{sec_num}"] = {
                         "statute": "IPC",
                         "section_number": sec_num,
@@ -231,20 +243,59 @@ class StatuteRepository:
                         "section_type": section.get("section_type", ""),
                     }
         except Exception as e:
-            # Fail silently - CSV will be used as fallback
-            pass
+            logger.warning("StatuteRepository: error loading ipc.json: %s", e)
 
     def _load_all_datasets(self) -> None:
-        """Loads IPC datasets strictly and exclusively from ipc.json, then BSA from bsa.json, and IPC->BNS mappings from Neo4j/CSV."""
+        """Loads IPC datasets strictly from ipc.json, BSA from bsa.json, BNSS from bnss_bail_core.json, and all crosswalks via CrosswalkService."""
         if self._is_loaded:
             return
 
         self._load_ipc_json()   # IPC sections from ipc.json
         self._load_bsa_json()   # BSA evidence sections from bsa.json
-        self._load_bnss_json()  # BNSS procedural sections from bnss_bail_core.json (fallback bnss.json)
-        self._load_ipc_to_bns_neo4j()  # Authoritative Neo4j REPLACED_BY edges
+        self._load_bnss_json()  # BNSS procedural sections from bnss_bail_core.json
+        
+        # Load crosswalks from CrosswalkService (Neo4j with versioned snapshot failsafe)
+        try:
+            from .crosswalk_service import CrosswalkService
+            cw = CrosswalkService.get_instance()
+            # Keep the dict entry shape that get_ipc_bns_equivalent, the precedent
+            # matcher and lexigraph_router read; all targets stay available in *_targets.
+            self.ipc_to_bns = {
+                k: {"ipc_section": k, "bns_section_clean": v[0], "bns_section_raw": v[0],
+                    "bns_targets": list(v), "source": "crosswalk_service"}
+                for k, v in cw.ipc_to_bns.items() if v
+            }
+            self.bns_to_ipc = {
+                k: {"ipc_section": v[0], "bns_section_clean": k, "bns_section_raw": k,
+                    "ipc_targets": list(v), "source": "crosswalk_service"}
+                for k, v in cw.bns_to_ipc.items() if v
+            }
+            self.bnss_to_crpc = {k: ", ".join(v) for k, v in cw.bnss_to_crpc.items() if v}
+            self.bsa_to_iea = {k: ", ".join(v) for k, v in cw.bsa_to_iea.items() if v}
+        except Exception as e:
+            logger.warning("StatuteRepository: CrosswalkService load fallback: %s", e)
+            self._load_ipc_to_bns_neo4j()
+
         self._load_ipc2bns_mapping()   # Supplementary CSV mapping & details
+        self._apply_ingredient_supplement()
         self._is_loaded = True
+
+    def _apply_ingredient_supplement(self) -> None:
+        """Fills ingredients for IPC sections that ipc.json leaves empty (ingredients_supplement.json)."""
+        path = Path(__file__).parent / "ingredients_supplement.json"
+        if not path.exists():
+            return
+        try:
+            with open(path, mode="r", encoding="utf-8") as f:
+                data = json.load(f)
+        except Exception as e:
+            logger.warning("StatuteRepository: could not read ingredient supplement: %s", e)
+            return
+        for sec, ings in (data.get("sections") or {}).items():
+            rec = self.statute_db.get(f"IPC_{sec}")
+            if rec is not None and not rec.get("ingredients"):
+                rec["ingredients"] = list(ings)
+                rec["ingredients_source"] = f"ingredients_supplement.json ({data.get('status', 'unknown')})"
 
 
 
@@ -853,9 +904,17 @@ class StatuteRepository:
     def get_ipc_bns_equivalent(self, section_number: str) -> Optional[str]:
         """
         Returns the BNS equivalent section number for a given IPC section number,
-        authoritatively mapped via Neo4j [:REPLACED_BY] or ipc2bns CSV.
+        authoritatively mapped via CrosswalkService (preferring operative punitive clauses)
+        or Neo4j [:REPLACED_BY] / snapshot.
         """
         clean = str(section_number).strip().upper().replace("IPC_", "").replace("SECTION ", "")
+        try:
+            from .crosswalk_service import CrosswalkService
+            cw_bns = CrosswalkService.get_instance().get_bns_for_ipc(clean, prefer_clause=True)
+            if cw_bns:
+                return cw_bns
+        except Exception:
+            pass
         entry = self.ipc_to_bns.get(clean)
         if entry:
             return entry.get("bns_section_clean") or entry.get("bns_section_raw")
@@ -881,29 +940,29 @@ class StatuteRepository:
         """
         clean = section_number.strip().upper().replace("IPC_", "").replace("BNS_", "").replace("SECTION ", "")
 
-        # Try in priority order: exact statute match first, then either
-        for key in (
-            f"{statute}_{clean}",
-            f"{statute}_Section {clean}",
-            f"IPC_{clean}",
-            f"BNS_{clean}",
-            f"Dowry Prohibition Act_Section {clean}",
-            f"Protection of Women from Domestic Violence Act_Section {clean}",
-        ):
+        # Try in priority order: exact statute match only (Issue S-10: no cross-statute fallback)
+        statute_norm = (statute or "IPC").strip().upper()
+        if "BNS" in statute_norm:
+            candidate_keys = [f"BNS_{clean}", f"BNS_Section {clean}"]
+        elif "DOWRY" in statute_norm:
+            candidate_keys = [f"Dowry Prohibition Act_Section {clean}"]
+        elif "DOMESTIC" in statute_norm or "PWDVA" in statute_norm:
+            candidate_keys = [f"Protection of Women from Domestic Violence Act_Section {clean}"]
+        else:
+            candidate_keys = [f"IPC_{clean}", f"IPC_Section {clean}"]
+
+        for key in candidate_keys:
             record = self.statute_db.get(key)
             if record:
                 text = (record.get("full_text") or "").strip()
-                # Filter out placeholder values that are not real statutory text
                 if text and text not in ("N/A", "See statutory description.", "Special Act statutory provision."):
-                    # Truncate to reasonable length for LLM context (keep first 1500 chars)
-                    # This includes main text + explanation + some illustrations
                     return text[:1500] if len(text) > 1500 else text
 
-        # Last resort: linear scan (handles edge cases in key formatting)
+        # Linear scan fallback within the specified statute only
         for key, record in self.statute_db.items():
             rec_sec = record.get("section_number", "").strip().upper().replace("IPC_", "").replace("BNS_", "").replace("SECTION ", "")
-            rec_stat = record.get("statute", "")
-            if rec_sec == clean and (rec_stat == statute or statute == "EITHER"):
+            rec_stat = record.get("statute", "").strip().upper()
+            if rec_sec == clean and (statute_norm in rec_stat or (statute_norm == "IPC" and rec_stat == "IPC")):
                 text = (record.get("full_text") or "").strip()
                 if text and text not in ("N/A", "See statutory description.", "Special Act statutory provision."):
                     return text[:1500] if len(text) > 1500 else text
@@ -911,113 +970,100 @@ class StatuteRepository:
         return None
 
     def get_section_details(self, section_number: str, statute: str = "IPC") -> Optional[Dict[str, Any]]:
-        """Returns full dictionary record for a section including key_elements and plain_language."""
+        """Returns full dictionary record for a section within the requested statute (Issue S-10: isolated)."""
         clean = section_number.strip().upper().replace("IPC_", "").replace("BNS_", "").replace("SECTION ", "")
-        for key in (
-            f"{statute}_{clean}",
-            f"{statute}_Section {clean}",
-            f"IPC_{clean}",
-            f"BNS_{clean}",
-            f"Dowry Prohibition Act_Section {clean}",
-        ):
+        statute_norm = (statute or "IPC").strip().upper()
+        if "BNS" in statute_norm:
+            candidate_keys = [f"BNS_{clean}", f"BNS_Section {clean}"]
+        elif "DOWRY" in statute_norm:
+            candidate_keys = [f"Dowry Prohibition Act_Section {clean}"]
+        else:
+            candidate_keys = [f"IPC_{clean}", f"IPC_Section {clean}"]
+
+        for key in candidate_keys:
             record = self.statute_db.get(key)
             if record:
                 return record
 
         for key, record in self.statute_db.items():
             rec_sec = record.get("section_number", "").strip().upper().replace("IPC_", "").replace("BNS_", "").replace("SECTION ", "")
-            rec_stat = record.get("statute", "")
-            if rec_sec == clean and (rec_stat == statute or statute == "EITHER"):
+            rec_stat = record.get("statute", "").strip().upper()
+            if rec_sec == clean and (statute_norm in rec_stat or (statute_norm == "IPC" and rec_stat == "IPC")):
                 return record
         return None
 
-    def _get_section_metadata_from_neo4j(self, section_number: str, statute: str = "IPC") -> Optional[Dict[str, Any]]:
+    def _load_neo4j_section_metadata(self) -> Dict[Tuple[str, str], Dict[str, Any]]:
         """
-        Retrieves section metadata directly from Neo4j LawSection node.
-        Returns None if Neo4j is unavailable or section not found.
+        Loads LawSection metadata for all sections in ONE query and caches it for the process.
+        (Previously a new driver and connection were opened per section, ~2 s each.)
         """
+        cache = getattr(self, "_neo4j_meta_cache", None)
+        if cache is not None:
+            return cache
+        self._neo4j_meta_cache = {}
         import os
         from dotenv import load_dotenv
-        
-        env_candidates = [
-            Path(__file__).parent.parent / ".env",
-            Path("backend/.env"),
-            Path(".env"),
-        ]
-        for ep in env_candidates:
+        for ep in (Path(__file__).parent.parent / ".env", Path("backend/.env"), Path(".env")):
             if ep.exists():
                 load_dotenv(ep)
                 break
-
         uri = os.getenv("NEO4J_URI")
         user = os.getenv("NEO4J_USER") or os.getenv("NEO4J_USERNAME")
         pwd = os.getenv("NEO4J_PASSWORD")
         db = os.getenv("NEO4J_DATABASE", "neo4j")
-
         if not (uri and user and pwd):
-            return None
-
+            return self._neo4j_meta_cache
         try:
             from neo4j import GraphDatabase
-            driver = GraphDatabase.driver(uri, auth=(user, pwd))
-            
-            # Normalize section number
-            clean_sec = str(section_number).upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "").strip()
-            statute_upper = statute.upper()
-            
-            query = """
-                MATCH (n:LawSection {act: $statute, section: $section_number})
-                RETURN n.section AS section,
-                       n.title AS title,
-                       n.chapter AS chapter_title,
-                       n.punishment AS punishment,
-                       n.cognizable AS cognizable,
-                       n.bailable AS bailable
-            """
-            
-            with driver.session(database=db) as session:
-                result = session.run(query, statute=statute_upper, section_number=clean_sec).single()
-            
-            driver.close()
-            
-            if not result:
-                return None
-            
-            # Convert Neo4j string values to Python booleans
-            cognizable_val = result.get("cognizable")
-            bailable_val = result.get("bailable")
-            
-            # Handle string representations from Neo4j
-            if isinstance(cognizable_val, str):
-                cognizable = cognizable_val.strip().lower() in ["cognizable", "true", "yes", "1"]
-            elif isinstance(cognizable_val, bool):
-                cognizable = cognizable_val
-            else:
-                cognizable = False
-            
-            if isinstance(bailable_val, str):
-                bailable = bailable_val.strip().lower() in ["bailable", "true", "yes", "1"]
-            elif isinstance(bailable_val, bool):
-                bailable = bailable_val
-            else:
-                bailable = True
-            
-            punishment_str = result.get("punishment") or "As specified under statute"
-            
-            return {
-                "chapter_number": "",  # Neo4j doesn't have chapter_number
-                "chapter_title": result.get("chapter_title") or "",
-                "punishment_minimum": None,
-                "punishment_maximum": punishment_str,
-                "fine": True,  # Default assumption
-                "cognizable": cognizable,
-                "bailable": bailable,
-                "source": "neo4j"
-            }
-            
+            with GraphDatabase.driver(uri, auth=(user, pwd)) as driver:
+                with driver.session(database=db) as session:
+                    rows = session.run(
+                        """
+                        MATCH (n:LawSection)
+                        RETURN n.act AS act, n.section AS section, n.title AS title,
+                               n.chapter AS chapter_title, n.punishment AS punishment,
+                               n.cognizable AS cognizable, n.bailable AS bailable
+                        """
+                    ).data()
+            for row in rows:
+                act = str(row.get("act") or "").upper()
+                sec = str(row.get("section") or "").upper().strip()
+                if act and sec:
+                    self._neo4j_meta_cache[(act, sec)] = row
+            logger.info("StatuteRepository: cached Neo4j metadata for %d sections", len(self._neo4j_meta_cache))
         except Exception as e:
-            # Silently fail and fall back to other methods
+            logger.warning("StatuteRepository: Neo4j section metadata unavailable: %s", e)
+        return self._neo4j_meta_cache
+
+    def _get_section_metadata_from_neo4j(self, section_number: str, statute: str = "IPC") -> Optional[Dict[str, Any]]:
+        """Section metadata from the cached Neo4j LawSection snapshot; None if unavailable."""
+        clean_sec = str(section_number).upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "").strip()
+        result = self._load_neo4j_section_metadata().get((statute.upper(), clean_sec))
+        if not result:
             return None
+
+        def _flag(val: Any, word: str, default: bool) -> bool:
+            if isinstance(val, bool):
+                return val
+            if isinstance(val, str):
+                v = val.strip().lower()
+                if v.startswith("non"):
+                    return False
+                return v in (word, "true", "yes", "1")
+            return default
+
+        # Chapter comes from ipc.json (Neo4j LawSection has no chapter number).
+        rec = self.statute_db.get(f"{statute.upper()}_{clean_sec}") or {}
+        return {
+            "chapter_number": rec.get("chapter_number") or "",
+            "chapter_title": rec.get("chapter_title") or result.get("chapter_title") or "",
+            "punishment_minimum": None,
+            "punishment_maximum": result.get("punishment") or "As specified under statute",
+            "fine": True,
+            "cognizable": _flag(result.get("cognizable"), "cognizable", False),
+            "bailable": _flag(result.get("bailable"), "bailable", True),
+            "source": "neo4j",
+        }
 
     def get_first_schedule_metadata(self, section_number: str, statute: str = "IPC") -> Optional[Dict[str, Any]]:
         """
@@ -1084,18 +1130,9 @@ class StatuteRepository:
             },
             "420": {
                 "chapter_number": "XVII",
-                "chapter_title": "Offences Against Property",
+                "chapter_title": "Offences Against Property / Cheating",
                 "punishment_minimum": None,
                 "punishment_maximum": "7 Years",
-                "fine": True,
-                "cognizable": True,
-                "bailable": False,
-            },
-            "406": {
-                "chapter_number": "XVII",
-                "chapter_title": "Offences Against Property",
-                "punishment_minimum": None,
-                "punishment_maximum": "3 Years",
                 "fine": True,
                 "cognizable": True,
                 "bailable": False,
@@ -1120,7 +1157,7 @@ class StatuteRepository:
             },
             "323": {
                 "chapter_number": "XVI",
-                "chapter_title": "Offences Affecting Human Body",
+                "chapter_title": "Offences Affecting Human Body / Hurt",
                 "punishment_minimum": None,
                 "punishment_maximum": "1 Year",
                 "fine": True,
@@ -1149,12 +1186,12 @@ class StatuteRepository:
                 "chapter_number": "XVI",
                 "chapter_title": "Voluntarily Causing Grievous Hurt by Dangerous Weapons or Means",
                 "punishment_minimum": None,
-                "punishment_maximum": "10 Years",
+                "punishment_maximum": "Life Imprisonment or 10 Years",
                 "fine": True,
                 "cognizable": True,
                 "bailable": False,
             },
-            "SECTION 4": {  # Dowry Prohibition Act
+            "Dowry Prohibition Act:4": {
                 "chapter_number": "DP Act",
                 "chapter_title": "Dowry Prohibition Offences",
                 "punishment_minimum": "6 Months",
@@ -1163,7 +1200,7 @@ class StatuteRepository:
                 "cognizable": True,
                 "bailable": True,
             },
-            "4": {  # Dowry Prohibition Act Section 4
+            "DPA:4": {
                 "chapter_number": "DP Act",
                 "chapter_title": "Dowry Prohibition Offences",
                 "punishment_minimum": "6 Months",
@@ -1172,7 +1209,7 @@ class StatuteRepository:
                 "cognizable": True,
                 "bailable": True,
             },
-            "SECTION 3": {  # Dowry Prohibition Act
+            "Dowry Prohibition Act:3": {
                 "chapter_number": "DP Act",
                 "chapter_title": "Dowry Prohibition Offences",
                 "punishment_minimum": "5 Years",
@@ -1181,7 +1218,7 @@ class StatuteRepository:
                 "cognizable": True,
                 "bailable": False,
             },
-            "3": {  # Dowry Prohibition Act Section 3
+            "DPA:3": {
                 "chapter_number": "DP Act",
                 "chapter_title": "Dowry Prohibition Offences",
                 "punishment_minimum": "5 Years",
@@ -1313,15 +1350,22 @@ class StatuteRepository:
         }
 
         stat_key = (statute or "IPC").upper().replace(".", "").strip()
-        if "NYAYA" in stat_key:
+        if "NYAYA" in stat_key or "BNS" in stat_key:
             stat_key = "BNS"
-        elif "PENAL" in stat_key:
+        elif "DOWRY" in stat_key:
+            stat_key = "Dowry Prohibition Act"
+        elif "PENAL" in stat_key or "IPC" in stat_key:
             stat_key = "IPC"
+
         lookup_keys = [f"{stat_key}:{clean_sec}"]
-        # BNS sub-sections like "336(3)" / "318(4)" are unambiguous even if the caller left statute at its IPC default
-        if "(" in clean_sec:
+        if stat_key == "Dowry Prohibition Act":
+            lookup_keys.append(f"DPA:{clean_sec}")
+        elif stat_key == "BNS" and "(" in clean_sec:
             lookup_keys.append(f"BNS:{clean_sec}")
-        lookup_keys.append(clean_sec)
+        elif stat_key == "IPC":
+            # Only match legacy un-prefixed keys if the section actually belongs to IPC
+            lookup_keys.append(clean_sec)
+
         for k in lookup_keys:
             if k in registry:
                 return registry[k]
@@ -1350,7 +1394,7 @@ class StatuteRepository:
                 elif has_bail:
                     bailable = True
                 else:
-                    bailable = True
+                    bailable = None
 
                 return {
                     "chapter_number": rec.get("chapter") or f"{statute} Section {clean_sec}",

@@ -1,0 +1,322 @@
+{
+  "441": [
+    "entered land",
+    "entered property",
+    "trespassed",
+    "unlawfully entered",
+    "encroached"
+  ],
+  "442": [
+    "entered house",
+    "entered residence",
+    "barged in",
+    "forced entry",
+    "entered dwelling",
+    "unlawfully entered residence"
+  ],
+  "447": [
+    "trespass",
+    "criminal trespass",
+    "entered land",
+    "encroached",
+    "unlawfully entered",
+    "trespassed"
+  ],
+  "448": [
+    "house trespass",
+    "entered house",
+    "barged into house",
+    "entered residence",
+    "forced entry into home",
+    "unlawfully entered"
+  ],
+  "451": [
+    "house trespass to commit offence",
+    "entered house to commit crime",
+    "entered home"
+  ],
+  "452": [
+    "house trespass with preparation for hurt",
+    "house trespass after preparation to cause hurt",
+    "barged in with weapons",
+    "entered house with weapons",
+    "barged into house to assault",
+    "entered with stick"
+  ],
+  "504": [
+    "abused",
+    "hurled abuses",
+    "foul language",
+    "insulted",
+    "provoked",
+    "verbal abuse",
+    "humiliated",
+    "hurled filthy language",
+    "filthy abuses",
+    "intentionally insulted"
+  ],
+  "506": [
+    "threatened",
+    "threatened to kill",
+    "life threat",
+    "intimidated",
+    "coerced",
+    "dire consequences",
+    "threatened with dire consequences",
+    "criminal intimidation"
+  ],
+  "507": [
+    "anonymous threat",
+    "anonymous call",
+    "unidentified caller",
+    "nameless threat letter"
+  ],
+  "323": [
+    "assaulted",
+    "beaten",
+    "hit",
+    "punched",
+    "kicked",
+    "slapped",
+    "physical violence",
+    "inflicted pain",
+    "beaten up",
+    "caused hurt"
+  ],
+  "324": [
+    "knife",
+    "blade",
+    "iron rod",
+    "lathi",
+    "stick",
+    "danda",
+    "rod",
+    "sharp weapon",
+    "acid",
+    "dangerous weapon",
+    "stabbed with knife",
+    "hit with stick",
+    "hit with rod"
+  ],
+  "325": [
+    "fracture",
+    "broken bone",
+    "dislocation",
+    "permanent injury",
+    "grievous hurt",
+    "severe bodily injury",
+    "loss of tooth"
+  ],
+  "326": [
+    "sword",
+    "knife",
+    "iron rod",
+    "acid attack",
+    "stabbed",
+    "cut",
+    "dangerous weapon grievous hurt",
+    "grievous hurt by sharp weapon"
+  ],
+  "304A": [
+    "medical negligence",
+    "rash act",
+    "negligent act",
+    "negligence",
+    "rash driving",
+    "died of negligence",
+    "patient died",
+    "doctor negligence",
+    "failed to monitor"
+  ],
+  "299": [
+    "culpable homicide",
+    "caused death",
+    "bodily injury likely to cause death"
+  ],
+  "300": [
+    "murder",
+    "intentional killing",
+    "intention to cause death"
+  ],
+  "302": [
+    "murdered",
+    "killed",
+    "caused death",
+    "fatal assault",
+    "death"
+  ],
+  "304": [
+    "culpable homicide not amounting to murder",
+    "death caused by bodily injury"
+  ],
+  "307": [
+    "attempt to murder",
+    "tried to kill",
+    "attempted to murder",
+    "stabbed in chest",
+    "slit throat"
+  ],
+  "378": [
+    "theft",
+    "stole",
+    "took away movable property",
+    "stolen"
+  ],
+  "379": [
+    "stolen",
+    "theft",
+    "stole",
+    "theft of vehicle",
+    "theft of money"
+  ],
+  "380": [
+    "theft in dwelling",
+    "stolen from house",
+    "theft in house",
+    "stole from residence"
+  ],
+  "383": [
+    "extortion",
+    "extorted money",
+    "threatened for money",
+    "ransom demand"
+  ],
+  "384": [
+    "extorted",
+    "extortion",
+    "demanded ransom",
+    "forced to pay money"
+  ],
+  "403": [
+    "misappropriated",
+    "dishonestly misappropriated",
+    "converted money"
+  ],
+  "405": [
+    "criminal breach of trust",
+    "entrusted property",
+    "misappropriated funds"
+  ],
+  "406": [
+    "entrusted",
+    "breach of trust",
+    "stridhan",
+    "refused to return money",
+    "ornaments retained",
+    "funds misappropriated"
+  ],
+  "415": [
+    "cheated",
+    "deceived",
+    "fraudulently induced"
+  ],
+  "420": [
+    "cheated",
+    "defrauded",
+    "duped",
+    "swindled",
+    "fake promise",
+    "false representation",
+    "induced to pay money",
+    "property fraud"
+  ],
+  "463": [
+    "forgery",
+    "making false document",
+    "forged"
+  ],
+  "464": [
+    "false document",
+    "fake signature",
+    "tampered document",
+    "falsified entries",
+    "falsified records",
+    "altered entries",
+    "false entries"
+  ],
+  "465": [
+    "forgery",
+    "forged document",
+    "fake paper",
+    "fabricated",
+    "falsified records",
+    "falsified entries"
+  ],
+  "468": [
+    "forgery for cheating",
+    "forged signature to cheat",
+    "fabricated document to cheat"
+  ],
+  "471": [
+    "used forged document",
+    "submitted forged papers",
+    "used fake document as genuine"
+  ],
+  "477A": [
+    "falsified accounts",
+    "books of account",
+    "account books",
+    "ledger",
+    "cash book",
+    "fraudulent entries in books"
+  ],
+  "193": [
+    "false evidence",
+    "fabricated evidence",
+    "perjury",
+    "lied under oath"
+  ],
+  "201": [
+    "destroyed evidence",
+    "disappearance of evidence",
+    "concealed evidence",
+    "screened offender",
+    "wiped records",
+    "hid body",
+    "tampered with evidence"
+  ],
+  "204": [
+    "destroyed document",
+    "destroyed records",
+    "torn register",
+    "destroyed monitoring records",
+    "deleted files",
+    "prevent production of document as evidence",
+    "torn document"
+  ],
+  "498A": [
+    "dowry harassment",
+    "cruelty by husband",
+    "tortured for dowry",
+    "in-laws harassment",
+    "matrimonial cruelty",
+    "harassed for dowry"
+  ],
+  "304B": [
+    "dowry death",
+    "death within 7 years of marriage",
+    "unnatural death of bride",
+    "killed for dowry",
+    "died under abnormal circumstances"
+  ],
+  "141": [
+    "unlawful assembly",
+    "common object"
+  ],
+  "143": [
+    "member of unlawful assembly",
+    "mob violence"
+  ],
+  "147": [
+    "rioting",
+    "rioters",
+    "mob riot"
+  ],
+  "148": [
+    "rioting armed with deadly weapon"
+  ],
+  "149": [
+    "every member of unlawful assembly guilty",
+    "in prosecution of common object"
+  ]
+}

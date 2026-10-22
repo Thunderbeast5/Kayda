@@ -23,10 +23,16 @@ class Stage2Pipeline:
         mapping_agent: Optional[Stage2SubQueryMappingAgent] = None,
         verifier_agent: Optional[Stage2MappingVerifierAgent] = None,
         max_retries: int = 1,
+        nominator: Optional[Any] = None,
+        use_nomination: bool = True,
     ):
         self.mapping_agent = mapping_agent or Stage2SubQueryMappingAgent()
         self.verifier_agent = verifier_agent or Stage2MappingVerifierAgent()
         self.max_retries = max_retries
+        if nominator is None and use_nomination:
+            from .section_nominator import SectionNominator
+            nominator = SectionNominator()
+        self.nominator = nominator
 
     def run(
         self,
@@ -38,6 +44,29 @@ class Stage2Pipeline:
         Returns:
             Stage2VerificationResult containing final verified Stage2BatchedMappingResponse and audit details.
         """
+        # Family-tagged queries: retrieval already ranked the sections; Stage 2 maps them
+        # deterministically (no LLM mapping, scope checks or verifier). Applicability is decided
+        # once, at ingredient level, in Stage 4.
+        query_obj = legal_query
+        if isinstance(legal_query, dict):
+            query_obj = LegalQueryObject.model_validate(legal_query)
+        elif isinstance(legal_query, str):
+            import json as _json
+            query_obj = LegalQueryObject.model_validate(_json.loads(legal_query))
+        if getattr(query_obj, "offence_families", None):
+            from .family_retrieval import build_family_mapping
+            nominations = self.nominator.run(query_obj) if self.nominator else None
+            mapping = build_family_mapping(query_obj, nominations=nominations)
+            if mapping.get("retrieval_only_not_nominated"):
+                print(f"  [Stage 2] BM25 hits not nominated (dropped): {mapping['retrieval_only_not_nominated']}", flush=True)
+            resp = Stage2BatchedMappingResponse.model_validate(mapping)
+            return Stage2VerificationResult(
+                status="VERIFIED", issues=[],
+                feedback=("Family-scoped LLM nomination over ipc.json sections, fused with BM25 retrieval (1 LLM call)."
+                          if nominations else "Deterministic family-constrained BM25 mapping (nomination unavailable)."),
+                batched_mapping_response=resp,
+            )
+
         correction_feedback = None
         current_attempt = 0
 

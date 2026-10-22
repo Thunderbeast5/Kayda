@@ -74,10 +74,10 @@ class CaseIntakeVerifierAgent:
         try:
             parsed_dict = extract_json_from_text(response_text)
         except Exception as e:
-            parsed_dict = {"status": "VERIFIED", "issues": [], "feedback": f"Verification completed: {str(e)}"}
+            parsed_dict = {"status": "NEEDS_CORRECTION", "issues": [{"field": "general", "issue": f"Verification error: {str(e)}", "feedback": "Provide valid response"}], "feedback": f"Verification failed: {str(e)}"}
 
-        raw_status = str(parsed_dict.get("status", "")).upper()
-        status = "VERIFIED" if "VERIFIED" in raw_status else "NEEDS_CORRECTION"
+        raw_status = str(parsed_dict.get("status", "")).strip().upper()
+        status = "VERIFIED" if raw_status == "VERIFIED" else "NEEDS_CORRECTION"
 
         raw_issues = parsed_dict.get("issues", [])
         issues = []

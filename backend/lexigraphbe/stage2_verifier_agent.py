@@ -19,76 +19,6 @@ from .schemas import LegalQueryObject, Stage2VerificationIssue, Stage2Verificati
 from .statute_repository import StatuteRepository
 
 
-# -----------------------------------------------------------------------
-# Scope-restriction phrases that, if found in a section's statutory text,
-# indicate a categorical scope requirement.
-#
-# Each entry is:
-#   (definition_phrases, absence_keywords_in_facts, disqualification_label)
-#
-# If ANY phrase in definition_phrases appears in the section's statutory
-# definition, AND none of the absence_keywords_in_facts appear in the case
-# facts, the section fails scope. The disqualification_label is used in the
-# issue message.
-#
-# THIS IS THE ONLY PLACE WHERE SCOPE RULES ARE MAINTAINED.
-# No other file should contain hardcoded section-specific rules.
-# To add a new scope rule, add one tuple here — the verifier applies it
-# automatically to every section in every case.
-# -----------------------------------------------------------------------
-_SCOPE_RESTRICTION_RULES: List[tuple] = [
-    # Debtor/creditor scope — S.421 IPC and equivalents
-    (
-        ["being indebted", "about to become indebted", "prevent the distribution", "distribution among creditors"],
-        ["creditor", "debtor", "debt", "insolvency", "loan default", "dues"],
-        "debtor-creditor relationship",
-    ),
-    # Deceased person's property — S.404 IPC and equivalents
-    (
-        ["property of a person deceased", "property belonging to a deceased person", "person deceased"],
-        ["deceased", "dead person", "estate of", "inheritance", "succession", "death of"],
-        "property of a deceased person",
-    ),
-    # Public servant / fiduciary role — S.409 IPC and equivalents
-    (
-        ["public servant", "banker", "merchant", "factor", "broker", "attorney", "agent",
-         "being entrusted with property in his capacity as"],
-        ["public servant", "banker", "broker", "agent", "attorney", "factor"],
-        "specific fiduciary or official capacity",
-    ),
-    # Matrimonial relationship — S.498A, S.304B and equivalents
-    (
-        ["husband or relative of husband", "relative of the husband"],
-        ["husband", "wife", "marriage", "matrimonial", "wedlock", "spouse"],
-        "matrimonial relationship between accused and victim",
-    ),
-    # Dowry death — death is mandatory — S.304B IPC / S.80 BNS
-    (
-        ["death of a woman", "soon before her death", "in connection with any demand for dowry"],
-        ["death", "deceased", "dead", "died", "suicide", "killed", "body"],
-        "death of the woman within seven years of marriage",
-    ),
-    # Attempt to murder — S.307 IPC — intent to kill is mandatory
-    (
-        ["such act done with intention of causing death", "attempt to murder"],
-        ["attempt to kill", "attempt to murder", "aimed to kill", "shoot", "stab", "poison"],
-        "intent and act of attempting to cause death",
-    ),
-    # Rape / sexual assault — S.376 IPC — sexual act is mandatory
-    (
-        ["sexual intercourse by a man with a woman", "without her consent"],
-        ["rape", "sexual assault", "sexual intercourse", "non-consensual"],
-        "non-consensual sexual intercourse",
-    ),
-    # Currency/stamp counterfeiting — S.489A-E — currency is mandatory
-    (
-        ["currency-note", "bank-note", "government stamp", "counterfeit"],
-        ["currency", "note", "coin", "stamp", "counterfeit"],
-        "counterfeit currency or government stamps",
-    ),
-]
-
-
 def _extract_all_candidate_section_numbers(mapping) -> Set[str]:
     """Collects all section numbers from primary, secondary, conditional, and candidate_sections lists."""
     nums: Set[str] = set()
@@ -154,92 +84,10 @@ class Stage2MappingVerifierAgent:
                             )
                         )
 
-            # 2. Check tier consistency: Only base offences (e.g. 465) can be PRIMARY.
-            # Compound offences (468, 471, 467, 420, 423) must be in conditional_candidate_sections with missing_facts.
-            _COMPOUND_SECTIONS = {"468", "471", "467", "420", "423"}
-            for p in getattr(mapping, "primary_candidate_sections", []):
-                sec_clean = p.section_number.strip().upper()
-                if sec_clean in _COMPOUND_SECTIONS:
-                    issues.append(
-                        Stage2VerificationIssue(
-                            target=mapping.sub_query_id,
-                            issue=f"Tier over-promotion: Section {sec_clean} placed in PRIMARY candidates without complete factual establishment of compound gating prerequisites.",
-                            feedback=f"Move Section {sec_clean} to conditional_candidate_sections (CONDITIONAL) with explicit missing_facts identifying the gating prerequisite. Keep only base offences like 465 in PRIMARY.",
-                        )
-                    )
-
-        # 3. Check multi-offence coverage for forgery
-        all_candidate_secs = set()
-        for mapping in target_resp.mappings:
-            all_candidate_secs.update(_extract_all_candidate_section_numbers(mapping))
-
-        if any(term in facts_lower for term in ["forged", "forgery", "fake deed", "fraudulent sale deed"]):
-            forgery_target = target_resp.mappings[0].sub_query_id if target_resp.mappings else "SQ1"
-            if "471" not in all_candidate_secs:
-                issues.append(
-                    Stage2VerificationIssue(
-                        target=forgery_target,
-                        issue="Multi-offence coverage gap: Section 471 IPC (Using forged document as genuine) omitted despite forgery allegations.",
-                        feedback="Add Section 471 IPC to secondary_candidate_sections (SECONDARY) with missing_facts identifying use/presentation of forged documents.",
-                    )
-                )
-            if "467" not in all_candidate_secs:
-                issues.append(
-                    Stage2VerificationIssue(
-                        target=forgery_target,
-                        issue="Multi-offence coverage gap: Section 467 IPC (Forgery of Valuable Security / Will) omitted despite forgery/deed allegations.",
-                        feedback="Add Section 467 IPC to conditional_candidate_sections (CONDITIONAL) with missing_facts identifying that document must qualify as valuable security under Section 30.",
-                    )
-                )
-
-        for mapping in target_resp.mappings:
-            candidate_sec_nums = _extract_all_candidate_section_numbers(mapping)
-
-            for sec_str in candidate_sec_nums:
-                # Try to get the statutory definition for this section
-                definition = (
-                    repo.get_statutory_definition(sec_str, "IPC")
-                    or repo.get_statutory_definition(sec_str, "BNS")
-                    or ""
-                ).lower()
-
-                if not definition:
-                    continue  # No definition available — cannot audit scope
-
-                # Check each scope restriction rule against this definition
-                for def_phrases, fact_keywords, scope_label in _SCOPE_RESTRICTION_RULES:
-                    # Does this section's definition contain ANY of the scope-restriction phrases?
-                    definition_has_restriction = any(
-                        phrase.lower() in definition for phrase in def_phrases
-                    )
-                    if not definition_has_restriction:
-                        continue  # This rule doesn't apply to this section
-
-                    # Does the fact pattern contain ANY of the required fact keywords?
-                    facts_satisfy_scope = any(
-                        kw.lower() in facts_lower for kw in fact_keywords
-                    )
-                    if facts_satisfy_scope:
-                        continue  # Facts satisfy the scope requirement — no violation
-
-                    # Scope mismatch: section requires something the facts don't have
-                    issues.append(
-                        Stage2VerificationIssue(
-                            target=mapping.sub_query_id,
-                            issue=(
-                                f"Scope violation: Section {sec_str} included as a candidate but its "
-                                f"statutory definition requires {scope_label}, which is absent from "
-                                f"the case facts. This is a categorical mismatch, not a missing ingredient."
-                            ),
-                            feedback=(
-                                f"Remove Section {sec_str} from candidate lists. Place it in "
-                                f"not_triggered_sections with reason: 'Categorical scope mismatch — "
-                                f"{scope_label} not present in case facts.' Do not replace it with a "
-                                f"semantically similar section unless the facts support it."
-                            ),
-                        )
-                    )
-                    break  # One issue per section per mapping — don't stack rules
+        # Section-specific applicability (scope, compound/aggravated tiers, related-offence coverage)
+        # is NOT decided here by keyword rules. A phrase such as "public servant" appearing anywhere
+        # in a section's text is not a requirement of that section; ingredient-level verification in
+        # Stage 4 decides applicability against the facts.
 
         return issues
 
@@ -286,8 +134,8 @@ class Stage2MappingVerifierAgent:
 
         parsed_dict = extract_json_from_text(response_text)
 
-        raw_status = str(parsed_dict.get("status", "")).upper()
-        status = "VERIFIED" if "VERIFIED" in raw_status else "RETRY"
+        raw_status = str(parsed_dict.get("status", "")).strip().upper()
+        status = "VERIFIED" if raw_status == "VERIFIED" else "RETRY"
 
         raw_issues = parsed_dict.get("issues", [])
         issues: List[Stage2VerificationIssue] = []

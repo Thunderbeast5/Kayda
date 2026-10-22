@@ -1,0 +1,60 @@
+{
+  "_note": "Statutory ingredients for IPC offence sections whose ipc.json entry has none and which inherit none from a linked definition section. Paraphrased from the section text; status pending_review until checked by a lawyer. Applied only where ipc.json ingredients are empty. A trailing 'OR' marks alternatives, as in ipc.json.",
+  "status": "pending_review",
+  "sections": {
+    "304A": [
+      "Causing the death of any person",
+      "By doing any rash or negligent act",
+      "The act does not amount to culpable homicide"
+    ],
+    "305": [
+      "Commission of suicide by a person under eighteen years of age, an insane or delirious person, an idiot, or a person in a state of intoxication",
+      "Abetment of that suicide by the accused (Section 107)"
+    ],
+    "393": [
+      "Attempt to commit robbery (Section 390)"
+    ],
+    "394": [
+      "Committing or attempting to commit robbery (Section 390)",
+      "Voluntarily causing hurt in so committing or attempting it",
+      "The accused caused the hurt, or was jointly concerned in committing or attempting the robbery"
+    ],
+    "396": [
+      "Five or more persons conjointly committing dacoity (Section 391)",
+      "One of them commits murder in so committing dacoity",
+      "The accused was one of the persons conjointly committing the dacoity"
+    ],
+    "397": [
+      "Committing robbery or dacoity",
+      "At the time of committing it the offender uses a deadly weapon, causes grievous hurt, or attempts to cause death or grievous hurt"
+    ],
+    "398": [
+      "Attempting to commit robbery or dacoity",
+      "The offender is armed with a deadly weapon at the time of the attempt"
+    ],
+    "407": [
+      "Entrustment of property to the accused as a carrier, wharfinger or warehouse-keeper",
+      "Commission of criminal breach of trust (Section 405) in respect of that property"
+    ],
+    "408": [
+      "The accused is, or is employed as, a clerk or servant",
+      "Entrustment of property, or dominion over property, in that capacity",
+      "Commission of criminal breach of trust (Section 405) in respect of that property"
+    ],
+    "409": [
+      "The accused is a public servant, or a banker, merchant, factor, broker, attorney or agent",
+      "Entrustment of property, or dominion over property, in that capacity or in the way of that business",
+      "Commission of criminal breach of trust (Section 405) in respect of that property"
+    ],
+    "416": [
+      "Cheating (Section 415)",
+      "By pretending to be some other person, knowingly substituting one person for another, or representing that he or another person is someone other than who he or that person really is"
+    ],
+    "505": [
+      "Making, publishing or circulating a statement, rumour or report",
+      "With intent to cause, or which is likely to cause, an officer or member of the armed forces to mutiny or disregard duty; OR",
+      "With intent to cause, or which is likely to cause, fear or alarm to the public inducing an offence against the State or public tranquillity; OR",
+      "With intent to incite, or which is likely to incite, any class or community to commit an offence against another"
+    ]
+  }
+}

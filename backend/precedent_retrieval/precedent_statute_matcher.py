@@ -23,7 +23,9 @@ STRENGTH_WEIGHT = {"strong": 1.0, "moderate": 0.7, "weak": 0.3}
 
 # Gravity is derived from the statute's own punishment (StatuteRepository / First Schedule), not from per-section
 # constants: see offence_taxonomy.gravity_factor().
-PROCEDURE_WEIGHT = 0.8
+# The relief provision (e.g. CrPC 438 / BNSS 482) is cited by most bail judgments in the corpus, so it
+# carries little information about relevance; it must not outweigh the offences themselves.
+PROCEDURE_WEIGHT = 0.15
 EVIDENCE_WEIGHT = 0.1
 SPECIAL_ACT_WEIGHT = 1.0
 

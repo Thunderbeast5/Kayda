@@ -80,8 +80,6 @@ class ChapterIdentificationAgent:
                     stage2_resp = None
 
         regime = query_obj.legal_regime or "IPC + CrPC"
-        if "BNS" in regime.upper():
-            regime = "IPC + CrPC"
         regime_upper = regime.upper()
         manual_review_flags = []
 
@@ -93,7 +91,7 @@ class ChapterIdentificationAgent:
                 for p in mapping.primary_candidate_sections:
                     candidates_to_verify.append({
                         "section_number": p.section_number,
-                        "statute": "IPC" if "BNS" in (p.statute or "").upper() else (p.statute or "IPC"),
+                        "statute": p.statute or ("BNS" if "BNS" in regime_upper else "IPC"),
                         "title": p.section_title,
                         "classification": "PRIMARY",
                         "sub_query_id": mapping.sub_query_id,
@@ -101,7 +99,7 @@ class ChapterIdentificationAgent:
                 for s in mapping.secondary_candidate_sections:
                     candidates_to_verify.append({
                         "section_number": s.section_number,
-                        "statute": "IPC" if "BNS" in (s.statute or "").upper() else (s.statute or "IPC"),
+                        "statute": s.statute or ("BNS" if "BNS" in regime_upper else "IPC"),
                         "title": s.section_title,
                         "classification": "SECONDARY",
                         "sub_query_id": mapping.sub_query_id,
@@ -153,18 +151,15 @@ class ChapterIdentificationAgent:
 
         stage3_rejected: List[Dict[str, str]] = []  # sections from Stage 2 that were rejected by Stage 3
 
-        seen_input_keys: set = set()
-        normalized_candidates: List[Dict[str, Any]] = []
+        try:
+            from .family_retrieval import get_family_retriever
+            punishment_links = get_family_retriever().punishment_links
+        except Exception:
+            punishment_links = {}
 
-        # Pre-scan: build a map of chapter_number -> set of penal section numbers already present
+        tier_order = {"PRIMARY": 3, "SECONDARY": 2, "CONDITIONAL": 1}
+        cand_by_sec: Dict[str, Dict[str, Any]] = {}
         all_raw_secs = set(stage2_input_sections)
-        active_penal_chapters: set = set()
-        for sec in all_raw_secs:
-            rec = statute_db.get(f"IPC_{sec}") or {}
-            if rec.get("is_punishment") or rec.get("section_type") in ("punishment", "combined"):
-                ch_num = rec.get("chapter_number")
-                if ch_num:
-                    active_penal_chapters.add(ch_num)
 
         for c in candidates_to_verify:
             sec_clean = str(c["section_number"]).strip().upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "")
@@ -173,23 +168,35 @@ class ChapterIdentificationAgent:
             is_pun = rec.get("is_punishment", False)
             sec_type = rec.get("section_type", "")
 
-            # Drop purely definitional sections (not punishment) if an active penal section
-            # from the same chapter is already in the candidate list
+            # Pair-level definitional suppression using punishment_links:
+            # Drop purely definitional sections ONLY if their paired substantive punishment section is present.
             if is_def and not is_pun and sec_type == "definitional":
-                ch_num = rec.get("chapter_number")
-                if ch_num and ch_num in active_penal_chapters:
+                paired_punishments = punishment_links.get(sec_clean, set())
+                active_paired = paired_punishments & all_raw_secs
+                if active_paired:
                     stage3_rejected.append({
                         "section_number": sec_clean,
-                        "reason": f"Definitional section {sec_clean} excluded in favor of substantive penal counterpart in Chapter {ch_num}.",
+                        "reason": f"Definitional section {sec_clean} excluded in favor of paired substantive penal counterpart(s): {', '.join(sorted(active_paired))}.",
                         "rejection_type": "DEFINITIONAL_SUPERSEDED"
                     })
                     continue
 
-            if sec_clean not in seen_input_keys:
-                seen_input_keys.add(sec_clean)
-                normalized_candidates.append(c)
+            # Deduplication: preserve strongest tier (PRIMARY > SECONDARY > CONDITIONAL) and union sub-query IDs
+            if sec_clean not in cand_by_sec:
+                cand_copy = dict(c)
+                cand_copy["sub_query_ids"] = list(c.get("sub_query_ids") or [])
+                cand_by_sec[sec_clean] = cand_copy
+            else:
+                existing = cand_by_sec[sec_clean]
+                for sq in (c.get("sub_query_ids") or []):
+                    if sq not in existing["sub_query_ids"]:
+                        existing["sub_query_ids"].append(sq)
+                existing_tier = str(existing.get("classification") or "PRIMARY").upper()
+                new_tier = str(c.get("classification") or "PRIMARY").upper()
+                if tier_order.get(new_tier, 1) > tier_order.get(existing_tier, 1):
+                    existing["classification"] = new_tier
 
-        candidates_to_verify = normalized_candidates
+        candidates_to_verify = list(cand_by_sec.values())
 
         # Deterministic verification & enrichment loop
         repo = StatuteRepository.get_instance()
@@ -216,10 +223,10 @@ class ChapterIdentificationAgent:
         for cand in candidates_to_verify:
             sec_raw = str(cand["section_number"]).strip()
             sec_num = sec_raw.upper().replace("SECTION ", "").replace("IPC_", "").replace("BNS_", "")
-            statute_in = "IPC" if "BNS" in cand.get("statute", "IPC").upper() else cand.get("statute", "IPC")
+            statute_in = cand.get("statute") or ("BNS" if "BNS" in regime_upper else "IPC")
             tier = cand.get("classification", "PRIMARY")
 
-            # Strict single-source check: section MUST exist in ipc.json
+            # Strict single-source check: section MUST exist in repository
             if statute_in.upper() == "IPC" and not repo.is_in_ipc_json(sec_num):
                 stage3_rejected.append({
                     "section_number": sec_num,
@@ -235,7 +242,11 @@ class ChapterIdentificationAgent:
 
             # 1. Statutory Resolution (IPC-only pipeline)
             ipc_eq = sec_num
-            bns_eq = None
+            try:
+                from .crosswalk_service import CrosswalkService
+                bns_eq = CrosswalkService.get_instance().get_bns_for_ipc(sec_num, prefer_clause=True)
+            except Exception:
+                bns_eq = None
 
             # 2. Canonical Metadata Determination (Title, Chapter, Punishment, Cognizability)
             canon_title = cand.get("title", f"Section {sec_num}")
@@ -287,7 +298,14 @@ class ChapterIdentificationAgent:
                 cognizable = True
                 bailable = False
 
-            # Hard-exclude disqualified sections — do NOT demote to SECONDARY.
+            # Hard-exclude disqualified sections — do NOT demote to SECONDARY. A CONDITIONAL candidate is
+            # already flagged as depending on an unalleged fact (e.g. 338: was the hurt grievous?), so the
+            # gate records that fact instead of deleting it; Stage 4 keeps it in conditional_offences.
+            if disqualified and tier == "CONDITIONAL":
+                note = f"Section {sec_num} kept as CONDITIONAL: {disq_reason or 'required fact not yet alleged'}"
+                if note not in manual_review_flags:
+                    manual_review_flags.append(note)
+                disqualified = False
             if disqualified:
                 disq_msg = (
                     f"Section {sec_num} excluded (NOT_TRIGGERED): {disq_reason or 'Mandatory statutory ingredients not satisfied by case facts.'}"
@@ -315,7 +333,7 @@ class ChapterIdentificationAgent:
                     section_number=sec_num,
                     statute=statute_out,
                     ipc_equivalent=ipc_eq if "Dowry" not in statute_out else None,
-                    bns_equivalent=None,
+                    bns_equivalent=bns_eq,
                     title=canon_title,
                     chapter_number=chap_num,
                     chapter_title=chap_title,
@@ -356,72 +374,7 @@ class ChapterIdentificationAgent:
                     vo.punishment.maximum = "2 Years"
                     vo.verification_notes.append("471 punishment defaulted to 2 Years (s.465 baseline) — no s.467/468 predicate detected in candidate set.")
 
-        # Step 3: LLM-driven Holistic Candidate Screening against FULL Case Facts
-        if verified_list and facts_text:
-            try:
-                candidates_context_parts = []
-                statute_db = StatuteRepository.get_instance().get_statute_db()
-                for vo in verified_list:
-                    rec = statute_db.get(f"IPC_{vo.section_number}") or {}
-                    raw_text = rec.get("full_text") or ""
-                    key_prin = rec.get("key_principle") or ""
-                    ings = rec.get("ingredients") or []
-                    ings_str = "\n    * " + "\n    * ".join(ings) if ings else ""
-                    
-                    cand_str = (
-                        f"Section {vo.section_number} ({vo.statute}): {vo.title}\n"
-                        f"  Chapter: {vo.chapter_number} - {vo.chapter_title} | Sub-Heading: {rec.get('sub_heading', 'N/A')}\n"
-                        f"  Statutory Text: {raw_text[:700]}\n"
-                        f"  Key Principle: {key_prin[:350]}\n"
-                        f"  Statutory Ingredients:{ings_str}"
-                    )
-                    candidates_context_parts.append(cand_str)
-
-                candidates_context = "\n\n".join(candidates_context_parts)
-                prompt = STAGE3_SCREENING_USER_PROMPT_TEMPLATE.format(
-                    case_facts=facts_text,
-                    candidates_context=candidates_context,
-                )
-
-                screening_llm = self._llm or get_llm(temperature=0.0, model_name=MODEL_STAGE2)
-                messages = [
-                    {"role": "system", "content": STAGE3_SCREENING_SYSTEM_PROMPT},
-                    {"role": "user", "content": prompt},
-                ]
-                response = screening_llm.invoke(messages)
-                content = getattr(response, "content", str(response))
-                cleaned = content.strip()
-                if "```json" in cleaned:
-                    cleaned = cleaned.split("```json")[1].split("```")[0].strip()
-                elif "```" in cleaned:
-                    cleaned = cleaned.split("```")[1].split("```")[0].strip()
-                screen_data = json.loads(cleaned)
-
-                screened_decisions = {
-                    str(item.get("section_number", "")).strip().upper().replace("SECTION ", "").replace("IPC_", ""): item
-                    for item in screen_data.get("screened_sections", [])
-                }
-
-                # Filter verified_list based on screening decisions
-                filtered_verified = []
-                for vo in verified_list:
-                    clean_sec = vo.section_number.strip().upper().replace("SECTION ", "").replace("IPC_", "")
-                    decision = screened_decisions.get(clean_sec)
-                    if decision and str(decision.get("status", "")).upper() == "REJECTED":
-                        reason = decision.get("reason", "Rejected by Stage 3 statutory screening as legally or factually inapplicable.")
-                        stage3_rejected.append({
-                            "section_number": vo.section_number,
-                            "reason": f"Stage 3 Screening Rejection: {reason}",
-                            "rejection_type": "LLM_SCREENING_REJECTION"
-                        })
-                    else:
-                        filtered_verified.append(vo)
-
-                if filtered_verified:
-                    verified_list = filtered_verified
-            except Exception as e:
-                pass
-
+        # Step 3: Candidate list prepared for Stage 4 statutory reasoner (Issue S-15: hidden screen removed)
         stage3_accepted_secs = [vo.section_number for vo in verified_list]
 
         # Build rejected list: any Stage 2 section not in the verified output and not already listed

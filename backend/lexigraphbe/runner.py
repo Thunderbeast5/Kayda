@@ -141,19 +141,17 @@ def run_stage0(
                 doc = fitz.open(str(p))
                 pages_text = [page.get_text() for page in doc]
                 doc_text = "\n".join(pages_text)
-                if len(doc_text) > 35000:
-                    doc_text = "\n".join(pages_text[:12])
             except Exception:
                 import pypdf
                 reader = pypdf.PdfReader(str(p))
                 pages_text = [page.extract_text() or "" for page in reader.pages]
-                doc_text = "\n".join(pages_text[:12]) if len(pages_text) > 12 else "\n".join(pages_text)
+                doc_text = "\n".join(pages_text)
         else:
             doc_text = p.read_text(encoding="utf-8")
     elif text:
         doc_text = text
     else:
-        doc_text = "Sample FIR text: FIR No. 123/2025 registered at Nashik Road Police Station, Maharashtra."
+        raise ValueError("No input text or file path provided to Stage 0 intake.")
 
     inp = IntakeInput(
         documents_text=doc_text,
@@ -188,26 +186,57 @@ def run_stage1(case_context_input: dict) -> dict:
     print("=" * 60, flush=True)
     pipeline = Stage1Pipeline()
     res = pipeline.run(case_context_input)
-    query_obj = res.verified_query_object or res.candidate_query_object
-    if query_obj:
-        result = query_obj.model_dump()
-        result["verification_status"] = res.status
+    if res.verified_query_object:
+        result = res.verified_query_object.model_dump()
+        result["status"] = "OK"
+        result["verification_status"] = "VERIFIED"
         result["verification_feedback"] = res.feedback
         sub_queries = result.get("sub_queries") or []
         concepts = result.get("legal_concepts") or []
-        status_tag = "[OK]" if res.verified_query_object else f"[{res.status}]"
-        print(f"  {status_tag} Sub-queries identified : {len(sub_queries)}", flush=True)
-        print(f"  {status_tag} Legal concepts          : {len(concepts)}", flush=True)
+        print(f"  [OK] Sub-queries identified : {len(sub_queries)}", flush=True)
+        print(f"  [OK] Legal concepts          : {len(concepts)}", flush=True)
         print("=" * 60, flush=True)
         return result
+    cand_obj = res.candidate_query_object
+    if cand_obj is not None and cand_obj.factual_allegations:
+        # The LLM verifier's objections are review notes, not proof the decomposition is unusable. Continue
+        # (DEGRADED) when the deterministic checks pass: quotes occur in the narrative, families are valid.
+        from .family_retrieval import validate_decomposition
+        check = validate_decomposition(cand_obj.case_facts or "", cand_obj.factual_allegations, cand_obj.offence_families)
+        if check.ok:
+            result = cand_obj.model_dump()
+            result["status"] = "DEGRADED"
+            result["verification_status"] = res.status
+            result["verification_feedback"] = res.feedback
+            print(f"  [DEGRADED] Stage 1 verifier raised issues ({res.status}); structural checks passed, continuing.", flush=True)
+            print(f"  [DEGRADED] Facts: {len(cand_obj.factual_allegations)} | Families: {len(cand_obj.offence_families)}", flush=True)
+            print("=" * 60, flush=True)
+            return result
+    print(f"  [{res.status}] Stage 1 verification failed structural checks. Dependent stages blocked.", flush=True)
     print("=" * 60, flush=True)
-    return {"status": res.status, "feedback": res.feedback}
+    return {
+        "status": "BLOCKED",
+        "verification_status": res.status,
+        "feedback": res.feedback,
+        "candidate_query_object": cand_obj.model_dump() if cand_obj else None,
+    }
+
+
+def _blocked(stage_input: Optional[dict], stage_name: str) -> Optional[dict]:
+    """A BLOCKED upstream result must not be parsed as an (empty) query object downstream."""
+    if isinstance(stage_input, dict) and stage_input.get("status") == "BLOCKED":
+        print(f"  [BLOCKED] {stage_name} skipped: upstream Stage 1 is blocked.", flush=True)
+        return {"status": "BLOCKED", "feedback": f"{stage_name} skipped because Stage 1 is blocked."}
+    return None
 
 
 def run_stage2(legal_query_input: dict) -> dict:
     """
     Executes Stage 2 pipeline on LegalQueryObject dict and returns Stage2BatchedMappingResponse dict.
     """
+    blocked = _blocked(legal_query_input, "Stage 2")
+    if blocked:
+        return blocked
     verification_status = str(legal_query_input.get("verification_status", "")).upper()
     if verification_status and verification_status != "VERIFIED":
         print(f"  [NOTICE] Proceeding with Stage 1 status: {verification_status}", flush=True)
@@ -241,6 +270,9 @@ def run_stage3(legal_query_input: dict, stage2_input: Optional[dict] = None) -> 
     print("\n" + "=" * 60, flush=True)
     print("  STAGE 3: CHAPTER IDENTIFICATION & IPC ⇄ BNS NORMALIZATION", flush=True)
     print("=" * 60, flush=True)
+    blocked = _blocked(legal_query_input, "Stage 3")
+    if blocked:
+        return blocked
     pipeline = Stage3Pipeline()
     res = pipeline.run(legal_query_input, stage2_mapping=stage2_input)
     if res.verified_chapter_object:
@@ -277,6 +309,9 @@ def run_stage3b(
     Returns:
         BSARetrievalObject as dict.
     """
+    blocked = _blocked(legal_query_input, "Stage 3b")
+    if blocked:
+        return blocked
     agent = BSARetrievalAgent()
     verified_offences = None
     if stage3_input:
@@ -373,7 +408,7 @@ def run_stage3c(
             f"    ✓ [BNSS {sec['section_number']:>3}] "
             f"{sec['heading'][:50]:<50} "
             f"| CrPC: {crpc:<10} "
-            f"| [{cat}]",
+            f"| [{cat}] {sec.get('applicability', '')}",
             flush=True,
         )
         if v_reason:
@@ -410,6 +445,9 @@ def run_stage4(
       2. Verified BNSS procedural sections mapped to CrPC equivalents (via Neo4j REPLACES)
       3. Verified BSA evidence sections mapped to IEA equivalents (via Neo4j REPLACES)
     """
+    blocked = _blocked(legal_query_input, "Stage 4")
+    if blocked:
+        return blocked
     pipeline = Stage4Pipeline()
     res = pipeline.run(legal_query_input, chapter_input)
     
@@ -419,19 +457,8 @@ def run_stage4(
         else {"status": res.status, "feedback": res.feedback}
     )
 
-    # If BSA input was not passed from Stage 3b, run it now to guarantee all mappings are present
-    if not bsa_input:
-        try:
-            bsa_input = run_stage3b(legal_query_input, chapter_input)
-        except Exception:
-            bsa_input = {}
-
-    # If BNSS input was not passed from Stage 3c, run it now
-    if not bnss_input:
-        try:
-            bnss_input = run_stage3c(legal_query_input)
-        except Exception:
-            bnss_input = {}
+    bsa_input = bsa_input or {}
+    bnss_input = bnss_input or {}
 
     # Extract IPC -> BNS mappings
     repo = StatuteRepository.get_instance()
@@ -648,6 +675,26 @@ def run_act_router(
 
 
 
+
+def _precedent_legal_issues(stage1: dict, stage0: dict) -> list:
+    """
+    Legal questions for precedent screening: the requested relief, the parties' procedural submissions
+    (Stage 1 STATEMENT facts such as custodial interrogation or witness influence), and the offence
+    sub-queries. Without the procedural questions the screen can only judge factual similarity.
+    """
+    issues = []
+    prof = (stage0 or {}).get("case_profile") or {}
+    relief = prof.get("requested_relief") or prof.get("procedural_stage")
+    if relief:
+        issues.append(f"Requested relief: {relief}")
+    for f in (stage1 or {}).get("factual_allegations", []) or []:
+        if str(f.get("conduct_type", "")).upper() == "STATEMENT":
+            issues.append(f.get("description") or f.get("verbatim_quote") or "")
+    for sq in (stage1 or {}).get("sub_queries", []) or []:
+        if sq.get("query"):
+            issues.append(sq["query"])
+    return [i for i in issues if i]
+
 def run_full_pipeline(
     text: Optional[str] = None,
     file_path: Optional[str] = None,
@@ -655,7 +702,7 @@ def run_full_pipeline(
     court_type: Optional[str] = None,
     legal_regime_override: Optional[str] = None,
     run_precedent_retrieval: bool = True,
-    max_precedent_candidates: int = 20,
+    max_precedent_candidates: int = 12,
 ) -> dict:
     """
     Chains Stage 0 -> Stage 1 -> Stage 2 -> Stage 3 -> Stage 3b -> Stage 3c -> Stage 4 -> Stage 5 (Precedent Retrieval)
@@ -677,6 +724,9 @@ def run_full_pipeline(
     Returns:
         Combined dictionary with all stage outputs including precedent retrieval
     """
+    from .config import reset_request_budget
+    reset_request_budget()
+
     stage0_out = run_stage0(
         text=text,
         file_path=file_path,
@@ -686,14 +736,43 @@ def run_full_pipeline(
     )
 
     stage1_out = run_stage1(stage0_out)
+    if stage1_out.get("status") == "BLOCKED":
+        return {
+            "status": "BLOCKED",
+            "blocking_stage": "STAGE_1",
+            "stage0_result": stage0_out,
+            "stage1_result": stage1_out,
+            "feedback": stage1_out.get("feedback", "Stage 1 verification failed. Dependent stages blocked.")
+        }
+
+    import concurrent.futures
+    import time
+
+    stage_timings: Dict[str, int] = {}
+
+    t_s2 = time.perf_counter()
     stage2_out = run_stage2(stage1_out)
+    stage_timings["stage2_ms"] = int((time.perf_counter() - t_s2) * 1000)
+
+    t_s3 = time.perf_counter()
     stage3_out = run_stage3(stage1_out, stage2_out)
-    stage3b_out = run_stage3b(stage1_out, stage3_out)  # BSA retrieval & verification
-    stage3c_out = run_stage3c(stage1_out, stage0_out)  # BNSS retrieval & verification
+    stage_timings["stage3_ms"] = int((time.perf_counter() - t_s3) * 1000)
+
+    # Execute Stage 3b (BSA Evidence Law) and Stage 3c (BNSS Procedural Law) concurrently
+    t_parallel = time.perf_counter()
+    with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+        f_3b = executor.submit(run_stage3b, stage1_out, stage3_out)
+        f_3c = executor.submit(run_stage3c, stage1_out, stage0_out)
+        stage3b_out = f_3b.result()
+        stage3c_out = f_3c.result()
+    stage_timings["stage3b_3c_concurrent_ms"] = int((time.perf_counter() - t_parallel) * 1000)
+
+    t_s4 = time.perf_counter()
     stage4_out = run_stage4(stage1_out, stage3_out, bsa_input=stage3b_out, bnss_input=stage3c_out)
+    stage_timings["stage4_ms"] = int((time.perf_counter() - t_s4) * 1000)
 
     result = {
-        "status": "VERIFIED",
+        "status": "DEGRADED" if stage1_out.get("status") == "DEGRADED" else "VERIFIED",
         "stage0_result": stage0_out,
         "stage0_case_context": stage0_out,
         "stage1_result": stage1_out,
@@ -709,6 +788,7 @@ def run_full_pipeline(
         "stage4_result": stage4_out,
         "stage4_statutory_verification": stage4_out,
         "stage4b_act_router": stage4_out.get("act_router_output", {}),
+        "stage_durations_ms": stage_timings,
     }
 
     # Stage 5: Precedent Retrieval (optional)
@@ -724,7 +804,7 @@ def run_full_pipeline(
             legal_issues = []
             if stage1_out and isinstance(stage1_out, dict):
                 sub_queries = stage1_out.get('sub_queries', [])
-                legal_issues = [sq.get('query', '') for sq in sub_queries if sq.get('query')]
+                legal_issues = _precedent_legal_issues(stage1_out, stage0_out)
             
             print(f"\n[Stage 5] Extracted {len(legal_issues)} legal issues from Stage 1")
             print(f"[Stage 5] Running precedent retrieval with max {max_precedent_candidates} candidates...")
@@ -791,7 +871,7 @@ def main():
     parser.add_argument(
         "--max-precedents",
         type=int,
-        default=20,
+        default=12,
         help="Maximum precedent candidates to retrieve (default: 20)"
     )
 
@@ -933,7 +1013,7 @@ def main():
                     legal_issues = []
                     if stage1_res and isinstance(stage1_res, dict):
                         sub_queries = stage1_res.get('sub_queries', [])
-                        legal_issues = [sq.get('query', '') for sq in sub_queries if sq.get('query')]
+                        legal_issues = _precedent_legal_issues(stage1_res, stage0_res)
                     
                     print(f"\n[Stage 5] Extracted {len(legal_issues)} legal issues from Stage 1")
                     print(f"[Stage 5] Running precedent retrieval with max {args.max_precedents} candidates...")

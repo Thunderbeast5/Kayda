@@ -56,6 +56,13 @@ class BNSSSectionItem(BaseModel):
         default="",
         description="Statutory text of the BNSS section (truncated for prompt context)",
     )
+    applicability: str = Field(
+        default="CONTEXTUAL",
+        description=(
+            "'DIRECT' (governs the relief sought), 'CONTEXTUAL' (procedure bearing on it, e.g. arrest powers) "
+            "or 'ANCILLARY' (general machinery such as bonds, relevant only once relief is granted)"
+        ),
+    )
     verification_status: str = Field(
         default="VERIFIED",
         description="Verification verdict: 'VERIFIED' or 'REJECTED'",
