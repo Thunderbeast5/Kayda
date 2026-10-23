@@ -986,6 +986,7 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
 
   const roleNameMap = {
     prosecutor: "Public Prosecutor",
+    prosecution: "Public Prosecutor",
     defense: "Defense Counsel",
     judge: "Hon’ble Judge",
     observer: "Court Observer"
@@ -1270,7 +1271,7 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
       // Map server-controlled phase → action type
       // trialPhase comes from GAME_STARTED/TURN_CHANGED events (server truth)
       const phaseActionMap = {
-        "CASE_INTRO": "END_TURN",   // CASE_INTRO: just end turn to move to OPENING
+        "CASE_INTRO": "SUBMIT_OPENING",
         "OPENING": "SUBMIT_OPENING",
         "ARGUMENT": "SUBMIT_ARGUMENT",
         "REBUTTAL": "SUBMIT_REBUTTAL",

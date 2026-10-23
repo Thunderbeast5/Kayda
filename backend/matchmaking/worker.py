@@ -138,7 +138,7 @@ async def match_players():
             "mode": "MULTIPLAYER",
             "case_id": case_id,
             "status": "WAITING_FOR_PLAYERS",
-            "phase": "CASE_INTRO",
+            "phase": "OPENING",
             "current_turn": None,
             "round": 0,
             "created_by": "matchmaker",

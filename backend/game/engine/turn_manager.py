@@ -2,7 +2,6 @@ import time
 from typing import Dict, Any
 
 PHASES = [
-    "CASE_INTRO",
     "OPENING",
     "ARGUMENT",
     "REBUTTAL",
@@ -14,9 +13,7 @@ def _next_turn_order(phase: str) -> list[str]:
     """
     Returns the sequence of turns for a given phase.
     """
-    if phase == "CASE_INTRO":
-        return ["prosecution"] # Intro doesn't really have turns, but prosecution acts first if needed
-    elif phase == "OPENING":
+    if phase in ["CASE_INTRO", "OPENING"]:
         return ["prosecution", "defense"]
     elif phase == "ARGUMENT":
         return ["prosecution", "defense"]

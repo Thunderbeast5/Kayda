@@ -1,0 +1,321 @@
+{
+  "session_id": "9bfd7b0a",
+  "case_id": "D:\\khete\\mootcourt\\backend\\data\\2007 INSC 272.pdf",
+  "round_no": 2,
+  "max_rounds": 2,
+  "case_facts": [
+    {
+      "id": "fact_1",
+      "text": "The U.P. State Road Transport Corporation A is the appellant.",
+      "source": "para 3",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_2",
+      "text": "The U.P. Rajya Sadak Pariyahan Karamchari Union is the respondent.",
+      "source": "para 3",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_3",
+      "text": "The Labour Court allowed the application of the respondent under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.",
+      "source": "para 4",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_4",
+      "text": "The Labour Court directed that the concerned workmen be given the minimum wages admissible to the regular employees in the pay scales of 'drivers' and 'conductors'.",
+      "source": "para 4",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_5",
+      "text": "The Corporation had contended that Rule 2 of the U.P.S.R.T.C Employees (Other than Officers) Service Regulations, 1981 clearly mentions that these regulations shall not apply to employees working on contract basis.",
+      "source": "para 5",
+      "type": "procedural_event"
+    },
+    {
+      "id": "fact_6",
+      "text": "The concerned workmen had not been selected in terms of the process of selection required for appointment of regular employees and hence they cannot be directed to be given minimum pay scales of regular employees.",
+      "source": "para 6",
+      "type": "allegation"
+    },
+    {
+      "id": "fact_7",
+      "text": "The scope of Section 11-C is much narrower than the scope of a regular reference under Section I 0 of the Industrial Disputes Act or Section 4-K of the U.P. Industrial Disputes Act.",
+      "source": "para 8",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_8",
+      "text": "The Labour Court cannot amend the Regulations while hearing an application under Section 11-C of the Industrial Disputes Act.",
+      "source": "para 12",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_9",
+      "text": "The appeals are allowed and the impugned judgment of the High Court as well as the order of the Labour Court dated 19.9.2001 are set aside.",
+      "source": "para 14",
+      "type": "court_finding"
+    },
+    {
+      "id": "fact_10",
+      "text": "The concerned workmen are entitled to raise their grievances before the concerned authority under Section 4-K of the U.P. Industrial Disputes Act or under Section I 0 of Industrial Disputes Act, as the case may be.",
+      "source": "para 14",
+      "type": "procedural_event"
+    }
+  ],
+  "evidence_inventory": [],
+  "transcript": [
+    {
+      "turn_no": 1,
+      "speaker": "prosecutor",
+      "round_no": 1,
+      "content": "### Legal Theory\nYour Honor, esteemed members of the court, today we gather to discuss the case of the U.P. State Road Transport Corporation A versus the U.P. Rajya Sadak Pariyahan Karamchari Union. As the prosecution, I will present the facts and argue that the respondent's actions warrant severe consequences under the law.\n\n### Submissions\n1. The facts of this case are as follows: [fact_1] The U.P. State Road Transport Corporation A is the appellant, while the U.P. Rajya Sadak Pariyahan Karamchari Union is the respondent. [fact_2] The respondent filed an application under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946, which led to the Labour Court's decision to direct the concerned workmen to be given the minimum wages admissible to regular employees in the pay scales of 'drivers' and 'conductors'. [fact_4]\n2. However, the respondent's actions are not without controversy. [fact_5] The Corporation had contended that Rule 2 of the U.P.S.R.T.C Employees (Other than Officers) Service Regulations, 1981 clearly mentions that these regulations shall not apply to employees working on contract basis. [fact_5] This raises questions about the legitimacy of the respondent's actions and the potential for exploitation of contract workers.\n3. Furthermore, the concerned workmen had not been selected in terms of the process of selection required for appointment of regular employees and hence they cannot be directed to be given minimum pay scales of regular employees. [fact_6] This highlights the potential for unfair labor practices and the need for greater protections for contract workers.\n4. In light of these facts, I would like to refer to Section 425 of the Indian Penal Code, which deals with mischief. [RETRIEVED PRECEDENT HOLDINGS & BINDING RATIO DECIDENDI 4] The respondent's actions, which involve manipulating the labor laws to their advantage, can be seen as an act of mischief. By exploiting the contract workers and attempting to circumvent the law, the respondent has caused harm to the Corporation and the state.\n5. Furthermore, the respondent's actions have also raised questions about their commitment to fair labor practices. [RETRIEVED PRECEDENT HOLDINGS & BINDING RATIO DECIDENDI 4] By attempting to undermine the law and exploit contract workers, the respondent has demonstrated a lack of commitment to fair labor practices and a disregard for the well-being of their employees.\n6. In light of these facts and the relevant precedent holdings, I urge the court to consider the severity of the respondent's actions and to take appropriate action to protect the interests of the Corporation and the state. I request that the court consider the following IPC sections:\n7. * Section 425: Mischief\n* Section 441: Criminal trespass\n* Section 442: House-breaking\n* Section 323: Voluntarily Causing Hurt\n8. These sections provide a clear framework for understanding the respondent's actions and the potential consequences of their behavior. I urge the court to take a strong stance against the respondent's actions and to protect the interests of the Corporation and the state.\n9. Thank you, Your Honor.\n\n### Evidence References\n- **[fact_1]**: The U.P. State Road Transport Corporation A is the appellant.\n- **[fact_2]**: The U.P. Rajya Sadak Pariyahan Karamchari Union is the respondent.\n- **[fact_4]**: The Labour Court directed that the concerned workmen be given the minimum wages admissible to the regular employees in the pay scales of 'drivers' and 'conductors'.\n- **[fact_5]**: The Corporation had contended that Rule 2 of the U.P.S.R.T.C Employees (Other than Officers) Service Regulations, 1981 clearly mentions that these regulations shall not apply to employees working on contract basis.\n- **[fact_6]**: The concerned workmen had not been selected in terms of the process of selection required for appointment of regular employees and hence they cannot be directed to be given minimum pay scales of regular employees.\n- **[fact_3]**: The Labour Court allowed the application of the respondent under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n- **[fact_10]**: The concerned workmen are entitled to raise their grievances before the concerned authority under Section 4-K of the U.P. Industrial Disputes Act or under Section I 0 of Industrial Disputes Act, as the case may be.\n\n### Statutory Provisions\n- IPC 11\n- IPC 13\n- IPC 425\n- IPC 441\n- IPC 442\n- IPC 323",
+      "citations": [
+        "IPC 11",
+        "IPC 13",
+        "IPC 425",
+        "IPC 441",
+        "IPC 442",
+        "IPC 323"
+      ],
+      "evidence_refs": [
+        "fact_1",
+        "fact_2",
+        "fact_4",
+        "fact_5",
+        "fact_6",
+        "fact_3",
+        "fact_10"
+      ],
+      "structured_argument": {
+        "theory": "Your Honor, esteemed members of the court, today we gather to discuss the case of the U.P. State Road Transport Corporation A versus the U.P. Rajya Sadak Pariyahan Karamchari Union. As the prosecution, I will present the facts and argue that the respondent's actions warrant severe consequences under the law.",
+        "arguments": [
+          "The facts of this case are as follows: [fact_1] The U.P. State Road Transport Corporation A is the appellant, while the U.P. Rajya Sadak Pariyahan Karamchari Union is the respondent. [fact_2] The respondent filed an application under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946, which led to the Labour Court's decision to direct the concerned workmen to be given the minimum wages admissible to regular employees in the pay scales of 'drivers' and 'conductors'. [fact_4]",
+          "However, the respondent's actions are not without controversy. [fact_5] The Corporation had contended that Rule 2 of the U.P.S.R.T.C Employees (Other than Officers) Service Regulations, 1981 clearly mentions that these regulations shall not apply to employees working on contract basis. [fact_5] This raises questions about the legitimacy of the respondent's actions and the potential for exploitation of contract workers.",
+          "Furthermore, the concerned workmen had not been selected in terms of the process of selection required for appointment of regular employees and hence they cannot be directed to be given minimum pay scales of regular employees. [fact_6] This highlights the potential for unfair labor practices and the need for greater protections for contract workers.",
+          "In light of these facts, I would like to refer to Section 425 of the Indian Penal Code, which deals with mischief. [RETRIEVED PRECEDENT HOLDINGS & BINDING RATIO DECIDENDI 4] The respondent's actions, which involve manipulating the labor laws to their advantage, can be seen as an act of mischief. By exploiting the contract workers and attempting to circumvent the law, the respondent has caused harm to the Corporation and the state.",
+          "Furthermore, the respondent's actions have also raised questions about their commitment to fair labor practices. [RETRIEVED PRECEDENT HOLDINGS & BINDING RATIO DECIDENDI 4] By attempting to undermine the law and exploit contract workers, the respondent has demonstrated a lack of commitment to fair labor practices and a disregard for the well-being of their employees.",
+          "In light of these facts and the relevant precedent holdings, I urge the court to consider the severity of the respondent's actions and to take appropriate action to protect the interests of the Corporation and the state. I request that the court consider the following IPC sections:",
+          "* Section 425: Mischief",
+          "* Section 441: Criminal trespass",
+          "* Section 442: House-breaking",
+          "* Section 323: Voluntarily Causing Hurt",
+          "These sections provide a clear framework for understanding the respondent's actions and the potential consequences of their behavior. I urge the court to take a strong stance against the respondent's actions and to protect the interests of the Corporation and the state.",
+          "Thank you, Your Honor."
+        ],
+        "evidence_refs": [
+          "fact_1",
+          "fact_2",
+          "fact_4",
+          "fact_5",
+          "fact_6",
+          "fact_3",
+          "fact_10"
+        ],
+        "sections": [
+          "IPC 11",
+          "IPC 13",
+          "IPC 425",
+          "IPC 441",
+          "IPC 442",
+          "IPC 323"
+        ]
+      },
+      "grounded": false,
+      "unverified": []
+    },
+    {
+      "turn_no": 2,
+      "speaker": "defense",
+      "round_no": 1,
+      "content": "### Legal Theory\nThe prosecution's case relies heavily on the respondent's actions, but it fails to establish the requisite mens rea under Section 425 of the IPC. The respondent's actions, while potentially misleading, do not demonstrate a clear intent to cause mischief.\n\n### Submissions\n1. The respondent's actions are not without controversy, and the Corporation's contention that Rule 2 of the U.P.S.R.T.C Employees (Other than Officers) Service Regulations, 1981 clearly mentions that these regulations shall not apply to employees working on contract basis, raises questions about the legitimacy of the respondent's actions and the potential for exploitation of contract workers. ([fact_5])\n2. The concerned workmen had not been selected in terms of the process of selection required for appointment of regular employees and hence they cannot be directed to be given minimum pay scales of regular employees. ([fact_6]) This highlights the potential for unfair labor practices and the need for greater protections for contract workers.\n3. The Labour Court's decision to direct the concerned workmen to be given the minimum wages admissible to regular employees in the pay scales of 'drivers' and 'conductors' ([fact_4]) may be seen as an overreach of authority, as it is unclear whether the respondent's actions meet the statutory requirements under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n\n### Evidence References\n- **[fact_1]**: The U.P. State Road Transport Corporation A is the appellant.\n- **[fact_3]**: The Labour Court allowed the application of the respondent under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n\n### Statutory Provisions\n- IPC 425\n- IPC 441",
+      "citations": [
+        "IPC 425",
+        "IPC 441",
+        "IPC 11",
+        "IPC 13"
+      ],
+      "evidence_refs": [
+        "fact_5",
+        "fact_6",
+        "fact_4",
+        "fact_1",
+        "fact_3"
+      ],
+      "structured_argument": {
+        "theory": "The prosecution's case relies heavily on the respondent's actions, but it fails to establish the requisite mens rea under Section 425 of the IPC. The respondent's actions, while potentially misleading, do not demonstrate a clear intent to cause mischief.",
+        "arguments": [
+          "The respondent's actions are not without controversy, and the Corporation's contention that Rule 2 of the U.P.S.R.T.C Employees (Other than Officers) Service Regulations, 1981 clearly mentions that these regulations shall not apply to employees working on contract basis, raises questions about the legitimacy of the respondent's actions and the potential for exploitation of contract workers. ([fact_5])",
+          "The concerned workmen had not been selected in terms of the process of selection required for appointment of regular employees and hence they cannot be directed to be given minimum pay scales of regular employees. ([fact_6]) This highlights the potential for unfair labor practices and the need for greater protections for contract workers.",
+          "The Labour Court's decision to direct the concerned workmen to be given the minimum wages admissible to regular employees in the pay scales of 'drivers' and 'conductors' ([fact_4]) may be seen as an overreach of authority, as it is unclear whether the respondent's actions meet the statutory requirements under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946."
+        ],
+        "evidence_refs": [
+          "fact_5",
+          "fact_6",
+          "fact_4",
+          "fact_1",
+          "fact_3"
+        ],
+        "sections": [
+          "IPC 425",
+          "IPC 441",
+          "IPC 11",
+          "IPC 13"
+        ]
+      },
+      "grounded": true,
+      "unverified": []
+    },
+    {
+      "turn_no": 3,
+      "speaker": "prosecutor",
+      "round_no": 2,
+      "content": "### Legal Theory\nLadies and gentlemen of the court, esteemed members of the jury, today we gather to discuss the case at hand, which revolves around the actions of the U.P. Rajya Sadak Pariyahan Karamchari Union, the respondent. The prosecution's case hinges on the respondent's alleged misconduct, which, if proven, could have severe consequences for the Corporation, the appellant.\n\n### Submissions\n1. Firstly, let us examine the relevant facts. The respondent, the U.P. Rajya Sadak Pariyahan Karamchari Union, has been accused of violating the U.P. Industrial Disputes Act, 1947, and the Industrial Employment (Standing Orders) Act, 1946. Specifically, the Labour Court allowed the respondent's application under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n2. Now, let us turn to the relevant statutory provisions. The IPC, specifically Section 425, defines mischief, which is the act of causing harm or damage to another person's property. In this case, the respondent's actions, as alleged, could be seen as an act of mischief, as they may have caused harm to the Corporation's interests.\n3. However, it is essential to note that the respondent's actions, as alleged, do not demonstrate a clear intent to cause mischief. The respondent's contention that Rule 2 of the U.P.S.R.T.C Employees (Other than Officers) Service Regulations, 1981 clearly mentions that these regulations shall not apply to employees working on contract basis, raises questions about the legitimacy of the respondent's actions and the potential for exploitation of contract workers.\n4. Furthermore, the concerned workmen had not been selected in terms of the process of selection required for appointment of regular employees and hence they cannot be directed to be given minimum pay scales of regular employees. This highlights the potential for unfair labor practices and the need for greater protections for contract workers.\n5. In light of these facts and statutory provisions, I would like to submit that the respondent's actions, as alleged, do not meet the requisite mens rea under Section 425 of the IPC. The respondent's actions, while potentially misleading, do not demonstrate a clear intent to cause mischief.\n6. I would like to refer to the principles established in Srikant Upadhyay v. State of Bihar, 2024 INSC 202, which states that an accused who persistently disobeys summons, bailable warrants, and non-bailable warrants, and who does not respond to a proclamation under Section 82 CrPC, is not entitled to the discretionary relief of pre-arrest bail. In this case, the respondent's actions, as alleged, could be seen as a form of disobedience to the Corporation's summons and warrants.\n7. In conclusion, I urge the court to consider the facts and statutory provisions presented in this case and to find the respondent not guilty of the alleged misconduct. The respondent's actions, as alleged, do not demonstrate a clear intent to cause mischief, and the respondent's contention that Rule 2 of the U.P.S.R.T.C Employees (Other than Officers) Service Regulations, 1981 clearly mentions that these regulations shall not apply to employees working on contract basis, raises questions about the legitimacy of the respondent's actions and the potential for exploitation of contract workers.\n8. Thank you, your honor.\n\n### Evidence References\n- **[fact_1]**: The U.P. State Road Transport Corporation A is the appellant.\n- **[fact_2]**: The U.P. Rajya Sadak Pariyahan Karamchari Union is the respondent.\n- **[fact_3]**: The Labour Court allowed the application of the respondent under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n- **[fact_4]**: The Labour Court directed that the concerned workmen be given the minimum wages admissible to the regular employees in the pay scales of 'drivers' and 'conductors'.\n- **[fact_5]**: The Corporation had contended that Rule 2 of the U.P.S.R.T.C Employees (Other than Officers) Service Regulations, 1981 clearly mentions that these regulations shall not apply to employees working on contract basis.\n- **[fact_6]**: The concerned workmen had not been selected in terms of the process of selection required for appointment of regular employees and hence they cannot be directed to be given minimum pay scales of regular employees.\n- **[fact_10]**: The concerned workmen are entitled to raise their grievances before the concerned authority under Section 4-K of the U.P. Industrial Disputes Act or under Section I 0 of Industrial Disputes Act, as the case may be.\n\n### Statutory Provisions\n- IPC 425\n- CrPC 82\n- IPC 11\n- IPC 13",
+      "citations": [
+        "IPC 425",
+        "CrPC 82",
+        "IPC 11",
+        "IPC 13"
+      ],
+      "evidence_refs": [
+        "fact_1",
+        "fact_2",
+        "fact_3",
+        "fact_4",
+        "fact_5",
+        "fact_6",
+        "fact_10"
+      ],
+      "structured_argument": {
+        "theory": "Ladies and gentlemen of the court, esteemed members of the jury, today we gather to discuss the case at hand, which revolves around the actions of the U.P. Rajya Sadak Pariyahan Karamchari Union, the respondent. The prosecution's case hinges on the respondent's alleged misconduct, which, if proven, could have severe consequences for the Corporation, the appellant.",
+        "arguments": [
+          "Firstly, let us examine the relevant facts. The respondent, the U.P. Rajya Sadak Pariyahan Karamchari Union, has been accused of violating the U.P. Industrial Disputes Act, 1947, and the Industrial Employment (Standing Orders) Act, 1946. Specifically, the Labour Court allowed the respondent's application under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.",
+          "Now, let us turn to the relevant statutory provisions. The IPC, specifically Section 425, defines mischief, which is the act of causing harm or damage to another person's property. In this case, the respondent's actions, as alleged, could be seen as an act of mischief, as they may have caused harm to the Corporation's interests.",
+          "However, it is essential to note that the respondent's actions, as alleged, do not demonstrate a clear intent to cause mischief. The respondent's contention that Rule 2 of the U.P.S.R.T.C Employees (Other than Officers) Service Regulations, 1981 clearly mentions that these regulations shall not apply to employees working on contract basis, raises questions about the legitimacy of the respondent's actions and the potential for exploitation of contract workers.",
+          "Furthermore, the concerned workmen had not been selected in terms of the process of selection required for appointment of regular employees and hence they cannot be directed to be given minimum pay scales of regular employees. This highlights the potential for unfair labor practices and the need for greater protections for contract workers.",
+          "In light of these facts and statutory provisions, I would like to submit that the respondent's actions, as alleged, do not meet the requisite mens rea under Section 425 of the IPC. The respondent's actions, while potentially misleading, do not demonstrate a clear intent to cause mischief.",
+          "I would like to refer to the principles established in Srikant Upadhyay v. State of Bihar, 2024 INSC 202, which states that an accused who persistently disobeys summons, bailable warrants, and non-bailable warrants, and who does not respond to a proclamation under Section 82 CrPC, is not entitled to the discretionary relief of pre-arrest bail. In this case, the respondent's actions, as alleged, could be seen as a form of disobedience to the Corporation's summons and warrants.",
+          "In conclusion, I urge the court to consider the facts and statutory provisions presented in this case and to find the respondent not guilty of the alleged misconduct. The respondent's actions, as alleged, do not demonstrate a clear intent to cause mischief, and the respondent's contention that Rule 2 of the U.P.S.R.T.C Employees (Other than Officers) Service Regulations, 1981 clearly mentions that these regulations shall not apply to employees working on contract basis, raises questions about the legitimacy of the respondent's actions and the potential for exploitation of contract workers.",
+          "Thank you, your honor."
+        ],
+        "evidence_refs": [
+          "fact_1",
+          "fact_2",
+          "fact_3",
+          "fact_4",
+          "fact_5",
+          "fact_6",
+          "fact_10"
+        ],
+        "sections": [
+          "IPC 425",
+          "CrPC 82",
+          "IPC 11",
+          "IPC 13"
+        ]
+      },
+      "grounded": false,
+      "unverified": []
+    },
+    {
+      "turn_no": 4,
+      "speaker": "defense",
+      "round_no": 2,
+      "content": "### Legal Theory\nThe respondent's actions, as alleged, do not demonstrate a clear intent to cause mischief under Section 425 of the IPC, as the requisite mens rea is not established.\n\n### Submissions\n1. The prosecution's case hinges on the respondent's alleged misconduct, but the respondent's contention that Rule 2 of the U.P.S.R.T.C Employees (Other than Officers) Service Regulations, 1981 clearly mentions that these regulations shall not apply to employees working on contract basis, raises questions about the legitimacy of the respondent's actions and the potential for exploitation of contract workers.\n2. The concerned workmen had not been selected in terms of the process of selection required for appointment of regular employees and hence they cannot be directed to be given minimum pay scales of regular employees, highlighting the potential for unfair labor practices and the need for greater protections for contract workers.\n3. The Labour Court's decision to allow the respondent's application under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946, does not necessarily imply that the respondent's actions were malicious or with the intent to cause mischief.\n\n### Evidence References\n- **[fact_1]**: The U.P. State Road Transport Corporation A is the appellant.\n- **[fact_3]**: The Labour Court allowed the application of the respondent under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946.\n\n### Statutory Provisions\n- IPC 425\n- CrPC 82",
+      "citations": [
+        "IPC 425",
+        "CrPC 82",
+        "IPC 11",
+        "IPC 13"
+      ],
+      "evidence_refs": [
+        "fact_1",
+        "fact_3"
+      ],
+      "structured_argument": {
+        "theory": "The respondent's actions, as alleged, do not demonstrate a clear intent to cause mischief under Section 425 of the IPC, as the requisite mens rea is not established.",
+        "arguments": [
+          "The prosecution's case hinges on the respondent's alleged misconduct, but the respondent's contention that Rule 2 of the U.P.S.R.T.C Employees (Other than Officers) Service Regulations, 1981 clearly mentions that these regulations shall not apply to employees working on contract basis, raises questions about the legitimacy of the respondent's actions and the potential for exploitation of contract workers.",
+          "The concerned workmen had not been selected in terms of the process of selection required for appointment of regular employees and hence they cannot be directed to be given minimum pay scales of regular employees, highlighting the potential for unfair labor practices and the need for greater protections for contract workers.",
+          "The Labour Court's decision to allow the respondent's application under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946, does not necessarily imply that the respondent's actions were malicious or with the intent to cause mischief."
+        ],
+        "evidence_refs": [
+          "fact_1",
+          "fact_3"
+        ],
+        "sections": [
+          "IPC 425",
+          "CrPC 82",
+          "IPC 11",
+          "IPC 13"
+        ]
+      },
+      "grounded": true,
+      "unverified": []
+    }
+  ],
+  "judge_scores": {
+    "prosecution": {
+      "legal_validity": 6,
+      "evidence_linkage": 8,
+      "logic_coherence": 7,
+      "total": 21.0,
+      "average": 7.0
+    },
+    "defense": {
+      "legal_validity": 5,
+      "evidence_linkage": 4,
+      "logic_coherence": 6,
+      "total": 15.0,
+      "average": 5.0
+    },
+    "overall": 6.0
+  },
+  "verdict": {
+    "decision": "GRANTED",
+    "confidence": "high",
+    "confidence_label": "high",
+    "agreement_rate": 1.0,
+    "valid_votes": 5,
+    "total_votes": 5,
+    "agree_count": 5,
+    "laws_applied": [
+      "CrPC 438",
+      "CrPC 82",
+      "IPC 425",
+      "IPC 11",
+      "IPC 13"
+    ],
+    "statutes": [
+      "CrPC 438",
+      "CrPC 82",
+      "IPC 425",
+      "IPC 11",
+      "IPC 13"
+    ],
+    "precedents": [],
+    "holdings_relied": [
+      "srikant_para4-5_3"
+    ],
+    "reasoning": "The prosecution's case hinges on the respondent's alleged misconduct, but the respondent's contention that Rule 2 of the U.P.S.R.T.C Employees (Other than Officers) Service Regulations, 1981 clearly mentions that these regulations shall not apply to employees working on contract basis, raises questions about the legitimacy of the respondent's actions and the potential for exploitation of contract workers. The Labour Court's decision to allow the respondent's application under Section 11-C of the U.P. Industrial Disputes Act, 1947 read with Section 13-A of the Industrial Employment (Standing Orders) Act, 1946, does not necessarily imply that the respondent's actions were malicious or with the intent to cause mischief. The concerned workmen had not been selected in terms of the process of selection required for appointment of regular employees and hence they cannot be directed to be given minimum pay scales of regular employees, highlighting the potential for unfair labor practices and the need for greater protections for contract workers.\n\n[Record Basis: Facts relied on: fact_5, fact_6; Holdings relied on: srikant_para4-5_3; Open Questions: None (factual record complete)]",
+    "factors": [
+      {
+        "finding": "The respondent's actions, as alleged, do not demonstrate a clear intent to cause mischief under Section 425 of the IPC, as the requisite mens rea is not established.",
+        "fact_ids": [
+          "fact_5",
+          "fact_6"
+        ],
+        "holding_ids": [
+          "srikant_para4-5_3"
+        ]
+      }
+    ],
+    "open_questions": [],
+    "vote_tally": {
+      "GRANTED": 5
+    }
+  },
+  "errors": []
+}

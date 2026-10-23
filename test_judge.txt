@@ -1,0 +1,111 @@
+================================================================================
+           MOOTCOURT BENCH — JUDGE AGENT TESTING SUITE
+          PROSECUTION & DEFENSE LEGAL SUBMISSIONS RECORD
+================================================================================
+Generated for: Real-time Multiplayer Judge Agent Validation
+Target File: d:\khete\mootcourt\test_judge.txt
+Supported Phases: OPENING | ARGUMENT | OBJECTION | REBUTTAL | CLOSING
+
+================================================================================
+CASE 1: Srikant Upadhyay & Ors. v. State of Bihar (CrPC 438 / Absconder Bar)
+Statutory Sections: CrPC S. 438, S. 82, S. 83 | IPC S. 354B, S. 379, S. 149
+Key Precedents: State of Haryana v. Dharamraj; Prem Shankar Prasad v. State of Bihar
+================================================================================
+
+--- [PHASE: OPENING] ---
+
+[PROSECUTION OPENING STATEMENT]
+May it please the Hon’ble Bench. In the matter of Srikant Upadhyay and Others vs. State of Bihar and Another, the State strongly opposes the grant of Anticipatory Bail under Section 438 of the Code of Criminal Procedure, 1973. The petitioners stand charged with grave and heinous offenses punishable under IPC Section 354B for assault or use of criminal force to woman with intent to disrobe, IPC Section 379 for theft, and IPC Section 149 for unlawful assembly with common object. The verified record demonstrates that a proclamation under Section 82 CrPC was duly published and executed against the accused, followed by attachment proceedings initiated under Section 83 CrPC after they deliberately absconded and evaded the process of law. As settled by the Hon'ble Supreme Court in State of Haryana v. Dharamraj (2023) and Prem Shankar Prasad v. State of Bihar (2022), an accused against whom a proclamation under Section 82 CrPC has been issued is disentitled from invoking the extraordinary discretion under Section 438 CrPC. Custodial interrogation is indispensable to recover the stolen property, identify other conspirators, and safeguard vulnerable prosecution witnesses.
+
+[DEFENSE OPENING STATEMENT]
+Most respectfully submitted before this Hon'ble Court. On behalf of the appellants Srikant Upadhyay and others, we submit that the application for pre-arrest bail under Section 438 CrPC is legally maintainable and the bar in Prem Shankar Prasad does not operate as an automatic or mechanical embargo. The proclamation under Section 82 CrPC issued by the learned Magistrate is void ab initio, having been issued mechanically without recording subjective satisfaction or reasons in writing that the petitioners had absconded or were concealing themselves, thereby violating the statutory mandate of Section 82(1) CrPC. Furthermore, the charges under Section 354B IPC are thoroughly fabricated, arising out of a pre-existing civil partition suit concerning ancestral agricultural land. The petitioners are permanent residents with clean antecedents who have consistently undertaken to join the investigation. Under Article 21 of the Constitution and the principles in Arnesh Kumar v. State of Bihar, personal liberty must be protected against malicious and politically motivated prosecution.
+
+--- [PHASE: ARGUMENT / MERIT EVIDENCE] ---
+
+[PROSECUTION ARGUMENT]
+Learned Counsel for the defense misinterprets the statutory threshold under Section 82 CrPC. The order sheet of the learned Judicial Magistrate dated 14th January explicitly records that non-bailable warrants were returned unserved with police reports confirming that the petitioners had locked their premises and fled the jurisdiction. The proclamation under Section 82 CrPC was published in accordance with the prescribed procedure, and a period exceeding thirty days had lapsed without the petitioners surrendering before the court. The medical examination report of the victim and statement under Section 164 CrPC recorded before the Magistrate corroborate the physical assault and the stripping of her upper garments under Section 354B IPC. The recovery of stolen ornaments and agricultural equipment remains unexecuted solely due to the deliberate non-cooperation of the petitioners. In economic and violent crimes against women, the gravity of the offense must outweigh individual convenience, and anticipatory bail must be refused.
+
+[DEFENSE ARGUMENT]
+May the Bench examine the contemporaneous record with utmost scrutiny. The FIR in question was registered with an unexplained delay of 72 hours, despite the police outpost situated merely 500 meters from the alleged place of occurrence. No contemporaneous medical certificate or injury memo has been placed on record to support the grave charge under Section 354B IPC; the alleged victim refused initial clinical examination, as conceded in paragraph 14 of the case diary. Furthermore, with respect to Section 82 CrPC, the Hon'ble Supreme Court in Inder Mohan Goswami v. State of Uttaranchal held that non-bailable warrants and proclamations should not be issued at the first instance where summons or bailable warrants would suffice. The petitioners were never personally served with any summons or Section 41A CrPC notice prior to the proclamation. The invocation of Section 354B and Section 379 IPC was a deliberate escalation designed to disable the petitioners from exercising their lawful civil possession over the disputed plot.
+
+--- [PHASE: OBJECTIONS & RULINGS] ---
+
+[PROSECUTION OBJECTION]
+OBJECTION, Your Honor. Learned Defense Counsel is arguing the merits of the civil partition suit and questioning the Magistrate's preliminary order under Section 82 CrPC, which is outside the scope of Section 438 proceedings. Counsel is testifying to facts not on the verified charge-sheet record without introducing certified court orders.
+
+[DEFENSE OBJECTION]
+OBJECTION, Your Honor. The Public Prosecutor is reading from the unverified case diary and referring to alleged Section 164 CrPC statements that have not been furnished to the defense under Section 207 CrPC. Making prejudicial assertions without placing certified copies before the Bench violates the principles of natural justice and fair trial.
+
+--- [PHASE: REBUTTAL] ---
+
+[PROSECUTION REBUTTAL]
+Learned Counsel cannot bypass settled law by terming statutory proceedings 'mechanically issued'. Unless the Section 82 proclamation is quashed or set aside by a competent revisional court under Section 397/482 CrPC, it stands valid in the eyes of law. So long as the proclamation subsists, the jurisdictional bar enunciated in Lavesh v. State (NCT of Delhi) and reiterated in Dharamraj directly binds this Court. The petitioners cannot seek discretionary equitable relief under Section 438 CrPC while actively defying judicial warrants.
+
+[DEFENSE REBUTTAL]
+The State cannot hide behind procedural technicalities when basic constitutional liberties are at stake. In Gurbaksh Singh Sibbia v. State of Punjab and Sushila Aggarwal v. State (NCT of Delhi), the Constitution Bench held that Section 438 must be interpreted broadly to prevent harassment and abuse of police powers. The existence of a civil suit pending before the Sub-Judge, First Class, predating the FIR by nine months, conclusively establishes the vindictive motive behind the criminal framing. The petitioners undertake to deposit their passports, report to the investigating officer weekly, and furnish solvent local sureties.
+
+--- [PHASE: CLOSING & PRAYER] ---
+
+[PROSECUTION CLOSING]
+In conclusion, the State respectfully submits that the petitioners have systematically flouted the judicial process, evaded multiple warrants, and are declared absconders under Section 82 CrPC. The charges involve heinous violence against a woman under Section 354B IPC and unlawful assembly under Section 149 IPC. Granting pre-arrest bail would send a perilous signal, intimidate vulnerable witnesses, and derail the recovery of stolen case property. The State prays that the anticipatory bail application be dismissed.
+
+[DEFENSE CLOSING]
+In conclusion, we pray that this Hon'ble Court protect the petitioners from arbitrary custodial detention. The allegations under Section 354B and 379 IPC are entirely uncorroborated by forensic or independent evidence and stem from an admitted civil land dispute. The proclamation under Section 82 CrPC was secured without statutory notice. The petitioners stand ready to abide by any stringent conditions imposed by this Bench under Section 438(2) CrPC. We pray that anticipatory bail be granted in the interest of justice and personal liberty.
+
+
+================================================================================
+CASE 2: Medical Negligence v. Culpable Homicide (Dr. Rahul Sharma Case)
+Statutory Sections: IPC S. 304A, S. 304 Part II, S. 201, S. 120B | CrPC S. 438
+Key Precedents: Jacob Mathew v. State of Punjab; Kusum Sharma v. Batra Hospital
+================================================================================
+
+--- [PHASE: OPENING] ---
+
+[PROSECUTION OPENING STATEMENT]
+May it please the Court. The State opposes pre-arrest bail to the applicant, a senior surgeon accused in an FIR registered under Sections 304 Part II, 201, and 120B of the Indian Penal Code. The deceased was admitted for an elective laparoscopic procedure but suffered catastrophic internal hemorrhage. The applicant knowingly ignored continuous alerts from the intensive care monitoring team, delayed surgical re-exploration by over five hours, and subsequently ordered junior resident doctors to alter the anesthesia flow chart and nursing logs to conceal surgical lapses. This is not simple negligence under Section 304A IPC; it demonstrates conscious knowledge of imminent danger amounting to culpable homicide not amounting to murder under Section 304 Part II IPC. Custodial interrogation is essential to recover original server backup records and prevent witness tampering.
+
+[DEFENSE OPENING STATEMENT]
+May it please the Hon’ble Bench. The defense vehemently submits that the FIR against the applicant is a textbook example of criminalizing an unfortunate medical complication. The applicant holds over 20 years of unblemished surgical experience. As held by the Supreme Court in the landmark ruling of Jacob Mathew v. State of Punjab (2005) 6 SCC 1 and reaffirmed in Kusum Sharma v. Batra Hospital (2010), a medical professional cannot be prosecuted under the penal law unless gross negligence or recklessness of a high degree is prima facie established by an independent medical expert panel. The police registered the FIR under Section 304 Part II IPC arbitrarily to circumvent the safeguards of Section 304A without obtaining the mandatory opinion of a Medical Board. The applicant has preserved and handed over all clinical logs and seeks protection of personal liberty under Section 438 CrPC.
+
+--- [PHASE: ARGUMENT / MERIT EVIDENCE] ---
+
+[PROSECUTION ARGUMENT]
+The protection under Jacob Mathew applies to bona fide professional errors, not to deliberate destruction of evidence under Section 201 IPC. The complainant has placed on record sworn affidavits of two on-duty nursing officers confirming that the applicant verbally instructed them to tear the original medication sheet and substitute a fabricated timeline of post-operative rounds. When an accused doctor manipulates institutional records to mislead the investigation, it crosses into deliberate criminal conduct under Sections 468 and 201 IPC. An independent opinion from the Chief Medical Officer dated 2nd February observes that the surgical site was closed despite ongoing arterial oozing. The applicant's position of administrative authority within the hospital poses an immediate risk of coercion to subordinate staff who are primary witnesses.
+
+[DEFENSE ARGUMENT]
+The prosecution's entire narrative rests on coercion of subordinate staff whose internal statements were extracted under threat of suspension by the hospital management. The post-mortem report clearly notes that death occurred due to disseminated intravascular coagulation (DIC), an unpredictable and fatal hematological complication recognized in international surgical literature. The independent Medical Board constituted by the Directorate of Health Services has not yet submitted its final finding. Under the binding directives in Martin F. D'Souza v. Mohd. Ishfaq (2009), criminal courts and police authorities must not entertain private complaints or arrest doctors without a conclusive Medical Board endorsement. All digital monitoring logs were automatically synced to the hospital's cloud PACS server, rendering physical destruction impossible. Custodial interrogation serves no purpose other than public humiliation of an esteemed medical expert.
+
+--- [PHASE: REBUTTAL & CLOSING] ---
+
+[PROSECUTION CLOSING & PRAYER]
+The State submits that doctors are not above the rule of law. When knowledge of inevitable death is coupled with active fabrication of medical records, Section 304 Part II and Section 201 IPC are fully attracted. To preserve the integrity of electronic evidence and protect junior nursing witnesses from intimidation, custodial interrogation is imperative. Anticipatory bail must be rejected.
+
+[DEFENSE CLOSING & PRAYER]
+The applicant has dedicated his life to healing and saving patients. To subject a doctor to custodial torture and imprisonment without the mandatory Medical Board sanction strikes at the root of the medical profession and violates the constitutional guarantee under Article 21. The applicant undertakes to furnish substantial sureties and cooperate unconditionally with the investigation. We pray that anticipatory bail be allowed.
+
+
+================================================================================
+CASE 3: Corporate Embezzlement & Financial Fraud (PMLA / S. 409 & 420 IPC)
+Statutory Sections: IPC S. 409, S. 420, S. 477A, S. 120B | CrPC S. 438
+Key Precedents: Sanjay Chandra v. CBI; P. Chidambaram v. CBI; Inder Mohan Goswami
+================================================================================
+
+--- [PHASE: OPENING] ---
+
+[PROSECUTION OPENING STATEMENT]
+May it please the Hon’ble Bench. In this multi-crore corporate embezzlement matter, the State opposes pre-arrest bail for the former Managing Director charged under Sections 409, 420, 477A, and 120B IPC. The accused systematically siphoned over 22 crore rupees of shareholder funds through sham transactions with 6 shell entities owned by his domestic associates. Section 409 IPC carries punishment up to life imprisonment for aggravated breach of trust by commercial agents. As held by the Apex Court in P. Chidambaram v. Directorate of Enforcement, economic offenses form a distinct class requiring thorough custodial interrogation to unearth deep-rooted conspiratorial networks and overseas fund trails.
+
+[DEFENSE OPENING STATEMENT]
+Most respectfully submitted. The allegations are born out of a hostile boardroom takeover and commercial disputes currently pending in arbitration before the Singapore International Arbitration Centre (SIAC) and the NCLT. Every single payment referenced in the complaint was ratified by a three-member procurement committee and endorsed by statutory external auditors. As held in Sanjay Chandra v. CBI (2012) 1 SCC 40 and Satender Kumar Antil v. CBI (2022), the primary object of bail is neither punitive nor preventive, and in matters turning entirely on documentary evidence already seized by the investigating agency, pre-trial detention cannot be converted into premature punishment.
+
+--- [PHASE: ARGUMENT & CLOSING] ---
+
+[PROSECUTION ARGUMENT & PRAYER]
+Forensic audit reports reveal that the recipient vendors possessed no physical offices, warehouse infrastructure, or GST clearance, existing purely as circular invoicing vehicles. The applicant has acquired citizenship and business interests in the UAE, presenting a grave flight risk. Economic crimes shatter commercial trust and the economic security of retail investors. We pray that anticipatory bail be firmly rejected.
+
+[DEFENSE ARGUMENT & PRAYER]
+Every document, contract, and bank statement is already in the physical custody of the Serious Fraud Investigation Office (SFIO) and the police. The applicant has deposited his passport with the registry, joined investigation on seven separate dates, and furnished all ledger books. In Inder Mohan Goswami v. State of Uttaranchal, the Supreme Court cautioned against converting purely civil commercial disputes into criminal cases. We pray for anticipatory bail with any stringent condition of periodic appearance.
+
+================================================================================
+                       END OF TESTING ARGUMENTS FILE
+================================================================================
