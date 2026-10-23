@@ -1,7 +1,9 @@
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { updateProfile } from "firebase/auth";
 import { db, auth } from "../firebase";
 import { getStorage } from "firebase/storage";
+import { DEFAULT_AVATAR, isGooglePhoto } from "../data/avatars";
 
 // Default player fields — used to backfill old Firestore docs missing these keys
 const PLAYER_DEFAULTS = {
@@ -38,9 +40,11 @@ export async function getPlayerProfile(uid) {
       "Player";
   }
 
-  // If avatar is null, fall back to photoURL
-  if (!profile.avatar) {
-    profile.avatar = data.photoURL || null;
+  // Never expose a Google account photo as the app's profile avatar.
+  if (!profile.avatar || isGooglePhoto(profile.avatar)) {
+    profile.avatar = !isGooglePhoto(data.photoURL) && data.photoURL
+      ? data.photoURL
+      : DEFAULT_AVATAR;
   }
 
   return profile;
@@ -64,7 +68,13 @@ export async function updatePlayerProfile(uid, updates) {
 
   if (Object.keys(safe).length === 0) return;
 
+  if (safe.avatar) {
+    safe.photoURL = safe.avatar;
+  }
   await updateDoc(doc(db, "users", uid), safe);
+  if (safe.avatar && auth?.currentUser?.uid === uid) {
+    await updateProfile(auth.currentUser, { photoURL: safe.avatar });
+  }
 }
 
 /**
@@ -86,6 +96,9 @@ export async function uploadAvatar(uid, file) {
     avatar: downloadURL,
     photoURL: downloadURL,
   });
+  if (auth?.currentUser?.uid === uid) {
+    await updateProfile(auth.currentUser, { photoURL: downloadURL });
+  }
 
   return downloadURL;
 }

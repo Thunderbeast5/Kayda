@@ -2,13 +2,13 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/12.svg";
 import { useAuth } from "../../context/AuthContext";
+import { DEFAULT_AVATAR } from "../../data/avatars";
 
 export default function LandingNavbar({ scrollToSection }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [failedAvatarUrl, setFailedAvatarUrl] = useState(null);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
@@ -42,18 +42,10 @@ export default function LandingNavbar({ scrollToSection }) {
     await signOut();
   };
 
-  const getInitials = () => {
-    if (userProfile?.firstName) return `${userProfile.firstName[0]}${userProfile.lastName?.[0] || ""}`.toUpperCase();
-    if (currentUser?.displayName) {
-      const parts = currentUser.displayName.split(" ");
-      return `${parts[0]?.[0] || ""}${parts[1]?.[0] || ""}`.toUpperCase();
-    }
-    return currentUser?.email?.[0]?.toUpperCase() || "?";
-  };
-
   const displayName = userProfile?.firstName
     ? `${userProfile.firstName} ${userProfile.lastName || ""}`.trim()
     : currentUser?.displayName || currentUser?.email || "User";
+  const avatarUrl = userProfile?.avatar || DEFAULT_AVATAR;
 
   return (
     <div
@@ -119,13 +111,7 @@ export default function LandingNavbar({ scrollToSection }) {
                 }}
                 className="hover:border-[#D4AF37] hover:shadow-[0_4px_16px_rgba(212,175,55,0.2)]"
               >
-                {currentUser.photoURL && failedAvatarUrl !== currentUser.photoURL ? (
-                  <img src={currentUser.photoURL} alt="avatar" onError={() => setFailedAvatarUrl(currentUser.photoURL)} style={{ width: "30px", height: "30px", borderRadius: "50%", objectFit: "cover" }} />
-                ) : (
-                  <div style={{ width: "30px", height: "30px", borderRadius: "50%", background: "linear-gradient(135deg, #2C1810, #8C5A3C)", display: "flex", alignItems: "center", justifyContent: "center", color: "#D4AF37", fontSize: "11px", fontWeight: 700 }}>
-                    {getInitials()}
-                  </div>
-                )}
+                <img src={avatarUrl} alt="avatar" onError={(event) => { event.currentTarget.src = DEFAULT_AVATAR; }} style={{ width: "30px", height: "30px", borderRadius: "50%", objectFit: "cover" }} />
                 <span style={{ fontSize: "13px", fontWeight: 600, color: "#2C1810", maxWidth: "100px", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
                   {displayName.split(" ")[0]}
                 </span>

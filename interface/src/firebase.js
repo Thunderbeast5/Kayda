@@ -24,7 +24,9 @@ import {
   addDoc,
   deleteDoc,
   serverTimestamp,
+  runTransaction,
 } from "firebase/firestore";
+import { getRandomAvatar, isGooglePhoto } from "./data/avatars";
 
 // Web app's Firebase configuration targeting the existing backend project: mootcourt-d8d89
 const firebaseConfig = {
@@ -72,7 +74,8 @@ if (isConfigured) {
 export async function registerWithEmail({ email, password, firstName, lastName, age, mobile }) {
   if (!auth || !db) throw new Error("Firebase is not configured.");
   const cred = await createUserWithEmailAndPassword(auth, email, password);
-  await updateProfile(cred.user, { displayName: `${firstName} ${lastName}` });
+  const avatar = getRandomAvatar().src;
+  await updateProfile(cred.user, { displayName: `${firstName} ${lastName}`, photoURL: avatar });
   await setDoc(doc(db, "users", cred.user.uid), {
     uid: cred.user.uid,
     email,
@@ -82,8 +85,8 @@ export async function registerWithEmail({ email, password, firstName, lastName, 
     mobile,
     displayName: `${firstName} ${lastName}`,
     display_name: `${firstName} ${lastName}`,
-    photoURL: cred.user.photoURL || null,
-    avatar: cred.user.photoURL || null,
+    photoURL: avatar,
+    avatar,
     rating: 1200,
     games_played: 0,
     wins: 0,
@@ -102,6 +105,7 @@ export async function registerWithEmail({ email, password, firstName, lastName, 
 export async function loginWithEmail(email, password) {
   if (!auth) throw new Error("Firebase is not configured.");
   const cred = await signInWithEmailAndPassword(auth, email, password);
+  await ensureUserAvatar(cred.user);
   return cred.user;
 }
 
@@ -113,33 +117,65 @@ export async function loginWithEmail(email, password) {
 export async function loginWithGoogle() {
   if (!auth || !googleProvider || !db) throw new Error("Firebase is not configured.");
   const cred = await signInWithPopup(auth, googleProvider);
-  // Create Firestore profile if this is a first-time Google sign-in
-  const profileRef = doc(db, "users", cred.user.uid);
-  const snap = await getDoc(profileRef);
-  if (!snap.exists()) {
-    const nameParts = (cred.user.displayName || "").split(" ");
-    await setDoc(profileRef, {
-      uid: cred.user.uid,
-      email: cred.user.email,
-      firstName: nameParts[0] || "",
-      lastName: nameParts.slice(1).join(" ") || "",
-      age: null,
-      mobile: cred.user.phoneNumber || null,
-      displayName: cred.user.displayName || "",
-      display_name: cred.user.displayName || "",
-      photoURL: cred.user.photoURL || null,
-      avatar: cred.user.photoURL || null,
-      rating: 1200,
-      games_played: 0,
-      wins: 0,
-      losses: 0,
-      draws: 0,
-      preferred_role: "defense",
-      createdAt: serverTimestamp(),
-      provider: "google",
-    });
-  }
+  await ensureUserAvatar(cred.user);
   return cred.user;
+}
+
+/**
+ * Create a profile when needed and replace missing or Google-hosted photos with
+ * one of the bundled avatars. Transactions keep concurrent sign-in callbacks
+ * from assigning different defaults to the same account.
+ */
+export async function ensureUserAvatar(user) {
+  if (!db || !user) throw new Error("Firebase is not configured.");
+
+  const profileRef = doc(db, "users", user.uid);
+  const avatar = await runTransaction(db, async (transaction) => {
+    const snap = await transaction.get(profileRef);
+    const profile = snap.exists() ? snap.data() : {};
+    const savedAvatar = [profile.avatar, profile.photoURL, user.photoURL]
+      .find((url) => url && !isGooglePhoto(url));
+    const selectedAvatar = savedAvatar || getRandomAvatar().src;
+
+    const newProfile = snap.exists()
+      ? {}
+      : (() => {
+          const nameParts = (user.displayName || "").split(" ");
+          return {
+            uid: user.uid,
+            email: user.email || "",
+            firstName: nameParts[0] || "",
+            lastName: nameParts.slice(1).join(" ") || "",
+            age: null,
+            mobile: user.phoneNumber || null,
+            displayName: user.displayName || user.email || "",
+            display_name: user.displayName || user.email || "",
+            rating: 1200,
+            games_played: 0,
+            wins: 0,
+            losses: 0,
+            draws: 0,
+            preferred_role: "defense",
+            createdAt: serverTimestamp(),
+            provider: user.providerData?.[0]?.providerId || "unknown",
+          };
+        })();
+
+    if (!snap.exists() || profile.avatar !== selectedAvatar || profile.photoURL !== selectedAvatar) {
+      transaction.set(profileRef, {
+        ...newProfile,
+        avatar: selectedAvatar,
+        photoURL: selectedAvatar,
+      }, { merge: true });
+    }
+    return selectedAvatar;
+  });
+
+  if (user.photoURL !== avatar) {
+    await updateProfile(user, { photoURL: avatar });
+  }
+
+  return avatar;
 }
 
 /**

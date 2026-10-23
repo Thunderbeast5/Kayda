@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { updatePlayerProfile, uploadAvatar, getPlayerProfile } from "../api/playerApi";
 import StandardNavbar from "../components/StandardNavbar";
+import { AVATAR_OPTIONS, DEFAULT_AVATAR } from "../data/avatars";
 
 // ─── Precision Legal Icons ───────────────────────────────────────────────────
 const Icons = {
@@ -247,6 +248,7 @@ export default function ProfilePage() {
   const [editRole, setEditRole] = useState("defense");
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [savingAvatar, setSavingAvatar] = useState(false);
   const [toast, setToast] = useState(null);
   const [dirty, setDirty] = useState(false);
   const [failedAvatarUrl, setFailedAvatarUrl] = useState(null);
@@ -262,7 +264,7 @@ export default function ProfilePage() {
   }, [userId, isOwnProfile]);
 
   const profile = isOwnProfile ? userProfile : otherProfile;
-  const avatarUrl = profile?.avatar || profile?.photoURL || null;
+  const avatarUrl = profile?.avatar || DEFAULT_AVATAR;
 
   useEffect(() => {
     if (isOwnProfile && userProfile) {
@@ -270,15 +272,6 @@ export default function ProfilePage() {
       setEditRole(userProfile.preferred_role || "defense");
     }
   }, [userProfile, isOwnProfile]);
-
-  const getInitials = () => {
-    if (profile?.firstName) return `${profile.firstName[0]}${profile.lastName?.[0] || ""}`.toUpperCase();
-    if (profile?.display_name) {
-      const parts = profile.display_name.split(" ");
-      return `${parts[0]?.[0] || ""}${parts[1]?.[0] || ""}`.toUpperCase();
-    }
-    return profile?.email?.[0]?.toUpperCase() || "J";
-  };
 
   const handleAvatarUpload = async (e) => {
     const file = e.target.files?.[0];
@@ -292,6 +285,19 @@ export default function ProfilePage() {
       showToast("Upload failed");
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleAvatarSelection = async (avatar) => {
+    setSavingAvatar(true);
+    try {
+      await updatePlayerProfile(currentUser.uid, { avatar });
+      await refreshProfile();
+      showToast("Avatar updated");
+    } catch {
+      showToast("Failed to update avatar");
+    } finally {
+      setSavingAvatar(false);
     }
   };
 
@@ -350,18 +356,12 @@ export default function ProfilePage() {
               <div className="flex items-center gap-4">
                 <div className="relative flex-shrink-0">
                   <div className="w-20 h-20 rounded-full border border-[#D4AF37]/40 p-1 bg-white shadow-sm">
-                    {avatarUrl && failedAvatarUrl !== avatarUrl ? (
-                      <img
-                        src={avatarUrl}
-                        alt="Counsel Seal"
-                        onError={() => setFailedAvatarUrl(avatarUrl)}
-                        className="w-full h-full rounded-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full rounded-full bg-gradient-to-br from-[#2C1810] to-[#4A2D20] text-[#D4AF37] flex items-center justify-center font-heading font-bold text-2xl">
-                        {getInitials()}
-                      </div>
-                    )}
+                    <img
+                      src={failedAvatarUrl === avatarUrl ? DEFAULT_AVATAR : avatarUrl}
+                      alt="Counsel Seal"
+                      onError={() => setFailedAvatarUrl(avatarUrl)}
+                      className="w-full h-full rounded-full object-cover"
+                    />
                   </div>
 
                   {isOwnProfile && (
@@ -409,6 +409,35 @@ export default function ProfilePage() {
                   </div>
 
                   <div className="space-y-4">
+                    <div>
+                      <span className="block font-mono text-[10px] uppercase tracking-wider text-[#8C5A3C] mb-2 font-medium">
+                        Profile Avatar
+                      </span>
+                      <div className="flex items-center gap-3">
+                        {AVATAR_OPTIONS.map(({ id, label, src }) => {
+                          const isSelected = profile?.avatar === src;
+                          return (
+                            <button
+                              key={id}
+                              type="button"
+                              onClick={() => handleAvatarSelection(src)}
+                              disabled={savingAvatar || uploading}
+                              aria-label={`Choose ${label}`}
+                              aria-pressed={isSelected}
+                              className={`w-14 h-14 rounded-full border-2 p-0.5 transition-all cursor-pointer disabled:opacity-50 ${
+                                isSelected
+                                  ? "border-[#D4AF37] shadow-[0_0_0_3px_rgba(212,175,55,0.15)]"
+                                  : "border-[#D4AF37]/25 hover:border-[#D4AF37]/70"
+                              }`}
+                            >
+                              <img src={src} alt="" className="w-full h-full rounded-full object-cover" />
+                            </button>
+                          );
+                        })}
+                        {savingAvatar && <span className="font-mono text-[10px] text-[#8C5A3C]">Updating...</span>}
+                      </div>
+                    </div>
+
                     <div>
                       <label htmlFor="dossier-name" className="block font-mono text-[10px] uppercase tracking-wider text-[#8C5A3C] mb-1.5 font-medium">
                         Representation Handle

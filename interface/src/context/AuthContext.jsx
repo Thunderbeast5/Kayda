@@ -2,11 +2,10 @@ import { createContext, useContext, useEffect, useState, useCallback } from "rea
 import {
   subscribeToAuth,
   logoutUser,
+  ensureUserAvatar,
 } from "../firebase";
 import { getPlayerProfile } from "../api/playerApi";
 import { listCases } from "../api/caseApi";
-import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../firebase";
 
 const AuthContext = createContext(null);
 
@@ -17,34 +16,8 @@ export function AuthProvider({ children }) {
 
   const fetchProfile = useCallback(async (uid, user = null) => {
     try {
-      let profile = await getPlayerProfile(uid);
-
-      // If no Firestore profile doc exists (e.g. old email account, or Google user
-      // who registered before the doc-creation logic was added), auto-create a minimal one
-      if (!profile && user && db) {
-        const nameParts = (user.displayName || "").split(" ");
-        await setDoc(doc(db, "users", uid), {
-          uid,
-          email: user.email || "",
-          firstName: nameParts[0] || "",
-          lastName: nameParts.slice(1).join(" ") || "",
-          displayName: user.displayName || user.email || "",
-          display_name: user.displayName || user.email || "",
-          photoURL: user.photoURL || null,
-          avatar: user.photoURL || null,
-          rating: 1200,
-          games_played: 0,
-          wins: 0,
-          losses: 0,
-          draws: 0,
-          preferred_role: "defense",
-          createdAt: serverTimestamp(),
-          provider: user.providerData?.[0]?.providerId || "unknown",
-        });
-        // Re-fetch after creation
-        profile = await getPlayerProfile(uid);
-      }
-
+      if (user) await ensureUserAvatar(user);
+      const profile = await getPlayerProfile(uid);
       setUserProfile(profile);
     } catch (err) {
       console.error("[AuthContext] fetchProfile error:", err);
