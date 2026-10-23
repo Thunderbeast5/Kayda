@@ -26,7 +26,7 @@ import {
   serverTimestamp,
   runTransaction,
 } from "firebase/firestore";
-import { getRandomAvatar, isGooglePhoto } from "./data/avatars";
+import { getAvatarForUser, isGooglePhoto } from "./data/avatars";
 
 // Web app's Firebase configuration targeting the existing backend project: mootcourt-d8d89
 const firebaseConfig = {
@@ -74,7 +74,7 @@ if (isConfigured) {
 export async function registerWithEmail({ email, password, firstName, lastName, age, mobile }) {
   if (!auth || !db) throw new Error("Firebase is not configured.");
   const cred = await createUserWithEmailAndPassword(auth, email, password);
-  const avatar = getRandomAvatar().src;
+  const avatar = getAvatarForUser(cred.user.uid).src;
   await updateProfile(cred.user, { displayName: `${firstName} ${lastName}`, photoURL: avatar });
   await setDoc(doc(db, "users", cred.user.uid), {
     uid: cred.user.uid,
@@ -135,7 +135,7 @@ export async function ensureUserAvatar(user) {
     const profile = snap.exists() ? snap.data() : {};
     const savedAvatar = [profile.avatar, profile.photoURL, user.photoURL]
       .find((url) => url && !isGooglePhoto(url));
-    const selectedAvatar = savedAvatar || getRandomAvatar().src;
+    const selectedAvatar = savedAvatar || getAvatarForUser(user.uid).src;
 
     const newProfile = snap.exists()
       ? {}

@@ -8,8 +8,12 @@ export const AVATAR_OPTIONS = [
 
 export const DEFAULT_AVATAR = AVATAR_OPTIONS[0].src;
 
-export function getRandomAvatar() {
-  return AVATAR_OPTIONS[Math.floor(Math.random() * AVATAR_OPTIONS.length)];
+export function getAvatarForUser(uid) {
+  const hash = Array.from(uid).reduce(
+    (value, character) => (value * 31 + character.charCodeAt(0)) >>> 0,
+    0,
+  );
+  return AVATAR_OPTIONS[hash % AVATAR_OPTIONS.length];
 }
 
 export function isGooglePhoto(url) {
