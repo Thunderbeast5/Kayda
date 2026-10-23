@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { Menu, X, ArrowRight, User, LogOut } from "lucide-react";
+import { ArrowRight, User, LogOut } from "lucide-react";
 import logo from "../../assets/12.svg";
 import { useAuth } from "../../context/AuthContext";
 import { DEFAULT_AVATAR } from "../../data/avatars";
@@ -83,6 +83,14 @@ export default function LandingNavbar({ scrollToSection }) {
     : currentUser?.displayName || currentUser?.email || "User";
   const avatarUrl = userProfile?.avatar || DEFAULT_AVATAR;
 
+  const navLinks = [
+    { label: "Moot Court", path: "/mootcourt-modes" },
+    { label: "Document Suite", path: "/evidence-analyzer" },
+    { label: "LexiGraph", path: "/lexigraph-agent" },
+    { label: "Multiplayer", path: "/multiplayer" },
+    { label: "Pricing", path: "/pricing", sectionId: "pricing" },
+  ];
+
   return (
     <>
       <header
@@ -113,36 +121,15 @@ export default function LandingNavbar({ scrollToSection }) {
 
           {/* Desktop & Laptop Nav Links */}
           <div className="hidden lg:flex items-center gap-6 xl:gap-8 text-[12px] xl:text-[13px] font-bold tracking-[0.08em] uppercase text-[#2C1810]/85">
-            <button
-              onClick={() => navTo("/mootcourt-modes")}
-              className="hover:text-[#8C5A3C] transition-colors cursor-pointer"
-            >
-              Moot Court
-            </button>
-            <button
-              onClick={() => navTo("/evidence-analyzer")}
-              className="hover:text-[#8C5A3C] transition-colors cursor-pointer"
-            >
-              Document Suite
-            </button>
-            <button
-              onClick={() => navTo("/lexigraph-agent")}
-              className="hover:text-[#8C5A3C] transition-colors cursor-pointer"
-            >
-              LexiGraph
-            </button>
-            <button
-              onClick={() => navTo("/multiplayer")}
-              className="hover:text-[#8C5A3C] transition-colors cursor-pointer"
-            >
-              Multiplayer
-            </button>
-            <button
-              onClick={() => navTo("/pricing", "pricing")}
-              className="hover:text-[#8C5A3C] transition-colors cursor-pointer"
-            >
-              Pricing
-            </button>
+            {navLinks.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => navTo(item.path, item.sectionId)}
+                className="hover:text-[#8C5A3C] transition-colors cursor-pointer"
+              >
+                {item.label}
+              </button>
+            ))}
           </div>
 
           {/* Right Area: Auth & Controls */}
@@ -150,40 +137,39 @@ export default function LandingNavbar({ scrollToSection }) {
             {currentUser ? (
               <div ref={dropdownRef} className="relative">
                 <button
-  id="user-avatar-btn"
-  onClick={() => setDropdownOpen((o) => !o)}
-  className="flex items-center gap-1.5 sm:gap-2 border border-[#D4AF37]/50 rounded-full p-1 pr-2 sm:pr-3 hover:border-[#D4AF37] hover:shadow-[0_2px_12px_rgba(212,175,55,0.25)] transition-all cursor-pointer bg-white/60 touch-manipulation"
->
-  <img
-    src={avatarUrl}
-    alt="avatar"
-    onError={(e) => {
-      e.currentTarget.src = DEFAULT_AVATAR;
-    }}
-    className="w-6 h-6 sm:w-7 sm:h-7 rounded-full object-cover shrink-0"
-  />
-  {/* Always visible on mobile, auto-expands on larger screens */}
-  <span className="inline-block text-[11px] sm:text-xs font-semibold text-[#2C1810] max-w-[65px] sm:max-w-[120px] truncate">
-    {displayName.split(" ")[0]}
-  </span>
-  <svg
-    width="11"
-    height="11"
-    viewBox="0 0 12 12"
-    fill="none"
-    className={`text-[#8C5A3C] transition-transform duration-200 shrink-0 ${
-      dropdownOpen ? "rotate-180" : ""
-    }`}
-  >
-    <path
-      d="M2 4l4 4 4-4"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-</button>
+                  id="user-avatar-btn"
+                  onClick={() => setDropdownOpen((o) => !o)}
+                  className="flex items-center gap-1.5 sm:gap-2 border border-[#D4AF37]/50 rounded-full p-1 pr-2 sm:pr-3 hover:border-[#D4AF37] hover:shadow-[0_2px_12px_rgba(212,175,55,0.25)] transition-all cursor-pointer bg-white/60 touch-manipulation"
+                >
+                  <img
+                    src={avatarUrl}
+                    alt="avatar"
+                    onError={(e) => {
+                      e.currentTarget.src = DEFAULT_AVATAR;
+                    }}
+                    className="w-6 h-6 sm:w-7 sm:h-7 rounded-full object-cover shrink-0"
+                  />
+                  <span className="inline-block text-[11px] sm:text-xs font-semibold text-[#2C1810] max-w-[65px] sm:max-w-[120px] truncate">
+                    {displayName.split(" ")[0]}
+                  </span>
+                  <svg
+                    width="11"
+                    height="11"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    className={`text-[#8C5A3C] transition-transform duration-200 shrink-0 ${
+                      dropdownOpen ? "rotate-180" : ""
+                    }`}
+                  >
+                    <path
+                      d="M2 4l4 4 4-4"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </button>
 
                 {dropdownOpen && (
                   <div className="absolute right-0 top-[calc(100%+8px)] bg-white/95 backdrop-blur-xl border border-[#D4AF37]/30 rounded-xl shadow-[0_16px_40px_rgba(44,24,16,0.12)] min-w-[210px] p-2 z-50 animate-dropdown">
@@ -232,75 +218,84 @@ export default function LandingNavbar({ scrollToSection }) {
               </div>
             )}
 
-            {/* Mobile & Tablet Hamburger Toggle */}
+            {/* Animated Morphing Hamburger Button */}
             <button
               id="mobile-menu-trigger"
               onClick={() => setMobileMenuOpen((prev) => !prev)}
               aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-              className="lg:hidden p-1.5 text-[#2C1810] hover:text-[#8C5A3C] hover:bg-[#2C1810]/5 rounded-lg transition-colors cursor-pointer touch-manipulation shrink-0"
+              className="lg:hidden p-2 text-[#2C1810] hover:text-[#8C5A3C] hover:bg-[#2C1810]/5 rounded-lg transition-colors cursor-pointer touch-manipulation shrink-0 flex items-center justify-center w-9 h-9"
             >
-              {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              <div className="relative w-5 h-4 flex flex-col justify-between">
+                <span
+                  className={`h-0.5 w-full bg-current rounded-full transition-all duration-300 ease-in-out origin-center ${
+                    mobileMenuOpen ? "translate-y-[7px] rotate-45" : ""
+                  }`}
+                />
+                <span
+                  className={`h-0.5 w-full bg-current rounded-full transition-all duration-200 ease-in-out ${
+                    mobileMenuOpen ? "opacity-0 scale-x-0" : "opacity-100 scale-x-100"
+                  }`}
+                />
+                <span
+                  className={`h-0.5 w-full bg-current rounded-full transition-all duration-300 ease-in-out origin-center ${
+                    mobileMenuOpen ? "-translate-y-[7px] -rotate-45" : ""
+                  }`}
+                />
+              </div>
             </button>
           </div>
         </nav>
       </header>
 
-      {/* Mobile / Tablet Drawer Backdrop */}
-      {mobileMenuOpen && (
-        <div
-          className="lg:hidden fixed inset-0 z-40 bg-black/40 backdrop-blur-xs transition-opacity duration-300"
-          onClick={() => setMobileMenuOpen(false)}
-        />
-      )}
+      {/* Backdrop with Fade */}
+      <div
+        className={`lg:hidden fixed inset-0 z-40 bg-black/40 backdrop-blur-xs transition-opacity duration-300 ${
+          mobileMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        onClick={() => setMobileMenuOpen(false)}
+      />
 
-      {/* Mobile & Tablet Slide-Down Panel */}
+      {/* Animated Dropdown Panel with Elastic Easing */}
       <div
         ref={mobileMenuRef}
-        className={`lg:hidden fixed inset-x-3 sm:inset-x-6 top-16 sm:top-20 z-50 bg-[#FAF9F7]/95 backdrop-blur-xl border border-[#D4AF37]/35 rounded-2xl shadow-[0_20px_50px_rgba(44,24,16,0.18)] p-5 transition-all duration-300 ease-out origin-top ${
+        className={`lg:hidden fixed inset-x-3 sm:inset-x-6 top-16 sm:top-20 z-50 bg-[#FAF9F7]/95 backdrop-blur-xl border border-[#D4AF37]/35 rounded-2xl shadow-[0_20px_50px_rgba(44,24,16,0.18)] p-5 transition-all duration-300 origin-top ${
           mobileMenuOpen
-            ? "opacity-100 scale-100 pointer-events-auto"
-            : "opacity-0 scale-95 pointer-events-none"
+            ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 scale-95 -translate-y-3 pointer-events-none"
         }`}
+        style={{
+          transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+        }}
       >
-        <div className="flex flex-col gap-2">
-          <button
-            onClick={() => navTo("/mootcourt-modes")}
-            className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg text-sm font-bold tracking-wide uppercase text-[#2C1810] hover:bg-[#D4AF37]/10 transition-colors text-left"
-          >
-            <span>Moot Court</span>
-            <ArrowRight size={14} className="text-[#8C5A3C]" />
-          </button>
-          <button
-            onClick={() => navTo("/evidence-analyzer")}
-            className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg text-sm font-bold tracking-wide uppercase text-[#2C1810] hover:bg-[#D4AF37]/10 transition-colors text-left"
-          >
-            <span>Document Suite</span>
-            <ArrowRight size={14} className="text-[#8C5A3C]" />
-          </button>
-          <button
-            onClick={() => navTo("/lexigraph-agent")}
-            className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg text-sm font-bold tracking-wide uppercase text-[#2C1810] hover:bg-[#D4AF37]/10 transition-colors text-left"
-          >
-            <span>LexiGraph</span>
-            <ArrowRight size={14} className="text-[#8C5A3C]" />
-          </button>
-          <button
-            onClick={() => navTo("/multiplayer")}
-            className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg text-sm font-bold tracking-wide uppercase text-[#2C1810] hover:bg-[#D4AF37]/10 transition-colors text-left"
-          >
-            <span>Multiplayer</span>
-            <ArrowRight size={14} className="text-[#8C5A3C]" />
-          </button>
-          <button
-            onClick={() => navTo("/pricing", "pricing")}
-            className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg text-sm font-bold tracking-wide uppercase text-[#2C1810] hover:bg-[#D4AF37]/10 transition-colors text-left"
-          >
-            <span>Pricing</span>
-            <ArrowRight size={14} className="text-[#8C5A3C]" />
-          </button>
+        <div className="flex flex-col gap-1.5">
+          {navLinks.map((item, index) => (
+            <button
+              key={item.label}
+              onClick={() => navTo(item.path, item.sectionId)}
+              style={{
+                transitionDelay: mobileMenuOpen ? `${index * 45}ms` : "0ms",
+              }}
+              className={`group flex items-center justify-between w-full px-3 py-2.5 rounded-lg text-sm font-bold tracking-wide uppercase text-[#2C1810] hover:bg-[#D4AF37]/10 transition-all duration-200 text-left ${
+                mobileMenuOpen ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-2"
+              }`}
+            >
+              <span>{item.label}</span>
+              <ArrowRight
+                size={14}
+                className="text-[#8C5A3C] transition-transform duration-200 group-hover:translate-x-1"
+              />
+            </button>
+          ))}
 
           {!currentUser && (
-            <div className="pt-3 mt-1 border-t border-[#D4AF37]/25 flex flex-col gap-2">
+            <div
+              style={{
+                transitionDelay: mobileMenuOpen ? `${navLinks.length * 45}ms` : "0ms",
+              }}
+              className={`pt-3 mt-1 border-t border-[#D4AF37]/25 flex flex-col gap-2 transition-all duration-200 ${
+                mobileMenuOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+              }`}
+            >
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
