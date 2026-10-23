@@ -39,43 +39,15 @@ from .statute_repository import StatuteRepository
 
 # ---------------------------------------------------------------------------
 # Closed list of offence families shown to the Stage 1 LLM.
-# Keys are the category codes produced by offence_taxonomy.ipc_categories (IPC chapter structure);
-# descriptions are generic legal descriptions of the family, not of any case.
+# Import registry from offence_taxonomy, which has the canonical list with
+# describes, use_when, not_for fields. Build backward-compatible dict for validation.
 # ---------------------------------------------------------------------------
+from .offence_taxonomy import IPC_FAMILY_REGISTRY
+
+# Build validation set of valid family codes from the registry
 OFFENCE_FAMILIES: Dict[str, str] = {
-    "HOMICIDE": "causing death: murder, culpable homicide, death by rash or negligent act, dowry death, abetment of suicide, attempt to murder",
-    "HURT": "causing bodily pain, injury or grievous hurt, including with weapons, acid or dangerous means; endangering life or personal safety",
-    "RESTRAINT_ASSAULT": "wrongful restraint or confinement, criminal force, assault, outraging the modesty of a woman",
-    "SEXUAL_OFFENCE": "rape and sexual assault, sexual harassment, voyeurism, stalking",
-    "KIDNAPPING_TRAFFICKING": "kidnapping, abduction, trafficking, wrongful concealment of a kidnapped person",
-    "MISCARRIAGE_CHILD": "causing miscarriage, injury to unborn child, exposure or abandonment of a child",
-    "THEFT": "dishonestly taking movable property out of another's possession",
-    "EXTORTION": "obtaining property by putting a person in fear of injury",
-    "ROBBERY_DACOITY": "theft or extortion with violence or threat of instant violence, by one person or a gang",
-    "MISAPPROPRIATION_BREACH_OF_TRUST": "dishonest misappropriation of property, criminal breach of trust by an entrusted person",
-    "STOLEN_PROPERTY": "receiving or retaining stolen property",
-    "CHEATING": "deceiving a person to deliver property or to act to their harm, including by personation",
-    "FRAUDULENT_TRANSFER": "fraudulent deeds and dispositions of property, removal or concealment of property to defeat creditors",
-    "MISCHIEF": "destroying or damaging property, including by fire or explosive",
-    "TRESPASS": "entering or remaining on property or in a house in another's possession with intent to commit an offence, intimidate, insult or annoy",
-    "FORGERY": "making a false document or electronic record, forgery, using a forged document as genuine, falsification of accounts",
-    "TRADEMARK_CURRENCY": "false property or trade marks, counterfeit currency or bank notes",
-    "FALSE_EVIDENCE_JUSTICE": "false evidence, fabricating evidence, destroying evidence or documents, false information about an offence, screening an offender, offences against public justice",
-    "CONTEMPT_OF_AUTHORITY": "disobeying or obstructing public servants, absconding from summons, false statements to public servants",
-    "CORRUPTION": "offences by or relating to public servants, bribery, election offences",
-    "PUBLIC_ORDER": "unlawful assembly, rioting, affray, promoting enmity between groups",
-    "PUBLIC_HEALTH_SAFETY_NUISANCE": "spreading infectious disease, adulteration of food or drugs, rash driving, dangerous handling of fire, poison or explosives, obscenity, public nuisance",
-    "RELIGION": "injuring places of worship, outraging religious feelings, disturbing religious assembly",
-    "MARRIAGE_CRUELTY": "cruelty to a wife by husband or relatives, dowry harassment",
-    "MARRIAGE_RELATED": "bigamy, deceitful marriage, adultery-related offences",
-    "DEFAMATION": "making or publishing imputations harming a person's reputation",
-    "INTIMIDATION_INSULT": "criminal intimidation by threats, intentional insult to provoke breach of peace, words or gestures insulting a woman's modesty",
-    "OFFENCE_AGAINST_STATE": "waging war, sedition, offences against the State",
-    "COUNTERFEIT_COIN_STAMPS": "counterfeiting coins or government stamps",
-    "ABETMENT": "instigating, engaging in a conspiracy for, or intentionally aiding another's offence",
-    "CONSPIRACY": "agreement between two or more persons to commit an offence or an illegal act",
-    "COMMON_INTENTION": "an act done by several persons in furtherance of their common intention",
-    "ATTEMPT": "attempting to commit an offence",
+    code: entry.get("describes", "") 
+    for code, entry in IPC_FAMILY_REGISTRY.items()
 }
 
 _TIERS = {"PRIMARY", "SECONDARY", "CONDITIONAL"}
@@ -84,8 +56,28 @@ _GENERIC_PUNISHMENT_SECTIONS = {"2", "3", "72", "511"}
 
 
 def family_prompt_block() -> str:
-    """Compact closed-list block injected into the Stage 1 prompt (~350 tokens)."""
-    return "\n".join(f"- {code}: {desc}" for code, desc in OFFENCE_FAMILIES.items())
+    """
+    Format IPC_FAMILY_REGISTRY for Stage 1 family proposal prompt.
+    Shows: family code, describes (conduct language), use_when (guidance).
+    Excludes: not_for fields (definitional chapters discouraged).
+    """
+    lines = []
+    for code, entry in IPC_FAMILY_REGISTRY.items():
+        sections = entry.get("sections", "")
+        describes = entry.get("describes", "")
+        use_when = entry.get("use_when", "")
+        
+        # Format: CODE (sections): describes. Use when: use_when
+        parts = [f"- {code}"]
+        if sections:
+            parts.append(f" ({sections})")
+        parts.append(f": {describes}")
+        if use_when:
+            parts.append(f" | Use when: {use_when}")
+        
+        lines.append("".join(parts))
+    
+    return "\n".join(lines)
 
 
 def _norm_ws(text: str) -> str:
@@ -150,6 +142,554 @@ def validate_decomposition(narrative: str, facts: Iterable[Any], families: Itera
                               ungrounded_fact_ids=ungrounded, invalid_families=invalid,
                               uncovered_fact_ids=uncovered)
 
+
+# ---------------------------------------------------------------------------
+# Evidence-backed offence-family gate
+# ---------------------------------------------------------------------------
+# Each entry maps a family code to a list of trigger-rule dicts.
+# A family is SUPPORTED if ANY of its rules match (OR logic across rules;
+# AND logic within a rule when multiple "keywords" are supplied).
+# Keyword matching is case-insensitive, whole-word aware.
+#
+# trigger_rule keys:
+#   keywords   – all must appear in the combined verbatim quotes of the family's
+#                cited facts (AND within a rule; OR across multiple rules).
+#   description – human-readable explanation used in the "reason" field.
+#
+# Families that are naturally derivable from any factual allegation (e.g.
+# ATTEMPT, ABETMENT, CONSPIRACY, COMMON_INTENTION) and families whose trigger
+# is already enforced structurally (e.g. two actors for COMMON_INTENTION) are
+# given a single pass-through rule so they are never incorrectly blocked.
+# ---------------------------------------------------------------------------
+FAMILY_TRIGGER_RULES: Dict[str, List[Dict[str, Any]]] = {
+    # ── Offences against the body ──────────────────────────────────────────
+    "HOMICIDE": [
+        {"keywords": ["death"], "description": "allegation of death"},
+        {"keywords": ["died"], "description": "allegation that a person died"},
+        {"keywords": ["kill"], "description": "allegation of killing"},
+        {"keywords": ["murder"], "description": "allegation of murder"},
+        {"keywords": ["dead"], "description": "allegation that a person is dead"},
+        {"keywords": ["cause death"], "description": "allegation of causing death"},
+    ],
+    "HURT": [
+        {"keywords": ["hurt"], "description": "allegation of hurt"},
+        {"keywords": ["injur"], "description": "allegation of injury"},
+        {"keywords": ["wound"], "description": "allegation of wounding"},
+        {"keywords": ["beat"], "description": "allegation of beating"},
+        {"keywords": ["struck"], "description": "allegation of striking"},
+        {"keywords": ["pain"], "description": "allegation of causing pain"},
+        {"keywords": ["fracture"], "description": "allegation of fracture"},
+        {"keywords": ["bleed"], "description": "allegation of bleeding"},
+        {"keywords": ["hit"], "description": "allegation of hitting"},
+    ],
+    "RESTRAINT_ASSAULT": [
+        {"keywords": ["restrain"], "description": "allegation of physical restraint"},
+        {"keywords": ["confin"], "description": "allegation of wrongful confinement"},
+        {"keywords": ["assault"], "description": "allegation of assault"},
+        {"keywords": ["criminal force"], "description": "allegation of criminal force"},
+        {"keywords": ["outraging modesty"], "description": "allegation of outraging modesty"},
+        {"keywords": ["grabbed"], "description": "allegation of grabbing"},
+        {"keywords": ["detain"], "description": "allegation of wrongful detention"},
+        {"keywords": ["held"], "description": "allegation of physical detention"},
+        {"keywords": ["push"], "description": "allegation of pushing"},
+    ],
+    "SEXUAL_OFFENCE": [
+        # Rape / sexual assault
+        {"keywords": ["rape"], "description": "allegation of rape"},
+        {"keywords": ["sexual"], "description": "allegation of a sexual act or sexually coloured conduct"},
+        {"keywords": ["molest"], "description": "allegation of molestation"},
+        {"keywords": ["intercourse"], "description": "allegation of sexual intercourse"},
+        {"keywords": ["penetrat"], "description": "allegation of penetrative assault"},
+        # Harassment / outraging modesty (s. 354, 354A, 509)
+        {"keywords": ["sexual harass"], "description": "allegation of sexual harassment"},
+        {"keywords": ["inappropriate message"], "description": "allegation of inappropriate messages or communication"},
+        {"keywords": ["inappropriate remark"], "description": "allegation of inappropriate remarks"},
+        {"keywords": ["inappropriate", "contact"], "description": "allegation of inappropriate contact"},
+        {"keywords": ["inappropriate", "message"], "description": "allegation of inappropriate messaging"},
+        {"keywords": ["unwelcome", "message"], "description": "allegation of unwelcome messages"},
+        {"keywords": ["unwelcome", "contact"], "description": "allegation of unwelcome contact"},
+        {"keywords": ["unwelcome", "advance"], "description": "allegation of unwelcome advances"},
+        {"keywords": ["modesty"], "description": "allegation relating to modesty of a woman"},
+        {"keywords": ["obscene"], "description": "allegation of obscene communication or acts"},
+        {"keywords": ["vulgar"], "description": "allegation of vulgar communication or gestures"},
+        {"keywords": ["lewd"], "description": "allegation of lewd behavior"},
+        {"keywords": ["indecent"], "description": "allegation of indecent communication or acts"},
+        {"keywords": ["gesture", "woman"], "description": "allegation of offensive gesture to a woman"},
+        # Stalking / electronic contact (s. 354D)
+        {"keywords": ["stalk"], "description": "allegation of stalking"},
+        {"keywords": ["repeatedly contact"], "description": "allegation of repeatedly contacting a person"},
+        {"keywords": ["repeatedly", "contact"], "description": "allegation of repeated contact"},
+        {"keywords": ["contact", "social media"], "description": "allegation of contact through social media"},
+        {"keywords": ["contact", "personal relationship"], "description": "allegation of attempting contact to foster personal relationship"},
+        {"keywords": ["contact", "personal interaction"], "description": "allegation of contact to foster personal interaction"},
+        {"keywords": ["follow", "woman"], "description": "allegation of following a woman"},
+        {"keywords": ["monitor", "internet"], "description": "allegation of monitoring internet or electronic communication"},
+        {"keywords": ["monitor", "social media"], "description": "allegation of monitoring social media"},
+        {"keywords": ["electronic communication", "woman"], "description": "allegation of monitoring electronic communication of a woman"},
+        # Voyeurism (s. 354C)
+        {"keywords": ["voyeur"], "description": "allegation of voyeurism"},
+        {"keywords": ["private act"], "description": "allegation of capturing or viewing private acts"},
+        {"keywords": ["photograph", "private"], "description": "allegation of capturing private photographs"},
+        {"keywords": ["filming", "private"], "description": "allegation of recording or filming private acts"},
+    ],
+    "KIDNAPPING_TRAFFICKING": [
+        {"keywords": ["kidnap"], "description": "allegation of kidnapping"},
+        {"keywords": ["abduct"], "description": "allegation of abduction"},
+        {"keywords": ["trafficking"], "description": "allegation of trafficking"},
+        {"keywords": ["taken away"], "description": "allegation of taking a person away"},
+        {"keywords": ["lured"], "description": "allegation of luring a person"},
+        {"keywords": ["enticed"], "description": "allegation of enticing a person"},
+        {"keywords": ["induced"], "description": "allegation of inducing a person to go"},
+        {"keywords": ["took away"], "description": "allegation of taking a person away"},
+        {"keywords": ["taken from"], "description": "allegation of taking from lawful custody"},
+    ],
+    "MISCARRIAGE_CHILD": [
+        {"keywords": ["miscarriage"], "description": "allegation of causing miscarriage"},
+        {"keywords": ["unborn"], "description": "allegation of injury to unborn child"},
+        {"keywords": ["foetus"], "description": "allegation relating to a foetus"},
+        {"keywords": ["fetus"], "description": "allegation relating to a fetus"},
+        {"keywords": ["abandon"], "description": "allegation of child abandonment"},
+        {"keywords": ["infant"], "description": "allegation relating to an infant"},
+    ],
+    # ── Property offences ──────────────────────────────────────────────────
+    "THEFT": [
+        {"keywords": ["theft"], "description": "allegation of theft"},
+        {"keywords": ["stolen"], "description": "allegation of stolen property"},
+        {"keywords": ["stole"], "description": "allegation of stealing"},
+        {"keywords": ["dishonestly took"], "description": "allegation of dishonest taking"},
+        {"keywords": ["missing property"], "description": "allegation of missing property"},
+    ],
+    "EXTORTION": [
+        {"keywords": ["extort"], "description": "allegation of extortion"},
+        {"keywords": ["coerce"], "description": "allegation of coercion to deliver property"},
+    ],
+    "ROBBERY_DACOITY": [
+        {"keywords": ["robbery"], "description": "allegation of robbery"},
+        {"keywords": ["dacoity"], "description": "allegation of dacoity"},
+        {"keywords": ["rob"], "description": "allegation of robbing"},
+        {"keywords": ["loot"], "description": "allegation of looting"},
+    ],
+    "MISAPPROPRIATION_BREACH_OF_TRUST": [
+        {"keywords": ["misappropriat"], "description": "allegation of misappropriation"},
+        {"keywords": ["breach of trust"], "description": "allegation of criminal breach of trust"},
+        {"keywords": ["embezzl"], "description": "allegation of embezzlement"},
+        {"keywords": ["entrust"], "description": "allegation of breach of an entrusted relationship"},
+    ],
+    "STOLEN_PROPERTY": [
+        {"keywords": ["stolen property"], "description": "allegation of receiving stolen property"},
+        {"keywords": ["receiving stolen"], "description": "allegation of receiving stolen goods"},
+        {"keywords": ["dishonestly receiv"], "description": "allegation of dishonestly receiving property"},
+    ],
+    "CHEATING": [
+        {"keywords": ["cheat"], "description": "allegation of cheating"},
+        {"keywords": ["deceiv"], "description": "allegation of deception"},
+        {"keywords": ["fraud"], "description": "allegation of fraud"},
+        {"keywords": ["false representation"], "description": "allegation of false representation"},
+        {"keywords": ["misrepresent"], "description": "allegation of misrepresentation"},
+        {"keywords": ["induced to deliver"], "description": "allegation of inducing delivery of property"},
+    ],
+    "FRAUDULENT_TRANSFER": [
+        {"keywords": ["fraudulent transfer"], "description": "allegation of fraudulent transfer"},
+        {"keywords": ["fraudulent deed"], "description": "allegation of fraudulent deed"},
+        {"keywords": ["defeat creditor"], "description": "allegation of defeating creditors"},
+    ],
+    "MISCHIEF": [
+        {"keywords": ["damage"], "description": "allegation of damaging property"},
+        {"keywords": ["destroy"], "description": "allegation of destroying property"},
+        {"keywords": ["demolish"], "description": "allegation of demolishing property"},
+        {"keywords": ["mischief"], "description": "allegation of mischief"},
+    ],
+    "TRESPASS": [
+        {"keywords": ["trespass"], "description": "allegation of trespass"},
+        {"keywords": ["broke in"], "description": "allegation of breaking in"},
+        {"keywords": ["unlawfully enter"], "description": "allegation of unlawful entry"},
+    ],
+    # ── Documentation & evidence ───────────────────────────────────────────
+    "FORGERY": [
+        {"keywords": ["forgery"], "description": "allegation of forgery"},
+        {"keywords": ["forged"], "description": "allegation of a forged document"},
+        {"keywords": ["false document"], "description": "allegation of a false document"},
+        {"keywords": ["fake document"], "description": "allegation of a fake document"},
+        {"keywords": ["fabricated document"], "description": "allegation of a fabricated document"},
+        {"keywords": ["falsification"], "description": "allegation of falsification of records"},
+    ],
+    "TRADEMARK_CURRENCY": [
+        {"keywords": ["counterfeit currency"], "description": "allegation of counterfeit currency"},
+        {"keywords": ["fake currency"], "description": "allegation of fake currency"},
+        {"keywords": ["fake note"], "description": "allegation of fake currency notes"},
+        {"keywords": ["false trademark"], "description": "allegation of a false trade mark"},
+    ],
+    "FALSE_EVIDENCE_JUSTICE": [
+        {"keywords": ["false evidence"], "description": "allegation of giving false evidence"},
+        {"keywords": ["fabricat"], "description": "allegation of fabricating evidence"},
+        {"keywords": ["destroy evidence"], "description": "allegation of destroying evidence"},
+        {"keywords": ["screen offender"], "description": "allegation of screening an offender"},
+        {"keywords": ["perjury"], "description": "allegation of perjury"},
+    ],
+    # ── Persons, authority & public order ──────────────────────────────────
+    "CONTEMPT_OF_AUTHORITY": [
+        {"keywords": ["disobey"], "description": "allegation of disobeying a public servant"},
+        {"keywords": ["obstruct"], "description": "allegation of obstructing a public servant"},
+        {"keywords": ["absconding"], "description": "allegation of absconding"},
+        {"keywords": ["disobeyed summons"], "description": "allegation of disobeying a summons"},
+    ],
+    "CORRUPTION": [
+        {"keywords": ["brib"], "description": "allegation of bribery"},
+        {"keywords": ["corrupt"], "description": "allegation of corruption"},
+        {"keywords": ["gratif"], "description": "allegation of illegal gratification"},
+        {"keywords": ["election offence"], "description": "allegation of an election offence"},
+    ],
+    "PUBLIC_ORDER": [
+        {"keywords": ["riot"], "description": "allegation of rioting"},
+        {"keywords": ["unlawful assembly"], "description": "allegation of unlawful assembly"},
+        {"keywords": ["affray"], "description": "allegation of affray"},
+        {"keywords": ["communal"], "description": "allegation of communal offence"},
+    ],
+    "PUBLIC_HEALTH_SAFETY_NUISANCE": [
+        {"keywords": ["disease"], "description": "allegation of spreading disease"},
+        {"keywords": ["infection"], "description": "allegation of spreading infection"},
+        {"keywords": ["adulterat"], "description": "allegation of adulteration"},
+        {"keywords": ["rash driving"], "description": "allegation of rash driving"},
+        {"keywords": ["nuisance"], "description": "allegation of public nuisance"},
+        {"keywords": ["hazardous"], "description": "allegation of creating a hazard"},
+    ],
+    "RELIGION": [
+        {"keywords": ["religion"], "description": "allegation of a religion-related offence"},
+        {"keywords": ["place of worship"], "description": "allegation of offence against a place of worship"},
+        {"keywords": ["religious feeling"], "description": "allegation of outraging religious feelings"},
+    ],
+    "MARRIAGE_CRUELTY": [
+        {"keywords": ["cruelty"], "description": "allegation of cruelty"},
+        {"keywords": ["dowry"], "description": "allegation of dowry harassment or demand"},
+        {"keywords": ["harass"], "description": "allegation of harassment"},
+        {"keywords": ["domestic violence"], "description": "allegation of domestic violence"},
+        {"keywords": ["498a"], "description": "reference to Section 498A"},
+    ],
+    "MARRIAGE_RELATED": [
+        {"keywords": ["bigamy"], "description": "allegation of bigamy"},
+        {"keywords": ["second marriage"], "description": "allegation of a second marriage"},
+        {"keywords": ["deceitful marriage"], "description": "allegation of deceitful marriage"},
+        {"keywords": ["adultery"], "description": "allegation of adultery"},
+    ],
+    "DEFAMATION": [
+        {"keywords": ["defamation"], "description": "allegation of defamation"},
+        {"keywords": ["reputation"], "description": "allegation of harming reputation"},
+        {"keywords": ["imputation"], "description": "allegation of defamatory imputation"},
+        {"keywords": ["libel"], "description": "allegation of libel"},
+        {"keywords": ["slander"], "description": "allegation of slander"},
+    ],
+    "INTIMIDATION_INSULT": [
+        {"keywords": ["intimidat"], "description": "allegation of criminal intimidation"},
+        {"keywords": ["threat"], "description": "allegation of threatening conduct"},
+        {"keywords": ["criminal intimidation"], "description": "allegation of criminal intimidation"},
+        {"keywords": ["insult"], "description": "allegation of intentional insult"},
+        {"keywords": ["inappropriate message"], "description": "allegation of inappropriate or offensive messages"},
+        {"keywords": ["inappropriate", "message"], "description": "allegation of inappropriate messaging"},
+        {"keywords": ["offensive message"], "description": "allegation of offensive messages"},
+        {"keywords": ["modesty"], "description": "allegation of insulting modesty of a woman"},
+        {"keywords": ["privacy"], "description": "allegation of intruding upon privacy"},
+        {"keywords": ["gesture"], "description": "allegation of offensive word, gesture or act"},
+        {"keywords": ["abusive"], "description": "allegation of abusive words or communication"},
+        {"keywords": ["harass"], "description": "allegation of harassment through communication"},
+    ],
+    "OFFENCE_AGAINST_STATE": [
+        {"keywords": ["sedition"], "description": "allegation of sedition"},
+        {"keywords": ["waging war"], "description": "allegation of waging war against the state"},
+        {"keywords": ["treason"], "description": "allegation of treason"},
+    ],
+    "COUNTERFEIT_COIN_STAMPS": [
+        {"keywords": ["counterfeit coin"], "description": "allegation of counterfeiting coins"},
+        {"keywords": ["government stamp"], "description": "allegation of counterfeiting government stamps"},
+        {"keywords": ["counterfeit stamp"], "description": "allegation of counterfeiting stamps"},
+    ],
+    # ── Structural / derivative families (always pass-through if fact_ids exist) ──
+    "ABETMENT": [
+        {"keywords": [], "description": "abetment is structurally derived from the primary offence facts"},
+    ],
+    "CONSPIRACY": [
+        {"keywords": [], "description": "conspiracy is structurally derived from the primary offence facts"},
+    ],
+    "COMMON_INTENTION": [
+        {"keywords": [], "description": "common intention is structurally derived from joint-actor facts"},
+    ],
+    "ATTEMPT": [
+        {"keywords": [], "description": "attempt is structurally derived from the primary offence facts"},
+    ],
+}
+
+
+
+def _kw_present(keyword: str, combined_text: str) -> bool:
+    """Case-insensitive substring presence check (no full-word boundary needed for root forms)."""
+    return keyword.lower() in combined_text
+
+
+def _family_trigger_satisfied(family_code: str, text: str) -> bool:
+    """Returns True if text satisfies at least one factual trigger rule for family_code."""
+    code = str(family_code or "").strip().upper()
+    rules = FAMILY_TRIGGER_RULES.get(code)
+    if rules is None:
+        return True
+    if all(not r.get("keywords") for r in rules):
+        return True
+    low_text = str(text or "").lower()
+    for rule in rules:
+        kws = rule.get("keywords", [])
+        if all(_kw_present(kw, low_text) for kw in kws):
+            return True
+    return False
+
+
+@dataclass
+class FamilyGateResult:
+    supported: List[Any] = field(default_factory=list)    # status=SUPPORTED (all key elements evidenced)
+    contingent: List[Any] = field(default_factory=list)   # status=CONTINGENT (plausible, carries unresolved_elements)
+    unsupported: List[Any] = field(default_factory=list)  # status=UNSUPPORTED (contradicted / unrelated, blocked)
+    gate_notes: List[str] = field(default_factory=list)
+
+
+def _set_gate(fam: Any, *, satisfied: bool, status: str, reason: str, unresolved: Optional[List[str]] = None) -> None:
+    """Mutates the family object (Pydantic model or dict) with gate verdict fields."""
+    if hasattr(fam, "trigger_satisfied"):
+        fam.trigger_satisfied = satisfied
+        fam.status = status
+        fam.reason = reason
+        if unresolved and hasattr(fam, "unresolved_elements"):
+            existing = set(getattr(fam, "unresolved_elements", []) or [])
+            fam.unresolved_elements = list(existing | set(unresolved))
+        if status == "CONTINGENT" and hasattr(fam, "tier"):
+            fam.tier = "CONDITIONAL"
+    elif isinstance(fam, dict):
+        fam["trigger_satisfied"] = satisfied
+        fam["status"] = status
+        fam["reason"] = reason
+        if unresolved:
+            existing = set(fam.get("unresolved_elements") or [])
+            fam["unresolved_elements"] = list(existing | set(unresolved))
+        if status == "CONTINGENT":
+            fam["tier"] = "CONDITIONAL"
+
+
+def _run_element_gate_llm(llm: Any, facts: List[Any], families: List[Any], narrative: str) -> Dict[str, Dict[str, Any]]:
+    """Calls LLM with STAGE1_ELEMENT_GATE_SYSTEM_PROMPT to evaluate proposed families against statutory elements."""
+    from .prompts import STAGE1_ELEMENT_GATE_SYSTEM_PROMPT
+    from .config import extract_json_from_text
+    from langchain_core.messages import SystemMessage, HumanMessage
+
+    facts_text = "\n".join(
+        f"  - [{_obj(f, 'fact_id', '')}]: \"{_obj(f, 'verbatim_quote', '') or _obj(f, 'description', '')}\""
+        for f in facts
+    )
+    fam_text = "\n".join(
+        f"  - Family: {str(_obj(fam, 'family', '')).upper()} (cited facts: {', '.join(map(str, _obj(fam, 'fact_ids', []) or []))}; phrase: \"{_obj(fam, 'conduct_phrase', '')}\")"
+        for fam in families
+    )
+    user_msg = f"NARRATIVE:\n{narrative}\n\nFACTUAL ALLEGATIONS:\n{facts_text}\n\nPROPOSED OFFENCE FAMILIES:\n{fam_text}\n\nEvaluate each proposed family against its statutory elements."
+    resp = llm.invoke([
+        SystemMessage(content=STAGE1_ELEMENT_GATE_SYSTEM_PROMPT),
+        HumanMessage(content=user_msg)
+    ])
+    raw = resp.content if hasattr(resp, "content") else str(resp)
+    parsed = extract_json_from_text(raw)
+    evals = parsed.get("evaluations") or [] if isinstance(parsed, dict) else []
+    out = {}
+    for ev in evals:
+        if isinstance(ev, dict) and "family" in ev:
+            out[str(ev["family"]).strip().upper()] = ev
+    return out
+
+
+def gate_families(
+    facts: Iterable[Any],
+    families: Iterable[Any],
+    narrative: str = "",
+    llm: Optional[Any] = None,
+) -> FamilyGateResult:
+    """
+    Evidence-backed Statutory Element Entailment Gate.
+
+    1. Programmatic Substring Grounding:
+       Verifies that each cited verbatim_quote is a valid substring of the case narrative,
+       and populates start_char and end_char.
+
+    2. Three-State Element Entailment Check:
+       Evaluates whether the cited facts plausibly satisfy any limb of the family's sections:
+       - SUPPORTED: all key elements are evidenced.
+       - CONTINGENT: the family is plausible but some elements are unknown. Pass it through carrying unresolved_elements.
+       - UNSUPPORTED: block it only when the facts contradict it or are unrelated.
+    """
+    facts = list(facts or [])
+    families = list(families or [])
+    result = FamilyGateResult()
+
+    # 1. Programmatic verbatim substring check and character span population
+    if narrative:
+        for f in facts:
+            quote = str(_obj(f, "verbatim_quote") or "").strip()
+            if quote:
+                idx = narrative.find(quote)
+                if idx == -1:
+                    idx = narrative.lower().find(quote.lower())
+                if idx != -1:
+                    if hasattr(f, "start_char"):
+                        f.start_char = idx
+                        f.end_char = idx + len(quote)
+                    elif isinstance(f, dict):
+                        f["start_char"] = idx
+                        f["end_char"] = idx + len(quote)
+
+    if not families:
+        return result
+
+    # 2. Element entailment check via LLM if available
+    evaluations: Dict[str, Dict[str, Any]] = {}
+    if llm is not None:
+        try:
+            evaluations = _run_element_gate_llm(llm, facts, families, narrative)
+        except Exception as e:
+            result.gate_notes.append(f"[gate] LLM element gate error: {e}, using deterministic evaluation.")
+            evaluations = {}
+
+    fact_text: Dict[str, str] = {}
+    for f in facts:
+        fid = str(_obj(f, "fact_id", ""))
+        text = str(_obj(f, "verbatim_quote") or _obj(f, "description") or "").lower()
+        fact_text[fid] = text
+
+    for fam in families:
+        code = str(_obj(fam, "family", "")).strip().upper()
+        refs = [str(x) for x in (_obj(fam, "fact_ids", []) or [])]
+        combined = " ".join(fact_text.get(r, "") for r in refs).strip().lower()
+        phrase = str(_obj(fam, "conduct_phrase", "") or "").lower()
+        full_context = (combined + " " + phrase + " " + (narrative or "").lower()).strip()
+
+        # Check if LLM returned a valid evaluation
+        if code in evaluations:
+            ev = evaluations[code]
+            status = str(ev.get("status", "SUPPORTED")).upper()
+            reason = str(ev.get("reason", ""))
+            unresolved = list(ev.get("unresolved_elements") or [])
+            if status == "SUPPORTED":
+                _set_gate(fam, satisfied=True, status="SUPPORTED", reason=reason)
+                result.supported.append(fam)
+            elif status == "CONTINGENT":
+                _set_gate(fam, satisfied=True, status="CONTINGENT", reason=reason, unresolved=unresolved)
+                result.contingent.append(fam)
+            else:
+                _set_gate(fam, satisfied=False, status="UNSUPPORTED", reason=reason)
+                result.unsupported.append(fam)
+                result.gate_notes.append(f"[gate] {code}: UNSUPPORTED — {reason}")
+            continue
+
+        # Deterministic fallback element entailment check:
+        # Derivative/structural families pass if facts cited
+        if code in ("ABETMENT", "CONSPIRACY", "COMMON_INTENTION", "ATTEMPT"):
+            if refs:
+                _set_gate(fam, satisfied=True, status="SUPPORTED", reason=f"Structural family {code} grounded in primary facts.")
+                result.supported.append(fam)
+            else:
+                _set_gate(fam, satisfied=False, status="UNSUPPORTED", reason=f"Derivative family {code} cites no facts.")
+                result.unsupported.append(fam)
+            continue
+
+        # Offence-specific statutory limb evaluations:
+        if code == "KIDNAPPING_TRAFFICKING":
+            if any(k in full_context for k in ["kidnap", "abduct", "traffick", "taken away", "took away", "lured", "enticed", "induced to go", "taken from"]):
+                _set_gate(fam, satisfied=True, status="SUPPORTED", reason="Allegation of taking, enticing or inducing minor.")
+                result.supported.append(fam)
+            else:
+                reason = "No allegation that the girl was induced to go somewhere, enticed, or taken away from lawful custody."
+                _set_gate(fam, satisfied=False, status="UNSUPPORTED", reason=reason)
+                result.unsupported.append(fam)
+                result.gate_notes.append(f"[gate] {code}: UNSUPPORTED — {reason}")
+            continue
+
+        if code in ("RESTRAINT_ASSAULT", "WRONGFUL_RESTRAINT_CONFINEMENT", "CRIMINAL_FORCE_ASSAULT"):
+            if any(k in full_context for k in ["restrain", "confin", "assault", "criminal force", "outraging modesty", "grabbed", "detain", "held", "push", "physical contact"]):
+                _set_gate(fam, satisfied=True, status="SUPPORTED", reason="Allegation of physical restraint, force, or physical assault.")
+                result.supported.append(fam)
+            else:
+                reason = "No allegation of physical restraint, physical confinement, assault, or physical force."
+                _set_gate(fam, satisfied=False, status="UNSUPPORTED", reason=reason)
+                result.unsupported.append(fam)
+                result.gate_notes.append(f"[gate] {code}: UNSUPPORTED — {reason}")
+            continue
+
+        if code == "HOMICIDE":
+            if any(k in full_context for k in ["death", "died", "kill", "murder", "dead", "cause death"]):
+                _set_gate(fam, satisfied=True, status="SUPPORTED", reason="Allegation of causing death.")
+                result.supported.append(fam)
+            else:
+                reason = "No allegation of death or killing."
+                _set_gate(fam, satisfied=False, status="UNSUPPORTED", reason=reason)
+                result.unsupported.append(fam)
+            continue
+
+        if code == "HURT":
+            if any(k in full_context for k in ["hurt", "injur", "wound", "beat", "struck", "pain", "fracture", "bleed"]):
+                _set_gate(fam, satisfied=True, status="SUPPORTED", reason="Allegation of bodily injury or hurt.")
+                result.supported.append(fam)
+            else:
+                reason = "No allegation of bodily pain, wounding, or physical injury."
+                _set_gate(fam, satisfied=False, status="UNSUPPORTED", reason=reason)
+                result.unsupported.append(fam)
+            continue
+
+        if code == "SEXUAL_OFFENCE":
+            has_explicit = any(k in full_context for k in ["rape", "sexual assault", "molest", "penetrat", "intercourse", "voyeur", "stalk"])
+            has_electronic = any(k in full_context for k in ["repeatedly contact", "repeatedly", "social media", "personal relationship", "personal interaction", "inappropriate message", "inappropriate communication", "sexual harassment", "unwelcome"])
+            if has_explicit or has_electronic:
+                if has_electronic and not has_explicit:
+                    unresolved = ["content of messages unknown, not stated whether sexually coloured", "clear disinterest not explicitly stated"]
+                    _set_gate(fam, satisfied=True, status="CONTINGENT", reason="Allegation of repeated electronic contact / messaging; specific message content unknown.", unresolved=unresolved)
+                    result.contingent.append(fam)
+                else:
+                    _set_gate(fam, satisfied=True, status="SUPPORTED", reason="Allegation of sexual offence / stalking conduct.")
+                    result.supported.append(fam)
+            else:
+                reason = "No allegation of sexual assault, stalking, or sexually coloured communication."
+                _set_gate(fam, satisfied=False, status="UNSUPPORTED", reason=reason)
+                result.unsupported.append(fam)
+            continue
+
+        if code == "INTIMIDATION_INSULT":
+            has_threat = any(k in full_context for k in ["threat", "intimidat", "criminal intimidation"])
+            has_modesty_privacy = any(k in full_context for k in ["inappropriate message", "inappropriate", "message", "communication", "insult", "modesty", "privacy", "words", "expressions", "vulgar", "objectionable", "lewd", "suggestive"])
+            if has_threat:
+                _set_gate(fam, satisfied=True, status="SUPPORTED", reason="Allegation of threatening conduct or criminal intimidation.")
+                result.supported.append(fam)
+            elif has_modesty_privacy:
+                unresolved = ["content of messages unknown, not stated whether insulting to modesty or intruding upon privacy"]
+                _set_gate(fam, satisfied=True, status="CONTINGENT", reason="Allegation of inappropriate messaging / communication; message content unstated.", unresolved=unresolved)
+                result.contingent.append(fam)
+            else:
+                reason = "No allegation of threats, insult, or communication insulting modesty/privacy."
+                _set_gate(fam, satisfied=False, status="UNSUPPORTED", reason=reason)
+                result.unsupported.append(fam)
+            continue
+
+        if code == "POCSO":
+            is_minor = any(k in full_context for k in ["minor", "child", "under 18", "below 18"])
+            has_conduct = any(k in full_context for k in ["contact", "message", "sexual", "relationship", "harass"])
+            if is_minor and has_conduct:
+                unresolved = ["content of messages unknown, not stated whether sexually explicit"]
+                _set_gate(fam, satisfied=True, status="CONTINGENT", reason="Allegation of contact/messaging with minor below 18 years; message content unstated.", unresolved=unresolved)
+                result.contingent.append(fam)
+            else:
+                reason = "Victim not identified as child under 18 or no contact alleged."
+                _set_gate(fam, satisfied=False, status="UNSUPPORTED", reason=reason)
+                result.unsupported.append(fam)
+            continue
+
+        # Default for any other family
+        if combined:
+            _set_gate(fam, satisfied=True, status="CONTINGENT", reason=f"Plausible connection to {code} from cited facts.", unresolved=["Applicability to be established downstream"])
+            result.contingent.append(fam)
+        else:
+            _set_gate(fam, satisfied=False, status="UNSUPPORTED", reason=f"No factual support cited for {code}.")
+            result.unsupported.append(fam)
+
+    return result
 
 # ---------------------------------------------------------------------------
 # Retrieval
@@ -284,27 +824,37 @@ class FamilyRetriever:
 
     def _score(self, idxs: Iterable[int], text: str) -> List[Tuple[int, float, List[str], float]]:
         """Returns [(record index, bm25 score, matched terms, coverage of query IDF mass)] best-first."""
-        bm25 = self.pf._get_bm25()
-        weights = {t: 1.0 for t in set(_tokenize(text)) - _QUERY_ONLY_STOP_STEMS}
-        total = bm25.total_mass(weights) if weights else 0.0
-        if total <= 0:
+        from .retriever import get_retriever, toks
+        r = get_retriever()
+        qt = toks(text)
+        if not qt:
             return []
+        idxs = list(idxs)
+        t_scores = r._norm(r.bm_text.get_scores(qt))
+        kw_scores = r._norm(r.bm_kw.get_scores(qt))
         out = []
         for i in idxs:
-            raw, matched, mass = bm25.score(i, weights)
-            if raw > 0:
-                out.append((i, raw, matched, mass / total))
+            sec_num = self.records[i]["section_number"]
+            if sec_num in r.ids:
+                ridx = r.ids.index(sec_num)
+                phr_bonus = min(r._phrase_bonus(text, sec_num), 4)
+                sc = (kw_scores[ridx] + 0.3 * t_scores[ridx] + 0.12 * phr_bonus) * r.K[sec_num]['retrieval_prior']
+                if sc > 0:
+                    kw_corpus = " ".join((r.K[sec_num].get('layman_keywords') or []) + (r.K[sec_num].get('auto_keywords') or [])).lower()
+                    sec_corpus = (self.records[i].get("title", "") + " " + self.records[i].get("text", "")).lower()
+                    matched = [w for w in qt if w in kw_corpus or w in sec_corpus]
+                    out.append((i, float(sc), matched or ["matched"], 1.0))
         out.sort(key=lambda x: x[1], reverse=True)
         return out
 
     def retrieve(
         self,
         facts: Iterable[Any],
-        families: Iterable[Any],
+        families: Optional[Iterable[Any]] = None,
         per_family: int = 3,
         family_min_rel: float = 0.5,
-        per_fact_safety_net: int = 2,
-        safety_net_min_coverage: float = 0.5,
+        per_fact_safety_net: int = 8,
+        safety_net_min_coverage: float = 0.3,
         per_negligent: int = 2,
     ) -> Tuple[List[CandidateSectionMatch], Dict[str, Any]]:
         facts = list(facts or [])
@@ -400,9 +950,12 @@ class FamilyRetriever:
             if not ranked:
                 continue
             top = ranked[0][1]
-            # Noise control: require >= 2 distinct matched terms and IDF mass coverage >= 0.6
-            picked = [x for x in ranked[:per_fact_safety_net]
-                      if x[3] >= max(safety_net_min_coverage, 0.6) and len(set(x[2])) >= 2]
+            n_tokens = len(set(_tokenize(fact_text.get(fid, ""))) - _QUERY_ONLY_STOP_STEMS)
+            if n_tokens == 1:
+                picked = [x for x in ranked[:per_fact_safety_net] if x[3] >= safety_net_min_coverage][:1]
+            else:
+                picked = [x for x in ranked[:per_fact_safety_net]
+                          if x[3] >= safety_net_min_coverage and len(set(x[2])) >= 2]
             diag["safety_net"][fid] = [self.records[i]["section_number"] for i, *_ in picked]
             for i, raw, matched, _cov in picked:
                 add(i, round(0.5 * raw / top, 3), matched, f"fact:{fid}", classification="CONDITIONAL")
@@ -453,13 +1006,13 @@ def augment_families(
     families: Iterable[Any],
     retriever: Optional["FamilyRetriever"] = None,
     top_n: int = 3,
-    min_coverage: float = 0.5,
+    min_coverage: float = 0.3,
 ) -> Tuple[List[Dict[str, Any]], List[str]]:
     """
     Adds offence families the LLM did not tag, from two structural signals:
-      1. retrieval: a charge-bearing fact's quote strongly matches sections of a family
-         (coverage of the quote's distinctive vocabulary >= min_coverage and >= 2 matched terms);
-         the family is the matched section's IPC chapter category;
+      1. retrieval over sections, then roll up to families: run r.retrieve() on each atomic
+         fact (CB1, CB2, CB3), not on compound allegations. Group section hits by family and
+         take the top-N families per fact by rank, not score.
       2. joint conduct: a fact's actor field names two or more persons -> joint-liability families
          as CONDITIONAL, with the unestablished element recorded.
     Returns (families as dicts, notes). Never removes or edits what the LLM produced.
@@ -489,42 +1042,92 @@ def augment_families(
         by_code[code] = d
         notes.append(f"Family {code} added for {fid} ({why}).")
 
-    all_idx = sorted({i for members in r.family_members.values() for i in members})
+    # 1. Identify compound facts whose content has been split into child atomic facts
+    compound_ids = set()
+    charge_facts = [
+        f for f in facts
+        if str(_obj(f, "conduct_type", "ACT")).upper() in _CHARGE_BEARING
+    ]
+    for parent in charge_facts:
+        p_quote = _norm_ws(_obj(parent, "verbatim_quote") or _obj(parent, "description") or "")
+        if not p_quote:
+            continue
+        p_id = str(_obj(parent, "fact_id", ""))
+        child_facts = [
+            ch for ch in charge_facts
+            if str(_obj(ch, "fact_id", "")) != p_id
+            and (_obj(ch, "parent_fact_id") == p_id or (
+                _norm_ws(_obj(ch, "verbatim_quote") or "")
+                and _norm_ws(_obj(ch, "verbatim_quote") or "") in p_quote
+                and len(_norm_ws(_obj(ch, "verbatim_quote") or "").split()) < len(p_quote.split())
+            ))
+        ]
+        if child_facts:
+            compound_ids.add(p_id)
+
+    atomic_facts = [
+        f for f in charge_facts
+        if str(_obj(f, "fact_id", "")) not in compound_ids
+    ]
+
+    # 2. Retrieve over sections on each atomic fact, then roll up to families by rank
+    for f in atomic_facts:
+        fid = str(_obj(f, "fact_id", ""))
+        text = _obj(f, "verbatim_quote") or _obj(f, "description") or ""
+        matches, _ = r.retrieve([f], families=None, per_fact_safety_net=8, safety_net_min_coverage=min_coverage)
+        if not matches:
+            continue
+
+        n_tokens = len(set(_tokenize(text)) - _QUERY_ONLY_STOP_STEMS)
+        fam_hits: Dict[str, List[str]] = {}
+        fam_ranks: Dict[str, List[int]] = {}
+
+        for rank, m in enumerate(matches):
+            sec = m.section_number
+            for code in ipc_categories(sec):
+                if code in OFFENCE_FAMILIES:
+                    fam_hits.setdefault(code, []).append(sec)
+                    fam_ranks.setdefault(code, []).append(rank)
+
+        if not fam_ranks:
+            continue
+
+        # Noise control: require direct term match signal and >= 2 distinct section hits (or >= 1 for 1-token facts)
+        direct_matches = [m for m in matches if m.matched_terms != ["linked"]]
+        direct_secs = {m.section_number for m in direct_matches}
+
+        valid_families = []
+        for code, ranks in fam_ranks.items():
+            distinct_hits = len(set(fam_hits[code]))
+            code_direct = direct_secs & set(fam_hits[code])
+            if n_tokens == 1:
+                if distinct_hits >= 1:
+                    valid_families.append(code)
+            elif len(code_direct) >= 2 or (len(code_direct) >= 1 and any(m.score >= 0.35 and len(set(m.matched_terms)) >= 2 for m in direct_matches if m.section_number in code_direct)) or (len(code_direct) >= 1 and distinct_hits >= 2 and any(len(set(m.matched_terms)) >= 2 for m in direct_matches if m.section_number in code_direct)):
+                valid_families.append(code)
+
+        # Order families by best section rank, not score
+        ranked_families = sorted(
+            valid_families,
+            key=lambda c: (min(fam_ranks[c]), -len(set(fam_hits[c])))
+        )[:top_n]
+
+        for code in ranked_families:
+            secs_str = ", ".join(sorted(set(fam_hits[code]))[:3])
+            ensure(code, fid, "SECONDARY", why=f"quote matches IPC {secs_str}")
+
+    # 3. Joint liability
     for f in facts:
         fid = str(_obj(f, "fact_id", ""))
         if str(_obj(f, "conduct_type", "ACT")).upper() not in _CHARGE_BEARING:
             continue
-        text = _obj(f, "verbatim_quote") or _obj(f, "description") or ""
-        n_tokens = len(set(_tokenize(text)) - _QUERY_ONLY_STOP_STEMS)
-        ranked = r._score(all_idx, text)[:8]
-        if n_tokens == 1:
-            # A one-word act ("abused") supports only its single best match.
-            hits = ranked[:1]
-        else:
-            hits = [x for x in ranked if len(set(x[2])) >= 2]
-        fam_score: Dict[str, float] = {}
-        fam_hits: Dict[str, List[str]] = {}
-        for i, raw, matched, cov in hits:
-            sec = r.records[i]["section_number"]
-            for code in ipc_categories(sec):
-                fam_score[code] = fam_score.get(code, 0.0) + raw
-                fam_hits.setdefault(code, []).append(sec)
-        if fam_score:
-            best = max(fam_score.values())
-            for code, sc in fam_score.items():
-                # Multiple independent signals required: >= 2 distinct section hits
-                # and substantial score relative to best family (>= 0.5 * best).
-                # Eliminates single-best-family false positive noise.
-                if len(fam_hits[code]) >= 2 and sc >= 0.5 * best:
-                    ensure(code, fid, "SECONDARY", why=f"quote matches IPC {', '.join(fam_hits[code][:3])}")
-
         actors = [a for a in _ACTOR_SPLIT.split(str(_obj(f, "actor", "") or "")) if a.strip()]
         if len(actors) >= 2:
+            act_str = ", ".join(actors)
             for code, element in _JOINT_FAMILIES:
-                # The fact quote describes the underlying act, not the joint conduct, so the family's
-                # generic description supplies the vocabulary that ranks sections inside the family.
-                ensure(code, fid, "CONDITIONAL", [element], why=f"joint actors: {', '.join(actors)}",
-                       phrase=OFFENCE_FAMILIES[code])
+                ensure(code, fid, "CONDITIONAL", [element], why=f"joint actors: {act_str}",
+                       phrase=OFFENCE_FAMILIES.get(code, code))
+
     return fams, notes
 
 
@@ -742,6 +1345,7 @@ def clause_backstop(narrative: str, facts: Iterable[Any], min_words: int = 2) ->
                 "description": f"Separate {ctype.lower()} split from a compound allegation (clause backstop)",
                 "actor": _obj(parent, "actor", None) if parent is not None else None,
                 "affected_party_or_object": None,
+                "parent_fact_id": _obj(parent, "fact_id", None) if parent is not None else None,
             })
             existing_tokens.append(ctoks)
             quotes.append((None, _norm_ws(clause)))

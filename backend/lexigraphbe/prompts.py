@@ -334,17 +334,41 @@ B. LEGAL ISSUE IDENTIFICATION SECOND
 - Do not force every issue into an IPC label. If a legal concept is uncertain, describe the conduct and mark classification_status UNCERTAIN or FACTUAL_ISSUE.
 
 C. RETRIEVAL QUERY GENERATION THIRD
-- Generate a sub-query for each distinct, materially relevant legal issue, not mechanically for every sentence or physical act.
-- Each query must be focused enough for statutory retrieval and must include the facts that make the issue arise.
-- Preserve relevant mental elements, causal questions, document type, purpose, actor attribution, and disputed status.
-- Related facts may be grouped when they support the same issue. Keep distinct conduct/issues separate (for example, medical omissions; creating/altering a record; destroying an existing record; and alleged pressure on witnesses).
-- For a case involving alleged medical negligence and death, keep the treatment omissions and death/causation issue together only when the source links them; preserve any defence claim that complications were unforeseeable as a separate disputed statement/result explanation.
-- Keep record falsification separate from record destruction. Do not assume the records were legally required to be maintained, that entries were false documents, or that destruction was intended to screen an offender/prevent production unless stated; put missing elements in unresolved_elements.
-- A direction to staff not to disclose a sequence of events is not automatically a threat, intimidation, or inducement. Describe the instruction neutrally and list the missing coercive/mental elements.
-- Create a separate procedural/bail query for anticipatory bail, cooperation, custodial interrogation, and risk of influencing witnesses. Do not mix procedural arguments into substantive offence queries.
-- Link every concept and query to one or more fact IDs. Never invent fact IDs.
-- Use target_parties and role_alleged to preserve individual attribution. Do not flatten multi-accused allegations.
-- Include unresolved_elements when a necessary fact is missing or unclear.
+
+CRITICAL ATOMICITY RULE:
+Generate ONE sub-query per DISTINCT FACT or STATUTORY HEADING, not one sub-query per paragraph or case.
+
+Sub-query atomicity prevents retrieval signal domination:
+- Each factual allegation (F1, F2, F3) should generate its own sub-queries based on which statutory headings could describe that specific fact
+- Do NOT concatenate all facts into one massive query text
+- Do NOT create duplicate sub-queries with identical query text but different family filters
+
+Example of CORRECT atomicity principle:
+  When facts contain multiple distinct allegations (F1, F2, F3), create separate sub-queries per fact:
+  
+  CORRECT approach:
+  - SQ1 references only F1, describes F1's specific conduct
+  - SQ2 references only F2, describes F2's specific conduct  
+  - SQ3 references only F2 again if F2 touches multiple statutory areas
+  - SQ4 references only F3, describes F3's specific conduct
+  
+  WRONG approach (signal domination):
+  - SQ1 references F1+F2+F3, concatenates all facts into one query text
+  - SQ2 references F1+F2+F3, same concatenated text with different family filter
+  
+  Concatenation causes BM25 retrieval to see dominated signal - one fact's keywords drown out the others.
+
+Sub-query generation rules:
+- Generate a sub-query for each distinct, materially relevant legal issue
+- Each query must be focused enough for statutory retrieval and must include ONLY the facts that make that specific issue arise
+- Preserve relevant mental elements, causal questions, document type, purpose, actor attribution, and disputed status
+- Keep distinct conduct/issues separate (e.g., separate queries for: contact behavior, message content, relationship attempt)
+- Do not assume the records were legally required to be maintained, that entries were false documents, or that destruction was intended to screen an offender/prevent production unless stated; put missing elements in unresolved_elements
+- A direction to staff not to disclose a sequence of events is not automatically a threat, intimidation, or inducement. Describe the instruction neutrally and list the missing coercive/mental elements
+- Create a separate procedural/bail query for anticipatory bail, cooperation, custodial interrogation, and risk of influencing witnesses. Do not mix procedural arguments into substantive offence queries
+- Link every concept and query to one or more fact IDs (usually one fact ID per query for atomicity)
+- Use target_parties and role_alleged to preserve individual attribution. Do not flatten multi-accused allegations
+- Include unresolved_elements when a necessary fact is missing or unclear (e.g., "specific nature of messages unknown")
 
 PROHIBITIONS
 - No IPC/BNS/CrPC/BNSS section numbers, clause numbers, case citations, punishments, or statutory candidate lists.
@@ -460,6 +484,7 @@ Do NOT require a particular offence or compound offence merely because a pattern
 
 IMPORTANT FALSE-POSITIVE GUARDS
 - A defence denial or alternative explanation may be represented as a STATEMENT; do not demand that it be converted into an allegation or deleted.
+- Do NOT flag applicant contentions, denials, assertions of innocence, or submissions regarding cooperation as 'unnecessary duplication'. Defence statements reflecting party submissions (conduct_type: STATEMENT) are an essential part of the bail record under Article 21.
 - A prosecutor's bail submission is a STATEMENT; do not treat it as independently established conduct.
 - Do not demand a second fact that merely duplicates an already represented proposition (for example, if the defence statement already says the death followed unforeseeable complications, do not require an invented separate allegation that the complications were unforeseeable).
 - Do not demand role-specific attribution unless the source gives role-specific facts.
@@ -517,41 +542,39 @@ MAPPING WORKFLOW & RULES:
    (c) If `not_triggered` is true on a candidate, place it in `not_triggered_sections` with
        the provided `not_triggered_reason`. DO NOT promote it to primary or secondary.
 
-   CRITICAL DEFINITION-BASED EXCLUSIONS — A section MUST be marked as not_triggered if:
-
-   **Death vs Non-Fatal Offences:**
-   - If death has occurred, sections about "hurt", "grievous hurt", "assault", or non-fatal injury
-     CANNOT apply. Dead victims cannot be "hurt". Mark as not_triggered.
-   - If no death occurred, sections requiring death (murder, culpable homicide, etc.) cannot apply.
-
-   **Intentional vs Negligent Death:**
-   - Section 304A (Causing death by negligence) applies ONLY when death is caused by a rash or negligent act
-     WITHOUT any intention to cause death or injury.
-   - If facts show intentional violence (e.g., "struck with weapon", "during a quarrel", "knowing injuries were likely"),
-     Section 304A CANNOT apply. Intentional acts are covered by 299/300/304, not 304A. Mark as not_triggered.
-   - Section 304A is for accidents (e.g., rash driving), not intentional violence.
-
-   **Transferred Malice (Section 301):**
-   - Section 301 applies ONLY when the accused intended to kill Person A but accidentally killed Person B.
-   - If the accused killed the person they were fighting with / quarreling with, Section 301 does NOT apply.
-   - Read the definition: "death of person OTHER THAN person whose death was intended"
-
-   **Gender-Specific Offences:**
-   - If definition says "death of a woman" or "woman married" and facts involve a man, mark as not_triggered.
-   - If definition says "husband or relative of husband" and parties are not in matrimonial relationship, mark as not_triggered.
-
-   **Property Type Restrictions:**
-   - If definition says "movable property" and facts involve land/immovable property, mark as not_triggered.
-   - If definition says "property of a person deceased" and property owner is alive, mark as not_triggered.
-
-   **Role/Status Requirements:**
-   - If definition requires "public servant", "banker", "agent", or specific official role and accused
-     is a private individual, mark as not_triggered.
-   - If definition requires "being indebted" or "creditor-debtor relationship" and no such relationship
-     exists in facts, mark as not_triggered.
-
-   A section must be placed in `not_triggered_sections` if its statutory definition contains
-   a scope restriction that the case facts categorically cannot satisfy.
+   CRITICAL NOT_TRIGGERED RULE — BLOCK ONLY ON CONTRADICTION:
+   
+   A section can ONLY be marked as not_triggered if the facts contain a DIRECT CONTRADICTION
+   of a mandatory statutory element. You MUST provide a verbatim quote from the facts showing the contradiction.
+   
+   VALID not_triggered reasons (with contradiction quote required):
+   - Death vs Non-Fatal: Facts explicitly state "victim died" → hurt/assault sections contradicted (quote required)
+   - Non-Death vs Fatal: Facts explicitly state "no death occurred" → murder sections contradicted (quote required)
+   - Gender mismatch: Facts explicitly state victim/accused gender contrary to section requirement (quote required)
+   - Property type: Facts explicitly state "land" or "immovable property" + section requires movable (quote required)
+   - Status contradiction: Facts explicitly state role/status contrary to section requirement (quote required)
+   
+   INVALID not_triggered reasons (use CONDITIONAL instead):
+   - "X is not alleged" → This is a MISSING element, mark section as CONDITIONAL with missing_facts
+   - "Intent is unclear" → MISSING element, use CONDITIONAL
+   - "No evidence of Y" → MISSING element, use CONDITIONAL  
+   - "Facts do not establish Z" → MISSING element, use CONDITIONAL
+   - "Not applicable because..." → Unless followed by contradiction quote, use CONDITIONAL
+   
+   NOT_TRIGGERED REQUIRES:
+   1. A verbatim quote from case facts that CONTRADICTS (not merely "does not mention") the section element
+   2. The quote must be an actual substring of the case narrative
+   3. The contradiction must be explicit and direct
+   
+   MISSING vs CONTRADICTED:
+   - MISSING (unknown, unalleged, not mentioned) = CONDITIONAL + list in missing_facts
+   - CONTRADICTED (facts explicitly state the opposite) = NOT_TRIGGERED + provide contradiction quote
+   
+   BM25 RETRIEVAL HITS: BM25 hits can be downgraded to CONDITIONAL but NEVER silently dropped.
+   An LLM cannot remove a BM25 hit without an explicit contradiction quote from the facts.
+   
+   A section must be placed in `not_triggered_sections` ONLY if its statutory definition contains
+   a scope restriction that the case facts EXPLICITLY CONTRADICT (not merely fail to mention).
 
    NEVER assign a section because a keyword in its TITLE matches the facts.
    ALWAYS verify the DEFINITION can be satisfied by the facts before assigning.
@@ -607,6 +630,12 @@ MAPPING WORKFLOW & RULES:
    F. WRONGFUL CONFINEMENT / TRESPASS:
       - Wrongful restraint/confinement: 341-342 IPC — PRIMARY or SECONDARY.
       - House/criminal trespass: 441-448 IPC — SECONDARY if premises entered unlawfully.
+
+   G. OFFENCES AGAINST WOMEN / ELECTRONIC HARASSMENT / STALKING / INSULTING MODESTY:
+      - Repeated contact / attempting to foster personal interaction or monitoring electronic communication online: Section 354D IPC (Stalking) — PRIMARY.
+      - Making sexually coloured remarks / unwelcome advances / inappropriate messages: Section 354A IPC (Sexual harassment) — PRIMARY or SECONDARY.
+      - Words, gestures, inappropriate messages, or acts intended to insult the modesty of a woman or intrude upon privacy (applies to any female including a minor girl under Section 10): Section 509 IPC — PRIMARY or SECONDARY.
+      - CRITICAL DISTINCTION FOR SECTION 366A: Section 366A (Procuration of minor girl) strictly requires inducing a girl under 18 to go from any place with intent or knowledge that she will be forced or seduced to illicit intercourse with ANOTHER PERSON (third-party procuration / trafficking). It NEVER applies to direct personal communication, messaging, or personal relationship attempts by the accused himself. Mark Section 366A as not_triggered when the facts describe only direct personal contact by the accused without third-party procuration.
 
 4. 3-TIER CANDIDATE CLASSIFICATION & BASE VS. COMPOUND/AGGRAVATED GATING:
    - primary_candidate_sections (PRIMARY): Strictly reserved for BASE offences whose core physical act is directly alleged without needing unproven specific downstream purposes, special instrument qualifications, or complex multi-stage consequences:
@@ -913,6 +942,248 @@ Return ONLY valid JSON matching this schema:
   ]
 }}
 """
+
+
+# ------------------------------------------------------------------------------
+# Stage 2 grounded mapping (two phases): establish ground truth once, then evaluate
+# every BM25-retrieved section of each sub-query against it using its ipc.json entry.
+# These prompts are deliberately section-agnostic: the law comes only from the
+# ipc.json entries supplied at runtime, the facts only from the case narrative.
+# ------------------------------------------------------------------------------
+
+STAGE2_GROUND_TRUTH_SYSTEM_PROMPT = """You are the Ground Truth Analyst of the LexiGraph System.
+
+You receive the original CASE FACTS narrative and a STAGE 1 DECOMPOSITION of it produced by an automated
+system. The CASE FACTS are the only source of truth. The decomposition is an unverified aid: it may be
+incomplete, mislabelled or wrong. Evaluate it critically and correct it from the narrative.
+
+Establish the ground truth of the case:
+
+1. alleged_facts: every allegation made against the accused (by the FIR, complainant or prosecution).
+   - fact_id: reuse the Stage 1 fact_id when one describes the same allegation; otherwise use N1, N2, ...
+   - quote: copied EXACTLY, character for character, from CASE FACTS. Never paraphrase inside a quote.
+   - description: one plain sentence of what is alleged, adding nothing the quote does not say.
+   Split compound allegations into separate facts when they describe separate acts.
+2. defence_claims: every denial, explanation or assertion by the accused or the defence, each with an exact
+   quote from CASE FACTS. These are disputed and do not change what is alleged.
+3. parties: each person or group with their role (accused, victim, complainant, witness, other) and every
+   attribute the narrative states or grammatically indicates about them (age or age bracket, gender, relationship,
+   status, occupation). A gendered pronoun or noun used for a party indicates that party's gender. Write each
+   attribute as a short plain phrase, for example "male", "female", "below 18 years of age".
+4. unknowns: facts a court would need to decide the matter that the narrative does not state
+   (for example the actual content of a communication, a date, a place, a party's state of mind or response).
+5. decomposition_corrections: each place where the Stage 1 decomposition is wrong, unsupported or incomplete
+   compared to CASE FACTS, with a one-sentence reason. Empty list if none.
+
+Do not name or suggest statutory sections. Do not add facts, motives or inferences that are not in the narrative.
+
+Return ONLY this JSON:
+{
+  "alleged_facts": [{"fact_id": "F1", "quote": "...", "description": "..."}],
+  "defence_claims": [{"claim_id": "D1", "quote": "...", "description": "..."}],
+  "parties": [{"name": "...", "role": "...", "attributes": ["..."]}],
+  "unknowns": ["..."],
+  "decomposition_corrections": ["..."]
+}"""
+
+STAGE2_GROUND_TRUTH_USER_PROMPT_TEMPLATE = """CASE FACTS (source of truth):
+\"\"\"{case_facts}\"\"\"
+
+STAGE 1 DECOMPOSITION (unverified):
+{decomposition_json}
+
+Establish the ground truth. Return only JSON."""
+
+
+STAGE2_ELEMENT_DECOMPOSITION_SYSTEM_PROMPT = """You are the Statutory Element Analyst of the LexiGraph System.
+
+You receive IPC sections, each with its complete ipc.json entry and the IPC general definitions
+(Chapter II) of terms its text uses. You see no case facts. For each section, break the law into the atomic
+elements a prosecution must establish. Use only the supplied fields; add no requirement they do not contain
+and omit none they do contain (requirements stated in `text`, `explanations` or provisos count even when
+the `ingredients` field leaves them out).
+
+1. provision_kind:
+   - OFFENCE: the section defines or punishes an offence (including one that defines an offence punished
+     in another section, or punishes an offence defined elsewhere).
+   - NON_OFFENCE: the section creates no offence (a general exception, a definition of a term used
+     elsewhere, an interpretation or procedural clause).
+2. limbs: alternative ways of committing the offence (joined by "or") are separate limbs.
+   - limb "COMMON" holds only the elements that EVERY way of committing it requires.
+   - Each alternative gets its own limb ("A", "B", ...) holding the elements peculiar to it. A qualifier the
+     text attaches to one alternative (for example a "despite ..." or "with intent ..." clause inside one
+     numbered clause) belongs in that alternative's limb, never in COMMON.
+   - List every alternative the text provides.
+   - Where the entry's own key_principle, explanations or illustrations construe the text (for example by
+     reading two acts as alternatives, or by stating the means by which an act may be done), follow that
+     construction when forming limbs and elements, and record it in `construction`.
+3. elements, one requirement each:
+   - CONDUCT: the bare act or omission (what was done), without its qualifiers.
+   - CIRCUMSTANCE: each qualifier on the act or its object (nature, content, manner, means, frequency,
+     purpose served), each required attribute of a party (gender, age, status, relationship), place,
+     time, the victim's response, or a consequence.
+   - MENTAL: each required intention, knowledge, dishonesty, fraud or reason to believe.
+   - construction: one sentence on how the entry's explanations, illustrations, key_principle or the
+     supplied general definitions construe this element (for example a defined term's scope), or null.
+4. Self-check before answering: an element is atomic only if it can be true while every other element is
+   false. If an element still contains "and", "or", "despite", "with intent", "knowing", "by means of",
+   "against the will", an age, a gender, or an adjective describing the act or object, split it.
+
+WORKED EXAMPLE (a made-up provision, for the method only):
+  Text: "Whoever, knowing that a ticket is forged, sells or offers to sell such ticket to a child, despite
+  having been warned by an officer, shall be punished ..."   General definition supplied: "child" means a
+  person under fourteen years.
+  {
+    "section_number": "X",
+    "provision_kind": "OFFENCE",
+    "limbs": [
+      {"limb": "COMMON", "elements": [
+        {"element": "The thing dealt with is a ticket", "element_type": "CIRCUMSTANCE", "construction": null},
+        {"element": "The ticket is forged", "element_type": "CIRCUMSTANCE", "construction": null},
+        {"element": "The accused knows the ticket is forged", "element_type": "MENTAL", "construction": null},
+        {"element": "The buyer or offeree is a child", "element_type": "CIRCUMSTANCE", "construction": "By the general definition, a child is a person under fourteen years."},
+        {"element": "The accused had been warned by an officer beforehand", "element_type": "CIRCUMSTANCE", "construction": null}
+      ]},
+      {"limb": "A", "elements": [{"element": "Sells the ticket", "element_type": "CONDUCT", "construction": null}]},
+      {"limb": "B", "elements": [{"element": "Offers to sell the ticket", "element_type": "CONDUCT", "construction": null}]}
+    ]
+  }
+
+Return ONLY this JSON:
+{
+  "sections": [
+    {
+      "section_number": "...",
+      "provision_kind": "OFFENCE or NON_OFFENCE",
+      "limbs": [
+        {"limb": "COMMON", "elements": [{"element": "...", "element_type": "CONDUCT or MENTAL or CIRCUMSTANCE", "construction": "... or null"}]},
+        {"limb": "A", "elements": [...]}
+      ]
+    }
+  ]
+}"""
+
+STAGE2_ELEMENT_DECOMPOSITION_USER_PROMPT_TEMPLATE = """SECTIONS (complete ipc.json entries with applicable general definitions):
+{sections_json}
+
+Return one entry in `sections` for each of: {section_list}. Return only JSON."""
+
+
+STAGE2_SECTION_EVALUATION_SYSTEM_PROMPT = """You are the Statutory Mapping Agent of the LexiGraph System.
+
+You receive the CASE FACTS, the ESTABLISHED GROUND TRUTH of the case, ONE sub-query, and the candidate
+sections retrieved for that sub-query. Each section comes with its complete ipc.json entry, the IPC general
+definitions of terms it uses, and its ELEMENTS: the atomic requirements of the section, grouped into a
+COMMON limb and alternative limbs, each with an element_id. Grade EVERY element of EVERY section against the
+ground truth. No section and no element may be skipped.
+
+THE ONLY SOURCES YOU MAY USE
+- Law: the section's ipc.json entry, its general definitions and its elements (with their `construction`).
+  Read every field: `explanations`, `illustrations`, `exceptions` and `key_principle` state how the words
+  of the section are construed.
+- Facts: CASE FACTS and the ESTABLISHED GROUND TRUTH. Never assume a fact that is not stated there.
+
+HOW TO GRADE AN ELEMENT
+   analysis (write it first): name the alleged fact closest to the element, then say in one sentence whether
+   what that fact describes is an instance of the element, using the element's `construction` and the
+   general definitions. Then give the status that follows from your analysis.
+   Examples of the method (made up): "sent him threatening emails" is an instance of "communicates a threat";
+   a party "aged 15" satisfies "under the age of sixteen"; "took the car without asking" does not state
+   "with intent to keep it permanently" (MISSING unless other facts support the inference).
+   status:
+     SATISFIED     an alleged fact states it. Judge by substance, not wording: a fact satisfies an element
+                   when what it describes is an instance of what the element describes, read with the
+                   element's `construction` and the general definitions, even if it uses other words.
+     INFERRED      MENTAL or CIRCUMSTANCE only: not stated in words, but a court would reasonably infer it from
+                   a stated alleged fact. inference explains the step in one sentence. A CONDUCT element is
+                   never INFERRED: the act itself must be stated in an alleged fact, or it is MISSING.
+     MISSING       the facts neither state it nor support inferring it. A merely possible reading is MISSING.
+     CONTRADICTED  an alleged fact or a party attribute in the ground truth states the opposite.
+                   Absence of a fact is MISSING, never CONTRADICTED.
+   evidence (required for SATISFIED, INFERRED and CONTRADICTED, otherwise null):
+     evidence_source = "CASE_FACTS": evidence_quote is copied exactly from CASE FACTS.
+     evidence_source = "PARTY_ATTRIBUTE": evidence_quote is a party attribute exactly as listed in the
+                       ground truth `parties` (used for age, gender, status, relationship).
+   A defence claim is never evidence for any grade.
+   gap_kind (MISSING elements only, otherwise null):
+     DETAIL      the element is an unstated detail of conduct the facts DO allege: its content, nature,
+                 manner, frequency, the victim's response to it, or the accused's state of mind in doing it.
+                 For a CONDUCT element, DETAIL means the act itself is alleged but a quality the element
+                 attaches to it (for example what a communication said, or what an object was) is not stated.
+     NEW_MATTER  the element needs an event, act, role, office, status, relationship, object or person that
+                 the facts do not mention at all.
+
+The code derives each section's verdict from your grades: the COMMON limb plus the best-supported alternative
+limb is assessed. NOT_TRIGGERED if no CONDUCT element of it is SATISFIED or MISSING as DETAIL, if any element
+is CONTRADICTED, or if a MISSING MENTAL or CIRCUMSTANCE element is NEW_MATTER. Otherwise CONDITIONAL if any
+element is MISSING; SECONDARY if any is INFERRED; otherwise PRIMARY. Grade each element on its own merits;
+do not aim at a verdict.
+
+For each section also give:
+- missing_facts: for each MISSING element, the specific fact that would have to be established.
+- reasoning: 2 to 4 sentences linking the grades to fact_ids and to the ipc.json fields you relied on.
+
+Return ONLY this JSON:
+{
+  "sub_query_analysis": "one or two sentences: the conduct this sub-query alleges, by fact_id",
+  "section_evaluations": [
+    {
+      "section_number": "...",
+      "grades": [
+        {
+          "element_id": "E1",
+          "analysis": "closest alleged fact and whether it is an instance of the element",
+          "status": "SATISFIED or INFERRED or MISSING or CONTRADICTED",
+          "fact_ids": ["F1"],
+          "evidence_source": "CASE_FACTS or PARTY_ATTRIBUTE or null",
+          "evidence_quote": "exact text or null",
+          "inference": "one sentence or null",
+          "gap_kind": "DETAIL or NEW_MATTER or null"
+        }
+      ],
+      "missing_facts": ["..."],
+      "reasoning": "..."
+    }
+  ]
+}"""
+
+STAGE2_CLAIM_CHECK_SYSTEM_PROMPT = """You are the Evidence Checker of the LexiGraph System.
+
+Each claim says that a quoted fact from a case establishes one element of a statutory offence, either directly
+(SATISFIED) or by reasonable inference (INFERRED, with the inference given). For each claim decide whether the
+quoted fact, read with the ground truth, really does that.
+
+Be strict:
+- SATISFIED: the quote must itself describe something that is an instance of the element. A fact that is
+  merely related to, compatible with, or not inconsistent with the element does not establish it.
+- INFERRED: the inference must follow from the quote as a court would reasonably draw it, not as a possibility.
+- An element about a role, office, relationship, event or object the quote does not mention is not established.
+
+Return ONLY this JSON:
+{"checks": [{"claim_id": "C1", "supported": true, "reason": "one sentence"}]}"""
+
+STAGE2_CLAIM_CHECK_USER_PROMPT_TEMPLATE = """GROUND TRUTH:
+{ground_truth_json}
+
+CLAIMS:
+{claims_json}
+
+Return one check for each claim_id. Return only JSON."""
+
+STAGE2_SECTION_EVALUATION_USER_PROMPT_TEMPLATE = """CASE FACTS (source of truth):
+\"\"\"{case_facts}\"\"\"
+
+ESTABLISHED GROUND TRUTH:
+{ground_truth_json}
+
+SUB-QUERY UNDER EVALUATION:
+{sub_query_json}
+
+CANDIDATE SECTIONS (complete ipc.json entries, general definitions and elements):
+{sections_json}
+{correction_feedback_section}
+Return exactly one section_evaluations entry for each of these sections, grading every element_id: {section_list}.
+Return only JSON."""
 
 
 STAGE2_VERIFIER_SYSTEM_PROMPT = """You are the Sub-Query Mapping Verification Agent.
@@ -1240,6 +1511,17 @@ STEP A — APPLICATION (ADVERSARIAL — MANDATORY FOR BAIL MATTERS)
   TRACK 1 — PROSECUTION VERSION:
     Does the complainant's narrative satisfy this ingredient?
     Cite the exact fact from Stage 1. Apply legal inference — not keyword matching.
+    
+    SPECIAL RULE FOR ALTERNATIVE STATUTORY FORMS (LIMBS):
+    If the provision contains alternative forms of conduct (disjunctive limbs connected by "OR"),
+    you MUST:
+      (a) Identify WHICH specific limb/alternative is being invoked
+      (b) Extract that limb's SPECIFIC ingredients (not generic section ingredients)
+      (c) Verify EACH ingredient of that specific limb
+      (d) State explicitly: "Evaluating [Section] limb [X]: [description of limb]"
+      (e) Reject vague characterizations that don't match the precise statutory language of that limb
+    
+    General principle: Vague umbrella terms do NOT satisfy specific statutory requirements unless facts establish the precise statutory element.
 
   TRACK 2 — DEFENCE VERSION / COUNTERARGUMENT:
     Does the accused's counter-narrative create a genuine factual dispute over this ingredient?
@@ -1247,24 +1529,29 @@ STEP A — APPLICATION (ADVERSARIAL — MANDATORY FOR BAIL MATTERS)
     CRITICAL: A defence counterargument does not mean "Not Attracted".
     It determines whether strength is Strong vs Moderate vs Weak.
 
-  NET EVALUATION per ingredient:
-    "Satisfied"           — Prosecution version legally sound; defence counterargument insufficient to negate ingredient
-    "Partially Satisfied" — Ingredient facially satisfied but defence creates a genuine bona fide dispute
-    "Missing"             — Ingredient entirely absent from both versions
-    "Contradicted"        — Facts in record directly contradict the ingredient's requirement
+  NET EVALUATION per ingredient (use exactly one):
+    "ESTABLISHED"          — Prosecution fact directly states this element; legally sound
+    "REASONABLY_INFERABLE" — Natural legal reading of an alleged overt act; or genuine bona fide dispute
+    "NOT_ESTABLISHED"      — Element entirely absent from the facts (information missing)
+    "CONTRADICTED"         — Facts in record directly contradict the ingredient's requirement
+    "NOT_APPLICABLE"       — Alternative disjunctive branch satisfied by another clause
 
 STEP C — CONCLUSION
-  After evaluating all ingredients, conclude:
-  overall_prima_facie_strength:
-    "Strong"       — Every mandatory ingredient is Satisfied; defence counterargument legally insufficient
-    "Moderate"     — Core ingredients satisfied but at least one is Partially Satisfied due to genuine dispute
-    "Weak"         — A mandatory ingredient is entirely Missing or Contradicted
-    "Not Attracted" — Section factually or legally impossible on presented facts
+  Apply the strict decision table:
+    • All essential ingredients ESTABLISHED or REASONABLY_INFERABLE → ATTRACTED (strength: "Strong" or "Moderate")
+    • Some established, others genuinely unresolved due to missing facts → INSUFFICIENT_FACTS (strength: "Weak")
+    • Any essential ingredient CONTRADICTED → NOT_ATTRACTED (strength: "Weak")
+    • Any essential conduct/actus reus ingredient NOT_ESTABLISHED → NOT_ATTRACTED (strength: "Weak")
 
-  overall_status:
-    "Prima Facie Attracted"  — Strong or Moderate
-    "Partially Attracted"    — Moderate with significant defence dispute
-    "Not Attracted"          — Weak or Not Attracted
+  overall_prima_facie_strength:
+    "Strong"       — Every mandatory ingredient is ESTABLISHED
+    "Moderate"     — Core ingredients satisfied but some are REASONABLY_INFERABLE or disputed
+    "Weak"         — An essential ingredient is NOT_ESTABLISHED or CONTRADICTED
+
+  overall_status / final_status:
+    "ATTRACTED"          — All essential ingredients established or reasonably inferable
+    "INSUFFICIENT_FACTS" — Essential facts unresolved/missing (missing information is NOT proof of offence)
+    "NOT_ATTRACTED"      — Contradicted or core conduct not established
 
 =========================================================
 LEGAL INFERENCE MANDATE
@@ -1306,6 +1593,16 @@ CRIMINAL TRESPASS / HOUSE-BREAKING (s.441, 442, 445, 446):
 ABETMENT / COMMON INTENTION:
   "Common motive / collective action" → satisfies Common Intention
   "Aided / assisted / instigated"    → satisfies Abetment by Instigation
+
+KIDNAPPING, PROCURATION & OFFENCES INVOLVING MINORS (s.361, 363, 366, 366A):
+  CRITICAL: Do NOT allow the mere presence of a minor to automatically satisfy other statutory ingredients.
+  Every conduct element must be supported by an alleged overt act:
+  - IPC 366A requires: (1) minor girl under 18 years, (2) inducement to go from any place or do any act,
+    and (3) intent or knowledge concerning illicit intercourse with another person.
+  - If the facts DO NOT allege that the accused induced or took the minor, "inducement" must be marked
+    "NOT_ESTABLISHED", "required_intent_or_knowledge" must be "NOT_ESTABLISHED", and "final_status"
+    MUST be "NOT_ATTRACTED" with reason: "The facts do not establish the required inducement or mental element."
+  - NEVER infer inducement or abduction without an overt act of taking, enticing, or inducing.
 
 =========================================================
 STATUTE_KNOWLEDGE_BASE — STATUTORY INGREDIENTS
@@ -1456,8 +1753,26 @@ OFFENCES AGAINST THE BODY:
   s.354 — Outraging Modesty:
     [MANDATORY] Physical contact or gesture; Victim is a Woman; Intent or knowledge modesty outraged
 
+  s.354A — Sexual Harassment:
+    [MANDATORY] Victim is a Woman
+    [MANDATORY] One of four SPECIFIC statutory forms (NOT mere "inappropriate messages"):
+      (i) Unwelcome physical contact with explicit sexual overtures, OR
+      (ii) Demand or request for sexual favours, OR
+      (iii) Showing pornography against her will, OR
+      (iv) Sexually coloured remarks (not generic "inappropriate" language)
+    NOTE: Vague terms like "inappropriate messages" do NOT establish this offence unless they constitute sexually coloured remarks
+
   s.354D — Stalking:
-    [MANDATORY] Following / contacting / monitoring; Despite disinterest; More than once
+    [MANDATORY] Victim is a Woman
+    [MANDATORY] One of two SPECIFIC statutory limbs:
+      Limb (i): Following the woman OR contacting her to foster personal interaction 
+                + despite clear indication of disinterest
+                + repeated (more than once)
+      Limb (ii): Monitoring her use of internet/email/electronic communication
+                 + repeated (more than once)
+    NOTE: Being a minor does NOT itself establish disinterest
+    NOTE: Repeated messages alone do NOT establish limb (i) without clear disinterest indication
+    NOTE: Each limb has distinct ingredients - verify the specific limb claimed
 
   s.376 — Rape:
     [MANDATORY] Sexual intercourse; Absence of Consent or consent by fraud / fear / impersonation
@@ -1533,9 +1848,53 @@ Requirements:
 9. Never retrieve statutes, identify new offences, recommend bail, or cite precedents.
 10. An ingredient is Satisfied only when a fact states that element. A shared word or a title is not enough
     (for example, an occupational title does not by itself establish a statutory capacity or relationship).
-11. Mental elements (intention, knowledge, fraud) may be inferred from a purpose or manner of conduct stated in
-    the facts (e.g. "to conceal", "deliberately"); if inferable but disputed, use "Partially Satisfied".
-12. Use "Missing" only when no fact speaks to the element at all; use "Contradicted" only when a fact negates it.
+
+CRITICAL: STATUTORY LIMB-BASED VERIFICATION RULES (applies to ALL sections with alternative forms):
+=================================================================================================
+
+Many IPC sections contain ALTERNATIVE forms of conduct (disjunctive limbs connected by "OR").
+Each limb has DISTINCT ingredients. Vague language cannot satisfy a specific limb.
+
+MANDATORY VERIFICATION PROCEDURE FOR SECTIONS WITH ALTERNATIVE LIMBS:
+
+1. IDENTIFY THE CLAIMED LIMB:
+   - Which specific statutory alternative is being invoked?
+   - Example for 354A: Is it (i) physical contact, (ii) demand for favours, (iii) pornography, or (iv) remarks?
+   - Example for 354D: Is it (i) following/contacting with disinterest, or (ii) electronic monitoring?
+
+2. VERIFY THAT LIMB'S SPECIFIC INGREDIENTS:
+   - List the precise ingredients of the claimed limb (not generic section ingredients)
+   - Check EACH ingredient of that limb against facts
+   - Vague or umbrella terms do NOT satisfy specific statutory language
+
+3. DO NOT ACCEPT BROAD CHARACTERIZATIONS:
+   - "Inappropriate messages" is NOT sufficient for 354A unless facts show they are "sexually coloured remarks"
+   - "Contacting a minor" is NOT sufficient for 354D limb (i) unless facts show "clear indication of disinterest"
+   - "Repeated contact" is NOT sufficient for 354D limb (i) unless facts show "intent to foster personal interaction" AND "despite clear disinterest"
+   - Age (being a minor) does NOT automatically establish "disinterest" for stalking
+
+4. ENFORCE LIMB-SPECIFIC REQUIREMENTS:
+   - 354D limb (i) requires: following/contacting + to foster interaction + clear disinterest + repeated
+   - 354D limb (ii) requires: monitoring electronic communication + repeated (no disinterest requirement)
+   - Do not mix ingredients from different limbs
+   - Missing any mandatory ingredient of the invoked limb = ingredient NOT ESTABLISHED
+
+5. DOCUMENT THE ANALYSIS:
+   - State which limb is being evaluated
+   - For EACH ingredient of that limb, identify the specific fact that satisfies it
+   - If no fact satisfies an ingredient, mark it NOT_ESTABLISHED with explanation
+   - Example: "Limb (i) requires 'clear indication of disinterest' - no fact establishes victim communicated disinterest"
+
+This verification discipline applies to ALL sections, not just 354A and 354D.
+When evaluating any provision with alternative forms, always:
+  (a) Identify which alternative is claimed
+  (b) Extract that alternative's specific ingredients  
+  (c) Verify EACH ingredient against facts with precision
+  (d) Reject vague characterizations that do not match statutory language
+
+WORKED EXAMPLE — Correct vs. Incorrect Verification:
+===================================================
+
 13. For each ingredient, "matched_fact" must quote or name the supporting fact (null only if Missing).
 14. Fault elements are distinct: intention, knowledge, rashness and negligence. Evaluate only the fault element
     that the section's own ingredients name, and never add one they do not name. Never mark an ingredient
@@ -2210,6 +2569,52 @@ Return valid JSON:
 """
 
 
+STAGE1_ELEMENT_GATE_SYSTEM_PROMPT = """You are the Statutory Element Entailment Gate in an Indian criminal legal retrieval system.
+
+Your task is to evaluate whether candidate offence families proposed for a case are supported by the cited facts, using statutory ingredients.
+
+For each candidate offence family and its cited factual quotes:
+Evaluate against the statutory limbs of sections in that family into exactly ONE of three statuses:
+
+1. SUPPORTED:
+   The cited facts affirmatively allege the essential conduct elements required for at least one section in the family.
+   (Example: repeatedly contacting someone online to establish personal interaction satisfies the conduct limb of Stalking / SEXUAL_OFFENCE).
+
+2. CONTINGENT:
+   The alleged conduct plausibly engages the family, but essential statutory elements or specific details remain unknown or unstated on the current factual record.
+   
+   When tier is CONTINGENT, you MUST list the missing/unknown elements in unresolved_elements.
+   
+   CRITICAL: Do NOT drop a family because details are unknown - mark it CONTINGENT and state what's missing.
+   Unknown content, unknown intent, unknown circumstances = CONTINGENT (not excluded).
+   
+   General examples of CONTINGENT situations:
+   - Communications of unknown content: plausibly multiple families depending on actual content
+   - Acts with unknown intent: plausibly multiple families depending on mental state
+   - Incomplete fact patterns: plausibly multiple families depending on missing circumstances
+
+3. UNSUPPORTED:
+   The conduct required for this family is absent, contradicted by the facts, or unrelated.
+   Examples of UNSUPPORTED:
+   - KIDNAPPING_TRAFFICKING when there is no allegation of taking, enticing, luring, or inducing a person away from lawful custody. (Merely talking to or contacting a person is NOT kidnapping).
+   - RESTRAINT_ASSAULT / CRIMINAL_FORCE_ASSAULT when there is no physical force, physical assault, or physical confinement alleged. (Online messages without physical contact do NOT attract restraint or assault).
+   - HOMICIDE when no death is alleged.
+   - HURT when no bodily injury or physical pain is alleged.
+
+Return JSON with a list of evaluated families:
+{
+  "evaluations": [
+    {
+      "family": "FAMILY_CODE",
+      "status": "SUPPORTED" | "CONTINGENT" | "UNSUPPORTED",
+      "reason": "<concise explanation referencing the statutory conduct>",
+      "unresolved_elements": ["<missing fact 1>", ...]
+    }
+  ]
+}
+"""
+
+
 STAGE1_FAMILY_SYSTEM_PROMPT = """You are the Stage 1 fact-extraction agent of a legal retrieval system for Indian criminal law.
 
 Your job has exactly two parts. You do NOT choose statutory sections, section headings or section numbers;
@@ -2235,6 +2640,45 @@ PART A - FACTUAL ALLEGATIONS
 PART B - OFFENCE FAMILIES (closed list)
 - For the ACT / OMISSION / RESULT facts, choose offence families ONLY from this list (use the code exactly):
 {family_list}
+- **PROPOSE FAMILIES PER FACT (MANDATORY - one family analysis per fact)**:
+  
+  FOR EACH FACT SEPARATELY (F1, F2, F3, etc. - analyze each fact in isolation):
+  1. Read the fact's alleged conduct
+  2. Identify EVERY family whose statutory scope could plausibly cover that conduct
+  3. For each plausible family, determine tier:
+     - SUPPORTED: The fact directly alleges the family's essential conduct
+     - CONTINGENT: The fact plausibly engages the family BUT essential details are unknown or missing
+  4. When tier is CONTINGENT, you MUST list what elements are unknown in unresolved_elements
+  5. Include ALL plausible families - do NOT drop a family just because details are unknown
+  
+  MULTI-DIMENSIONAL CONDUCT PRINCIPLE:
+  A single fact can and often should produce MULTIPLE families when its conduct touches different statutory dimensions.
+  
+  Example structure (not limiting to these specific types):
+  - Communications/messages toward protected persons may engage multiple families:
+    * Family A for one statutory angle (e.g., contact-based offences)
+    * Family B for content-based angle (e.g., threatening/insulting communications)
+    * Family C for victim-status angle (e.g., offences against specific protected classes)
+  
+  - Document manipulation may engage:
+    * Forgery family (for document creation/alteration)
+    * Cheating family (for deceptive purpose)
+    * Evidence tampering family (for obstruction purpose)
+  
+  CRITICAL: Do NOT collapse multi-aspect conduct into a single family. List each applicable family separately,
+  even if details are unknown - use CONTINGENT tier and state what's missing in unresolved_elements.
+- Statutory limbs for families:
+    • SEXUAL_OFFENCE → sexual acts, stalking (repeated electronic contact / monitoring / personal relationship attempts), voyeurism, sexual harassment.
+    • INTIMIDATION_INSULT → criminal intimidation by threats, intentional insult to provoke breach of peace, or words, gestures, electronic communications or messages directed at a woman or girl that may insult her modesty or intrude upon her privacy (Section 509 IPC conduct).
+    • KIDNAPPING_TRAFFICKING → taking, enticing, luring or inducing the person away from lawful custody. A conversation, visit, or contacting a minor is NOT kidnapping.
+    • RESTRAINT_ASSAULT / CRIMINAL_FORCE_ASSAULT → physical restraint, confinement, criminal force, or assault. A conversation or message without physical force is NOT restraint or assault.
+    • HOMICIDE → causing death or killing.
+    • HURT → bodily injury, pain, wounding or beating.
+- POCSO (Protection of Children from Sexual Offences Act): Do NOT treat as a competing family. If the victim is below 18 years AND the conduct involves sexual/electronic elements, note this as a regime flag (special_acts_applicable: ["POCSO"]) in the response. POCSO verification happens at a later stage.
+- Three-state tiering:
+  - PRIMARY: the cited facts directly describe the conduct and essential elements.
+  - SECONDARY: factually inferable from the alleged conduct.
+  - CONDITIONAL: the family is plausible from the alleged conduct, but some essential details/elements are unknown or unstated on the current factual record (e.g. 'content of the messages unknown, not stated whether sexually coloured or insulting to modesty'). Name that missing fact in unresolved_elements!
 - Choose a family only if a cited fact describes conduct of that kind. Do not choose a family because of
   a single shared word (for example, a negligent death is HOMICIDE, not PUBLIC_HEALTH_SAFETY_NUISANCE).
 - Use ABETMENT, CONSPIRACY or COMMON_INTENTION only when the narrative alleges that two or more persons acted

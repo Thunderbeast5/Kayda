@@ -11,11 +11,117 @@ from .batch_utils import Stage2BatchedMappingResponse
 from .schemas import LegalQueryObject, Stage2VerificationResult
 
 
+def build_subquery_mapping(
+    query_obj: LegalQueryObject,
+    retriever: Optional[Any] = None,
+    nominator: Optional[Any] = None,
+    top_k: int = 20,
+) -> Stage2BatchedMappingResponse:
+    """
+    Builds Stage2BatchedMappingResponse by retrieving top candidate sections per sub-query
+    using the keyword-enhanced hybrid BM25 retriever (retriever.py + ipc_keywords.json + curated.py).
+    """
+    from .retriever import get_retriever
+    from .batch_utils import SectionMappingCandidate, SubQueryChapterMapping, Stage2BatchedMappingResponse
+    
+    r = retriever or get_retriever()
+    sub_queries = list(getattr(query_obj, "sub_queries", []) or [])
+    
+    if not sub_queries:
+        from .schemas import SubQueryItem
+        text = " ".join(
+            str(getattr(f, "verbatim_quote", "") or getattr(f, "description", "") or "")
+            for f in getattr(query_obj, "factual_allegations", [])
+        ).strip() or str(getattr(query_obj, "case_facts", "") or "")
+        sub_queries = [SubQueryItem(id="SQ1", concept="Case Allegations", query=text)]
+    
+    nominations = None
+    if nominator:
+        try:
+            nominations = nominator.run(query_obj)
+        except Exception as e:
+            print(f"  [Stage 2] Nomination pass skipped: {e}", flush=True)
+            nominations = None
+
+    mappings: List[SubQueryChapterMapping] = []
+
+    for sq in sub_queries:
+        sq_id = getattr(sq, "id", "SQ1")
+        sq_query = getattr(sq, "query", "") or ""
+        sq_concept = getattr(sq, "concept", "") or ""
+        search_text = f"{sq_concept} {sq_query}".strip() or sq_query
+        
+        hits = r.retrieve_top_k(search_text, k=top_k, mode='hybrid')
+        if not hits and sq_query:
+            hits = r.retrieve_top_k(sq_query, k=top_k, mode='hybrid')
+            
+        cands: List[SectionMappingCandidate] = []
+        chapters: List[str] = []
+        sec_numbers: List[str] = []
+        
+        top_score = hits[0]["raw_score"] if hits and hits[0].get("raw_score", 0) > 0 else 1.0
+        
+        for h in hits:
+            sec_num = str(h["section_number"]).strip()
+            title = str(h.get("section_title") or f"Section {sec_num}")
+            score_val = float(h.get("score", 0.0))
+            raw_score = float(h.get("raw_score", 0.0))
+            chap = str(h.get("chapter") or "")
+            if chap and chap not in chapters:
+                chapters.append(chap)
+            sec_numbers.append(sec_num)
+            
+            rel = raw_score / top_score if top_score > 0 else score_val
+            if rel >= 0.5:
+                tier = "PRIMARY"
+            elif rel >= 0.25:
+                tier = "SECONDARY"
+            else:
+                tier = "CONDITIONAL"
+                
+            if nominations and isinstance(nominations, dict):
+                for fam_code, nom_list in nominations.items():
+                    for n in nom_list:
+                        if str(n.get("section", "")).strip().upper() == sec_num.upper():
+                            tier = n.get("tier", tier)
+            
+            cand = SectionMappingCandidate(
+                section_number=sec_num,
+                section_title=title,
+                statute="IPC",
+                candidate_type=tier,
+                score=round(score_val, 4),
+                score_breakdown={"bm25_hybrid": round(score_val, 4)},
+                ingredients_matched=[],
+                missing_facts=[],
+                relevance_reasoning=f"Retrieved via hybrid keyword BM25 index (score: {round(raw_score, 3)})",
+                retrieval_sources=["bm25_hybrid"],
+            )
+            cands.append(cand)
+            
+        mapping_item = SubQueryChapterMapping(
+            sub_query_id=sq_id,
+            sub_query_text=sq_query,
+            target_parties=list(getattr(sq, "target_parties", []) or []),
+            facts_extracted=list(getattr(sq, "fact_ids", []) or []),
+            ingredients_matched=[],
+            candidate_chapters=chapters,
+            primary_candidate_sections=[c for c in cands if c.candidate_type == "PRIMARY"],
+            secondary_candidate_sections=[c for c in cands if c.candidate_type == "SECONDARY"],
+            conditional_candidate_sections=[c for c in cands if c.candidate_type == "CONDITIONAL"],
+            not_triggered_sections=[],
+            candidate_sections=sec_numbers,
+            relevance_reasoning=f"Retrieved top {len(cands)} candidates via hybrid BM25 index for {sq_id}.",
+        )
+        mappings.append(mapping_item)
+        
+    return Stage2BatchedMappingResponse(mappings=mappings)
+
+
 class Stage2Pipeline:
     """
     Complete Stage 2 pipeline for Sub-Query to Chapter Candidate Batched Mapping.
-    Executes LegalQueryObject -> Stage2SubQueryMappingAgent -> Stage2MappingVerifierAgent -> Reflection Retry Loop -> Verified Stage2BatchedMappingResponse.
-    Caps retries at 1 max.
+    Executes LegalQueryObject -> Sub-Query Hybrid BM25 Retrieval -> Verified Stage2BatchedMappingResponse.
     """
 
     def __init__(
@@ -44,30 +150,6 @@ class Stage2Pipeline:
         Returns:
             Stage2VerificationResult containing final verified Stage2BatchedMappingResponse and audit details.
         """
-        # Family-tagged queries: retrieval already ranked the sections; Stage 2 maps them
-        # deterministically (no LLM mapping, scope checks or verifier). Applicability is decided
-        # once, at ingredient level, in Stage 4.
-        query_obj = legal_query
-        if isinstance(legal_query, dict):
-            query_obj = LegalQueryObject.model_validate(legal_query)
-        elif isinstance(legal_query, str):
-            import json as _json
-            query_obj = LegalQueryObject.model_validate(_json.loads(legal_query))
-        if getattr(query_obj, "offence_families", None):
-            from .family_retrieval import build_family_mapping
-            nominations = self.nominator.run(query_obj) if self.nominator else None
-            mapping = build_family_mapping(query_obj, nominations=nominations,
-                                           excluded=getattr(self.nominator, "last_excluded", None) if nominations else None)
-            if mapping.get("retrieval_only_not_nominated"):
-                print(f"  [Stage 2] BM25 hits not nominated (dropped): {mapping['retrieval_only_not_nominated']}", flush=True)
-            resp = Stage2BatchedMappingResponse.model_validate(mapping)
-            return Stage2VerificationResult(
-                status="VERIFIED", issues=[],
-                feedback=("Family-scoped LLM nomination over ipc.json sections, fused with BM25 retrieval (1 LLM call)."
-                          if nominations else "Deterministic family-constrained BM25 mapping (nomination unavailable)."),
-                batched_mapping_response=resp,
-            )
-
         correction_feedback = None
         current_attempt = 0
 

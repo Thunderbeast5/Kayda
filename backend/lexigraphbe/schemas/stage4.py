@@ -11,9 +11,43 @@ from .common import ManualReviewMixin, _sanitize_manual_review
 class IngredientEvaluationItem(BaseModel):
     ingredient: str = Field(description="Essential statutory legal ingredient or clause name")
     matched_fact: Optional[str] = Field(default=None, description="Matched factual proposition or null if missing")
-    status: str = Field(description="Evaluation status: 'Satisfied', 'Partially Satisfied', 'Missing', 'Contradicted', or 'Unknown'")
+    status: str = Field(
+        description=(
+            "Evaluation status — choose exactly one:\n"
+            "  ESTABLISHED         – a fact directly states this element\n"
+            "  REASONABLY_INFERABLE – no verbatim allegation but the element is the natural legal reading of a stated fact\n"
+            "  NOT_ESTABLISHED     – no fact speaks to this element (use this when the element is simply absent)\n"
+            "  CONTRADICTED        – a fact in the record directly negates this element\n"
+            "  NOT_APPLICABLE      – the element belongs to a disjunctive clause that is satisfied by another branch\n"
+            "Aliases accepted from LLM: 'Satisfied'→ESTABLISHED, 'Partially Satisfied'→REASONABLY_INFERABLE, "
+            "'Missing'→NOT_ESTABLISHED, 'Unknown'→NOT_ESTABLISHED"
+        )
+    )
     reason: str = Field(description="Explicit reasoning grounded in facts")
     confidence: float = Field(default=0.90, description="Confidence score (0.0 to 1.0)")
+
+    @field_validator("status", mode="before")
+    @classmethod
+    def _normalise_status(cls, v: str) -> str:
+        """Accept legacy LLM labels and normalise them to the canonical five-value set."""
+        canonical = {
+            "established": "ESTABLISHED",
+            "satisfied": "ESTABLISHED",
+            "reasonably_inferable": "REASONABLY_INFERABLE",
+            "reasonably inferable": "REASONABLY_INFERABLE",
+            "partially satisfied": "REASONABLY_INFERABLE",
+            "partially_satisfied": "REASONABLY_INFERABLE",
+            "not_established": "NOT_ESTABLISHED",
+            "not established": "NOT_ESTABLISHED",
+            "missing": "NOT_ESTABLISHED",
+            "not satisfied": "NOT_ESTABLISHED",
+            "not_satisfied": "NOT_ESTABLISHED",
+            "unknown": "NOT_ESTABLISHED",
+            "contradicted": "CONTRADICTED",
+            "not_applicable": "NOT_APPLICABLE",
+            "not applicable": "NOT_APPLICABLE",
+        }
+        return canonical.get(str(v or "").strip().lower(), str(v or "").strip().upper())
 
 
 class StatutoryIngredientItem(BaseModel):
@@ -60,8 +94,19 @@ class VerifiedOffenceItemStage4(BaseModel):
     )
     legal_reasoning: str = Field(default="", description="Concise statutory legal reasoning trace")
     overall_status: str = Field(
-        default="Prima Facie Attracted",
-        description="Overall status: 'Prima Facie Attracted', 'Partially Attracted', or 'Not Attracted'"
+        default="NOT_ATTRACTED",
+        description="Overall status derived from ingredient statuses — one of: "
+                    "'ATTRACTED', 'INSUFFICIENT_FACTS', 'NOT_ATTRACTED'"
+    )
+    final_status: str = Field(
+        default="NOT_ATTRACTED",
+        description=(
+            "Strict final status following the decision table:\n"
+            "  ATTRACTED         – all essential ingredients ESTABLISHED or REASONABLY_INFERABLE\n"
+            "  INSUFFICIENT_FACTS – some essential ingredients NOT_ESTABLISHED (info missing, not contradicted)\n"
+            "  NOT_ATTRACTED     – any essential ingredient CONTRADICTED, OR overall_status is Not Attracted\n"
+            "This is the authoritative field for downstream bail and precedent stages."
+        )
     )
     confidence: Optional[float] = Field(
         default=None,

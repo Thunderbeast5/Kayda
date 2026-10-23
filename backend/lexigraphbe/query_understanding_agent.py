@@ -18,7 +18,7 @@ from .prompts import (
 )
 from .schemas import CaseContextObject, CaseProfile, LegalQueryObject
 from .schemas.stage1 import LegalConceptItem, OffenceFamilyItem, SubQueryItem
-from .family_retrieval import OFFENCE_FAMILIES, augment_families, family_prompt_block, validate_decomposition
+from .family_retrieval import OFFENCE_FAMILIES, augment_families, family_prompt_block, validate_decomposition, gate_families
 
 
 # ---------------------------------------------------------------------------
@@ -201,7 +201,7 @@ def _build_ipc_heading_reference(statute_db: Optional[Dict] = None) -> str:
                 if not key.startswith("IPC_"):
                     continue
                 sec_num = key[4:]  # strip "IPC_"
-                title = (entry.get("title") or entry.get("heading") or "").strip()
+                title = (entry.get("section_title") or entry.get("title") or entry.get("heading") or "").strip()
                 if title:
                     lines.append(_annotate(sec_num, title))
             if lines:
@@ -289,10 +289,13 @@ def _build_ipc_heading_reference(statute_db: Optional[Dict] = None) -> str:
         ("477A",   "Falsification of accounts"),
         ("491",    "Breach of contract to attend on and supply wants of helpless person"),
         ("498A",   "Husband or relative of husband of a woman subjecting her to cruelty"),
+        ("354A",   "Sexual harassment and punishment for sexual harassment"),
+        ("354D",   "Stalking"),
         ("499",    "Defamation"),
         ("500",    "Punishment for defamation"),
         ("503",    "Criminal intimidation"),
         ("506",    "Punishment for criminal intimidation"),
+        ("509",    "Word, gesture or act intended to insult the modesty of a woman"),
     ]
     return "\n".join(_annotate(sec, title) for sec, title in _FALLBACK_SECTIONS)
 
@@ -318,28 +321,51 @@ def _extract_narrative(case_context: Any) -> str:
     return ""
 
 
-def _apply_family_decomposition(query_obj: LegalQueryObject, narrative: str) -> None:
+def _apply_family_decomposition(query_obj: LegalQueryObject, narrative: str, llm: Optional[Any] = None) -> None:
     """
     Validates the family decomposition deterministically and derives the legacy
     legal_concepts / sub_queries from it so downstream stages keep their contract.
+
+    Gate step: after validation and augmentation, each family is tested against
+    statutory element entailment.
+    - SUPPORTED: all key elements evidenced
+    - CONTINGENT: plausible but some elements unknown (passes carrying unresolved_elements)
+    - UNSUPPORTED: facts contradict or are unrelated (blocked)
     """
+    # 0. Substring character offsets on all factual allegations:
+    if narrative:
+        for f in query_obj.factual_allegations:
+            quote = str(getattr(f, "verbatim_quote", "") or "").strip()
+            if quote:
+                idx = narrative.find(quote)
+                if idx == -1:
+                    idx = narrative.lower().find(quote.lower())
+                if idx != -1:
+                    f.start_char = idx
+                    f.end_char = idx + len(quote)
+
     check = validate_decomposition(narrative, query_obj.factual_allegations, query_obj.offence_families)
     for issue in check.issues:
         if issue not in query_obj.manual_review:
             query_obj.manual_review.append(issue)
     # Families outside the closed list are dropped, never guessed at.
     query_obj.offence_families = [f for f in query_obj.offence_families if f.family in OFFENCE_FAMILIES]
-    # Clause backstop: acts the LLM merged into one fact become their own verbatim facts.
+    
+    # FIX #2: Clause backstop BEFORE family augmentation (so proposer sees atomic facts CB1, CB2, CB3)
     from .family_retrieval import clause_backstop
     from .schemas.stage1 import FactualAllegation
-    for extra in clause_backstop(narrative, query_obj.factual_allegations):
+    split_facts = clause_backstop(narrative, query_obj.factual_allegations)
+    for extra in split_facts:
         query_obj.factual_allegations.append(FactualAllegation.model_validate(extra))
         query_obj.manual_review.append(f"[retrieval] Clause fact {extra['fact_id']} added: \"{extra['verbatim_quote']}\"")
+    
+    # Defence backstop
     from .family_retrieval import defence_backstop
     accused = ", ".join((query_obj.entities or {}).get("accused") or []) if isinstance(query_obj.entities, dict) else None
     for extra in defence_backstop(narrative, query_obj.factual_allegations, accused=accused or None):
         query_obj.factual_allegations.append(FactualAllegation.model_validate(extra))
         query_obj.manual_review.append(f"[defence] Statement fact {extra['fact_id']} added ({extra['description']}): \"{extra['verbatim_quote']}\"")
+    
     # Deterministic top-up: families signalled by retrieval on the quoted facts, and joint-liability
     # families when a fact names two or more actors. Added families are SECONDARY / CONDITIONAL.
     augmented, notes = augment_families(query_obj.factual_allegations, query_obj.offence_families)
@@ -347,20 +373,47 @@ def _apply_family_decomposition(query_obj: LegalQueryObject, narrative: str) -> 
     for note in notes:
         query_obj.manual_review.append(f"[retrieval] {note}")
 
+    # ── Evidence-backed offence-family gate (element entailment) ──────────
+    gate_result = gate_families(
+        query_obj.factual_allegations,
+        query_obj.offence_families,
+        narrative=narrative,
+        llm=llm,
+    )
+
+    # Record unsupported families in manual_review
+    for fam in gate_result.unsupported:
+        note = (
+            f"[gate] Family {fam.family} blocked (UNSUPPORTED): {fam.reason}"
+        )
+        if note not in query_obj.manual_review:
+            query_obj.manual_review.append(note)
+
+    for note in gate_result.gate_notes:
+        if note not in query_obj.manual_review:
+            query_obj.manual_review.append(note)
+
+    # Both SUPPORTED and CONTINGENT families drive sub_queries and legal_concepts.
+    active_families = gate_result.supported + gate_result.contingent
+    query_obj.offence_families = gate_result.supported + gate_result.contingent + gate_result.unsupported
+    # ──────────────────────────────────────────────────────────────────────
+
     quotes = {f.fact_id: (f.verbatim_quote or f.description) for f in query_obj.factual_allegations}
     concepts, sub_queries = [], []
-    for n, fam in enumerate(query_obj.offence_families, start=1):
-        label = fam.conduct_phrase.strip() or OFFENCE_FAMILIES[fam.family].split(",")[0]
+    for n, fam in enumerate(active_families, start=1):
+        label = fam.conduct_phrase.strip() or OFFENCE_FAMILIES.get(fam.family, fam.family).split(",")[0]
         cid = f"LC{n}"
+        is_contingent = (getattr(fam, "status", "") == "CONTINGENT" or fam.tier == "CONDITIONAL")
+        tier = "CONDITIONAL" if is_contingent else fam.tier
         concepts.append(LegalConceptItem(
             concept_id=cid, concept=label,
-            description=f"{fam.family}: {OFFENCE_FAMILIES[fam.family]}",
+            description=f"{fam.family}: {OFFENCE_FAMILIES.get(fam.family, fam.family)}",
             supporting_fact_ids=list(fam.fact_ids),
-            classification_status="PROVISIONAL" if fam.tier != "CONDITIONAL" else "UNCERTAIN",
-            confidence=0.8 if fam.tier == "PRIMARY" else 0.7,
+            classification_status="UNCERTAIN" if is_contingent else "PROVISIONAL",
+            confidence=0.7 if is_contingent else (0.8 if fam.tier == "PRIMARY" else 0.7),
         ))
         sub_queries.append(SubQueryItem(
-            id=f"SQ{n}", concept=label, concept_id=cid, tier=fam.tier,
+            id=f"SQ{n}", concept=label, concept_id=cid, tier=tier,
             query=" ".join(quotes.get(fid, "") for fid in fam.fact_ids).strip() or label,
             fact_ids=list(fam.fact_ids), unresolved_elements=list(fam.unresolved_elements),
             conduct_type="ACT",
@@ -368,6 +421,10 @@ def _apply_family_decomposition(query_obj: LegalQueryObject, narrative: str) -> 
     if concepts:
         query_obj.legal_concepts = concepts
         query_obj.sub_queries = sub_queries
+    elif not active_families:
+        empty_note = "Zero offence families survived the Stage 1 gate; manual review required."
+        if empty_note not in query_obj.manual_review:
+            query_obj.manual_review.append(empty_note)
 
 
 class QueryUnderstandingAgent:
@@ -480,7 +537,7 @@ class QueryUnderstandingAgent:
         query_obj = LegalQueryObject.model_validate(extracted_dict)
 
         query_obj.case_facts = narrative
-        _apply_family_decomposition(query_obj, narrative)
+        _apply_family_decomposition(query_obj, narrative, llm=self.llm)
 
         # Explicit passthrough of Stage 0 legal regime fields (never re-derived)
         query_obj.legal_regime = stage0_regime

@@ -308,8 +308,8 @@ class ChapterIdentificationAgent:
                     maximum=first_sched_meta["punishment_maximum"],
                     fine=first_sched_meta["fine"],
                 )
-                cognizable = first_sched_meta["cognizable"]
-                bailable = first_sched_meta["bailable"]
+                cognizable = first_sched_meta["cognizable"] if first_sched_meta.get("cognizable") is not None else True
+                bailable = first_sched_meta["bailable"] if first_sched_meta.get("bailable") is not None else False
             else:
                 chap_num = "IPC Chapter"
                 chap_title = canon_title

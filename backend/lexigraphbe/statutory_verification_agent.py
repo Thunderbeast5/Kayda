@@ -60,8 +60,17 @@ STATUTORY_INGREDIENTS: Dict[str, List[tuple]] = {
     "326": [("Grievous Hurt caused by dangerous weapon", True)],
     "326A": [("Voluntarily Causing Grievous Hurt", True), ("By use of acid or burning / corrosive substance", True), ("Permanent or partial damage to body part", True)],
     "354": [("Physical contact or gesture by accused", True), ("Victim is a Woman", True), ("Intent to outrage modesty or Knowledge that modesty likely outraged", True)],
-    "354A": [("Physical contact / unwelcome sexual advance", True), ("Victim is a Woman", True)],
-    "354D": [("Following / contacting / monitoring the woman", True), ("Despite clear indication of disinterest", True), ("More than once", True)],
+    "354A": [
+        ("Victim is a Woman", True),
+        ("One of the following forms of conduct: (i) Physical contact with unwelcome sexual overtures; OR (ii) Demand or request for sexual favours; OR (iii) Showing pornography against her will; OR (iv) Making sexually coloured remarks", True),
+        ("Conduct is unwelcome", True)
+    ],
+    "354D": [
+        ("Victim is a Woman", True),
+        ("One of the following forms of conduct: (i) Following the woman OR contacting her to foster personal interaction despite clear indication of disinterest; OR (ii) Monitoring her use of internet, email or electronic communication", True),
+        ("Conduct repeated (more than once)", True),
+        ("Clear indication of disinterest by the woman (required for limb (i) only)", False)
+    ],
     "376": [("Sexual intercourse", True), ("Absence of Consent or Consent obtained by fraud / fear / impersonation", True)],
     "498A": [("Marriage between victim and accused", True), ("Clause (a): Cruelty of gravity to drive to suicide or cause grave injury, OR Clause (b): Harassment for unlawful demand / dowry", True)],
     # Abetment / conspiracy
@@ -77,6 +86,8 @@ STATUTORY_INGREDIENTS: Dict[str, List[tuple]] = {
     "361": [("Taking / Enticing away a person", True), ("Minor (male <16, female <18) or person of unsound mind", True), ("Taking out of keeping of lawful guardian without consent", True)],
     "362": [("Compelling by force or inducing by deceit", True), ("To go from one place to another", True)],
     "363": [("Kidnapping from Lawful Guardianship", True), ("Taking / Enticing minor away", True)],
+    "366": [("Kidnapping or abducting any woman or inducing any woman", True), ("Intent or knowledge that she will be compelled to marry or forced/seduced to illicit intercourse", True)],
+    "366A": [("Inducing minor girl under 18 years to go from any place or do any act", True), ("Intent or knowledge that she will be forced or seduced to illicit intercourse with another person", True)],
     # Defamation
     "499": [("Making / Publishing an imputation", True), ("Imputation lowers reputation in estimation of others", True), ("Imputation made to third party", True)],
     "500": [("Defamation committed (s.499 satisfied)", True)],
@@ -143,42 +154,136 @@ def parse_punishment_and_severity(text: str, section_number: str = "", statute: 
 
 
 def _norm_status(status: str) -> str:
-    return str(status or "").strip().upper()
+    """Map any ingredient status label to the canonical five-value set."""
+    canonical = {
+        "established": "ESTABLISHED",
+        "satisfied": "ESTABLISHED",
+        "reasonably_inferable": "REASONABLY_INFERABLE",
+        "reasonably inferable": "REASONABLY_INFERABLE",
+        "partially satisfied": "REASONABLY_INFERABLE",
+        "partially_satisfied": "REASONABLY_INFERABLE",
+        "not_established": "NOT_ESTABLISHED",
+        "not established": "NOT_ESTABLISHED",
+        "missing": "NOT_ESTABLISHED",
+        "not satisfied": "NOT_ESTABLISHED",
+        "not_satisfied": "NOT_ESTABLISHED",
+        "unknown": "NOT_ESTABLISHED",
+        "contradicted": "CONTRADICTED",
+        "not_applicable": "NOT_APPLICABLE",
+        "not applicable": "NOT_APPLICABLE",
+    }
+    return canonical.get(str(status or "").strip().lower(), str(status or "").strip().upper())
 
 
 def _aggregate_ingredient_status(evaluations, classification: str = "PRIMARY"):
     """
-    Deterministic aggregation of per-ingredient statuses (the reasoner's judgements) into the
-    section's overall status:
-      any mandatory ingredient Missing / Contradicted / Not Satisfied -> Not Attracted (Weak)
-      any Unknown (not evaluated)                                       -> Partially Attracted (Weak)
-      any Partially Satisfied                                           -> Partially Attracted (Moderate)
-      all Satisfied                                                     -> Prima Facie Attracted (Strong)
-    A CONDITIONAL section (depends on a fact not yet alleged) is capped at Partially Attracted.
+    Strict deterministic aggregation of per-ingredient statuses into the section's final status.
+
+    Decision table (user-mandated):
+      Any essential ingredient CONTRADICTED                       → NOT_ATTRACTED
+      Any essential conduct/actus-reus ingredient NOT_ESTABLISHED → NOT_ATTRACTED
+      Some established, others genuinely unresolved due to missing facts → INSUFFICIENT_FACTS
+      All essential ingredients ESTABLISHED or REASONABLY_INFERABLE → ATTRACTED
+
+    Strength mapping:
+      ATTRACTED       → "Strong" (all ESTABLISHED) or "Moderate" (some REASONABLY_INFERABLE)
+      INSUFFICIENT_FACTS → "Weak"
+      NOT_ATTRACTED   → "Weak"
+
+    OR-grouped ingredients (marked with trailing " OR" in ipc.json) are treated as
+    one requirement: the group is satisfied if any member is ESTABLISHED or REASONABLY_INFERABLE.
     """
-    # Alternatives: ipc.json marks disjunctive ingredients with a trailing "OR" (e.g. 107: instigation; OR
-    # conspiracy; OR intentional aid). A run of alternatives is one requirement, met if any member is met.
-    rank = {"SATISFIED": 0, "PARTIALLY SATISFIED": 1, "UNKNOWN": 2, "": 2,
-            "MISSING": 3, "NOT SATISFIED": 3, "CONTRADICTED": 3}
+    rank = {
+        "ESTABLISHED": 0,
+        "REASONABLY_INFERABLE": 1,
+        "NOT_APPLICABLE": 1,   # disjunctive branch not used — doesn't block attraction
+        "NOT_ESTABLISHED": 3,
+        "CONTRADICTED": 4,
+        # legacy aliases (already normalised by schema but kept as belt-and-suspenders)
+        "SATISFIED": 0,
+        "PARTIALLY SATISFIED": 1,
+        "PARTIALLY_SATISFIED": 1,
+        "MISSING": 3,
+        "NOT SATISFIED": 3,
+        "NOT_SATISFIED": 3,
+        "UNKNOWN": 3,
+    }
     statuses, group = [], []
+    eval_groups = []
+    current_eval_group = []
     for e in (evaluations or []):
-        group.append(_norm_status(e.status))
+        st = _norm_status(e.status)
+        group.append(st)
+        current_eval_group.append(e)
         text = re.sub(r"\s*\[per section [^\]]*\]\s*$", "", str(e.ingredient or ""), flags=re.I).rstrip(" ;,.")
         if not re.search(r"(?:^|[\s;,])OR$", text):
-            statuses.append(min(group, key=lambda x: rank.get(x, 2)))
+            # End of an OR group: pick representative with lowest rank
+            best_idx = min(range(len(group)), key=lambda i: rank.get(group[i], 3))
+            statuses.append(group[best_idx])
+            eval_groups.append(current_eval_group[best_idx])
             group = []
+            current_eval_group = []
     if group:
-        statuses.append(min(group, key=lambda x: rank.get(x, 2)))
+        best_idx = min(range(len(group)), key=lambda i: rank.get(group[i], 3))
+        statuses.append(group[best_idx])
+        eval_groups.append(current_eval_group[best_idx])
+
     if not statuses:
-        # No ingredients were available to evaluate: nothing supports attraction.
-        return "Not Evaluated", "Weak"
-    if any(s in ("MISSING", "CONTRADICTED", "NOT SATISFIED") for s in statuses):
-        return "Not Attracted", "Weak"
-    if any(s in ("UNKNOWN", "") for s in statuses):
-        return "Partially Attracted", "Weak"
-    if any(s == "PARTIALLY SATISFIED" for s in statuses) or classification == "CONDITIONAL":
-        return "Partially Attracted", "Moderate"
-    return "Prima Facie Attracted", "Strong"
+        return "NOT_ATTRACTED", "Weak"
+
+    # 1. Any essential ingredient explicitly contradicted
+    if any(s == "CONTRADICTED" for s in statuses):
+        return "NOT_ATTRACTED", "Weak"
+
+    # 2. Missing/not established ingredients
+    missing_evals = [
+        eval_groups[i] for i, s in enumerate(statuses)
+        if s in ("NOT_ESTABLISHED", "MISSING", "NOT SATISFIED", "NOT_SATISFIED", "UNKNOWN")
+    ]
+
+    if missing_evals:
+        # If any essential conduct/actus reus ingredient is not established:
+        # Criminal liability requires actus reus. An unalleged act is NOT ATTRACTED.
+        has_missing_conduct = any(
+            classify_ingredient_kind(e.ingredient) == "conduct" for e in missing_evals
+        )
+        if has_missing_conduct:
+            return "NOT_ATTRACTED", "Weak"
+
+        # If nothing other than passive factual circumstances is established:
+        established_evals = [
+            eval_groups[i] for i, s in enumerate(statuses)
+            if s in ("ESTABLISHED", "REASONABLY_INFERABLE", "SATISFIED", "PARTIALLY SATISFIED")
+        ]
+        if not any(classify_ingredient_kind(e.ingredient) == "conduct" for e in established_evals):
+            return "NOT_ATTRACTED", "Weak"
+
+        # Conduct is established, but other essential factual circumstances are unresolved:
+        return "INSUFFICIENT_FACTS", "Weak"
+
+    # 3. All statuses are ESTABLISHED, REASONABLY_INFERABLE, or NOT_APPLICABLE
+    if all(s in ("ESTABLISHED", "SATISFIED") for s in statuses):
+        strength = "Strong"
+    else:
+        strength = "Moderate" if classification != "CONDITIONAL" else "Moderate"
+    return "ATTRACTED", strength
+
+
+# Mapping from old status labels that may appear in vo.overall_status set by the LLM
+_LEGACY_STATUS_MAP = {
+    "prima facie attracted": "ATTRACTED",
+    "partially attracted": "INSUFFICIENT_FACTS",
+    "not attracted": "NOT_ATTRACTED",
+    "not evaluated": "NOT_ATTRACTED",
+    "attracted": "ATTRACTED",
+    "insufficient_facts": "INSUFFICIENT_FACTS",
+    "insufficient facts": "INSUFFICIENT_FACTS",
+}
+
+
+def _normalise_overall_status(raw: str) -> str:
+    """Convert any overall_status string to the canonical three-value set."""
+    return _LEGACY_STATUS_MAP.get(str(raw or "").strip().lower(), str(raw or "").strip().upper())
 
 
 
@@ -205,19 +310,46 @@ _MENTAL_ELEMENT_RE = re.compile(
 def classify_ingredient_kind(ingredient_text: str) -> str:
     """
     Classifies a statutory ingredient into:
-      'factual_circumstance' - extrinsic factual condition (must be specifically alleged)
-      'conduct' - overt actus reus action or immediate result
-      'legal_characterisation' - legal duty, legal compulsion, or admissibility
-      'mental' - mens rea / knowledge / intention / state of mind
+      'conduct'              - overt actus reus action, result, OR transitive act requiring
+                               a separate overt act by the accused to be established
+                               (e.g. inducement, taking away, enticing, compelling, causing death)
+      'factual_circumstance' - extrinsic factual condition that must be specifically alleged
+                               (e.g. marriage, victim is a woman, minor, location)
+      'legal_characterisation' - legal duty, legal capacity, or admissibility question
+      'mental'               - pure mens rea / knowledge / intention stated in the ingredient
+                               with NO separate overt-act requirement
+
+    IMPORTANT: Conduct ingredients are NEVER inferable from circumstantial evidence alone.
+    Inducement, taking, enticing, compelling, and abduction are CONDUCT ingredients because
+    they each require a specific overt act; the fact that a minor is present does not establish them.
+    Conduct check is prioritized over factual_circumstance so that compound elements like
+    'Inducing a minor girl under 18 years' are classified as 'conduct'.
     """
     text = str(ingredient_text or "").strip().lower()
-    if re.search(r"\b(woman|marriage|husband|relative of husband|within 7 years|seven years|minor|child|below \d+ years|dwelling house|at night|sunset|sunrise)\b", text):
-        return "factual_circumstance"
-    if re.search(r"\b(insult\w*|assault\w*|destroys?|secretes?|causes? (?:any )?evidence to disappear|gives? false information|causes? death|strikes?|enters?|falsif\w*|takes? property)\b", text):
+    # Conduct ingredients FIRST — explicit overt acts or results take precedence over status keywords
+    if re.search(
+        r"\b(induc\w*|enticement|enticing|compel\w*|taking away|taken away|abduct\w*|kidnap\w*|"
+        r"insult\w*|assault\w*|destroys?|secretes?|causes? (?:any )?evidence to disappear|"
+        r"gives? false information|causes? death|strikes?|enters?|falsif\w*|takes? property|"
+        r"sexual intercourse|physical contact|following|contacting|monitoring)\b",
+        text,
+    ):
         return "conduct"
-    if re.search(r"\b(lawfully compelled|due course of law|legally bound|as evidence|public servant|valuable security|breach of (?:the )?peace|screen\w* (?:the )?offender|legal punishment)\b", text):
+    # Factual circumstances: status conditions that do not require an overt act
+    if re.search(
+        r"\b(woman|marriage|husband|relative of husband|within 7 years|seven years|minor|child|below \d+ years|dwelling house|at night|sunset|sunrise)\b",
+        text,
+    ):
+        return "factual_circumstance"
+    if re.search(
+        r"\b(lawfully compelled|due course of law|legally bound|as evidence|public servant|valuable security|breach of (?:the )?peace|screen\w* (?:the )?offender|legal punishment)\b",
+        text,
+    ):
         return "legal_characterisation"
-    if re.search(r"\b(intent\w*|intend\w*|knowing\w*|knowledge|knows|reason to believe|dishonest\w*|fraudulent\w*|wilful\w*|purpose|deliberate\w*|likely to|malicious\w*|corrupt\w*|voluntarily)\b", text):
+    if re.search(
+        r"\b(intent\w*|intend\w*|knowing\w*|knowledge|knows|reason to believe|dishonest\w*|fraudulent\w*|wilful\w*|purpose|deliberate\w*|likely to|malicious\w*|corrupt\w*|voluntarily)\b",
+        text,
+    ):
         return "mental"
     return "conduct"
 
@@ -227,24 +359,45 @@ INFERABLE_KINDS = {"mental", "legal_characterisation"}
 
 def _infer_mental_elements(vo) -> List[str]:
     """
-    Prima facie standard: at the FIR / bail stage allegations are taken at face value.
-    Mental elements and legal characterisations are inferred from alleged overt conduct.
-    Factual circumstances (e.g. marriage, woman) must be alleged and are never inferred.
+    Prima facie standard: at the FIR / bail stage, PURE MENTAL ELEMENTS (mens rea) may be
+    inferred from established overt conduct when all conduct and factual-circumstance ingredients
+    are ESTABLISHED or REASONABLY_INFERABLE.
+
+    STRICT RULE: Only ingredients classified as 'mental' or 'legal_characterisation' may be
+    inferred. Conduct ingredients (inducement, taking, enticing, compelling, sexual intercourse,
+    physical contact, etc.) require a specific overt act to be alleged and are NEVER upgraded
+    via this inference path — their absence means NOT_ESTABLISHED, not REASONABLY_INFERABLE.
     """
     evals = list(getattr(vo, "ingredient_evaluation", []) or [])
-    inferable = [e for e in evals if classify_ingredient_kind(e.ingredient) in INFERABLE_KINDS]
-    conduct = [e for e in evals if e not in inferable]
-    if not inferable or not conduct:
+    # Strict split: only pure mental/legal_characterisation ingredients may be inferred
+    inferable = [
+        e for e in evals
+        if classify_ingredient_kind(e.ingredient) in ("mental", "legal_characterisation")
+    ]
+    # Conduct + factual_circumstance ingredients that must be affirmatively established
+    non_inferable = [e for e in evals if e not in inferable]
+    if not inferable or not non_inferable:
         return []
-    if not all(_norm_status(e.status) in ("SATISFIED", "PARTIALLY SATISFIED") for e in conduct):
+    # Inference only triggers if ALL conduct/factual-circumstance ingredients are established
+    if not all(
+        _norm_status(e.status) in ("ESTABLISHED", "REASONABLY_INFERABLE", "NOT_APPLICABLE",
+                                   # legacy aliases
+                                   "SATISFIED", "PARTIALLY SATISFIED", "PARTIALLY_SATISFIED")
+        for e in non_inferable
+    ):
         return []
     notes = []
     for e in inferable:
-        if _norm_status(e.status) in ("MISSING", "UNKNOWN", "NOT SATISFIED"):
-            kind = classify_ingredient_kind(e.ingredient)
-            e.status = "Partially Satisfied"
-            e.reason = (e.reason or "") + f" [Prima facie: {kind} element not expressly alleged verbatim but inferable from alleged conduct at FIR/bail stage; to be established at trial.]"
-            notes.append(f"Section {vo.section_number}: {kind} element '{str(e.ingredient)[:60]}' treated as inferable at the prima facie stage.")
+        if _norm_status(e.status) in ("NOT_ESTABLISHED", "MISSING", "UNKNOWN", "NOT SATISFIED", "NOT_SATISFIED"):
+            e.status = "REASONABLY_INFERABLE"
+            e.reason = (
+                (e.reason or "")
+                + f" [Prima facie: mental element inferred from established conduct at FIR/bail stage; to be proved at trial.]"
+            )
+            notes.append(
+                f"Section {vo.section_number}: mental element '{str(e.ingredient)[:60]}' "
+                "treated as REASONABLY_INFERABLE from established conduct."
+            )
     return notes
 
 
@@ -786,37 +939,59 @@ class StatutoryVerificationAgent:
                     if note not in statutory_obj.manual_review:
                         statutory_obj.manual_review.append(note)
             _structure_disputed_reasons(vo, facts_list, getattr(query_obj, "important_facts", None))
+
+            # ── Strict final-status aggregation ──────────────────────────────────
             status, strength = _aggregate_ingredient_status(vo.ingredient_evaluation, vo.classification)
-            if status != vo.overall_status:
-                note = f"Section {vo.section_number}: overall status set to '{status}' from ingredient statuses (LLM said '{vo.overall_status}')."
+            # Normalise any legacy label that the LLM may have put in overall_status
+            canonical_status = _normalise_overall_status(status)
+            if canonical_status != _normalise_overall_status(vo.overall_status):
+                note = (
+                    f"Section {vo.section_number}: overall status set to '{canonical_status}' "
+                    f"from ingredient statuses (LLM said '{vo.overall_status}')."
+                )
                 if note not in statutory_obj.manual_review:
                     statutory_obj.manual_review.append(note)
-            vo.overall_status, vo.overall_prima_facie_strength = status, strength
-            if isinstance(vo.irac_reasoning, dict) and status == "Not Attracted":
+            vo.overall_status = canonical_status
+            vo.final_status = canonical_status
+            vo.overall_prima_facie_strength = strength
+            # ────────────────────────────────────────────────────────────────
+
+            if isinstance(vo.irac_reasoning, dict) and canonical_status == "NOT_ATTRACTED":
                 gaps = [e.ingredient for e in vo.ingredient_evaluation
-                        if _norm_status(e.status) in ("MISSING", "CONTRADICTED", "NOT SATISFIED")]
+                        if _norm_status(e.status) in ("NOT_ESTABLISHED", "CONTRADICTED",
+                                                      "MISSING", "NOT SATISFIED", "NOT_SATISFIED")]
                 vo.irac_reasoning["conclusion"] = (
-                    f"Section {vo.section_number} not attracted on current facts - missing: " + "; ".join(gaps or vo.missing_mandatory_facts or ["mandatory element"])
+                    f"Section {vo.section_number} not attracted on current facts - missing/contradicted: "
+                    + "; ".join(gaps or vo.missing_mandatory_facts or ["mandatory element"])
+                )
+            elif isinstance(vo.irac_reasoning, dict) and canonical_status == "INSUFFICIENT_FACTS":
+                gaps = [e.ingredient for e in vo.ingredient_evaluation
+                        if _norm_status(e.status) == "NOT_ESTABLISHED"]
+                vo.irac_reasoning["conclusion"] = (
+                    f"Section {vo.section_number} cannot be assessed (insufficient facts) - "
+                    f"not established: "
+                    + "; ".join(gaps or ["mandatory element"])
                 )
 
-            if status == "Not Evaluated":
+            if canonical_status == "NOT_ATTRACTED":
+                rejected_offences.append(vo)
+            elif status == "Not Evaluated":
                 note = f"Section {vo.section_number}: no statutory ingredients available to evaluate; held for manual review."
                 if note not in statutory_obj.manual_review:
                     statutory_obj.manual_review.append(note)
                 conditional_offences.append(vo)
-            elif (vo.classification == "CONDITIONAL" and status in ("Prima Facie Attracted", "Partially Attracted")
+            elif (vo.classification == "CONDITIONAL" and canonical_status == "ATTRACTED"
                   and not _MENTAL_CONDITION_RE.search(condition_by_sec.get(_norm(vo.section_number), ""))):
-                # A condition on intention / knowledge was set because Stage 1 found only rash or negligent conduct;
-                # no Stage 4 inference or "disputed" rating can meet it, so such sections never reach this branch.
-                # Every ingredient, including the one the condition was about, is met on the alleged facts.
                 note = f"Section {vo.section_number}: retrieved as CONDITIONAL; the facts meet the condition, so it is attracted."
                 if note not in statutory_obj.manual_review:
                     statutory_obj.manual_review.append(note)
                 attracted_offences.append(vo)
             elif vo.classification == "CONDITIONAL":
                 conditional_offences.append(vo)
-            elif status in ("Prima Facie Attracted", "Partially Attracted"):
+            elif canonical_status == "ATTRACTED":
                 attracted_offences.append(vo)
+            elif canonical_status == "INSUFFICIENT_FACTS":
+                conditional_offences.append(vo)
             else:
                 rejected_offences.append(vo)
 

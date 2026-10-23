@@ -25,6 +25,7 @@ class FactualAllegation(BaseModel):
     verbatim_quote: Optional[str] = Field(default=None, description="Exact span quote from source narrative")
     start_char: Optional[int] = Field(default=None, description="Character start offset in narrative")
     end_char: Optional[int] = Field(default=None, description="Character end offset in narrative")
+    parent_fact_id: Optional[str] = Field(default=None, description="Identifier of parent compound fact if split")
 
     @field_validator("actor", "affected_party_or_object", mode="before")
     @classmethod
@@ -187,6 +188,20 @@ class OffenceFamilyItem(BaseModel):
     fault_mode: str = Field(default="UNSTATED", description="Alleged fault element: INTENTIONAL, KNOWING, RASH_OR_NEGLIGENT or UNSTATED")
     unresolved_elements: List[str] = Field(default_factory=list, description="Elements not yet established on the facts")
 
+    # ── Evidence-backed gate fields (populated by gate_families() in family_retrieval.py) ──
+    trigger_satisfied: bool = Field(
+        default=True,
+        description="False when no factual trigger supports this family; gate blocks Stage 2 queries.",
+    )
+    status: str = Field(
+        default="SUPPORTED",
+        description="SUPPORTED if at least one factual trigger is present; UNSUPPORTED otherwise.",
+    )
+    reason: Optional[str] = Field(
+        default=None,
+        description="Human-readable explanation of why the trigger was or was not satisfied.",
+    )
+
     @field_validator("family", mode="before")
     @classmethod
     def _upper(cls, v):
@@ -206,6 +221,12 @@ class OffenceFamilyItem(BaseModel):
     def _tier(cls, v):
         t = str(v or "PRIMARY").strip().upper()
         return t if t in {"PRIMARY", "SECONDARY", "CONDITIONAL"} else "PRIMARY"
+
+    @field_validator("status", mode="before")
+    @classmethod
+    def _status(cls, v):
+        s = str(v or "SUPPORTED").strip().upper()
+        return s if s in {"SUPPORTED", "CONTINGENT", "UNSUPPORTED"} else "SUPPORTED"
 
 
 class LegalQueryObject(ManualReviewMixin):

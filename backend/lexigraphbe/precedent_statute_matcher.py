@@ -371,8 +371,8 @@ class PrecedentStatuteMatcher:
 
         # 1. Offences (IPC/BNS) -- weighted by Stage 4 prima facie strength
         for off in stage4_result.get("verified_offences", []) or []:
-            status = str(off.get("overall_status") or "")
-            if status.strip().lower() == "not attracted":
+            status = str(off.get("overall_status") or "").strip().lower()
+            if status in ("not attracted", "not_attracted", "insufficient_facts", "insufficient facts"):
                 continue
             sec = str(off.get("section_number") or "")
             strength = str(off.get("overall_prima_facie_strength") or "").strip().lower()
