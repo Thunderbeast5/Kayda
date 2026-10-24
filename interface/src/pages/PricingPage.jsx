@@ -179,10 +179,7 @@ export default function KaydaPricingPage() {
             animate="visible"
             className="relative mx-auto max-w-6xl text-center"
           >
-            {/* Pill Eyebrow */}
-            <motion.div variants={itemFadeUpVariants} className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/40 bg-white/70 px-4 py-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-[#8C5A3C] shadow-sm backdrop-blur-sm">
-              <Scale size={13} className="text-[#D4AF37]" /> KAYDA ACCESS &amp; MEMBERSHIP
-            </motion.div>
+            
 
             {/* Headline */}
             <motion.h1
