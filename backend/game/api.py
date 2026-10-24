@@ -13,6 +13,19 @@ ws_router = APIRouter()
 from backend.matchmaking.redis_client import redis_client
 import json
 
+async def _background_firestore_sync(game_id: str, game_data: dict):
+    def _sync():
+        try:
+            db = _get_firestore_client()
+            if db:
+                db.collection("games").document(game_id).set(game_data, merge=True)
+        except Exception as e:
+            print(f"[API] Firestore sync skipped: {e}")
+    try:
+        await asyncio.wait_for(asyncio.to_thread(_sync), timeout=2.0)
+    except Exception:
+        pass
+
 @game_router.get("/{game_id}")
 async def get_game(game_id: str):
     # Try Redis first
@@ -24,11 +37,16 @@ async def get_game(game_id: str):
         pass
         
     try:
-        db = _get_firestore_client()
-        if db:
-            doc = db.collection("games").document(game_id).get()
-            if doc.exists:
-                return {"success": True, "game": doc.to_dict()}
+        def _get():
+            db = _get_firestore_client()
+            if db:
+                doc = db.collection("games").document(game_id).get()
+                if doc.exists:
+                    return doc.to_dict()
+            return None
+        game = await asyncio.wait_for(asyncio.to_thread(_get), timeout=2.0)
+        if game:
+            return {"success": True, "game": game}
     except Exception:
         pass
         
@@ -46,11 +64,14 @@ async def ready_player(game_id: str, user_id: str = Query(...)):
             
         if not game_data:
             try:
-                db = _get_firestore_client()
-                if db:
-                    doc = db.collection("games").document(game_id).get()
-                    if doc.exists:
-                        game_data = doc.to_dict()
+                def _get():
+                    db = _get_firestore_client()
+                    if db:
+                        doc = db.collection("games").document(game_id).get()
+                        if doc.exists:
+                            return doc.to_dict()
+                    return None
+                game_data = await asyncio.wait_for(asyncio.to_thread(_get), timeout=2.0)
             except Exception:
                 pass
                 
@@ -76,7 +97,7 @@ async def ready_player(game_id: str, user_id: str = Query(...)):
         
         if all_ready:
             game_data["status"] = "ACTIVE"
-            game_data["phase"] = "CASE_INTRO"
+            game_data["phase"] = "OPENING"
             game_data["updated_at"] = datetime.now(timezone.utc).isoformat()
             
         game_data["players"] = players
@@ -84,13 +105,8 @@ async def ready_player(game_id: str, user_id: str = Query(...)):
         # Persist to Redis
         await redis_client.set(f"game_doc:{game_id}", json.dumps(game_data))
         
-        # Optionally sync to Firestore
-        try:
-            db = _get_firestore_client()
-            if db:
-                db.collection("games").document(game_id).set(game_data, merge=True)
-        except Exception:
-            pass
+        # Non-blocking async sync to Firestore in background
+        asyncio.create_task(_background_firestore_sync(game_id, game_data))
 
         # Broadcast readiness over WebSocket
         await manager.broadcast(game_id, {
@@ -137,11 +153,14 @@ async def websocket_game_endpoint(websocket: WebSocket, game_id: str, user_id: s
             
         if not game_data:
             try:
-                db = _get_firestore_client()
-                if db:
-                    doc = await asyncio.to_thread(db.collection("games").document(game_id).get)
-                    if doc.exists:
-                        game_data = doc.to_dict()
+                def _ws_get():
+                    db = _get_firestore_client()
+                    if db:
+                        doc = db.collection("games").document(game_id).get()
+                        if doc.exists:
+                            return doc.to_dict()
+                    return None
+                game_data = await asyncio.wait_for(asyncio.to_thread(_ws_get), timeout=2.0)
             except Exception:
                 pass
                 

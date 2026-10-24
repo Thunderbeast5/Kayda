@@ -56,7 +56,7 @@ async def _generate_ai_argument(
     try:
         import openai
         client = openai.AsyncOpenAI(api_key=os.getenv("OPENAI_API_KEY"), timeout=3.0)
-        model = os.getenv("OPENAI_MODEL", "gpt-5.4-mini")
+        model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
         response = await client.chat.completions.create(
             model=model,
             messages=[
@@ -117,8 +117,21 @@ class GameEngine:
         if not player_role:
             return False, "User is not a counsel in this courtroom", None, None
 
-        # ── 1. Handle In-Court Objections (allowed anytime) ──
+        # ── 1. Handle In-Court Objections (allowed anytime with anti-spam) ──
         if action_type == "RAISE_OBJECTION":
+            # Rate limit: max 1 objection every 8 seconds per player
+            ok, err = game_judge.check_objection_rate_limit(game_id, user_id, cooldown_seconds=8.0)
+            if not ok:
+                return False, err, None, None
+
+            # Quota: max 2 objections per phase per player
+            state.setdefault("objection_counts", {})
+            current_phase = state.get("phase", "ARGUMENT")
+            obj_key = f"{current_phase}_{user_id}"
+            if state["objection_counts"].get(obj_key, 0) >= 2:
+                return False, f"Maximum objections (2) already raised for {current_phase} phase.", None, None
+            state["objection_counts"][obj_key] = state["objection_counts"].get(obj_key, 0) + 1
+
             reason = action_payload.get("text") or action_payload.get("reason") or "Counsel raises formal objection."
             case_id = state.get("case_id", "1")
             
@@ -131,7 +144,7 @@ class GameEngine:
             }
             
             asyncio.create_task(asyncio.to_thread(
-                record_action_event_sync, game_id, user_id, "RAISE_OBJECTION", {"content": reason}, state.get("round", 1), state.get("phase", "ARGUMENT")
+                record_action_event_sync, game_id, user_id, "RAISE_OBJECTION", {"content": reason}, state.get("round", 1), current_phase
             ))
             
             asyncio.create_task(self._handle_judge_objection_ruling(game_id, case_id, player_role, reason, state.get("current_turn")))
@@ -140,14 +153,21 @@ class GameEngine:
 
         # ── 2. Validate user's turn for speech actions ──
         is_turn = (state.get("current_turn") == user_id)
-        turn_required_actions = ["END_TURN", "SUBMIT_OPENING", "SUBMIT_ARGUMENT", "SUBMIT_REBUTTAL"]
+        speech_actions = ["SUBMIT_OPENING", "SUBMIT_ARGUMENT", "SUBMIT_REBUTTAL", "SUBMIT_SPEECH"]
+        turn_required_actions = ["END_TURN"] + speech_actions
         
         if action_type in turn_required_actions and not is_turn:
             return False, "Not your turn", None, None
             
-        current_phase = state.get("phase")
+        current_phase = state.get("phase", "OPENING")
         event_to_broadcast = None
         
+        text_content = (action_payload.get("text") or action_payload.get("content") or "").strip()
+        
+        # If client sends END_TURN but attached substantive text, process it as a speech submission
+        if action_type == "END_TURN" and len(text_content) >= 15:
+            action_type = "SUBMIT_ARGUMENT"
+
         if action_type == "END_TURN":
             state = advance_turn(state)
             if state["status"] == "COMPLETED":
@@ -161,19 +181,22 @@ class GameEngine:
                     "current_turn": state["current_turn"],
                     "phase": state["phase"]
                 }
-                if current_phase == "CASE_INTRO" and state["phase"] == "OPENING":
-                    asyncio.create_task(self._announce_opening_phase(game_id, state))
                 
-        elif action_type in ["SUBMIT_OPENING", "SUBMIT_ARGUMENT", "SUBMIT_REBUTTAL"]:
-            # Validate Phase
-            if action_type == "SUBMIT_OPENING" and current_phase != "OPENING":
-                return False, f"Action {action_type} not allowed in phase {current_phase}", None, None
-            if action_type == "SUBMIT_ARGUMENT" and current_phase != "ARGUMENT":
-                return False, f"Action {action_type} not allowed in phase {current_phase}", None, None
-            if action_type == "SUBMIT_REBUTTAL" and current_phase != "REBUTTAL":
-                return False, f"Action {action_type} not allowed in phase {current_phase}", None, None
+        elif action_type in speech_actions:
+            # If still marked CASE_INTRO, seamlessly advance to OPENING
+            if current_phase == "CASE_INTRO":
+                current_phase = "OPENING"
+                state["phase"] = "OPENING"
+
+            # Normalize action name to the current phase
+            if current_phase == "OPENING":
+                action_type = "SUBMIT_OPENING"
+            elif current_phase == "REBUTTAL":
+                action_type = "SUBMIT_REBUTTAL"
+            else:
+                action_type = "SUBMIT_ARGUMENT"
                 
-            text = action_payload.get("text", "")
+            text = text_content
             case_id = state.get("case_id", "1")
             
             asyncio.create_task(asyncio.to_thread(
@@ -182,8 +205,8 @@ class GameEngine:
             
             # ── 3. Real-Time Judge Monitoring & Scoring ──
             history = state.get("transcript", [])
-            score_breakdown, score_delta, citations = await game_judge.evaluate_argument(
-                case_id, player_role, current_phase, text, history
+            score_breakdown, score_delta, citations, judge_obs = await game_judge.evaluate_argument(
+                case_id, player_role, current_phase, text, history, game_id=game_id
             )
             
             state.setdefault("scores", {"prosecution": 0, "defense": 0})
@@ -194,11 +217,17 @@ class GameEngine:
                 "text": text,
                 "phase": current_phase,
                 "citations": citations,
-                "score_delta": score_delta
+                "score_delta": score_delta,
+                "score_breakdown": score_breakdown,
+                "observation": judge_obs
             })
             
             # Advance Turn
             state = advance_turn(state)
+            
+            # Determine next counsel role
+            prosecution_id = state.get("players", {}).get("prosecution")
+            next_role = "prosecution" if state["current_turn"] == prosecution_id else "defense"
             
             event_to_broadcast = {
                 "type": "ACTION_SUBMITTED",
@@ -208,7 +237,10 @@ class GameEngine:
                 "payload": {"content": text, "text": text},
                 "next_turn": state["current_turn"],
                 "phase": state["phase"],
-                "scores": state["scores"]
+                "scores": state["scores"],
+                "score_delta": score_delta,
+                "score_breakdown": score_breakdown,
+                "citations": citations
             }
             
             # ── 4. Check Phase & Schedule Judge Reaction / AI Opponent ──
@@ -216,7 +248,7 @@ class GameEngine:
                 asyncio.create_task(self.trigger_verdict(game_id, state))
             else:
                 asyncio.create_task(self.trigger_judge_intervention(
-                    game_id, case_id, player_role, current_phase, text, score_breakdown, state["current_turn"]
+                    game_id, case_id, player_role, current_phase, text, score_breakdown, state["current_turn"], next_role=next_role
                 ))
                 
                 # ── 5. If next turn is the AI opponent, generate its argument ──
@@ -269,8 +301,8 @@ class GameEngine:
             last_human_argument=last_human_text
         )
 
-        score_breakdown, score_delta, citations = await game_judge.evaluate_argument(
-            case_id, ai_role, phase, ai_text, current_state.get("transcript", [])
+        score_breakdown, score_delta, citations, judge_obs = await game_judge.evaluate_argument(
+            case_id, ai_role, phase, ai_text, current_state.get("transcript", []), game_id=game_id
         )
 
         current_state.setdefault("scores", {"prosecution": 0, "defense": 0})
@@ -280,7 +312,9 @@ class GameEngine:
             "text": ai_text,
             "phase": phase,
             "citations": citations,
-            "score_delta": score_delta
+            "score_delta": score_delta,
+            "score_breakdown": score_breakdown,
+            "observation": judge_obs
         })
 
         current_state = advance_turn(current_state)
@@ -295,6 +329,7 @@ class GameEngine:
             {"content": ai_text}, current_state.get("round", 1), phase
         ))
 
+        ai_next_role = "prosecution" if ai_role == "defense" else "defense"
         ai_event = {
             "type": "ACTION_SUBMITTED",
             "action": ai_action,
@@ -303,13 +338,16 @@ class GameEngine:
             "payload": {"content": ai_text, "text": ai_text},
             "next_turn": current_state["current_turn"],
             "phase": current_state["phase"],
-            "scores": current_state["scores"]
+            "scores": current_state["scores"],
+            "score_delta": score_delta,
+            "score_breakdown": score_breakdown,
+            "citations": citations
         }
         await manager.broadcast(game_id, ai_event)
 
         if current_state["phase"] != "JUDGMENT":
             asyncio.create_task(self.trigger_judge_intervention(
-                game_id, case_id, ai_role, phase, ai_text, score_breakdown, current_state["current_turn"]
+                game_id, case_id, ai_role, phase, ai_text, score_breakdown, current_state["current_turn"], next_role=ai_next_role
             ))
         else:
             asyncio.create_task(self.trigger_verdict(game_id, current_state))
@@ -366,15 +404,16 @@ class GameEngine:
         phase: str,
         argument_text: str,
         scores: Dict[str, int],
-        next_turn: Optional[str]
+        next_turn: Optional[str],
+        next_role: Optional[str] = None
     ):
-        await asyncio.sleep(1.5)
+        await asyncio.sleep(1.2)
         
         state = await get_game_state(game_id)
         history = state.get("transcript", []) if state else []
         
         reaction = await game_judge.generate_interruption_or_question(
-            case_id, role, phase, argument_text, scores, history
+            case_id, role, phase, argument_text, scores, history, next_role=next_role, game_id=game_id
         )
         
         if reaction:
@@ -387,7 +426,8 @@ class GameEngine:
                 "interruption_type": reaction.get("interruption_type", "OBSERVATION"),
                 "target_role": reaction.get("target_role"),
                 "active_turn": next_turn,
-                "scores": state.get("scores") if state else None
+                "scores": state.get("scores") if state else None,
+                "score_breakdown": scores
             }
             await manager.broadcast(game_id, judge_event)
             
@@ -410,23 +450,38 @@ class GameEngine:
         last_arg = None
         if state and state.get("transcript"):
             last_arg = state["transcript"][-1].get("text")
-        ruling = await game_judge.rule_on_objection(case_id, objecting_role, reason, last_argument=last_arg)
+            
+        ruling = await game_judge.rule_on_objection(
+            case_id, objecting_role, reason, last_argument=last_arg, game_id=game_id
+        )
+        
+        # Apply score adjustments from ruling
+        score_adj = ruling.get("score_adjustment", {})
+        if state and score_adj:
+            state.setdefault("scores", {"prosecution": 0, "defense": 0})
+            for r, delta in score_adj.items():
+                state["scores"][r] = max(0, state["scores"].get(r, 0) + delta)
+            
+            await update_game_state(game_id, state)
+            asyncio.create_task(asyncio.to_thread(sync_to_firestore_sync, game_id, state))
         
         judge_event = {
             "type": "JUDGE_MESSAGE",
             "agent_id": "judge",
-            "display_name": "Hon'ble Judge",
+            "display_name": "Hon'ble Judge — Objection Ruling",
             "content": ruling["content"],
             "citations": ruling.get("citations", []),
             "interruption_type": "RULING",
             "ruling": ruling["ruling"],
-            "active_turn": active_turn
+            "active_turn": active_turn,
+            "score_adjustment": score_adj,
+            "scores": state.get("scores") if state else None
         }
         await manager.broadcast(game_id, judge_event)
         
         asyncio.create_task(asyncio.to_thread(
             record_action_event_sync, game_id, "ai_judge", "OBJECTION_RULING",
-            {"ruling": ruling["ruling"], "content": ruling["content"]},
+            {"ruling": ruling["ruling"], "content": ruling["content"], "score_adjustment": score_adj},
             1, "TRIAL"
         ))
 
@@ -436,7 +491,7 @@ class GameEngine:
         scores = state.get("scores", {"prosecution": 0, "defense": 0})
         transcript = state.get("transcript", [])
         
-        verdict = await game_judge.render_final_verdict(case_id, scores, transcript)
+        verdict = await game_judge.render_final_verdict(case_id, scores, transcript, game_id=game_id)
         
         verdict_event = {
             "type": "JUDGE_MESSAGE",

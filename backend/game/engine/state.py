@@ -43,7 +43,7 @@ async def init_game_state(game_id: str, firestore_data: Dict[str, Any]) -> Dict[
     state = {
         "game_id": game_id,
         "case_id": str(firestore_data.get("case_id", "1")),
-        "phase": "CASE_INTRO",
+        "phase": "OPENING",
         "round": 1,
         "current_turn": prosecution_id,  # Prosecution starts
         "players": {
