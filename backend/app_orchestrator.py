@@ -80,11 +80,15 @@ _active_ws: dict[str, WebSocket] = {}
 def _redis():
     try:
         import redis
-        r = redis.Redis(
-            host=os.getenv("REDIS_HOST", "localhost"),
-            port=int(os.getenv("REDIS_PORT", "6379")),
-            decode_responses=True,
-        )
+        redis_url = os.getenv("REDIS_URL")
+        if redis_url:
+            r = redis.from_url(redis_url, decode_responses=True)
+        else:
+            r = redis.Redis(
+                host=os.getenv("REDIS_HOST", "localhost"),
+                port=int(os.getenv("REDIS_PORT", "6379")),
+                decode_responses=True,
+            )
         r.ping()
         return r
     except Exception:

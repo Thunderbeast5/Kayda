@@ -36,15 +36,24 @@ def _get_redis():
         return _redis_client
     try:
         import redis
-        host = os.getenv("REDIS_HOST", "localhost")
-        port = int(os.getenv("REDIS_PORT", 6379))
-        r = redis.Redis(
-            host=host,
-            port=port,
-            decode_responses=True,
-            socket_connect_timeout=0.3,
-            socket_timeout=0.3,
-        )
+        redis_url = os.getenv("REDIS_URL")
+        if redis_url:
+            r = redis.from_url(
+                redis_url,
+                decode_responses=True,
+                socket_connect_timeout=0.3,
+                socket_timeout=0.3,
+            )
+        else:
+            host = os.getenv("REDIS_HOST", "localhost")
+            port = int(os.getenv("REDIS_PORT", 6379))
+            r = redis.Redis(
+                host=host,
+                port=port,
+                decode_responses=True,
+                socket_connect_timeout=0.3,
+                socket_timeout=0.3,
+            )
         r.ping()
         _redis_client = r
     except Exception:
