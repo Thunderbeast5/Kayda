@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:5001/api/matchmaking";
+const BASE_URL = import.meta.env.VITE_API_URL || "https://kayda-agents.onrender.com";
+const API_URL = `${BASE_URL}/api/matchmaking`;
 
 export async function joinMatchmakingQueue(userId, username, preferredRole, rating = 1200) {
   // Normalize role: UI uses "prosecutor"/"defense", backend expects "PROSECUTION"/"DEFENSE"

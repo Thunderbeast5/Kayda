@@ -812,7 +812,9 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
       let readyFired = false;
 
       const timer = setTimeout(() => {
-        const wsUrl = `ws://localhost:5001/ws/games/${gameId}?user_id=${userId}`;
+        const baseApi = import.meta.env.VITE_API_URL || "https://kayda-agents.onrender.com";
+        const wsBase = baseApi.replace(/^http/, "ws");
+        const wsUrl = `${wsBase}/ws/games/${gameId}?user_id=${userId}`;
         ws = new WebSocket(wsUrl);
         wsRef.current = ws;
 

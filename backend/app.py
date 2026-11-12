@@ -646,7 +646,7 @@ async def startup_event():
     start_matchmaking_worker()
 
 
-# Enable CORS for localhost and 127.0.0.1 on various ports
+# Enable CORS for frontend clients (local, Render, Vercel, Netlify)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -656,8 +656,10 @@ app.add_middleware(
         "http://127.0.0.1:5174",
         "http://localhost:5175",
         "http://127.0.0.1:5175",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
     ],
-    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?",
+    allow_origin_regex=r"https?://(localhost|127\.0\.0\.1)(:\d+)?|https://.*\.vercel\.app|https://.*\.onrender\.com|https://.*\.netlify\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
