@@ -1,0 +1,40 @@
+<mxGraphModel dx="900" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" background="#FFFFF3" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="t5" parent="1" style="text;html=1;fontStyle=1;fontSize=14;fillColor=none;strokeColor=none;align=left;" value="⑤ Accused Agent" vertex="1">
+      <mxGeometry height="24" width="200" x="215" y="35" as="geometry" />
+    </mxCell>
+    <mxCell id="a1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333;arcSize=8;fontSize=11;" value="&lt;b&gt;Receive Question&lt;/b&gt;&lt;br&gt;From Judge or Defense" vertex="1">
+      <mxGeometry height="52" width="190" x="215" y="69" as="geometry" />
+    </mxCell>
+    <mxCell id="a2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333;arcSize=8;fontSize=11;" value="&lt;b&gt;Load Prior Statements&lt;/b&gt;&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
+      <mxGeometry height="52" width="190" x="215" y="157" as="geometry" />
+    </mxCell>
+    <mxCell id="a3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333;arcSize=8;fontSize=11;" value="&lt;b&gt;Generate Response (LLM)&lt;/b&gt;&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
+      <mxGeometry height="52" width="190" x="215" y="245" as="geometry" />
+    </mxCell>
+    <mxCell id="a_dec" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=11;" value="Contradicts prior statement?" vertex="1">
+      <mxGeometry height="60" width="180" x="220" y="333" as="geometry" />
+    </mxCell>
+    <mxCell id="a4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333;arcSize=8;fontSize=11;" value="&lt;b&gt;Regenerate (Guardrails)&lt;/b&gt;&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
+      <mxGeometry height="52" width="190" x="215" y="437" as="geometry" />
+    </mxCell>
+    <mxCell id="a5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontColor=#333;arcSize=8;fontSize=11;" value="&lt;b&gt;Return to Judge&lt;/b&gt;" vertex="1">
+      <mxGeometry height="52" width="190" x="435" y="337" as="geometry" />
+    </mxCell>
+    <mxCell id="ae1" edge="1" parent="1" source="a1" style="edgeStyle=orthogonalEdgeStyle;" target="a2"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="ae2" edge="1" parent="1" source="a2" style="edgeStyle=orthogonalEdgeStyle;" target="a3"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="ae3" edge="1" parent="1" source="a3" style="edgeStyle=orthogonalEdgeStyle;" target="a_dec"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="ae4" edge="1" parent="1" source="a_dec" style="edgeStyle=orthogonalEdgeStyle;" target="a4" value="Yes"><mxGeometry relative="1" as="geometry" /></mxCell>
+    <mxCell id="ae4b" edge="1" parent="1" source="a4" style="edgeStyle=orthogonalEdgeStyle;dashed=1;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" target="a3" value="retry">
+      <mxGeometry relative="1" as="geometry">
+        <Array as="points">
+          <mxPoint x="195" y="463" />
+          <mxPoint x="195" y="271" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <mxCell id="ae5" edge="1" parent="1" source="a_dec" style="edgeStyle=orthogonalEdgeStyle;" target="a5" value="No"><mxGeometry relative="1" as="geometry" /></mxCell>
+  </root>
+</mxGraphModel>
