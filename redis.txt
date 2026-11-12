@@ -5,7 +5,7 @@ dsv
 
 Start-Process "C:\Program Files\Redis\redis-server.exe" -WindowStyle Hidden; Start-Sleep -Seconds 1; & "C:\Program Files\Redis\redis-cli.exe" ping
 
-
+uvicorn app:app --host 0.0.0.0 --port $PORT
 
 
 python -m lexigraphbe.runner --text "The applicant, a senior medical professional, seeks anticipatory bail after an FIR was registered following the death of a patient who underwent emergency surgery at the hospital. The complainant, a relative of the deceased, alleges that the applicant deliberately ignored repeated warnings regarding the patient's deteriorating condition, failed to arrange timely specialist intervention, and falsified certain entries in the medical records to conceal negligence. The FIR further alleges that the applicant, along with the hospital administrator, destroyed internal monitoring records and instructed junior staff members not to disclose the actual sequence of events. The applicant denies these allegations and submits that the patient was admitted in a critical condition, all necessary medical procedures were followed, and the death resulted from complications that could not have been reasonably anticipated. The applicant contends that the allegations arise from a medical dispute and that criminal liability cannot be imposed merely because a treatment was unsuccessful. The applicant has already provided medical records and cooperated with the investigating agency. The prosecution opposes anticipatory bail, arguing that the alleged manipulation of hospital records requires custodial interrogation and that the applicant may influence hospital employees who are material witnesses." --stage 5
