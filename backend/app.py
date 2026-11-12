@@ -671,6 +671,13 @@ app.include_router(game_router)
 app.include_router(ws_router)
 
 
+# ── Health Check Endpoints ───────────────────────────────────────────────
+@app.get("/", tags=["Health"])
+@app.get("/health", tags=["Health"])
+async def health_check():
+    return {"status": "ok", "service": "Kayda Legal Intelligence API"}
+
+
 # ── Observer Mode Case Bank Endpoints ─────────────────────────────────────
 @app.get("/api/cases")
 async def api_list_cases():
