@@ -1,0 +1,45 @@
+<mxGraphModel dx="669" dy="462" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="lx0" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;arcSize=8;fontSize=11;" value="&lt;b&gt;Receive Legal Query&lt;/b&gt;&lt;br&gt;From Prosecutor or Defense" vertex="1">
+      <mxGeometry height="52" width="210" x="116" y="69" as="geometry" />
+    </mxCell>
+    <mxCell id="lx1" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;arcSize=8;fontSize=11;" value="&lt;b&gt;Query Understanding &amp;amp; Verification&lt;/b&gt;&lt;br&gt;Extract: Law · Crime · Facts · Intent" vertex="1">
+      <mxGeometry height="52" width="210" x="116" y="157" as="geometry" />
+    </mxCell>
+    <mxCell id="lx2" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;arcSize=8;fontSize=11;" value="&lt;b&gt;Section Retrieval &amp;amp; Statutory Mapping&lt;/b&gt;&lt;br&gt;Cypher: Crime → Section → Act" vertex="1">
+      <mxGeometry height="52" width="210" x="116" y="245" as="geometry" />
+    </mxCell>
+    <mxCell id="lx3" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;arcSize=8;fontSize=11;" value="&lt;b&gt;Statutory Requirements Checking&lt;/b&gt;&lt;br&gt;Section ingredients vs. case facts" vertex="1">
+      <mxGeometry height="52" width="210" x="116" y="333" as="geometry" />
+    </mxCell>
+    <mxCell id="lx4" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;arcSize=8;fontSize=11;" value="&lt;b&gt;Bail Reasoning &amp;amp; Verification&lt;/b&gt;&lt;br&gt;Bailable? Grounds for / against bail" vertex="1">
+      <mxGeometry height="52" width="210" x="116" y="421" as="geometry" />
+    </mxCell>
+    <mxCell id="lx5" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;arcSize=8;fontSize=11;" value="&lt;b&gt;Precedent Retrieval &amp;amp; Verification&lt;/b&gt;&lt;br&gt;Cypher: Section → Case · check overrules" vertex="1">
+      <mxGeometry height="52" width="210" x="116" y="509" as="geometry" />
+    </mxCell>
+    <mxCell id="lx6" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;arcSize=8;fontSize=11;" value="&lt;b&gt;Return to Calling Agent&lt;/b&gt;&lt;br&gt;Sections · Bail · Precedents" vertex="1">
+      <mxGeometry height="52" width="210" x="116" y="597" as="geometry" />
+    </mxCell>
+    <mxCell id="e0" edge="1" parent="1" source="lx0" style="edgeStyle=orthogonalEdgeStyle;" target="lx1">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e1" edge="1" parent="1" source="lx1" style="edgeStyle=orthogonalEdgeStyle;" target="lx2">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e2" edge="1" parent="1" source="lx2" style="edgeStyle=orthogonalEdgeStyle;" target="lx3">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e3" edge="1" parent="1" source="lx3" style="edgeStyle=orthogonalEdgeStyle;" target="lx4">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e4" edge="1" parent="1" source="lx4" style="edgeStyle=orthogonalEdgeStyle;" target="lx5">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+    <mxCell id="e5" edge="1" parent="1" source="lx5" style="edgeStyle=orthogonalEdgeStyle;" target="lx6">
+      <mxGeometry relative="1" as="geometry" />
+    </mxCell>
+  </root>
+</mxGraphModel>
