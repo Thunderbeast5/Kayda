@@ -118,10 +118,7 @@ function CourtroomStage({ activeSpeaker, lastMessage, userRole }) {
               role="judge"
               src={A.judge}
               activeSpeaker={activeSpeaker}
-              message={msgFor("judge")}
               isUser={userRole === "judge"}
-              bubbleSide="side"
-              showBubble={false}
             />
           </div>
         </div>
