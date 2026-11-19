@@ -71,6 +71,7 @@ load_dotenv(BASE_DIR / ".env")
 
 
 FIREBASE_CREDENTIALS_PATH = os.getenv("FIREBASE_CREDENTIALS_PATH")
+FIREBASE_CREDENTIALS_JSON = os.getenv("FIREBASE_CREDENTIALS_JSON")
 
 IMAGE_EXTENSIONS = {".png", ".jpg", ".jpeg", ".tiff", ".bmp"}
 
@@ -104,19 +105,24 @@ def _get_firestore_client():
     global _firebase_app
     if not _FIREBASE_AVAILABLE:
         return None
-    if not FIREBASE_CREDENTIALS_PATH:
-        return None
-    cred_path = BASE_DIR / FIREBASE_CREDENTIALS_PATH
-    if not cred_path.exists():
+    if not FIREBASE_CREDENTIALS_PATH and not FIREBASE_CREDENTIALS_JSON:
         return None
     if _firebase_app is None:
         try:
-            cred = credentials.Certificate(str(cred_path))
+            _firebase_app = firebase_admin.get_app()
+        except ValueError:
+            if FIREBASE_CREDENTIALS_JSON:
+                service_account_info = json.loads(FIREBASE_CREDENTIALS_JSON)
+                cred = credentials.Certificate(service_account_info)
+            else:
+                cred_path = Path(FIREBASE_CREDENTIALS_PATH)
+                if not cred_path.is_absolute():
+                    cred_path = BASE_DIR / cred_path
+                if not cred_path.exists():
+                    return None
+                cred = credentials.Certificate(str(cred_path))
             _firebase_app = firebase_admin.initialize_app(cred)
-        except Exception as e:
-            print(f"[Warning] Firebase initialization failed ({e}).")
-            return None
-    return firestore.client()
+    return firestore.client(app=_firebase_app)
 
 
 # ====================================================================
@@ -1103,8 +1109,9 @@ def extract_facts(
 def store_to_firestore(session_id: str, raw_text: str, facts: Dict[str, Any]) -> str:
     db = _get_firestore_client()
     if db is None:
-        print("[evidence_analyzer] Skipping Firestore: credentials file not found or service unconfigured.")
-        return session_id
+        raise RuntimeError(
+            "Firestore is not configured; OCR analysis cannot be saved."
+        )
 
     doc_ref = db.collection("document_store").document(session_id)
 

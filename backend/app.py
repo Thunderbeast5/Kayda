@@ -762,8 +762,43 @@ from lexigraph_history import (
 )
 
 
-def list_evidence_history(limit: int = 25) -> list:
-    sessions = []
+EVIDENCE_HISTORY_FILE = Path(__file__).resolve().parent / "temp_uploads" / "evidence_history.json"
+
+
+def _parse_evidence_doc(data: dict, doc_id: str = "") -> dict:
+    facts = data.get("facts")
+    incident_summary = ""
+    incident_date = ""
+    incident_time = ""
+    incident_place = ""
+    vehicles = []
+
+    if isinstance(facts, dict):
+        incident = facts.get("incident")
+        if isinstance(incident, dict):
+            incident_summary = incident.get("summary") or ""
+            incident_date = incident.get("date") or ""
+            incident_time = incident.get("time") or ""
+            incident_place = incident.get("place") or ""
+        elif isinstance(incident, str):
+            incident_summary = incident
+
+        prop = facts.get("property")
+        if isinstance(prop, dict):
+            vehicles = prop.get("vehicles") or []
+    elif isinstance(facts, list):
+        for f in facts:
+            if isinstance(f, dict) and f.get("text"):
+                incident_summary = f.get("text")[:180]
+                break
+            elif isinstance(f, str) and f.strip():
+                incident_summary = f.strip()[:180]
+                break
+    elif isinstance(data.get("description"), str):
+        incident_summary = data.get("description")
+
+    if not incident_summary and data.get("raw_text"):
+        incident_summary = str(data["raw_text"])[:160] + "..."
 
     def _format_vehicle(vehicle: dict) -> str:
         if not isinstance(vehicle, dict):
@@ -775,99 +810,118 @@ def list_evidence_history(limit: int = 25) -> list:
         ]
         return " - ".join(part for part in parts if part)
 
+    if not isinstance(vehicles, list):
+        vehicles = []
+
+    vehicle_summaries = [
+        _format_vehicle(v)
+        for v in vehicles
+        if isinstance(v, dict)
+    ]
+    vehicle_summaries = [s for s in vehicle_summaries if s]
+
+    timeline = data.get("timeline") or []
+    graph = data.get("graph") or {}
+
+    return {
+        "session_id": data.get("session_id") or doc_id,
+        "created_at": str(data.get("created_at") or ""),
+        "schema_version": str(data.get("schema_version") or ""),
+        "context_schema_version": str(data.get("context_schema_version") or ""),
+        "filename": data.get("filename") or data.get("source_filename") or "",
+        "incident_summary": incident_summary,
+        "incident_date": incident_date,
+        "incident_time": incident_time,
+        "incident_place": incident_place,
+        "vehicle_count": len(vehicles),
+        "vehicle_summary": ", ".join(vehicle_summaries[:3]),
+        "timeline_count": len(timeline) if isinstance(timeline, list) else 0,
+        "node_count": len(graph.get("nodes") or []) if isinstance(graph, dict) else (len(graph) if isinstance(graph, list) else 0),
+        "edge_count": len(graph.get("edges") or []) if isinstance(graph, dict) else 0,
+    }
+
+
+def list_evidence_history(limit: int = 25) -> list:
+    sessions = []
+    seen_ids = set()
+
+    # 1. Query Firestore (check primary "document_store" and fallback collections)
     try:
         db = _get_firestore_client()
-        if not db:
-            return sessions
+        if db is not None:
+            candidate_collections = ["document_store", "evidence", "evidence_history", "ocr_history", "documents"]
+            for col_name in candidate_collections:
+                try:
+                    col = db.collection(col_name)
+                    docs = []
+                    try:
+                        docs = list(col.order_by("created_at", direction="DESCENDING").limit(limit).stream())
+                    except Exception:
+                        docs = []
+                    if not docs:
+                        docs = list(col.limit(limit).stream())
 
-        try:
-            docs = (
-                db.collection("document_store")
-                .order_by("created_at", direction="DESCENDING")
-                .limit(limit)
-                .stream()
-            )
-        except Exception as order_err:
-            print(f"[Firebase] Order-by query fallback: {order_err}", file=sys.stderr)
-            docs = db.collection("document_store").limit(limit).stream()
-
-        for doc in docs:
-            try:
-                data = doc.to_dict() or {}
-                facts = data.get("facts")
-                incident_summary = ""
-                incident_date = ""
-                incident_time = ""
-                incident_place = ""
-                vehicles = []
-
-                if isinstance(facts, dict):
-                    incident = facts.get("incident")
-                    if isinstance(incident, dict):
-                        incident_summary = incident.get("summary") or ""
-                        incident_date = incident.get("date") or ""
-                        incident_time = incident.get("time") or ""
-                        incident_place = incident.get("place") or ""
-                    elif isinstance(incident, str):
-                        incident_summary = incident
-
-                    prop = facts.get("property")
-                    if isinstance(prop, dict):
-                        vehicles = prop.get("vehicles") or []
-                elif isinstance(facts, list):
-                    for f in facts:
-                        if isinstance(f, dict) and f.get("text"):
-                            incident_summary = f.get("text")[:180]
-                            break
-                        elif isinstance(f, str) and f.strip():
-                            incident_summary = f.strip()[:180]
-                            break
-
-                if not isinstance(vehicles, list):
-                    vehicles = []
-
-                vehicle_summaries = [
-                    _format_vehicle(vehicle)
-                    for vehicle in vehicles
-                    if isinstance(vehicle, dict)
-                ]
-                vehicle_summaries = [summary for summary in vehicle_summaries if summary]
-
-                timeline = data.get("timeline") or []
-                graph = data.get("graph") or {}
-
-                sessions.append({
-                    "session_id": data.get("session_id") or doc.id,
-                    "created_at": str(data.get("created_at") or ""),
-                    "schema_version": str(data.get("schema_version") or ""),
-                    "context_schema_version": str(data.get("context_schema_version") or ""),
-                    "filename": data.get("filename") or data.get("source_filename") or "",
-                    "incident_summary": incident_summary,
-                    "incident_date": incident_date,
-                    "incident_time": incident_time,
-                    "incident_place": incident_place,
-                    "vehicle_count": len(vehicles),
-                    "vehicle_summary": ", ".join(vehicle_summaries[:3]),
-                    "timeline_count": len(timeline) if isinstance(timeline, list) else 0,
-                    "node_count": len(graph.get("nodes") or []) if isinstance(graph, dict) else (len(graph) if isinstance(graph, list) else 0),
-                    "edge_count": len(graph.get("edges") or []) if isinstance(graph, dict) else 0,
-                })
-            except Exception as doc_err:
-                print(f"[Firebase] Error parsing evidence doc '{doc.id}': {doc_err}", file=sys.stderr)
-                continue
+                    for doc in docs:
+                        try:
+                            d = doc.to_dict() or {}
+                            sid = d.get("session_id") or doc.id
+                            if sid not in seen_ids:
+                                seen_ids.add(sid)
+                                sessions.append(_parse_evidence_doc(d, doc.id))
+                        except Exception as parse_err:
+                            print(f"[Firebase] Error parsing {col_name} doc {doc.id}: {parse_err}", file=sys.stderr)
+                    if sessions:
+                        break
+                except Exception as col_err:
+                    print(f"[Firebase] Error reading collection {col_name}: {col_err}", file=sys.stderr)
     except Exception as e:
-        print(f"[Firebase] Could not fetch evidence history: {e}", file=sys.stderr)
-    return sessions
+        print(f"[Firebase] Firestore list_evidence_history error: {e}", file=sys.stderr)
+
+    # 2. Local fallback / augmentation: load from evidence_history.json
+    if EVIDENCE_HISTORY_FILE.exists():
+        try:
+            with open(EVIDENCE_HISTORY_FILE, "r", encoding="utf-8") as f:
+                local_data = json.load(f)
+                if isinstance(local_data, list):
+                    for item in local_data:
+                        if isinstance(item, dict):
+                            sid = item.get("session_id")
+                            if sid and sid not in seen_ids:
+                                seen_ids.add(sid)
+                                sessions.append(_parse_evidence_doc(item, sid))
+        except Exception as local_err:
+            print(f"[Firebase] Local evidence history read error: {local_err}", file=sys.stderr)
+
+    return sessions[:limit]
 
 
 def get_evidence_session_by_id(session_id: str) -> dict:
+    # 1. Try Firestore
     try:
         db = _get_firestore_client()
-        doc = db.collection("document_store").document(session_id).get()
-        if doc.exists:
-            return doc.to_dict()
+        if db is not None:
+            for col_name in ["document_store", "evidence", "evidence_history", "ocr_history", "documents"]:
+                try:
+                    doc = db.collection(col_name).document(session_id).get()
+                    if doc.exists:
+                        return doc.to_dict()
+                except Exception:
+                    continue
     except Exception as e:
-        print(f"[Firebase] Could not fetch evidence doc '{session_id}': {e}", file=sys.stderr)
+        print(f"[Firebase] Firestore get_evidence_session_by_id error: {e}", file=sys.stderr)
+
+    # 2. Try local fallback file
+    if EVIDENCE_HISTORY_FILE.exists():
+        try:
+            with open(EVIDENCE_HISTORY_FILE, "r", encoding="utf-8") as f:
+                local_data = json.load(f)
+                if isinstance(local_data, list):
+                    for item in local_data:
+                        if isinstance(item, dict) and item.get("session_id") == session_id:
+                            return item
+        except Exception as local_err:
+            print(f"[Firebase] Local evidence session read error: {local_err}", file=sys.stderr)
+
     return None
 
 
@@ -1066,6 +1120,33 @@ async def analyze_evidence_endpoint(file: UploadFile = File(...)):
             session_id,
             str(temp_file_path),
         )
+
+        # Also persist to local evidence_history.json for reliable history recall
+        try:
+            history_record = {
+                "session_id": session_id,
+                "filename": filename,
+                "created_at": datetime.now(timezone.utc).isoformat(),
+                "raw_text": result.get("rawText", ""),
+                "facts": result.get("facts", {}),
+                "timeline": result.get("timeline", []),
+                "graph": result.get("graph", {}),
+            }
+            records = []
+            if EVIDENCE_HISTORY_FILE.exists():
+                try:
+                    with open(EVIDENCE_HISTORY_FILE, "r", encoding="utf-8") as hf:
+                        records = json.load(hf)
+                        if not isinstance(records, list):
+                            records = []
+                except Exception:
+                    records = []
+            records = [r for r in records if r.get("session_id") != session_id]
+            records.insert(0, history_record)
+            with open(EVIDENCE_HISTORY_FILE, "w", encoding="utf-8") as hf:
+                json.dump(records[:100], hf, indent=2, ensure_ascii=False)
+        except Exception as save_err:
+            print(f"[Firebase] Failed to write local evidence history backup: {save_err}", file=sys.stderr)
 
         return {
             "success": True,

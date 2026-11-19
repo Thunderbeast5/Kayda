@@ -19,6 +19,8 @@ import {
 } from "lucide-react";
 import ForceGraph2D from "react-force-graph-2d";
 import StandardNavbar from "../components/StandardNavbar";
+import { db } from "../firebase";
+import { collection, getDocs, doc, getDoc } from "firebase/firestore";
 
 // ─── Progress Steps ──────────────────────────────────────────────
 const STEPS = [
@@ -99,12 +101,92 @@ export default function EvidenceAnalyzerPage({ onBack }) {
     setHistoryLoading(true);
     setHistoryError(null);
     try {
-      const response = await fetch(`${apiUrl}/api/evidence/history?limit=25`);
-      const res = await response.json();
-      if (!response.ok || !res.success) {
-        throw new Error(res.message || `Failed to load history (${response.status})`);
+      let items = [];
+
+      // 1. First attempt: fetch from configured API (local or remote)
+      const candidateApiUrls = [apiUrl];
+      if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+        if (!candidateApiUrls.includes("http://localhost:5001")) candidateApiUrls.push("http://localhost:5001");
       }
-      setHistoryItems(res.data || []);
+
+      for (const url of candidateApiUrls) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 4000);
+          const response = await fetch(`${url}/api/evidence/history?limit=25`, { signal: controller.signal });
+          clearTimeout(timeoutId);
+          if (response.ok) {
+            const res = await response.json();
+            if (res.success && Array.isArray(res.data) && res.data.length > 0) {
+              items = res.data;
+              break;
+            }
+          }
+        } catch {
+          // Continue to next fallback
+        }
+      }
+
+      // 2. Direct Firestore fallback (if backend returned 0 items, is sleeping, or unreachable)
+      if (items.length === 0 && db) {
+        try {
+          for (const colName of ["document_store", "evidence", "evidence_history", "ocr_history", "documents"]) {
+            const snap = await getDocs(collection(db, colName));
+            if (!snap.empty) {
+              const firestoreItems = [];
+              snap.forEach((docSnap) => {
+                const data = docSnap.data() || {};
+                const facts = data.facts;
+                let incidentSummary = "";
+                let incidentDate = "";
+                let incidentTime = "";
+                let incidentPlace = "";
+
+                if (facts && typeof facts === "object") {
+                  if (facts.incident && typeof facts.incident === "object") {
+                    incidentSummary = facts.incident.summary || "";
+                    incidentDate = facts.incident.date || "";
+                    incidentTime = facts.incident.time || "";
+                    incidentPlace = facts.incident.place || "";
+                  } else if (typeof facts.incident === "string") {
+                    incidentSummary = facts.incident;
+                  }
+                } else if (Array.isArray(facts)) {
+                  for (const f of facts) {
+                    if (f && typeof f === "object" && f.text) {
+                      incidentSummary = f.text.slice(0, 180);
+                      break;
+                    }
+                  }
+                }
+                if (!incidentSummary && data.description) incidentSummary = String(data.description);
+                if (!incidentSummary && data.raw_text) incidentSummary = String(data.raw_text).slice(0, 160) + "...";
+
+                firestoreItems.push({
+                  session_id: data.session_id || docSnap.id,
+                  created_at: String(data.created_at || ""),
+                  filename: data.filename || data.source_filename || docSnap.id,
+                  incident_summary: incidentSummary,
+                  incident_date: incidentDate,
+                  incident_time: incidentTime,
+                  incident_place: incidentPlace,
+                  timeline_count: Array.isArray(data.timeline) ? data.timeline.length : 0,
+                  node_count: Array.isArray(data.graph?.nodes) ? data.graph.nodes.length : 0,
+                  edge_count: Array.isArray(data.graph?.edges) ? data.graph.edges.length : 0,
+                });
+              });
+              if (firestoreItems.length > 0) {
+                items = firestoreItems;
+                break;
+              }
+            }
+          }
+        } catch (dbErr) {
+          console.warn("[EvidenceAnalyzer] Direct Firestore fetch error:", dbErr);
+        }
+      }
+
+      setHistoryItems(items);
     } catch (err) {
       setHistoryError(err.message || "Failed to load history.");
     } finally {
@@ -116,19 +198,58 @@ export default function EvidenceAnalyzerPage({ onBack }) {
     setHistoryError(null);
     setSelectedHistoryId(sessionId);
     try {
-      const response = await fetch(`${apiUrl}/api/evidence/history/${sessionId}`);
-      const res = await response.json();
-      if (!response.ok || !res.success) {
-        throw new Error(res.message || `Failed to load session (${response.status})`);
+      let sessionData = null;
+
+      // 1. Try candidate API URLs
+      const candidateApiUrls = [apiUrl];
+      if (typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")) {
+        if (!candidateApiUrls.includes("http://localhost:5001")) candidateApiUrls.push("http://localhost:5001");
       }
-      const sessionCase = normalizeSessionPayload(res.data, sessionId);
+
+      for (const url of candidateApiUrls) {
+        try {
+          const controller = new AbortController();
+          const timeoutId = setTimeout(() => controller.abort(), 4000);
+          const response = await fetch(`${url}/api/evidence/history/${sessionId}`, { signal: controller.signal });
+          clearTimeout(timeoutId);
+          if (response.ok) {
+            const res = await response.json();
+            if (res.success && res.data) {
+              sessionData = res.data;
+              break;
+            }
+          }
+        } catch {
+          // Continue to next fallback
+        }
+      }
+
+      // 2. Direct Firestore lookup
+      if (!sessionData && db) {
+        for (const colName of ["document_store", "evidence", "evidence_history", "ocr_history", "documents"]) {
+          try {
+            const docSnap = await getDoc(doc(db, colName, sessionId));
+            if (docSnap.exists()) {
+              sessionData = docSnap.data();
+              break;
+            }
+          } catch {
+            // Continue to next collection
+          }
+        }
+      }
+
+      if (!sessionData) {
+        throw new Error(`Evidence session '${sessionId}' not found.`);
+      }
+
+      const sessionCase = normalizeSessionPayload(sessionData, sessionId);
       setSelectedCase(sessionCase);
       setOcrProgress(100);
       setAnalysisProgress(100);
       setCurrentStep(3);
       setShowFacts(true);
       setShowHistory(false);
-      await fetchHistory();
     } catch (err) {
       setHistoryError(err.message || "Failed to load session.");
     } finally {
