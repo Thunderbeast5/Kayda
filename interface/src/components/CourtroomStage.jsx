@@ -1,3 +1,4 @@
+import { memo } from "react";
 import room from "../assets/courtroom/room4.png";
 import judgeDesk from "../assets/courtroom/judge-table.png";
 import prosecutorDesk from "../assets/courtroom/prosecutor-table.png";
@@ -27,7 +28,21 @@ const LAYOUT = {
   defense:    { avatar: { left: 77.8, top: 38.0, width: 6.8 },  desk: { left: 68.9, top: 47.8, width: 24.5 } },
 };
 
-function Figure({ role, src, activeSpeaker, message, isUser, bubbleSide = "top" }) {
+// Stable Desk component outside CourtroomStage to prevent unmount/remount flickering during typing
+const Desk = memo(function Desk({ role, src, z }) {
+  const { desk } = LAYOUT[role];
+  return (
+    <img
+      src={src}
+      alt=""
+      draggable={false}
+      className="absolute select-none pointer-events-none"
+      style={{ left: `${desk.left}%`, top: `${desk.top}%`, width: `${desk.width}%`, zIndex: z }}
+    />
+  );
+});
+
+const Figure = memo(function Figure({ role, src, activeSpeaker, message, isUser, bubbleSide = "top", showBubble = true }) {
   const { avatar } = LAYOUT[role];
   const isActive = activeSpeaker === role;
 
@@ -43,7 +58,9 @@ function Figure({ role, src, activeSpeaker, message, isUser, bubbleSide = "top" 
           draggable={false}
           className={`w-full select-none origin-bottom transition-all duration-500 ${
             isActive
-              ? "scale-[1.08] brightness-100 drop-shadow-[0_0_10px_rgba(255,200,100,0.7)]"
+              ? role === "judge"
+                ? "scale-[1.10] brightness-105 drop-shadow-[0_0_16px_rgba(212,175,55,0.9)]"
+                : "scale-[1.08] brightness-100 drop-shadow-[0_0_10px_rgba(255,200,100,0.7)]"
               : ""
           }`}
         />
@@ -57,7 +74,8 @@ function Figure({ role, src, activeSpeaker, message, isUser, bubbleSide = "top" 
         </div>
       )}
 
-      {isActive && message && (
+      {/* Speech bubble / cloud: disabled for judge, retained for prosecutor & defense */}
+      {showBubble && role !== "judge" && isActive && message && (
         <div
           className={`absolute z-50 w-[220%] max-w-[190px] rounded-md bg-surface-paperMain text-black/80 shadow-lg border border-wood-dark px-2 py-1 text-[8px] md:text-[10px] leading-snug line-clamp-3 ${
             bubbleSide === "side" ? "left-full ml-2 top-0" : "bottom-full mb-1 left-1/2 -translate-x-1/2"
@@ -68,23 +86,10 @@ function Figure({ role, src, activeSpeaker, message, isUser, bubbleSide = "top" 
       )}
     </div>
   );
-}
+});
 
-export default function CourtroomStage({ activeSpeaker, lastMessage, userRole }) {
+function CourtroomStage({ activeSpeaker, lastMessage, userRole }) {
   const msgFor = (role) => (lastMessage?.agentId === role ? lastMessage.text : "");
-
-  const Desk = ({ role, src, z }) => {
-    const { desk } = LAYOUT[role];
-    return (
-      <img
-        src={src}
-        alt=""
-        draggable={false}
-        className="absolute select-none pointer-events-none"
-        style={{ left: `${desk.left}%`, top: `${desk.top}%`, width: `${desk.width}%`, zIndex: z }}
-      />
-    );
-  };
 
   return (
     <div
@@ -116,6 +121,7 @@ export default function CourtroomStage({ activeSpeaker, lastMessage, userRole })
               message={msgFor("judge")}
               isUser={userRole === "judge"}
               bubbleSide="side"
+              showBubble={false}
             />
           </div>
         </div>
@@ -168,3 +174,5 @@ export default function CourtroomStage({ activeSpeaker, lastMessage, userRole })
     </div>
   );
 }
+
+export default memo(CourtroomStage);
