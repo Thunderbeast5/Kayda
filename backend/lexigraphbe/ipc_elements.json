@@ -1,0 +1,1063 @@
+{
+ "157": {
+  "hash": "e382a6844ade3831586987feed1d437aa5933dc3",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Harbours, receives or assembles persons",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The premises are in his occupation, charge or control",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": "Knowledge that the persons are hired for an unlawful assembly is essential.",
+      "element": "Knows they have been hired to join an unlawful assembly",
+      "element_id": "E3",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "170": {
+  "hash": "55f2d7478a72d9154d7e2f20b1bb67acc6b1368e",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The accused pretends to hold a public-servant office",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The accused knows he does not hold such office",
+      "element_id": "E2",
+      "element_type": "MENTAL"
+     },
+     {
+      "construction": null,
+      "element": "The accused does or attempts to do any act under colour of that office",
+      "element_id": "E3",
+      "element_type": "CONDUCT"
+     }
+    ],
+    "limb": "COMMON"
+   },
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Falsely personates the holder of such office",
+      "element_id": "E4",
+      "element_type": "CONDUCT"
+     }
+    ],
+    "limb": "A"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "200": {
+  "hash": "ee4e9a713e2a0578573a56fc81bdf498aa2f75fa",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": "By the key principle, this complements section 199.",
+      "element": "The accused corruptly uses or attempts to use a declaration as true",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The accused knows the declaration is false in a material point",
+      "element_id": "E2",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "213": {
+  "hash": "7e378c45af396814e2cf4619d52277dff8cc3d1f",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Accepts, attempts to obtain, or agrees to accept a gratification or restitution of property",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "In consideration of concealing an offence",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "In consideration of screening a person from punishment",
+      "element_id": "E3",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "In consideration of not proceeding against a person",
+      "element_id": "E4",
+      "element_type": "CIRCUMSTANCE"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "220": {
+  "hash": "4b7e273984be2e18d3f4bfa324bed201b4c65a25",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The accused holds an office giving legal authority to commit persons for trial or to confinement",
+      "element_id": "E1",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The accused corruptly or maliciously commits a person for trial or to confinement",
+      "element_id": "E2",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The accused knows he is acting contrary to law",
+      "element_id": "E3",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "229": {
+  "hash": "a04deae33f1e006bc294d203f12f451d59512eff",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The accused intentionally causes or knowingly suffers himself to be returned, empanelled or sworn as a juryman or assessor",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The accused knows he is not entitled by law to be so returned, empanelled or sworn",
+      "element_id": "E2",
+      "element_type": "MENTAL"
+     },
+     {
+      "construction": "By the general definition, a person is said to cause an effect 'voluntarily' when he causes it by means whereby he intended to cause it, or by means which, at the time of employing those means, he knew or had reason to believe to be likely to cause it.",
+      "element": "The accused voluntarily serves on such jury or as such assessor",
+      "element_id": "E3",
+      "element_type": "CONDUCT"
+     }
+    ],
+    "limb": "COMMON"
+   },
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The return, empanelment or swearing was contrary to law",
+      "element_id": "E4",
+      "element_type": "CIRCUMSTANCE"
+     }
+    ],
+    "limb": "A"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "244": {
+  "hash": "2b87f85b8cbdf4a18e57919a5157a53c7a39658b",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": "By the general definition, 'India' means the territory of India excluding the State of Jammu and Kashmir.",
+      "element": "The accused is employed in a lawfully established mint in India",
+      "element_id": "E1",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": "The word 'act' denotes as well a series of acts as a single act; the word 'omission' denotes as well a series of omissions as a single omission.",
+      "element": "The accused does an act or omits a legal duty",
+      "element_id": "E2",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The accused has the intention of causing coin to differ in weight or composition from that fixed by law",
+      "element_id": "E3",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "254": {
+  "hash": "16c9326ee4dcbbecee7abae46c3fe4db637ffd6a",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Delivers altered coin as genuine or as a different coin",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The accused knows of the alteration now",
+      "element_id": "E2",
+      "element_type": "MENTAL"
+     },
+     {
+      "construction": null,
+      "element": "The accused did not know of the alteration when he took possession",
+      "element_id": "E3",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "COMMON"
+   },
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Attempts to induce another to receive the altered coin as genuine or as a different coin",
+      "element_id": "E4",
+      "element_type": "CONDUCT"
+     }
+    ],
+    "limb": "A"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "293": {
+  "hash": "c39b451f5367f0912609b4790853ef4ca5bf8c79",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The accused sells, lets to hire, distributes, exhibits or circulates",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": "By reference to section 292, an obscene object is defined.",
+      "element": "The object is obscene",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The recipient is a person under twenty years of age",
+      "element_id": "E3",
+      "element_type": "CIRCUMSTANCE"
+     }
+    ],
+    "limb": "COMMON"
+   },
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Offers to sell, let to hire, distribute, exhibit or circulate",
+      "element_id": "E4",
+      "element_type": "CONDUCT"
+     }
+    ],
+    "limb": "A"
+   },
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Attempts to sell, let to hire, distribute, exhibit or circulate",
+      "element_id": "E5",
+      "element_type": "CONDUCT"
+     }
+    ],
+    "limb": "B"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "305": {
+  "hash": "d689a063f9729df011ef7abc0b71259f8ed234e2",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The victim commits suicide",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The victim is under eighteen years of age, or insane, or delirious, or an idiot, or in a state of intoxication",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": "Abetment includes instigation, conspiracy or intentional aid as defined in Section 107.",
+      "element": "The accused abets the commission of such suicide",
+      "element_id": "E3",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "317": {
+  "hash": "3f10caee602dd0782e52d151320dfb3e62f5fef3",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The accused is the father or mother of a child under the age of twelve years, or has care of such child",
+      "element_id": "E1",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The child is exposed or left in any place",
+      "element_id": "E2",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The accused has the specific intention of wholly abandoning the child",
+      "element_id": "E3",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "354A": {
+  "hash": "b91012d1b07d7405c855caa3ea31b30d881a42c5",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": "By the general definition, a man denotes a male human being of any age.",
+      "element": "The perpetrator is a man",
+      "element_id": "E1",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": "By the general definition, a woman denotes a female human being of any age.",
+      "element": "The victim is a woman",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     }
+    ],
+    "limb": "COMMON"
+   },
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Commits unwelcome physical contact and advances involving explicit sexual overtures",
+      "element_id": "E3",
+      "element_type": "CONDUCT"
+     }
+    ],
+    "limb": "A"
+   },
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Demands or requests sexual favours",
+      "element_id": "E4",
+      "element_type": "CONDUCT"
+     }
+    ],
+    "limb": "B"
+   },
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Shows pornography against the will of a woman",
+      "element_id": "E5",
+      "element_type": "CONDUCT"
+     }
+    ],
+    "limb": "C"
+   },
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Makes sexually coloured remarks",
+      "element_id": "E6",
+      "element_type": "CONDUCT"
+     }
+    ],
+    "limb": "D"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "354D": {
+  "hash": "fb4dc5719a33602d75fe63aa1aca5ab2600c99d9",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": "By the general definition, a man denotes a male human being of any age.",
+      "element": "The accused is a man",
+      "element_id": "E1",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": "By the general definition, a woman denotes a female human being of any age.",
+      "element": "The victim is a woman",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The woman has indicated clear disinterest",
+      "element_id": "E3",
+      "element_type": "CIRCUMSTANCE"
+     }
+    ],
+    "limb": "COMMON"
+   },
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Follows the woman",
+      "element_id": "E4",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "Contacts or attempts to contact the woman repeatedly to foster personal interaction",
+      "element_id": "E5",
+      "element_type": "CONDUCT"
+     }
+    ],
+    "limb": "A"
+   },
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Monitors the use by the woman of the internet, email or any other form of electronic communication",
+      "element_id": "E6",
+      "element_type": "CONDUCT"
+     }
+    ],
+    "limb": "B"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "356": {
+  "hash": "8a362fbfb9f2f15cdd1f11922164363035b7fd70",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The accused assaults or uses criminal force to any person",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The accused is attempting to commit theft",
+      "element_id": "E2",
+      "element_type": "MENTAL"
+     },
+     {
+      "construction": null,
+      "element": "The property is being worn or carried by that person",
+      "element_id": "E3",
+      "element_type": "CIRCUMSTANCE"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "357": {
+  "hash": "e09764626c2c2d6eb1d0d22fecde62576410b308",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The accused assaults or uses criminal force to any person",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": "The attempt to confine is wrongful as per Section 340.",
+      "element": "The accused attempts to wrongfully confine that person",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "361": {
+  "hash": "315479ece95f3d91732182db2dd11c1d1d8d52d5",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The accused takes or entices a minor or person of unsound mind",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The minor is a male under sixteen years of age or a female under eighteen years of age, or the person is of unsound mind",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The accused acts without the consent of the lawful guardian",
+      "element_id": "E3",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The minor or person of unsound mind is taken or enticed out of the keeping of the lawful guardian",
+      "element_id": "E4",
+      "element_type": "CIRCUMSTANCE"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "NON_OFFENCE"
+ },
+ "366A": {
+  "hash": "96b7ac09e9fbdeaa0cd286833b68ac7229fde419",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Induces a minor girl under 18 years to go from any place",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": "The phrase 'to do any act' extends beyond physical movement to any act that facilitates the illicit intercourse.",
+      "element": "Induces a minor girl under 18 years to do any act",
+      "element_id": "E2",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The accused acts by any means whatsoever",
+      "element_id": "E3",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The accused intends that the girl may be forced or seduced to illicit intercourse with another person",
+      "element_id": "E4",
+      "element_type": "MENTAL"
+     },
+     {
+      "construction": null,
+      "element": "The accused knows that it is likely that the girl will be forced or seduced to illicit intercourse with another person",
+      "element_id": "E5",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "366B": {
+  "hash": "f3c6b473a585f5e8c2ad524a48320db1829ae20c",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Imports into India from any country outside India",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The girl is under the age of twenty-one years",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The accused has intent that she may be forced or seduced to illicit intercourse",
+      "element_id": "E3",
+      "element_type": "MENTAL"
+     },
+     {
+      "construction": null,
+      "element": "The accused knows it to be likely that she will be forced or seduced to illicit intercourse",
+      "element_id": "E4",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "369": {
+  "hash": "7ed06915551c27b2ac0ed23a95cac53188801e1a",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The accused kidnaps or abducts a child",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The child is under the age of ten years",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": "By the general definition, 'dishonestly' means doing something with the intention of causing wrongful gain to one person or wrongful loss to another.",
+      "element": "The accused has the intention of dishonestly taking movable property from the person of the child",
+      "element_id": "E3",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "372": {
+  "hash": "ae5e052c90b8ce9b7dae22208578b99cdd9ce0d7",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The person dealt with is under the age of eighteen years",
+      "element_id": "E1",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The accused sells, lets to hire, or otherwise disposes of the person",
+      "element_id": "E2",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The accused has intent that the person shall be employed or used for prostitution, illicit intercourse, or any unlawful and immoral purpose",
+      "element_id": "E3",
+      "element_type": "MENTAL"
+     },
+     {
+      "construction": null,
+      "element": "The accused knows it to be likely that the person will be employed or used for such purpose",
+      "element_id": "E4",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "373": {
+  "hash": "ce745213bad181041d2d2c9b6e6a992d93f75e8b",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The person dealt with is under the age of eighteen years",
+      "element_id": "E1",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The accused buys, hires, or otherwise obtains possession of the person",
+      "element_id": "E2",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The accused has intent that the person shall be used for prostitution, illicit intercourse, or unlawful and immoral purpose",
+      "element_id": "E3",
+      "element_type": "MENTAL"
+     },
+     {
+      "construction": null,
+      "element": "The accused knows it is likely that the person will be used for prostitution, illicit intercourse, or unlawful and immoral purpose",
+      "element_id": "E4",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "376AB": {
+  "hash": "526a10b38ff5497650d9c64d8c562e30c82008e5",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": "As defined in Section 375.",
+      "element": "Commits rape",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": "By the general definition, a woman denotes a female human being of any age.",
+      "element": "The victim is a woman",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The victim is under twelve years of age",
+      "element_id": "E3",
+      "element_type": "CIRCUMSTANCE"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "376C": {
+  "hash": "6862719d3ea73bdf0480aa5fb9e9ff83f7b5589e",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The accused is in a position of authority or fiduciary relationship, or is a public servant, or is a superintendent/manager of a jail or women's/children's institution, or is on the management/staff of a hospital",
+      "element_id": "E1",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The accused abuses such position or fiduciary relationship",
+      "element_id": "E2",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The accused induces or seduces a woman in custody or under charge or present in the premises",
+      "element_id": "E3",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": "As defined in clauses (a) to (d) of section 375.",
+      "element": "The act is sexual intercourse not amounting to rape",
+      "element_id": "E4",
+      "element_type": "CIRCUMSTANCE"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "376DA": {
+  "hash": "9c99fa1a7ddff4e61e8a3918f7015b0960deceba",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": "By the general definition, a woman denotes a female human being of any age.",
+      "element": "The victim is a woman",
+      "element_id": "E1",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The victim is under sixteen years of age",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "Raped by one or more persons",
+      "element_id": "E3",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The persons constitute a group or act in furtherance of a common intention",
+      "element_id": "E4",
+      "element_type": "CIRCUMSTANCE"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "376DB": {
+  "hash": "c723e119b5ec8eded7b550d664e8787791fe1942",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": "By the general definition, a woman denotes a female human being of any age.",
+      "element": "The victim is a woman",
+      "element_id": "E1",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The victim is under twelve years of age",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The victim is raped",
+      "element_id": "E3",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The act is committed by one or more persons constituting a group",
+      "element_id": "E4",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The persons are acting in furtherance of a common intention",
+      "element_id": "E5",
+      "element_type": "CIRCUMSTANCE"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "387": {
+  "hash": "02abc7a8e0b31d63d4a68d538eeeaf6551addf3a",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Puts or attempts to put any person in fear of death or grievous hurt",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The fear is of death or grievous hurt to that person or to any other",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "The act is done in order to commit extortion",
+      "element_id": "E3",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "496": {
+  "hash": "5e91b59c4e90aaaba6ee71923a6d48627d1b0f2b",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Goes through the ceremony of being married",
+      "element_id": "E1",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "The accused knows that he is not thereby lawfully married",
+      "element_id": "E2",
+      "element_type": "MENTAL"
+     },
+     {
+      "construction": "By the general definitions, 'dishonestly' means with the intention of causing wrongful gain to one person or wrongful loss to another person, and 'fraudulently' means with intent to defraud.",
+      "element": "The conduct is done dishonestly or with fraudulent intention",
+      "element_id": "E3",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "499": {
+  "hash": "6edb8f6244124e4c95e4e640007f293ae6f12074",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": "The section covers four modes: spoken words, written/printed words (intended to be read), signs, and visible representations.",
+      "element": "The act involves words (spoken or intended to be read), signs, or visible representations",
+      "element_id": "E1",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": null,
+      "element": "Makes or publishes any imputation concerning any person",
+      "element_id": "E2",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": "A person has 'reason to believe' if he has sufficient cause to believe that thing.",
+      "element": "The accused intends to harm the reputation of the person or knows or has reason to believe that the imputation will harm the reputation of that person",
+      "element_id": "E3",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "NON_OFFENCE"
+ },
+ "509": {
+  "hash": "5d16889e49c496b408dcf0bbd825ad2cd8d3f16b",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The accused intends to insult the modesty of any woman",
+      "element_id": "E1",
+      "element_type": "MENTAL"
+     },
+     {
+      "construction": "By the general definition, a woman denotes a female human being of any age.",
+      "element": "The victim is a woman",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     }
+    ],
+    "limb": "COMMON"
+   },
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Utters any word, makes any sound or gesture, or exhibits any object",
+      "element_id": "E3",
+      "element_type": "CONDUCT"
+     },
+     {
+      "construction": null,
+      "element": "Intends that such word or sound shall be heard, or that such gesture or object shall be seen, by such woman",
+      "element_id": "E4",
+      "element_type": "MENTAL"
+     }
+    ],
+    "limb": "A"
+   },
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "Intrudes upon the privacy of such woman",
+      "element_id": "E5",
+      "element_type": "CONDUCT"
+     }
+    ],
+    "limb": "B"
+   }
+  ],
+  "provision_kind": "OFFENCE"
+ },
+ "82": {
+  "hash": "7335a9a33969f6292ad7d9903f948a2663843e48",
+  "limbs": [
+   {
+    "elements": [
+     {
+      "construction": null,
+      "element": "The act is done by a child",
+      "element_id": "E1",
+      "element_type": "CIRCUMSTANCE"
+     },
+     {
+      "construction": "By the general definition, a child under seven years is presumed incapable of committing an offence.",
+      "element": "The child is under seven years of age",
+      "element_id": "E2",
+      "element_type": "CIRCUMSTANCE"
+     }
+    ],
+    "limb": "COMMON"
+   }
+  ],
+  "provision_kind": "NON_OFFENCE"
+ }
+}
