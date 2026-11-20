@@ -17,9 +17,15 @@ export default function CourtroomInputBar({
 
   // In CASE_INTRO, the active player just clicks Send with any text to advance
   const isCaseIntro = trialPhase === "CASE_INTRO";
-  const isJudgment = trialPhase === "JUDGMENT";
+  const phaseText = (trialPhase || "").toUpperCase();
+  // The court is deliberating (scoring / writing the order) — not an opposing turn.
+  const isJudgment = trialPhase === "JUDGMENT" || phaseText.includes("ADJUDICATION") || phaseText.includes("DELIBERAT");
+  // Proceedings are over: the verdict has been pronounced or the run failed.
+  const isConcluded = phaseText.includes("CONCLUDED") || phaseText === "DONE" || phaseText.includes("FAILED");
 
-  const placeholderText = !isMyTurn
+  const placeholderText = isConcluded
+    ? "Proceedings concluded — the Court has risen."
+    : !isMyTurn
     ? (isJudgment ? "Hon’ble Court is evaluating findings and dictating judgment..." : "Opposing counsel is presenting...")
     : isListening
       ? "Listening... speak clearly into your mic..."
@@ -31,14 +37,16 @@ export default function CourtroomInputBar({
             ? "State your rebuttal..."
             : "Present your legal argument...";
 
-  const statusLabel = !isMyTurn
+  const statusLabel = isConcluded
+    ? "⚖ Proceedings concluded — start a new case to argue again"
+    : !isMyTurn
     ? (isJudgment ? "⚖ Court in deliberation — Hon’ble Judge dictating final verdict" : "⚖ Awaiting opposing counsel...")
     : isCaseIntro
       ? "🏛 Court is in session — begin when ready"
       : "🎤 You have the floor — present your argument";
 
   // In CASE_INTRO we allow any non-empty text (even a single space) to advance phase
-  const canSubmit = isMyTurn && (isCaseIntro ? true : inputText.length >= 20);
+  const canSubmit = isMyTurn && !isConcluded && (isCaseIntro ? true : inputText.length >= 20);
 
   const handleSubmit = (e) => {
     e.preventDefault();

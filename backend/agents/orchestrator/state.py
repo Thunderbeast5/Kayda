@@ -133,6 +133,7 @@ class SimulationState(TypedDict):
     # Courtroom loop
     round_no: int
     max_rounds: int
+    min_rounds: int                      # rounds the court must hear before verdict
     current_speaker: str
     transcript: List[Turn]
     pending_questions: List[Question]

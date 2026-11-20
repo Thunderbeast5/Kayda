@@ -1287,6 +1287,7 @@ class OrchestratorRunRequest(BaseModel):
     role: Optional[str] = "prosecutor"
     mode: Optional[str] = "ai_vs_human"
     max_rounds: Optional[int] = 2
+    min_rounds: Optional[int] = 2
     human_argument: Optional[str] = None
 
 
@@ -1296,6 +1297,7 @@ class OrchestratorStreamRequest(BaseModel):
     role: Optional[str] = "prosecutor"   # user's chosen role (prosecutor | defense)
     mode: Optional[str] = "ai_vs_human"  # ai_vs_human | ai_vs_ai
     max_rounds: Optional[int] = 2
+    min_rounds: Optional[int] = 2
     human_argument: Optional[str] = None
 
 
@@ -1405,6 +1407,7 @@ async def orchestrator_stream(req: OrchestratorStreamRequest):
                 case_id=query,
                 session_id=sid,
                 max_rounds=req.max_rounds or 2,
+                min_rounds=req.min_rounds or 2,
                 on_event=on_event,
                 user_role=role,
                 mode=mode,
@@ -1476,6 +1479,7 @@ async def orchestrator_run(req: OrchestratorRunRequest):
             case_id=query,
             session_id=session_id,
             max_rounds=req.max_rounds or 2,
+            min_rounds=req.min_rounds or 2,
             user_role=role,
             mode=mode,
             human_argument=req.human_argument,

@@ -11,6 +11,7 @@ import json
 import os
 import re
 import glob
+from typing import Optional
 
 # Resolves to root MootCourt/data/observer
 CASES_DIR = os.path.abspath(
@@ -149,7 +150,7 @@ def list_cases() -> list[dict]:
     return cases
 
 
-def get_case(case_id: str) -> dict | None:
+def get_case(case_id: str) -> Optional[dict]:
     # 1. Check data/observer/<case_id>.json
     path = os.path.join(CASES_DIR, f"{case_id}.json")
     if os.path.exists(path):
@@ -232,7 +233,7 @@ def _extract_citations(text: str) -> list[str]:
     return out
 
 
-def build_events(case_id: str) -> list[dict] | None:
+def build_events(case_id: str) -> Optional[list]:
     """Turn stored simulation_conversation into the event shape handleEvent() expects."""
     case = get_case(case_id)
     if case is None:

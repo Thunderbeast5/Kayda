@@ -94,9 +94,21 @@ MAX_EVIDENCE_RETRIES    = 2
 MAX_LEXIGRAPH_RETRIES   = 2
 MAX_CITATION_RETRIES    = 2
 NODE_TIMEOUT_SECS       = 120          # per-node hard timeout
-NODE_HUMAN_TIMEOUT_SECS = float(os.getenv("HUMAN_TURN_TIMEOUT_SECS", "45.0"))  # human input wait timeout
+# Budget for one agent stage (an LLM call, possibly with citation retries). The
+# old hard-coded 4s was shorter than any real model turn, so every stage fell
+# through to its canned fallback text.
+AGENT_TURN_TIMEOUT_SECS = float(os.getenv("AGENT_TURN_TIMEOUT_SECS", "120"))
+# Budget for LexiGraph retrieval (embeddings + Pinecone + graph traversal).
+RETRIEVAL_TIMEOUT_SECS  = float(os.getenv("RETRIEVAL_TIMEOUT_SECS", "120"))
+# How long the court waits for the human player to type their submission before
+# the AI argues their side for them. 45s was not enough to write an argument.
+NODE_HUMAN_TIMEOUT_SECS = float(os.getenv("HUMAN_TURN_TIMEOUT_SECS", "180.0"))
 JUDGE_THRESHOLD         = float(os.getenv("JUDGE_THRESHOLD", os.getenv("JUDGE_SUFFICIENCY_THRESHOLD", "6.0")))  # overall judge score threshold (0–10)
 DEFAULT_MAX_ROUNDS      = int(os.getenv("ORCHESTRATOR_MAX_ROUNDS", "2"))
+# Minimum argument rounds before the court may move to verdict. Round 1 is the
+# opening exchange, so a value of 2 guarantees one full rebuttal round for both
+# sides even when the judge scores the opening arguments as sufficient.
+DEFAULT_MIN_ROUNDS      = int(os.getenv("ORCHESTRATOR_MIN_ROUNDS", "2"))
 
 GROQ_PRIMARY   = os.getenv("GROQ_MODEL_PRIMARY",  "llama-3.3-70b-versatile")
 GROQ_FALLBACK  = os.getenv("GROQ_MODEL_FALLBACK", "llama-3.1-8b-instant")
@@ -172,6 +184,46 @@ def _redis_lpush(key: str, value: Any, ttl: int = 86400) -> None:
 
 def _event(type_: str, **kwargs) -> dict:
     return {"type": type_, **kwargs}
+
+
+def _fact_to_dict(f: Any) -> Dict[str, Any]:
+    """Fact (pydantic) or dict -> plain JSON-serialisable dict for the UI."""
+    if isinstance(f, dict):
+        src = f
+    elif hasattr(f, "model_dump"):
+        src = f.model_dump()
+    else:
+        src = {
+            "id": getattr(f, "id", ""),
+            "text": getattr(f, "text", str(f)),
+            "source": getattr(f, "source", "record"),
+            "type": getattr(f, "type", "allegation"),
+        }
+    return {
+        "id": str(src.get("id", "")),
+        "text": str(src.get("text", src.get("value", ""))),
+        "source": str(src.get("source", "record")),
+        "type": str(src.get("type", "allegation")),
+    }
+
+
+def _inventory_to_dict(item: Any) -> Dict[str, Any]:
+    """Evidence inventory entry -> plain dict for the UI."""
+    if isinstance(item, dict):
+        src = item
+    elif hasattr(item, "model_dump"):
+        src = item.model_dump()
+    else:
+        src = {
+            "item": getattr(item, "item", str(item)),
+            "status": getattr(item, "status", "not_on_record"),
+            "details": getattr(item, "details", ""),
+        }
+    return {
+        "item": str(src.get("item", "")),
+        "status": str(src.get("status", "not_on_record")),
+        "details": str(src.get("details", "") or ""),
+    }
 
 
 # ── Retry with backoff ────────────────────────────────────────────────────────
@@ -858,7 +910,7 @@ def node_evidence_analyzer(state: SimulationState, *, emit: Optional[Callable] =
         executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
         try:
             future = executor.submit(_run)
-            raw_facts = future.result(timeout=4.0)
+            raw_facts = future.result(timeout=AGENT_TURN_TIMEOUT_SECS)
         except Exception as e:
             print(f"[Orchestrator][Evidence] Extraction timed out/failed ({e}), using fast rule-based sentence parser fallback.")
             import re as _re
@@ -928,6 +980,15 @@ def node_evidence_analyzer(state: SimulationState, *, emit: Optional[Callable] =
                              round=0,
                              content=f"Extracted {len(facts)} facts and inventory of {len(evidence_inventory)} evidence items.",
                              citations=[]))
+
+        # Feed the live record to the UI's case panel, so the sidebar shows THIS
+        # case instead of the bundled demo case.
+        emit and emit(_event(
+            "case_file",
+            session_id=sid,
+            case_facts=[_fact_to_dict(f) for f in facts],
+            evidence_inventory=[_inventory_to_dict(i) for i in evidence_inventory],
+        ))
 
         _redis_set(f"session:{sid}:state", {
             "phase": "EVIDENCE",
@@ -1038,7 +1099,7 @@ def node_lexigraph(state: SimulationState, *, emit: Optional[Callable] = None) -
         executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
         try:
             future = executor.submit(_run)
-            output = future.result(timeout=4.0)
+            output = future.result(timeout=RETRIEVAL_TIMEOUT_SECS)
         except Exception as lexc:
             print(f"[Orchestrator][Lexigraph] Retrieval timed out or failed ({lexc}), generating statutory provisions from facts.")
             output = {}
@@ -1087,6 +1148,14 @@ def node_lexigraph(state: SimulationState, *, emit: Optional[Callable] = None) -
             content=f"Retrieved {sections_count} verified sections and {holdings_count} precedent holdings.",
             citations=section_citations,
             subtitle=subtitle,
+        ))
+
+        # Statutes for the case panel's "Charges" line.
+        emit and emit(_event(
+            "case_file",
+            session_id=state["session_id"],
+            statutes=section_citations,
+            holdings_count=holdings_count,
         ))
 
         return {
@@ -1307,15 +1376,19 @@ def node_prosecutor(
             formatted_md, _, _, _ = structure_prosecution_turn(
                 result, ctx["case_facts"], ctx["lexigraph_output"]
             )
+            return formatted_md
+
         def _call_prosecutor():
             return _generate_with_citation_check(_call, state, "prosecutor", emit)
 
         executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
         try:
             future = executor.submit(_call_prosecutor)
-            content, citations, grounded, unverified = future.result(timeout=4.0)
+            content, citations, grounded, unverified = future.result(timeout=AGENT_TURN_TIMEOUT_SECS)
         except Exception as pexc:
-            print(f"[Orchestrator][Prosecutor] AI generation timed out or failed ({pexc}), using fallback.")
+            print(f"[Orchestrator][Prosecutor] AI generation timed out or failed "
+                  f"({type(pexc).__name__}: {pexc}), using fallback.")
+            traceback.print_exc()
             content, citations, grounded, unverified = "", [], False, []
         finally:
             try:
@@ -1342,16 +1415,29 @@ def node_prosecutor(
                     f"Facts:\n{facts_str}\n"
                     f"Verified laws:\n{laws_str}\n"
                     f"Defense (last round): {ctx.get('last_defense_argument','(none)')}\n"
-                    f"Deliver a structured courtroom argument citing verified IPC sections with Act names (e.g. IPC 324) and referencing fact IDs (e.g. [fact_1])."
+                    f"Deliver a structured courtroom argument. Cite only the provisions listed under "
+                    f"'Verified laws' above, each with its Act name, and reference the fact IDs exactly "
+                    f"as they are bracketed in the facts above."
                 )
                 raw_fallback = resp.content
                 content, citations, _, _ = structure_prosecution_turn(
                     raw_fallback, ctx["case_facts"], ctx["lexigraph_output"]
                 )
             except Exception as fb_exc:
-                print(f"[Orchestrator][ERROR] Prosecutor plain-LLM fallback also failed: {fb_exc}")
-                content = "[Prosecutor argument unavailable — retrieval and fallback both failed.]"
+                print(f"[Orchestrator][ERROR] Prosecutor plain-LLM fallback also failed: "
+                      f"{type(fb_exc).__name__}: {fb_exc}")
+                traceback.print_exc()
+                content = (
+                    f"[Prosecutor argument unavailable — the prosecution agent and the plain-LLM "
+                    f"fallback both failed ({type(fb_exc).__name__}: {fb_exc}).]"
+                )
                 citations = []
+                emit and emit(_event(
+                    "error",
+                    message=f"Prosecutor turn failed: {type(fb_exc).__name__}: {fb_exc}",
+                    recoverable=False,
+                    grounded=False,
+                ))
             emit and emit(_event("warn",
                                  message="Prosecutor used plain-LLM fallback (no LexiGraph grounding).",
                                  grounded=False,
@@ -1514,7 +1600,7 @@ def node_defense(
         executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
         try:
             future = executor.submit(_call_defense)
-            content, citations, grounded, unverified = future.result(timeout=4.0)
+            content, citations, grounded, unverified = future.result(timeout=AGENT_TURN_TIMEOUT_SECS)
         except Exception as dexc:
             print(f"[Orchestrator][Defense] Generation timed out or failed ({dexc}), using statutory defense legal fallback.")
             content, citations, grounded, unverified = "", [], False, []
@@ -1600,7 +1686,7 @@ def node_judge_evaluate(state: SimulationState, *, emit: Optional[Callable] = No
             holdings=holdings,
             canonical_case_file=ctx.get("canonical_case_file"),
         )
-        scores_raw, question = future.result(timeout=4.0)
+        scores_raw, question = future.result(timeout=AGENT_TURN_TIMEOUT_SECS)
     except Exception as jexc:
         print(f"[Orchestrator][Judge] Score evaluation timed out/exception ({jexc}), using baseline legal scores.")
         scores_raw = {
@@ -1818,7 +1904,11 @@ def node_judge_verdict(state: SimulationState, *, emit: Optional[Callable] = Non
         "factors":           raw_verdict.get("factors", []),
         "open_questions":    raw_verdict.get("open_questions", []),
         "vote_tally":        vote_tally,
+        "discarded_reasons": raw_verdict.get("discarded_reasons", []),
     }
+
+    if valid_votes == 0:
+        print(f"[Orchestrator][Judge] NO grounded vote survived. Causes: {verdict['discarded_reasons']}")
 
     tally_str = " | ".join(f"{k}:{v}" for k, v in vote_tally.items()) if vote_tally else "n/a"
     valid_summary = f"{valid_votes}/{total_votes} valid, {agree_count}/{valid_votes if valid_votes else 1} agree"
@@ -1839,6 +1929,7 @@ def node_judge_verdict(state: SimulationState, *, emit: Optional[Callable] = Non
                           precedents=verdict["precedents"],
                           holdings_relied=verdict["holdings_relied"],
                           vote_tally=vote_tally,
+                          discarded_reasons=verdict["discarded_reasons"],
                           explanation=verdict["reasoning"]))
 
     return {"phase": "VERDICT", "verdict": verdict}
@@ -1907,15 +1998,26 @@ def route_after_judge_evaluate(state: SimulationState) -> str:
     """
     Core routing logic (rule-based, no LLM):
       clarification_needed → judge_question
+      round_no < min_rounds → increment_round (mandatory rebuttal round)
       score < threshold AND rounds left → increment_round (then prosecutor)
       else → judge_verdict
     """
     round_no   = state.get("round_no", 1)
     max_rounds = state.get("max_rounds", DEFAULT_MAX_ROUNDS)
+    min_rounds = min(state.get("min_rounds", DEFAULT_MIN_ROUNDS), max_rounds)
 
     if state.get("clarification_needed", False):
         print(f"[Orchestrator] Clarification needed from accused (Round {round_no}). Routing to judge_question.")
         return "judge_question"
+
+    # Mandatory rebuttal: the court does not rise on the opening exchange alone,
+    # however well the judge scores it.
+    if round_no < min_rounds:
+        print(
+            f"[Orchestrator] Mandatory rebuttal: round {round_no} < min_rounds ({min_rounds}). "
+            f"Routing to Round {round_no + 1}."
+        )
+        return "increment_round"
 
     pending = [q for q in state.get("pending_questions", []) if not q.get("answered")]
     overall = state.get("judge_scores", {}).get("overall", 10.0)
@@ -2050,6 +2152,7 @@ def run_orchestrator(
     case_id: str,
     session_id: Optional[str] = None,
     max_rounds: int = DEFAULT_MAX_ROUNDS,
+    min_rounds: int = DEFAULT_MIN_ROUNDS,
     on_event: Optional[Callable[[dict], None]] = None,
     user_role: Optional[str] = None,
     mode: Optional[str] = None,
@@ -2063,6 +2166,7 @@ def run_orchestrator(
         case_id:        Path to case PDF/TXT, or raw case text.
         session_id:     If None, auto-generated.
         max_rounds:     Maximum courtroom argument rounds.
+        min_rounds:     Minimum rounds before verdict (2 => one mandatory rebuttal round).
         on_event:       Callback fn(event_dict) for WebSocket streaming.
         user_role:      Role of the human player ('prosecutor' | 'defense').
         mode:           'ai_vs_human' (default if user_role given) | 'ai_vs_ai'.
@@ -2100,6 +2204,7 @@ def run_orchestrator(
         "verified":            {"evidence": False, "lexigraph": False},
         "round_no":            1,
         "max_rounds":          max_rounds,
+        "min_rounds":          min(min_rounds, max_rounds),
         "current_speaker":     "prosecutor",
         "transcript":          [],
         "pending_questions":   [],
@@ -2114,7 +2219,7 @@ def run_orchestrator(
     graph = build_graph(emit=emit, human_input_fn=human_input_fn)
 
     print("\n" + "=" * 70)
-    print(f"[Orchestrator] STARTING -- Session: {sid}  max_rounds={max_rounds}")
+    print(f"[Orchestrator] STARTING -- Session: {sid}  rounds={min(min_rounds, max_rounds)}..{max_rounds}")
     print(f"[Orchestrator] Mode: {sim_mode} | Human: {norm_user_role or 'None'} | AI: {norm_ai_role or 'Both'}")
     print("=" * 70)
 

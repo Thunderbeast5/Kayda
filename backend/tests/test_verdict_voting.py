@@ -53,7 +53,7 @@ class TestValidate:
             open_questions=[],
             laws_applied=["CrPC 438"],
         )
-        assert validate(vote, {"fact_1", "fact_2"}, {"srikant_para23"})
+        assert validate(vote, {"fact_1", "fact_2"}, {"srikant_para23"})[0]
 
     def test_invented_fact_fails(self):
         from agents.judge.voting import Factor, JudgeVote, validate
@@ -63,7 +63,7 @@ class TestValidate:
             open_questions=[],
             laws_applied=[],
         )
-        assert not validate(vote, {"fact_1"}, set())
+        assert not validate(vote, {"fact_1"}, set())[0]
 
     def test_invented_holding_fails(self):
         from agents.judge.voting import Factor, JudgeVote, validate
@@ -73,7 +73,7 @@ class TestValidate:
             open_questions=[],
             laws_applied=[],
         )
-        assert not validate(vote, {"fact_1"}, {"srikant_para23"})
+        assert not validate(vote, {"fact_1"}, {"srikant_para23"})[0]
 
     def test_no_opinion_without_questions_fails(self):
         from agents.judge.voting import Factor, JudgeVote, validate
@@ -82,7 +82,7 @@ class TestValidate:
             factors=[Factor(finding="unclear", fact_ids=["fact_1"], holding_ids=[])],
             open_questions=[],
         )
-        assert not validate(vote, {"fact_1"}, set())
+        assert not validate(vote, {"fact_1"}, set())[0]
 
     def test_no_opinion_with_questions_passes(self):
         from agents.judge.voting import Factor, JudgeVote, validate
@@ -91,7 +91,7 @@ class TestValidate:
             factors=[Factor(finding="unclear", fact_ids=["fact_1"], holding_ids=[])],
             open_questions=["Is there an unexecuted warrant?"],
         )
-        assert validate(vote, {"fact_1"}, set())
+        assert validate(vote, {"fact_1"}, set())[0]
 
     def test_verdict_without_facts_fails(self):
         from agents.judge.voting import Factor, JudgeVote, validate
@@ -100,7 +100,7 @@ class TestValidate:
             factors=[Factor(finding="cooperated", fact_ids=[], holding_ids=[])],
             open_questions=[],
         )
-        assert not validate(vote, {"fact_1"}, set())
+        assert not validate(vote, {"fact_1"}, set())[0]
 
 
 class TestAggregate:

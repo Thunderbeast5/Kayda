@@ -62,6 +62,7 @@ class VerdictResult(BaseModel):
     valid_votes: int = 0
     total_votes: int = 0
     agree_count: int = 0
+    discarded_reasons: List[str] = Field(default_factory=list)   # why votes were thrown away
 
     def to_dict(self) -> Dict[str, Any]:
         return {
@@ -80,6 +81,7 @@ class VerdictResult(BaseModel):
             "factors":          [f.model_dump() for f in self.factors],
             "open_questions":   self.open_questions,
             "vote_tally":       self.vote_tally,
+            "discarded_reasons": self.discarded_reasons,
         }
 
 
@@ -128,22 +130,44 @@ def _merge_open_questions(votes: List[JudgeVote]) -> List[str]:
     return merged
 
 
-def aggregate(votes: List[JudgeVote], total_attempts: int = 5) -> VerdictResult:
+def aggregate(
+    votes: List[JudgeVote],
+    total_attempts: int = 5,
+    failure_reasons: Optional[List[str]] = None,
+) -> VerdictResult:
     """
     Majority-vote aggregation with vote-loss penalty.
 
     Confidence scale: "high" | "medium" | "low" (no percentage string).
     If validation failure rate is high (>20% failed, i.e. <4/5 valid),
     confidence is downgraded to reflect the unreliability of attempts.
+
+    `failure_reasons` carries one line per discarded attempt so that a
+    zero-vote result reports the ACTUAL cause (transport error, malformed
+    JSON, invented citation, uncited verdict) instead of a blanket
+    "structural validation" message.
     """
     valid_count = len(votes)
+    reasons = [r for r in (failure_reasons or []) if r]
     if not votes:
+        # Distinct reasons, order preserved, so the message names real causes.
+        seen_r: set = set()
+        distinct: List[str] = []
+        for r in reasons:
+            if r not in seen_r:
+                seen_r.add(r)
+                distinct.append(r)
+        detail = "; ".join(distinct[:5]) if distinct else "no attempt was recorded"
         return VerdictResult(
             outcome="NO_OPINION",
             confidence="low",
             agreement_rate=0.0,
-            why="No grounded judge output: all votes failed structural validation.",
-            open_questions=["Judge output could not be grounded in cited facts/holdings."],
+            why=(
+                f"No grounded judge output: all {total_attempts} judicial votes were "
+                f"discarded before aggregation. Causes: {detail}."
+            ),
+            open_questions=distinct[:5] or ["Judge output could not be grounded in cited facts/holdings."],
+            discarded_reasons=distinct,
             valid_votes=0,
             total_votes=total_attempts,
             agree_count=0,
@@ -304,22 +328,32 @@ CRITICAL JUDICIAL ORDER REQUIREMENTS:
 4. No Template Cliches:
    Do NOT use template phrases such as "No critical factual gap prevents decision". Explicitly set out any open questions in "open_questions" (or leave it empty if none), and cite the specific fact IDs and holding IDs relied upon.
 5. Legal Regime:
-   For proceedings arising from offences or cases filed before July 1, 2024, apply IPC and CrPC (e.g. Section 438 CrPC, not BNSS).
+   For proceedings arising from offences or cases filed before July 1, 2024, apply the pre-2024 codes rather than their replacements.
 
-Respond in this EXACT JSON format (no markdown, no prose outside the JSON):
+CITATION RULES (an order that breaks any of these is void and will be discarded):
+A. Every id in "fact_ids" MUST be copied verbatim from the ALLOWED FACT IDS list given in the
+   turn prompt. Never invent, renumber, abbreviate or guess an id.
+B. Every id in "holding_ids" MUST be copied verbatim from the ALLOWED HOLDING IDS list. If that
+   list is empty, leave "holding_ids" as an empty list -- do NOT write a placeholder id.
+C. If your outcome is anything other than NO_OPINION, at least one factor MUST cite at least one
+   allowed fact id. An uncited verdict is void.
+D. If your outcome is NO_OPINION, "open_questions" MUST be non-empty.
+E. Output raw JSON only -- no markdown fences, no commentary before or after.
+
+Respond in this EXACT JSON format:
 
 {
   "outcome": "GRANTED|DENIED|NO_OPINION|INTERIM",
   "factors": [
     {
       "finding": "<one sentence judicial finding addressing specific accused role and holding condition>",
-      "fact_ids": ["fact_1", "fact_2"],
-      "holding_ids": ["srikant_para23"]
+      "fact_ids": ["<an id copied from ALLOWED FACT IDS>"],
+      "holding_ids": ["<an id copied from ALLOWED HOLDING IDS, or omit entirely if that list is empty>"]
     }
   ],
   "open_questions": ["<question if outcome is NO_OPINION or holding condition unverifiable>"],
-  "laws_applied": ["CrPC 438", "CrPC 82", "IPC 174", "2024 INSC 202"],
-  "raw_explanation": "<3-5 sentences summarising the decision, including analysis of the Paragraph 24 exception and individual applicants' roles>"
+  "laws_applied": ["<statute provisions and case citations you actually relied on>"],
+  "raw_explanation": "<3-5 sentences summarising the decision, including analysis of the narrow-exception question and individual applicants' roles>"
 }
 """
 
@@ -435,11 +469,16 @@ def decide(
     """
     from agents.orchestrator.case_file import build_canonical_case_file, format_cached_messages
 
+    # Fact ids MUST mirror exactly what build_canonical_case_file() renders as
+    # "[<id>] ..." -- including its positional fallback -- otherwise the judge
+    # cites an id that is shown to it but absent here, and every vote is voided.
     fact_ids: set = set()
-    for f in facts:
-        fid = getattr(f, "id", f.get("id", None) if isinstance(f, dict) else None)
-        if fid:
-            fact_ids.add(str(fid))
+    for i, f in enumerate(facts or []):
+        if isinstance(f, dict):
+            fid = f.get("id") or f"fact_{i+1}"
+        else:
+            fid = getattr(f, "id", None) or f"fact_{i+1}"
+        fact_ids.add(str(fid))
 
     holding_ids: set = set()
     for h in (holdings or []):
@@ -463,7 +502,24 @@ def decide(
             + "\n".join(f"Round {i+1}: {t}" for i, t in enumerate(accused_history))
         )
 
+    # Explicit citation manifest: the judge may only cite ids that actually exist.
+    # Without this the model invents ids, every vote fails validation, and the
+    # verdict collapses to NO_OPINION.
+    allowed_facts = sorted(fact_ids, key=lambda s: [int(t) if t.isdigit() else t.lower()
+                                                    for t in re.split(r"(\d+)", s)])
+    allowed_holdings = sorted(holding_ids, key=lambda s: [int(t) if t.isdigit() else t.lower()
+                                                          for t in re.split(r"(\d+)", s)])
+    citation_manifest = (
+        "ALLOWED FACT IDS (copy verbatim; any other id voids your vote):\n"
+        + ("  " + ", ".join(allowed_facts) if allowed_facts else "  (none on record)")
+        + "\n\nALLOWED HOLDING IDS (copy verbatim; any other id voids your vote):\n"
+        + ("  " + ", ".join(allowed_holdings) if allowed_holdings
+           else "  (none retrieved -- leave holding_ids empty)")
+        + "\n\n"
+    )
+
     dynamic_user_prompt = (
+        f"{citation_manifest}"
         f"PROSECUTION ARGUMENTS:\n{prosecution_args}\n\n"
         f"DEFENSE ARGUMENTS:\n{defense_args}{accused_block}\n\n"
         f"Now output your JSON verdict."
@@ -475,28 +531,49 @@ def decide(
         dynamic_turn_content=dynamic_user_prompt,
     )
 
+    # One retry per vote: a transient transport error or a single malformed
+    # JSON reply should not silently cost a whole vote.
+    attempts_per_vote = max(1, int(os.getenv("JUDGE_VOTE_ATTEMPTS", "2")))
+
     votes: List[JudgeVote] = []
+    failures: List[str] = []
+
     for i in range(n):
-        try:
-            response = llm.invoke(messages)
+        for attempt in range(attempts_per_vote):
+            tag = f"Vote {i+1}/{n} (try {attempt+1}/{attempts_per_vote})"
+            try:
+                response = llm.invoke(messages)
+            except Exception as exc:
+                msg = f"LLM call failed ({type(exc).__name__}: {exc})"
+                print(f"[VotingJudge] {tag}: {msg}")
+                failures.append(msg)
+                continue
+
             raw = response.content if hasattr(response, "content") else str(response)
             vote = _parse_vote(raw)
             if vote is None:
-                print(f"[VotingJudge] Vote {i+1}/{n}: parse failure (malformed JSON) -- skipping.")
+                msg = "model reply was not parsable JSON"
+                print(f"[VotingJudge] {tag}: {msg} -- raw head: {str(raw)[:200]!r}")
+                failures.append(msg)
                 continue
+
             is_valid, reason = validate(vote, fact_ids, holding_ids)
             if not is_valid:
-                print(f"[VotingJudge] Vote {i+1}/{n}: validation failed (outcome={vote.outcome}) [{reason}] -- skipping.")
+                msg = f"vote rejected (outcome={vote.outcome}): {reason}"
+                print(f"[VotingJudge] {tag}: {msg}")
+                failures.append(msg)
                 continue
-            print(f"[VotingJudge] Vote {i+1}/{n}: grounded -> {vote.outcome}")
-            votes.append(vote)
-        except Exception as exc:
-            print(f"[VotingJudge] Vote {i+1}/{n}: LLM error -- {exc}")
 
-    result = aggregate(votes, total_attempts=n)
+            print(f"[VotingJudge] {tag}: grounded -> {vote.outcome}")
+            votes.append(vote)
+            break
+
+    result = aggregate(votes, total_attempts=n, failure_reasons=failures)
     valid_count = len(votes)
     print(
         f"[VotingJudge] Tally={result.vote_tally} -> {result.outcome} "
         f"({valid_count}/{n} valid, {result.agree_count}/{valid_count if valid_count else 1} agree, confidence={result.confidence})"
     )
+    if not valid_count:
+        print(f"[VotingJudge] All votes discarded. Reasons: {failures}")
     return result

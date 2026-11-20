@@ -529,6 +529,15 @@ import { getMockResponse } from "../../data/mockTrialResponses";
 import { uploadCaseFile } from "../../firebase";
 import { useAuth } from "../../context/AuthContext";
 
+// First sentence of the submitted brief, used as the case-panel heading when
+// the user argues a custom case (there is no docket title for one).
+const caseTitleFromQuery = (q) => {
+  const clean = (q || "").trim().replace(/\s+/g, " ");
+  if (!clean) return "Untitled Matter";
+  const firstSentence = clean.split(/(?<=[.?!])\s/)[0] || clean;
+  return firstSentence.length > 90 ? `${firstSentence.slice(0, 90).trim()}…` : firstSentence;
+};
+
 export default function CourtroomInterface({ userRole, gameId, onExit }) {
   const { currentUser } = useAuth();
   const userId = currentUser?.uid || sessionStorage.getItem("mootcourt_user_id") || "guest_player";
@@ -1050,6 +1059,25 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
       return;
     }
 
+    // 0d. Live case record (facts / evidence inventory / statutes)
+    if (event.type === "case_file") {
+      setCaseData((prev) => {
+        const next = { ...prev };
+        if (Array.isArray(event.case_facts)) {
+          next.case_facts = event.case_facts;
+        }
+        if (Array.isArray(event.evidence_inventory)) {
+          next.evidence_inventory = event.evidence_inventory;
+          next.evidenceLinked = event.evidence_inventory.length > 0;
+        }
+        if (Array.isArray(event.statutes) && event.statutes.length > 0) {
+          next.charge = event.statutes.map((sec) => `§ ${sec}`).join(", ");
+        }
+        return next;
+      });
+      return;
+    }
+
     // 1. Phase change
     if (event.type === "phase_change") {
       const phaseNames = {
@@ -1086,6 +1114,7 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
           precedents: event.precedents || [],
           holdings_relied: event.holdings_relied || [],
           vote_tally: event.vote_tally || {},
+          discarded_reasons: event.discarded_reasons || [],
           explanation: event.explanation || event.reasoning || "",
         }
       ]);
@@ -1192,6 +1221,18 @@ export default function CourtroomInterface({ userRole, gameId, onExit }) {
     sseAbortRef.current = abortCtrl;
     const sid = `mc_${Date.now().toString(36)}`;
     setActiveSessionId(sid);
+
+    // Point the case panel at THIS brief. The orchestrator fills in facts,
+    // evidence inventory and statutes via "case_file" events as it goes.
+    setCaseData({
+      fileId: sid.replace(/^mc_/, ""),
+      title: caseTitleFromQuery(query),
+      firNo: "User-submitted brief",
+      charge: "Awaiting statutory retrieval…",
+      evidenceLinked: false,
+      case_facts: [],
+      evidence_inventory: [],
+    });
 
     try {
       const response = await fetch(`${apiUrl}/api/orchestrator/stream`, {

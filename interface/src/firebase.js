@@ -268,4 +268,8 @@ export function uploadCaseFile(file, onProgress) {
   });
 }
 
+// True only when the VITE_FIREBASE_* env vars were present at build/dev-server start.
+// When false, every auth helper throws "Firebase is not configured."
+export const isFirebaseConfigured = isConfigured;
+
 export { auth, db, googleProvider };

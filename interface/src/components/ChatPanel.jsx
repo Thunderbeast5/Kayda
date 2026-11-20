@@ -375,6 +375,9 @@ function VerdictCard({ msg }) {
   const precedents = msg.precedents || [];
   const holdingsRelied = msg.holdings_relied || [];
   const explanation = msg.explanation || msg.reasoning || msg.text || "";
+  // Every judicial vote was thrown away — show the real cause instead of a bare NO_OPINION.
+  const discardedReasons = msg.discarded_reasons || [];
+  const noGroundedVote = validVotes === 0;
 
   // Color schemes
   let bannerBg = "bg-gradient-to-br from-red-950 via-[#450a0a] to-[#260505] border-red-500/60";
@@ -482,6 +485,19 @@ function VerdictCard({ msg }) {
         <div className="text-[13px] md:text-[14.5px] leading-relaxed text-white/90 font-serif space-y-2 whitespace-pre-line">
           {explanation}
         </div>
+
+        {noGroundedVote && discardedReasons.length > 0 && (
+          <div className="mt-4 rounded-lg border border-amber-400/40 bg-amber-950/30 p-4 space-y-2">
+            <h5 className="font-heading font-bold text-[10px] uppercase tracking-widest text-amber-300">
+              Why no verdict could be returned ({validVotes}/{totalVotes} votes survived):
+            </h5>
+            <ul className="list-disc list-inside text-[12px] text-amber-100/90 font-mono space-y-1">
+              {discardedReasons.slice(0, 5).map((r, idx) => (
+                <li key={idx}>{r}</li>
+              ))}
+            </ul>
+          </div>
+        )}
       </div>
     </div>
   );

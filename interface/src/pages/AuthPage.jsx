@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerWithEmail, loginWithEmail, loginWithGoogle } from "../firebase";
+import { registerWithEmail, loginWithEmail, loginWithGoogle, isFirebaseConfigured } from "../firebase";
 import { useAuth } from "../context/AuthContext";
 
 // ─── Inline SVG Icons ────────────────────────────────────────────────────────
@@ -144,7 +144,7 @@ export default function AuthPage() {
       await loginWithEmail(siEmail, siPassword);
       navigate("/", { replace: true });
     } catch (err) {
-      setGlobalError(friendlyError(err.code));
+      setGlobalError(friendlyError(err));
     } finally {
       setLoading(false);
     }
@@ -159,7 +159,7 @@ export default function AuthPage() {
       await registerWithEmail(reg);
       navigate("/", { replace: true });
     } catch (err) {
-      setGlobalError(friendlyError(err.code));
+      setGlobalError(friendlyError(err));
     } finally {
       setLoading(false);
     }
@@ -173,23 +173,39 @@ export default function AuthPage() {
       navigate("/", { replace: true });
     } catch (err) {
       if (err.code !== "auth/popup-closed-by-user" && err.code !== "auth/cancelled-popup-request") {
-        setGlobalError(friendlyError(err.code));
+        setGlobalError(friendlyError(err));
       }
     } finally {
       setLoading(false);
     }
   };
 
-  function friendlyError(code) {
+  function friendlyError(err) {
+    const code = typeof err === "string" ? err : err?.code;
     const map = {
       "auth/invalid-credential": "Invalid email or password.",
       "auth/user-not-found": "No account found with this email.",
       "auth/wrong-password": "Incorrect password.",
+      "auth/invalid-email": "That email address is not valid.",
       "auth/email-already-in-use": "Email already registered.",
       "auth/weak-password": "Use at least 8 characters.",
       "auth/too-many-requests": "Too many attempts. Please try again later.",
+      "auth/network-request-failed": "Network error — could not reach the authentication service.",
+      "auth/operation-not-allowed": "Email/password sign-in is disabled for this Firebase project.",
+      "auth/unauthorized-domain": "This domain is not authorised in the Firebase console.",
+      "auth/invalid-api-key": "The Firebase API key is invalid. Check VITE_FIREBASE_API_KEY.",
+      "auth/api-key-not-valid": "The Firebase API key is invalid. Check VITE_FIREBASE_API_KEY.",
     };
-    return map[code] || "Something went wrong. Please try again.";
+    if (map[code]) return map[code];
+    // Firebase was never initialised: the env vars are missing, so every helper
+    // throws a plain Error with no .code. Say so instead of a blank "went wrong".
+    if (!isFirebaseConfigured) {
+      return "Sign-in is unavailable: Firebase is not configured. Add VITE_FIREBASE_API_KEY, VITE_FIREBASE_MESSAGING_SENDER_ID and VITE_FIREBASE_APP_ID to interface/.env, then restart the dev server.";
+    }
+    // Last resort: show what actually failed rather than hiding it.
+    console.error("[Auth] unhandled error:", err);
+    const detail = code || err?.message;
+    return detail ? `Sign-in failed: ${detail}` : "Something went wrong. Please try again.";
   }
 
   return (
